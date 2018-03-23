@@ -7,6 +7,7 @@ package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
+import static gestor.Visao.TelaInventarioProdutosMed.jLote;
 import static gestor.Visao.TelaInventarioProdutosMed.jComboBoxUnidProduto;
 import static gestor.Visao.TelaInventarioProdutosMed.jDescricaoProduto;
 import static gestor.Visao.TelaInventarioProdutosMed.jIdProduto;
@@ -112,7 +113,7 @@ public class TelaPesqProdutoFarmacia extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPesqDescricaoProdutos)
+                .addComponent(jPesqDescricaoProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtPesqDescricaoProd, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -134,10 +135,10 @@ public class TelaPesqProdutoFarmacia extends javax.swing.JInternalFrame {
         jTabelaProdutos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+                {null, null, null, null}
             },
             new String [] {
-                "Código", "Descrição Produto", "Local Armazenamento"
+                "Código", "Descrição Produto", "Lote", "Local Armazenamento"
             }
         ));
         jTabelaProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -151,8 +152,10 @@ public class TelaPesqProdutoFarmacia extends javax.swing.JInternalFrame {
             jTabelaProdutos.getColumnModel().getColumn(0).setMaxWidth(50);
             jTabelaProdutos.getColumnModel().getColumn(1).setMinWidth(250);
             jTabelaProdutos.getColumnModel().getColumn(1).setMaxWidth(250);
-            jTabelaProdutos.getColumnModel().getColumn(2).setMinWidth(120);
-            jTabelaProdutos.getColumnModel().getColumn(2).setMaxWidth(120);
+            jTabelaProdutos.getColumnModel().getColumn(2).setMinWidth(80);
+            jTabelaProdutos.getColumnModel().getColumn(2).setMaxWidth(80);
+            jTabelaProdutos.getColumnModel().getColumn(3).setMinWidth(120);
+            jTabelaProdutos.getColumnModel().getColumn(3).setMaxWidth(120);
         }
 
         jBtEnviar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -184,13 +187,11 @@ public class TelaPesqProdutoFarmacia extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jBtEnviar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtSair)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jBtEnviar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtSair)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -212,14 +213,14 @@ public class TelaPesqProdutoFarmacia extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 526, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(300, 10, 427, 281);
+        setBounds(300, 10, 542, 281);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtPesqDescricaoProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDescricaoProdActionPerformed
@@ -232,7 +233,11 @@ public class TelaPesqProdutoFarmacia extends javax.swing.JInternalFrame {
             preencherTabelaProdutos("SELECT * FROM PRODUTOS_AC "
                     + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
                     + "ON PRODUTOS_AC.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
-                    + "WHERE PRODUTOS_AC.DescricaoProd LIKE'%" + jPesqDescricaoProdutos.getText() + "%'AND PRODUTOS_AC.StatusProd='" + statusProd + "'AND PRODUTOS_AC.Modulo='" + modulo + "'");
+                    + "INNER JOIN LOTE_PRODUTOS_AC "
+                    + "ON PRODUTOS_AC.IdProd=LOTE_PRODUTOS_AC.IdProd "
+                    + "WHERE PRODUTOS_AC.DescricaoProd LIKE'%" + jPesqDescricaoProdutos.getText() + "%' "
+                    + "AND PRODUTOS_AC.StatusProd='" + statusProd + "' "
+                    + "AND PRODUTOS_AC.Modulo='" + modulo + "'");
         }
     }//GEN-LAST:event_jBtPesqDescricaoProdActionPerformed
 
@@ -247,17 +252,22 @@ public class TelaPesqProdutoFarmacia extends javax.swing.JInternalFrame {
                 conecta.executaSQL("SELECT * FROM PRODUTOS_AC "
                         + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
                         + "ON PRODUTOS_AC.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
-                        + "WHERE PRODUTOS_AC.DescricaoProd='" + jPesqDescricaoProdutos.getText() + "'AND PRODUTOS_AC.StatusProd='" + statusProd + "'AND IdProd='" + idInt + "'");
+                        + "INNER JOIN LOTE_PRODUTOS_AC "
+                        + "ON PRODUTOS_AC.IdProd=LOTE_PRODUTOS_AC.IdProd "
+                        + "WHERE PRODUTOS_AC.DescricaoProd='" + jPesqDescricaoProdutos.getText() + "' "
+                        + "AND PRODUTOS_AC.StatusProd='" + statusProd + "' "
+                        + "AND PRODUTOS_AC.IdProd='" + idInt + "'");
                 conecta.rs.first();
                 jIdProduto.setText(String.valueOf(conecta.rs.getInt("IdProd")));
                 jDescricaoProduto.setText(conecta.rs.getString("DescricaoProd"));
                 jCodigoBarra.setText(conecta.rs.getString("CodigoBarra"));
                 jComboBoxUnidProduto.setSelectedItem(conecta.rs.getString("UnidadeProd"));
+                jLote.setText(conecta.rs.getString("Lote"));
                 //
                 valorCompra = conecta.rs.getFloat("ValorCompra");
                 DecimalFormat vc = new DecimalFormat(",###0.00");
                 String vlDeposito = vc.format(valorCompra);
-                jValorCusto.setText(vlDeposito);                
+                jValorCusto.setText(vlDeposito);
                 conecta.desconecta();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa do produto" + e);
@@ -284,11 +294,15 @@ public class TelaPesqProdutoFarmacia extends javax.swing.JInternalFrame {
     private void jCheckBoxPesqTodosProdItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxPesqTodosProdItemStateChanged
         // TODO add your handling code here:
         flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {            
+        if (evt.getStateChange() == evt.SELECTED) {
             this.preencherTabelaProdutos("SELECT * FROM PRODUTOS_AC "
                     + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
                     + "ON PRODUTOS_AC.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
-                    + "WHERE PRODUTOS_AC.StatusProd='" + statusProd + "'AND PRODUTOS_AC.Modulo='" + modulo + "'ORDER BY PRODUTOS_AC.DescricaoProd");
+                    + "INNER JOIN LOTE_PRODUTOS_AC "
+                    + "ON PRODUTOS_AC.IdProd=LOTE_PRODUTOS_AC.IdProd "
+                    + "WHERE PRODUTOS_AC.StatusProd='" + statusProd + "' "
+                    + "AND PRODUTOS_AC.Modulo='" + modulo + "' "
+                    + "ORDER BY PRODUTOS_AC.DescricaoProd");
         } else {
             limparTelaProdutos();
         }
@@ -313,13 +327,13 @@ public class TelaPesqProdutoFarmacia extends javax.swing.JInternalFrame {
     // Método de pesquisa pela Matricula
     public void preencherTabelaProdutos(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Descrição Produto", "Local Armazenamento"};
+        String[] Colunas = new String[]{"Código", "Descrição Produto", "Lote", "Local Armazenamento"};
         conecta.abrirConexao();
         conecta.executaSQL(sql);
         try {
             conecta.rs.first();
             do {
-                dados.add(new Object[]{conecta.rs.getInt("IdProd"), conecta.rs.getString("DescricaoProd"), conecta.rs.getString("DescricaoLocal")});
+                dados.add(new Object[]{conecta.rs.getInt("IdProd"), conecta.rs.getString("DescricaoProd"), conecta.rs.getString("Lote"), conecta.rs.getString("DescricaoLocal")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Dados não encontrado, use o botão TODOS \nPara pesquisar TODOS OS REGISTROS");
@@ -330,8 +344,10 @@ public class TelaPesqProdutoFarmacia extends javax.swing.JInternalFrame {
         jTabelaProdutos.getColumnModel().getColumn(0).setResizable(false);
         jTabelaProdutos.getColumnModel().getColumn(1).setPreferredWidth(250);
         jTabelaProdutos.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaProdutos.getColumnModel().getColumn(2).setPreferredWidth(120);
+        jTabelaProdutos.getColumnModel().getColumn(2).setPreferredWidth(80);
         jTabelaProdutos.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaProdutos.getColumnModel().getColumn(3).setPreferredWidth(120);
+        jTabelaProdutos.getColumnModel().getColumn(3).setResizable(false);
         jTabelaProdutos.getTableHeader().setReorderingAllowed(false);
         jTabelaProdutos.setAutoResizeMode(jTabelaProdutos.AUTO_RESIZE_OFF);
         jTabelaProdutos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -352,15 +368,17 @@ public class TelaPesqProdutoFarmacia extends javax.swing.JInternalFrame {
 
     public void limparTelaProdutos() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Descrição Produto", "Local Armazenamento"};
+        String[] Colunas = new String[]{"Código", "Descrição Produto", "Lote", "Local Armazenamento"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaProdutos.setModel(modelo);
         jTabelaProdutos.getColumnModel().getColumn(0).setPreferredWidth(50);
         jTabelaProdutos.getColumnModel().getColumn(0).setResizable(false);
         jTabelaProdutos.getColumnModel().getColumn(1).setPreferredWidth(250);
         jTabelaProdutos.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaProdutos.getColumnModel().getColumn(2).setPreferredWidth(120);
+        jTabelaProdutos.getColumnModel().getColumn(2).setPreferredWidth(80);
         jTabelaProdutos.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaProdutos.getColumnModel().getColumn(3).setPreferredWidth(120);
+        jTabelaProdutos.getColumnModel().getColumn(3).setResizable(false);
         jTabelaProdutos.getTableHeader().setReorderingAllowed(false);
         jTabelaProdutos.setAutoResizeMode(jTabelaProdutos.AUTO_RESIZE_OFF);
         jTabelaProdutos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
