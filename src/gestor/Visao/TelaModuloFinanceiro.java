@@ -201,6 +201,8 @@ public class TelaModuloFinanceiro extends javax.swing.JInternalFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/SISCONP 2.gif"))); // NOI18N
 
+        jPainelFinanceiro.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout jPainelFinanceiroLayout = new javax.swing.GroupLayout(jPainelFinanceiro);
         jPainelFinanceiro.setLayout(jPainelFinanceiroLayout);
         jPainelFinanceiroLayout.setHorizontalGroup(
@@ -215,7 +217,6 @@ public class TelaModuloFinanceiro extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 563, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 35, Short.MAX_VALUE))
         );
-        jPainelFinanceiro.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         Cadastros.setText("Cadastros");
 
@@ -387,6 +388,11 @@ public class TelaModuloFinanceiro extends javax.swing.JInternalFrame {
 
         RelacaoSaldoInternosInativos.setForeground(new java.awt.Color(102, 0, 102));
         RelacaoSaldoInternosInativos.setText("Relação de Saldo de Internos - Inativos");
+        RelacaoSaldoInternosInativos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RelacaoSaldoInternosInativosActionPerformed(evt);
+            }
+        });
         jMenu3.add(RelacaoSaldoInternosInativos);
         jMenu3.add(jSeparator6);
 
@@ -1066,23 +1072,21 @@ public class TelaModuloFinanceiro extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jEstornoDepositoSaqueAtivosInativosActionPerformed
 
     private void RelacaoSaldoInternosAtivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelacaoSaldoInternosAtivosActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:        
         try {
             conecta.abrirConexao();
             String path = "reports/RelacaoSaldoInternosAtivos.jasper";
             conecta.executaSQL("SELECT * FROM SALDOVALORES "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON SALDOVALORES.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "INNER JOIN ITENSLOCACAOINTERNO "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
-                    + "INNER JOIN CELAS "
-                    + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
-                    + "INNER JOIN PAVILHAO "
-                    + "ON CELAS.IdPav=PAVILHAO.IdPav "
+                    + "WHERE PRONTUARIOSCRC.SituacaoCrc='" + situacaoEnt + "' "
+                    + "OR PRONTUARIOSCRC.SituacaoCrc='" + situacaoRet + "'"
                     + "ORDER BY NomeInternoCrc,DataMov DESC");
             HashMap parametros = new HashMap();
-            parametros.put("descricaoUnidade", descricaoUnidade);           
+            parametros.put("descricaoUnidade", descricaoUnidade);
             parametros.put("usuario", nameUser);
+            parametros.put("situacaoEnt", situacaoEnt);
+            parametros.put("situacaoRet", situacaoRet);
             JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
             JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
             JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
@@ -1095,6 +1099,31 @@ public class TelaModuloFinanceiro extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório.\n\nERRO: " + e);
         }
     }//GEN-LAST:event_RelacaoSaldoInternosAtivosActionPerformed
+
+    private void RelacaoSaldoInternosInativosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelacaoSaldoInternosInativosActionPerformed
+        // TODO add your handling code here:
+        try {
+            conecta.abrirConexao();
+            String path = "reports/RelacaoSaldoInternosInativos.jasper";
+            conecta.executaSQL("SELECT * FROM SALDOVALORES "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON SALDOVALORES.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "                    
+                    + "ORDER BY NomeInternoCrc,DataMov DESC");
+            HashMap parametros = new HashMap();
+            parametros.put("descricaoUnidade", descricaoUnidade);
+            parametros.put("usuario", nameUser);            
+            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+            jv.setTitle("Relatório de Saldo de Internos - Inativos");
+            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+            jv.toFront(); // Traz o relatorio para frente da aplicação            
+            conecta.desconecta();
+        } catch (JRException e) {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório.\n\nERRO: " + e);
+        }
+    }//GEN-LAST:event_RelacaoSaldoInternosInativosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

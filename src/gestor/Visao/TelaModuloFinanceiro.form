@@ -214,6 +214,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Rela&#xe7;&#xe3;o de Saldo de Internos - Inativos"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RelacaoSaldoInternosInativosActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator6">
             </MenuItem>
