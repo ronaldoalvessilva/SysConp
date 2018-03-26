@@ -14,9 +14,12 @@ import static gestor.Visao.TelaConsultaSaldoFin.jDataNascInternoFin;
 import static gestor.Visao.TelaConsultaSaldoFin.jFotoInternoFinanceiro;
 import static gestor.Visao.TelaConsultaSaldoFin.jIdInternoFinDir;
 import static gestor.Visao.TelaConsultaSaldoFin.jNomeInternoFin;
+import static gestor.Visao.TelaConsultaSaldoFin.jRadioBtAtivo;
+import static gestor.Visao.TelaConsultaSaldoFin.jRadioBtInativos;
 import static gestor.Visao.TelaConsultaSaldoFin.jSituacao;
 import static gestor.Visao.TelaConsultaSaldoFin.jTabelaDeposito;
 import static gestor.Visao.TelaConsultaSaldoFin.jTabelaSaque;
+import static gestor.Visao.TelaConsultaSaldoFin.jTabelaTransferencia;
 import static gestor.Visao.TelaConsultaSaldoFin.jlSaldoAtual;
 import static gestor.Visao.TelaConsultaSaldoFin.jlTotalCredito;
 import static gestor.Visao.TelaConsultaSaldoFin.jlTotalDebito;
@@ -55,6 +58,7 @@ public class TelaPesqInternoSaldoBancario extends javax.swing.JInternalFrame {
     float saldoGeral = 0;
     double valorDeposito = 0;
     double valorSaque = 0;
+    double valorTrans = 0;
     String idInt;
 
     /**
@@ -90,7 +94,7 @@ public class TelaPesqInternoSaldoBancario extends javax.swing.JInternalFrame {
         setClosable(true);
         setTitle("...::: Pesquisa de Internos");
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar Pronturários de Internos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 255)));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar Pronturários de Internos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jPesqNome.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
@@ -263,7 +267,7 @@ public class TelaPesqInternoSaldoBancario extends javax.swing.JInternalFrame {
                 .addGap(0, 0, 0))
         );
 
-        setBounds(200, 10, 596, 334);
+        setBounds(200, 10, 596, 326);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNomeActionPerformed
@@ -275,15 +279,15 @@ public class TelaPesqInternoSaldoBancario extends javax.swing.JInternalFrame {
         } else {
             preencherTabelaNome("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSFISICOSINTERNOS "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc = DADOSFISICOSINTERNOS.IdInternoCrc "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
                     + "INNER JOIN PAISES "
-                    + "ON PRONTUARIOSCRC.IdPais = PAISES.IdPais "
+                    + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
                     + "INNER JOIN CIDADES "
-                    + "ON PRONTUARIOSCRC.IdCidade = CIDADES.IdCidade "
+                    + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
                     + "INNER JOIN DADOSPENAISINTERNOS "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc = DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
-                    + "ON DADOSPENAISINTERNOS.IdUnid = UNIDADE.IdUnid "
+                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
                     + "WHERE NomeInternoCrc LIKE'%" + jPesqNome.getText() + "%'");
         }
     }//GEN-LAST:event_jBtNomeActionPerformed
@@ -297,15 +301,15 @@ public class TelaPesqInternoSaldoBancario extends javax.swing.JInternalFrame {
         } else {
             buscarInternosMatricula("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSFISICOSINTERNOS "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc = DADOSFISICOSINTERNOS.IdInternoCrc "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
                     + "INNER JOIN PAISES "
-                    + "ON PRONTUARIOSCRC.IdPais = PAISES.IdPais "
+                    + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
                     + "INNER JOIN CIDADES "
-                    + "ON PRONTUARIOSCRC.IdCidade = CIDADES.IdCidade "
+                    + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
                     + "INNER JOIN DADOSPENAISINTERNOS "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc = DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
-                    + "ON DADOSPENAISINTERNOS.IdUnid = UNIDADE.IdUnid "
+                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
                     + "WHERE MatriculaCrc LIKE'" + jPesqMatricula.getText() + "%'");
         }
     }//GEN-LAST:event_jBtMatriculaActionPerformed
@@ -361,21 +365,42 @@ public class TelaPesqInternoSaldoBancario extends javax.swing.JInternalFrame {
                 jBtPesqData.setEnabled(true);
                 conecta.desconecta();
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa INTERNO." + e);
+                JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa INTERNO.\nERROR: " + e);
             }
             jlTotalCredito.setText("0,00");
             jlTotalDebito.setText("0,00");
             jlSaldoAtual.setText("0,00");
-            preencherTabelaDeposito("SELECT * FROM DEPOSITO "
-                    + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON DEPOSITO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE DEPOSITO.IdInternoCrc='" + jIdInternoFinDir.getText() + "' "
-                    + "AND ValorDeposito='" + valorTotalDebito + "'");
-            preencherTabelaSaque("SELECT * FROM SAQUE "
-                    + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON SAQUE.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE SAQUE.IdInternoCrc='" + jIdInternoFinDir.getText() + "' "
-                    + "AND ValorSaque='" + valorTotalCredito + "'");
+            if (jRadioBtAtivo.isSelected()) {
+                preencherTabelaDeposito("SELECT * FROM DEPOSITO "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON DEPOSITO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "WHERE DEPOSITO.IdInternoCrc='" + jIdInternoFinDir.getText() + "' "
+                        + "AND ValorDeposito='" + valorTotalDebito + "'");
+                preencherTabelaSaque("SELECT * FROM SAQUE "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON SAQUE.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "WHERE SAQUE.IdInternoCrc='" + jIdInternoFinDir.getText() + "' "
+                        + "AND ValorSaque='" + valorTotalCredito + "'");
+                preencherTabelaTransferencia("SELECT * FROM TRANSFERENCIA_VALORES_INATIVOS "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON TRANSFERENCIA_VALORES_INATIVOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "WHERE TRANSFERENCIA_VALORES_INATIVOS.IdInternoCrc='" + jIdInternoFinDir.getText() + "'");
+            } else if (jRadioBtInativos.isSelected()) {
+                preencherTabelaDeposito("SELECT * FROM DEPOSITO_INATIVOS "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON DEPOSITO_INATIVOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "WHERE DEPOSITO_INATIVOS.IdInternoCrc='" + jIdInternoFinDir.getText() + "' "
+                        + "AND ValorDeposito='" + valorTotalDebito + "'");
+                preencherTabelaSaque("SELECT * FROM SAQUE_INATIVOS "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON SAQUE_INATIVOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "WHERE SAQUE_INATIVOS.IdInternoCrc='" + jIdInternoFinDir.getText() + "' "
+                        + "AND ValorSaque='" + valorTotalCredito + "'");
+                preencherTabelaTransferencia("SELECT * FROM TRANSFERENCIA_VALORES_INATIVOS "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON TRANSFERENCIA_VALORES_INATIVOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "WHERE TRANSFERENCIA_VALORES_INATIVOS.IdInternoCrc='" + jIdInternoFinDir.getText() + "'");
+            }
             dispose();
         }
     }//GEN-LAST:event_jBtEnviarActionPerformed
@@ -448,6 +473,7 @@ public class TelaPesqInternoSaldoBancario extends javax.swing.JInternalFrame {
         jTabelaInterno.getTableHeader().setReorderingAllowed(false);
         jTabelaInterno.setAutoResizeMode(jTabelaInterno.AUTO_RESIZE_OFF);
         jTabelaInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCamposTabelaInternos();
         conecta.desconecta();
     }
 
@@ -502,6 +528,7 @@ public class TelaPesqInternoSaldoBancario extends javax.swing.JInternalFrame {
         jTabelaInterno.getTableHeader().setReorderingAllowed(false);
         jTabelaInterno.setAutoResizeMode(jTabelaInterno.AUTO_RESIZE_OFF);
         jTabelaInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCamposTabelaInternos();
         conecta.desconecta();
     }
 
@@ -674,5 +701,59 @@ public class TelaPesqInternoSaldoBancario extends javax.swing.JInternalFrame {
         jTabelaSaque.setAutoResizeMode(jTabelaDeposito.AUTO_RESIZE_OFF);
         jTabelaSaque.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         conecta.desconecta();
+    }
+
+    public void preencherTabelaTransferencia(String sql) {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Data", "Nr. Doc", "Histórico", "Valor R$", "Favorecido"};
+        conecta.abrirConexao();
+        conecta.executaSQL(sql);
+        try {
+            conecta.rs.first();
+            do {
+                // Mostrar o valor na tabels no formato BR
+                valorTrans = conecta.rs.getFloat("ValorTransferido");
+                DecimalFormat vst = new DecimalFormat("#,##0.00");
+                String vlTrans = vst.format(valorTrans);
+                // Formatar a data Deposito
+                dataSaq = conecta.rs.getString("DataLanc");
+                String diad = dataSaq.substring(8, 10);
+                String mesd = dataSaq.substring(5, 7);
+                String anod = dataSaq.substring(0, 4);
+                dataSaq = diad + "/" + mesd + "/" + anod;
+                dados.add(new Object[]{dataSaq, conecta.rs.getString("IdLanc"), conecta.rs.getString("Motivo"), vlTrans, conecta.rs.getString("TipoTransferencia")});
+            } while (conecta.rs.next());
+        } catch (SQLException ex) {
+        }
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaTransferencia.setModel(modelo);
+        jTabelaTransferencia.getColumnModel().getColumn(0).setPreferredWidth(80);
+        jTabelaTransferencia.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaTransferencia.getColumnModel().getColumn(1).setPreferredWidth(70);
+        jTabelaTransferencia.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaTransferencia.getColumnModel().getColumn(2).setPreferredWidth(300);
+        jTabelaTransferencia.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaTransferencia.getColumnModel().getColumn(3).setPreferredWidth(100);
+        jTabelaTransferencia.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaTransferencia.getColumnModel().getColumn(4).setPreferredWidth(300);
+        jTabelaTransferencia.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaTransferencia.getTableHeader().setReorderingAllowed(false);
+        jTabelaTransferencia.setAutoResizeMode(jTabelaTransferencia.AUTO_RESIZE_OFF);
+        jTabelaTransferencia.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCamposTabelaTran();
+        conecta.desconecta();
+    }
+
+    public void alinharCamposTabelaTran() {
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        //
+        jTabelaTransferencia.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaTransferencia.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+        jTabelaTransferencia.getColumnModel().getColumn(3).setCellRenderer(direita);
     }
 }
