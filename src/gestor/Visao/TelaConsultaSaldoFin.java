@@ -47,6 +47,7 @@ public class TelaConsultaSaldoFin extends javax.swing.JInternalFrame {
     float saldoGeral = 0;
     double valorDeposito = 0;
     double valorSaque = 0;
+    double valorTrans = 0;
     String nomeUsuarioPersona = "Controle de Valores Socializa";
 
     /**
@@ -102,6 +103,9 @@ public class TelaConsultaSaldoFin extends javax.swing.JInternalFrame {
         jPanel6 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTabelaSaque = new javax.swing.JTable();
+        jPanel10 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTabelaTransferencia = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jBtAtualizar = new javax.swing.JButton();
         jBtPesqData = new javax.swing.JButton();
@@ -245,10 +249,9 @@ public class TelaConsultaSaldoFin extends javax.swing.JInternalFrame {
                             .addComponent(jLabel1)
                             .addComponent(jIdInternoFinDir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jBtPesquisarInterno)
-                            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                                .addComponent(jRadioBtAtivo)
-                                .addComponent(jRadioBtInativos)
-                                .addComponent(jLabel8)))
+                            .addComponent(jRadioBtAtivo)
+                            .addComponent(jRadioBtInativos)
+                            .addComponent(jLabel8))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(jNomeInternoFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -423,6 +426,43 @@ public class TelaConsultaSaldoFin extends javax.swing.JInternalFrame {
 
         jTabbedPane2.addTab("Débitos", jPanel6);
 
+        jTabelaTransferencia.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTabelaTransferencia.setForeground(new java.awt.Color(255, 0, 0));
+        jTabelaTransferencia.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Data", "Nr. Doc.", "Histórico", "Valor R$", "Favorecido"
+            }
+        ));
+        jScrollPane3.setViewportView(jTabelaTransferencia);
+        if (jTabelaTransferencia.getColumnModel().getColumnCount() > 0) {
+            jTabelaTransferencia.getColumnModel().getColumn(0).setMinWidth(80);
+            jTabelaTransferencia.getColumnModel().getColumn(0).setMaxWidth(80);
+            jTabelaTransferencia.getColumnModel().getColumn(1).setMinWidth(70);
+            jTabelaTransferencia.getColumnModel().getColumn(1).setMaxWidth(70);
+            jTabelaTransferencia.getColumnModel().getColumn(2).setMinWidth(300);
+            jTabelaTransferencia.getColumnModel().getColumn(2).setMaxWidth(300);
+            jTabelaTransferencia.getColumnModel().getColumn(3).setMinWidth(100);
+            jTabelaTransferencia.getColumnModel().getColumn(3).setMaxWidth(100);
+            jTabelaTransferencia.getColumnModel().getColumn(4).setMinWidth(300);
+            jTabelaTransferencia.getColumnModel().getColumn(4).setMaxWidth(300);
+        }
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 534, Short.MAX_VALUE)
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+        );
+
+        jTabbedPane2.addTab("Transferência", jPanel10);
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
@@ -590,11 +630,14 @@ public class TelaConsultaSaldoFin extends javax.swing.JInternalFrame {
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON SAQUE_INATIVOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "WHERE SAQUE_INATIVOS.IdInternoCrc='" + jIdInternoFinDir.getText() + "'");
+            preencherTabelaTransferencia("SELECT * FROM TRANSFERENCIA_VALORES_INATIVOS "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON TRANSFERENCIA_VALORES_INATIVOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "WHERE TRANSFERENCIA_VALORES_INATIVOS.IdInternoCrc='" + jIdInternoFinDir.getText() + "'");
             saldoGeral = valorTotalCredito - valorTotalDebito;
             DecimalFormat df = new DecimalFormat("#,##0.00");
             jlSaldoAtual.setText(df.format(saldoGeral));
         }
-
     }//GEN-LAST:event_jBtAtualizarActionPerformed
 
     private void jBtPesqDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDataActionPerformed
@@ -623,9 +666,9 @@ public class TelaConsultaSaldoFin extends javax.swing.JInternalFrame {
         if (jRadioBtAtivo.isSelected()) {
             if (jIdInternoFinDir.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Pesquise primeiro o interno para fazer a consulta do extrato.");
-            } else if (jDataPesqInicial.getDate().equals("") || jDataPesqInicial.getDate() == null) {
+            } else if (jDataPesqInicial.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe uma data inicial e data final para gerar o extrato.");
-            }else if(jDataPesFinal.getDate() == null){
+            } else if (jDataPesFinal.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe uma data final para gerar o extrato.");
             } else {
                 SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
@@ -661,7 +704,7 @@ public class TelaConsultaSaldoFin extends javax.swing.JInternalFrame {
         } else if (jRadioBtInativos.isSelected()) {
             if (jIdInternoFinDir.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Pesquise primeiro o interno para fazer a consulta do extrato.");
-            } else if (jDataPesqInicialInativos.getDate() == null || jDataPesFinalInativos.getDate() == null || jDataPesqInicialInativos.getDate().equals("") || jDataPesFinalInativos.getDate().equals("") ) {
+            } else if (jDataPesqInicialInativos.getDate() == null || jDataPesFinalInativos.getDate() == null || jDataPesqInicialInativos.getDate().equals("") || jDataPesFinalInativos.getDate().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe uma data inicial e data final para gerar o extrato.");
             } else {
                 SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
@@ -721,6 +764,7 @@ public class TelaConsultaSaldoFin extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel9;
     public static javax.swing.JTextField jNomeInternoFin;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -733,11 +777,13 @@ public class TelaConsultaSaldoFin extends javax.swing.JInternalFrame {
     public static javax.swing.JRadioButton jRadioBtInativos;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     public static javax.swing.JTextField jSituacao;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     public static javax.swing.JTable jTabelaDeposito;
     public static javax.swing.JTable jTabelaSaque;
+    public static javax.swing.JTable jTabelaTransferencia;
     public static javax.swing.JLabel jlSaldoAtual;
     public static javax.swing.JTextField jlTotalCredito;
     public static javax.swing.JLabel jlTotalDebito;
@@ -761,7 +807,7 @@ public class TelaConsultaSaldoFin extends javax.swing.JInternalFrame {
         conecta.executaSQL(sql);
         try {
             conecta.rs.first();
-            do {               
+            do {
                 saldoAtualCredito = conecta.rs.getFloat("ValorDeposito");
                 valorTotalCredito = valorTotalCredito + saldoAtualCredito;
                 //Formatar o valor para ser exibdo na tela BR
@@ -808,7 +854,7 @@ public class TelaConsultaSaldoFin extends javax.swing.JInternalFrame {
         conecta.executaSQL(sql);
         try {
             conecta.rs.first();
-            do {                
+            do {
                 saldoAtualDebito = conecta.rs.getFloat("ValorSaque");
                 valorTotalDebito = valorTotalDebito + saldoAtualDebito;
                 // Formatar o valor para ser exibdo na tela BR
@@ -934,10 +980,64 @@ public class TelaConsultaSaldoFin extends javax.swing.JInternalFrame {
         jTabelaSaque.getColumnModel().getColumn(4).setPreferredWidth(300);
         jTabelaSaque.getColumnModel().getColumn(4).setResizable(false);
         jTabelaSaque.getTableHeader().setReorderingAllowed(false);
-        jTabelaSaque.setAutoResizeMode(jTabelaDeposito.AUTO_RESIZE_OFF);
+        jTabelaSaque.setAutoResizeMode(jTabelaSaque.AUTO_RESIZE_OFF);
         jTabelaSaque.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         alinharCamposTabelaSaque();
         conecta.desconecta();
+    }
+
+    public void preencherTabelaTransferencia(String sql) {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Data", "Nr. Doc", "Histórico", "Valor R$", "Favorecido"};
+        conecta.abrirConexao();
+        conecta.executaSQL(sql);
+        try {
+            conecta.rs.first();
+            do {
+                // Mostrar o valor na tabels no formato BR
+                valorTrans = conecta.rs.getFloat("ValorTransferido");
+                DecimalFormat vst = new DecimalFormat("#,##0.00");
+                String vlTrans = vst.format(valorTrans);
+                // Formatar a data Deposito
+                dataSaq = conecta.rs.getString("DataLanc");
+                String diad = dataSaq.substring(8, 10);
+                String mesd = dataSaq.substring(5, 7);
+                String anod = dataSaq.substring(0, 4);
+                dataSaq = diad + "/" + mesd + "/" + anod;
+                dados.add(new Object[]{dataSaq, conecta.rs.getString("IdLanc"), conecta.rs.getString("Motivo"), vlTrans, conecta.rs.getString("TipoTransferencia")});
+            } while (conecta.rs.next());
+        } catch (SQLException ex) {
+        }
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaTransferencia.setModel(modelo);
+        jTabelaTransferencia.getColumnModel().getColumn(0).setPreferredWidth(80);
+        jTabelaTransferencia.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaTransferencia.getColumnModel().getColumn(1).setPreferredWidth(70);
+        jTabelaTransferencia.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaTransferencia.getColumnModel().getColumn(2).setPreferredWidth(300);
+        jTabelaTransferencia.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaTransferencia.getColumnModel().getColumn(3).setPreferredWidth(100);
+        jTabelaTransferencia.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaTransferencia.getColumnModel().getColumn(4).setPreferredWidth(300);
+        jTabelaTransferencia.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaTransferencia.getTableHeader().setReorderingAllowed(false);
+        jTabelaTransferencia.setAutoResizeMode(jTabelaTransferencia.AUTO_RESIZE_OFF);
+        jTabelaTransferencia.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCamposTabelaTran();
+        conecta.desconecta();
+    }
+
+    public void alinharCamposTabelaTran() {
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        //
+        jTabelaTransferencia.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaTransferencia.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+        jTabelaTransferencia.getColumnModel().getColumn(3).setCellRenderer(direita);
     }
 
     public void alinharCamposTabelaSaque() {
