@@ -24,6 +24,8 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -59,8 +61,7 @@ public class TelaOcorrenciaBaseUm extends javax.swing.JInternalFrame {
     public TelaOcorrenciaBaseUm() {
         initComponents();
         corCampos();
-        jCorpoTextoOcorrencia.setLineWrap(true);
-        jCorpoTextoOcorrencia.setWrapStyleWord(true);
+        formatarCampos();
     }
 
     /**
@@ -114,8 +115,8 @@ public class TelaOcorrenciaBaseUm extends javax.swing.JInternalFrame {
         jBtAuditoria = new javax.swing.JButton();
         jBtImpressao = new javax.swing.JButton();
         jBtFinalizar = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jCorpoTextoOcorrencia = new javax.swing.JTextArea();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jCorpoTextoOcorrencia = new javax.swing.JTextPane();
 
         setClosable(true);
         setIconifiable(true);
@@ -581,11 +582,8 @@ public class TelaOcorrenciaBaseUm extends javax.swing.JInternalFrame {
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
-        jCorpoTextoOcorrencia.setColumns(20);
-        jCorpoTextoOcorrencia.setRows(5);
-        jCorpoTextoOcorrencia.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jCorpoTextoOcorrencia.setEnabled(false);
-        jScrollPane2.setViewportView(jCorpoTextoOcorrencia);
+        jCorpoTextoOcorrencia.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jScrollPane3.setViewportView(jCorpoTextoOcorrencia);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -596,7 +594,7 @@ public class TelaOcorrenciaBaseUm extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2))
+                    .addComponent(jScrollPane3))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -607,7 +605,7 @@ public class TelaOcorrenciaBaseUm extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Manutenção", jPanel1);
@@ -873,7 +871,7 @@ public class TelaOcorrenciaBaseUm extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtSalvar;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JTextField jCodigo;
-    private javax.swing.JTextArea jCorpoTextoOcorrencia;
+    private javax.swing.JTextPane jCorpoTextoOcorrencia;
     private com.toedter.calendar.JDateChooser jDataOcorrencia;
     private com.toedter.calendar.JDateChooser jDataPesFinal;
     private com.toedter.calendar.JDateChooser jDataPesqInicial;
@@ -897,7 +895,7 @@ public class TelaOcorrenciaBaseUm extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JTextField jPesqTituloOcorrencia;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField jStatusOcorrencia;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTabelaOcorrenciaPortaria;
@@ -905,6 +903,13 @@ public class TelaOcorrenciaBaseUm extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
+    public void formatarCampos(){
+        SimpleAttributeSet attribs = new SimpleAttributeSet();
+        StyleConstants.setAlignment(attribs, StyleConstants.ALIGN_JUSTIFIED);
+        jCorpoTextoOcorrencia.setParagraphAttributes(attribs, true);
+//        jCorpoTextoOcorrencia.setLineWrap(true);
+//        jCorpoTextoOcorrencia.setWrapStyleWord(true);
+    }
     public void corCampos() {
         jIdOcorrencia.setBackground(Color.white);
         jStatusOcorrencia.setBackground(Color.white);
