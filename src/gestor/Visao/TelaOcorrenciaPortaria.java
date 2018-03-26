@@ -15,16 +15,25 @@ import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.GraphicsEnvironment;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTextPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
+import javax.swing.text.rtf.RTFEditorKit;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -62,6 +71,7 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
         initComponents();
         corCampos();
         formatarCampos();
+        loadFont();
     }
 
     /**
@@ -73,6 +83,8 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jEditorPane1 = new javax.swing.JEditorPane();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -105,18 +117,34 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
         jDataOcorrencia = new com.toedter.calendar.JDateChooser();
         jLabel7 = new javax.swing.JLabel();
         jTituloOcorrencia = new javax.swing.JTextField();
-        jBtAuditoria = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jCorpoTextoOcorrencia = new javax.swing.JTextPane();
+        jTabbedPane2 = new javax.swing.JTabbedPane();
+        jPanel6 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jBtNovo = new javax.swing.JButton();
         jBtAlterar = new javax.swing.JButton();
         jBtExcluir = new javax.swing.JButton();
         jBtSalvar = new javax.swing.JButton();
         jBtCancelar = new javax.swing.JButton();
-        jBtSair = new javax.swing.JButton();
-        jBtFinalizar = new javax.swing.JButton();
         jBtImpressao = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jCorpoTextoOcorrencia = new javax.swing.JTextArea();
+        jPanel7 = new javax.swing.JPanel();
+        jPanel10 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jComboBoxCorFonte = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
+        jComboBoxSize = new javax.swing.JComboBox<>();
+        jBtCentralizar = new javax.swing.JButton();
+        jBtEsquerda = new javax.swing.JButton();
+        jBtDireita = new javax.swing.JButton();
+        jBtJustificar = new javax.swing.JButton();
+        jPanel9 = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        jBtFinalizar = new javax.swing.JButton();
+        jBtAuditoria = new javax.swing.JButton();
+        jBtSair = new javax.swing.JButton();
+
+        jScrollPane3.setViewportView(jEditorPane1);
 
         setClosable(true);
         setIconifiable(true);
@@ -372,21 +400,6 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
         jTituloOcorrencia.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTituloOcorrencia.setEnabled(false);
 
-        jBtAuditoria.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtAuditoria.setForeground(new java.awt.Color(0, 0, 255));
-        jBtAuditoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
-        jBtAuditoria.setToolTipText("Auditoria");
-        jBtAuditoria.setContentAreaFilled(false);
-        jBtAuditoria.setEnabled(false);
-        jBtAuditoria.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtAuditoria.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jBtAuditoria.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jBtAuditoria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtAuditoriaActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -403,15 +416,13 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jStatusOcorrencia, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(jStatusOcorrencia)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jDataOcorrencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTituloOcorrencia))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                .addComponent(jBtAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                    .addComponent(jTituloOcorrencia, javax.swing.GroupLayout.PREFERRED_SIZE, 489, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -426,16 +437,19 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
                     .addComponent(jDataOcorrencia, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jBtAuditoria)
                     .addComponent(jTituloOcorrencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jScrollPane4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jScrollPane4.setViewportView(jCorpoTextoOcorrencia);
+
+        jTabbedPane2.setForeground(new java.awt.Color(0, 0, 255));
+
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
 
         jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
-        jBtNovo.setText("Novo");
         jBtNovo.setToolTipText("Nova Ocorrência");
         jBtNovo.setAutoscrolls(true);
         jBtNovo.setContentAreaFilled(false);
@@ -449,7 +463,6 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
         });
 
         jBtAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
-        jBtAlterar.setText("Alterar");
         jBtAlterar.setToolTipText("Alterar Ocorrência");
         jBtAlterar.setContentAreaFilled(false);
         jBtAlterar.setEnabled(false);
@@ -463,7 +476,6 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
         });
 
         jBtExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
-        jBtExcluir.setText("Excluir");
         jBtExcluir.setToolTipText("Excluir Ocorrência");
         jBtExcluir.setContentAreaFilled(false);
         jBtExcluir.setEnabled(false);
@@ -477,7 +489,6 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
         });
 
         jBtSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
-        jBtSalvar.setText("Gravar");
         jBtSalvar.setToolTipText("Gravar Ocorrência");
         jBtSalvar.setContentAreaFilled(false);
         jBtSalvar.setEnabled(false);
@@ -491,7 +502,6 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
         });
 
         jBtCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Close_Icon_16.png"))); // NOI18N
-        jBtCancelar.setText("Cancelar");
         jBtCancelar.setToolTipText("Cancelar Operação");
         jBtCancelar.setContentAreaFilled(false);
         jBtCancelar.setEnabled(false);
@@ -504,35 +514,7 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Log_Out_Icon_16.png"))); // NOI18N
-        jBtSair.setText("Sair");
-        jBtSair.setContentAreaFilled(false);
-        jBtSair.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtSair.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jBtSair.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jBtSair.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtSairActionPerformed(evt);
-            }
-        });
-
-        jBtFinalizar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtFinalizar.setForeground(new java.awt.Color(255, 0, 0));
-        jBtFinalizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/accept.png"))); // NOI18N
-        jBtFinalizar.setToolTipText("Finalizar Ocorrência");
-        jBtFinalizar.setContentAreaFilled(false);
-        jBtFinalizar.setEnabled(false);
-        jBtFinalizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtFinalizar.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jBtFinalizar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jBtFinalizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtFinalizarActionPerformed(evt);
-            }
-        });
-
         jBtImpressao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/gtklp-icone-3770-16.png"))); // NOI18N
-        jBtImpressao.setText("Imprimir");
         jBtImpressao.setToolTipText("Imprimir Ocorrência");
         jBtImpressao.setContentAreaFilled(false);
         jBtImpressao.setEnabled(false);
@@ -550,46 +532,255 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jBtNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtAlterar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtExcluir)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtSalvar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtImpressao, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jBtSair)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jBtFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jBtFinalizar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtNovo)
-                    .addComponent(jBtAlterar)
-                    .addComponent(jBtExcluir)
-                    .addComponent(jBtSalvar)
-                    .addComponent(jBtCancelar)
-                    .addComponent(jBtImpressao)
-                    .addComponent(jBtSair))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jBtNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtImpressao, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(334, Short.MAX_VALUE))
         );
 
-        jCorpoTextoOcorrencia.setColumns(20);
-        jCorpoTextoOcorrencia.setRows(5);
-        jCorpoTextoOcorrencia.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jCorpoTextoOcorrencia.setEnabled(false);
-        jScrollPane2.setViewportView(jCorpoTextoOcorrencia);
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterar, jBtCancelar, jBtExcluir, jBtImpressao, jBtNovo, jBtSalvar});
+
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                .addComponent(jBtExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtImpressao)
+                .addComponent(jBtNovo)
+                .addComponent(jBtAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
+        );
+
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterar, jBtCancelar, jBtExcluir, jBtImpressao, jBtNovo, jBtSalvar});
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jTabbedPane2.addTab("Inicio", jPanel6);
+
+        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel9.setText("Fonte");
+
+        jComboBoxCorFonte.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxCorFonte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxCorFonteActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel10.setText("Tam.");
+
+        jComboBoxSize.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxSize.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "8", "9", "10", "11", "12", "14", "16", "18", "20", "22", "24", "26", "28", "36", "48", "72" }));
+        jComboBoxSize.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxSize.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxSizeActionPerformed(evt);
+            }
+        });
+
+        jBtCentralizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Text-Centro.png"))); // NOI18N
+        jBtCentralizar.setToolTipText("Centralizar");
+        jBtCentralizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtCentralizarActionPerformed(evt);
+            }
+        });
+
+        jBtEsquerda.setToolTipText("Esquerda");
+        jBtEsquerda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtEsquerdaActionPerformed(evt);
+            }
+        });
+
+        jBtDireita.setToolTipText("Direta");
+        jBtDireita.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtDireitaActionPerformed(evt);
+            }
+        });
+
+        jBtJustificar.setToolTipText("Justificar");
+        jBtJustificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtJustificarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel9)
+                .addGap(8, 8, 8)
+                .addComponent(jComboBoxCorFonte, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel10)
+                .addGap(7, 7, 7)
+                .addComponent(jComboBoxSize, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addComponent(jBtEsquerda)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtCentralizar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtDireita)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtJustificar)
+                .addContainerGap(38, Short.MAX_VALUE))
+        );
+
+        jPanel10Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtCentralizar, jBtDireita, jBtEsquerda, jBtJustificar});
+
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel9)
+                    .addComponent(jComboBoxCorFonte, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10)
+                    .addComponent(jComboBoxSize, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtEsquerda)
+                    .addComponent(jBtDireita)
+                    .addComponent(jBtCentralizar)
+                    .addComponent(jBtJustificar))
+                .addContainerGap())
+        );
+
+        jPanel10Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtCentralizar, jBtDireita, jBtEsquerda, jBtJustificar});
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 47, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jTabbedPane2.addTab("Formatação", jPanel7);
+
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        jBtFinalizar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jBtFinalizar.setForeground(new java.awt.Color(255, 0, 0));
+        jBtFinalizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/accept.png"))); // NOI18N
+        jBtFinalizar.setToolTipText("Finalizar Ocorrência");
+        jBtFinalizar.setContentAreaFilled(false);
+        jBtFinalizar.setEnabled(false);
+        jBtFinalizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBtFinalizar.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jBtFinalizar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jBtFinalizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtFinalizarActionPerformed(evt);
+            }
+        });
+
+        jBtAuditoria.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jBtAuditoria.setForeground(new java.awt.Color(0, 0, 255));
+        jBtAuditoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
+        jBtAuditoria.setToolTipText("Auditoria");
+        jBtAuditoria.setContentAreaFilled(false);
+        jBtAuditoria.setEnabled(false);
+        jBtAuditoria.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBtAuditoria.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jBtAuditoria.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jBtAuditoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAuditoriaActionPerformed(evt);
+            }
+        });
+
+        jBtSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Log_Out_Icon_16.png"))); // NOI18N
+        jBtSair.setContentAreaFilled(false);
+        jBtSair.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBtSair.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jBtSair.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jBtSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtSairActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jBtFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 458, Short.MAX_VALUE)
+                .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jPanel8Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtFinalizar, jBtSair});
+
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                .addComponent(jBtAuditoria)
+                .addComponent(jBtSair)
+                .addComponent(jBtFinalizar))
+        );
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jTabbedPane2.addTab("Finalização", jPanel9);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -598,20 +789,20 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane4)
+                    .addComponent(jTabbedPane2))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Manutenção", jPanel1);
@@ -802,14 +993,14 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
         if (jCorpoTextoOcorrencia.getText().equals(textoOcorrencia) && acao == 2) {
             dispose();
             // SE O TEXTO FOR DIFERENTE DO BANCO DE DADOS SAIR E PERGUNTAR
-        }else if (!jCorpoTextoOcorrencia.getText().equals(textoOcorrencia) && acao == 2) {
+        } else if (!jCorpoTextoOcorrencia.getText().equals(textoOcorrencia) && acao == 2) {
             int resposta = JOptionPane.showConfirmDialog(this, "A ocorrência ainda não foi gravada, deseja sair assim mesmo?", "Confirmação",
                     JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
                 dispose();
             }
             // SE O CAMPO FOR HABILITADO E O TEXTO NÃO FOR EM BRANCO
-        }else if (jCorpoTextoOcorrencia.isEnabled() && !jCorpoTextoOcorrencia.getText().equals("") && acao == 1) {
+        } else if (jCorpoTextoOcorrencia.isEnabled() && !jCorpoTextoOcorrencia.getText().equals("") && acao == 1) {
             int resposta = JOptionPane.showConfirmDialog(this, "A ocorrência ainda não foi gravada, deseja sair assim mesmo?", "Confirmação",
                     JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
@@ -913,7 +1104,8 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
             }
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM OCORRENCIAS_P1 WHERE IdLanc ='" + IdLanc + "'");
+                conecta.executaSQL("SELECT * FROM OCORRENCIAS_P1 "
+                        + "WHERE IdLanc ='" + IdLanc + "'");
                 conecta.rs.first();
                 jIdOcorrencia.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
                 jStatusOcorrencia.setText(conecta.rs.getString("StatusLanc"));
@@ -927,14 +1119,63 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jTabelaOcorrenciaPortariaMouseClicked
 
+    private void jComboBoxCorFonteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCorFonteActionPerformed
+        // TODO add your handling code here:       
+        // Change font of text
+        jCorpoTextoOcorrencia.setFont(new Font(jComboBoxCorFonte.getSelectedItem().toString(),
+                Font.PLAIN, Integer.parseInt(jComboBoxSize.getSelectedItem().toString())));
+    }//GEN-LAST:event_jComboBoxCorFonteActionPerformed
+
+    private void jComboBoxSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxSizeActionPerformed
+        // TODO add your handling code here:   
+        // Select size of text
+        String getSize = jComboBoxSize.getSelectedItem().toString();
+        Font f = jCorpoTextoOcorrencia.getFont();
+        // setting new size
+        jCorpoTextoOcorrencia.setFont(new Font(f.getFontName(),
+                f.getStyle(), Integer.parseInt(getSize)));
+    }//GEN-LAST:event_jComboBoxSizeActionPerformed
+
+    private void jBtCentralizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCentralizarActionPerformed
+        // TODO add your handling code here:
+        SimpleAttributeSet attribs = new SimpleAttributeSet();
+        StyleConstants.setAlignment(attribs, StyleConstants.ALIGN_CENTER);
+        jCorpoTextoOcorrencia.setParagraphAttributes(attribs, true);
+    }//GEN-LAST:event_jBtCentralizarActionPerformed
+
+    private void jBtEsquerdaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEsquerdaActionPerformed
+        // TODO add your handling code here:
+        SimpleAttributeSet attribs = new SimpleAttributeSet();
+        StyleConstants.setAlignment(attribs, StyleConstants.ALIGN_LEFT);
+        jCorpoTextoOcorrencia.setParagraphAttributes(attribs, true);
+    }//GEN-LAST:event_jBtEsquerdaActionPerformed
+
+    private void jBtDireitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtDireitaActionPerformed
+        // TODO add your handling code here:
+        SimpleAttributeSet attribs = new SimpleAttributeSet();
+        StyleConstants.setAlignment(attribs, StyleConstants.ALIGN_RIGHT);
+        jCorpoTextoOcorrencia.setParagraphAttributes(attribs, true);
+    }//GEN-LAST:event_jBtDireitaActionPerformed
+
+    private void jBtJustificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtJustificarActionPerformed
+        // TODO add your handling code here:
+        SimpleAttributeSet attribs = new SimpleAttributeSet();
+        StyleConstants.setAlignment(attribs, StyleConstants.ALIGN_JUSTIFIED);
+        jCorpoTextoOcorrencia.setParagraphAttributes(attribs, true);
+    }//GEN-LAST:event_jBtJustificarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtAlterar;
     private javax.swing.JButton jBtAuditoria;
     private javax.swing.JButton jBtCancelar;
+    private javax.swing.JButton jBtCentralizar;
+    private javax.swing.JButton jBtDireita;
+    private javax.swing.JButton jBtEsquerda;
     private javax.swing.JButton jBtExcluir;
     private javax.swing.JButton jBtFinalizar;
     private javax.swing.JButton jBtImpressao;
+    private javax.swing.JButton jBtJustificar;
     private javax.swing.JButton jBtNovo;
     private javax.swing.JButton jBtPesqCodigo;
     private javax.swing.JButton jBtPesqData;
@@ -943,12 +1184,16 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtSalvar;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JTextField jCodigo;
-    private javax.swing.JTextArea jCorpoTextoOcorrencia;
+    private javax.swing.JComboBox<String> jComboBoxCorFonte;
+    private javax.swing.JComboBox<String> jComboBoxSize;
+    private javax.swing.JTextPane jCorpoTextoOcorrencia;
     private com.toedter.calendar.JDateChooser jDataOcorrencia;
     private com.toedter.calendar.JDateChooser jDataPesFinal;
     private com.toedter.calendar.JDateChooser jDataPesqInicial;
+    private javax.swing.JEditorPane jEditorPane1;
     public static javax.swing.JTextField jIdOcorrencia;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -957,7 +1202,9 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel30;
@@ -965,19 +1212,26 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel32;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JTextField jPesqTituloOcorrencia;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextField jStatusOcorrencia;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTabelaOcorrenciaPortaria;
     private javax.swing.JTextField jTituloOcorrencia;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
     public void formatarCampos() {
-        jCorpoTextoOcorrencia.setLineWrap(true);
-        jCorpoTextoOcorrencia.setWrapStyleWord(true);
+ 
+//        jCorpoTextoOcorrencia.setLineWrap(true);
+//        jCorpoTextoOcorrencia.setWrapStyleWord(true);
     }
 
     public void corCampos() {
@@ -988,6 +1242,28 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
         jCorpoTextoOcorrencia.setBackground(Color.white);
     }
 
+    private void loadFont() {
+        GraphicsEnvironment gEnv = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        // get all font name&amp;amp;amp;amp;nbsp;
+        String[] fontNames = gEnv.getAvailableFontFamilyNames();
+        // load to combobox
+        ComboBoxModel model = new DefaultComboBoxModel(fontNames);
+        jComboBoxCorFonte.setModel(model);
+    }
+
+//    private void jcbFontActionPerformed(java.awt.event.ActionEvent evt) {
+//        // Change font of text
+//        jCorpoTextoOcorrencia.setFont(new Font(jComboBoxCorFonte.getSelectedItem().toString(),
+//                Font.PLAIN, Integer.parseInt(jComboBoxSize.getSelectedItem().toString())));
+//    }
+//    private void jcbSelectSizeActionPerformed(java.awt.event.ActionEvent evt) {
+//        // Select size of text
+//        String getSize = jComboBoxSize.getSelectedItem().toString();
+//        Font f = jCorpoTextoOcorrencia.getFont();
+//        // setting new size
+//        jCorpoTextoOcorrencia.setFont(new Font(f.getFontName(),
+//                f.getStyle(), Integer.parseInt(getSize)));
+//    }
     public void Novo() {
         //
         jIdOcorrencia.setText("");
