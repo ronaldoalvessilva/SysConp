@@ -6,6 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
+import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 
 import java.text.SimpleDateFormat;
@@ -209,6 +210,7 @@ public class TelaRelatorioPrevisaoSaidaCrc extends javax.swing.JInternalFrame {
                         parametros.put("dataInicial", dataInicial);
                         parametros.put("dataFinal", dataFinal);
                         parametros.put("nomeUsuario", nameUser);
+                        parametros.put("descricaoUnidade",descricaoUnidade);
                         JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
                         JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
                         JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
