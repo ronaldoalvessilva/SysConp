@@ -729,7 +729,9 @@
                                   <Component id="jBtCancelar" linkSize="3" min="-2" pref="30" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jBtImpressao" linkSize="3" min="-2" pref="31" max="-2" attributes="0"/>
-                                  <EmptySpace pref="334" max="32767" attributes="0"/>
+                                  <EmptySpace pref="296" max="32767" attributes="0"/>
+                                  <Component id="jBtAuditoria" min="-2" pref="28" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -742,6 +744,7 @@
                                   <Component id="jBtImpressao" linkSize="4" alignment="2" min="-2" max="-2" attributes="0"/>
                                   <Component id="jBtNovo" linkSize="4" alignment="2" min="-2" max="-2" attributes="0"/>
                                   <Component id="jBtAlterar" linkSize="4" alignment="2" pref="25" max="32767" attributes="0"/>
+                                  <Component id="jBtAuditoria" alignment="2" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -843,6 +846,28 @@
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtImpressaoActionPerformed"/>
                           </Events>
                         </Component>
+                        <Component class="javax.swing.JButton" name="jBtAuditoria">
+                          <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                              <Font name="Tahoma" size="11" style="1"/>
+                            </Property>
+                            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                              <Color blue="ff" green="0" red="0" type="rgb"/>
+                            </Property>
+                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                              <Image iconType="3" name="/gestor/Imagens/book_open.png"/>
+                            </Property>
+                            <Property name="toolTipText" type="java.lang.String" value="Auditoria"/>
+                            <Property name="contentAreaFilled" type="boolean" value="false"/>
+                            <Property name="enabled" type="boolean" value="false"/>
+                            <Property name="horizontalTextPosition" type="int" value="0"/>
+                            <Property name="verticalAlignment" type="int" value="3"/>
+                            <Property name="verticalTextPosition" type="int" value="3"/>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtAuditoriaActionPerformed"/>
+                          </Events>
+                        </Component>
                       </SubComponents>
                     </Container>
                   </SubComponents>
@@ -859,17 +884,22 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jPanel10" max="32767" attributes="0"/>
+                              <Component id="jPanel10" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jPanel11" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jPanel10" pref="47" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jPanel10" max="32767" attributes="0"/>
+                                  <Component id="jPanel11" max="32767" attributes="0"/>
+                              </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -903,15 +933,7 @@
                                   <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="7" pref="7" max="-2" attributes="0"/>
                                   <Component id="jComboBoxSize" min="-2" pref="50" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                                  <Component id="jBtEsquerda" linkSize="5" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jBtCentralizar" linkSize="5" min="-2" pref="28" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jBtDireita" linkSize="5" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jBtJustificar" linkSize="5" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="38" max="32767" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -924,10 +946,6 @@
                                       <Component id="jComboBoxCorFonte" alignment="2" min="-2" pref="18" max="-2" attributes="0"/>
                                       <Component id="jLabel10" alignment="2" min="-2" max="-2" attributes="0"/>
                                       <Component id="jComboBoxSize" alignment="2" min="-2" pref="18" max="-2" attributes="0"/>
-                                      <Component id="jBtEsquerda" linkSize="6" alignment="2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jBtDireita" linkSize="6" alignment="2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jBtCentralizar" linkSize="6" alignment="2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jBtJustificar" linkSize="6" alignment="2" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
@@ -953,6 +971,7 @@
                                 <BevelBorder bevelType="1"/>
                               </Border>
                             </Property>
+                            <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBoxCorFonteActionPerformed"/>
@@ -999,6 +1018,7 @@
                                 <BevelBorder bevelType="1"/>
                               </Border>
                             </Property>
+                            <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBoxSizeActionPerformed"/>
@@ -1007,28 +1027,86 @@
                             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                           </AuxValues>
                         </Component>
-                        <Component class="javax.swing.JButton" name="jBtCentralizar">
-                          <Properties>
-                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                              <Image iconType="3" name="/gestor/Imagens/Text-Centro.png"/>
-                            </Property>
-                            <Property name="toolTipText" type="java.lang.String" value="Centralizar"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtCentralizarActionPerformed"/>
-                          </Events>
-                        </Component>
+                      </SubComponents>
+                    </Container>
+                    <Container class="javax.swing.JPanel" name="jPanel11">
+                      <Properties>
+                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                            <TitledBorder>
+                              <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                                <LineBorder roundedCorners="true">
+                                  <Color PropertyName="color" blue="cc" green="cc" red="cc" type="rgb"/>
+                                </LineBorder>
+                              </Border>
+                            </TitledBorder>
+                          </Border>
+                        </Property>
+                      </Properties>
+
+                      <Layout>
+                        <DimensionLayout dim="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                                  <Component id="jBtEsquerda" linkSize="7" min="-2" pref="26" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jBtCentralizar" linkSize="7" min="-2" pref="26" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jBtDireita" linkSize="7" min="-2" pref="25" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jBtJustificar" linkSize="7" min="-2" pref="26" max="-2" attributes="0"/>
+                                  <EmptySpace pref="47" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                        </DimensionLayout>
+                        <DimensionLayout dim="1">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="2" attributes="0">
+                                      <Component id="jBtEsquerda" linkSize="6" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jBtCentralizar" linkSize="6" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jBtDireita" linkSize="6" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jBtJustificar" linkSize="6" alignment="2" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                        </DimensionLayout>
+                      </Layout>
+                      <SubComponents>
                         <Component class="javax.swing.JButton" name="jBtEsquerda">
                           <Properties>
+                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                              <Image iconType="3" name="/gestor/Imagens/esquerda.png"/>
+                            </Property>
                             <Property name="toolTipText" type="java.lang.String" value="Esquerda"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtEsquerdaActionPerformed"/>
                           </Events>
                         </Component>
+                        <Component class="javax.swing.JButton" name="jBtCentralizar">
+                          <Properties>
+                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                              <Image iconType="3" name="/gestor/Imagens/Centralizado.png"/>
+                            </Property>
+                            <Property name="toolTipText" type="java.lang.String" value="Centralizar"/>
+                            <Property name="enabled" type="boolean" value="false"/>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtCentralizarActionPerformed"/>
+                          </Events>
+                        </Component>
                         <Component class="javax.swing.JButton" name="jBtDireita">
                           <Properties>
+                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                              <Image iconType="3" name="/gestor/Imagens/direita.png"/>
+                            </Property>
                             <Property name="toolTipText" type="java.lang.String" value="Direta"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtDireitaActionPerformed"/>
@@ -1036,7 +1114,11 @@
                         </Component>
                         <Component class="javax.swing.JButton" name="jBtJustificar">
                           <Properties>
+                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                              <Image iconType="3" name="/gestor/Imagens/justificado.png"/>
+                            </Property>
                             <Property name="toolTipText" type="java.lang.String" value="Justificar"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtJustificarActionPerformed"/>
@@ -1096,11 +1178,9 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jBtFinalizar" linkSize="3" min="-2" pref="24" max="-2" attributes="0"/>
-                                  <EmptySpace pref="458" max="32767" attributes="0"/>
-                                  <Component id="jBtSair" linkSize="3" min="-2" pref="27" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jBtAuditoria" min="-2" pref="28" max="-2" attributes="0"/>
+                                  <Component id="jBtFinalizar" min="-2" pref="24" max="-2" attributes="0"/>
+                                  <EmptySpace pref="495" max="32767" attributes="0"/>
+                                  <Component id="jBtSair" min="-2" pref="27" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -1108,8 +1188,7 @@
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="103" groupAlignment="2" attributes="0">
-                                  <Component id="jBtAuditoria" alignment="2" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jBtSair" linkSize="4" alignment="2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jBtSair" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jBtFinalizar" alignment="2" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -1136,28 +1215,6 @@
                           </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtFinalizarActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JButton" name="jBtAuditoria">
-                          <Properties>
-                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Tahoma" size="11" style="1"/>
-                            </Property>
-                            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                              <Color blue="ff" green="0" red="0" type="rgb"/>
-                            </Property>
-                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                              <Image iconType="3" name="/gestor/Imagens/book_open.png"/>
-                            </Property>
-                            <Property name="toolTipText" type="java.lang.String" value="Auditoria"/>
-                            <Property name="contentAreaFilled" type="boolean" value="false"/>
-                            <Property name="enabled" type="boolean" value="false"/>
-                            <Property name="horizontalTextPosition" type="int" value="0"/>
-                            <Property name="verticalAlignment" type="int" value="3"/>
-                            <Property name="verticalTextPosition" type="int" value="3"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtAuditoriaActionPerformed"/>
                           </Events>
                         </Component>
                         <Component class="javax.swing.JButton" name="jBtSair">
