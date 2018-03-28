@@ -55,8 +55,9 @@ public class ParametrosCrc {
     private String biometriaEnfermerios;
     private String biometriaTecnicos;   
     private String carcereFem;   
+    private String caminhoPDF;
 
-    public ParametrosCrc(int idPar, int qtdDias, String qtdHoras, String usuarioAutorizado, String regRetornoPortaria, String regEntradaPortaria, String docAudiencia, String docTrans, String docSaidaTmp, String docLivraPro, String valAudiencia, String valTrans, String valSaidaTmp, String valLivraPro, String docPro, String docAlvara, String valPro, String valAlvara, String usuarioInsert, String usuariosUp, String dataInsert, String dataUp, String horarioUp, String populacaoBgp, String locacaoBgp, String transferenciaBgp, String pavilhaoCelas, String populacaoBpa, String locacaoBpa, String transferenciaBpa, String pavilhaoCelasBpa, String caminhoImagemCrc, String caminhoImagemSS, String caminhoImagemFunc, String localFotoAdvogado, String localFotoVisitasDiversas, String localFotoOficial, String localFotoVisitasInternos, String localFotoColaboradores, String localFotoInternos, String biometriaMedicos, String biometriaEnfermerios, String biometriaTecnicos, String carcereFem) {
+    public ParametrosCrc(int idPar, int qtdDias, String qtdHoras, String usuarioAutorizado, String regRetornoPortaria, String regEntradaPortaria, String docAudiencia, String docTrans, String docSaidaTmp, String docLivraPro, String valAudiencia, String valTrans, String valSaidaTmp, String valLivraPro, String docPro, String docAlvara, String valPro, String valAlvara, String usuarioInsert, String usuariosUp, String dataInsert, String dataUp, String horarioUp, String populacaoBgp, String locacaoBgp, String transferenciaBgp, String pavilhaoCelas, String populacaoBpa, String locacaoBpa, String transferenciaBpa, String pavilhaoCelasBpa, String caminhoImagemCrc, String caminhoImagemSS, String caminhoImagemFunc, String localFotoAdvogado, String localFotoVisitasDiversas, String localFotoOficial, String localFotoVisitasInternos, String localFotoColaboradores, String localFotoInternos, String biometriaMedicos, String biometriaEnfermerios, String biometriaTecnicos, String carcereFem, String caminhoPDF) {
         this.idPar = idPar;
         this.qtdDias = qtdDias;
         this.qtdHoras = qtdHoras;
@@ -101,6 +102,7 @@ public class ParametrosCrc {
         this.biometriaEnfermerios = biometriaEnfermerios;
         this.biometriaTecnicos = biometriaTecnicos;
         this.carcereFem = carcereFem;
+        this.caminhoPDF = caminhoPDF;
     }
 
     public ParametrosCrc() {
@@ -721,4 +723,18 @@ public class ParametrosCrc {
     public void setCarcereFem(String carcereFem) {
         this.carcereFem = carcereFem;
     }
+
+    /**
+     * @return the caminhoPDF
+     */
+    public String getCaminhoPDF() {
+        return caminhoPDF;
+    }
+
+    /**
+     * @param caminhoPDF the caminhoPDF to set
+     */
+    public void setCaminhoPDF(String caminhoPDF) {
+        this.caminhoPDF = caminhoPDF;
+    }       
 }
