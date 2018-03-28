@@ -159,6 +159,8 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jPanel24 = new javax.swing.JPanel();
         jLabel40 = new javax.swing.JLabel();
         jComboBoxCarcereFem = new javax.swing.JComboBox();
+        jLabel41 = new javax.swing.JLabel();
+        jCaminhoPDF = new javax.swing.JTextField();
         jPanel25 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jBtAlterar = new javax.swing.JButton();
@@ -1157,16 +1159,30 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jComboBoxCarcereFem.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxCarcereFem.setEnabled(false);
 
+        jLabel41.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel41.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel41.setText("Local dos arquivos PDF:");
+
+        jCaminhoPDF.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jCaminhoPDF.setEnabled(false);
+
         javax.swing.GroupLayout jPanel24Layout = new javax.swing.GroupLayout(jPanel24);
         jPanel24.setLayout(jPanel24Layout);
         jPanel24Layout.setHorizontalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel24Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel40)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBoxCarcereFem, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel24Layout.createSequentialGroup()
+                        .addComponent(jLabel40)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxCarcereFem, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel24Layout.createSequentialGroup()
+                        .addComponent(jLabel41)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCaminhoPDF)))
+                .addContainerGap())
         );
         jPanel24Layout.setVerticalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1175,7 +1191,11 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jComboBoxCarcereFem, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel40))
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel41)
+                    .addComponent(jCaminhoPDF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
 
         jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
@@ -1188,7 +1208,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         );
         jPanel25Layout.setVerticalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 108, Short.MAX_VALUE)
+            .addGap(0, 114, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
@@ -1208,7 +1228,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel23Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPanel24, jPanel25});
@@ -1369,6 +1389,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         objParCrc.setBiometriaEnfermerios((String) jComboBoxEnfermeiros.getSelectedItem());
         objParCrc.setBiometriaTecnicos((String) jComboBoxTecnicos.getSelectedItem());
         objParCrc.setCarcereFem((String) jComboBoxCarcereFem.getSelectedItem());
+        objParCrc.setCaminhoPDF(jCaminhoPDF.getText());
         if (jNomeUsuarioParametros.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do Usuario Autorizado");
         } else {
@@ -1415,6 +1436,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     public static javax.swing.JTextField jCaminhoImagemCRCInternos;
     public static javax.swing.JTextField jCaminhoImagemColaboradores;
     public static javax.swing.JTextField jCaminhoImagemServicoSocial;
+    private javax.swing.JTextField jCaminhoPDF;
     private javax.swing.JComboBox jComboBoxCadastroPavilhaoCelas;
     private javax.swing.JComboBox jComboBoxCadastroPavilhaoCelasBpa;
     private javax.swing.JComboBox jComboBoxCarcereFem;
@@ -1482,6 +1504,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -1534,6 +1557,8 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jFotosWebCamColaboradores.setBackground(Color.white);
         jFotosWebCamInternos.setBackground(Color.white);
         jFotosWebCamVisitasInternos.setBackground(Color.white);
+        //
+        jCaminhoPDF.setBackground(Color.white);
     }
 
     public void formatarCampos() {
@@ -1586,6 +1611,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
             jComboBoxTecnicos.setSelectedItem(conecta.rs.getString("BiometriaTecnicos"));
             //
             jComboBoxCarcereFem.setSelectedItem(conecta.rs.getString("CarcereFem"));
+            jCaminhoPDF.setText(conecta.rs.getString("LocalPDF"));
         } catch (SQLException ex) {
         }
         conecta.desconecta();
@@ -1638,6 +1664,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jComboBoxTecnicos.setEnabled(true);
         //
         jComboBoxCarcereFem.setEnabled(true);
+        jCaminhoPDF.setEnabled(true);
         //
         jBtAlterar.setEnabled(!true);
         jBtSalvar.setEnabled(true);
@@ -1691,6 +1718,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jComboBoxTecnicos.setEnabled(!true);
         //
         jComboBoxCarcereFem.setEnabled(!true);
+        jCaminhoPDF.setEnabled(!true);
         //
         jBtAlterar.setEnabled(true);
         jBtSalvar.setEnabled(!true);
@@ -1735,6 +1763,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jFotosWebCamVisitasInternos.setEnabled(!true);
         //
         jComboBoxCarcereFem.setEnabled(!true);
+        jCaminhoPDF.setEnabled(!true);
         //
         jBtAlterar.setEnabled(true);
         jBtSalvar.setEnabled(!true);
