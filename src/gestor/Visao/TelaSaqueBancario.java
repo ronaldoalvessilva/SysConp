@@ -68,6 +68,16 @@ public class TelaSaqueBancario extends javax.swing.JInternalFrame {
     double valorSaque = 0;
     int count = 0;
     String textoRecibo1;
+    //
+    String statusMovSaque = "D";
+    double pValorTotalSaque = 0;
+    double pValorSaque = 0;
+    //
+    String statusMovDeposito = "C";
+    double pValorTotalDeposito = 0;
+    double pValorDeposito = 0;
+    //
+    double pSaldoAtual = 0;
 
     /**
      * Creates new form TelaDepositoBancario
@@ -884,6 +894,12 @@ public class TelaSaqueBancario extends javax.swing.JInternalFrame {
         statusMov = "Incluiu";
         horaMov = jHoraSistema.getText();
         dataModFinal = jDataSistema.getText();
+        //
+        pValorTotalSaque = 0;
+        pValorSaque = 0;
+        //   
+        pValorTotalDeposito = 0;
+        pValorDeposito = 0;
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
@@ -927,7 +943,11 @@ public class TelaSaqueBancario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:        
+        pValorTotalSaque = 0;
+        pValorSaque = 0;
+        pValorTotalDeposito = 0;
+        pValorDeposito = 0;
         DecimalFormat valorReal = new DecimalFormat("###,##00.0");
         valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
         //     moedaReal = valorReal.format(jValorCredito.getText());
@@ -955,26 +975,18 @@ public class TelaSaqueBancario extends javax.swing.JInternalFrame {
                     }
                     objSaque.setFavorecido(jNomeFavorecido.getText());
                     objSaque.setObservacao(jObservacao.getText());
+                    calcularValorCredito();
+                    calcularValorDebito();
+                    pSaldoAtual = pValorTotalDeposito - pValorTotalSaque;
                     if (acao == 1) {
-                        // log de usuario
-                        objSaque.setUsuarioInsert(nameUser);
-                        objSaque.setDataInsert(dataModFinal);
-                        objSaque.setHoraInsert(horaMov);
-                        if (jSituacao.getText().equals("ENTRADA NA UNIDADE") || jSituacao.getText().equals("RETORNO A UNIDADE")) {
-                            objSaque.setIdInternoCrc(Integer.valueOf(jIdInternoSaque.getText()));
-                            objSaque.setNomeInterno(jNomeInternoSaque.getText());
-                            control.incluirSaque(objSaque);
-                            buscarId();
-                            objLog();
-                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                            objDeposito();
-                            controle.incluirSaldo(objSaldo);
-                            Salvar();
-                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        if (objSaque.getValorSaque() > pSaldoAtual) {
+                            JOptionPane.showMessageDialog(rootPane, "O valor solicitado é maior que o saldo existente.");
                         } else {
-                            int resposta = JOptionPane.showConfirmDialog(this, "Esse interno não está mais na unidade penal, Deseja continuar?", "Confirmação",
-                                    JOptionPane.YES_NO_OPTION);
-                            if (resposta == JOptionPane.YES_OPTION) {
+                            // log de usuario
+                            objSaque.setUsuarioInsert(nameUser);
+                            objSaque.setDataInsert(dataModFinal);
+                            objSaque.setHoraInsert(horaMov);
+                            if (jSituacao.getText().equals("ENTRADA NA UNIDADE") || jSituacao.getText().equals("RETORNO A UNIDADE")) {
                                 objSaque.setIdInternoCrc(Integer.valueOf(jIdInternoSaque.getText()));
                                 objSaque.setNomeInterno(jNomeInternoSaque.getText());
                                 control.incluirSaque(objSaque);
@@ -985,6 +997,21 @@ public class TelaSaqueBancario extends javax.swing.JInternalFrame {
                                 controle.incluirSaldo(objSaldo);
                                 Salvar();
                                 JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                            } else {
+                                int resposta = JOptionPane.showConfirmDialog(this, "Esse interno não está mais na unidade penal, Deseja continuar?", "Confirmação",
+                                        JOptionPane.YES_NO_OPTION);
+                                if (resposta == JOptionPane.YES_OPTION) {
+                                    objSaque.setIdInternoCrc(Integer.valueOf(jIdInternoSaque.getText()));
+                                    objSaque.setNomeInterno(jNomeInternoSaque.getText());
+                                    control.incluirSaque(objSaque);
+                                    buscarId();
+                                    objLog();
+                                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                    objDeposito();
+                                    controle.incluirSaldo(objSaldo);
+                                    Salvar();
+                                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                }
                             }
                         }
                     }
@@ -1336,6 +1363,39 @@ public class TelaSaqueBancario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
+    public void calcularValorCredito() {
+
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM SALDOVALORES "
+                    + "WHERE IdInternoCrc='" + jIdInternoSaque.getText() + "' "
+                    + "AND StatusMov='" + statusMovDeposito + "'");
+            conecta.rs.first();
+            do {
+                pValorDeposito = conecta.rs.getDouble("ValorMov");
+                pValorTotalDeposito = pValorTotalDeposito + pValorDeposito;
+            } while (conecta.rs.next());
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void calcularValorDebito() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM SALDOVALORES "
+                    + "WHERE IdInternoCrc='" + jIdInternoSaque.getText() + "' "
+                    + "AND StatusMov='" + statusMovSaque + "'");
+            conecta.rs.first();
+            do {
+                pValorSaque = conecta.rs.getDouble("ValorMov");
+                pValorTotalSaque = pValorTotalSaque + pValorSaque;
+            } while (conecta.rs.next());
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
     public void formatarCampos() {
         jNomeFavorecido.setDocument(new LimiteDigitosAlfa(43));
         jValorDebito.setDocument(new LimiteDigitosNum(15));
@@ -1511,8 +1571,8 @@ public class TelaSaqueBancario extends javax.swing.JInternalFrame {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código", "Status", " Data", "Nome do Interno"};
         conecta.abrirConexao();
-        conecta.executaSQL(sql);
         try {
+            conecta.executaSQL(sql);
             conecta.rs.first();
             do {
                 count = count + 1;
