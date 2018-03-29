@@ -281,7 +281,7 @@ public class TelaWebCamPortaOffice extends javax.swing.JDialog {
             seletor.setAcceptAllFileFilterUsed(false);
             seletor.setMultiSelectionEnabled(false);
             seletor.setFileFilter(tipoExtensao);
-            int acao = seletor.showOpenDialog(this);
+            int acao = seletor.showSaveDialog(this);
             if (acao == JFileChooser.APPROVE_OPTION) {
                 java.io.File f = new File(seletor.getSelectedFile().getAbsolutePath());
                 caminhoFotoOffice = f.getPath();
@@ -304,7 +304,7 @@ public class TelaWebCamPortaOffice extends javax.swing.JDialog {
             seletor.setAcceptAllFileFilterUsed(false);
             seletor.setMultiSelectionEnabled(false);
             seletor.setFileFilter(tipoExtensao);
-            int acao = seletor.showOpenDialog(this);
+            int acao = seletor.showSaveDialog(this);
             if (acao == JFileChooser.APPROVE_OPTION) {
                 java.io.File f = new File(seletor.getSelectedFile().getAbsolutePath());
                 caminhoFotoOffice = f.getPath();
