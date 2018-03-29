@@ -38,6 +38,16 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+//import api iText
+import com.lowagie.text.*;
+import com.lowagie.text.pdf.PdfWriter;
+import java.io.BufferedOutputStream;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.text.rtf.RTFEditorKit;
+
 /**
  *
  * @author ronaldo
@@ -66,6 +76,8 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
     int pBtCen = 0;
     int pBtDir = 0;
     int pBtJus = 0;
+    //
+    String caminhoPDF = "";
 
     /**
      * Creates new form TelaOcorrenciaPortaria
@@ -74,7 +86,6 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
         initComponents();
         corCampos();
         formatarCampos();
-//        loadFont();
     }
 
     /**
@@ -132,6 +143,7 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
         jBtCancelar = new javax.swing.JButton();
         jBtImpressao = new javax.swing.JButton();
         jBtAuditoria = new javax.swing.JButton();
+        jBtPDF = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -546,6 +558,16 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
             }
         });
 
+        jBtPDF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/pdf-document-icone-7000-16.png"))); // NOI18N
+        jBtPDF.setToolTipText("Salvar em PDF");
+        jBtPDF.setContentAreaFilled(false);
+        jBtPDF.setEnabled(false);
+        jBtPDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPDFActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -563,7 +585,9 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
                 .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtImpressao, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 296, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 264, Short.MAX_VALUE)
                 .addComponent(jBtAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -579,7 +603,8 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
                 .addComponent(jBtImpressao)
                 .addComponent(jBtNovo)
                 .addComponent(jBtAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                .addComponent(jBtAuditoria))
+                .addComponent(jBtAuditoria)
+                .addComponent(jBtPDF))
         );
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterar, jBtCancelar, jBtExcluir, jBtImpressao, jBtNovo, jBtSalvar});
@@ -620,7 +645,7 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
         jLabel10.setText("Tam.");
 
         jComboBoxSize.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxSize.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "8", "9", "10", "11", "12", "14", "16", "18", "20", "22", "24", "26", "28", "36", "48", "72" }));
+        jComboBoxSize.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "12", "14", "16", "18", "20", "22", "24", "26", "28", "36", "48", "72" }));
         jComboBoxSize.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxSize.setEnabled(false);
         jComboBoxSize.addActionListener(new java.awt.event.ActionListener() {
@@ -971,15 +996,18 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
 
     private void jBtFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFinalizarActionPerformed
         // TODO add your handling code here:  
+        buscarParametroPDF();
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM OCORRENCIAS_P1 WHERE IdLanc='" + jIdOcorrencia.getText() + "'");
+            conecta.executaSQL("SELECT * FROM OCORRENCIAS_P1 "
+                    + "WHERE IdLanc='" + jIdOcorrencia.getText() + "'");
             conecta.rs.first();
             jStatusOcorrencia.setText(conecta.rs.getString("StatusLanc"));
             if (jStatusOcorrencia.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Lançamento já foi finalizado");
             } else {
                 Finalizar();
+                gerarPDF();
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível verificar se lançamento foi finalizado\nERRO: " + ex);
@@ -1058,7 +1086,8 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
         if (jCodigo.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o código para pesquisa.");
         } else {
-            pesquisarOcorrrencias("SELECT * FROM OCORRENCIAS_P1 WHERE IdLanc='" + jCodigo.getText() + "'");
+            pesquisarOcorrrencias("SELECT * FROM OCORRENCIAS_P1 "
+                    + "WHERE IdLanc='" + jCodigo.getText() + "'");
         }
     }//GEN-LAST:event_jBtPesqCodigoActionPerformed
 
@@ -1092,7 +1121,9 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
                     SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
                     dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                     dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                    pesquisarOcorrrencias("SELECT * FROM OCORRENCIAS_P1 WHERE DataLanc BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    pesquisarOcorrrencias("SELECT * FROM OCORRENCIAS_P1 "
+                            + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
+                            + "AND '" + dataFinal + "'");
                 }
             }
         }
@@ -1104,7 +1135,8 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
         if (jPesqTituloOcorrencia.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "É necessário informar um nome ou parte do nome para pesquuisa.");
         } else {
-            pesquisarOcorrrencias("SELECT * FROM OCORRENCIAS_P1 WHERE WHERE Titulo LIKE'" + jPesqTituloOcorrencia + "%'");
+            pesquisarOcorrrencias("SELECT * FROM OCORRENCIAS_P1 WHERE WHERE Titulo "
+                    + "LIKE'%" + jPesqTituloOcorrencia + "%'");
         }
     }//GEN-LAST:event_jBtPesqTituloOcorrrenciaMouseClicked
 
@@ -1127,6 +1159,7 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
                 jBtFinalizar.setEnabled(!true);
                 jBtAuditoria.setEnabled(true);
                 jBtImpressao.setEnabled(true);
+                jBtPDF.setEnabled(true);
             } else {
                 jDataOcorrencia.setEnabled(!true);
                 jTituloOcorrencia.setEnabled(!true);
@@ -1140,7 +1173,8 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
                 jBtFinalizar.setEnabled(true);
                 jBtAuditoria.setEnabled(true);
                 jBtImpressao.setEnabled(true);
-            }            
+                jBtPDF.setEnabled(true);
+            }
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM OCORRENCIAS_P1 "
@@ -1152,7 +1186,7 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
                 jTituloOcorrencia.setText(conecta.rs.getString("Titulo"));
                 jCorpoTextoOcorrencia.setText(conecta.rs.getString("TextoArea"));
                 jComboBoxCorFonte.addItem(conecta.rs.getString("Fonte"));
-                jComboBoxSize.setSelectedItem(conecta.rs.getString("Tamanho"));        
+                jComboBoxSize.setSelectedItem(conecta.rs.getString("Tamanho"));
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa dos dados.\nERROR: " + e);
             }
@@ -1229,6 +1263,36 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
         pBtJus = 1;
     }//GEN-LAST:event_jBtJustificarActionPerformed
 
+    private void jBtPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPDFActionPerformed
+        // TODO add your handling code here:
+        if (jCorpoTextoOcorrencia.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Não existe conteúdo a ser gerado em PDF.");
+        } else {
+            JFileChooser file = new JFileChooser();
+            FileNameExtensionFilter tipoExtensao = new FileNameExtensionFilter("Arquivos em PDF", "pdf");
+            file.setAcceptAllFileFilterUsed(false);
+            file.setMultiSelectionEnabled(false);
+            file.setFileFilter(tipoExtensao);
+             String fileName = "";
+            if (file.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+                fileName = file.getSelectedFile().getAbsolutePath();
+                Document document = new Document();
+                try {
+                    PdfWriter.getInstance(document, new FileOutputStream(fileName));
+                    document.open();
+                    // adicionando um parágrafo ao documento
+                    document.add(new Paragraph(jCorpoTextoOcorrencia.getText()));
+                    JOptionPane.showMessageDialog(rootPane, "Arquivo PDF gerado com sucesso.");
+                } catch (DocumentException de) {
+                    System.err.println(de.getMessage());
+                } catch (IOException ioe) {
+                    System.err.println(ioe.getMessage());
+                }
+                document.close();
+            }
+        }        
+    }//GEN-LAST:event_jBtPDFActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtAlterar;
@@ -1242,6 +1306,7 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtImpressao;
     private javax.swing.JButton jBtJustificar;
     private javax.swing.JButton jBtNovo;
+    private javax.swing.JButton jBtPDF;
     private javax.swing.JButton jBtPesqCodigo;
     private javax.swing.JButton jBtPesqData;
     private javax.swing.JButton jBtPesqTituloOcorrrencia;
@@ -1294,6 +1359,32 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
+    public void gerarPDF() {
+        Document document = new Document();
+        try {
+            PdfWriter.getInstance(document, new FileOutputStream(caminhoPDF + jTituloOcorrencia.getText() + ".pdf"));
+            document.open();
+            // adicionando um parágrafo ao documento
+            document.add(new Paragraph(jCorpoTextoOcorrencia.getText()));
+        } catch (DocumentException de) {
+            System.err.println(de.getMessage());
+        } catch (IOException ioe) {
+            System.err.println(ioe.getMessage());
+        }
+        document.close();
+    }
+
+    public void buscarParametroPDF() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM PARAMETROSCRC");
+            conecta.rs.first();
+            caminhoPDF = conecta.rs.getString("LocalPDF");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
     public void formatarCampos() {
 
 //        jCorpoTextoOcorrencia.setLineWrap(true);
@@ -1344,6 +1435,7 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
         jBtCentralizar.setEnabled(true);
         jBtDireita.setEnabled(true);
         jBtJustificar.setEnabled(true);
+        jBtPDF.setEnabled(!true);
     }
 
     public void Alterar() {
@@ -1367,6 +1459,7 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
         jBtCentralizar.setEnabled(true);
         jBtDireita.setEnabled(true);
         jBtJustificar.setEnabled(true);
+        jBtPDF.setEnabled(!true);
     }
 
     public void Excluir() {
@@ -1396,6 +1489,7 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
         jBtCentralizar.setEnabled(!true);
         jBtDireita.setEnabled(!true);
         jBtJustificar.setEnabled(!true);
+        jBtPDF.setEnabled(!true);
     }
 
     public void Salvar() {
@@ -1419,6 +1513,7 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
         jBtCentralizar.setEnabled(!true);
         jBtDireita.setEnabled(!true);
         jBtJustificar.setEnabled(!true);
+        jBtPDF.setEnabled(true);
     }
 
     public void Cancelar() {
@@ -1448,6 +1543,7 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
             jBtCentralizar.setEnabled(!true);
             jBtDireita.setEnabled(!true);
             jBtJustificar.setEnabled(!true);
+            jBtPDF.setEnabled(true);
         } else {
             jDataOcorrencia.setEnabled(!true);
             jTituloOcorrencia.setEnabled(!true);
@@ -1468,6 +1564,7 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
             jBtCentralizar.setEnabled(!true);
             jBtDireita.setEnabled(!true);
             jBtJustificar.setEnabled(!true);
+            jBtPDF.setEnabled(!true);
         }
     }
 
@@ -1585,5 +1682,30 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
         jTabelaOcorrenciaPortaria.getColumnModel().getColumn(0).setCellRenderer(centralizado);
         jTabelaOcorrenciaPortaria.getColumnModel().getColumn(1).setCellRenderer(centralizado);
         jTabelaOcorrenciaPortaria.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+    }   
+    private void save() {
+        JFileChooser file = new JFileChooser();
+        String fileName = "";
+        // show save file dialog
+        if (file.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+            // get full path of selected file
+            fileName = file.getSelectedFile().getAbsolutePath();
+            // get meta of text
+            StyledDocument doc = (StyledDocument) jCorpoTextoOcorrencia.getDocument();
+            // convert to richtext format
+            RTFEditorKit kit = new RTFEditorKit();
+            BufferedOutputStream out;
+            try {
+                out = new BufferedOutputStream(new FileOutputStream(fileName));
+                // save content to file
+                kit.write(out, doc, doc.getStartPosition().getOffset(), doc.getLength());
+                out.flush();
+                out.close();
+            } catch (Exception e) {
+                System.out.println("Err:" + e.toString());
+            }
+        } else {
+            return;
+        }
     }
 }
