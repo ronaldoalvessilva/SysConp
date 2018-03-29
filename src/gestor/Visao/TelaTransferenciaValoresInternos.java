@@ -16,6 +16,7 @@ import gestor.Controle.ControleSaque;
 import gestor.Controle.ControleSaqueInativos;
 import gestor.Controle.ControleTransferenciaValores;
 import gestor.Dao.ConexaoBancoDados;
+import gestor.Dao.LimiteDigitosNum;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.ConsultaSaldoInternos;
 import gestor.Modelo.DepositoInterno;
@@ -1177,6 +1178,7 @@ public class TelaTransferenciaValoresInternos extends javax.swing.JInternalFrame
     public void formatarCampos() {
         jMotivo.setLineWrap(true);
         jMotivo.setWrapStyleWord(true);
+        jValorTransferencia.setDocument(new LimiteDigitosNum(15));
     }
 
     public void corCampos() {
