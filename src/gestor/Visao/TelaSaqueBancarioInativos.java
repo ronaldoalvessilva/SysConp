@@ -73,8 +73,7 @@ public class TelaSaqueBancarioInativos extends javax.swing.JInternalFrame {
     //
     double valorAnterior = 0;
     double saldoAnterior = 0;
-    double novoSaldo = 0;
-
+    double novoSaldo = 0;    
     /**
      * Creates new form TelaDepositoBancario
      */
@@ -945,7 +944,7 @@ public class TelaSaqueBancarioInativos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:       
         DecimalFormat valorReal = new DecimalFormat("#,##0.0");
         valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
         verificarSaldo();
@@ -1000,7 +999,7 @@ public class TelaSaqueBancarioInativos extends javax.swing.JInternalFrame {
                                     objSaldo.setSaldoAtual(saldoLiquido);
                                     controle.incluirSaldo(objSaldo);
                                     Salvar();
-                                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");                                    
+                                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                                 }
                             }
                         }
@@ -1029,13 +1028,13 @@ public class TelaSaqueBancarioInativos extends javax.swing.JInternalFrame {
                                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                                     objDeposito();
                                     buscarSaldoAnterior();
-                                    novoSaldo = valorAnterior + saldoAnterior;                                  
-                                    novoSaldo = novoSaldo - objSaque.getValorSaque();                                   
+                                    novoSaldo = valorAnterior + saldoAnterior;
+                                    novoSaldo = novoSaldo - objSaque.getValorSaque();
                                     objSaldo.setSaldoAtual(novoSaldo);
-                                  //  controle.incluirSaldo(objSaldo);
+                                    //  controle.incluirSaldo(objSaldo);
                                     controle.alterarSaldo(objSaldo);
                                     Salvar();
-                                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");                                    
+                                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                                 }
                             }
                         }
@@ -1351,7 +1350,7 @@ public class TelaSaqueBancarioInativos extends javax.swing.JInternalFrame {
     public static javax.swing.JTextField jValorDebito;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
-
+   
     public void formatarCampos() {
         jNomeFavorecido.setDocument(new LimiteDigitosAlfa(43));
         jValorDebito.setDocument(new LimiteDigitosNum(15));
@@ -1499,7 +1498,8 @@ public class TelaSaqueBancarioInativos extends javax.swing.JInternalFrame {
     public void verificarSaldo() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM SALDO_VALORES_INATIVOS WHERE IdInternoCrc='" + jIdInternoSaque.getText() + "'");
+            conecta.executaSQL("SELECT * FROM SALDO_VALORES_INATIVOS "
+                    + "WHERE IdInternoCrc='" + jIdInternoSaque.getText() + "'");
             conecta.rs.last();
             saldoAtual = conecta.rs.getDouble("SaldoAtual");
         } catch (SQLException ex) {
