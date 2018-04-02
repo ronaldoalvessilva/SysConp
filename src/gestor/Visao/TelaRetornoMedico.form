@@ -76,7 +76,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jPanel31" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="jPanel4" alignment="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="jPanel4" alignment="0" pref="686" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -532,7 +532,7 @@
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="jPanel5" max="32767" attributes="0"/>
-                                  <Component id="jPanel8" pref="0" max="32767" attributes="0"/>
+                                  <Component id="jPanel8" pref="137" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jScrollPane1" pref="0" max="32767" attributes="0"/>
@@ -583,8 +583,8 @@
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jHorarioRetorno" min="-2" pref="87" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="jHorarioRetorno" min="-2" pref="97" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
                                           <Component id="jBtPesqRegistro" min="-2" pref="85" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
@@ -619,8 +619,8 @@
                               <Component id="jLabel13" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jDataRetorno" alignment="2" min="-2" pref="19" max="-2" attributes="0"/>
                               <Component id="jLabel4" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jHorarioRetorno" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jBtPesqRegistro" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jHorarioRetorno" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -756,14 +756,14 @@
                     <Property name="text" type="java.lang.String" value="Hor&#xe1;rio:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jHorarioRetorno">
+                <Component class="javax.swing.JFormattedTextField" name="jHorarioRetorno">
                   <Properties>
-                    <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
                         <BevelBorder bevelType="1"/>
                       </Border>
                     </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <AuxValues>

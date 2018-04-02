@@ -25,6 +25,7 @@ import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaPesqRegIntMedico.idItemRetornoAudiencia;
+import static gestor.Visao.TelaRetornoInterno.jHorarioRetorno;
 import java.awt.Color;
 import java.awt.HeadlessException;
 import java.awt.Image;
@@ -37,6 +38,8 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
  
 /**
  *
@@ -148,7 +151,7 @@ public class TelaRetornoMedico extends javax.swing.JInternalFrame {
         jOrigem = new javax.swing.JTextField();
         jBtPesqRegistro = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jHorarioRetorno = new javax.swing.JTextField();
+        jHorarioRetorno = new javax.swing.JFormattedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTabelaItensInterno = new javax.swing.JTable();
         jPanel9 = new javax.swing.JPanel();
@@ -189,7 +192,7 @@ public class TelaRetornoMedico extends javax.swing.JInternalFrame {
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisa Lançamentos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 51, 255)));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisa Lançamentos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 51, 255))); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setText("Código:");
@@ -393,7 +396,7 @@ public class TelaRetornoMedico extends javax.swing.JInternalFrame {
                         .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 686, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -465,8 +468,8 @@ public class TelaRetornoMedico extends javax.swing.JInternalFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Horário:");
 
-        jHorarioRetorno.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jHorarioRetorno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jHorarioRetorno.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jHorarioRetorno.setEnabled(false);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -495,8 +498,8 @@ public class TelaRetornoMedico extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jHorarioRetorno, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addComponent(jHorarioRetorno, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jBtPesqRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(104, 104, 104))
@@ -522,8 +525,8 @@ public class TelaRetornoMedico extends javax.swing.JInternalFrame {
                     .addComponent(jLabel13)
                     .addComponent(jDataRetorno, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(jHorarioRetorno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtPesqRegistro))
+                    .addComponent(jBtPesqRegistro)
+                    .addComponent(jHorarioRetorno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -916,7 +919,7 @@ public class TelaRetornoMedico extends javax.swing.JInternalFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                            .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 137, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -1448,7 +1451,7 @@ public class TelaRetornoMedico extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser jDataPesqInicial;
     public static com.toedter.calendar.JDateChooser jDataRetorno;
     public static javax.swing.JTextField jDescricaoOpe;
-    public static javax.swing.JTextField jHorarioRetorno;
+    public static javax.swing.JFormattedTextField jHorarioRetorno;
     public static javax.swing.JTextField jIDLanc;
     private javax.swing.JTextField jIDPesqLan;
     public static javax.swing.JTextField jIdInterno;
@@ -1494,6 +1497,11 @@ public class TelaRetornoMedico extends javax.swing.JInternalFrame {
 
     public void formatarCampos() {
         jOrigem.setDocument(new LimiteDigitos(37));
+         try {
+            MaskFormatter telefone = new MaskFormatter("##:##:##");
+            jHorarioRetorno.setFormatterFactory(new DefaultFormatterFactory(telefone));
+        } catch (Exception e) {
+        }
     }
 
     public void bloquearCamposPesquisa() {

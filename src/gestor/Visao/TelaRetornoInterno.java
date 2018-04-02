@@ -39,6 +39,8 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
 
 /**
  *
@@ -106,8 +108,7 @@ public class TelaRetornoInterno extends javax.swing.JInternalFrame {
     public TelaRetornoInterno() {
         initComponents();
         corCampos();
-        jOrigemOperacao.setDocument(new LimiteDigitosAlfa(32));
-        jNrDocumento.setDocument(new LimiteDigitosAlfa(11));
+        formatarCampos();
     }
 
     /**
@@ -1289,11 +1290,11 @@ public class TelaRetornoInterno extends javax.swing.JInternalFrame {
                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação    
                 limparCamposBancoEvasao(); // Limpa as variaveis para passar para o banco em branco, ou seja limpar
                 controleMovRetEva.alterarMovRetornoEvasao(objMovSaiRetornoEva);
-                ExcluirItem();                
+                ExcluirItem();
                 preencherTabelaItens("SELECT * FROM ITENSRETORNO "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON ITENSRETORNO.IdInternoCrc = PRONTUARIOSCRC.IdInternoCrc "
-                        + "WHERE IdRetorno='" + jIDLanc.getText() + "'");    
+                        + "WHERE IdRetorno='" + jIDLanc.getText() + "'");
                 JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
             }
         }
@@ -1601,6 +1602,16 @@ public class TelaRetornoInterno extends javax.swing.JInternalFrame {
         jOrigemOperacao.setBackground(Color.white);
         jNrDocumento.setBackground(Color.white);
         jHorarioRetorno.setBackground(Color.white);
+    }
+
+    public void formatarCampos() {
+        jOrigemOperacao.setDocument(new LimiteDigitosAlfa(32));
+        jNrDocumento.setDocument(new LimiteDigitosAlfa(11));
+        try {
+            MaskFormatter telefone = new MaskFormatter("##:##:##");
+            jHorarioRetorno.setFormatterFactory(new DefaultFormatterFactory(telefone));
+        } catch (Exception e) {
+        }
     }
 
     public void Novo() {
