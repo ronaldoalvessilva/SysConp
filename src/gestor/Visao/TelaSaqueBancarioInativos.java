@@ -1383,7 +1383,7 @@ public class TelaSaqueBancarioInativos extends javax.swing.JInternalFrame {
         jNomeFavorecido.setText("");
         jObservacao.setText("");
         // Habilitar/Desabilitar campos      
-        jDataLanc.setEnabled(true);
+        jDataLanc.setEnabled(!true);
         jValorDebito.setEnabled(true);
         jNomeFavorecido.setEnabled(true);
         jObservacao.setEnabled(true);
@@ -1403,7 +1403,7 @@ public class TelaSaqueBancarioInativos extends javax.swing.JInternalFrame {
 
     public void Alterar() {
         // Habilitar/Desabilitar campos      
-        jDataLanc.setEnabled(true);
+        jDataLanc.setEnabled(!true);
         jValorDebito.setEnabled(true);
         jNomeFavorecido.setEnabled(true);
         jObservacao.setEnabled(true);

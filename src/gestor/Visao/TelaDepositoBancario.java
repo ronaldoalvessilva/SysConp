@@ -1344,7 +1344,7 @@ public class TelaDepositoBancario extends javax.swing.JInternalFrame {
         jDepositante.setText("");
         jObservacao.setText("");
         // Habilitar/Desabilitar campos      
-        jDataLanc.setEnabled(true);
+        jDataLanc.setEnabled(!true);
         jValorCredito.setEnabled(true);
         jDepositante.setEnabled(true);
         jObservacao.setEnabled(true);

@@ -1272,7 +1272,7 @@ public class TelaDepositoBancarioInativos extends javax.swing.JInternalFrame {
         jDepositante.setText("");
         jObservacao.setText("");
         // Habilitar/Desabilitar campos      
-        jDataLanc.setEnabled(true);
+        jDataLanc.setEnabled(!true);
         jValorCredito.setEnabled(true);
         jDepositante.setEnabled(true);
         jObservacao.setEnabled(true);
@@ -1290,7 +1290,7 @@ public class TelaDepositoBancarioInativos extends javax.swing.JInternalFrame {
 
     public void Alterar() {
         // Habilitar/Desabilitar campos      
-        jDataLanc.setEnabled(true);
+        jDataLanc.setEnabled(!true);
         jValorCredito.setEnabled(true);
         jDepositante.setEnabled(true);
         jObservacao.setEnabled(true);
@@ -1308,7 +1308,7 @@ public class TelaDepositoBancarioInativos extends javax.swing.JInternalFrame {
     }
 
     public void AlterarDeposito() {
-        jDataLanc.setEnabled(true);
+        jDataLanc.setEnabled(!true);
         jDepositante.setEnabled(true);
         jObservacao.setEnabled(true);
         // Botões        

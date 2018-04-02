@@ -1232,7 +1232,7 @@ public class TelaTransferenciaValoresInternos extends javax.swing.JInternalFrame
         jStatusLanc.setText("ABERTO");
         jDataLanc.setCalendar(Calendar.getInstance());
         //
-        jDataLanc.setEnabled(true);
+        jDataLanc.setEnabled(!true);
         jComboBoxTipoTransferencia.setEnabled(true);
         jValorTransferencia.setEnabled(true);
         jMotivo.setEnabled(true);
@@ -1243,7 +1243,7 @@ public class TelaTransferenciaValoresInternos extends javax.swing.JInternalFrame
     }
 
     public void Alterar() {
-        jDataLanc.setEnabled(true);
+        jDataLanc.setEnabled(!true);
         jComboBoxTipoTransferencia.setEnabled(true);
         jValorTransferencia.setEnabled(true);
         jMotivo.setEnabled(true);
