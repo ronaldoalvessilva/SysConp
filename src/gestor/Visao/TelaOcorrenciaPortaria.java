@@ -78,6 +78,9 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
     int pBtJus = 0;
     //
     String caminhoPDF = "";
+    String tituloOcorrencia = "OCORRÊNCIA_PROTARIA_INTERNA";
+    String dataPDF = "";
+    String horaPDF = "";
 
     /**
      * Creates new form TelaOcorrenciaPortaria
@@ -1273,7 +1276,7 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
             file.setAcceptAllFileFilterUsed(false);
             file.setMultiSelectionEnabled(false);
             file.setFileFilter(tipoExtensao);
-             String fileName = "";
+            String fileName = "";
             if (file.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
                 fileName = file.getSelectedFile().getAbsolutePath();
                 Document document = new Document();
@@ -1290,7 +1293,7 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
                 }
                 document.close();
             }
-        }        
+        }
     }//GEN-LAST:event_jBtPDFActionPerformed
 
 
@@ -1360,9 +1363,22 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     public void gerarPDF() {
+        // DATA DE FINALIZAÇÃO DO DOCUMENTO
+        dataPDF = jDataSistema.getText();
+        String dia = dataPDF.substring(0, 2);
+        String mes = dataPDF.substring(3, 5);
+        String ano = dataPDF.substring(6, 10);
+        dataPDF = dia + mes + ano;
+        // HORÁRIO DE FINALIZAÇÃO DO DOCUMENTO
+        horaPDF = jHoraSistema.getText();        
+        String hora = horaPDF.substring(0, 2);
+        String minutos = horaPDF.substring(3, 5);
+        String segundos = horaPDF.substring(6, 8);
+        horaPDF = hora + minutos + segundos;
+        //        
         Document document = new Document();
         try {
-            PdfWriter.getInstance(document, new FileOutputStream(caminhoPDF + jTituloOcorrencia.getText() + ".pdf"));
+            PdfWriter.getInstance(document, new FileOutputStream(caminhoPDF + tituloOcorrencia + "_" + dataPDF + "_" + horaPDF + ".pdf"));
             document.open();
             // adicionando um parágrafo ao documento
             document.add(new Paragraph(jCorpoTextoOcorrencia.getText()));
@@ -1379,7 +1395,7 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
         try {
             conecta.executaSQL("SELECT * FROM PARAMETROSCRC");
             conecta.rs.first();
-            caminhoPDF = conecta.rs.getString("LocalPDF");
+            caminhoPDF = conecta.rs.getString("LocalPDF_PI");
         } catch (Exception e) {
         }
         conecta.desconecta();
@@ -1682,7 +1698,9 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
         jTabelaOcorrenciaPortaria.getColumnModel().getColumn(0).setCellRenderer(centralizado);
         jTabelaOcorrenciaPortaria.getColumnModel().getColumn(1).setCellRenderer(centralizado);
         jTabelaOcorrenciaPortaria.getColumnModel().getColumn(2).setCellRenderer(centralizado);
-    }   
+    }
+
+    //NÃO ESTÁ SENDO UTILIZADO
     private void save() {
         JFileChooser file = new JFileChooser();
         String fileName = "";

@@ -55,9 +55,12 @@ public class ParametrosCrc {
     private String biometriaEnfermerios;
     private String biometriaTecnicos;   
     private String carcereFem;   
-    private String caminhoPDF;
+    private String localPDF_PI;
+    private String localPDF_PE;
+    private String localPDF_B1;
+    private String localPDF_B2;   
 
-    public ParametrosCrc(int idPar, int qtdDias, String qtdHoras, String usuarioAutorizado, String regRetornoPortaria, String regEntradaPortaria, String docAudiencia, String docTrans, String docSaidaTmp, String docLivraPro, String valAudiencia, String valTrans, String valSaidaTmp, String valLivraPro, String docPro, String docAlvara, String valPro, String valAlvara, String usuarioInsert, String usuariosUp, String dataInsert, String dataUp, String horarioUp, String populacaoBgp, String locacaoBgp, String transferenciaBgp, String pavilhaoCelas, String populacaoBpa, String locacaoBpa, String transferenciaBpa, String pavilhaoCelasBpa, String caminhoImagemCrc, String caminhoImagemSS, String caminhoImagemFunc, String localFotoAdvogado, String localFotoVisitasDiversas, String localFotoOficial, String localFotoVisitasInternos, String localFotoColaboradores, String localFotoInternos, String biometriaMedicos, String biometriaEnfermerios, String biometriaTecnicos, String carcereFem, String caminhoPDF) {
+    public ParametrosCrc(int idPar, int qtdDias, String qtdHoras, String usuarioAutorizado, String regRetornoPortaria, String regEntradaPortaria, String docAudiencia, String docTrans, String docSaidaTmp, String docLivraPro, String valAudiencia, String valTrans, String valSaidaTmp, String valLivraPro, String docPro, String docAlvara, String valPro, String valAlvara, String usuarioInsert, String usuariosUp, String dataInsert, String dataUp, String horarioUp, String populacaoBgp, String locacaoBgp, String transferenciaBgp, String pavilhaoCelas, String populacaoBpa, String locacaoBpa, String transferenciaBpa, String pavilhaoCelasBpa, String caminhoImagemCrc, String caminhoImagemSS, String caminhoImagemFunc, String localFotoAdvogado, String localFotoVisitasDiversas, String localFotoOficial, String localFotoVisitasInternos, String localFotoColaboradores, String localFotoInternos, String biometriaMedicos, String biometriaEnfermerios, String biometriaTecnicos, String carcereFem, String localPDF_PI, String localPDF_PE, String localPDF_B1, String localPDF_B2) {
         this.idPar = idPar;
         this.qtdDias = qtdDias;
         this.qtdHoras = qtdHoras;
@@ -102,7 +105,10 @@ public class ParametrosCrc {
         this.biometriaEnfermerios = biometriaEnfermerios;
         this.biometriaTecnicos = biometriaTecnicos;
         this.carcereFem = carcereFem;
-        this.caminhoPDF = caminhoPDF;
+        this.localPDF_PI = localPDF_PI;
+        this.localPDF_PE = localPDF_PE;
+        this.localPDF_B1 = localPDF_B1;
+        this.localPDF_B2 = localPDF_B2;
     }
 
     public ParametrosCrc() {
@@ -725,16 +731,58 @@ public class ParametrosCrc {
     }
 
     /**
-     * @return the caminhoPDF
+     * @return the localPDF_PI
      */
-    public String getCaminhoPDF() {
-        return caminhoPDF;
+    public String getLocalPDF_PI() {
+        return localPDF_PI;
     }
 
     /**
-     * @param caminhoPDF the caminhoPDF to set
+     * @param localPDF_PI the localPDF_PI to set
      */
-    public void setCaminhoPDF(String caminhoPDF) {
-        this.caminhoPDF = caminhoPDF;
-    }       
+    public void setLocalPDF_PI(String localPDF_PI) {
+        this.localPDF_PI = localPDF_PI;
+    }
+
+    /**
+     * @return the localPDF_PE
+     */
+    public String getLocalPDF_PE() {
+        return localPDF_PE;
+    }
+
+    /**
+     * @param localPDF_PE the localPDF_PE to set
+     */
+    public void setLocalPDF_PE(String localPDF_PE) {
+        this.localPDF_PE = localPDF_PE;
+    }
+
+    /**
+     * @return the localPDF_B1
+     */
+    public String getLocalPDF_B1() {
+        return localPDF_B1;
+    }
+
+    /**
+     * @param localPDF_B1 the localPDF_B1 to set
+     */
+    public void setLocalPDF_B1(String localPDF_B1) {
+        this.localPDF_B1 = localPDF_B1;
+    }
+
+    /**
+     * @return the localPDF_B2
+     */
+    public String getLocalPDF_B2() {
+        return localPDF_B2;
+    }
+
+    /**
+     * @param localPDF_B2 the localPDF_B2 to set
+     */
+    public void setLocalPDF_B2(String localPDF_B2) {
+        this.localPDF_B2 = localPDF_B2;
+    }    
 }

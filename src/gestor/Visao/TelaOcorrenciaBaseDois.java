@@ -6,11 +6,9 @@
 package gestor.Visao;
 
 import gestor.Controle.ControleLogSistema;
-import gestor.Controle.ControleOcorrenciasPortaria;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.LogSistema;
-import gestor.Modelo.OcorrenciasPortaria;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
@@ -80,6 +78,9 @@ public class TelaOcorrenciaBaseDois extends javax.swing.JInternalFrame {
     int pBtJus = 0;
     //
     String caminhoPDF = "";
+    String tituloOcorrencia = "OCORRÊNCIA_BASE_DOIS";
+    String dataPDF = "";
+    String horaPDF = "";
 
     /**
      * Creates new form TelaOcorrenciaPortaria
@@ -1363,9 +1364,22 @@ public class TelaOcorrenciaBaseDois extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     public void gerarPDF() {
+        // DATA DE FINALIZAÇÃO DO DOCUMENTO
+        dataPDF = jDataSistema.getText();
+        String dia = dataPDF.substring(0, 2);
+        String mes = dataPDF.substring(3, 5);
+        String ano = dataPDF.substring(6, 10);
+        dataPDF = dia + mes + ano;
+        // HORÁRIO DE FINALIZAÇÃO DO DOCUMENTO
+        horaPDF = jHoraSistema.getText();        
+        String hora = horaPDF.substring(0, 2);
+        String minutos = horaPDF.substring(3, 5);
+        String segundos = horaPDF.substring(6, 8);
+        horaPDF = hora + minutos + segundos;
+        //        
         Document document = new Document();
         try {
-            PdfWriter.getInstance(document, new FileOutputStream(caminhoPDF + jTituloOcorrencia.getText() + ".pdf"));
+            PdfWriter.getInstance(document, new FileOutputStream(caminhoPDF + tituloOcorrencia + "_" + dataPDF + "_" + horaPDF + ".pdf"));
             document.open();
             // adicionando um parágrafo ao documento
             document.add(new Paragraph(jCorpoTextoOcorrencia.getText()));
@@ -1382,7 +1396,7 @@ public class TelaOcorrenciaBaseDois extends javax.swing.JInternalFrame {
         try {
             conecta.executaSQL("SELECT * FROM PARAMETROSCRC");
             conecta.rs.first();
-            caminhoPDF = conecta.rs.getString("LocalPDF");
+            caminhoPDF = conecta.rs.getString("LocalPDF_B2");
         } catch (Exception e) {
         }
         conecta.desconecta();
