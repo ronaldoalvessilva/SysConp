@@ -142,6 +142,7 @@ public class TelaModuloFinanceiro extends javax.swing.JInternalFrame {
     // MENU CADASTRO
     String pNomeCVL = "";
     // MOVIMENTAÇÃO
+    String pNomeLF = "";
     String pNomeDA = "";
     String pNomeSA = "";
     String pNomeTV = "";
@@ -1409,6 +1410,13 @@ public class TelaModuloFinanceiro extends javax.swing.JInternalFrame {
     // PESQUISA E CADASTRO DAS TELAS DO MÓDULO ENFERMARIA PARA CONTROLE DE ACESSO DE USUÁRIOS.
     public void pesquisarTelasAcessos() {
         conecta.abrirConexao();
+         try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaLiberadoresFinanceiro + "'");
+            conecta.rs.first();
+            pNomeLF = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaDepositoAtivo + "'");
@@ -1452,6 +1460,12 @@ public class TelaModuloFinanceiro extends javax.swing.JInternalFrame {
         } catch (SQLException ex) {
         }
         // INICIO DA COMPARAÇÃO
+        if (!pNomeLF.equals(telaLiberadoresFinanceiro) || pNomeLF == null || pNomeLF.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaLiberadoresFinanceiro);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
         if (!pNomeDA.equals(telaDepositoAtivo) || pNomeDA == null || pNomeDA.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
