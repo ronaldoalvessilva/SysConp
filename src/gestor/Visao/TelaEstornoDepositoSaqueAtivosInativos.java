@@ -17,6 +17,14 @@ import gestor.Modelo.EstornoDepositoSaque;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.SaqueValores;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloFinanceiro.codGravar;
+import static gestor.Visao.TelaModuloFinanceiro.codIncluir;
+import static gestor.Visao.TelaModuloFinanceiro.codUserAcesso;
+import static gestor.Visao.TelaModuloFinanceiro.codigoUser;
+import static gestor.Visao.TelaModuloFinanceiro.nomeGrupo;
+import static gestor.Visao.TelaModuloFinanceiro.nomeTela;
+import static gestor.Visao.TelaModuloFinanceiro.telaEstornoValores;
+import static gestor.Visao.TelaModuloFinanceiro.telaSaqueInativo;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -957,126 +965,134 @@ public class TelaEstornoDepositoSaqueAtivosInativos extends javax.swing.JInterna
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaEstornoValores) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        statusLanc = "FINALIZADO";
-        DecimalFormat valorReal = new DecimalFormat("#,###0.00");
-        valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
-        if (jDataLanc.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data de lançamento do estorno.");
-        } else if (jIdInternoEstorno.getText().equals("") || jNomeInternoEstorno.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para realizar o estorno.");
-        } else if (jValorEstorno.getText().equals("") || jValorEstorno.getText().equals("0,00")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe um valor correto para realizar o estorno.");
-        }else if(!jValorEstorno.getText().equals(jValorDepositoSaque.getText())){
-            JOptionPane.showMessageDialog(rootPane, "O valor do estorno é diferente do valor do registro.");
-        } else {
-            objEstorno.setStatusEstorno(statusLanc);
-            objEstorno.setDataLanc(jDataLanc.getDate());
-            if (jRDBtDepositoAtivos.isSelected()) {
-                tipoEstorno = 0;
-                objSaldo.setFavorecidoDepositante(depositanteAtivo);
-            } else if (jRDBtDepositoInativos.isSelected()) {
-                tipoEstorno = 1;
-                objSaldo.setFavorecidoDepositante(depositanteInativo);
-            } else if (jRDBtSaqueAtivos.isSelected()) {
-                tipoEstorno = 2;
-                objSaldo.setFavorecidoDepositante(saqueAtivo);
-            } else if (jRDBtSaqueInativos.isSelected()) {
-                tipoEstorno = 3;
-                objSaldo.setFavorecidoDepositante(saqueInativo);
-            }
-            objEstorno.setTipo(tipoEstorno);
-            try {
-                objEstorno.setValorDepositoSaque(valorReal.parse(jValorDepositoSaque.getText()).floatValue());
-                objEstorno.setValorEstorno(valorReal.parse(jValorEstorno.getText()).floatValue());
-            } catch (ParseException ex) {
-            }
-            objEstorno.setIdInternoCrc(Integer.valueOf(jIdInternoEstorno.getText()));
-            objEstorno.setNomeInternoCrc(jNomeInternoEstorno.getText());
-            objEstorno.setIdRegistro(Integer.valueOf(jIdRegistro.getText()));
-            objEstorno.setDataRegistro(jDataDeposito.getDate());
-            objEstorno.setObservacao(jObservacao.getText());
-            if (acao == 1) {
-                // log de usuario
-                objEstorno.setUsuarioInsert(nameUser);
-                objEstorno.setDataInsert(dataModFinal);
-                objEstorno.setHorarioInsert(horaMov);
-                //
-                control.incluirEstornoDepositos(objEstorno);
-                buscarCodigo();
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                //
-                if (tipoEstorno == 0) { // ESTORNO DEPÓSITO - ATIVO
-                    movStatus = "D";
-                    objSaldo.setHistorico(jObservacao.getText());
-                    objSaldo.setDataMov(jDataLanc.getDate());
-                    objSaldo.setIdInternoCrc(Integer.valueOf(jIdInternoEstorno.getText()));
-                    objSaldo.setStatusMov(movStatus);
-                    try {
-                        objSaldo.setSaldo(valorReal.parse(jValorEstorno.getText()).floatValue());
-                    } catch (ParseException ex) {
-                    }
-                    objSaldo.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                    controle.incluirSaldo(objSaldo); // Incluir deposito na tabela SALDOVALORES
-
-                } else if (tipoEstorno == 1) { // ESTORNO DEPÓSITO - INATIVO
-                    CalcularSaldo();
-                    movStatus = "D";
-                    objSaldo.setHistorico(jObservacao.getText());
-                    objSaldo.setDataMov(jDataLanc.getDate());
-                    objSaldo.setIdInternoCrc(Integer.valueOf(jIdInternoEstorno.getText()));
-                    objSaldo.setStatusMov(movStatus);
-                    try {
-                        objSaldo.setSaldo(valorReal.parse(jValorEstorno.getText()).floatValue());
-                    } catch (ParseException ex) {
-                    }
-                    objSaldo.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                    // CALCULAR SALDO DO INTERNO
-                    totalGeral = saldoAtual + objSaldo.getSaldo();
-                    objSaldo.setSaldoAtual(totalGeral);
-                    controle1.incluirSaldo(objSaldo); // Incluir deposito na tabela SALDO_VALORES_INATIVOS
-
-                } else if (tipoEstorno == 2) { // ESTORNO DE SAQUE - ATIVOS
-                    movStatus = "C";
-                    objSaldo.setHistorico(jObservacao.getText());
-                    objSaldo.setDataMov(jDataLanc.getDate());
-                    objSaldo.setIdInternoCrc(Integer.valueOf(jIdInternoEstorno.getText()));
-                    objSaldo.setStatusMov(movStatus);
-                    try {
-                        objSaldo.setSaldo(valorReal.parse(jValorEstorno.getText()).floatValue());
-                    } catch (ParseException ex) {
-                    }
-                    objSaldo.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                    controle.incluirSaldo(objSaldo); // Incluir deposito na tabela SALDOVALORES
-                } else if (tipoEstorno == 3) { // ESTORNO DE SAQUE - INATIVOS
-                    buscarSaldoAnterior();
-                    movStatus = "C";
-                    objSaldo.setHistorico(jObservacao.getText());
-                    objSaldo.setDataMov(jDataLanc.getDate());
-                    objSaldo.setIdInternoCrc(Integer.valueOf(jIdInternoEstorno.getText()));
-                    objSaldo.setStatusMov(movStatus);
-                    try {
-                        objSaldo.setSaldo(valorReal.parse(jValorEstorno.getText()).floatValue());
-                    } catch (ParseException ex) {
-                    }                    
-                    saldoLiquido = (float) (saldoAtual - objSaque.getValorSaque());
-                    objSaldo.setSaldoAtual(saldoLiquido);
-                    objSaldo.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                    controle1.incluirSaldo(objSaldo); // Incluir deposito na tabela SALDO_VALORES_INATIVOS
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaEstornoValores) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            statusLanc = "FINALIZADO";
+            DecimalFormat valorReal = new DecimalFormat("#,###0.00");
+            valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
+            if (jDataLanc.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de lançamento do estorno.");
+            } else if (jIdInternoEstorno.getText().equals("") || jNomeInternoEstorno.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para realizar o estorno.");
+            } else if (jValorEstorno.getText().equals("") || jValorEstorno.getText().equals("0,00")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe um valor correto para realizar o estorno.");
+            } else if (!jValorEstorno.getText().equals(jValorDepositoSaque.getText())) {
+                JOptionPane.showMessageDialog(rootPane, "O valor do estorno é diferente do valor do registro.");
+            } else {
+                objEstorno.setStatusEstorno(statusLanc);
+                objEstorno.setDataLanc(jDataLanc.getDate());
+                if (jRDBtDepositoAtivos.isSelected()) {
+                    tipoEstorno = 0;
+                    objSaldo.setFavorecidoDepositante(depositanteAtivo);
+                } else if (jRDBtDepositoInativos.isSelected()) {
+                    tipoEstorno = 1;
+                    objSaldo.setFavorecidoDepositante(depositanteInativo);
+                } else if (jRDBtSaqueAtivos.isSelected()) {
+                    tipoEstorno = 2;
+                    objSaldo.setFavorecidoDepositante(saqueAtivo);
+                } else if (jRDBtSaqueInativos.isSelected()) {
+                    tipoEstorno = 3;
+                    objSaldo.setFavorecidoDepositante(saqueInativo);
                 }
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                objEstorno.setTipo(tipoEstorno);
+                try {
+                    objEstorno.setValorDepositoSaque(valorReal.parse(jValorDepositoSaque.getText()).floatValue());
+                    objEstorno.setValorEstorno(valorReal.parse(jValorEstorno.getText()).floatValue());
+                } catch (ParseException ex) {
+                }
+                objEstorno.setIdInternoCrc(Integer.valueOf(jIdInternoEstorno.getText()));
+                objEstorno.setNomeInternoCrc(jNomeInternoEstorno.getText());
+                objEstorno.setIdRegistro(Integer.valueOf(jIdRegistro.getText()));
+                objEstorno.setDataRegistro(jDataDeposito.getDate());
+                objEstorno.setObservacao(jObservacao.getText());
+                if (acao == 1) {
+                    // log de usuario
+                    objEstorno.setUsuarioInsert(nameUser);
+                    objEstorno.setDataInsert(dataModFinal);
+                    objEstorno.setHorarioInsert(horaMov);
+                    //
+                    control.incluirEstornoDepositos(objEstorno);
+                    buscarCodigo();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    //
+                    if (tipoEstorno == 0) { // ESTORNO DEPÓSITO - ATIVO
+                        movStatus = "D";
+                        objSaldo.setHistorico(jObservacao.getText());
+                        objSaldo.setDataMov(jDataLanc.getDate());
+                        objSaldo.setIdInternoCrc(Integer.valueOf(jIdInternoEstorno.getText()));
+                        objSaldo.setStatusMov(movStatus);
+                        try {
+                            objSaldo.setSaldo(valorReal.parse(jValorEstorno.getText()).floatValue());
+                        } catch (ParseException ex) {
+                        }
+                        objSaldo.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                        controle.incluirSaldo(objSaldo); // Incluir deposito na tabela SALDOVALORES
+
+                    } else if (tipoEstorno == 1) { // ESTORNO DEPÓSITO - INATIVO
+                        CalcularSaldo();
+                        movStatus = "D";
+                        objSaldo.setHistorico(jObservacao.getText());
+                        objSaldo.setDataMov(jDataLanc.getDate());
+                        objSaldo.setIdInternoCrc(Integer.valueOf(jIdInternoEstorno.getText()));
+                        objSaldo.setStatusMov(movStatus);
+                        try {
+                            objSaldo.setSaldo(valorReal.parse(jValorEstorno.getText()).floatValue());
+                        } catch (ParseException ex) {
+                        }
+                        objSaldo.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                        // CALCULAR SALDO DO INTERNO
+                        totalGeral = saldoAtual + objSaldo.getSaldo();
+                        objSaldo.setSaldoAtual(totalGeral);
+                        controle1.incluirSaldo(objSaldo); // Incluir deposito na tabela SALDO_VALORES_INATIVOS
+
+                    } else if (tipoEstorno == 2) { // ESTORNO DE SAQUE - ATIVOS
+                        movStatus = "C";
+                        objSaldo.setHistorico(jObservacao.getText());
+                        objSaldo.setDataMov(jDataLanc.getDate());
+                        objSaldo.setIdInternoCrc(Integer.valueOf(jIdInternoEstorno.getText()));
+                        objSaldo.setStatusMov(movStatus);
+                        try {
+                            objSaldo.setSaldo(valorReal.parse(jValorEstorno.getText()).floatValue());
+                        } catch (ParseException ex) {
+                        }
+                        objSaldo.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                        controle.incluirSaldo(objSaldo); // Incluir deposito na tabela SALDOVALORES
+                    } else if (tipoEstorno == 3) { // ESTORNO DE SAQUE - INATIVOS
+                        buscarSaldoAnterior();
+                        movStatus = "C";
+                        objSaldo.setHistorico(jObservacao.getText());
+                        objSaldo.setDataMov(jDataLanc.getDate());
+                        objSaldo.setIdInternoCrc(Integer.valueOf(jIdInternoEstorno.getText()));
+                        objSaldo.setStatusMov(movStatus);
+                        try {
+                            objSaldo.setSaldo(valorReal.parse(jValorEstorno.getText()).floatValue());
+                        } catch (ParseException ex) {
+                        }
+                        saldoLiquido = (float) (saldoAtual - objSaque.getValorSaque());
+                        objSaldo.setSaldoAtual(saldoLiquido);
+                        objSaldo.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                        controle1.incluirSaldo(objSaldo); // Incluir deposito na tabela SALDO_VALORES_INATIVOS
+                    }
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 

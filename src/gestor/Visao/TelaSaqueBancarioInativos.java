@@ -16,6 +16,16 @@ import gestor.Modelo.ConsultaSaldoInternos;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.SaqueValores;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloFinanceiro.codAlterar;
+import static gestor.Visao.TelaModuloFinanceiro.codExcluir;
+import static gestor.Visao.TelaModuloFinanceiro.codGravar;
+import static gestor.Visao.TelaModuloFinanceiro.codIncluir;
+import static gestor.Visao.TelaModuloFinanceiro.codUserAcesso;
+import static gestor.Visao.TelaModuloFinanceiro.codigoUser;
+import static gestor.Visao.TelaModuloFinanceiro.nomeGrupo;
+import static gestor.Visao.TelaModuloFinanceiro.nomeTela;
+import static gestor.Visao.TelaModuloFinanceiro.telaDepositoInativo;
+import static gestor.Visao.TelaModuloFinanceiro.telaSaqueInativo;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -73,7 +83,7 @@ public class TelaSaqueBancarioInativos extends javax.swing.JInternalFrame {
     //
     double valorAnterior = 0;
     double saldoAnterior = 0;
-    double novoSaldo = 0;    
+    double novoSaldo = 0;
     /**
      * Creates new form TelaDepositoBancario
      */
@@ -895,152 +905,168 @@ public class TelaSaqueBancarioInativos extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaSaqueInativo) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        objSaque.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaSaqueInativo) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            objSaque.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                Alterar();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 2;
-            Alterar();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        objSaque.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
-        } else {
-            statusMov = "Excluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objSaldo.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                objSaldo.setStatusMov(movStatus);
-                controle.excluirSaldo(objSaldo); // Excluir saldo na tabela SALDOVALORES
-                //
-                objSaque.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                control.excluirSaqueInativos(objSaque);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                Excluir();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaSaqueInativo) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            objSaque.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objSaldo.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                    objSaldo.setStatusMov(movStatus);
+                    controle.excluirSaldo(objSaldo); // Excluir saldo na tabela SALDOVALORES
+                    //
+                    objSaque.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                    control.excluirSaqueInativos(objSaque);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    Excluir();
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:       
-        DecimalFormat valorReal = new DecimalFormat("#,##0.0");
-        valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
-        verificarSaldo();
-        statusLanc = "FINALIZADO";
-        if (jDataLanc.getDate() == null) {
-            jDataLanc.requestFocus();
-            jDataLanc.setBackground(Color.red);
-            JOptionPane.showMessageDialog(rootPane, "Informe a data do saque.");
-        } else {
-            if (jNomeInternoSaque.getText().equals("")) {
-                jNomeInternoSaque.requestFocus();
-                jNomeInternoSaque.setBackground(Color.red);
-                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para lançamento.");
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaSaqueInativo) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            DecimalFormat valorReal = new DecimalFormat("#,##0.0");
+            valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
+            verificarSaldo();
+            statusLanc = "FINALIZADO";
+            if (jDataLanc.getDate() == null) {
+                jDataLanc.requestFocus();
+                jDataLanc.setBackground(Color.red);
+                JOptionPane.showMessageDialog(rootPane, "Informe a data do saque.");
             } else {
-                if (jNomeFavorecido.getText().equals("")) {
-                    jNomeFavorecido.requestFocus();
-                    jNomeFavorecido.setBackground(Color.red);
-                    JOptionPane.showMessageDialog(rootPane, "Informe o nome do favorecido");
+                if (jNomeInternoSaque.getText().equals("")) {
+                    jNomeInternoSaque.requestFocus();
+                    jNomeInternoSaque.setBackground(Color.red);
+                    JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para lançamento.");
                 } else {
-                    objSaque.setStatusLanc(statusLanc);
-                    objSaque.setDataLanc(jDataLanc.getDate());
-                    try {
-                        objSaque.setValorSaque(valorReal.parse(jValorDebito.getText()).floatValue());
-                    } catch (ParseException ex) {
-                    }
-                    objSaque.setFavorecido(jNomeFavorecido.getText());
-                    objSaque.setObservacao(jObservacao.getText());
-                    // log de usuario
-                    objSaque.setUsuarioInsert(nameUser);
-                    objSaque.setDataInsert(dataModFinal);
-                    objSaque.setHoraInsert(horaMov);
-                    if (acao == 1) {
-                        if (objSaque.getValorSaque() > saldoAtual) {
-                            // Formata o valor para ser exibido na tela no formato BR                                                                   
-                            DecimalFormat vd = new DecimalFormat(",###.00");
-                            String vlDeposito = vd.format(saldoAtual);
-                            JOptionPane.showMessageDialog(rootPane, "O valor de saque solicitado é superior ao saldo atual do interno. Valor do Saldo R$ " + vlDeposito);
-                        } else {
-                            if (!jSituacao.getText().equals("ENTRADA NA UNIDADE") || !jSituacao.getText().equals("RETORNO A UNIDADE")) {
-                                int resposta = JOptionPane.showConfirmDialog(this, "Esse interno não está mais na unidade penal, Deseja continuar?", "Confirmação",
-                                        JOptionPane.YES_NO_OPTION);
-                                if (resposta == JOptionPane.YES_OPTION) {
-                                    objSaque.setIdInternoCrc(Integer.valueOf(jIdInternoSaque.getText()));
-                                    objSaque.setNomeInterno(jNomeInternoSaque.getText());
-                                    control.incluirSaqueInativos(objSaque);
-                                    buscarId();
-                                    objLog();
-                                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                    objDeposito();
-                                    buscarSaldoAnterior();
-                                    saldoLiquido = (float) (saldoAtual - objSaque.getValorSaque());
-                                    objSaldo.setSaldoAtual(saldoLiquido);
-                                    controle.incluirSaldo(objSaldo);
-                                    Salvar();
-                                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    if (jNomeFavorecido.getText().equals("")) {
+                        jNomeFavorecido.requestFocus();
+                        jNomeFavorecido.setBackground(Color.red);
+                        JOptionPane.showMessageDialog(rootPane, "Informe o nome do favorecido");
+                    } else {
+                        objSaque.setStatusLanc(statusLanc);
+                        objSaque.setDataLanc(jDataLanc.getDate());
+                        try {
+                            objSaque.setValorSaque(valorReal.parse(jValorDebito.getText()).floatValue());
+                        } catch (ParseException ex) {
+                        }
+                        objSaque.setFavorecido(jNomeFavorecido.getText());
+                        objSaque.setObservacao(jObservacao.getText());
+                        // log de usuario
+                        objSaque.setUsuarioInsert(nameUser);
+                        objSaque.setDataInsert(dataModFinal);
+                        objSaque.setHoraInsert(horaMov);
+                        if (acao == 1) {
+                            if (objSaque.getValorSaque() > saldoAtual) {
+                                // Formata o valor para ser exibido na tela no formato BR                                                                   
+                                DecimalFormat vd = new DecimalFormat(",###.00");
+                                String vlDeposito = vd.format(saldoAtual);
+                                JOptionPane.showMessageDialog(rootPane, "O valor de saque solicitado é superior ao saldo atual do interno. Valor do Saldo R$ " + vlDeposito);
+                            } else {
+                                if (!jSituacao.getText().equals("ENTRADA NA UNIDADE") || !jSituacao.getText().equals("RETORNO A UNIDADE")) {
+                                    int resposta = JOptionPane.showConfirmDialog(this, "Esse interno não está mais na unidade penal, Deseja continuar?", "Confirmação",
+                                            JOptionPane.YES_NO_OPTION);
+                                    if (resposta == JOptionPane.YES_OPTION) {
+                                        objSaque.setIdInternoCrc(Integer.valueOf(jIdInternoSaque.getText()));
+                                        objSaque.setNomeInterno(jNomeInternoSaque.getText());
+                                        control.incluirSaqueInativos(objSaque);
+                                        buscarId();
+                                        objLog();
+                                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                        objDeposito();
+                                        buscarSaldoAnterior();
+                                        saldoLiquido = (float) (saldoAtual - objSaque.getValorSaque());
+                                        objSaldo.setSaldoAtual(saldoLiquido);
+                                        controle.incluirSaldo(objSaldo);
+                                        Salvar();
+                                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                    }
                                 }
                             }
                         }
-                    }
-                    if (acao == 2) {
-                        if (objSaque.getValorSaque() > saldoAtual) {
-                            // Formata o valor para ser exibido na tela no formato BR                                                                   
-                            DecimalFormat vd = new DecimalFormat(",###.00");
-                            String vlDeposito = vd.format(saldoAtual);
-                            JOptionPane.showMessageDialog(rootPane, "O valor de saque solicitado é superior ao saldo atual do interno. Valor do Saldo R$ " + vlDeposito);
-                        } else {
-                            if (!jSituacao.getText().equals("ENTRADA NA UNIDADE") || !jSituacao.getText().equals("RETORNO A UNIDADE")) {
-                                int resposta = JOptionPane.showConfirmDialog(this, "Esse interno não está mais na unidade penal, Deseja continuar?", "Confirmação",
-                                        JOptionPane.YES_NO_OPTION);
-                                if (resposta == JOptionPane.YES_OPTION) {
-                                    // log de usuario
-                                    objSaque.setUsuarioUp(nameUser);
-                                    objSaque.setDataUp(dataModFinal);
-                                    objSaque.setHoraUp(horaMov);
-                                    //
-                                    objSaque.setIdInternoCrc(Integer.valueOf(jIdInternoSaque.getText()));
-                                    objSaque.setNomeInterno(jNomeInternoSaque.getText());
-                                    objSaque.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                                    control.alterarSaqueInativos(objSaque);
-                                    objLog();
-                                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                    objDeposito();
-                                    buscarSaldoAnterior();
-                                    novoSaldo = valorAnterior + saldoAnterior;
-                                    novoSaldo = novoSaldo - objSaque.getValorSaque();
-                                    objSaldo.setSaldoAtual(novoSaldo);
-                                    //  controle.incluirSaldo(objSaldo);
-                                    controle.alterarSaldo(objSaldo);
-                                    Salvar();
-                                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        if (acao == 2) {
+                            if (objSaque.getValorSaque() > saldoAtual) {
+                                // Formata o valor para ser exibido na tela no formato BR                                                                   
+                                DecimalFormat vd = new DecimalFormat(",###.00");
+                                String vlDeposito = vd.format(saldoAtual);
+                                JOptionPane.showMessageDialog(rootPane, "O valor de saque solicitado é superior ao saldo atual do interno. Valor do Saldo R$ " + vlDeposito);
+                            } else {
+                                if (!jSituacao.getText().equals("ENTRADA NA UNIDADE") || !jSituacao.getText().equals("RETORNO A UNIDADE")) {
+                                    int resposta = JOptionPane.showConfirmDialog(this, "Esse interno não está mais na unidade penal, Deseja continuar?", "Confirmação",
+                                            JOptionPane.YES_NO_OPTION);
+                                    if (resposta == JOptionPane.YES_OPTION) {
+                                        // log de usuario
+                                        objSaque.setUsuarioUp(nameUser);
+                                        objSaque.setDataUp(dataModFinal);
+                                        objSaque.setHoraUp(horaMov);
+                                        //
+                                        objSaque.setIdInternoCrc(Integer.valueOf(jIdInternoSaque.getText()));
+                                        objSaque.setNomeInterno(jNomeInternoSaque.getText());
+                                        objSaque.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                                        control.alterarSaqueInativos(objSaque);
+                                        objLog();
+                                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                        objDeposito();
+                                        buscarSaldoAnterior();
+                                        novoSaldo = valorAnterior + saldoAnterior;
+                                        novoSaldo = novoSaldo - objSaque.getValorSaque();
+                                        objSaldo.setSaldoAtual(novoSaldo);
+                                        //  controle.incluirSaldo(objSaldo);
+                                        controle.alterarSaldo(objSaldo);
+                                        Salvar();
+                                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -1350,7 +1376,7 @@ public class TelaSaqueBancarioInativos extends javax.swing.JInternalFrame {
     public static javax.swing.JTextField jValorDebito;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
-   
+
     public void formatarCampos() {
         jNomeFavorecido.setDocument(new LimiteDigitosAlfa(43));
         jValorDebito.setDocument(new LimiteDigitosNum(15));

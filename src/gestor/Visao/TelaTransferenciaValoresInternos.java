@@ -24,6 +24,14 @@ import gestor.Modelo.LogSistema;
 import gestor.Modelo.SaqueValores;
 import gestor.Modelo.TransferenciaValores;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloFinanceiro.codGravar;
+import static gestor.Visao.TelaModuloFinanceiro.codIncluir;
+import static gestor.Visao.TelaModuloFinanceiro.codUserAcesso;
+import static gestor.Visao.TelaModuloFinanceiro.codigoUser;
+import static gestor.Visao.TelaModuloFinanceiro.nomeGrupo;
+import static gestor.Visao.TelaModuloFinanceiro.nomeTela;
+import static gestor.Visao.TelaModuloFinanceiro.telaSaqueAtivo;
+import static gestor.Visao.TelaModuloFinanceiro.telaTransferenciaValores;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaPesqInternoTransferenciaValoresInativos.codDeposito;
@@ -917,177 +925,185 @@ public class TelaTransferenciaValoresInternos extends javax.swing.JInternalFrame
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        limparCampos();
-        bloquearBotoes();
-        bloquearCampos();
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaTransferenciaValores) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            acao = 1;
+            limparCampos();
+            bloquearBotoes();
+            bloquearCampos();
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        DecimalFormat valorReal = new DecimalFormat("#,##0.0");
-        valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
-        CalcularSaldo();
-        if (jDataLanc.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data do lançamento.");
-        } else if (jIdInternoCrc.getText().equals("") || jNomeInternoCrc.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "É necessário informar um interno para transferência.");
-        } else if (jSaldoContaAtiva.getText().equals("") && jComboBoxTipoTransferencia.getSelectedItem().equals("Ativo para Inativo")) {
-            JOptionPane.showMessageDialog(rootPane, "O saldo para transferência não pode ser em branco.");
-        } else if (jSaldoContaAtiva.getText().equals("0") && jComboBoxTipoTransferencia.getSelectedItem().equals("Ativo para Inativo") || jSaldoContaAtiva.getText().equals("0,00") && jComboBoxTipoTransferencia.getSelectedItem().equals("Ativo para Inativo")) {
-            JOptionPane.showMessageDialog(rootPane, "O saldo da conta do interno não pode ser zero.");
-        } else if (jValorTransferencia.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "O valor da transferência não pode ser em branco.");
-            jValorTransferencia.setBackground(Color.red);
-            jValorTransferencia.requestFocus();
-        } else {
-            objTransVal.setStatusLanc(statusSaque);
-            objTransVal.setDataLanc(jDataLanc.getDate());
-            objTransVal.setIdInternoCrc(Integer.valueOf(jIdInternoCrc.getText()));
-            objTransVal.setNomeInternoCrc(jNomeInternoCrc.getText());
-            objTransVal.setTipoTransferencia((String) jComboBoxTipoTransferencia.getSelectedItem());
-            objTransVal.setMotivo(jMotivo.getText());
-            try {
-                objTransVal.setSaldoContaAtiva(valorReal.parse(jSaldoContaAtiva.getText()).doubleValue());
-                objTransVal.setValorTransferido(valorReal.parse(jValorTransferencia.getText()).doubleValue());
-                objSaque.setValorSaque(valorReal.parse(jValorTransferencia.getText()).floatValue());
-            } catch (ParseException ex) {
-            }
-            if (acao == 1) {
-                if (objTransVal.getValorTransferido() > objTransVal.getSaldoContaAtiva()) {
-                    // Formata o valor para ser exibido na tela no formato BR                                                                   
-                    DecimalFormat vt = new DecimalFormat("#,##0.00");
-                    String vlTransferencia = vt.format(objTransVal.getSaldoContaAtiva());
-                    JOptionPane.showMessageDialog(rootPane, "O valor da transferência solicitado é superior ao saldo atual do interno. Valor do Saldo R$ " + vlTransferencia);
-                } else {
-                    if (!jSituacao.getText().equals("ENTRADA NA UNIDADE") || !jSituacao.getText().equals("RETORNO A UNIDADE")) {
-                        int resposta = JOptionPane.showConfirmDialog(this, "Esse interno não está mais na unidade penal, Deseja continuar?", "Confirmação",
-                                JOptionPane.YES_NO_OPTION);
-                        if (resposta == JOptionPane.YES_OPTION) {
-                            // log de usuario
-                            objTransVal.setUsuarioInsert(nameUser);
-                            objTransVal.setDataInsert(dataModFinal);
-                            objTransVal.setHorarioInsert(horaMov);
-                            //
-                            control.incluirTransferencia(objTransVal);
-                            buscarCodigo();
-                            objLog();
-                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                            if (jComboBoxTipoTransferencia.getSelectedItem().equals("Ativo para Inativo")) {
-                                // DEBITAR VALOR DO INTERNO ATIVO NA CONTA DOS INATIVOS. TABELA (SAQUE)
-                                objSaldo.setHistorico(jMotivo.getText());
-                                objSaldo.setDataMov(jDataLanc.getDate());
-                                objSaldo.setFavorecidoDepositante(jNomeInternoCrc.getText());
-                                objSaldo.setIdInternoCrc(Integer.valueOf(jIdInternoCrc.getText()));
-                                objSaldo.setStatusMov(movStatus);
-                                try {
-                                    objSaldo.setSaldo(valorReal.parse(jValorTransferencia.getText()).floatValue());
-                                } catch (ParseException ex) {
-                                }
-                                objSaldo.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                                controle.incluirSaldo(objSaldo); // INCLUIR SAQUE NA  TABELA SALDOVALORES
-                                objDeposito();
-                                // CALCULAR SALDO DO INTERNO
-                                totalGeral = saldoAtual + objSaldo.getSaldo();
-                                objSaldo.setSaldoAtual(totalGeral);
-                                controleIna.incluirSaldo(objSaldo); // Incluir deposito na tabela SALDO_VALORES_INATIVOS
-                                // LANÇA DEBITO NA TABELA SAQUE
-                                objSaque.setStatusLanc(statusSaque);
-                                objSaque.setDataLanc(jDataLanc.getDate());
-                                objSaque.setIdInternoCrc(Integer.valueOf(jIdInternoCrc.getText()));
-                                objSaque.setNomeInterno(jNomeInternoCrc.getText());
-                                objSaque.setFavorecido(jNomeInternoCrc.getText());
-                                objSaque.setObservacao(motivoSaidaValor);
-                                controleSaque.incluirSaque(objSaque);
-                            } else if (jComboBoxTipoTransferencia.getSelectedItem().equals("Inativo para Ativo")) {                               
-                                // DEBITAR VALOR DO INTERNO ATIVO NA CONTA DOS INATIVOS. TABELA (SAQUE)
-                                objSaldo.setHistorico(jMotivo.getText());
-                                objSaldo.setDataMov(jDataLanc.getDate());
-                                objSaldo.setFavorecidoDepositante(jNomeInternoCrc.getText());
-                                objSaldo.setIdInternoCrc(Integer.valueOf(jIdInternoCrc.getText()));
-                                objSaldo.setStatusMov(movTrans); // INCLUIR "C" CREDITO
-                                try {
-                                    objSaldo.setSaldo(valorReal.parse(jValorTransferencia.getText()).floatValue());
-                                } catch (ParseException ex) {
-                                }
-                                objSaldo.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                                controle.incluirSaldo(objSaldo); // INCLUIR DEPOSITO NA TABELA SALDOVALORES
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaTransferenciaValores) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            DecimalFormat valorReal = new DecimalFormat("#,##0.0");
+            valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
+            CalcularSaldo();
+            if (jDataLanc.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data do lançamento.");
+            } else if (jIdInternoCrc.getText().equals("") || jNomeInternoCrc.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário informar um interno para transferência.");
+            } else if (jSaldoContaAtiva.getText().equals("") && jComboBoxTipoTransferencia.getSelectedItem().equals("Ativo para Inativo")) {
+                JOptionPane.showMessageDialog(rootPane, "O saldo para transferência não pode ser em branco.");
+            } else if (jSaldoContaAtiva.getText().equals("0") && jComboBoxTipoTransferencia.getSelectedItem().equals("Ativo para Inativo") || jSaldoContaAtiva.getText().equals("0,00") && jComboBoxTipoTransferencia.getSelectedItem().equals("Ativo para Inativo")) {
+                JOptionPane.showMessageDialog(rootPane, "O saldo da conta do interno não pode ser zero.");
+            } else if (jValorTransferencia.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "O valor da transferência não pode ser em branco.");
+                jValorTransferencia.setBackground(Color.red);
+                jValorTransferencia.requestFocus();
+            } else {
+                objTransVal.setStatusLanc(statusSaque);
+                objTransVal.setDataLanc(jDataLanc.getDate());
+                objTransVal.setIdInternoCrc(Integer.valueOf(jIdInternoCrc.getText()));
+                objTransVal.setNomeInternoCrc(jNomeInternoCrc.getText());
+                objTransVal.setTipoTransferencia((String) jComboBoxTipoTransferencia.getSelectedItem());
+                objTransVal.setMotivo(jMotivo.getText());
+                try {
+                    objTransVal.setSaldoContaAtiva(valorReal.parse(jSaldoContaAtiva.getText()).doubleValue());
+                    objTransVal.setValorTransferido(valorReal.parse(jValorTransferencia.getText()).doubleValue());
+                    objSaque.setValorSaque(valorReal.parse(jValorTransferencia.getText()).floatValue());
+                } catch (ParseException ex) {
+                }
+                if (acao == 1) {
+                    if (objTransVal.getValorTransferido() > objTransVal.getSaldoContaAtiva()) {
+                        // Formata o valor para ser exibido na tela no formato BR                                                                   
+                        DecimalFormat vt = new DecimalFormat("#,##0.00");
+                        String vlTransferencia = vt.format(objTransVal.getSaldoContaAtiva());
+                        JOptionPane.showMessageDialog(rootPane, "O valor da transferência solicitado é superior ao saldo atual do interno. Valor do Saldo R$ " + vlTransferencia);
+                    } else {
+                        if (!jSituacao.getText().equals("ENTRADA NA UNIDADE") || !jSituacao.getText().equals("RETORNO A UNIDADE")) {
+                            int resposta = JOptionPane.showConfirmDialog(this, "Esse interno não está mais na unidade penal, Deseja continuar?", "Confirmação",
+                                    JOptionPane.YES_NO_OPTION);
+                            if (resposta == JOptionPane.YES_OPTION) {
+                                // log de usuario
+                                objTransVal.setUsuarioInsert(nameUser);
+                                objTransVal.setDataInsert(dataModFinal);
+                                objTransVal.setHorarioInsert(horaMov);
                                 //
-                                objDeposito();
-                                // CALCULAR SALDO DO INTERNO
-                                totalGeral = saldoAtual - objSaldo.getSaldo();
-                                objSaldo.setSaldoAtual(totalGeral);
-                                movTrans = "D";
-                                objSaldo.setStatusMov(movTrans); // INCLUIR "D" CREDITO
-                                controleIna.incluirSaldo(objSaldo); // Incluir deposito na tabela SALDO_VALORES_INATIVOS                               
-                                // LANÇA DEBITO NA TABELA SAQUE_VALORES_INATIVOS
-                                objSaque.setStatusLanc(statusSaque);
-                                objSaque.setDataLanc(jDataLanc.getDate());
-                                objSaque.setIdInternoCrc(Integer.valueOf(jIdInternoCrc.getText()));
-                                objSaque.setNomeInterno(jNomeInternoCrc.getText());
-                                objSaque.setFavorecido(jNomeInternoCrc.getText());
-                                objSaque.setObservacao(motivoSaidaValor);
-                                controlSaquIna.incluirSaqueInativos(objSaque);
-                                // INCLUIR LANÇAMENTO DE DEPOSITO NA TABELA DEPOSITO DOS ATIVOS
-                                objDeposito.setStatusLanc(statusLanc);
-                                objDeposito.setDataLanc(jDataLanc.getDate());
-                                try {
-                                    objDeposito.setValorDeposito(valorReal.parse(jValorTransferencia.getText()).floatValue());
-                                } catch (ParseException ex) {
+                                control.incluirTransferencia(objTransVal);
+                                buscarCodigo();
+                                objLog();
+                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                if (jComboBoxTipoTransferencia.getSelectedItem().equals("Ativo para Inativo")) {
+                                    // DEBITAR VALOR DO INTERNO ATIVO NA CONTA DOS INATIVOS. TABELA (SAQUE)
+                                    objSaldo.setHistorico(jMotivo.getText());
+                                    objSaldo.setDataMov(jDataLanc.getDate());
+                                    objSaldo.setFavorecidoDepositante(jNomeInternoCrc.getText());
+                                    objSaldo.setIdInternoCrc(Integer.valueOf(jIdInternoCrc.getText()));
+                                    objSaldo.setStatusMov(movStatus);
+                                    try {
+                                        objSaldo.setSaldo(valorReal.parse(jValorTransferencia.getText()).floatValue());
+                                    } catch (ParseException ex) {
+                                    }
+                                    objSaldo.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                                    controle.incluirSaldo(objSaldo); // INCLUIR SAQUE NA  TABELA SALDOVALORES
+                                    objDeposito();
+                                    // CALCULAR SALDO DO INTERNO
+                                    totalGeral = saldoAtual + objSaldo.getSaldo();
+                                    objSaldo.setSaldoAtual(totalGeral);
+                                    controleIna.incluirSaldo(objSaldo); // Incluir deposito na tabela SALDO_VALORES_INATIVOS
+                                    // LANÇA DEBITO NA TABELA SAQUE
+                                    objSaque.setStatusLanc(statusSaque);
+                                    objSaque.setDataLanc(jDataLanc.getDate());
+                                    objSaque.setIdInternoCrc(Integer.valueOf(jIdInternoCrc.getText()));
+                                    objSaque.setNomeInterno(jNomeInternoCrc.getText());
+                                    objSaque.setFavorecido(jNomeInternoCrc.getText());
+                                    objSaque.setObservacao(motivoSaidaValor);
+                                    controleSaque.incluirSaque(objSaque);
+                                } else if (jComboBoxTipoTransferencia.getSelectedItem().equals("Inativo para Ativo")) {
+                                    // DEBITAR VALOR DO INTERNO ATIVO NA CONTA DOS INATIVOS. TABELA (SAQUE)
+                                    objSaldo.setHistorico(jMotivo.getText());
+                                    objSaldo.setDataMov(jDataLanc.getDate());
+                                    objSaldo.setFavorecidoDepositante(jNomeInternoCrc.getText());
+                                    objSaldo.setIdInternoCrc(Integer.valueOf(jIdInternoCrc.getText()));
+                                    objSaldo.setStatusMov(movTrans); // INCLUIR "C" CREDITO
+                                    try {
+                                        objSaldo.setSaldo(valorReal.parse(jValorTransferencia.getText()).floatValue());
+                                    } catch (ParseException ex) {
+                                    }
+                                    objSaldo.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                                    controle.incluirSaldo(objSaldo); // INCLUIR DEPOSITO NA TABELA SALDOVALORES
+                                    //
+                                    objDeposito();
+                                    // CALCULAR SALDO DO INTERNO
+                                    totalGeral = saldoAtual - objSaldo.getSaldo();
+                                    objSaldo.setSaldoAtual(totalGeral);
+                                    movTrans = "D";
+                                    objSaldo.setStatusMov(movTrans); // INCLUIR "D" CREDITO
+                                    controleIna.incluirSaldo(objSaldo); // Incluir deposito na tabela SALDO_VALORES_INATIVOS                               
+                                    // LANÇA DEBITO NA TABELA SAQUE_VALORES_INATIVOS
+                                    objSaque.setStatusLanc(statusSaque);
+                                    objSaque.setDataLanc(jDataLanc.getDate());
+                                    objSaque.setIdInternoCrc(Integer.valueOf(jIdInternoCrc.getText()));
+                                    objSaque.setNomeInterno(jNomeInternoCrc.getText());
+                                    objSaque.setFavorecido(jNomeInternoCrc.getText());
+                                    objSaque.setObservacao(motivoSaidaValor);
+                                    controlSaquIna.incluirSaqueInativos(objSaque);
+                                    // INCLUIR LANÇAMENTO DE DEPOSITO NA TABELA DEPOSITO DOS ATIVOS
+                                    objDeposito.setStatusLanc(statusLanc);
+                                    objDeposito.setDataLanc(jDataLanc.getDate());
+                                    try {
+                                        objDeposito.setValorDeposito(valorReal.parse(jValorTransferencia.getText()).floatValue());
+                                    } catch (ParseException ex) {
+                                    }
+                                    // CALCULA DEPOSITO PARA TABELA SALDOVALORES
+                                    totalTransIna = objDeposito.getValorDeposito() + objSaldo.getSaldo();
+                                    objSaldo.setSaldo(totalTransIna);
+                                    //                                
+                                    objDeposito.setDepositante(jNomeInternoCrc.getText());
+                                    objDeposito.setObservacao(jMotivo.getText());
+                                    objDeposito.setIdInternoCrc(Integer.valueOf(jIdInternoCrc.getText()));
+                                    objDeposito.setNomeInterno(jNomeInternoCrc.getText());
+                                    controlDep.incluirDepositos(objDeposito);
+                                    //
+                                    objDeposito.setIdInternoCrc(Integer.valueOf(jIdInternoCrc.getText()));
+                                    objDeposito.setNomeInterno(jNomeInternoCrc.getText());
+                                    objDeposito.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                                    controle.alterarSaldo(objSaldo); // Atualizar deposito na tabela SALDOVALORES
+                                    //                                
+                                    objDeposito.setTipoTrans(tipoTrans);
+                                    objDeposito.setIdLanc(Integer.valueOf(codDeposito));
+                                    controlDPI.alterarDepositosTipo(objDeposito);
                                 }
-                                // CALCULA DEPOSITO PARA TABELA SALDOVALORES
-                                totalTransIna = objDeposito.getValorDeposito() + objSaldo.getSaldo();
-                                objSaldo.setSaldo(totalTransIna);
-                                //                                
-                                objDeposito.setDepositante(jNomeInternoCrc.getText());
-                                objDeposito.setObservacao(jMotivo.getText());
-                                objDeposito.setIdInternoCrc(Integer.valueOf(jIdInternoCrc.getText()));
-                                objDeposito.setNomeInterno(jNomeInternoCrc.getText());
-                                controlDep.incluirDepositos(objDeposito);
                                 //
-                                objDeposito.setIdInternoCrc(Integer.valueOf(jIdInternoCrc.getText()));
-                                objDeposito.setNomeInterno(jNomeInternoCrc.getText());
-                                objDeposito.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                                controle.alterarSaldo(objSaldo); // Atualizar deposito na tabela SALDOVALORES
-                                //                                
-                                objDeposito.setTipoTrans(tipoTrans);
-                                objDeposito.setIdLanc(Integer.valueOf(codDeposito));
-                                controlDPI.alterarDepositosTipo(objDeposito);
+                                bloquearCampos();
+                                bloquearBotoes();
+                                Salvar();
+                                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                             }
-                            //
-                            bloquearCampos();
-                            bloquearBotoes();
-                            Salvar();
-                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        }
+                    }
+                }
+                // DESATIVADO, BEM COMO A EXCLUSÃO
+                if (acao == 2) {
+                    if (objTransVal.getValorTransferido() > objTransVal.getSaldoContaAtiva()) {
+                        // Formata o valor para ser exibido na tela no formato BR                                                                   
+                        DecimalFormat vt = new DecimalFormat("#,##0.00");
+                        String vlTransferencia = vt.format(objTransVal.getSaldoContaAtiva());
+                        JOptionPane.showMessageDialog(rootPane, "O valor da transferência solicitado é superior ao saldo atual do interno. Valor do Saldo R$ " + vlTransferencia);
+                    } else {
+                        if (!jSituacao.getText().equals("ENTRADA NA UNIDADE") || !jSituacao.getText().equals("RETORNO A UNIDADE")) {
+                            int resposta = JOptionPane.showConfirmDialog(this, "Esse interno não está mais na unidade penal, Deseja continuar?", "Confirmação",
+                                    JOptionPane.YES_NO_OPTION);
+                            if (resposta == JOptionPane.YES_OPTION) {
+                                // log de usuario
+                                objTransVal.setUsuarioUp(nameUser);
+                                objTransVal.setDataUp(dataModFinal);
+                                objTransVal.setHorarioUp(horaMov);
+                            }
                         }
                     }
                 }
             }
-            // DESATIVADO, BEM COMO A EXCLUSÃO
-            if (acao == 2) {
-                if (objTransVal.getValorTransferido() > objTransVal.getSaldoContaAtiva()) {
-                    // Formata o valor para ser exibido na tela no formato BR                                                                   
-                    DecimalFormat vt = new DecimalFormat("#,##0.00");
-                    String vlTransferencia = vt.format(objTransVal.getSaldoContaAtiva());
-                    JOptionPane.showMessageDialog(rootPane, "O valor da transferência solicitado é superior ao saldo atual do interno. Valor do Saldo R$ " + vlTransferencia);
-                } else {
-                    if (!jSituacao.getText().equals("ENTRADA NA UNIDADE") || !jSituacao.getText().equals("RETORNO A UNIDADE")) {
-                        int resposta = JOptionPane.showConfirmDialog(this, "Esse interno não está mais na unidade penal, Deseja continuar?", "Confirmação",
-                                JOptionPane.YES_NO_OPTION);
-                        if (resposta == JOptionPane.YES_OPTION) {
-                            // log de usuario
-                            objTransVal.setUsuarioUp(nameUser);
-                            objTransVal.setDataUp(dataModFinal);
-                            objTransVal.setHorarioUp(horaMov);
-                        }
-                    }
-                }
-            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 

@@ -5,8 +5,10 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleTelasSistema;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
+import gestor.Modelo.CadastroTelasSistema;
 import static gestor.Visao.TelaAgendaCompromissos.jAssunto;
 import static gestor.Visao.TelaAgendaCompromissos.jBtAlterarComp;
 import static gestor.Visao.TelaAgendaCompromissos.jBtCancelarComp;
@@ -33,7 +35,6 @@ import static gestor.Visao.TelaAgendaCompromissos.jtotalRegistros;
 import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.idUserAcesso;
 import static gestor.Visao.TelaLoginSenha.nameUser;
-import static gestor.Visao.TelaModuloPrincipal.grupoAdministrador;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaRecadosCrc.jBtAlterar;
@@ -57,8 +58,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -76,6 +75,9 @@ import net.sf.jasperreports.view.JasperViewer;
 public class TelaModuloFinanceiro extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
+    CadastroTelasSistema objCadastroTela = new CadastroTelasSistema();
+    ControleTelasSistema controle = new ControleTelasSistema();
+    //
     private TelaDepositoBancario objDepBanc = null;
     private TelaSaqueBancario objSaqBanc = null;
     private TelaConsultaSaldoFin objConsultaSaldoFin = null;
@@ -118,12 +120,47 @@ public class TelaModuloFinanceiro extends javax.swing.JInternalFrame {
     // VARIAVEIS PARA PERMISSÃO DE USUÁRIOS NOS MÓDULOS
     String loginUsusario = "ADMINISTRADOR DO SISTEMA";
     String nomeUsuario = "";
-    String nomeGrupo = "";
+//    String nomeGrupo = "";
     //GRUPO DE ADMINISTRADORES E DIRETORORES
     public static String grupoAdministrador = "ADMINISTRADORES";
     public static String grupoDiretores = "DIRETORES"; // AINDA NÃO FOI CRIADO A FUNCIONALIDADE (16/07/2016)
     String nomeModulo = "";
     String permissaoModulo = "";
+    //
+    // TELAS DE ACESSOS AO MÓDULO FINANCEIRO
+    int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
+    public static String nomeModuloBV = "FINANCEIRO";
+    // MENU CADASTRO    
+    public static String telaLiberadoresFinanceiro = "Cadastro:Controle Valores:Liberação Valores:Manutenção";
+    public static String telaDepositoAtivo = "Movimentação:Controle Valores:Depósito Contas Ativas:Manutenção";
+    public static String telaSaqueAtivo = "Movimentação:Controle Valores:Saque Contas Ativas:Manutenção";
+    public static String telaTransferenciaValores = "Movimentação:Controle Valores:Transferencia Valores:Manutenção";
+    public static String telaDepositoInativo = "Movimentação:Controle Valores:Depósito Contas Inativos:Manutenção";
+    public static String telaSaqueInativo = "Movimentação:Controle Valores:Saque Contas Inativos:Manutenção";
+    public static String telaEstornoValores = "Movimentação:Controle Valores:Estorno:Manutenção";
+    // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
+    // MENU CADASTRO
+    String pNomeCVL = "";
+    // MOVIMENTAÇÃO
+    String pNomeDA = "";
+    String pNomeSA = "";
+    String pNomeTV = "";
+    String pNomeDI = "";
+    String pNomeSI = "";
+    String pNomeEV = "";
+    //
+    public static int codigoUser = 0;
+    public static int codUserAcesso = 0;
+    public static int codigoUserGroup = 0;
+    public static int codAbrir = 0;
+    public static int codIncluir = 0;
+    public static int codAlterar = 0;
+    public static int codExcluir = 0;
+    public static int codGravar = 0;
+    public static int codConcultar = 0;
+    public static int codigoGrupo = 0;
+    public static String nomeGrupo = "";
+    public static String nomeTela = "";
 
     /**
      * Creates new form TelaFinanceiro
@@ -131,6 +168,7 @@ public class TelaModuloFinanceiro extends javax.swing.JInternalFrame {
     public TelaModuloFinanceiro() {
         initComponents();
         this.setSize(840, 640); // Tamanho da tela 
+        pesquisarTelasAcessos();
         // verificarRecado();
         threadMensagem();
     }
@@ -534,59 +572,69 @@ public class TelaModuloFinanceiro extends javax.swing.JInternalFrame {
 
     private void DepositoInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DepositoInternoActionPerformed
         // TODO add your handling code here:
-        if (objDepBanc == null || objDepBanc.isClosed()) {
-            objDepBanc = new TelaDepositoBancario();
-            jPainelFinanceiro.add(objDepBanc);
-            objDepBanc.setVisible(true);
-        } else {
-            if (objDepBanc.isVisible()) {
-                if (objDepBanc.isIcon()) { // Se esta minimizado
-                    try {
-                        objDepBanc.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaDepositoAtivo);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaDepositoAtivo) && codAbrir == 1) {
+            if (objDepBanc == null || objDepBanc.isClosed()) {
+                objDepBanc = new TelaDepositoBancario();
+                jPainelFinanceiro.add(objDepBanc);
+                objDepBanc.setVisible(true);
+            } else {
+                if (objDepBanc.isVisible()) {
+                    if (objDepBanc.isIcon()) { // Se esta minimizado
+                        try {
+                            objDepBanc.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objDepBanc.toFront(); // traz para frente
+                        objDepBanc.pack();//volta frame 
                     }
                 } else {
-                    objDepBanc.toFront(); // traz para frente
-                    objDepBanc.pack();//volta frame 
+                    objDepBanc = new TelaDepositoBancario();
+                    TelaModuloFinanceiro.jPainelFinanceiro.add(objDepBanc);//adicona frame ao JDesktopPane  
+                    objDepBanc.setVisible(true);
                 }
-            } else {
-                objDepBanc = new TelaDepositoBancario();
-                TelaModuloFinanceiro.jPainelFinanceiro.add(objDepBanc);//adicona frame ao JDesktopPane  
-                objDepBanc.setVisible(true);
             }
-        }
-        try {
-            objDepBanc.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objDepBanc.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_DepositoInternoActionPerformed
 
     private void SaqueValoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaqueValoresActionPerformed
         // TODO add your handling code here:
-        if (objSaqBanc == null || objSaqBanc.isClosed()) {
-            objSaqBanc = new TelaSaqueBancario();
-            jPainelFinanceiro.add(objSaqBanc);
-            objSaqBanc.setVisible(true);
-        } else {
-            if (objSaqBanc.isVisible()) {
-                if (objSaqBanc.isIcon()) { // Se esta minimizado
-                    try {
-                        objSaqBanc.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaSaqueAtivo);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaSaqueAtivo) && codAbrir == 1) {
+            if (objSaqBanc == null || objSaqBanc.isClosed()) {
+                objSaqBanc = new TelaSaqueBancario();
+                jPainelFinanceiro.add(objSaqBanc);
+                objSaqBanc.setVisible(true);
+            } else {
+                if (objSaqBanc.isVisible()) {
+                    if (objSaqBanc.isIcon()) { // Se esta minimizado
+                        try {
+                            objSaqBanc.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objSaqBanc.toFront(); // traz para frente
+                        objSaqBanc.pack();//volta frame 
                     }
                 } else {
-                    objSaqBanc.toFront(); // traz para frente
-                    objSaqBanc.pack();//volta frame 
+                    objSaqBanc = new TelaSaqueBancario();
+                    TelaModuloFinanceiro.jPainelFinanceiro.add(objSaqBanc);//adicona frame ao JDesktopPane  
+                    objSaqBanc.setVisible(true);
                 }
-            } else {
-                objSaqBanc = new TelaSaqueBancario();
-                TelaModuloFinanceiro.jPainelFinanceiro.add(objSaqBanc);//adicona frame ao JDesktopPane  
-                objSaqBanc.setVisible(true);
             }
-        }
-        try {
-            objSaqBanc.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objSaqBanc.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_SaqueValoresActionPerformed
 
@@ -693,7 +741,14 @@ public class TelaModuloFinanceiro extends javax.swing.JInternalFrame {
         try {
             conecta.abrirConexao();
             String path = "reports/ListagemGeralConfere.jasper";
-            conecta.executaSQL("SELECT * FROM ITENSLOCACAOINTERNO INNER JOIN PRONTUARIOSCRC ON ITENSLOCACAOINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc INNER JOIN CELAS ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela INNER JOIN PAVILHAO ON CELAS.IdPav=PAVILHAO.IdPav ORDER BY DescricaoPav,PRONTUARIOSCRC.NomeInternoCrc,CELAS.EndCelaPav");
+            conecta.executaSQL("SELECT * FROM ITENSLOCACAOINTERNO "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON ITENSLOCACAOINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "INNER JOIN CELAS "
+                    + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON CELAS.IdPav=PAVILHAO.IdPav "
+                    + "ORDER BY DescricaoPav,PRONTUARIOSCRC.NomeInternoCrc,CELAS.EndCelaPav");
             HashMap parametros = new HashMap();
             parametros.put("nomeUsuario", nameUser);
             JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
@@ -812,88 +867,103 @@ public class TelaModuloFinanceiro extends javax.swing.JInternalFrame {
 
     private void TransferenciaValoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TransferenciaValoresActionPerformed
         // TODO add your handling code here:
-        if (objTransValor == null || objTransValor.isClosed()) {
-            objTransValor = new TelaTransferenciaValoresInternos();
-            jPainelFinanceiro.add(objTransValor);
-            objTransValor.setVisible(true);
-        } else {
-            if (objTransValor.isVisible()) {
-                if (objTransValor.isIcon()) { // Se esta minimizado
-                    try {
-                        objTransValor.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaTransferenciaValores);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaTransferenciaValores) && codAbrir == 1) {
+            if (objTransValor == null || objTransValor.isClosed()) {
+                objTransValor = new TelaTransferenciaValoresInternos();
+                jPainelFinanceiro.add(objTransValor);
+                objTransValor.setVisible(true);
+            } else {
+                if (objTransValor.isVisible()) {
+                    if (objTransValor.isIcon()) { // Se esta minimizado
+                        try {
+                            objTransValor.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objTransValor.toFront(); // traz para frente
+                        objTransValor.pack();//volta frame 
                     }
                 } else {
-                    objTransValor.toFront(); // traz para frente
-                    objTransValor.pack();//volta frame 
+                    objTransValor = new TelaTransferenciaValoresInternos();
+                    TelaModuloFinanceiro.jPainelFinanceiro.add(objTransValor);//adicona frame ao JDesktopPane  
+                    objTransValor.setVisible(true);
                 }
-            } else {
-                objTransValor = new TelaTransferenciaValoresInternos();
-                TelaModuloFinanceiro.jPainelFinanceiro.add(objTransValor);//adicona frame ao JDesktopPane  
-                objTransValor.setVisible(true);
             }
-        }
-        try {
-            objTransValor.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objTransValor.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_TransferenciaValoresActionPerformed
 
     private void DepositoInativosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DepositoInativosActionPerformed
         // TODO add your handling code here:
-        if (objDepBancInat == null || objDepBancInat.isClosed()) {
-            objDepBancInat = new TelaDepositoBancarioInativos();
-            jPainelFinanceiro.add(objDepBancInat);
-            objDepBancInat.setVisible(true);
-        } else {
-            if (objDepBancInat.isVisible()) {
-                if (objDepBancInat.isIcon()) { // Se esta minimizado
-                    try {
-                        objDepBancInat.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaDepositoInativo);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaDepositoInativo) && codAbrir == 1) {
+            if (objDepBancInat == null || objDepBancInat.isClosed()) {
+                objDepBancInat = new TelaDepositoBancarioInativos();
+                jPainelFinanceiro.add(objDepBancInat);
+                objDepBancInat.setVisible(true);
+            } else {
+                if (objDepBancInat.isVisible()) {
+                    if (objDepBancInat.isIcon()) { // Se esta minimizado
+                        try {
+                            objDepBancInat.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objDepBancInat.toFront(); // traz para frente
+                        objDepBancInat.pack();//volta frame 
                     }
                 } else {
-                    objDepBancInat.toFront(); // traz para frente
-                    objDepBancInat.pack();//volta frame 
+                    objDepBancInat = new TelaDepositoBancarioInativos();
+                    TelaModuloFinanceiro.jPainelFinanceiro.add(objDepBancInat);//adicona frame ao JDesktopPane  
+                    objDepBancInat.setVisible(true);
                 }
-            } else {
-                objDepBancInat = new TelaDepositoBancarioInativos();
-                TelaModuloFinanceiro.jPainelFinanceiro.add(objDepBancInat);//adicona frame ao JDesktopPane  
-                objDepBancInat.setVisible(true);
             }
-        }
-        try {
-            objDepBancInat.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objDepBancInat.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_DepositoInativosActionPerformed
 
     private void SaqueInativosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaqueInativosActionPerformed
         // TODO add your handling code here:
-        if (objSaqBancIna == null || objSaqBancIna.isClosed()) {
-            objSaqBancIna = new TelaSaqueBancarioInativos();
-            jPainelFinanceiro.add(objSaqBancIna);
-            objSaqBancIna.setVisible(true);
-        } else {
-            if (objSaqBancIna.isVisible()) {
-                if (objSaqBancIna.isIcon()) { // Se esta minimizado
-                    try {
-                        objSaqBancIna.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaSaqueInativo);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaSaqueInativo) && codAbrir == 1) {
+            if (objSaqBancIna == null || objSaqBancIna.isClosed()) {
+                objSaqBancIna = new TelaSaqueBancarioInativos();
+                jPainelFinanceiro.add(objSaqBancIna);
+                objSaqBancIna.setVisible(true);
+            } else {
+                if (objSaqBancIna.isVisible()) {
+                    if (objSaqBancIna.isIcon()) { // Se esta minimizado
+                        try {
+                            objSaqBancIna.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objSaqBancIna.toFront(); // traz para frente
+                        objSaqBancIna.pack();//volta frame 
                     }
                 } else {
-                    objSaqBancIna.toFront(); // traz para frente
-                    objSaqBancIna.pack();//volta frame 
+                    objSaqBancIna = new TelaSaqueBancarioInativos();
+                    TelaModuloFinanceiro.jPainelFinanceiro.add(objSaqBancIna);//adicona frame ao JDesktopPane  
+                    objSaqBancIna.setVisible(true);
                 }
-            } else {
-                objSaqBancIna = new TelaSaqueBancarioInativos();
-                TelaModuloFinanceiro.jPainelFinanceiro.add(objSaqBancIna);//adicona frame ao JDesktopPane  
-                objSaqBancIna.setVisible(true);
             }
-        }
-        try {
-            objSaqBancIna.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objSaqBancIna.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_SaqueInativosActionPerformed
 
@@ -906,29 +976,8 @@ public class TelaModuloFinanceiro extends javax.swing.JInternalFrame {
 
     private void LiberadoresFinanceiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LiberadoresFinanceiroActionPerformed
         // TODO add your handling code here:
-        String grupoNut = "DIRETORES";
-        String grupoAdm = "ADMINISTRADORES";
-        String permissaoGrupoNut = "Sim";
-        String moduloNut = "DIRETORES";
-        idGrupo = 0;
-        nomeGrupo = "";
-        idModulo = 0;
-        idGrupoModulo = 0;
-        permissaoModulo = "";
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                    + "INNER JOIN GRUPOUSUARIOS "
-                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
-                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
-            conecta.rs.first();
-            nomeGrupo = conecta.rs.getString("NomeGrupo");
-        } catch (Exception e) {
-        }
-        conecta.desconecta();
-        // SE O FOR O ADMINISTRADOR DO SISTEMA
-        if (loginUsusario.equals(nameUser)) {
+        buscarAcessoUsuario(telaLiberadoresFinanceiro);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaLiberadoresFinanceiro) && codAbrir == 1) {
             if (objLibe == null || objLibe.isClosed()) {
                 objLibe = new TelaLiberadoresFinanceiro();
                 jPainelFinanceiro.add(objLibe);
@@ -954,120 +1003,42 @@ public class TelaModuloFinanceiro extends javax.swing.JInternalFrame {
                 objLibe.setSelected(true);
             } catch (java.beans.PropertyVetoException e) {
             }
-
         } else {
-            if (nomeGrupo.equals(grupoAdministrador)) {
-                if (objLibe == null || objLibe.isClosed()) {
-                    objLibe = new TelaLiberadoresFinanceiro();
-                    jPainelFinanceiro.add(objLibe);
-                    objLibe.setVisible(true);
-                } else {
-                    if (objLibe.isVisible()) {
-                        if (objLibe.isIcon()) { // Se esta minimizado
-                            try {
-                                objLibe.setIcon(false); // maximiniza
-                            } catch (PropertyVetoException ex) {
-                            }
-                        } else {
-                            objLibe.toFront(); // traz para frente
-                            objLibe.pack();//volta frame 
-                        }
-                    } else {
-                        objLibe = new TelaLiberadoresFinanceiro();
-                        TelaModuloFinanceiro.jPainelFinanceiro.add(objLibe);//adicona frame ao JDesktopPane  
-                        objLibe.setVisible(true);
-                    }
-                }
-                try {
-                    objLibe.setSelected(true);
-                } catch (java.beans.PropertyVetoException e) {
-                }
-            } else {
-                conecta.abrirConexao();
-                try {
-                    conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                            + "INNER JOIN GRUPOUSUARIOS "
-                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoNut + "' "
-                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
-                    conecta.rs.first();
-                    idGrupo = conecta.rs.getInt("IdGrupo");
-                    nomeGrupo = conecta.rs.getString("NomeGrupo");
-                } catch (Exception e) {
-                }
-                try {
-                    conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
-                            + "INNER JOIN MODULOS "
-                            + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
-                            + "WHERE MODULOS.NomeModulo='" + moduloNut + "' "
-                            + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
-                    conecta.rs.first();
-                    idModulo = conecta.rs.getInt("IdModulo");
-                    idGrupoModulo = conecta.rs.getInt("IdGrupo");
-                    permissaoModulo = conecta.rs.getString("Permissao");
-                } catch (Exception er) {
-                }
-                conecta.desconecta();
-                if (idGrupo == idGrupoModulo && permissaoModulo.equals(permissaoGrupoNut)) {
-                    if (objLibe == null || objLibe.isClosed()) {
-                        objLibe = new TelaLiberadoresFinanceiro();
-                        jPainelFinanceiro.add(objLibe);
-                        objLibe.setVisible(true);
-                    } else {
-                        if (objLibe.isVisible()) {
-                            if (objLibe.isIcon()) { // Se esta minimizado
-                                try {
-                                    objLibe.setIcon(false); // maximiniza
-                                } catch (PropertyVetoException ex) {
-                                }
-                            } else {
-                                objLibe.toFront(); // traz para frente
-                                objLibe.pack();//volta frame 
-                            }
-                        } else {
-                            objLibe = new TelaLiberadoresFinanceiro();
-                            TelaModuloFinanceiro.jPainelFinanceiro.add(objLibe);//adicona frame ao JDesktopPane  
-                            objLibe.setVisible(true);
-                        }
-                    }
-                    try {
-                        objLibe.setSelected(true);
-                    } catch (java.beans.PropertyVetoException e) {
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(rootPane, "" + nameUser + " você não tem acesso a essa tela, solicite liberação.");
-                }
-            }
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
-
     }//GEN-LAST:event_LiberadoresFinanceiroActionPerformed
 
     private void jEstornoDepositoSaqueAtivosInativosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEstornoDepositoSaqueAtivosInativosActionPerformed
         // TODO add your handling code here:
-        if (objEstornoDep == null || objEstornoDep.isClosed()) {
-            objEstornoDep = new TelaEstornoDepositoSaqueAtivosInativos();
-            jPainelFinanceiro.add(objEstornoDep);
-            objEstornoDep.setVisible(true);
-        } else {
-            if (objEstornoDep.isVisible()) {
-                if (objEstornoDep.isIcon()) { // Se esta minimizado
-                    try {
-                        objEstornoDep.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaEstornoValores);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaEstornoValores) && codAbrir == 1) {
+            if (objEstornoDep == null || objEstornoDep.isClosed()) {
+                objEstornoDep = new TelaEstornoDepositoSaqueAtivosInativos();
+                jPainelFinanceiro.add(objEstornoDep);
+                objEstornoDep.setVisible(true);
+            } else {
+                if (objEstornoDep.isVisible()) {
+                    if (objEstornoDep.isIcon()) { // Se esta minimizado
+                        try {
+                            objEstornoDep.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objEstornoDep.toFront(); // traz para frente
+                        objEstornoDep.pack();//volta frame 
                     }
                 } else {
-                    objEstornoDep.toFront(); // traz para frente
-                    objEstornoDep.pack();//volta frame 
+                    objEstornoDep = new TelaEstornoDepositoSaqueAtivosInativos();
+                    TelaModuloFinanceiro.jPainelFinanceiro.add(objEstornoDep);//adicona frame ao JDesktopPane  
+                    objEstornoDep.setVisible(true);
                 }
-            } else {
-                objEstornoDep = new TelaEstornoDepositoSaqueAtivosInativos();
-                TelaModuloFinanceiro.jPainelFinanceiro.add(objEstornoDep);//adicona frame ao JDesktopPane  
-                objEstornoDep.setVisible(true);
             }
-        }
-        try {
-            objEstornoDep.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objEstornoDep.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jEstornoDepositoSaqueAtivosInativosActionPerformed
 
@@ -1107,11 +1078,11 @@ public class TelaModuloFinanceiro extends javax.swing.JInternalFrame {
             String path = "reports/RelacaoSaldoInternosInativos.jasper";
             conecta.executaSQL("SELECT * FROM SALDOVALORES "
                     + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON SALDOVALORES.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "                    
+                    + "ON SALDOVALORES.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "ORDER BY NomeInternoCrc,DataMov DESC");
             HashMap parametros = new HashMap();
             parametros.put("descricaoUnidade", descricaoUnidade);
-            parametros.put("usuario", nameUser);            
+            parametros.put("usuario", nameUser);
             JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
             JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
             JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
@@ -1173,6 +1144,44 @@ public class TelaModuloFinanceiro extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator8;
     private javax.swing.JPopupMenu.Separator jSeparator9;
     // End of variables declaration//GEN-END:variables
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUser = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUser + "'");
+            conecta.rs.first();
+            codigoUserGroup = conecta.rs.getInt("IdUsuario");
+            codigoGrupo = conecta.rs.getInt("IdGrupo");
+            nomeGrupo = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUser + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcesso = conecta.rs.getInt("IdUsuario");
+            codAbrir = conecta.rs.getInt("Abrir");
+            codIncluir = conecta.rs.getInt("Incluir");
+            codAlterar = conecta.rs.getInt("Alterar");
+            codExcluir = conecta.rs.getInt("Excluir");
+            codGravar = conecta.rs.getInt("Gravar");
+            codConcultar = conecta.rs.getInt("Consultar");
+            nomeTela = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
 
     // Verificar a cada 5 minutos se o recado foi lido (10/01/2015)
     public void threadMensagem() {
@@ -1395,5 +1404,101 @@ public class TelaModuloFinanceiro extends javax.swing.JInternalFrame {
         jTabelaAgendaEventos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
         jTabelaAgendaEventos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
         jTabelaAgendaEventos.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+    }
+
+    // PESQUISA E CADASTRO DAS TELAS DO MÓDULO ENFERMARIA PARA CONTROLE DE ACESSO DE USUÁRIOS.
+    public void pesquisarTelasAcessos() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaDepositoAtivo + "'");
+            conecta.rs.first();
+            pNomeDA = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaSaqueAtivo + "'");
+            conecta.rs.first();
+            pNomeSA = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaTransferenciaValores + "'");
+            conecta.rs.first();
+            pNomeTV = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaDepositoInativo + "'");
+            conecta.rs.first();
+            pNomeDI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaSaqueInativo + "'");
+            conecta.rs.first();
+            pNomeSI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaEstornoValores + "'");
+            conecta.rs.first();
+            pNomeEV = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        // INICIO DA COMPARAÇÃO
+        if (!pNomeDA.equals(telaDepositoAtivo) || pNomeDA == null || pNomeDA.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaDepositoAtivo);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeSA.equals(telaSaqueAtivo) || pNomeSA == null || pNomeSA.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaSaqueAtivo);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeTV.equals(telaTransferenciaValores) || pNomeTV == null || pNomeTV.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaTransferenciaValores);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeDI.equals(telaDepositoInativo) || pNomeDI == null || pNomeDI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaDepositoInativo);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeSI.equals(telaSaqueInativo) || pNomeSI == null || pNomeSI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaSaqueInativo);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeEV.equals(telaEstornoValores) || pNomeEV == null || pNomeEV.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaEstornoValores);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+    }
+
+    // MÉTODO PARA BUSCAR O CÓDIGO DO MÓDULO, CASO NÃO TENHA SIDO CADASTRADO.
+    public void buscarCodigoModulo() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM MODULOS "
+                    + "WHERE NomeModulo='" + nomeModuloBV + "'");
+            conecta.rs.first();
+            pCodModulo = conecta.rs.getInt("IdModulo");
+        } catch (SQLException ex) {
+        }
     }
 }
