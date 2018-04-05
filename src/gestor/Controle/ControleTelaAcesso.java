@@ -25,7 +25,7 @@ public class ControleTelaAcesso {
         buscarUsuarios(objTelaAcesso.getNomeUsuario(), objTelaAcesso.getIdUsuario());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO TELAS_ACESSO (IdUsuario,NomeTela,Abrir,Incluir,Alterar,Excluir,Gravar,Consultar,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO TELAS_ACESSO (IdUsuario,NomeTela,Abrir,Incluir,Alterar,Excluir,Gravar,Consultar,UsuarioInsert,DataInsert,HorarioInsert,NomeModulo) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setInt(1, idCod);
             pst.setString(2, objTelaAcesso.getNomeTela());
             pst.setInt(3, objTelaAcesso.getAbrir());
@@ -37,6 +37,7 @@ public class ControleTelaAcesso {
             pst.setString(9, objTelaAcesso.getUsuarioInsert());
             pst.setString(10, objTelaAcesso.getDataInsert());
             pst.setString(11, objTelaAcesso.getHorarioInsert());
+            pst.setString(12, objTelaAcesso.getNomeModulo());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possível INSERIR os Dados.\nERRO: " + ex);
@@ -49,7 +50,7 @@ public class ControleTelaAcesso {
         buscarUsuarios(objTelaAcesso.getNomeUsuario(), objTelaAcesso.getIdUsuario());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE TELAS_ACESSO SET IdUsuario=?,NomeTela=?,Abrir=?,Incluir=?,Alterar=?,Excluir=?,Gravar=?,Consultar=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdTela='" + objTelaAcesso.getIdTela() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE TELAS_ACESSO SET IdUsuario=?,NomeTela=?,Abrir=?,Incluir=?,Alterar=?,Excluir=?,Gravar=?,Consultar=?,UsuarioUp=?,DataUp=?,HorarioUp=?,NomeModulo=? WHERE IdTela='" + objTelaAcesso.getIdTela() + "'");
             pst.setInt(1, idCod);
             pst.setString(2, objTelaAcesso.getNomeTela());
             pst.setInt(3, objTelaAcesso.getAbrir());
@@ -61,6 +62,7 @@ public class ControleTelaAcesso {
             pst.setString(9, objTelaAcesso.getUsuarioUp());
             pst.setString(10, objTelaAcesso.getDataUp());
             pst.setString(11, objTelaAcesso.getHorarioUp());
+            pst.setString(12, objTelaAcesso.getNomeModulo());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possível ALTERAR os Dados.\nERRO: " + ex);

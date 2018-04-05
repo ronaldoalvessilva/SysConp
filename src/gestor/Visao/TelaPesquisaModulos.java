@@ -8,6 +8,7 @@ package gestor.Visao;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
 import static gestor.Visao.TelaUsuarios.jComboBoxModuloAcesso;
+import static gestor.Visao.TelaUsuarios.jComboBoxTelaAcesso;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -26,6 +27,7 @@ public class TelaPesquisaModulos extends javax.swing.JDialog {
     int flag = 0;
     //
     public static TelaUsuarios telaUser;
+    int codigoModulo = 0;
 
     /**
      * Creates new form TelaPesquisaModulos
@@ -200,6 +202,7 @@ public class TelaPesquisaModulos extends javax.swing.JDialog {
             conecta.executaSQL("SELECT * FROM MODULOS "
                     + "WHERE IdModulo='" + idMod + "'");
             conecta.rs.first();
+            codigoModulo = conecta.rs.getInt("IdModulo");
             jPesqDescricaoModulo.setText(conecta.rs.getString("NomeModulo"));
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível listar módulos do sistema.\nERRO: " + ex);
@@ -227,6 +230,7 @@ public class TelaPesquisaModulos extends javax.swing.JDialog {
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa dos dados." + ex);
                 }
+                pesquisarTelaAcesso();
                 dispose();
             }
         }
@@ -307,7 +311,7 @@ public class TelaPesquisaModulos extends javax.swing.JDialog {
         jTabelaModulos.getColumnModel().getColumn(0).setPreferredWidth(50);
         jTabelaModulos.getColumnModel().getColumn(0).setResizable(false);
         jTabelaModulos.getColumnModel().getColumn(1).setPreferredWidth(200);
-        jTabelaModulos.getColumnModel().getColumn(1).setResizable(false);       
+        jTabelaModulos.getColumnModel().getColumn(1).setResizable(false);
         jTabelaModulos.getTableHeader().setReorderingAllowed(false);
         jTabelaModulos.setAutoResizeMode(jTabelaModulos.AUTO_RESIZE_OFF);
         jTabelaModulos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -323,7 +327,7 @@ public class TelaPesquisaModulos extends javax.swing.JDialog {
         jTabelaModulos.getColumnModel().getColumn(0).setPreferredWidth(50);
         jTabelaModulos.getColumnModel().getColumn(0).setResizable(false);
         jTabelaModulos.getColumnModel().getColumn(1).setPreferredWidth(200);
-        jTabelaModulos.getColumnModel().getColumn(1).setResizable(false);      
+        jTabelaModulos.getColumnModel().getColumn(1).setResizable(false);
         jTabelaModulos.getTableHeader().setReorderingAllowed(false);
         jTabelaModulos.setAutoResizeMode(jTabelaModulos.AUTO_RESIZE_OFF);
         jTabelaModulos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -338,6 +342,20 @@ public class TelaPesquisaModulos extends javax.swing.JDialog {
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
         direita.setHorizontalAlignment(SwingConstants.RIGHT);
         //
-        jTabelaModulos.getColumnModel().getColumn(0).setCellRenderer(centralizado);       
+        jTabelaModulos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+    }
+
+    public void pesquisarTelaAcesso() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE IdModulo='" + codigoModulo + "' ");
+            conecta.rs.first();
+            do {
+                jComboBoxTelaAcesso.addItem(conecta.rs.getString("NomeTela"));
+            } while (conecta.rs.next());
+        } catch (SQLException ex) {
+        }
+        conecta.desconecta();
     }
 }
