@@ -9871,22 +9871,25 @@
                           <Component id="jPanel46" alignment="1" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jPanel47" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel189" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel191" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="jLabel190" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jTecnicoServicoSocial" alignment="0" pref="322" max="32767" attributes="0"/>
-                                          <Component id="jTecnicoPsicologico" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
+                                  <Component id="jLabel189" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel191" alignment="1" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jLabel190" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Component id="jTecnicoServicoSocial" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jTecnicoPsicologico" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jBtAssistente" min="-2" pref="26" max="-2" attributes="0"/>
+                                  <Component id="jBtPsicologo" pref="0" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
+                          <Component id="jPanel47" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -9894,7 +9897,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel43" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -9904,14 +9907,16 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel190" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel189" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTecnicoServicoSocial" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="2" attributes="0">
+                          <Component id="jTecnicoServicoSocial" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtAssistente" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel189" alignment="2" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel191" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTecnicoPsicologico" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="2" attributes="0">
+                          <Component id="jLabel191" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTecnicoPsicologico" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtPsicologo" alignment="2" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel46" min="-2" max="-2" attributes="0"/>
@@ -10216,7 +10221,7 @@
                                       <Component id="jLabel186" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel188" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="0" pref="31" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -10230,7 +10235,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel188" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane16" pref="104" max="32767" attributes="0"/>
+                          <Component id="jScrollPane16" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -10305,6 +10310,9 @@
                 </Property>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel191">
               <Properties>
@@ -10323,6 +10331,35 @@
                 </Property>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JButton" name="jBtAssistente">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/gestor/Imagens/Lupas_1338_05.gif"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Pesquisar Assistente Social"/>
+                <Property name="contentAreaFilled" type="boolean" value="false"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtAssistenteActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="jBtPsicologo">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/gestor/Imagens/Lupas_1338_05.gif"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Pesquisar Psic&#xf3;logo"/>
+                <Property name="contentAreaFilled" type="boolean" value="false"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtPsicologoActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

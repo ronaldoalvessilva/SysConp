@@ -238,10 +238,17 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     /**
      * Creates new form TelaPAI_NOVO
      */
+    public static TelaPesquisarTecnico telaPesqTec;
+
     public TelaPAI_NOVO() {
         initComponents();
         corCampos();
         formatarCampos();
+    }
+
+    public void mostrarAssistentePsicologo() {
+        telaPesqTec = new TelaPesquisarTecnico(this, true);
+        telaPesqTec.setVisible(true);
     }
 
     /**
@@ -824,6 +831,8 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
         jTecnicoServicoSocial = new javax.swing.JTextField();
         jLabel191 = new javax.swing.JLabel();
         jTecnicoPsicologico = new javax.swing.JTextField();
+        jBtAssistente = new javax.swing.JButton();
+        jBtPsicologo = new javax.swing.JButton();
         jPanel50 = new javax.swing.JPanel();
         jScrollPane17 = new javax.swing.JScrollPane();
         jTabelaEvolucaoPAI = new javax.swing.JTable();
@@ -6172,7 +6181,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
                         .addGroup(jPanel47Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel186)
                             .addComponent(jLabel188))
-                        .addGap(0, 31, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel47Layout.setVerticalGroup(
@@ -6182,7 +6191,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel188)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane16, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
+                .addComponent(jScrollPane16, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
         );
 
         jLabel189.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -6201,6 +6210,26 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
         jTecnicoPsicologico.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTecnicoPsicologico.setEnabled(false);
 
+        jBtAssistente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
+        jBtAssistente.setToolTipText("Pesquisar Assistente Social");
+        jBtAssistente.setContentAreaFilled(false);
+        jBtAssistente.setEnabled(false);
+        jBtAssistente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAssistenteActionPerformed(evt);
+            }
+        });
+
+        jBtPsicologo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
+        jBtPsicologo.setToolTipText("Pesquisar Psicólogo");
+        jBtPsicologo.setContentAreaFilled(false);
+        jBtPsicologo.setEnabled(false);
+        jBtPsicologo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPsicologoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel45Layout = new javax.swing.GroupLayout(jPanel45);
         jPanel45.setLayout(jPanel45Layout);
         jPanel45Layout.setHorizontalGroup(
@@ -6213,17 +6242,20 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
                     .addComponent(jPanel46, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel45Layout.createSequentialGroup()
                         .addGroup(jPanel45Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel47, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel189, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel191, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel45Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel45Layout.createSequentialGroup()
-                                .addGroup(jPanel45Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel189, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel191, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel45Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel190)
-                                    .addComponent(jTecnicoServicoSocial, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
-                                    .addComponent(jTecnicoPsicologico))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(jLabel190)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jTecnicoServicoSocial)
+                            .addComponent(jTecnicoPsicologico))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel45Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jBtAssistente, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBtPsicologo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                    .addComponent(jPanel47, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel45Layout.setVerticalGroup(
@@ -6238,13 +6270,15 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel190)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel45Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel189)
-                    .addComponent(jTecnicoServicoSocial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel45Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jTecnicoServicoSocial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtAssistente)
+                    .addComponent(jLabel189))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel45Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel45Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel191)
-                    .addComponent(jTecnicoPsicologico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTecnicoPsicologico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtPsicologo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel46, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -9103,7 +9137,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
                         HashMap parametros = new HashMap();
                         parametros.put("CodigoPAI", jCodigoPAI.getText());
                         parametros.put("usuario", nameUser);
-                        parametros.put("descricaoUnidade", nameUser);
+                        parametros.put("descricaoUnidade", descricaoUnidade);
                         // Sub Relatório
                         try {
                             parametros.put("REPORT_CONNECTION", conecta.stmt.getConnection());
@@ -9176,6 +9210,16 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jBtImpressaoPAIActionPerformed
 
+    private void jBtAssistenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAssistenteActionPerformed
+        // TODO add your handling code here:
+        mostrarAssistentePsicologo();
+    }//GEN-LAST:event_jBtAssistenteActionPerformed
+
+    private void jBtPsicologoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPsicologoActionPerformed
+        // TODO add your handling code here:
+        mostrarAssistentePsicologo();
+    }//GEN-LAST:event_jBtPsicologoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField jArtigo;
@@ -9192,6 +9236,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtAlterarTO;
     private javax.swing.JButton jBtAlterarVisita;
     private javax.swing.JButton jBtAlterarVisitaIntima;
+    private javax.swing.JButton jBtAssistente;
     private javax.swing.JButton jBtAuditoria;
     private javax.swing.JButton jBtAuditoriaDJ;
     private javax.swing.JButton jBtAuditoriaEAPI1;
@@ -9248,6 +9293,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtPesqVisita;
     private javax.swing.JButton jBtPesqVisitaIntima;
     private javax.swing.JButton jBtPesquisarInternoPAI;
+    private javax.swing.JButton jBtPsicologo;
     private javax.swing.JButton jBtSair;
     private javax.swing.JButton jBtSairDJ;
     private javax.swing.JButton jBtSairEAPI1;
@@ -9757,8 +9803,8 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTabelaPAI;
     private javax.swing.JTable jTabelaVisitas;
     private javax.swing.JTable jTabelaVisitasIntimas;
-    private javax.swing.JTextField jTecnicoPsicologico;
-    private javax.swing.JTextField jTecnicoServicoSocial;
+    public static javax.swing.JTextField jTecnicoPsicologico;
+    public static javax.swing.JTextField jTecnicoServicoSocial;
     private javax.swing.JFormattedTextField jTelefone;
     private javax.swing.JFormattedTextField jTelefone1;
     private javax.swing.JFormattedTextField jTelefoneContato;
@@ -10406,6 +10452,8 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
         jBtSalvarEAPI2.setEnabled(!true);
         jBtCancelarEAPI2.setEnabled(!true);
         jBtAuditoriaEAPI2.setEnabled(!true);
+        jBtAssistente.setEnabled(!true);
+        jBtPsicologo.setEnabled(!true);
         // EVOLUÇÃO
         jBtNovaEvolucao.setEnabled(!true);
         jBtAlterarEvolucao.setEnabled(!true);
@@ -10648,6 +10696,21 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
         jRBPsiquiatrico.setSelected(!true);
         jComboBoxPessoasQuimica.setSelectedItem("Não");
         jQuemNecessita.setText("");
+        // EAPI-1
+        jTextoPSP.setText("");
+        jTextoCEDEGEP.setText("");
+        jTextoCRASCREAS.setText("");
+        // EAPI-2
+        jTextoASSISTENCIA.setText("");
+        jTextoDOCUMENTOCIVIL.setText("");
+        jTextEAPI2PAI.setText("");
+        jTecnicoServicoSocial.setText("");
+        jTecnicoPsicologico.setText("");
+        // EVOLUÇÃO
+        jIdEvolucao.setText("");
+        jDataEvolucao.setDate(null);
+        jNomeInternoEvolucaoPAI.setText("");
+        jTextoEvolucao.setText("");
     }
 
     public void Novo() {
@@ -13674,7 +13737,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
         jTextoASSISTENCIA.setText("");
         jTextoDOCUMENTOCIVIL.setText("");
         jTextEAPI2PAI.setText("");
-        jTecnicoServicoSocial.setText(nameUser);
+        jTecnicoServicoSocial.setText("");
         jTecnicoPsicologico.setText("");
         //
         jTextoCEDEGEP.setEnabled(true);
@@ -13685,6 +13748,8 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
         //
         jBtSalvarEAPI2.setEnabled(true);
         jBtCancelarEAPI2.setEnabled(true);
+        jBtAssistente.setEnabled(true);
+        jBtPsicologo.setEnabled(true);
     }
 
     public void AlterarEAPI2() {
@@ -13696,6 +13761,8 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
         //
         jBtSalvarEAPI2.setEnabled(true);
         jBtCancelarEAPI2.setEnabled(true);
+        jBtAssistente.setEnabled(true);
+        jBtPsicologo.setEnabled(true);
     }
 
     public void ExcluirEAPI2() {
@@ -13727,6 +13794,8 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
         jBtNovoPSI.setEnabled(true);
         jBtNovoTO.setEnabled(true);
         jBtNovoSS.setEnabled(true);
+        jBtAssistente.setEnabled(!true);
+        jBtPsicologo.setEnabled(!true);
     }
 
     public void SalvarEAPI2() {
@@ -13757,6 +13826,8 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
         jBtNovoPSI.setEnabled(true);
         jBtNovoTO.setEnabled(true);
         jBtNovoSS.setEnabled(true);
+        jBtAssistente.setEnabled(!true);
+        jBtPsicologo.setEnabled(!true);
     }
 
     public void CancelarEAPI2() {
@@ -13793,6 +13864,8 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
         jBtNovoPSI.setEnabled(true);
         jBtNovoTO.setEnabled(true);
         jBtNovoSS.setEnabled(true);
+        jBtAssistente.setEnabled(!true);
+        jBtPsicologo.setEnabled(!true);
         //
         conecta.abrirConexao();
         try {
