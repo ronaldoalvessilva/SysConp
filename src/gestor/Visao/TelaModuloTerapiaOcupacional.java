@@ -30,6 +30,7 @@ import static gestor.Visao.TelaAgendaCompromissos.jNomeUsuarioAgenda;
 import static gestor.Visao.TelaAgendaCompromissos.jTabelaAgendaEventos;
 import static gestor.Visao.TelaAgendaCompromissos.jTextoEvento;
 import static gestor.Visao.TelaAgendaCompromissos.jtotalRegistros;
+import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
@@ -112,6 +113,10 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
     String horaLembrete;
     String usuarioAgenda;
     String codigoAgendaComp;
+    //
+    String pCnc = "";
+    String statusEntrada = "ENTRADA NA UNIDADE";
+    String statusRetorno = "RETORNO A UNIDADE";
 
     /**
      * Creates new form TelaTerapia
@@ -179,6 +184,8 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         jMenuItem6 = new javax.swing.JMenuItem();
         jSeparator8 = new javax.swing.JPopupMenu.Separator();
         RelatorioEntradaInternosUnidade = new javax.swing.JMenuItem();
+        jSeparator9 = new javax.swing.JPopupMenu.Separator();
+        RelatorioInternosCNC = new javax.swing.JMenuItem();
 
         setClosable(true);
         setIconifiable(true);
@@ -190,6 +197,8 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/SISCONP 2.gif"))); // NOI18N
+
+        jPainelTerapia.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jPainelTerapiaLayout = new javax.swing.GroupLayout(jPainelTerapia);
         jPainelTerapia.setLayout(jPainelTerapiaLayout);
@@ -203,7 +212,6 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 48, Short.MAX_VALUE))
         );
-        jPainelTerapia.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jMenu1.setText("Cadastro");
 
@@ -476,6 +484,16 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
             }
         });
         jMenu3.add(RelatorioEntradaInternosUnidade);
+        jMenu3.add(jSeparator9);
+
+        RelatorioInternosCNC.setForeground(new java.awt.Color(204, 0, 0));
+        RelatorioInternosCNC.setText("Relatório de Internos com CNC");
+        RelatorioInternosCNC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RelatorioInternosCNCActionPerformed(evt);
+            }
+        });
+        jMenu3.add(RelatorioInternosCNC);
 
         jMenuBar1.add(jMenu3);
 
@@ -590,7 +608,7 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
         if (objConsInter == null || objConsInter.isClosed()) {
-            objConsInter = new TelaConsultaProntuarioInternoCrc(); 
+            objConsInter = new TelaConsultaProntuarioInternoCrc();
             jPainelTerapia.add(objConsInter);
             objConsInter.setVisible(true);
         } else {
@@ -1071,7 +1089,7 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
 
     private void CursosProfissionalizantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CursosProfissionalizantesActionPerformed
         // TODO add your handling code here:
-         if (objCursosTO == null || objCursosTO.isClosed()) {
+        if (objCursosTO == null || objCursosTO.isClosed()) {
             objCursosTO = new TelaCursosDiversosTerapiaOcupacional();
             jPainelTerapia.add(objCursosTO);
             objCursosTO.setVisible(true);
@@ -1158,7 +1176,7 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
 
     private void jHistoricoMovimentacaoExternaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jHistoricoMovimentacaoExternaActionPerformed
         // TODO add your handling code here: 
-         if (objMovCrcTo == null || objMovCrcTo.isClosed()) {
+        if (objMovCrcTo == null || objMovCrcTo.isClosed()) {
             objMovCrcTo = new TelaMovimentacaoCrcTO();
             jPainelTerapia.add(objMovCrcTo);
             objMovCrcTo.setVisible(true);
@@ -1219,6 +1237,35 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         objRelEntradaInter.show();
     }//GEN-LAST:event_RelatorioEntradaInternosUnidadeActionPerformed
 
+    private void RelatorioInternosCNCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatorioInternosCNCActionPerformed
+        // TODO add your handling code here:
+        try {
+            conecta.abrirConexao();
+            String path = "reports/RelatorioInternosComCartaoCNC.jasper";
+            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                    + "WHERE PRONTUARIOSCRC.Cnc!='" + pCnc + "' "
+                    + "AND SituacaoCrc='" + statusEntrada + "' "
+                    + "OR PRONTUARIOSCRC.Cnc!='" + pCnc + "' "
+                    + "AND SituacaoCrc='" + statusRetorno + "' "
+                    + "ORDER BY NomeInternoCrc");
+            HashMap parametros = new HashMap();
+            parametros.put("nomeUsuario", nameUser);
+            parametros.put("situacaoEntrada", statusEntrada);
+            parametros.put("situacaoRetorno", statusRetorno);
+            parametros.put("nomeUnidade", descricaoUnidade);
+            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio
+            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao
+            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+            jv.setTitle("Listagem de Internos com C.P.F.");
+            jv.setVisible(true); // Chama o relatorio para ser visualizado
+            jv.toFront(); // Traz o relatorio para frente da aplicação
+            conecta.desconecta();
+        } catch (JRException e) {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+        }
+    }//GEN-LAST:event_RelatorioInternosCNCActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromisso;
@@ -1233,6 +1280,7 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem RelatorioConfere;
     private javax.swing.JMenuItem RelatorioEntradaInternosUnidade;
     private javax.swing.JMenuItem RelatorioFichaLaborativa;
+    private javax.swing.JMenuItem RelatorioInternosCNC;
     private javax.swing.JMenuItem RelatorioListaExterna;
     private javax.swing.JMenuItem RelatorioListaInterna;
     private javax.swing.JMenuItem TriagemOcupacional;
@@ -1269,6 +1317,7 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator6;
     private javax.swing.JPopupMenu.Separator jSeparator7;
     private javax.swing.JPopupMenu.Separator jSeparator8;
+    private javax.swing.JPopupMenu.Separator jSeparator9;
     // End of variables declaration//GEN-END:variables
 
     // Verificar a cada 5 minutos se o recado foi lido (10/01/2015)
