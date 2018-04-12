@@ -17,6 +17,16 @@ import gestor.Modelo.NaturezaEvento;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloSeguranca.codAlterar;
+import static gestor.Visao.TelaModuloSeguranca.codExcluir;
+import static gestor.Visao.TelaModuloSeguranca.codGravar;
+import static gestor.Visao.TelaModuloSeguranca.codIncluir;
+import static gestor.Visao.TelaModuloSeguranca.codUserAcesso;
+import static gestor.Visao.TelaModuloSeguranca.codigoUser;
+import static gestor.Visao.TelaModuloSeguranca.nomeGrupo;
+import static gestor.Visao.TelaModuloSeguranca.nomeTela;
+import static gestor.Visao.TelaModuloSeguranca.telaLocalEvento;
+import static gestor.Visao.TelaModuloSeguranca.telaTipoFaltaDisciplinar;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -599,81 +609,96 @@ public class TelaNaturezaEventoIndisciplinar extends javax.swing.JInternalFrame 
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        acao = 1;
-        corCampos();
-        Novo();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaTipoFaltaDisciplinar) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            acao = 1;
+            corCampos();
+            Novo();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        acao = 2;
-        corCampos();
-        Alterar();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaTipoFaltaDisciplinar) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            acao = 2;
+            corCampos();
+            Alterar();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        verificarLocal();
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        if (jIdNatureza.getText().equals(codLocal)) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo está sendo utilizado.");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objNaturezaEven.setIdNatureza(Integer.parseInt(jIdNatureza.getText()));
-                control.excluirNaturezaEvento(objNaturezaEven);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                Excluir();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaTipoFaltaDisciplinar) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            verificarLocal();
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            if (jIdNatureza.getText().equals(codLocal)) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo está sendo utilizado.");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objNaturezaEven.setIdNatureza(Integer.parseInt(jIdNatureza.getText()));
+                    control.excluirNaturezaEvento(objNaturezaEven);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    Excluir();
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDescricaoSimplesFata.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a descrição do local de armazenamento.");
-            jDescricaoSimplesFata.requestFocus();
-            jDescricaoSimplesFata.setBackground(Color.red);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaTipoFaltaDisciplinar) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jDescricaoSimplesFata.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a descrição do local de armazenamento.");
+                jDescricaoSimplesFata.requestFocus();
+                jDescricaoSimplesFata.setBackground(Color.red);
+            } else {
+                objNaturezaEven.setStatusNatureza((String) jComboBoxStatus.getSelectedItem());
+                objNaturezaEven.setDescricaoNatureza(jDescricaoSimplesFata.getText());
+                objNaturezaEven.setTipoFalta((String) jComboBoxTipoFalta.getSelectedItem());
+                objNaturezaEven.setDescrucaoDetalhada(jTextoCompletoFalta.getText());
+                if (acao == 1) {
+                    objNaturezaEven.setUsuarioInsert(nameUser);
+                    objNaturezaEven.setDataInsert(dataModFinal);
+                    objNaturezaEven.setHorarioInsert(horaMov);
+                    control.incluirNaturezaEvento(objNaturezaEven);
+                    buscarCodigo();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    Salvar();
+                }
+                if (acao == 2) {
+                    objNaturezaEven.setUsuarioUp(nameUser);
+                    objNaturezaEven.setDataUp(dataModFinal);
+                    objNaturezaEven.setHorarioUp(horaMov);
+                    objNaturezaEven.setIdNatureza(Integer.valueOf(jIdNatureza.getText()));
+                    control.alterarNaturezaEvento(objNaturezaEven);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    Salvar();
+                }
+            }
         } else {
-            objNaturezaEven.setStatusNatureza((String) jComboBoxStatus.getSelectedItem());
-            objNaturezaEven.setDescricaoNatureza(jDescricaoSimplesFata.getText());
-            objNaturezaEven.setTipoFalta((String) jComboBoxTipoFalta.getSelectedItem());
-            objNaturezaEven.setDescrucaoDetalhada(jTextoCompletoFalta.getText());
-            if (acao == 1) {
-                objNaturezaEven.setUsuarioInsert(nameUser);
-                objNaturezaEven.setDataInsert(dataModFinal);
-                objNaturezaEven.setHorarioInsert(horaMov);
-                control.incluirNaturezaEvento(objNaturezaEven);
-                buscarCodigo();
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                Salvar();
-            }
-            if (acao == 2) {
-                objNaturezaEven.setUsuarioUp(nameUser);
-                objNaturezaEven.setDataUp(dataModFinal);
-                objNaturezaEven.setHorarioUp(horaMov);
-                objNaturezaEven.setIdNatureza(Integer.valueOf(jIdNatureza.getText()));
-                control.alterarNaturezaEvento(objNaturezaEven);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                Salvar();
-            }
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
-
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed

@@ -15,6 +15,16 @@ import gestor.Modelo.ObjetoProcedimento;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloSeguranca.codAlterar;
+import static gestor.Visao.TelaModuloSeguranca.codExcluir;
+import static gestor.Visao.TelaModuloSeguranca.codGravar;
+import static gestor.Visao.TelaModuloSeguranca.codIncluir;
+import static gestor.Visao.TelaModuloSeguranca.codUserAcesso;
+import static gestor.Visao.TelaModuloSeguranca.codigoUser;
+import static gestor.Visao.TelaModuloSeguranca.nomeGrupo;
+import static gestor.Visao.TelaModuloSeguranca.nomeTela;
+import static gestor.Visao.TelaModuloSeguranca.telaObjetosProcedimentos;
+import static gestor.Visao.TelaModuloSeguranca.telaPopulacaoInternosAgentes;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -395,7 +405,7 @@ public class TelaObjetosProcedimento extends javax.swing.JInternalFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7183_16x16.png"))); // NOI18N
+        jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
         jBtNovo.setText("Novo");
         jBtNovo.setContentAreaFilled(false);
         jBtNovo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -615,83 +625,99 @@ public class TelaObjetosProcedimento extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Inclui";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaObjetosProcedimentos) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Inclui";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        acao = 2;
-        Alterar();
-        corCampos();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaObjetosProcedimentos) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            acao = 2;
+            Alterar();
+            corCampos();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        verificarLancamento();
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        if (jIdObjPro.getText().equals(codPertence)) {
-            JOptionPane.showMessageDialog(rootPane, "Não é possível excluir esse registro, o mesmo\nestá sendo utilizado em outro documento.");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objProce.setIdObjeto(Integer.parseInt(jIdObjPro.getText()));
-                control.excluirObjetosProcetimento(objProce);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                Excluir();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaObjetosProcedimentos) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            verificarLancamento();
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            if (jIdObjPro.getText().equals(codPertence)) {
+                JOptionPane.showMessageDialog(rootPane, "Não é possível excluir esse registro, o mesmo\nestá sendo utilizado em outro documento.");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objProce.setIdObjeto(Integer.parseInt(jIdObjPro.getText()));
+                    control.excluirObjetosProcetimento(objProce);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    Excluir();
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataLanc.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data do Lançamento.");
-            jDataLanc.requestFocus();
-            jDataLanc.setBackground(Color.red);
-        } else if (jDescricaoObjeto.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a descrição do objeto.");
-            jDescricaoObjeto.requestFocus();
-            jDescricaoObjeto.setBackground(Color.red);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaObjetosProcedimentos) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jDataLanc.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data do Lançamento.");
+                jDataLanc.requestFocus();
+                jDataLanc.setBackground(Color.red);
+            } else if (jDescricaoObjeto.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a descrição do objeto.");
+                jDescricaoObjeto.requestFocus();
+                jDescricaoObjeto.setBackground(Color.red);
+            } else {
+                objProce.setStatusLanc((String) jComboBoxStatusObj.getSelectedItem());
+                objProce.setDataLanc(jDataLanc.getDate());
+                objProce.setDescricaoObjeto(jDescricaoObjeto.getText());
+                objProce.setFotoObjeto(caminho);
+                if (acao == 1) {
+                    objProce.setUsuarioInsert(nameUser);
+                    objProce.setDataInsert(dataModFinal);
+                    objProce.setHorarioInsert(horaMov);
+                    control.incluirObjetosProcetimento(objProce);
+                    buscarCod();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 2) {
+                    objProce.setUsuarioUp(nameUser);
+                    objProce.setDataUp(dataModFinal);
+                    objProce.setHorarioUp(horaMov);
+                    objProce.setIdObjeto(Integer.valueOf(jIdObjPro.getText()));
+                    control.alterarObjetosProcetimento(objProce);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
         } else {
-            objProce.setStatusLanc((String) jComboBoxStatusObj.getSelectedItem());
-            objProce.setDataLanc(jDataLanc.getDate());
-            objProce.setDescricaoObjeto(jDescricaoObjeto.getText());
-            objProce.setFotoObjeto(caminho);
-            if (acao == 1) {
-                objProce.setUsuarioInsert(nameUser);
-                objProce.setDataInsert(dataModFinal);
-                objProce.setHorarioInsert(horaMov);
-                control.incluirObjetosProcetimento(objProce);
-                buscarCod();
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
-            if (acao == 2) {
-                objProce.setUsuarioUp(nameUser);
-                objProce.setDataUp(dataModFinal);
-                objProce.setHorarioUp(horaMov);
-                objProce.setIdObjeto(Integer.valueOf(jIdObjPro.getText()));
-                control.alterarObjetosProcetimento(objProce);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 

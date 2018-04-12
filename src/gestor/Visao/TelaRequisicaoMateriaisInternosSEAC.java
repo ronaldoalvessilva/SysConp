@@ -17,6 +17,17 @@ import gestor.Modelo.RequisicaoProdutosInternosSEAC;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloSeguranca.codAlterar;
+import static gestor.Visao.TelaModuloSeguranca.codExcluir;
+import static gestor.Visao.TelaModuloSeguranca.codGravar;
+import static gestor.Visao.TelaModuloSeguranca.codIncluir;
+import static gestor.Visao.TelaModuloSeguranca.codUserAcesso;
+import static gestor.Visao.TelaModuloSeguranca.codigoUser;
+import static gestor.Visao.TelaModuloSeguranca.nomeGrupo;
+import static gestor.Visao.TelaModuloSeguranca.nomeTela;
+import static gestor.Visao.TelaModuloSeguranca.telaRequisicaoMateriaisInternos;
+import static gestor.Visao.TelaModuloSeguranca.telaRequisicaoMateriaisInternosProdutos;
+import static gestor.Visao.TelaModuloSeguranca.telaTipoFaltaDisciplinar;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -581,7 +592,7 @@ public class TelaRequisicaoMateriaisInternosSEAC extends javax.swing.JInternalFr
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7183_16x16.png"))); // NOI18N
+        jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
         jBtNovo.setText("Novo");
         jBtNovo.setContentAreaFilled(false);
         jBtNovo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1166,7 +1177,7 @@ public class TelaRequisicaoMateriaisInternosSEAC extends javax.swing.JInternalFr
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        jBtNovoItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7183_16x16.png"))); // NOI18N
+        jBtNovoItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
         jBtNovoItem.setText("Novo");
         jBtNovoItem.setContentAreaFilled(false);
         jBtNovoItem.setEnabled(false);
@@ -1332,7 +1343,7 @@ public class TelaRequisicaoMateriaisInternosSEAC extends javax.swing.JInternalFr
         // TODO add your handling code here:
         if (jCodReq.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe um código para pesquisa.");
-        } else {            
+        } else {
             pesquisarRequisicaoMateriais("SELECT * FROM REQUISICAO_PRODUTOS_INTERNOS_SEAC "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON REQUISICAO_PRODUTOS_INTERNOS_SEAC.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -1358,7 +1369,7 @@ public class TelaRequisicaoMateriaisInternosSEAC extends javax.swing.JInternalFr
                 } else {
                     SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
                     dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());                   
+                    dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                     pesquisarRequisicaoMateriais("SELECT * FROM REQUISICAO_PRODUTOS_INTERNOS_SEAC "
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON REQUISICAO_PRODUTOS_INTERNOS_SEAC.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -1374,7 +1385,7 @@ public class TelaRequisicaoMateriaisInternosSEAC extends javax.swing.JInternalFr
         // TODO add your handling code here:
         count = 0;
         flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {            
+        if (evt.getStateChange() == evt.SELECTED) {
             this.pesquisarRequisicaoMateriais("SELECT * FROM REQUISICAO_PRODUTOS_INTERNOS_SEAC "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON REQUISICAO_PRODUTOS_INTERNOS_SEAC.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -1520,85 +1531,101 @@ public class TelaRequisicaoMateriaisInternosSEAC extends javax.swing.JInternalFr
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRequisicaoMateriaisInternos) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        objReqMatInterSEAC.setStatusReq(jStatusReq.getText());
-        if (jStatusReq.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRequisicaoMateriaisInternos) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            objReqMatInterSEAC.setStatusReq(jStatusReq.getText());
+            if (jStatusReq.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                Alterar();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 2;
-            Alterar();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        objReqMatInterSEAC.setStatusReq(jStatusReq.getText());
-        if (jStatusReq.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRequisicaoMateriaisInternos) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            objReqMatInterSEAC.setStatusReq(jStatusReq.getText());
+            if (jStatusReq.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+            } else {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                verificarItensRequisitados();
+            }
         } else {
-            statusMov = "Excluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
-            verificarItensRequisitados();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataReq.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data da requisição.");
-        } else if (jCodInterno.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para requisição.");
-        } else if (jCodFuncReq.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do requisitante.");
-        } else if (jIdLocal.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o local de armazenamento dos produtos a requisitar.");
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRequisicaoMateriaisInternos) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jDataReq.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data da requisição.");
+            } else if (jCodInterno.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para requisição.");
+            } else if (jCodFuncReq.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do requisitante.");
+            } else if (jIdLocal.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o local de armazenamento dos produtos a requisitar.");
+            } else {
+                objReqMatInterSEAC.setStatusReq(jStatusReq.getText());
+                objReqMatInterSEAC.setDataReq(jDataReq.getDate());
+                objReqMatInterSEAC.setIdLocal(Integer.valueOf(jIdLocal.getText()));
+                objReqMatInterSEAC.setNomeInternoReq(jNomeInternoReq.getText());
+                objReqMatInterSEAC.setDescricaoPavilhao(jPavilhaoReq.getText());
+                objReqMatInterSEAC.setDescricaoCela(jCelaReq.getText());
+                objReqMatInterSEAC.setNomeColaboradorReq(jNomeColaboradorReq.getText());
+                objReqMatInterSEAC.setObservacao(jObservacao.getText());
+                if (acao == 1) {
+                    objReqMatInterSEAC.setUsuarioInsert(nameUser);
+                    objReqMatInterSEAC.setDataInsert(dataModFinal);
+                    objReqMatInterSEAC.setHorarioInsert(horaMov);
+                    //
+                    control.incluirRequisicaoMaterialInternosSEAC(objReqMatInterSEAC);
+                    buscarCodigo();
+                    //
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    Salvar();
+                }
+                if (acao == 2) {
+                    objReqMatInterSEAC.setUsuarioUp(nameUser);
+                    objReqMatInterSEAC.setDataUp(dataModFinal);
+                    objReqMatInterSEAC.setHorarioUp(horaMov);
+                    //
+                    objReqMatInterSEAC.setIdReq(Integer.valueOf(jCodReq.getText()));
+                    control.alterarRequisicaoMaterialInternosSEAC(objReqMatInterSEAC);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    Salvar();
+                }
+            }
         } else {
-            objReqMatInterSEAC.setStatusReq(jStatusReq.getText());
-            objReqMatInterSEAC.setDataReq(jDataReq.getDate());
-            objReqMatInterSEAC.setIdLocal(Integer.valueOf(jIdLocal.getText()));
-            objReqMatInterSEAC.setNomeInternoReq(jNomeInternoReq.getText());
-            objReqMatInterSEAC.setDescricaoPavilhao(jPavilhaoReq.getText());
-            objReqMatInterSEAC.setDescricaoCela(jCelaReq.getText());
-            objReqMatInterSEAC.setNomeColaboradorReq(jNomeColaboradorReq.getText());
-            objReqMatInterSEAC.setObservacao(jObservacao.getText());
-            if (acao == 1) {
-                objReqMatInterSEAC.setUsuarioInsert(nameUser);
-                objReqMatInterSEAC.setDataInsert(dataModFinal);
-                objReqMatInterSEAC.setHorarioInsert(horaMov);
-                //
-                control.incluirRequisicaoMaterialInternosSEAC(objReqMatInterSEAC);
-                buscarCodigo();
-                //
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                Salvar();
-            }
-            if (acao == 2) {
-                objReqMatInterSEAC.setUsuarioUp(nameUser);
-                objReqMatInterSEAC.setDataUp(dataModFinal);
-                objReqMatInterSEAC.setHorarioUp(horaMov);
-                //
-                objReqMatInterSEAC.setIdReq(Integer.valueOf(jCodReq.getText()));
-                control.alterarRequisicaoMaterialInternosSEAC(objReqMatInterSEAC);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                Salvar();
-            }
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -1699,29 +1726,37 @@ public class TelaRequisicaoMateriaisInternosSEAC extends javax.swing.JInternalFr
 
     private void jBtNovoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoItemActionPerformed
         // TODO add your handling code here:
-        objReqMatInterSEAC.setStatusReq(jStatusReq.getText());
-        if (jStatusReq.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRequisicaoMateriaisInternosProdutos) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            objReqMatInterSEAC.setStatusReq(jStatusReq.getText());
+            if (jStatusReq.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 3;
+                NovoItem();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 3;
-            NovoItem();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
     }//GEN-LAST:event_jBtNovoItemActionPerformed
 
     private void jBtAlterarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarItemActionPerformed
         // TODO add your handling code here:
-        objReqMatInterSEAC.setStatusReq(jStatusReq.getText());
-        if (jStatusReq.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRequisicaoMateriaisInternosProdutos) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            objReqMatInterSEAC.setStatusReq(jStatusReq.getText());
+            if (jStatusReq.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 4;
+                AlterarItem();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 4;
-            AlterarItem();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
     }//GEN-LAST:event_jBtAlterarItemActionPerformed
 

@@ -815,7 +815,7 @@
                 <Component class="javax.swing.JButton" name="jBtNovo">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/gestor/Imagens/7183_16x16.png"/>
+                      <Image iconType="3" name="/gestor/Imagens/page_add.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Novo"/>
                     <Property name="contentAreaFilled" type="boolean" value="false"/>
@@ -1917,7 +1917,7 @@
                 <Component class="javax.swing.JButton" name="jBtNovoItem">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/gestor/Imagens/7183_16x16.png"/>
+                      <Image iconType="3" name="/gestor/Imagens/page_add.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Novo"/>
                     <Property name="contentAreaFilled" type="boolean" value="false"/>

@@ -15,6 +15,15 @@ import gestor.Modelo.Pavilhao;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloSeguranca.codAlterar;
+import static gestor.Visao.TelaModuloSeguranca.codExcluir;
+import static gestor.Visao.TelaModuloSeguranca.codGravar;
+import static gestor.Visao.TelaModuloSeguranca.codIncluir;
+import static gestor.Visao.TelaModuloSeguranca.codUserAcesso;
+import static gestor.Visao.TelaModuloSeguranca.codigoUser;
+import static gestor.Visao.TelaModuloSeguranca.nomeGrupo;
+import static gestor.Visao.TelaModuloSeguranca.nomeTela;
+import static gestor.Visao.TelaModuloSeguranca.telaPavilhao;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -500,68 +509,83 @@ public class TelaPavilhao extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaPavilhao) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        acao = 2;
-        Alterar();
-        corCampos();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaPavilhao) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            acao = 2;
+            Alterar();
+            corCampos();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
-        // TODO add your handling code here:                
-        buscarPavilhao();
+        // TODO add your handling code here:  
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaPavilhao) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            buscarPavilhao();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
-        // TODO add your handling code here:        
-        if (jDescricaoPavilhao.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(rootPane, "Descrição do PAVILHÃO não pode ser em branco !!!");
-            jDescricaoPavilhao.requestFocus();
-        } else if (jComboBoxStatus.getSelectedItem().equals("Inativo") && jMotivo.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o motivo pelo qual está sendo inativado o pavilhão.");
+        // TODO add your handling code here:  
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaPavilhao) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jDescricaoPavilhao.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(rootPane, "Descrição do PAVILHÃO não pode ser em branco !!!");
+                jDescricaoPavilhao.requestFocus();
+            } else if (jComboBoxStatus.getSelectedItem().equals("Inativo") && jMotivo.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o motivo pelo qual está sendo inativado o pavilhão.");
+            } else {
+                objPav.setStatusPavilhao((String) jComboBoxStatus.getSelectedItem());
+                objPav.setDescricaoPav(jDescricaoPavilhao.getText());
+                objPav.setMotivoInativacao(jMotivo.getText());
+                objPav.setNivelPavilhao((String) jComboBoxNivel.getSelectedItem());
+                if (acao == 1) {
+                    // log de usuario
+                    objPav.setUsuarioInsert(nameUser);
+                    objPav.setDataInsert(dataModFinal);
+                    objPav.setHoraInsert(horaMov);
+                    control.incluirPavilhao(objPav);
+                    buscarId();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro GRAVADO com sucesso !!!");
+                    Salvar();
+                }
+                if (acao == 2) {
+                    // log de usuario
+                    objPav.setUsuarioUp(nameUser);
+                    objPav.setDataUp(dataModFinal);
+                    objPav.setHoraUp(horaMov);
+                    //                
+                    objPav.setIdPav(Integer.parseInt(jIDPavilhao.getText()));
+                    control.alterarPavilhao(objPav);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro ALTERADO com sucesso !!!");
+                    Salvar();
+                }
+            }
         } else {
-            objPav.setStatusPavilhao((String) jComboBoxStatus.getSelectedItem());
-            objPav.setDescricaoPav(jDescricaoPavilhao.getText());
-            objPav.setMotivoInativacao(jMotivo.getText());
-            objPav.setNivelPavilhao((String) jComboBoxNivel.getSelectedItem());
-            if (acao == 1) {
-                // log de usuario
-                objPav.setUsuarioInsert(nameUser);
-                objPav.setDataInsert(dataModFinal);
-                objPav.setHoraInsert(horaMov);
-                control.incluirPavilhao(objPav);
-                buscarId();
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro GRAVADO com sucesso !!!");
-                Salvar();
-            }
-            if (acao == 2) {
-                // log de usuario
-                objPav.setUsuarioUp(nameUser);
-                objPav.setDataUp(dataModFinal);
-                objPav.setHoraUp(horaMov);
-                //                
-                objPav.setIdPav(Integer.parseInt(jIDPavilhao.getText()));
-                control.alterarPavilhao(objPav);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro ALTERADO com sucesso !!!");
-                Salvar();
-            }
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
-
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
@@ -582,7 +606,8 @@ public class TelaPavilhao extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe dados para pesquisa");
             jPesqDescricao.requestFocus();
         } else {
-            preencherTabelaNome("SELECT * FROM PAVILHAO WHERE DescricaoPav LIKE'%" + jPesqDescricao.getText() + "%'");
+            preencherTabelaNome("SELECT * FROM PAVILHAO "
+                    + "WHERE DescricaoPav LIKE'%" + jPesqDescricao.getText() + "%'");
         }
     }//GEN-LAST:event_jBtPesqDescricaoActionPerformed
 
@@ -603,7 +628,8 @@ public class TelaPavilhao extends javax.swing.JInternalFrame {
             //
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM PAVILHAO WHERE IdPav='" + IdPav + "'");
+                conecta.executaSQL("SELECT * FROM PAVILHAO "
+                        + "WHERE IdPav='" + IdPav + "'");
                 conecta.rs.first();
                 jIDPavilhao.setText(conecta.rs.getString("IdPav"));
                 jComboBoxStatus.setSelectedItem(conecta.rs.getString("StatusPav"));
