@@ -25,9 +25,12 @@ import static gestor.Visao.TelaModuloSeguranca.codUserAcesso;
 import static gestor.Visao.TelaModuloSeguranca.codigoUser;
 import static gestor.Visao.TelaModuloSeguranca.nomeGrupo;
 import static gestor.Visao.TelaModuloSeguranca.nomeTela;
+import static gestor.Visao.TelaModuloSeguranca.codAbrir;
+import static gestor.Visao.TelaModuloSeguranca.codConsultar;
+import static gestor.Visao.TelaModuloSeguranca.codigoUserGroup;
+import static gestor.Visao.TelaModuloSeguranca.codigoGrupo;
 import static gestor.Visao.TelaModuloSeguranca.telaRequisicaoMateriaisInternos;
 import static gestor.Visao.TelaModuloSeguranca.telaRequisicaoMateriaisInternosProdutos;
-import static gestor.Visao.TelaModuloSeguranca.telaTipoFaltaDisciplinar;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -1557,7 +1560,7 @@ public class TelaRequisicaoMateriaisInternosSEAC extends javax.swing.JInternalFr
                 dataModFinal = jDataSistema.getText();
             }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
@@ -1574,7 +1577,7 @@ public class TelaRequisicaoMateriaisInternosSEAC extends javax.swing.JInternalFr
                 verificarItensRequisitados();
             }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a excluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
@@ -1625,7 +1628,7 @@ public class TelaRequisicaoMateriaisInternosSEAC extends javax.swing.JInternalFr
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -1726,6 +1729,7 @@ public class TelaRequisicaoMateriaisInternosSEAC extends javax.swing.JInternalFr
 
     private void jBtNovoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoItemActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario();
         if (codigoUser == codUserAcesso && nomeTela.equals(telaRequisicaoMateriaisInternosProdutos) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             objReqMatInterSEAC.setStatusReq(jStatusReq.getText());
             if (jStatusReq.getText().equals("FINALIZADO")) {
@@ -1744,6 +1748,7 @@ public class TelaRequisicaoMateriaisInternosSEAC extends javax.swing.JInternalFr
 
     private void jBtAlterarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarItemActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario();
         if (codigoUser == codUserAcesso && nomeTela.equals(telaRequisicaoMateriaisInternosProdutos) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             objReqMatInterSEAC.setStatusReq(jStatusReq.getText());
             if (jStatusReq.getText().equals("FINALIZADO")) {
@@ -1756,102 +1761,112 @@ public class TelaRequisicaoMateriaisInternosSEAC extends javax.swing.JInternalFr
                 dataModFinal = jDataSistema.getText();
             }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
         }
     }//GEN-LAST:event_jBtAlterarItemActionPerformed
 
     private void jBtExcluirItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirItemActionPerformed
         // TODO add your handling code here:
-        objReqMatInterSEAC.setStatusReq(jStatusReq.getText());
-        if (jStatusReq.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
-        } else {
-            statusMov = "Excluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objItensReqMatInterSEAC.setIdItem(Integer.valueOf(idItem));
-                controle.excluirRequisicaoMaterialInternosSEAC(objItensReqMatInterSEAC);
-                //
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                ExcluirItem();
-                preencherTabelaItens("SELECT * FROM ITENS_REQUISICAO_PRODUTOS_INTERNOS_SEAC "
-                        + "INNER JOIN REQUISICAO_PRODUTOS_INTERNOS_SEAC "
-                        + "ON ITENS_REQUISICAO_PRODUTOS_INTERNOS_SEAC.IdReq=REQUISICAO_PRODUTOS_INTERNOS_SEAC.IdReq "
-                        + "INNER JOIN PRODUTOS_AC "
-                        + "ON ITENS_REQUISICAO_PRODUTOS_INTERNOS_SEAC.IdProd=PRODUTOS_AC.IdProd "
-                        + "WHERE ITENS_REQUISICAO_PRODUTOS_INTERNOS_SEAC.IdReq='" + jCodReq.getText() + "'");
+        buscarAcessoUsuario();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRequisicaoMateriaisInternosProdutos) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            objReqMatInterSEAC.setStatusReq(jStatusReq.getText());
+            if (jStatusReq.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+            } else {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objItensReqMatInterSEAC.setIdItem(Integer.valueOf(idItem));
+                    controle.excluirRequisicaoMaterialInternosSEAC(objItensReqMatInterSEAC);
+                    //
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    ExcluirItem();
+                    preencherTabelaItens("SELECT * FROM ITENS_REQUISICAO_PRODUTOS_INTERNOS_SEAC "
+                            + "INNER JOIN REQUISICAO_PRODUTOS_INTERNOS_SEAC "
+                            + "ON ITENS_REQUISICAO_PRODUTOS_INTERNOS_SEAC.IdReq=REQUISICAO_PRODUTOS_INTERNOS_SEAC.IdReq "
+                            + "INNER JOIN PRODUTOS_AC "
+                            + "ON ITENS_REQUISICAO_PRODUTOS_INTERNOS_SEAC.IdProd=PRODUTOS_AC.IdProd "
+                            + "WHERE ITENS_REQUISICAO_PRODUTOS_INTERNOS_SEAC.IdReq='" + jCodReq.getText() + "'");
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a excluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirItemActionPerformed
 
     private void jBtSalvarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarItemActionPerformed
         // TODO add your handling code here:
-        DecimalFormat qtdReal = new DecimalFormat("###,##00.0");
-        qtdReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
-        if (jCodProduto.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o produto para requisição.");
-        } else if (jQtdItem.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a quantidade");
-        } else if (jCodigoBarras.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o código de barras do produto.");
-        } else {
-            objItensReqMatInterSEAC.setIdProd(Integer.valueOf(jCodProduto.getText()));
-            objItensReqMatInterSEAC.setDescricaoProduto(jDescricaoProduto.getText());
-            objItensReqMatInterSEAC.setIdReq(Integer.valueOf(jCodReq.getText()));
-            objItensReqMatInterSEAC.setCodigoBarras(jCodigoBarras.getText());
-            objItensReqMatInterSEAC.setLoteProduto(jLote.getText());
-            objItensReqMatInterSEAC.setUnidadeProd((String) jComboBoxUnidade.getSelectedItem());
-            objItensReqMatInterSEAC.setUtilizaRequisicao(requisicaoUilizada);
-            try {
-                objItensReqMatInterSEAC.setQtdItem(qtdReal.parse(jQtdItem.getText()).floatValue());
-                objItensReqMatInterSEAC.setValorUnitarioItem(qtdReal.parse(jValorUnitarioItem.getText()).floatValue());
-            } catch (ParseException ex) {
-            }
-            objItensReqMatInterSEAC.setValorTotalItem(valorTotalItem);
-            if (acao == 3) {
-                objItensReqMatInterSEAC.setUsuarioInsert(nameUser);
-                objItensReqMatInterSEAC.setDataInsert(dataModFinal);
-                objItensReqMatInterSEAC.setHorarioInsert(horaMov);
-                //
-                controle.incluirRequisicaoMaterialInternosSEAC(objItensReqMatInterSEAC);
-                //
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                preencherTabelaItens("SELECT * FROM ITENS_REQUISICAO_PRODUTOS_INTERNOS_SEAC "
-                        + "INNER JOIN REQUISICAO_PRODUTOS_INTERNOS_SEAC "
-                        + "ON ITENS_REQUISICAO_PRODUTOS_INTERNOS_SEAC.IdReq=REQUISICAO_PRODUTOS_INTERNOS_SEAC.IdReq "
-                        + "INNER JOIN PRODUTOS_AC "
-                        + "ON ITENS_REQUISICAO_PRODUTOS_INTERNOS_SEAC.IdProd=PRODUTOS_AC.IdProd "
-                        + "WHERE ITENS_REQUISICAO_PRODUTOS_INTERNOS_SEAC.IdReq='" + jCodReq.getText() + "'");
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                SalvarItem();
-            }
-            if (acao == 4) {
-                objItensReqMatInterSEAC.setUsuarioUp(nameUser);
-                objItensReqMatInterSEAC.setDataUp(dataModFinal);
-                objItensReqMatInterSEAC.setHorarioUp(horaMov);
+        buscarAcessoUsuario();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRequisicaoMateriaisInternosProdutos) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            DecimalFormat qtdReal = new DecimalFormat("###,##00.0");
+            qtdReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
+            if (jCodProduto.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o produto para requisição.");
+            } else if (jQtdItem.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a quantidade");
+            } else if (jCodigoBarras.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o código de barras do produto.");
+            } else {
+                objItensReqMatInterSEAC.setIdProd(Integer.valueOf(jCodProduto.getText()));
+                objItensReqMatInterSEAC.setDescricaoProduto(jDescricaoProduto.getText());
+                objItensReqMatInterSEAC.setIdReq(Integer.valueOf(jCodReq.getText()));
+                objItensReqMatInterSEAC.setCodigoBarras(jCodigoBarras.getText());
+                objItensReqMatInterSEAC.setLoteProduto(jLote.getText());
+                objItensReqMatInterSEAC.setUnidadeProd((String) jComboBoxUnidade.getSelectedItem());
+                objItensReqMatInterSEAC.setUtilizaRequisicao(requisicaoUilizada);
                 try {
                     objItensReqMatInterSEAC.setQtdItem(qtdReal.parse(jQtdItem.getText()).floatValue());
                     objItensReqMatInterSEAC.setValorUnitarioItem(qtdReal.parse(jValorUnitarioItem.getText()).floatValue());
                 } catch (ParseException ex) {
                 }
-                objItensReqMatInterSEAC.setIdItem(Integer.valueOf(idItem));
-                controle.alterarRequisicaoMaterialInternosSEAC(objItensReqMatInterSEAC); // ALTERAR QUANTIDADE NA TABELA ITENS_REQUISICAO_PRODUTOS_INTERNOS
-                //
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                preencherTabelaItens("SELECT * FROM ITENS_REQUISICAO_PRODUTOS_INTERNOS_SEAC "
-                        + "INNER JOIN REQUISICAO_PRODUTOS_INTERNOS_SEAC "
-                        + "ON ITENS_REQUISICAO_PRODUTOS_INTERNOS_SEAC.IdReq=REQUISICAO_PRODUTOS_INTERNOS_SEAC.IdReq "
-                        + "INNER JOIN PRODUTOS_AC "
-                        + "ON ITENS_REQUISICAO_PRODUTOS_INTERNOS_SEAC.IdProd=PRODUTOS_AC.IdProd "
-                        + "WHERE ITENS_REQUISICAO_PRODUTOS_INTERNOS_SEAC.IdReq='" + jCodReq.getText() + "'");
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                SalvarItem();
+                objItensReqMatInterSEAC.setValorTotalItem(valorTotalItem);
+                if (acao == 3) {
+                    objItensReqMatInterSEAC.setUsuarioInsert(nameUser);
+                    objItensReqMatInterSEAC.setDataInsert(dataModFinal);
+                    objItensReqMatInterSEAC.setHorarioInsert(horaMov);
+                    //
+                    controle.incluirRequisicaoMaterialInternosSEAC(objItensReqMatInterSEAC);
+                    //
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    preencherTabelaItens("SELECT * FROM ITENS_REQUISICAO_PRODUTOS_INTERNOS_SEAC "
+                            + "INNER JOIN REQUISICAO_PRODUTOS_INTERNOS_SEAC "
+                            + "ON ITENS_REQUISICAO_PRODUTOS_INTERNOS_SEAC.IdReq=REQUISICAO_PRODUTOS_INTERNOS_SEAC.IdReq "
+                            + "INNER JOIN PRODUTOS_AC "
+                            + "ON ITENS_REQUISICAO_PRODUTOS_INTERNOS_SEAC.IdProd=PRODUTOS_AC.IdProd "
+                            + "WHERE ITENS_REQUISICAO_PRODUTOS_INTERNOS_SEAC.IdReq='" + jCodReq.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    SalvarItem();
+                }
+                if (acao == 4) {
+                    objItensReqMatInterSEAC.setUsuarioUp(nameUser);
+                    objItensReqMatInterSEAC.setDataUp(dataModFinal);
+                    objItensReqMatInterSEAC.setHorarioUp(horaMov);
+                    try {
+                        objItensReqMatInterSEAC.setQtdItem(qtdReal.parse(jQtdItem.getText()).floatValue());
+                        objItensReqMatInterSEAC.setValorUnitarioItem(qtdReal.parse(jValorUnitarioItem.getText()).floatValue());
+                    } catch (ParseException ex) {
+                    }
+                    objItensReqMatInterSEAC.setIdItem(Integer.valueOf(idItem));
+                    controle.alterarRequisicaoMaterialInternosSEAC(objItensReqMatInterSEAC); // ALTERAR QUANTIDADE NA TABELA ITENS_REQUISICAO_PRODUTOS_INTERNOS
+                    //
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    preencherTabelaItens("SELECT * FROM ITENS_REQUISICAO_PRODUTOS_INTERNOS_SEAC "
+                            + "INNER JOIN REQUISICAO_PRODUTOS_INTERNOS_SEAC "
+                            + "ON ITENS_REQUISICAO_PRODUTOS_INTERNOS_SEAC.IdReq=REQUISICAO_PRODUTOS_INTERNOS_SEAC.IdReq "
+                            + "INNER JOIN PRODUTOS_AC "
+                            + "ON ITENS_REQUISICAO_PRODUTOS_INTERNOS_SEAC.IdProd=PRODUTOS_AC.IdProd "
+                            + "WHERE ITENS_REQUISICAO_PRODUTOS_INTERNOS_SEAC.IdReq='" + jCodReq.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    SalvarItem();
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar registro.");
         }
     }//GEN-LAST:event_jBtSalvarItemActionPerformed
 
@@ -2698,5 +2713,43 @@ public class TelaRequisicaoMateriaisInternosSEAC extends javax.swing.JInternalFr
         objLogSys.setIdLancMov(Integer.valueOf(jCodReq.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUser = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUser + "'");
+            conecta.rs.first();
+            codigoUserGroup = conecta.rs.getInt("IdUsuario");
+            codigoGrupo = conecta.rs.getInt("IdGrupo");
+            nomeGrupo = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUser + "' "
+                    + "AND NomeTela='" + telaRequisicaoMateriaisInternosProdutos + "'");
+            conecta.rs.first();
+            codUserAcesso = conecta.rs.getInt("IdUsuario");
+            codAbrir = conecta.rs.getInt("Abrir");
+            codIncluir = conecta.rs.getInt("Incluir");
+            codAlterar = conecta.rs.getInt("Alterar");
+            codExcluir = conecta.rs.getInt("Excluir");
+            codGravar = conecta.rs.getInt("Gravar");
+            codConsultar = conecta.rs.getInt("Consultar");
+            nomeTela = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

@@ -161,8 +161,9 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     public static String telaEntradaPertencesPertences = "Controle de Pertences:Entrada Pertences:Pertences";
     public static String telaSaidaPertencesInternos = "Controle de Pertences:Saida Pertences Internos:Manutenção";
     public static String telaSaidaPertencesPertences = "Controle de Pertences:Saida Pertences Internos:Pertences";
-    // MANUTENÇÃO
-    public static String telaLocacaoInternos = "Movimentação:Locacao Internos:Manutenção";
+    // MOVIMENTAÇÃO
+    public static String telaLocacaoInternosManutencao = "Movimentação:Locacao Internos:Manutenção";
+    public static String telaLocacaoInternos = "Movimentação:Locacao Internos:Internos";
     public static String telaTransferenciaPavilhaoCela = "Movimentação:Transferencia Pavilhao Cela:Manutenção";
     public static String telaControleValores = "Movimentação:Controle Valores:Manutenção";
     public static String telaRegistroObjetoProcedimento = "Movimentação:Registro Objeto Procedimento:Manutenção";
@@ -208,7 +209,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     public static int codAlterar = 0;
     public static int codExcluir = 0;
     public static int codGravar = 0;
-    public static int codConcultar = 0;
+    public static int codConsultar = 0;
     public static int codigoGrupo = 0;
     public static String nomeGrupo = "";
     public static String nomeTela = "";
@@ -1007,7 +1008,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     private void CelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CelasActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaCelas);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaPavilhao) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaCelas) && codAbrir == 1) {
             if (objCelas == null || objCelas.isClosed()) {
                 objCelas = new TelaCelas();
                 jPainelSeguranca.add(objCelas);
@@ -1040,59 +1041,69 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
 
     private void LocacaoInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LocacaoInternosActionPerformed
         // TODO add your handling code here:
-        if (objLoca == null || objLoca.isClosed()) {
-            objLoca = new TelaLocacaoInterno();
-            jPainelSeguranca.add(objLoca);
-            objLoca.setVisible(true);
-        } else {
-            if (objLoca.isVisible()) {
-                if (objLoca.isIcon()) { // Se esta minimizado
-                    try {
-                        objLoca.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaLocacaoInternosManutencao);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaLocacaoInternosManutencao) && codAbrir == 1) {
+            if (objLoca == null || objLoca.isClosed()) {
+                objLoca = new TelaLocacaoInterno();
+                jPainelSeguranca.add(objLoca);
+                objLoca.setVisible(true);
+            } else {
+                if (objLoca.isVisible()) {
+                    if (objLoca.isIcon()) { // Se esta minimizado
+                        try {
+                            objLoca.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objLoca.toFront(); // traz para frente
+                        objLoca.pack();//volta frame 
                     }
                 } else {
-                    objLoca.toFront(); // traz para frente
-                    objLoca.pack();//volta frame 
+                    objLoca = new TelaLocacaoInterno();
+                    TelaModuloSeguranca.jPainelSeguranca.add(objLoca);//adicona frame ao JDesktopPane  
+                    objLoca.setVisible(true);
                 }
-            } else {
-                objLoca = new TelaLocacaoInterno();
-                TelaModuloSeguranca.jPainelSeguranca.add(objLoca);//adicona frame ao JDesktopPane  
-                objLoca.setVisible(true);
             }
-        }
-        try {
-            objLoca.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objLoca.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_LocacaoInternosActionPerformed
 
     private void TransferenciaPavilhaoCelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TransferenciaPavilhaoCelaActionPerformed
         // TODO add your handling code here:
-        if (objTransCelas == null || objTransCelas.isClosed()) {
-            objTransCelas = new TelaTransCelas();
-            jPainelSeguranca.add(objTransCelas);
-            objTransCelas.setVisible(true);
-        } else {
-            if (objTransCelas.isVisible()) {
-                if (objTransCelas.isIcon()) { // Se esta minimizado
-                    try {
-                        objTransCelas.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaTransferenciaPavilhaoCela);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaTransferenciaPavilhaoCela) && codAbrir == 1) {
+            if (objTransCelas == null || objTransCelas.isClosed()) {
+                objTransCelas = new TelaTransCelas();
+                jPainelSeguranca.add(objTransCelas);
+                objTransCelas.setVisible(true);
+            } else {
+                if (objTransCelas.isVisible()) {
+                    if (objTransCelas.isIcon()) { // Se esta minimizado
+                        try {
+                            objTransCelas.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objTransCelas.toFront(); // traz para frente
+                        objTransCelas.pack();//volta frame 
                     }
                 } else {
-                    objTransCelas.toFront(); // traz para frente
-                    objTransCelas.pack();//volta frame 
+                    objTransCelas = new TelaTransCelas();
+                    TelaModuloSeguranca.jPainelSeguranca.add(objTransCelas);//adicona frame ao JDesktopPane  
+                    objTransCelas.setVisible(true);
                 }
-            } else {
-                objTransCelas = new TelaTransCelas();
-                TelaModuloSeguranca.jPainelSeguranca.add(objTransCelas);//adicona frame ao JDesktopPane  
-                objTransCelas.setVisible(true);
             }
-        }
-        try {
-            objTransCelas.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objTransCelas.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_TransferenciaPavilhaoCelaActionPerformed
 
@@ -1364,30 +1375,35 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
 
     private void LivroOcorrenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LivroOcorrenciasActionPerformed
         // TODO add your handling code here:
-        if (objOcoSegu == null || objOcoSegu.isClosed()) {
-            objOcoSegu = new TelaOcorrenciaSeguranca();
-            jPainelSeguranca.add(objOcoSegu);
-            objOcoSegu.setVisible(true);
-        } else {
-            if (objOcoSegu.isVisible()) {
-                if (objOcoSegu.isIcon()) { // Se esta minimizado
-                    try {
-                        objOcoSegu.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaBloqueioLiberacaoVisitasPortaria);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaBloqueioLiberacaoVisitasPortaria) && codAbrir == 1) {
+            if (objOcoSegu == null || objOcoSegu.isClosed()) {
+                objOcoSegu = new TelaOcorrenciaSeguranca();
+                jPainelSeguranca.add(objOcoSegu);
+                objOcoSegu.setVisible(true);
+            } else {
+                if (objOcoSegu.isVisible()) {
+                    if (objOcoSegu.isIcon()) { // Se esta minimizado
+                        try {
+                            objOcoSegu.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objOcoSegu.toFront(); // traz para frente
+                        objOcoSegu.pack();//volta frame 
                     }
                 } else {
-                    objOcoSegu.toFront(); // traz para frente
-                    objOcoSegu.pack();//volta frame 
+                    objOcoSegu = new TelaOcorrenciaSeguranca();
+                    TelaModuloSeguranca.jPainelSeguranca.add(objOcoSegu);//adicona frame ao JDesktopPane  
+                    objOcoSegu.setVisible(true);
                 }
-            } else {
-                objOcoSegu = new TelaOcorrenciaSeguranca();
-                TelaModuloSeguranca.jPainelSeguranca.add(objOcoSegu);//adicona frame ao JDesktopPane  
-                objOcoSegu.setVisible(true);
             }
-        }
-        try {
-            objOcoSegu.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objOcoSegu.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_LivroOcorrenciasActionPerformed
 
@@ -1443,7 +1459,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
             jv.toFront(); // Traz o relatorio para frente da aplicação            
             conecta.desconecta();
         } catch (JRException e) {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório. \n\nERRO :" + e);
         }
     }//GEN-LAST:event_RelatorioGeralPavilhaoCelasActionPerformed
 
@@ -1545,59 +1561,69 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
 
     private void ControleValoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ControleValoresActionPerformed
         // TODO add your handling code here:
-        if (objControlValores == null || objControlValores.isClosed()) {
-            objControlValores = new TelaControleDepositoSeguranca();
-            jPainelSeguranca.add(objControlValores);
-            objControlValores.setVisible(true);
-        } else {
-            if (objControlValores.isVisible()) {
-                if (objControlValores.isIcon()) { // Se esta minimizado
-                    try {
-                        objControlValores.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaControleValores);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaControleValores) && codAbrir == 1) {
+            if (objControlValores == null || objControlValores.isClosed()) {
+                objControlValores = new TelaControleDepositoSeguranca();
+                jPainelSeguranca.add(objControlValores);
+                objControlValores.setVisible(true);
+            } else {
+                if (objControlValores.isVisible()) {
+                    if (objControlValores.isIcon()) { // Se esta minimizado
+                        try {
+                            objControlValores.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objControlValores.toFront(); // traz para frente
+                        objControlValores.pack();//volta frame 
                     }
                 } else {
-                    objControlValores.toFront(); // traz para frente
-                    objControlValores.pack();//volta frame 
+                    objControlValores = new TelaControleDepositoSeguranca();
+                    TelaModuloSeguranca.jPainelSeguranca.add(objControlValores);//adicona frame ao JDesktopPane  
+                    objControlValores.setVisible(true);
                 }
-            } else {
-                objControlValores = new TelaControleDepositoSeguranca();
-                TelaModuloSeguranca.jPainelSeguranca.add(objControlValores);//adicona frame ao JDesktopPane  
-                objControlValores.setVisible(true);
             }
-        }
-        try {
-            objControlValores.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objControlValores.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_ControleValoresActionPerformed
 
     private void EntradaPertencesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EntradaPertencesActionPerformed
         // TODO add your handling code here:
-        if (objEntraObj == null || objEntraObj.isClosed()) {
-            objEntraObj = new TelaEntradaObjetosPertences();
-            jPainelSeguranca.add(objEntraObj);
-            objEntraObj.setVisible(true);
-        } else {
-            if (objEntraObj.isVisible()) {
-                if (objEntraObj.isIcon()) { // Se esta minimizado
-                    try {
-                        objEntraObj.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaEntradaPertencesManutencao);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaEntradaPertencesManutencao) && codAbrir == 1) {
+            if (objEntraObj == null || objEntraObj.isClosed()) {
+                objEntraObj = new TelaEntradaObjetosPertences();
+                jPainelSeguranca.add(objEntraObj);
+                objEntraObj.setVisible(true);
+            } else {
+                if (objEntraObj.isVisible()) {
+                    if (objEntraObj.isIcon()) { // Se esta minimizado
+                        try {
+                            objEntraObj.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objEntraObj.toFront(); // traz para frente
+                        objEntraObj.pack();//volta frame 
                     }
                 } else {
-                    objEntraObj.toFront(); // traz para frente
-                    objEntraObj.pack();//volta frame 
+                    objEntraObj = new TelaEntradaObjetosPertences();
+                    TelaModuloSeguranca.jPainelSeguranca.add(objEntraObj);//adicona frame ao JDesktopPane  
+                    objEntraObj.setVisible(true);
                 }
-            } else {
-                objEntraObj = new TelaEntradaObjetosPertences();
-                TelaModuloSeguranca.jPainelSeguranca.add(objEntraObj);//adicona frame ao JDesktopPane  
-                objEntraObj.setVisible(true);
             }
-        }
-        try {
-            objEntraObj.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objEntraObj.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_EntradaPertencesActionPerformed
 
@@ -1610,30 +1636,35 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
 
     private void ObjetosInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ObjetosInternosActionPerformed
         // TODO add your handling code here:
-        if (objPertences == null || objPertences.isClosed()) {
-            objPertences = new TelaPertences();
-            jPainelSeguranca.add(objPertences);
-            objPertences.setVisible(true);
-        } else {
-            if (objPertences.isVisible()) {
-                if (objPertences.isIcon()) { // Se esta minimizado
-                    try {
-                        objPertences.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaObjetosInternos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaObjetosInternos) && codAbrir == 1) {
+            if (objPertences == null || objPertences.isClosed()) {
+                objPertences = new TelaPertences();
+                jPainelSeguranca.add(objPertences);
+                objPertences.setVisible(true);
+            } else {
+                if (objPertences.isVisible()) {
+                    if (objPertences.isIcon()) { // Se esta minimizado
+                        try {
+                            objPertences.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objPertences.toFront(); // traz para frente
+                        objPertences.pack();//volta frame 
                     }
                 } else {
-                    objPertences.toFront(); // traz para frente
-                    objPertences.pack();//volta frame 
+                    objPertences = new TelaPertences();
+                    TelaModuloSeguranca.jPainelSeguranca.add(objPertences);//adicona frame ao JDesktopPane  
+                    objPertences.setVisible(true);
                 }
-            } else {
-                objPertences = new TelaPertences();
-                TelaModuloSeguranca.jPainelSeguranca.add(objPertences);//adicona frame ao JDesktopPane  
-                objPertences.setVisible(true);
             }
-        }
-        try {
-            objPertences.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objPertences.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_ObjetosInternosActionPerformed
 
@@ -1673,146 +1704,171 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
 
     private void LocalPertencesInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LocalPertencesInternosActionPerformed
         // TODO add your handling code here:
-        if (objLocalPert == null || objLocalPert.isClosed()) {
-            objLocalPert = new TelaLocalEstoquePertences();
-            jPainelSeguranca.add(objLocalPert);
-            objLocalPert.setVisible(true);
-        } else {
-            if (objLocalPert.isVisible()) {
-                if (objLocalPert.isIcon()) { // Se esta minimizado
-                    try {
-                        objLocalPert.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaLocalPertencesInternos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaLocalPertencesInternos) && codAbrir == 1) {
+            if (objLocalPert == null || objLocalPert.isClosed()) {
+                objLocalPert = new TelaLocalEstoquePertences();
+                jPainelSeguranca.add(objLocalPert);
+                objLocalPert.setVisible(true);
+            } else {
+                if (objLocalPert.isVisible()) {
+                    if (objLocalPert.isIcon()) { // Se esta minimizado
+                        try {
+                            objLocalPert.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objLocalPert.toFront(); // traz para frente
+                        objLocalPert.pack();//volta frame 
                     }
                 } else {
-                    objLocalPert.toFront(); // traz para frente
-                    objLocalPert.pack();//volta frame 
+                    objLocalPert = new TelaLocalEstoquePertences();
+                    TelaModuloSeguranca.jPainelSeguranca.add(objLocalPert);//adicona frame ao JDesktopPane  
+                    objLocalPert.setVisible(true);
                 }
-            } else {
-                objLocalPert = new TelaLocalEstoquePertences();
-                TelaModuloSeguranca.jPainelSeguranca.add(objLocalPert);//adicona frame ao JDesktopPane  
-                objLocalPert.setVisible(true);
             }
-        }
-        try {
-            objLocalPert.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objLocalPert.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_LocalPertencesInternosActionPerformed
 
     private void RegistroObjetoProcedimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistroObjetoProcedimentoActionPerformed
         // TODO add your handling code here:
-        if (objRegistroProc == null || objRegistroProc.isClosed()) {
-            objRegistroProc = new TelaRegistroObjetosProcedimentos();
-            jPainelSeguranca.add(objRegistroProc);
-            objRegistroProc.setVisible(true);
-        } else {
-            if (objRegistroProc.isVisible()) {
-                if (objRegistroProc.isIcon()) { // Se esta minimizado
-                    try {
-                        objRegistroProc.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaRegistroObjetoProcedimento);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaRegistroObjetoProcedimento) && codAbrir == 1) {
+            if (objRegistroProc == null || objRegistroProc.isClosed()) {
+                objRegistroProc = new TelaRegistroObjetosProcedimentos();
+                jPainelSeguranca.add(objRegistroProc);
+                objRegistroProc.setVisible(true);
+            } else {
+                if (objRegistroProc.isVisible()) {
+                    if (objRegistroProc.isIcon()) { // Se esta minimizado
+                        try {
+                            objRegistroProc.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objRegistroProc.toFront(); // traz para frente
+                        objRegistroProc.pack();//volta frame 
                     }
                 } else {
-                    objRegistroProc.toFront(); // traz para frente
-                    objRegistroProc.pack();//volta frame 
+                    objRegistroProc = new TelaRegistroObjetosProcedimentos();
+                    TelaModuloSeguranca.jPainelSeguranca.add(objRegistroProc);//adicona frame ao JDesktopPane  
+                    objRegistroProc.setVisible(true);
                 }
-            } else {
-                objRegistroProc = new TelaRegistroObjetosProcedimentos();
-                TelaModuloSeguranca.jPainelSeguranca.add(objRegistroProc);//adicona frame ao JDesktopPane  
-                objRegistroProc.setVisible(true);
             }
-        }
-        try {
-            objRegistroProc.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objRegistroProc.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_RegistroObjetoProcedimentoActionPerformed
 
     private void SaidaPertencesInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaidaPertencesInternosActionPerformed
         // TODO add your handling code here:
-        if (objSaidaObjPertences == null || objSaidaObjPertences.isClosed()) {
-            objSaidaObjPertences = new TelaSaidaObjetosPertences();
-            jPainelSeguranca.add(objSaidaObjPertences);
-            objSaidaObjPertences.setVisible(true);
-        } else {
-            if (objSaidaObjPertences.isVisible()) {
-                if (objSaidaObjPertences.isIcon()) { // Se esta minimizado
-                    try {
-                        objSaidaObjPertences.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaSaidaPertencesInternos);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaSaidaPertencesInternos) && codAbrir == 1) {
+            if (objSaidaObjPertences == null || objSaidaObjPertences.isClosed()) {
+                objSaidaObjPertences = new TelaSaidaObjetosPertences();
+                jPainelSeguranca.add(objSaidaObjPertences);
+                objSaidaObjPertences.setVisible(true);
+            } else {
+                if (objSaidaObjPertences.isVisible()) {
+                    if (objSaidaObjPertences.isIcon()) { // Se esta minimizado
+                        try {
+                            objSaidaObjPertences.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objSaidaObjPertences.toFront(); // traz para frente
+                        objSaidaObjPertences.pack();//volta frame 
                     }
                 } else {
-                    objSaidaObjPertences.toFront(); // traz para frente
-                    objSaidaObjPertences.pack();//volta frame 
+                    objSaidaObjPertences = new TelaSaidaObjetosPertences();
+                    TelaModuloSeguranca.jPainelSeguranca.add(objSaidaObjPertences);//adicona frame ao JDesktopPane  
+                    objSaidaObjPertences.setVisible(true);
                 }
-            } else {
-                objSaidaObjPertences = new TelaSaidaObjetosPertences();
-                TelaModuloSeguranca.jPainelSeguranca.add(objSaidaObjPertences);//adicona frame ao JDesktopPane  
-                objSaidaObjPertences.setVisible(true);
             }
-        }
-        try {
-            objSaidaObjPertences.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objSaidaObjPertences.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_SaidaPertencesInternosActionPerformed
 
     private void RetirarPenalidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RetirarPenalidadeActionPerformed
-        // TODO add your handling code here:
-        if (objRetirarPenal == null || objRetirarPenal.isClosed()) {
-            objRetirarPenal = new TelaRetirarPenalidadeInterno();
-            jPainelSeguranca.add(objRetirarPenal);
-            objRetirarPenal.setVisible(true);
-        } else {
-            if (objRetirarPenal.isVisible()) {
-                if (objRetirarPenal.isIcon()) { // Se esta minimizado
-                    try {
-                        objRetirarPenal.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        // TODO add your handling code here:telaRetirarPenalidade
+        buscarAcessoUsuario(telaRetirarPenalidade);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaRetirarPenalidade) && codAbrir == 1) {
+            if (objRetirarPenal == null || objRetirarPenal.isClosed()) {
+                objRetirarPenal = new TelaRetirarPenalidadeInterno();
+                jPainelSeguranca.add(objRetirarPenal);
+                objRetirarPenal.setVisible(true);
+            } else {
+                if (objRetirarPenal.isVisible()) {
+                    if (objRetirarPenal.isIcon()) { // Se esta minimizado
+                        try {
+                            objRetirarPenal.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objRetirarPenal.toFront(); // traz para frente
+                        objRetirarPenal.pack();//volta frame 
                     }
                 } else {
-                    objRetirarPenal.toFront(); // traz para frente
-                    objRetirarPenal.pack();//volta frame 
+                    objRetirarPenal = new TelaRetirarPenalidadeInterno();
+                    TelaModuloSeguranca.jPainelSeguranca.add(objRetirarPenal);//adicona frame ao JDesktopPane  
+                    objRetirarPenal.setVisible(true);
                 }
-            } else {
-                objRetirarPenal = new TelaRetirarPenalidadeInterno();
-                TelaModuloSeguranca.jPainelSeguranca.add(objRetirarPenal);//adicona frame ao JDesktopPane  
-                objRetirarPenal.setVisible(true);
             }
-        }
-        try {
-            objRetirarPenal.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objRetirarPenal.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_RetirarPenalidadeActionPerformed
 
     private void RegistroEvendoDisciplinarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistroEvendoDisciplinarActionPerformed
         // TODO add your handling code here:
-        if (objEventoDiscpliar == null || objEventoDiscpliar.isClosed()) {
-            objEventoDiscpliar = new TelaEventoDisciplinar();
-            jPainelSeguranca.add(objEventoDiscpliar);
-            objEventoDiscpliar.setVisible(true);
-        } else {
-            if (objEventoDiscpliar.isVisible()) {
-                if (objEventoDiscpliar.isIcon()) { // Se esta minimizado
-                    try {
-                        objEventoDiscpliar.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaRegistroEvendoDisciplinar);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaRegistroEvendoDisciplinar) && codAbrir == 1) {
+            if (objEventoDiscpliar == null || objEventoDiscpliar.isClosed()) {
+                objEventoDiscpliar = new TelaEventoDisciplinar();
+                jPainelSeguranca.add(objEventoDiscpliar);
+                objEventoDiscpliar.setVisible(true);
+            } else {
+                if (objEventoDiscpliar.isVisible()) {
+                    if (objEventoDiscpliar.isIcon()) { // Se esta minimizado
+                        try {
+                            objEventoDiscpliar.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objEventoDiscpliar.toFront(); // traz para frente
+                        objEventoDiscpliar.pack();//volta frame 
                     }
                 } else {
-                    objEventoDiscpliar.toFront(); // traz para frente
-                    objEventoDiscpliar.pack();//volta frame 
+                    objEventoDiscpliar = new TelaEventoDisciplinar();
+                    TelaModuloSeguranca.jPainelSeguranca.add(objEventoDiscpliar);//adicona frame ao JDesktopPane  
+                    objEventoDiscpliar.setVisible(true);
                 }
-            } else {
-                objEventoDiscpliar = new TelaEventoDisciplinar();
-                TelaModuloSeguranca.jPainelSeguranca.add(objEventoDiscpliar);//adicona frame ao JDesktopPane  
-                objEventoDiscpliar.setVisible(true);
             }
-        }
-        try {
-            objEventoDiscpliar.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objEventoDiscpliar.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_RegistroEvendoDisciplinarActionPerformed
 
@@ -1949,8 +2005,8 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
 
     private void AprovadorOcorrenciaVisitasPortariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AprovadorOcorrenciaVisitasPortariaActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaRequisicaoMateriaisInternos);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaRequisicaoMateriaisInternos) && codAbrir == 1) {
+        buscarAcessoUsuario(telaAprovadorOcorrenciaVisitasPortaria);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaAprovadorOcorrenciaVisitasPortaria) && codAbrir == 1) {
             if (objAprovaOcr == null || objAprovaOcr.isClosed()) {
                 objAprovaOcr = new TelaAprovadoresOcorrenciaVisitasInternosSeguranca();
                 jPainelSeguranca.add(objAprovaOcr);
@@ -1983,59 +2039,69 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
 
     private void BloqueioLiberacaoVisitasPortariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BloqueioLiberacaoVisitasPortariaActionPerformed
         // TODO add your handling code here:
-        if (objBloq == null || objBloq.isClosed()) {
-            objBloq = new TelaBloqueioLiberacaoVisitasPortariaSeguranca();
-            jPainelSeguranca.add(objBloq);
-            objBloq.setVisible(true);
-        } else {
-            if (objBloq.isVisible()) {
-                if (objBloq.isIcon()) { // Se esta minimizado
-                    try {
-                        objBloq.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaBloqueioLiberacaoVisitasPortaria);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaBloqueioLiberacaoVisitasPortaria) && codAbrir == 1) {
+            if (objBloq == null || objBloq.isClosed()) {
+                objBloq = new TelaBloqueioLiberacaoVisitasPortariaSeguranca();
+                jPainelSeguranca.add(objBloq);
+                objBloq.setVisible(true);
+            } else {
+                if (objBloq.isVisible()) {
+                    if (objBloq.isIcon()) { // Se esta minimizado
+                        try {
+                            objBloq.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objBloq.toFront(); // traz para frente
+                        objBloq.pack();//volta frame 
                     }
                 } else {
-                    objBloq.toFront(); // traz para frente
-                    objBloq.pack();//volta frame 
+                    objBloq = new TelaBloqueioLiberacaoVisitasPortariaSeguranca();
+                    TelaModuloSeguranca.jPainelSeguranca.add(objBloq);//adicona frame ao JDesktopPane  
+                    objBloq.setVisible(true);
                 }
-            } else {
-                objBloq = new TelaBloqueioLiberacaoVisitasPortariaSeguranca();
-                TelaModuloSeguranca.jPainelSeguranca.add(objBloq);//adicona frame ao JDesktopPane  
-                objBloq.setVisible(true);
             }
-        }
-        try {
-            objBloq.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objBloq.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_BloqueioLiberacaoVisitasPortariaActionPerformed
 
     private void AplicarRegistroPenalidadeDisciplinasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AplicarRegistroPenalidadeDisciplinasActionPerformed
         // TODO add your handling code here:
-        if (objRegDisciplina == null || objRegDisciplina.isClosed()) {
-            objRegDisciplina = new TelaRegimentoInternoDisciplinar();
-            jPainelSeguranca.add(objRegDisciplina);
-            objRegDisciplina.setVisible(true);
-        } else {
-            if (objRegDisciplina.isVisible()) {
-                if (objRegDisciplina.isIcon()) { // Se esta minimizado
-                    try {
-                        objRegDisciplina.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaAplicarRegistroPenalidadeDisciplinas);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaAplicarRegistroPenalidadeDisciplinas) && codAbrir == 1) {
+            if (objRegDisciplina == null || objRegDisciplina.isClosed()) {
+                objRegDisciplina = new TelaRegimentoInternoDisciplinar();
+                jPainelSeguranca.add(objRegDisciplina);
+                objRegDisciplina.setVisible(true);
+            } else {
+                if (objRegDisciplina.isVisible()) {
+                    if (objRegDisciplina.isIcon()) { // Se esta minimizado
+                        try {
+                            objRegDisciplina.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objRegDisciplina.toFront(); // traz para frente
+                        objRegDisciplina.pack();//volta frame 
                     }
                 } else {
-                    objRegDisciplina.toFront(); // traz para frente
-                    objRegDisciplina.pack();//volta frame 
+                    objRegDisciplina = new TelaRegimentoInternoDisciplinar();
+                    TelaModuloSeguranca.jPainelSeguranca.add(objRegDisciplina);//adicona frame ao JDesktopPane  
+                    objRegDisciplina.setVisible(true);
                 }
-            } else {
-                objRegDisciplina = new TelaRegimentoInternoDisciplinar();
-                TelaModuloSeguranca.jPainelSeguranca.add(objRegDisciplina);//adicona frame ao JDesktopPane  
-                objRegDisciplina.setVisible(true);
             }
-        }
-        try {
-            objRegDisciplina.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objRegDisciplina.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_AplicarRegistroPenalidadeDisciplinasActionPerformed
 
@@ -2371,7 +2437,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
             codAlterar = conecta.rs.getInt("Alterar");
             codExcluir = conecta.rs.getInt("Excluir");
             codGravar = conecta.rs.getInt("Gravar");
-            codConcultar = conecta.rs.getInt("Consultar");
+            codConsultar = conecta.rs.getInt("Consultar");
             nomeTela = conecta.rs.getString("NomeTela");
         } catch (Exception e) {
         }
@@ -2731,7 +2797,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         // MANUTENÇÃO
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
-                    + "WHERE NomeTela='" + telaLocacaoInternos + "'");
+                    + "WHERE NomeTela='" + telaLocacaoInternosManutencao + "'");
             conecta.rs.first();
             pNomeLI = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
@@ -2885,10 +2951,10 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
             controle.incluirTelaAcesso(objCadastroTela);
         }
         // MOVIMENTAÇÃO
-        if (!pNomeLI.equals(telaLocacaoInternos) || pNomeLI == null || pNomeLI.equals("")) {
+        if (!pNomeLI.equals(telaLocacaoInternosManutencao) || pNomeLI == null || pNomeLI.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
-            objCadastroTela.setNomeTela(telaLocacaoInternos);
+            objCadastroTela.setNomeTela(telaLocacaoInternosManutencao);
             controle.incluirTelaAcesso(objCadastroTela);
         }
         if (!pNomeTPC.equals(telaTransferenciaPavilhaoCela) || pNomeTPC == null || pNomeTPC.equals("")) {

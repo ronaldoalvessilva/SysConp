@@ -18,6 +18,7 @@ import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloSeguranca.codAlterar;
 import static gestor.Visao.TelaModuloSeguranca.codExcluir;
+import static gestor.Visao.TelaModuloSeguranca.codGravar;
 import static gestor.Visao.TelaModuloSeguranca.codIncluir;
 import static gestor.Visao.TelaModuloSeguranca.codUserAcesso;
 import static gestor.Visao.TelaModuloSeguranca.codigoUser;
@@ -607,7 +608,7 @@ public class TelaCelas extends javax.swing.JInternalFrame {
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
@@ -629,13 +630,13 @@ public class TelaCelas extends javax.swing.JInternalFrame {
                 Excluir();
             }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a excluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaCelas) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaCelas) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             if (jLocal.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(rootPane, "Descrição da Cela não pode ser em branco...");
                 jLocal.requestFocus();
@@ -690,7 +691,7 @@ public class TelaCelas extends javax.swing.JInternalFrame {
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 

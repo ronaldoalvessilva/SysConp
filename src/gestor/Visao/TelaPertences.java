@@ -14,6 +14,15 @@ import gestor.Modelo.Pertences;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloSeguranca.codAlterar;
+import static gestor.Visao.TelaModuloSeguranca.codExcluir;
+import static gestor.Visao.TelaModuloSeguranca.codGravar;
+import static gestor.Visao.TelaModuloSeguranca.codIncluir;
+import static gestor.Visao.TelaModuloSeguranca.codUserAcesso;
+import static gestor.Visao.TelaModuloSeguranca.codigoUser;
+import static gestor.Visao.TelaModuloSeguranca.nomeGrupo;
+import static gestor.Visao.TelaModuloSeguranca.nomeTela;
+import static gestor.Visao.TelaModuloSeguranca.telaObjetosInternos;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -352,20 +361,21 @@ public class TelaPertences extends javax.swing.JInternalFrame {
                             .addComponent(jBtExcluirFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel3Layout.createSequentialGroup()
                             .addComponent(jLabel1)
-                            .addGap(42, 42, 42)
-                            .addComponent(jLabel6)
-                            .addGap(64, 64, 64)
+                            .addGap(143, 143, 143)
                             .addComponent(jLabel2)
                             .addGap(10, 10, 10)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jIDPertences, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jDescricaoPertence, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3)))
+                        .addComponent(jLabel3))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jIDPertences, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -386,8 +396,8 @@ public class TelaPertences extends javax.swing.JInternalFrame {
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jIDPertences, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jIDPertences, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel3)
@@ -409,7 +419,7 @@ public class TelaPertences extends javax.swing.JInternalFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7183_16x16.png"))); // NOI18N
+        jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
         jBtNovo.setText("Novo");
         jBtNovo.setContentAreaFilled(false);
         jBtNovo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -579,75 +589,91 @@ public class TelaPertences extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampo();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaObjetosInternos) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            acao = 1;
+            Novo();
+            corCampo();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        acao = 2;
-        Alterar();
-        corCampo();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaObjetosInternos) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            acao = 2;
+            Alterar();
+            corCampo();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        VerificarEntPertences();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaObjetosInternos) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            VerificarEntPertences();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a excluir registro.");
+        }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataCadastro.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Data de cadastro não pode ser em branco.");
-            jDataCadastro.requestFocus();
-            jDataCadastro.setBackground(Color.red);
-        } else {
-            if (jDescricaoPertence.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a descrição.");
-                jDescricaoPertence.requestFocus();
-                jDescricaoPertence.setBackground(Color.red);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaObjetosInternos) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jDataCadastro.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Data de cadastro não pode ser em branco.");
+                jDataCadastro.requestFocus();
+                jDataCadastro.setBackground(Color.red);
             } else {
-                if (caminho == null) {
-                    JOptionPane.showMessageDialog(rootPane, "Insira a foto do pertence.");
+                if (jDescricaoPertence.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a descrição.");
+                    jDescricaoPertence.requestFocus();
+                    jDescricaoPertence.setBackground(Color.red);
                 } else {
-                    objPer.setStatusLanc((String) jComboBoxStatus.getSelectedItem());
-                    objPer.setDataCadastro(jDataCadastro.getDate());
-                    objPer.setDescricaoPertence(jDescricaoPertence.getText());
-                    objPer.setFotoPertence(caminho);
-                    objPer.setUnidade((String) jComboBoxUnidade.getSelectedItem());
-                    if (acao == 1) {
-                        // log de usuario
-                        objPer.setUsuarioInsert(nameUser);
-                        objPer.setDataInsert(dataModFinal);
-                        objPer.setHoraInsert(horaMov);
-                        control.incluirPertences(objPer);
-                        buscarId();
-                        objLog();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso");
-                        Salvar();
-                    }
-                    if (acao == 2) {
-                        // log de usuario
-                        objPer.setUsuarioUp(nameUser);
-                        objPer.setDataUp(dataModFinal);
-                        objPer.setHoraUp(horaMov);
-                        objPer.setIdPertence(Integer.valueOf(jIDPertences.getText()));
-                        control.alterarPertences(objPer);
-                        objLog();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso");
-                        Salvar();
+                    if (caminho == null) {
+                        JOptionPane.showMessageDialog(rootPane, "Insira a foto do pertence.");
+                    } else {
+                        objPer.setStatusLanc((String) jComboBoxStatus.getSelectedItem());
+                        objPer.setDataCadastro(jDataCadastro.getDate());
+                        objPer.setDescricaoPertence(jDescricaoPertence.getText());
+                        objPer.setFotoPertence(caminho);
+                        objPer.setUnidade((String) jComboBoxUnidade.getSelectedItem());
+                        if (acao == 1) {
+                            // log de usuario
+                            objPer.setUsuarioInsert(nameUser);
+                            objPer.setDataInsert(dataModFinal);
+                            objPer.setHoraInsert(horaMov);
+                            control.incluirPertences(objPer);
+                            buscarId();
+                            objLog();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso");
+                            Salvar();
+                        }
+                        if (acao == 2) {
+                            // log de usuario
+                            objPer.setUsuarioUp(nameUser);
+                            objPer.setDataUp(dataModFinal);
+                            objPer.setHoraUp(horaMov);
+                            objPer.setIdPertence(Integer.valueOf(jIDPertences.getText()));
+                            control.alterarPertences(objPer);
+                            objLog();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso");
+                            Salvar();
+                        }
                     }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 

@@ -26,6 +26,7 @@ import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloSeguranca.codAlterar;
 import static gestor.Visao.TelaModuloSeguranca.codExcluir;
+import static gestor.Visao.TelaModuloSeguranca.codGravar;
 import static gestor.Visao.TelaModuloSeguranca.codIncluir;
 import static gestor.Visao.TelaModuloSeguranca.codUserAcesso;
 import static gestor.Visao.TelaModuloSeguranca.codigoUser;
@@ -1090,7 +1091,7 @@ public final class TelaPopulacao extends javax.swing.JInternalFrame {
                 dataModFinal = jDataSistema.getText();
             }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
@@ -1131,13 +1132,13 @@ public final class TelaPopulacao extends javax.swing.JInternalFrame {
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a excluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPopulacaoInternosAgentes) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaPopulacaoInternosAgentes) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             if (jDataPop.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe da data da população");
                 jDataPop.requestFocus();
@@ -1289,7 +1290,7 @@ public final class TelaPopulacao extends javax.swing.JInternalFrame {
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar o registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 

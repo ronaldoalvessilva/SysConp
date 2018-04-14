@@ -14,6 +14,16 @@ import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloSeguranca.codAlterar;
+import static gestor.Visao.TelaModuloSeguranca.codExcluir;
+import static gestor.Visao.TelaModuloSeguranca.codGravar;
+import static gestor.Visao.TelaModuloSeguranca.codIncluir;
+import static gestor.Visao.TelaModuloSeguranca.codUserAcesso;
+import static gestor.Visao.TelaModuloSeguranca.codigoUser;
+import static gestor.Visao.TelaModuloSeguranca.nomeGrupo;
+import static gestor.Visao.TelaModuloSeguranca.nomeTela;
+import static gestor.Visao.TelaModuloSeguranca.telaAprovadorOcorrenciaVisitasPortaria;
+import static gestor.Visao.TelaModuloSeguranca.telaRequisicaoMateriaisInternos;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -44,7 +54,7 @@ public class TelaAprovadoresOcorrenciaVisitasInternosSeguranca extends javax.swi
     int flag, acao;
     int count = 0;
     String dataEntrada;
-    int modulo = 0;    
+    int modulo = 0;
 
     /**
      * Creates new form TelaAprovadoresOcorrenciaVistasInternos
@@ -684,7 +694,7 @@ public class TelaAprovadoresOcorrenciaVisitasInternosSeguranca extends javax.swi
                 jCodigoColaborador.setText(String.valueOf(conecta.rs.getInt("IdUsuario")));
                 jModuloLiberador.setText("SEGURANÇA");
                 jNomeAprovador.setText(conecta.rs.getString("NomeUsuario"));
-                jNomeGrupo.setText(conecta.rs.getString("NomeGrupo"));               
+                jNomeGrupo.setText(conecta.rs.getString("NomeGrupo"));
                 jTextoObservacao.setText(conecta.rs.getString("Observacao"));
                 conecta.desconecta();
             } catch (SQLException ex) {
@@ -695,65 +705,80 @@ public class TelaAprovadoresOcorrenciaVisitasInternosSeguranca extends javax.swi
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaAprovadorOcorrenciaVisitasPortaria) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            acao = 1;
+            Novo();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        acao = 2;
-        Alterar();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaAprovadorOcorrenciaVisitasPortaria) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            acao = 2;
+            Alterar();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        Excluir();
-
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaAprovadorOcorrenciaVisitasPortaria) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            Excluir();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a excluir registro.");
+        }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataRegistro.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data do registro.");
-        } else if (jNomeAprovador.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do Colaborador Aprovador.");
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaAprovadorOcorrenciaVisitasPortaria) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jDataRegistro.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data do registro.");
+            } else if (jNomeAprovador.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do Colaborador Aprovador.");
+            } else {
+                objAprova.setStatusAprova((String) jComboBoxStatus.getSelectedItem());
+                objAprova.setDataAprova(jDataRegistro.getDate());
+                objAprova.setNomeColaborador(jNomeAprovador.getText());
+                objAprova.setObservacao(jTextoObservacao.getText());
+                objAprova.setModDep(modulo);
+                if (acao == 1) {
+                    objAprova.setUsuarioInsert(nameUser);
+                    objAprova.setDataInsert(dataModFinal);
+                    objAprova.setHorarioInsert(horaMov);
+                    control.incluirAprovadorOcorrencia(objAprova);
+                    buscarCodigo();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    Salvar();
+                }
+                if (acao == 2) {
+                    objAprova.setUsuarioUp(nameUser);
+                    objAprova.setDataUp(dataModFinal);
+                    objAprova.setHorarioUp(horaMov);
+                    objAprova.setIdAprova(Integer.valueOf(jCodigo.getText()));
+                    control.alterarAprovadorOcorrencia(objAprova);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    Salvar();
+                }
+            }
         } else {
-            objAprova.setStatusAprova((String) jComboBoxStatus.getSelectedItem());
-            objAprova.setDataAprova(jDataRegistro.getDate());
-            objAprova.setNomeColaborador(jNomeAprovador.getText());
-            objAprova.setObservacao(jTextoObservacao.getText());            
-            objAprova.setModDep(modulo);
-            if (acao == 1) {
-                objAprova.setUsuarioInsert(nameUser);
-                objAprova.setDataInsert(dataModFinal);
-                objAprova.setHorarioInsert(horaMov);
-                control.incluirAprovadorOcorrencia(objAprova);
-                buscarCodigo();
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                Salvar();
-            }
-            if (acao == 2) {
-                objAprova.setUsuarioUp(nameUser);
-                objAprova.setDataUp(dataModFinal);
-                objAprova.setHorarioUp(horaMov);
-                objAprova.setIdAprova(Integer.valueOf(jCodigo.getText()));
-                control.alterarAprovadorOcorrencia(objAprova);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                Salvar();
-            }
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -844,7 +869,7 @@ public class TelaAprovadoresOcorrenciaVisitasInternosSeguranca extends javax.swi
         jCodigoColaborador.setBackground(Color.white);
         jModuloLiberador.setBackground(Color.white);
         jNomeAprovador.setBackground(Color.white);
-        jNomeGrupo.setBackground(Color.white);        
+        jNomeGrupo.setBackground(Color.white);
         jTextoObservacao.setBackground(Color.white);
     }
 
@@ -855,7 +880,7 @@ public class TelaAprovadoresOcorrenciaVisitasInternosSeguranca extends javax.swi
         jCodigoColaborador.setText("");
         jModuloLiberador.setText("SEGURANÇA");
         jNomeAprovador.setText("");
-        jNomeGrupo.setText("");        
+        jNomeGrupo.setText("");
         jTextoObservacao.setText("");
         //
         jComboBoxStatus.setEnabled(true);
@@ -894,7 +919,7 @@ public class TelaAprovadoresOcorrenciaVisitasInternosSeguranca extends javax.swi
         jCodigoColaborador.setText("");
         jModuloLiberador.setText("");
         jNomeAprovador.setText("");
-        jNomeGrupo.setText("");       
+        jNomeGrupo.setText("");
         jTextoObservacao.setText("");
         //
         jComboBoxStatus.setEnabled(!true);
@@ -933,7 +958,7 @@ public class TelaAprovadoresOcorrenciaVisitasInternosSeguranca extends javax.swi
             jCodigoColaborador.setText("");
             jModuloLiberador.setText("");
             jNomeAprovador.setText("");
-            jNomeGrupo.setText("");            
+            jNomeGrupo.setText("");
             jTextoObservacao.setText("");
             //
             jComboBoxStatus.setEnabled(!true);
@@ -971,7 +996,7 @@ public class TelaAprovadoresOcorrenciaVisitasInternosSeguranca extends javax.swi
             conecta.rs.last();
             jCodigo.setText(conecta.rs.getString("IdAprova"));
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "Não foi possível obter o código do registro.\nERRO: " +e);
+            JOptionPane.showMessageDialog(rootPane, "Não foi possível obter o código do registro.\nERRO: " + e);
         }
         conecta.desconecta();
     }
