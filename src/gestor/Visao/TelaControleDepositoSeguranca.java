@@ -18,6 +18,22 @@ import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloSeguranca.codAbrir;
+import static gestor.Visao.TelaModuloSeguranca.codAlterar;
+import static gestor.Visao.TelaModuloSeguranca.codConsultar;
+import static gestor.Visao.TelaModuloSeguranca.codExcluir;
+import static gestor.Visao.TelaModuloSeguranca.codGravar;
+import static gestor.Visao.TelaModuloSeguranca.codIncluir;
+import static gestor.Visao.TelaModuloSeguranca.codUserAcesso;
+import static gestor.Visao.TelaModuloSeguranca.codigoGrupo;
+import static gestor.Visao.TelaModuloSeguranca.codigoUser;
+import static gestor.Visao.TelaModuloSeguranca.codigoUserGroup;
+import static gestor.Visao.TelaModuloSeguranca.nomeGrupo;
+import static gestor.Visao.TelaModuloSeguranca.nomeTela;
+import static gestor.Visao.TelaModuloSeguranca.telaControleValores;
+import static gestor.Visao.TelaModuloSeguranca.telaControleValoresInterno;
+import static gestor.Visao.TelaModuloSeguranca.telaLocacaoInternos;
+import static gestor.Visao.TelaModuloSeguranca.telaLocacaoInternosManutencao;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -996,7 +1012,7 @@ public class TelaControleDepositoSeguranca extends javax.swing.JInternalFrame {
         flag = 1;
         if (jIDPesqLanc.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe um ID para pesquisa.");
-        } else {            
+        } else {
             preencherTodosDepositos("SELECT * FROM DEPOSITOPORTARIA WHERE IdLanc='" + jIDPesqLanc.getText() + "'AND OrigemDeposito='" + origemDeposito + "'");
         }
     }//GEN-LAST:event_jBtPesqIDActionPerformed
@@ -1018,7 +1034,7 @@ public class TelaControleDepositoSeguranca extends javax.swing.JInternalFrame {
                 } else {
                     SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
                     dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());                    
+                    dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
                     preencherTodosDepositos("SELECT * FROM DEPOSITOPORTARIA WHERE DataLanc BETWEEN'" + dataInicial + "'AND'" + dataFinal + "'AND OrigemDeposito='" + origemDeposito + "'");
                 }
             }
@@ -1031,88 +1047,106 @@ public class TelaControleDepositoSeguranca extends javax.swing.JInternalFrame {
         flag = 1;
         if (jPesqNomeDepositante.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do depositante para pesquisa.");
-        } else {            
-            preencherTodosDepositos("SELECT * FROM DEPOSITOPORTARIA WHERE NomeDepositante LIKE'%" + jPesqNomeDepositante.getText() + "%'AND OrigemDeposito='" + origemDeposito + "'");
+        } else {
+            preencherTodosDepositos("SELECT * FROM DEPOSITOPORTARIA "
+                    + "WHERE NomeDepositante LIKE'%" + jPesqNomeDepositante.getText() + "%' "
+                    + "AND OrigemDeposito='" + origemDeposito + "'");
         }
     }//GEN-LAST:event_jBtPesqDepositanteActionPerformed
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaControleValores) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        objDepoPort.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse Lançamento não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaControleValores) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            objDepoPort.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse Lançamento não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                Alterar();
+                corCampos();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 2;
-            Alterar();
-            corCampos();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        objDepoPort.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse Lançamento não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaControleValores) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            objDepoPort.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse Lançamento não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                verificarItens();
+            }
         } else {
-            verificarItens();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a excluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataLancamento.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data de lançamento.");
-            jDataLancamento.requestFocus();
-            jDataLancamento.setBackground(Color.red);
-        } else {
-            if (jNomeDepositante.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe o nome do depositante.");
-                jNomeDepositante.requestFocus();
-                jNomeDepositante.setBackground(Color.red);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaControleValores) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jDataLancamento.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de lançamento.");
+                jDataLancamento.requestFocus();
+                jDataLancamento.setBackground(Color.red);
             } else {
-                objDepoPort.setStatusLanc(statusEnt);
-                objDepoPort.setDataLanc(jDataLancamento.getDate());
-                objDepoPort.setNomeDepositante(jNomeDepositante.getText());
-                objDepoPort.setObservacao(jObservacao.getText());
-                objDepoPort.setOrigemDeposito(origemDeposito);
-                // log de usuario
-                objDepoPort.setUsuarioInsert(nameUser);
-                objDepoPort.setDataInsert(dataModFinal);
-                objDepoPort.setHoraInsert(horaMov);
-                if (acao == 1) {
-                    control.incluirDepositoPortaria(objDepoPort);
-                    buscarId();
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    Salvar();
-                }
-                if (acao == 2) {
+                if (jNomeDepositante.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe o nome do depositante.");
+                    jNomeDepositante.requestFocus();
+                    jNomeDepositante.setBackground(Color.red);
+                } else {
+                    objDepoPort.setStatusLanc(statusEnt);
+                    objDepoPort.setDataLanc(jDataLancamento.getDate());
+                    objDepoPort.setNomeDepositante(jNomeDepositante.getText());
+                    objDepoPort.setObservacao(jObservacao.getText());
+                    objDepoPort.setOrigemDeposito(origemDeposito);
                     // log de usuario
-                    objDepoPort.setUsuarioUp(nameUser);
-                    objDepoPort.setDataUp(dataModFinal);
-                    objDepoPort.setHoraUp(horaMov);
-                    objDepoPort.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                    control.alterarDepositoPortaria(objDepoPort);
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    Salvar();
+                    objDepoPort.setUsuarioInsert(nameUser);
+                    objDepoPort.setDataInsert(dataModFinal);
+                    objDepoPort.setHoraInsert(horaMov);
+                    if (acao == 1) {
+                        control.incluirDepositoPortaria(objDepoPort);
+                        buscarId();
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        Salvar();
+                    }
+                    if (acao == 2) {
+                        // log de usuario
+                        objDepoPort.setUsuarioUp(nameUser);
+                        objDepoPort.setDataUp(dataModFinal);
+                        objDepoPort.setHoraUp(horaMov);
+                        objDepoPort.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                        control.alterarDepositoPortaria(objDepoPort);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        Salvar();
+                    }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a Gravar registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -1141,125 +1175,148 @@ public class TelaControleDepositoSeguranca extends javax.swing.JInternalFrame {
 
     private void jBtNovoInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoInternoActionPerformed
         // TODO add your handling code here:
-        objDepoPort.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse interno não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaControleValoresInterno) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            objDepoPort.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse interno não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 3;
+                NovoInterno();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 3;
-            NovoInterno();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
     }//GEN-LAST:event_jBtNovoInternoActionPerformed
 
     private void jBtAlterarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarInternoActionPerformed
         // TODO add your handling code here:
-        objDepoPort.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse interno não poderá ser alterado, o mesmo encontra-se FINALIZADO");
-        } else {
-            acao = 4;
-            if (efetuado.equals("Sim")) {
-                JOptionPane.showMessageDialog(rootPane, "Esse interno não pode ser modificado, pois o depósito já foi concretizado");
+        buscarAcessoUsuario();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaControleValoresInterno) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            objDepoPort.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse interno não poderá ser alterado, o mesmo encontra-se FINALIZADO");
             } else {
-                AlterarInterno();
-                statusMov = "Alterou";
-                horaMov = jHoraSistema.getText();
-                dataModFinal = jDataSistema.getText();
+                acao = 4;
+                if (efetuado.equals("Sim")) {
+                    JOptionPane.showMessageDialog(rootPane, "Esse interno não pode ser modificado, pois o depósito já foi concretizado");
+                } else {
+                    AlterarInterno();
+                    statusMov = "Alterou";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
         }
     }//GEN-LAST:event_jBtAlterarInternoActionPerformed
 
     private void jBtExcluirInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirInternoActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        objDepoPort.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse interno não poderá ser excluído, o mesmo encontra-se FINALIZADO");
-        } else {
-            if (efetuado.equals("Sim")) {
-                JOptionPane.showMessageDialog(rootPane, "Esse interno não pode ser excluído, pois o depósito já foi concretizado");
+        buscarAcessoUsuario();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaControleValoresInterno) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objDepoPort.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse interno não poderá ser excluído, o mesmo encontra-se FINALIZADO");
             } else {
-                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o interno selecionado?", "Confirmação",
-                        JOptionPane.YES_NO_OPTION);
-                if (resposta == JOptionPane.YES_OPTION) {
-                    objItensDepoPort.setIdItem(Integer.valueOf(idItem));
-                    controle.excluirDepositoPortaria(objItensDepoPort);
-                    objLog2();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                    ExcluirInterno();
-                    preencherTabelaItensInternos("SELECT * FROM ITENSDEPOSITOPORTARIA INNER JOIN PRONTUARIOSCRC ON ITENSDEPOSITOPORTARIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc WHERE IdLanc='" + jIdLanc.getText() + "'");
+                if (efetuado.equals("Sim")) {
+                    JOptionPane.showMessageDialog(rootPane, "Esse interno não pode ser excluído, pois o depósito já foi concretizado");
+                } else {
+                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o interno selecionado?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta == JOptionPane.YES_OPTION) {
+                        objItensDepoPort.setIdItem(Integer.valueOf(idItem));
+                        controle.excluirDepositoPortaria(objItensDepoPort);
+                        objLog2();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                        ExcluirInterno();
+                        preencherTabelaItensInternos("SELECT * FROM ITENSDEPOSITOPORTARIA "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON ITENSDEPOSITOPORTARIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE IdLanc='" + jIdLanc.getText() + "'");
+                    }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a excluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirInternoActionPerformed
 
     private void jBtSalvarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarInternoActionPerformed
         // TODO add your handling code here:
-        DecimalFormat valorReal = new DecimalFormat("###,##00.0");
-        valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
-        if (jNomeInterno.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe nome do interno para lançar o valor.");
-        } else {
-            if (jValor.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe o valor a ser depositado.");
-                jValor.requestFocus();
-                jValor.setBackground(Color.red);
+        buscarAcessoUsuario();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaControleValoresInterno) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            DecimalFormat valorReal = new DecimalFormat("###,##00.0");
+            valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
+            if (jNomeInterno.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe nome do interno para lançar o valor.");
             } else {
-                if (jDataDeposito.getDate() == null) {
-                    JOptionPane.showMessageDialog(rootPane, "Informe a data do deposito.");
-                    jDataDeposito.requestFocus();
-                    jDataDeposito.setBackground(Color.red);
+                if (jValor.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe o valor a ser depositado.");
+                    jValor.requestFocus();
+                    jValor.setBackground(Color.red);
                 } else {
-                    try { // Formatar o valor para ser gravado no banco de dados
-                        objItensDepoPort.setValorDeposito(valorReal.parse(jValor.getText()).floatValue());
-                    } catch (ParseException ex) {
-                    }
-                    objItensDepoPort.setDataDeposito(jDataDeposito.getDate());
-                    objItensDepoPort.setEfetuado(efetuado);
-                    objItensDepoPort.setOrigemDeposito(origemDeposito);
-                    // log de usuario
-                    objItensDepoPort.setUsuarioInsert(nameUser);
-                    objItensDepoPort.setDataInsert(dataModFinal);
-                    objItensDepoPort.setHoraInsert(horaMov);
-                    if (acao == 3) {
-                        objItensDepoPort.setNomeInterno(jNomeInterno.getText());
-                        objItensDepoPort.setIdlanc(Integer.valueOf(jIdLanc.getText()));
-                        controle.incluirDepositoPortaria(objItensDepoPort);
-                        objLog2();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        preencherTabelaItensInternos("SELECT * FROM ITENSDEPOSITOPORTARIA "
-                                + "INNER JOIN PRONTUARIOSCRC "
-                                + "ON ITENSDEPOSITOPORTARIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                + "WHERE IdLanc='" + jIdLanc.getText() + "'");
-                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                        SalvarInterno();
-                    }
-                    if (acao == 4) {
+                    if (jDataDeposito.getDate() == null) {
+                        JOptionPane.showMessageDialog(rootPane, "Informe a data do deposito.");
+                        jDataDeposito.requestFocus();
+                        jDataDeposito.setBackground(Color.red);
+                    } else {
+                        try { // Formatar o valor para ser gravado no banco de dados
+                            objItensDepoPort.setValorDeposito(valorReal.parse(jValor.getText()).floatValue());
+                        } catch (ParseException ex) {
+                        }
+                        objItensDepoPort.setDataDeposito(jDataDeposito.getDate());
+                        objItensDepoPort.setEfetuado(efetuado);
+                        objItensDepoPort.setOrigemDeposito(origemDeposito);
                         // log de usuario
-                        objItensDepoPort.setUsuarioUp(nameUser);
-                        objItensDepoPort.setDataUp(dataModFinal);
-                        objItensDepoPort.setHoraUp(horaMov);
-                        //
-                        objItensDepoPort.setNomeInterno(jNomeInterno.getText());
-                        objItensDepoPort.setIdlanc(Integer.valueOf(jIdLanc.getText()));
-                        objItensDepoPort.setIdItem(Integer.valueOf(idItem));
-                        controle.alterarDepositoPortaria(objItensDepoPort);
-                        objLog2();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        preencherTabelaItensInternos("SELECT * FROM ITENSDEPOSITOPORTARIA "
-                                + "INNER JOIN PRONTUARIOSCRC "
-                                + "ON ITENSDEPOSITOPORTARIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                + "WHERE IdLanc='" + jIdLanc.getText() + "'");
-                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                        SalvarInterno();
+                        objItensDepoPort.setUsuarioInsert(nameUser);
+                        objItensDepoPort.setDataInsert(dataModFinal);
+                        objItensDepoPort.setHoraInsert(horaMov);
+                        if (acao == 3) {
+                            objItensDepoPort.setNomeInterno(jNomeInterno.getText());
+                            objItensDepoPort.setIdlanc(Integer.valueOf(jIdLanc.getText()));
+                            controle.incluirDepositoPortaria(objItensDepoPort);
+                            objLog2();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            preencherTabelaItensInternos("SELECT * FROM ITENSDEPOSITOPORTARIA "
+                                    + "INNER JOIN PRONTUARIOSCRC "
+                                    + "ON ITENSDEPOSITOPORTARIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                    + "WHERE IdLanc='" + jIdLanc.getText() + "'");
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                            SalvarInterno();
+                        }
+                        if (acao == 4) {
+                            // log de usuario
+                            objItensDepoPort.setUsuarioUp(nameUser);
+                            objItensDepoPort.setDataUp(dataModFinal);
+                            objItensDepoPort.setHoraUp(horaMov);
+                            //
+                            objItensDepoPort.setNomeInterno(jNomeInterno.getText());
+                            objItensDepoPort.setIdlanc(Integer.valueOf(jIdLanc.getText()));
+                            objItensDepoPort.setIdItem(Integer.valueOf(idItem));
+                            controle.alterarDepositoPortaria(objItensDepoPort);
+                            objLog2();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            preencherTabelaItensInternos("SELECT * FROM ITENSDEPOSITOPORTARIA "
+                                    + "INNER JOIN PRONTUARIOSCRC "
+                                    + "ON ITENSDEPOSITOPORTARIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                    + "WHERE IdLanc='" + jIdLanc.getText() + "'");
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                            SalvarInterno();
+                        }
                     }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar registro.");
         }
     }//GEN-LAST:event_jBtSalvarInternoActionPerformed
 
@@ -1978,5 +2035,43 @@ public class TelaControleDepositoSeguranca extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jIdLanc.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUser = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUser + "'");
+            conecta.rs.first();
+            codigoUserGroup = conecta.rs.getInt("IdUsuario");
+            codigoGrupo = conecta.rs.getInt("IdGrupo");
+            nomeGrupo = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUser + "' "
+                    + "AND NomeTela='" + telaControleValoresInterno + "'");
+            conecta.rs.first();
+            codUserAcesso = conecta.rs.getInt("IdUsuario");
+            codAbrir = conecta.rs.getInt("Abrir");
+            codIncluir = conecta.rs.getInt("Incluir");
+            codAlterar = conecta.rs.getInt("Alterar");
+            codExcluir = conecta.rs.getInt("Excluir");
+            codGravar = conecta.rs.getInt("Gravar");
+            codConsultar = conecta.rs.getInt("Consultar");
+            nomeTela = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

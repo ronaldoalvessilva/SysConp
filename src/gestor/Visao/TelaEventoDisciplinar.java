@@ -28,6 +28,27 @@ import gestor.Modelo.RegistroEventosIndisciplinar;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloSeguranca.codAbrir;
+import static gestor.Visao.TelaModuloSeguranca.codAlterar;
+import static gestor.Visao.TelaModuloSeguranca.codConsultar;
+import static gestor.Visao.TelaModuloSeguranca.codExcluir;
+import static gestor.Visao.TelaModuloSeguranca.codGravar;
+import static gestor.Visao.TelaModuloSeguranca.codIncluir;
+import static gestor.Visao.TelaModuloSeguranca.codUserAcesso;
+import static gestor.Visao.TelaModuloSeguranca.codigoGrupo;
+import static gestor.Visao.TelaModuloSeguranca.codigoUser;
+import static gestor.Visao.TelaModuloSeguranca.codigoUserGroup;
+import static gestor.Visao.TelaModuloSeguranca.nomeGrupo;
+import static gestor.Visao.TelaModuloSeguranca.nomeTela;
+import static gestor.Visao.TelaModuloSeguranca.telaRegistroEvendoDisciplinar;
+import static gestor.Visao.TelaModuloSeguranca.telaRegistroEvendoDisciplinarAutor;
+import static gestor.Visao.TelaModuloSeguranca.telaRegistroEvendoDisciplinarHistorico;
+import static gestor.Visao.TelaModuloSeguranca.telaRegistroEvendoDisciplinarObjstos;
+import static gestor.Visao.TelaModuloSeguranca.telaRegistroEvendoDisciplinarTestemunha;
+import static gestor.Visao.TelaModuloSeguranca.telaRegistroEvendoDisciplinarTestemunhaFunc;
+import static gestor.Visao.TelaModuloSeguranca.telaRegistroEvendoDisciplinarVitima;
+import static gestor.Visao.TelaModuloSeguranca.telaRegistroEvendoDisciplinarVitimaFunc;
+import static gestor.Visao.TelaModuloSeguranca.telaRegistroObjetoProcedimento;
 import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Image;
@@ -3241,111 +3262,127 @@ public class TelaEventoDisciplinar extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        limparTabelaInternosAutor();
-        limparTabelaInternoVitima();
-        limparTabelaColaboradorVitima();
-        limparTabelaInternoTestemunha();
-        limparTabelaColaboradorTestemunha();
-        limparTabelaInternosObjetos();
-        limparTabelaHistorico();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRegistroEvendoDisciplinar) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            limparTabelaInternosAutor();
+            limparTabelaInternoVitima();
+            limparTabelaColaboradorVitima();
+            limparTabelaInternoTestemunha();
+            limparTabelaColaboradorTestemunha();
+            limparTabelaInternosObjetos();
+            limparTabelaHistorico();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        objRegEvenDisciplinar.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRegistroEvendoDisciplinar) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            objRegEvenDisciplinar.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                Alterar();
+                corCampos();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 2;
-            Alterar();
-            corCampos();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        verificarTodosRegistros();
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
-        } else if (jIdLanc.getText().equals(idLancHist) || jIdLanc.getText().equals(idLancApr) || jIdLanc.getText().equals(idLancFuncTes)
-                || jIdLanc.getText().equals(idLancIntTes) || jIdLanc.getText().equals(idLancFuncVit) || jIdLanc.getText().equals(idLancIntVit)
-                || jIdLanc.getText().equals(idLancAut)) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído até que seja(m)\nexcluído(s) os registro(s) da(s) outra(s) aba(s).");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objRegEvenDisciplinar.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                control.excluirEventoDisciplinar(objRegEvenDisciplinar);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação               
-                Excluir();
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRegistroEvendoDisciplinar) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            verificarTodosRegistros();
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else if (jIdLanc.getText().equals(idLancHist) || jIdLanc.getText().equals(idLancApr) || jIdLanc.getText().equals(idLancFuncTes)
+                    || jIdLanc.getText().equals(idLancIntTes) || jIdLanc.getText().equals(idLancFuncVit) || jIdLanc.getText().equals(idLancIntVit)
+                    || jIdLanc.getText().equals(idLancAut)) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído até que seja(m)\nexcluído(s) os registro(s) da(s) outra(s) aba(s).");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objRegEvenDisciplinar.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                    control.excluirEventoDisciplinar(objRegEvenDisciplinar);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação               
+                    Excluir();
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a excluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataLanc.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data do registro.");
-            jDataLanc.requestFocus();
-            jDataLanc.setBackground(Color.red);
-        } else if (jDescricaoEvento.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a Natureza do Evento.");
-        } else if (jDescricaoLocalEvento.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o Local do Evento.");
-        } else if (jIdPav.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o pavilhão de origem.");
-        } else if (jDescricaoPavilhao.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o pavilhão de origem.");
-        } else if (jIdCela.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a cela de origem.");
-        } else if (jDescricaoCela.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a cela de origem.");
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRegistroEvendoDisciplinar) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jDataLanc.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data do registro.");
+                jDataLanc.requestFocus();
+                jDataLanc.setBackground(Color.red);
+            } else if (jDescricaoEvento.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a Natureza do Evento.");
+            } else if (jDescricaoLocalEvento.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o Local do Evento.");
+            } else if (jIdPav.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o pavilhão de origem.");
+            } else if (jDescricaoPavilhao.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o pavilhão de origem.");
+            } else if (jIdCela.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a cela de origem.");
+            } else if (jDescricaoCela.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a cela de origem.");
+            } else {
+                objRegEvenDisciplinar.setDataLanc(jDataLanc.getDate());
+                objRegEvenDisciplinar.setStatusLanc(jStatusLanc.getText());
+                objRegEvenDisciplinar.setDescricaoNatureza(jDescricaoEvento.getText());
+                objRegEvenDisciplinar.setDescricaoLocalEvento(jDescricaoLocalEvento.getText());
+                objRegEvenDisciplinar.setHorarioEvento(jHorarioEvento.getText());
+                objRegEvenDisciplinar.setDescricaoPavilhao(jDescricaoPavilhao.getText());
+                objRegEvenDisciplinar.setDescricaoCela(jDescricaoCela.getText());
+                objRegEvenDisciplinar.setObservacao(jObservacao.getText());
+                if (acao == 1) {
+                    objRegEvenDisciplinar.setUsuarioInsert(nameUser);
+                    objRegEvenDisciplinar.setDataInsert(dataModFinal);
+                    objRegEvenDisciplinar.setHorarioInsert(horaMov);
+                    control.incluirEventoDisciplinar(objRegEvenDisciplinar);
+                    buscarCodigo();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 2) {
+                    objRegEvenDisciplinar.setUsuarioUp(nameUser);
+                    objRegEvenDisciplinar.setDataUp(dataModFinal);
+                    objRegEvenDisciplinar.setHorarioUp(horaMov);
+                    objRegEvenDisciplinar.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                    control.alterarEventoDisciplinar(objRegEvenDisciplinar);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
         } else {
-            objRegEvenDisciplinar.setDataLanc(jDataLanc.getDate());
-            objRegEvenDisciplinar.setStatusLanc(jStatusLanc.getText());
-            objRegEvenDisciplinar.setDescricaoNatureza(jDescricaoEvento.getText());
-            objRegEvenDisciplinar.setDescricaoLocalEvento(jDescricaoLocalEvento.getText());
-            objRegEvenDisciplinar.setHorarioEvento(jHorarioEvento.getText());
-            objRegEvenDisciplinar.setDescricaoPavilhao(jDescricaoPavilhao.getText());
-            objRegEvenDisciplinar.setDescricaoCela(jDescricaoCela.getText());
-            objRegEvenDisciplinar.setObservacao(jObservacao.getText());
-            if (acao == 1) {
-                objRegEvenDisciplinar.setUsuarioInsert(nameUser);
-                objRegEvenDisciplinar.setDataInsert(dataModFinal);
-                objRegEvenDisciplinar.setHorarioInsert(horaMov);
-                control.incluirEventoDisciplinar(objRegEvenDisciplinar);
-                buscarCodigo();
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
-            if (acao == 2) {
-                objRegEvenDisciplinar.setUsuarioUp(nameUser);
-                objRegEvenDisciplinar.setDataUp(dataModFinal);
-                objRegEvenDisciplinar.setHorarioUp(horaMov);
-                objRegEvenDisciplinar.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                control.alterarEventoDisciplinar(objRegEvenDisciplinar);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -3425,128 +3462,148 @@ public class TelaEventoDisciplinar extends javax.swing.JInternalFrame {
 
     private void jBtNovoInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoInternoActionPerformed
         // TODO add your handling code here:
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaRegistroEvendoDisciplinarAutor);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRegistroEvendoDisciplinarAutor) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 3;
+                NovoInternoAutor();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 3;
-            NovoInternoAutor();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
     }//GEN-LAST:event_jBtNovoInternoActionPerformed
 
     private void jBtAlterarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarInternoActionPerformed
         // TODO add your handling code here:
-        codHistoricoInterno = ""; // Limpando os campos para poder alterar, caso o interno seja excluído
-        codInternoObjeto = ""; // Limpando os campos para poder alterar, caso o interno seja excluído
-        codInternoVitima = ""; // Limpando os campos para poder alterar, caso o interno seja excluído
-        codInternoTestemunha = ""; // Limpando os campos para poder alterar, caso o interno seja excluído
-        verificarInternoHistorico(); // Verificar se o mesmo interno esta cadastrado na tabela HISTORICOAUTOR
-        verificarInternoObjeto(); // Verificar se o mesmo interno esta cadastrado na tabela APREENSOES
-        verificarInternoTestemunha(); // Verificar se o mesmo interno esta cadastrado na tabela INTERNOTESTEMUNHA
-        verificarInternoVitima(); // Verificar se o mesmo interno esta cadastrado na tabela INTERNOSVITIMAS
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
-        } else if (jIdInternoAutor.getText().equals(codHistoricoInterno) || jIdInternoAutor.getText().equals(codInternoObjeto)
-                || jIdInternoAutor.getText().equals(codInternoTestemunha) || jIdInternoAutor.getText().equals(codInternoVitima)) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro de interno não poderá ser alterado,\nexiste (m) registro(s) relacionado(s) ao(s) mesmo(s).");
+        buscarAcessoUsuario(telaRegistroEvendoDisciplinarAutor);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRegistroEvendoDisciplinarAutor) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            codHistoricoInterno = ""; // Limpando os campos para poder alterar, caso o interno seja excluído
+            codInternoObjeto = ""; // Limpando os campos para poder alterar, caso o interno seja excluído
+            codInternoVitima = ""; // Limpando os campos para poder alterar, caso o interno seja excluído
+            codInternoTestemunha = ""; // Limpando os campos para poder alterar, caso o interno seja excluído
+            verificarInternoHistorico(); // Verificar se o mesmo interno esta cadastrado na tabela HISTORICOAUTOR
+            verificarInternoObjeto(); // Verificar se o mesmo interno esta cadastrado na tabela APREENSOES
+            verificarInternoTestemunha(); // Verificar se o mesmo interno esta cadastrado na tabela INTERNOTESTEMUNHA
+            verificarInternoVitima(); // Verificar se o mesmo interno esta cadastrado na tabela INTERNOSVITIMAS
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+            } else if (jIdInternoAutor.getText().equals(codHistoricoInterno) || jIdInternoAutor.getText().equals(codInternoObjeto)
+                    || jIdInternoAutor.getText().equals(codInternoTestemunha) || jIdInternoAutor.getText().equals(codInternoVitima)) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro de interno não poderá ser alterado,\nexiste (m) registro(s) relacionado(s) ao(s) mesmo(s).");
+            } else {
+                acao = 4;
+                AlterarInternoAutor();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 4;
-            AlterarInternoAutor();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
         }
     }//GEN-LAST:event_jBtAlterarInternoActionPerformed
 
     private void jBtExcluirInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirInternoActionPerformed
         // TODO add your handling code here:
-        verificarInternoHistorico(); // Verificar se o mesmo interno esta cadastrado na tabela HISTORICOAUTOR
-        verificarInternoObjeto(); // Verificar se o mesmo interno esta cadastrado na tabela APREENSOES
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
-        } else if (jIdInternoAutor.getText().equals(codHistoricoInterno) || jIdInternoAutor.getText().equals(codInternoObjeto)) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro de interno não poderá ser excluído,\npois, existe registro relacionado ao mesmo.");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objAutorEvento.setIdAutor(idItemAutor);
-                controle.excluirAutorEvento(objAutorEvento);
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                preencherTabelaInternos("SELECT * FROM AUTOREVENTOS "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON AUTOREVENTOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "INNER JOIN REGISTROEVENTOS "
-                        + "ON AUTOREVENTOS.IdLanc=REGISTROEVENTOS.IdLanc "
-                        + "INNER JOIN CELAS "
-                        + "ON AUTOREVENTOS.IdCela=CELAS.IdCela "
-                        + "WHERE AUTOREVENTOS.IdLanc='" + jIdLanc.getText() + "'");
-                ExcluirInternoAutor();
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+        buscarAcessoUsuario(telaRegistroEvendoDisciplinarAutor);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRegistroEvendoDisciplinarAutor) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            verificarInternoHistorico(); // Verificar se o mesmo interno esta cadastrado na tabela HISTORICOAUTOR
+            verificarInternoObjeto(); // Verificar se o mesmo interno esta cadastrado na tabela APREENSOES
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else if (jIdInternoAutor.getText().equals(codHistoricoInterno) || jIdInternoAutor.getText().equals(codInternoObjeto)) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro de interno não poderá ser excluído,\npois, existe registro relacionado ao mesmo.");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objAutorEvento.setIdAutor(idItemAutor);
+                    controle.excluirAutorEvento(objAutorEvento);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    preencherTabelaInternos("SELECT * FROM AUTOREVENTOS "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON AUTOREVENTOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN REGISTROEVENTOS "
+                            + "ON AUTOREVENTOS.IdLanc=REGISTROEVENTOS.IdLanc "
+                            + "INNER JOIN CELAS "
+                            + "ON AUTOREVENTOS.IdCela=CELAS.IdCela "
+                            + "WHERE AUTOREVENTOS.IdLanc='" + jIdLanc.getText() + "'");
+                    ExcluirInternoAutor();
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a excluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirInternoActionPerformed
 
     private void jBtSalvarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarInternoActionPerformed
         // TODO add your handling code here:
-        if (jIdInternoAutor.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe qual é o interno para esse registro.");
-        } else if (jQtdeDias.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a quantidade de dias para disciplina.");
-        } else if (jCelaDestinoInternoAutor.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o destino para o interno.");
+        buscarAcessoUsuario(telaRegistroEvendoDisciplinarAutor);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRegistroEvendoDisciplinarAutor) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jIdInternoAutor.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe qual é o interno para esse registro.");
+            } else if (jQtdeDias.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a quantidade de dias para disciplina.");
+            } else if (jCelaDestinoInternoAutor.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o destino para o interno.");
+            } else {
+                objAutorEvento.setUtilizacaoSaida(utilizaSaida);
+                objAutorEvento.setNomeInterno(jNomeInternoAutor.getText());
+                objAutorEvento.setDescricaoCela(jCelaDestinoInternoAutor.getText());
+                objAutorEvento.setQtdDias(Float.valueOf(jQtdeDias.getText()));
+                if (acao == 3) {
+                    objAutorEvento.setUsuarioInsert(nameUser);
+                    objAutorEvento.setDataInsert(dataModFinal);
+                    objAutorEvento.setHorarioInsert(horaMov);
+                    //
+                    objAutorEvento.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                    controle.incluirAutorEvento(objAutorEvento);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                
+                    preencherTabelaInternos("SELECT * FROM AUTOREVENTOS "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON AUTOREVENTOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN REGISTROEVENTOS "
+                            + "ON AUTOREVENTOS.IdLanc=REGISTROEVENTOS.IdLanc "
+                            + "INNER JOIN CELAS "
+                            + "ON AUTOREVENTOS.IdCela=CELAS.IdCela "
+                            + "WHERE AUTOREVENTOS.IdLanc='" + jIdLanc.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    SalvarInternoAutor();
+                }
+                if (acao == 4) {
+                    objAutorEvento.setUsuarioUp(nameUser);
+                    objAutorEvento.setDataUp(dataModFinal);
+                    objAutorEvento.setHorarioUp(horaMov);
+                    //
+                    objAutorEvento.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                    objAutorEvento.setIdAutor(idItemAutor);
+                    controle.alterarAutorEvento(objAutorEvento);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação             
+                    preencherTabelaInternos("SELECT * FROM AUTOREVENTOS "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON AUTOREVENTOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN REGISTROEVENTOS "
+                            + "ON AUTOREVENTOS.IdLanc=REGISTROEVENTOS.IdLanc "
+                            + "INNER JOIN CELAS "
+                            + "ON AUTOREVENTOS.IdCela=CELAS.IdCela "
+                            + "WHERE AUTOREVENTOS.IdLanc='" + jIdLanc.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    SalvarInternoAutor();
+                }
+            }
         } else {
-            objAutorEvento.setUtilizacaoSaida(utilizaSaida);
-            objAutorEvento.setNomeInterno(jNomeInternoAutor.getText());
-            objAutorEvento.setDescricaoCela(jCelaDestinoInternoAutor.getText());
-            objAutorEvento.setQtdDias(Float.valueOf(jQtdeDias.getText()));
-            if (acao == 3) {
-                objAutorEvento.setUsuarioInsert(nameUser);
-                objAutorEvento.setDataInsert(dataModFinal);
-                objAutorEvento.setHorarioInsert(horaMov);
-                //
-                objAutorEvento.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                controle.incluirAutorEvento(objAutorEvento);
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                
-                preencherTabelaInternos("SELECT * FROM AUTOREVENTOS "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON AUTOREVENTOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "INNER JOIN REGISTROEVENTOS "
-                        + "ON AUTOREVENTOS.IdLanc=REGISTROEVENTOS.IdLanc "
-                        + "INNER JOIN CELAS "
-                        + "ON AUTOREVENTOS.IdCela=CELAS.IdCela "
-                        + "WHERE AUTOREVENTOS.IdLanc='" + jIdLanc.getText() + "'");
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                SalvarInternoAutor();
-            }
-            if (acao == 4) {
-                objAutorEvento.setUsuarioUp(nameUser);
-                objAutorEvento.setDataUp(dataModFinal);
-                objAutorEvento.setHorarioUp(horaMov);
-                //
-                objAutorEvento.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                objAutorEvento.setIdAutor(idItemAutor);
-                controle.alterarAutorEvento(objAutorEvento);
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação             
-                preencherTabelaInternos("SELECT * FROM AUTOREVENTOS "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON AUTOREVENTOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "INNER JOIN REGISTROEVENTOS "
-                        + "ON AUTOREVENTOS.IdLanc=REGISTROEVENTOS.IdLanc "
-                        + "INNER JOIN CELAS "
-                        + "ON AUTOREVENTOS.IdCela=CELAS.IdCela "
-                        + "WHERE AUTOREVENTOS.IdLanc='" + jIdLanc.getText() + "'");
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                SalvarInternoAutor();
-            }
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar registro.");
         }
     }//GEN-LAST:event_jBtSalvarInternoActionPerformed
 
@@ -3608,99 +3665,119 @@ public class TelaEventoDisciplinar extends javax.swing.JInternalFrame {
 
     private void jBtNovoInternoVitimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoInternoVitimaActionPerformed
         // TODO add your handling code here:
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaRegistroEvendoDisciplinarVitima);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRegistroEvendoDisciplinarVitima) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 5;
+                NovoInternoVitima();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 5;
-            NovoInternoVitima();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
     }//GEN-LAST:event_jBtNovoInternoVitimaActionPerformed
 
     private void jBtAlterarInternoVitimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarInternoVitimaActionPerformed
         // TODO add your handling code here:
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaRegistroEvendoDisciplinarVitima);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRegistroEvendoDisciplinarVitima) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 6;
+                AlterarInternoVitima();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 6;
-            AlterarInternoVitima();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
         }
     }//GEN-LAST:event_jBtAlterarInternoVitimaActionPerformed
 
     private void jBtExcluirInternoVitimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirInternoVitimaActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objIntVitima.setIdIntVitima(idItemIntVi);
-                controleIntVit.excluirInternoVitima(objIntVitima);
-                objLog3();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                preencherTabelaInternosVitima("SELECT * FROM INTERNOSVITIMAS "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON INTERNOSVITIMAS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "INNER JOIN REGISTROEVENTOS "
-                        + "ON INTERNOSVITIMAS.IdLanc=REGISTROEVENTOS.IdLanc "
-                        + "WHERE INTERNOSVITIMAS.IdLanc='" + jIdLanc.getText() + "'");
-                ExcluirInternoVitima();
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+        buscarAcessoUsuario(telaRegistroEvendoDisciplinarVitima);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRegistroEvendoDisciplinarVitima) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objIntVitima.setIdIntVitima(idItemIntVi);
+                    controleIntVit.excluirInternoVitima(objIntVitima);
+                    objLog3();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    preencherTabelaInternosVitima("SELECT * FROM INTERNOSVITIMAS "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON INTERNOSVITIMAS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN REGISTROEVENTOS "
+                            + "ON INTERNOSVITIMAS.IdLanc=REGISTROEVENTOS.IdLanc "
+                            + "WHERE INTERNOSVITIMAS.IdLanc='" + jIdLanc.getText() + "'");
+                    ExcluirInternoVitima();
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a excluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirInternoVitimaActionPerformed
 
     private void jBtSalvarInternoVitimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarInternoVitimaActionPerformed
         // TODO add your handling code here:
-        if (jIdInternoCrcVitima.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome da vítima.");
+        buscarAcessoUsuario(telaRegistroEvendoDisciplinarVitima);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRegistroEvendoDisciplinarVitima) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jIdInternoCrcVitima.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome da vítima.");
+            } else {
+                objIntVitima.setNomeInternoVitima(jNomeInternoVitima.getText());
+                objIntVitima.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                if (acao == 5) {
+                    objIntVitima.setUsuarioInsert(nameUser);
+                    objIntVitima.setDataInsert(dataModFinal);
+                    objIntVitima.setHorarioInsert(horaMov);
+                    //
+                    controleIntVit.incluirInternoVitima(objIntVitima);
+                    objLog3();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
+                    preencherTabelaInternosVitima("SELECT * FROM INTERNOSVITIMAS "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON INTERNOSVITIMAS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN REGISTROEVENTOS "
+                            + "ON INTERNOSVITIMAS.IdLanc=REGISTROEVENTOS.IdLanc "
+                            + "WHERE INTERNOSVITIMAS.IdLanc='" + jIdLanc.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro Gravado com sucesso.");
+                    SalvarInternoVitima();
+                }
+                if (acao == 6) {
+                    objIntVitima.setUsuarioUp(nameUser);
+                    objIntVitima.setDataUp(dataModFinal);
+                    objIntVitima.setHorarioUp(horaMov);
+                    //
+                    objIntVitima.setIdIntVitima(idItemIntVi);
+                    controleIntVit.alterarInternoVitima(objIntVitima);
+                    objLog3();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                    preencherTabelaInternosVitima("SELECT * FROM INTERNOSVITIMAS "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON INTERNOSVITIMAS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN REGISTROEVENTOS "
+                            + "ON INTERNOSVITIMAS.IdLanc=REGISTROEVENTOS.IdLanc "
+                            + "WHERE INTERNOSVITIMAS.IdLanc='" + jIdLanc.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro Gravado com sucesso.");
+                    SalvarInternoVitima();
+                }
+            }
         } else {
-            objIntVitima.setNomeInternoVitima(jNomeInternoVitima.getText());
-            objIntVitima.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-            if (acao == 5) {
-                objIntVitima.setUsuarioInsert(nameUser);
-                objIntVitima.setDataInsert(dataModFinal);
-                objIntVitima.setHorarioInsert(horaMov);
-                //
-                controleIntVit.incluirInternoVitima(objIntVitima);
-                objLog3();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
-                preencherTabelaInternosVitima("SELECT * FROM INTERNOSVITIMAS "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON INTERNOSVITIMAS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "INNER JOIN REGISTROEVENTOS "
-                        + "ON INTERNOSVITIMAS.IdLanc=REGISTROEVENTOS.IdLanc "
-                        + "WHERE INTERNOSVITIMAS.IdLanc='" + jIdLanc.getText() + "'");
-                JOptionPane.showMessageDialog(rootPane, "Registro Gravado com sucesso.");
-                SalvarInternoVitima();
-            }
-            if (acao == 6) {
-                objIntVitima.setUsuarioUp(nameUser);
-                objIntVitima.setDataUp(dataModFinal);
-                objIntVitima.setHorarioUp(horaMov);
-                //
-                objIntVitima.setIdIntVitima(idItemIntVi);
-                controleIntVit.alterarInternoVitima(objIntVitima);
-                objLog3();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
-                preencherTabelaInternosVitima("SELECT * FROM INTERNOSVITIMAS "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON INTERNOSVITIMAS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "INNER JOIN REGISTROEVENTOS "
-                        + "ON INTERNOSVITIMAS.IdLanc=REGISTROEVENTOS.IdLanc "
-                        + "WHERE INTERNOSVITIMAS.IdLanc='" + jIdLanc.getText() + "'");
-                JOptionPane.showMessageDialog(rootPane, "Registro Gravado com sucesso.");
-                SalvarInternoVitima();
-            }
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar registro.");
         }
     }//GEN-LAST:event_jBtSalvarInternoVitimaActionPerformed
 
@@ -3764,109 +3841,129 @@ public class TelaEventoDisciplinar extends javax.swing.JInternalFrame {
 
     private void jBtNovoFuncVitimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoFuncVitimaActionPerformed
         // TODO add your handling code here:
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaRegistroEvendoDisciplinarVitimaFunc);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRegistroEvendoDisciplinarVitimaFunc) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 7;
+                NovoFuncVitima();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 7;
-            NovoFuncVitima();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
     }//GEN-LAST:event_jBtNovoFuncVitimaActionPerformed
 
     private void jBtAlterarFuncVitimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarFuncVitimaActionPerformed
         // TODO add your handling code here:
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaRegistroEvendoDisciplinarVitimaFunc);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRegistroEvendoDisciplinarVitimaFunc) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 8;
+                AlterarFuncVitima();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 8;
-            AlterarFuncVitima();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
         }
     }//GEN-LAST:event_jBtAlterarFuncVitimaActionPerformed
 
     private void jBtExcluirFuncVitimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirFuncVitimaActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objFuncVitima.setIdColaVit(idItemFuncVi);
-                controlFuncVit.excluirColaboradorVitima(objFuncVitima);
-                objLog4();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                preencherTabelaColaboradorVitima("SELECT * FROM COLABORADORVITIMA "
-                        + "INNER JOIN COLABORADOR "
-                        + "ON COLABORADORVITIMA.IdFunc=COLABORADOR.IdFunc "
-                        + "INNER JOIN DEPARTAMENTOS "
-                        + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
-                        + "INNER JOIN REGISTROEVENTOS "
-                        + "ON COLABORADORVITIMA.IdLanc=REGISTROEVENTOS.IdLanc "
-                        + "WHERE COLABORADORVITIMA.IdLanc='" + jIdLanc.getText() + "'");
-                ExcluirFuncVitima();
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+        buscarAcessoUsuario(telaRegistroEvendoDisciplinarVitimaFunc);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRegistroEvendoDisciplinarVitimaFunc) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objFuncVitima.setIdColaVit(idItemFuncVi);
+                    controlFuncVit.excluirColaboradorVitima(objFuncVitima);
+                    objLog4();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    preencherTabelaColaboradorVitima("SELECT * FROM COLABORADORVITIMA "
+                            + "INNER JOIN COLABORADOR "
+                            + "ON COLABORADORVITIMA.IdFunc=COLABORADOR.IdFunc "
+                            + "INNER JOIN DEPARTAMENTOS "
+                            + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
+                            + "INNER JOIN REGISTROEVENTOS "
+                            + "ON COLABORADORVITIMA.IdLanc=REGISTROEVENTOS.IdLanc "
+                            + "WHERE COLABORADORVITIMA.IdLanc='" + jIdLanc.getText() + "'");
+                    ExcluirFuncVitima();
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a excluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirFuncVitimaActionPerformed
 
     private void jBtSalvarFuncVitimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarFuncVitimaActionPerformed
         // TODO add your handling code here:
-        if (jIdFuncVitima.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do colaborador.");
-        } else if (jRGVitima.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o número do RG do colaborador.");
+        buscarAcessoUsuario(telaRegistroEvendoDisciplinarVitimaFunc);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRegistroEvendoDisciplinarVitimaFunc) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jIdFuncVitima.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do colaborador.");
+            } else if (jRGVitima.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o número do RG do colaborador.");
+            } else {
+                objFuncVitima.setIdColaVit(Integer.valueOf(jIdFuncVitima.getText()));
+                objFuncVitima.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                objFuncVitima.setNomeColaborador(jNomeColaboradorVitima.getText());
+                objFuncVitima.setRgColaborador(jRGVitima.getText());
+                if (acao == 7) {
+                    objFuncVitima.setUsuarioInsert(nameUser);
+                    objFuncVitima.setDataInsert(dataModFinal);
+                    objFuncVitima.setHorarioInsert(horaMov);
+                    //                
+                    controlFuncVit.incluirColaboradorVitima(objFuncVitima);
+                    objLog4();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                    preencherTabelaColaboradorVitima("SELECT * FROM COLABORADORVITIMA "
+                            + "INNER JOIN COLABORADOR "
+                            + "ON COLABORADORVITIMA.IdFunc=COLABORADOR.IdFunc "
+                            + "INNER JOIN DEPARTAMENTOS "
+                            + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
+                            + "INNER JOIN REGISTROEVENTOS "
+                            + "ON COLABORADORVITIMA.IdLanc=REGISTROEVENTOS.IdLanc "
+                            + "WHERE COLABORADORVITIMA.IdLanc='" + jIdLanc.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    SalvarFuncVitima();
+                }
+                if (acao == 8) {
+                    objFuncVitima.setUsuarioUp(nameUser);
+                    objFuncVitima.setDataUp(dataModFinal);
+                    objFuncVitima.setHorarioUp(horaMov);
+                    //
+                    objFuncVitima.setIdColaVit(idItemFuncVi);
+                    controlFuncVit.alterarColaboradorVitima(objFuncVitima);
+                    objLog4();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                    preencherTabelaColaboradorVitima("SELECT * FROM COLABORADORVITIMA "
+                            + "INNER JOIN COLABORADOR "
+                            + "ON COLABORADORVITIMA.IdFunc=COLABORADOR.IdFunc "
+                            + "INNER JOIN DEPARTAMENTOS "
+                            + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
+                            + "INNER JOIN REGISTROEVENTOS "
+                            + "ON COLABORADORVITIMA.IdLanc=REGISTROEVENTOS.IdLanc "
+                            + "WHERE COLABORADORVITIMA.IdLanc='" + jIdLanc.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    SalvarFuncVitima();
+                }
+            }
         } else {
-            objFuncVitima.setIdColaVit(Integer.valueOf(jIdFuncVitima.getText()));
-            objFuncVitima.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-            objFuncVitima.setNomeColaborador(jNomeColaboradorVitima.getText());
-            objFuncVitima.setRgColaborador(jRGVitima.getText());
-            if (acao == 7) {
-                objFuncVitima.setUsuarioInsert(nameUser);
-                objFuncVitima.setDataInsert(dataModFinal);
-                objFuncVitima.setHorarioInsert(horaMov);
-                //                
-                controlFuncVit.incluirColaboradorVitima(objFuncVitima);
-                objLog4();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
-                preencherTabelaColaboradorVitima("SELECT * FROM COLABORADORVITIMA "
-                        + "INNER JOIN COLABORADOR "
-                        + "ON COLABORADORVITIMA.IdFunc=COLABORADOR.IdFunc "
-                        + "INNER JOIN DEPARTAMENTOS "
-                        + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
-                        + "INNER JOIN REGISTROEVENTOS "
-                        + "ON COLABORADORVITIMA.IdLanc=REGISTROEVENTOS.IdLanc "
-                        + "WHERE COLABORADORVITIMA.IdLanc='" + jIdLanc.getText() + "'");
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                SalvarFuncVitima();
-            }
-            if (acao == 8) {
-                objFuncVitima.setUsuarioUp(nameUser);
-                objFuncVitima.setDataUp(dataModFinal);
-                objFuncVitima.setHorarioUp(horaMov);
-                //
-                objFuncVitima.setIdColaVit(idItemFuncVi);
-                controlFuncVit.alterarColaboradorVitima(objFuncVitima);
-                objLog4();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
-                preencherTabelaColaboradorVitima("SELECT * FROM COLABORADORVITIMA "
-                        + "INNER JOIN COLABORADOR "
-                        + "ON COLABORADORVITIMA.IdFunc=COLABORADOR.IdFunc "
-                        + "INNER JOIN DEPARTAMENTOS "
-                        + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
-                        + "INNER JOIN REGISTROEVENTOS "
-                        + "ON COLABORADORVITIMA.IdLanc=REGISTROEVENTOS.IdLanc "
-                        + "WHERE COLABORADORVITIMA.IdLanc='" + jIdLanc.getText() + "'");
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                SalvarFuncVitima();
-            }
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar registro.");
         }
     }//GEN-LAST:event_jBtSalvarFuncVitimaActionPerformed
 
@@ -3928,99 +4025,119 @@ public class TelaEventoDisciplinar extends javax.swing.JInternalFrame {
 
     private void jBtNovoInternoTestemunhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoInternoTestemunhaActionPerformed
         // TODO add your handling code here:
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaRegistroEvendoDisciplinarTestemunha);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRegistroEvendoDisciplinarTestemunha) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 9;
+                NovoInternoTestemunha();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 9;
-            NovoInternoTestemunha();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
     }//GEN-LAST:event_jBtNovoInternoTestemunhaActionPerformed
 
     private void jBtAlterarInternoTestemunhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarInternoTestemunhaActionPerformed
         // TODO add your handling code here:
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaRegistroEvendoDisciplinarTestemunha);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRegistroEvendoDisciplinarTestemunha) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 10;
+                AlterarInternoTestemunha();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 10;
-            AlterarInternoTestemunha();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
         }
     }//GEN-LAST:event_jBtAlterarInternoTestemunhaActionPerformed
 
     private void jBtExcluirInternoTestemunhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirInternoTestemunhaActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objIntTeste.setIdIntTeste(idItemIntTes);
-                controleIntTeste.excluirInternoTestemunha(objIntTeste);
-                objLog5();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                preencherTabelaInternosTestemunha("SELECT * FROM INTERNOTESTEMUNHA "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON INTERNOTESTEMUNHA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "INNER JOIN REGISTROEVENTOS "
-                        + "ON INTERNOTESTEMUNHA.IdLanc=REGISTROEVENTOS.IdLanc "
-                        + "WHERE INTERNOTESTEMUNHA.IdLanc='" + jIdLanc.getText() + "'");
-                ExcluirInternoTestemunha();
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+        buscarAcessoUsuario(telaRegistroEvendoDisciplinarTestemunha);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRegistroEvendoDisciplinarTestemunha) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objIntTeste.setIdIntTeste(idItemIntTes);
+                    controleIntTeste.excluirInternoTestemunha(objIntTeste);
+                    objLog5();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    preencherTabelaInternosTestemunha("SELECT * FROM INTERNOTESTEMUNHA "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON INTERNOTESTEMUNHA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN REGISTROEVENTOS "
+                            + "ON INTERNOTESTEMUNHA.IdLanc=REGISTROEVENTOS.IdLanc "
+                            + "WHERE INTERNOTESTEMUNHA.IdLanc='" + jIdLanc.getText() + "'");
+                    ExcluirInternoTestemunha();
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a excluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirInternoTestemunhaActionPerformed
 
     private void jBtSalvarInternoTestemunhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarInternoTestemunhaActionPerformed
         // TODO add your handling code here:
-        if (jIdInternoTestemunha.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o interno testemunha.");
+        buscarAcessoUsuario(telaRegistroEvendoDisciplinarTestemunha);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRegistroEvendoDisciplinarTestemunha) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jIdInternoTestemunha.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o interno testemunha.");
+            } else {
+                objIntTeste.setNomeInternoTestemunha(jNomeInternoTestemunha.getText());
+                objIntTeste.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                if (acao == 9) {
+                    objIntTeste.setUsuarioInsert(nameUser);
+                    objIntTeste.setDataInsert(dataModFinal);
+                    objIntTeste.setHorarioInsert(horaMov);
+                    //
+                    controleIntTeste.incluirInternoTestemunha(objIntTeste);
+                    objLog5();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                    preencherTabelaInternosTestemunha("SELECT * FROM INTERNOTESTEMUNHA "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON INTERNOTESTEMUNHA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN REGISTROEVENTOS "
+                            + "ON INTERNOTESTEMUNHA.IdLanc=REGISTROEVENTOS.IdLanc "
+                            + "WHERE INTERNOTESTEMUNHA.IdLanc='" + jIdLanc.getText() + "'");
+                    SalvarInternoTestemunha();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravdo com sucesso.");
+                }
+                if (acao == 10) {
+                    objIntTeste.setUsuarioUp(nameUser);
+                    objIntTeste.setDataUp(dataModFinal);
+                    objIntTeste.setHorarioUp(horaMov);
+                    //
+                    objIntTeste.setIdIntTeste(idItemIntTes);
+                    controleIntTeste.alterarInternoTestemunha(objIntTeste);
+                    objLog5();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                    preencherTabelaInternosTestemunha("SELECT * FROM INTERNOTESTEMUNHA "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON INTERNOTESTEMUNHA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN REGISTROEVENTOS "
+                            + "ON INTERNOTESTEMUNHA.IdLanc=REGISTROEVENTOS.IdLanc "
+                            + "WHERE INTERNOTESTEMUNHA.IdLanc='" + jIdLanc.getText() + "'");
+                    SalvarInternoTestemunha();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravdo com sucesso.");
+                }
+            }
         } else {
-            objIntTeste.setNomeInternoTestemunha(jNomeInternoTestemunha.getText());
-            objIntTeste.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-            if (acao == 9) {
-                objIntTeste.setUsuarioInsert(nameUser);
-                objIntTeste.setDataInsert(dataModFinal);
-                objIntTeste.setHorarioInsert(horaMov);
-                //
-                controleIntTeste.incluirInternoTestemunha(objIntTeste);
-                objLog5();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
-                preencherTabelaInternosTestemunha("SELECT * FROM INTERNOTESTEMUNHA "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON INTERNOTESTEMUNHA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "INNER JOIN REGISTROEVENTOS "
-                        + "ON INTERNOTESTEMUNHA.IdLanc=REGISTROEVENTOS.IdLanc "
-                        + "WHERE INTERNOTESTEMUNHA.IdLanc='" + jIdLanc.getText() + "'");
-                SalvarInternoTestemunha();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravdo com sucesso.");
-            }
-            if (acao == 10) {
-                objIntTeste.setUsuarioUp(nameUser);
-                objIntTeste.setDataUp(dataModFinal);
-                objIntTeste.setHorarioUp(horaMov);
-                //
-                objIntTeste.setIdIntTeste(idItemIntTes);
-                controleIntTeste.alterarInternoTestemunha(objIntTeste);
-                objLog5();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
-                preencherTabelaInternosTestemunha("SELECT * FROM INTERNOTESTEMUNHA "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON INTERNOTESTEMUNHA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "INNER JOIN REGISTROEVENTOS "
-                        + "ON INTERNOTESTEMUNHA.IdLanc=REGISTROEVENTOS.IdLanc "
-                        + "WHERE INTERNOTESTEMUNHA.IdLanc='" + jIdLanc.getText() + "'");
-                SalvarInternoTestemunha();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravdo com sucesso.");
-            }
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar registro.");
         }
     }//GEN-LAST:event_jBtSalvarInternoTestemunhaActionPerformed
 
@@ -4084,108 +4201,128 @@ public class TelaEventoDisciplinar extends javax.swing.JInternalFrame {
 
     private void jBtNovoFuncTestemunhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoFuncTestemunhaActionPerformed
         // TODO add your handling code here:
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaRegistroEvendoDisciplinarTestemunhaFunc);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRegistroEvendoDisciplinarTestemunhaFunc) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 11;
+                NovoFuncTestemunha();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 11;
-            NovoFuncTestemunha();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
     }//GEN-LAST:event_jBtNovoFuncTestemunhaActionPerformed
 
     private void jBtAlterarFuncTestemunhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarFuncTestemunhaActionPerformed
         // TODO add your handling code here:
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaRegistroEvendoDisciplinarTestemunhaFunc);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRegistroEvendoDisciplinarTestemunhaFunc) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 12;
+                AlterarFuncTestemunha();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 12;
-            AlterarFuncTestemunha();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
         }
     }//GEN-LAST:event_jBtAlterarFuncTestemunhaActionPerformed
 
     private void jBtExcluirFuncTestemunhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirFuncTestemunhaActionPerformed
-        // TODO add your handling code here:             
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objFuncTeste.setIdColaVit(idItemFuncTes);
-                controlFuncTeste.excluirColaboradorVitima(objFuncTeste);
-                objLog6();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                preencherTabelaColaboradorTestemunha("SELECT * FROM COLABORADORTESTEMUNHA "
-                        + "INNER JOIN COLABORADOR "
-                        + "ON COLABORADORTESTEMUNHA.IdFunc=COLABORADOR.IdFunc "
-                        + "INNER JOIN DEPARTAMENTOS "
-                        + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
-                        + "INNER JOIN REGISTROEVENTOS "
-                        + "ON COLABORADORTESTEMUNHA.IdLanc=REGISTROEVENTOS.IdLanc "
-                        + "WHERE COLABORADORTESTEMUNHA.IdLanc='" + jIdLanc.getText() + "'");
-                ExcluirFuncTestemunha();
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+        // TODO add your handling code here: 
+        buscarAcessoUsuario(telaRegistroEvendoDisciplinarTestemunhaFunc);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRegistroEvendoDisciplinarTestemunhaFunc) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objFuncTeste.setIdColaVit(idItemFuncTes);
+                    controlFuncTeste.excluirColaboradorVitima(objFuncTeste);
+                    objLog6();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    preencherTabelaColaboradorTestemunha("SELECT * FROM COLABORADORTESTEMUNHA "
+                            + "INNER JOIN COLABORADOR "
+                            + "ON COLABORADORTESTEMUNHA.IdFunc=COLABORADOR.IdFunc "
+                            + "INNER JOIN DEPARTAMENTOS "
+                            + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
+                            + "INNER JOIN REGISTROEVENTOS "
+                            + "ON COLABORADORTESTEMUNHA.IdLanc=REGISTROEVENTOS.IdLanc "
+                            + "WHERE COLABORADORTESTEMUNHA.IdLanc='" + jIdLanc.getText() + "'");
+                    ExcluirFuncTestemunha();
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a excluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirFuncTestemunhaActionPerformed
 
     private void jBtSalvarFuncTestemunhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarFuncTestemunhaActionPerformed
         // TODO add your handling code here:
-        if (jIdFuncTestemunha.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do colaborador.");
-        } else if (jRGFuncTestemunha.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o RG do colaborador.");
+        buscarAcessoUsuario(telaRegistroEvendoDisciplinarTestemunhaFunc);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRegistroEvendoDisciplinarTestemunhaFunc) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jIdFuncTestemunha.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do colaborador.");
+            } else if (jRGFuncTestemunha.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o RG do colaborador.");
+            } else {
+                objFuncTeste.setNomeColaborador(jNomeFuncTestemunha.getText());
+                objFuncTeste.setRgFuncTestemunha(jRGFuncTestemunha.getText());
+                objFuncTeste.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                if (acao == 11) {
+                    objFuncTeste.setUsuarioInsert(nameUser);
+                    objFuncTeste.setDataInsert(dataModFinal);
+                    objFuncTeste.setHorarioInsert(horaMov);
+                    //
+                    controlFuncTeste.incluirColaboradorVitima(objFuncTeste);
+                    objLog6();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                    preencherTabelaColaboradorTestemunha("SELECT * FROM COLABORADORTESTEMUNHA "
+                            + "INNER JOIN COLABORADOR "
+                            + "ON COLABORADORTESTEMUNHA.IdFunc=COLABORADOR.IdFunc "
+                            + "INNER JOIN DEPARTAMENTOS "
+                            + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
+                            + "INNER JOIN REGISTROEVENTOS "
+                            + "ON COLABORADORTESTEMUNHA.IdLanc=REGISTROEVENTOS.IdLanc "
+                            + "WHERE COLABORADORTESTEMUNHA.IdLanc='" + jIdLanc.getText() + "'");
+                    SalvarFuncTestemunha();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 12) {
+                    objFuncTeste.setUsuarioUp(nameUser);
+                    objFuncTeste.setDataUp(dataModFinal);
+                    objFuncTeste.setHorarioUp(horaMov);
+                    //
+                    objFuncTeste.setIdColaVit(idItemFuncTes);
+                    controlFuncTeste.alterarColaboradorVitima(objFuncTeste);
+                    objLog6();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                    preencherTabelaColaboradorTestemunha("SELECT * FROM COLABORADORTESTEMUNHA "
+                            + "INNER JOIN COLABORADOR "
+                            + "ON COLABORADORTESTEMUNHA.IdFunc=COLABORADOR.IdFunc "
+                            + "INNER JOIN DEPARTAMENTOS "
+                            + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
+                            + "INNER JOIN REGISTROEVENTOS "
+                            + "ON COLABORADORTESTEMUNHA.IdLanc=REGISTROEVENTOS.IdLanc "
+                            + "WHERE COLABORADORTESTEMUNHA.IdLanc='" + jIdLanc.getText() + "'");
+                    SalvarFuncTestemunha();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
         } else {
-            objFuncTeste.setNomeColaborador(jNomeFuncTestemunha.getText());
-            objFuncTeste.setRgFuncTestemunha(jRGFuncTestemunha.getText());
-            objFuncTeste.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-            if (acao == 11) {
-                objFuncTeste.setUsuarioInsert(nameUser);
-                objFuncTeste.setDataInsert(dataModFinal);
-                objFuncTeste.setHorarioInsert(horaMov);
-                //
-                controlFuncTeste.incluirColaboradorVitima(objFuncTeste);
-                objLog6();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
-                preencherTabelaColaboradorTestemunha("SELECT * FROM COLABORADORTESTEMUNHA "
-                        + "INNER JOIN COLABORADOR "
-                        + "ON COLABORADORTESTEMUNHA.IdFunc=COLABORADOR.IdFunc "
-                        + "INNER JOIN DEPARTAMENTOS "
-                        + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
-                        + "INNER JOIN REGISTROEVENTOS "
-                        + "ON COLABORADORTESTEMUNHA.IdLanc=REGISTROEVENTOS.IdLanc "
-                        + "WHERE COLABORADORTESTEMUNHA.IdLanc='" + jIdLanc.getText() + "'");
-                SalvarFuncTestemunha();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
-            if (acao == 12) {
-                objFuncTeste.setUsuarioUp(nameUser);
-                objFuncTeste.setDataUp(dataModFinal);
-                objFuncTeste.setHorarioUp(horaMov);
-                //
-                objFuncTeste.setIdColaVit(idItemFuncTes);
-                controlFuncTeste.alterarColaboradorVitima(objFuncTeste);
-                objLog6();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
-                preencherTabelaColaboradorTestemunha("SELECT * FROM COLABORADORTESTEMUNHA "
-                        + "INNER JOIN COLABORADOR "
-                        + "ON COLABORADORTESTEMUNHA.IdFunc=COLABORADOR.IdFunc "
-                        + "INNER JOIN DEPARTAMENTOS "
-                        + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
-                        + "INNER JOIN REGISTROEVENTOS "
-                        + "ON COLABORADORTESTEMUNHA.IdLanc=REGISTROEVENTOS.IdLanc "
-                        + "WHERE COLABORADORTESTEMUNHA.IdLanc='" + jIdLanc.getText() + "'");
-                SalvarFuncTestemunha();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar registro.");
         }
     }//GEN-LAST:event_jBtSalvarFuncTestemunhaActionPerformed
 
@@ -4254,112 +4391,132 @@ public class TelaEventoDisciplinar extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTabelaInternosObjetosMouseClicked
 
     private void jBtNovoObjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoObjetoActionPerformed
-        // TODO add your handling code here:
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+        // TODO add your handling code here:       
+        buscarAcessoUsuario(telaRegistroEvendoDisciplinarObjstos);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRegistroEvendoDisciplinarObjstos) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 13;
+                NovoObjeto();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 13;
-            NovoObjeto();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
     }//GEN-LAST:event_jBtNovoObjetoActionPerformed
 
     private void jBtAlterarObjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarObjetoActionPerformed
         // TODO add your handling code here:
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaRegistroEvendoDisciplinarObjstos);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRegistroEvendoDisciplinarObjstos) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 14;
+                AlterarObjeto();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 14;
-            AlterarObjeto();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
         }
     }//GEN-LAST:event_jBtAlterarObjetoActionPerformed
 
     private void jBtExcluirObjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirObjetoActionPerformed
         // TODO add your handling code here:
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
-        } else {
-            statusMov = "Excluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objApre.setIdAprende(idItemApreende);
-                controleApre.excluirApreensoes(objApre);
-                objLog7();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                preencherTabelaInternosObjetos("SELECT * FROM APRENSSOES "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON APRENSSOES.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "INNER JOIN OBJETOSPROCEDIMENTOS "
-                        + "ON APRENSSOES.IdObjeto=OBJETOSPROCEDIMENTOS.IdObjeto "
-                        + "INNER JOIN REGISTROEVENTOS "
-                        + "ON APRENSSOES.IdLanc=REGISTROEVENTOS.IdLanc "
-                        + "WHERE APRENSSOES.IdLanc='" + jIdLanc.getText() + "'");
-                ExcluirObjeto();
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+        buscarAcessoUsuario(telaRegistroEvendoDisciplinarObjstos);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRegistroEvendoDisciplinarObjstos) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objApre.setIdAprende(idItemApreende);
+                    controleApre.excluirApreensoes(objApre);
+                    objLog7();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    preencherTabelaInternosObjetos("SELECT * FROM APRENSSOES "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON APRENSSOES.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN OBJETOSPROCEDIMENTOS "
+                            + "ON APRENSSOES.IdObjeto=OBJETOSPROCEDIMENTOS.IdObjeto "
+                            + "INNER JOIN REGISTROEVENTOS "
+                            + "ON APRENSSOES.IdLanc=REGISTROEVENTOS.IdLanc "
+                            + "WHERE APRENSSOES.IdLanc='" + jIdLanc.getText() + "'");
+                    ExcluirObjeto();
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a excluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirObjetoActionPerformed
 
     private void jBtSalvarObjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarObjetoActionPerformed
         // TODO add your handling code here:
-        if (jIdInternoPertence.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
-        } else if (jIdObjeto.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o objeto encontrado.");
-        } else if (jQtdEncontrado.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a quantidade de objetos encontrado.");
+        buscarAcessoUsuario(telaRegistroEvendoDisciplinarObjstos);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRegistroEvendoDisciplinarObjstos) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jIdInternoPertence.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
+            } else if (jIdObjeto.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o objeto encontrado.");
+            } else if (jQtdEncontrado.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a quantidade de objetos encontrado.");
+            } else {
+                objApre.setNomeInternoApreensoes(jNomeInternoPertenceObjeto.getText());
+                objApre.setDescricaoObjeto(jDescricaoObjeto.getText());
+                objApre.setQtdEncontrada(Float.valueOf(jQtdEncontrado.getText()));
+                objApre.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                if (acao == 13) {
+                    objApre.setUsuarioInsert(nameUser);
+                    objApre.setDataInsert(dataModFinal);
+                    objApre.setHorarioInsert(horaMov);
+                    //
+                    controleApre.incluirApreensoes(objApre);
+                    objLog7();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                    preencherTabelaInternosObjetos("SELECT * FROM APRENSSOES "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON APRENSSOES.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN OBJETOSPROCEDIMENTOS "
+                            + "ON APRENSSOES.IdObjeto=OBJETOSPROCEDIMENTOS.IdObjeto "
+                            + "INNER JOIN REGISTROEVENTOS "
+                            + "ON APRENSSOES.IdLanc=REGISTROEVENTOS.IdLanc "
+                            + "WHERE APRENSSOES.IdLanc='" + jIdLanc.getText() + "'");
+                    SalvarObjeto();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 14) {
+                    objApre.setUsuarioUp(nameUser);
+                    objApre.setDataUp(dataModFinal);
+                    objApre.setHorarioUp(horaMov);
+                    //
+                    objApre.setIdAprende(idItemApreende);
+                    controleApre.alterarApreensoes(objApre);
+                    objLog7();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                    preencherTabelaInternosObjetos("SELECT * FROM APRENSSOES "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON APRENSSOES.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN OBJETOSPROCEDIMENTOS "
+                            + "ON APRENSSOES.IdObjeto=OBJETOSPROCEDIMENTOS.IdObjeto "
+                            + "INNER JOIN REGISTROEVENTOS "
+                            + "ON APRENSSOES.IdLanc=REGISTROEVENTOS.IdLanc "
+                            + "WHERE APRENSSOES.IdLanc='" + jIdLanc.getText() + "'");
+                    SalvarObjeto();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
         } else {
-            objApre.setNomeInternoApreensoes(jNomeInternoPertenceObjeto.getText());
-            objApre.setDescricaoObjeto(jDescricaoObjeto.getText());
-            objApre.setQtdEncontrada(Float.valueOf(jQtdEncontrado.getText()));
-            objApre.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-            if (acao == 13) {
-                objApre.setUsuarioInsert(nameUser);
-                objApre.setDataInsert(dataModFinal);
-                objApre.setHorarioInsert(horaMov);
-                //
-                controleApre.incluirApreensoes(objApre);
-                objLog7();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
-                preencherTabelaInternosObjetos("SELECT * FROM APRENSSOES "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON APRENSSOES.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "INNER JOIN OBJETOSPROCEDIMENTOS "
-                        + "ON APRENSSOES.IdObjeto=OBJETOSPROCEDIMENTOS.IdObjeto "
-                        + "INNER JOIN REGISTROEVENTOS "
-                        + "ON APRENSSOES.IdLanc=REGISTROEVENTOS.IdLanc "
-                        + "WHERE APRENSSOES.IdLanc='" + jIdLanc.getText() + "'");
-                SalvarObjeto();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
-            if (acao == 14) {
-                objApre.setUsuarioUp(nameUser);
-                objApre.setDataUp(dataModFinal);
-                objApre.setHorarioUp(horaMov);
-                //
-                objApre.setIdAprende(idItemApreende);
-                controleApre.alterarApreensoes(objApre);
-                objLog7();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
-                preencherTabelaInternosObjetos("SELECT * FROM APRENSSOES "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON APRENSSOES.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "INNER JOIN OBJETOSPROCEDIMENTOS "
-                        + "ON APRENSSOES.IdObjeto=OBJETOSPROCEDIMENTOS.IdObjeto "
-                        + "INNER JOIN REGISTROEVENTOS "
-                        + "ON APRENSSOES.IdLanc=REGISTROEVENTOS.IdLanc "
-                        + "WHERE APRENSSOES.IdLanc='" + jIdLanc.getText() + "'");
-                SalvarObjeto();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar registro.");
         }
     }//GEN-LAST:event_jBtSalvarObjetoActionPerformed
 
@@ -4377,103 +4534,123 @@ public class TelaEventoDisciplinar extends javax.swing.JInternalFrame {
 
     private void jBtNovoHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoHistoricoActionPerformed
         // TODO add your handling code here:
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaRegistroEvendoDisciplinarHistorico);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRegistroEvendoDisciplinarHistorico) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 15;
+                NovoHistorico();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 15;
-            NovoHistorico();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
     }//GEN-LAST:event_jBtNovoHistoricoActionPerformed
 
     private void jBtAlterarHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarHistoricoActionPerformed
         // TODO add your handling code here:
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaRegistroEvendoDisciplinarHistorico);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRegistroEvendoDisciplinarHistorico) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 16;
+                AlterarHistorico();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 16;
-            AlterarHistorico();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
         }
     }//GEN-LAST:event_jBtAlterarHistoricoActionPerformed
 
     private void jBtExcluirHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirHistoricoActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        objRegEvenDisciplinar.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objHisto.setIdHist(idItemHist);
-                controlHist.excluirHistoricoInterno(objHisto);
-                objLog8();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                preencherTabelaInternosHistorico("SELECT * FROM HISTORICOAUTOR "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON HISTORICOAUTOR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "INNER JOIN REGISTROEVENTOS "
-                        + "ON HISTORICOAUTOR.IdLanc=REGISTROEVENTOS.IdLanc "
-                        + "WHERE HISTORICOAUTOR.IdLanc='" + jIdLanc.getText() + "'");
-                ExcluirHistorico();
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+        buscarAcessoUsuario(telaRegistroEvendoDisciplinarHistorico);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRegistroEvendoDisciplinarHistorico) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objRegEvenDisciplinar.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objHisto.setIdHist(idItemHist);
+                    controlHist.excluirHistoricoInterno(objHisto);
+                    objLog8();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    preencherTabelaInternosHistorico("SELECT * FROM HISTORICOAUTOR "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON HISTORICOAUTOR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN REGISTROEVENTOS "
+                            + "ON HISTORICOAUTOR.IdLanc=REGISTROEVENTOS.IdLanc "
+                            + "WHERE HISTORICOAUTOR.IdLanc='" + jIdLanc.getText() + "'");
+                    ExcluirHistorico();
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a excluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirHistoricoActionPerformed
 
     private void jBtSalvarHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarHistoricoActionPerformed
         // TODO add your handling code here:
-        if (jHistorico.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Nao e permitido gravar histórico vazio.");
-        } else if (jIdInternoHistorico.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para o histórico.");
+        buscarAcessoUsuario(telaRegistroEvendoDisciplinarHistorico);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRegistroEvendoDisciplinarHistorico) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jHistorico.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Nao e permitido gravar histórico vazio.");
+            } else if (jIdInternoHistorico.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para o histórico.");
+            } else {
+                objHisto.setHistorico(jHistorico.getText());
+                objHisto.setNomeInternoHistorico(jNomeInternoHistorico.getText());
+                objHisto.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                if (acao == 15) {
+                    objHisto.setUsuarioInsert(nameUser);
+                    objHisto.setDataInsert(dataModFinal);
+                    objHisto.setHorarioInsert(horaMov);
+                    //
+                    controlHist.incluirHistoricoInterno(objHisto);
+                    objLog8();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                    preencherTabelaInternosHistorico("SELECT * FROM HISTORICOAUTOR "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON HISTORICOAUTOR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN REGISTROEVENTOS "
+                            + "ON HISTORICOAUTOR.IdLanc=REGISTROEVENTOS.IdLanc "
+                            + "WHERE HISTORICOAUTOR.IdLanc='" + jIdLanc.getText() + "'");
+                    SalvarHistorico();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 16) {
+                    objHisto.setUsuarioUp(nameUser);
+                    objHisto.setDataUp(dataModFinal);
+                    objHisto.setHorarioUp(horaMov);
+                    //
+                    objHisto.setIdHist(idItemHist);
+                    controlHist.alterarHistoricoInterno(objHisto);
+                    objLog8();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    preencherTabelaInternosHistorico("SELECT * FROM HISTORICOAUTOR "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON HISTORICOAUTOR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN REGISTROEVENTOS "
+                            + "ON HISTORICOAUTOR.IdLanc=REGISTROEVENTOS.IdLanc "
+                            + "WHERE HISTORICOAUTOR.IdLanc='" + jIdLanc.getText() + "'");
+                    SalvarHistorico();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
         } else {
-            objHisto.setHistorico(jHistorico.getText());
-            objHisto.setNomeInternoHistorico(jNomeInternoHistorico.getText());
-            objHisto.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-            if (acao == 15) {
-                objHisto.setUsuarioInsert(nameUser);
-                objHisto.setDataInsert(dataModFinal);
-                objHisto.setHorarioInsert(horaMov);
-                //
-                controlHist.incluirHistoricoInterno(objHisto);
-                objLog8();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
-                preencherTabelaInternosHistorico("SELECT * FROM HISTORICOAUTOR "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON HISTORICOAUTOR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "INNER JOIN REGISTROEVENTOS "
-                        + "ON HISTORICOAUTOR.IdLanc=REGISTROEVENTOS.IdLanc "
-                        + "WHERE HISTORICOAUTOR.IdLanc='" + jIdLanc.getText() + "'");
-                SalvarHistorico();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
-            if (acao == 16) {
-                objHisto.setUsuarioUp(nameUser);
-                objHisto.setDataUp(dataModFinal);
-                objHisto.setHorarioUp(horaMov);
-                //
-                objHisto.setIdHist(idItemHist);
-                controlHist.alterarHistoricoInterno(objHisto);
-                objLog8();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                preencherTabelaInternosHistorico("SELECT * FROM HISTORICOAUTOR "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON HISTORICOAUTOR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "INNER JOIN REGISTROEVENTOS "
-                        + "ON HISTORICOAUTOR.IdLanc=REGISTROEVENTOS.IdLanc "
-                        + "WHERE HISTORICOAUTOR.IdLanc='" + jIdLanc.getText() + "'");
-                SalvarHistorico();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar registro.");
         }
     }//GEN-LAST:event_jBtSalvarHistoricoActionPerformed
 
@@ -6113,7 +6290,7 @@ public class TelaEventoDisciplinar extends javax.swing.JInternalFrame {
         jBtExcluirInterno.setEnabled(!true);
         jBtSalvarInterno.setEnabled(!true);
         jBtCancelarInterno.setEnabled(!true);
-        jBtAuditoriaInterno.setEnabled(!true);        
+        jBtAuditoriaInterno.setEnabled(!true);
         // Aba Manutenção
         jDataLanc.setEnabled(!true);
         jHorarioEvento.setEnabled(!true);
@@ -10537,5 +10714,43 @@ public class TelaEventoDisciplinar extends javax.swing.JInternalFrame {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaSeguranca) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUser = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUser + "'");
+            conecta.rs.first();
+            codigoUserGroup = conecta.rs.getInt("IdUsuario");
+            codigoGrupo = conecta.rs.getInt("IdGrupo");
+            nomeGrupo = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUser + "' "
+                    + "AND NomeTela='" + nomeTelaSeguranca + "'");
+            conecta.rs.first();
+            codUserAcesso = conecta.rs.getInt("IdUsuario");
+            codAbrir = conecta.rs.getInt("Abrir");
+            codIncluir = conecta.rs.getInt("Incluir");
+            codAlterar = conecta.rs.getInt("Alterar");
+            codExcluir = conecta.rs.getInt("Excluir");
+            codGravar = conecta.rs.getInt("Gravar");
+            codConsultar = conecta.rs.getInt("Consultar");
+            nomeTela = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

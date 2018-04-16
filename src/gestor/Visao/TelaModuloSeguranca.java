@@ -166,9 +166,22 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     public static String telaLocacaoInternos = "Movimentação:Locacao Internos:Internos";
     public static String telaTransferenciaPavilhaoCela = "Movimentação:Transferencia Pavilhao Cela:Manutenção";
     public static String telaControleValores = "Movimentação:Controle Valores:Manutenção";
+    public static String telaControleValoresInterno = "Movimentação:Controle Valores:Interno";
     public static String telaRegistroObjetoProcedimento = "Movimentação:Registro Objeto Procedimento:Manutenção";
+    public static String telaRegistroObjetoProcedimentoPavilhao = "Movimentação:Registro Objeto Procedimento:Pavilhão Celas";
+    public static String telaRegistroObjetoObjetos = "Movimentação:Registro Objeto Procedimento:Objetos Encontrados";
+    public static String telaRegistroObjetoAgentes = "Movimentação:Registro Objeto Procedimento:Agentes";
     public static String telaRegistroEvendoDisciplinar = "Movimentação:Registro Evendo Disciplinar:Manutenção";
+    public static String telaRegistroEvendoDisciplinarAutor = "Movimentação:Registro Evendo Disciplinar:Autor";    
+    public static String telaRegistroEvendoDisciplinarVitima = "Movimentação:Registro Evendo Disciplinar:Vitima";
+    public static String telaRegistroEvendoDisciplinarVitimaFunc = "Movimentação:Registro Evendo Disciplinar:Vitima Colaborador";        
+    public static String telaRegistroEvendoDisciplinarTestemunha = "Movimentação:Registro Evendo Disciplinar:Testemunha";    
+    public static String telaRegistroEvendoDisciplinarTestemunhaFunc = "Movimentação:Registro Evendo Disciplinar:Testemunha Colaborador";    
+    public static String telaRegistroEvendoDisciplinarObjstos = "Movimentação:Registro Evendo Disciplinar:Objetos";
+    public static String telaRegistroEvendoDisciplinarHistorico = "Movimentação:Registro Evendo Disciplinar:Histórico";
+        
     public static String telaAplicarRegistroPenalidadeDisciplinas = "Movimentação:Aplicar Registro Penalidade Disciplinas:Manutenção";
+    
     public static String telaRetirarPenalidade = "Movimentação:Retirar Penalidade:Manutenção";
     public static String telaLivroOcorrencias = "Movimentação:Livro Ocorrencias:Manutenção";
     public static String telaBloqueioLiberacaoVisitasPortaria = "Movimentação:Bloqueio Liberacao Visitas Portaria:Manutenção";
@@ -194,8 +207,20 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     String pNomeLI = "";
     String pNomeTPC = "";
     String pNomeCV = "";
+    String pNomeCVI = "";
     String pNomeROP = "";
+    String pNomeROPP = "";
+    String pNomeROO = "";
+    String pNomeROA = "";
     String pNomeRED = "";
+    String pNomeREDA = "";
+    String pNomeREDV = "";
+    String pNomeREDVF = "";
+    String pNomeREDT = "";
+    String pNomeREDTF = "";
+    String pNomeREDO = "";
+    String pNomeREDH = "";
+    
     String pNomeARPD = "";
     String pNomeRP = "";
     String pNomeLO = "";
@@ -2794,7 +2819,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
             pNomeSPP = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
-        // MANUTENÇÃO
+        // MOVIMENTAÇÃO
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaLocacaoInternosManutencao + "'");
@@ -2818,9 +2843,37 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         }
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
-                    + "WHERE NomeTela='" + telaRegistroObjetoProcedimento + "'");
+                    + "WHERE NomeTela='" + telaControleValoresInterno + "'");
+            conecta.rs.first();
+            pNomeCVI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRegistroObjetoProcedimentoPavilhao + "'");
             conecta.rs.first();
             pNomeROP = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRegistroObjetoProcedimento + "'");
+            conecta.rs.first();
+            pNomeROPP = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRegistroObjetoObjetos + "'");
+            conecta.rs.first();
+            pNomeROO = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRegistroObjetoAgentes + "'");
+            conecta.rs.first();
+            pNomeROA = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
@@ -2830,6 +2883,58 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
             pNomeRED = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRegistroEvendoDisciplinarAutor + "'");
+            conecta.rs.first();
+            pNomeREDA = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }        
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRegistroEvendoDisciplinarVitima + "'");
+            conecta.rs.first();
+            pNomeREDV = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }        
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRegistroEvendoDisciplinarVitimaFunc + "'");
+            conecta.rs.first();
+            pNomeREDVF = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }        
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRegistroEvendoDisciplinarTestemunha + "'");
+            conecta.rs.first();
+            pNomeREDT = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }        
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRegistroEvendoDisciplinarTestemunhaFunc + "'");
+            conecta.rs.first();
+            pNomeREDTF = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }        
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRegistroEvendoDisciplinarObjstos + "'");
+            conecta.rs.first();
+            pNomeREDO = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        //
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRegistroEvendoDisciplinarHistorico + "'");
+            conecta.rs.first();
+            pNomeREDH = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        
+        
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaAplicarRegistroPenalidadeDisciplinas + "'");
@@ -2969,18 +3074,80 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
             objCadastroTela.setNomeTela(telaControleValores);
             controle.incluirTelaAcesso(objCadastroTela);
         }
+        if (!pNomeCVI.equals(telaControleValoresInterno) || pNomeCVI == null || pNomeCVI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaControleValoresInterno);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
         if (!pNomeROP.equals(telaRegistroObjetoProcedimento) || pNomeROP == null || pNomeROP.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaRegistroObjetoProcedimento);
             controle.incluirTelaAcesso(objCadastroTela);
         }
-        if (!pNomeRED.equals(telaRegistroEvendoDisciplinar) || pNomeRED == null || pNomeRED.equals("")) {
+        if (!pNomeROPP.equals(telaRegistroObjetoProcedimentoPavilhao) || pNomeROPP == null || pNomeROPP.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
-            objCadastroTela.setNomeTela(telaRegistroEvendoDisciplinar);
+            objCadastroTela.setNomeTela(telaRegistroObjetoProcedimentoPavilhao);
             controle.incluirTelaAcesso(objCadastroTela);
         }
+        if (!pNomeROO.equals(telaRegistroObjetoObjetos) || pNomeROO == null || pNomeROO.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRegistroObjetoObjetos);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeROA.equals(telaRegistroObjetoAgentes) || pNomeROA == null || pNomeROA.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRegistroObjetoAgentes);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeREDA.equals(telaRegistroEvendoDisciplinarAutor) || pNomeREDA == null || pNomeREDA.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRegistroEvendoDisciplinarAutor);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }      
+        if (!pNomeREDV.equals(telaRegistroEvendoDisciplinarVitima) || pNomeREDV == null || pNomeREDV.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRegistroEvendoDisciplinarVitima);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }        
+        if (!pNomeREDVF.equals(telaRegistroEvendoDisciplinarVitimaFunc) || pNomeREDVF == null || pNomeREDVF.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRegistroEvendoDisciplinarVitimaFunc);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeREDT.equals(telaRegistroEvendoDisciplinarTestemunha) || pNomeREDT == null || pNomeREDT.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRegistroEvendoDisciplinarTestemunha);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }        
+        if (!pNomeREDTF.equals(telaRegistroEvendoDisciplinarTestemunhaFunc) || pNomeREDTF == null || pNomeREDTF.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRegistroEvendoDisciplinarTestemunhaFunc);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }        
+        if (!pNomeREDO.equals(telaRegistroEvendoDisciplinarObjstos) || pNomeREDO == null || pNomeREDO.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRegistroEvendoDisciplinarObjstos);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //
+        if (!pNomeREDH.equals(telaRegistroEvendoDisciplinarHistorico) || pNomeREDH == null || pNomeREDH.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRegistroEvendoDisciplinarHistorico);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        
         if (!pNomeARPD.equals(telaAplicarRegistroPenalidadeDisciplinas) || pNomeARPD == null || pNomeARPD.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
