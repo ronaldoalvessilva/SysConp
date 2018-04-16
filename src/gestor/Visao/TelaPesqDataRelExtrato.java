@@ -51,6 +51,9 @@ public class TelaPesqDataRelExtrato extends javax.swing.JInternalFrame {
     double valorDebito = 0; // Calcular os débitos
     String campoCredito = "C";
     String campoDebito = "D";
+    //
+    String situacaoEnt = "ENTRADA NA UNIDADE";
+    String situacaoRet = "RETORNO A UNIDADE";
 
     /**
      * Creates new form TelaPesqDataExtrato
@@ -189,7 +192,7 @@ public class TelaPesqDataRelExtrato extends javax.swing.JInternalFrame {
 
     private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
         // TODO add your handling code here:   
-        
+
         if (jDataPesqInicial.getDate() == null) {
             JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
             jDataPesqInicial.requestFocus();
@@ -203,20 +206,25 @@ public class TelaPesqDataRelExtrato extends javax.swing.JInternalFrame {
                 } else {
                     SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
                     dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());                  
+                    dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                     conecta.abrirConexao();
-                    try {                         
+                    try {
                         String path = "reports/ExtratoValoresGeralInternos.jasper";
                         conecta.executaSQL("SELECT * FROM SALDOVALORES "
                                 + "INNER JOIN PRONTUARIOSCRC "
                                 + "ON SALDOVALORES.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                 + "WHERE DataMov BETWEEN'" + dataInicial + "' "
                                 + "AND'" + dataFinal + "' "
+                                + "AND PRONTUARIOSCRC.SituacaoCrc='" + situacaoEnt + "' "
+                                + "OR DataMov BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "' "
                                 + "ORDER BY NomeInternoCrc,DataMov");
                         HashMap parametros = new HashMap();
                         parametros.put("dataInicial", dataInicial);
                         parametros.put("dataFinal", dataFinal);
-                        parametros.put("usuario", nameUser);                   
+                        parametros.put("pEntrada",situacaoEnt);
+                        parametros.put("pRetorno",situacaoRet);
+                        parametros.put("usuario", nameUser);
                         JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
                         JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
                         JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
@@ -342,30 +350,30 @@ public class TelaPesqDataRelExtrato extends javax.swing.JInternalFrame {
         conecta.desconecta();
     }
 
-    public void calcularCreditDebito(){
+    public void calcularCreditDebito() {
         conecta.abrirConexao();
-         try {
-                conecta.executaSQL("SELECT * FROM SALDOVALORES WHERE  StatusMov='" + campoCredito + "'");
-                conecta.rs.first();
-                do {
-                    valorCredito = conecta.rs.getFloat("ValorMov");
-                    valorTotalCredito = valorTotalCredito + valorCredito;
-                } while (conecta.rs.next());
-                conecta.desconecta();
-            } catch (SQLException ex) {
-            }
-            conecta.abrirConexao();
-            //Verifica o DÉBITO do interno para deduzir do debito. Se o valor for zero permite sair
-            try {
-                conecta.executaSQL("SELECT * FROM SALDOVALORES WHERE StatusMov='" + campoDebito + "'");
-                conecta.rs.first();
-                do {
-                    valorDebito = conecta.rs.getFloat("ValorMov");
-                    valorTotalDebito = valorTotalDebito + valorDebito;
-                } while (conecta.rs.next());
-                valorTotal = valorTotalCredito - valorTotalDebito;
-            } catch (SQLException ex) {
-            }
+        try {
+            conecta.executaSQL("SELECT * FROM SALDOVALORES WHERE  StatusMov='" + campoCredito + "'");
+            conecta.rs.first();
+            do {
+                valorCredito = conecta.rs.getFloat("ValorMov");
+                valorTotalCredito = valorTotalCredito + valorCredito;
+            } while (conecta.rs.next());
             conecta.desconecta();
+        } catch (SQLException ex) {
+        }
+        conecta.abrirConexao();
+        //Verifica o DÉBITO do interno para deduzir do debito. Se o valor for zero permite sair
+        try {
+            conecta.executaSQL("SELECT * FROM SALDOVALORES WHERE StatusMov='" + campoDebito + "'");
+            conecta.rs.first();
+            do {
+                valorDebito = conecta.rs.getFloat("ValorMov");
+                valorTotalDebito = valorTotalDebito + valorDebito;
+            } while (conecta.rs.next());
+            valorTotal = valorTotalCredito - valorTotalDebito;
+        } catch (SQLException ex) {
+        }
+        conecta.desconecta();
     }
 }
