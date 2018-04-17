@@ -162,8 +162,8 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     public static String telaSaidaPertencesInternos = "Controle de Pertences:Saida Pertences Internos:Manutenção";
     public static String telaSaidaPertencesPertences = "Controle de Pertences:Saida Pertences Internos:Pertences";
     // MOVIMENTAÇÃO
-    public static String telaLocacaoInternosManutencao = "Movimentação:Locacao Internos:Manutenção";
-    public static String telaLocacaoInternos = "Movimentação:Locacao Internos:Internos";
+    public static String telaLocacaoInternosManutencao = "Movimentação:Locação Internos:Manutenção";
+    public static String telaLocacaoInternos = "Movimentação:Locação Internos:Internos";
     public static String telaTransferenciaPavilhaoCela = "Movimentação:Transferencia Pavilhao Cela:Manutenção";
     public static String telaControleValores = "Movimentação:Controle Valores:Manutenção";
     public static String telaControleValoresInterno = "Movimentação:Controle Valores:Interno";
@@ -205,6 +205,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     String pNomeSPI = "";
     String pNomeSPP = "";
     // MANUTENÇÃO
+    String pNomeLIM = "";
     String pNomeLI = "";
     String pNomeTPC = "";
     String pNomeCV = "";
@@ -2825,6 +2826,13 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
             conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaLocacaoInternosManutencao + "'");
             conecta.rs.first();
+            pNomeLIM = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaLocacaoInternos + "'");
+            conecta.rs.first();
             pNomeLI = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
@@ -2926,7 +2934,6 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
             pNomeREDO = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
-        //
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaRegistroEvendoDisciplinarHistorico + "'");
@@ -3062,10 +3069,16 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
             controle.incluirTelaAcesso(objCadastroTela);
         }
         // MOVIMENTAÇÃO
-        if (!pNomeLI.equals(telaLocacaoInternosManutencao) || pNomeLI == null || pNomeLI.equals("")) {
+        if (!pNomeLIM.equals(telaLocacaoInternosManutencao) || pNomeLIM == null || pNomeLIM.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaLocacaoInternosManutencao);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeLI.equals(telaLocacaoInternos) || pNomeLI == null || pNomeLI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaLocacaoInternos);
             controle.incluirTelaAcesso(objCadastroTela);
         }
         if (!pNomeTPC.equals(telaTransferenciaPavilhaoCela) || pNomeTPC == null || pNomeTPC.equals("")) {
@@ -3145,7 +3158,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaRegistroEvendoDisciplinarObjstos);
             controle.incluirTelaAcesso(objCadastroTela);
-        }        
+        }
         if (!pNomeREDH.equals(telaRegistroEvendoDisciplinarHistorico) || pNomeREDH == null || pNomeREDH.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
@@ -3163,7 +3176,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaRetirarPenalidade);
             controle.incluirTelaAcesso(objCadastroTela);
-        }        
+        }
         if (!pNomeRPI.equals(telaRetirarPenalidadeInternos) || pNomeRPI == null || pNomeRPI.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
@@ -3182,6 +3195,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
             objCadastroTela.setNomeTela(telaBloqueioLiberacaoVisitasPortaria);
             controle.incluirTelaAcesso(objCadastroTela);
         }
+        JOptionPane.showMessageDialog(rootPane, "Telas cadastrada com sucesso, solicite ao administrador do sistema para configurar o seu pérfil.");
     }
 
     // MÉTODO PARA BUSCAR O CÓDIGO DO MÓDULO, CASO NÃO TENHA SIDO CADASTRADO.

@@ -1502,6 +1502,7 @@ public class TelaModuloFinanceiro extends javax.swing.JInternalFrame {
             objCadastroTela.setNomeTela(telaEstornoValores);
             controle.incluirTelaAcesso(objCadastroTela);
         }
+        JOptionPane.showMessageDialog(rootPane, "Telas cadastrada com sucesso, solicite ao administrador do sistema para configurar o seu pérfil.");
     }
 
     // MÉTODO PARA BUSCAR O CÓDIGO DO MÓDULO, CASO NÃO TENHA SIDO CADASTRADO.

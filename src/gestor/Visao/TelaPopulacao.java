@@ -74,7 +74,7 @@ public final class TelaPopulacao extends javax.swing.JInternalFrame {
     String statusPop = "ABERTO";
     String dataPop, dataPopBanco;
     Date date = null;
-
+ 
     /**
      * Creates new form TelaPopulacao
      */
