@@ -14,6 +14,15 @@ import gestor.Modelo.LogSistema;
 import gestor.Modelo.RegistroIndisciplinarPortaria;
 import gestor.Modelo.VisitasOcorrenciaPortaria;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloSeguranca.codAlterar;
+import static gestor.Visao.TelaModuloSeguranca.codExcluir;
+import static gestor.Visao.TelaModuloSeguranca.codIncluir;
+import static gestor.Visao.TelaModuloSeguranca.codUserAcesso;
+import static gestor.Visao.TelaModuloSeguranca.codigoUser;
+import static gestor.Visao.TelaModuloSeguranca.nomeGrupo;
+import static gestor.Visao.TelaModuloSeguranca.nomeTela;
+import static gestor.Visao.TelaModuloSeguranca.telaBloqueioLiberacaoVisitasPortaria;
+import static gestor.Visao.TelaModuloSeguranca.telaRetirarPenalidade;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -957,75 +966,87 @@ public class TelaBloqueioLiberacaoVisitasPortariaSeguranca extends javax.swing.J
 
     private void jBtAutorizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAutorizarActionPerformed
         // TODO add your handling code here: 
-        acao = 1;
-        buscarUsuario();
-        verificarUsuarioAutorizados();
-        verificarBloqueioLiberacao();
-        verificarBloqueioLiberacaoVisitasInternas();
-        verificarLiberacao(); // TABELA REGISTRO_INDISCIPLINA_PORTARIA
-        jBtAutorizar.setEnabled(!true);
-        jBtCancelar.setEnabled(true);
-        if (jNomeInternoCrc.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Pesquise o interno para realizar o procedimento.");
-        } else {
-            if (codUserAutoriza == codUsuario) {
-                jDataAprovacao.setCalendar(Calendar.getInstance());
-                jDataAprovacao.setEnabled(true);
-                jColaboradorAutorizador.setText(nameUser);
-                if (codBloqueio == 0) { // SERÁ BLOQUEIO VISITA EXTERNA
-                    jBtBloquear.setEnabled(true);
-                    jBtLiberar.setEnabled(!true);
-                    //
-                    jRadioBtBloquear.setEnabled(true);
-                    jRadioBtBloquear.setSelected(true);
-                    jRadioBtLiberar.setEnabled(!true);
-                    jRadioBtLiberar.setSelected(!true);
-                } else if (codBloqueio == 1) { // SERÁ LIBERAÇÃO VISITA EXTERNA
-                    jBtLiberar.setEnabled(true);
-                    jBtBloquear.setEnabled(!true);
-                    //
-                    jRadioBtBloquear.setEnabled(!true);
-                    jRadioBtBloquear.setSelected(!true);
-                    jRadioBtLiberar.setEnabled(true);
-                    jRadioBtLiberar.setSelected(true);
-                } else if (codBloqueio1 == 0) { // SERÁ BLOQUEIO VISITA INTERNA
-                    jBtBloquear.setEnabled(true);
-                    jBtLiberar.setEnabled(!true);
-                    //
-                    jRadioBtBloquear.setEnabled(true);
-                    jRadioBtBloquear.setSelected(true);
-                    jRadioBtLiberar.setEnabled(!true);
-                    jRadioBtLiberar.setSelected(!true);
-                } else if (codBloqueio1 == 1) { // SERÁ LIBERAR VISITA INTERNA
-                    jBtLiberar.setEnabled(true);
-                    jBtBloquear.setEnabled(!true);
-                    //
-                    jRadioBtBloquear.setEnabled(!true);
-                    jRadioBtBloquear.setSelected(!true);
-                    jRadioBtLiberar.setEnabled(true);
-                    jRadioBtLiberar.setSelected(true);
-                }
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaBloqueioLiberacaoVisitasPortaria) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            acao = 1;
+            buscarUsuario();
+            verificarUsuarioAutorizados();
+            verificarBloqueioLiberacao();
+            verificarBloqueioLiberacaoVisitasInternas();
+            verificarLiberacao(); // TABELA REGISTRO_INDISCIPLINA_PORTARIA
+            jBtAutorizar.setEnabled(!true);
+            jBtCancelar.setEnabled(true);
+            if (jNomeInternoCrc.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Pesquise o interno para realizar o procedimento.");
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Usuário não tem autorização para bloquear/Liberar registro..");
-                jBtAutorizar.setEnabled(true);
-                jBtCancelar.setEnabled(!true);
+                if (codUserAutoriza == codUsuario) {
+                    jDataAprovacao.setCalendar(Calendar.getInstance());
+                    jDataAprovacao.setEnabled(true);
+                    jColaboradorAutorizador.setText(nameUser);
+                    if (codBloqueio == 0) { // SERÁ BLOQUEIO VISITA EXTERNA
+                        jBtBloquear.setEnabled(true);
+                        jBtLiberar.setEnabled(!true);
+                        //
+                        jRadioBtBloquear.setEnabled(true);
+                        jRadioBtBloquear.setSelected(true);
+                        jRadioBtLiberar.setEnabled(!true);
+                        jRadioBtLiberar.setSelected(!true);
+                    } else if (codBloqueio == 1) { // SERÁ LIBERAÇÃO VISITA EXTERNA
+                        jBtLiberar.setEnabled(true);
+                        jBtBloquear.setEnabled(!true);
+                        //
+                        jRadioBtBloquear.setEnabled(!true);
+                        jRadioBtBloquear.setSelected(!true);
+                        jRadioBtLiberar.setEnabled(true);
+                        jRadioBtLiberar.setSelected(true);
+                    } else if (codBloqueio1 == 0) { // SERÁ BLOQUEIO VISITA INTERNA
+                        jBtBloquear.setEnabled(true);
+                        jBtLiberar.setEnabled(!true);
+                        //
+                        jRadioBtBloquear.setEnabled(true);
+                        jRadioBtBloquear.setSelected(true);
+                        jRadioBtLiberar.setEnabled(!true);
+                        jRadioBtLiberar.setSelected(!true);
+                    } else if (codBloqueio1 == 1) { // SERÁ LIBERAR VISITA INTERNA
+                        jBtLiberar.setEnabled(true);
+                        jBtBloquear.setEnabled(!true);
+                        //
+                        jRadioBtBloquear.setEnabled(!true);
+                        jRadioBtBloquear.setSelected(!true);
+                        jRadioBtLiberar.setEnabled(true);
+                        jRadioBtLiberar.setSelected(true);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Usuário não tem autorização para bloquear/Liberar registro..");
+                    jBtAutorizar.setEnabled(true);
+                    jBtCancelar.setEnabled(!true);
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem autorização para liberar registro.");
         }
     }//GEN-LAST:event_jBtAutorizarActionPerformed
 
     private void jBtBloquearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtBloquearActionPerformed
         // TODO add your handling code here:
-        if (concluirRegistro.equals("Sim")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, já foi concluído.");
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaBloqueioLiberacaoVisitasPortaria) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (concluirRegistro.equals("Sim")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, já foi concluído.");
+            } else {
+                bloquearVisita();
+            }
         } else {
-            bloquearVisita();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem autorização para bloquear registro.");
         }
     }//GEN-LAST:event_jBtBloquearActionPerformed
 
     private void jBtLiberarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtLiberarActionPerformed
         // TODO add your handling code here:
-        acao = 2;
-        liberarVisita();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaBloqueioLiberacaoVisitasPortaria) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            acao = 2;
+            liberarVisita();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem autorização para liberar registro.");
+        }
     }//GEN-LAST:event_jBtLiberarActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
@@ -1345,7 +1366,6 @@ public class TelaBloqueioLiberacaoVisitasPortariaSeguranca extends javax.swing.J
     }
 
     //VERIFICAR DATA DE APROVAÇÃO DO SERVIÇO SOCIAL PARA PODER LIBERAR NA COORDENAÇÃO.
-
     public void verificarLiberacao() {
         conecta.abrirConexao();
         try {
