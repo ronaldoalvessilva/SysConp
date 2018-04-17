@@ -213,17 +213,16 @@ public class TelaPesqDataRelExtrato extends javax.swing.JInternalFrame {
                         conecta.executaSQL("SELECT * FROM SALDOVALORES "
                                 + "INNER JOIN PRONTUARIOSCRC "
                                 + "ON SALDOVALORES.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                + "WHERE DataMov BETWEEN'" + dataInicial + "' "
-                                + "AND'" + dataFinal + "' "
-                                + "AND PRONTUARIOSCRC.SituacaoCrc='" + situacaoEnt + "' "
-                                + "OR DataMov BETWEEN'" + dataInicial + "' "
+                                + "WHERE PRONTUARIOSCRC.SituacaoCrc='" + situacaoEnt + "' "
+                                + "OR PRONTUARIOSCRC.SituacaoCrc='" + situacaoRet + "' "
+                                + "AND DataMov BETWEEN'" + dataInicial + "' "
                                 + "AND '" + dataFinal + "' "
                                 + "ORDER BY NomeInternoCrc,DataMov");
                         HashMap parametros = new HashMap();
                         parametros.put("dataInicial", dataInicial);
                         parametros.put("dataFinal", dataFinal);
-                        parametros.put("pEntrada",situacaoEnt);
-                        parametros.put("pRetorno",situacaoRet);
+                        parametros.put("pEntrada", situacaoEnt);
+                        parametros.put("pRetorno", situacaoRet);
                         parametros.put("usuario", nameUser);
                         JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
                         JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório

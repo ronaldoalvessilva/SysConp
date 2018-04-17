@@ -1077,9 +1077,9 @@ public class TelaModuloFinanceiro extends javax.swing.JInternalFrame {
         try {
             conecta.abrirConexao();
             String path = "reports/RelacaoSaldoInternosInativos.jasper";
-            conecta.executaSQL("SELECT * FROM SALDOVALORES "
+            conecta.executaSQL("SELECT * FROM SALDO_VALORES_INATIVOS "
                     + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON SALDOVALORES.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "ON SALDO_VALORES_INATIVOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "ORDER BY NomeInternoCrc,DataMov DESC");
             HashMap parametros = new HashMap();
             parametros.put("descricaoUnidade", descricaoUnidade);
