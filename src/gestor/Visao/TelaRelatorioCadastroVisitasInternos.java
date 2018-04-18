@@ -26,7 +26,8 @@ public class TelaRelatorioCadastroVisitasInternos extends javax.swing.JInternalF
     ConexaoBancoDados conecta = new ConexaoBancoDados();
 
     int flag;
-    String dataInicial, dataFinal;   
+    String dataInicial, dataFinal;
+
     /**
      * Creates new form TelaRelatorioPorIdade
      */
@@ -198,11 +199,16 @@ public class TelaRelatorioCadastroVisitasInternos extends javax.swing.JInternalF
                     try {
                         conecta.abrirConexao();
                         String path = "reports/RelatorioCadastroVisitasInternos.jasper";
-                        conecta.executaSQL("SELECT * FROM VISITASINTERNO WHERE DataCadVisita BETWEEN'" +  dataInicial  + "'AND'" +  dataFinal + "'ORDER BY NomeVisita,DataCadVisita");
+                        conecta.executaSQL("SELECT * FROM VISITASINTERNO VI "
+                                + "INNER JOIN VERIFICA_DOCUMENTOS_VISITA VDV ON VDV.IdVisita=VI.IdVisita "
+                                + "INNER JOIN PRONTUARIOSCRC P ON P.IdInternoCrc=VDV.IdInternoCrc "
+                                + "WHERE DataCadVisita BETWEEN'" + dataInicial + "' "
+                                + "AND'" + dataFinal + "' "
+                                + "ORDER BY NomeVisita");
                         HashMap parametros = new HashMap();
                         parametros.put("dataInicial", dataInicial);
-                        parametros.put("dataFinal", dataFinal);                       
-                        parametros.put("nameUser", nameUser);
+                        parametros.put("dataFinal", dataFinal);
+                        parametros.put("usuario", nameUser);
                         JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
                         JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
                         JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
