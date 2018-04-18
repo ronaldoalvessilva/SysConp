@@ -189,7 +189,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
         RelatorioCadastroVisitas = new javax.swing.JMenuItem();
         RelatorioVisitasPorIdade = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem14 = new javax.swing.JMenuItem();
+        jRelatorioVisitasInternos = new javax.swing.JMenuItem();
         jSeparator17 = new javax.swing.JPopupMenu.Separator();
         jMenu6 = new javax.swing.JMenu();
         CartaoSus = new javax.swing.JMenuItem();
@@ -231,6 +231,8 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/SISCONP 2.gif"))); // NOI18N
 
+        jPainelServicoSocial.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout jPainelServicoSocialLayout = new javax.swing.GroupLayout(jPainelServicoSocial);
         jPainelServicoSocial.setLayout(jPainelServicoSocialLayout);
         jPainelServicoSocialLayout.setHorizontalGroup(
@@ -241,7 +243,6 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
             jPainelServicoSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
         );
-        jPainelServicoSocial.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jMenu1.setText("Cadastro");
 
@@ -517,8 +518,13 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
         });
         jMenu3.add(jMenuItem4);
 
-        jMenuItem14.setText("Listagem de Visitantes de Internos");
-        jMenu3.add(jMenuItem14);
+        jRelatorioVisitasInternos.setText("Relatório de Visitas de Internos");
+        jRelatorioVisitasInternos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRelatorioVisitasInternosActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jRelatorioVisitasInternos);
         jMenu3.add(jSeparator17);
 
         jMenu6.setText("Relatório de Internos sem Documentos");
@@ -1740,6 +1746,13 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
         JOptionPane.showMessageDialog(null, "Em Construção...");
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void jRelatorioVisitasInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioVisitasInternosActionPerformed
+        // TODO add your handling code here:
+        TelaRelatorioEntradaSaidaVisitasInternos objRelVisitasInt = new TelaRelatorioEntradaSaidaVisitasInternos();
+        TelaModuloServicoSocial.jPainelServicoSocial.add(objRelVisitasInt);
+        objRelVisitasInt.show();
+    }//GEN-LAST:event_jRelatorioVisitasInternosActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AdmissaoInternos;
@@ -1796,12 +1809,12 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
-    private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jOcorrenciasServicoSocial;
     private javax.swing.JMenuItem jPaiNOVO;
     public static javax.swing.JDesktopPane jPainelServicoSocial;
+    private javax.swing.JMenuItem jRelatorioVisitasInternos;
     private javax.swing.JMenuItem jRolVisitas;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator10;
