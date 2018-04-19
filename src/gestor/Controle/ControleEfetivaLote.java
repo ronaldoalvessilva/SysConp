@@ -63,7 +63,7 @@ public class ControleEfetivaLote {
     public ProdutoMedicamento alterarLoteProduto(ProdutoMedicamento objProdMed) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE LOTE_PRODUTOS_AC SET IdLanc=?,DataVenc=?,Lote=?,Qtd=?,Modulo=? WHERE IdProd='" + objProdMed.getIdProd() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE LOTE_PRODUTOS_AC SET IdLanc=?,DataVenc=?,Lote=?,Qtd=?,Modulo=? WHERE IdProd='" + objProdMed.getIdProd() + "' AND Lote='" + objProdMed.getLote()+ "'");
             pst.setInt(1, objProdMed.getIdLanc());
             if (objProdMed.getDataValidade() != null) {
                 pst.setTimestamp(2, new java.sql.Timestamp(objProdMed.getDataValidade().getTime()));
