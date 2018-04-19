@@ -33,6 +33,7 @@ public class TelaPesqProdutoFarmacia extends javax.swing.JInternalFrame {
     String idInt;
     String modulo = "F";
     double valorCompra = 0;
+    String pLote = "";
 
     /**
      * Creates new form TelaPesqProdutoFarmacia
@@ -256,7 +257,8 @@ public class TelaPesqProdutoFarmacia extends javax.swing.JInternalFrame {
                         + "ON PRODUTOS_AC.IdProd=LOTE_PRODUTOS_AC.IdProd "
                         + "WHERE PRODUTOS_AC.DescricaoProd='" + jPesqDescricaoProdutos.getText() + "' "
                         + "AND PRODUTOS_AC.StatusProd='" + statusProd + "' "
-                        + "AND PRODUTOS_AC.IdProd='" + idInt + "'");
+                        + "AND PRODUTOS_AC.IdProd='" + idInt + "' "
+                        + "AND Lote='" + pLote + "'");
                 conecta.rs.first();
                 jIdProduto.setText(String.valueOf(conecta.rs.getInt("IdProd")));
                 jDescricaoProduto.setText(conecta.rs.getString("DescricaoProd"));
@@ -285,9 +287,10 @@ public class TelaPesqProdutoFarmacia extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (flag == 1) {
+            pLote = "" + jTabelaProdutos.getValueAt(jTabelaProdutos.getSelectedRow(), 2); 
             String nomeProduto = "" + jTabelaProdutos.getValueAt(jTabelaProdutos.getSelectedRow(), 1);
             jPesqDescricaoProdutos.setText(nomeProduto);
-            idInt = "" + jTabelaProdutos.getValueAt(jTabelaProdutos.getSelectedRow(), 0);
+            idInt = "" + jTabelaProdutos.getValueAt(jTabelaProdutos.getSelectedRow(), 0);            
         }
     }//GEN-LAST:event_jTabelaProdutosMouseClicked
 
