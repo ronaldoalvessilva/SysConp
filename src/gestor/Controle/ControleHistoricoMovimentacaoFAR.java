@@ -72,6 +72,29 @@ public class ControleHistoricoMovimentacaoFAR {
         conecta.desconecta();
         return objHistMovAC;
     }
+    public HistoricoMovimentacaoEstoque alterarHistoricoProdutoFARAE(HistoricoMovimentacaoEstoque objHistMovAC) {
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE HISTORICO_MOVIMENTACAO_ESTOQUE_FAR SET IdProd=?,IdLocal=?,TipoOpe=?,NomeOperacao=?,IdDoc=?,DataMov=?,QtdItem=?,SaldoAtual=? WHERE IdProd='" + objHistMovAC.getIdProd() + "' AND NomeOperacao='" + objHistMovAC.getIdDoc() + "'");
+            pst.setInt(1, objHistMovAC.getIdProd());
+            pst.setInt(2, objHistMovAC.getIdLocal());
+            pst.setString(3, objHistMovAC.getTipoOpe());
+            pst.setString(4, objHistMovAC.getNomeOperacao());
+            pst.setInt(5, objHistMovAC.getIdDoc());
+            if (objHistMovAC.getDataMov() != null) {
+                pst.setTimestamp(6, new java.sql.Timestamp(objHistMovAC.getDataMov().getTime()));
+            } else {
+                pst.setDate(6, null);
+            }
+            pst.setFloat(7, objHistMovAC.getQtdItem());
+            pst.setFloat(8, objHistMovAC.getSaldoAtual());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR HISTÓRICO DE PRODUTOS... \nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objHistMovAC;
+    }
 
     public HistoricoMovimentacaoEstoque excluirHistoricoProdutoFAR(HistoricoMovimentacaoEstoque objHistMovAC) {
         conecta.abrirConexao();
