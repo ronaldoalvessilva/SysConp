@@ -72,7 +72,7 @@ public class TelaInventarioProdutosMed extends javax.swing.JInternalFrame {
     public static double qtdItem = 0;
     public static String qtdItemTab;
     String statusProd = "Ativo";
-    String tipoInventario; // Saldo Inicial ou Ajuste Estoque
+    String tipoInventario = "Estoque Inicial"; // Saldo Inicial ou Ajuste Estoque
     String codLocal;
     String codInventario;
     String modulo = "F";
@@ -519,7 +519,7 @@ public class TelaInventarioProdutosMed extends javax.swing.JInternalFrame {
 
         jComboBoxTipoInventario.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxTipoInventario.setForeground(new java.awt.Color(102, 0, 102));
-        jComboBoxTipoInventario.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Estoque Inicial", "Ajuste Estoque" }));
+        jComboBoxTipoInventario.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Estoque Inicial", "Ajuste de Estoque" }));
         jComboBoxTipoInventario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTipoInventario.setEnabled(false);
 
@@ -1225,6 +1225,7 @@ public class TelaInventarioProdutosMed extends javax.swing.JInternalFrame {
         acao = 1;
         Novo();
         corCampos();
+        limparTabelaItensInventario();
         statusMov = "Incluiu";
         horaMov = jHoraSistema.getText();
         dataModFinal = jDataSistema.getText();
@@ -1302,18 +1303,20 @@ public class TelaInventarioProdutosMed extends javax.swing.JInternalFrame {
             objInventEstoque.setHorarioInicio(horaMov);
             objInventEstoque.setHorarioTermino(horaEfetua);
             objInventEstoque.setObservacao(jObservacao.getText());
-            if (acao == 1 && jComboBoxTipoInventario.getSelectedItem().equals(tipoInventario) && jIdLocal.getText().equals(codLocal)) {
-                JOptionPane.showMessageDialog(rootPane, "Esse tipo de inventário já foi realizado para esse estoque,\nutilize o inventário de ajuste de estoque.");
-            } else {
-                objInventEstoque.setUsuarioInsert(nameUser);
-                objInventEstoque.setDataInsert(dataModFinal);
-                objInventEstoque.setHorarioInsert(horaMov);
-                control.incluirInventario(objInventEstoque);
-                buscarIDIvt();
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                Salvar();
+            if (acao == 1) {
+                if (jComboBoxTipoInventario.getSelectedItem().equals(tipoInventario) && jIdLocal.getText().equals(codLocal)) {
+                    JOptionPane.showMessageDialog(rootPane, "Esse tipo de inventário já foi realizado para esse estoque,\nutilize o inventário de ajuste de estoque.");
+                } else {
+                    objInventEstoque.setUsuarioInsert(nameUser);
+                    objInventEstoque.setDataInsert(dataModFinal);
+                    objInventEstoque.setHorarioInsert(horaMov);
+                    control.incluirInventario(objInventEstoque);
+                    buscarIDIvt();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    Salvar();
+                }
             }
             if (acao == 2) {
                 objInventEstoque.setUsuarioUp(nameUser);
@@ -1870,7 +1873,7 @@ public class TelaInventarioProdutosMed extends javax.swing.JInternalFrame {
         // Limpar campos
         jIdLanc.setText("");
         jStatusLanc.setText("CONTANDO");
-        jComboBoxTipoInventario.setSelectedItem("Estoque Inicial");
+        jComboBoxTipoInventario.setSelectedItem("Selecione...");
         jDataInicio.setCalendar(Calendar.getInstance());
         jHorarioInicio.setText(jHoraSistema.getText());
         jIdLocal.setText("");
@@ -1899,15 +1902,11 @@ public class TelaInventarioProdutosMed extends javax.swing.JInternalFrame {
         jBtSalvarItem.setEnabled(!true);
         jBtCancelarItem.setEnabled(!true);
         jBtPesqProdutoInve.setEnabled(!true);
-        preencherTabelaItensInventario("SELECT * FROM ITENS_INVENTARIO_FAR "
-                + "INNER JOIN PRODUTOS_AC "
-                + "ON ITENS_INVENTARIO_FAR.IdProd=PRODUTOS_AC.IdProd "
-                + "WHERE IdLanc='" + jIdLanc.getText() + "'");
     }
 
     public void Alterar() {
         //Habilitar/Desabilitar campos
-        jComboBoxTipoInventario.setEnabled(!true);
+        jComboBoxTipoInventario.setEnabled(true);
         jBtPesqLocalArmazenamento.setEnabled(true);
         jObservacao.setEnabled(true);
         // Habilitar/Desabilitar botões
@@ -2178,7 +2177,8 @@ public class TelaInventarioProdutosMed extends javax.swing.JInternalFrame {
     public void verificarTipoInventario() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM INVENTARIO_FAR WHERE TipoInventario='" + jComboBoxTipoInventario.getSelectedItem() + "'");
+            conecta.executaSQL("SELECT * FROM INVENTARIO_FAR "
+                    + "WHERE TipoInventario='" + tipoInventario + "'");
             conecta.rs.first();
             tipoInventario = conecta.rs.getString("TipoInventario");
             codLocal = conecta.rs.getString("idLocal");
@@ -2320,6 +2320,33 @@ public class TelaInventarioProdutosMed extends javax.swing.JInternalFrame {
         jTabelaItensProdutoInvent.getColumnModel().getColumn(5).setCellRenderer(direita);
         jTabelaItensProdutoInvent.getColumnModel().getColumn(6).setCellRenderer(direita);
         jTabelaItensProdutoInvent.getColumnModel().getColumn(7).setCellRenderer(centralizado);
+    }
+
+    public void limparTabelaItensInventario() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Item", "Código", "Código Barras", "Descrição", "UN", "Qtde.", "Lote", "Data Validade"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaItensProdutoInvent.setModel(modelo);
+        jTabelaItensProdutoInvent.getColumnModel().getColumn(0).setPreferredWidth(40);
+        jTabelaItensProdutoInvent.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaItensProdutoInvent.getColumnModel().getColumn(1).setPreferredWidth(50);
+        jTabelaItensProdutoInvent.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaItensProdutoInvent.getColumnModel().getColumn(2).setPreferredWidth(90);
+        jTabelaItensProdutoInvent.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaItensProdutoInvent.getColumnModel().getColumn(3).setPreferredWidth(200);
+        jTabelaItensProdutoInvent.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaItensProdutoInvent.getColumnModel().getColumn(4).setPreferredWidth(40);
+        jTabelaItensProdutoInvent.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaItensProdutoInvent.getColumnModel().getColumn(5).setPreferredWidth(50);
+        jTabelaItensProdutoInvent.getColumnModel().getColumn(5).setResizable(false);
+        jTabelaItensProdutoInvent.getColumnModel().getColumn(6).setPreferredWidth(100);
+        jTabelaItensProdutoInvent.getColumnModel().getColumn(6).setResizable(false);
+        jTabelaItensProdutoInvent.getColumnModel().getColumn(7).setPreferredWidth(80);
+        jTabelaItensProdutoInvent.getColumnModel().getColumn(7).setResizable(false);
+        jTabelaItensProdutoInvent.getTableHeader().setReorderingAllowed(false);
+        jTabelaItensProdutoInvent.setAutoResizeMode(jTabelaItensProdutoInvent.AUTO_RESIZE_OFF);
+        jTabelaItensProdutoInvent.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
     }
 
     public void objLog() {
