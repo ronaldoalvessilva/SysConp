@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -71,15 +73,13 @@ public class TelaPesqInternoAudiencia extends javax.swing.JInternalFrame {
         jTabbedPane1.setForeground(new java.awt.Color(51, 0, 255));
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
+        jTabelaInternosJuridico.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInternosJuridico.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+                {null, null, null, null, null}
             },
             new String [] {
-
+                "Código", "Nome do Interno", "Matriculo Penal", "Data Entrada", "Data Cadastro"
             }
         ));
         jTabelaInternosJuridico.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -88,6 +88,18 @@ public class TelaPesqInternoAudiencia extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(jTabelaInternosJuridico);
+        if (jTabelaInternosJuridico.getColumnModel().getColumnCount() > 0) {
+            jTabelaInternosJuridico.getColumnModel().getColumn(0).setMinWidth(50);
+            jTabelaInternosJuridico.getColumnModel().getColumn(0).setMaxWidth(50);
+            jTabelaInternosJuridico.getColumnModel().getColumn(1).setMinWidth(250);
+            jTabelaInternosJuridico.getColumnModel().getColumn(1).setMaxWidth(250);
+            jTabelaInternosJuridico.getColumnModel().getColumn(2).setMinWidth(100);
+            jTabelaInternosJuridico.getColumnModel().getColumn(2).setMaxWidth(100);
+            jTabelaInternosJuridico.getColumnModel().getColumn(3).setMinWidth(80);
+            jTabelaInternosJuridico.getColumnModel().getColumn(3).setMaxWidth(80);
+            jTabelaInternosJuridico.getColumnModel().getColumn(4).setMinWidth(80);
+            jTabelaInternosJuridico.getColumnModel().getColumn(4).setMaxWidth(80);
+        }
 
         jBtEnviar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtEnviar.setForeground(new java.awt.Color(0, 0, 255));
@@ -121,8 +133,9 @@ public class TelaPesqInternoAudiencia extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Pesquisa por Matricula:");
 
-        jBtNome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/pesq_atv.png"))); // NOI18N
+        jBtNome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtNome.setToolTipText("Pesquisa Por Nome");
+        jBtNome.setContentAreaFilled(false);
         jBtNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtNomeActionPerformed(evt);
@@ -131,6 +144,7 @@ public class TelaPesqInternoAudiencia extends javax.swing.JInternalFrame {
 
         jBtMatricula.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtMatricula.setToolTipText("Pesquisa Por Matricula");
+        jBtMatricula.setContentAreaFilled(false);
         jBtMatricula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtMatriculaActionPerformed(evt);
@@ -157,16 +171,17 @@ public class TelaPesqInternoAudiencia extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jPesqNome)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jPesqMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jBtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
-                        .addComponent(jCheckBox1)))
-                .addGap(26, 26, 26))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jCheckBox1)
+                        .addGap(26, 26, 26))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jPesqNome)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,23 +205,25 @@ public class TelaPesqInternoAudiencia extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jBtEnviar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtSair)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addComponent(jBtSair))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtEnviar, jBtSair});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtEnviar)
                     .addComponent(jBtSair))
@@ -219,7 +236,7 @@ public class TelaPesqInternoAudiencia extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,7 +245,7 @@ public class TelaPesqInternoAudiencia extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        setBounds(300, 10, 487, 328);
+        setBounds(300, 10, 597, 328);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNomeActionPerformed
@@ -277,7 +294,6 @@ public class TelaPesqInternoAudiencia extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            jTabelaInternosJuridico.setVisible(true);
             this.preencherTabelaInternosEnfermaria("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSFISICOSINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
@@ -289,7 +305,7 @@ public class TelaPesqInternoAudiencia extends javax.swing.JInternalFrame {
                     + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
                     + "WHERE SituacaoCrc='" + situacao + "'OR SituacaoCrc='" + situacaoRet + "'");
         } else {
-            jTabelaInternosJuridico.setVisible(!true);
+            limparTabela();
         }
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
@@ -307,7 +323,7 @@ public class TelaPesqInternoAudiencia extends javax.swing.JInternalFrame {
                 caminho = conecta.rs.getString("FotoInternoCrc");
                 javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
                 FotoInternoAudiencia.setIcon(i);
-                FotoInternoAudiencia.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInternoAudiencia.getWidth(), FotoInternoAudiencia.getHeight(), Image.SCALE_DEFAULT)));               
+                FotoInternoAudiencia.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInternoAudiencia.getWidth(), FotoInternoAudiencia.getHeight(), Image.SCALE_DEFAULT)));
                 conecta.desconecta();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa INTERNO" + e);
@@ -323,7 +339,7 @@ public class TelaPesqInternoAudiencia extends javax.swing.JInternalFrame {
 
     private void jTabelaInternosJuridicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaInternosJuridicoMouseClicked
         // TODO add your handling code here:
-         flag = 1;
+        flag = 1;
         if (flag == 1) {
             nomeInterno = "" + jTabelaInternosJuridico.getValueAt(jTabelaInternosJuridico.getSelectedRow(), 1);
             jPesqNome.setText(nomeInterno);
@@ -352,7 +368,7 @@ public class TelaPesqInternoAudiencia extends javax.swing.JInternalFrame {
     // Método de pesquisa pela Matricula
     public void preencherTabelaInternosEnfermaria(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"ID", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"};
+        String[] Colunas = new String[]{"Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"};
         conecta.abrirConexao();
         conecta.executaSQL(sql);
         try {
@@ -377,7 +393,7 @@ public class TelaPesqInternoAudiencia extends javax.swing.JInternalFrame {
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaInternosJuridico.setModel(modelo);
-        jTabelaInternosJuridico.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaInternosJuridico.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaInternosJuridico.getColumnModel().getColumn(0).setResizable(false);
         jTabelaInternosJuridico.getColumnModel().getColumn(1).setPreferredWidth(250);
         jTabelaInternosJuridico.getColumnModel().getColumn(1).setResizable(false);
@@ -390,6 +406,44 @@ public class TelaPesqInternoAudiencia extends javax.swing.JInternalFrame {
         jTabelaInternosJuridico.getTableHeader().setReorderingAllowed(false);
         jTabelaInternosJuridico.setAutoResizeMode(jTabelaInternosJuridico.AUTO_RESIZE_OFF);
         jTabelaInternosJuridico.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCamposTabela();
         conecta.desconecta();
+    }
+
+    public void limparTabela() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaInternosJuridico.setModel(modelo);
+        jTabelaInternosJuridico.getColumnModel().getColumn(0).setPreferredWidth(60);
+        jTabelaInternosJuridico.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaInternosJuridico.getColumnModel().getColumn(1).setPreferredWidth(250);
+        jTabelaInternosJuridico.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaInternosJuridico.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTabelaInternosJuridico.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaInternosJuridico.getColumnModel().getColumn(3).setPreferredWidth(80);
+        jTabelaInternosJuridico.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaInternosJuridico.getColumnModel().getColumn(4).setPreferredWidth(80);
+        jTabelaInternosJuridico.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaInternosJuridico.getTableHeader().setReorderingAllowed(false);
+        jTabelaInternosJuridico.setAutoResizeMode(jTabelaInternosJuridico.AUTO_RESIZE_OFF);
+        jTabelaInternosJuridico.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
+    }
+
+    public void alinharCamposTabela() {
+
+        //
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        //
+        jTabelaInternosJuridico.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaInternosJuridico.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+        jTabelaInternosJuridico.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+        jTabelaInternosJuridico.getColumnModel().getColumn(4).setCellRenderer(centralizado);
     }
 }
