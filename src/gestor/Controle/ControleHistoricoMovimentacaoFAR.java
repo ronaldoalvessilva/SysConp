@@ -75,7 +75,7 @@ public class ControleHistoricoMovimentacaoFAR {
     public HistoricoMovimentacaoEstoque alterarHistoricoProdutoFARAE(HistoricoMovimentacaoEstoque objHistMovAC) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE HISTORICO_MOVIMENTACAO_ESTOQUE_FAR SET IdProd=?,IdLocal=?,TipoOpe=?,NomeOperacao=?,IdDoc=?,DataMov=?,QtdItem=?,SaldoAtual=? WHERE IdProd='" + objHistMovAC.getIdProd() + "' AND NomeOperacao='" + objHistMovAC.getIdDoc() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE HISTORICO_MOVIMENTACAO_ESTOQUE_FAR SET IdProd=?,IdLocal=?,TipoOpe=?,NomeOperacao=?,IdDoc=?,DataMov=?,QtdItem=?,SaldoAtual=? WHERE IdProd='" + objHistMovAC.getIdProd() + "' AND IdDoc='" + objHistMovAC.getIdDoc() + "'");
             pst.setInt(1, objHistMovAC.getIdProd());
             pst.setInt(2, objHistMovAC.getIdLocal());
             pst.setString(3, objHistMovAC.getTipoOpe());

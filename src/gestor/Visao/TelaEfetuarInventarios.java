@@ -73,6 +73,7 @@ public class TelaEfetuarInventarios extends javax.swing.JInternalFrame {
     String loteVazio = "";
     String numeroLoteVazio = "";
     String pTipoOperacao = "";
+    String dataVctoLote = "";
 
     /**
      * Creates new form TelaEfetuarInventarios
@@ -338,7 +339,7 @@ public class TelaEfetuarInventarios extends javax.swing.JInternalFrame {
                     objProdMed.setIdLanc(Integer.valueOf(jIdLanc.getText()));
                     objProdMed.setIdProd((int) jTabelaItensProdutoInvent.getValueAt(i, 1));
                     objProdMed.setSaldoAtual((int) jTabelaItensProdutoInvent.getValueAt(i, 5));
-                    objProdMed.setLote((String) jTabelaItensProdutoInvent.getValueAt(i, 6));
+                    objProdMed.setLote((String) jTabelaItensProdutoInvent.getValueAt(i, 6));                    
                     try {
                         // Converte a data de string para date, para ser inserido no banco de dados.
                         date = (java.util.Date) formatter.parse((String) jTabelaItensProdutoInvent.getValueAt(i, 7));
@@ -348,12 +349,18 @@ public class TelaEfetuarInventarios extends javax.swing.JInternalFrame {
                     verificarProdutoNovoLote(); // VERIFICAR SE O PRODUTO E O LOTE EXITEM
                     verificarLoteVazio(); // VERIFICAR SE O LOTE ESTÁ VAZIO
                     // UPDATE QUANDO O CÓDIGO DO LANÇADO É IGUAL AO QUE ESTÁ NO BANCO DE DADOS E O LOTE INFORAMADO É IGUAL AO DO BANCO DE DADOS
-                    if (codProduto == objProdMed.getIdProd() && numeroLote == objProdMed.getLote()) { // Se existir altera
+                    if (codProduto == objProdMed.getIdProd() && numeroLote == objProdMed.getLote() && dataVctoLote.equals(jTabelaItensProdutoInvent.getValueAt(i, 7))) { // Se existir altera
                         // Se existir atualiza
                         objProdMed.setDataValidade(date);
                         objProdMed.setDataEstoque(jDataTermino.getDate());
                         controlLote.alterarLoteProduto(objProdMed);
-                        // UPDATE QUANDO O CÓDIGO LANÇADO É IGUAL AO QUE ESTA NO BANCO DE DADOS E O NÚMERO DO LOTE É EM BRANCO
+                        // UPDATE QUANDO O CÓDIGO DO LANÇADO É IGUAL AO QUE ESTÁ NO BANCO DE DADOS, O LOTE INFORAMADO É IGUAL AO DO BANCO DE DADOS E DATA FOR IGUAL
+                    }else if(codProduto == objProdMed.getIdProd() && numeroLote == objProdMed.getLote() && !dataVctoLote.equals(jTabelaItensProdutoInvent.getValueAt(i, 7))){
+                        // Se existir atualiza
+                        objProdMed.setDataValidade(date);
+                        objProdMed.setDataEstoque(jDataTermino.getDate());
+                        controlLote.alterarLoteProduto(objProdMed);
+                    // UPDATE QUANDO O CÓDIGO LANÇADO É IGUAL AO QUE ESTA NO BANCO DE DADOS E O NÚMERO DO LOTE É EM BRANCO 
                     } else if (codProduto == objProdMed.getIdProd() && numeroLoteVazio.equals("")) {
                         objProdMed.setDataValidade(date);
                         objProdMed.setDataEstoque(jDataTermino.getDate());
@@ -377,12 +384,13 @@ public class TelaEfetuarInventarios extends javax.swing.JInternalFrame {
                     if (codProduto == objHistMovAC.getIdProd() && !pTipoOperacao.equals("Ajuste de Estoque")) {//                                        
                         objHistMovAC.setIdProd((int) jTabelaItensProdutoInvent.getValueAt(i, 1));
                         controlHistMov.incluirHistoricoProdutoFAR(objHistMovAC);
-                    } else if (codProduto == objHistMovAC.getIdProd() && pTipoOperacao.equals("Ajuste de Estoque")){
+                    } else if (codProduto == objHistMovAC.getIdProd() && pTipoOperacao.equals("Ajuste de Estoque")) {
                         objProdMed.setIdProd((int) jTabelaItensProdutoInvent.getValueAt(i, 1));
                         SomaProduto(); // SOMAR PRODUTO NA TABELA DE LOTE_ESTOQUE_FAR PARA  TABELA HISTORICO_MOVIMENTACAO_ESTOQUE_AC
                         objHistMovAC.setIdProd((int) jTabelaItensProdutoInvent.getValueAt(i, 1));
-                        objHistMovAC.setIdDoc(Integer.valueOf(jIdLanc.getText()));                        
-                        objHistMovAC.setSaldoAtual((float) qtdEstoque);                        
+                        objHistMovAC.setIdDoc(Integer.valueOf(jIdLanc.getText()));
+                        objHistMovAC.setQtdItem((float) qtdEstoque);
+                        objHistMovAC.setSaldoAtual((float) qtdEstoque);
                         controlHistMov.alterarHistoricoProdutoFARAE(objHistMovAC);//                        
                     }
                     // Modificar o status do inventário para EFETUADO.
@@ -496,6 +504,12 @@ public class TelaEfetuarInventarios extends javax.swing.JInternalFrame {
             conecta.rs.first();
             codProduto = conecta.rs.getInt("IdProd");
             numeroLote = conecta.rs.getString("Lote");
+            dataVctoLote = conecta.rs.getString("DataVenc");
+            // CONVERTE DATA PARA BR
+            String diae = dataVctoLote.substring(8, 10);
+            String mese = dataVctoLote.substring(5, 7);
+            String anoe = dataVctoLote.substring(0, 4);
+            dataVctoLote = diae + "/" + mese + "/" + anoe;
         } catch (SQLException ex) {
         }
         conecta.desconecta();
@@ -511,6 +525,12 @@ public class TelaEfetuarInventarios extends javax.swing.JInternalFrame {
             conecta.rs.first();
             codProduto = conecta.rs.getInt("IdProd");
             numeroLoteVazio = conecta.rs.getString("Lote");
+            dataVctoLote = conecta.rs.getString("DataVenc");
+            // CONVERTE DATA PARA BR
+            String diae = dataVctoLote.substring(8, 10);
+            String mese = dataVctoLote.substring(5, 7);
+            String anoe = dataVctoLote.substring(0, 4);
+            dataVctoLote = diae + "/" + mese + "/" + anoe;
         } catch (SQLException ex) {
         }
         conecta.desconecta();

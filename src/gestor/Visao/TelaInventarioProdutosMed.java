@@ -1214,7 +1214,9 @@ public class TelaInventarioProdutosMed extends javax.swing.JInternalFrame {
                     SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
                     dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
                     dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
-                    preencherTabelaInventario("SELECT * FROM INVENTARIO_FAR WHERE DataLanc BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    preencherTabelaInventario("SELECT * FROM INVENTARIO_FAR "
+                            + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
+                            + "AND '" + dataFinal + "'");
                 }
             }
         }
