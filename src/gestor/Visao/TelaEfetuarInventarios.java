@@ -372,16 +372,17 @@ public class TelaEfetuarInventarios extends javax.swing.JInternalFrame {
                     objHistMovAC.setIdDoc(Integer.valueOf(jIdLanc.getText()));
                     objHistMovAC.setDataMov(jDataTermino.getDate());
                     objHistMovAC.setQtdItem((int) jTabelaItensProdutoInvent.getValueAt(i, 5));
-                    objHistMovAC.setSaldoAtual((float) qtdEstoque);
+                    objHistMovAC.setSaldoAtual((int) jTabelaItensProdutoInvent.getValueAt(i, 5));
                     verificarMovimentacaoEstoque(); // VERIFICAR SE O PRODUTO EXISTE NA TABELA HISTORICO_MOVIMENTACAO_ESTOQUE_AC                    
                     if (codProduto == objHistMovAC.getIdProd() && !pTipoOperacao.equals("Ajuste de Estoque")) {//                                        
                         objHistMovAC.setIdProd((int) jTabelaItensProdutoInvent.getValueAt(i, 1));
                         controlHistMov.incluirHistoricoProdutoFAR(objHistMovAC);
-                    } else {
+                    } else if (codProduto == objHistMovAC.getIdProd() && pTipoOperacao.equals("Ajuste de Estoque")){
+                        objProdMed.setIdProd((int) jTabelaItensProdutoInvent.getValueAt(i, 1));
                         SomaProduto(); // SOMAR PRODUTO NA TABELA DE LOTE_ESTOQUE_FAR PARA  TABELA HISTORICO_MOVIMENTACAO_ESTOQUE_AC
                         objHistMovAC.setIdProd((int) jTabelaItensProdutoInvent.getValueAt(i, 1));
-                        objHistMovAC.setIdDoc(Integer.valueOf(jIdLanc.getText()));
-                        objHistMovAC.setSaldoAtual((float) qtdEstoque);
+                        objHistMovAC.setIdDoc(Integer.valueOf(jIdLanc.getText()));                        
+                        objHistMovAC.setSaldoAtual((float) qtdEstoque);                        
                         controlHistMov.alterarHistoricoProdutoFARAE(objHistMovAC);//                        
                     }
                     // Modificar o status do inventário para EFETUADO.
