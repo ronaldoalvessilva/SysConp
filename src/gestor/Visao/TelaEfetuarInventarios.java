@@ -339,7 +339,7 @@ public class TelaEfetuarInventarios extends javax.swing.JInternalFrame {
                     objProdMed.setIdLanc(Integer.valueOf(jIdLanc.getText()));
                     objProdMed.setIdProd((int) jTabelaItensProdutoInvent.getValueAt(i, 1));
                     objProdMed.setSaldoAtual((int) jTabelaItensProdutoInvent.getValueAt(i, 5));
-                    objProdMed.setLote((String) jTabelaItensProdutoInvent.getValueAt(i, 6));                    
+                    objProdMed.setLote((String) jTabelaItensProdutoInvent.getValueAt(i, 6));
                     try {
                         // Converte a data de string para date, para ser inserido no banco de dados.
                         date = (java.util.Date) formatter.parse((String) jTabelaItensProdutoInvent.getValueAt(i, 7));
@@ -355,12 +355,12 @@ public class TelaEfetuarInventarios extends javax.swing.JInternalFrame {
                         objProdMed.setDataEstoque(jDataTermino.getDate());
                         controlLote.alterarLoteProduto(objProdMed);
                         // UPDATE QUANDO O CÓDIGO DO LANÇADO É IGUAL AO QUE ESTÁ NO BANCO DE DADOS, O LOTE INFORAMADO É IGUAL AO DO BANCO DE DADOS E DATA FOR IGUAL
-                    }else if(codProduto == objProdMed.getIdProd() && numeroLote == objProdMed.getLote() && !dataVctoLote.equals(jTabelaItensProdutoInvent.getValueAt(i, 7))){
+                    } else if (codProduto == objProdMed.getIdProd() && numeroLote == objProdMed.getLote() && !dataVctoLote.equals(jTabelaItensProdutoInvent.getValueAt(i, 7))) {
                         // Se existir atualiza
                         objProdMed.setDataValidade(date);
                         objProdMed.setDataEstoque(jDataTermino.getDate());
                         controlLote.alterarLoteProduto(objProdMed);
-                    // UPDATE QUANDO O CÓDIGO LANÇADO É IGUAL AO QUE ESTA NO BANCO DE DADOS E O NÚMERO DO LOTE É EM BRANCO 
+                        // UPDATE QUANDO O CÓDIGO LANÇADO É IGUAL AO QUE ESTA NO BANCO DE DADOS E O NÚMERO DO LOTE É EM BRANCO 
                     } else if (codProduto == objProdMed.getIdProd() && numeroLoteVazio.equals("")) {
                         objProdMed.setDataValidade(date);
                         objProdMed.setDataEstoque(jDataTermino.getDate());
@@ -413,9 +413,22 @@ public class TelaEfetuarInventarios extends javax.swing.JInternalFrame {
                     } catch (ParseException ex) {
                     }
                     controleSaldo.alterarEstoqueProduto(objProdMed); // alterar saldo de estoque dos produtos SALDOESTQUE
-                    verificarProdutoNovoLote(); // Verifica se o produto e o lote existe
-                    if (codProduto == objProdMed.getIdProd() && numeroLote == objProdMed.getLote() || codProduto == objProdMed.getIdProd() && numeroLote.equals("")) { // Se existir altera
+                    verificarProdutoNovoLote(); // VERIFICAR SE O PRODUTO E O LOTE EXITEM
+                    verificarLoteVazio(); // VERIFICAR SE O LOTE ESTÁ VAZIO
+                    // UPDATE QUANDO O CÓDIGO DO LANÇADO É IGUAL AO QUE ESTÁ NO BANCO DE DADOS E O LOTE INFORAMADO É IGUAL AO DO BANCO DE DADOS
+                    if (codProduto == objProdMed.getIdProd() && numeroLote == objProdMed.getLote() && dataVctoLote.equals(jTabelaItensProdutoInvent.getValueAt(i, 7))) { // Se existir altera
                         // Se existir atualiza
+                        objProdMed.setDataValidade(date);
+                        objProdMed.setDataEstoque(jDataTermino.getDate());
+                        controlLote.alterarLoteProduto(objProdMed);
+                        // UPDATE QUANDO O CÓDIGO DO LANÇADO É IGUAL AO QUE ESTÁ NO BANCO DE DADOS, O LOTE INFORAMADO É IGUAL AO DO BANCO DE DADOS E DATA FOR IGUAL
+                    } else if (codProduto == objProdMed.getIdProd() && numeroLote == objProdMed.getLote() && !dataVctoLote.equals(jTabelaItensProdutoInvent.getValueAt(i, 7))) {
+                        // Se existir atualiza
+                        objProdMed.setDataValidade(date);
+                        objProdMed.setDataEstoque(jDataTermino.getDate());
+                        controlLote.alterarLoteProduto(objProdMed);
+                        // UPDATE QUANDO O CÓDIGO LANÇADO É IGUAL AO QUE ESTA NO BANCO DE DADOS E O NÚMERO DO LOTE É EM BRANCO 
+                    } else if (codProduto == objProdMed.getIdProd() && numeroLoteVazio.equals("")) {
                         objProdMed.setDataValidade(date);
                         objProdMed.setDataEstoque(jDataTermino.getDate());
                         controlLote.alterarLoteProduto(objProdMed);
@@ -423,7 +436,7 @@ public class TelaEfetuarInventarios extends javax.swing.JInternalFrame {
                         // Incluir o mesmo produto caso tenha mais de um lote
                         objProdMed.setDataValidade(date);
                         objProdMed.setDataEstoque(jDataTermino.getDate());
-                        controlLote.incluirNovoLoteProduto(objProdMed); // Alterar lote de produtos na tabela LOTEPRODUTOS                        
+                        controlLote.incluirNovoLoteProduto(objProdMed); // INCLUIR UM NOVO LOTE NO DO PRODUTO NA TABELA LOTE_PRODUTOS_AC                        
                     }
                     // ATUALIZAR MOVIMENTAÇÃO DE ESTOQUE NA TABELA HISTORICO_MOVIMENTACAO_ESTOQUE_AC (TESTADO COM SUCESSO.)                    
                     objHistMovAC.setIdProd((int) jTabelaItensProdutoInvent.getValueAt(i, 1));
@@ -433,23 +446,27 @@ public class TelaEfetuarInventarios extends javax.swing.JInternalFrame {
                     objHistMovAC.setIdDoc(Integer.valueOf(jIdLanc.getText()));
                     objHistMovAC.setDataMov(jDataTermino.getDate());
                     objHistMovAC.setQtdItem((int) jTabelaItensProdutoInvent.getValueAt(i, 5));
-                    objHistMovAC.setSaldoAtual((float) qtdEstoque);
-                    controlHistMov.incluirHistoricoProdutoFAR(objHistMovAC);
-                    verificarModEstoque(); // VERIFICAR SE O PRODUTO EXISTE NA TABELA HISTORICO_MOVIMENTACAO_ESTOQUE_AC
-                    if (codProduto != objHistMovAC.getIdProd() || codProduto == 0) {
-                        controlHistMov.incluirHistoricoProdutoFAR(objHistMovAC);
-                    } else if (codProduto == objHistMovAC.getIdProd()) {
-                        SomaProduto(); // SOMAR PRODUTO NA TABELA DE LOTE_ESTOQUE_AC PARA  TABELA HISTORICO_MOVIMENTACAO_ESTOQUE_AC
+                    objHistMovAC.setSaldoAtual((int) jTabelaItensProdutoInvent.getValueAt(i, 5));
+                    verificarMovimentacaoEstoque(); // VERIFICAR SE O PRODUTO EXISTE NA TABELA HISTORICO_MOVIMENTACAO_ESTOQUE_AC                    
+                    if (codProduto == objHistMovAC.getIdProd() && !pTipoOperacao.equals("Inventário Final Ano")) {//                                        
                         objHistMovAC.setIdProd((int) jTabelaItensProdutoInvent.getValueAt(i, 1));
-                        controlHistMov.alterarHistoricoProdutoFAR(objHistMovAC);
+                        controlHistMov.incluirHistoricoProdutoFAR(objHistMovAC);
+                    } else if (codProduto == objHistMovAC.getIdProd() && pTipoOperacao.equals("Inventário Final Ano")) {
+                        objProdMed.setIdProd((int) jTabelaItensProdutoInvent.getValueAt(i, 1));
+                        SomaProduto(); // SOMAR PRODUTO NA TABELA DE LOTE_ESTOQUE_FAR PARA  TABELA HISTORICO_MOVIMENTACAO_ESTOQUE_AC
+                        objHistMovAC.setIdProd((int) jTabelaItensProdutoInvent.getValueAt(i, 1));
+                        objHistMovAC.setIdDoc(Integer.valueOf(jIdLanc.getText()));
+                        objHistMovAC.setQtdItem((float) qtdEstoque);
+                        objHistMovAC.setSaldoAtual((float) qtdEstoque);
+                        controlHistMov.alterarHistoricoProdutoFARAE(objHistMovAC);//                        
                     }
+                    // Modificar o status do inventário para EFETUADO.
+                    objInventEstoque.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                    objInventEstoque.setStatusLanc(statusInventario);
+                    objInventEstoque.setDataTermino(jDataTermino.getDate());
+                    objInventEstoque.setHorarioTermino(jHorarioTermino.getText());
+                    controleFinal.efetivarInventario(objInventEstoque);
                 }
-                // Modificar o status do inventário para EFETUADO.
-                objInventEstoque.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                objInventEstoque.setStatusLanc(statusInventario);
-                objInventEstoque.setDataTermino(jDataTermino.getDate());
-                objInventEstoque.setHorarioTermino(jHorarioTermino.getText());
-                controleFinal.efetivarInventario(objInventEstoque);
             }
         }
     }
