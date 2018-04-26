@@ -1017,6 +1017,18 @@ public class TelaTransferenciaValoresInternos extends javax.swing.JInternalFrame
                                     objSaque.setFavorecido(jNomeInternoCrc.getText());
                                     objSaque.setObservacao(motivoSaidaValor);
                                     controleSaque.incluirSaque(objSaque);
+                                    // DEPOSITO NA CONTA DOS INATIVOS DEPOSITO_INATIVOS
+                                    objDeposito.setStatusLanc(statusSaque);
+                                    objDeposito.setDataLanc(jDataLanc.getDate());
+                                    try {
+                                        objDeposito.setValorDeposito(valorReal.parse(jValorTransferencia.getText()).floatValue());
+                                    } catch (ParseException ex) {
+                                    }
+                                    objDeposito.setDepositante(jNomeInternoCrc.getText());
+                                    objDeposito.setObservacao(jMotivo.getText());
+                                    objDeposito.setIdInternoCrc(Integer.valueOf(jIdInternoCrc.getText()));
+                                    objDeposito.setNomeInterno(jNomeInternoCrc.getText());
+                                    controlDPI.incluirDepositos(objDeposito);
                                 } else if (jComboBoxTipoTransferencia.getSelectedItem().equals("Inativo para Ativo")) {
                                     // DEBITAR VALOR DO INTERNO ATIVO NA CONTA DOS INATIVOS. TABELA (SAQUE)
                                     objSaldo.setHistorico(jMotivo.getText());
@@ -1047,7 +1059,7 @@ public class TelaTransferenciaValoresInternos extends javax.swing.JInternalFrame
                                     objSaque.setObservacao(motivoSaidaValor);
                                     controlSaquIna.incluirSaqueInativos(objSaque);
                                     // INCLUIR LANÇAMENTO DE DEPOSITO NA TABELA DEPOSITO DOS ATIVOS
-                                    objDeposito.setStatusLanc(statusLanc);
+                                    objDeposito.setStatusLanc(statusSaque);
                                     objDeposito.setDataLanc(jDataLanc.getDate());
                                     try {
                                         objDeposito.setValorDeposito(valorReal.parse(jValorTransferencia.getText()).floatValue());
