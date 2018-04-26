@@ -1192,7 +1192,8 @@ public class TelaInventarioProdutosMed extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe o ID para pesquisa.");
             jIDPesq.requestFocus();
         } else {
-            preencherTabelaInventario("SELECT * FROM INVENTARIO_FAR WHERE IdLanc='" + jIDPesq.getText() + "'");
+            preencherTabelaInventario("SELECT * FROM INVENTARIO_FAR "
+                    + "WHERE IdLanc='" + jIDPesq.getText() + "'");
         }
     }//GEN-LAST:event_jBtIDPesqActionPerformed
 
