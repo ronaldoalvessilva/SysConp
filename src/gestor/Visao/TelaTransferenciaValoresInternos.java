@@ -1016,7 +1016,7 @@ public class TelaTransferenciaValoresInternos extends javax.swing.JInternalFrame
                                     objSaque.setNomeInterno(jNomeInternoCrc.getText());
                                     objSaque.setFavorecido(jNomeInternoCrc.getText());
                                     objSaque.setObservacao(motivoSaidaValor);
-                                    controleSaque.incluirSaque(objSaque);
+                                    controleSaque.incluirSaque(objSaque); // TABELA - SALDO_VALORES_INATIVOS
                                     // DEPOSITO NA CONTA DOS INATIVOS DEPOSITO_INATIVOS
                                     objDeposito.setStatusLanc(statusSaque);
                                     objDeposito.setDataLanc(jDataLanc.getDate());
@@ -1028,7 +1028,7 @@ public class TelaTransferenciaValoresInternos extends javax.swing.JInternalFrame
                                     objDeposito.setObservacao(jMotivo.getText());
                                     objDeposito.setIdInternoCrc(Integer.valueOf(jIdInternoCrc.getText()));
                                     objDeposito.setNomeInterno(jNomeInternoCrc.getText());
-                                    controlDPI.incluirDepositos(objDeposito);
+                                    controlDPI.incluirDepositos(objDeposito); // TABELA - DEPOSITOS_INATIVOS
                                 } else if (jComboBoxTipoTransferencia.getSelectedItem().equals("Inativo para Ativo")) {
                                     // DEBITAR VALOR DO INTERNO ATIVO NA CONTA DOS INATIVOS. TABELA (SAQUE)
                                     objSaldo.setHistorico(jMotivo.getText());
@@ -1041,7 +1041,7 @@ public class TelaTransferenciaValoresInternos extends javax.swing.JInternalFrame
                                     } catch (ParseException ex) {
                                     }
                                     objSaldo.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                                    controle.incluirSaldo(objSaldo); // INCLUIR DEPOSITO NA TABELA SALDOVALORES
+                                    controle.incluirSaldo(objSaldo); // INCLUIR DEPOSITO NA TABELA SALDOVALORES - (ATIVOS)
                                     //
                                     objDeposito();
                                     // CALCULAR SALDO DO INTERNO
@@ -1049,7 +1049,7 @@ public class TelaTransferenciaValoresInternos extends javax.swing.JInternalFrame
                                     objSaldo.setSaldoAtual(totalGeral);
                                     movTrans = "D";
                                     objSaldo.setStatusMov(movTrans); // INCLUIR "D" CREDITO
-                                    controleIna.incluirSaldo(objSaldo); // Incluir deposito na tabela SALDO_VALORES_INATIVOS                               
+                                    controleIna.incluirSaldo(objSaldo); // Incluir deposito na tabela SALDO_VALORES_INATIVOS - (INATIVOS)                           
                                     // LANÇA DEBITO NA TABELA SAQUE_VALORES_INATIVOS
                                     objSaque.setStatusLanc(statusSaque);
                                     objSaque.setDataLanc(jDataLanc.getDate());
@@ -1057,7 +1057,7 @@ public class TelaTransferenciaValoresInternos extends javax.swing.JInternalFrame
                                     objSaque.setNomeInterno(jNomeInternoCrc.getText());
                                     objSaque.setFavorecido(jNomeInternoCrc.getText());
                                     objSaque.setObservacao(motivoSaidaValor);
-                                    controlSaquIna.incluirSaqueInativos(objSaque);
+                                    controlSaquIna.incluirSaqueInativos(objSaque); // TABELA DE SAQUE_INATIVOS - (INATIVOS)
                                     // INCLUIR LANÇAMENTO DE DEPOSITO NA TABELA DEPOSITO DOS ATIVOS
                                     objDeposito.setStatusLanc(statusSaque);
                                     objDeposito.setDataLanc(jDataLanc.getDate());
@@ -1073,8 +1073,8 @@ public class TelaTransferenciaValoresInternos extends javax.swing.JInternalFrame
                                     objDeposito.setObservacao(jMotivo.getText());
                                     objDeposito.setIdInternoCrc(Integer.valueOf(jIdInternoCrc.getText()));
                                     objDeposito.setNomeInterno(jNomeInternoCrc.getText());
-                                    controlDep.incluirDepositos(objDeposito);
-                                    //
+                                    controlDep.incluirDepositos(objDeposito); // TABELA DE DEPOSITO - (ATIVOS)
+                                    //                                   
                                     objDeposito.setIdInternoCrc(Integer.valueOf(jIdInternoCrc.getText()));
                                     objDeposito.setNomeInterno(jNomeInternoCrc.getText());
                                     objDeposito.setIdLanc(Integer.valueOf(jIdLanc.getText()));
