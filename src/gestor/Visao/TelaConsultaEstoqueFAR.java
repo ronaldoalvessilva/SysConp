@@ -10,6 +10,7 @@ import gestor.Dao.ModeloTabela;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -30,6 +31,9 @@ public class TelaConsultaEstoqueFAR extends javax.swing.JInternalFrame {
     String dataDocumeto, dataLancamento;
     String caminho, caminho1;
     String modulo = "F";
+    String dataVcto = "";
+    float quantEstoque = 0;
+    String qdtEstoque = "";
 
     /**
      * Creates new form TelaConsultaEstoqueAC
@@ -71,31 +75,6 @@ public class TelaConsultaEstoqueFAR extends javax.swing.JInternalFrame {
         jPanel31 = new javax.swing.JPanel();
         jPanel32 = new javax.swing.JPanel();
         jtotalRegistros = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
-        jPanel13 = new javax.swing.JPanel();
-        jFoto1 = new javax.swing.JLabel();
-        jPanel14 = new javax.swing.JPanel();
-        jFoto2 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jIdProd = new javax.swing.JTextField();
-        jCodigoBarras = new javax.swing.JTextField();
-        jReferencia = new javax.swing.JTextField();
-        jDescricaoLocal = new javax.swing.JTextField();
-        jDescricaoProduto = new javax.swing.JTextField();
-        jSaldoAtual = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
-        jStatus = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
-        jDescricaoGrupo = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
-        jUnidade = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
@@ -119,6 +98,10 @@ public class TelaConsultaEstoqueFAR extends javax.swing.JInternalFrame {
         jDescricaoProdutoC = new javax.swing.JTextField();
         jLabel26 = new javax.swing.JLabel();
         jStatusC = new javax.swing.JTextField();
+        jPanel14 = new javax.swing.JPanel();
+        jFoto2 = new javax.swing.JLabel();
+        jPanel13 = new javax.swing.JPanel();
+        jFoto1 = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -224,7 +207,7 @@ public class TelaConsultaEstoqueFAR extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPesqReferencia)
+                        .addComponent(jPesqReferencia, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtPesqReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -260,10 +243,10 @@ public class TelaConsultaEstoqueFAR extends javax.swing.JInternalFrame {
         jTabelaConsultaEstoque.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaConsultaEstoque.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Código", "Descrição do Produto", "Status", "Código Barras"
+                "Código", "Status", "Código Barras", "Descrição do Produto", "Estoque Atual", "Lote", "Data Vcto.", "Localização"
             }
         ));
         jTabelaConsultaEstoque.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -275,12 +258,20 @@ public class TelaConsultaEstoqueFAR extends javax.swing.JInternalFrame {
         if (jTabelaConsultaEstoque.getColumnModel().getColumnCount() > 0) {
             jTabelaConsultaEstoque.getColumnModel().getColumn(0).setMinWidth(50);
             jTabelaConsultaEstoque.getColumnModel().getColumn(0).setMaxWidth(50);
-            jTabelaConsultaEstoque.getColumnModel().getColumn(1).setMinWidth(300);
-            jTabelaConsultaEstoque.getColumnModel().getColumn(1).setMaxWidth(300);
-            jTabelaConsultaEstoque.getColumnModel().getColumn(2).setMinWidth(80);
-            jTabelaConsultaEstoque.getColumnModel().getColumn(2).setMaxWidth(80);
-            jTabelaConsultaEstoque.getColumnModel().getColumn(3).setMinWidth(100);
-            jTabelaConsultaEstoque.getColumnModel().getColumn(3).setMaxWidth(100);
+            jTabelaConsultaEstoque.getColumnModel().getColumn(1).setMinWidth(50);
+            jTabelaConsultaEstoque.getColumnModel().getColumn(1).setMaxWidth(50);
+            jTabelaConsultaEstoque.getColumnModel().getColumn(2).setMinWidth(100);
+            jTabelaConsultaEstoque.getColumnModel().getColumn(2).setMaxWidth(100);
+            jTabelaConsultaEstoque.getColumnModel().getColumn(3).setMinWidth(300);
+            jTabelaConsultaEstoque.getColumnModel().getColumn(3).setMaxWidth(300);
+            jTabelaConsultaEstoque.getColumnModel().getColumn(4).setMinWidth(80);
+            jTabelaConsultaEstoque.getColumnModel().getColumn(4).setMaxWidth(80);
+            jTabelaConsultaEstoque.getColumnModel().getColumn(5).setMinWidth(100);
+            jTabelaConsultaEstoque.getColumnModel().getColumn(5).setMaxWidth(100);
+            jTabelaConsultaEstoque.getColumnModel().getColumn(6).setMinWidth(80);
+            jTabelaConsultaEstoque.getColumnModel().getColumn(6).setMaxWidth(80);
+            jTabelaConsultaEstoque.getColumnModel().getColumn(7).setMinWidth(180);
+            jTabelaConsultaEstoque.getColumnModel().getColumn(7).setMaxWidth(180);
         }
 
         jPanel30.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
@@ -306,7 +297,7 @@ public class TelaConsultaEstoqueFAR extends javax.swing.JInternalFrame {
         jPanel31.setLayout(jPanel31Layout);
         jPanel31Layout.setHorizontalGroup(
             jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 298, Short.MAX_VALUE)
+            .addGap(0, 545, Short.MAX_VALUE)
         );
         jPanel31Layout.setVerticalGroup(
             jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -335,14 +326,16 @@ public class TelaConsultaEstoqueFAR extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jPanel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -351,7 +344,7 @@ public class TelaConsultaEstoqueFAR extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -361,244 +354,6 @@ public class TelaConsultaEstoqueFAR extends javax.swing.JInternalFrame {
         );
 
         jTabbedPane1.addTab("Listagem", jPanel1);
-
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-
-        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
-
-        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
-        jPanel13.setLayout(jPanel13Layout);
-        jPanel13Layout.setHorizontalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel13Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jFoto1, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel13Layout.setVerticalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel13Layout.createSequentialGroup()
-                .addComponent(jFoto1, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
-
-        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
-        jPanel14.setLayout(jPanel14Layout);
-        jPanel14Layout.setHorizontalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel14Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jFoto2, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel14Layout.setVerticalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel14Layout.createSequentialGroup()
-                .addComponent(jFoto2, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        jPanel5Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanel13, jPanel14});
-
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(jPanel14, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel5.setText("Código");
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel6.setText("Código Barras");
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel7.setText("Referência");
-
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 153, 0));
-        jLabel8.setText("Localização");
-
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel9.setText("Descrição do Produto");
-
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel10.setText("Estoque Atual");
-
-        jIdProd.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jIdProd.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jIdProd.setEnabled(false);
-
-        jCodigoBarras.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jCodigoBarras.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jCodigoBarras.setEnabled(false);
-
-        jReferencia.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jReferencia.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jReferencia.setEnabled(false);
-
-        jDescricaoLocal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jDescricaoLocal.setEnabled(false);
-
-        jDescricaoProduto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jDescricaoProduto.setEnabled(false);
-
-        jSaldoAtual.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jSaldoAtual.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jSaldoAtual.setEnabled(false);
-
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel11.setText("Status");
-
-        jStatus.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jStatus.setEnabled(false);
-
-        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel12.setText("Grupo do Produto");
-
-        jDescricaoGrupo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jDescricaoGrupo.setEnabled(false);
-
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel13.setText("Unidade");
-
-        jUnidade.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jUnidade.setEnabled(false);
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jDescricaoProduto)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel9)
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel12)
-                                    .addGroup(jPanel6Layout.createSequentialGroup()
-                                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel5)
-                                            .addComponent(jIdProd, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(26, 26, 26)
-                                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel6)
-                                            .addComponent(jCodigoBarras, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel7)))
-                                    .addComponent(jDescricaoGrupo))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel11)
-                                        .addComponent(jStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel6Layout.createSequentialGroup()
-                                        .addComponent(jLabel13)
-                                        .addGap(50, 50, 50))
-                                    .addComponent(jUnidade, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jDescricaoLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(26, 26, 26)
-                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel10)
-                                    .addComponent(jSaldoAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-
-        jPanel6Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jCodigoBarras, jReferencia});
-
-        jPanel6Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jSaldoAtual, jStatus, jUnidade});
-
-        jPanel6Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jDescricaoGrupo, jDescricaoLocal});
-
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel11))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jIdProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCodigoBarras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel13))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jDescricaoGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jDescricaoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jDescricaoLocal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSaldoAtual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(60, 60, 60))
-        );
-
-        jPanel6Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jStatus, jUnidade});
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Consultas", jPanel2);
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -634,17 +389,17 @@ public class TelaConsultaEstoqueFAR extends javax.swing.JInternalFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel14)
                     .addComponent(jLabel16))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(2, 2, 2)
                         .addComponent(jLabel15))
                     .addComponent(jLabel17))
-                .addGap(18, 18, 18)
+                .addGap(43, 43, 43)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel18)
                     .addComponent(jLabel20))
-                .addGap(24, 24, 24))
+                .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -759,14 +514,13 @@ public class TelaConsultaEstoqueFAR extends javax.swing.JInternalFrame {
                             .addComponent(jLabel24))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel26)
-                            .addComponent(jStatusC, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel25)
-                            .addComponent(jDescricaoProdutoC, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addComponent(jLabel26)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jStatusC)))
+                    .addComponent(jLabel25)
+                    .addComponent(jDescricaoProdutoC, javax.swing.GroupLayout.PREFERRED_SIZE, 489, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -792,29 +546,80 @@ public class TelaConsultaEstoqueFAR extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
+
+        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
+        jPanel14.setLayout(jPanel14Layout);
+        jPanel14Layout.setHorizontalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jFoto2, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel14Layout.setVerticalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addComponent(jFoto2, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jFoto1, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addComponent(jFoto1, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 483, Short.MAX_VALUE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanel13, jPanel14});
+
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
+
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPanel13, jPanel14});
 
         jTabbedPane1.addTab("Histórico Movimentação", jPanel3);
 
@@ -822,16 +627,14 @@ public class TelaConsultaEstoqueFAR extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 755, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 514, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 522, Short.MAX_VALUE)
         );
 
-        setBounds(300, 20, 524, 542);
+        setBounds(300, 20, 771, 552);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtPesqCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqCodigoActionPerformed
@@ -839,12 +642,14 @@ public class TelaConsultaEstoqueFAR extends javax.swing.JInternalFrame {
         count = 0;
         if (jPesqCodigo.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "É necessário informar um código para pesquisa.");
-        } else {           
+        } else {
             preencherTabelaConsultaEstoque("SELECT * FROM PRODUTOS_AC "
                     + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
                     + "ON PRODUTOS_AC.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
                     + "INNER JOIN GRUPO_PRODUTOS_AC "
                     + "ON PRODUTOS_AC.IdGrupo=GRUPO_PRODUTOS_AC.IdGrupo "
+                    + "INNER JOIN LOTE_PRODUTOS_AC "
+                    + "ON PRODUTOS_AC.IdProd=LOTE_PRODUTOS_AC.IdProd "
                     + "WHERE PRODUTOS_AC.IdProd='" + jPesqCodigo.getText() + "' "
                     + "AND PRODUTOS_AC.Modulo='" + modulo + "'");
         }
@@ -854,12 +659,14 @@ public class TelaConsultaEstoqueFAR extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         count = 0;
         flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {            
+        if (evt.getStateChange() == evt.SELECTED) {
             this.preencherTabelaConsultaEstoque("SELECT * FROM PRODUTOS_AC "
                     + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
                     + "ON PRODUTOS_AC.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
                     + "INNER JOIN GRUPO_PRODUTOS_AC "
                     + "ON PRODUTOS_AC.IdGrupo=GRUPO_PRODUTOS_AC.IdGrupo "
+                    + "INNER JOIN LOTE_PRODUTOS_AC "
+                    + "ON PRODUTOS_AC.IdProd=LOTE_PRODUTOS_AC.IdProd "
                     + "WHERE PRODUTOS_AC.Modulo='" + modulo + "'ORDER BY DescricaoProd");
         } else {
             jtotalRegistros.setText("");
@@ -872,12 +679,14 @@ public class TelaConsultaEstoqueFAR extends javax.swing.JInternalFrame {
         count = 0;
         if (jPesqCodigoBarras.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "É necessário informar o código para pesquisa.");
-        } else {            
+        } else {
             preencherTabelaConsultaEstoque("SELECT * FROM PRODUTOS_AC "
                     + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
                     + "ON PRODUTOS_AC.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
                     + "INNER JOIN GRUPO_PRODUTOS_AC "
                     + "ON PRODUTOS_AC.IdGrupo=GRUPO_PRODUTOS_AC.IdGrupo "
+                    + "INNER JOIN LOTE_PRODUTOS_AC "
+                    + "ON PRODUTOS_AC.IdProd=LOTE_PRODUTOS_AC.IdProd "
                     + "INNER JOIN HISTORICO_MOVIMENTACAO_ESTOQUE_FAR "
                     + "ON PRODUTOS_AC.IdProd=HISTORICO_MOVIMENTACAO_ESTOQUE_FAR.IdProd "
                     + "WHERE PRODUTOS_AC.CodigoBarra='" + jPesqCodigoBarras.getText() + "' "
@@ -890,12 +699,14 @@ public class TelaConsultaEstoqueFAR extends javax.swing.JInternalFrame {
         count = 0;
         if (jPesqReferencia.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "É necessário informar a referência para pesquisa.");
-        } else {            
+        } else {
             preencherTabelaConsultaEstoque("SELECT * FROM PRODUTOS_AC "
                     + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
                     + "ON PRODUTOS_AC.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
                     + "INNER JOIN GRUPO_PRODUTOS_AC "
-                    + "ON PRODUTOS_AC.IdGrupo=GRUPO_PRODUTOS.IdGrupo "
+                    + "ON PRODUTOS_AC.IdGrupo=GRUPO_PRODUTOS_AC.IdGrupo "
+                    + "INNER JOIN LOTE_PRODUTOS_AC "
+                    + "ON PRODUTOS_AC.IdProd=LOTE_PRODUTOS_AC.IdProd "
                     + "INNER JOIN HISTORICO_MOVIMENTACAO_ESTOQUE_FAR "
                     + "ON PRODUTOS_AC.IdProd=HISTORICO_MOVIMENTACAO_ESTOQUE_FAR.IdProd "
                     + "WHERE PRODUTOS_AC.ReferenciaProd='" + jPesqReferencia.getText() + "' "
@@ -908,12 +719,14 @@ public class TelaConsultaEstoqueFAR extends javax.swing.JInternalFrame {
         count = 0;
         if (jPesqDescricaoProduto.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "É necessário informar um nome ou parte do nome para pesquisa.");
-        } else {            
+        } else {
             preencherTabelaConsultaEstoque("SELECT * FROM PRODUTOS_AC "
                     + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
                     + "ON PRODUTOS_AC.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
                     + "INNER JOIN GRUPO_PRODUTOS_AC "
                     + "ON PRODUTOS_AC.IdGrupo=GRUPO_PRODUTOS_AC.IdGrupo "
+                    + "INNER JOIN LOTE_PRODUTOS_AC "
+                    + "ON PRODUTOS_AC.IdProd=LOTE_PRODUTOS_AC.IdProd "
                     + "INNER JOIN HISTORICO_MOVIMENTACAO_ESTOQUE_FAR "
                     + "ON PRODUTOS_AC.IdProd=HISTORICO_MOVIMENTACAO_ESTOQUE_FAR.IdProd "
                     + "WHERE PRODUTOS_AC.DescricaoProd LIKE'%" + jPesqDescricaoProduto.getText() + "%' "
@@ -925,9 +738,9 @@ public class TelaConsultaEstoqueFAR extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (flag == 1) {
-            String idLanc = "" + jTabelaConsultaEstoque.getValueAt(jTabelaConsultaEstoque.getSelectedRow(), 0);
-            jIdProd.setText(idLanc);
-            String descricaoProduto = "" + jTabelaConsultaEstoque.getValueAt(jTabelaConsultaEstoque.getSelectedRow(), 1);
+            String idProd = "" + jTabelaConsultaEstoque.getValueAt(jTabelaConsultaEstoque.getSelectedRow(), 0);
+            jPesqCodigo.setText(idProd);
+            String descricaoProduto = "" + jTabelaConsultaEstoque.getValueAt(jTabelaConsultaEstoque.getSelectedRow(), 3);
             jPesqDescricaoProduto.setText(descricaoProduto);
             //
             conecta.abrirConexao();
@@ -937,8 +750,8 @@ public class TelaConsultaEstoqueFAR extends javax.swing.JInternalFrame {
                         + "ON PRODUTOS_AC.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
                         + "INNER JOIN GRUPO_PRODUTOS_AC "
                         + "ON PRODUTOS_AC.IdGrupo=GRUPO_PRODUTOS_AC.IdGrupo "
-                        + "INNER JOIN HISTORICO_MOVIMENTACAO_ESTOQUE_FAR "
-                        + "ON PRODUTOS_AC.IdProd=HISTORICO_MOVIMENTACAO_ESTOQUE_FAR.IdProd "
+                        + "INNER JOIN LOTE_PRODUTOS_AC "
+                        + "ON PRODUTOS_AC.IdProd=LOTE_PRODUTOS_AC.IdProd "
                         + "WHERE PRODUTOS_AC.DescricaoProd='" + jPesqDescricaoProduto.getText() + "'");
                 conecta.rs.last();
                 caminho = conecta.rs.getString("FotoProduto");
@@ -953,30 +766,21 @@ public class TelaConsultaEstoqueFAR extends javax.swing.JInternalFrame {
                     jFoto2.setIcon(c);
                     jFoto2.setIcon(new ImageIcon(c.getImage().getScaledInstance(jFoto2.getWidth(), jFoto2.getHeight(), Image.SCALE_DEFAULT)));
                 }
-                jIdProd.setText(String.valueOf(conecta.rs.getInt("IdProd")));
-                jCodigoBarras.setText(conecta.rs.getString("CodigoBarra"));
-                jReferencia.setText(conecta.rs.getString("ReferenciaProd"));
-                jStatus.setText(conecta.rs.getString("StatusProd"));
-                jDescricaoGrupo.setText(conecta.rs.getString("NomeGrupo"));
-                jUnidade.setText(conecta.rs.getString("UnidadeProd"));
-                jDescricaoProduto.setText(conecta.rs.getString("DescricaoProd"));
-                jDescricaoLocal.setText(conecta.rs.getString("DescricaoLocal"));
-                jSaldoAtual.setText(String.valueOf(conecta.rs.getInt("SaldoAtual")));
+                jCodProdutoC.setText(String.valueOf(conecta.rs.getInt("IdProd")));
+                jCodigoBarrasC.setText(conecta.rs.getString("CodigoBarra"));
+                jReferenciaC.setText(conecta.rs.getString("ReferenciaProd"));
+                jUnidadeC.setText(conecta.rs.getString("UnidadeProd"));
+                jStatusC.setText(conecta.rs.getString("StatusProd"));
+                jDescricaoProdutoC.setText(conecta.rs.getString("DescricaoProd"));
                 conecta.desconecta();
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisar dados... " + e);
+                JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisar dados... \nERROR: " + e);
             }
-            jCodProdutoC.setText(jIdProd.getText());
-            jCodigoBarrasC.setText(jCodigoBarras.getText());
-            jReferenciaC.setText(jReferencia.getText());
-            jUnidadeC.setText(jUnidade.getText());
-            jStatusC.setText(jStatus.getText());
-            jDescricaoProdutoC.setText(jDescricaoProduto.getText());
             count = 0;
             preencherTabelaHistorico("SELECT * FROM HISTORICO_MOVIMENTACAO_ESTOQUE_FAR "
                     + "INNER JOIN PRODUTOS_AC "
                     + "ON HISTORICO_MOVIMENTACAO_ESTOQUE_FAR.IdProd=PRODUTOS_AC.IdProd "
-                    + "WHERE PRODUTOS_AC.IdProd='" + idLanc + "'AND QtdItem!='" + 0 + "' "
+                    + "WHERE PRODUTOS_AC.IdProd='" + idProd + "'AND QtdItem!='" + 0 + "' "
                     + "ORDER BY IdHistorico,DataMov");
         }
     }//GEN-LAST:event_jTabelaConsultaEstoqueMouseClicked
@@ -989,20 +793,11 @@ public class TelaConsultaEstoqueFAR extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtPesqReferencia;
     private javax.swing.JCheckBox jCheckBoxtTodos;
     private javax.swing.JTextField jCodProdutoC;
-    private javax.swing.JTextField jCodigoBarras;
     private javax.swing.JTextField jCodigoBarrasC;
-    private javax.swing.JTextField jDescricaoGrupo;
-    private javax.swing.JTextField jDescricaoLocal;
-    private javax.swing.JTextField jDescricaoProduto;
     private javax.swing.JTextField jDescricaoProdutoC;
     private javax.swing.JLabel jFoto1;
     private javax.swing.JLabel jFoto2;
-    private javax.swing.JTextField jIdProd;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -1018,55 +813,33 @@ public class TelaConsultaEstoqueFAR extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel63;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel30;
     private javax.swing.JPanel jPanel31;
     private javax.swing.JPanel jPanel32;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JTextField jPesqCodigo;
     private javax.swing.JTextField jPesqCodigoBarras;
     private javax.swing.JTextField jPesqDescricaoProduto;
     private javax.swing.JTextField jPesqReferencia;
-    private javax.swing.JTextField jReferencia;
     private javax.swing.JTextField jReferenciaC;
-    private javax.swing.JTextField jSaldoAtual;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jStatus;
     private javax.swing.JTextField jStatusC;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTabelaConsultaEstoque;
     private javax.swing.JTable jTabelaHistoricoMovimentacao;
-    private javax.swing.JTextField jUnidade;
     private javax.swing.JTextField jUnidadeC;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
     public void corCampos() {
-        jIdProd.setBackground(Color.white);
-        jCodigoBarras.setBackground(Color.white);
-        jReferencia.setBackground(Color.white);
-        jStatus.setBackground(Color.white);
-        jDescricaoGrupo.setBackground(Color.white);
-        jUnidade.setBackground(Color.white);
-        jDescricaoProduto.setBackground(Color.white);
-        jDescricaoLocal.setBackground(Color.white);
-        jSaldoAtual.setBackground(Color.white);
-        //
         jCodProdutoC.setBackground(Color.white);
         jCodigoBarrasC.setBackground(Color.white);
         jReferenciaC.setBackground(Color.white);
@@ -1077,15 +850,26 @@ public class TelaConsultaEstoqueFAR extends javax.swing.JInternalFrame {
 
     public void preencherTabelaConsultaEstoque(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Descrição do Produto ", "Status", "Código Barras"};
+        String[] Colunas = new String[]{"Código", "Status", "Código Barras", "Descrição do Produto ", "Estoque Atual", "Lote", "Data Vcto.", "Localização"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
             conecta.rs.first();
             do {
+                dataVcto = conecta.rs.getString("DataVenc");
+                if (dataVcto != null) {
+                    String dia = dataVcto.substring(8, 10);
+                    String mes = dataVcto.substring(5, 7);
+                    String ano = dataVcto.substring(0, 4);
+                    dataVcto = dia + "/" + mes + "/" + ano;
+                }
+                quantEstoque = conecta.rs.getFloat("Qtd");
+                DecimalFormat vest = new DecimalFormat("#,##0.00");
+                String estoque = vest.format(quantEstoque);
+                qdtEstoque = estoque;
                 count = count + 1;
                 jtotalRegistros.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{conecta.rs.getInt("IdProd"), conecta.rs.getString("DescricaoProd"), conecta.rs.getString("StatusProd"), conecta.rs.getString("CodigoBarra")});
+                dados.add(new Object[]{conecta.rs.getInt("IdProd"), conecta.rs.getString("StatusProd"), conecta.rs.getString("CodigoBarra"), conecta.rs.getString("DescricaoProd"), qdtEstoque, conecta.rs.getString("Lote"), dataVcto, conecta.rs.getString("DescricaoLocal")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");
@@ -1094,12 +878,20 @@ public class TelaConsultaEstoqueFAR extends javax.swing.JInternalFrame {
         jTabelaConsultaEstoque.setModel(modelo);
         jTabelaConsultaEstoque.getColumnModel().getColumn(0).setPreferredWidth(50);
         jTabelaConsultaEstoque.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaConsultaEstoque.getColumnModel().getColumn(1).setPreferredWidth(300);
+        jTabelaConsultaEstoque.getColumnModel().getColumn(1).setPreferredWidth(50);
         jTabelaConsultaEstoque.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaConsultaEstoque.getColumnModel().getColumn(2).setPreferredWidth(80);
+        jTabelaConsultaEstoque.getColumnModel().getColumn(2).setPreferredWidth(100);
         jTabelaConsultaEstoque.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaConsultaEstoque.getColumnModel().getColumn(3).setPreferredWidth(100);
+        jTabelaConsultaEstoque.getColumnModel().getColumn(3).setPreferredWidth(300);
         jTabelaConsultaEstoque.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaConsultaEstoque.getColumnModel().getColumn(4).setPreferredWidth(80);
+        jTabelaConsultaEstoque.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaConsultaEstoque.getColumnModel().getColumn(5).setPreferredWidth(100);
+        jTabelaConsultaEstoque.getColumnModel().getColumn(5).setResizable(false);
+        jTabelaConsultaEstoque.getColumnModel().getColumn(6).setPreferredWidth(80);
+        jTabelaConsultaEstoque.getColumnModel().getColumn(6).setResizable(false);
+        jTabelaConsultaEstoque.getColumnModel().getColumn(7).setPreferredWidth(180);
+        jTabelaConsultaEstoque.getColumnModel().getColumn(7).setResizable(false);
         jTabelaConsultaEstoque.getTableHeader().setReorderingAllowed(false);
         jTabelaConsultaEstoque.setAutoResizeMode(jTabelaConsultaEstoque.AUTO_RESIZE_OFF);
         jTabelaConsultaEstoque.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -1109,17 +901,25 @@ public class TelaConsultaEstoqueFAR extends javax.swing.JInternalFrame {
 
     public void limparTabelaEstoque() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Descrição do Produto ", "Status", "Código Barras"};
+        String[] Colunas = new String[]{"Código", "Status", "Código Barras", "Descrição do Produto ", "Estoque Atual", "Lote", "Data Vcto.", "Localização"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaConsultaEstoque.setModel(modelo);
         jTabelaConsultaEstoque.getColumnModel().getColumn(0).setPreferredWidth(50);
         jTabelaConsultaEstoque.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaConsultaEstoque.getColumnModel().getColumn(1).setPreferredWidth(300);
+        jTabelaConsultaEstoque.getColumnModel().getColumn(1).setPreferredWidth(50);
         jTabelaConsultaEstoque.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaConsultaEstoque.getColumnModel().getColumn(2).setPreferredWidth(80);
+        jTabelaConsultaEstoque.getColumnModel().getColumn(2).setPreferredWidth(100);
         jTabelaConsultaEstoque.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaConsultaEstoque.getColumnModel().getColumn(3).setPreferredWidth(100);
+        jTabelaConsultaEstoque.getColumnModel().getColumn(3).setPreferredWidth(300);
         jTabelaConsultaEstoque.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaConsultaEstoque.getColumnModel().getColumn(4).setPreferredWidth(80);
+        jTabelaConsultaEstoque.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaConsultaEstoque.getColumnModel().getColumn(5).setPreferredWidth(100);
+        jTabelaConsultaEstoque.getColumnModel().getColumn(5).setResizable(false);
+        jTabelaConsultaEstoque.getColumnModel().getColumn(6).setPreferredWidth(80);
+        jTabelaConsultaEstoque.getColumnModel().getColumn(6).setResizable(false);
+        jTabelaConsultaEstoque.getColumnModel().getColumn(7).setPreferredWidth(180);
+        jTabelaConsultaEstoque.getColumnModel().getColumn(7).setResizable(false);
         jTabelaConsultaEstoque.getTableHeader().setReorderingAllowed(false);
         jTabelaConsultaEstoque.setAutoResizeMode(jTabelaConsultaEstoque.AUTO_RESIZE_OFF);
         jTabelaConsultaEstoque.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -1135,8 +935,11 @@ public class TelaConsultaEstoqueFAR extends javax.swing.JInternalFrame {
         direita.setHorizontalAlignment(SwingConstants.RIGHT);
         //
         jTabelaConsultaEstoque.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaConsultaEstoque.getColumnModel().getColumn(1).setCellRenderer(centralizado);
         jTabelaConsultaEstoque.getColumnModel().getColumn(2).setCellRenderer(centralizado);
-        jTabelaConsultaEstoque.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+        jTabelaConsultaEstoque.getColumnModel().getColumn(4).setCellRenderer(direita);
+        jTabelaConsultaEstoque.getColumnModel().getColumn(5).setCellRenderer(direita);
+        jTabelaConsultaEstoque.getColumnModel().getColumn(6).setCellRenderer(centralizado);
     }
 
     public void preencherTabelaHistorico(String sql) {
