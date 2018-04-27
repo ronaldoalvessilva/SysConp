@@ -34,7 +34,7 @@ public class ControleSaldoSaque {
             pst.setTimestamp(7, new java.sql.Timestamp(objSaldo.getDataMov().getTime()));
             pst.execute();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados\n\nERRO" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\n\nERRO: " + ex);
         }
         conecta.desconecta();
         return objSaldo;
