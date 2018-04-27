@@ -12,6 +12,7 @@ import gestor.Modelo.SaqueValores;
 import static gestor.Visao.TelaConsultaSaldoFin.jIdInternoFinDir;
 import static gestor.Visao.TelaConsultaSaldoFin.jTabelaDeposito;
 import static gestor.Visao.TelaConsultaSaldoFin.jTabelaSaque;
+import static gestor.Visao.TelaConsultaSaldoFin.jTabelaTransferencia;
 import static gestor.Visao.TelaConsultaSaldoFin.jlSaldoAtual;
 import static gestor.Visao.TelaConsultaSaldoFin.jlTotalCredito;
 import static gestor.Visao.TelaConsultaSaldoFin.jlTotalDebito;
@@ -42,6 +43,7 @@ public class TelaPesqDataExtrato extends javax.swing.JInternalFrame {
     float saldoGeral = 0;
     double valorDeposito = 0;
     double valorSaque = 0;
+    double valorTrans = 0;
 
     /**
      * Creates new form TelaPesqDataExtrato
@@ -207,6 +209,13 @@ public class TelaPesqDataExtrato extends javax.swing.JInternalFrame {
                     saldoGeral = valorTotalCredito - valorTotalDebito;
                     DecimalFormat df = new DecimalFormat("#,##0.00");
                     jlSaldoAtual.setText(df.format(saldoGeral));
+                    preencherTabelaTransferencia("SELECT * FROM TRANSFERENCIA_VALORES_INATIVOS "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON TRANSFERENCIA_VALORES_INATIVOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "WHERE TRANSFERENCIA_VALORES_INATIVOS.IdInternoCrc='" + jIdInternoFinDir.getText() + "'");
+                    saldoGeral = valorTotalCredito - valorTotalDebito;
+                    DecimalFormat df1 = new DecimalFormat("#,##0.00");
+                    jlSaldoAtual.setText(df1.format(saldoGeral));
                 }
             }
         }
@@ -347,5 +356,59 @@ public class TelaPesqDataExtrato extends javax.swing.JInternalFrame {
         jTabelaDeposito.getColumnModel().getColumn(0).setCellRenderer(centralizado);
         jTabelaDeposito.getColumnModel().getColumn(1).setCellRenderer(centralizado);
         jTabelaDeposito.getColumnModel().getColumn(3).setCellRenderer(direita);
+    }
+
+    public void preencherTabelaTransferencia(String sql) {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Data", "Nr. Doc", "Histórico", "Valor R$", "Favorecido"};
+        conecta.abrirConexao();
+        conecta.executaSQL(sql);
+        try {
+            conecta.rs.first();
+            do {
+                // Mostrar o valor na tabels no formato BR
+                valorTrans = conecta.rs.getFloat("ValorTransferido");
+                DecimalFormat vst = new DecimalFormat("#,##0.00");
+                String vlTrans = vst.format(valorTrans);
+                // Formatar a data Deposito
+                dataSaq = conecta.rs.getString("DataLanc");
+                String diad = dataSaq.substring(8, 10);
+                String mesd = dataSaq.substring(5, 7);
+                String anod = dataSaq.substring(0, 4);
+                dataSaq = diad + "/" + mesd + "/" + anod;
+                dados.add(new Object[]{dataSaq, conecta.rs.getString("IdLanc"), conecta.rs.getString("Motivo"), vlTrans, conecta.rs.getString("TipoTransferencia")});
+            } while (conecta.rs.next());
+        } catch (SQLException ex) {
+        }
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaTransferencia.setModel(modelo);
+        jTabelaTransferencia.getColumnModel().getColumn(0).setPreferredWidth(80);
+        jTabelaTransferencia.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaTransferencia.getColumnModel().getColumn(1).setPreferredWidth(70);
+        jTabelaTransferencia.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaTransferencia.getColumnModel().getColumn(2).setPreferredWidth(300);
+        jTabelaTransferencia.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaTransferencia.getColumnModel().getColumn(3).setPreferredWidth(100);
+        jTabelaTransferencia.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaTransferencia.getColumnModel().getColumn(4).setPreferredWidth(300);
+        jTabelaTransferencia.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaTransferencia.getTableHeader().setReorderingAllowed(false);
+        jTabelaTransferencia.setAutoResizeMode(jTabelaTransferencia.AUTO_RESIZE_OFF);
+        jTabelaTransferencia.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCamposTabelaTran();
+        conecta.desconecta();
+    }
+
+    public void alinharCamposTabelaTran() {
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        //
+        jTabelaTransferencia.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaTransferencia.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+        jTabelaTransferencia.getColumnModel().getColumn(3).setCellRenderer(direita);
     }
 }
