@@ -558,14 +558,26 @@ public class TelaBiometriaCadastroVisitantes extends javax.swing.JDialog {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        objVisita.setIdVisita(Integer.valueOf(jCodigo.getText()));
-        objVisita.setBiometriaDedo1(capDigital1);
-        objVisita.setBiometriaDedo2(capDigital2);
-        objVisita.setBiometriaDedo3(capDigital3);
-        objVisita.setBiometriaDedo4(capDigital4);
-        control.gravarBiometriaVisitaInterno(objVisita);
-        JOptionPane.showMessageDialog(null, "Registro gravado com sucesso.");
-        Salvar();
+        if (jCodigo.getText().equals("") || jNomeVisitante.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Não existe visita selecionada....");
+        } else if (capDigital1 == null) {
+            JOptionPane.showMessageDialog(null, "Digital do polegar direito não foi cadastrada....");
+        } else if (capDigital2 == null) {
+            JOptionPane.showMessageDialog(null, "Digital do indicador direito não foi cadastrada....");
+        } else if (capDigital3 == null) {
+            JOptionPane.showMessageDialog(null, "Digital do polegar esquerdo não foi cadastrada....");
+        } else if (capDigital4 == null) {
+            JOptionPane.showMessageDialog(null, "Digital do indicador esquerdo não foi cadastrada....");
+        } else {
+            objVisita.setIdVisita(Integer.valueOf(jCodigo.getText()));
+            objVisita.setBiometriaDedo1(capDigital1);
+            objVisita.setBiometriaDedo2(capDigital2);
+            objVisita.setBiometriaDedo3(capDigital3);
+            objVisita.setBiometriaDedo4(capDigital4);
+            control.gravarBiometriaVisitaInterno(objVisita);
+            JOptionPane.showMessageDialog(null, "Registro gravado com sucesso.");
+            Salvar();
+        }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
     private void jBtDedo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtDedo1ActionPerformed
