@@ -73,32 +73,31 @@ public class ConexaoBancoDados {
         FileInputStream file = null;
         Properties props = null;
         try {
+            String Computer = System.getProperty("os.name");
+            System.out.println(Computer);
             props = new Properties();
-//            Computer conf = new Computer();
-//            System.out.println(conf.getSO());
-//            if (conf.getSO().equals("Linux")) {
-//                file = new FileInputStream("/usr/programas/configuracoes.properties");//ALTERE AQUI DE ACORDO COM SUA NECESSIDADE
-//            } else {
-            // Se Windows
-            file = new FileInputStream("C:\\SysConp\\Conecta.properties");////ALTERE AQUI DE ACORDO COM SUA NECESSIDADE
-//            }
-
+            if (Computer.equals("Linux")) {
+                file = new FileInputStream("/home/configuracoes.properties");//ALTERE AQUI DE ACORDO COM SUA NECESSIDADE
+            } else {
+                //Se Windows
+                file = new FileInputStream("C:\\SysConp\\Conecta.properties");////ALTERE AQUI DE ACORDO COM SUA NECESSIDADE
+            }
             props.load(file);
         } catch (FileNotFoundException ex) {
-//            Logger.getLogger(Ler.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConexaoBancoDados.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-//            Logger.getLogger(Ler.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConexaoBancoDados.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 file.close();
             } catch (IOException ex) {
-//                Logger.getLogger(Ler.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ConexaoBancoDados.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return props;
     }
 
-      // Conexão com o banco de dados MySQL
+    // Conexão com o banco de dados MySQL
 //     private String url = "jdbc:mysql://localhost:3306/db_socializa"; // Responsavel pelo caminho do banco de dados
 //     private String driver = "com.mysql.jdbc.Driver"; // Responsavel por identificar o banco de dados
 //     private final String user = "root"; // usuario do banco de dados
