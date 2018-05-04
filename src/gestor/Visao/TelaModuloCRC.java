@@ -5,8 +5,10 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleTelasSistema;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
+import gestor.Modelo.CadastroTelasSistema;
 import static gestor.Visao.TelaAgendaCompromissos.jAssunto;
 import static gestor.Visao.TelaAgendaCompromissos.jBtAlterarComp;
 import static gestor.Visao.TelaAgendaCompromissos.jBtCancelarComp;
@@ -77,6 +79,9 @@ import net.sf.jasperreports.view.JasperViewer;
 public class TelaModuloCRC extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
+    CadastroTelasSistema objCadastroTela = new CadastroTelasSistema();
+    ControleTelasSistema controle = new ControleTelasSistema();
+    //
     private TelaRecadosCrc objRecados = null;
     private TelaRetornoInterno objRetorno = null;
     private TelaEntradasLote objLote = null;
@@ -108,6 +113,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private TelaConsultaInternosEvadidos objConIntEvadidos = null;
     private TelaListaPassagemInternosAlbergados objListaPassaAlberg = null;
     private TelaObitoInternoExterna objObito = null;
+    private ConsultaGerencialInternosUnidade objConsultaGIU = null;
     // 
     String usuarioLogado, dataLanc;
     int codUsuario;
@@ -156,6 +162,28 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     String cartaoRG = "";
     String cartaoCPF = "";
     String pCnc = "";
+    //
+    public static int codigoUser = 0;
+    public static int codUserAcesso = 0;
+    public static int codigoUserGroup = 0;
+    public static int codAbrir = 0;
+    public static int codIncluir = 0;
+    public static int codAlterar = 0;
+    public static int codExcluir = 0;
+    public static int codGravar = 0;
+    public static int codConcultar = 0;
+    public static int codigoGrupo = 0;
+    public static String nomeGrupo = "";
+    public static String nomeTela = "";
+    // TELAS DE ACESSOS AO MÓDULO CRC
+    public static String nomeModuloCRC = "CRC";
+    // MENU CADASTRO    
+    public static String telaConsultaGerencialInternosExterna = "Consulta:Consulta Gerencial Internos Unidade";
+    //
+    int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
+    // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
+    // MENU CADASTRO
+    String pNomeCGIE = "";
 
     /**
      * Creates new form TelaCRC
@@ -165,7 +193,8 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         this.setSize(840, 640); // Tamanho da tela  
         buscarEvadido(); // verificar internos evadidos saida laborativa
         buscarEvadidoSaidaTemporaria(); // Verifcar internos evadidos saida temporaria
-      //  verificarRetornoInternos();
+        pesquisarTelasAcessos();
+        //  verificarRetornoInternos();
         threadMensagem(); // A cada 5 minutos verifica mensagem    
 
     }
@@ -204,6 +233,10 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         ConsultaEvasaoInternos = new javax.swing.JMenuItem();
         jSeparator8 = new javax.swing.JPopupMenu.Separator();
         HistoricoMovimentacao = new javax.swing.JMenuItem();
+        jSeparator26 = new javax.swing.JPopupMenu.Separator();
+        jMenu9 = new javax.swing.JMenu();
+        jConsultaGeralInternosExterna = new javax.swing.JMenuItem();
+        jConsultaProntuarioExterno = new javax.swing.JMenuItem();
         jMenuMovimentacao = new javax.swing.JMenu();
         jEntradaInternos = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
@@ -317,6 +350,9 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("CRC - Coordenação de Registros e Controle");
 
+        jPainelCRC.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jPainelCRC.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout jPainelCRCLayout = new javax.swing.GroupLayout(jPainelCRC);
         jPainelCRC.setLayout(jPainelCRCLayout);
         jPainelCRCLayout.setHorizontalGroup(
@@ -337,8 +373,6 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
                 .addComponent(jLabel2)
                 .addContainerGap(69, Short.MAX_VALUE))
         );
-        jPainelCRC.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jPainelCRC.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jMenuCadastros.setText("Cadastro");
 
@@ -450,6 +484,30 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             }
         });
         jMenu6.add(HistoricoMovimentacao);
+        jMenu6.add(jSeparator26);
+
+        jMenu9.setForeground(new java.awt.Color(0, 102, 51));
+        jMenu9.setText("Consultas de Internos Externas");
+
+        jConsultaGeralInternosExterna.setForeground(new java.awt.Color(204, 0, 0));
+        jConsultaGeralInternosExterna.setText("Consulta Gerencial de  Internos nas Unidades Externas - CGIUE");
+        jConsultaGeralInternosExterna.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jConsultaGeralInternosExternaActionPerformed(evt);
+            }
+        });
+        jMenu9.add(jConsultaGeralInternosExterna);
+
+        jConsultaProntuarioExterno.setForeground(new java.awt.Color(0, 0, 255));
+        jConsultaProntuarioExterno.setText("Consulta de Prontuários - Externo");
+        jConsultaProntuarioExterno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jConsultaProntuarioExternoActionPerformed(evt);
+            }
+        });
+        jMenu9.add(jConsultaProntuarioExterno);
+
+        jMenu6.add(jMenu9);
 
         jMenuBar1.add(jMenu6);
 
@@ -1684,8 +1742,8 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                    + "WHERE PRONTUARIOSCRC.SituacaoCrc='" + statusEntrada  + "' "
-                    + "OR PRONTUARIOSCRC.SituacaoCrc='" + statusRetorno  + "' "
+                    + "WHERE PRONTUARIOSCRC.SituacaoCrc='" + statusEntrada + "' "
+                    + "OR PRONTUARIOSCRC.SituacaoCrc='" + statusRetorno + "' "
                     + "ORDER BY NomeInternoCrc");
             HashMap parametros = new HashMap();
             parametros.put("nomeUsuario", nameUser);
@@ -2379,7 +2437,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
 
     private void RGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RGActionPerformed
         // TODO add your handling code here:
-         try {
+        try {
             conecta.abrirConexao();
             String path = "reports/RelatorioInternosSemCartaoRG.jasper";
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
@@ -2408,7 +2466,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
 
     private void CPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CPFActionPerformed
         // TODO add your handling code here:
-         try {
+        try {
             conecta.abrirConexao();
             String path = "reports/RelatorioInternosSemCartaoCPF.jasper";
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
@@ -2441,11 +2499,11 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             conecta.abrirConexao();
             String path = "reports/RelatorioInternosComCartaoSUS.jasper";
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
-                + "WHERE PRONTUARIOSCRC.CartaoSus!='" + cartaoSUS + "' "
-                + "AND SituacaoCrc='" + statusEntrada + "' "
-                + "OR PRONTUARIOSCRC.CartaoSus!='" + cartaoSUS + "' "
-                + "AND SituacaoCrc='" + statusRetorno + "' "
-                + "ORDER BY NomeInternoCrc");
+                    + "WHERE PRONTUARIOSCRC.CartaoSus!='" + cartaoSUS + "' "
+                    + "AND SituacaoCrc='" + statusEntrada + "' "
+                    + "OR PRONTUARIOSCRC.CartaoSus!='" + cartaoSUS + "' "
+                    + "AND SituacaoCrc='" + statusRetorno + "' "
+                    + "ORDER BY NomeInternoCrc");
             HashMap parametros = new HashMap();
             parametros.put("nomeUsuario", nameUser);
             parametros.put("situacaoEntrada", statusEntrada);
@@ -2470,11 +2528,11 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             conecta.abrirConexao();
             String path = "reports/RelatorioInternosComCartaoRG.jasper";
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
-                + "WHERE PRONTUARIOSCRC.RgInternoCrc!='" + cartaoRG + "' "
-                + "AND SituacaoCrc='" + statusEntrada + "' "
-                + "OR PRONTUARIOSCRC.RgInternoCrc!='" + cartaoSUS + "' "
-                + "AND SituacaoCrc='" + statusRetorno + "' "
-                + "ORDER BY NomeInternoCrc");
+                    + "WHERE PRONTUARIOSCRC.RgInternoCrc!='" + cartaoRG + "' "
+                    + "AND SituacaoCrc='" + statusEntrada + "' "
+                    + "OR PRONTUARIOSCRC.RgInternoCrc!='" + cartaoSUS + "' "
+                    + "AND SituacaoCrc='" + statusRetorno + "' "
+                    + "ORDER BY NomeInternoCrc");
             HashMap parametros = new HashMap();
             parametros.put("nomeUsuario", nameUser);
             parametros.put("situacaoEntrada", statusEntrada);
@@ -2499,11 +2557,11 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             conecta.abrirConexao();
             String path = "reports/RelatorioInternosComCartaoCPF.jasper";
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
-                + "WHERE PRONTUARIOSCRC.CartaoSus!='" + cartaoSUS + "' "
-                + "AND SituacaoCrc='" + statusEntrada + "' "
-                + "OR PRONTUARIOSCRC.CartaoSus!='" + cartaoSUS + "' "
-                + "AND SituacaoCrc='" + statusRetorno + "' "
-                + "ORDER BY NomeInternoCrc");
+                    + "WHERE PRONTUARIOSCRC.CartaoSus!='" + cartaoSUS + "' "
+                    + "AND SituacaoCrc='" + statusEntrada + "' "
+                    + "OR PRONTUARIOSCRC.CartaoSus!='" + cartaoSUS + "' "
+                    + "AND SituacaoCrc='" + statusRetorno + "' "
+                    + "ORDER BY NomeInternoCrc");
             HashMap parametros = new HashMap();
             parametros.put("nomeUsuario", nameUser);
             parametros.put("situacaoEntrada", statusEntrada);
@@ -2531,15 +2589,15 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
 
     private void PorNCNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PorNCNActionPerformed
         // TODO add your handling code here:
-         try {
+        try {
             conecta.abrirConexao();
             String path = "reports/RelatorioInternosComCartaoCNC.jasper";
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
-                + "WHERE PRONTUARIOSCRC.Cnc!='" + pCnc + "' "
-                + "AND SituacaoCrc='" + statusEntrada + "' "
-                + "OR PRONTUARIOSCRC.Cnc!='" + pCnc + "' "
-                + "AND SituacaoCrc='" + statusRetorno + "' "
-                + "ORDER BY NomeInternoCrc");
+                    + "WHERE PRONTUARIOSCRC.Cnc!='" + pCnc + "' "
+                    + "AND SituacaoCrc='" + statusEntrada + "' "
+                    + "OR PRONTUARIOSCRC.Cnc!='" + pCnc + "' "
+                    + "AND SituacaoCrc='" + statusRetorno + "' "
+                    + "ORDER BY NomeInternoCrc");
             HashMap parametros = new HashMap();
             parametros.put("nomeUsuario", nameUser);
             parametros.put("situacaoEntrada", statusEntrada);
@@ -2591,8 +2649,46 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         TelaRelatorioInternosEtnia objRelET = new TelaRelatorioInternosEtnia();
         TelaModuloCRC.jPainelCRC.add(objRelET);
-        objRelET.show();        
+        objRelET.show();
     }//GEN-LAST:event_RelInternoEtiniaActionPerformed
+
+    private void jConsultaGeralInternosExternaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jConsultaGeralInternosExternaActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaConsultaGerencialInternosExterna);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaConsultaGerencialInternosExterna) && codAbrir == 1) {
+            if (objConsultaGIU == null || objConsultaGIU.isClosed()) {
+                objConsultaGIU = new ConsultaGerencialInternosUnidade();
+                jPainelCRC.add(objConsultaGIU);
+                objConsultaGIU.setVisible(true);
+            } else {
+                if (objConsultaGIU.isVisible()) {
+                    if (objConsultaGIU.isIcon()) { // Se esta minimizado
+                        try {
+                            objConsultaGIU.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objConsultaGIU.toFront(); // traz para frente
+                        objConsultaGIU.pack();//volta frame 
+                    }
+                } else {
+                    objConsultaGIU = new ConsultaGerencialInternosUnidade();
+                    TelaModuloCRC.jPainelCRC.add(objConsultaGIU);//adicona frame ao JDesktopPane  
+                    objConsultaGIU.setVisible(true);
+                }
+            }
+            try {
+                objConsultaGIU.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jConsultaGeralInternosExternaActionPerformed
+
+    private void jConsultaProntuarioExternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jConsultaProntuarioExternoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jConsultaProntuarioExternoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -2653,6 +2749,8 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jCalculadoraPena;
     private javax.swing.JMenuItem jCalculadoraWindows;
     private javax.swing.JMenuItem jCidades;
+    private javax.swing.JMenuItem jConsultaGeralInternosExterna;
+    private javax.swing.JMenuItem jConsultaProntuarioExterno;
     private javax.swing.JMenuItem jEntradaInternos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -2669,6 +2767,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
+    private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuCadastros;
     private javax.swing.JMenuItem jMenuItem1;
@@ -2705,6 +2804,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator23;
     private javax.swing.JPopupMenu.Separator jSeparator24;
     private javax.swing.JPopupMenu.Separator jSeparator25;
+    private javax.swing.JPopupMenu.Separator jSeparator26;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
@@ -3240,7 +3340,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         }
     }
 
-    public void verificarSaidaMedicoAudiencia() {                
+    public void verificarSaidaMedicoAudiencia() {
         // confirmaCrc = "Não" E horaRetorno TEM QUE SER DIFERENTE DE VAZIO
         // String horaRetorno = "";
         // String confirmacaoCrc = "Não";
@@ -3263,7 +3363,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
                 String anoe = dataEntradaV.substring(0, 4);
                 dataEntradaV = diae + "/" + mese + "/" + anoe;
                 jtotalRegistrosVerifica.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{conecta.rs.getString("DocEntrada"), dataEntradaV, conecta.rs.getString("HoraEntrada"),conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc")});
+                dados.add(new Object[]{conecta.rs.getString("DocEntrada"), dataEntradaV, conecta.rs.getString("HoraEntrada"), conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }
@@ -3299,6 +3399,73 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         jTabelaEntradaSaidaPortariaCrc.getColumnModel().getColumn(1).setCellRenderer(centralizado);
         jTabelaEntradaSaidaPortariaCrc.getColumnModel().getColumn(2).setCellRenderer(centralizado);
         jTabelaEntradaSaidaPortariaCrc.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+    }
+
+    public void pesquisarTelasAcessos() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaConsultaGerencialInternosExterna + "'");
+            conecta.rs.first();
+            pNomeCGIE = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        if (!pNomeCGIE.equals(telaConsultaGerencialInternosExterna) || pNomeCGIE == null || pNomeCGIE.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaConsultaGerencialInternosExterna);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+    }
+
+    // MÉTODO PARA BUSCAR O CÓDIGO DO MÓDULO, CASO NÃO TENHA SIDO CADASTRADO.
+    public void buscarCodigoModulo() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM MODULOS "
+                    + "WHERE NomeModulo='" + nomeModuloCRC + "'");
+            conecta.rs.first();
+            pCodModulo = conecta.rs.getInt("IdModulo");
+        } catch (SQLException ex) {
+        }
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUser = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUser + "'");
+            conecta.rs.first();
+            codigoUserGroup = conecta.rs.getInt("IdUsuario");
+            codigoGrupo = conecta.rs.getInt("IdGrupo");
+            nomeGrupo = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUser + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcesso = conecta.rs.getInt("IdUsuario");
+            codAbrir = conecta.rs.getInt("Abrir");
+            codIncluir = conecta.rs.getInt("Incluir");
+            codAlterar = conecta.rs.getInt("Alterar");
+            codExcluir = conecta.rs.getInt("Excluir");
+            codGravar = conecta.rs.getInt("Gravar");
+            codConcultar = conecta.rs.getInt("Consultar");
+            nomeTela = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
     //  Verificar depois a utilização dessa tela no projeto
 //            TelaConsultaRetornoInternos objConsultaRetornoInterno = new TelaConsultaRetornoInternos();
