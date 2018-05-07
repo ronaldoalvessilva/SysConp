@@ -234,9 +234,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         jSeparator8 = new javax.swing.JPopupMenu.Separator();
         HistoricoMovimentacao = new javax.swing.JMenuItem();
         jSeparator26 = new javax.swing.JPopupMenu.Separator();
-        jMenu9 = new javax.swing.JMenu();
         jConsultaGeralInternosExterna = new javax.swing.JMenuItem();
-        jConsultaProntuarioExterno = new javax.swing.JMenuItem();
         jMenuMovimentacao = new javax.swing.JMenu();
         jEntradaInternos = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
@@ -486,9 +484,6 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         jMenu6.add(HistoricoMovimentacao);
         jMenu6.add(jSeparator26);
 
-        jMenu9.setForeground(new java.awt.Color(0, 102, 51));
-        jMenu9.setText("Consultas de Internos Externas");
-
         jConsultaGeralInternosExterna.setForeground(new java.awt.Color(204, 0, 0));
         jConsultaGeralInternosExterna.setText("Consulta Gerencial de  Internos nas Unidades Externas - CGIUE");
         jConsultaGeralInternosExterna.addActionListener(new java.awt.event.ActionListener() {
@@ -496,18 +491,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
                 jConsultaGeralInternosExternaActionPerformed(evt);
             }
         });
-        jMenu9.add(jConsultaGeralInternosExterna);
-
-        jConsultaProntuarioExterno.setForeground(new java.awt.Color(0, 0, 255));
-        jConsultaProntuarioExterno.setText("Consulta de Prontuários - Externo");
-        jConsultaProntuarioExterno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jConsultaProntuarioExternoActionPerformed(evt);
-            }
-        });
-        jMenu9.add(jConsultaProntuarioExterno);
-
-        jMenu6.add(jMenu9);
+        jMenu6.add(jConsultaGeralInternosExterna);
 
         jMenuBar1.add(jMenu6);
 
@@ -2686,10 +2670,6 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jConsultaGeralInternosExternaActionPerformed
 
-    private void jConsultaProntuarioExternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jConsultaProntuarioExternoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jConsultaProntuarioExternoActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromisso;
@@ -2750,7 +2730,6 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jCalculadoraWindows;
     private javax.swing.JMenuItem jCidades;
     private javax.swing.JMenuItem jConsultaGeralInternosExterna;
-    private javax.swing.JMenuItem jConsultaProntuarioExterno;
     private javax.swing.JMenuItem jEntradaInternos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -2767,7 +2746,6 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
-    private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuCadastros;
     private javax.swing.JMenuItem jMenuItem1;
