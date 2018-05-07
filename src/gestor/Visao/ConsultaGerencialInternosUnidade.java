@@ -44,12 +44,12 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
     //
     int flag = 0;
     String caminho = "";
-    String nomeUnidadeLF = "";
-    String nomeUnidadeSSA = "";
-    String nomeUnidadeITB = "";
-    String nomeUnidadeVC = "";
-    String nomeUnidadeBAR = ""; // AINDA NÃO TEM REDE GOVERNO (03/05/2018)
-    String nomeUnidadeIRE = ""; // AINDA NÃO FOI ATIVADA (03/05/2018)
+    public static String nomeUnidadeLF = "";
+    public static String nomeUnidadeSSA = "";
+    public static String nomeUnidadeITB = "";
+    public static String nomeUnidadeVC = "";
+    public static String nomeUnidadeBAR = ""; // AINDA NÃO TEM REDE GOVERNO (03/05/2018)
+    public static String nomeUnidadeIRE = ""; // AINDA NÃO FOI ATIVADA (03/05/2018)
     //
     String situacaoEntrada = "ENTRADA NA UNIDADE";
     String situacaoRetorno = "RETORNO A UNIDADE";
@@ -77,7 +77,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jIdInterno = new javax.swing.JTextField();
+        jIdInternoExt = new javax.swing.JTextField();
         jCnc = new javax.swing.JTextField();
         jNomeInternoCrc = new javax.swing.JTextField();
         jNomeMaeInterno = new javax.swing.JTextField();
@@ -105,6 +105,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         jBtNomeMaeInterno = new javax.swing.JButton();
         jComboBoxFiltroPesquisa = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
+        jBtProntuarioCrc = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -127,10 +128,10 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setText("Nome da Mãe do Interno");
 
-        jIdInterno.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jIdInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jIdInterno.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        jIdInterno.setEnabled(false);
+        jIdInternoExt.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jIdInternoExt.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jIdInternoExt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jIdInternoExt.setEnabled(false);
 
         jCnc.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jCnc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -159,20 +160,20 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jNomeMaeInterno)
                     .addComponent(jNomeInternoCrc)
-                    .addComponent(jNomeMaeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(jIdInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jIdInternoExt, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGap(0, 130, Short.MAX_VALUE))
                             .addComponent(jCnc))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -203,7 +204,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
                     .addComponent(jSituacaoCrc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCnc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jIdInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jIdInternoExt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -305,7 +306,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jFotoInterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -360,6 +361,14 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel11.setText("Filtro de Pesquisa");
 
+        jBtProntuarioCrc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/SEM FOTO_HOMEM_16.jpg"))); // NOI18N
+        jBtProntuarioCrc.setToolTipText("Prontuário de Interno");
+        jBtProntuarioCrc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtProntuarioCrcActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -386,11 +395,13 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
                                 .addComponent(jLabel11)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jComboBoxFiltroPesquisa, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtPesquisarCNC, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel8)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(142, 142, 142)))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jBtPesquisarCNC, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtProntuarioCrc, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -401,14 +412,15 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
                     .addComponent(jLabel11))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jPesquisaNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtProntuarioCrc)
+                    .addComponent(jComboBoxFiltroPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtPesquisaInternoNome)
-                    .addComponent(jComboBoxFiltroPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPesquisaNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(8, 8, 8)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPesquisarNomeMaeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtNomeMaeInterno)
@@ -430,12 +442,12 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
                         .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 826, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 828, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(10, 10, 10)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -449,7 +461,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
@@ -459,7 +471,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
                 .addGap(6, 6, 6))
         );
 
-        setBounds(300, 30, 862, 533);
+        setBounds(300, 30, 864, 533);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtPesquisaInternoNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaInternoNomeActionPerformed
@@ -502,7 +514,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
             String nomeInterno = "" + jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 2);
             jPesquisaNomeInterno.setText(nomeInterno);
             String idInt = "" + jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 0);
-            jIdInterno.setText(idInt);
+            jIdInternoExt.setText(idInt);
             //
             limparCampos();
             //
@@ -520,7 +532,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
                             + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
                             + "WHERE PRONTUARIOSCRC.NomeInternoCrc='" + jPesquisaNomeInterno.getText() + "'");
                     conecta.rs.first();
-                    jIdInterno.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
+                    jIdInternoExt.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
                     jCnc.setText(conecta.rs.getString("Cnc"));
                     jDataNascimento.setDate(conecta.rs.getDate("DataNasciCrc"));
                     jSituacaoCrc.setText(conecta.rs.getString("SituacaoCrc"));
@@ -541,7 +553,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
                             + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
                             + "WHERE PRONTUARIOSCRC.NomeInternoCrc='" + jPesquisaNomeInterno.getText() + "'");
                     conectaSSA.rs.first();
-                    jIdInterno.setText(String.valueOf(conectaSSA.rs.getInt("IdInternoCrc")));
+                    jIdInternoExt.setText(String.valueOf(conectaSSA.rs.getInt("IdInternoCrc")));
                     jCnc.setText(conectaSSA.rs.getString("Cnc"));
                     jDataNascimento.setDate(conectaSSA.rs.getDate("DataNasciCrc"));
                     jSituacaoCrc.setText(conectaSSA.rs.getString("SituacaoCrc"));
@@ -562,7 +574,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
                             + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
                             + "WHERE PRONTUARIOSCRC.NomeInternoCrc='" + jPesquisaNomeInterno.getText() + "'");
                     conectaITB.rs.first();
-                    jIdInterno.setText(String.valueOf(conectaITB.rs.getInt("IdInternoCrc")));
+                    jIdInternoExt.setText(String.valueOf(conectaITB.rs.getInt("IdInternoCrc")));
                     jCnc.setText(conectaITB.rs.getString("Cnc"));
                     jDataNascimento.setDate(conectaITB.rs.getDate("DataNasciCrc"));
                     jSituacaoCrc.setText(conectaITB.rs.getString("SituacaoCrc"));
@@ -583,7 +595,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
                             + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
                             + "WHERE PRONTUARIOSCRC.NomeInternoCrc='" + jPesquisaNomeInterno.getText() + "'");
                     conectaVC.rs.first();
-                    jIdInterno.setText(String.valueOf(conectaVC.rs.getInt("IdInternoCrc")));
+                    jIdInternoExt.setText(String.valueOf(conectaVC.rs.getInt("IdInternoCrc")));
                     jCnc.setText(conectaVC.rs.getString("Cnc"));
                     jDataNascimento.setDate(conectaVC.rs.getDate("DataNasciCrc"));
                     jSituacaoCrc.setText(conectaVC.rs.getString("SituacaoCrc"));
@@ -605,16 +617,28 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         }
     }//GEN-LAST:event_jTabelaInternoMouseClicked
 
+    private void jBtProntuarioCrcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtProntuarioCrcActionPerformed
+        // TODO add your handling code here:
+        if (jIdInternoExt.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o código do interno para pesquisa.");
+        } else {
+            TelaConsultaProntuarioInternoCrcExt objConsultaIntExt = new TelaConsultaProntuarioInternoCrcExt();
+            TelaModuloCRC.jPainelCRC.add(objConsultaIntExt);
+            objConsultaIntExt.show();
+        }
+    }//GEN-LAST:event_jBtProntuarioCrcActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtNomeMaeInterno;
     private javax.swing.JButton jBtPesquisaInternoNome;
     private javax.swing.JButton jBtPesquisarCNC;
+    private javax.swing.JButton jBtProntuarioCrc;
     private javax.swing.JTextField jCnc;
     private javax.swing.JComboBox<String> jComboBoxFiltroPesquisa;
     private com.toedter.calendar.JDateChooser jDataNascimento;
     private javax.swing.JLabel jFotoInterno;
-    private javax.swing.JTextField jIdInterno;
+    public static javax.swing.JTextField jIdInternoExt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
@@ -639,12 +663,12 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
     private javax.swing.JTextField jPesquisarNomeMaeInterno;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jSituacaoCrc;
-    private javax.swing.JTable jTabelaInterno;
+    public static javax.swing.JTable jTabelaInterno;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
     public void corCampos() {
-        jIdInterno.setBackground(Color.white);
+        jIdInternoExt.setBackground(Color.white);
         jCnc.setBackground(Color.white);
         jDataNascimento.setBackground(Color.white);
         jSituacaoCrc.setBackground(Color.white);
@@ -653,7 +677,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
     }
 
     public void limparCampos() {
-        jIdInterno.setText("");
+        jIdInternoExt.setText("");
         jCnc.setText("");
         jDataNascimento.setDate(null);
         jSituacaoCrc.setText("");
@@ -870,7 +894,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
             // LAURO DE FREITAS
             do {
                 count = count + 1; // Contador de registros                
-                dataEntrada = conecta.rs.getString("DataNascICrc");
+                dataEntrada = conecta.rs.getString("DataNasciCrc");
                 String dia = dataEntrada.substring(8, 10);
                 String mes = dataEntrada.substring(5, 7);
                 String ano = dataEntrada.substring(0, 4);
@@ -894,12 +918,12 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
             conectaSSA.rs.first();
             do {
                 count1 = count1 + count;
-                dataEntrada1 = conectaSSA.rs.getString("DataNascICrc");
+                dataEntrada1 = conectaSSA.rs.getString("DataNasciCrc");
                 String dia1 = dataEntrada1.substring(8, 10);
                 String mes1 = dataEntrada1.substring(5, 7);
                 String ano1 = dataEntrada1.substring(0, 4);
                 dataEntrada1 = dia1 + "/" + mes1 + "/" + ano1;
-                dadosSSA.add(new Object[]{conectaSSA.rs.getInt("IdInternoCrc"), conectaSSA.rs.getString("Cnc"), conectaSSA.rs.getString("NomeInternoCrc"), conectaSSA.rs.getString("SituacaoCrc"), dataEntrada, nomeUnidadeSSA});
+                dadosSSA.add(new Object[]{conectaSSA.rs.getInt("IdInternoCrc"), conectaSSA.rs.getString("Cnc"), conectaSSA.rs.getString("NomeInternoCrc"), conectaSSA.rs.getString("SituacaoCrc"), dataEntrada1, nomeUnidadeSSA});
                 dados.addAll(dadosSSA);
             } while (conectaSSA.rs.next());
         } catch (Exception e) {
@@ -919,12 +943,12 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
             conectaITB.rs.first();
             do {
                 count2 = count2 + count1 + count;
-                dataEntrada2 = conectaITB.rs.getString("DataNascICrc");
+                dataEntrada2 = conectaITB.rs.getString("DataNasciCrc");
                 String dia2 = dataEntrada2.substring(8, 10);
                 String mes2 = dataEntrada2.substring(5, 7);
                 String ano2 = dataEntrada2.substring(0, 4);
                 dataEntrada2 = dia2 + "/" + mes2 + "/" + ano2;
-                dadosITB.add(new Object[]{conectaITB.rs.getInt("IdInternoCrc"), conectaITB.rs.getString("Cnc"), conectaITB.rs.getString("NomeInternoCrc"), conectaITB.rs.getString("SituacaoCrc"), dataEntrada, nomeUnidadeITB});
+                dadosITB.add(new Object[]{conectaITB.rs.getInt("IdInternoCrc"), conectaITB.rs.getString("Cnc"), conectaITB.rs.getString("NomeInternoCrc"), conectaITB.rs.getString("SituacaoCrc"), dataEntrada2, nomeUnidadeITB});
                 dados.addAll(dadosITB);
             } while (conectaITB.rs.next());
         } catch (Exception e) {
@@ -944,13 +968,13 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
             conectaVC.rs.first();
             do {
                 count3 = count3 + count2 + count1 + count;
-                dataEntrada3 = conectaVC.rs.getString("DataNascICrc");
+                dataEntrada3 = conectaVC.rs.getString("DataNasciCrc");
                 String dia3 = dataEntrada3.substring(8, 10);
                 String mes3 = dataEntrada3.substring(5, 7);
                 String ano3 = dataEntrada3.substring(0, 4);
                 dataEntrada3 = dia3 + "/" + mes3 + "/" + ano3;
                 jtotalRegistros.setText(Integer.toString(count3)); // Converter inteiro em string para exibir na tela
-                dadosVC.add(new Object[]{conectaVC.rs.getInt("IdInternoCrc"), conectaVC.rs.getString("Cnc"), conectaVC.rs.getString("NomeInternoCrc"), conectaVC.rs.getString("SituacaoCrc"), dataEntrada, nomeUnidadeVC});
+                dadosVC.add(new Object[]{conectaVC.rs.getInt("IdInternoCrc"), conectaVC.rs.getString("Cnc"), conectaVC.rs.getString("NomeInternoCrc"), conectaVC.rs.getString("SituacaoCrc"), dataEntrada3, nomeUnidadeVC});
                 dados.addAll(dadosVC);
             } while (conectaVC.rs.next());
         } catch (Exception e) {
@@ -1374,7 +1398,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
                 String mes1 = dataEntrada1.substring(5, 7);
                 String ano1 = dataEntrada1.substring(0, 4);
                 dataEntrada1 = dia1 + "/" + mes1 + "/" + ano1;
-                dadosSSA.add(new Object[]{conectaSSA.rs.getInt("IdInternoCrc"), conectaSSA.rs.getString("Cnc"), conectaSSA.rs.getString("NomeInternoCrc"), conectaSSA.rs.getString("SituacaoCrc"), dataEntrada, nomeUnidadeSSA});
+                dadosSSA.add(new Object[]{conectaSSA.rs.getInt("IdInternoCrc"), conectaSSA.rs.getString("Cnc"), conectaSSA.rs.getString("NomeInternoCrc"), conectaSSA.rs.getString("SituacaoCrc"), dataEntrada1, nomeUnidadeSSA});
                 dados.addAll(dadosSSA);
             } while (conectaSSA.rs.next());
         } catch (Exception e) {
@@ -1396,7 +1420,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
                 String mes2 = dataEntrada2.substring(5, 7);
                 String ano2 = dataEntrada2.substring(0, 4);
                 dataEntrada2 = dia2 + "/" + mes2 + "/" + ano2;
-                dadosITB.add(new Object[]{conectaITB.rs.getInt("IdInternoCrc"), conectaITB.rs.getString("Cnc"), conectaITB.rs.getString("NomeInternoCrc"), conectaITB.rs.getString("SituacaoCrc"), dataEntrada, nomeUnidadeITB});
+                dadosITB.add(new Object[]{conectaITB.rs.getInt("IdInternoCrc"), conectaITB.rs.getString("Cnc"), conectaITB.rs.getString("NomeInternoCrc"), conectaITB.rs.getString("SituacaoCrc"), dataEntrada2, nomeUnidadeITB});
                 dados.addAll(dadosITB);
             } while (conectaITB.rs.next());
         } catch (Exception e) {
@@ -1419,7 +1443,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
                 String ano3 = dataEntrada3.substring(0, 4);
                 dataEntrada3 = dia3 + "/" + mes3 + "/" + ano3;
                 jtotalRegistros.setText(Integer.toString(count3)); // Converter inteiro em string para exibir na tela
-                dadosVC.add(new Object[]{conectaVC.rs.getInt("IdInternoCrc"), conectaVC.rs.getString("Cnc"), conectaVC.rs.getString("NomeInternoCrc"), conectaVC.rs.getString("SituacaoCrc"), dataEntrada, nomeUnidadeVC});
+                dadosVC.add(new Object[]{conectaVC.rs.getInt("IdInternoCrc"), conectaVC.rs.getString("Cnc"), conectaVC.rs.getString("NomeInternoCrc"), conectaVC.rs.getString("SituacaoCrc"), dataEntrada3, nomeUnidadeVC});
                 dados.addAll(dadosVC);
             } while (conectaVC.rs.next());
         } catch (Exception e) {
