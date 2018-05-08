@@ -8,6 +8,7 @@ package gestor.Visao;
 //import gestor.Modelo.clsDataHora;
 import gestor.Controle.ControleUsuarioConectado;
 import gestor.Dao.ConexaoBancoDados;
+import static gestor.Dao.ConexaoBancoDados.Computer;
 import gestor.Modelo.UsuarioConectado;
 import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.idUserAcesso;
@@ -82,7 +83,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
     // Verificar essa consulta para liberar o modulo e depois as telas
     //SELECT NomeUsuario, GRUPOUSUARIOS.IdGrupo,NomeGrupo,ACESSOS.Permissao FROM ACESSOS INNER JOIN GRUPOUSUARIOS ON ACESSOS.IdGrupo=GRUPOUSUARIOS.IdGrupo INNER JOIN USUARIOS ON GRUPOUSUARIOS.IdGrupo=USUARIOS.IdGrupo WHERE NomeGrupo='CRC'
     public static TelaTrocaSenha telaTrocaSenha;
-
+    
     /**
      * Creates new form TelaPrincipal
      *
@@ -96,6 +97,8 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         initComponents();
         // NOME DA UNIDADE ONDE O SISTEMA ESTA ATUANDO, IRÁ PARA OS RELATÓRIOS TAMBÉM.
         jNomeUnidade.setText(descricaoUnidade);
+        // SISTEMA OPERACIONAL DO COMPUTADOR
+        jLabel6.setText(Computer);
         //Informa ususario logado no sistema (Nome)
         jLoginConectado.setText(nameUser);
         setExtendedState(MAXIMIZED_BOTH); // Maximnizar a tela prinicpal
@@ -112,6 +115,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         Date data = new Date();
         String hora = formatter.format(data); // Data da conexão
         String date = formatter2.format(data); // Hora da conexão
+        jLabel10.setText(ipHost);
         jHoraSistema.setText(String.valueOf(hora));    // no lugar do label, por seu JTextField    
         jDataSistema.setText(String.valueOf(date));
         userConectado.setDataPlugado(jDataSistema.getText());
@@ -142,8 +146,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 }
             }
         });
-    }
-
+    }    
     public void mostrarTelaTrocaSenha() {
         telaTrocaSenha = new TelaTrocaSenha(this, true);
         telaTrocaSenha.setVisible(true);
@@ -224,6 +227,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jDataSistema = new javax.swing.JTextField();
         jToolBar4 = new javax.swing.JToolBar();
         jLabel1 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("...::: SISCONP - Sistema de Controle Prisional :::...");
@@ -703,6 +710,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
 
         jPanel7Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAdmPessoal, jBtAlmoxarifado2, jBtBasePavilhaoUm, jBtCRC2, jBtConfiguracoes2, jBtControleValores2, jBtFarmacia, jBtJuridico2, jBtNutricao, jBtOdontologia2, jBtPedagogia2, jBtPortaria2, jBtPortariaExterna, jBtPsicologia2, jBtSeguranca2, jBtServicoMedico2, jBtServicoSocial2, jBtTerapeuta2, jBtTriagem});
 
+        jPanielPrincipal.setLayer(jPanel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jPanielPrincipal.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jPanielPrincipal.setLayer(jPanel7, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout jPanielPrincipalLayout = new javax.swing.GroupLayout(jPanielPrincipal);
         jPanielPrincipal.setLayout(jPanielPrincipalLayout);
         jPanielPrincipalLayout.setHorizontalGroup(
@@ -728,9 +739,6 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(54, 54, Short.MAX_VALUE))
         );
-        jPanielPrincipal.setLayer(jPanel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jPanielPrincipal.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jPanielPrincipal.setLayer(jPanel7, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jToolBar1.setRollover(true);
 
@@ -756,6 +764,18 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jLabel1.setText("Data:  ");
         jToolBar4.add(jLabel1);
 
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel6.setText("jLabel6");
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel8.setText("OS:");
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel9.setText("HOST:");
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel10.setText("jLabel10");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -765,6 +785,14 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jToolBar4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -777,11 +805,15 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 .addComponent(jPanielPrincipal)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jToolBar3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToolBar4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
-                        .addComponent(jToolBar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jToolBar3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToolBar4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jToolBar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
@@ -2856,11 +2888,15 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
     public static javax.swing.JTextField jDataSistema;
     public static javax.swing.JTextField jHoraSistema;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLoginConectado;
     private javax.swing.JLabel jNomeUnidade;
     private javax.swing.JPanel jPanel1;
