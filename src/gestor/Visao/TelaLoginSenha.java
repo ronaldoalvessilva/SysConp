@@ -9,17 +9,18 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.LimiteDigitosMin;
+import gestor.Modelo.ControleVersao;
 import java.awt.AWTKeyStroke;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.PreparedStatement;
 import java.util.HashSet;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import org.opencv.core.Core;
 
 /**
  *
@@ -29,6 +30,7 @@ import org.opencv.core.Core;
 public class TelaLoginSenha extends javax.swing.JDialog {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
+    ControleVersao versao = new ControleVersao();
 
     public static int Codstatus;
     public static String idUserAcesso; // CÓDIGO DO USUÁRIO PERMISSÕES DE ACESSO (24/04/2016)
@@ -38,11 +40,12 @@ public class TelaLoginSenha extends javax.swing.JDialog {
     // NOME DA EMPRESA E UNIDADE PENAL PARA SER UTILIZADO NA TELA PRINCIPAL E NOS RELATÓRIOS
     public static String razaoSocial;
     public static String descricaoUnidade;
-    public static String versaoAtualSistema;
+    public static Double versaoAtualSistema;
     public static String enderecoUnidadePrisional;
     String bairroUnidade;
     String cidadeUnidade;
     String estadoUnidade;
+    int codigoEmpresa = 0;
 
     /**
      * Creates new form TelaLoginSenha
@@ -76,7 +79,9 @@ public class TelaLoginSenha extends javax.swing.JDialog {
         try {
             ConexaoBancoDados conecta = new ConexaoBancoDados();
             conecta.abrirConexao();
-            conecta.executaSQL("SELECT IdUsuario,LoginUsuario,SenhaUsuario,StatusUsuario,NomeUsuario FROM USUARIOS WHERE LoginUsuario='" + jUsuario.getText() + "'AND SenhaUsuario='" + jPassword.getText() + "'");
+            conecta.executaSQL("SELECT IdUsuario,LoginUsuario,SenhaUsuario,StatusUsuario,NomeUsuario FROM USUARIOS "
+                    + "WHERE LoginUsuario='" + jUsuario.getText() + "' "
+                    + "AND SenhaUsuario='" + jPassword.getText() + "'");
             conecta.rs.first();
             // Verifica se o usuario e a senha são iguais ao banco de dados            
             Codstatus = conecta.rs.getInt("StatusUsuario");
@@ -89,28 +94,49 @@ public class TelaLoginSenha extends javax.swing.JDialog {
                         && (jPassword.getText()).equals(conecta.rs.getString("SenhaUsuario"))
                         && (Codstatus == 1)) {
                     buscarEmpresa();
-                    // ATUALIZAR SISTEMA (15/02/2017) - AINDA NÃO FOI CONCLUIDO, EM ANALISE
-//                    if(versaoAtualSistema == null || versaoAtualSistema.equals("") || !versaoAtualSistema.equals(jNumeroVersao.getText())){
-//                        JOptionPane.showMessageDialog(rootPane, "Já está disponivel uma nova versão do sistema, por favor faça a atualização.");
-//                        
-//                    }
-//                    File origem = new File("R://SysConp//SysConp.jar");
-//                    File destino = new File("C://SysConp//SysConp.jar");
-//                    if (origem.exists() && destino.exists()) {
-//                        try {
-//                            atualizarSistema();
-//                        } catch (IOException ex) {
-//                        }
-//                    }
-//                    if (tamanhoOrigem == tamanhoDestino) {
-                    // PEGAR O CÓDIGO E O NOME DO USUÁRIO A SER EXIBIDO NO SISTEMA                        
-                    idUserAcesso = conecta.rs.getString("IdUsuario");
-                    nameUser = conecta.rs.getString("NomeUsuario");
-                    TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
-                    tp.setVisible(true);
-                    conecta.desconecta();
-                    this.dispose();
-//                    }
+                    File origem = new File("R://SISCONP//SysConp.jar");
+                    dataOrigem = origem.lastModified(); // Data do arquivo de origem
+                    tamanhoOrigem = origem.length();  // Tamanho do arquivo de origem        
+                    File destino = new File("C://SysConp//SysConp.jar");
+                    dataDestino = destino.lastModified();
+                    tamanhoDestino = destino.length();
+                    if (origem.exists() && destino.exists()) {
+                        if (dataOrigem > dataDestino || tamanhoOrigem > tamanhoDestino) {
+                            int resposta = JOptionPane.showConfirmDialog(this, "Existe uma nova atualização, deseja fazer isso agora?", "Confirmação",
+                                    JOptionPane.YES_NO_OPTION);
+                            if (resposta == JOptionPane.YES_OPTION) {
+                                // CHAMA O EXECUTAVEL DE INSTALAÇÃO
+                                Install_Sisconp();
+                                // UPDATE NO BANCO PARA ATUALIZAR A VERSÃO.
+                                versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
+                                java.util.Date data = new java.util.Date();
+                                versao.setDataVersao(data);
+                                PreparedStatement pst = conecta.con.prepareStatement("UPDATE EMPRESA SET VersaoAtual=?,DataVersao=? WHERE IdEmpresa='" + codigoEmpresa + "'");
+                                pst.setDouble(1, versao.getVersao());
+                                pst.setTimestamp(2, new java.sql.Timestamp(versao.getDataVersao().getTime()));
+                                pst.execute();
+                            } else {                                
+                                versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
+                                if (versaoAtualSistema > versao.getVersao()) {
+                                    JOptionPane.showMessageDialog(rootPane, "Não é possível acessar o sistema, seu sistema está desatualizado.");
+                                } else {
+                                    idUserAcesso = conecta.rs.getString("IdUsuario");
+                                    nameUser = conecta.rs.getString("NomeUsuario");
+                                    TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
+                                    tp.setVisible(true);
+                                    conecta.desconecta();
+                                    this.dispose();
+                                }
+                            }
+                        } else {
+                            idUserAcesso = conecta.rs.getString("IdUsuario");
+                            nameUser = conecta.rs.getString("NomeUsuario");
+                            TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
+                            tp.setVisible(true);
+                            conecta.desconecta();
+                            this.dispose();
+                        }
+                    }
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "Usuario ou senha Inváldo, tente novamente !!!");
                     jUsuario.setText("");
@@ -418,9 +444,10 @@ public class TelaLoginSenha extends javax.swing.JDialog {
                     + "INNER JOIN UNIDADE_PENAL_EMPRESA "
                     + "ON EMPRESA.IdEmpresa=UNIDADE_PENAL_EMPRESA.IdEmpresa");
             conecta.rs.first();
+            codigoEmpresa = conecta.rs.getInt("IdEmpresa");
             razaoSocial = conecta.rs.getString("RazaoSocial");
             descricaoUnidade = conecta.rs.getString("DescricaoUnidade");
-            versaoAtualSistema = conecta.rs.getString("VersaoAtual");
+            versaoAtualSistema = conecta.rs.getDouble("VersaoAtual");
         } catch (Exception e) {
         }
         // ENDEREÇO PARA O RELATÓRIO DE CUMPRIMENTO E NÃO CUMPRIMENTO DE ALVARÁ. (02/03/2018) - BARREIRAS.
@@ -435,5 +462,13 @@ public class TelaLoginSenha extends javax.swing.JDialog {
         } catch (Exception e) {
         }
         conecta.desconecta();
+    }
+
+    public void Install_Sisconp() {
+        try {
+            Runtime.getRuntime().exec("cmd.exe /c start INSTALDOR_SISCONP_V5.9.exe");
+        } catch (IOException iOException) {
+            iOException.printStackTrace();
+        }
     }
 }
