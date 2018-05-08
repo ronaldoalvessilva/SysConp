@@ -34,6 +34,7 @@ public class ConexaoBancoDados {
     private final String user = "sa"; // usuario do banco de dados     
     private final String password = "W@e3R4#14"; // Senha do banco de dados
     public Connection con; // Responsavel por conectar no banco de dados
+    public  static String Computer = ""; //SISTEMA OPERACIONAL DO COMPUTADOR
 
     public void abrirConexao() { // Metodo resposavel por realizar conexão com o banco de dados
 
@@ -73,8 +74,7 @@ public class ConexaoBancoDados {
         FileInputStream file = null;
         Properties props = null;
         try {
-            String Computer = System.getProperty("os.name");
-            System.out.println(Computer);
+            Computer = System.getProperty("os.name");
             props = new Properties();
             if (Computer.equals("Linux")) {
                 file = new FileInputStream("/home/configuracoes.properties");//ALTERE AQUI DE ACORDO COM SUA NECESSIDADE
