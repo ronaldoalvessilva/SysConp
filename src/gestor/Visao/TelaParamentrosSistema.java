@@ -1655,8 +1655,8 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
             jCaminhoImagemCRCInternos.setText(conecta.rs.getString("CaminhoImagemCRCInterno"));
             jCaminhoImagemColaboradores.setText(conecta.rs.getString("CaminhoImagemColaboradores"));
             // FOTOS WEBCAM
-            jFotosWebCamAdvogado.setText(conecta.rs.getString("LocalFotoVisitasDiversas"));
-            jFotosWebCamVisitasDiversas.setText(conecta.rs.getString("LocalFotosAdvogados"));
+            jFotosWebCamAdvogado.setText(conecta.rs.getString("LocalFotosAdvogados"));
+            jFotosWebCamVisitasDiversas.setText(conecta.rs.getString("LocalFotoVisitasDiversas"));
             jFotosWebCamOficialJustica.setText(conecta.rs.getString("LocalFotosOficialJustica"));
             jFotosWebCamColaboradores.setText(conecta.rs.getString("localFotosColaboradores"));
             jFotosWebCamVisitasInternos.setText(conecta.rs.getString("LocalFotosVisitasInternos"));
