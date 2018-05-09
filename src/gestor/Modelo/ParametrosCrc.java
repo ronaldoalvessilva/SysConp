@@ -58,9 +58,10 @@ public class ParametrosCrc {
     private String localPDF_PI;
     private String localPDF_PE;
     private String localPDF_B1;
-    private String localPDF_B2;   
+    private String localPDF_B2;
+    private String caminhoAtualizaSis;
 
-    public ParametrosCrc(int idPar, int qtdDias, String qtdHoras, String usuarioAutorizado, String regRetornoPortaria, String regEntradaPortaria, String docAudiencia, String docTrans, String docSaidaTmp, String docLivraPro, String valAudiencia, String valTrans, String valSaidaTmp, String valLivraPro, String docPro, String docAlvara, String valPro, String valAlvara, String usuarioInsert, String usuariosUp, String dataInsert, String dataUp, String horarioUp, String populacaoBgp, String locacaoBgp, String transferenciaBgp, String pavilhaoCelas, String populacaoBpa, String locacaoBpa, String transferenciaBpa, String pavilhaoCelasBpa, String caminhoImagemCrc, String caminhoImagemSS, String caminhoImagemFunc, String localFotoAdvogado, String localFotoVisitasDiversas, String localFotoOficial, String localFotoVisitasInternos, String localFotoColaboradores, String localFotoInternos, String biometriaMedicos, String biometriaEnfermerios, String biometriaTecnicos, String carcereFem, String localPDF_PI, String localPDF_PE, String localPDF_B1, String localPDF_B2) {
+    public ParametrosCrc(int idPar, int qtdDias, String qtdHoras, String usuarioAutorizado, String regRetornoPortaria, String regEntradaPortaria, String docAudiencia, String docTrans, String docSaidaTmp, String docLivraPro, String valAudiencia, String valTrans, String valSaidaTmp, String valLivraPro, String docPro, String docAlvara, String valPro, String valAlvara, String usuarioInsert, String usuariosUp, String dataInsert, String dataUp, String horarioUp, String populacaoBgp, String locacaoBgp, String transferenciaBgp, String pavilhaoCelas, String populacaoBpa, String locacaoBpa, String transferenciaBpa, String pavilhaoCelasBpa, String caminhoImagemCrc, String caminhoImagemSS, String caminhoImagemFunc, String localFotoAdvogado, String localFotoVisitasDiversas, String localFotoOficial, String localFotoVisitasInternos, String localFotoColaboradores, String localFotoInternos, String biometriaMedicos, String biometriaEnfermerios, String biometriaTecnicos, String carcereFem, String localPDF_PI, String localPDF_PE, String localPDF_B1, String localPDF_B2, String caminhoAtualizaSis) {
         this.idPar = idPar;
         this.qtdDias = qtdDias;
         this.qtdHoras = qtdHoras;
@@ -109,6 +110,7 @@ public class ParametrosCrc {
         this.localPDF_PE = localPDF_PE;
         this.localPDF_B1 = localPDF_B1;
         this.localPDF_B2 = localPDF_B2;
+        this.caminhoAtualizaSis = caminhoAtualizaSis;
     }
 
     public ParametrosCrc() {
@@ -784,5 +786,20 @@ public class ParametrosCrc {
      */
     public void setLocalPDF_B2(String localPDF_B2) {
         this.localPDF_B2 = localPDF_B2;
-    }    
+    }
+
+    /**
+     * @return the caminhoAtualizaSis
+     */
+    public String getCaminhoAtualizaSis() {
+        return caminhoAtualizaSis;
+    }
+
+    /**
+     * @param caminhoAtualizaSis the caminhoAtualizaSis to set
+     */
+    public void setCaminhoAtualizaSis(String caminhoAtualizaSis) {
+        this.caminhoAtualizaSis = caminhoAtualizaSis;
+    }
+    
 }
