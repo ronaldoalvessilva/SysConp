@@ -3469,6 +3469,12 @@ public class TelaPagamentoKitInterno extends javax.swing.JInternalFrame {
         jCheckBoxBarbeador.setSelected(!true);
         jCheckBoxEscova.setSelected(!true);
         //
+        jCheckBoxCobertor.setSelected(!true);
+        jCheckBoxBolaFutsal.setSelected(!true);
+        jCheckBoxCalcaoJogo.setSelected(!true);
+        jCheckBoxCamisaJogo.setSelected(!true);
+        jCheckBoxParMeiao.setSelected(!true);
+        //
         jCheckBoxMarcaTodos.setEnabled(!true);
         jCheckBoxKitAnual.setEnabled(!true);
         jCheckBoxKitQuinzenal.setEnabled(!true);
@@ -3484,6 +3490,12 @@ public class TelaPagamentoKitInterno extends javax.swing.JInternalFrame {
         jFotoInternoKit.setIcon(null);
         jDataEntrega.setDate(null);
         jHorarioPagto.setText("00:00");
+        //
+        jCheckBoxCobertor.setEnabled(!true);
+        jCheckBoxBolaFutsal.setEnabled(!true);
+        jCheckBoxCalcaoJogo.setEnabled(!true);
+        jCheckBoxCamisaJogo.setEnabled(!true);
+        jCheckBoxParMeiao.setEnabled(!true);
         //
         jCheckBoxCopo.setEnabled(!true);
         jCheckBoxPrato.setEnabled(!true);
