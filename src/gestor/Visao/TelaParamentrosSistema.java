@@ -170,6 +170,10 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jPanel25 = new javax.swing.JPanel();
         jLabel45 = new javax.swing.JLabel();
         jCaminhoExecutavelAtualizacaoSis = new javax.swing.JTextField();
+        jLabel46 = new javax.swing.JLabel();
+        jDataVersao = new com.toedter.calendar.JDateChooser();
+        jLabel47 = new javax.swing.JLabel();
+        jNumeroVersao = new javax.swing.JFormattedTextField();
         jPanel3 = new javax.swing.JPanel();
         jBtAlterar = new javax.swing.JButton();
         jBtSalvar = new javax.swing.JButton();
@@ -1258,25 +1262,55 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jCaminhoExecutavelAtualizacaoSis.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jCaminhoExecutavelAtualizacaoSis.setEnabled(false);
 
+        jLabel46.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel46.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel46.setText("Data da Versão:");
+
+        jDataVersao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDataVersao.setEnabled(false);
+        jDataVersao.setName("JDataVersao"); // NOI18N
+
+        jLabel47.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel47.setText("Número da Versão:");
+
+        jNumeroVersao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNumeroVersao.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jNumeroVersao.setEnabled(false);
+
         javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
         jPanel25.setLayout(jPanel25Layout);
         jPanel25Layout.setHorizontalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel25Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(jLabel45)
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel46)
+                    .addComponent(jLabel45))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCaminhoExecutavelAtualizacaoSis, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCaminhoExecutavelAtualizacaoSis, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel25Layout.createSequentialGroup()
+                        .addComponent(jDataVersao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel47)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jNumeroVersao, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel25Layout.setVerticalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel25Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel45)
                     .addComponent(jCaminhoExecutavelAtualizacaoSis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jNumeroVersao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel47)
+                    .addComponent(jDataVersao, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel46))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
@@ -1460,6 +1494,8 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         objParCrc.setLocalPDF_B1(jLocalPDF_B1.getText());
         objParCrc.setLocalPDF_B2(jLocalPDF_B2.getText());
         objParCrc.setCaminhoAtualizaSis(jCaminhoExecutavelAtualizacaoSis.getText());
+        objParCrc.setDataVersao(jDataVersao.getDate());
+        objParCrc.setNumeroVersao(Double.parseDouble(jNumeroVersao.getText()));
         if (jNomeUsuarioParametros.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do Usuario Autorizado");
         } else {
@@ -1533,6 +1569,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox jComboBoxValPro;
     private javax.swing.JComboBox jComboBoxValSaidaTmp;
     private javax.swing.JComboBox jComboBoxValTrans;
+    private com.toedter.calendar.JDateChooser jDataVersao;
     private javax.swing.JTextField jFotosWebCamAdvogado;
     private javax.swing.JTextField jFotosWebCamColaboradores;
     private javax.swing.JTextField jFotosWebCamInternos;
@@ -1579,6 +1616,8 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -1589,6 +1628,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jLocalPDF_P1;
     private javax.swing.JTextField jLocalPDF_PE;
     public static javax.swing.JTextField jNomeUsuarioParametros;
+    private javax.swing.JFormattedTextField jNumeroVersao;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -1701,6 +1741,8 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
             jLocalPDF_B2.setText(conecta.rs.getString("LocalPDF_B2"));
             //
             jCaminhoExecutavelAtualizacaoSis.setText(conecta.rs.getString("CaminhoExecutavel"));
+            jDataVersao.setDate(conecta.rs.getDate("DataVersao"));
+            jNumeroVersao.setText(conecta.rs.getString("NumeroVersao"));
         } catch (SQLException ex) {
         }
         conecta.desconecta();
@@ -1759,6 +1801,8 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jLocalPDF_B2.setEnabled(true);
         //
         jCaminhoExecutavelAtualizacaoSis.setEnabled(true);
+        jDataVersao.setEnabled(true);
+        jNumeroVersao.setEnabled(true);
         //
         jBtAlterar.setEnabled(!true);
         jBtSalvar.setEnabled(true);
@@ -1818,6 +1862,8 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jLocalPDF_B2.setEnabled(!true);
         //
         jCaminhoExecutavelAtualizacaoSis.setEnabled(!true);
+        jDataVersao.setEnabled(!true);
+        jNumeroVersao.setEnabled(!true);
         //
         jBtAlterar.setEnabled(true);
         jBtSalvar.setEnabled(!true);
@@ -1868,6 +1914,8 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jLocalPDF_B2.setEnabled(!true);
         //
         jCaminhoExecutavelAtualizacaoSis.setEnabled(!true);
+        jDataVersao.setEnabled(!true);
+        jNumeroVersao.setEnabled(!true);
         //
         jBtAlterar.setEnabled(true);
         jBtSalvar.setEnabled(!true);

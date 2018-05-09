@@ -52,5 +52,9 @@ public class ControleVersao {
     public ControleVersao() {
     }
 
+    public void setDataVersao(String dataVersao) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
   
 }

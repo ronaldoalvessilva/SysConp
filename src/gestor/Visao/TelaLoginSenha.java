@@ -46,6 +46,9 @@ public class TelaLoginSenha extends javax.swing.JDialog {
     String cidadeUnidade;
     String estadoUnidade;
     int codigoEmpresa = 0;
+    //
+    String caminhoExecutavel = "";
+    String dataVersao;
 
     /**
      * Creates new form TelaLoginSenha
@@ -109,16 +112,18 @@ public class TelaLoginSenha extends javax.swing.JDialog {
                                 Install_Sisconp();
                                 // UPDATE NO BANCO PARA ATUALIZAR A VERSÃO.
                                 versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
-                                java.util.Date data = new java.util.Date();
-                                versao.setDataVersao(data);
-                                PreparedStatement pst = conecta.con.prepareStatement("UPDATE EMPRESA SET VersaoAtual=?,DataVersao=? WHERE IdEmpresa='" + codigoEmpresa + "'");
+//                                java.util.Date data = new java.util.Date();
+                                versao.setDataVersao(dataVersao);
+                                PreparedStatement pst = conecta.con.prepareStatement("UPDATE EMPRESA SET VersaoAtual=?,DataVersao=? "
+                                        + "WHERE IdEmpresa='" + codigoEmpresa + "'");
                                 pst.setDouble(1, versao.getVersao());
                                 pst.setTimestamp(2, new java.sql.Timestamp(versao.getDataVersao().getTime()));
                                 pst.execute();
-                            } else {                                
+                                System.exit(0);
+                            } else {
                                 versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
                                 if (versaoAtualSistema > versao.getVersao()) {
-                                    JOptionPane.showMessageDialog(rootPane, "Não é possível acessar o sistema, seu sistema está desatualizado.");
+                                    JOptionPane.showMessageDialog(rootPane, "Não é possível acessar o sistema, seu sistema está desatualizado. Faça a atualização e só assim você poderá acessar o sistema.");
                                 } else {
                                     idUserAcesso = conecta.rs.getString("IdUsuario");
                                     nameUser = conecta.rs.getString("NomeUsuario");
@@ -461,12 +466,20 @@ public class TelaLoginSenha extends javax.swing.JDialog {
             enderecoUnidadePrisional = enderecoUnidadePrisional + " " + cidadeUnidade + " " + estadoUnidade;
         } catch (Exception e) {
         }
+        // CAMINHO PARA TRAZER O LOCAL DE INSTALAÇÃO DA ATUALIZAÇÃO.
+        try {
+            conecta.executaSQL("SELECT * FROM PARAMETROSCRC");
+            conecta.rs.first();
+            caminhoExecutavel = conecta.rs.getString("CaminhoExecutavel");
+            dataVersao = conecta.rs.getString("DataVersao");
+        } catch (Exception e) {
+        }
         conecta.desconecta();
     }
 
     public void Install_Sisconp() {
         try {
-            Runtime.getRuntime().exec("cmd.exe /c start INSTALDOR_SISCONP_V5.9.exe");
+            Process p = Runtime.getRuntime().exec(caminhoExecutavel);
         } catch (IOException iOException) {
             iOException.printStackTrace();
         }

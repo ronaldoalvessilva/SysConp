@@ -5,6 +5,8 @@
  */
 package gestor.Modelo;
 
+import java.util.Date;
+
 /**
  *
  * @author ronaldo
@@ -60,8 +62,13 @@ public class ParametrosCrc {
     private String localPDF_B1;
     private String localPDF_B2;
     private String caminhoAtualizaSis;
+    private Date dataVersao;
+    private Double numeroVersao;
 
-    public ParametrosCrc(int idPar, int qtdDias, String qtdHoras, String usuarioAutorizado, String regRetornoPortaria, String regEntradaPortaria, String docAudiencia, String docTrans, String docSaidaTmp, String docLivraPro, String valAudiencia, String valTrans, String valSaidaTmp, String valLivraPro, String docPro, String docAlvara, String valPro, String valAlvara, String usuarioInsert, String usuariosUp, String dataInsert, String dataUp, String horarioUp, String populacaoBgp, String locacaoBgp, String transferenciaBgp, String pavilhaoCelas, String populacaoBpa, String locacaoBpa, String transferenciaBpa, String pavilhaoCelasBpa, String caminhoImagemCrc, String caminhoImagemSS, String caminhoImagemFunc, String localFotoAdvogado, String localFotoVisitasDiversas, String localFotoOficial, String localFotoVisitasInternos, String localFotoColaboradores, String localFotoInternos, String biometriaMedicos, String biometriaEnfermerios, String biometriaTecnicos, String carcereFem, String localPDF_PI, String localPDF_PE, String localPDF_B1, String localPDF_B2, String caminhoAtualizaSis) {
+    public ParametrosCrc() {
+    }
+
+    public ParametrosCrc(int idPar, int qtdDias, String qtdHoras, String usuarioAutorizado, String regRetornoPortaria, String regEntradaPortaria, String docAudiencia, String docTrans, String docSaidaTmp, String docLivraPro, String valAudiencia, String valTrans, String valSaidaTmp, String valLivraPro, String docPro, String docAlvara, String valPro, String valAlvara, String usuarioInsert, String usuariosUp, String dataInsert, String dataUp, String horarioUp, String populacaoBgp, String locacaoBgp, String transferenciaBgp, String pavilhaoCelas, String populacaoBpa, String locacaoBpa, String transferenciaBpa, String pavilhaoCelasBpa, String caminhoImagemCrc, String caminhoImagemSS, String caminhoImagemFunc, String localFotoAdvogado, String localFotoVisitasDiversas, String localFotoOficial, String localFotoVisitasInternos, String localFotoColaboradores, String localFotoInternos, String biometriaMedicos, String biometriaEnfermerios, String biometriaTecnicos, String carcereFem, String localPDF_PI, String localPDF_PE, String localPDF_B1, String localPDF_B2, String caminhoAtualizaSis, Date dataVersao, Double numeroVersao) {
         this.idPar = idPar;
         this.qtdDias = qtdDias;
         this.qtdHoras = qtdHoras;
@@ -111,9 +118,8 @@ public class ParametrosCrc {
         this.localPDF_B1 = localPDF_B1;
         this.localPDF_B2 = localPDF_B2;
         this.caminhoAtualizaSis = caminhoAtualizaSis;
-    }
-
-    public ParametrosCrc() {
+        this.dataVersao = dataVersao;
+        this.numeroVersao = numeroVersao;
     }
 
     /**
@@ -801,5 +807,34 @@ public class ParametrosCrc {
     public void setCaminhoAtualizaSis(String caminhoAtualizaSis) {
         this.caminhoAtualizaSis = caminhoAtualizaSis;
     }
+
+    /**
+     * @return the dataVersao
+     */
+    public Date getDataVersao() {
+        return dataVersao;
+    }
+
+    /**
+     * @param dataVersao the dataVersao to set
+     */
+    public void setDataVersao(Date dataVersao) {
+        this.dataVersao = dataVersao;
+    }
+
+    /**
+     * @return the numeroVersao
+     */
+    public Double getNumeroVersao() {
+        return numeroVersao;
+    }
+
+    /**
+     * @param numeroVersao the numeroVersao to set
+     */
+    public void setNumeroVersao(Double numeroVersao) {
+        this.numeroVersao = numeroVersao;
+    }
+
     
 }
