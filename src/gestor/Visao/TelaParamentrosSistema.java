@@ -1817,7 +1817,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jLocalPDF_B1.setEnabled(!true);
         jLocalPDF_B2.setEnabled(!true);
         //
-        jCaminhoExecutavelAtualizacaoSis.setEnabled(true);
+        jCaminhoExecutavelAtualizacaoSis.setEnabled(!true);
         //
         jBtAlterar.setEnabled(true);
         jBtSalvar.setEnabled(!true);
@@ -1866,6 +1866,8 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jLocalPDF_PE.setEnabled(!true);
         jLocalPDF_B1.setEnabled(!true);
         jLocalPDF_B2.setEnabled(!true);
+        //
+        jCaminhoExecutavelAtualizacaoSis.setEnabled(!true);
         //
         jBtAlterar.setEnabled(true);
         jBtSalvar.setEnabled(!true);
