@@ -168,6 +168,8 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jLabel44 = new javax.swing.JLabel();
         jLocalPDF_B2 = new javax.swing.JTextField();
         jPanel25 = new javax.swing.JPanel();
+        jLabel45 = new javax.swing.JLabel();
+        jCaminhoExecutavelAtualizacaoSis = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jBtAlterar = new javax.swing.JButton();
         jBtSalvar = new javax.swing.JButton();
@@ -1249,15 +1251,32 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
 
         jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
 
+        jLabel45.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel45.setText("Cam. executável atualização sistema:");
+
+        jCaminhoExecutavelAtualizacaoSis.setToolTipText("Caminho para atualização do sistema");
+        jCaminhoExecutavelAtualizacaoSis.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jCaminhoExecutavelAtualizacaoSis.setEnabled(false);
+
         javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
         jPanel25.setLayout(jPanel25Layout);
         jPanel25Layout.setHorizontalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel25Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jLabel45)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCaminhoExecutavelAtualizacaoSis, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel25Layout.setVerticalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 112, Short.MAX_VALUE)
+            .addGroup(jPanel25Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel45)
+                    .addComponent(jCaminhoExecutavelAtualizacaoSis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
@@ -1440,6 +1459,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         objParCrc.setLocalPDF_PE(jLocalPDF_PE.getText());
         objParCrc.setLocalPDF_B1(jLocalPDF_B1.getText());
         objParCrc.setLocalPDF_B2(jLocalPDF_B2.getText());
+        objParCrc.setCaminhoAtualizaSis(jCaminhoExecutavelAtualizacaoSis.getText());
         if (jNomeUsuarioParametros.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do Usuario Autorizado");
         } else {
@@ -1483,6 +1503,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtPesqUsuarios;
     private javax.swing.JButton jBtSair;
     private javax.swing.JButton jBtSalvar;
+    private javax.swing.JTextField jCaminhoExecutavelAtualizacaoSis;
     public static javax.swing.JTextField jCaminhoImagemCRCInternos;
     public static javax.swing.JTextField jCaminhoImagemColaboradores;
     public static javax.swing.JTextField jCaminhoImagemServicoSocial;
@@ -1557,6 +1578,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -1615,6 +1637,12 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jFotosWebCamVisitasInternos.setBackground(Color.white);
         //
         jLocalPDF_P1.setBackground(Color.white);
+        jLocalPDF_PE.setBackground(Color.white);
+        jLocalPDF_B1.setBackground(Color.white);
+        jLocalPDF_B2.setBackground(Color.white);
+        //
+        jCaminhoExecutavelAtualizacaoSis.setBackground(Color.white);
+        //
     }
 
     public void formatarCampos() {
@@ -1654,15 +1682,15 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
             jCaminhoImagemServicoSocial.setText(conecta.rs.getString("CaminhoImagemServicoSocial"));
             jCaminhoImagemCRCInternos.setText(conecta.rs.getString("CaminhoImagemCRCInterno"));
             jCaminhoImagemColaboradores.setText(conecta.rs.getString("CaminhoImagemColaboradores"));
-            // FOTOS WEBCAM
-            jFotosWebCamAdvogado.setText(conecta.rs.getString("LocalFotosAdvogados"));
+            // FOTOS WEBCAM            
             jFotosWebCamVisitasDiversas.setText(conecta.rs.getString("LocalFotoVisitasDiversas"));
+            jFotosWebCamAdvogado.setText(conecta.rs.getString("LocalFotosAdvogados"));
             jFotosWebCamOficialJustica.setText(conecta.rs.getString("LocalFotosOficialJustica"));
-            jFotosWebCamColaboradores.setText(conecta.rs.getString("localFotosColaboradores"));
             jFotosWebCamVisitasInternos.setText(conecta.rs.getString("LocalFotosVisitasInternos"));
             jFotosWebCamInternos.setText(conecta.rs.getString("LocalFotosInternos"));
+            jFotosWebCamColaboradores.setText(conecta.rs.getString("localFotosColaboradores"));
             //
-            jComboBoxMedicos.setSelectedItem(conecta.rs.getString("BiometriaTecnicos"));
+            jComboBoxMedicos.setSelectedItem(conecta.rs.getString("BiometriaMedicos"));
             jComboBoxEnfermeiros.setSelectedItem(conecta.rs.getString("BiometriaEnfermeiros"));
             jComboBoxTecnicos.setSelectedItem(conecta.rs.getString("BiometriaTecnicos"));
             //
@@ -1671,6 +1699,8 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
             jLocalPDF_PE.setText(conecta.rs.getString("LocalPDF_PE"));
             jLocalPDF_B1.setText(conecta.rs.getString("LocalPDF_B1"));
             jLocalPDF_B2.setText(conecta.rs.getString("LocalPDF_B2"));
+            //
+            jCaminhoExecutavelAtualizacaoSis.setText(conecta.rs.getString("CaminhoExecutavel"));
         } catch (SQLException ex) {
         }
         conecta.desconecta();
@@ -1728,6 +1758,8 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jLocalPDF_B1.setEnabled(true);
         jLocalPDF_B2.setEnabled(true);
         //
+        jCaminhoExecutavelAtualizacaoSis.setEnabled(true);
+        //
         jBtAlterar.setEnabled(!true);
         jBtSalvar.setEnabled(true);
         jBtCancelar.setEnabled(true);
@@ -1784,6 +1816,8 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jLocalPDF_PE.setEnabled(!true);
         jLocalPDF_B1.setEnabled(!true);
         jLocalPDF_B2.setEnabled(!true);
+        //
+        jCaminhoExecutavelAtualizacaoSis.setEnabled(true);
         //
         jBtAlterar.setEnabled(true);
         jBtSalvar.setEnabled(!true);
