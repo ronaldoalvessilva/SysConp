@@ -1497,7 +1497,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             jv.toFront(); // Traz o relatorio para frente da aplicação            
             conecta.desconecta();
         } catch (JRException e) {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório.\n\nERRO :" + e);
         }
     }//GEN-LAST:event_ListagemGeralProntuariosActionPerformed
 

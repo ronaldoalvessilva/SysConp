@@ -11,7 +11,6 @@ import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleSaldoDeposito;
 import gestor.Controle.ControleSaldoDepositoInativos;
 import gestor.Controle.ControleSaldoSaque;
-import gestor.Controle.ControleSaldoSaqueInativos;
 import gestor.Controle.ControleSaque;
 import gestor.Controle.ControleSaqueInativos;
 import gestor.Controle.ControleTransferenciaValores;
@@ -30,11 +29,9 @@ import static gestor.Visao.TelaModuloFinanceiro.codUserAcesso;
 import static gestor.Visao.TelaModuloFinanceiro.codigoUser;
 import static gestor.Visao.TelaModuloFinanceiro.nomeGrupo;
 import static gestor.Visao.TelaModuloFinanceiro.nomeTela;
-import static gestor.Visao.TelaModuloFinanceiro.telaSaqueAtivo;
 import static gestor.Visao.TelaModuloFinanceiro.telaTransferenciaValores;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
-import static gestor.Visao.TelaPesqInternoTransferenciaValoresInativos.codDeposito;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
@@ -1016,7 +1013,7 @@ public class TelaTransferenciaValoresInternos extends javax.swing.JInternalFrame
                                     objSaque.setNomeInterno(jNomeInternoCrc.getText());
                                     objSaque.setFavorecido(jNomeInternoCrc.getText());
                                     objSaque.setObservacao(motivoSaidaValor);
-                                    controleSaque.incluirSaque(objSaque); // TABELA - SALDO_VALORES_INATIVOS
+                                    controleSaque.incluirSaque(objSaque); // TABELA - SAQUE
                                     // DEPOSITO NA CONTA DOS INATIVOS DEPOSITO_INATIVOS
                                     objDeposito.setStatusLanc(statusSaque);
                                     objDeposito.setDataLanc(jDataLanc.getDate());
@@ -1343,7 +1340,8 @@ public class TelaTransferenciaValoresInternos extends javax.swing.JInternalFrame
     public void buscarSaldoAnterior() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM SALDO_VALORES_INATIVOS WHERE IdInternoCrc='" + jIdInternoCrc.getText() + "'");
+            conecta.executaSQL("SELECT * FROM SALDO_VALORES_INATIVOS "
+                    + "WHERE IdInternoCrc='" + jIdInternoCrc.getText() + "'");
             conecta.rs.last();
             valorAnterior = conecta.rs.getDouble("ValorMov");
             saldoAnterior = conecta.rs.getDouble("SaldoAtual");

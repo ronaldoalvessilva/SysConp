@@ -5,15 +5,22 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleDeposito;
+import gestor.Controle.ControleDepositoInativo;
 import gestor.Controle.ControleEvadidosIndividual;
 import gestor.Controle.ControleItensLocacaoInternos;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleMovInternos;
 import gestor.Controle.ControleRolVisitas;
+import gestor.Controle.ControleSaldoDepositoInativos;
+import gestor.Controle.ControleSaldoSaque;
+import gestor.Controle.ControleSaque;
 import gestor.Controle.ControleSituacao;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.LimiteDigitosNum;
 import gestor.Dao.ModeloTabela;
+import gestor.Modelo.ConsultaSaldoInternos;
+import gestor.Modelo.DepositoInterno;
 import gestor.Modelo.EvadidoIndividual;
 import gestor.Modelo.ItensEntradaSaidaLaborInterno;
 import gestor.Modelo.ItensLocacaoInternos;
@@ -21,6 +28,7 @@ import gestor.Modelo.ItensSaidaInterno;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.ProntuarioCrc;
 import gestor.Modelo.RolVisitas;
+import gestor.Modelo.SaqueValores;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
@@ -55,6 +63,17 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
     // CLASSE DO SERVIÇO SOCIAL PARA FINALIZAR ROL QUANDO INTERNO SAIR DA UNIDADE/EVASÃO
     ControleRolVisitas controlRol = new ControleRolVisitas();
     RolVisitas objRol = new RolVisitas();
+    // BANCO VIRTUAL (FINANCEIRO)
+    SaqueValores objSaque = new SaqueValores();
+    ControleSaque controleSaque = new ControleSaque();
+    //
+    ControleSaldoDepositoInativos controleIna = new ControleSaldoDepositoInativos();
+    ControleDepositoInativo controlDPI = new ControleDepositoInativo();
+    //
+    DepositoInterno objDeposito = new DepositoInterno();
+    ControleDeposito controlDep = new ControleDeposito();
+    ConsultaSaldoInternos objSaldo = new ConsultaSaldoInternos();
+    ControleSaldoSaque controle = new ControleSaldoSaque();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -86,6 +105,19 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
     int tipoEvasao, idInternoRol;
     String horarioEntrada = "00:00";
     int count;
+    //
+    double valorDebito = 0;
+    double valorCredito = 0;
+    double saldoTotalCredito = 0;
+    double saldoTotalDebito = 0;
+    double valorLiquido = 0;
+    String tipoMovDeb = "D";
+    String tipoMovCred = "C";
+    String statusSaque = "FINALIZADO";
+    String movStatus = "D";
+    String movTrans = "C";
+    double saldoAtual = 0;
+    double totalGeral = 0;
 
     /**
      * Creates new form TelaEvadidosIndividual
@@ -891,9 +923,9 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
         } else {
             objEvadidoInd.setStatusLanc(statusEva);
-            objEvadidoInd.setTipoOperacao(jOperacao.getText());            
+            objEvadidoInd.setTipoOperacao(jOperacao.getText());
             objEvadidoInd.setDataEvasao(jDataLanc.getDate());
-            objEvadidoInd.setIdInternoCrc(Integer.valueOf(jIdInternoEvadido.getText()));            
+            objEvadidoInd.setIdInternoCrc(Integer.valueOf(jIdInternoEvadido.getText()));
             objEvadidoInd.setIdSaida(Integer.valueOf(jIdSaida.getText()));
             objEvadidoInd.setDataLanc(jDataSaida.getDate());
             objEvadidoInd.setNrDocSaida(Integer.valueOf(jDocumentoSaida.getText()));
@@ -913,7 +945,7 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
                 objEvadidoInd.setDataInsert(jDataSistema.getText());
                 objEvadidoInd.setHorarioInsert(jHoraSistema.getText());
                 control.incluirEvadidoInd(objEvadidoInd); // inclui na tabela EVADIDOIND. TESTADO EM 06/06/2015 FUNCIONANDO     
-                buscarId();                
+                buscarId();
                 objLog();
                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                 Salvar();
@@ -926,7 +958,7 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
                 // ATUALIZA TABELA EVADIDOSIND. TESTADO EM 06/06/2015 FUNCIONANDO                        
                 objEvadidoInd.setIdInternoCrc(Integer.valueOf(jIdInternoEvadido.getText()));
                 objEvadidoInd.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                control.alterarEvadidoInd(objEvadidoInd);                
+                control.alterarEvadidoInd(objEvadidoInd);
                 objLog();
                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                 Salvar();
@@ -976,7 +1008,7 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
             TelaPesqInternosEvadidosEducacao objPesqIntEvaEdu = new TelaPesqInternosEvadidosEducacao();
             TelaModuloCRC.jPainelCRC.add(objPesqIntEvaEdu);
             objPesqIntEvaEdu.show();
-        }else if(jRBtSaidaMedico.isSelected()){
+        } else if (jRBtSaidaMedico.isSelected()) {
             TelaPesqInternosEvadidosManualMedico objPesqIntEvaMedico = new TelaPesqInternosEvadidosManualMedico();
             TelaModuloCRC.jPainelCRC.add(objPesqIntEvaMedico);
             objPesqIntEvaMedico.show();
@@ -1135,14 +1167,14 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
                     jRBtSaidaLaborativa.setSelected(true);
                 } else if (tipoEvasao == 2) {
                     jRBtSaidaEstudos.setSelected(true);
-                }else if(tipoEvasao == 3){
+                } else if (tipoEvasao == 3) {
                     jRBtSaidaMedico.setSelected(true);
                 }
                 jIdInternoEvadido.setText(conecta.rs.getString("IdInternoCrc"));
                 jNomeInternoEvadido.setText(conecta.rs.getString("NomeInternoCrc"));
-                jIdSaida.setText(conecta.rs.getString("IdSaida"));  
+                jIdSaida.setText(conecta.rs.getString("IdSaida"));
                 jDataSaida.setDate(conecta.rs.getDate("DataSaida"));
-                jDocumentoSaida.setText(conecta.rs.getString("NrDocSaida"));                
+                jDocumentoSaida.setText(conecta.rs.getString("NrDocSaida"));
                 jObservacao.setText(conecta.rs.getString("Observacao"));
                 conecta.desconecta();
             } catch (SQLException e) {
@@ -1561,6 +1593,40 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
             objItensLoca.setNomeInterno(jNomeInternoEvadido.getText());
             objItensLoca.setIdInternoCrc(Integer.valueOf(jIdInternoEvadido.getText()));
             excluirInternoCela.deletarInternoLocacaoSaida(objItensLoca);
+            // CALCULAR O VALOR LIQUIDO DO INTERNO
+            calcularCredito();
+            calcularDebito();
+            valorLiquido = saldoTotalCredito - saldoTotalDebito;
+            // INCLUIR SAQUE NA  TABELA SALDOVALORES
+            objSaldo.setHistorico(situacao);
+            objSaldo.setDataMov(jDataLanc.getDate());
+            objSaldo.setFavorecidoDepositante(jNomeInternoEvadido.getText());
+            objSaldo.setIdInternoCrc(Integer.valueOf(jIdInternoEvadido.getText()));
+            objSaldo.setStatusMov(movStatus);
+            objSaldo.setSaldo((float) valorLiquido);
+            objSaldo.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+            controle.incluirSaldo(objSaldo); // SALDOVALORES
+            // TABELA SALDO_VALORES_INATIVOS
+            objSaldo.setSaldoAtual(valorLiquido);
+            controleIna.incluirSaldo(objSaldo); // SALDO_VALORES_INATIVOS
+            // LANÇA DEBITO NA TABELA SAQUE
+            objSaque.setStatusLanc(statusSaque);
+            objSaque.setDataLanc(jDataLanc.getDate());
+            objSaque.setIdInternoCrc(Integer.valueOf(jIdInternoEvadido.getText()));
+            objSaque.setNomeInterno(jNomeInternoEvadido.getText());
+            objSaque.setFavorecido(jNomeInternoEvadido.getText());
+            objSaque.setObservacao(situacao);
+            objSaque.setValorSaque((float) valorLiquido);
+            controleSaque.incluirSaque(objSaque); // TABELA - SAQUE
+            // DEPOSITO NA CONTA DOS INATIVOS DEPOSITO_INATIVOS
+            objDeposito.setStatusLanc(statusSaque);
+            objDeposito.setDataLanc(jDataLanc.getDate());
+            objDeposito.setValorDeposito((float) valorLiquido);
+            objDeposito.setDepositante(jNomeInternoEvadido.getText());
+            objDeposito.setObservacao(situacao);
+            objDeposito.setIdInternoCrc(Integer.valueOf(jIdInternoEvadido.getText()));
+            objDeposito.setNomeInterno(jNomeInternoEvadido.getText());
+            controlDPI.incluirDepositos(objDeposito); // TABELA - DEPOSITOS_INATIVOS
             //
             objLog();
             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -1653,7 +1719,7 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
             objItemSaida.setConfirmaEvasao(confirmaEvasao);
             objItemSaida.setDataEvasaoTmp(jDataLanc.getDate());
             control.incluirEvasaoInternoSaidaLaborativa(objItemSaida);
-        }else if(tipoEvasao == 3){
+        } else if (tipoEvasao == 3) {
             // INCLUIR NA TABELA (MOVIMENTOCRC)
             objEvadidoInd.setIdLanc(Integer.valueOf(jIdLanc.getText()));
             controlMov.incluirMovEvasaoSaidaMedico(objEvadidoInd);
@@ -1786,5 +1852,39 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
         jTabelaIntEvadidosPrincipal.setAutoResizeMode(jTabelaIntEvadidosPrincipal.AUTO_RESIZE_OFF);
         jTabelaIntEvadidosPrincipal.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         modelo.getLinhas().clear();
+    }
+
+    public void calcularDebito() {
+        valorDebito = 0;
+        saldoTotalDebito = 0;
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM SALDOVALORES "
+                    + "WHERE IdInternoCrc='" + jIdInternoEvadido.getText() + "' "
+                    + "AND StatusMov='" + tipoMovDeb + "'");
+            conecta.rs.first();
+            do {
+                valorDebito = conecta.rs.getDouble("ValorMov");
+                saldoTotalDebito = saldoTotalDebito + valorDebito;
+            } while (conecta.rs.next());
+        } catch (Exception e) {
+        }
+    }
+
+    public void calcularCredito() {
+        valorCredito = 0;
+        saldoTotalCredito = 0;
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM SALDOVALORES "
+                    + "WHERE IdInternoCrc='" + jIdInternoEvadido.getText() + "' "
+                    + "AND StatusMov='" + tipoMovCred + "'");
+            conecta.rs.first();
+            do {
+                valorCredito = conecta.rs.getDouble("ValorMov");
+                saldoTotalCredito = saldoTotalCredito + valorCredito;
+            } while (conecta.rs.next());
+        } catch (Exception e) {
+        }
     }
 }
