@@ -29,7 +29,7 @@ public class ControleParamentrosCrc {
                     + "DocAudiencia=?,DocTrans=?,DocSaidaTmp=?,DocLivraPro=?,ValAudiencia=?,Valtrans=?,ValSaidaTmp=?,ValLivraPro=?,DocPro=?,DocAlvara=?,ValPro=?,ValAlvara=?,PopulacaoBgp=?,LocacaoBgp=?,"
                     + "TransferenciaBgp=?,PavilhaoCelaBgp=?,PopulacaoBpa=?,LocacaoBpa=?,TransferenciaBpa=?,PavilhaoCelaBpa=?,CaminhoImagemServicoSocial=?,CaminhoImagemCRCInterno=?,LocalFotosAdvogados=?,"
                     + "LocalFotoVisitasDiversas=?,LocalFotosOficialJustica=?,LocalFotosVisitasInternos=?,LocalFotosInternos=?,LocalFotosColaboradores=?,CaminhoImagemColaboradores=?,BiometriaMedicos=?,"
-                    + "BiometriaEnfermeiros=?,BiometriaTecnicos=?,CarcereFem=?,LocalPDF_PI=?,LocalPDF_PE=?,LocalPDF_B1=?,LocalPDF_B2=?,CaminhoExecutavel=?,DataVersao=? WHERE IdPar='" + objParCrc.getIdPar() + "'");
+                    + "BiometriaEnfermeiros=?,BiometriaTecnicos=?,CarcereFem=?,LocalPDF_PI=?,LocalPDF_PE=?,LocalPDF_B1=?,LocalPDF_B2=?,CaminhoExecutavel=?,DataVersao=?,NumeroVersao=? WHERE IdPar='" + objParCrc.getIdPar() + "'");
             pst.setInt(1, objParCrc.getQtdDias());
             pst.setString(2, objParCrc.getQtdHoras());
             pst.setString(3, objParCrc.getUsuarioAutorizado());
