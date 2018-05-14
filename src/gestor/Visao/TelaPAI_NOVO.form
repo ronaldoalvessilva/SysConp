@@ -95,7 +95,7 @@
                           <Component id="jPanel21" alignment="0" max="32767" attributes="0"/>
                           <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="13" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -143,7 +143,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jDataInicial" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace pref="67" max="32767" attributes="0"/>
                                   <Component id="jLabel63" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jDataFinal" min="-2" max="-2" attributes="0"/>
@@ -158,8 +158,8 @@
                                   <Component id="jCheckBoxTodosRegistros" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jNomeInternoPesquisa" min="-2" pref="299" max="-2" attributes="0"/>
-                                  <EmptySpace pref="19" max="32767" attributes="0"/>
+                                  <Component id="jNomeInternoPesquisa" max="32767" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jBtPesqNomeInternoPAI" min="-2" pref="35" max="-2" attributes="0"/>
                               </Group>
                           </Group>
