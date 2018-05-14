@@ -77,6 +77,19 @@
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator10">
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jRegistroAtendeInternoBio">
+              <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="99" red="0" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Registro de Atendimento de Interno com Biometria"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRegistroAtendeInternoBioActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator14">
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="AgendaCompromissos">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Agenda de Compromissos Pessoal"/>

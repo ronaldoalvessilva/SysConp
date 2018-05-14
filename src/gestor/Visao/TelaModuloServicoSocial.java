@@ -5,8 +5,10 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleTelasSistema;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
+import gestor.Modelo.CadastroTelasSistema;
 import static gestor.Visao.TelaAgendaCompromissos.jAssunto;
 import static gestor.Visao.TelaAgendaCompromissos.jBtAlterarComp;
 import static gestor.Visao.TelaAgendaCompromissos.jBtCancelarComp;
@@ -72,6 +74,8 @@ import net.sf.jasperreports.view.JasperViewer;
 public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
+    CadastroTelasSistema objCadastroTela = new CadastroTelasSistema();
+    ControleTelasSistema controle = new ControleTelasSistema();
 
     private TelaVisitaSocial objVsocial = null;
     private TelaRolVisitas objRolVis = null;
@@ -86,7 +90,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private TelaAgendaCompromissos objAgEventos = null;
     private TelaAprovadoresOcorrenciaVisitasInternosServicoSocial objAprovaOcr = null;
     private TelaAprovacaoServicoSocial objBloqLibOcr = null;
-    private TelaOcorrenciaServicoSocial objOcrSSocial = null;  
+    private TelaOcorrenciaServicoSocial objOcrSSocial = null;
     private TelaPerfilCarcerario objPerfilCar = null;
     private TelaVisitaSocialReligiosa objVisitaRel = null;
     private TelaInstituicaoReligiosa objInstRel = null;
@@ -96,6 +100,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private TelaHistoricoAvaliacaoSocial objHistAvaSocial = null;
     private TelaHistoricoAvaliacaoEmprego objAvaEmp = null;
     private TelaPAI_NOVO objPaiNovo = null;
+    private TelaRegistroInternosAtendimentoSS objRegBio = null;
     //
     public static String nomeModuloSERV = "SERVICO";
     String dataLanc;
@@ -109,7 +114,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     String dataInicial, dataFinal;
     String statusEntrada = "ENTRADA NA UNIDADE";
     String statusRetorno = "RETORNO A UNIDADE";
-    String recebeVisita= "Não";
+    String recebeVisita = "Não";
     int count = 0;
     // VARIÁVEIS PARA AGENDA DE COMPROMISSO.
     String dataAgenda;
@@ -121,6 +126,62 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     String cartaoSUS = "";
     String cartaoRG = "";
     String cartaoCPF = "";
+    //
+    public static int codigoUser = 0;
+    public static int codUserAcesso = 0;
+    public static int codigoUserGroup = 0;
+    public static int codAbrir = 0;
+    public static int codIncluir = 0;
+    public static int codAlterar = 0;
+    public static int codExcluir = 0;
+    public static int codGravar = 0;
+    public static int codConcultar = 0;
+    public static int codigoGrupo = 0;
+    public static String nomeGrupo = "";
+    public static String nomeTela = "";
+    // TELAS DE ACESSOS AO MÓDULO ENFERMARIA
+    public static String nomeModuloSS = "SERVICO SOCIAL";
+    // MENU CADASTRO    
+    public static String telaCadastroVisitasSS = "Cadastro:Visitantes:Manutenção";
+    public static String telaRolVisitasSS = "Cadastro:Rol de Visitas:Manutenção";
+    public static String telaRolVisitasVisitantesSS = "Cadastro:Rol de Visitas:Visitas";
+    public static String telaRolVisitasInternosSS = "Cadastro:Rol de Visitas:Internos";
+    public static String telaListaDocumentosSS = "Cadastro:Lista de Docunmentos de Internos:Manutenção";
+    public static String telaInstituicaoRelSS = "Cadastro:Instituição Religiosa:Manutenção";
+    public static String telaVisitantesRelSS = "Cadastro:Visistantes Religiosos:Manutenção";
+    public static String telaRolVisitantesRelSS = "Cadastro:Rol de Visitas Religiosa:Manutenção";
+    public static String telaRolVisitantesRelVisitaSS = "Cadastro:Rol de Visitas Religiosa:Visitas";
+    public static String telaAprovadoresOcrSS = "Cadastro:Aprovadores de Ocorrências Indisciplinas Visitas:Manutenção";
+    public static String telaRegistroAtendimentoBioSS = "Cadastro:Registro de Atendimento Internos Biometria:Manutenção";
+    // MOVIMENTAÇÃO
+    public static String telaAdmEvolucaoInternosSS = "";
+    public static String telaPerfilPopCarcerariaSS = "";
+    public static String telaAtualizacaoDocSS = "";
+    public static String telaAtendimentoFamiliaSS = "";
+    public static String telaCancelaVisita = "";
+    public static String telaPAISS = "";
+    public static String telaBloqueioLiberacaoVisitasSS = "";
+    public static String telaControleLigacoesTelSS = "";
+    public static String telaOcorrenciasSS = "";
+    public static String telaHistAvaSocial = "";
+    public static String telaHistAvaEmprego = "";
+    //
+    int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
+    // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
+    // MENU CADASTRO
+    String pNomeCV = "";
+    String pNomeRV = "";
+    String pNomeRVV = "";
+    String pNomeRVI = "";
+    String pNomeLD = "";
+    String pNomeIR = "";
+    String pNomeVR = "";
+    String pNomeRVR = "";
+    String pNomeRVRV = "";
+    String pNomeAO = "";
+    String pNomeRAB = "";
+    // MOVIMENTAÇÃO
+    
 
     /**
      * Creates new form TelaServioSocial
@@ -154,6 +215,8 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         AprovadoresOcorrenciasVisitasPortaria = new javax.swing.JMenuItem();
         jSeparator10 = new javax.swing.JPopupMenu.Separator();
+        jRegistroAtendeInternoBio = new javax.swing.JMenuItem();
+        jSeparator14 = new javax.swing.JPopupMenu.Separator();
         AgendaCompromissos = new javax.swing.JMenuItem();
         AgendaRecados = new javax.swing.JMenuItem();
         jSeparator16 = new javax.swing.JPopupMenu.Separator();
@@ -306,6 +369,16 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
         });
         jMenu1.add(AprovadoresOcorrenciasVisitasPortaria);
         jMenu1.add(jSeparator10);
+
+        jRegistroAtendeInternoBio.setForeground(new java.awt.Color(0, 153, 0));
+        jRegistroAtendeInternoBio.setText("Registro de Atendimento de Interno com Biometria");
+        jRegistroAtendeInternoBio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRegistroAtendeInternoBioActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jRegistroAtendeInternoBio);
+        jMenu1.add(jSeparator14);
 
         AgendaCompromissos.setText("Agenda de Compromissos Pessoal");
         AgendaCompromissos.addActionListener(new java.awt.event.ActionListener() {
@@ -1649,8 +1722,8 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
-        
-         try {
+
+        try {
             conecta.abrirConexao();
             String path = "reports/RelatorioInternosSemVisitas.jasper";
             conecta.executaSQL("SELECT * FROM ATENDIMENTOSOCIAL "
@@ -1659,7 +1732,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
                     + "WHERE ATENDIMENTOSOCIAL.RecebeVisita='" + recebeVisita + "' "
                     + "AND PRONTUARIOSCRC.SituacaoCrc='" + statusEntrada + "' "
                     + "OR ATENDIMENTOSOCIAL.RecebeVisita='" + recebeVisita + "' "
-                    + "AND PRONTUARIOSCRC.SituacaoCrc='" + statusRetorno  + "'");
+                    + "AND PRONTUARIOSCRC.SituacaoCrc='" + statusRetorno + "'");
             HashMap parametros = new HashMap();
             parametros.put("nomeUsuario", nameUser);
             parametros.put("entrada", statusEntrada);
@@ -1680,7 +1753,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
 
     private void RelatorioGeralInternosPavilhaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatorioGeralInternosPavilhaoActionPerformed
         // TODO add your handling code here:
-         try {
+        try {
             conecta.abrirConexao();
             String path = "reports/ListagemGeralConfere.jasper";
             conecta.executaSQL("SELECT * FROM ITENSLOCACAOINTERNO "
@@ -1714,7 +1787,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
 
     private void jPaiNOVOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPaiNOVOActionPerformed
         // TODO add your handling code here:
-         if (objPaiNovo == null || objPaiNovo.isClosed()) {
+        if (objPaiNovo == null || objPaiNovo.isClosed()) {
             objPaiNovo = new TelaPAI_NOVO();
             jPainelServicoSocial.add(objPaiNovo);
             objPaiNovo.setVisible(true);
@@ -1752,6 +1825,36 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
         TelaModuloServicoSocial.jPainelServicoSocial.add(objRelVisitasInt);
         objRelVisitasInt.show();
     }//GEN-LAST:event_jRelatorioVisitasInternosActionPerformed
+
+    private void jRegistroAtendeInternoBioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRegistroAtendeInternoBioActionPerformed
+        // TODO add your handling code here:
+        if (objRegBio == null || objRegBio.isClosed()) {
+            objRegBio = new TelaRegistroInternosAtendimentoSS();
+            jPainelServicoSocial.add(objRegBio);
+            objRegBio.setVisible(true);
+        } else {
+            if (objRegBio.isVisible()) {
+                if (objRegBio.isIcon()) { // Se esta minimizado
+                    try {
+                        objRegBio.setIcon(false); // maximiniza
+                    } catch (PropertyVetoException ex) {
+                    }
+                } else {
+                    objRegBio.toFront(); // traz para frente
+                    objRegBio.pack();//volta frame 
+                }
+            } else {
+                objRegBio = new TelaRegistroInternosAtendimentoSS();
+                TelaModuloServicoSocial.jPainelServicoSocial.add(objRegBio);//adicona frame ao JDesktopPane  
+                objRegBio.setVisible(true);
+            }
+        }
+        try {
+            objRegBio.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
+        }
+//        private TelaRegistroInternosAtendimentoSS objRegBio= null;
+    }//GEN-LAST:event_jRegistroAtendeInternoBioActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1814,6 +1917,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jOcorrenciasServicoSocial;
     private javax.swing.JMenuItem jPaiNOVO;
     public static javax.swing.JDesktopPane jPainelServicoSocial;
+    private javax.swing.JMenuItem jRegistroAtendeInternoBio;
     private javax.swing.JMenuItem jRelatorioVisitasInternos;
     private javax.swing.JMenuItem jRolVisitas;
     private javax.swing.JPopupMenu.Separator jSeparator1;
@@ -1821,6 +1925,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator11;
     private javax.swing.JPopupMenu.Separator jSeparator12;
     private javax.swing.JPopupMenu.Separator jSeparator13;
+    private javax.swing.JPopupMenu.Separator jSeparator14;
     private javax.swing.JPopupMenu.Separator jSeparator15;
     private javax.swing.JPopupMenu.Separator jSeparator16;
     private javax.swing.JPopupMenu.Separator jSeparator17;
@@ -2057,5 +2162,168 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
         jTabelaAgendaEventos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
         jTabelaAgendaEventos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
         jTabelaAgendaEventos.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+    }
+
+    // PESQUISA E CADASTRO DAS TELAS DO MÓDULO ENFERMARIA PARA CONTROLE DE ACESSO DE USUÁRIOS.
+    public void pesquisarTelasAcessos() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaCadastroVisitasSS + "'");
+            conecta.rs.first();
+            pNomeCV = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRolVisitasSS + "'");
+            conecta.rs.first();
+            pNomeRV = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRolVisitasVisitantesSS + "'");
+            conecta.rs.first();
+            pNomeRVV = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRolVisitasInternosSS + "'");
+            conecta.rs.first();
+            pNomeRVI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaListaDocumentosSS + "'");
+            conecta.rs.first();
+            pNomeLD = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaInstituicaoRelSS + "'");
+            conecta.rs.first();
+            pNomeIR = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaVisitantesRelSS + "'");
+            conecta.rs.first();
+            pNomeVR = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRolVisitantesRelSS + "'");
+            conecta.rs.first();
+            pNomeRVR = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRolVisitantesRelVisitaSS + "'");
+            conecta.rs.first();
+            pNomeRVRV = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaAprovadoresOcrSS + "'");
+            conecta.rs.first();
+            pNomeAO = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRegistroAtendimentoBioSS + "'");
+            conecta.rs.first();
+            pNomeRAB = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        // INICIO DA COMPARAÇÃO
+        if (!pNomeCV.equals(telaCadastroVisitasSS) || pNomeCV == null || pNomeCV.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaCadastroVisitasSS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeRV.equals(telaRolVisitasSS) || pNomeRV == null || pNomeRV.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRolVisitasSS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeRVV.equals(telaRolVisitasVisitantesSS) || pNomeRVV == null || pNomeRVV.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRolVisitasVisitantesSS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeRVI.equals(telaRolVisitasInternosSS) || pNomeRVI == null || pNomeRVI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRolVisitasInternosSS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeLD.equals(telaListaDocumentosSS) || pNomeLD == null || pNomeLD.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaListaDocumentosSS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeIR.equals(telaInstituicaoRelSS) || pNomeIR == null || pNomeIR.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaInstituicaoRelSS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeVR.equals(telaVisitantesRelSS) || pNomeVR == null || pNomeVR.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaVisitantesRelSS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeRVR.equals(telaRolVisitantesRelSS) || pNomeRVR == null || pNomeRVR.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRolVisitantesRelSS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeRVRV.equals(telaRolVisitantesRelVisitaSS) || pNomeRVRV == null || pNomeRVRV.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRolVisitantesRelVisitaSS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeAO.equals(telaAprovadoresOcrSS) || pNomeAO == null || pNomeAO.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaAprovadoresOcrSS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeRAB.equals(telaRegistroAtendimentoBioSS) || pNomeRAB == null || pNomeRAB.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRegistroAtendimentoBioSS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        // MOVIMENTAÇÃO
+        
+    }
+
+    // MÉTODO PARA BUSCAR O CÓDIGO DO MÓDULO, CASO NÃO TENHA SIDO CADASTRADO.
+    public void buscarCodigoModulo() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM MODULOS "
+                    + "WHERE NomeModulo='" + nomeModuloSS + "'");
+            conecta.rs.first();
+            pCodModulo = conecta.rs.getInt("IdModulo");
+        } catch (SQLException ex) {
+        }
     }
 }
