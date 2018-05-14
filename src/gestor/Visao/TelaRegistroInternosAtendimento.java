@@ -62,7 +62,7 @@ public class TelaRegistroInternosAtendimento extends javax.swing.JInternalFrame 
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
-    String nomeModuloTela = "EFERMARIA:Registro de Atendimento de Internos:Biometria";
+    String nomeModuloTela = "ENFERMARIA:Registro de Atendimento de Internos:Biometria";
     String statusMov;
     String horaMov;
     String dataModFinal;
