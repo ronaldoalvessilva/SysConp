@@ -17,6 +17,22 @@ import gestor.Modelo.RolVisitas;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloServicoSocial.codAbrir;
+import static gestor.Visao.TelaModuloServicoSocial.codAlterar;
+import static gestor.Visao.TelaModuloServicoSocial.codConsultar;
+import static gestor.Visao.TelaModuloServicoSocial.codExcluir;
+import static gestor.Visao.TelaModuloServicoSocial.codGravar;
+import static gestor.Visao.TelaModuloServicoSocial.codIncluir;
+import static gestor.Visao.TelaModuloServicoSocial.codUserAcesso;
+import static gestor.Visao.TelaModuloServicoSocial.codigoGrupo;
+import static gestor.Visao.TelaModuloServicoSocial.codigoUser;
+import static gestor.Visao.TelaModuloServicoSocial.codigoUserGroup;
+import static gestor.Visao.TelaModuloServicoSocial.nomeGrupo;
+import static gestor.Visao.TelaModuloServicoSocial.nomeTela;
+import static gestor.Visao.TelaModuloServicoSocial.telaRolVisitantesRelSS;
+import static gestor.Visao.TelaModuloServicoSocial.telaRolVisitantesRelVisitaSS;
+import static gestor.Visao.TelaModuloServicoSocial.telaRolVisitasSS;
+import static gestor.Visao.TelaModuloServicoSocial.telaRolVisitasVisitantesSS;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -1324,148 +1340,164 @@ public class TelaRolVisitasReligiosas extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampo();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRolVisitantesRelSS) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            acao = 1;
+            Novo();
+            corCampo();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        verificarVisitaReligiosa();
-        objRol.setStatusRol(jStatusRol.getText());
-        if (jStatusRol.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse Rol de Visitas não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRolVisitantesRelSS) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            verificarVisitaReligiosa();
+            objRol.setStatusRol(jStatusRol.getText());
+            if (jStatusRol.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse Rol de Visitas não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                Alterar();
+                corCampo();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 2;
-            Alterar();
-            corCampo();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        verificarItens();
-        objRol.setStatusRol(jStatusRol.getText());
-        if (jStatusRol.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse Rol de Visitas não poderá ser excluído, o mesmo encontra-se FINALIZADO");
-        } else {
-            if (jIDRol.getText().equals(codRol)) {
-                JOptionPane.showMessageDialog(rootPane, "Antes de excluir esse Rol, será necessário excluir\n primeiro as Visitas relacionados a esse registro.");
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRolVisitantesRelSS) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            verificarItens();
+            objRol.setStatusRol(jStatusRol.getText());
+            if (jStatusRol.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse Rol de Visitas não poderá ser excluído, o mesmo encontra-se FINALIZADO");
             } else {
-                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o ROL selecionado?", "Confirmação",
-                        JOptionPane.YES_NO_OPTION);
-                if (resposta == JOptionPane.YES_OPTION) {
-                    objRol.setIdRol(Integer.parseInt(jIDRol.getText()));
-                    control.exclusaoRolVisitasReligiosas(objRol);
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                    Excluir();
+                if (jIDRol.getText().equals(codRol)) {
+                    JOptionPane.showMessageDialog(rootPane, "Antes de excluir esse Rol, será necessário excluir\n primeiro as Visitas relacionados a esse registro.");
+                } else {
+                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o ROL selecionado?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta == JOptionPane.YES_OPTION) {
+                        objRol.setIdRol(Integer.parseInt(jIDRol.getText()));
+                        control.exclusaoRolVisitasReligiosas(objRol);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                        Excluir();
+                    }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
-        // TODO add your handling code here:           
-        if (jDataRol.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data do Rol.");
-            jDataRol.requestFocus();
-            jDataRol.setBackground(Color.red);
-        } else {
-            if (jNomeInstituicaoReligiosa.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe o nome da Instituição.");
-                jNomeInstituicaoReligiosa.requestFocus();
-                jNomeInstituicaoReligiosa.setBackground(Color.red);
+        // TODO add your handling code here: 
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRolVisitantesRelSS) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jDataRol.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data do Rol.");
+                jDataRol.requestFocus();
+                jDataRol.setBackground(Color.red);
             } else {
-                objRol.setDataRol(jDataRol.getDate());
-                objRol.setStatusRol(statusRol);
-                if (jDomingoInstituicao.isSelected()) {
-                    domingo = 1;
-                } else if (!jDomingoInstituicao.isSelected()) {
-                    domingo = 0;
-                }
-                objRol.setDomingo(domingo);
-                if (jSegundaInstituicao.isSelected()) {
-                    segunda = 1;
-                } else if (!jSegundaInstituicao.isSelected()) {
-                    segunda = 0;
-                }
-                objRol.setSegunda(segunda);
-                if (jTercaInstituicao.isSelected()) {
-                    terca = 1;
-                } else if (!jTercaInstituicao.isSelected()) {
-                    terca = 0;
-                }
-                objRol.setTerca(terca);
-                if (jQuartaInstituicao.isSelected()) {
-                    quarta = 1;
-                } else if (!jQuartaInstituicao.isSelected()) {
-                    quarta = 0;
-                }
-                objRol.setQuarta(quarta);
-                if (jQuintaInstituicao.isSelected()) {
-                    quinta = 1;
-                } else if (!jQuintaInstituicao.isSelected()) {
-                    quinta = 0;
-                }
-                objRol.setQuinta(quinta);
-                if (jSextaInstituicao.isSelected()) {
-                    sexta = 1;
-                } else if (!jSextaInstituicao.isSelected()) {
-                    sexta = 0;
-                }
-                objRol.setSexta(sexta);
-                if (jSabadoInstituicao.isSelected()) {
-                    sabado = 1;
-                } else if (!jSabadoInstituicao.isSelected()) {
-                    sabado = 0;
-                }
-                objRol.setSabado(sabado);
-                objRol.setObsRol(jObsRol.getText());
-                objRol.setObsPortaria(jObservacaoPortaria.getText());
-                objRol.setUsuarioInsert(nameUser);
-                objRol.setDataInsert(dataModFinal);
-                objRol.setHoraInsert(horaMov);
-                if (acao == 1) {
-                    verificarInstituicao();
-                    if (jIDInstituicaoReligiosa.getText().equals(codInternoCrc)) {
-                        JOptionPane.showMessageDialog(rootPane, "Instituição já foi lançado no Rol.");
-                    } else {
+                if (jNomeInstituicaoReligiosa.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe o nome da Instituição.");
+                    jNomeInstituicaoReligiosa.requestFocus();
+                    jNomeInstituicaoReligiosa.setBackground(Color.red);
+                } else {
+                    objRol.setDataRol(jDataRol.getDate());
+                    objRol.setStatusRol(statusRol);
+                    if (jDomingoInstituicao.isSelected()) {
+                        domingo = 1;
+                    } else if (!jDomingoInstituicao.isSelected()) {
+                        domingo = 0;
+                    }
+                    objRol.setDomingo(domingo);
+                    if (jSegundaInstituicao.isSelected()) {
+                        segunda = 1;
+                    } else if (!jSegundaInstituicao.isSelected()) {
+                        segunda = 0;
+                    }
+                    objRol.setSegunda(segunda);
+                    if (jTercaInstituicao.isSelected()) {
+                        terca = 1;
+                    } else if (!jTercaInstituicao.isSelected()) {
+                        terca = 0;
+                    }
+                    objRol.setTerca(terca);
+                    if (jQuartaInstituicao.isSelected()) {
+                        quarta = 1;
+                    } else if (!jQuartaInstituicao.isSelected()) {
+                        quarta = 0;
+                    }
+                    objRol.setQuarta(quarta);
+                    if (jQuintaInstituicao.isSelected()) {
+                        quinta = 1;
+                    } else if (!jQuintaInstituicao.isSelected()) {
+                        quinta = 0;
+                    }
+                    objRol.setQuinta(quinta);
+                    if (jSextaInstituicao.isSelected()) {
+                        sexta = 1;
+                    } else if (!jSextaInstituicao.isSelected()) {
+                        sexta = 0;
+                    }
+                    objRol.setSexta(sexta);
+                    if (jSabadoInstituicao.isSelected()) {
+                        sabado = 1;
+                    } else if (!jSabadoInstituicao.isSelected()) {
+                        sabado = 0;
+                    }
+                    objRol.setSabado(sabado);
+                    objRol.setObsRol(jObsRol.getText());
+                    objRol.setObsPortaria(jObservacaoPortaria.getText());
+                    objRol.setUsuarioInsert(nameUser);
+                    objRol.setDataInsert(dataModFinal);
+                    objRol.setHoraInsert(horaMov);
+                    if (acao == 1) {
+                        verificarInstituicao();
+                        if (jIDInstituicaoReligiosa.getText().equals(codInternoCrc)) {
+                            JOptionPane.showMessageDialog(rootPane, "Instituição já foi lançado no Rol.");
+                        } else {
+                            objRol.setIdInstituicao(Integer.valueOf(jIDInstituicaoReligiosa.getText()));
+                            objRol.setNomeInstituicaoRel(jNomeInstituicaoReligiosa.getText());
+                            control.incluirRolVisitasReligiosas(objRol);
+                            buscarIDRol();
+                            objLog();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                            Salvar();
+                        }
+                    }
+                    if (acao == 2) {
+                        objRol.setUsuarioUp(nameUser);
+                        objRol.setDataUp(dataModFinal);
+                        objRol.setHoraUp(horaMov);
                         objRol.setIdInstituicao(Integer.valueOf(jIDInstituicaoReligiosa.getText()));
                         objRol.setNomeInstituicaoRel(jNomeInstituicaoReligiosa.getText());
-                        control.incluirRolVisitasReligiosas(objRol);
-                        buscarIDRol();
+                        objRol.setIdRol(Integer.valueOf(jIDRol.getText()));
+                        control.alterarRolVisitasReligiosas(objRol);
+                        //
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                         Salvar();
                     }
                 }
-                if (acao == 2) {
-                    objRol.setUsuarioUp(nameUser);
-                    objRol.setDataUp(dataModFinal);
-                    objRol.setHoraUp(horaMov);
-                    objRol.setIdInstituicao(Integer.valueOf(jIDInstituicaoReligiosa.getText()));
-                    objRol.setNomeInstituicaoRel(jNomeInstituicaoReligiosa.getText());
-                    objRol.setIdRol(Integer.valueOf(jIDRol.getText()));
-                    control.alterarRolVisitasReligiosas(objRol);
-                    //
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    Salvar();
-                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -1489,163 +1521,183 @@ public class TelaRolVisitasReligiosas extends javax.swing.JInternalFrame {
 
     private void jBtNovoVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoVisitaActionPerformed
         // TODO add your handling code here:
-        verificarDiasRol();
-        objRol.setStatusRol(jStatusRol.getText());
-        if (jStatusRol.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse Rol de Visitas não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaRolVisitantesRelVisitaSS);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRolVisitantesRelVisitaSS) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            verificarDiasRol();
+            objRol.setStatusRol(jStatusRol.getText());
+            if (jStatusRol.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse Rol de Visitas não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 3;
+                NovaVisita();
+                corCampo();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 3;
-            NovaVisita();
-            corCampo();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
     }//GEN-LAST:event_jBtNovoVisitaActionPerformed
 
     private void jBtAlterarVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarVisitaActionPerformed
         // TODO add your handling code here:
-        verificarDiasRol();
-        objRol.setStatusRol(jStatusRol.getText());
-        if (jStatusRol.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse Rol de Visitas não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaRolVisitantesRelVisitaSS);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRolVisitantesRelVisitaSS) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            verificarDiasRol();
+            objRol.setStatusRol(jStatusRol.getText());
+            if (jStatusRol.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse Rol de Visitas não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 4;
+                AlterarVisita();
+                corCampo();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 4;
-            AlterarVisita();
-            corCampo();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
     }//GEN-LAST:event_jBtAlterarVisitaActionPerformed
 
     private void jBtExcluirVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirVisitaActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        objRol.setStatusRol(jStatusRol.getText());
-        if (jStatusRol.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse Rol de Visitas não poderá ser excluído, o mesmo encontra-se FINALIZADO");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir a VISITA selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objItenRol.setIdItemRol(Integer.valueOf(idItem));
-                controle.excluirItensRolReligiao(objItenRol);
-                objItenRol.setIdRol(Integer.valueOf(jIDRol.getText()));
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                //
-                ExcluirVisita();
-                preencherTabelaItens("SELECT * FROM ITENS_ROL_VISITAS_RELIGIOSA "
-                        + "INNER JOIN VISITAS_RELIGIOSA_INTERNOS "
-                        + "ON ITENS_ROL_VISITAS_RELIGIOSA.IdVisitaRel=VISITAS_RELIGIOSA_INTERNOS.IdVisitaRel "
-                        + "WHERE IdRol='" + jIDRol.getText() + "'");
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+        buscarAcessoUsuario(telaRolVisitantesRelVisitaSS);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRolVisitantesRelVisitaSS) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objRol.setStatusRol(jStatusRol.getText());
+            if (jStatusRol.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse Rol de Visitas não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir a VISITA selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objItenRol.setIdItemRol(Integer.valueOf(idItem));
+                    controle.excluirItensRolReligiao(objItenRol);
+                    objItenRol.setIdRol(Integer.valueOf(jIDRol.getText()));
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    //
+                    ExcluirVisita();
+                    preencherTabelaItens("SELECT * FROM ITENS_ROL_VISITAS_RELIGIOSA "
+                            + "INNER JOIN VISITAS_RELIGIOSA_INTERNOS "
+                            + "ON ITENS_ROL_VISITAS_RELIGIOSA.IdVisitaRel=VISITAS_RELIGIOSA_INTERNOS.IdVisitaRel "
+                            + "WHERE IdRol='" + jIDRol.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirVisitaActionPerformed
 
     private void jBtSalvarVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarVisitaActionPerformed
         // TODO add your handling code here:
-        if (jNomeVisita.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome da vista para o interno.");
-            jNomeVisita.requestFocus();
-            jNomeVisita.setBackground(Color.red);
-        } else {
-            if (jDataInicio.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data de inicio da vista.");
-                jDataInicio.requestFocus();
-                jDataInicio.setBackground(Color.red);
+        buscarAcessoUsuario(telaRolVisitantesRelVisitaSS);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaRolVisitantesRelVisitaSS) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jNomeVisita.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome da vista para o interno.");
+                jNomeVisita.requestFocus();
+                jNomeVisita.setBackground(Color.red);
             } else {
-                objItenRol.setDataInicio(jDataInicio.getDate());
-                if (jDomingoVisita.isSelected()) {
-                    domingoVisita = 1;
-                } else if (!jDomingoVisita.isSelected()) {
-                    domingoVisita = 0;
-                }
-                objItenRol.setDomingoVisita(domingoVisita);
-                if (jSegundaVisita.isSelected()) {
-                    segundaVisita = 1;
-                } else if (!jSegundaVisita.isSelected()) {
-                    segundaVisita = 0;
-                }
-                objItenRol.setSegundaVisita(segundaVisita);
-                if (jTercaVisita.isSelected()) {
-                    tercaVisita = 1;
-                } else if (!jTercaVisita.isSelected()) {
-                    tercaVisita = 0;
-                }
-                 objItenRol.setTercaVisita(tercaVisita);
-                if (jQuartaVisita.isSelected()) {
-                    quartaVisita = 1;
-                } else if (!jQuartaVisita.isSelected()) {
-                    quartaVisita = 0;
-                }
-                objItenRol.setQuartaVisita(quartaVisita);
-                if (jQuintaVisita.isSelected()) {
-                    quintaVisita = 1;
-                } else if (!jQuintaVisita.isSelected()) {
-                    quintaVisita = 0;
-                }
-                objItenRol.setQuintaVisita(quintaVisita);
-                if (jSextaVisita.isSelected()) {
-                    sextaVisita = 1;
-                } else if (!jSextaVisita.isSelected()) {
-                    sextaVisita = 0;
-                }
-                objItenRol.setSextaVisita(sexta);
-                if (jSabadoVisita.isSelected()) {
-                    sabadoVisita = 1;
-                } else if (!jSabadoVisita.isSelected()) {
-                    sabadoVisita = 0;
-                }
-                objItenRol.setSabadoVisita(sabadoVisita);
-                objItenRol.setDataRol(jDataRol.getDate());
-                objItenRol.setStatusVisitaInterno((String) jCombBoxStatusVisita.getSelectedItem());
-                if (acao == 3) {
-                    // Para o log do registro
-                    objItenRol.setUsuarioInsert(nameUser);
-                    objItenRol.setDataInsert(dataModFinal);
-                    objItenRol.setHoraInsert(horaMov);
-                    //
-                    objItenRol.setIdRol(Integer.valueOf(jIDRol.getText()));
-                    objItenRol.setIdInstituicao(Integer.valueOf(jIDInstituicaoReligiosa.getText()));
-                    objItenRol.setIdVisita(Integer.valueOf(jIDVisita.getText()));
-                    objItenRol.setNomeVisita(jNomeVisita.getText());
-                    controle.incluirItensRolReligiao(objItenRol);
-                    objLog2();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    preencherTabelaItens("SELECT * FROM ITENS_ROL_VISITAS_RELIGIOSA "
-                            + "INNER JOIN VISITAS_RELIGIOSA_INTERNOS "
-                            + "ON ITENS_ROL_VISITAS_RELIGIOSA.IdVisitaRel=VISITAS_RELIGIOSA_INTERNOS.IdVisitaRel "
-                            + "WHERE IdRol='" + jIDRol.getText() + "'");
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    SalvarVisita();
-                }
-                if (acao == 4) {
-                    // Para o log do registro
-                    objItenRol.setUsuarioUp(nameUser);
-                    objItenRol.setDataUp(jDataSistema.getText());
-                    objItenRol.setHoraUp(jHoraSistema.getText());
-                    //
-                    objItenRol.setIdRol(Integer.valueOf(jIDRol.getText()));
-                    objItenRol.setIdVisita(Integer.valueOf(jIDVisita.getText()));
-                    objItenRol.setNomeVisita(jNomeVisita.getText());
-                    objItenRol.setIdInstituicao(Integer.valueOf(jIDInstituicaoReligiosa.getText()));
-                    objItenRol.setIdItemRol(Integer.valueOf(idItem));
-                    controle.alterarItensRolReligiao(objItenRol);
-                    objLog2();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    preencherTabelaItens("SELECT * FROM ITENS_ROL_VISITAS_RELIGIOSA "
-                            + "INNER JOIN VISITAS_RELIGIOSA_INTERNOS "
-                            + "ON ITENS_ROL_VISITAS_RELIGIOSA.IdVisitaRel=VISITAS_RELIGIOSA_INTERNOS.IdVisitaRel "
-                            + "WHERE IdRol='" + jIDRol.getText() + "'");
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    SalvarVisita();
+                if (jDataInicio.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data de inicio da vista.");
+                    jDataInicio.requestFocus();
+                    jDataInicio.setBackground(Color.red);
+                } else {
+                    objItenRol.setDataInicio(jDataInicio.getDate());
+                    if (jDomingoVisita.isSelected()) {
+                        domingoVisita = 1;
+                    } else if (!jDomingoVisita.isSelected()) {
+                        domingoVisita = 0;
+                    }
+                    objItenRol.setDomingoVisita(domingoVisita);
+                    if (jSegundaVisita.isSelected()) {
+                        segundaVisita = 1;
+                    } else if (!jSegundaVisita.isSelected()) {
+                        segundaVisita = 0;
+                    }
+                    objItenRol.setSegundaVisita(segundaVisita);
+                    if (jTercaVisita.isSelected()) {
+                        tercaVisita = 1;
+                    } else if (!jTercaVisita.isSelected()) {
+                        tercaVisita = 0;
+                    }
+                    objItenRol.setTercaVisita(tercaVisita);
+                    if (jQuartaVisita.isSelected()) {
+                        quartaVisita = 1;
+                    } else if (!jQuartaVisita.isSelected()) {
+                        quartaVisita = 0;
+                    }
+                    objItenRol.setQuartaVisita(quartaVisita);
+                    if (jQuintaVisita.isSelected()) {
+                        quintaVisita = 1;
+                    } else if (!jQuintaVisita.isSelected()) {
+                        quintaVisita = 0;
+                    }
+                    objItenRol.setQuintaVisita(quintaVisita);
+                    if (jSextaVisita.isSelected()) {
+                        sextaVisita = 1;
+                    } else if (!jSextaVisita.isSelected()) {
+                        sextaVisita = 0;
+                    }
+                    objItenRol.setSextaVisita(sexta);
+                    if (jSabadoVisita.isSelected()) {
+                        sabadoVisita = 1;
+                    } else if (!jSabadoVisita.isSelected()) {
+                        sabadoVisita = 0;
+                    }
+                    objItenRol.setSabadoVisita(sabadoVisita);
+                    objItenRol.setDataRol(jDataRol.getDate());
+                    objItenRol.setStatusVisitaInterno((String) jCombBoxStatusVisita.getSelectedItem());
+                    if (acao == 3) {
+                        // Para o log do registro
+                        objItenRol.setUsuarioInsert(nameUser);
+                        objItenRol.setDataInsert(dataModFinal);
+                        objItenRol.setHoraInsert(horaMov);
+                        //
+                        objItenRol.setIdRol(Integer.valueOf(jIDRol.getText()));
+                        objItenRol.setIdInstituicao(Integer.valueOf(jIDInstituicaoReligiosa.getText()));
+                        objItenRol.setIdVisita(Integer.valueOf(jIDVisita.getText()));
+                        objItenRol.setNomeVisita(jNomeVisita.getText());
+                        controle.incluirItensRolReligiao(objItenRol);
+                        objLog2();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        preencherTabelaItens("SELECT * FROM ITENS_ROL_VISITAS_RELIGIOSA "
+                                + "INNER JOIN VISITAS_RELIGIOSA_INTERNOS "
+                                + "ON ITENS_ROL_VISITAS_RELIGIOSA.IdVisitaRel=VISITAS_RELIGIOSA_INTERNOS.IdVisitaRel "
+                                + "WHERE IdRol='" + jIDRol.getText() + "'");
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        SalvarVisita();
+                    }
+                    if (acao == 4) {
+                        // Para o log do registro
+                        objItenRol.setUsuarioUp(nameUser);
+                        objItenRol.setDataUp(jDataSistema.getText());
+                        objItenRol.setHoraUp(jHoraSistema.getText());
+                        //
+                        objItenRol.setIdRol(Integer.valueOf(jIDRol.getText()));
+                        objItenRol.setIdVisita(Integer.valueOf(jIDVisita.getText()));
+                        objItenRol.setNomeVisita(jNomeVisita.getText());
+                        objItenRol.setIdInstituicao(Integer.valueOf(jIDInstituicaoReligiosa.getText()));
+                        objItenRol.setIdItemRol(Integer.valueOf(idItem));
+                        controle.alterarItensRolReligiao(objItenRol);
+                        objLog2();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        preencherTabelaItens("SELECT * FROM ITENS_ROL_VISITAS_RELIGIOSA "
+                                + "INNER JOIN VISITAS_RELIGIOSA_INTERNOS "
+                                + "ON ITENS_ROL_VISITAS_RELIGIOSA.IdVisitaRel=VISITAS_RELIGIOSA_INTERNOS.IdVisitaRel "
+                                + "WHERE IdRol='" + jIDRol.getText() + "'");
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        SalvarVisita();
+                    }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
     }//GEN-LAST:event_jBtSalvarVisitaActionPerformed
 
@@ -3020,6 +3072,43 @@ public class TelaRolVisitasReligiosas extends javax.swing.JInternalFrame {
         }
     }
 
+    public void buscarAcessoUsuario(String nomeTela) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUser = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUser + "'");
+            conecta.rs.first();
+            codigoUserGroup = conecta.rs.getInt("IdUsuario");
+            codigoGrupo = conecta.rs.getInt("IdGrupo");
+            nomeGrupo = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUser + "' "
+                    + "AND NomeTela='" + nomeTela + "'");
+            conecta.rs.first();
+            codUserAcesso = conecta.rs.getInt("IdUsuario");
+            codAbrir = conecta.rs.getInt("Abrir");
+            codIncluir = conecta.rs.getInt("Incluir");
+            codAlterar = conecta.rs.getInt("Alterar");
+            codExcluir = conecta.rs.getInt("Excluir");
+            codGravar = conecta.rs.getInt("Gravar");
+            codConsultar = conecta.rs.getInt("Consultar");
+            nomeTela = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
 //    dataDiaAtualSemana  = jDataSistema.getText();
 //    String dia = dataDiaAtualSemana.substring(0, 2);
 //    diaAtual  = Integer.parseInt(dia.trim());

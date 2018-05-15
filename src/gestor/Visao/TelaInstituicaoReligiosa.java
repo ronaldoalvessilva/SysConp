@@ -16,6 +16,15 @@ import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloServicoSocial.codAlterar;
+import static gestor.Visao.TelaModuloServicoSocial.codExcluir;
+import static gestor.Visao.TelaModuloServicoSocial.codGravar;
+import static gestor.Visao.TelaModuloServicoSocial.codIncluir;
+import static gestor.Visao.TelaModuloServicoSocial.codUserAcesso;
+import static gestor.Visao.TelaModuloServicoSocial.codigoUser;
+import static gestor.Visao.TelaModuloServicoSocial.nomeGrupo;
+import static gestor.Visao.TelaModuloServicoSocial.nomeTela;
+import static gestor.Visao.TelaModuloServicoSocial.telaInstituicaoRelSS;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -913,95 +922,110 @@ public class TelaInstituicaoReligiosa extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaInstituicaoRelSS) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        acao = 2;
-        Alterar();
-        corCampos();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaInstituicaoRelSS) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            acao = 2;
+            Alterar();
+            corCampos();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        verificarRegistro();
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        if (jCodigo.getText().equals(codIntstitucaoProf)) {
-            JOptionPane.showMessageDialog(rootPane, "O registro não pode ser excluído, o mesmo está\nsendo utilizado pelo rol de religiosos.");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objInst.setIdCod(Integer.parseInt(jCodigo.getText()));
-                control.excluirInstituicao(objInst);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                Excluir();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaInstituicaoRelSS) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            verificarRegistro();
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            if (jCodigo.getText().equals(codIntstitucaoProf)) {
+                JOptionPane.showMessageDialog(rootPane, "O registro não pode ser excluído, o mesmo está\nsendo utilizado pelo rol de religiosos.");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objInst.setIdCod(Integer.parseInt(jCodigo.getText()));
+                    control.excluirInstituicao(objInst);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    Excluir();
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataCadastro.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data de cadastro.");
-            jDataCadastro.requestFocus();
-        } else {
-            if (jNomeInstituicao.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe o nome da instituição.");
-                jNomeInstituicao.requestFocus();
-                jNomeInstituicao.setBackground(Color.red);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaInstituicaoRelSS) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jDataCadastro.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de cadastro.");
+                jDataCadastro.requestFocus();
             } else {
-                objInst.setStatusInst((String) jComboBoxStatus.getSelectedItem());
-                objInst.setDataCad(jDataCadastro.getDate());
-                objInst.setNomeInstituicao(jNomeInstituicao.getText());
-                objInst.setEndereco(jEnderecoInstituicao.getText());
-                objInst.setCidade(jCidadeInst.getText());
-                objInst.setEstado((String) jComboBoxEstado.getSelectedItem());
-                objInst.setTelefone(jTelefone.getText());
-                objInst.setTelefone1(jTelefone1.getText());
-                objInst.setCelular(jCelular.getText());
-                objInst.setCelular1(jCelular1.getText());
-                objInst.setEmail(jEmail.getText());
-                objInst.setContato(jContato.getText());
-                objInst.setObservacao(jObservacao.getText());
-                if (acao == 1) {
-                    objInst.setUsuarioInsert(nameUser);
-                    objInst.setDataInsert(dataModFinal);
-                    objInst.setHorarioInsert(horaMov);
-                    control.incluirInstituicao(objInst);
-                    buscarCod();
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    Salvar();
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                }
-                if (acao == 2) {
-                    objInst.setUsuarioUp(nameUser);
-                    objInst.setDataUp(dataModFinal);
-                    objInst.setHorarioUp(horaMov);
-                    objInst.setIdCod(Integer.valueOf(jCodigo.getText()));
-                    control.alterarInstituicao(objInst);
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    Salvar();
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                if (jNomeInstituicao.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe o nome da instituição.");
+                    jNomeInstituicao.requestFocus();
+                    jNomeInstituicao.setBackground(Color.red);
+                } else {
+                    objInst.setStatusInst((String) jComboBoxStatus.getSelectedItem());
+                    objInst.setDataCad(jDataCadastro.getDate());
+                    objInst.setNomeInstituicao(jNomeInstituicao.getText());
+                    objInst.setEndereco(jEnderecoInstituicao.getText());
+                    objInst.setCidade(jCidadeInst.getText());
+                    objInst.setEstado((String) jComboBoxEstado.getSelectedItem());
+                    objInst.setTelefone(jTelefone.getText());
+                    objInst.setTelefone1(jTelefone1.getText());
+                    objInst.setCelular(jCelular.getText());
+                    objInst.setCelular1(jCelular1.getText());
+                    objInst.setEmail(jEmail.getText());
+                    objInst.setContato(jContato.getText());
+                    objInst.setObservacao(jObservacao.getText());
+                    if (acao == 1) {
+                        objInst.setUsuarioInsert(nameUser);
+                        objInst.setDataInsert(dataModFinal);
+                        objInst.setHorarioInsert(horaMov);
+                        control.incluirInstituicao(objInst);
+                        buscarCod();
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        Salvar();
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    }
+                    if (acao == 2) {
+                        objInst.setUsuarioUp(nameUser);
+                        objInst.setDataUp(dataModFinal);
+                        objInst.setHorarioUp(horaMov);
+                        objInst.setIdCod(Integer.valueOf(jCodigo.getText()));
+                        control.alterarInstituicao(objInst);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        Salvar();
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
-
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
@@ -1021,7 +1045,8 @@ public class TelaInstituicaoReligiosa extends javax.swing.JInternalFrame {
         if (jIdPesq.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o código para pesquisa.");
         } else {
-            preencherTodasEntradas("SELECT * FROM INSTITUICAO_RELIGIOSA WHERE IdCod='" + jIdPesq.getText() + "'");
+            preencherTodasEntradas("SELECT * FROM INSTITUICAO_RELIGIOSA "
+                    + "WHERE IdCod='" + jIdPesq.getText() + "'");
         }
     }//GEN-LAST:event_jBtPesqIdActionPerformed
 
@@ -1045,7 +1070,8 @@ public class TelaInstituicaoReligiosa extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome da instituição para pesquisa.");
         } else {
             jTabelaInstituicao.setVisible(true);
-            preencherTodasEntradas("SELECT * FROM INSTITUICAO_RELIGIOSA WHERE NomeInstituicao LIKE'%" + jPesqNomeInstituicao.getText() + "%'");
+            preencherTodasEntradas("SELECT * FROM INSTITUICAO_RELIGIOSA "
+                    + "WHERE NomeInstituicao LIKE'%" + jPesqNomeInstituicao.getText() + "%'");
         }
     }//GEN-LAST:event_jBtPesqNomeInstActionPerformed
 
@@ -1064,7 +1090,8 @@ public class TelaInstituicaoReligiosa extends javax.swing.JInternalFrame {
             jBtAuditoria.setEnabled(true);
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM INSTITUICAO_RELIGIOSA WHERE IdCod ='" + IdLanc + "'");
+                conecta.executaSQL("SELECT * FROM INSTITUICAO_RELIGIOSA "
+                        + "WHERE IdCod ='" + IdLanc + "'");
                 conecta.rs.first();
                 jCodigo.setText(String.valueOf(conecta.rs.getInt("IdCod")));
                 jComboBoxStatus.setSelectedItem(conecta.rs.getString("StatusInst"));

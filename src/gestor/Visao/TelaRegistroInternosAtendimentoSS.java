@@ -23,7 +23,7 @@ import static gestor.Visao.TelaBiometriaEntradaSaidaPortaria.caminhoFotoInterno;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloServicoSocial.codAbrir;
 import static gestor.Visao.TelaModuloServicoSocial.codAlterar;
-import static gestor.Visao.TelaModuloServicoSocial.codConcultar;
+import static gestor.Visao.TelaModuloServicoSocial.codConsultar;
 import static gestor.Visao.TelaModuloServicoSocial.codExcluir;
 import static gestor.Visao.TelaModuloServicoSocial.codGravar;
 import static gestor.Visao.TelaModuloServicoSocial.codIncluir;
@@ -1498,7 +1498,7 @@ public class TelaRegistroInternosAtendimentoSS extends javax.swing.JInternalFram
             codAlterar = conecta.rs.getInt("Alterar");
             codExcluir = conecta.rs.getInt("Excluir");
             codGravar = conecta.rs.getInt("Gravar");
-            codConcultar = conecta.rs.getInt("Consultar");
+            codConsultar = conecta.rs.getInt("Consultar");
             nomeTela = conecta.rs.getString("NomeTela");
         } catch (Exception e) {
         }

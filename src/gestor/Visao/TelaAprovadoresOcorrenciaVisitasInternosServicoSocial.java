@@ -14,6 +14,17 @@ import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloServicoSocial.codAbrir;
+import static gestor.Visao.TelaModuloServicoSocial.codAlterar;
+import static gestor.Visao.TelaModuloServicoSocial.codExcluir;
+import static gestor.Visao.TelaModuloServicoSocial.codGravar;
+import static gestor.Visao.TelaModuloServicoSocial.codIncluir;
+import static gestor.Visao.TelaModuloServicoSocial.codUserAcesso;
+import static gestor.Visao.TelaModuloServicoSocial.codigoUser;
+import static gestor.Visao.TelaModuloServicoSocial.nomeGrupo;
+import static gestor.Visao.TelaModuloServicoSocial.nomeTela;
+import static gestor.Visao.TelaModuloServicoSocial.telaAprovadoresOcrSS;
+import static gestor.Visao.TelaModuloServicoSocial.telaRolVisitasSS;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -656,7 +667,7 @@ public class TelaAprovadoresOcorrenciaVisitasInternosServicoSocial extends javax
 
     private void jTabelaAprovadoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaAprovadoresMouseClicked
         // TODO add your handling code here:
-         flag = 1;
+        flag = 1;
         if (flag == 1) {
             String codigoReg = "" + jTabelaAprovadores.getValueAt(jTabelaAprovadores.getSelectedRow(), 0);
             jCodigoPesquisa.setText(codigoReg);
@@ -674,7 +685,7 @@ public class TelaAprovadoresOcorrenciaVisitasInternosServicoSocial extends javax
                         + "INNER JOIN USUARIOS "
                         + "ON APROVADORES_OCORRENCIA_PORTARIA.IdUsuario=USUARIOS.IdUsuario "
                         + "INNER JOIN GRUPOUSUARIOS "
-                        + "ON USUARIOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "                        
+                        + "ON USUARIOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
                         + "WHERE APROVADORES_OCORRENCIA_PORTARIA.IdAprova='" + codigoReg + "'");
                 conecta.rs.first();
                 jCodigo.setText(String.valueOf(conecta.rs.getInt("IdAprova")));
@@ -683,7 +694,7 @@ public class TelaAprovadoresOcorrenciaVisitasInternosServicoSocial extends javax
                 jCodigoColaborador.setText(String.valueOf(conecta.rs.getInt("IdUsuario")));
                 jModuloLiberador.setText("SERVIÇO SOCIAL");
                 jNomeAprovador.setText(conecta.rs.getString("NomeUsuario"));
-                jNomeGrupo.setText(conecta.rs.getString("NomeGrupo"));               
+                jNomeGrupo.setText(conecta.rs.getString("NomeGrupo"));
                 jTextoObservacao.setText(conecta.rs.getString("Observacao"));
                 conecta.desconecta();
             } catch (SQLException ex) {
@@ -694,65 +705,80 @@ public class TelaAprovadoresOcorrenciaVisitasInternosServicoSocial extends javax
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaAprovadoresOcrSS) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            acao = 1;
+            Novo();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        acao = 2;
-        Alterar();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaAprovadoresOcrSS) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            acao = 2;
+            Alterar();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        Excluir();
-
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaAprovadoresOcrSS) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            Excluir();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataRegistro.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data do registro.");
-        } else if (jNomeAprovador.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do Colaborador Aprovador.");
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaAprovadoresOcrSS) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jDataRegistro.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data do registro.");
+            } else if (jNomeAprovador.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do Colaborador Aprovador.");
+            } else {
+                objAprova.setStatusAprova((String) jComboBoxStatus.getSelectedItem());
+                objAprova.setDataAprova(jDataRegistro.getDate());
+                objAprova.setNomeColaborador(jNomeAprovador.getText());
+                objAprova.setObservacao(jTextoObservacao.getText());
+                objAprova.setModDep(modulo);
+                if (acao == 1) {
+                    objAprova.setUsuarioInsert(nameUser);
+                    objAprova.setDataInsert(dataModFinal);
+                    objAprova.setHorarioInsert(horaMov);
+                    control.incluirAprovadorOcorrencia(objAprova);
+                    buscarCodigo();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    Salvar();
+                }
+                if (acao == 2) {
+                    objAprova.setUsuarioUp(nameUser);
+                    objAprova.setDataUp(dataModFinal);
+                    objAprova.setHorarioUp(horaMov);
+                    objAprova.setIdAprova(Integer.valueOf(jCodigo.getText()));
+                    control.alterarAprovadorOcorrencia(objAprova);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    Salvar();
+                }
+            }
         } else {
-            objAprova.setStatusAprova((String) jComboBoxStatus.getSelectedItem());
-            objAprova.setDataAprova(jDataRegistro.getDate());
-            objAprova.setNomeColaborador(jNomeAprovador.getText());
-            objAprova.setObservacao(jTextoObservacao.getText());            
-            objAprova.setModDep(modulo);
-            if (acao == 1) {
-                objAprova.setUsuarioInsert(nameUser);
-                objAprova.setDataInsert(dataModFinal);
-                objAprova.setHorarioInsert(horaMov);
-                control.incluirAprovadorOcorrencia(objAprova);
-                buscarCodigo();
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                Salvar();
-            }
-            if (acao == 2) {
-                objAprova.setUsuarioUp(nameUser);
-                objAprova.setDataUp(dataModFinal);
-                objAprova.setHorarioUp(horaMov);
-                objAprova.setIdAprova(Integer.valueOf(jCodigo.getText()));
-                control.alterarAprovadorOcorrencia(objAprova);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                Salvar();
-            }
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -843,7 +869,7 @@ public class TelaAprovadoresOcorrenciaVisitasInternosServicoSocial extends javax
         jCodigoColaborador.setBackground(Color.white);
         jModuloLiberador.setBackground(Color.white);
         jNomeAprovador.setBackground(Color.white);
-        jNomeGrupo.setBackground(Color.white);       
+        jNomeGrupo.setBackground(Color.white);
         jTextoObservacao.setBackground(Color.white);
     }
 
@@ -970,7 +996,7 @@ public class TelaAprovadoresOcorrenciaVisitasInternosServicoSocial extends javax
             conecta.rs.last();
             jCodigo.setText(conecta.rs.getString("IdAprova"));
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "Não foi possível obter o código do registro.\nERRO: " +e);
+            JOptionPane.showMessageDialog(rootPane, "Não foi possível obter o código do registro.\nERRO: " + e);
         }
         conecta.desconecta();
     }

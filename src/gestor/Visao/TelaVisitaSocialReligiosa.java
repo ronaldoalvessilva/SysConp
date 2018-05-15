@@ -17,6 +17,15 @@ import gestor.Modelo.VisitaInterno;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloServicoSocial.codAlterar;
+import static gestor.Visao.TelaModuloServicoSocial.codExcluir;
+import static gestor.Visao.TelaModuloServicoSocial.codGravar;
+import static gestor.Visao.TelaModuloServicoSocial.codIncluir;
+import static gestor.Visao.TelaModuloServicoSocial.codUserAcesso;
+import static gestor.Visao.TelaModuloServicoSocial.codigoUser;
+import static gestor.Visao.TelaModuloServicoSocial.nomeGrupo;
+import static gestor.Visao.TelaModuloServicoSocial.nomeTela;
+import static gestor.Visao.TelaModuloServicoSocial.telaVisitantesRelSS;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -1006,112 +1015,129 @@ public class TelaVisitaSocialReligiosa extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaVisitantesRelSS) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        acao = 2;
-        Alterar();
-        corCampos();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaVisitantesRelSS) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            acao = 2;
+            Alterar();
+            corCampos();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
-        // TODO add your handling code here:     
-        JOptionPane.showMessageDialog(rootPane, "Sendo construido.");
-//        buscarVisistaRol();
+        // TODO add your handling code here:  
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaVisitantesRelSS) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            JOptionPane.showMessageDialog(rootPane, "Sendo construido.");
+            buscarVisistaRol();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jNomeVisita.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Informe o nome do visitante (a)");
-            jNomeVisita.requestFocus();
-            jNomeVisita.setBackground(Color.red);
-        } else if (caminho == null) {
-            JOptionPane.showMessageDialog(null, "A foto do visitante não pode ser em branco.");
-        } else if (jDataCadastro.getDate() == null) {
-            JOptionPane.showMessageDialog(null, "Informe a data de cadastro.");
-            jDataCadastro.requestFocus();
-            jDataCadastro.setBackground(Color.red);
-        } else if (jDataValiAntece.getDate() == null) {
-            JOptionPane.showMessageDialog(null, "Data de Validade não pode ser em branco.");
-            jDataValiAntece.requestFocus();
-            jDataValiAntece.setBackground(Color.red);
-        } else if (jDataNascVisita.getDate() == null) {
-            JOptionPane.showMessageDialog(null, "Informe a data de nascimento da visita.");
-            jDataNascVisita.requestFocus();
-            jDataNascVisita.setBackground(Color.red);
-        } else if (jRG.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Informe o RG da visita.");
-        } else if (jComboBoxAdultoCrianca.getSelectedItem() == null) {
-            JOptionPane.showMessageDialog(null, "Informe se a visita é adulto ou criança.");
-        } else if (jComboBoxAdultoCrianca.getSelectedItem().equals("Selecione")) {
-            JOptionPane.showMessageDialog(null, "Informe se a visita é adulto ou criança.");
-        } else {
-            objVisita.setStatusVisita((String) jComboBoxStatus.getSelectedItem());
-            objVisita.setNomeVisita(jNomeVisita.getText());
-            objVisita.setFoto(caminho);
-            objVisita.setParentescoVisita(jReligiao.getText());
-            objVisita.setDataNascVisita(jDataNascVisita.getDate());
-            objVisita.setSexoVisita((String) jComboBoxSexo.getSelectedItem());
-            objVisita.setDataCadVisita(jDataCadastro.getDate());
-            objVisita.setAdultoCrianca((String) jComboBoxAdultoCrianca.getSelectedItem());
-            objVisita.setEnderecoVisita(jEnderecoVisita.getText());
-            objVisita.setBairroVisita(jBairroVisita.getText());
-            objVisita.setCidadeVisita(jCidade.getText());
-            objVisita.setCepVisita(jCEP.getText());
-            objVisita.setEstadoVisita(jEstado.getText());
-            objVisita.setTelefoneVisita(jTelefone.getText());
-            objVisita.setTelefone1Visita(jTelefone1.getText());
-            objVisita.setCelularVisita(jCelular.getText());
-            objVisita.setCelular1Visita(jCelular1.getText());
-            objVisita.setRg(jRG.getText());
-            objVisita.setEmissor(jemissor.getText());
-            objVisita.setCpf(jCPF.getText());
-            objVisita.setDataAntecedente(jDataValiAntece.getDate());
-            conecta.abrirConexao();
-            try {
-                conecta.executaSQL("SELECT * FROM VISITAS_RELIGIOSA_INTERNOS WHERE NomeVisitaRel='" + jNomeVisita.getText() + "'");
-                conecta.rs.first();
-                nomeVisitaInterno = conecta.rs.getString("NomeVisitaRel");
-                numeroRG = conecta.rs.getString("RgVisitaRel");
-            } catch (SQLException ex) {
-            }
-            if (acao == 1 && jNomeVisita.getText().trim().equals(nomeVisitaInterno) && jRG.getText().trim().equals(numeroRG)) {
-                JOptionPane.showMessageDialog(rootPane, "Essa visita já foi cadastrada, verifique o cadastro da mesma.");
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaVisitantesRelSS) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jNomeVisita.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe o nome do visitante (a)");
+                jNomeVisita.requestFocus();
+                jNomeVisita.setBackground(Color.red);
+            } else if (caminho == null) {
+                JOptionPane.showMessageDialog(null, "A foto do visitante não pode ser em branco.");
+            } else if (jDataCadastro.getDate() == null) {
+                JOptionPane.showMessageDialog(null, "Informe a data de cadastro.");
+                jDataCadastro.requestFocus();
+                jDataCadastro.setBackground(Color.red);
+            } else if (jDataValiAntece.getDate() == null) {
+                JOptionPane.showMessageDialog(null, "Data de Validade não pode ser em branco.");
+                jDataValiAntece.requestFocus();
+                jDataValiAntece.setBackground(Color.red);
+            } else if (jDataNascVisita.getDate() == null) {
+                JOptionPane.showMessageDialog(null, "Informe a data de nascimento da visita.");
+                jDataNascVisita.requestFocus();
+                jDataNascVisita.setBackground(Color.red);
+            } else if (jRG.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe o RG da visita.");
+            } else if (jComboBoxAdultoCrianca.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(null, "Informe se a visita é adulto ou criança.");
+            } else if (jComboBoxAdultoCrianca.getSelectedItem().equals("Selecione")) {
+                JOptionPane.showMessageDialog(null, "Informe se a visita é adulto ou criança.");
             } else {
-                if (acao == 1) {
-                    objVisita.setUsuarioInsert(nameUser);
-                    objVisita.setDataInsert(dataModFinal);
-                    objVisita.setHoraInsert(horaMov);
-                    control.incluirVisitaInterno(objVisita);
-                    buscarCodVisita();
+                objVisita.setStatusVisita((String) jComboBoxStatus.getSelectedItem());
+                objVisita.setNomeVisita(jNomeVisita.getText());
+                objVisita.setFoto(caminho);
+                objVisita.setParentescoVisita(jReligiao.getText());
+                objVisita.setDataNascVisita(jDataNascVisita.getDate());
+                objVisita.setSexoVisita((String) jComboBoxSexo.getSelectedItem());
+                objVisita.setDataCadVisita(jDataCadastro.getDate());
+                objVisita.setAdultoCrianca((String) jComboBoxAdultoCrianca.getSelectedItem());
+                objVisita.setEnderecoVisita(jEnderecoVisita.getText());
+                objVisita.setBairroVisita(jBairroVisita.getText());
+                objVisita.setCidadeVisita(jCidade.getText());
+                objVisita.setCepVisita(jCEP.getText());
+                objVisita.setEstadoVisita(jEstado.getText());
+                objVisita.setTelefoneVisita(jTelefone.getText());
+                objVisita.setTelefone1Visita(jTelefone1.getText());
+                objVisita.setCelularVisita(jCelular.getText());
+                objVisita.setCelular1Visita(jCelular1.getText());
+                objVisita.setRg(jRG.getText());
+                objVisita.setEmissor(jemissor.getText());
+                objVisita.setCpf(jCPF.getText());
+                objVisita.setDataAntecedente(jDataValiAntece.getDate());
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM VISITAS_RELIGIOSA_INTERNOS "
+                            + "WHERE NomeVisitaRel='" + jNomeVisita.getText() + "'");
+                    conecta.rs.first();
+                    nomeVisitaInterno = conecta.rs.getString("NomeVisitaRel");
+                    numeroRG = conecta.rs.getString("RgVisitaRel");
+                } catch (SQLException ex) {
+                }
+                if (acao == 1 && jNomeVisita.getText().trim().equals(nomeVisitaInterno) && jRG.getText().trim().equals(numeroRG)) {
+                    JOptionPane.showMessageDialog(rootPane, "Essa visita já foi cadastrada, verifique o cadastro da mesma.");
+                } else {
+                    if (acao == 1) {
+                        objVisita.setUsuarioInsert(nameUser);
+                        objVisita.setDataInsert(dataModFinal);
+                        objVisita.setHoraInsert(horaMov);
+                        control.incluirVisitaInterno(objVisita);
+                        buscarCodVisita();
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        Salvar();
+                        JOptionPane.showMessageDialog(null, "Registro gravado com sucesso.");
+                    }
+                }
+                if (acao == 2) {
+                    objVisita.setUsuarioUp(nameUser);
+                    objVisita.setDataUp(dataModFinal);
+                    objVisita.setHoraUp(horaMov);
+                    objVisita.setIdVisita(Integer.valueOf(jIDVisita.getText()));
+                    control.alterarVisitaInterno(objVisita);
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     Salvar();
                     JOptionPane.showMessageDialog(null, "Registro gravado com sucesso.");
                 }
             }
-            if (acao == 2) {
-                objVisita.setUsuarioUp(nameUser);
-                objVisita.setDataUp(dataModFinal);
-                objVisita.setHoraUp(horaMov);
-                objVisita.setIdVisita(Integer.valueOf(jIDVisita.getText()));
-                control.alterarVisitaInterno(objVisita);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                Salvar();
-                JOptionPane.showMessageDialog(null, "Registro gravado com sucesso.");
-            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -1153,7 +1179,7 @@ public class TelaVisitaSocialReligiosa extends javax.swing.JInternalFrame {
         flag = 1;
         if (jPesqNomeVisita.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Informe o nome para pesquisa.");
-        } else {            
+        } else {
             preencherVisitasNome("SELECT * FROM VISITAS_RELIGIOSA_INTERNOS "
                     + "WHERE NomeVisitaRel LIKE'%" + jPesqNomeVisita.getText() + "%'");
         }
@@ -1173,7 +1199,8 @@ public class TelaVisitaSocialReligiosa extends javax.swing.JInternalFrame {
             jBtAuditoria.setEnabled(true);
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM VISITAS_RELIGIOSA_INTERNOS WHERE NomeVisitaRel='" + nomeVisita + "' "
+                conecta.executaSQL("SELECT * FROM VISITAS_RELIGIOSA_INTERNOS "
+                        + "WHERE NomeVisitaRel='" + nomeVisita + "' "
                         + "AND IdVisitaRel='" + codVisista + "'");
                 conecta.rs.first();
                 jIDVisita.setText(String.valueOf(conecta.rs.getInt("IdVisitaRel")));
@@ -1815,11 +1842,11 @@ public class TelaVisitaSocialReligiosa extends javax.swing.JInternalFrame {
     public void buscarVisistaRol() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ITENSROL WHERE IdVisita='" + jIDVisita.getText() + "'");
+            conecta.executaSQL("SELECT * FROM ITENS_ROL_VISITAS_RELIGIOSA "
+                    + "WHERE IdVisita='" + jIDVisita.getText() + "'");
             conecta.rs.first();
             idVisita = conecta.rs.getString("IdVisita");
         } catch (SQLException ex) {
-            // JOptionPane.showMessageDialog(rootPane, "Não foi possível obter os dados do Rol.\n ERRO: " + ex);
         }
         if (jIDVisita.getText().equals(idVisita)) {
             JOptionPane.showMessageDialog(rootPane, "Esse registro não pode ser excluído, o mesmo\nestá sendo utilizado por outro registro.");

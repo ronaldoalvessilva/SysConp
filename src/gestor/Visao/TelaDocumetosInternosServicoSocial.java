@@ -14,6 +14,16 @@ import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloServicoSocial.codAlterar;
+import static gestor.Visao.TelaModuloServicoSocial.codExcluir;
+import static gestor.Visao.TelaModuloServicoSocial.codGravar;
+import static gestor.Visao.TelaModuloServicoSocial.codIncluir;
+import static gestor.Visao.TelaModuloServicoSocial.codUserAcesso;
+import static gestor.Visao.TelaModuloServicoSocial.codigoUser;
+import static gestor.Visao.TelaModuloServicoSocial.nomeGrupo;
+import static gestor.Visao.TelaModuloServicoSocial.nomeTela;
+import static gestor.Visao.TelaModuloServicoSocial.telaListaDocumentosSS;
+import static gestor.Visao.TelaModuloServicoSocial.telaRolVisitasSS;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -1140,109 +1150,125 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaListaDocumentosSS) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        acao = 2;
-        Alterar();
-        corCampos();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaListaDocumentosSS) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            acao = 2;
+            Alterar();
+            corCampos();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        verificarDevolucaoDoc();
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        if (jIdLanc.getText().equals(codigoRregistro)) {
-            JOptionPane.showMessageDialog(rootPane, "Não é possível excluir esse registro, foram devolvidos documentos do interno.");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir registro selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objDocInternos.setIdDoc(Integer.valueOf(jIdLanc.getText()));
-                control.excluirDocumentosInternos(objDocInternos);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                Excluir();
-                JOptionPane.showMessageDialog(rootPane, "Registro excluido com sucesso.");
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaListaDocumentosSS) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            verificarDevolucaoDoc();
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            if (jIdLanc.getText().equals(codigoRregistro)) {
+                JOptionPane.showMessageDialog(rootPane, "Não é possível excluir esse registro, foram devolvidos documentos do interno.");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objDocInternos.setIdDoc(Integer.valueOf(jIdLanc.getText()));
+                    control.excluirDocumentosInternos(objDocInternos);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    Excluir();
+                    JOptionPane.showMessageDialog(rootPane, "Registro excluido com sucesso.");
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataLanc.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data de cadastro do documento.");
-            jDataLanc.requestFocus();
-            jDataLanc.setBackground(Color.red);
-        } else {
-            if (jNomeInterno.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaListaDocumentosSS) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jDataLanc.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de cadastro do documento.");
+                jDataLanc.requestFocus();
+                jDataLanc.setBackground(Color.red);
             } else {
-                objDocInternos.setStatusDoc((String) jComboBoxStatus.getSelectedItem());
-                objDocInternos.setDataDoc(jDataLanc.getDate());
-                objDocInternos.setRgDoc((String) jComboBoxRG.getSelectedItem());
-                objDocInternos.setCpfDoc((String) jComboBoxCPF.getSelectedItem());
-                objDocInternos.setCnhDoc((String) jComboBoxCNH.getSelectedItem());
-                objDocInternos.setTituloDoc((String) jComboBoxTitulo.getSelectedItem());
-                objDocInternos.setOutrosDoc((String) jComboBoxOutrosDoc.getSelectedItem());
-                objDocInternos.setReservistaDoc((String) jComboBoxReservista.getSelectedItem());
-                objDocInternos.setCtpsDoc((String) jComboBoxCTPS.getSelectedItem());
-                objDocInternos.setcNascimentoDoc((String) jComboBoxCertidaoNasc.getSelectedItem());
-                objDocInternos.setcCasamentoDoc((String) jComboBoxCertidaoCasa.getSelectedItem());
-                objDocInternos.setObservacaoDoc(jObservacao.getText());
-                //
-                objDocInternos.setrGVia((String) jComboBoxRGVia.getSelectedItem());
-                objDocInternos.setcPFVia((String) jComboBoxCPFVia.getSelectedItem());
-                objDocInternos.setcNHVia((String) jComboBoxCNHVia.getSelectedItem());
-                objDocInternos.setReservistaVia((String) jComboBoxReservistaVia.getSelectedItem());
-                objDocInternos.setcTPSVia((String) jComboBoxCTPSVia.getSelectedItem());
-                objDocInternos.setCertidaoNascVia((String) jComboBoxCertidaoNascVia.getSelectedItem());
-                objDocInternos.setTituloVia((String) jComboBoxEleitorVia.getSelectedItem());
-                objDocInternos.setCertidaoCasaVia((String) jComboBoxCertidaoCasaVia.getSelectedItem());
-                objDocInternos.setPassaporteVia((String) jComboBoxPassaporteVia.getSelectedItem());
-
-                if (acao == 1) {
-                    // Log do Sistema
-                    objDocInternos.setUsuarioInsert(nameUser);
-                    objDocInternos.setDataInsert(jDataSistema.getText());
-                    objDocInternos.setHorarioInsert(jHoraSistema.getText());
-                    objDocInternos.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
-                    objDocInternos.setNomeInterno(jNomeInterno.getText());
-                    control.incluirDocumentosInternos(objDocInternos);
-                    buscarId();
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(null, "Registro GRAVADO com sucesso!!!");
-                    Salvar();
-                }
-                if (acao == 2) {
-                    // Log do Sistema
-                    objDocInternos.setUsuarioUp(nameUser);
-                    objDocInternos.setDataUp(jDataSistema.getText());
-                    objDocInternos.setHorarioUp(jHoraSistema.getText());
+                if (jNomeInterno.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
+                } else {
+                    objDocInternos.setStatusDoc((String) jComboBoxStatus.getSelectedItem());
+                    objDocInternos.setDataDoc(jDataLanc.getDate());
+                    objDocInternos.setRgDoc((String) jComboBoxRG.getSelectedItem());
+                    objDocInternos.setCpfDoc((String) jComboBoxCPF.getSelectedItem());
+                    objDocInternos.setCnhDoc((String) jComboBoxCNH.getSelectedItem());
+                    objDocInternos.setTituloDoc((String) jComboBoxTitulo.getSelectedItem());
+                    objDocInternos.setOutrosDoc((String) jComboBoxOutrosDoc.getSelectedItem());
+                    objDocInternos.setReservistaDoc((String) jComboBoxReservista.getSelectedItem());
+                    objDocInternos.setCtpsDoc((String) jComboBoxCTPS.getSelectedItem());
+                    objDocInternos.setcNascimentoDoc((String) jComboBoxCertidaoNasc.getSelectedItem());
+                    objDocInternos.setcCasamentoDoc((String) jComboBoxCertidaoCasa.getSelectedItem());
+                    objDocInternos.setObservacaoDoc(jObservacao.getText());
                     //
-                    objDocInternos.setIdDoc(Integer.valueOf(jIdLanc.getText()));
-                    objDocInternos.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
-                    objDocInternos.setNomeInterno(jNomeInterno.getText());
-                    control.alterarDocumentosInternos(objDocInternos);
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(null, "Registro GRAVADO com sucesso!!!");
-                    Salvar();
+                    objDocInternos.setrGVia((String) jComboBoxRGVia.getSelectedItem());
+                    objDocInternos.setcPFVia((String) jComboBoxCPFVia.getSelectedItem());
+                    objDocInternos.setcNHVia((String) jComboBoxCNHVia.getSelectedItem());
+                    objDocInternos.setReservistaVia((String) jComboBoxReservistaVia.getSelectedItem());
+                    objDocInternos.setcTPSVia((String) jComboBoxCTPSVia.getSelectedItem());
+                    objDocInternos.setCertidaoNascVia((String) jComboBoxCertidaoNascVia.getSelectedItem());
+                    objDocInternos.setTituloVia((String) jComboBoxEleitorVia.getSelectedItem());
+                    objDocInternos.setCertidaoCasaVia((String) jComboBoxCertidaoCasaVia.getSelectedItem());
+                    objDocInternos.setPassaporteVia((String) jComboBoxPassaporteVia.getSelectedItem());
+
+                    if (acao == 1) {
+                        // Log do Sistema
+                        objDocInternos.setUsuarioInsert(nameUser);
+                        objDocInternos.setDataInsert(jDataSistema.getText());
+                        objDocInternos.setHorarioInsert(jHoraSistema.getText());
+                        objDocInternos.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                        objDocInternos.setNomeInterno(jNomeInterno.getText());
+                        control.incluirDocumentosInternos(objDocInternos);
+                        buscarId();
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(null, "Registro GRAVADO com sucesso!!!");
+                        Salvar();
+                    }
+                    if (acao == 2) {
+                        // Log do Sistema
+                        objDocInternos.setUsuarioUp(nameUser);
+                        objDocInternos.setDataUp(jDataSistema.getText());
+                        objDocInternos.setHorarioUp(jHoraSistema.getText());
+                        //
+                        objDocInternos.setIdDoc(Integer.valueOf(jIdLanc.getText()));
+                        objDocInternos.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                        objDocInternos.setNomeInterno(jNomeInterno.getText());
+                        control.alterarDocumentosInternos(objDocInternos);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(null, "Registro GRAVADO com sucesso!!!");
+                        Salvar();
+                    }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 

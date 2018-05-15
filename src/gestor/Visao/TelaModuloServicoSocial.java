@@ -135,7 +135,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     public static int codAlterar = 0;
     public static int codExcluir = 0;
     public static int codGravar = 0;
-    public static int codConcultar = 0;
+    public static int codConsultar = 0;
     public static int codigoGrupo = 0;
     public static String nomeGrupo = "";
     public static String nomeTela = "";
@@ -154,17 +154,33 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     public static String telaAprovadoresOcrSS = "Cadastro:Aprovadores de Ocorrências Indisciplinas Visitas:Manutenção";
     public static String telaRegistroAtendimentoBioSS = "Cadastro:Registro de Atendimento Internos Biometria:Manutenção";
     // MOVIMENTAÇÃO
-    public static String telaAdmEvolucaoInternosSS = "";
-    public static String telaPerfilPopCarcerariaSS = "";
-    public static String telaAtualizacaoDocSS = "";
-    public static String telaAtendimentoFamiliaSS = "";
-    public static String telaCancelaVisita = "";
-    public static String telaPAISS = "";
-    public static String telaBloqueioLiberacaoVisitasSS = "";
-    public static String telaControleLigacoesTelSS = "";
-    public static String telaOcorrenciasSS = "";
-    public static String telaHistAvaSocial = "";
-    public static String telaHistAvaEmprego = "";
+    public static String telaAdmEvolucaoInternosSS = "Movimentação:Admissão de Internos:Admissão";
+    public static String telaAdmEvolucaoInternosEvoSS = "Movimentação:Admissão de Internos:Evolução";
+    public static String telaPerfilPopCarcerariaSS = "Movimentação:Pérfil Carcerário:Manutenção";
+    public static String telaPerfilPopCarcerariaPerfilSS = "Movimentação:Pérfil Carcerário:Pérfil Carcerário";
+    public static String telaAtualizacaoDocSS = "Movimentação:Atualização de Documentos Internos:Manutenção";
+    public static String telaAtendimentoFamiliaSS = "Movimentação:Atendimento Familia:Manutenção";
+    public static String telaCancelaVisitaSS = "Movimentação:Cancelamento de Visitantes:Manutenção";
+    public static String telaCancelaVisitaVistasExtSS = "Movimentação:Cancelamento de Visitantes:Visitas Externas";
+    public static String telaCancelaVisitaVistasIntSS = "Movimentação:Cancelamento de Visitantes:Visitas Internas";
+    public static String telaPAISS = "Movimentação:P.A.I.:Manutenção";
+    public static String telaPaiCCGF_SS = "Movimentação:P.A.I.:C.C.G.F.";
+    public static String telaPaiCCGFFam_SS = "Movimentação:P.A.I.:C.C.G.F.:Familia";
+    public static String telaPaiCCGFVis_SS = "Movimentação:P.A.I.:C.C.G.F.:Visita";
+    public static String telaPaiCCGFVisInt_SS = "Movimentação:P.A.I.:C.C.G.F.:Visita Intima";
+    public static String telaPaiDEME_SS = "Movimentação:P.A.I.:D.E.M.E.";
+    public static String telaPaiDPTL_SS = "Movimentação:P.A.I.:D.P.T.L.";
+    public static String telaPaiDJ_SS = "Movimentação:P.A.I.:D.J.";
+    public static String telaPaiDS_SS = "Movimentação:P.A.I.:D.S.";
+    public static String telaPaiEAPI1_SS = "Movimentação:P.A.I.:E.A.P.I.-1";
+    public static String telaPaiEAPI2_SS = "Movimentação:P.A.I.:E.A.P.I.-2";
+    public static String telaPaiEPAI_SS = "Movimentação:P.A.I.:E-PAI";
+    public static String telaBloqueioLiberacaoVisitasSS = "Movimentação:Bloqueio/Desbloqueio de Ocorrência Portaria:Manutenção";
+    public static String telaBloqueioLiberacaoOcorrenciaSS = "Movimentação:Bloqueio/Desbloqueio de Ocorrência Portaria:Ocorrência";
+    public static String telaControleLigacoesTelSS = "Movimentação:Controle de Ligações:Manutenção";
+    public static String telaOcorrenciasSS = "Movimentação:Ocorrências do Serviço Social:Manutenção";
+    public static String telaHistAvaSocial = "Movimentação:Histórico de Avaliação Social:Manutenção";
+    public static String telaHistAvaEmprego = "Movimentação:Histórico de Avaliação de Emprego:Manutenção";
     //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
@@ -181,7 +197,35 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     String pNomeAO = "";
     String pNomeRAB = "";
     // MOVIMENTAÇÃO
-    
+    String pNomeAEI = "";
+    String pNomeAEIE = "";
+    String pNomePPC = "";
+    String pNomePPCP = "";
+    String pNomeAD = "";
+    String pNomeAF = "";
+    String pNomeCVS = "";
+    String pNomeCVVE = "";
+    String pNomeCVVI = "";
+    //P.A.I.
+    String pNomePPM = "";
+    String pNomePCCGF = "";
+    String pNomePCCGFa = "";
+    String pNomePCCGFVis = "";
+    String pNomePCCGFVisInt = "";
+    String pNomePDEME = "";
+    String pNomePDPTL = "";
+    String pNomePDJ = "";
+    String pNomePDS = "";
+    String pNomePEADPI1 = "";
+    String pNomePEADPI2 = "";
+    String pNomePEPAI = "";
+    String pNomeBLV = "";
+    String pNomeBLO = "";
+    String pNomeCLT = "";
+    String pNomeOCO = "";
+    String pNomeHAS = "";
+    String pNomeHAE = "";
+    //
 
     /**
      * Creates new form TelaServioSocial
@@ -779,59 +823,69 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
 
     private void VistantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VistantesActionPerformed
         // TODO add your handling code here:
-        if (objVsocial == null || objVsocial.isClosed()) {
-            objVsocial = new TelaVisitaSocial();
-            jPainelServicoSocial.add(objVsocial);
-            objVsocial.setVisible(true);
-        } else {
-            if (objVsocial.isVisible()) {
-                if (objVsocial.isIcon()) { // Se esta minimizado
-                    try {
-                        objVsocial.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaCadastroVisitasSS);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaCadastroVisitasSS) && codAbrir == 1) {
+            if (objVsocial == null || objVsocial.isClosed()) {
+                objVsocial = new TelaVisitaSocial();
+                jPainelServicoSocial.add(objVsocial);
+                objVsocial.setVisible(true);
+            } else {
+                if (objVsocial.isVisible()) {
+                    if (objVsocial.isIcon()) { // Se esta minimizado
+                        try {
+                            objVsocial.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objVsocial.toFront(); // traz para frente
+                        objVsocial.pack();//volta frame 
                     }
                 } else {
-                    objVsocial.toFront(); // traz para frente
-                    objVsocial.pack();//volta frame 
+                    objVsocial = new TelaVisitaSocial();
+                    TelaModuloServicoSocial.jPainelServicoSocial.add(objVsocial);//adicona frame ao JDesktopPane  
+                    objVsocial.setVisible(true);
                 }
-            } else {
-                objVsocial = new TelaVisitaSocial();
-                TelaModuloServicoSocial.jPainelServicoSocial.add(objVsocial);//adicona frame ao JDesktopPane  
-                objVsocial.setVisible(true);
             }
-        }
-        try {
-            objVsocial.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objVsocial.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_VistantesActionPerformed
 
     private void RolVisitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RolVisitasActionPerformed
         // TODO add your handling code here:
-        if (objRolVis == null || objRolVis.isClosed()) {
-            objRolVis = new TelaRolVisitas();
-            jPainelServicoSocial.add(objRolVis);
-            objRolVis.setVisible(true);
-        } else {
-            if (objRolVis.isVisible()) {
-                if (objRolVis.isIcon()) { // Se esta minimizado
-                    try {
-                        objRolVis.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaRolVisitasSS);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaRolVisitasSS) && codAbrir == 1) {
+            if (objRolVis == null || objRolVis.isClosed()) {
+                objRolVis = new TelaRolVisitas();
+                jPainelServicoSocial.add(objRolVis);
+                objRolVis.setVisible(true);
+            } else {
+                if (objRolVis.isVisible()) {
+                    if (objRolVis.isIcon()) { // Se esta minimizado
+                        try {
+                            objRolVis.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objRolVis.toFront(); // traz para frente
+                        objRolVis.pack();//volta frame 
                     }
                 } else {
-                    objRolVis.toFront(); // traz para frente
-                    objRolVis.pack();//volta frame 
+                    objRolVis = new TelaRolVisitas();
+                    TelaModuloServicoSocial.jPainelServicoSocial.add(objRolVis);//adicona frame ao JDesktopPane  
+                    objRolVis.setVisible(true);
                 }
-            } else {
-                objRolVis = new TelaRolVisitas();
-                TelaModuloServicoSocial.jPainelServicoSocial.add(objRolVis);//adicona frame ao JDesktopPane  
-                objRolVis.setVisible(true);
             }
-        }
-        try {
-            objRolVis.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objRolVis.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_RolVisitasActionPerformed
 
@@ -1069,30 +1123,35 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
 
     private void ListaDocumentosInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListaDocumentosInternosActionPerformed
         // TODO add your handling code here:
-        if (objListaDocInternos == null || objListaDocInternos.isClosed()) {
-            objListaDocInternos = new TelaDocumetosInternosServicoSocial();
-            jPainelServicoSocial.add(objListaDocInternos);
-            objListaDocInternos.setVisible(true);
-        } else {
-            if (objListaDocInternos.isVisible()) {
-                if (objListaDocInternos.isIcon()) { // Se esta minimizado
-                    try {
-                        objListaDocInternos.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaListaDocumentosSS);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaListaDocumentosSS) && codAbrir == 1) {
+            if (objListaDocInternos == null || objListaDocInternos.isClosed()) {
+                objListaDocInternos = new TelaDocumetosInternosServicoSocial();
+                jPainelServicoSocial.add(objListaDocInternos);
+                objListaDocInternos.setVisible(true);
+            } else {
+                if (objListaDocInternos.isVisible()) {
+                    if (objListaDocInternos.isIcon()) { // Se esta minimizado
+                        try {
+                            objListaDocInternos.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objListaDocInternos.toFront(); // traz para frente
+                        objListaDocInternos.pack();//volta frame 
                     }
                 } else {
-                    objListaDocInternos.toFront(); // traz para frente
-                    objListaDocInternos.pack();//volta frame 
+                    objListaDocInternos = new TelaDocumetosInternosServicoSocial();
+                    TelaModuloServicoSocial.jPainelServicoSocial.add(objListaDocInternos);//adicona frame ao JDesktopPane  
+                    objListaDocInternos.setVisible(true);
                 }
-            } else {
-                objListaDocInternos = new TelaDocumetosInternosServicoSocial();
-                TelaModuloServicoSocial.jPainelServicoSocial.add(objListaDocInternos);//adicona frame ao JDesktopPane  
-                objListaDocInternos.setVisible(true);
             }
-        }
-        try {
-            objListaDocInternos.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objListaDocInternos.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_ListaDocumentosInternosActionPerformed
 
@@ -1222,30 +1281,35 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
 
     private void AprovadoresOcorrenciasVisitasPortariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AprovadoresOcorrenciasVisitasPortariaActionPerformed
         // TODO add your handling code here:
-        if (objAprovaOcr == null || objAprovaOcr.isClosed()) {
-            objAprovaOcr = new TelaAprovadoresOcorrenciaVisitasInternosServicoSocial();
-            jPainelServicoSocial.add(objAprovaOcr);
-            objAprovaOcr.setVisible(true);
-        } else {
-            if (objAprovaOcr.isVisible()) {
-                if (objAprovaOcr.isIcon()) { // Se esta minimizado
-                    try {
-                        objAprovaOcr.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaAprovadoresOcrSS);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaAprovadoresOcrSS) && codAbrir == 1) {
+            if (objAprovaOcr == null || objAprovaOcr.isClosed()) {
+                objAprovaOcr = new TelaAprovadoresOcorrenciaVisitasInternosServicoSocial();
+                jPainelServicoSocial.add(objAprovaOcr);
+                objAprovaOcr.setVisible(true);
+            } else {
+                if (objAprovaOcr.isVisible()) {
+                    if (objAprovaOcr.isIcon()) { // Se esta minimizado
+                        try {
+                            objAprovaOcr.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objAprovaOcr.toFront(); // traz para frente
+                        objAprovaOcr.pack();//volta frame 
                     }
                 } else {
-                    objAprovaOcr.toFront(); // traz para frente
-                    objAprovaOcr.pack();//volta frame 
+                    objAprovaOcr = new TelaAprovadoresOcorrenciaVisitasInternosServicoSocial();
+                    TelaModuloServicoSocial.jPainelServicoSocial.add(objAprovaOcr);//adicona frame ao JDesktopPane  
+                    objAprovaOcr.setVisible(true);
                 }
-            } else {
-                objAprovaOcr = new TelaAprovadoresOcorrenciaVisitasInternosServicoSocial();
-                TelaModuloServicoSocial.jPainelServicoSocial.add(objAprovaOcr);//adicona frame ao JDesktopPane  
-                objAprovaOcr.setVisible(true);
             }
-        }
-        try {
-            objAprovaOcr.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objAprovaOcr.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_AprovadoresOcorrenciasVisitasPortariaActionPerformed
 
@@ -1425,88 +1489,103 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
 
     private void VisitantesReligiososActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VisitantesReligiososActionPerformed
         // TODO add your handling code here:
-        if (objVisitaRel == null || objVisitaRel.isClosed()) {
-            objVisitaRel = new TelaVisitaSocialReligiosa();
-            jPainelServicoSocial.add(objVisitaRel);
-            objVisitaRel.setVisible(true);
-        } else {
-            if (objVisitaRel.isVisible()) {
-                if (objVisitaRel.isIcon()) { // Se esta minimizado
-                    try {
-                        objVisitaRel.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaVisitantesRelSS);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaVisitantesRelSS) && codAbrir == 1) {
+            if (objVisitaRel == null || objVisitaRel.isClosed()) {
+                objVisitaRel = new TelaVisitaSocialReligiosa();
+                jPainelServicoSocial.add(objVisitaRel);
+                objVisitaRel.setVisible(true);
+            } else {
+                if (objVisitaRel.isVisible()) {
+                    if (objVisitaRel.isIcon()) { // Se esta minimizado
+                        try {
+                            objVisitaRel.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objVisitaRel.toFront(); // traz para frente
+                        objVisitaRel.pack();//volta frame 
                     }
                 } else {
-                    objVisitaRel.toFront(); // traz para frente
-                    objVisitaRel.pack();//volta frame 
+                    objVisitaRel = new TelaVisitaSocialReligiosa();
+                    TelaModuloServicoSocial.jPainelServicoSocial.add(objVisitaRel);//adicona frame ao JDesktopPane  
+                    objVisitaRel.setVisible(true);
                 }
-            } else {
-                objVisitaRel = new TelaVisitaSocialReligiosa();
-                TelaModuloServicoSocial.jPainelServicoSocial.add(objVisitaRel);//adicona frame ao JDesktopPane  
-                objVisitaRel.setVisible(true);
             }
-        }
-        try {
-            objVisitaRel.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objVisitaRel.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_VisitantesReligiososActionPerformed
 
     private void InstituicaoReligiosaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InstituicaoReligiosaActionPerformed
         // TODO add your handling code here:
-        if (objInstRel == null || objInstRel.isClosed()) {
-            objInstRel = new TelaInstituicaoReligiosa();
-            jPainelServicoSocial.add(objInstRel);
-            objInstRel.setVisible(true);
-        } else {
-            if (objInstRel.isVisible()) {
-                if (objInstRel.isIcon()) { // Se esta minimizado
-                    try {
-                        objInstRel.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaInstituicaoRelSS);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaInstituicaoRelSS) && codAbrir == 1) {
+            if (objInstRel == null || objInstRel.isClosed()) {
+                objInstRel = new TelaInstituicaoReligiosa();
+                jPainelServicoSocial.add(objInstRel);
+                objInstRel.setVisible(true);
+            } else {
+                if (objInstRel.isVisible()) {
+                    if (objInstRel.isIcon()) { // Se esta minimizado
+                        try {
+                            objInstRel.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objInstRel.toFront(); // traz para frente
+                        objInstRel.pack();//volta frame 
                     }
                 } else {
-                    objInstRel.toFront(); // traz para frente
-                    objInstRel.pack();//volta frame 
+                    objInstRel = new TelaInstituicaoReligiosa();
+                    TelaModuloServicoSocial.jPainelServicoSocial.add(objInstRel);//adicona frame ao JDesktopPane  
+                    objInstRel.setVisible(true);
                 }
-            } else {
-                objInstRel = new TelaInstituicaoReligiosa();
-                TelaModuloServicoSocial.jPainelServicoSocial.add(objInstRel);//adicona frame ao JDesktopPane  
-                objInstRel.setVisible(true);
             }
-        }
-        try {
-            objInstRel.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objInstRel.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_InstituicaoReligiosaActionPerformed
 
     private void RolVisitasReligiosasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RolVisitasReligiosasActionPerformed
         // TODO add your handling code here:
-        if (objRolVisitaRel == null || objRolVisitaRel.isClosed()) {
-            objRolVisitaRel = new TelaRolVisitasReligiosas();
-            jPainelServicoSocial.add(objRolVisitaRel);
-            objRolVisitaRel.setVisible(true);
-        } else {
-            if (objRolVisitaRel.isVisible()) {
-                if (objRolVisitaRel.isIcon()) { // Se esta minimizado
-                    try {
-                        objRolVisitaRel.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaRolVisitantesRelSS);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaRolVisitantesRelSS) && codAbrir == 1) {
+            if (objRolVisitaRel == null || objRolVisitaRel.isClosed()) {
+                objRolVisitaRel = new TelaRolVisitasReligiosas();
+                jPainelServicoSocial.add(objRolVisitaRel);
+                objRolVisitaRel.setVisible(true);
+            } else {
+                if (objRolVisitaRel.isVisible()) {
+                    if (objRolVisitaRel.isIcon()) { // Se esta minimizado
+                        try {
+                            objRolVisitaRel.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objRolVisitaRel.toFront(); // traz para frente
+                        objRolVisitaRel.pack();//volta frame 
                     }
                 } else {
-                    objRolVisitaRel.toFront(); // traz para frente
-                    objRolVisitaRel.pack();//volta frame 
+                    objRolVisitaRel = new TelaRolVisitasReligiosas();
+                    TelaModuloServicoSocial.jPainelServicoSocial.add(objRolVisitaRel);//adicona frame ao JDesktopPane  
+                    objRolVisitaRel.setVisible(true);
                 }
-            } else {
-                objRolVisitaRel = new TelaRolVisitasReligiosas();
-                TelaModuloServicoSocial.jPainelServicoSocial.add(objRolVisitaRel);//adicona frame ao JDesktopPane  
-                objRolVisitaRel.setVisible(true);
             }
-        }
-        try {
-            objRolVisitaRel.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objRolVisitaRel.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_RolVisitasReligiosasActionPerformed
 
@@ -1828,32 +1907,36 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
 
     private void jRegistroAtendeInternoBioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRegistroAtendeInternoBioActionPerformed
         // TODO add your handling code here:
-        if (objRegBio == null || objRegBio.isClosed()) {
-            objRegBio = new TelaRegistroInternosAtendimentoSS();
-            jPainelServicoSocial.add(objRegBio);
-            objRegBio.setVisible(true);
-        } else {
-            if (objRegBio.isVisible()) {
-                if (objRegBio.isIcon()) { // Se esta minimizado
-                    try {
-                        objRegBio.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaRegistroAtendimentoBioSS);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaRegistroAtendimentoBioSS) && codAbrir == 1) {
+            if (objRegBio == null || objRegBio.isClosed()) {
+                objRegBio = new TelaRegistroInternosAtendimentoSS();
+                jPainelServicoSocial.add(objRegBio);
+                objRegBio.setVisible(true);
+            } else {
+                if (objRegBio.isVisible()) {
+                    if (objRegBio.isIcon()) { // Se esta minimizado
+                        try {
+                            objRegBio.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objRegBio.toFront(); // traz para frente
+                        objRegBio.pack();//volta frame 
                     }
                 } else {
-                    objRegBio.toFront(); // traz para frente
-                    objRegBio.pack();//volta frame 
+                    objRegBio = new TelaRegistroInternosAtendimentoSS();
+                    TelaModuloServicoSocial.jPainelServicoSocial.add(objRegBio);//adicona frame ao JDesktopPane  
+                    objRegBio.setVisible(true);
                 }
-            } else {
-                objRegBio = new TelaRegistroInternosAtendimentoSS();
-                TelaModuloServicoSocial.jPainelServicoSocial.add(objRegBio);//adicona frame ao JDesktopPane  
-                objRegBio.setVisible(true);
             }
+            try {
+                objRegBio.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
-        try {
-            objRegBio.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
-        }
-//        private TelaRegistroInternosAtendimentoSS objRegBio= null;
     }//GEN-LAST:event_jRegistroAtendeInternoBioActionPerformed
 
 
@@ -1941,6 +2024,44 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator9;
     // End of variables declaration//GEN-END:variables
 
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUser = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUser + "'");
+            conecta.rs.first();
+            codigoUserGroup = conecta.rs.getInt("IdUsuario");
+            codigoGrupo = conecta.rs.getInt("IdGrupo");
+            nomeGrupo = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUser + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcesso = conecta.rs.getInt("IdUsuario");
+            codAbrir = conecta.rs.getInt("Abrir");
+            codIncluir = conecta.rs.getInt("Incluir");
+            codAlterar = conecta.rs.getInt("Alterar");
+            codExcluir = conecta.rs.getInt("Excluir");
+            codGravar = conecta.rs.getInt("Gravar");
+            codConsultar = conecta.rs.getInt("Consultar");
+            nomeTela = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
     // Verificar a cada 5 minutos se o recado foi lido (10/01/2015)
     public void threadMensagem() {
         final Timer timer = new Timer();
@@ -1958,7 +2079,9 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
         buscarUsuario(nameUser);
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM AGENDARECADOS WHERE IdUsuario='" + codUsuario + "'AND StatusAgenda='" + statusAgenda + "'");
+            conecta.executaSQL("SELECT * FROM AGENDARECADOS "
+                    + "WHERE IdUsuario='" + codUsuario + "' "
+                    + "AND StatusAgenda='" + statusAgenda + "'");
             conecta.rs.first();
             if (codUsuario == conecta.rs.getInt("IdUsuario")) {
                 TelaRecadosCrc objRecados = new TelaRecadosCrc();
@@ -1968,7 +2091,8 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
                 preencherTabelaTodosRecados("SELECT * FROM AGENDARECADOS "
                         + "INNER JOIN USUARIOS "
                         + "ON AGENDARECADOS.IdUsuario=USUARIOS.IdUsuario "
-                        + "WHERE NomeUsuario='" + nameUser + "'AND StatusAgenda='" + statusAgenda + "'");
+                        + "WHERE NomeUsuario='" + nameUser + "' "
+                        + "AND StatusAgenda='" + statusAgenda + "'");
                 if (flag == 1) {
                     jBtNovo.setEnabled(true);
                     jBtAlterar.setEnabled(true);
@@ -1982,7 +2106,8 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
                         conecta.executaSQL("SELECT * FROM AGENDARECADOS "
                                 + "INNER JOIN USUARIOS "
                                 + "ON AGENDARECADOS.IdUsuario=USUARIOS.IdUsuario "
-                                + "WHERE NomeUsuario='" + nameUser + "'AND StatusAgenda='" + statusAgenda + "'");
+                                + "WHERE NomeUsuario='" + nameUser + "' "
+                                + "AND StatusAgenda='" + statusAgenda + "'");
                         conecta.rs.last();
                         jIDLanc.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
                         jDataLanc.setDate(conecta.rs.getDate("DataLanc"));
@@ -2006,7 +2131,8 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     public void buscarUsuario(String nomeUser) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM USUARIOS WHERE NomeUsuario='" + nomeUser + "'");
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nomeUser + "'");
             conecta.rs.first();
             codUsuario = conecta.rs.getInt("IdUsuario");
             nomeUsuarioCompromisso = conecta.rs.getString("NomeUsuario");
@@ -2054,7 +2180,8 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
         buscarUsuario(nameUser);
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM AGENDA_COMPROMISSOS WHERE UsuarioAgenda='" + nameUser + "' "
+            conecta.executaSQL("SELECT * FROM AGENDA_COMPROMISSOS "
+                    + "WHERE UsuarioAgenda='" + nameUser + "' "
                     + "AND StatusAgenda='" + statusAgenda + "' "
                     + "AND DataLembrete='" + jDataSistema.getText() + "' "
                     + "AND HoraLembrete<='" + jHoraSistema.getText().toString() + "'");
@@ -2084,7 +2211,10 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
                     conecta.abrirConexao();
                     try {
                         conecta.executaSQL("SELECT * FROM AGENDA_COMPROMISSOS "
-                                + "WHERE AGENDA_COMPROMISSOS.UsuarioAgenda='" + nomeUsuarioCompromisso + "'AND AGENDA_COMPROMISSOS.StatusAgenda='" + statusAgenda + "'AND HoraLembrete<='" + jHoraSistema.getText().toString() + "'AND IdAgenda='" + codigoAgendaComp + "'");
+                                + "WHERE AGENDA_COMPROMISSOS.UsuarioAgenda='" + nomeUsuarioCompromisso + "' "
+                                + "AND AGENDA_COMPROMISSOS.StatusAgenda='" + statusAgenda + "' "
+                                + "AND HoraLembrete<='" + jHoraSistema.getText().toString() + "' "
+                                + "AND IdAgenda='" + codigoAgendaComp + "'");
                         conecta.rs.first();
                         jCodigoAgendaComp.setText(String.valueOf(conecta.rs.getInt("IdAgenda")));
                         jComboBoxStatusComp.setSelectedItem(conecta.rs.getString("StatusAgenda"));
@@ -2244,6 +2374,204 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
             pNomeRAB = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        // MANUTENÇÃO
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaAdmEvolucaoInternosSS + "'");
+            conecta.rs.first();
+            pNomeAEI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        //
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaAdmEvolucaoInternosEvoSS + "'");
+            conecta.rs.first();
+            pNomeAEIE = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPerfilPopCarcerariaSS + "'");
+            conecta.rs.first();
+            pNomePPC = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPerfilPopCarcerariaPerfilSS + "'");
+            conecta.rs.first();
+            pNomePPCP = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaAtualizacaoDocSS + "'");
+            conecta.rs.first();
+            pNomeAD = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaAtendimentoFamiliaSS + "'");
+            conecta.rs.first();
+            pNomeAF = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaCancelaVisitaSS + "'");
+            conecta.rs.first();
+            pNomeCVS = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaCancelaVisitaVistasExtSS + "'");
+            conecta.rs.first();
+            pNomeCVVE = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaCancelaVisitaVistasIntSS + "'");
+            conecta.rs.first();
+            pNomeCVVI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPAISS + "'");
+            conecta.rs.first();
+            pNomePPM = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPaiCCGF_SS + "'");
+            conecta.rs.first();
+            pNomePCCGF = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPaiCCGFFam_SS + "'");
+            conecta.rs.first();
+            pNomePCCGFa = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPaiCCGFVis_SS + "'");
+            conecta.rs.first();
+            pNomePCCGFVis = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPaiCCGFVis_SS + "'");
+            conecta.rs.first();
+            pNomePCCGFVis = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPaiCCGFVisInt_SS + "'");
+            conecta.rs.first();
+            pNomePCCGFVisInt = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPaiDEME_SS + "'");
+            conecta.rs.first();
+            pNomePDEME = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPaiDPTL_SS + "'");
+            conecta.rs.first();
+            pNomePDPTL = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPaiDJ_SS + "'");
+            conecta.rs.first();
+            pNomePDJ = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPaiDS_SS + "'");
+            conecta.rs.first();
+            pNomePDS = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPaiEAPI1_SS + "'");
+            conecta.rs.first();
+            pNomePEADPI1 = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPaiEAPI2_SS + "'");
+            conecta.rs.first();
+            pNomePEADPI2 = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPaiEPAI_SS + "'");
+            conecta.rs.first();
+            pNomePEPAI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaBloqueioLiberacaoVisitasSS + "'");
+            conecta.rs.first();
+            pNomeBLV = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaBloqueioLiberacaoOcorrenciaSS + "'");
+            conecta.rs.first();
+            pNomeBLO = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaControleLigacoesTelSS + "'");
+            conecta.rs.first();
+            pNomeCLT = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaOcorrenciasSS + "'");
+            conecta.rs.first();
+            pNomeOCO = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaHistAvaSocial + "'");
+            conecta.rs.first();
+            pNomeHAS = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaHistAvaEmprego + "'");
+            conecta.rs.first();
+            pNomeHAS = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // INICIO DA COMPARAÇÃO
         if (!pNomeCV.equals(telaCadastroVisitasSS) || pNomeCV == null || pNomeCV.equals("")) {
             buscarCodigoModulo();
@@ -2312,7 +2640,168 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
             controle.incluirTelaAcesso(objCadastroTela);
         }
         // MOVIMENTAÇÃO
-        
+        if (!pNomeAEI.equals(telaAdmEvolucaoInternosSS) || pNomeAEI == null || pNomeAEI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaAdmEvolucaoInternosSS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeAEIE.equals(telaAdmEvolucaoInternosEvoSS) || pNomeAEIE == null || pNomeAEIE.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaAdmEvolucaoInternosEvoSS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomePPC.equals(telaPerfilPopCarcerariaSS) || pNomePPC == null || pNomePPC.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaPerfilPopCarcerariaSS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomePPCP.equals(telaPerfilPopCarcerariaPerfilSS) || pNomePPCP == null || pNomePPCP.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaPerfilPopCarcerariaPerfilSS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeAD.equals(telaAtualizacaoDocSS) || pNomeAD == null || pNomeAD.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaAtualizacaoDocSS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeAF.equals(telaAtendimentoFamiliaSS) || pNomeAF == null || pNomeAF.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaAtendimentoFamiliaSS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeCVS.equals(telaCancelaVisitaSS) || pNomeCVS == null || pNomeCVS.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaCancelaVisitaSS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeCVVE.equals(telaCancelaVisitaVistasExtSS) || pNomeCVVE == null || pNomeCVVE.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaCancelaVisitaVistasExtSS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeCVVI.equals(telaCancelaVisitaVistasIntSS) || pNomeCVVI == null || pNomeCVVI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaCancelaVisitaVistasIntSS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomePPM.equals(telaPAISS) || pNomePPM == null || pNomePPM.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaPAISS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomePCCGF.equals(telaPaiCCGF_SS) || pNomePCCGF == null || pNomePCCGF.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaPaiCCGF_SS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomePCCGFa.equals(telaPaiCCGFFam_SS) || pNomePCCGFa == null || pNomePCCGFa.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaPaiCCGFFam_SS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomePCCGFVis.equals(telaPaiCCGFVis_SS) || pNomePCCGFVis == null || pNomePCCGFVis.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaPaiCCGFVis_SS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomePCCGFVisInt.equals(telaPaiCCGFVisInt_SS) || pNomePCCGFVisInt == null || pNomePCCGFVisInt.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaPaiCCGFVisInt_SS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomePDEME.equals(telaPaiDEME_SS) || pNomePDEME == null || pNomePDEME.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaPaiDEME_SS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomePDPTL.equals(telaPaiDPTL_SS) || pNomePDPTL == null || pNomePDPTL.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaPaiDPTL_SS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomePDJ.equals(telaPaiDJ_SS) || pNomePDJ == null || pNomePDJ.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaPaiDJ_SS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomePDS.equals(telaPaiDS_SS) || pNomePDS == null || pNomePDS.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaPaiDS_SS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomePEADPI1.equals(telaPaiEAPI1_SS) || pNomePEADPI1 == null || pNomePEADPI1.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaPaiEAPI1_SS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomePEADPI2.equals(telaPaiEAPI2_SS) || pNomePEADPI2 == null || pNomePEADPI2.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaPaiEAPI2_SS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomePEPAI.equals(telaPaiEPAI_SS) || pNomePEPAI == null || pNomePEPAI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaPaiEPAI_SS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeBLV.equals(telaBloqueioLiberacaoVisitasSS) || pNomeBLV == null || pNomeBLV.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaBloqueioLiberacaoVisitasSS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeBLO.equals(telaBloqueioLiberacaoOcorrenciaSS) || pNomeBLO == null || pNomeBLO.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaBloqueioLiberacaoOcorrenciaSS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeCLT.equals(telaControleLigacoesTelSS) || pNomeCLT == null || pNomeCLT.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaControleLigacoesTelSS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeOCO.equals(telaOcorrenciasSS) || pNomeOCO == null || pNomeOCO.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaOcorrenciasSS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeHAS.equals(telaHistAvaSocial) || pNomeHAS == null || pNomeHAS.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaHistAvaSocial);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeHAE.equals(telaHistAvaEmprego) || pNomeHAE == null || pNomeHAE.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaHistAvaEmprego);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
     }
 
     // MÉTODO PARA BUSCAR O CÓDIGO DO MÓDULO, CASO NÃO TENHA SIDO CADASTRADO.
