@@ -2210,6 +2210,7 @@ public class TelaPagamentoKitInterno extends javax.swing.JInternalFrame {
             objItensPagto.setKitDecimal(kitDecimal);
             objItensPagto.setKitQuinzenal(kitQuinzenal);
             objItensPagto.setKitMensal(kitMensal);
+            objItensPagto.setKitSemestral(kitSemetral);
             //
             objItensPagto.setTipoEntrada(tipoEntrada);
             objItensPagto.setDataEntrega(jDataEntrega.getDate());
