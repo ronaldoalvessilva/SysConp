@@ -16,6 +16,15 @@ import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloServicoSocial.codAlterar;
+import static gestor.Visao.TelaModuloServicoSocial.codGravar;
+import static gestor.Visao.TelaModuloServicoSocial.codIncluir;
+import static gestor.Visao.TelaModuloServicoSocial.codUserAcesso;
+import static gestor.Visao.TelaModuloServicoSocial.codigoUser;
+import static gestor.Visao.TelaModuloServicoSocial.nomeGrupo;
+import static gestor.Visao.TelaModuloServicoSocial.nomeTela;
+import static gestor.Visao.TelaModuloServicoSocial.telaAtualizacaoDocSS;
+import static gestor.Visao.TelaModuloServicoSocial.telaRolVisitasSS;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -1151,87 +1160,143 @@ public class TelaAtualizacaoDocumentosServicoSocial extends javax.swing.JInterna
     }//GEN-LAST:event_jBtPesquisaInternoActionPerformed
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
-        // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        // TODO add your handling code here:telaAtualizacaoDocSS
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaAtualizacaoDocSS) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        objAtual.setStatusDoc(jStatusDoc.getText());
-        if (jStatusDoc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaAtualizacaoDocSS) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            objAtual.setStatusDoc(jStatusDoc.getText());
+            if (jStatusDoc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                Alterar();
+                corCampos();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 2;
-            Alterar();
-            corCampos();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        verificarInternos();
-        if (jIdInternoAtual.getText().equals("") || jNomeInternoAtual.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
-        } else if (jDataLanc.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data do documento.");
-            jDataLanc.requestFocus();
-            jDataLanc.setBackground(Color.red);
-        } else if (jOrgao.getText().equals("") && !jRG.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o órgão emissor do RG.");
-        } else if (jComboBoxEmissor.getSelectedItem() == null && !jRG.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o Emissor do RG.");
-        } else if (jDataEmissao.getDate() == null && !jRG.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data de emissão do RG.");
-        } else {
-            objAtual.setStatusDoc(jStatusDoc.getText());
-            objAtual.setDataLanc(jDataLanc.getDate());
-            objAtual.setrG(jRG.getText());
-            objAtual.setOrgao(jOrgao.getText());
-            objAtual.setEmissor((String) jComboBoxEmissor.getSelectedItem());
-            objAtual.setDataEmissao(jDataEmissao.getDate());
-            objAtual.setcPF(jCPF.getText());
-            objAtual.setCartaoSus(jCartaoSus.getText());
-            objAtual.setEscolaridade((String) jComboBoxEscolaridade.getSelectedItem());
-            objAtual.setObservacao(jObservacao.getText());
-            objAtual.setIdInternoCrc(Integer.valueOf(jIdInternoAtual.getText()));
-            objAtual.setNomeInternoCrc(jNomeInternoAtual.getText());
-            if (acao == 1) {
-                if (jIdInternoAtual.getText().equals(codigoInterno)) {
-                    JOptionPane.showMessageDialog(rootPane, "Esse interno já teve a sua documentação atualizada parcial ou total, você pode consultar o registro e alterar caso seja necessário.");
-                } else {
-                    objAtual.setUsuarioInsert(nameUser);
-                    objAtual.setDataInsert(dataModFinal);
-                    objAtual.setHorarioInsert(horaMov);
-                    control.incluirAtualizacaoDocumentosInternos(objAtual);
-                    buscarCodigo();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaAtualizacaoDocSS) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            verificarInternos();
+            if (jIdInternoAtual.getText().equals("") || jNomeInternoAtual.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
+            } else if (jDataLanc.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data do documento.");
+                jDataLanc.requestFocus();
+                jDataLanc.setBackground(Color.red);
+            } else if (jOrgao.getText().equals("") && !jRG.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o órgão emissor do RG.");
+            } else if (jComboBoxEmissor.getSelectedItem() == null && !jRG.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o Emissor do RG.");
+            } else if (jDataEmissao.getDate() == null && !jRG.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de emissão do RG.");
+            } else {
+                objAtual.setStatusDoc(jStatusDoc.getText());
+                objAtual.setDataLanc(jDataLanc.getDate());
+                objAtual.setrG(jRG.getText());
+                objAtual.setOrgao(jOrgao.getText());
+                objAtual.setEmissor((String) jComboBoxEmissor.getSelectedItem());
+                objAtual.setDataEmissao(jDataEmissao.getDate());
+                objAtual.setcPF(jCPF.getText());
+                objAtual.setCartaoSus(jCartaoSus.getText());
+                objAtual.setEscolaridade((String) jComboBoxEscolaridade.getSelectedItem());
+                objAtual.setObservacao(jObservacao.getText());
+                objAtual.setIdInternoCrc(Integer.valueOf(jIdInternoAtual.getText()));
+                objAtual.setNomeInternoCrc(jNomeInternoAtual.getText());
+                if (acao == 1) {
+                    if (jIdInternoAtual.getText().equals(codigoInterno)) {
+                        JOptionPane.showMessageDialog(rootPane, "Esse interno já teve a sua documentação atualizada parcial ou total, você pode consultar o registro e alterar caso seja necessário.");
+                    } else {
+                        objAtual.setUsuarioInsert(nameUser);
+                        objAtual.setDataInsert(dataModFinal);
+                        objAtual.setHorarioInsert(horaMov);
+                        control.incluirAtualizacaoDocumentosInternos(objAtual);
+                        buscarCodigo();
+                        if (modulo.equals("SERVICO SOCIAL")) {
+                            if (!jRG.getText().equals("") && jCPF.getText().equals("")) {
+                                // ATUALIZAR RG PRONTUARIO DO INTERNO
+                                objAtual.setIdInternoCrc(Integer.valueOf(jIdInternoAtual.getText()));
+                                objAtual.setrG(jRG.getText());
+                                control.atualizarAtualizacaoDocumentosInternosRG(objAtual);
+                            } else if (!jCPF.getText().equals("") && jRG.getText().equals("")) {
+                                // ATUALIZAR CPF DO PRONTUARIO DO INTERNO
+                                objAtual.setIdInternoCrc(Integer.valueOf(jIdInternoAtual.getText()));
+                                objAtual.setcPF(jCPF.getText());
+                                control.atualizarAtualizacaoDocumentosInternosCPF(objAtual);
+                            } else if (!jCartaoSus.getText().equals("") && jRG.getText().equals("") && jCPF.getText().equals("")) {
+                                // ATUALIZAR CARTÃO DO SUS PRONTUARIO DO INTERNO
+                                objAtual.setIdInternoCrc(Integer.valueOf(jIdInternoAtual.getText()));
+                                objAtual.setCartaoSus(jCartaoSus.getText());
+                                control.atualizarAtualizacaoDocumentosInternosSUS(objAtual);
+                            } else if (!jRG.getText().equals("") && !jCPF.getText().equals("")) {
+                                objAtual.setIdInternoCrc(Integer.valueOf(jIdInternoAtual.getText()));
+                                objAtual.setrG(jRG.getText());
+                                objAtual.setcPF(jCPF.getText());
+                                control.atualizarAtualizacaoDocumentosInternosRG(objAtual);
+                                control.atualizarAtualizacaoDocumentosInternosCPF(objAtual);
+                            } else if (!jRG.getText().equals("") && !jCPF.getText().equals("") && !jCartaoSus.getText().equals("")) {
+                                objAtual.setIdInternoCrc(Integer.valueOf(jIdInternoAtual.getText()));
+                                objAtual.setrG(jRG.getText());
+                                objAtual.setcPF(jCPF.getText());
+                                objAtual.setCartaoSus(jCartaoSus.getText());
+                                control.atualizarAtualizacaoDocumentosInternosRG(objAtual);
+                                control.atualizarAtualizacaoDocumentosInternosCPF(objAtual);
+                                control.atualizarAtualizacaoDocumentosInternosSUS(objAtual);
+                            }
+                        } else if (modulo.equals("PEDAGOGIA")) {
+                            // ATUALIZAR ESCOLARIDADE
+                            control.atualizarAtualizacaoDocumentosInternosPedagogia(objAtual);
+                        }
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        Salvar();
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    }
+                }
+                if (acao == 2) {
+                    objAtual.setUsuarioUp(nameUser);
+                    objAtual.setDataUp(dataModFinal);
+                    objAtual.setHorarioUp(horaMov);
+                    objAtual.setCodigoDoc(Integer.valueOf(jCodigoDoc.getText()));
+                    control.alterarAtualizacaoDocumentosInternos(objAtual);
                     if (modulo.equals("SERVICO SOCIAL")) {
                         if (!jRG.getText().equals("") && jCPF.getText().equals("")) {
                             // ATUALIZAR RG PRONTUARIO DO INTERNO
                             objAtual.setIdInternoCrc(Integer.valueOf(jIdInternoAtual.getText()));
-                            objAtual.setrG(jRG.getText());                            
+                            objAtual.setrG(jRG.getText());
                             control.atualizarAtualizacaoDocumentosInternosRG(objAtual);
                         } else if (!jCPF.getText().equals("") && jRG.getText().equals("")) {
                             // ATUALIZAR CPF DO PRONTUARIO DO INTERNO
-                            objAtual.setIdInternoCrc(Integer.valueOf(jIdInternoAtual.getText()));                           
-                            objAtual.setcPF(jCPF.getText());                            
+                            objAtual.setIdInternoCrc(Integer.valueOf(jIdInternoAtual.getText()));
+                            objAtual.setcPF(jCPF.getText());
                             control.atualizarAtualizacaoDocumentosInternosCPF(objAtual);
                         } else if (!jCartaoSus.getText().equals("") && jRG.getText().equals("") && jCPF.getText().equals("")) {
                             // ATUALIZAR CARTÃO DO SUS PRONTUARIO DO INTERNO
-                            objAtual.setIdInternoCrc(Integer.valueOf(jIdInternoAtual.getText()));                            
+                            objAtual.setIdInternoCrc(Integer.valueOf(jIdInternoAtual.getText()));
                             objAtual.setCartaoSus(jCartaoSus.getText());
                             control.atualizarAtualizacaoDocumentosInternosSUS(objAtual);
                         } else if (!jRG.getText().equals("") && !jCPF.getText().equals("")) {
                             objAtual.setIdInternoCrc(Integer.valueOf(jIdInternoAtual.getText()));
                             objAtual.setrG(jRG.getText());
-                            objAtual.setcPF(jCPF.getText());                            
+                            objAtual.setcPF(jCPF.getText());
                             control.atualizarAtualizacaoDocumentosInternosRG(objAtual);
                             control.atualizarAtualizacaoDocumentosInternosCPF(objAtual);
                         } else if (!jRG.getText().equals("") && !jCPF.getText().equals("") && !jCartaoSus.getText().equals("")) {
@@ -1247,59 +1312,15 @@ public class TelaAtualizacaoDocumentosServicoSocial extends javax.swing.JInterna
                         // ATUALIZAR ESCOLARIDADE
                         control.atualizarAtualizacaoDocumentosInternosPedagogia(objAtual);
                     }
+                    //
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     Salvar();
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
             }
-            if (acao == 2) {
-                objAtual.setUsuarioUp(nameUser);
-                objAtual.setDataUp(dataModFinal);
-                objAtual.setHorarioUp(horaMov);
-                objAtual.setCodigoDoc(Integer.valueOf(jCodigoDoc.getText()));
-                control.alterarAtualizacaoDocumentosInternos(objAtual);
-                if (modulo.equals("SERVICO SOCIAL")) {
-                    if (!jRG.getText().equals("") && jCPF.getText().equals("")) {
-                            // ATUALIZAR RG PRONTUARIO DO INTERNO
-                            objAtual.setIdInternoCrc(Integer.valueOf(jIdInternoAtual.getText()));
-                            objAtual.setrG(jRG.getText());                            
-                            control.atualizarAtualizacaoDocumentosInternosRG(objAtual);
-                        } else if (!jCPF.getText().equals("") && jRG.getText().equals("")) {
-                            // ATUALIZAR CPF DO PRONTUARIO DO INTERNO
-                            objAtual.setIdInternoCrc(Integer.valueOf(jIdInternoAtual.getText()));                           
-                            objAtual.setcPF(jCPF.getText());                            
-                            control.atualizarAtualizacaoDocumentosInternosCPF(objAtual);
-                        } else if (!jCartaoSus.getText().equals("") && jRG.getText().equals("") && jCPF.getText().equals("")) {
-                            // ATUALIZAR CARTÃO DO SUS PRONTUARIO DO INTERNO
-                            objAtual.setIdInternoCrc(Integer.valueOf(jIdInternoAtual.getText()));                            
-                            objAtual.setCartaoSus(jCartaoSus.getText());
-                            control.atualizarAtualizacaoDocumentosInternosSUS(objAtual);
-                        } else if (!jRG.getText().equals("") && !jCPF.getText().equals("")) {
-                            objAtual.setIdInternoCrc(Integer.valueOf(jIdInternoAtual.getText()));
-                            objAtual.setrG(jRG.getText());
-                            objAtual.setcPF(jCPF.getText());                            
-                            control.atualizarAtualizacaoDocumentosInternosRG(objAtual);
-                            control.atualizarAtualizacaoDocumentosInternosCPF(objAtual);
-                        } else if (!jRG.getText().equals("") && !jCPF.getText().equals("") && !jCartaoSus.getText().equals("")) {
-                            objAtual.setIdInternoCrc(Integer.valueOf(jIdInternoAtual.getText()));
-                            objAtual.setrG(jRG.getText());
-                            objAtual.setcPF(jCPF.getText());
-                            objAtual.setCartaoSus(jCartaoSus.getText());
-                            control.atualizarAtualizacaoDocumentosInternosRG(objAtual);
-                            control.atualizarAtualizacaoDocumentosInternosCPF(objAtual);
-                            control.atualizarAtualizacaoDocumentosInternosSUS(objAtual);
-                        }
-                } else if (modulo.equals("PEDAGOGIA")) {
-                    // ATUALIZAR ESCOLARIDADE
-                    control.atualizarAtualizacaoDocumentosInternosPedagogia(objAtual);
-                }
-                //
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 

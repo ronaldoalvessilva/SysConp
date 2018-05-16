@@ -1352,7 +1352,7 @@ public class TelaVisitaSocial extends javax.swing.JInternalFrame {
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
@@ -1361,7 +1361,7 @@ public class TelaVisitaSocial extends javax.swing.JInternalFrame {
         if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroVisitasSS) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             buscarVisistaRol();
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a excluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
@@ -1458,7 +1458,7 @@ public class TelaVisitaSocial extends javax.swing.JInternalFrame {
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 

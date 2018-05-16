@@ -15,6 +15,16 @@ import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloServicoSocial.codAlterar;
+import static gestor.Visao.TelaModuloServicoSocial.codExcluir;
+import static gestor.Visao.TelaModuloServicoSocial.codGravar;
+import static gestor.Visao.TelaModuloServicoSocial.codIncluir;
+import static gestor.Visao.TelaModuloServicoSocial.codUserAcesso;
+import static gestor.Visao.TelaModuloServicoSocial.codigoUser;
+import static gestor.Visao.TelaModuloServicoSocial.nomeGrupo;
+import static gestor.Visao.TelaModuloServicoSocial.nomeTela;
+import static gestor.Visao.TelaModuloServicoSocial.telaControleLigacoesTelSS;
+import static gestor.Visao.TelaModuloServicoSocial.telaRolVisitasSS;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -28,7 +38,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
- 
+
 /**
  *
  * @author user
@@ -747,107 +757,122 @@ public class TelaControleLigacoesSS extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampo();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaControleLigacoesTelSS) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            acao = 1;
+            Novo();
+            corCampo();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:    
-        objConLiga.setStatusLigacao(jStatusLigacao.getText());
-        if (jStatusLigacao.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse controle de ligações não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaControleLigacoesTelSS) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            objConLiga.setStatusLigacao(jStatusLigacao.getText());
+            if (jStatusLigacao.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse controle de ligações não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                Alterar();
+                corCampo();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 2;
-            Alterar();
-            corCampo();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here: 
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        objConLiga.setStatusLigacao(jStatusLigacao.getText());
-        if (jStatusLigacao.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse controle de ligações não poderá ser excluido, o mesmo encontra-se FINALIZADO");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o ROL selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objConLiga.setIdControl(Integer.parseInt(jIDControle.getText()));
-                control.excluirLigacoes(objConLiga);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                Excluir();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaControleLigacoesTelSS) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objConLiga.setStatusLigacao(jStatusLigacao.getText());
+            if (jStatusLigacao.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse controle de ligações não poderá ser excluido, o mesmo encontra-se FINALIZADO");
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Não foi possivel EXCLUIR Lançamento...");
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o ROL selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objConLiga.setIdControl(Integer.parseInt(jIDControle.getText()));
+                    control.excluirLigacoes(objConLiga);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    Excluir();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Não foi possivel EXCLUIR Lançamento...");
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a excluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataControle.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data de controle.");
-            jDataControle.requestFocus();
-            jDataControle.setBackground(Color.red);
-        } else {
-            if (jNomeInterno.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Nome do interno não pode ser em branco");
-                jNomeInterno.requestFocus();
-                jNomeInterno.setBackground(Color.red);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaControleLigacoesTelSS) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jDataControle.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de controle.");
+                jDataControle.requestFocus();
+                jDataControle.setBackground(Color.red);
             } else {
-                if (jTelefoneDestino.getText().equals("")) {
-                    JOptionPane.showMessageDialog(rootPane, "Informe o número do telefone no qual foi destinado a ligação.");
-                    jTelefoneDestino.requestFocus();
-                    jTelefoneDestino.setBackground(Color.red);
+                if (jNomeInterno.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Nome do interno não pode ser em branco");
+                    jNomeInterno.requestFocus();
+                    jNomeInterno.setBackground(Color.red);
                 } else {
-                    objConLiga.setDataControl(jDataControle.getDate());
-                    objConLiga.setStatusLigacao(statusLigacao);
-                    objConLiga.setTelefoneControl(jTelefoneDestino.getText());
-                    objConLiga.setTempoControl(jDuaracaoLigacao.getText());
-                    objConLiga.setLocalLigacao(jDestinoLigacao.getText());
-                    objConLiga.setObsControl(jObservcao.getText());
-                    // Para o log do registro
-                    objConLiga.setUsuarioInsert(nameUser);
-                    objConLiga.setDataInsert(dataModFinal);
-                    objConLiga.setHoraInsert(horaMov);
-                    if (acao == 1) {
-                        objConLiga.setNomeInterno(jNomeInterno.getText());
-                        control.incluirLigacoes(objConLiga);
-                        buscarCodLiga();
-                        objLog();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                        Salvar();
-                    }
-                    if (acao == 2) {
+                    if (jTelefoneDestino.getText().equals("")) {
+                        JOptionPane.showMessageDialog(rootPane, "Informe o número do telefone no qual foi destinado a ligação.");
+                        jTelefoneDestino.requestFocus();
+                        jTelefoneDestino.setBackground(Color.red);
+                    } else {
+                        objConLiga.setDataControl(jDataControle.getDate());
+                        objConLiga.setStatusLigacao(statusLigacao);
+                        objConLiga.setTelefoneControl(jTelefoneDestino.getText());
+                        objConLiga.setTempoControl(jDuaracaoLigacao.getText());
+                        objConLiga.setLocalLigacao(jDestinoLigacao.getText());
+                        objConLiga.setObsControl(jObservcao.getText());
                         // Para o log do registro
-                        objConLiga.setUsuarioUp(nameUser);
-                        objConLiga.setDataUp(jDataSistema.getText());
-                        objConLiga.setHoraUp(jHoraSistema.getText());
-                        objConLiga.setIdControl(Integer.valueOf(jIDControle.getText()));
-                        objConLiga.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
-                        objConLiga.setNomeInterno(jNomeInterno.getText());
-                        control.alterarLigacoes(objConLiga);
-                        objLog();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                        Salvar();
+                        objConLiga.setUsuarioInsert(nameUser);
+                        objConLiga.setDataInsert(dataModFinal);
+                        objConLiga.setHoraInsert(horaMov);
+                        if (acao == 1) {
+                            objConLiga.setNomeInterno(jNomeInterno.getText());
+                            control.incluirLigacoes(objConLiga);
+                            buscarCodLiga();
+                            objLog();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                            Salvar();
+                        }
+                        if (acao == 2) {
+                            // Para o log do registro
+                            objConLiga.setUsuarioUp(nameUser);
+                            objConLiga.setDataUp(jDataSistema.getText());
+                            objConLiga.setHoraUp(jHoraSistema.getText());
+                            objConLiga.setIdControl(Integer.valueOf(jIDControle.getText()));
+                            objConLiga.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                            objConLiga.setNomeInterno(jNomeInterno.getText());
+                            control.alterarLigacoes(objConLiga);
+                            objLog();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                            Salvar();
+                        }
                     }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar registro.");
         }
-
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed

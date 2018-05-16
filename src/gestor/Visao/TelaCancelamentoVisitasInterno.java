@@ -18,6 +18,23 @@ import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloServicoSocial.codigoUserGroup;
+import static gestor.Visao.TelaModuloServicoSocial.codigoGrupo;
+import static gestor.Visao.TelaModuloServicoSocial.codAbrir;
+import static gestor.Visao.TelaModuloServicoSocial.codConsultar;
+import static gestor.Visao.TelaModuloServicoSocial.codAlterar;
+import static gestor.Visao.TelaModuloServicoSocial.codExcluir;
+import static gestor.Visao.TelaModuloServicoSocial.codGravar;
+import static gestor.Visao.TelaModuloServicoSocial.codIncluir;
+import static gestor.Visao.TelaModuloServicoSocial.codUserAcesso;
+import static gestor.Visao.TelaModuloServicoSocial.codigoUser;
+import static gestor.Visao.TelaModuloServicoSocial.nomeGrupo;
+import static gestor.Visao.TelaModuloServicoSocial.nomeTela;
+import static gestor.Visao.TelaModuloServicoSocial.telaCancelaVisitaSS;
+import static gestor.Visao.TelaModuloServicoSocial.telaCancelaVisitaVistasExtSS;
+import static gestor.Visao.TelaModuloServicoSocial.telaCancelaVisitaVistasIntSS;
+import static gestor.Visao.TelaModuloServicoSocial.telaRolVisitasInternosSS;
+import static gestor.Visao.TelaModuloServicoSocial.telaRolVisitasVisitantesSS;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -1883,81 +1900,109 @@ public class TelaCancelamentoVisitasInterno extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        limparCampos();
-        bloquearCampos();
-        bloquearBotoes();
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaCancelaVisitaSS) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            acao = 1;
+            limparCampos();
+            bloquearCampos();
+            bloquearBotoes();
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        if (jStatusCan.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse Rol de Visitas não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaCancelaVisitaSS) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jStatusCan.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse Rol de Visitas não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                bloquearCampos();
+                bloquearBotoes();
+                Alterar();
+                corCampos();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 2;
-            bloquearCampos();
-            bloquearBotoes();
-            Alterar();
-            corCampos();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        verificarItens();
-        if (jStatusCan.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse Rol de Visitas não poderá ser alterado, o mesmo encontra-se FINALIZADO");
-        } else {
-            if (jIdCan.getText().equals(codRol) || jIdCan.getText().equals(codCan)) {
-                JOptionPane.showMessageDialog(rootPane, "Antes de excluir esse registro, será necessário\nexcluir primeiro as Visitas relacionados a esse registro.");
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaCancelaVisitaSS) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            verificarItens();
+            if (jStatusCan.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse Rol de Visitas não poderá ser alterado, o mesmo encontra-se FINALIZADO");
             } else {
-                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                        JOptionPane.YES_NO_OPTION);
-                if (resposta == JOptionPane.YES_OPTION) {
-                    objCancel.setIdCan(Integer.parseInt(jIdCan.getText()));
-                    control.excluirBloqueioVisitasRol(objCancel);                    
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    Excluir();                    
-                    bloquearCampos();
-                    bloquearBotoes();
-                    limparCampos();
-                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                if (jIdCan.getText().equals(codRol) || jIdCan.getText().equals(codCan)) {
+                    JOptionPane.showMessageDialog(rootPane, "Antes de excluir esse registro, será necessário\nexcluir primeiro as Visitas relacionados a esse registro.");
+                } else {
+                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta == JOptionPane.YES_OPTION) {
+                        objCancel.setIdCan(Integer.parseInt(jIdCan.getText()));
+                        control.excluirBloqueioVisitasRol(objCancel);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        Excluir();
+                        bloquearCampos();
+                        bloquearBotoes();
+                        limparCampos();
+                        JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a excluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        verificarInterno();
-        objCancel.setStatusCan(jStatusCan.getText());
-        objCancel.setDataCan(jDataCan.getDate());
-        objCancel.setCodigoRol(Integer.valueOf(jCodigoRol.getText()));
-        objCancel.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
-        objCancel.setNomeInternoCrc(jNomeInterno.getText());
-        objCancel.setObservacao(jObservacao.getText());
-        if (acao == 1) {
-            if (jIDInterno.getText().equals(codInternoCrc)) {
-                JOptionPane.showMessageDialog(rootPane, "Interno já foi lançado no Bloqueio do Rol.");
-            } else {
-                objCancel.setUsuarioInsert(nameUser);
-                objCancel.setDataInsert(dataModFinal);
-                objCancel.setHorarioInsert(horaMov);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaCancelaVisitaSS) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            verificarInterno();
+            objCancel.setStatusCan(jStatusCan.getText());
+            objCancel.setDataCan(jDataCan.getDate());
+            objCancel.setCodigoRol(Integer.valueOf(jCodigoRol.getText()));
+            objCancel.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+            objCancel.setNomeInternoCrc(jNomeInterno.getText());
+            objCancel.setObservacao(jObservacao.getText());
+            if (acao == 1) {
+                if (jIDInterno.getText().equals(codInternoCrc)) {
+                    JOptionPane.showMessageDialog(rootPane, "Interno já foi lançado no Bloqueio do Rol.");
+                } else {
+                    objCancel.setUsuarioInsert(nameUser);
+                    objCancel.setDataInsert(dataModFinal);
+                    objCancel.setHorarioInsert(horaMov);
+                    //
+                    control.incluirBloqueioVisitasRol(objCancel);
+                    buscarCodigo();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearCampos();
+                    bloquearBotoes();
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
+            if (acao == 2) {
+                objCancel.setUsuarioUp(nameUser);
+                objCancel.setDataUp(dataModFinal);
+                objCancel.setHorarioUp(horaMov);
+                objCancel.setIdCan(Integer.valueOf(jIdCan.getText()));
+                control.alterarBloqueioVisitasRol(objCancel);
                 //
-                control.incluirBloqueioVisitasRol(objCancel);
-                buscarCodigo();
                 objLog();
                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                 bloquearCampos();
@@ -1965,20 +2010,8 @@ public class TelaCancelamentoVisitasInterno extends javax.swing.JInternalFrame {
                 Salvar();
                 JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
             }
-        }
-        if (acao == 2) {
-            objCancel.setUsuarioUp(nameUser);
-            objCancel.setDataUp(dataModFinal);
-            objCancel.setHorarioUp(horaMov);
-            objCancel.setIdCan(Integer.valueOf(jIdCan.getText()));
-            control.alterarBloqueioVisitasRol(objCancel);
-            //
-            objLog();
-            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-            bloquearCampos();
-            bloquearBotoes();
-            Salvar();
-            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -2058,145 +2091,162 @@ public class TelaCancelamentoVisitasInterno extends javax.swing.JInternalFrame {
 
     private void jBtNovoVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoVisitaActionPerformed
         // TODO add your handling code here:
-        if (jStatusCan.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaCancelaVisitaVistasExtSS);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaCancelaVisitaVistasExtSS) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jStatusCan.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 3;
+                bloquearCampos();
+                bloquearBotoes();
+                NovaVisita();
+                corCampos();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 3;
-            bloquearCampos();
-            bloquearBotoes();
-            NovaVisita();
-            corCampos();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
     }//GEN-LAST:event_jBtNovoVisitaActionPerformed
 
     private void jBtAlterarVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarVisitaActionPerformed
         // TODO add your handling code here:
-        if (jStatusCan.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaCancelaVisitaVistasExtSS);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaCancelaVisitaVistasExtSS) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jStatusCan.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 4;
+                bloquearCampos();
+                bloquearBotoes();
+                AlterarVisita();
+                corCampos();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 4;
-            bloquearCampos();
-            bloquearBotoes();
-            AlterarVisita();
-            corCampos();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
         }
     }//GEN-LAST:event_jBtAlterarVisitaActionPerformed
 
     private void jBtExcluirVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirVisitaActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        if (jStatusCan.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                // MODIFICAR STATUS DA VISITA, DE ATIVO PARA INATIVO.
-                objItenCancel.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
-                objItenCancel.setIdVisita(Integer.valueOf(jIDVisita.getText()));
-                objItenCancel.setNomeVisita(jNomeVisita.getText());
-                objItenCancel.setStatusVisitaInterno(statusVisita);
-                controle.alterarItensRol(objItenCancel);
-                //
-                objItenCancel.setIdItemCanExt(Integer.valueOf(idItem));
-                controle.excluirItensCancel(objItenCancel);
-                //
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                bloquearCampos();
-                bloquearBotoes();
-                limparCamposVisitaExterna();
-                ExcluirVisita();
-                preencherTabelaItens("SELECT * FROM ITENS_CANCELAMENTO_VISITAS_EXTERNA_ROL "
-                        + "INNER JOIN VISITASINTERNO "
-                        + "ON ITENS_CANCELAMENTO_VISITAS_EXTERNA_ROL.IdVisita=VISITASINTERNO.IdVisita "
-                        + "WHERE IdCan='" + jIdCan.getText() + "'");
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+        buscarAcessoUsuario(telaCancelaVisitaVistasExtSS);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaCancelaVisitaVistasExtSS) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            if (jStatusCan.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    // MODIFICAR STATUS DA VISITA, DE ATIVO PARA INATIVO.
+                    objItenCancel.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                    objItenCancel.setIdVisita(Integer.valueOf(jIDVisita.getText()));
+                    objItenCancel.setNomeVisita(jNomeVisita.getText());
+                    objItenCancel.setStatusVisitaInterno(statusVisita);
+                    controle.alterarItensRol(objItenCancel);
+                    //
+                    objItenCancel.setIdItemCanExt(Integer.valueOf(idItem));
+                    controle.excluirItensCancel(objItenCancel);
+                    //
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearCampos();
+                    bloquearBotoes();
+                    limparCamposVisitaExterna();
+                    ExcluirVisita();
+                    preencherTabelaItens("SELECT * FROM ITENS_CANCELAMENTO_VISITAS_EXTERNA_ROL "
+                            + "INNER JOIN VISITASINTERNO "
+                            + "ON ITENS_CANCELAMENTO_VISITAS_EXTERNA_ROL.IdVisita=VISITASINTERNO.IdVisita "
+                            + "WHERE IdCan='" + jIdCan.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                }
             }
-
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a excluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirVisitaActionPerformed
 
     private void jBtSalvarVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarVisitaActionPerformed
         // TODO add your handling code here:
-        if (jNomeVisita.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome da vista para o interno.");
-            jNomeVisita.requestFocus();
-            jNomeVisita.setBackground(Color.red);
-        } else {
-            if (jDataCancelamento.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data de bloqueio da vista.");
-                jDataCancelamento.requestFocus();
-                jDataCancelamento.setBackground(Color.red);
+        buscarAcessoUsuario(telaCancelaVisitaVistasExtSS);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaCancelaVisitaVistasExtSS) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jNomeVisita.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome da vista para o interno.");
+                jNomeVisita.requestFocus();
+                jNomeVisita.setBackground(Color.red);
             } else {
-                objItenCancel.setNomeVisita(jNomeVisita.getText());
-                objItenCancel.setDataCan(jDataCan.getDate());
-                objItenCancel.setStatusVisitaInterno((String) jCombBoxStatusVisita.getSelectedItem());
-                objItenCancel.setMotivoCancela(jMotivoCancelamento.getText());
-                objItenCancel.setDataBloqueio(jDataCancelamento.getDate());
-                if (acao == 3) {
-                    // Para o log do registro
-                    objItenCancel.setUsuarioInsert(nameUser);
-                    objItenCancel.setDataInsert(dataModFinal);
-                    objItenCancel.setHoraInsert(horaMov);
-                    //
-                    objItenCancel.setIdCan(Integer.valueOf(jIdCan.getText()));
-                    objItenCancel.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
-                    objItenCancel.setIdVisita(Integer.valueOf(jIDVisita.getText()));
-                    controle.incluirItensCancel(objItenCancel);
-                    // MODIFICAR STATUS DA VISITA, DE ATIVO PARA INATIVO.
-                    controle.alterarItensRol(objItenCancel);
-                    //
-                    objLog2();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    preencherTabelaItens("SELECT * FROM ITENS_CANCELAMENTO_VISITAS_EXTERNA_ROL "
-                            + "INNER JOIN VISITASINTERNO "
-                            + "ON ITENS_CANCELAMENTO_VISITAS_EXTERNA_ROL.IdVisita=VISITASINTERNO.IdVisita "
-                            + "WHERE IdCan='" + jIdCan.getText() + "'");
-                    bloquearCampos();
-                    bloquearBotoes();
-                    limparCamposVisitaExterna();
-                    SalvarVisita();
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-
-                }
-                if (acao == 4) {
-                    // Para o log do registro
-                    objItenCancel.setUsuarioUp(nameUser);
-                    objItenCancel.setDataUp(jDataSistema.getText());
-                    objItenCancel.setHoraUp(jHoraSistema.getText());
-                    //
-                    objItenCancel.setIdCan(Integer.valueOf(jIdCan.getText()));
-                    objItenCancel.setIdVisita(Integer.valueOf(jIDVisita.getText()));
+                if (jDataCancelamento.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data de bloqueio da vista.");
+                    jDataCancelamento.requestFocus();
+                    jDataCancelamento.setBackground(Color.red);
+                } else {
                     objItenCancel.setNomeVisita(jNomeVisita.getText());
-                    objItenCancel.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
-                    objItenCancel.setIdItemCanExt(Integer.valueOf(idItem));
-                    controle.alterarItensCancel(objItenCancel);
-                    // MODIFICAR STATUS DA VISITA, DE ATIVO PARA INATIVO.
-                    controle.alterarItensRol(objItenCancel);
-                    //
-                    objLog2();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    preencherTabelaItens("SELECT * FROM ITENS_CANCELAMENTO_VISITAS_EXTERNA_ROL "
-                            + "INNER JOIN VISITASINTERNO "
-                            + "ON ITENS_CANCELAMENTO_VISITAS_EXTERNA_ROL.IdVisita=VISITASINTERNO.IdVisita "
-                            + "WHERE IdCan='" + jIdCan.getText() + "'");
-                    bloquearCampos();
-                    bloquearBotoes();
-                    limparCamposVisitaExterna();
-                    SalvarVisita();
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-
+                    objItenCancel.setDataCan(jDataCan.getDate());
+                    objItenCancel.setStatusVisitaInterno((String) jCombBoxStatusVisita.getSelectedItem());
+                    objItenCancel.setMotivoCancela(jMotivoCancelamento.getText());
+                    objItenCancel.setDataBloqueio(jDataCancelamento.getDate());
+                    if (acao == 3) {
+                        // Para o log do registro
+                        objItenCancel.setUsuarioInsert(nameUser);
+                        objItenCancel.setDataInsert(dataModFinal);
+                        objItenCancel.setHoraInsert(horaMov);
+                        //
+                        objItenCancel.setIdCan(Integer.valueOf(jIdCan.getText()));
+                        objItenCancel.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                        objItenCancel.setIdVisita(Integer.valueOf(jIDVisita.getText()));
+                        controle.incluirItensCancel(objItenCancel);
+                        // MODIFICAR STATUS DA VISITA, DE ATIVO PARA INATIVO.
+                        controle.alterarItensRol(objItenCancel);
+                        //
+                        objLog2();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        preencherTabelaItens("SELECT * FROM ITENS_CANCELAMENTO_VISITAS_EXTERNA_ROL "
+                                + "INNER JOIN VISITASINTERNO "
+                                + "ON ITENS_CANCELAMENTO_VISITAS_EXTERNA_ROL.IdVisita=VISITASINTERNO.IdVisita "
+                                + "WHERE IdCan='" + jIdCan.getText() + "'");
+                        bloquearCampos();
+                        bloquearBotoes();
+                        limparCamposVisitaExterna();
+                        SalvarVisita();
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    }
+                    if (acao == 4) {
+                        // Para o log do registro
+                        objItenCancel.setUsuarioUp(nameUser);
+                        objItenCancel.setDataUp(jDataSistema.getText());
+                        objItenCancel.setHoraUp(jHoraSistema.getText());
+                        //
+                        objItenCancel.setIdCan(Integer.valueOf(jIdCan.getText()));
+                        objItenCancel.setIdVisita(Integer.valueOf(jIDVisita.getText()));
+                        objItenCancel.setNomeVisita(jNomeVisita.getText());
+                        objItenCancel.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                        objItenCancel.setIdItemCanExt(Integer.valueOf(idItem));
+                        controle.alterarItensCancel(objItenCancel);
+                        // MODIFICAR STATUS DA VISITA, DE ATIVO PARA INATIVO.
+                        controle.alterarItensRol(objItenCancel);
+                        //
+                        objLog2();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        preencherTabelaItens("SELECT * FROM ITENS_CANCELAMENTO_VISITAS_EXTERNA_ROL "
+                                + "INNER JOIN VISITASINTERNO "
+                                + "ON ITENS_CANCELAMENTO_VISITAS_EXTERNA_ROL.IdVisita=VISITASINTERNO.IdVisita "
+                                + "WHERE IdCan='" + jIdCan.getText() + "'");
+                        bloquearCampos();
+                        bloquearBotoes();
+                        limparCamposVisitaExterna();
+                        SalvarVisita();
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar registro.");
         }
     }//GEN-LAST:event_jBtSalvarVisitaActionPerformed
 
@@ -2290,141 +2340,161 @@ public class TelaCancelamentoVisitasInterno extends javax.swing.JInternalFrame {
 
     private void jBtNovoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoItemActionPerformed
         // TODO add your handling code here:
-        objCancel.setStatusCan(jStatusCan.getText());
-        if (jStatusCan.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaCancelaVisitaVistasIntSS);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaCancelaVisitaVistasIntSS) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            objCancel.setStatusCan(jStatusCan.getText());
+            if (jStatusCan.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 5;
+                bloquearCampos();
+                bloquearBotoes();
+                NovoItem();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 5;
-            bloquearCampos();
-            bloquearBotoes();
-            NovoItem();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
     }//GEN-LAST:event_jBtNovoItemActionPerformed
 
     private void jBtAlterarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarItemActionPerformed
         // TODO add your handling code here:
-        objCancel.setStatusCan(jStatusCan.getText());
-        if (jStatusCan.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaCancelaVisitaVistasIntSS);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaCancelaVisitaVistasIntSS) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            objCancel.setStatusCan(jStatusCan.getText());
+            if (jStatusCan.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 6;
+                bloquearCampos();
+                bloquearBotoes();
+                AlterarItem();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 6;
-            bloquearCampos();
-            bloquearBotoes();
-            AlterarItem();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
         }
     }//GEN-LAST:event_jBtAlterarItemActionPerformed
 
     private void jBtExcluirItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirItemActionPerformed
         // TODO add your handling code here:
-        bloquearCampos();
-        bloquearBotoes();
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        objCancel.setStatusCan(jStatusCan.getText());
-        if (jStatusCan.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o INTERNO selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                // MODIFICA O STATUS DA VISITA DO INTERNO
-                objItensBloq.setIdInternoCrc(Integer.valueOf(jIdInternoLista.getText()));
-                objItensBloq.setStatusVisita(statusVisita);
-                controleBloq.alterarItensRolInterno(objItensBloq);
-                //
-                objItensBloq.setIdCan(Integer.valueOf(jIdCan.getText()));
-                objItensBloq.setIdItemCanInt(Integer.valueOf(idItemInt));
-                controleBloq.excluirItensListaInternos(objItensBloq);
-                //
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                ExcluirItem();
-                preencherTabelaInternas("SELECT * FROM ITENS_CANCELAMENTO_VISITAS_INTERNA_ROL "
-                        + "INNER JOIN CANCELAMENTO_VISITAS_EXTERNA_INTERNA_ROL "
-                        + "ON ITENS_CANCELAMENTO_VISITAS_INTERNA_ROL.IdCAn=CANCELAMENTO_VISITAS_EXTERNA_INTERNA_ROL.IdCan "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON ITENS_CANCELAMENTO_VISITAS_INTERNA_ROL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "WHERE ITENS_CANCELAMENTO_VISITAS_INTERNA_ROL.IdCan='" + jIdCan.getText() + "'");
+        buscarAcessoUsuario(telaCancelaVisitaVistasIntSS);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaCancelaVisitaVistasIntSS) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            bloquearCampos();
+            bloquearBotoes();
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objCancel.setStatusCan(jStatusCan.getText());
+            if (jStatusCan.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o INTERNO selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    // MODIFICA O STATUS DA VISITA DO INTERNO
+                    objItensBloq.setIdInternoCrc(Integer.valueOf(jIdInternoLista.getText()));
+                    objItensBloq.setStatusVisita(statusVisita);
+                    controleBloq.alterarItensRolInterno(objItensBloq);
+                    //
+                    objItensBloq.setIdCan(Integer.valueOf(jIdCan.getText()));
+                    objItensBloq.setIdItemCanInt(Integer.valueOf(idItemInt));
+                    controleBloq.excluirItensListaInternos(objItensBloq);
+                    //
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    ExcluirItem();
+                    preencherTabelaInternas("SELECT * FROM ITENS_CANCELAMENTO_VISITAS_INTERNA_ROL "
+                            + "INNER JOIN CANCELAMENTO_VISITAS_EXTERNA_INTERNA_ROL "
+                            + "ON ITENS_CANCELAMENTO_VISITAS_INTERNA_ROL.IdCAn=CANCELAMENTO_VISITAS_EXTERNA_INTERNA_ROL.IdCan "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON ITENS_CANCELAMENTO_VISITAS_INTERNA_ROL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "WHERE ITENS_CANCELAMENTO_VISITAS_INTERNA_ROL.IdCan='" + jIdCan.getText() + "'");
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a excluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirItemActionPerformed
 
     private void jBtSalvarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarItemActionPerformed
         // TODO add your handling code here:
-        if (jNomeInterna.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
-        } else {
-            if (jComboBoxStatusInterno.getSelectedItem() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe o status do interno.");
-                jComboBoxStatusInterno.requestFocus();
+        buscarAcessoUsuario(telaCancelaVisitaVistasIntSS);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaCancelaVisitaVistasIntSS) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jNomeInterna.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
             } else {
-                if (jDataBloqueio.getDate() == null) {
-                    JOptionPane.showMessageDialog(rootPane, "Informe a data do bloqueio da visita.");
+                if (jComboBoxStatusInterno.getSelectedItem() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe o status do interno.");
+                    jComboBoxStatusInterno.requestFocus();
                 } else {
-                    objItensBloq.setIdInternoCrc(Integer.valueOf(jIdInternoLista.getText()));
-                    objItensBloq.setNomeInternoCrc(jNomeInterna.getText());
-                    objItensBloq.setStatusVisita((String) jComboBoxStatusInterno.getSelectedItem());
-                    objItensBloq.setDataBloqueio(jDataBloqueio.getDate());
-                    objItensBloq.setMotivoBloqueio(jMotivoCancelamentoInterno.getText());
-                    objItensBloq.setIdCan(Integer.valueOf(jIdCan.getText()));
-                    if (acao == 5) {
-                        objItensBloq.setUsuarioInsert(nameUser);
-                        objItensBloq.setDataInsert(dataModFinal);
-                        objItensBloq.setHorarioInsert(horaMov);
-                        //
-                        controleBloq.incluirItensListaInternos(objItensBloq);
-                        // MODIFICA O STATUS DA VISITA DO INTERNO
-                        controleBloq.alterarItensRolInterno(objItensBloq);
-                        //
-                        objLog3();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        bloquearCampos();
-                        bloquearBotoes();
-                        SalvarItem();
-                        preencherTabelaInternas("SELECT * FROM ITENS_CANCELAMENTO_VISITAS_INTERNA_ROL "
-                                + "INNER JOIN CANCELAMENTO_VISITAS_EXTERNA_INTERNA_ROL "
-                                + "ON ITENS_CANCELAMENTO_VISITAS_INTERNA_ROL.IdCan=CANCELAMENTO_VISITAS_EXTERNA_INTERNA_ROL.IdCan "
-                                + "INNER JOIN PRONTUARIOSCRC "
-                                + "ON ITENS_CANCELAMENTO_VISITAS_INTERNA_ROL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                + "WHERE ITENS_CANCELAMENTO_VISITAS_INTERNA_ROL.IdCan='" + jIdCan.getText() + "'");
-                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    }
-                    if (acao == 6) {
-                        objItensBloq.setUsuarioUp(nameUser);
-                        objItensBloq.setDataUp(dataModFinal);
-                        objItensBloq.setHorarioUp(horaMov);
-                        //
-                        objItensBloq.setIdCan(Integer.valueOf(jIdCan.getText()));
+                    if (jDataBloqueio.getDate() == null) {
+                        JOptionPane.showMessageDialog(rootPane, "Informe a data do bloqueio da visita.");
+                    } else {
                         objItensBloq.setIdInternoCrc(Integer.valueOf(jIdInternoLista.getText()));
                         objItensBloq.setNomeInternoCrc(jNomeInterna.getText());
-                        objItensBloq.setIdItemCanInt(Integer.valueOf(idItemInt));
-                        controleBloq.alterarItensListaInternos(objItensBloq);
-                        // MODIFICA O STATUS DA VISITA DO INTERNO
-                        controleBloq.alterarItensRolInterno(objItensBloq);
-                        //
-                        objLog3();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        bloquearCampos();
-                        bloquearBotoes();
-                        SalvarItem();
-                        preencherTabelaInternas("SELECT * FROM ITENS_CANCELAMENTO_VISITAS_INTERNA_ROL "
-                                + "INNER JOIN CANCELAMENTO_VISITAS_EXTERNA_INTERNA_ROL "
-                                + "ON ITENS_CANCELAMENTO_VISITAS_INTERNA_ROL.IdCan=CANCELAMENTO_VISITAS_EXTERNA_INTERNA_ROL.IdCan "
-                                + "INNER JOIN PRONTUARIOSCRC "
-                                + "ON ITENS_CANCELAMENTO_VISITAS_INTERNA_ROL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                + "WHERE ITENS_CANCELAMENTO_VISITAS_INTERNA_ROL.IdCan='" + jIdCan.getText() + "'");
-                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        objItensBloq.setStatusVisita((String) jComboBoxStatusInterno.getSelectedItem());
+                        objItensBloq.setDataBloqueio(jDataBloqueio.getDate());
+                        objItensBloq.setMotivoBloqueio(jMotivoCancelamentoInterno.getText());
+                        objItensBloq.setIdCan(Integer.valueOf(jIdCan.getText()));
+                        if (acao == 5) {
+                            objItensBloq.setUsuarioInsert(nameUser);
+                            objItensBloq.setDataInsert(dataModFinal);
+                            objItensBloq.setHorarioInsert(horaMov);
+                            //
+                            controleBloq.incluirItensListaInternos(objItensBloq);
+                            // MODIFICA O STATUS DA VISITA DO INTERNO
+                            controleBloq.alterarItensRolInterno(objItensBloq);
+                            //
+                            objLog3();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            bloquearCampos();
+                            bloquearBotoes();
+                            SalvarItem();
+                            preencherTabelaInternas("SELECT * FROM ITENS_CANCELAMENTO_VISITAS_INTERNA_ROL "
+                                    + "INNER JOIN CANCELAMENTO_VISITAS_EXTERNA_INTERNA_ROL "
+                                    + "ON ITENS_CANCELAMENTO_VISITAS_INTERNA_ROL.IdCan=CANCELAMENTO_VISITAS_EXTERNA_INTERNA_ROL.IdCan "
+                                    + "INNER JOIN PRONTUARIOSCRC "
+                                    + "ON ITENS_CANCELAMENTO_VISITAS_INTERNA_ROL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                    + "WHERE ITENS_CANCELAMENTO_VISITAS_INTERNA_ROL.IdCan='" + jIdCan.getText() + "'");
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        }
+                        if (acao == 6) {
+                            objItensBloq.setUsuarioUp(nameUser);
+                            objItensBloq.setDataUp(dataModFinal);
+                            objItensBloq.setHorarioUp(horaMov);
+                            //
+                            objItensBloq.setIdCan(Integer.valueOf(jIdCan.getText()));
+                            objItensBloq.setIdInternoCrc(Integer.valueOf(jIdInternoLista.getText()));
+                            objItensBloq.setNomeInternoCrc(jNomeInterna.getText());
+                            objItensBloq.setIdItemCanInt(Integer.valueOf(idItemInt));
+                            controleBloq.alterarItensListaInternos(objItensBloq);
+                            // MODIFICA O STATUS DA VISITA DO INTERNO
+                            controleBloq.alterarItensRolInterno(objItensBloq);
+                            //
+                            objLog3();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            bloquearCampos();
+                            bloquearBotoes();
+                            SalvarItem();
+                            preencherTabelaInternas("SELECT * FROM ITENS_CANCELAMENTO_VISITAS_INTERNA_ROL "
+                                    + "INNER JOIN CANCELAMENTO_VISITAS_EXTERNA_INTERNA_ROL "
+                                    + "ON ITENS_CANCELAMENTO_VISITAS_INTERNA_ROL.IdCan=CANCELAMENTO_VISITAS_EXTERNA_INTERNA_ROL.IdCan "
+                                    + "INNER JOIN PRONTUARIOSCRC "
+                                    + "ON ITENS_CANCELAMENTO_VISITAS_INTERNA_ROL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                    + "WHERE ITENS_CANCELAMENTO_VISITAS_INTERNA_ROL.IdCan='" + jIdCan.getText() + "'");
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        }
                     }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar registro.");
         }
     }//GEN-LAST:event_jBtSalvarItemActionPerformed
 
@@ -2609,6 +2679,44 @@ public class TelaCancelamentoVisitasInterno extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTabelaVisita;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
+
+    public void buscarAcessoUsuario(String nomeTela) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUser = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUser + "'");
+            conecta.rs.first();
+            codigoUserGroup = conecta.rs.getInt("IdUsuario");
+            codigoGrupo = conecta.rs.getInt("IdGrupo");
+            nomeGrupo = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUser + "' "
+                    + "AND NomeTela='" + nomeTela + "'");
+            conecta.rs.first();
+            codUserAcesso = conecta.rs.getInt("IdUsuario");
+            codAbrir = conecta.rs.getInt("Abrir");
+            codIncluir = conecta.rs.getInt("Incluir");
+            codAlterar = conecta.rs.getInt("Alterar");
+            codExcluir = conecta.rs.getInt("Excluir");
+            codGravar = conecta.rs.getInt("Gravar");
+            codConsultar = conecta.rs.getInt("Consultar");
+            nomeTela = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
 
     public void formatarCampos() {
         jObservacao.setLineWrap(true);

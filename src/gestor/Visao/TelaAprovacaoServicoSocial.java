@@ -16,6 +16,16 @@ import java.awt.Color;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import gestor.Dao.ModeloTabela;
+import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloServicoSocial.codAlterar;
+import static gestor.Visao.TelaModuloServicoSocial.codExcluir;
+import static gestor.Visao.TelaModuloServicoSocial.codIncluir;
+import static gestor.Visao.TelaModuloServicoSocial.codUserAcesso;
+import static gestor.Visao.TelaModuloServicoSocial.codigoUser;
+import static gestor.Visao.TelaModuloServicoSocial.nomeGrupo;
+import static gestor.Visao.TelaModuloServicoSocial.nomeTela;
+import static gestor.Visao.TelaModuloServicoSocial.telaBloqueioLiberacaoVisitasSS;
+import static gestor.Visao.TelaModuloServicoSocial.telaRolVisitasSS;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JLabel;
@@ -61,6 +71,7 @@ public class TelaAprovacaoServicoSocial extends javax.swing.JInternalFrame {
     String idVisita;
     int modulo;
     String senhaUsuario;
+
     // String indisciplina = "Sim";
     /**
      * Creates new form TelaAprovacaoServicoSocial
@@ -811,74 +822,86 @@ public class TelaAprovacaoServicoSocial extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtAutorizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAutorizarActionPerformed
-        // TODO add your handling code here:
-        acao = 1;
-        buscarUsuario();
-        verificarUsuarioAutorizados();
-        verificarBloqueioLiberacao();
-        verificarBloqueioLiberacaoVisitasInternas();
-        verificarAprovacao();
-        jBtAutorizar.setEnabled(!true);
-        jBtCancelar.setEnabled(true);
-        if (codUserAutoriza == codUsuario && modulo == 1) {
-            jDataAprovacao.setCalendar(Calendar.getInstance());
-            jDataAprovacao.setEnabled(true);
-            jColaboradorAutorizador.setText(nameUser);
-            if (dataLiberacao == null && dataAprovacao1 == null) { // SERÁ BLOQUEIO VISITA EXTERNA
-                jBtBloquear.setEnabled(true);
-                jBtLiberar.setEnabled(!true);
-                //
-                jRadioBtBloquear.setEnabled(true);
-                jRadioBtBloquear.setSelected(true);
-                jRadioBtLiberar.setEnabled(!true);
-                jRadioBtLiberar.setSelected(!true);
-                jDataLiberacao.setEnabled(!true);
-            } else if (dataLiberacao1 == null && dataAprovacao1 == null) { // SERÁ BLOQUEIO VISITA INTERNA
-                jBtBloquear.setEnabled(true);
-                jBtLiberar.setEnabled(!true);
-                //
-                jRadioBtBloquear.setEnabled(true);
-                jRadioBtBloquear.setSelected(true);
-                jRadioBtLiberar.setEnabled(!true);
-                jRadioBtLiberar.setSelected(!true);
-                jDataLiberacao.setEnabled(!true);
-            } else if (dataLiberacao != null && dataAprovacao1 != null) { // SERÁ LIBERAÇÃO VISITA EXTERNA
-                jBtBloquear.setEnabled(!true);
-                jBtLiberar.setEnabled(true);
-                //
-                jRadioBtBloquear.setEnabled(!true);
-                jRadioBtBloquear.setSelected(!true);
-                jRadioBtLiberar.setEnabled(true);
-                jRadioBtLiberar.setSelected(true);
-            } else if (dataLiberacao1 != null && dataAprovacao1 != null) { // SERÁ LIBERAR VISITA INTERNA
-                jBtBloquear.setEnabled(!true);
-                jBtLiberar.setEnabled(true);
-                //
-                jRadioBtBloquear.setEnabled(!true);
-                jRadioBtBloquear.setSelected(!true);
-                jRadioBtLiberar.setEnabled(true);
-                jRadioBtLiberar.setSelected(true);
+        // TODO add your handling code here:telaBloqueioLiberacaoVisitasSS
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaBloqueioLiberacaoVisitasSS) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            acao = 1;
+            buscarUsuario();
+            verificarUsuarioAutorizados();
+            verificarBloqueioLiberacao();
+            verificarBloqueioLiberacaoVisitasInternas();
+            verificarAprovacao();
+            jBtAutorizar.setEnabled(!true);
+            jBtCancelar.setEnabled(true);
+            if (codUserAutoriza == codUsuario && modulo == 1) {
+                jDataAprovacao.setCalendar(Calendar.getInstance());
+                jDataAprovacao.setEnabled(true);
+                jColaboradorAutorizador.setText(nameUser);
+                if (dataLiberacao == null && dataAprovacao1 == null) { // SERÁ BLOQUEIO VISITA EXTERNA
+                    jBtBloquear.setEnabled(true);
+                    jBtLiberar.setEnabled(!true);
+                    //
+                    jRadioBtBloquear.setEnabled(true);
+                    jRadioBtBloquear.setSelected(true);
+                    jRadioBtLiberar.setEnabled(!true);
+                    jRadioBtLiberar.setSelected(!true);
+                    jDataLiberacao.setEnabled(!true);
+                } else if (dataLiberacao1 == null && dataAprovacao1 == null) { // SERÁ BLOQUEIO VISITA INTERNA
+                    jBtBloquear.setEnabled(true);
+                    jBtLiberar.setEnabled(!true);
+                    //
+                    jRadioBtBloquear.setEnabled(true);
+                    jRadioBtBloquear.setSelected(true);
+                    jRadioBtLiberar.setEnabled(!true);
+                    jRadioBtLiberar.setSelected(!true);
+                    jDataLiberacao.setEnabled(!true);
+                } else if (dataLiberacao != null && dataAprovacao1 != null) { // SERÁ LIBERAÇÃO VISITA EXTERNA
+                    jBtBloquear.setEnabled(!true);
+                    jBtLiberar.setEnabled(true);
+                    //
+                    jRadioBtBloquear.setEnabled(!true);
+                    jRadioBtBloquear.setSelected(!true);
+                    jRadioBtLiberar.setEnabled(true);
+                    jRadioBtLiberar.setSelected(true);
+                } else if (dataLiberacao1 != null && dataAprovacao1 != null) { // SERÁ LIBERAR VISITA INTERNA
+                    jBtBloquear.setEnabled(!true);
+                    jBtLiberar.setEnabled(true);
+                    //
+                    jRadioBtBloquear.setEnabled(!true);
+                    jRadioBtBloquear.setSelected(!true);
+                    jRadioBtLiberar.setEnabled(true);
+                    jRadioBtLiberar.setSelected(true);
+                }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Usuário não tem autorização para bloquear/Liberar registro..");
+                jBtAutorizar.setEnabled(true);
+                jBtCancelar.setEnabled(!true);
             }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Usuário não tem autorização para bloquear/Liberar registro..");
-            jBtAutorizar.setEnabled(true);
-            jBtCancelar.setEnabled(!true);
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a autorizar registro.");
         }
     }//GEN-LAST:event_jBtAutorizarActionPerformed
 
     private void jBtBloquearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtBloquearActionPerformed
         // TODO add your handling code here:
-        if (concluirRegistro.equals("Sim")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, já foi concluído.");
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaBloqueioLiberacaoVisitasSS) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (concluirRegistro.equals("Sim")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, já foi concluído.");
+            } else {
+                bloquearVisita();
+            }
         } else {
-            bloquearVisita();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a bloquear registro.");
         }
     }//GEN-LAST:event_jBtBloquearActionPerformed
 
     private void jBtLiberarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtLiberarActionPerformed
         // TODO add your handling code here:
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaBloqueioLiberacaoVisitasSS) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
         acao = 2;
         liberarVisita();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a Liberar registro.");
+        }
     }//GEN-LAST:event_jBtLiberarActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
@@ -908,13 +931,13 @@ public class TelaAprovacaoServicoSocial extends javax.swing.JInternalFrame {
 
     private void jBtPesqCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqCodigoActionPerformed
         // TODO add your handling code here:
-        if(jCodigoPesqOcr.getText().equals("")){
+        if (jCodigoPesqOcr.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o código do registro para pesquisa.");
-        }else {
+        } else {
             preencherTodasOcorrenciaVisitas("SELECT * FROM REGISTRO_INDISCIPLINA_PORTARIA "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON REGISTRO_INDISCIPLINA_PORTARIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE REGISTRO_INDISCIPLINA_PORTARIA.IdReg='" +jCodigoPesqOcr.getText()+  "' "
+                    + "WHERE REGISTRO_INDISCIPLINA_PORTARIA.IdReg='" + jCodigoPesqOcr.getText() + "' "
                     + "AND REGISTRO_INDISCIPLINA_PORTARIA.StatusReg='" + statusReg + "' "
                     + "AND DataAprovacao!='" + dataAprovacao + "'");
         }
@@ -922,13 +945,13 @@ public class TelaAprovacaoServicoSocial extends javax.swing.JInternalFrame {
 
     private void jBtPesqNomeInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqNomeInternoActionPerformed
         // TODO add your handling code here:
-        if(jNomeInternoPesquisa.getText().equals("")){
+        if (jNomeInternoPesquisa.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisa.");
-        }else {
+        } else {
             preencherTodasOcorrenciaVisitas("SELECT * FROM REGISTRO_INDISCIPLINA_PORTARIA "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON REGISTRO_INDISCIPLINA_PORTARIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE PRONTUARIOSCRC.NomeInternoCrc LIKE'%" +jNomeInternoPesquisa.getText()+  "%' "
+                    + "WHERE PRONTUARIOSCRC.NomeInternoCrc LIKE'%" + jNomeInternoPesquisa.getText() + "%' "
                     + "AND REGISTRO_INDISCIPLINA_PORTARIA.StatusReg='" + statusReg + "' "
                     + "AND DataAprovacao!='" + dataAprovacao + "'");
         }
@@ -1008,7 +1031,7 @@ public class TelaAprovacaoServicoSocial extends javax.swing.JInternalFrame {
                 jComboBoxStatusVisita.setSelectedItem("Inativo");
             } else if (dataLiberacao1 == null && dataLiberacao == null) { // SERÁ BLOQUEADO - (VISITA INTERNA)
                 jDataLiberacao.setEnabled(!true);
-                jComboBoxStatusVisita.setSelectedItem("Inativo");                 
+                jComboBoxStatusVisita.setSelectedItem("Inativo");
             } else if (dataLiberacao != null) { // SERÁ LIBERADO - (VISITA EXTERNA)
                 jDataLiberacao.setEnabled(true);
                 jComboBoxStatusVisita.setSelectedItem("Ativo");
@@ -1025,25 +1048,25 @@ public class TelaAprovacaoServicoSocial extends javax.swing.JInternalFrame {
             } else if (dataAprovaSocial1 == null) {
                 jBtBloquear.setEnabled(true);
             }
-             // 0 - BLOQUEAR 1 - LIBERAR
+            // 0 - BLOQUEAR 1 - LIBERAR
             if (tipoBloq == 0 && jDataInicial.getDate() != null || tipoBloq == 0 && jDataLiberacao.getDate() != null) {
-                jBtBloquear.setEnabled(true);                
+                jBtBloquear.setEnabled(true);
                 jBtLiberar.setEnabled(!true);
                 jDataAprovacao.setEnabled(true);
                 jRadioBtBloquear.setEnabled(true);
-                jRadioBtBloquear.setSelected(true);  
-                jRadioBtLiberar.setSelected(!true);  
+                jRadioBtBloquear.setSelected(true);
+                jRadioBtLiberar.setSelected(!true);
                 jRadioBtLiberar.setEnabled(!true);
                 jDataLiberacao.setEnabled(!true);
                 jBtConcluir.setEnabled(true);
-                jComboBoxStatusVisita.setSelectedItem("Inativo");    
+                jComboBoxStatusVisita.setSelectedItem("Inativo");
             } else if (tipoBloq == 1 && dataAprovacao1 != null) {
                 jBtBloquear.setEnabled(!true);
                 jRadioBtBloquear.setEnabled(!true);
                 jBtLiberar.setEnabled(true);
                 jDataLiberacao.setEnabled(true);
                 jBtConcluir.setEnabled(true);
-                jDataLiberacao.setCalendar(Calendar.getInstance());              
+                jDataLiberacao.setCalendar(Calendar.getInstance());
             }
         }
     }//GEN-LAST:event_jTabelaVisitasInternosMouseClicked

@@ -1368,7 +1368,7 @@ public class TelaRolVisitasReligiosas extends javax.swing.JInternalFrame {
                 dataModFinal = jDataSistema.getText();
             }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
@@ -1399,7 +1399,7 @@ public class TelaRolVisitasReligiosas extends javax.swing.JInternalFrame {
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a excluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
@@ -1497,7 +1497,7 @@ public class TelaRolVisitasReligiosas extends javax.swing.JInternalFrame {
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -1557,7 +1557,7 @@ public class TelaRolVisitasReligiosas extends javax.swing.JInternalFrame {
                 dataModFinal = jDataSistema.getText();
             }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
         }
     }//GEN-LAST:event_jBtAlterarVisitaActionPerformed
 
@@ -1590,7 +1590,7 @@ public class TelaRolVisitasReligiosas extends javax.swing.JInternalFrame {
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a excluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirVisitaActionPerformed
 
@@ -1697,7 +1697,7 @@ public class TelaRolVisitasReligiosas extends javax.swing.JInternalFrame {
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar registro.");
         }
     }//GEN-LAST:event_jBtSalvarVisitaActionPerformed
 

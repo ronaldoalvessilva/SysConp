@@ -15,6 +15,16 @@ import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloServicoSocial.codAlterar;
+import static gestor.Visao.TelaModuloServicoSocial.codExcluir;
+import static gestor.Visao.TelaModuloServicoSocial.codGravar;
+import static gestor.Visao.TelaModuloServicoSocial.codIncluir;
+import static gestor.Visao.TelaModuloServicoSocial.codUserAcesso;
+import static gestor.Visao.TelaModuloServicoSocial.codigoUser;
+import static gestor.Visao.TelaModuloServicoSocial.nomeGrupo;
+import static gestor.Visao.TelaModuloServicoSocial.nomeTela;
+import static gestor.Visao.TelaModuloServicoSocial.telaHistAvaSocial;
+import static gestor.Visao.TelaModuloServicoSocial.telaRolVisitasSS;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -737,90 +747,106 @@ public class TelaHistoricoAvaliacaoSocial extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaHistAvaSocial) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        objHistAva.setStatusLanc(jStatusOcorrencia.getText());
-        if (jStatusOcorrencia.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa hitórico não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaHistAvaSocial) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            objHistAva.setStatusLanc(jStatusOcorrencia.getText());
+            if (jStatusOcorrencia.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa hitórico não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                Alterar();
+                corCampos();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 2;
-            Alterar();
-            corCampos();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        objHistAva.setStatusLanc(jStatusOcorrencia.getText());
-        if (jStatusOcorrencia.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa histórico não poderá ser alterado, o mesmo encontra-se FINALIZADO");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objHistAva.setIdLanc(Integer.parseInt(jIdOcorrencia.getText()));
-                control.excluirHistoricoAvalivacao(objHistAva);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                Excluir();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaHistAvaSocial) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objHistAva.setStatusLanc(jStatusOcorrencia.getText());
+            if (jStatusOcorrencia.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa histórico não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objHistAva.setIdLanc(Integer.parseInt(jIdOcorrencia.getText()));
+                    control.excluirHistoricoAvalivacao(objHistAva);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    Excluir();
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a excluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataOcorrencia.getDate() == null) {
-            jDataOcorrencia.requestFocus();
-            jDataOcorrencia.setBackground(Color.red);
-            JOptionPane.showMessageDialog(rootPane, "Informe a data do Hitórico.");
-        } else {
-            if (jTituloOcorrencia.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe o titulo do Hitórico.");
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaHistAvaSocial) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jDataOcorrencia.getDate() == null) {
+                jDataOcorrencia.requestFocus();
+                jDataOcorrencia.setBackground(Color.red);
+                JOptionPane.showMessageDialog(rootPane, "Informe a data do Hitórico.");
             } else {
-                objHistAva.setStatusLanc(statusEntrada);
-                objHistAva.setDataLanc(jDataOcorrencia.getDate());
-                objHistAva.setIdInternoCrc(Integer.valueOf(jIdInternoAvalia.getText()));
-                objHistAva.setNomeInternoCrc(jNomeInternoAvalia.getText());
-                objHistAva.setTitulo(jTituloOcorrencia.getText());
-                objHistAva.setTextoArea(jCorpoTextoOcorrencia.getText());
-                if (acao == 1) {
-                    objHistAva.setUsuarioInsert(nameUser);
-                    objHistAva.setDataInsert(jDataSistema.getText());
-                    objHistAva.setHorarioInsert(jHoraSistema.getText());
-                    control.incluirHistoricoAvalivacao(objHistAva);
-                    buscarID();
-                    Salvar();
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                }
-                if (acao == 2) {
-                    objHistAva.setUsuarioUp(nameUser);
-                    objHistAva.setDataUp(jDataSistema.getText());
-                    objHistAva.setHorarioUp(jHoraSistema.getText());
-                    objHistAva.setIdLanc(Integer.valueOf(jIdOcorrencia.getText()));
-                    control.alterarHistoricoAvalivacao(objHistAva);
-                    Salvar();
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                if (jTituloOcorrencia.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe o titulo do Hitórico.");
+                } else {
+                    objHistAva.setStatusLanc(statusEntrada);
+                    objHistAva.setDataLanc(jDataOcorrencia.getDate());
+                    objHistAva.setIdInternoCrc(Integer.valueOf(jIdInternoAvalia.getText()));
+                    objHistAva.setNomeInternoCrc(jNomeInternoAvalia.getText());
+                    objHistAva.setTitulo(jTituloOcorrencia.getText());
+                    objHistAva.setTextoArea(jCorpoTextoOcorrencia.getText());
+                    if (acao == 1) {
+                        objHistAva.setUsuarioInsert(nameUser);
+                        objHistAva.setDataInsert(jDataSistema.getText());
+                        objHistAva.setHorarioInsert(jHoraSistema.getText());
+                        control.incluirHistoricoAvalivacao(objHistAva);
+                        buscarID();
+                        Salvar();
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    }
+                    if (acao == 2) {
+                        objHistAva.setUsuarioUp(nameUser);
+                        objHistAva.setDataUp(jDataSistema.getText());
+                        objHistAva.setHorarioUp(jHoraSistema.getText());
+                        objHistAva.setIdLanc(Integer.valueOf(jIdOcorrencia.getText()));
+                        control.alterarHistoricoAvalivacao(objHistAva);
+                        Salvar();
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 

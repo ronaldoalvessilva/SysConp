@@ -14,6 +14,15 @@ import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloServicoSocial.codAlterar;
+import static gestor.Visao.TelaModuloServicoSocial.codExcluir;
+import static gestor.Visao.TelaModuloServicoSocial.codGravar;
+import static gestor.Visao.TelaModuloServicoSocial.codIncluir;
+import static gestor.Visao.TelaModuloServicoSocial.codUserAcesso;
+import static gestor.Visao.TelaModuloServicoSocial.codigoUser;
+import static gestor.Visao.TelaModuloServicoSocial.nomeGrupo;
+import static gestor.Visao.TelaModuloServicoSocial.nomeTela;
+import static gestor.Visao.TelaModuloServicoSocial.telaAtendimentoFamiliaSS;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -52,7 +61,7 @@ public class TelaAtendimentoFamiliar extends javax.swing.JInternalFrame {
     String caminhoVisita;
     String statusAtend = "ABERTO";
     int count = 0;
- 
+
     /**
      * Creates new form TelaAtendimentoFamiliar
      */
@@ -1125,106 +1134,122 @@ public class TelaAtendimentoFamiliar extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampo();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaAtendimentoFamiliaSS) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            acao = 1;
+            Novo();
+            corCampo();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        acao = 2;
-        objAtendf.setStatusAtend(jStatusAtendf.getText());
-        if (jStatusAtendf.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse atendimento não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaAtendimentoFamiliaSS) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            acao = 2;
+            objAtendf.setStatusAtend(jStatusAtendf.getText());
+            if (jStatusAtendf.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse atendimento não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                Alterar();
+                corCampo();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            Alterar();
-            corCampo();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        objAtendf.setStatusAtend(jStatusAtendf.getText());
-        if (jStatusAtendf.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse atendimento não poderá ser excluido, o mesmo encontra-se FINALIZADO");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o ATENDIMENTO FAMILIAR selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objAtendf.setIdAtendf(Integer.parseInt(jIDAtendf.getText()));
-                control.excluirAtendFamiliar(objAtendf);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                Excluir();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaAtendimentoFamiliaSS) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objAtendf.setStatusAtend(jStatusAtendf.getText());
+            if (jStatusAtendf.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse atendimento não poderá ser excluido, o mesmo encontra-se FINALIZADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o ATENDIMENTO FAMILIAR selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objAtendf.setIdAtendf(Integer.parseInt(jIDAtendf.getText()));
+                    control.excluirAtendFamiliar(objAtendf);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    Excluir();
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a excluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataAtendf.getDate() == null) {
-            JOptionPane.showMessageDialog(null, "Informe a data do atendimento familiar.");
-            jDataAtendf.requestFocus();
-            jDataAtendf.setBackground(Color.red);
-        } else {
-            if (jNomeVisita.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "Informe qual familiar deverá ser atendido.");
-                jNomeVisita.requestFocus();
-                jNomeVisita.setBackground(Color.red);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaAtendimentoFamiliaSS) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jDataAtendf.getDate() == null) {
+                JOptionPane.showMessageDialog(null, "Informe a data do atendimento familiar.");
+                jDataAtendf.requestFocus();
+                jDataAtendf.setBackground(Color.red);
             } else {
-                if (jNomeInterno.getText().equals("")) {
-                    JOptionPane.showMessageDialog(null, "Informe qual interno tem vinculo com o familiar");
-                    jNomeInterno.requestFocus();
-                    jNomeInterno.setBackground(Color.red);
+                if (jNomeVisita.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Informe qual familiar deverá ser atendido.");
+                    jNomeVisita.requestFocus();
+                    jNomeVisita.setBackground(Color.red);
                 } else {
-                    objAtendf.setDataAtendf(jDataAtendf.getDate());
-                    objAtendf.setStatusAtend(statusAtend);
-                    objAtendf.setPergunta1Atendf(jPergunta1.getText());
-                    objAtendf.setPergunta2Atendf(jPergunta2.getText());
-                    objAtendf.setCompanheiroUnidade((String) jComboBoxCompanheiroUnid.getSelectedItem());
-                    objAtendf.setVisitaInternoUnidade((String) jComboBoxVisitaInternoUnid.getSelectedItem());
-                    objAtendf.setCreasCreas((String) jComboBoxCREAS.getSelectedItem());
-                    objAtendf.setBolsaFamilia((String) jComboBoxBolsaFamilia.getSelectedItem());
-                    if (acao == 1) {
-                        // Para o log do registro
-                        objAtendf.setUsuarioInsert(nameUser);
-                        objAtendf.setDataInsert(dataModFinal);
-                        objAtendf.setHoraInsert(horaMov);
-                        objAtendf.setNomeVisita(jNomeVisita.getText());
-                        objAtendf.setNomeInterno(jNomeInterno.getText());
-                        control.incluirAtendFamiliar(objAtendf);
-                        buscarCodAtendf();
-                        objLog();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        JOptionPane.showMessageDialog(rootPane, "Atendimento gravado com sucesso.\nCaso já tenha concluido o atendimento,\nclique no botão finalizar para evitar que\n o mesmo seja alterado ou excluido.");
-                        Salvar();
-                    }
-                    if (acao == 2) {
-                        // Para o log do registro
-                        objAtendf.setUsuarioUp(nameUser);
-                        objAtendf.setDataUp(jDataSistema.getText());
-                        objAtendf.setHoraUp(jHoraSistema.getText());
-                        objAtendf.setNomeVisita(jNomeVisita.getText());
-                        objAtendf.setNomeInterno(jNomeInterno.getText());
-                        objAtendf.setIdAtendf(Integer.valueOf(jIDAtendf.getText()));
-                        control.alterarAtendFamiliar(objAtendf);
-                        objLog();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        JOptionPane.showMessageDialog(rootPane, "Atendimento gravado com sucesso.\nCaso já tenha concluido o atendimento,\nclique no botão finalizar para evitar que\n o mesmo seja alterado ou excluido.");
-                        Salvar();
+                    if (jNomeInterno.getText().equals("")) {
+                        JOptionPane.showMessageDialog(null, "Informe qual interno tem vinculo com o familiar");
+                        jNomeInterno.requestFocus();
+                        jNomeInterno.setBackground(Color.red);
+                    } else {
+                        objAtendf.setDataAtendf(jDataAtendf.getDate());
+                        objAtendf.setStatusAtend(statusAtend);
+                        objAtendf.setPergunta1Atendf(jPergunta1.getText());
+                        objAtendf.setPergunta2Atendf(jPergunta2.getText());
+                        objAtendf.setCompanheiroUnidade((String) jComboBoxCompanheiroUnid.getSelectedItem());
+                        objAtendf.setVisitaInternoUnidade((String) jComboBoxVisitaInternoUnid.getSelectedItem());
+                        objAtendf.setCreasCreas((String) jComboBoxCREAS.getSelectedItem());
+                        objAtendf.setBolsaFamilia((String) jComboBoxBolsaFamilia.getSelectedItem());
+                        if (acao == 1) {
+                            // Para o log do registro
+                            objAtendf.setUsuarioInsert(nameUser);
+                            objAtendf.setDataInsert(dataModFinal);
+                            objAtendf.setHoraInsert(horaMov);
+                            objAtendf.setNomeVisita(jNomeVisita.getText());
+                            objAtendf.setNomeInterno(jNomeInterno.getText());
+                            control.incluirAtendFamiliar(objAtendf);
+                            buscarCodAtendf();
+                            objLog();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            JOptionPane.showMessageDialog(rootPane, "Atendimento gravado com sucesso.\nCaso já tenha concluido o atendimento,\nclique no botão finalizar para evitar que\n o mesmo seja alterado ou excluido.");
+                            Salvar();
+                        }
+                        if (acao == 2) {
+                            // Para o log do registro
+                            objAtendf.setUsuarioUp(nameUser);
+                            objAtendf.setDataUp(jDataSistema.getText());
+                            objAtendf.setHoraUp(jHoraSistema.getText());
+                            objAtendf.setNomeVisita(jNomeVisita.getText());
+                            objAtendf.setNomeInterno(jNomeInterno.getText());
+                            objAtendf.setIdAtendf(Integer.valueOf(jIDAtendf.getText()));
+                            control.alterarAtendFamiliar(objAtendf);
+                            objLog();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            JOptionPane.showMessageDialog(rootPane, "Atendimento gravado com sucesso.\nCaso já tenha concluido o atendimento,\nclique no botão finalizar para evitar que\n o mesmo seja alterado ou excluido.");
+                            Salvar();
+                        }
                     }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 

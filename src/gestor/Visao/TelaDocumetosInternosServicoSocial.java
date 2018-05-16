@@ -1172,7 +1172,7 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
@@ -1198,7 +1198,7 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a excluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
@@ -1268,7 +1268,7 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
