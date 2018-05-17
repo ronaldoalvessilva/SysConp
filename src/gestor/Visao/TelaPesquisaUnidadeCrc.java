@@ -56,7 +56,7 @@ public class TelaPesquisaUnidadeCrc extends javax.swing.JInternalFrame {
         setClosable(true);
         setTitle("...::: Pesquisar Unidade Penal :::...");
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar Unidade Penal", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 51, 255)));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar Unidade Penal", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 51, 255))); // NOI18N
 
         jPesNomeUnidade.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
@@ -168,12 +168,12 @@ public class TelaPesquisaUnidadeCrc extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtEnviar)
                     .addComponent(jBtSair))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -197,7 +197,8 @@ public class TelaPesquisaUnidadeCrc extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe dados para pesquisa");
             jPesNomeUnidade.requestFocus();
         } else {
-            preencherTabelaNome("SELECT * FROM UNIDADE WHERE DescricaoUnid LIKE'" + jPesNomeUnidade.getText() + "%'");
+            preencherTabelaNome("SELECT * FROM UNIDADE "
+                    + "WHERE DescricaoUnid LIKE'" + jPesNomeUnidade.getText() + "%'");
         }
 
     }//GEN-LAST:event_jBtNomeActionPerformed

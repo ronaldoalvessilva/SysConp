@@ -55,7 +55,7 @@ public class TelaPesquisaPaisesCrc extends javax.swing.JInternalFrame {
         setClosable(true);
         setTitle("...::: Pesquisar Países :::...");
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar Países", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 51, 255)));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar Países", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 51, 255))); // NOI18N
 
         jPesNomePais.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
@@ -110,7 +110,7 @@ public class TelaPesquisaPaisesCrc extends javax.swing.JInternalFrame {
                 {null, null}
             },
             new String [] {
-                "ID", "Nome País"
+                "Código", "Nome País"
             }
         ));
         jTabelaPais.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -158,7 +158,7 @@ public class TelaPesquisaPaisesCrc extends javax.swing.JInternalFrame {
                         .addComponent(jBtEnviar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtSair)
-                        .addContainerGap(236, Short.MAX_VALUE))
+                        .addContainerGap(244, Short.MAX_VALUE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
@@ -188,7 +188,7 @@ public class TelaPesquisaPaisesCrc extends javax.swing.JInternalFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setBounds(300, 150, 440, 241);
+        setBounds(300, 150, 448, 241);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNomeActionPerformed
@@ -228,8 +228,7 @@ public class TelaPesquisaPaisesCrc extends javax.swing.JInternalFrame {
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
         flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {
-            jTabelaPais.setVisible(true);
+        if (evt.getStateChange() == evt.SELECTED) {            
             this.preencherTabela();
         } else {
             limparTabela();
@@ -252,7 +251,7 @@ public class TelaPesquisaPaisesCrc extends javax.swing.JInternalFrame {
 
     public void preencherTabela() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"ID", "Nome Pais"};
+        String[] Colunas = new String[]{"Código", "Nome Pais"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM PAISES ORDER BY NomePais");
@@ -278,7 +277,7 @@ public class TelaPesquisaPaisesCrc extends javax.swing.JInternalFrame {
 
     public void preencherTabelaNome(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"ID", "Nome País"};
+        String[] Colunas = new String[]{"Código", "Nome País"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);

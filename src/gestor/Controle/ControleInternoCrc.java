@@ -65,7 +65,7 @@ public class ControleInternoCrc {
             pst.setString(26, objProCrc.getUsuarioInsert());
             pst.setString(27, objProCrc.getDataInsert());
             pst.setString(28, objProCrc.getHoraInsert());
-            pst.setString(29 , objProCrc.getCartoaSus());
+            pst.setString(29, objProCrc.getCartoaSus());
             pst.setString(30, objProCrc.getCnc());
             pst.execute();
         }
@@ -81,7 +81,7 @@ public class ControleInternoCrc {
         // Alterar Registro na tabela de INTERNOS CRC
         try (PreparedStatement pst = conecta.con.prepareStatement("UPDATE PRONTUARIOSCRC SET MatriculaCrc=?,DataCadastCrc=?,DataNasciCrc=?,"
                 + "NomeInternoCrc=?,MaeInternoCrc=?,PaiInternoCrc=?,AlcunhaCrc=?,RgInternoCrc=?,CpfInternoCrc=?,FotoInternoCrc=?,EscolaridadeCrc=?,EstadoCivilCrc=?,SexoCrc=?,"
-                + "SituacaoCrc=?,ReligiaoCrc=?,ProfissaoCrc=?,EnderecoCrc=?,BairroCrc=?,CidadeCrc=?,EstadoCrc=?,IdCidade=?,IdPais=?,TelefoneCrc=?,Telefone1Crc=?,CelularCrc=?,UsuarioUp=?,DataUp=?,HorarioUp=?,CartaoSus=?,Cnc=? WHERE IdInternoCrc='" +objProCrc.getIdInterno() + "'")) {
+                + "SituacaoCrc=?,ReligiaoCrc=?,ProfissaoCrc=?,EnderecoCrc=?,BairroCrc=?,CidadeCrc=?,EstadoCrc=?,IdCidade=?,IdPais=?,TelefoneCrc=?,Telefone1Crc=?,CelularCrc=?,UsuarioUp=?,DataUp=?,HorarioUp=?,CartaoSus=?,Cnc=? WHERE IdInternoCrc='" + objProCrc.getIdInterno() + "'")) {
             pst.setString(1, objProCrc.getMatricula());
             pst.setTimestamp(2, new java.sql.Timestamp(objProCrc.getDataCadast().getTime()));
             pst.setTimestamp(3, new java.sql.Timestamp(objProCrc.getDataNasci().getTime()));
@@ -109,7 +109,7 @@ public class ControleInternoCrc {
             pst.setString(25, objProCrc.getCelular());
             pst.setString(26, objProCrc.getUsuarioUp());
             pst.setString(27, objProCrc.getDataUp());
-            pst.setString(28, objProCrc.getHoraUp());        
+            pst.setString(28, objProCrc.getHoraUp());
             pst.setString(29, objProCrc.getCartoaSus());
             pst.setString(30, objProCrc.getCnc());
             pst.executeUpdate();
@@ -121,7 +121,8 @@ public class ControleInternoCrc {
     // EXCLUIR registro do INTERNO CRC
     public ProntuarioCrc excluirInternoCrc(ProntuarioCrc objProCrc) throws SQLException {
         conecta.abrirConexao();
-        try (PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM PRONTUARIOSCRC WHERE IdInternoCrc='" + objProCrc.getIdInterno() + "'")) {
+        try (PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM PRONTUARIOSCRC "
+                + "WHERE IdInternoCrc='" + objProCrc.getIdInterno() + "'")) {
             pst.executeUpdate();
         }
         conecta.desconecta();
@@ -131,7 +132,9 @@ public class ControleInternoCrc {
     // Confirmar como "Sim" caso o CRC utile o registro feito na PORTARIA.
     public ProntuarioCrc confirmarRegInternoCrc(ProntuarioCrc objProCrc) throws SQLException {
         conecta.abrirConexao();
-        try (PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSENTRADAPORTARIA SET ConfirmaEntrada=? WHERE NomeInternoCrc='" + objProCrc.getNomeInterno() + "'AND confirmaEntrada='" + confirmaEntrada + "'")) {
+        try (PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSENTRADAPORTARIA SET ConfirmaEntrada=? "
+                + "WHERE NomeInternoCrc='" + objProCrc.getNomeInterno() + "' "
+                + "AND confirmaEntrada='" + confirmaEntrada + "'")) {
             pst.setString(1, objProCrc.getConfirmaEntrada());
             pst.executeUpdate();
         }

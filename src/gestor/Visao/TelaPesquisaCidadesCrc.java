@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -57,9 +59,9 @@ public class TelaPesquisaCidadesCrc extends javax.swing.JInternalFrame {
 
         jPesNomeCidade.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jBtNome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/pesq.png"))); // NOI18N
+        jBtNome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtNome.setToolTipText("Pesquisa por Nome");
-        jBtNome.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jBtNome.setContentAreaFilled(false);
         jBtNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtNomeActionPerformed(evt);
@@ -102,15 +104,13 @@ public class TelaPesquisaCidadesCrc extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1))
         );
 
+        jTabelaCidade.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaCidade.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+                {null, null, null}
             },
             new String [] {
-
+                "Código", "Nome Cidade", "DDD"
             }
         ));
         jTabelaCidade.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -119,7 +119,17 @@ public class TelaPesquisaCidadesCrc extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(jTabelaCidade);
+        if (jTabelaCidade.getColumnModel().getColumnCount() > 0) {
+            jTabelaCidade.getColumnModel().getColumn(0).setMinWidth(70);
+            jTabelaCidade.getColumnModel().getColumn(0).setMaxWidth(70);
+            jTabelaCidade.getColumnModel().getColumn(1).setMinWidth(340);
+            jTabelaCidade.getColumnModel().getColumn(1).setMaxWidth(340);
+            jTabelaCidade.getColumnModel().getColumn(2).setMinWidth(50);
+            jTabelaCidade.getColumnModel().getColumn(2).setMaxWidth(50);
+        }
 
+        jBtEnviar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jBtEnviar.setForeground(new java.awt.Color(0, 102, 0));
         jBtEnviar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/accept.png"))); // NOI18N
         jBtEnviar.setText("Enviar");
         jBtEnviar.addActionListener(new java.awt.event.ActionListener() {
@@ -128,6 +138,8 @@ public class TelaPesquisaCidadesCrc extends javax.swing.JInternalFrame {
             }
         });
 
+        jBtSair.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jBtSair.setForeground(new java.awt.Color(204, 0, 0));
         jBtSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Log_Out_Icon_16.png"))); // NOI18N
         jBtSair.setText("Sair");
         jBtSair.addActionListener(new java.awt.event.ActionListener() {
@@ -145,13 +157,11 @@ public class TelaPesquisaCidadesCrc extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jBtEnviar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtSair)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jBtEnviar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtSair)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -160,28 +170,26 @@ public class TelaPesquisaCidadesCrc extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtEnviar)
                     .addComponent(jBtSair))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setBounds(300, 150, 346, 243);
+        setBounds(300, 150, 498, 243);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNomeActionPerformed
@@ -222,12 +230,12 @@ public class TelaPesquisaCidadesCrc extends javax.swing.JInternalFrame {
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
         flag = 1;
-            if (evt.getStateChange() == evt.SELECTED) {
-                jTabelaCidade.setVisible(true);
-                this.preencherTabela();
-            } else {
-                jTabelaCidade.setVisible(!true);
-            }
+        if (evt.getStateChange() == evt.SELECTED) {
+            jTabelaCidade.setVisible(true);
+            this.preencherTabela();
+        } else {
+            jTabelaCidade.setVisible(!true);
+        }
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
 
@@ -246,7 +254,7 @@ public class TelaPesquisaCidadesCrc extends javax.swing.JInternalFrame {
 
     public void preencherTabela() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"ID", "Nome Cidade", "DDD"};
+        String[] Colunas = new String[]{"Código", "Nome Cidade", "DDD"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM CIDADES ORDER BY NomeCidade");
@@ -259,21 +267,22 @@ public class TelaPesquisaCidadesCrc extends javax.swing.JInternalFrame {
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaCidade.setModel(modelo);
-        jTabelaCidade.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaCidade.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaCidade.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaCidade.getColumnModel().getColumn(1).setPreferredWidth(240);
+        jTabelaCidade.getColumnModel().getColumn(1).setPreferredWidth(340);
         jTabelaCidade.getColumnModel().getColumn(1).setResizable(false);
         jTabelaCidade.getColumnModel().getColumn(2).setPreferredWidth(50);
         jTabelaCidade.getColumnModel().getColumn(2).setResizable(false);
         jTabelaCidade.getTableHeader().setReorderingAllowed(false);
         jTabelaCidade.setAutoResizeMode(jTabelaCidade.AUTO_RESIZE_OFF);
         jTabelaCidade.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCamposTabela();
         conecta.desconecta();
     }
 
     public void preencherTabelaNome(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"ID", "Nome Cidade", "DDD"};
+        String[] Colunas = new String[]{"Código", "Nome Cidade", "DDD"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
@@ -286,15 +295,45 @@ public class TelaPesquisaCidadesCrc extends javax.swing.JInternalFrame {
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaCidade.setModel(modelo);
-        jTabelaCidade.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaCidade.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaCidade.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaCidade.getColumnModel().getColumn(1).setPreferredWidth(240);
+        jTabelaCidade.getColumnModel().getColumn(1).setPreferredWidth(340);
         jTabelaCidade.getColumnModel().getColumn(1).setResizable(false);
         jTabelaCidade.getColumnModel().getColumn(2).setPreferredWidth(50);
         jTabelaCidade.getColumnModel().getColumn(2).setResizable(false);
         jTabelaCidade.getTableHeader().setReorderingAllowed(false);
         jTabelaCidade.setAutoResizeMode(jTabelaCidade.AUTO_RESIZE_OFF);
         jTabelaCidade.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCamposTabela();
         conecta.desconecta();
+    }
+
+    public void limparTabela() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Nome Cidade", "DDD"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaCidade.setModel(modelo);
+        jTabelaCidade.getColumnModel().getColumn(0).setPreferredWidth(70);
+        jTabelaCidade.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaCidade.getColumnModel().getColumn(1).setPreferredWidth(340);
+        jTabelaCidade.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaCidade.getColumnModel().getColumn(2).setPreferredWidth(50);
+        jTabelaCidade.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaCidade.getTableHeader().setReorderingAllowed(false);
+        jTabelaCidade.setAutoResizeMode(jTabelaCidade.AUTO_RESIZE_OFF);
+        jTabelaCidade.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
+    }
+
+    public void alinharCamposTabela() {
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        //
+        jTabelaCidade.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaCidade.getColumnModel().getColumn(2).setCellRenderer(centralizado);
     }
 }

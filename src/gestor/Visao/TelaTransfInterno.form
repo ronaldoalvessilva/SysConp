@@ -517,7 +517,6 @@
                           </Group>
                           <Component id="jPanel6" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -756,7 +755,7 @@
                 <Component class="javax.swing.JButton" name="jBtNovolanc">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/gestor/Imagens/7183_16x16.png"/>
+                      <Image iconType="3" name="/gestor/Imagens/page_add.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Novo"/>
                   </Properties>
@@ -1261,11 +1260,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jPanel11" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="20" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="jPanel11" alignment="1" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -1282,8 +1277,18 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jBtExportarProntuarios" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Component id="jBtAudItensTrans" min="-2" pref="31" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jBtAlterarItem" linkSize="7" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jBtExcluirItem" linkSize="7" alignment="0" max="32767" attributes="0"/>
@@ -1291,20 +1296,14 @@
                                   <Component id="jBtSairItens" linkSize="7" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jBtCancelarItem" linkSize="7" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jBtNovoItem" linkSize="7" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace pref="34" max="-2" attributes="0"/>
-                                      <Component id="jBtAudItensTrans" min="-2" pref="31" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                                  </Group>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="jBtNovoItem" linkSize="8" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jBtAlterarItem" linkSize="8" min="-2" max="-2" attributes="0"/>
@@ -1316,9 +1315,11 @@
                               <Component id="jBtCancelarItem" linkSize="8" min="-2" pref="25" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jBtSairItens" linkSize="8" min="-2" pref="25" max="-2" attributes="0"/>
+                              <EmptySpace pref="33" max="32767" attributes="0"/>
+                              <Component id="jBtExportarProntuarios" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jBtAudItensTrans" linkSize="8" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1330,7 +1331,7 @@
                           <Font name="Tahoma" size="10" style="0"/>
                         </Property>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/gestor/Imagens/7183_16x16.png"/>
+                          <Image iconType="3" name="/gestor/Imagens/page_add.png"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Novo"/>
                         <Property name="enabled" type="boolean" value="false"/>
@@ -1415,6 +1416,24 @@
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtAudItensTransActionPerformed"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="jBtExportarProntuarios">
+                      <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Tahoma" size="11" style="1"/>
+                        </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="ff" green="0" red="0" type="rgb"/>
+                        </Property>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/gestor/Imagens/Copy-16x16.png"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="Expo."/>
+                        <Property name="toolTipText" type="java.lang.String" value="Exportar Prontu&#xe1;rios de Internos"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtExportarProntuariosActionPerformed"/>
                       </Events>
                     </Component>
                   </SubComponents>
