@@ -1245,62 +1245,56 @@ public class TelaEntradaSaidaAdvogadosInternos extends javax.swing.JInternalFram
             JOptionPane.showMessageDialog(rootPane, "Informe a data do lancamento.");
             jDatalancamento.requestFocus();
             jDatalancamento.setBackground(Color.red);
+        } else if (jDataEntrada.getDate() == null) {
+            JOptionPane.showMessageDialog(rootPane, "Informe a data de entrada do advogado.");
+            jDataEntrada.requestFocus();
+            jDataEntrada.setBackground(Color.red);
+        } else if (jHorarioEntrada.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário informar um horário de entrada.");
+            jHorarioEntrada.requestFocus();
+            jHorarioEntrada.setBackground(Color.red);
+        } else if (jDataSaida.getDate() == null) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário informar uma data de saida.");
+            jDataSaida.requestFocus();
+            jDataSaida.setBackground(Color.red);
+        } else if (jHorarioSaida.getText().equals("")) {
+            jHorarioSaida.setText("00:00");
+        } else if (jIDAdvogado.getText().equals("") || jNomeAdvogado.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o nome do advogado.");
         } else {
-            if (jDataEntrada.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data de entrada do advogado.");
-                jDataEntrada.requestFocus();
-                jDataEntrada.setBackground(Color.red);
-            } else {
-                if (jHorarioEntrada.getText().equals("")) {
-                    JOptionPane.showMessageDialog(rootPane, "É necessário informar um horário de entrada.");
-                    jHorarioEntrada.requestFocus();
-                    jHorarioEntrada.setBackground(Color.red);
-                } else {
-                    if (jDataSaida.getDate() == null) {
-                        JOptionPane.showMessageDialog(rootPane, "É necessário informar uma data de saida.");
-                        jDataSaida.requestFocus();
-                        jDataSaida.setBackground(Color.red);
-                    } else {
-                        if (jHorarioSaida.getText().equals("")) {
-                            jHorarioSaida.setText("00:00");
-                        } else {
-                            objEntSaiAdInternos.setDataLanc(jDatalancamento.getDate());
-                            objEntSaiAdInternos.setObsLanc(jObservacao.getText());
-                            objEntSaiAdInternos.setStatusLanc(statusEnt);
-                            objEntSaiAdInternos.setDataEntrada(jDataEntrada.getDate());
-                            objEntSaiAdInternos.setHorarioEntrada(jHorarioEntrada.getText());
-                            objEntSaiAdInternos.setDataSaida(jDataSaida.getDate());
-                            objEntSaiAdInternos.setHorarioSaida(jHorarioSaida.getText());
-                            objEntSaiAdInternos.setUsuarioInsert(nameUser);
-                            objEntSaiAdInternos.setDataInsert(dataModFinal);
-                            objEntSaiAdInternos.setHoraInsert(horaMov);
-                            if (acao == 1) {
-                                //objEntSaiAdInternos.setIdAdvogado(Integer.valueOf(jIDAdvogado.getText()));
-                                objEntSaiAdInternos.setNomeAdvogado(jNomeAdvogado.getText());
-                                control.incluirEntSaiAdvogado(objEntSaiAdInternos);
-                                buscarID();
-                                objLog();
-                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                                Salvar();
-                            }
-                            if (acao == 2) {
-                                objEntSaiAdInternos.setUsuarioUp(nameUser);
-                                objEntSaiAdInternos.setDataUp(dataModFinal);
-                                objEntSaiAdInternos.setHoraUp(horaMov);
-                                objEntSaiAdInternos.setIdLanc(Integer.valueOf(jIDlanc.getText()));
-                                objEntSaiAdInternos.setIdAdvogado(Integer.valueOf(jIDAdvogado.getText()));
-                                objEntSaiAdInternos.setNomeAdvogado(jNomeAdvogado.getText());
-                                control.alterarEntSaiAdvogado(objEntSaiAdInternos);
-                                verificarInternos();
-                                objLog();
-                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                                Salvar();
-                            }
-                        }
-                    }
-                }
+            objEntSaiAdInternos.setDataLanc(jDatalancamento.getDate());
+            objEntSaiAdInternos.setObsLanc(jObservacao.getText());
+            objEntSaiAdInternos.setStatusLanc(statusEnt);
+            objEntSaiAdInternos.setDataEntrada(jDataEntrada.getDate());
+            objEntSaiAdInternos.setHorarioEntrada(jHorarioEntrada.getText());
+            objEntSaiAdInternos.setDataSaida(jDataSaida.getDate());
+            objEntSaiAdInternos.setHorarioSaida(jHorarioSaida.getText());
+            objEntSaiAdInternos.setUsuarioInsert(nameUser);
+            objEntSaiAdInternos.setDataInsert(dataModFinal);
+            objEntSaiAdInternos.setHoraInsert(horaMov);
+            if (acao == 1) {
+                objEntSaiAdInternos.setIdAdvogado(Integer.valueOf(jIDAdvogado.getText()));
+                objEntSaiAdInternos.setNomeAdvogado(jNomeAdvogado.getText());
+                control.incluirEntSaiAdvogado(objEntSaiAdInternos);
+                buscarID();
+                objLog();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                Salvar();
+            }
+            if (acao == 2) {
+                objEntSaiAdInternos.setUsuarioUp(nameUser);
+                objEntSaiAdInternos.setDataUp(dataModFinal);
+                objEntSaiAdInternos.setHoraUp(horaMov);
+                objEntSaiAdInternos.setIdLanc(Integer.valueOf(jIDlanc.getText()));
+                objEntSaiAdInternos.setIdAdvogado(Integer.valueOf(jIDAdvogado.getText()));
+                objEntSaiAdInternos.setNomeAdvogado(jNomeAdvogado.getText());
+                control.alterarEntSaiAdvogado(objEntSaiAdInternos);
+                verificarInternos();
+                objLog();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                Salvar();
             }
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
@@ -1808,7 +1802,7 @@ public class TelaEntradaSaidaAdvogadosInternos extends javax.swing.JInternalFram
         jFotoInternoAdvogado.setIcon(null);
         jNomeInterno.setText("");
         jSituacaoCrc.setText("");
-        jDataEntradaInterno.setDate(null);        
+        jDataEntradaInterno.setDate(null);
         //
         jDataEntrada.setEnabled(true);
         jHorarioEntrada.setEnabled(true);
