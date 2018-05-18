@@ -23,7 +23,7 @@ public class ControleEntSaiAdvInternos {
     EntradaSaidaAdvogadosInternos objEntSaiAdInternos = new EntradaSaidaAdvogadosInternos();
 
     public EntradaSaidaAdvogadosInternos incluirEntSaiAdvogado(EntradaSaidaAdvogadosInternos objEntSaiAdInternos) {
-        buscarAdvogado(objEntSaiAdInternos.getNomeAdvogado());
+        buscarAdvogado(objEntSaiAdInternos.getNomeAdvogado(),objEntSaiAdInternos.getIdAdvogado());
         conecta.abrirConexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ENTRADASADVINTERNOS (DataLanc,StatusLanc,IdAdvogado,ObsLanc,DataEntrada,HorarioEntrada,DataSaida,HorarioSaida,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
@@ -47,7 +47,7 @@ public class ControleEntSaiAdvInternos {
     }
 
     public EntradaSaidaAdvogadosInternos alterarEntSaiAdvogado(EntradaSaidaAdvogadosInternos objEntSaiAdInternos) {
-        buscarAdvogado(objEntSaiAdInternos.getNomeAdvogado());
+        buscarAdvogado(objEntSaiAdInternos.getNomeAdvogado(),objEntSaiAdInternos.getIdAdvogado());
         conecta.abrirConexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("UPDATE ENTRADASADVINTERNOS SET DataLanc=?,StatusLanc=?,IdAdvogado=?,ObsLanc=?,DataEntrada=?,HorarioEntrada=?,DataSaida=?,HorarioSaida=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE Idlanc='" + objEntSaiAdInternos.getIdLanc() + "'");  
@@ -96,10 +96,10 @@ public class ControleEntSaiAdvInternos {
         return objEntSaiAdInternos;
     }
 
-    public void buscarAdvogado(String desc) {
+    public void buscarAdvogado(String desc, int cod) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ADVOGADOS WHERE NomeAdvogado='" + desc + "'");
+            conecta.executaSQL("SELECT * FROM ADVOGADOS WHERE NomeAdvogado='" + desc + "' AND IdAdvogado='" + cod + "'");
             conecta.rs.first();
             codAdvogado = conecta.rs.getInt("IdAdvogado");
         } catch (Exception e) {
