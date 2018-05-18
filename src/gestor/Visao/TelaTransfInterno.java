@@ -86,9 +86,18 @@ public class TelaTransfInterno extends javax.swing.JInternalFrame {
     /**
      * Creates new form TelaTransfInterno
      */
+    public static TelaExportacaoInternos telaExporta;
+
     public TelaTransfInterno() {
+        super();
         initComponents();
+        setResizable(false);
         corCampo();
+    }
+
+    public void mostrarExportacao() {
+        telaExporta = new TelaExportacaoInternos(this, true);
+        telaExporta.setVisible(true);
     }
 
     /**
@@ -703,23 +712,22 @@ public class TelaTransfInterno extends javax.swing.JInternalFrame {
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel10Layout.createSequentialGroup()
                             .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jIDInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel13))
-                            .addGap(245, 245, 245)
+                                .addComponent(jLabel13)
+                                .addGroup(jPanel10Layout.createSequentialGroup()
+                                    .addComponent(jIDInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jBtPesInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(210, 210, 210)
                             .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jDataTransf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel11)))
                         .addGroup(jPanel10Layout.createSequentialGroup()
                             .addComponent(jLabel14)
                             .addGap(249, 249, 249)))
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addComponent(jNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtPesInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
@@ -730,7 +738,8 @@ public class TelaTransfInterno extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
-                            .addComponent(jNrDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jNrDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jNomeInterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45))
@@ -742,15 +751,14 @@ public class TelaTransfInterno extends javax.swing.JInternalFrame {
                     .addComponent(jLabel13)
                     .addComponent(jLabel11))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jBtPesInterno)
                     .addComponent(jIDInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDataTransf, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel14)
-                .addGap(1, 1, 1)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtPesInterno))
+                .addGap(4, 4, 4)
+                .addComponent(jNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -1190,7 +1198,10 @@ public class TelaTransfInterno extends javax.swing.JInternalFrame {
                         + "ON ITENSTRANSFERENCIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                         + "INNER JOIN UNIDADE "
                         + "ON ITENSTRANSFERENCIA.IdUnid=UNIDADE.IdUnid "
-                        + "WHERE NomeInternoCrc='" + jNomeInterno.getText() + "' AND IdTransf='" + jIDlanc.getText() + "'AND DocumentoTransf='" + nrDoc + "'AND IdItem='" + idItem + "'");
+                        + "WHERE NomeInternoCrc='" + jNomeInterno.getText() + "' "
+                        + "AND IdTransf='" + jIDlanc.getText() + "' "
+                        + "AND DocumentoTransf='" + nrDoc + "' "
+                        + "AND IdItem='" + idItem + "'");
                 conecta.rs.first();
                 jIDInterno.setText(conecta.rs.getString("IdInternoCrc"));
                 jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));
@@ -1471,10 +1482,12 @@ public class TelaTransfInterno extends javax.swing.JInternalFrame {
     private void jBtExportarProntuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExportarProntuariosActionPerformed
         // TODO add your handling code here:
         Integer rows = jTabelaItensInterno.getModel().getRowCount();
-        if (rows == 0) {
+        if (jStatusTransf.getText().equals("ABERTO")) {
+            JOptionPane.showMessageDialog(rootPane, "Não é possível exportar os dados, o registro ainda não foi finalizado,\npara realizar essa operação, é necessário antes finalizar o registro.");
+        } else if (rows == 0) {
             JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem exportados.");
         } else {
-            
+            mostrarExportacao();
         }
     }//GEN-LAST:event_jBtExportarProntuariosActionPerformed
 
