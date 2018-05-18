@@ -62,6 +62,7 @@ public class TelaAgendaEscolta extends javax.swing.JInternalFrame {
     int flag;
     String dataAgenda;
     String idItem;
+    int idItemAge = 0;
     String codAgenda;
     String dataInicial;
     String dataFinal;
@@ -1754,7 +1755,7 @@ public class TelaAgendaEscolta extends javax.swing.JInternalFrame {
         try {
             conecta.executaSQL("SELECT * FROM ITENSAGENDA "
                     + "WHERE IdInternoCrc='" + jIDInterno.getText() + "' "
-                    + "AND IdItem='" + idItem + "'");
+                    + "AND IdItem='" + idItemAge + "'");
             conecta.rs.first();
             respostaSaida = conecta.rs.getString("UtilizaAgenda");
             conecta.desconecta();
