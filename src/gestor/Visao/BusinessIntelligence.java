@@ -8,7 +8,6 @@ package gestor.Visao;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.BusinessInterlliigence;
-import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import java.sql.SQLException;
 import java.awt.Color;
 import java.awt.Image;
@@ -1263,7 +1262,7 @@ public class BusinessIntelligence extends javax.swing.JInternalFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM UNIDADE_PENAL_EMPRESA");
-            conecta.rs.last();
+            conecta.rs.first();
             jCapacidadeUnidade.setText(conecta.rs.getString("CapacidadeTotal"));
         } catch (Exception e) {
         }
