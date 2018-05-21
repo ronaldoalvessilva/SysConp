@@ -475,14 +475,14 @@ public class TelaPesquisaExternaInterno extends javax.swing.JDialog {
     private void jBtEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEnviarActionPerformed
         // TODO add your handling code here:
         flag = 1;
-        if(jCNC_Pesq.getText().equals("")){
-            
-        }else{
-             conecta.abrirConexao();
+        if (jCNC_Pesq.getText().equals("")) {
+           JOptionPane.showMessageDialog(rootPane, "Selecione um interno para exportar os dados.");
+        } else {
+            conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC_TRANSFERENCIA_UNIDADES "
-                    + "WHERE Cnc='" + jCNC_Pesq.getText() + "'");
-                conecta.rs.first();               
+                        + "WHERE Cnc='" + jCNC_Pesq.getText() + "'");
+                conecta.rs.first();
                 jMatriculaPenal.setText(conecta.rs.getString("MatriculaCrc"));
                 jCNC.setText(conecta.rs.getString("Cnc"));
                 jDataCadastro.setDate(conecta.rs.getDate("DataCadastCrc"));
@@ -502,7 +502,7 @@ public class TelaPesquisaExternaInterno extends javax.swing.JDialog {
                 //
                 jComboBoxEscolaridade.setSelectedItem(conecta.rs.getString("EscolaridadeCrc"));
                 jComboBoxEstadoCivil.setSelectedItem(conecta.rs.getString("EstadoCivilCrc"));
-                jComboBoxSexo.setSelectedItem(conecta.rs.getString("SexoCrc"));                
+                jComboBoxSexo.setSelectedItem(conecta.rs.getString("SexoCrc"));
                 jReligiao.setText(conecta.rs.getString("ReligiaoCrc"));
                 jProfissao.setText(conecta.rs.getString("ProfissaoCrc"));
                 jEndereco.setText(conecta.rs.getString("EnderecoCrc"));
@@ -546,7 +546,7 @@ public class TelaPesquisaExternaInterno extends javax.swing.JDialog {
                 jComboBoxEdiondo.setSelectedItem(conecta.rs.getString("CrimeEdiondo"));
                 jDataTerPena.setDate(conecta.rs.getDate("TerminoPena"));
                 jVaraCondenacao.setText(conecta.rs.getString("VaraCondenatoria"));
-                jDataNovaEntrada.setDate(conecta.rs.getDate("DataNovaEntrada"));                               
+                jDataNovaEntrada.setDate(conecta.rs.getDate("DataNovaEntrada"));
                 //
                 jIdentificador.setText(conecta.rs.getString("Identificador"));
                 jIdentificador1.setText(conecta.rs.getString("Identificador1"));
@@ -555,9 +555,9 @@ public class TelaPesquisaExternaInterno extends javax.swing.JDialog {
                 jPerfil.setText(conecta.rs.getString("Perfil"));
                 jRegiaoCorpo.setText(conecta.rs.getString("RegiaoCorpo"));
                 jRegiaoCorpo1.setText(conecta.rs.getString("RegiaoCorpo1"));
-                jRegiaoCorpo2.setText(conecta.rs.getString("RegiaoCorpo2"));                
+                jRegiaoCorpo2.setText(conecta.rs.getString("RegiaoCorpo2"));
                 conecta.desconecta();
-            } catch (SQLException e) {                
+            } catch (SQLException e) {
             }
             dispose();
         }
@@ -672,7 +672,7 @@ public class TelaPesquisaExternaInterno extends javax.swing.JDialog {
         jTabelaInterno.getColumnModel().getColumn(4).setPreferredWidth(250);
         jTabelaInterno.getColumnModel().getColumn(4).setResizable(false);
         jTabelaInterno.getColumnModel().getColumn(5).setPreferredWidth(350);
-        jTabelaInterno.getColumnModel().getColumn(5).setResizable(false);      
+        jTabelaInterno.getColumnModel().getColumn(5).setResizable(false);
         jTabelaInterno.getTableHeader().setReorderingAllowed(false);
         jTabelaInterno.setAutoResizeMode(jTabelaInterno.AUTO_RESIZE_OFF);
         jTabelaInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -697,7 +697,7 @@ public class TelaPesquisaExternaInterno extends javax.swing.JDialog {
         jTabelaInterno.getColumnModel().getColumn(4).setPreferredWidth(250);
         jTabelaInterno.getColumnModel().getColumn(4).setResizable(false);
         jTabelaInterno.getColumnModel().getColumn(5).setPreferredWidth(350);
-        jTabelaInterno.getColumnModel().getColumn(5).setResizable(false);     
+        jTabelaInterno.getColumnModel().getColumn(5).setResizable(false);
         jTabelaInterno.getTableHeader().setReorderingAllowed(false);
         jTabelaInterno.setAutoResizeMode(jTabelaInterno.AUTO_RESIZE_OFF);
         jTabelaInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
