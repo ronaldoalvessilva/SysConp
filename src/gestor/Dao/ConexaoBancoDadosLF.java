@@ -80,7 +80,7 @@ public class ConexaoBancoDadosLF {
                 file = new FileInputStream("/home/configuracoes.properties");//ALTERE AQUI DE ACORDO COM SUA NECESSIDADE
             } else {
                 //Se Windows
-                file = new FileInputStream("C:\\SysConp\\Conecta.properties");////ALTERE AQUI DE ACORDO COM SUA NECESSIDADE
+                file = new FileInputStream("C:\\SysConp\\ConectaLF.properties");////ALTERE AQUI DE ACORDO COM SUA NECESSIDADE
             }
             props.load(file);
         } catch (FileNotFoundException ex) {
