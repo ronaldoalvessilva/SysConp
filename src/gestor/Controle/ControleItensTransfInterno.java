@@ -194,20 +194,21 @@ public class ControleItensTransfInterno {
         conecta.desconecta();
     }
 
-    public List<ProntuarioFisicosPenaisInternos> read() throws Exception {
-        conecta.abrirConexao();
+    public List<ProntuarioFisicosPenaisInternos> read() throws Exception {        
         List<ProntuarioFisicosPenaisInternos> listaInternosTransf = new ArrayList<ProntuarioFisicosPenaisInternos>();
+        conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM ITENSTRANSFERENCIA "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ITENSTRANSFERENCIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "INNER JOIN DADOSFISICOSINTERNO "
+                    + "INNER JOIN DADOSFISICOSINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "WHERE ITENSTRANSFERENCIA.IdTransf='" + jIDlanc.getText() + "'");
             while (conecta.rs.next()) {
                 ProntuarioFisicosPenaisInternos pProntuarios = new ProntuarioFisicosPenaisInternos();
+                pProntuarios.setDataTrans(conecta.rs.getDate("DataTransf"));
                 pProntuarios.setIdInterno(conecta.rs.getInt("IdInternoCrc"));
                 pProntuarios.setMatricula(conecta.rs.getString("MatriculaCrc"));
                 pProntuarios.setDataCadast(conecta.rs.getDate("DataCadastCrc"));
@@ -223,9 +224,7 @@ public class ControleItensTransfInterno {
                 pProntuarios.setEscolaridade(conecta.rs.getString("EscolaridadeCrc"));
                 pProntuarios.setEstadoCivil(conecta.rs.getString("EstadoCivilCrc"));
                 pProntuarios.setSexo(conecta.rs.getString("SexoCrc"));
-                pProntuarios.setSituacao(conecta.rs.getString("SituacaoCrc"));
-                pProntuarios.setPaiInterno(conecta.rs.getString("NomePais"));
-                pProntuarios.setCidade(conecta.rs.getString("NomeCidade"));
+                pProntuarios.setSituacao(conecta.rs.getString("SituacaoCrc"));               
                 pProntuarios.setReligiao(conecta.rs.getString("ReligiaoCrc"));
                 pProntuarios.setProfissao(conecta.rs.getString("ProfissaoCrc"));
                 pProntuarios.setEndereco(conecta.rs.getString("EnderecoCrc"));
@@ -267,8 +266,7 @@ public class ControleItensTransfInterno {
                 pProntuarios.setParagrafo2(conecta.rs.getString("Paragrafo2"));
                 pProntuarios.setParagrafo3(conecta.rs.getString("Paragrafo3"));
                 pProntuarios.setCrimeEdiondo(conecta.rs.getString("CrimeEdiondo"));
-                pProntuarios.setTerminoPena(conecta.rs.getDate("TerminoPena"));
-                pProntuarios.setVaraCondenatoria(conecta.rs.getString("VaraCondenatoria"));
+                pProntuarios.setTerminoPena(conecta.rs.getDate("TerminoPena"));               
                 pProntuarios.setDataNovaEntrada(conecta.rs.getDate("DataNovaEntrada"));
                 //
                 pProntuarios.setIdentificador(conecta.rs.getString("Identificador"));

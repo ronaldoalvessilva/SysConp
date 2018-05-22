@@ -1516,7 +1516,7 @@ public class TelaTransfInterno extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtSalvarItem;
     private javax.swing.JButton jBtSalvarlanc;
     private javax.swing.JCheckBox jCheckBox1;
-    private com.toedter.calendar.JDateChooser jDataLancamento;
+    public static com.toedter.calendar.JDateChooser jDataLancamento;
     private com.toedter.calendar.JDateChooser jDataPesFinal;
     private com.toedter.calendar.JDateChooser jDataPesqInicial;
     private com.toedter.calendar.JDateChooser jDataTransf;

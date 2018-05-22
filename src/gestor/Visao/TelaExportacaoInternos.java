@@ -5,8 +5,8 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleExportacaoInterno;
 import gestor.Controle.ControleItensTransfInterno;
-import gestor.Controle.ControleVisitaInterno;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ConexaoBancoDadosITB;
 import gestor.Dao.ConexaoBancoDadosSSA;
@@ -16,6 +16,8 @@ import gestor.Modelo.DadosFisicosInternos;
 import gestor.Modelo.DadosPenaisCrc;
 import gestor.Modelo.ProntuarioCrc;
 import gestor.Modelo.ProntuarioFisicosPenaisInternos;
+import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
+import static gestor.Visao.TelaTransfInterno.jDataLancamento;
 import static gestor.Visao.TelaTransfInterno.jIDlanc;
 import java.awt.Desktop;
 import java.awt.Rectangle;
@@ -23,7 +25,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -49,11 +50,15 @@ public class TelaExportacaoInternos extends javax.swing.JDialog {
     DadosPenaisCrc objDadosPena = new DadosPenaisCrc();
     DadosFisicosInternos objDadosFis = new DadosFisicosInternos();
     //
+    ProntuarioFisicosPenaisInternos pPront = new ProntuarioFisicosPenaisInternos();
+    ControleExportacaoInterno control = new ControleExportacaoInterno();
+    //
     int flag;
     String dataTransf;
     int count = 0;
     private final String ruta = System.getProperties().getProperty("user.dir");
-    String nomeUnidade = "";    
+    String nomeUnidade = "";
+    String respostaTrans = "Sim";
 
     /**
      * Creates new form TelaExportacaoInternos
@@ -108,10 +113,10 @@ public class TelaExportacaoInternos extends javax.swing.JDialog {
         jTabelaItensInterno.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         jTabelaItensInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Código", "Nome do Interno", "Data Transf.", "Unidade Destino", "Documento"
+                "Código", "CNC", "Nome do Interno", "Data Transf.", "Unidade Destino", "Documento"
             }
         ));
         jTabelaItensInterno.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -123,14 +128,16 @@ public class TelaExportacaoInternos extends javax.swing.JDialog {
         if (jTabelaItensInterno.getColumnModel().getColumnCount() > 0) {
             jTabelaItensInterno.getColumnModel().getColumn(0).setMinWidth(60);
             jTabelaItensInterno.getColumnModel().getColumn(0).setMaxWidth(60);
-            jTabelaItensInterno.getColumnModel().getColumn(1).setMinWidth(330);
-            jTabelaItensInterno.getColumnModel().getColumn(1).setMaxWidth(330);
-            jTabelaItensInterno.getColumnModel().getColumn(2).setMinWidth(80);
-            jTabelaItensInterno.getColumnModel().getColumn(2).setMaxWidth(80);
-            jTabelaItensInterno.getColumnModel().getColumn(3).setMinWidth(250);
-            jTabelaItensInterno.getColumnModel().getColumn(3).setMaxWidth(250);
-            jTabelaItensInterno.getColumnModel().getColumn(4).setMinWidth(80);
-            jTabelaItensInterno.getColumnModel().getColumn(4).setMaxWidth(80);
+            jTabelaItensInterno.getColumnModel().getColumn(1).setMinWidth(80);
+            jTabelaItensInterno.getColumnModel().getColumn(1).setMaxWidth(80);
+            jTabelaItensInterno.getColumnModel().getColumn(2).setMinWidth(330);
+            jTabelaItensInterno.getColumnModel().getColumn(2).setMaxWidth(330);
+            jTabelaItensInterno.getColumnModel().getColumn(3).setMinWidth(80);
+            jTabelaItensInterno.getColumnModel().getColumn(3).setMaxWidth(80);
+            jTabelaItensInterno.getColumnModel().getColumn(4).setMinWidth(250);
+            jTabelaItensInterno.getColumnModel().getColumn(4).setMaxWidth(250);
+            jTabelaItensInterno.getColumnModel().getColumn(5).setMinWidth(80);
+            jTabelaItensInterno.getColumnModel().getColumn(5).setMaxWidth(80);
         }
 
         jPanel32.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
@@ -490,6 +497,7 @@ public class TelaExportacaoInternos extends javax.swing.JDialog {
         } else if (jComboBoxUnidadeDestino.getSelectedItem().equals(nomeUnidade)) {
             JOptionPane.showMessageDialog(rootPane, "Selecione outra unidade prisional diferente da sua unidade.");
         } else if (jComboBoxUnidadeDestino.getSelectedItem().equals("Outra Unidade Prisional - (Não Socializa)")) {
+            // PLANILHA - Outra Unidade Prisional - (Não Socializa)
             try {
                 Thread t = new Thread() {
                     public void run() {
@@ -497,10 +505,11 @@ public class TelaExportacaoInternos extends javax.swing.JDialog {
                         XSSFSheet hoja = workbook.createSheet();
                         XSSFRow fila = hoja.createRow(0);
                         fila.createCell(0).setCellValue("Código");
-                        fila.createCell(1).setCellValue("Nome do Interno");
-                        fila.createCell(2).setCellValue("Data Transf.");
-                        fila.createCell(3).setCellValue("Unidade Destino");
-                        fila.createCell(4).setCellValue("Documento");
+                        fila.createCell(1).setCellValue("CNC");
+                        fila.createCell(2).setCellValue("Nome do Interno");
+                        fila.createCell(3).setCellValue("Data Transf.");
+                        fila.createCell(4).setCellValue("Unidade Destino");
+                        fila.createCell(5).setCellValue("Documento");
                         jProgressBar1.setMaximum(jTabelaItensInterno.getRowCount());
                         XSSFRow filas;
                         Rectangle rect;
@@ -514,10 +523,13 @@ public class TelaExportacaoInternos extends javax.swing.JDialog {
                             jProgressBar1.setValue((i + 1));
                             filas = hoja.createRow((i + 1));
                             filas.createCell(0).setCellValue(jTabelaItensInterno.getValueAt(i, 0).toString());
-                            filas.createCell(1).setCellValue(jTabelaItensInterno.getValueAt(i, 1).toString());
+                            if (jTabelaItensInterno.getValueAt(i, 1) != null) {
+                                filas.createCell(1).setCellValue(jTabelaItensInterno.getValueAt(i, 1).toString());
+                            }
                             filas.createCell(2).setCellValue(jTabelaItensInterno.getValueAt(i, 2).toString());
                             filas.createCell(3).setCellValue(jTabelaItensInterno.getValueAt(i, 3).toString());
                             filas.createCell(4).setCellValue(jTabelaItensInterno.getValueAt(i, 4).toString());
+                            filas.createCell(5).setCellValue(jTabelaItensInterno.getValueAt(i, 5).toString());
                             try {
                                 Thread.sleep(20);
                             } catch (InterruptedException ex) {
@@ -535,12 +547,39 @@ public class TelaExportacaoInternos extends javax.swing.JDialog {
             } catch (Exception e) {
             }
         } else {
-            // PRESISTENCIA NO BANCO DE DADOS - Outra Unidade Prisional - (Não Socializa)
+            // PRESISTENCIA NO BANCO DE DADOS
             ControleItensTransfInterno digiControlSaida = new ControleItensTransfInterno();
-            ProntuarioFisicosPenaisInternos d = new ProntuarioFisicosPenaisInternos();            
             try {
                 for (ProntuarioFisicosPenaisInternos dd : digiControlSaida.read()) {
-                
+                    if (jComboBoxUnidadeDestino.getSelectedItem().equals("Conjunto Penal de Lauro de Freitas")) {
+                        dd.setDataTrans(jDataLancamento.getDate());
+                        dd.setTransConf(respostaTrans);
+                        dd.setUnidadeOrigem(descricaoUnidade);
+                        dd.setUnidadeDestino((String) jComboBoxUnidadeDestino.getSelectedItem());
+                        dd.setConfirmaExp(respostaTrans);
+                        control.incluirProntuarioInternoLF(dd);
+                    } else if (jComboBoxUnidadeDestino.getSelectedItem().equals("Conjunto Penal de Itabuna")) {
+                        dd.setDataTrans(jDataLancamento.getDate());
+                        dd.setTransConf(respostaTrans);
+                        dd.setUnidadeOrigem(descricaoUnidade);
+                        dd.setUnidadeDestino((String) jComboBoxUnidadeDestino.getSelectedItem());
+                        dd.setConfirmaExp(respostaTrans);
+                        control.incluirProntuarioInternoITB(dd);
+                    } else if (jComboBoxUnidadeDestino.getSelectedItem().equals("Conjunto Penal de Vitória da Conquista")) {
+                        dd.setDataTrans(jDataLancamento.getDate());
+                        dd.setTransConf(respostaTrans);
+                        dd.setUnidadeOrigem(descricaoUnidade);
+                        dd.setUnidadeDestino((String) jComboBoxUnidadeDestino.getSelectedItem());
+                        dd.setConfirmaExp(respostaTrans);
+                        control.incluirProntuarioInternoVC(dd);
+                    } else if (jComboBoxUnidadeDestino.getSelectedItem().equals("Conjunto Penal Masculino de Salvador")) {
+                        dd.setDataTrans(jDataLancamento.getDate());
+                        dd.setTransConf(respostaTrans);
+                        dd.setUnidadeOrigem(descricaoUnidade);
+                        dd.setUnidadeDestino((String) jComboBoxUnidadeDestino.getSelectedItem());
+                        dd.setConfirmaExp(respostaTrans);
+                        control.incluirProntuarioInternoSSA(dd);
+                    }
                 }
             } catch (Exception ex) {
                 Logger.getLogger(TelaExportacaoInternos.class.getName()).log(Level.SEVERE, null, ex);
@@ -552,10 +591,11 @@ public class TelaExportacaoInternos extends javax.swing.JDialog {
                         XSSFSheet hoja = workbook.createSheet();
                         XSSFRow fila = hoja.createRow(0);
                         fila.createCell(0).setCellValue("Código");
-                        fila.createCell(1).setCellValue("Nome do Interno");
-                        fila.createCell(2).setCellValue("Data Transf.");
-                        fila.createCell(3).setCellValue("Unidade Destino");
-                        fila.createCell(4).setCellValue("Documento");
+                        fila.createCell(1).setCellValue("CNC");
+                        fila.createCell(2).setCellValue("Nome do Interno");
+                        fila.createCell(3).setCellValue("Data Transf.");
+                        fila.createCell(4).setCellValue("Unidade Destino");
+                        fila.createCell(5).setCellValue("Documento");
                         jProgressBar1.setMaximum(jTabelaItensInterno.getRowCount());
                         XSSFRow filas;
                         Rectangle rect;
@@ -569,10 +609,13 @@ public class TelaExportacaoInternos extends javax.swing.JDialog {
                             jProgressBar1.setValue((i + 1));
                             filas = hoja.createRow((i + 1));
                             filas.createCell(0).setCellValue(jTabelaItensInterno.getValueAt(i, 0).toString());
-                            filas.createCell(1).setCellValue(jTabelaItensInterno.getValueAt(i, 1).toString());
+                            if (jTabelaItensInterno.getValueAt(i, 1) != null) {
+                                filas.createCell(1).setCellValue(jTabelaItensInterno.getValueAt(i, 1).toString());
+                            }
                             filas.createCell(2).setCellValue(jTabelaItensInterno.getValueAt(i, 2).toString());
                             filas.createCell(3).setCellValue(jTabelaItensInterno.getValueAt(i, 3).toString());
                             filas.createCell(4).setCellValue(jTabelaItensInterno.getValueAt(i, 4).toString());
+                            filas.createCell(5).setCellValue(jTabelaItensInterno.getValueAt(i, 5).toString());
                             try {
                                 Thread.sleep(20);
                             } catch (InterruptedException ex) {
@@ -664,7 +707,6 @@ public class TelaExportacaoInternos extends javax.swing.JDialog {
     private javax.swing.JTable jTabelaItensInterno;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
-    
 
     public void buscarEmpresa() {
 //        jComboBoxUnidadeDestino.removeAllItems();
@@ -694,7 +736,7 @@ public class TelaExportacaoInternos extends javax.swing.JDialog {
 
     public void preencherTabelaItens(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome do Interno", "Data Transf.", "Unidade Destino", "Documento"};
+        String[] Colunas = new String[]{"Código", "CNC", "Nome do Interno", "Data Transf.", "Unidade Destino", "Documento"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
@@ -708,7 +750,7 @@ public class TelaExportacaoInternos extends javax.swing.JDialog {
                 String ano = dataTransf.substring(0, 4);
                 dataTransf = dia + "/" + mes + "/" + ano;
                 jtotalRegistros.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), dataTransf, conecta.rs.getString("DescricaoUnid"), conecta.rs.getString("DocumentoTransf")});
+                dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("Cnc"), conecta.rs.getString("NomeInternoCrc"), dataTransf, conecta.rs.getString("DescricaoUnid"), conecta.rs.getString("DocumentoTransf")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }
@@ -716,14 +758,16 @@ public class TelaExportacaoInternos extends javax.swing.JDialog {
         jTabelaItensInterno.setModel(modelo);
         jTabelaItensInterno.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaItensInterno.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaItensInterno.getColumnModel().getColumn(1).setPreferredWidth(330);
+        jTabelaItensInterno.getColumnModel().getColumn(1).setPreferredWidth(80);
         jTabelaItensInterno.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaItensInterno.getColumnModel().getColumn(2).setPreferredWidth(80);
+        jTabelaItensInterno.getColumnModel().getColumn(2).setPreferredWidth(330);
         jTabelaItensInterno.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaItensInterno.getColumnModel().getColumn(3).setPreferredWidth(250);
+        jTabelaItensInterno.getColumnModel().getColumn(3).setPreferredWidth(80);
         jTabelaItensInterno.getColumnModel().getColumn(3).setResizable(false);
-        jTabelaItensInterno.getColumnModel().getColumn(4).setPreferredWidth(80);
+        jTabelaItensInterno.getColumnModel().getColumn(4).setPreferredWidth(250);
         jTabelaItensInterno.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaItensInterno.getColumnModel().getColumn(5).setPreferredWidth(80);
+        jTabelaItensInterno.getColumnModel().getColumn(5).setResizable(false);
         jTabelaItensInterno.getTableHeader().setReorderingAllowed(false);
         jTabelaItensInterno.setAutoResizeMode(jTabelaItensInterno.AUTO_RESIZE_OFF);
         jTabelaItensInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -733,19 +777,21 @@ public class TelaExportacaoInternos extends javax.swing.JDialog {
 
     public void limparTabelaItens() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome do Interno", "Data Transf.", "Unidade Destino", "Documento"};
+        String[] Colunas = new String[]{"Código", "CNC", "Nome do Interno", "Data Transf.", "Unidade Destino", "Documento"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaItensInterno.setModel(modelo);
         jTabelaItensInterno.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaItensInterno.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaItensInterno.getColumnModel().getColumn(1).setPreferredWidth(330);
+        jTabelaItensInterno.getColumnModel().getColumn(1).setPreferredWidth(80);
         jTabelaItensInterno.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaItensInterno.getColumnModel().getColumn(2).setPreferredWidth(80);
+        jTabelaItensInterno.getColumnModel().getColumn(2).setPreferredWidth(330);
         jTabelaItensInterno.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaItensInterno.getColumnModel().getColumn(3).setPreferredWidth(250);
+        jTabelaItensInterno.getColumnModel().getColumn(3).setPreferredWidth(80);
         jTabelaItensInterno.getColumnModel().getColumn(3).setResizable(false);
-        jTabelaItensInterno.getColumnModel().getColumn(4).setPreferredWidth(80);
+        jTabelaItensInterno.getColumnModel().getColumn(4).setPreferredWidth(250);
         jTabelaItensInterno.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaItensInterno.getColumnModel().getColumn(5).setPreferredWidth(80);
+        jTabelaItensInterno.getColumnModel().getColumn(5).setResizable(false);
         jTabelaItensInterno.getTableHeader().setReorderingAllowed(false);
         jTabelaItensInterno.setAutoResizeMode(jTabelaItensInterno.AUTO_RESIZE_OFF);
         jTabelaItensInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -761,7 +807,8 @@ public class TelaExportacaoInternos extends javax.swing.JDialog {
         direita.setHorizontalAlignment(SwingConstants.RIGHT);
         //
         jTabelaItensInterno.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-        jTabelaItensInterno.getColumnModel().getColumn(2).setCellRenderer(centralizado);
-        jTabelaItensInterno.getColumnModel().getColumn(4).setCellRenderer(direita);
+        jTabelaItensInterno.getColumnModel().getColumn(1).setCellRenderer(direita);
+        jTabelaItensInterno.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+        jTabelaItensInterno.getColumnModel().getColumn(5).setCellRenderer(centralizado);
     }
 }

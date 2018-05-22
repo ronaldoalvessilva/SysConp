@@ -13,6 +13,11 @@ import java.util.Date;
  */
 public class ProntuarioFisicosPenaisInternos {
    
+    private Date dataTrans;
+    private String transConf;
+    private String unidadeOrigem;
+    private String unidadeDestino;
+    private String confirmaExp;
     private int IdInterno;
     private String Matricula;
     private Date DataCadast;
@@ -111,7 +116,15 @@ public class ProntuarioFisicosPenaisInternos {
     private String varaCondenatoria;
     private Date dataNovaEntrada;
 
-    public ProntuarioFisicosPenaisInternos(int IdInterno, String Matricula, Date DataCadast, Date DataNasci, String FotoInterno, String FotoPerfil, String FotoCorpo1, String FotoCorpo2, String FotoCorpo3, String NomeInterno, String MaeInterno, String PaiInterno, String Alcunha, String RgInterno, String CpfInterno, String cartoaSus, String Escolaridade, String EstadoCivil, String Sexo, String situacao, String nomePais, String nomeCidade, String Religiao, String Profissao, String Endereco, String Bairro, String Cidade, String Estado, String telefone, String telefone1, String celular, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento, String confirmaEntrada, String cnc, String Cutis, String Olhos, String Cabelos, String Barba, String Bigode, String Nariz, String Boca, String Rosto, String Labios, String Camisa, String Calca, String Sapato, String Peso, String Altura, String Sinais, String pescoco, String orelha, String compleicao, String nomeUnidade, Date DataEntrada, Date DataCrime, Date DataPrisao, Date DataCondenacao, String Participacao, String Regime, String Pena, String Artigo1, String Artigo2, String Artigo3, String Paragrafo1, String Paragrafo2, String Paragrafo3, String crimeEdiondo, Date terminoPena, String FotoCorpo, String FotoPolegarDireito, String FotoPolegarEsquerdo, String FotoIndicadorDireito, String FotoIndicadorEsquerdo, String FotoMedioDireito, String FotoMedioEsquerto, String FotoAnluarDireito, String FotoAnluaresquerdo, String FotoMeditoDireito, String FotoMeditoEsquerdo, String Identificador, String Identificador1, String Identificador2, String Identificador3, String Perfil, String RegiaoCorpo, String RegiaoCorpo1, String RegiaoCorpo2, String RegiaoCorpo3, String varaCondenatoria, Date dataNovaEntrada) {
+    public ProntuarioFisicosPenaisInternos() {
+    }
+
+    public ProntuarioFisicosPenaisInternos(Date dataTrans, String transConf, String unidadeOrigem, String unidadeDestino, String confirmaExp, int IdInterno, String Matricula, Date DataCadast, Date DataNasci, String FotoInterno, String FotoPerfil, String FotoCorpo1, String FotoCorpo2, String FotoCorpo3, String NomeInterno, String MaeInterno, String PaiInterno, String Alcunha, String RgInterno, String CpfInterno, String cartoaSus, String Escolaridade, String EstadoCivil, String Sexo, String situacao, String nomePais, String nomeCidade, String Religiao, String Profissao, String Endereco, String Bairro, String Cidade, String Estado, String telefone, String telefone1, String celular, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento, String confirmaEntrada, String cnc, String Cutis, String Olhos, String Cabelos, String Barba, String Bigode, String Nariz, String Boca, String Rosto, String Labios, String Camisa, String Calca, String Sapato, String Peso, String Altura, String Sinais, String pescoco, String orelha, String compleicao, String nomeUnidade, Date DataEntrada, Date DataCrime, Date DataPrisao, Date DataCondenacao, String Participacao, String Regime, String Pena, String Artigo1, String Artigo2, String Artigo3, String Paragrafo1, String Paragrafo2, String Paragrafo3, String crimeEdiondo, Date terminoPena, String FotoCorpo, String FotoPolegarDireito, String FotoPolegarEsquerdo, String FotoIndicadorDireito, String FotoIndicadorEsquerdo, String FotoMedioDireito, String FotoMedioEsquerto, String FotoAnluarDireito, String FotoAnluaresquerdo, String FotoMeditoDireito, String FotoMeditoEsquerdo, String Identificador, String Identificador1, String Identificador2, String Identificador3, String Perfil, String RegiaoCorpo, String RegiaoCorpo1, String RegiaoCorpo2, String RegiaoCorpo3, String varaCondenatoria, Date dataNovaEntrada) {
+        this.dataTrans = dataTrans;
+        this.transConf = transConf;
+        this.unidadeOrigem = unidadeOrigem;
+        this.unidadeDestino = unidadeDestino;
+        this.confirmaExp = confirmaExp;
         this.IdInterno = IdInterno;
         this.Matricula = Matricula;
         this.DataCadast = DataCadast;
@@ -211,7 +224,74 @@ public class ProntuarioFisicosPenaisInternos {
         this.dataNovaEntrada = dataNovaEntrada;
     }
 
-    public ProntuarioFisicosPenaisInternos() {
+    /**
+     * @return the dataTrans
+     */
+    public Date getDataTrans() {
+        return dataTrans;
+    }
+
+    /**
+     * @param dataTrans the dataTrans to set
+     */
+    public void setDataTrans(Date dataTrans) {
+        this.dataTrans = dataTrans;
+    }
+
+    /**
+     * @return the transConf
+     */
+    public String getTransConf() {
+        return transConf;
+    }
+
+    /**
+     * @param transConf the transConf to set
+     */
+    public void setTransConf(String transConf) {
+        this.transConf = transConf;
+    }
+
+    /**
+     * @return the unidadeOrigem
+     */
+    public String getUnidadeOrigem() {
+        return unidadeOrigem;
+    }
+
+    /**
+     * @param unidadeOrigem the unidadeOrigem to set
+     */
+    public void setUnidadeOrigem(String unidadeOrigem) {
+        this.unidadeOrigem = unidadeOrigem;
+    }
+
+    /**
+     * @return the unidadeDestino
+     */
+    public String getUnidadeDestino() {
+        return unidadeDestino;
+    }
+
+    /**
+     * @param unidadeDestino the unidadeDestino to set
+     */
+    public void setUnidadeDestino(String unidadeDestino) {
+        this.unidadeDestino = unidadeDestino;
+    }
+
+    /**
+     * @return the confirmaExp
+     */
+    public String getConfirmaExp() {
+        return confirmaExp;
+    }
+
+    /**
+     * @param confirmaExp the confirmaExp to set
+     */
+    public void setConfirmaExp(String confirmaExp) {
+        this.confirmaExp = confirmaExp;
     }
 
     /**
@@ -1570,6 +1650,5 @@ public class ProntuarioFisicosPenaisInternos {
      */
     public void setDataNovaEntrada(Date dataNovaEntrada) {
         this.dataNovaEntrada = dataNovaEntrada;
-    }
-
+    }  
 }
