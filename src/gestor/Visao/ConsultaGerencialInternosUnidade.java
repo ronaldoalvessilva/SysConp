@@ -5,8 +5,9 @@
  */
 package gestor.Visao;
 
-import gestor.Dao.ConexaoBancoDados;
+import gestor.Dao.ConexaoBancoDadosBAR;
 import gestor.Dao.ConexaoBancoDadosITB;
+import gestor.Dao.ConexaoBancoDadosLF;
 import gestor.Dao.ConexaoBancoDadosSSA;
 import gestor.Dao.ConexaoBancoDadosVC;
 import gestor.Dao.ModeloTabela;
@@ -28,19 +29,22 @@ import javax.swing.table.TableRowSorter;
  */
 public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame {
 
-    ConexaoBancoDados conecta = new ConexaoBancoDados();
+    ConexaoBancoDadosLF conectaLF = new ConexaoBancoDadosLF();
     ConexaoBancoDadosSSA conectaSSA = new ConexaoBancoDadosSSA();
     ConexaoBancoDadosITB conectaITB = new ConexaoBancoDadosITB();
     ConexaoBancoDadosVC conectaVC = new ConexaoBancoDadosVC();
+    ConexaoBancoDadosBAR conectaBAR = new ConexaoBancoDadosBAR();
     //
     int count = 0;
     int count1 = 0;
     int count2 = 0;
     int count3 = 0;
+    int count4 = 0;
     String dataEntrada = ""; // LAURO DE FREITAS
     String dataEntrada1 = ""; // SALVADOR 
     String dataEntrada2 = ""; // ITABUNA
     String dataEntrada3 = ""; // VITÓRIA DA CONQUISTA
+    String dataEntrada4 = ""; // BARREIRAS
     //
     int flag = 0;
     String caminho = "";
@@ -48,7 +52,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
     public static String nomeUnidadeSSA = "";
     public static String nomeUnidadeITB = "";
     public static String nomeUnidadeVC = "";
-    public static String nomeUnidadeBAR = ""; // AINDA NÃO TEM REDE GOVERNO (03/05/2018)
+    public static String nomeUnidadeBAR = "";
     public static String nomeUnidadeIRE = ""; // AINDA NÃO FOI ATIVADA (03/05/2018)
     //
     String situacaoEntrada = "ENTRADA NA UNIDADE";
@@ -518,27 +522,27 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
             //
             limparCampos();
             //
-            conecta.abrirConexao();
+            conectaLF.abrirConexao();
             conectaSSA.abrirConexao();
             conectaITB.abrirConexao();
             conectaVC.abrirConexao();
             try {
                 if (nomeUnidadeLF == jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 5)) {
                     // LAURO DE FREITAS
-                    conecta.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
+                    conectaLF.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
                             + "INNER JOIN DADOSPENAISINTERNOS "
                             + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                             + "INNER JOIN UNIDADE "
                             + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
                             + "WHERE PRONTUARIOSCRC.NomeInternoCrc='" + jPesquisaNomeInterno.getText() + "'");
-                    conecta.rs.first();
-                    jIdInternoExt.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
-                    jCnc.setText(conecta.rs.getString("Cnc"));
-                    jDataNascimento.setDate(conecta.rs.getDate("DataNasciCrc"));
-                    jSituacaoCrc.setText(conecta.rs.getString("SituacaoCrc"));
-                    jNomeInternoCrc.setText(conecta.rs.getString("NomeInternoCrc"));
-                    jNomeMaeInterno.setText(conecta.rs.getString("MaeInternoCrc"));
-                    caminho = conecta.rs.getString("FotoInternoCrc");
+                    conectaLF.rs.first();
+                    jIdInternoExt.setText(String.valueOf(conectaLF.rs.getInt("IdInternoCrc")));
+                    jCnc.setText(conectaLF.rs.getString("Cnc"));
+                    jDataNascimento.setDate(conectaLF.rs.getDate("DataNasciCrc"));
+                    jSituacaoCrc.setText(conectaLF.rs.getString("SituacaoCrc"));
+                    jNomeInternoCrc.setText(conectaLF.rs.getString("NomeInternoCrc"));
+                    jNomeMaeInterno.setText(conectaLF.rs.getString("MaeInternoCrc"));
+                    caminho = conectaLF.rs.getString("FotoInternoCrc");
                     if (caminho != null) {
                         javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
                         jFotoInterno.setIcon(i);
@@ -607,13 +611,35 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
                         jFotoInterno.setIcon(i);
                         jFotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
                     }
+                } else if (nomeUnidadeBAR == jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 5)) {
+                    // BARREIRAS
+                    conectaBAR.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
+                            + "INNER JOIN DADOSPENAISINTERNOS "
+                            + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                            + "INNER JOIN UNIDADE "
+                            + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                            + "WHERE PRONTUARIOSCRC.NomeInternoCrc='" + jPesquisaNomeInterno.getText() + "'");
+                    conectaBAR.rs.first();
+                    jIdInternoExt.setText(String.valueOf(conectaBAR.rs.getInt("IdInternoCrc")));
+                    jCnc.setText(conectaBAR.rs.getString("Cnc"));
+                    jDataNascimento.setDate(conectaBAR.rs.getDate("DataNasciCrc"));
+                    jSituacaoCrc.setText(conectaBAR.rs.getString("SituacaoCrc"));
+                    jNomeInternoCrc.setText(conectaBAR.rs.getString("NomeInternoCrc"));
+                    jNomeMaeInterno.setText(conectaBAR.rs.getString("MaeInternoCrc"));
+                    caminho = conectaBAR.rs.getString("FotoInternoCrc");
+                    if (caminho != null) {
+                        javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                        jFotoInterno.setIcon(i);
+                        jFotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                    }
                 }
             } catch (Exception e) {
             }
-            conecta.desconecta();
+            conectaLF.desconecta();
             conectaSSA.desconecta();
             conectaITB.desconecta();
             conectaVC.desconecta();
+            conectaBAR.desconecta();
         }
     }//GEN-LAST:event_jTabelaInternoMouseClicked
 
@@ -688,7 +714,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
 
     public void preencherTodosInternos() {
         // LAURO DE FREITAS
-        File arqLF = new File("C:\\SysConp\\Conecta.properties");
+        File arqLF = new File("C:\\SysConp\\ConectaLF.properties");
         if (arqLF.exists()) {
             pesquisarUnidadePrisionalLF();
         } else {
@@ -715,7 +741,15 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         } else {
             JOptionPane.showMessageDialog(rootPane, "Arquivo de conexão de Itabuna, não existe. Solicite ajuda do Administrador do Sistema.");
         }
+        // BARREIRAS
+        File arqBAR = new File("C:\\SysConp\\ConectaBAR.properties");
+        if (arqBAR.exists()) {
+            pesquisarUnidadePrisionalBAR();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Arquivo de conexão de Barreiras, não existe. Solicite ajuda do Administrador do Sistema.");
+        }
         //
+        count4 = 0;
         count3 = 0;
         count2 = 0;
         count1 = 0;
@@ -724,27 +758,28 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         ArrayList dadosSSA = new ArrayList();
         ArrayList dadosITB = new ArrayList();
         ArrayList dadosVC = new ArrayList();
+        ArrayList dadosBAR = new ArrayList();
         String[] Colunas = new String[]{"Código", "CNC", "Nome do Interno", "Situação", "Data Nasc.", "Unidade Prisional",};
         try {
             // LAURO DE FREITAS       
-            conecta.abrirConexao();
-            conecta.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
+            conectaLF.abrirConexao();
+            conectaLF.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
                     + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
                     + "WHERE PRONTUARIOSCRC.NomeInternoCrc LIKE '%" + jPesquisaNomeInterno.getText() + "%'");
-            conecta.rs.first();
+            conectaLF.rs.first();
             // LAURO DE FREITAS
             do {
                 count = count + 1; // Contador de registros                
-                dataEntrada = conecta.rs.getString("DataNascICrc");
+                dataEntrada = conectaLF.rs.getString("DataNascICrc");
                 String dia = dataEntrada.substring(8, 10);
                 String mes = dataEntrada.substring(5, 7);
                 String ano = dataEntrada.substring(0, 4);
                 dataEntrada = dia + "/" + mes + "/" + ano;
-                dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("Cnc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("SituacaoCrc"), dataEntrada, nomeUnidadeLF});
-            } while (conecta.rs.next());
+                dados.add(new Object[]{conectaLF.rs.getInt("IdInternoCrc"), conectaLF.rs.getString("Cnc"), conectaLF.rs.getString("NomeInternoCrc"), conectaLF.rs.getString("SituacaoCrc"), dataEntrada, nomeUnidadeLF});
+            } while (conectaLF.rs.next());
         } catch (SQLException ex) {
         }
         // SALVADOR
@@ -813,6 +848,29 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
                 dados.addAll(dadosVC);
             } while (conectaVC.rs.next());
         } catch (Exception e) {
+        }
+        // BARREIRAS
+        try {
+            conectaBAR.abrirConexao();
+            conectaBAR.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "INNER JOIN UNIDADE "
+                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                    + "WHERE PRONTUARIOSCRC.NomeInternoCrc LIKE '%" + jPesquisaNomeInterno.getText() + "%'");
+            conectaBAR.rs.first();
+            do {
+                count4 = count4 + count3 + count2 + count1 + count;
+                dataEntrada4 = conectaBAR.rs.getString("DataNascICrc");
+                String dia3 = dataEntrada4.substring(8, 10);
+                String mes3 = dataEntrada4.substring(5, 7);
+                String ano3 = dataEntrada4.substring(0, 4);
+                dataEntrada4 = dia3 + "/" + mes3 + "/" + ano3;
+                jtotalRegistros.setText(Integer.toString(count4)); // Converter inteiro em string para exibir na tela
+                dadosBAR.add(new Object[]{conectaBAR.rs.getInt("IdInternoCrc"), conectaBAR.rs.getString("Cnc"), conectaBAR.rs.getString("NomeInternoCrc"), conectaBAR.rs.getString("SituacaoCrc"), dataEntrada4, nomeUnidadeBAR});
+                dados.addAll(dadosBAR);
+            } while (conectaBAR.rs.next());
+        } catch (Exception e) {
             if (dados.equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");
             }
@@ -836,12 +894,12 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         jTabelaInterno.setAutoResizeMode(jTabelaInterno.AUTO_RESIZE_OFF);
         jTabelaInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         alinharCamposTabelaProntuario();
-        conecta.desconecta();
+        conectaBAR.desconecta();
     }
 
     public void pesquisarInternosAtivos() {
         // LAURO DE FREITAS
-        File arqLF = new File("C:\\SysConp\\Conecta.properties");
+        File arqLF = new File("C:\\SysConp\\ConectaLF.properties");
         if (arqLF.exists()) {
             pesquisarUnidadePrisionalLF();
         } else {
@@ -868,7 +926,15 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         } else {
             JOptionPane.showMessageDialog(rootPane, "Arquivo de conexão de Itabuna, não existe. Solicite ajuda do Administrador do Sistema.");
         }
+        // BARREIRAS
+        File arqBAR = new File("C:\\SysConp\\ConectaBAR.properties");
+        if (arqBAR.exists()) {
+            pesquisarUnidadePrisionalBAR();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Arquivo de conexão de Barreiras, não existe. Solicite ajuda do Administrador do Sistema.");
+        }
         //
+        count4 = 0;
         count3 = 0;
         count2 = 0;
         count1 = 0;
@@ -877,11 +943,12 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         ArrayList dadosSSA = new ArrayList();
         ArrayList dadosITB = new ArrayList();
         ArrayList dadosVC = new ArrayList();
+        ArrayList dadosBAR = new ArrayList();
         String[] Colunas = new String[]{"Código", "CNC", "Nome do Interno", "Situação", "Data Nasc.", "Unidade Prisional",};
         try {
             // LAURO DE FREITAS       
-            conecta.abrirConexao();
-            conecta.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
+            conectaLF.abrirConexao();
+            conectaLF.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
@@ -890,17 +957,17 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
                     + "AND PRONTUARIOSCRC.SituacaoCrc='" + situacaoEntrada + "' "
                     + "OR PRONTUARIOSCRC.NomeInternoCrc LIKE '%" + jPesquisaNomeInterno.getText() + "%' "
                     + "AND PRONTUARIOSCRC.SituacaoCrc='" + situacaoRetorno + "'");
-            conecta.rs.first();
+            conectaLF.rs.first();
             // LAURO DE FREITAS
             do {
                 count = count + 1; // Contador de registros                
-                dataEntrada = conecta.rs.getString("DataNasciCrc");
+                dataEntrada = conectaLF.rs.getString("DataNasciCrc");
                 String dia = dataEntrada.substring(8, 10);
                 String mes = dataEntrada.substring(5, 7);
                 String ano = dataEntrada.substring(0, 4);
                 dataEntrada = dia + "/" + mes + "/" + ano;
-                dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("Cnc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("SituacaoCrc"), dataEntrada, nomeUnidadeLF});
-            } while (conecta.rs.next());
+                dados.add(new Object[]{conectaLF.rs.getInt("IdInternoCrc"), conectaLF.rs.getString("Cnc"), conectaLF.rs.getString("NomeInternoCrc"), conectaLF.rs.getString("SituacaoCrc"), dataEntrada, nomeUnidadeLF});
+            } while (conectaLF.rs.next());
         } catch (SQLException ex) {
         }
         // SALVADOR
@@ -978,6 +1045,29 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
                 dados.addAll(dadosVC);
             } while (conectaVC.rs.next());
         } catch (Exception e) {
+        }
+        // BARREIRAS
+        try {
+            conectaBAR.abrirConexao();
+            conectaBAR.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "INNER JOIN UNIDADE "
+                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                    + "WHERE PRONTUARIOSCRC.NomeInternoCrc LIKE '%" + jPesquisaNomeInterno.getText() + "%'");
+            conectaBAR.rs.first();
+            do {
+                count4 = count4 + count3 + count2 + count1 + count;
+                dataEntrada4 = conectaBAR.rs.getString("DataNascICrc");
+                String dia3 = dataEntrada4.substring(8, 10);
+                String mes3 = dataEntrada4.substring(5, 7);
+                String ano3 = dataEntrada4.substring(0, 4);
+                dataEntrada4 = dia3 + "/" + mes3 + "/" + ano3;
+                jtotalRegistros.setText(Integer.toString(count4)); // Converter inteiro em string para exibir na tela
+                dadosBAR.add(new Object[]{conectaBAR.rs.getInt("IdInternoCrc"), conectaBAR.rs.getString("Cnc"), conectaBAR.rs.getString("NomeInternoCrc"), conectaBAR.rs.getString("SituacaoCrc"), dataEntrada4, nomeUnidadeBAR});
+                dados.addAll(dadosBAR);
+            } while (conectaBAR.rs.next());
+        } catch (Exception e) {
             if (dados.equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");
             }
@@ -1001,12 +1091,12 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         jTabelaInterno.setAutoResizeMode(jTabelaInterno.AUTO_RESIZE_OFF);
         jTabelaInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         alinharCamposTabelaProntuario();
-        conecta.desconecta();
+        conectaBAR.desconecta();
     }
 
     public void pesquisarInternosInativos() {
         // LAURO DE FREITAS
-        File arqLF = new File("C:\\SysConp\\Conecta.properties");
+        File arqLF = new File("C:\\SysConp\\ConectaLF.properties");
         if (arqLF.exists()) {
             pesquisarUnidadePrisionalLF();
         } else {
@@ -1033,7 +1123,15 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         } else {
             JOptionPane.showMessageDialog(rootPane, "Arquivo de conexão de Itabuna, não existe. Solicite ajuda do Administrador do Sistema.");
         }
+        // BARREIRAS
+        File arqBAR = new File("C:\\SysConp\\ConectaBAR.properties");
+        if (arqBAR.exists()) {
+            pesquisarUnidadePrisionalBAR();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Arquivo de conexão de Barreiras, não existe. Solicite ajuda do Administrador do Sistema.");
+        }
         //
+        count4 = 0;
         count3 = 0;
         count2 = 0;
         count1 = 0;
@@ -1042,11 +1140,12 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         ArrayList dadosSSA = new ArrayList();
         ArrayList dadosITB = new ArrayList();
         ArrayList dadosVC = new ArrayList();
+        ArrayList dadosBAR = new ArrayList();
         String[] Colunas = new String[]{"Código", "CNC", "Nome do Interno", "Situação", "Data Nasc.", "Unidade Prisional",};
         try {
             // LAURO DE FREITAS       
-            conecta.abrirConexao();
-            conecta.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
+            conectaLF.abrirConexao();
+            conectaLF.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
@@ -1055,17 +1154,17 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
                     + "AND PRONTUARIOSCRC.SituacaoCrc!='" + situacaoEntrada + "' "
                     + "OR PRONTUARIOSCRC.NomeInternoCrc LIKE '%" + jPesquisaNomeInterno.getText() + "%' "
                     + "AND PRONTUARIOSCRC.SituacaoCrc!='" + situacaoRetorno + "'");
-            conecta.rs.first();
+            conectaLF.rs.first();
             // LAURO DE FREITAS
             do {
                 count = count + 1; // Contador de registros                
-                dataEntrada = conecta.rs.getString("DataNascICrc");
+                dataEntrada = conectaLF.rs.getString("DataNascICrc");
                 String dia = dataEntrada.substring(8, 10);
                 String mes = dataEntrada.substring(5, 7);
                 String ano = dataEntrada.substring(0, 4);
                 dataEntrada = dia + "/" + mes + "/" + ano;
-                dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("Cnc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("SituacaoCrc"), dataEntrada, nomeUnidadeLF});
-            } while (conecta.rs.next());
+                dados.add(new Object[]{conectaLF.rs.getInt("IdInternoCrc"), conectaLF.rs.getString("Cnc"), conectaLF.rs.getString("NomeInternoCrc"), conectaLF.rs.getString("SituacaoCrc"), dataEntrada, nomeUnidadeLF});
+            } while (conectaLF.rs.next());
         } catch (SQLException ex) {
         }
         // SALVADOR
@@ -1143,6 +1242,29 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
                 dados.addAll(dadosVC);
             } while (conectaVC.rs.next());
         } catch (Exception e) {
+        }
+        // BARREIRAS
+        try {
+            conectaBAR.abrirConexao();
+            conectaBAR.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "INNER JOIN UNIDADE "
+                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                    + "WHERE PRONTUARIOSCRC.NomeInternoCrc LIKE '%" + jPesquisaNomeInterno.getText() + "%'");
+            conectaBAR.rs.first();
+            do {
+                count4 = count4 + count3 + count2 + count1 + count;
+                dataEntrada4 = conectaBAR.rs.getString("DataNascICrc");
+                String dia3 = dataEntrada4.substring(8, 10);
+                String mes3 = dataEntrada4.substring(5, 7);
+                String ano3 = dataEntrada4.substring(0, 4);
+                dataEntrada4 = dia3 + "/" + mes3 + "/" + ano3;
+                jtotalRegistros.setText(Integer.toString(count4)); // Converter inteiro em string para exibir na tela
+                dadosBAR.add(new Object[]{conectaBAR.rs.getInt("IdInternoCrc"), conectaBAR.rs.getString("Cnc"), conectaBAR.rs.getString("NomeInternoCrc"), conectaBAR.rs.getString("SituacaoCrc"), dataEntrada4, nomeUnidadeBAR});
+                dados.addAll(dadosBAR);
+            } while (conectaBAR.rs.next());
+        } catch (Exception e) {
             if (dados.equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");
             }
@@ -1166,12 +1288,12 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         jTabelaInterno.setAutoResizeMode(jTabelaInterno.AUTO_RESIZE_OFF);
         jTabelaInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         alinharCamposTabelaProntuario();
-        conecta.desconecta();
+        conectaBAR.desconecta();
     }
 
     public void pesquisarInternoCNC() {
         // LAURO DE FREITAS
-        File arqLF = new File("C:\\SysConp\\Conecta.properties");
+        File arqLF = new File("C:\\SysConp\\ConectaLF.properties");
         if (arqLF.exists()) {
             pesquisarUnidadePrisionalLF();
         } else {
@@ -1198,6 +1320,14 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         } else {
             JOptionPane.showMessageDialog(rootPane, "Arquivo de conexão de Itabuna, não existe. Solicite ajuda do Administrador do Sistema.");
         }
+        // BARREIRAS
+        File arqBAR = new File("C:\\SysConp\\ConectaBAR.properties");
+        if (arqBAR.exists()) {
+            pesquisarUnidadePrisionalBAR();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Arquivo de conexão de Itabuna, não existe. Solicite ajuda do Administrador do Sistema.");
+        }
+        count4 = 0;
         count3 = 0;
         count2 = 0;
         count1 = 0;
@@ -1206,27 +1336,28 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         ArrayList dadosSSA = new ArrayList();
         ArrayList dadosITB = new ArrayList();
         ArrayList dadosVC = new ArrayList();
+        ArrayList dadosBAR = new ArrayList();
         String[] Colunas = new String[]{"Código", "CNC", "Nome do Interno", "Situação", "Data Nasc.", "Unidade Prisional",};
         try {
             // LAURO DE FREITAS
-            conecta.abrirConexao();
-            conecta.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
+            conectaLF.abrirConexao();
+            conectaLF.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
                     + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
                     + "WHERE PRONTUARIOSCRC.Cnc='" + jPesquisaCnc.getText() + "'");
-            conecta.rs.first();
+            conectaLF.rs.first();
             // LAURO DE FREITAS
             do {
                 count = count + 1; // Contador de registros                
-                dataEntrada = conecta.rs.getString("DataNascICrc");
+                dataEntrada = conectaLF.rs.getString("DataNascICrc");
                 String dia = dataEntrada.substring(8, 10);
                 String mes = dataEntrada.substring(5, 7);
                 String ano = dataEntrada.substring(0, 4);
                 dataEntrada = dia + "/" + mes + "/" + ano;
-                dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("Cnc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("SituacaoCrc"), dataEntrada, nomeUnidadeLF});
-            } while (conecta.rs.next());
+                dados.add(new Object[]{conectaLF.rs.getInt("IdInternoCrc"), conectaLF.rs.getString("Cnc"), conectaLF.rs.getString("NomeInternoCrc"), conectaLF.rs.getString("SituacaoCrc"), dataEntrada, nomeUnidadeLF});
+            } while (conectaLF.rs.next());
         } catch (SQLException ex) {
         }
         // SALVADOR
@@ -1281,7 +1412,10 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
                     + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                    + "WHERE PRONTUARIOSCRC.Cnc='" + jPesquisaCnc.getText() + "'");
+                    + "WHERE PRONTUARIOSCRC.NomeInternoCrc LIKE '%" + jPesquisaNomeInterno.getText() + "%' "
+                    + "AND PRONTUARIOSCRC.SituacaoCrc!='" + situacaoEntrada + "' "
+                    + "OR PRONTUARIOSCRC.NomeInternoCrc LIKE '%" + jPesquisaNomeInterno.getText() + "%' "
+                    + "AND PRONTUARIOSCRC.SituacaoCrc!='" + situacaoRetorno + "'");
             conectaVC.rs.first();
             do {
                 count3 = count3 + count2 + count1 + count;
@@ -1294,6 +1428,29 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
                 dadosVC.add(new Object[]{conectaVC.rs.getInt("IdInternoCrc"), conectaVC.rs.getString("Cnc"), conectaVC.rs.getString("NomeInternoCrc"), conectaVC.rs.getString("SituacaoCrc"), dataEntrada, nomeUnidadeVC});
                 dados.addAll(dadosVC);
             } while (conectaVC.rs.next());
+        } catch (Exception e) {
+        }
+        // BARREIRAS
+        try {
+            conectaBAR.abrirConexao();
+            conectaBAR.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "INNER JOIN UNIDADE "
+                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                    + "WHERE PRONTUARIOSCRC.NomeInternoCrc LIKE '%" + jPesquisaNomeInterno.getText() + "%'");
+            conectaBAR.rs.first();
+            do {
+                count4 = count4 + count3 + count2 + count1 + count;
+                dataEntrada4 = conectaBAR.rs.getString("DataNascICrc");
+                String dia3 = dataEntrada4.substring(8, 10);
+                String mes3 = dataEntrada4.substring(5, 7);
+                String ano3 = dataEntrada4.substring(0, 4);
+                dataEntrada4 = dia3 + "/" + mes3 + "/" + ano3;
+                jtotalRegistros.setText(Integer.toString(count4)); // Converter inteiro em string para exibir na tela
+                dadosBAR.add(new Object[]{conectaBAR.rs.getInt("IdInternoCrc"), conectaBAR.rs.getString("Cnc"), conectaBAR.rs.getString("NomeInternoCrc"), conectaBAR.rs.getString("SituacaoCrc"), dataEntrada4, nomeUnidadeBAR});
+                dados.addAll(dadosBAR);
+            } while (conectaBAR.rs.next());
         } catch (Exception e) {
             if (dados.equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");
@@ -1318,12 +1475,12 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         jTabelaInterno.setAutoResizeMode(jTabelaInterno.AUTO_RESIZE_OFF);
         jTabelaInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         alinharCamposTabelaProntuario();
-        conecta.desconecta();
+        conectaBAR.desconecta();
     }
 
     public void pesquisarMaeInterno() {
         // LAURO DE FREITAS
-        File arqLF = new File("C:\\SysConp\\Conecta.properties");
+        File arqLF = new File("C:\\SysConp\\ConectaLF.properties");
         if (arqLF.exists()) {
             pesquisarUnidadePrisionalLF();
         } else {
@@ -1350,6 +1507,14 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         } else {
             JOptionPane.showMessageDialog(rootPane, "Arquivo de conexão de Itabuna, não existe. Solicite ajuda do Administrador do Sistema.");
         }
+        // BARREIRAS
+        File arqBAR = new File("C:\\SysConp\\ConectaBAR.properties");
+        if (arqBAR.exists()) {
+            pesquisarUnidadePrisionalBAR();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Arquivo de conexão de Barreiras, não existe. Solicite ajuda do Administrador do Sistema.");
+        }
+        count4 = 0;
         count3 = 0;
         count2 = 0;
         count1 = 0;
@@ -1358,27 +1523,28 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         ArrayList dadosSSA = new ArrayList();
         ArrayList dadosITB = new ArrayList();
         ArrayList dadosVC = new ArrayList();
+        ArrayList dadosBAR = new ArrayList();
         String[] Colunas = new String[]{"Código", "CNC", "Nome do Interno", "Situação", "Data Nasc.", "Unidade Prisional",};
         try {
             // LAURO DE FREITAS
-            conecta.abrirConexao();
-            conecta.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
+            conectaLF.abrirConexao();
+            conectaLF.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
                     + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
                     + "WHERE PRONTUARIOSCRC.MaeInternoCrc LIKE '%" + jPesquisarNomeMaeInterno.getText() + "%'");
-            conecta.rs.first();
+            conectaLF.rs.first();
             // LAURO DE FREITAS
             do {
                 count = count + 1; // Contador de registros                
-                dataEntrada = conecta.rs.getString("DataNascICrc");
+                dataEntrada = conectaLF.rs.getString("DataNascICrc");
                 String dia = dataEntrada.substring(8, 10);
                 String mes = dataEntrada.substring(5, 7);
                 String ano = dataEntrada.substring(0, 4);
                 dataEntrada = dia + "/" + mes + "/" + ano;
-                dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("Cnc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("SituacaoCrc"), dataEntrada, nomeUnidadeLF});
-            } while (conecta.rs.next());
+                dados.add(new Object[]{conectaLF.rs.getInt("IdInternoCrc"), conectaLF.rs.getString("Cnc"), conectaLF.rs.getString("NomeInternoCrc"), conectaLF.rs.getString("SituacaoCrc"), dataEntrada, nomeUnidadeLF});
+            } while (conectaLF.rs.next());
         } catch (SQLException ex) {
         }
         // SALVADOR
@@ -1404,7 +1570,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         } catch (Exception e) {
         }
         // ITABUNA
-        try {;
+        try {
             conectaITB.abrirConexao();
             conectaITB.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
@@ -1441,11 +1607,33 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
                 String dia3 = dataEntrada3.substring(8, 10);
                 String mes3 = dataEntrada3.substring(5, 7);
                 String ano3 = dataEntrada3.substring(0, 4);
-                dataEntrada3 = dia3 + "/" + mes3 + "/" + ano3;
-                jtotalRegistros.setText(Integer.toString(count3)); // Converter inteiro em string para exibir na tela
+                dataEntrada3 = dia3 + "/" + mes3 + "/" + ano3;                
                 dadosVC.add(new Object[]{conectaVC.rs.getInt("IdInternoCrc"), conectaVC.rs.getString("Cnc"), conectaVC.rs.getString("NomeInternoCrc"), conectaVC.rs.getString("SituacaoCrc"), dataEntrada3, nomeUnidadeVC});
                 dados.addAll(dadosVC);
             } while (conectaVC.rs.next());
+        } catch (Exception e) {
+        }
+        // BARREIRAS
+        try {
+            conectaBAR.abrirConexao();
+            conectaBAR.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "INNER JOIN UNIDADE "
+                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                    + "WHERE PRONTUARIOSCRC.MaeInternoCrc LIKE '%" + jPesquisarNomeMaeInterno.getText() + "%'");
+            conectaBAR.rs.first();
+            do {
+                count4 = count4 + count3 + count2 + count1 + count;
+                dataEntrada4 = conectaITB.rs.getString("DataNascICrc");
+                String dia2 = dataEntrada4.substring(8, 10);
+                String mes2 = dataEntrada4.substring(5, 7);
+                String ano2 = dataEntrada4.substring(0, 4);
+                dataEntrada4 = dia2 + "/" + mes2 + "/" + ano2;
+                jtotalRegistros.setText(Integer.toString(count4)); // Converter inteiro em string para exibir na tela
+                dadosBAR.add(new Object[]{conectaBAR.rs.getInt("IdInternoCrc"), conectaBAR.rs.getString("Cnc"), conectaBAR.rs.getString("NomeInternoCrc"), conectaBAR.rs.getString("SituacaoCrc"), dataEntrada4, nomeUnidadeBAR});
+                dados.addAll(dadosBAR);
+            } while (conectaBAR.rs.next());
         } catch (Exception e) {
             if (dados.equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");
@@ -1469,7 +1657,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         jTabelaInterno.getTableHeader().setReorderingAllowed(false);
         jTabelaInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         alinharCamposTabelaProntuario();
-        conecta.desconecta();
+        conectaBAR.desconecta();
     }
 
     public void alinharCamposTabelaProntuario() {
@@ -1486,14 +1674,14 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
     }
 
     public void pesquisarUnidadePrisionalLF() {
-        conecta.abrirConexao();
+        conectaLF.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM UNIDADE_PENAL_EMPRESA");
-            conecta.rs.first();
-            nomeUnidadeLF = conecta.rs.getString("DescricaoUnidade");
+            conectaLF.executaSQL("SELECT * FROM UNIDADE_PENAL_EMPRESA");
+            conectaLF.rs.first();
+            nomeUnidadeLF = conectaLF.rs.getString("DescricaoUnidade");
         } catch (Exception e) {
         }
-        conecta.desconecta();
+        conectaLF.desconecta();
     }
 
     public void pesquisarUnidadePrisionalSSA() {
@@ -1527,5 +1715,16 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         } catch (Exception e) {
         }
         conectaVC.desconecta();
+    }
+
+    public void pesquisarUnidadePrisionalBAR() {
+        conectaBAR.abrirConexao();
+        try {
+            conectaBAR.executaSQL("SELECT * FROM UNIDADE_PENAL_EMPRESA");
+            conectaBAR.rs.first();
+            nomeUnidadeBAR = conectaBAR.rs.getString("DescricaoUnidade");
+        } catch (Exception e) {
+        }
+        conectaBAR.desconecta();
     }
 }

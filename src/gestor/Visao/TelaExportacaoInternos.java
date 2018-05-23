@@ -9,6 +9,7 @@ import gestor.Controle.ControleExportacaoInterno;
 import gestor.Controle.ControleItensTransfInterno;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ConexaoBancoDadosITB;
+import gestor.Dao.ConexaoBancoDadosLF;
 import gestor.Dao.ConexaoBancoDadosSSA;
 import gestor.Dao.ConexaoBancoDadosVC;
 import gestor.Dao.ModeloTabela;
@@ -18,6 +19,7 @@ import gestor.Modelo.ProntuarioCrc;
 import gestor.Modelo.ProntuarioFisicosPenaisInternos;
 import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaTransfInterno.jDataLancamento;
+import static gestor.Visao.TelaTransfInterno.jDataTransf;
 import static gestor.Visao.TelaTransfInterno.jIDlanc;
 import java.awt.Desktop;
 import java.awt.Rectangle;
@@ -42,6 +44,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class TelaExportacaoInternos extends javax.swing.JDialog {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
+    ConexaoBancoDadosLF conectaLF = new ConexaoBancoDadosLF();
     ConexaoBancoDadosSSA conectaSSA = new ConexaoBancoDadosSSA();
     ConexaoBancoDadosITB conectaITB = new ConexaoBancoDadosITB();
     ConexaoBancoDadosVC conectaVC = new ConexaoBancoDadosVC();
@@ -559,26 +562,33 @@ public class TelaExportacaoInternos extends javax.swing.JDialog {
                         dd.setConfirmaExp(respostaTrans);
                         control.incluirProntuarioInternoLF(dd);
                     } else if (jComboBoxUnidadeDestino.getSelectedItem().equals("Conjunto Penal de Itabuna")) {
-                        dd.setDataTrans(jDataLancamento.getDate());
+                        dd.setDataTrans(jDataTransf.getDate());
                         dd.setTransConf(respostaTrans);
                         dd.setUnidadeOrigem(descricaoUnidade);
                         dd.setUnidadeDestino((String) jComboBoxUnidadeDestino.getSelectedItem());
                         dd.setConfirmaExp(respostaTrans);
                         control.incluirProntuarioInternoITB(dd);
                     } else if (jComboBoxUnidadeDestino.getSelectedItem().equals("Conjunto Penal de Vitória da Conquista")) {
-                        dd.setDataTrans(jDataLancamento.getDate());
+                        dd.setDataTrans(jDataTransf.getDate());
                         dd.setTransConf(respostaTrans);
                         dd.setUnidadeOrigem(descricaoUnidade);
                         dd.setUnidadeDestino((String) jComboBoxUnidadeDestino.getSelectedItem());
                         dd.setConfirmaExp(respostaTrans);
                         control.incluirProntuarioInternoVC(dd);
                     } else if (jComboBoxUnidadeDestino.getSelectedItem().equals("Conjunto Penal Masculino de Salvador")) {
-                        dd.setDataTrans(jDataLancamento.getDate());
+                        dd.setDataTrans(jDataTransf.getDate());
                         dd.setTransConf(respostaTrans);
                         dd.setUnidadeOrigem(descricaoUnidade);
                         dd.setUnidadeDestino((String) jComboBoxUnidadeDestino.getSelectedItem());
                         dd.setConfirmaExp(respostaTrans);
                         control.incluirProntuarioInternoSSA(dd);
+                    }else if(jComboBoxUnidadeDestino.getSelectedItem().equals("Conjunto Penal de Barreiras")){
+                        dd.setDataTrans(jDataTransf.getDate());
+                        dd.setTransConf(respostaTrans);
+                        dd.setUnidadeOrigem(descricaoUnidade);
+                        dd.setUnidadeDestino((String) jComboBoxUnidadeDestino.getSelectedItem());
+                        dd.setConfirmaExp(respostaTrans);
+                        control.incluirProntuarioInternoBAR(dd);
                     }
                 }
             } catch (Exception ex) {
@@ -709,7 +719,7 @@ public class TelaExportacaoInternos extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     public void buscarEmpresa() {
-//        jComboBoxUnidadeDestino.removeAllItems();
+
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM UNIDADE_PENAL_EMPRESA");
