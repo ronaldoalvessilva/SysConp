@@ -19,6 +19,7 @@ import gestor.Modelo.DadosFisicosInternos;
 import gestor.Modelo.DadosPenaisCrc;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.ProntuarioCrc;
+import gestor.Modelo.ProntuarioFisicosPenaisInternos;
 import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
@@ -61,6 +62,9 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     ControleInternoCrc control = new ControleInternoCrc();
     ControleDadosFisicos controlFisicos = new ControleDadosFisicos();
     ControleDadosPenais controlPenais = new ControleDadosPenais();
+    //
+    ProntuarioFisicosPenaisInternos pPront = new ProntuarioFisicosPenaisInternos();
+    //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     int acao;
@@ -127,6 +131,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     String codigoFichaJuridica;
     String codigoInterno;
     String codIntPenal;
+    //
+    String confirmarTransf = "Sim";
     //
     /**
      * Creates new form TelaTriagem
@@ -4473,6 +4479,11 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                                                                         objProCrc.setNomeInterno(jNomeInterno.getText());
                                                                         objProCrc.setConfirmaEntrada(confirmaEntrada);
                                                                         control.confirmarRegInternoCrc(objProCrc);
+                                                                        //QUANDO O PRONTUARIO VEM DE OUTRA UNIDADE PENAL A SER TRANSFERIDO
+                                                                        pPront.setNomeInterno(jNomeInterno.getText());
+                                                                        pPront.setMaeInterno(jMaeInterno.getText());
+                                                                        pPront.setTransConf(confirmarTransf);
+                                                                        control.confirmarCadastroInterno(pPront);
                                                                         objLog();
                                                                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                                                                                    
                                                                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
