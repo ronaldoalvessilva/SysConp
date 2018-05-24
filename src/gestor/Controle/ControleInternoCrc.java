@@ -9,6 +9,7 @@ import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.Cidades;
 import gestor.Modelo.Paises;
 import gestor.Modelo.ProntuarioCrc;
+import gestor.Modelo.ProntuarioFisicosPenaisInternos;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -140,6 +141,19 @@ public class ControleInternoCrc {
         }
         conecta.desconecta();
         return objProCrc;
+    }
+    //ProntuarioFisicosPenaisInternos pPront = new ProntuarioFisicosPenaisInternos();
+
+    public ProntuarioFisicosPenaisInternos confirmarCadastroInterno(ProntuarioFisicosPenaisInternos pPront) throws SQLException {
+        conecta.abrirConexao();
+        try (PreparedStatement pst = conecta.con.prepareStatement("UPDATE PRONTUARIOSCRC_TRANSFERENCIA_UNIDADES SET TransConf=? "
+                + "WHERE NomeInternoCrc='" + pPront.getNomeInterno() + "' "
+                + "AND MaeInternoCrc='" + pPront.getMaeInterno() + "'")) {
+            pst.setString(1, pPront.getTransConf());
+            pst.executeUpdate();
+        }
+        conecta.desconecta();
+        return pPront;
     }
 
 // Pesquisa CIDADE (NATURALIDADE)
