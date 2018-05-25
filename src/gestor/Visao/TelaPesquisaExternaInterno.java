@@ -103,6 +103,7 @@ public class TelaPesquisaExternaInterno extends javax.swing.JDialog {
     String cnc = "";
     String nomeInterno = "";
     String nomeMaeInterno = "";
+    String transfConf = "Não";
 
     /**
      * Creates new form TelaPesquisaExternaInterno
@@ -418,7 +419,8 @@ public class TelaPesquisaExternaInterno extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(rootPane, "Informe o número do CNC para pesquisar o interno.");
         } else {
             pesquisarDadosInternos("SELECT * FROM PRONTUARIOSCRC_TRANSFERENCIA_UNIDADES "
-                    + "WHERE Cnc='" + jCNC_Pesq.getText() + "'");
+                    + "WHERE Cnc='" + jCNC_Pesq.getText() + "' "
+                    + "AND TransConf='" + transfConf + "'");
         }
     }//GEN-LAST:event_jBtPesqCNCActionPerformed
 
@@ -428,6 +430,7 @@ public class TelaPesquisaExternaInterno extends javax.swing.JDialog {
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
             this.pesquisarDadosInternos("SELECT * FROM PRONTUARIOSCRC_TRANSFERENCIA_UNIDADES "
+                    + "WHERE TransfConf='" + transfConf + "'"
                     + "ORDER BY PRONTUARIOSCRC_TRANSFERENCIA_UNIDADES.IdInternoCrc");
         } else {
             jtotalRegistros.setText("");
@@ -443,7 +446,8 @@ public class TelaPesquisaExternaInterno extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisar.");
         } else {
             pesquisarDadosInternos("SELECT * FROM PRONTUARIOSCRC_TRANSFERENCIA_UNIDADES "
-                    + "WHERE NomeInternoCrc LIKE'%" + jNomeInternoExt.getText() + "%'");
+                    + "WHERE NomeInternoCrc LIKE'%" + jNomeInternoExt.getText() + "%' "
+                    + "AND TransfConf='" + transfConf + "'");
         }
     }//GEN-LAST:event_jBtPesqNomeInternoActionPerformed
 
@@ -455,7 +459,8 @@ public class TelaPesquisaExternaInterno extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome da mãe para pesquisar o interno.");
         } else {
             pesquisarDadosInternos("SELECT * FROM PRONTUARIOSCRC_TRANSFERENCIA_UNIDADES "
-                    + "WHERE MaeInternoCrc LIKE'%" + jNomeMaeInterno.getText() + "%'");
+                    + "WHERE MaeInternoCrc LIKE'%" + jNomeMaeInterno.getText() + "%' "
+                    + "AND TransfConf='" + transfConf + "'");
         }
     }//GEN-LAST:event_jBtPesqNomeMaeInternoActionPerformed
 
@@ -476,7 +481,7 @@ public class TelaPesquisaExternaInterno extends javax.swing.JDialog {
         // TODO add your handling code here:
         flag = 1;
         if (jCNC_Pesq.getText().equals("")) {
-           JOptionPane.showMessageDialog(rootPane, "Selecione um interno para exportar os dados.");
+            JOptionPane.showMessageDialog(rootPane, "Selecione um interno para exportar os dados.");
         } else {
             conecta.abrirConexao();
             try {
