@@ -526,6 +526,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
             conectaSSA.abrirConexao();
             conectaITB.abrirConexao();
             conectaVC.abrirConexao();
+            conectaBAR.abrirConexao();
             try {
                 if (nomeUnidadeLF == jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 5)) {
                     // LAURO DE FREITAS
