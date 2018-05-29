@@ -491,13 +491,14 @@
                       <Color blue="33" green="0" red="99" type="rgb"/>
                     </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="6">
-                        <StringItem index="0" value="Cadeia"/>
-                        <StringItem index="1" value="Delegacia"/>
-                        <StringItem index="2" value="Penitenciaria"/>
-                        <StringItem index="3" value="Presidio"/>
-                        <StringItem index="4" value="Conjunto Penal"/>
-                        <StringItem index="5" value="Colonia Penal"/>
+                      <StringArray count="7">
+                        <StringItem index="0" value="Selecione..."/>
+                        <StringItem index="1" value="Cadeia"/>
+                        <StringItem index="2" value="Delegacia"/>
+                        <StringItem index="3" value="Penitenciaria"/>
+                        <StringItem index="4" value="Presidio"/>
+                        <StringItem index="5" value="Conjunto Penal"/>
+                        <StringItem index="6" value="Colonia Penal"/>
                       </StringArray>
                     </Property>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">

@@ -127,7 +127,7 @@ public final class TelaUnidadePenal extends javax.swing.JInternalFrame {
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 255)));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jPesqDescricao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
@@ -281,7 +281,7 @@ public final class TelaUnidadePenal extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("Listagem", jPanel1);
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados Cadastrais", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 204)));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados Cadastrais", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 204))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Código:");
@@ -304,7 +304,7 @@ public final class TelaUnidadePenal extends javax.swing.JInternalFrame {
 
         jComboBoxClasse.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxClasse.setForeground(new java.awt.Color(153, 0, 51));
-        jComboBoxClasse.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cadeia", "Delegacia", "Penitenciaria", "Presidio", "Conjunto Penal", "Colonia Penal" }));
+        jComboBoxClasse.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Cadeia", "Delegacia", "Penitenciaria", "Presidio", "Conjunto Penal", "Colonia Penal" }));
         jComboBoxClasse.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxClasse.setEnabled(false);
 
@@ -349,7 +349,7 @@ public final class TelaUnidadePenal extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 255)));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
         jBtNovo.setText("Novo");
@@ -461,7 +461,7 @@ public final class TelaUnidadePenal extends javax.swing.JInternalFrame {
                 .addComponent(jBtSair))
         );
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Logradouro", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 255)));
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Logradouro", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Endereço:");
@@ -695,7 +695,9 @@ public final class TelaUnidadePenal extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDescricao.getText().isEmpty() || jDescricao.getText().equals("")) {
+        if (jComboBoxClasse.getSelectedItem().equals("Selecione...")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o tipo de unidade.");
+        } else if (jDescricao.getText().isEmpty() || jDescricao.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "DESCRIÇÃO da UNIDADE não pode ser em Branco.");
             jDescricao.requestFocus();
         } else {
@@ -768,7 +770,7 @@ public final class TelaUnidadePenal extends javax.swing.JInternalFrame {
         if (jPesqDescricao.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe dados para pesquisa");
             jPesqDescricao.requestFocus();
-        } else {            
+        } else {
             preencherTabelaNome("SELECT * FROM UNIDADE WHERE DescricaoUnid LIKE'%" + jPesqDescricao.getText() + "%'");
         }
     }//GEN-LAST:event_jBtPesqNomeActionPerformed
