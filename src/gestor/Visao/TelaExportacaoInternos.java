@@ -554,35 +554,35 @@ public class TelaExportacaoInternos extends javax.swing.JDialog {
             ControleItensTransfInterno digiControlSaida = new ControleItensTransfInterno();
             try {
                 for (ProntuarioFisicosPenaisInternos dd : digiControlSaida.read()) {
-                    if (jComboBoxUnidadeDestino.getSelectedItem().equals("Conjunto Penal de Lauro de Freitas")) {
+                    if (jComboBoxUnidadeDestino.getSelectedItem().equals("Conjunto Penal de Lauro de Freitas - CPLF")) {
                         dd.setDataTrans(jDataLancamento.getDate());
                         dd.setTransConf(respostaTrans);
                         dd.setUnidadeOrigem(descricaoUnidade);
                         dd.setUnidadeDestino((String) jComboBoxUnidadeDestino.getSelectedItem());
                         dd.setConfirmaExp(respostaTrans);
                         control.incluirProntuarioInternoLF(dd);
-                    } else if (jComboBoxUnidadeDestino.getSelectedItem().equals("Conjunto Penal de Itabuna")) {
+                    } else if (jComboBoxUnidadeDestino.getSelectedItem().equals("Conjunto Penal de Itabuna - CPIT")) {
                         dd.setDataTrans(jDataTransf.getDate());
                         dd.setTransConf(respostaTrans);
                         dd.setUnidadeOrigem(descricaoUnidade);
                         dd.setUnidadeDestino((String) jComboBoxUnidadeDestino.getSelectedItem());
                         dd.setConfirmaExp(respostaTrans);
                         control.incluirProntuarioInternoITB(dd);
-                    } else if (jComboBoxUnidadeDestino.getSelectedItem().equals("Conjunto Penal de Vitória da Conquista")) {
+                    } else if (jComboBoxUnidadeDestino.getSelectedItem().equals("Conjunto Penal de Vitória da Conquista - CPVC")) {
                         dd.setDataTrans(jDataTransf.getDate());
                         dd.setTransConf(respostaTrans);
                         dd.setUnidadeOrigem(descricaoUnidade);
                         dd.setUnidadeDestino((String) jComboBoxUnidadeDestino.getSelectedItem());
                         dd.setConfirmaExp(respostaTrans);
                         control.incluirProntuarioInternoVC(dd);
-                    } else if (jComboBoxUnidadeDestino.getSelectedItem().equals("Conjunto Penal Masculino de Salvador")) {
+                    } else if (jComboBoxUnidadeDestino.getSelectedItem().equals("Conjunto Penal Masculino de Salvador - CPMS")) {
                         dd.setDataTrans(jDataTransf.getDate());
                         dd.setTransConf(respostaTrans);
                         dd.setUnidadeOrigem(descricaoUnidade);
                         dd.setUnidadeDestino((String) jComboBoxUnidadeDestino.getSelectedItem());
                         dd.setConfirmaExp(respostaTrans);
                         control.incluirProntuarioInternoSSA(dd);
-                    }else if(jComboBoxUnidadeDestino.getSelectedItem().equals("Conjunto Penal de Barreiras")){
+                    }else if(jComboBoxUnidadeDestino.getSelectedItem().equals("Conjunto Penal de Barreiras - CPBA")){
                         dd.setDataTrans(jDataTransf.getDate());
                         dd.setTransConf(respostaTrans);
                         dd.setUnidadeOrigem(descricaoUnidade);
