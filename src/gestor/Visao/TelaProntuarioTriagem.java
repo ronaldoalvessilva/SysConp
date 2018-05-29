@@ -19,10 +19,12 @@ import gestor.Modelo.DadosFisicosInternos;
 import gestor.Modelo.DadosPenaisCrc;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.ProntuarioCrc;
+import gestor.Modelo.ProntuarioFisicosPenaisInternos;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaProntuarioCrc.telaPesquisaExterna;
 import java.awt.Color;
 import java.awt.HeadlessException;
 import java.awt.Image;
@@ -62,8 +64,12 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
     ControleInternoCrc control = new ControleInternoCrc();
     ControleDadosFisicos controlFisicos = new ControleDadosFisicos();
     ControleDadosPenais controlPenais = new ControleDadosPenais();
+    //
+    ProntuarioFisicosPenaisInternos pPront = new ProntuarioFisicosPenaisInternos();
+    //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
+    //
     int acao;
     int flag;
     String codInternoCrc; // Verificar se existe movimentação do intero para não ser excluído
@@ -130,7 +136,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
     public static TelaPeculiaridadeFrenteTriagem telaPeculiaridadeFrenteTriagem;
     public static TelaBiometriaInterno telaBiometriaInterno;
     public static TelaWebCamInternoTriagem telaWebCamInterno;
-
+    public static TelaPesquisaExternaInternoTriagem telaPesquisaExternaTriagem;
     //
     public TelaProntuarioTriagem() {
         super();
@@ -166,6 +172,12 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         telaWebCamInterno.setVisible(true);
     }
 
+     public void mostrarTelaPesquisaExterna() {
+        telaPesquisaExternaTriagem = new TelaPesquisaExternaInternoTriagem(this, true);
+        telaPesquisaExternaTriagem.setVisible(true);
+    }
+
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -265,6 +277,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         jBtAuditoriaPronCrc = new javax.swing.JButton();
         jBtObservacao = new javax.swing.JButton();
         jBtBuscarRegPortaria = new javax.swing.JButton();
+        jBtImportarProntuario = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
         jEndereco = new javax.swing.JTextField();
@@ -417,7 +430,6 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         jLabel161 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
-        jBtBiometria = new javax.swing.JButton();
         jPanel33 = new javax.swing.JPanel();
         jBtNovo1 = new javax.swing.JButton();
         jBtAlterar1 = new javax.swing.JButton();
@@ -429,6 +441,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         jBtAuditoriaPronCrc1 = new javax.swing.JButton();
         jBtObservacao1 = new javax.swing.JButton();
         jBtBuscarRegPortaria1 = new javax.swing.JButton();
+        jBtBiometria = new javax.swing.JButton();
         jPanel34 = new javax.swing.JPanel();
         jLabel74 = new javax.swing.JLabel();
         jTabbedPane3 = new javax.swing.JTabbedPane();
@@ -605,7 +618,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             .addComponent(jtotalRegistros, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE)
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 255)));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jPesqNome.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
@@ -711,7 +724,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addContainerGap(519, Short.MAX_VALUE)
+                        .addContainerGap(512, Short.MAX_VALUE)
                         .addComponent(jCheckBox1))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -803,7 +816,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -819,7 +832,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -892,7 +905,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         jLabel15.setText("Sexo:");
 
         jComboBoxSexo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxSexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Masculino", "Feminino" }));
+        jComboBoxSexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Masculino", "Feminino" }));
         jComboBoxSexo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxSexo.setEnabled(false);
 
@@ -900,7 +913,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         jLabel16.setText("Escolaridade:");
 
         jComboBoxEscolaridade.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxEscolaridade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Não Alfabetizado", "Alfabetizado", "Fundamental Completo", "Fundamental Incompleto", "1º Grau Completo", "1º Grau Incompleto", "2º Grau Completo", "2º Grau Incompleto", "Superior Completo", "Superior Incompleto" }));
+        jComboBoxEscolaridade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Não Alfabetizado", "Alfabetizado", "Fundamental Completo", "Fundamental Incompleto", "1º Grau Completo", "1º Grau Incompleto", "2º Grau Completo", "2º Grau Incompleto", "Superior Completo", "Superior Incompleto" }));
         jComboBoxEscolaridade.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxEscolaridade.setEnabled(false);
 
@@ -908,7 +921,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         jLabel17.setText("E.Civil:");
 
         jComboBoxEstadoCivil.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxEstadoCivil.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Casado", "Casada", "Solteiro", "Solteira", "Outros" }));
+        jComboBoxEstadoCivil.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Casado", "Casada", "Solteiro", "Solteira", "Outros" }));
         jComboBoxEstadoCivil.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxEstadoCivil.setEnabled(false);
 
@@ -986,7 +999,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         jDataNascimento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jDataNascimento.setEnabled(false);
 
-        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 255)));
+        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
@@ -1077,9 +1090,8 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel14))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jCPFInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jCartaoSus, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(jCartaoSus)
+                                    .addComponent(jCPFInterno)))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jIdInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1109,8 +1121,8 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                                 .addComponent(jComboBoxEscolaridade, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel17)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                                .addComponent(jComboBoxEstadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBoxEstadoCivil, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel15)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1144,17 +1156,12 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
         jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jAlcunha, jRGInterno});
 
-        jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jCPFInterno, jCartaoSus});
-
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(142, 142, 142))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel5)
@@ -1165,71 +1172,71 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel162)
                                 .addComponent(jCNC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(jLabel7)
+                            .addComponent(jDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel22)
+                            .addComponent(jDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(8, 8, 8)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(jMaeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(jPaiInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel22)
-                                    .addComponent(jDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(8, 8, 8)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel8))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel10)
-                                    .addComponent(jMaeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jPaiInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel12)
-                                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jAlcunha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel4)
-                                        .addComponent(jCartaoSus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(37, 37, 37)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel16)
-                                    .addComponent(jComboBoxEscolaridade, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel15)
-                                    .addComponent(jComboBoxSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel17)
-                                    .addComponent(jComboBoxEstadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                                    .addComponent(jLabel18)
-                                    .addComponent(jComboBoxPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jBtPesqPais, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel60))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                                    .addComponent(jLabel19)
-                                    .addComponent(jBtPesqCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboBoxCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(11, 11, 11)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel20)
-                                    .addComponent(jReligiao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel21)
-                                    .addComponent(jProfissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(135, 135, 135)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.CENTER)
-                                    .addComponent(jRGInterno, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.CENTER)
-                                    .addComponent(jCPFInterno, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jBtZoonFoto, javax.swing.GroupLayout.Alignment.CENTER)
-                                    .addComponent(jBtNovaFoto, javax.swing.GroupLayout.Alignment.CENTER)
-                                    .addComponent(jBtExcluirFoto, javax.swing.GroupLayout.Alignment.CENTER)
-                                    .addComponent(jBtWebCam, javax.swing.GroupLayout.Alignment.CENTER))
-                                .addGap(124, 124, 124))))))
+                            .addComponent(jLabel12)
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jAlcunha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel4)
+                                .addComponent(jCartaoSus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel16)
+                            .addComponent(jComboBoxEscolaridade, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel15)
+                            .addComponent(jComboBoxSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel17)
+                            .addComponent(jComboBoxEstadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(jLabel18)
+                            .addComponent(jComboBoxPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBtPesqPais, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel60))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(jLabel19)
+                            .addComponent(jBtPesqCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(11, 11, 11)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel20)
+                            .addComponent(jReligiao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel21)
+                            .addComponent(jProfissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(jRGInterno, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(jCPFInterno, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBtZoonFoto, javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(jBtNovaFoto, javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(jBtExcluirFoto, javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(jBtWebCam, javax.swing.GroupLayout.Alignment.CENTER))
+                        .addGap(124, 124, 124))))
         );
 
         jPanel4Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jCPFInterno, jCartaoSus, jComboBoxEscolaridade, jComboBoxEstadoCivil, jLabel16, jLabel17});
@@ -1240,12 +1247,12 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
         jPanel4Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jProfissao, jSituacao});
 
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 255)));
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
         jBtNovo.setText("Novo");
         jBtNovo.setToolTipText("Novo Registro");
-        jBtNovo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jBtNovo.setContentAreaFilled(false);
         jBtNovo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtNovo.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jBtNovo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -1258,7 +1265,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         jBtAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
         jBtAlterar.setText("Alterar");
         jBtAlterar.setToolTipText("Atualizar Registro");
-        jBtAlterar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jBtAlterar.setContentAreaFilled(false);
         jBtAlterar.setEnabled(false);
         jBtAlterar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtAlterar.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -1272,7 +1279,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         jBtExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
         jBtExcluir.setText("Excluir");
         jBtExcluir.setToolTipText("Excluir Registro");
-        jBtExcluir.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jBtExcluir.setContentAreaFilled(false);
         jBtExcluir.setEnabled(false);
         jBtExcluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtExcluir.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -1286,7 +1293,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         jBtSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
         jBtSalvar.setText("Gravar");
         jBtSalvar.setToolTipText("Salvar Registro");
-        jBtSalvar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jBtSalvar.setContentAreaFilled(false);
         jBtSalvar.setEnabled(false);
         jBtSalvar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtSalvar.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -1300,7 +1307,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         jBtCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Close_Icon_16.png"))); // NOI18N
         jBtCancelar.setText("Cancelar");
         jBtCancelar.setToolTipText("Cancelar Operação");
-        jBtCancelar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jBtCancelar.setContentAreaFilled(false);
         jBtCancelar.setEnabled(false);
         jBtCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtCancelar.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -1314,7 +1321,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         jBtSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Log_Out_Icon_16.png"))); // NOI18N
         jBtSair.setText("Sair");
         jBtSair.setToolTipText("Sair da Tela");
-        jBtSair.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jBtSair.setContentAreaFilled(false);
         jBtSair.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtSair.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jBtSair.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -1325,8 +1332,8 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         });
 
         jBtImpressao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/gtklp-icone-3770-16.png"))); // NOI18N
-        jBtImpressao.setText("Impressão");
-        jBtImpressao.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jBtImpressao.setToolTipText("Impressão");
+        jBtImpressao.setContentAreaFilled(false);
         jBtImpressao.setEnabled(false);
         jBtImpressao.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtImpressao.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -1340,8 +1347,8 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         jBtAuditoriaPronCrc.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         jBtAuditoriaPronCrc.setForeground(new java.awt.Color(255, 0, 0));
         jBtAuditoriaPronCrc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
-        jBtAuditoriaPronCrc.setText("Auditoria");
-        jBtAuditoriaPronCrc.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jBtAuditoriaPronCrc.setToolTipText("Auditoria");
+        jBtAuditoriaPronCrc.setContentAreaFilled(false);
         jBtAuditoriaPronCrc.setEnabled(false);
         jBtAuditoriaPronCrc.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtAuditoriaPronCrc.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -1352,10 +1359,9 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtObservacao.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         jBtObservacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/accept.png"))); // NOI18N
-        jBtObservacao.setText("OBS");
-        jBtObservacao.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jBtObservacao.setToolTipText("Observação");
+        jBtObservacao.setContentAreaFilled(false);
         jBtObservacao.setEnabled(false);
         jBtObservacao.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtObservacao.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -1366,12 +1372,10 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtBuscarRegPortaria.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtBuscarRegPortaria.setForeground(new java.awt.Color(0, 0, 255));
         jBtBuscarRegPortaria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
-        jBtBuscarRegPortaria.setText("Buscar");
         jBtBuscarRegPortaria.setToolTipText("Buscar Registro Interno na Portaria");
-        jBtBuscarRegPortaria.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jBtBuscarRegPortaria.setContentAreaFilled(false);
         jBtBuscarRegPortaria.setEnabled(false);
         jBtBuscarRegPortaria.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtBuscarRegPortaria.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -1382,59 +1386,67 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             }
         });
 
+        jBtImportarProntuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/kde-file-downloads-icone-4393-16.png"))); // NOI18N
+        jBtImportarProntuario.setToolTipText("Importar Prontuário de Interno");
+        jBtImportarProntuario.setContentAreaFilled(false);
+        jBtImportarProntuario.setEnabled(false);
+        jBtImportarProntuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtImportarProntuarioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jBtNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtNovo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtAlterar)
-                .addGap(2, 2, 2)
-                .addComponent(jBtExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtSalvar)
+                .addComponent(jBtExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtCancelar)
+                .addComponent(jBtSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtImpressao)
+                .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtSair)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtObservacao, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtImpressao, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtBuscarRegPortaria, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jBtAuditoriaPronCrc)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jBtObservacao, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtBuscarRegPortaria, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtAuditoriaPronCrc, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtImportarProntuario, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 20, Short.MAX_VALUE))
         );
-
-        jPanel7Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterar, jBtCancelar, jBtExcluir, jBtNovo, jBtSair, jBtSalvar});
-
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtImpressao)
-                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jBtAlterar)
-                        .addComponent(jBtExcluir, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jBtSalvar, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jBtCancelar)
-                        .addComponent(jBtSair))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jBtExcluir)
                     .addComponent(jBtNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtObservacao, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jBtBuscarRegPortaria)
-                        .addComponent(jBtAuditoriaPronCrc)))
-                .addContainerGap())
+                    .addComponent(jBtAlterar)
+                    .addComponent(jBtSalvar)
+                    .addComponent(jBtCancelar)
+                    .addComponent(jBtSair)
+                    .addComponent(jBtImpressao)
+                    .addComponent(jBtObservacao, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtBuscarRegPortaria, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtAuditoriaPronCrc, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtImportarProntuario))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jPanel7Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterar, jBtCancelar, jBtExcluir, jBtNovo, jBtSair, jBtSalvar});
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Logradouro", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 255)));
+        jPanel7Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAuditoriaPronCrc, jBtBuscarRegPortaria, jBtImportarProntuario, jBtImpressao, jBtObservacao});
+
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Logradouro", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel23.setText("Endereço:");
@@ -1556,7 +1568,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                     .addComponent(jTelefone1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel42)
                     .addComponent(jCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         jPanel6Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jCelular, jTelefone, jTelefone1});
@@ -1568,24 +1580,28 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Manutenção", jPanel2);
 
-        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados Fisicos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 204)));
+        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados Fisicos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 204))); // NOI18N
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel13.setText("Cutis:");
@@ -1603,17 +1619,17 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         jLabel31.setText("Bigode:");
 
         jComboBoxCutis.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxCutis.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Parda", "Negra", "Branca", "Amarela", "Indigina" }));
+        jComboBoxCutis.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Parda", "Negra", "Branca", "Amarela", "Indigina" }));
         jComboBoxCutis.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxCutis.setEnabled(false);
 
         jComboBoxOlhos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxOlhos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Azul", "Preto", "Castanho Escuro", "Castanho Claro", "Verdes" }));
+        jComboBoxOlhos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Azul", "Preto", "Castanho Escuro", "Castanho Claro", "Verdes" }));
         jComboBoxOlhos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxOlhos.setEnabled(false);
 
         jComboBoxCabelos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxCabelos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Carapinha", "Lisos", "Ondulados", "Encaracolados", "Crespos" }));
+        jComboBoxCabelos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Carapinha", "Lisos", "Ondulados", "Encaracolados", "Crespos" }));
         jComboBoxCabelos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxCabelos.setEnabled(false);
         jComboBoxCabelos.addActionListener(new java.awt.event.ActionListener() {
@@ -1623,12 +1639,12 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         });
 
         jComboBoxBarba.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxBarba.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Rala", "Cheia", "Rapada", "Sem Barba" }));
+        jComboBoxBarba.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Rala", "Cheia", "Rapada", "Sem Barba" }));
         jComboBoxBarba.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxBarba.setEnabled(false);
 
         jComboBoxBigode.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxBigode.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Ralo", "Cheio", "Rapado", "Sem Bigode" }));
+        jComboBoxBigode.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Ralo", "Cheio", "Rapado", "Sem Bigode" }));
         jComboBoxBigode.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxBigode.setEnabled(false);
 
@@ -1636,7 +1652,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         jLabel35.setText("Nariz:");
 
         jComboBoxNariz.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxNariz.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Achatado", "Afilado", "Arrebitado", "Comprido", "Curvo", "Adunco", "Pequeno", "Fino" }));
+        jComboBoxNariz.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Achatado", "Afilado", "Arrebitado", "Comprido", "Curvo", "Adunco", "Pequeno", "Fino" }));
         jComboBoxNariz.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxNariz.setEnabled(false);
 
@@ -1650,17 +1666,17 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         jLabel38.setText("Lábios:");
 
         jComboBoxBoca.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxBoca.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Média", "Pequena", "Grande" }));
+        jComboBoxBoca.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Média", "Pequena", "Grande" }));
         jComboBoxBoca.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxBoca.setEnabled(false);
 
         jComboBoxRosto.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxRosto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Comprido", "Oval", "Quadrado", "Redondo", "Médios" }));
+        jComboBoxRosto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Comprido", "Oval", "Quadrado", "Redondo", "Médios" }));
         jComboBoxRosto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxRosto.setEnabled(false);
 
         jComboBoxLabios.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxLabios.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Finos", "Grossos", "Grande", "Pequeno", "Leporinos", "Médios" }));
+        jComboBoxLabios.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Finos", "Grossos", "Grande", "Pequeno", "Leporinos", "Médios" }));
         jComboBoxLabios.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxLabios.setEnabled(false);
 
@@ -1712,12 +1728,12 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         jLabel61.setText("Orelha:");
 
         jComboBoxOrelha.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxOrelha.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Abertas", "Coladas", "Grandes", "Médias", "Pequenas" }));
+        jComboBoxOrelha.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Abertas", "Coladas", "Grandes", "Médias", "Pequenas" }));
         jComboBoxOrelha.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxOrelha.setEnabled(false);
 
         jComboBoxPescoco.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxPescoco.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Comprido", "Curto", "Fino", "Grosso", "Médio" }));
+        jComboBoxPescoco.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Comprido", "Curto", "Fino", "Grosso", "Médio" }));
         jComboBoxPescoco.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxPescoco.setEnabled(false);
 
@@ -1725,7 +1741,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         jLabel62.setText("Comple:");
 
         jComboBoxCompleicao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxCompleicao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Gordo", "Magro", "Médio", "Raquitico", "Trocudo" }));
+        jComboBoxCompleicao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Gordo", "Magro", "Médio", "Raquitico", "Trocudo" }));
         jComboBoxCompleicao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxCompleicao.setEnabled(false);
 
@@ -1733,8 +1749,8 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel43, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel32, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -1749,7 +1765,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                     .addComponent(jComboBoxBarba, 0, 111, Short.MAX_VALUE)
                     .addComponent(jComboBoxCutis, 0, 111, Short.MAX_VALUE)
                     .addComponent(jPeso)
-                    .addComponent(jComboBoxPescoco, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jComboBoxPescoco, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel61, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -1765,8 +1781,8 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                     .addComponent(jComboBoxRosto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jComboBoxBigode, 0, 120, Short.MAX_VALUE)
                     .addComponent(jComboBoxOlhos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBoxOrelha, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jComboBoxOrelha, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel62, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel34, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -1783,7 +1799,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                         .addComponent(jComboBoxNariz, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jComboBoxCabelos, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jComboBoxCompleicao, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGap(26, 26, 26))
         );
 
         jPanel9Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jCamisa, jComboBoxBarba, jComboBoxBoca, jComboBoxCutis});
@@ -1842,7 +1858,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                     .addComponent(jComboBoxPescoco, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel62)
                     .addComponent(jComboBoxCompleicao, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel9Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jCamisa, jComboBoxBarba, jComboBoxBoca, jComboBoxCutis});
@@ -1870,7 +1886,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         jLabel49.setText("Participação:");
 
         jComboBoxParticipacao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxParticipacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Autor", "Co-Autor" }));
+        jComboBoxParticipacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Autor", "Co-Autor" }));
         jComboBoxParticipacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxParticipacao.setEnabled(false);
 
@@ -1884,7 +1900,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         jDataPrisao.setEnabled(false);
 
         jComboBoxRegime.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxRegime.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Fechado", "Aberto", "Semi-Aberto", "Provisório" }));
+        jComboBoxRegime.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Fechado", "Aberto", "Semi-Aberto", "Provisório" }));
         jComboBoxRegime.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxRegime.setEnabled(false);
 
@@ -1912,7 +1928,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         jPena.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jPena.setEnabled(false);
 
-        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Artigos e Parágrafos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 204)));
+        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Artigos e Parágrafos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 204))); // NOI18N
 
         jLabel52.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel52.setText("Artigo 1:");
@@ -1960,7 +1976,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         jLabel58.setText("Crime Hediondo:");
 
         jComboBoxEdiondo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxEdiondo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Sim", "Não" }));
+        jComboBoxEdiondo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Sim", "Não" }));
         jComboBoxEdiondo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxEdiondo.setEnabled(false);
 
@@ -2007,9 +2023,9 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                     .addComponent(jLabel59, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel58, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBoxEdiondo, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDataTerPena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jDataTerPena, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jComboBoxEdiondo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(25, 25, 25))
         );
         jPanel11Layout.setVerticalGroup(
@@ -2088,9 +2104,9 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                                 .addComponent(jVaraCondenacao, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(jPanel5Layout.createSequentialGroup()
                                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jComboBoxParticipacao, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jDataCrime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jDataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jDataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jComboBoxParticipacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel50, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -2111,7 +2127,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addComponent(jPena, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addComponent(jDataNovaEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 7, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -2150,14 +2166,14 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                     .addComponent(jLabel45)
                     .addComponent(jComboBoxUnid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtPesqUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         jTabbedPane2.addTab("Dados Penais", jPanel5);
 
-        jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto Perfil", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 255)));
+        jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto Perfil", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -2170,7 +2186,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             .addComponent(jFotoPerfil, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
         );
 
-        jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto do Corpo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 0, 255)));
+        jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto do Corpo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
@@ -2183,7 +2199,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             .addComponent(jFotoCorpo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
         );
 
-        jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto Corpo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 0, 255)));
+        jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto Corpo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
@@ -2196,7 +2212,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             .addComponent(jFotoCorpo1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
         );
 
-        jPanel16.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto Corpo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 0, 255)));
+        jPanel16.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto Corpo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
 
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);
@@ -2222,6 +2238,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         jPerfil.setEnabled(false);
 
         jBtNovaFotoPerfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7183_16x16.png"))); // NOI18N
+        jBtNovaFotoPerfil.setContentAreaFilled(false);
         jBtNovaFotoPerfil.setEnabled(false);
         jBtNovaFotoPerfil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2230,6 +2247,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         });
 
         jBtExcluirFotoPerfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
+        jBtExcluirFotoPerfil.setContentAreaFilled(false);
         jBtExcluirFotoPerfil.setEnabled(false);
         jBtExcluirFotoPerfil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2238,6 +2256,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         });
 
         jBtNovaFotoCorpo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7183_16x16.png"))); // NOI18N
+        jBtNovaFotoCorpo.setContentAreaFilled(false);
         jBtNovaFotoCorpo.setEnabled(false);
         jBtNovaFotoCorpo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2246,6 +2265,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         });
 
         jBtExcluirFotoCorpo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
+        jBtExcluirFotoCorpo.setContentAreaFilled(false);
         jBtExcluirFotoCorpo.setEnabled(false);
         jBtExcluirFotoCorpo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2254,6 +2274,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         });
 
         jBtNovaFotoCorpo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7183_16x16.png"))); // NOI18N
+        jBtNovaFotoCorpo1.setContentAreaFilled(false);
         jBtNovaFotoCorpo1.setEnabled(false);
         jBtNovaFotoCorpo1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2262,6 +2283,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         });
 
         jBtExcluirFotoCorpo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
+        jBtExcluirFotoCorpo1.setContentAreaFilled(false);
         jBtExcluirFotoCorpo1.setEnabled(false);
         jBtExcluirFotoCorpo1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2270,6 +2292,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         });
 
         jBtNovaFotoCorpo2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7183_16x16.png"))); // NOI18N
+        jBtNovaFotoCorpo2.setContentAreaFilled(false);
         jBtNovaFotoCorpo2.setEnabled(false);
         jBtNovaFotoCorpo2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2278,6 +2301,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         });
 
         jBtExcluirCorpo2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
+        jBtExcluirCorpo2.setContentAreaFilled(false);
         jBtExcluirCorpo2.setEnabled(false);
         jBtExcluirCorpo2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2326,9 +2350,9 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(37, 37, 37)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPerfil)
@@ -2366,7 +2390,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                                         .addComponent(jIdentificador3, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jLabel68))))))
                     .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
+                        .addGap(24, 24, 24)
                         .addComponent(jBtNovaFotoPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtExcluirFotoPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2382,7 +2406,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                         .addComponent(jBtNovaFotoCorpo2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtExcluirCorpo2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         jPanel10Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanel12, jPanel14, jPanel15, jPanel16});
@@ -2432,23 +2456,23 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                     .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtExcluirFotoPerfil)
-                    .addComponent(jBtNovaFotoPerfil)
-                    .addComponent(jBtExcluirFotoCorpo)
-                    .addComponent(jBtNovaFotoCorpo)
-                    .addComponent(jBtExcluirFotoCorpo1)
-                    .addComponent(jBtNovaFotoCorpo1)
-                    .addComponent(jBtExcluirCorpo2)
-                    .addComponent(jBtNovaFotoCorpo2))
-                .addContainerGap())
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jBtNovaFotoCorpo2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jBtExcluirFotoCorpo1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jBtNovaFotoCorpo1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jBtExcluirFotoCorpo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jBtNovaFotoCorpo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jBtExcluirFotoPerfil, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jBtNovaFotoPerfil, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtExcluirCorpo2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(19, 19, 19))
         );
 
         jPanel10Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jIdentificador, jIdentificador1, jIdentificador2, jIdentificador3, jPerfil, jRegiaoCorpo, jRegiaoCorpo1, jRegiaoCorpo2});
 
         jTabbedPane2.addTab("Fotos", jPanel10);
 
-        jPanel22.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Médio", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 0, 255)));
+        jPanel22.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Médio", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
 
         javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
         jPanel22.setLayout(jPanel22Layout);
@@ -2461,7 +2485,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             .addComponent(jFotoMedioDireito, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
         );
 
-        jPanel27.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Médio", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 0, 255)));
+        jPanel27.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Médio", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
 
         javax.swing.GroupLayout jPanel27Layout = new javax.swing.GroupLayout(jPanel27);
         jPanel27.setLayout(jPanel27Layout);
@@ -2474,7 +2498,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             .addComponent(jFotoMedioEsquerdo, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
         );
 
-        jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Anular", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 0, 255)));
+        jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Anular", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
 
         javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
         jPanel23.setLayout(jPanel23Layout);
@@ -2487,7 +2511,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             .addComponent(jFotoAnularDireito, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
         );
 
-        jPanel28.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Anular", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 0, 255)));
+        jPanel28.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Anular", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
 
         javax.swing.GroupLayout jPanel28Layout = new javax.swing.GroupLayout(jPanel28);
         jPanel28.setLayout(jPanel28Layout);
@@ -2500,7 +2524,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             .addComponent(jFotoAnularEsquerdo, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
         );
 
-        jPanel24.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Mínimo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 0, 255)));
+        jPanel24.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Mínimo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
 
         javax.swing.GroupLayout jPanel24Layout = new javax.swing.GroupLayout(jPanel24);
         jPanel24.setLayout(jPanel24Layout);
@@ -2513,7 +2537,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             .addComponent(jFotoMininoDireito, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
         );
 
-        jPanel29.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Mínimo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 0, 255)));
+        jPanel29.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Mínimo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
 
         javax.swing.GroupLayout jPanel29Layout = new javax.swing.GroupLayout(jPanel29);
         jPanel29.setLayout(jPanel29Layout);
@@ -2526,7 +2550,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             .addComponent(jFotoMinimoEsquerdo, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
         );
 
-        jPanel20.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Polegar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 0, 255)));
+        jPanel20.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Polegar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
 
         javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
         jPanel20.setLayout(jPanel20Layout);
@@ -2539,7 +2563,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             .addComponent(jFotoPolegarDireito, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
         );
 
-        jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Polegar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 0, 255)));
+        jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Polegar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
 
         javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
         jPanel25.setLayout(jPanel25Layout);
@@ -2552,7 +2576,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             .addComponent(jFotoPolegarEsquerdo, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
         );
 
-        jPanel21.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Indicador", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 0, 255)));
+        jPanel21.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Indicador", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
 
         javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
         jPanel21.setLayout(jPanel21Layout);
@@ -2565,7 +2589,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             .addComponent(jFotoIndicadorDireito, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
         );
 
-        jPanel26.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Indicador", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 0, 255)));
+        jPanel26.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Indicador", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
 
         javax.swing.GroupLayout jPanel26Layout = new javax.swing.GroupLayout(jPanel26);
         jPanel26.setLayout(jPanel26Layout);
@@ -2583,17 +2607,6 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
         jLabel161.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel161.setText("Mão Esquerda");
-
-        jBtBiometria.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtBiometria.setForeground(new java.awt.Color(0, 153, 51));
-        jBtBiometria.setText("Biometria");
-        jBtBiometria.setEnabled(false);
-        jBtBiometria.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtBiometria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtBiometriaActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
         jPanel17.setLayout(jPanel17Layout);
@@ -2613,15 +2626,13 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                         .addComponent(jPanel28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(31, Short.MAX_VALUE))
+                        .addContainerGap(24, Short.MAX_VALUE))
                     .addGroup(jPanel17Layout.createSequentialGroup()
                         .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel17Layout.createSequentialGroup()
                                 .addComponent(jLabel161)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSeparator1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtBiometria, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jSeparator1))
                             .addGroup(jPanel17Layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
                                 .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2656,11 +2667,12 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                     .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jBtBiometria)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel161)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel17Layout.createSequentialGroup()
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -2676,12 +2688,12 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
         jTabbedPane2.addTab("Ficha Datiloscópica", jPanel17);
 
-        jPanel33.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 255)));
+        jPanel33.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jBtNovo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
         jBtNovo1.setText("Novo");
         jBtNovo1.setToolTipText("Novo Registro");
-        jBtNovo1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jBtNovo1.setContentAreaFilled(false);
         jBtNovo1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtNovo1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jBtNovo1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -2694,7 +2706,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         jBtAlterar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
         jBtAlterar1.setText("Alterar");
         jBtAlterar1.setToolTipText("Atualizar Registro");
-        jBtAlterar1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jBtAlterar1.setContentAreaFilled(false);
         jBtAlterar1.setEnabled(false);
         jBtAlterar1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtAlterar1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -2708,7 +2720,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         jBtExcluir1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
         jBtExcluir1.setText("Excluir");
         jBtExcluir1.setToolTipText("Excluir Registro");
-        jBtExcluir1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jBtExcluir1.setContentAreaFilled(false);
         jBtExcluir1.setEnabled(false);
         jBtExcluir1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtExcluir1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -2722,7 +2734,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         jBtSalvar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
         jBtSalvar1.setText("Gravar");
         jBtSalvar1.setToolTipText("Salvar Registro");
-        jBtSalvar1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jBtSalvar1.setContentAreaFilled(false);
         jBtSalvar1.setEnabled(false);
         jBtSalvar1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtSalvar1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -2736,7 +2748,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         jBtCancelar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Close_Icon_16.png"))); // NOI18N
         jBtCancelar1.setText("Cancelar");
         jBtCancelar1.setToolTipText("Cancelar Operação");
-        jBtCancelar1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jBtCancelar1.setContentAreaFilled(false);
         jBtCancelar1.setEnabled(false);
         jBtCancelar1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtCancelar1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -2750,7 +2762,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         jBtSair1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Log_Out_Icon_16.png"))); // NOI18N
         jBtSair1.setText("Sair");
         jBtSair1.setToolTipText("Sair da Tela");
-        jBtSair1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jBtSair1.setContentAreaFilled(false);
         jBtSair1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtSair1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jBtSair1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -2761,8 +2773,8 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         });
 
         jBtImpressao1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/gtklp-icone-3770-16.png"))); // NOI18N
-        jBtImpressao1.setText("Impressão");
-        jBtImpressao1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jBtImpressao1.setToolTipText("Impressão");
+        jBtImpressao1.setContentAreaFilled(false);
         jBtImpressao1.setEnabled(false);
         jBtImpressao1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtImpressao1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -2773,11 +2785,10 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtAuditoriaPronCrc1.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         jBtAuditoriaPronCrc1.setForeground(new java.awt.Color(255, 0, 0));
         jBtAuditoriaPronCrc1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
-        jBtAuditoriaPronCrc1.setText("Auditoria");
-        jBtAuditoriaPronCrc1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jBtAuditoriaPronCrc1.setToolTipText("Auditoria");
+        jBtAuditoriaPronCrc1.setContentAreaFilled(false);
         jBtAuditoriaPronCrc1.setEnabled(false);
         jBtAuditoriaPronCrc1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtAuditoriaPronCrc1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -2788,10 +2799,9 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtObservacao1.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         jBtObservacao1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/accept.png"))); // NOI18N
-        jBtObservacao1.setText("OBS");
-        jBtObservacao1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jBtObservacao1.setToolTipText("Observação");
+        jBtObservacao1.setContentAreaFilled(false);
         jBtObservacao1.setEnabled(false);
         jBtObservacao1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtObservacao1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -2802,12 +2812,10 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtBuscarRegPortaria1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtBuscarRegPortaria1.setForeground(new java.awt.Color(0, 0, 255));
         jBtBuscarRegPortaria1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
-        jBtBuscarRegPortaria1.setText("Buscar");
         jBtBuscarRegPortaria1.setToolTipText("Buscar Registro Interno na Portaria");
-        jBtBuscarRegPortaria1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jBtBuscarRegPortaria1.setContentAreaFilled(false);
         jBtBuscarRegPortaria1.setEnabled(false);
         jBtBuscarRegPortaria1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtBuscarRegPortaria1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -2818,53 +2826,60 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             }
         });
 
+        jBtBiometria.setForeground(new java.awt.Color(0, 153, 51));
+        jBtBiometria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Biometria16Vermelho.png"))); // NOI18N
+        jBtBiometria.setToolTipText("Biometria");
+        jBtBiometria.setContentAreaFilled(false);
+        jBtBiometria.setEnabled(false);
+        jBtBiometria.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBtBiometria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtBiometriaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel33Layout = new javax.swing.GroupLayout(jPanel33);
         jPanel33.setLayout(jPanel33Layout);
         jPanel33Layout.setHorizontalGroup(
             jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel33Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jBtNovo1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel33Layout.createSequentialGroup()
+                .addComponent(jBtNovo1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtAlterar1)
-                .addGap(2, 2, 2)
-                .addComponent(jBtExcluir1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtSalvar1)
+                .addComponent(jBtExcluir1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtCancelar1)
+                .addComponent(jBtSalvar1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtImpressao1)
+                .addComponent(jBtCancelar1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtSair1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtSair1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtObservacao1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtImpressao1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtBuscarRegPortaria1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jBtAuditoriaPronCrc1)
+                .addComponent(jBtObservacao1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtBuscarRegPortaria1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtAuditoriaPronCrc1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtBiometria, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        jPanel33Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterar1, jBtCancelar1, jBtExcluir1, jBtNovo1, jBtSair1, jBtSalvar1});
-
         jPanel33Layout.setVerticalGroup(
             jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel33Layout.createSequentialGroup()
-                .addGroup(jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtImpressao1)
-                    .addGroup(jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jBtAlterar1)
-                        .addComponent(jBtExcluir1, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jBtSalvar1, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jBtCancelar1)
-                        .addComponent(jBtSair1))
-                    .addComponent(jBtNovo1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtObservacao1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jBtBuscarRegPortaria1)
-                        .addComponent(jBtAuditoriaPronCrc1)))
-                .addGap(0, 9, Short.MAX_VALUE))
+            .addGroup(jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                .addComponent(jBtNovo1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtAlterar1)
+                .addComponent(jBtExcluir1)
+                .addComponent(jBtSalvar1)
+                .addComponent(jBtCancelar1)
+                .addComponent(jBtSair1)
+                .addComponent(jBtImpressao1)
+                .addComponent(jBtObservacao1)
+                .addComponent(jBtBuscarRegPortaria1)
+                .addComponent(jBtAuditoriaPronCrc1)
+                .addComponent(jBtBiometria))
         );
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -2873,20 +2888,22 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTabbedPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel33, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jTabbedPane2)
+                        .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28))
         );
 
         jTabbedPane1.addTab("Dados Fisicos/Penais", jPanel8);
@@ -3249,35 +3266,33 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         jPanel34Layout.setHorizontalGroup(
             jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel34Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(18, Short.MAX_VALUE)
                 .addComponent(jLabel74, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel34Layout.createSequentialGroup()
-                        .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20))
+                .addGroup(jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel34Layout.createSequentialGroup()
                         .addComponent(jLabel76)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBtPeculiaridadeFrente)
-                        .addGap(57, 57, 57))))
+                        .addGap(107, 107, 107)
+                        .addComponent(jBtPeculiaridadeFrente))
+                    .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         jPanel34Layout.setVerticalGroup(
             jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel34Layout.createSequentialGroup()
+                .addComponent(jLabel74, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel34Layout.createSequentialGroup()
                 .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel34Layout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addComponent(jBtPeculiaridadeFrente)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel34Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel76, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel76, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
                         .addContainerGap())))
-            .addGroup(jPanel34Layout.createSequentialGroup()
-                .addComponent(jLabel74, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Peculiaridade Frente", jPanel34);
@@ -3524,7 +3539,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         );
         jPanel39Layout.setVerticalGroup(
             jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 65, Short.MAX_VALUE)
+            .addGap(0, 55, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel37Layout = new javax.swing.GroupLayout(jPanel37);
@@ -3576,16 +3591,14 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 565, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 555, Short.MAX_VALUE)
         );
 
-        setBounds(300, 15, 641, 595);
+        setBounds(300, 15, 637, 585);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBoxCabelosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCabelosActionPerformed
@@ -4767,14 +4780,19 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jBtCNCPesquisaActionPerformed
 
+    private void jBtImportarProntuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImportarProntuarioActionPerformed
+        // TODO add your handling code here:
+        mostrarTelaPesquisaExterna();
+    }//GEN-LAST:event_jBtImportarProntuarioActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField jAlcunha;
-    private javax.swing.JTextField jAltura;
-    private javax.swing.JTextField jArtigo1;
-    private javax.swing.JTextField jArtigo2;
-    private javax.swing.JTextField jArtigo3;
-    private javax.swing.JTextField jBairro;
+    public static javax.swing.JTextField jAlcunha;
+    public static javax.swing.JTextField jAltura;
+    public static javax.swing.JTextField jArtigo1;
+    public static javax.swing.JTextField jArtigo2;
+    public static javax.swing.JTextField jArtigo3;
+    public static javax.swing.JTextField jBairro;
     private javax.swing.JButton jBtAlterar;
     private javax.swing.JButton jBtAlterar1;
     private javax.swing.JButton jBtAuditoriaPronCrc;
@@ -4792,6 +4810,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtExcluirFotoCorpo;
     private javax.swing.JButton jBtExcluirFotoCorpo1;
     private javax.swing.JButton jBtExcluirFotoPerfil;
+    private javax.swing.JButton jBtImportarProntuario;
     private javax.swing.JButton jBtImpressao;
     private javax.swing.JButton jBtImpressao1;
     private javax.swing.JButton jBtMatricula;
@@ -4820,46 +4839,46 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtSalvar1;
     private javax.swing.JButton jBtWebCam;
     private javax.swing.JButton jBtZoonFoto;
-    private javax.swing.JTextField jCNC;
-    private javax.swing.JFormattedTextField jCPFInterno;
-    private javax.swing.JTextField jCalca;
-    private javax.swing.JTextField jCamisa;
-    private javax.swing.JTextField jCartaoSus;
-    private javax.swing.JFormattedTextField jCelular;
+    public static javax.swing.JTextField jCNC;
+    public static javax.swing.JFormattedTextField jCPFInterno;
+    public static javax.swing.JTextField jCalca;
+    public static javax.swing.JTextField jCamisa;
+    public static javax.swing.JTextField jCartaoSus;
+    public static javax.swing.JFormattedTextField jCelular;
     private javax.swing.JCheckBox jCheckBox1;
     public static javax.swing.JTextField jCidade;
-    private javax.swing.JComboBox jComboBoxBarba;
-    private javax.swing.JComboBox jComboBoxBigode;
-    private javax.swing.JComboBox jComboBoxBoca;
-    private javax.swing.JComboBox jComboBoxCabelos;
+    public static javax.swing.JComboBox jComboBoxBarba;
+    public static javax.swing.JComboBox jComboBoxBigode;
+    public static javax.swing.JComboBox jComboBoxBoca;
+    public static javax.swing.JComboBox jComboBoxCabelos;
     public static javax.swing.JTextField jComboBoxCidade;
-    private javax.swing.JComboBox jComboBoxCompleicao;
-    private javax.swing.JComboBox jComboBoxCutis;
-    private javax.swing.JComboBox jComboBoxEdiondo;
-    private javax.swing.JComboBox jComboBoxEscolaridade;
-    private javax.swing.JComboBox jComboBoxEstadoCivil;
-    private javax.swing.JComboBox jComboBoxLabios;
-    private javax.swing.JComboBox jComboBoxNariz;
-    private javax.swing.JComboBox jComboBoxOlhos;
-    private javax.swing.JComboBox jComboBoxOrelha;
+    public static javax.swing.JComboBox jComboBoxCompleicao;
+    public static javax.swing.JComboBox jComboBoxCutis;
+    public static javax.swing.JComboBox jComboBoxEdiondo;
+    public static javax.swing.JComboBox jComboBoxEscolaridade;
+    public static javax.swing.JComboBox jComboBoxEstadoCivil;
+    public static javax.swing.JComboBox jComboBoxLabios;
+    public static javax.swing.JComboBox jComboBoxNariz;
+    public static javax.swing.JComboBox jComboBoxOlhos;
+    public static javax.swing.JComboBox jComboBoxOrelha;
     public static javax.swing.JTextField jComboBoxPais;
-    private javax.swing.JComboBox jComboBoxParticipacao;
-    private javax.swing.JComboBox jComboBoxPescoco;
+    public static javax.swing.JComboBox jComboBoxParticipacao;
+    public static javax.swing.JComboBox jComboBoxPescoco;
     private javax.swing.JComboBox jComboBoxPesqSituacao;
-    private javax.swing.JComboBox jComboBoxRegime;
-    private javax.swing.JComboBox jComboBoxRosto;
-    private javax.swing.JComboBox jComboBoxSexo;
+    public static javax.swing.JComboBox jComboBoxRegime;
+    public static javax.swing.JComboBox jComboBoxRosto;
+    public static javax.swing.JComboBox jComboBoxSexo;
     public static javax.swing.JTextField jComboBoxUnid;
-    private com.toedter.calendar.JDateChooser jDataCadastro;
-    private com.toedter.calendar.JDateChooser jDataCondenacao;
-    private com.toedter.calendar.JDateChooser jDataCrime;
-    private com.toedter.calendar.JDateChooser jDataEntrada;
-    private com.toedter.calendar.JDateChooser jDataNascimento;
-    private com.toedter.calendar.JDateChooser jDataNovaEntrada;
-    private com.toedter.calendar.JDateChooser jDataPrisao;
-    private com.toedter.calendar.JDateChooser jDataTerPena;
-    private javax.swing.JTextField jEndereco;
-    private javax.swing.JTextField jEstado;
+    public static com.toedter.calendar.JDateChooser jDataCadastro;
+    public static com.toedter.calendar.JDateChooser jDataCondenacao;
+    public static com.toedter.calendar.JDateChooser jDataCrime;
+    public static com.toedter.calendar.JDateChooser jDataEntrada;
+    public static com.toedter.calendar.JDateChooser jDataNascimento;
+    public static com.toedter.calendar.JDateChooser jDataNovaEntrada;
+    public static com.toedter.calendar.JDateChooser jDataPrisao;
+    public static com.toedter.calendar.JDateChooser jDataTerPena;
+    public static javax.swing.JTextField jEndereco;
+    public static javax.swing.JTextField jEstado;
     public static javax.swing.JLabel jFotoAnularDireito;
     public static javax.swing.JLabel jFotoAnularEsquerdo;
     private javax.swing.JLabel jFotoCorpo;
@@ -4875,10 +4894,10 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
     public static javax.swing.JLabel jFotoPolegarDireito;
     public static javax.swing.JLabel jFotoPolegarEsquerdo;
     public static javax.swing.JTextField jIdInterno;
-    private javax.swing.JTextField jIdentificador;
-    private javax.swing.JTextField jIdentificador1;
-    private javax.swing.JTextField jIdentificador2;
-    private javax.swing.JTextField jIdentificador3;
+    public static javax.swing.JTextField jIdentificador;
+    public static javax.swing.JTextField jIdentificador1;
+    public static javax.swing.JTextField jIdentificador2;
+    public static javax.swing.JTextField jIdentificador3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel100;
@@ -5045,10 +5064,10 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel98;
     private javax.swing.JLabel jLabel99;
     public static javax.swing.JLabel jLabelFotoInterno;
-    private javax.swing.JTextField jMaeInterno;
+    public static javax.swing.JTextField jMaeInterno;
     public static javax.swing.JTextField jMatriculaPenal;
     public static javax.swing.JTextField jNomeInterno;
-    private javax.swing.JTextField jPaiInterno;
+    public static javax.swing.JTextField jPaiInterno;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -5087,25 +5106,25 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JTextField jParagrafo1;
-    private javax.swing.JTextField jParagrafo2;
-    private javax.swing.JTextField jParagrafo3;
-    private javax.swing.JTextField jParticularidade;
-    private javax.swing.JTextField jPena;
-    private javax.swing.JTextField jPerfil;
-    private javax.swing.JTextField jPeso;
+    public static javax.swing.JTextField jParagrafo1;
+    public static javax.swing.JTextField jParagrafo2;
+    public static javax.swing.JTextField jParagrafo3;
+    public static javax.swing.JTextField jParticularidade;
+    public static javax.swing.JTextField jPena;
+    public static javax.swing.JTextField jPerfil;
+    public static javax.swing.JTextField jPeso;
     private javax.swing.JTextField jPesqAlcunha;
     private javax.swing.JTextField jPesqCodigo;
     private javax.swing.JTextField jPesqMatricula;
     private javax.swing.JTextField jPesqNome;
     private javax.swing.JTextField jPesquisaCNC;
-    private javax.swing.JTextField jProfissao;
-    private javax.swing.JFormattedTextField jRGInterno;
-    private javax.swing.JTextField jRegiaoCorpo;
-    private javax.swing.JTextField jRegiaoCorpo1;
-    private javax.swing.JTextField jRegiaoCorpo2;
-    private javax.swing.JTextField jReligiao;
-    private javax.swing.JTextField jSapato;
+    public static javax.swing.JTextField jProfissao;
+    public static javax.swing.JFormattedTextField jRGInterno;
+    public static javax.swing.JTextField jRegiaoCorpo;
+    public static javax.swing.JTextField jRegiaoCorpo1;
+    public static javax.swing.JTextField jRegiaoCorpo2;
+    public static javax.swing.JTextField jReligiao;
+    public static javax.swing.JTextField jSapato;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
@@ -5114,9 +5133,9 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTable jTabelaInterno;
-    private javax.swing.JFormattedTextField jTelefone;
-    private javax.swing.JFormattedTextField jTelefone1;
-    private javax.swing.JTextField jVaraCondenacao;
+    public static javax.swing.JFormattedTextField jTelefone;
+    public static javax.swing.JFormattedTextField jTelefone1;
+    public static javax.swing.JTextField jVaraCondenacao;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
@@ -5531,6 +5550,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         jBtObservacao1.setEnabled(!true);
         jBtAuditoriaPronCrc1.setEnabled(!true);
         jBtBiometria.setEnabled(!true);
+        jBtImportarProntuario.setEnabled(true);
     }
 
     public void Alterar() {
@@ -5653,6 +5673,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         jBtObservacao1.setEnabled(!true);
         jBtAuditoriaPronCrc1.setEnabled(!true);
         jBtBiometria.setEnabled(!true);
+        jBtImportarProntuario.setEnabled(!true);
     }
 
     public void Excluir() {
@@ -5964,6 +5985,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         jBtBuscarRegPortaria1.setEnabled(!true);
         jBtAuditoriaPronCrc1.setEnabled(true);
         jBtBiometria.setEnabled(true);
+        jBtImportarProntuario.setEnabled(!true);
     }
 
     public void Cancelar() {
@@ -6175,6 +6197,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             jBtBuscarRegPortaria1.setEnabled(!true);
             jBtAuditoriaPronCrc1.setEnabled(!true);
             jBtBiometria.setEnabled(!true);
+            jBtImportarProntuario.setEnabled(!true);
         } else {
             // Desabilitar os campos
             jMatriculaPenal.setEnabled(!true);
@@ -6288,6 +6311,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             jBtBuscarRegPortaria1.setEnabled(!true);
             jBtAuditoriaPronCrc1.setEnabled(true);
             jBtBiometria.setEnabled(!true);
+            jBtImportarProntuario.setEnabled(!true);
         }
     }
 
