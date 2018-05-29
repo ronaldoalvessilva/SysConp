@@ -24,7 +24,23 @@ import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
-import static gestor.Visao.TelaProntuarioCrc.telaPesquisaExterna;
+import static gestor.Visao.TelaModuloTriagem.codAbrir;
+import static gestor.Visao.TelaModuloTriagem.codAlterar;
+import static gestor.Visao.TelaModuloTriagem.codExcluir;
+import static gestor.Visao.TelaModuloTriagem.codGravar;
+import static gestor.Visao.TelaModuloTriagem.codIncluir;
+import static gestor.Visao.TelaModuloTriagem.codUserAcesso;
+import static gestor.Visao.TelaModuloTriagem.codigoUser;
+import static gestor.Visao.TelaModuloTriagem.nomeGrupo;
+import static gestor.Visao.TelaModuloTriagem.nomeTela;
+import static gestor.Visao.TelaModuloTriagem.telaCadastroProntuarioBioTRI;
+import static gestor.Visao.TelaModuloTriagem.telaCadastroProntuarioBuscarEntTRI;
+import static gestor.Visao.TelaModuloTriagem.telaCadastroProntuarioImportTRI;
+import static gestor.Visao.TelaModuloTriagem.telaCadastroProntuarioManuTRI;
+import static gestor.Visao.TelaModuloTriagem.telaCadastroProntuarioObsTRI;
+import static gestor.Visao.TelaModuloTriagem.telaCadastroProntuarioPecCosTRI;
+import static gestor.Visao.TelaModuloTriagem.telaCadastroProntuarioPecFreTRI;
+import static gestor.Visao.TelaModuloTriagem.telaCadastroProntuarioPrintTRI;
 import java.awt.Color;
 import java.awt.HeadlessException;
 import java.awt.Image;
@@ -127,6 +143,8 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
     String caminhoBiometria9 = "";
     String caminhoBiometria10 = "";
     String codIntPenal;
+    //
+    String confirmarTransf = "Sim";
     /**
      * Creates new form TelaTriagem
      */
@@ -137,6 +155,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
     public static TelaBiometriaInterno telaBiometriaInterno;
     public static TelaWebCamInternoTriagem telaWebCamInterno;
     public static TelaPesquisaExternaInternoTriagem telaPesquisaExternaTriagem;
+
     //
     public TelaProntuarioTriagem() {
         super();
@@ -172,12 +191,11 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         telaWebCamInterno.setVisible(true);
     }
 
-     public void mostrarTelaPesquisaExterna() {
+    public void mostrarTelaPesquisaExterna() {
         telaPesquisaExternaTriagem = new TelaPesquisaExternaInternoTriagem(this, true);
         telaPesquisaExternaTriagem.setVisible(true);
     }
 
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -3606,238 +3624,257 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jComboBoxCabelosActionPerformed
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
-        // TODO add your handling code here:   
-        verificarParamentrosCrc();
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        // TODO add your handling code here:
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroProntuarioManuTRI) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            verificarParamentrosCrc();
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:  
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM PARAMETROSCRC WHERE UsuarioAutorizado='" + nameUser + "'");
-            conecta.rs.first();
-            usuarioAutorizado = conecta.rs.getString("UsuarioAutorizado");
-        } catch (SQLException ex) {
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroProntuarioManuTRI) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM PARAMETROSCRC "
+                        + "WHERE UsuarioAutorizado='" + nameUser + "'");
+                conecta.rs.first();
+                usuarioAutorizado = conecta.rs.getString("UsuarioAutorizado");
+            } catch (SQLException ex) {
+            }
+            verificarParamentrosCrc();
+            acao = 2;
+            Alterar();
+            corCampos();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            if (nameUser == null ? nomeUsuarioCrc == null : nameUser.equals(nomeUsuarioCrc) || (nameUser == null ? usuarioAutorizado == null : nameUser.equals(usuarioAutorizado))) {
+                jSituacao.setEnabled(true);
+            }
+            conecta.desconecta();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
         }
-        verificarParamentrosCrc();
-        acao = 2;
-        Alterar();
-        corCampos();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        if (nameUser == null ? nomeUsuarioCrc == null : nameUser.equals(nomeUsuarioCrc) || (nameUser == null ? usuarioAutorizado == null : nameUser.equals(usuarioAutorizado))) {
-            jSituacao.setEnabled(true);
-        }
-        conecta.desconecta();
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
-
-        verificarEntradaInterno();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroProntuarioManuTRI) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            verificarEntradaInterno();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
+        }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jNomeInterno.getText().isEmpty() || jNomeInterno.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Nome do INTERNO não pode ser em branco...");
-            jNomeInterno.requestFocus();
-        } else {
-            if (jMaeInterno.getText().isEmpty() || jMaeInterno.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Nome da MÃE do INTERNO não pode ser em branco...");
-                jMaeInterno.requestFocus();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroProntuarioManuTRI) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jNomeInterno.getText().isEmpty() || jNomeInterno.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Nome do INTERNO não pode ser em branco...");
+                jNomeInterno.requestFocus();
             } else {
-                if (jPaiInterno.getText().isEmpty() || jPaiInterno.getText().equals("")) {
-                    JOptionPane.showMessageDialog(rootPane, "Nome do PAI do INTERNO não pode ser em branco...");
-                    jPaiInterno.requestFocus();
+                if (jMaeInterno.getText().isEmpty() || jMaeInterno.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Nome da MÃE do INTERNO não pode ser em branco...");
+                    jMaeInterno.requestFocus();
                 } else {
-                    if (caminhoFotoInternoTRIAGEM == null) {
-                        JOptionPane.showMessageDialog(rootPane, "FOTO do INTERNO não pode ser em branco...");
+                    if (jPaiInterno.getText().isEmpty() || jPaiInterno.getText().equals("")) {
+                        JOptionPane.showMessageDialog(rootPane, "Nome do PAI do INTERNO não pode ser em branco...");
+                        jPaiInterno.requestFocus();
                     } else {
-                        if (jDataNascimento.getDate() == null) {
-                            JOptionPane.showMessageDialog(rootPane, "DATA NASCIMENTO não pode ser em branco");
-                            jDataCadastro.requestFocus();
+                        if (caminhoFotoInternoTRIAGEM == null) {
+                            JOptionPane.showMessageDialog(rootPane, "FOTO do INTERNO não pode ser em branco...");
                         } else {
-                            if (jDataEntrada.getDate() == null) {
-                                JOptionPane.showMessageDialog(rootPane, "DATA ENTRADA não pode ser em branco");
-                                jDataEntrada.requestFocus();
+                            if (jDataNascimento.getDate() == null) {
+                                JOptionPane.showMessageDialog(rootPane, "DATA NASCIMENTO não pode ser em branco");
+                                jDataCadastro.requestFocus();
                             } else {
-                                if (jDataCrime.getDate() == null) {
-                                    JOptionPane.showMessageDialog(rootPane, "DATA CRIME não pode ser em branco");
-                                    jDataCrime.requestFocus();
+                                if (jDataEntrada.getDate() == null) {
+                                    JOptionPane.showMessageDialog(rootPane, "DATA ENTRADA não pode ser em branco");
+                                    jDataEntrada.requestFocus();
                                 } else {
-                                    if (jDataPrisao.getDate() == null) {
-                                        JOptionPane.showMessageDialog(rootPane, "DATA PRISÃO não pode ser em branco");
-                                        jDataPrisao.requestFocus();
+                                    if (jDataCrime.getDate() == null) {
+                                        JOptionPane.showMessageDialog(rootPane, "DATA CRIME não pode ser em branco");
+                                        jDataCrime.requestFocus();
                                     } else {
-                                        if (jDataCondenacao.getDate() == null) {
-                                            JOptionPane.showMessageDialog(rootPane, "DATA CONDENAÇÃO não pode ser em branco");
-                                            jDataCondenacao.requestFocus();
+                                        if (jDataPrisao.getDate() == null) {
+                                            JOptionPane.showMessageDialog(rootPane, "DATA PRISÃO não pode ser em branco");
+                                            jDataPrisao.requestFocus();
                                         } else {
-
-                                            if (jComboBoxUnid.getText().equals("")) {
-                                                JOptionPane.showMessageDialog(rootPane, "Informe a unidade penal");
-                                                jComboBoxUnid.requestFocus();
-                                                jComboBoxUnid.setBackground(Color.red);
+                                            if (jDataCondenacao.getDate() == null) {
+                                                JOptionPane.showMessageDialog(rootPane, "DATA CONDENAÇÃO não pode ser em branco");
+                                                jDataCondenacao.requestFocus();
                                             } else {
-                                                if (jComboBoxPais.getText().equals("")) {
-                                                    JOptionPane.showMessageDialog(rootPane, "Informe o nome do Paíes");
-                                                    jComboBoxPais.requestFocus();
-                                                    jComboBoxPais.setBackground(Color.red);
-                                                } else {
-                                                    if (jComboBoxCidade.getText().equals("")) {
-                                                        JOptionPane.showMessageDialog(rootPane, "Informe o nome da Cidade");
-                                                        jComboBoxCidade.requestFocus();
-                                                        jComboBoxCidade.setBackground(Color.red);
-                                                    } else {
-                                                        objProCrc.setMatricula(jMatriculaPenal.getText());
-                                                        objProCrc.setDataCadast(jDataCadastro.getDate());
-                                                        objProCrc.setDataNasci(jDataNascimento.getDate());
-                                                        objProCrc.setNomeInterno(jNomeInterno.getText());
-                                                        objProCrc.setMaeInterno(jMaeInterno.getText());
-                                                        objProCrc.setPaiInterno(jPaiInterno.getText());
-                                                        objProCrc.setAlcunha(jAlcunha.getText());
-                                                        objProCrc.setRgInterno(jRGInterno.getText());
-                                                        objProCrc.setCpfInterno(jCPFInterno.getText());
-                                                        objProCrc.setCartoaSus(jCartaoSus.getText());
-                                                        objProCrc.setFotoInterno(caminhoFotoInternoTRIAGEM);
-                                                        objProCrc.setEscolaridade((String) jComboBoxEscolaridade.getSelectedItem());
-                                                        objProCrc.setEstadoCivil((String) jComboBoxEstadoCivil.getSelectedItem());
-                                                        objProCrc.setSexo((String) jComboBoxSexo.getSelectedItem());
-                                                        objProCrc.setSituacao(jSituacao.getText());
-                                                        objProCrc.setNomePais(jComboBoxPais.getText());
-                                                        objProCrc.setNomeCidade(jComboBoxCidade.getText());
-                                                        objProCrc.setReligiao(jReligiao.getText());
-                                                        objProCrc.setProfissao(jProfissao.getText());
-                                                        objProCrc.setEndereco(jEndereco.getText());
-                                                        objProCrc.setBairro(jBairro.getText());
-                                                        objProCrc.setCidade(jCidade.getText());
-                                                        objProCrc.setEstado(jEstado.getText());
-                                                        objProCrc.setTelefone(jTelefone.getText());
-                                                        objProCrc.setTelefone1(jTelefone1.getText());
-                                                        objProCrc.setCelular(jCelular.getText());
-                                                        objProCrc.setCnc(jCNC.getText());
-                                                        // Classe Dados Fisicos
-                                                        objDadosFis.setCutis((String) jComboBoxCutis.getSelectedItem());
-                                                        objDadosFis.setOlhos((String) jComboBoxOlhos.getSelectedItem());
-                                                        objDadosFis.setCabelos((String) jComboBoxCabelos.getSelectedItem());
-                                                        objDadosFis.setBarba((String) jComboBoxBarba.getSelectedItem());
-                                                        objDadosFis.setBigode((String) jComboBoxBigode.getSelectedItem());
-                                                        objDadosFis.setNariz((String) jComboBoxNariz.getSelectedItem());
-                                                        objDadosFis.setBoca((String) jComboBoxBoca.getSelectedItem());
-                                                        objDadosFis.setRosto((String) jComboBoxRosto.getSelectedItem());
-                                                        objDadosFis.setLabios((String) jComboBoxLabios.getSelectedItem());
-                                                        objDadosFis.setCamisa(jCamisa.getText());
-                                                        objDadosFis.setCalca(jCalca.getText());
-                                                        objDadosFis.setSapato(jSapato.getText());
-                                                        objDadosFis.setPeso(jPeso.getText());
-                                                        objDadosFis.setAltura(jAltura.getText());
-                                                        objDadosFis.setSinais(jParticularidade.getText());
-                                                        objDadosFis.setOrelha((String) jComboBoxOrelha.getSelectedItem());
-                                                        objDadosFis.setPescoco((String) jComboBoxPescoco.getSelectedItem());
-                                                        objDadosFis.setCompleicao((String) jComboBoxCompleicao.getSelectedItem());
-                                                        // Dados Penais
-                                                        objDadosPena.setDataEntrada(jDataEntrada.getDate());
-                                                        objDadosPena.setNomeUnidade(jComboBoxUnid.getText());
-                                                        objDadosPena.setDataCrime(jDataCrime.getDate());
-                                                        objDadosPena.setDataPrisao(jDataPrisao.getDate());
-                                                        objDadosPena.setDataCondenacao(jDataCondenacao.getDate());
-                                                        objDadosPena.setParticipacao((String) jComboBoxParticipacao.getSelectedItem());
-                                                        objDadosPena.setRegime((String) jComboBoxRegime.getSelectedItem());
-                                                        objDadosPena.setPena(jPena.getText());
-                                                        objDadosPena.setArtigo1(jArtigo1.getText());
-                                                        objDadosPena.setArtigo2(jArtigo2.getText());
-                                                        objDadosPena.setArtigo3(jArtigo3.getText());
-                                                        objDadosPena.setParagrafo1(jParagrafo1.getText());
-                                                        objDadosPena.setParagrafo2(jParagrafo2.getText());
-                                                        objDadosPena.setParagrafo3(jParagrafo3.getText());
-                                                        objDadosPena.setCrimeEdiondo((String) jComboBoxEdiondo.getSelectedItem());
-                                                        objDadosPena.setTerminoPena(jDataTerPena.getDate());
-                                                        objDadosPena.setIdentificador(jIdentificador.getText());
-                                                        objDadosPena.setIdentificador1(jIdentificador1.getText());
-                                                        objDadosPena.setIdentificador2(jIdentificador2.getText());
-                                                        objDadosPena.setIdentificador3(jIdentificador3.getText());
-                                                        objDadosPena.setPerfil(jPerfil.getText());
-                                                        objDadosPena.setRegiaoCorpo(jRegiaoCorpo.getText());
-                                                        objDadosPena.setRegiaoCorpo1(jRegiaoCorpo1.getText());
-                                                        objDadosPena.setRegiaoCorpo2(jRegiaoCorpo2.getText());
-                                                        objDadosPena.setFotoPerfil(caminhoFotoPerfil);
-                                                        objDadosPena.setFotoCorpo(caminhoFotoCorpo);
-                                                        objDadosPena.setFotoCorpo1(caminhoFotoCorpo1);
-                                                        objDadosPena.setFotoCorpo2(caminhoFotoCorpo2);
-                                                        objDadosPena.setVaraCondenatoria(jVaraCondenacao.getText());
-                                                        objDadosPena.setDataNovaEntrada(jDataNovaEntrada.getDate());
-                                                        objProCrc.setUsuarioInsert(nameUser);
-                                                        objProCrc.setDataInsert(jDataSistema.getText());
-                                                        objProCrc.setHoraInsert(jHoraSistema.getText());
-                                                        try {
-                                                            // Verificar se o interno já foi cadastrado, se foi avisa
-                                                            conecta.abrirConexao();
-                                                            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC WHERE NomeInternoCrc='" + jNomeInterno.getText() + "' AND MaeInternoCrc='" + jMaeInterno.getText() + "'");
-                                                            conecta.rs.first();
-                                                            nomeInternoCrc = conecta.rs.getString("NomeInternoCrc");
-                                                            nomeMaeInterno = conecta.rs.getString("MaeInternoCrc");
-                                                            conecta.desconecta();
-                                                        } catch (SQLException | HeadlessException | NumberFormatException e) {
-                                                        }
-                                                        if (acao == 1) {
-                                                            if (jNomeInterno.getText().trim().equals(nomeInternoCrc) && jMaeInterno.getText().trim().equals(nomeMaeInterno)) {
-                                                                JOptionPane.showMessageDialog(rootPane, "Esse Interno já foi cadastrado.");
-                                                                conecta.desconecta();
-                                                            } else {
-                                                                try {
-                                                                    //GRAVA NA TABELA PRONTUARIOSCRC
-                                                                    control.incluirInternoCrc(objProCrc);
-                                                                    buscarCodInt();
-                                                                    // TABELA DADOSFISICOSINTERNOS
-                                                                    controlFisicos.incluirDadosFisicos(objDadosFis);
-                                                                    // TABELA DADOSPENAISINTERNOS
-                                                                    controlPenais.incluirDadosPenais(objDadosPena);
-                                                                    objProCrc.setIdInterno(Integer.valueOf(jIdInterno.getText()));
-                                                                    // VERIFICAR SE O INTERNO FOI GRAVADO NA TABELA DADOSPENAISINTERNOS
-                                                                    verificarGravacaoInterno();
-                                                                    if (jIdInterno.getText().equals(codIntPenal)) {
-                                                                        // Confirma a utilização do registro do interno iniciado pela portaria.
-                                                                        objProCrc.setNomeInterno(jNomeInterno.getText());
-                                                                        objProCrc.setConfirmaEntrada(confirmaEntrada);
-                                                                        control.confirmarRegInternoCrc(objProCrc);
-                                                                        objLog();
-                                                                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                                                                                    
-                                                                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                                                                        Salvar();
-                                                                    } else {
-                                                                        apagarRegistroInterno();
-                                                                        JOptionPane.showMessageDialog(rootPane, "Não foi possível concluir a gravação do registro, por favor tente novamente.");
-                                                                    }
 
-                                                                } catch (SQLException ex) {
-                                                                    JOptionPane.showMessageDialog(rootPane, "Não foi possivel gravar registro\nERRO: " + ex);
+                                                if (jComboBoxUnid.getText().equals("")) {
+                                                    JOptionPane.showMessageDialog(rootPane, "Informe a unidade penal");
+                                                    jComboBoxUnid.requestFocus();
+                                                    jComboBoxUnid.setBackground(Color.red);
+                                                } else {
+                                                    if (jComboBoxPais.getText().equals("")) {
+                                                        JOptionPane.showMessageDialog(rootPane, "Informe o nome do Paíes");
+                                                        jComboBoxPais.requestFocus();
+                                                        jComboBoxPais.setBackground(Color.red);
+                                                    } else {
+                                                        if (jComboBoxCidade.getText().equals("")) {
+                                                            JOptionPane.showMessageDialog(rootPane, "Informe o nome da Cidade");
+                                                            jComboBoxCidade.requestFocus();
+                                                            jComboBoxCidade.setBackground(Color.red);
+                                                        } else {
+                                                            objProCrc.setMatricula(jMatriculaPenal.getText());
+                                                            objProCrc.setDataCadast(jDataCadastro.getDate());
+                                                            objProCrc.setDataNasci(jDataNascimento.getDate());
+                                                            objProCrc.setNomeInterno(jNomeInterno.getText());
+                                                            objProCrc.setMaeInterno(jMaeInterno.getText());
+                                                            objProCrc.setPaiInterno(jPaiInterno.getText());
+                                                            objProCrc.setAlcunha(jAlcunha.getText());
+                                                            objProCrc.setRgInterno(jRGInterno.getText());
+                                                            objProCrc.setCpfInterno(jCPFInterno.getText());
+                                                            objProCrc.setCartoaSus(jCartaoSus.getText());
+                                                            objProCrc.setFotoInterno(caminhoFotoInternoTRIAGEM);
+                                                            objProCrc.setEscolaridade((String) jComboBoxEscolaridade.getSelectedItem());
+                                                            objProCrc.setEstadoCivil((String) jComboBoxEstadoCivil.getSelectedItem());
+                                                            objProCrc.setSexo((String) jComboBoxSexo.getSelectedItem());
+                                                            objProCrc.setSituacao(jSituacao.getText());
+                                                            objProCrc.setNomePais(jComboBoxPais.getText());
+                                                            objProCrc.setNomeCidade(jComboBoxCidade.getText());
+                                                            objProCrc.setReligiao(jReligiao.getText());
+                                                            objProCrc.setProfissao(jProfissao.getText());
+                                                            objProCrc.setEndereco(jEndereco.getText());
+                                                            objProCrc.setBairro(jBairro.getText());
+                                                            objProCrc.setCidade(jCidade.getText());
+                                                            objProCrc.setEstado(jEstado.getText());
+                                                            objProCrc.setTelefone(jTelefone.getText());
+                                                            objProCrc.setTelefone1(jTelefone1.getText());
+                                                            objProCrc.setCelular(jCelular.getText());
+                                                            objProCrc.setCnc(jCNC.getText());
+                                                            // Classe Dados Fisicos
+                                                            objDadosFis.setCutis((String) jComboBoxCutis.getSelectedItem());
+                                                            objDadosFis.setOlhos((String) jComboBoxOlhos.getSelectedItem());
+                                                            objDadosFis.setCabelos((String) jComboBoxCabelos.getSelectedItem());
+                                                            objDadosFis.setBarba((String) jComboBoxBarba.getSelectedItem());
+                                                            objDadosFis.setBigode((String) jComboBoxBigode.getSelectedItem());
+                                                            objDadosFis.setNariz((String) jComboBoxNariz.getSelectedItem());
+                                                            objDadosFis.setBoca((String) jComboBoxBoca.getSelectedItem());
+                                                            objDadosFis.setRosto((String) jComboBoxRosto.getSelectedItem());
+                                                            objDadosFis.setLabios((String) jComboBoxLabios.getSelectedItem());
+                                                            objDadosFis.setCamisa(jCamisa.getText());
+                                                            objDadosFis.setCalca(jCalca.getText());
+                                                            objDadosFis.setSapato(jSapato.getText());
+                                                            objDadosFis.setPeso(jPeso.getText());
+                                                            objDadosFis.setAltura(jAltura.getText());
+                                                            objDadosFis.setSinais(jParticularidade.getText());
+                                                            objDadosFis.setOrelha((String) jComboBoxOrelha.getSelectedItem());
+                                                            objDadosFis.setPescoco((String) jComboBoxPescoco.getSelectedItem());
+                                                            objDadosFis.setCompleicao((String) jComboBoxCompleicao.getSelectedItem());
+                                                            // Dados Penais
+                                                            objDadosPena.setDataEntrada(jDataEntrada.getDate());
+                                                            objDadosPena.setNomeUnidade(jComboBoxUnid.getText());
+                                                            objDadosPena.setDataCrime(jDataCrime.getDate());
+                                                            objDadosPena.setDataPrisao(jDataPrisao.getDate());
+                                                            objDadosPena.setDataCondenacao(jDataCondenacao.getDate());
+                                                            objDadosPena.setParticipacao((String) jComboBoxParticipacao.getSelectedItem());
+                                                            objDadosPena.setRegime((String) jComboBoxRegime.getSelectedItem());
+                                                            objDadosPena.setPena(jPena.getText());
+                                                            objDadosPena.setArtigo1(jArtigo1.getText());
+                                                            objDadosPena.setArtigo2(jArtigo2.getText());
+                                                            objDadosPena.setArtigo3(jArtigo3.getText());
+                                                            objDadosPena.setParagrafo1(jParagrafo1.getText());
+                                                            objDadosPena.setParagrafo2(jParagrafo2.getText());
+                                                            objDadosPena.setParagrafo3(jParagrafo3.getText());
+                                                            objDadosPena.setCrimeEdiondo((String) jComboBoxEdiondo.getSelectedItem());
+                                                            objDadosPena.setTerminoPena(jDataTerPena.getDate());
+                                                            objDadosPena.setIdentificador(jIdentificador.getText());
+                                                            objDadosPena.setIdentificador1(jIdentificador1.getText());
+                                                            objDadosPena.setIdentificador2(jIdentificador2.getText());
+                                                            objDadosPena.setIdentificador3(jIdentificador3.getText());
+                                                            objDadosPena.setPerfil(jPerfil.getText());
+                                                            objDadosPena.setRegiaoCorpo(jRegiaoCorpo.getText());
+                                                            objDadosPena.setRegiaoCorpo1(jRegiaoCorpo1.getText());
+                                                            objDadosPena.setRegiaoCorpo2(jRegiaoCorpo2.getText());
+                                                            objDadosPena.setFotoPerfil(caminhoFotoPerfil);
+                                                            objDadosPena.setFotoCorpo(caminhoFotoCorpo);
+                                                            objDadosPena.setFotoCorpo1(caminhoFotoCorpo1);
+                                                            objDadosPena.setFotoCorpo2(caminhoFotoCorpo2);
+                                                            objDadosPena.setVaraCondenatoria(jVaraCondenacao.getText());
+                                                            objDadosPena.setDataNovaEntrada(jDataNovaEntrada.getDate());
+                                                            objProCrc.setUsuarioInsert(nameUser);
+                                                            objProCrc.setDataInsert(jDataSistema.getText());
+                                                            objProCrc.setHoraInsert(jHoraSistema.getText());
+                                                            try {
+                                                                // Verificar se o interno já foi cadastrado, se foi avisa
+                                                                conecta.abrirConexao();
+                                                                conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC WHERE NomeInternoCrc='" + jNomeInterno.getText() + "' AND MaeInternoCrc='" + jMaeInterno.getText() + "'");
+                                                                conecta.rs.first();
+                                                                nomeInternoCrc = conecta.rs.getString("NomeInternoCrc");
+                                                                nomeMaeInterno = conecta.rs.getString("MaeInternoCrc");
+                                                                conecta.desconecta();
+                                                            } catch (SQLException | HeadlessException | NumberFormatException e) {
+                                                            }
+                                                            if (acao == 1) {
+                                                                if (jNomeInterno.getText().trim().equals(nomeInternoCrc) && jMaeInterno.getText().trim().equals(nomeMaeInterno)) {
+                                                                    JOptionPane.showMessageDialog(rootPane, "Esse Interno já foi cadastrado.");
+                                                                    conecta.desconecta();
+                                                                } else {
+                                                                    try {
+                                                                        //GRAVA NA TABELA PRONTUARIOSCRC
+                                                                        control.incluirInternoCrc(objProCrc);
+                                                                        buscarCodInt();
+                                                                        // TABELA DADOSFISICOSINTERNOS
+                                                                        controlFisicos.incluirDadosFisicos(objDadosFis);
+                                                                        // TABELA DADOSPENAISINTERNOS
+                                                                        controlPenais.incluirDadosPenais(objDadosPena);
+                                                                        objProCrc.setIdInterno(Integer.valueOf(jIdInterno.getText()));
+                                                                        // VERIFICAR SE O INTERNO FOI GRAVADO NA TABELA DADOSPENAISINTERNOS
+                                                                        verificarGravacaoInterno();
+                                                                        if (jIdInterno.getText().equals(codIntPenal)) {
+                                                                            // Confirma a utilização do registro do interno iniciado pela portaria.
+                                                                            objProCrc.setNomeInterno(jNomeInterno.getText());
+                                                                            objProCrc.setConfirmaEntrada(confirmaEntrada);
+                                                                            control.confirmarRegInternoCrc(objProCrc);
+                                                                            //QUANDO O PRONTUARIO VEM DE OUTRA UNIDADE PENAL A SER TRANSFERIDO
+                                                                            pPront.setNomeInterno(jNomeInterno.getText());
+                                                                            pPront.setMaeInterno(jMaeInterno.getText());
+                                                                            pPront.setTransConf(confirmarTransf);
+                                                                            control.confirmarCadastroInterno(pPront);
+                                                                            objLog();
+                                                                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                                                                                    
+                                                                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                                                            Salvar();
+                                                                        } else {
+                                                                            apagarRegistroInterno();
+                                                                            JOptionPane.showMessageDialog(rootPane, "Não foi possível concluir a gravação do registro, por favor tente novamente.");
+                                                                        }
+
+                                                                    } catch (SQLException ex) {
+                                                                        JOptionPane.showMessageDialog(rootPane, "Não foi possivel gravar registro\nERRO: " + ex);
+                                                                    }
                                                                 }
                                                             }
-                                                        }
-                                                        if (acao == 2) {
-                                                            try {
-                                                                objProCrc.setUsuarioUp(nameUser);
-                                                                objProCrc.setDataUp(jDataSistema.getText());
-                                                                objProCrc.setHoraUp(jHoraSistema.getText());
-                                                                objProCrc.setIdInterno(Integer.parseInt(jIdInterno.getText()));
-                                                                objDadosFis.setIdInternoCrc(Integer.parseInt(jIdInterno.getText()));
-                                                                objDadosPena.setIdInternoCrc(Integer.parseInt(jIdInterno.getText()));
-                                                                control.alterarInternoCrc(objProCrc);
-                                                                controlFisicos.alterarDadosFisicos(objDadosFis);
-                                                                controlPenais.alterarDadosPenais(objDadosPena);
-                                                                objLog();
-                                                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação          
-                                                                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso...");
-                                                                Salvar();
-                                                            } catch (Exception e) {
-                                                                JOptionPane.showMessageDialog(rootPane, "Não foi possível alterar o registro.\nERRO: " + e);
+                                                            if (acao == 2) {
+                                                                try {
+                                                                    objProCrc.setUsuarioUp(nameUser);
+                                                                    objProCrc.setDataUp(jDataSistema.getText());
+                                                                    objProCrc.setHoraUp(jHoraSistema.getText());
+                                                                    objProCrc.setIdInterno(Integer.parseInt(jIdInterno.getText()));
+                                                                    objDadosFis.setIdInternoCrc(Integer.parseInt(jIdInterno.getText()));
+                                                                    objDadosPena.setIdInternoCrc(Integer.parseInt(jIdInterno.getText()));
+                                                                    control.alterarInternoCrc(objProCrc);
+                                                                    controlFisicos.alterarDadosFisicos(objDadosFis);
+                                                                    controlPenais.alterarDadosPenais(objDadosPena);
+                                                                    objLog();
+                                                                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação          
+                                                                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso...");
+                                                                    Salvar();
+                                                                } catch (Exception e) {
+                                                                    JOptionPane.showMessageDialog(rootPane, "Não foi possível alterar o registro.\nERRO: " + e);
+                                                                }
                                                             }
                                                         }
                                                     }
@@ -3851,6 +3888,8 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                     }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -4184,39 +4223,43 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     private void jBtImpressaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImpressaoActionPerformed
         // TODO add your handling code here:
-        if (jIdInterno.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Não é possível listar o relatório, pois, o interno não código.");
-        } else {
-            try {
-                conecta.abrirConexao();
-                String path = "reports/ProntuariosInternosCrcCodigo.jasper";
-                conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
-                        + "INNER JOIN DADOSFISICOSINTERNOS "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
-                        + "INNER JOIN PAISES "
-                        + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
-                        + "INNER JOIN CIDADES "
-                        + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
-                        + "INNER JOIN DADOSPENAISINTERNOS "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                        + "INNER JOIN UNIDADE "
-                        + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                        + "WHERE PRONTUARIOSCRC.IdInternoCrc='" + jIdInterno.getText() + "'");
-                HashMap parametros = new HashMap();
-                parametros.put("MatriculaCrc", jMatriculaPenal.getText());
-                parametros.put("nomeUsuario", nameUser);
-                parametros.put("descricaoUnidade", descricaoUnidade);
-                JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                jv.setTitle("Relatório de Prontuário de Internos");
-                jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                jv.toFront(); // Traz o relatorio para frente da aplicação            
-                conecta.desconecta();
-            } catch (JRException e) {
-                JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaCadastroProntuarioPrintTRI) && codAbrir == 1) {
+            if (jIdInterno.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Não é possível listar o relatório, pois, o interno não código.");
+            } else {
+                try {
+                    conecta.abrirConexao();
+                    String path = "reports/ProntuariosInternosCrcCodigo.jasper";
+                    conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                            + "INNER JOIN DADOSFISICOSINTERNOS "
+                            + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
+                            + "INNER JOIN PAISES "
+                            + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
+                            + "INNER JOIN CIDADES "
+                            + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
+                            + "INNER JOIN DADOSPENAISINTERNOS "
+                            + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                            + "INNER JOIN UNIDADE "
+                            + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                            + "WHERE PRONTUARIOSCRC.IdInternoCrc='" + jIdInterno.getText() + "'");
+                    HashMap parametros = new HashMap();
+                    parametros.put("MatriculaCrc", jMatriculaPenal.getText());
+                    parametros.put("nomeUsuario", nameUser);
+                    parametros.put("descricaoUnidade", descricaoUnidade);
+                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                    jv.setTitle("Relatório de Prontuário de Internos");
+                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                    jv.toFront(); // Traz o relatorio para frente da aplicação            
+                    conecta.desconecta();
+                } catch (JRException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
         }
     }//GEN-LAST:event_jBtImpressaoActionPerformed
 
@@ -4242,16 +4285,24 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     private void jBtObservacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtObservacaoActionPerformed
         // TODO add your handling code here:
-        TelaObservacoesInternos objObsInt = new TelaObservacoesInternos();
-        TelaModuloCRC.jPainelCRC.add(objObsInt);
-        objObsInt.show();
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaCadastroProntuarioObsTRI) && codAbrir == 1) {
+            TelaObservacoesInternos objObsInt = new TelaObservacoesInternos();
+            TelaModuloCRC.jPainelCRC.add(objObsInt);
+            objObsInt.show();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
+        }
     }//GEN-LAST:event_jBtObservacaoActionPerformed
 
     private void jBtBuscarRegPortariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtBuscarRegPortariaActionPerformed
-        // TODO add your handling code here:               
-        TelaPesqEntradaIntPortariaTriagem objPesqRegInternos = new TelaPesqEntradaIntPortariaTriagem();
-        TelaModuloTriagem.jPainelTriagem.add(objPesqRegInternos);
-        objPesqRegInternos.show();
+        // TODO add your handling code here:    
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaCadastroProntuarioBuscarEntTRI) && codAbrir == 1) {
+            TelaPesqEntradaIntPortariaTriagem objPesqRegInternos = new TelaPesqEntradaIntPortariaTriagem();
+            TelaModuloTriagem.jPainelTriagem.add(objPesqRegInternos);
+            objPesqRegInternos.show();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
+        }
     }//GEN-LAST:event_jBtBuscarRegPortariaActionPerformed
 
     private void jBtZoonFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtZoonFotoActionPerformed
@@ -4261,237 +4312,256 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     private void jBtNovo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovo1ActionPerformed
         // TODO add your handling code here:
-        verificarParamentrosCrc();
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroProntuarioManuTRI) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            verificarParamentrosCrc();
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
+        }
     }//GEN-LAST:event_jBtNovo1ActionPerformed
 
     private void jBtAlterar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterar1ActionPerformed
         // TODO add your handling code here:
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM PARAMETROSCRC WHERE UsuarioAutorizado='" + nameUser + "'");
-            conecta.rs.first();
-            usuarioAutorizado = conecta.rs.getString("UsuarioAutorizado");
-        } catch (SQLException ex) {
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroProntuarioManuTRI) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM PARAMETROSCRC WHERE UsuarioAutorizado='" + nameUser + "'");
+                conecta.rs.first();
+                usuarioAutorizado = conecta.rs.getString("UsuarioAutorizado");
+            } catch (SQLException ex) {
+            }
+            verificarParamentrosCrc();
+            acao = 2;
+            Alterar();
+            corCampos();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            if (nameUser == null ? nomeUsuarioCrc == null : nameUser.equals(nomeUsuarioCrc) || (nameUser == null ? usuarioAutorizado == null : nameUser.equals(usuarioAutorizado))) {
+                jSituacao.setEnabled(true);
+            }
+            conecta.desconecta();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
         }
-        verificarParamentrosCrc();
-        acao = 2;
-        Alterar();
-        corCampos();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        if (nameUser == null ? nomeUsuarioCrc == null : nameUser.equals(nomeUsuarioCrc) || (nameUser == null ? usuarioAutorizado == null : nameUser.equals(usuarioAutorizado))) {
-            jSituacao.setEnabled(true);
-        }
-        conecta.desconecta();
     }//GEN-LAST:event_jBtAlterar1ActionPerformed
 
     private void jBtExcluir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluir1ActionPerformed
         // TODO add your handling code here:
-        verificarEntradaInterno();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroProntuarioManuTRI) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            verificarEntradaInterno();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
+        }
     }//GEN-LAST:event_jBtExcluir1ActionPerformed
 
     private void jBtSalvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvar1ActionPerformed
         // TODO add your handling code here:
-        if (jNomeInterno.getText().isEmpty() || jNomeInterno.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Nome do INTERNO não pode ser em branco...");
-            jNomeInterno.requestFocus();
-        } else {
-            if (jMaeInterno.getText().isEmpty() || jMaeInterno.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Nome da MÃE do INTERNO não pode ser em branco...");
-                jMaeInterno.requestFocus();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroProntuarioManuTRI) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jNomeInterno.getText().isEmpty() || jNomeInterno.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Nome do INTERNO não pode ser em branco...");
+                jNomeInterno.requestFocus();
             } else {
-                if (jPaiInterno.getText().isEmpty() || jPaiInterno.getText().equals("")) {
-                    JOptionPane.showMessageDialog(rootPane, "Nome do PAI do INTERNO não pode ser em branco...");
-                    jPaiInterno.requestFocus();
+                if (jMaeInterno.getText().isEmpty() || jMaeInterno.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Nome da MÃE do INTERNO não pode ser em branco...");
+                    jMaeInterno.requestFocus();
                 } else {
-                    if (caminhoFotoInternoTRIAGEM == null) {
-                        JOptionPane.showMessageDialog(rootPane, "FOTO do INTERNO não pode ser em branco...");
+                    if (jPaiInterno.getText().isEmpty() || jPaiInterno.getText().equals("")) {
+                        JOptionPane.showMessageDialog(rootPane, "Nome do PAI do INTERNO não pode ser em branco...");
+                        jPaiInterno.requestFocus();
                     } else {
-                        if (jDataNascimento.getDate() == null) {
-                            JOptionPane.showMessageDialog(rootPane, "DATA NASCIMENTO não pode ser em branco");
-                            jDataCadastro.requestFocus();
+                        if (caminhoFotoInternoTRIAGEM == null) {
+                            JOptionPane.showMessageDialog(rootPane, "FOTO do INTERNO não pode ser em branco...");
                         } else {
-                            if (jDataEntrada.getDate() == null) {
-                                JOptionPane.showMessageDialog(rootPane, "DATA ENTRADA não pode ser em branco");
-                                jDataEntrada.requestFocus();
+                            if (jDataNascimento.getDate() == null) {
+                                JOptionPane.showMessageDialog(rootPane, "DATA NASCIMENTO não pode ser em branco");
+                                jDataCadastro.requestFocus();
                             } else {
-                                if (jDataCrime.getDate() == null) {
-                                    JOptionPane.showMessageDialog(rootPane, "DATA CRIME não pode ser em branco");
-                                    jDataCrime.requestFocus();
+                                if (jDataEntrada.getDate() == null) {
+                                    JOptionPane.showMessageDialog(rootPane, "DATA ENTRADA não pode ser em branco");
+                                    jDataEntrada.requestFocus();
                                 } else {
-                                    if (jDataPrisao.getDate() == null) {
-                                        JOptionPane.showMessageDialog(rootPane, "DATA PRISÃO não pode ser em branco");
-                                        jDataPrisao.requestFocus();
+                                    if (jDataCrime.getDate() == null) {
+                                        JOptionPane.showMessageDialog(rootPane, "DATA CRIME não pode ser em branco");
+                                        jDataCrime.requestFocus();
                                     } else {
-                                        if (jDataCondenacao.getDate() == null) {
-                                            JOptionPane.showMessageDialog(rootPane, "DATA CONDENAÇÃO não pode ser em branco");
-                                            jDataCondenacao.requestFocus();
+                                        if (jDataPrisao.getDate() == null) {
+                                            JOptionPane.showMessageDialog(rootPane, "DATA PRISÃO não pode ser em branco");
+                                            jDataPrisao.requestFocus();
                                         } else {
-
-                                            if (jComboBoxUnid.getText().equals("")) {
-                                                JOptionPane.showMessageDialog(rootPane, "Informe a unidade penal");
-                                                jComboBoxUnid.requestFocus();
-                                                jComboBoxUnid.setBackground(Color.red);
+                                            if (jDataCondenacao.getDate() == null) {
+                                                JOptionPane.showMessageDialog(rootPane, "DATA CONDENAÇÃO não pode ser em branco");
+                                                jDataCondenacao.requestFocus();
                                             } else {
-                                                if (jComboBoxPais.getText().equals("")) {
-                                                    JOptionPane.showMessageDialog(rootPane, "Informe o nome do Paíes");
-                                                    jComboBoxPais.requestFocus();
-                                                    jComboBoxPais.setBackground(Color.red);
-                                                } else {
-                                                    if (jComboBoxCidade.getText().equals("")) {
-                                                        JOptionPane.showMessageDialog(rootPane, "Informe o nome da Cidade");
-                                                        jComboBoxCidade.requestFocus();
-                                                        jComboBoxCidade.setBackground(Color.red);
-                                                    } else {
-                                                        objProCrc.setMatricula(jMatriculaPenal.getText());
-                                                        objProCrc.setDataCadast(jDataCadastro.getDate());
-                                                        objProCrc.setDataNasci(jDataNascimento.getDate());                                                        
-                                                        objProCrc.setNomeInterno(jNomeInterno.getText());
-                                                        objProCrc.setMaeInterno(jMaeInterno.getText());
-                                                        objProCrc.setPaiInterno(jPaiInterno.getText());
-                                                        objProCrc.setAlcunha(jAlcunha.getText());
-                                                        objProCrc.setRgInterno(jRGInterno.getText());
-                                                        objProCrc.setCpfInterno(jCPFInterno.getText());
-                                                        objProCrc.setCartoaSus(jCartaoSus.getText());
-                                                        objProCrc.setFotoInterno(caminhoFotoInternoTRIAGEM);
-                                                        objProCrc.setEscolaridade((String) jComboBoxEscolaridade.getSelectedItem());
-                                                        objProCrc.setEstadoCivil((String) jComboBoxEstadoCivil.getSelectedItem());
-                                                        objProCrc.setSexo((String) jComboBoxSexo.getSelectedItem());
-                                                        objProCrc.setSituacao(jSituacao.getText());
-                                                        objProCrc.setNomePais(jComboBoxPais.getText());
-                                                        objProCrc.setNomeCidade(jComboBoxCidade.getText());
-                                                        objProCrc.setReligiao(jReligiao.getText());
-                                                        objProCrc.setProfissao(jProfissao.getText());
-                                                        objProCrc.setEndereco(jEndereco.getText());
-                                                        objProCrc.setBairro(jBairro.getText());
-                                                        objProCrc.setCidade(jCidade.getText());
-                                                        objProCrc.setEstado(jEstado.getText());
-                                                        objProCrc.setTelefone(jTelefone.getText());
-                                                        objProCrc.setTelefone1(jTelefone1.getText());
-                                                        objProCrc.setCelular(jCelular.getText());
-                                                        objProCrc.setCnc(jCNC.getText());
-                                                        // Classe Dados Fisicos
-                                                        objDadosFis.setCutis((String) jComboBoxCutis.getSelectedItem());
-                                                        objDadosFis.setOlhos((String) jComboBoxOlhos.getSelectedItem());
-                                                        objDadosFis.setCabelos((String) jComboBoxCabelos.getSelectedItem());
-                                                        objDadosFis.setBarba((String) jComboBoxBarba.getSelectedItem());
-                                                        objDadosFis.setBigode((String) jComboBoxBigode.getSelectedItem());
-                                                        objDadosFis.setNariz((String) jComboBoxNariz.getSelectedItem());
-                                                        objDadosFis.setBoca((String) jComboBoxBoca.getSelectedItem());
-                                                        objDadosFis.setRosto((String) jComboBoxRosto.getSelectedItem());
-                                                        objDadosFis.setLabios((String) jComboBoxLabios.getSelectedItem());
-                                                        objDadosFis.setCamisa(jCamisa.getText());
-                                                        objDadosFis.setCalca(jCalca.getText());
-                                                        objDadosFis.setSapato(jSapato.getText());
-                                                        objDadosFis.setPeso(jPeso.getText());
-                                                        objDadosFis.setAltura(jAltura.getText());
-                                                        objDadosFis.setSinais(jParticularidade.getText());
-                                                        objDadosFis.setOrelha((String) jComboBoxOrelha.getSelectedItem());
-                                                        objDadosFis.setPescoco((String) jComboBoxPescoco.getSelectedItem());
-                                                        objDadosFis.setCompleicao((String) jComboBoxCompleicao.getSelectedItem());
-                                                        // Dados Penais
-                                                        objDadosPena.setDataEntrada(jDataEntrada.getDate());
-                                                        objDadosPena.setNomeUnidade(jComboBoxUnid.getText());
-                                                        objDadosPena.setDataCrime(jDataCrime.getDate());
-                                                        objDadosPena.setDataPrisao(jDataPrisao.getDate());
-                                                        objDadosPena.setDataCondenacao(jDataCondenacao.getDate());
-                                                        objDadosPena.setParticipacao((String) jComboBoxParticipacao.getSelectedItem());
-                                                        objDadosPena.setRegime((String) jComboBoxRegime.getSelectedItem());
-                                                        objDadosPena.setPena(jPena.getText());
-                                                        objDadosPena.setArtigo1(jArtigo1.getText());
-                                                        objDadosPena.setArtigo2(jArtigo2.getText());
-                                                        objDadosPena.setArtigo3(jArtigo3.getText());
-                                                        objDadosPena.setParagrafo1(jParagrafo1.getText());
-                                                        objDadosPena.setParagrafo2(jParagrafo2.getText());
-                                                        objDadosPena.setParagrafo3(jParagrafo3.getText());
-                                                        objDadosPena.setCrimeEdiondo((String) jComboBoxEdiondo.getSelectedItem());
-                                                        objDadosPena.setTerminoPena(jDataTerPena.getDate());
-                                                        objDadosPena.setIdentificador(jIdentificador.getText());
-                                                        objDadosPena.setIdentificador1(jIdentificador1.getText());
-                                                        objDadosPena.setIdentificador2(jIdentificador2.getText());
-                                                        objDadosPena.setIdentificador3(jIdentificador3.getText());
-                                                        objDadosPena.setPerfil(jPerfil.getText());
-                                                        objDadosPena.setRegiaoCorpo(jRegiaoCorpo.getText());
-                                                        objDadosPena.setRegiaoCorpo1(jRegiaoCorpo1.getText());
-                                                        objDadosPena.setRegiaoCorpo2(jRegiaoCorpo2.getText());
-                                                        objDadosPena.setFotoPerfil(caminhoFotoPerfil);
-                                                        objDadosPena.setFotoCorpo(caminhoFotoCorpo);
-                                                        objDadosPena.setFotoCorpo1(caminhoFotoCorpo1);
-                                                        objDadosPena.setFotoCorpo2(caminhoFotoCorpo2);
-                                                        objDadosPena.setVaraCondenatoria(jVaraCondenacao.getText());
-                                                        objDadosPena.setDataNovaEntrada(jDataNovaEntrada.getDate());
-                                                        objProCrc.setUsuarioInsert(nameUser);
-                                                        objProCrc.setDataInsert(jDataSistema.getText());
-                                                        objProCrc.setHoraInsert(jHoraSistema.getText());
-                                                        try {
-                                                            // Verificar se o interno já foi cadastrado, se foi avisa
-                                                            conecta.abrirConexao();
-                                                            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC WHERE NomeInternoCrc='" + jNomeInterno.getText() + "' AND MaeInternoCrc='" + jMaeInterno.getText() + "'");
-                                                            conecta.rs.first();
-                                                            nomeInternoCrc = conecta.rs.getString("NomeInternoCrc");
-                                                            nomeMaeInterno = conecta.rs.getString("MaeInternoCrc");
-                                                            conecta.desconecta();
-                                                        } catch (SQLException | HeadlessException | NumberFormatException e) {
-                                                        }
-                                                        if (acao == 1) {
-                                                            if (jNomeInterno.getText().trim().equals(nomeInternoCrc) && jMaeInterno.getText().trim().equals(nomeMaeInterno)) {
-                                                                JOptionPane.showMessageDialog(rootPane, "Esse Interno já foi cadastrado.");
-                                                                conecta.desconecta();
-                                                            } else {
-                                                                try {
-                                                                    //GRAVA NA TABELA PRONTUARIOSCRC
-                                                                    control.incluirInternoCrc(objProCrc);
-                                                                    buscarCodInt();
-                                                                    // TABELA DADOSFISICOSINTERNOS
-                                                                    controlFisicos.incluirDadosFisicos(objDadosFis);
-                                                                    // TABELA DADOSPENAISINTERNOS
-                                                                    controlPenais.incluirDadosPenais(objDadosPena);
-                                                                    objProCrc.setIdInterno(Integer.valueOf(jIdInterno.getText()));
-                                                                    // VERIFICAR SE O INTERNO FOI GRAVADO NA TABELA DADOSPENAISINTERNOS
-                                                                    verificarGravacaoInterno();
-                                                                    if (jIdInterno.getText().equals(codIntPenal)) {
-                                                                        // Confirma a utilização do registro do interno iniciado pela portaria.
-                                                                        objProCrc.setNomeInterno(jNomeInterno.getText());
-                                                                        objProCrc.setConfirmaEntrada(confirmaEntrada);
-                                                                        control.confirmarRegInternoCrc(objProCrc);
-                                                                        objLog();
-                                                                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                                                                                    
-                                                                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                                                                        Salvar();
-                                                                    } else {
-                                                                        apagarRegistroInterno();
-                                                                        JOptionPane.showMessageDialog(rootPane, "Não foi possível concluir a gravação do registro, por favor tente novamente.");
-                                                                    }
 
-                                                                } catch (SQLException ex) {
-                                                                    JOptionPane.showMessageDialog(rootPane, "Não foi possivel gravar registro\nERRO: " + ex);
+                                                if (jComboBoxUnid.getText().equals("")) {
+                                                    JOptionPane.showMessageDialog(rootPane, "Informe a unidade penal");
+                                                    jComboBoxUnid.requestFocus();
+                                                    jComboBoxUnid.setBackground(Color.red);
+                                                } else {
+                                                    if (jComboBoxPais.getText().equals("")) {
+                                                        JOptionPane.showMessageDialog(rootPane, "Informe o nome do Paíes");
+                                                        jComboBoxPais.requestFocus();
+                                                        jComboBoxPais.setBackground(Color.red);
+                                                    } else {
+                                                        if (jComboBoxCidade.getText().equals("")) {
+                                                            JOptionPane.showMessageDialog(rootPane, "Informe o nome da Cidade");
+                                                            jComboBoxCidade.requestFocus();
+                                                            jComboBoxCidade.setBackground(Color.red);
+                                                        } else {
+                                                            objProCrc.setMatricula(jMatriculaPenal.getText());
+                                                            objProCrc.setDataCadast(jDataCadastro.getDate());
+                                                            objProCrc.setDataNasci(jDataNascimento.getDate());
+                                                            objProCrc.setNomeInterno(jNomeInterno.getText());
+                                                            objProCrc.setMaeInterno(jMaeInterno.getText());
+                                                            objProCrc.setPaiInterno(jPaiInterno.getText());
+                                                            objProCrc.setAlcunha(jAlcunha.getText());
+                                                            objProCrc.setRgInterno(jRGInterno.getText());
+                                                            objProCrc.setCpfInterno(jCPFInterno.getText());
+                                                            objProCrc.setCartoaSus(jCartaoSus.getText());
+                                                            objProCrc.setFotoInterno(caminhoFotoInternoTRIAGEM);
+                                                            objProCrc.setEscolaridade((String) jComboBoxEscolaridade.getSelectedItem());
+                                                            objProCrc.setEstadoCivil((String) jComboBoxEstadoCivil.getSelectedItem());
+                                                            objProCrc.setSexo((String) jComboBoxSexo.getSelectedItem());
+                                                            objProCrc.setSituacao(jSituacao.getText());
+                                                            objProCrc.setNomePais(jComboBoxPais.getText());
+                                                            objProCrc.setNomeCidade(jComboBoxCidade.getText());
+                                                            objProCrc.setReligiao(jReligiao.getText());
+                                                            objProCrc.setProfissao(jProfissao.getText());
+                                                            objProCrc.setEndereco(jEndereco.getText());
+                                                            objProCrc.setBairro(jBairro.getText());
+                                                            objProCrc.setCidade(jCidade.getText());
+                                                            objProCrc.setEstado(jEstado.getText());
+                                                            objProCrc.setTelefone(jTelefone.getText());
+                                                            objProCrc.setTelefone1(jTelefone1.getText());
+                                                            objProCrc.setCelular(jCelular.getText());
+                                                            objProCrc.setCnc(jCNC.getText());
+                                                            // Classe Dados Fisicos
+                                                            objDadosFis.setCutis((String) jComboBoxCutis.getSelectedItem());
+                                                            objDadosFis.setOlhos((String) jComboBoxOlhos.getSelectedItem());
+                                                            objDadosFis.setCabelos((String) jComboBoxCabelos.getSelectedItem());
+                                                            objDadosFis.setBarba((String) jComboBoxBarba.getSelectedItem());
+                                                            objDadosFis.setBigode((String) jComboBoxBigode.getSelectedItem());
+                                                            objDadosFis.setNariz((String) jComboBoxNariz.getSelectedItem());
+                                                            objDadosFis.setBoca((String) jComboBoxBoca.getSelectedItem());
+                                                            objDadosFis.setRosto((String) jComboBoxRosto.getSelectedItem());
+                                                            objDadosFis.setLabios((String) jComboBoxLabios.getSelectedItem());
+                                                            objDadosFis.setCamisa(jCamisa.getText());
+                                                            objDadosFis.setCalca(jCalca.getText());
+                                                            objDadosFis.setSapato(jSapato.getText());
+                                                            objDadosFis.setPeso(jPeso.getText());
+                                                            objDadosFis.setAltura(jAltura.getText());
+                                                            objDadosFis.setSinais(jParticularidade.getText());
+                                                            objDadosFis.setOrelha((String) jComboBoxOrelha.getSelectedItem());
+                                                            objDadosFis.setPescoco((String) jComboBoxPescoco.getSelectedItem());
+                                                            objDadosFis.setCompleicao((String) jComboBoxCompleicao.getSelectedItem());
+                                                            // Dados Penais
+                                                            objDadosPena.setDataEntrada(jDataEntrada.getDate());
+                                                            objDadosPena.setNomeUnidade(jComboBoxUnid.getText());
+                                                            objDadosPena.setDataCrime(jDataCrime.getDate());
+                                                            objDadosPena.setDataPrisao(jDataPrisao.getDate());
+                                                            objDadosPena.setDataCondenacao(jDataCondenacao.getDate());
+                                                            objDadosPena.setParticipacao((String) jComboBoxParticipacao.getSelectedItem());
+                                                            objDadosPena.setRegime((String) jComboBoxRegime.getSelectedItem());
+                                                            objDadosPena.setPena(jPena.getText());
+                                                            objDadosPena.setArtigo1(jArtigo1.getText());
+                                                            objDadosPena.setArtigo2(jArtigo2.getText());
+                                                            objDadosPena.setArtigo3(jArtigo3.getText());
+                                                            objDadosPena.setParagrafo1(jParagrafo1.getText());
+                                                            objDadosPena.setParagrafo2(jParagrafo2.getText());
+                                                            objDadosPena.setParagrafo3(jParagrafo3.getText());
+                                                            objDadosPena.setCrimeEdiondo((String) jComboBoxEdiondo.getSelectedItem());
+                                                            objDadosPena.setTerminoPena(jDataTerPena.getDate());
+                                                            objDadosPena.setIdentificador(jIdentificador.getText());
+                                                            objDadosPena.setIdentificador1(jIdentificador1.getText());
+                                                            objDadosPena.setIdentificador2(jIdentificador2.getText());
+                                                            objDadosPena.setIdentificador3(jIdentificador3.getText());
+                                                            objDadosPena.setPerfil(jPerfil.getText());
+                                                            objDadosPena.setRegiaoCorpo(jRegiaoCorpo.getText());
+                                                            objDadosPena.setRegiaoCorpo1(jRegiaoCorpo1.getText());
+                                                            objDadosPena.setRegiaoCorpo2(jRegiaoCorpo2.getText());
+                                                            objDadosPena.setFotoPerfil(caminhoFotoPerfil);
+                                                            objDadosPena.setFotoCorpo(caminhoFotoCorpo);
+                                                            objDadosPena.setFotoCorpo1(caminhoFotoCorpo1);
+                                                            objDadosPena.setFotoCorpo2(caminhoFotoCorpo2);
+                                                            objDadosPena.setVaraCondenatoria(jVaraCondenacao.getText());
+                                                            objDadosPena.setDataNovaEntrada(jDataNovaEntrada.getDate());
+                                                            objProCrc.setUsuarioInsert(nameUser);
+                                                            objProCrc.setDataInsert(jDataSistema.getText());
+                                                            objProCrc.setHoraInsert(jHoraSistema.getText());
+                                                            try {
+                                                                // Verificar se o interno já foi cadastrado, se foi avisa
+                                                                conecta.abrirConexao();
+                                                                conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC WHERE NomeInternoCrc='" + jNomeInterno.getText() + "' AND MaeInternoCrc='" + jMaeInterno.getText() + "'");
+                                                                conecta.rs.first();
+                                                                nomeInternoCrc = conecta.rs.getString("NomeInternoCrc");
+                                                                nomeMaeInterno = conecta.rs.getString("MaeInternoCrc");
+                                                                conecta.desconecta();
+                                                            } catch (SQLException | HeadlessException | NumberFormatException e) {
+                                                            }
+                                                            if (acao == 1) {
+                                                                if (jNomeInterno.getText().trim().equals(nomeInternoCrc) && jMaeInterno.getText().trim().equals(nomeMaeInterno)) {
+                                                                    JOptionPane.showMessageDialog(rootPane, "Esse Interno já foi cadastrado.");
+                                                                    conecta.desconecta();
+                                                                } else {
+                                                                    try {
+                                                                        //GRAVA NA TABELA PRONTUARIOSCRC
+                                                                        control.incluirInternoCrc(objProCrc);
+                                                                        buscarCodInt();
+                                                                        // TABELA DADOSFISICOSINTERNOS
+                                                                        controlFisicos.incluirDadosFisicos(objDadosFis);
+                                                                        // TABELA DADOSPENAISINTERNOS
+                                                                        controlPenais.incluirDadosPenais(objDadosPena);
+                                                                        objProCrc.setIdInterno(Integer.valueOf(jIdInterno.getText()));
+                                                                        // VERIFICAR SE O INTERNO FOI GRAVADO NA TABELA DADOSPENAISINTERNOS
+                                                                        verificarGravacaoInterno();
+                                                                        if (jIdInterno.getText().equals(codIntPenal)) {
+                                                                            // Confirma a utilização do registro do interno iniciado pela portaria.
+                                                                            objProCrc.setNomeInterno(jNomeInterno.getText());
+                                                                            objProCrc.setConfirmaEntrada(confirmaEntrada);
+                                                                            control.confirmarRegInternoCrc(objProCrc);
+                                                                            //QUANDO O PRONTUARIO VEM DE OUTRA UNIDADE PENAL A SER TRANSFERIDO
+                                                                            pPront.setNomeInterno(jNomeInterno.getText());
+                                                                            pPront.setMaeInterno(jMaeInterno.getText());
+                                                                            pPront.setTransConf(confirmarTransf);
+                                                                            control.confirmarCadastroInterno(pPront);
+                                                                            objLog();
+                                                                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                                                                                    
+                                                                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                                                            Salvar();
+                                                                        } else {
+                                                                            apagarRegistroInterno();
+                                                                            JOptionPane.showMessageDialog(rootPane, "Não foi possível concluir a gravação do registro, por favor tente novamente.");
+                                                                        }
+
+                                                                    } catch (SQLException ex) {
+                                                                        JOptionPane.showMessageDialog(rootPane, "Não foi possivel gravar registro\nERRO: " + ex);
+                                                                    }
                                                                 }
                                                             }
-                                                        }
-                                                        if (acao == 2) {
-                                                            try {
-                                                                objProCrc.setUsuarioUp(nameUser);
-                                                                objProCrc.setDataUp(jDataSistema.getText());
-                                                                objProCrc.setHoraUp(jHoraSistema.getText());
-                                                                objProCrc.setIdInterno(Integer.parseInt(jIdInterno.getText()));
-                                                                objDadosFis.setIdInternoCrc(Integer.parseInt(jIdInterno.getText()));
-                                                                objDadosPena.setIdInternoCrc(Integer.parseInt(jIdInterno.getText()));
-                                                                control.alterarInternoCrc(objProCrc);
-                                                                controlFisicos.alterarDadosFisicos(objDadosFis);
-                                                                controlPenais.alterarDadosPenais(objDadosPena);
-                                                                objLog();
-                                                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação          
-                                                                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso...");
-                                                                Salvar();
-                                                            } catch (Exception e) {
-                                                                JOptionPane.showMessageDialog(rootPane, "Não foi possível alterar o registro.\nERRO: " + e);
+                                                            if (acao == 2) {
+                                                                try {
+                                                                    objProCrc.setUsuarioUp(nameUser);
+                                                                    objProCrc.setDataUp(jDataSistema.getText());
+                                                                    objProCrc.setHoraUp(jHoraSistema.getText());
+                                                                    objProCrc.setIdInterno(Integer.parseInt(jIdInterno.getText()));
+                                                                    objDadosFis.setIdInternoCrc(Integer.parseInt(jIdInterno.getText()));
+                                                                    objDadosPena.setIdInternoCrc(Integer.parseInt(jIdInterno.getText()));
+                                                                    control.alterarInternoCrc(objProCrc);
+                                                                    controlFisicos.alterarDadosFisicos(objDadosFis);
+                                                                    controlPenais.alterarDadosPenais(objDadosPena);
+                                                                    objLog();
+                                                                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação          
+                                                                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso...");
+                                                                    Salvar();
+                                                                } catch (Exception e) {
+                                                                    JOptionPane.showMessageDialog(rootPane, "Não foi possível alterar o registro.\nERRO: " + e);
+                                                                }
                                                             }
                                                         }
                                                     }
@@ -4505,6 +4575,8 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                     }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
         }
     }//GEN-LAST:event_jBtSalvar1ActionPerformed
 
@@ -4520,38 +4592,43 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     private void jBtImpressao1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImpressao1ActionPerformed
         // TODO add your handling code here:
-        if (jMatriculaPenal.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Não é possível listar o relatório, pois, o interno não tem matricula penal.");
-        } else {
-            try {
-                conecta.abrirConexao();
-                String path = "reports/ProntuariosInternosCrcCodigo.jasper";
-                conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
-                        + "INNER JOIN DADOSFISICOSINTERNOS "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
-                        + "INNER JOIN PAISES "
-                        + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
-                        + "INNER JOIN CIDADES "
-                        + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
-                        + "INNER JOIN DADOSPENAISINTERNOS "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                        + "INNER JOIN UNIDADE "
-                        + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                        + "WHERE MatriculaCrc='" + jMatriculaPenal.getText() + "'");
-                HashMap parametros = new HashMap();
-                parametros.put("MatriculaCrc", jMatriculaPenal.getText());
-                parametros.put("nomeUsuario", nameUser);
-                JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                jv.setTitle("Relatório de Prontuário de Internos");
-                jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                jv.toFront(); // Traz o relatorio para frente da aplicação            
-                conecta.desconecta();
-            } catch (JRException e) {
-                JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaCadastroProntuarioPrintTRI) && codAbrir == 1) {
+            if (jIdInterno.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Não é possível listar o relatório, pois, o interno não código.");
+            } else {
+                try {
+                    conecta.abrirConexao();
+                    String path = "reports/ProntuariosInternosCrcCodigo.jasper";
+                    conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                            + "INNER JOIN DADOSFISICOSINTERNOS "
+                            + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
+                            + "INNER JOIN PAISES "
+                            + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
+                            + "INNER JOIN CIDADES "
+                            + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
+                            + "INNER JOIN DADOSPENAISINTERNOS "
+                            + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                            + "INNER JOIN UNIDADE "
+                            + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                            + "WHERE PRONTUARIOSCRC.IdInternoCrc='" + jIdInterno.getText() + "'");
+                    HashMap parametros = new HashMap();
+                    parametros.put("MatriculaCrc", jMatriculaPenal.getText());
+                    parametros.put("nomeUsuario", nameUser);
+                    parametros.put("descricaoUnidade", descricaoUnidade);
+                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                    jv.setTitle("Relatório de Prontuário de Internos");
+                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                    jv.toFront(); // Traz o relatorio para frente da aplicação            
+                    conecta.desconecta();
+                } catch (JRException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
         }
     }//GEN-LAST:event_jBtImpressao1ActionPerformed
 
@@ -4564,31 +4641,51 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     private void jBtObservacao1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtObservacao1ActionPerformed
         // TODO add your handling code here:
-        TelaObservacoesInternos objObsInt = new TelaObservacoesInternos();
-        TelaModuloCRC.jPainelCRC.add(objObsInt);
-        objObsInt.show();
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaCadastroProntuarioObsTRI) && codAbrir == 1) {
+            TelaObservacoesInternos objObsInt = new TelaObservacoesInternos();
+            TelaModuloCRC.jPainelCRC.add(objObsInt);
+            objObsInt.show();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
+        }
     }//GEN-LAST:event_jBtObservacao1ActionPerformed
 
     private void jBtBuscarRegPortaria1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtBuscarRegPortaria1ActionPerformed
         // TODO add your handling code here:
-        TelaPesqEntradaIntPortariaCrc objPesqRegInterno = new TelaPesqEntradaIntPortariaCrc();
-        TelaModuloCRC.jPainelCRC.add(objPesqRegInterno);
-        objPesqRegInterno.show();
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaCadastroProntuarioBuscarEntTRI) && codAbrir == 1) {
+            TelaPesqEntradaIntPortariaTriagem objPesqRegInternos = new TelaPesqEntradaIntPortariaTriagem();
+            TelaModuloTriagem.jPainelTriagem.add(objPesqRegInternos);
+            objPesqRegInternos.show();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
+        }
     }//GEN-LAST:event_jBtBuscarRegPortaria1ActionPerformed
 
     private void jBtPeculiaridadeFrenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPeculiaridadeFrenteActionPerformed
         // TODO add your handling code here:
-        mostrarTelaPeculiaridadeFrenteTriagem();
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaCadastroProntuarioPecFreTRI) && codAbrir == 1) {
+            mostrarTelaPeculiaridadeFrenteTriagem();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
+        }
     }//GEN-LAST:event_jBtPeculiaridadeFrenteActionPerformed
 
     private void jBtPeculiaridadeCostasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPeculiaridadeCostasActionPerformed
         // TODO add your handling code here:
-        mostrarTelaPeculiaridadeCostasTriagem();
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaCadastroProntuarioPecCosTRI) && codAbrir == 1) {
+            mostrarTelaPeculiaridadeCostasTriagem();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
+        }
     }//GEN-LAST:event_jBtPeculiaridadeCostasActionPerformed
 
     private void jBtBiometriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtBiometriaActionPerformed
         // TODO add your handling code here:
-        mostrarTelaBiometriaInterno();
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaCadastroProntuarioBioTRI) && codAbrir == 1) {
+            mostrarTelaBiometriaInterno();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
+        }
     }//GEN-LAST:event_jBtBiometriaActionPerformed
 
     private void jBtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNomeActionPerformed
@@ -4600,16 +4697,16 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             jPesqNome.requestFocus();
         } else {
             preencherTabelaNome("SELECT * FROM PRONTUARIOSCRC "
-                + "INNER JOIN DADOSFISICOSINTERNOS "
-                + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
-                + "INNER JOIN PAISES "
-                + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
-                + "INNER JOIN CIDADES "
-                + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
-                + "INNER JOIN DADOSPENAISINTERNOS "
-                + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                + "INNER JOIN UNIDADE ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                + "WHERE NomeInternoCrc LIKE'%" + jPesqNome.getText() + "%'");
+                    + "INNER JOIN DADOSFISICOSINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
+                    + "INNER JOIN PAISES "
+                    + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
+                    + "INNER JOIN CIDADES "
+                    + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "INNER JOIN UNIDADE ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                    + "WHERE NomeInternoCrc LIKE'%" + jPesqNome.getText() + "%'");
         }
     }//GEN-LAST:event_jBtNomeActionPerformed
 
@@ -4622,17 +4719,17 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             jPesqMatricula.requestFocus();
         } else {
             buscarInternosMatricula("SELECT * FROM PRONTUARIOSCRC "
-                + "INNER JOIN DADOSFISICOSINTERNOS "
-                + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
-                + "INNER JOIN PAISES "
-                + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
-                + "INNER JOIN CIDADES "
-                + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
-                + "INNER JOIN DADOSPENAISINTERNOS "
-                + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                + "INNER JOIN UNIDADE "
-                + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                + "WHERE MatriculaCrc LIKE'%" + jPesqMatricula.getText() + "%'");
+                    + "INNER JOIN DADOSFISICOSINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
+                    + "INNER JOIN PAISES "
+                    + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
+                    + "INNER JOIN CIDADES "
+                    + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "INNER JOIN UNIDADE "
+                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                    + "WHERE MatriculaCrc LIKE'%" + jPesqMatricula.getText() + "%'");
         }
     }//GEN-LAST:event_jBtMatriculaActionPerformed
 
@@ -4642,17 +4739,17 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
             this.preencherTodosInternos("SELECT * FROM PRONTUARIOSCRC "
-                + "INNER JOIN DADOSFISICOSINTERNOS "
-                + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
-                + "INNER JOIN PAISES "
-                + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
-                + "INNER JOIN CIDADES "
-                + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
-                + "INNER JOIN DADOSPENAISINTERNOS "
-                + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                + "INNER JOIN UNIDADE "
-                + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                + "ORDER BY PRONTUARIOSCRC.IdInternoCrc");
+                    + "INNER JOIN DADOSFISICOSINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
+                    + "INNER JOIN PAISES "
+                    + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
+                    + "INNER JOIN CIDADES "
+                    + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "INNER JOIN UNIDADE "
+                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                    + "ORDER BY PRONTUARIOSCRC.IdInternoCrc");
         } else {
             jtotalRegistros.setText("");
             limparTabelaProntuario();
@@ -4667,16 +4764,16 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe a alcunha para pesquisa.");
         } else {
             preencherTabelaNome("SELECT * FROM PRONTUARIOSCRC "
-                + "INNER JOIN DADOSFISICOSINTERNOS "
-                + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
-                + "INNER JOIN PAISES "
-                + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
-                + "INNER JOIN CIDADES "
-                + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
-                + "INNER JOIN DADOSPENAISINTERNOS "
-                + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                + "INNER JOIN UNIDADE ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                + "WHERE AlcunhaCrc LIKE'%" + jPesqAlcunha.getText() + "%'");
+                    + "INNER JOIN DADOSFISICOSINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
+                    + "INNER JOIN PAISES "
+                    + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
+                    + "INNER JOIN CIDADES "
+                    + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "INNER JOIN UNIDADE ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                    + "WHERE AlcunhaCrc LIKE'%" + jPesqAlcunha.getText() + "%'");
         }
     }//GEN-LAST:event_jBtPesqAlcunhaActionPerformed
 
@@ -4688,17 +4785,17 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe o código do interno para pesquisa.");
         } else {
             preencherTabelaNome("SELECT * FROM PRONTUARIOSCRC "
-                + "INNER JOIN DADOSFISICOSINTERNOS "
-                + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
-                + "INNER JOIN PAISES "
-                + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
-                + "INNER JOIN CIDADES "
-                + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
-                + "INNER JOIN DADOSPENAISINTERNOS "
-                + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                + "INNER JOIN UNIDADE "
-                + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                + "WHERE PRONTUARIOSCRC.IdInternoCrc='" + jPesqCodigo.getText() + "'");
+                    + "INNER JOIN DADOSFISICOSINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
+                    + "INNER JOIN PAISES "
+                    + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
+                    + "INNER JOIN CIDADES "
+                    + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "INNER JOIN UNIDADE "
+                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                    + "WHERE PRONTUARIOSCRC.IdInternoCrc='" + jPesqCodigo.getText() + "'");
         }
     }//GEN-LAST:event_jBtPesqCodigoActionPerformed
 
@@ -4708,47 +4805,47 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         flag = 1;
         if (jComboBoxPesqSituacao.getSelectedItem().equals("Ativos")) {
             preencherTabelaNome("SELECT * FROM PRONTUARIOSCRC "
-                + "INNER JOIN DADOSFISICOSINTERNOS "
-                + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
-                + "INNER JOIN PAISES "
-                + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
-                + "INNER JOIN CIDADES "
-                + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
-                + "INNER JOIN DADOSPENAISINTERNOS "
-                + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                + "INNER JOIN UNIDADE "
-                + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                + "WHERE PRONTUARIOSCRC.SituacaoCrc='" + situacaoEnt + "' "
-                + "OR PRONTUARIOSCRC.SituacaoCrc='" + situacaoRet + "'");
+                    + "INNER JOIN DADOSFISICOSINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
+                    + "INNER JOIN PAISES "
+                    + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
+                    + "INNER JOIN CIDADES "
+                    + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "INNER JOIN UNIDADE "
+                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                    + "WHERE PRONTUARIOSCRC.SituacaoCrc='" + situacaoEnt + "' "
+                    + "OR PRONTUARIOSCRC.SituacaoCrc='" + situacaoRet + "'");
         } else if (jComboBoxPesqSituacao.getSelectedItem().equals("Inativos")) {
             preencherTabelaNome("SELECT * FROM PRONTUARIOSCRC "
-                + "INNER JOIN DADOSFISICOSINTERNOS "
-                + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
-                + "INNER JOIN PAISES "
-                + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
-                + "INNER JOIN CIDADES "
-                + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
-                + "INNER JOIN DADOSPENAISINTERNOS "
-                + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                + "INNER JOIN UNIDADE "
-                + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                + "WHERE PRONTUARIOSCRC.SituacaoCrc='" + situacaoTra + "' "
-                + "OR PRONTUARIOSCRC.SituacaoCrc='" + situacaoAlv + "' "
-                + "OR PRONTUARIOSCRC.SituacaoCrc='" + situacaoCon + "' "
-                + "OR PRONTUARIOSCRC.SituacaoCrc='" + situacaoReg + "'");
+                    + "INNER JOIN DADOSFISICOSINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
+                    + "INNER JOIN PAISES "
+                    + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
+                    + "INNER JOIN CIDADES "
+                    + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "INNER JOIN UNIDADE "
+                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                    + "WHERE PRONTUARIOSCRC.SituacaoCrc='" + situacaoTra + "' "
+                    + "OR PRONTUARIOSCRC.SituacaoCrc='" + situacaoAlv + "' "
+                    + "OR PRONTUARIOSCRC.SituacaoCrc='" + situacaoCon + "' "
+                    + "OR PRONTUARIOSCRC.SituacaoCrc='" + situacaoReg + "'");
         } else if (jComboBoxPesqSituacao.getSelectedItem().equals("Evadidos")) {
             preencherTabelaNome("SELECT * FROM PRONTUARIOSCRC "
-                + "INNER JOIN DADOSFISICOSINTERNOS "
-                + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
-                + "INNER JOIN PAISES "
-                + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
-                + "INNER JOIN CIDADES "
-                + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
-                + "INNER JOIN DADOSPENAISINTERNOS "
-                + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                + "INNER JOIN UNIDADE "
-                + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                + "WHERE PRONTUARIOSCRC.SituacaoCrc='" + situacaoEva + "' ");
+                    + "INNER JOIN DADOSFISICOSINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
+                    + "INNER JOIN PAISES "
+                    + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
+                    + "INNER JOIN CIDADES "
+                    + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "INNER JOIN UNIDADE "
+                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                    + "WHERE PRONTUARIOSCRC.SituacaoCrc='" + situacaoEva + "' ");
 
         }
         //String situacaoTra = "TRANSFERENCIA";
@@ -4766,23 +4863,27 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             jPesquisaCNC.requestFocus();
         } else {
             buscarInternosMatricula("SELECT * FROM PRONTUARIOSCRC "
-                + "INNER JOIN DADOSFISICOSINTERNOS "
-                + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
-                + "INNER JOIN PAISES "
-                + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
-                + "INNER JOIN CIDADES "
-                + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
-                + "INNER JOIN DADOSPENAISINTERNOS "
-                + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                + "INNER JOIN UNIDADE "
-                + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                + "WHERE Cnc LIKE'%" + jPesquisaCNC.getText() + "%'");
+                    + "INNER JOIN DADOSFISICOSINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
+                    + "INNER JOIN PAISES "
+                    + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
+                    + "INNER JOIN CIDADES "
+                    + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "INNER JOIN UNIDADE "
+                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                    + "WHERE Cnc LIKE'%" + jPesquisaCNC.getText() + "%'");
         }
     }//GEN-LAST:event_jBtCNCPesquisaActionPerformed
 
     private void jBtImportarProntuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImportarProntuarioActionPerformed
         // TODO add your handling code here:
-        mostrarTelaPesquisaExterna();
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaCadastroProntuarioImportTRI) && codAbrir == 1) {
+            mostrarTelaPesquisaExterna();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
+        }
     }//GEN-LAST:event_jBtImportarProntuarioActionPerformed
 
 
@@ -5139,7 +5240,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
-     public void verificarGravacaoInterno() {
+    public void verificarGravacaoInterno() {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM DADOSPENAISINTERNOS "
@@ -5160,8 +5261,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         } catch (Exception e) {
         }
     }
-    
-    
+
     public void bloquearCamposEdicao() {
         jMatriculaPenal.setEnabled(!true);
         jDataCadastro.setEnabled(!true);

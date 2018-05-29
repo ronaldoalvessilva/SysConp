@@ -16,14 +16,26 @@ import gestor.Modelo.Paises;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloTriagem.codAlterar;
+import static gestor.Visao.TelaModuloTriagem.codExcluir;
+import static gestor.Visao.TelaModuloTriagem.codGravar;
+import static gestor.Visao.TelaModuloTriagem.codIncluir;
+import static gestor.Visao.TelaModuloTriagem.codUserAcesso;
+import static gestor.Visao.TelaModuloTriagem.codigoUser;
+import static gestor.Visao.TelaModuloTriagem.nomeGrupo;
+import static gestor.Visao.TelaModuloTriagem.nomeTela;
+import static gestor.Visao.TelaModuloTriagem.telaCadastroPaisesTRI;
+import static gestor.Visao.TelaModuloTriagem.telaCadastroUnidadePrisionalTRI;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
-/** 
+/**
  *
  * @author Ronaldo
  */
@@ -106,9 +118,10 @@ public class TelaPaises extends javax.swing.JInternalFrame {
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisa", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.blue));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisa", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), java.awt.Color.blue)); // NOI18N
 
-        jBtPesqPais.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/pesq.png"))); // NOI18N
+        jBtPesqPais.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
+        jBtPesqPais.setContentAreaFilled(false);
         jBtPesqPais.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesqPaisActionPerformed(evt);
@@ -116,16 +129,6 @@ public class TelaPaises extends javax.swing.JInternalFrame {
         });
 
         jPesNomePais.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jPesNomePais.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPesNomePaisActionPerformed(evt);
-            }
-        });
-        jPesNomePais.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jPesNomePaisKeyReleased(evt);
-            }
-        });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 0, 0));
@@ -146,8 +149,8 @@ public class TelaPaises extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 5, Short.MAX_VALUE)
-                .addComponent(jPesNomePais, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPesNomePais)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtPesqPais, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -165,15 +168,13 @@ public class TelaPaises extends javax.swing.JInternalFrame {
                 .addGap(0, 9, Short.MAX_VALUE))
         );
 
+        jTabelaPais.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaPais.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+                {null, null, null}
             },
             new String [] {
-
+                "ID Pais", "Nome do Pais", "Código Pais"
             }
         ));
         jTabelaPais.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -182,30 +183,38 @@ public class TelaPaises extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(jTabelaPais);
+        if (jTabelaPais.getColumnModel().getColumnCount() > 0) {
+            jTabelaPais.getColumnModel().getColumn(0).setMinWidth(60);
+            jTabelaPais.getColumnModel().getColumn(0).setMaxWidth(60);
+            jTabelaPais.getColumnModel().getColumn(1).setMinWidth(280);
+            jTabelaPais.getColumnModel().getColumn(1).setMaxWidth(280);
+            jTabelaPais.getColumnModel().getColumn(2).setMinWidth(100);
+            jTabelaPais.getColumnModel().getColumn(2).setMaxWidth(100);
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(32, 32, 32))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         jTabbedPane1.addTab("Listagem", jPanel1);
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados Cadastrais", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.blue));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados Cadastrais", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), java.awt.Color.blue)); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("ID Pais:");
@@ -216,17 +225,14 @@ public class TelaPaises extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("Código Pais:");
 
+        jIdPais.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jIdPais.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jIdPais.setEnabled(false);
-        jIdPais.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jIdPaisActionPerformed(evt);
-            }
-        });
 
         jNomePais.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jNomePais.setEnabled(false);
 
+        jCodPais.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jCodPais.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jCodPais.setEnabled(false);
 
@@ -242,7 +248,7 @@ public class TelaPaises extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jIdPais, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jIdPais, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -266,10 +272,11 @@ public class TelaPaises extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Botões de Navegação", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.blue));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Botões de Navegação", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), java.awt.Color.blue)); // NOI18N
 
         jBtPrimeiro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7856_16x16.png"))); // NOI18N
         jBtPrimeiro.setToolTipText("Primeiro Registro");
+        jBtPrimeiro.setContentAreaFilled(false);
         jBtPrimeiro.setEnabled(false);
         jBtPrimeiro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -279,6 +286,7 @@ public class TelaPaises extends javax.swing.JInternalFrame {
 
         jBtAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7857_16x16.png"))); // NOI18N
         jBtAnterior.setToolTipText("Registro Anterior");
+        jBtAnterior.setContentAreaFilled(false);
         jBtAnterior.setEnabled(false);
         jBtAnterior.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -288,6 +296,7 @@ public class TelaPaises extends javax.swing.JInternalFrame {
 
         jBtProximo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7855_16x16.png"))); // NOI18N
         jBtProximo.setToolTipText("Próximo Registro");
+        jBtProximo.setContentAreaFilled(false);
         jBtProximo.setEnabled(false);
         jBtProximo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -297,6 +306,7 @@ public class TelaPaises extends javax.swing.JInternalFrame {
 
         jBtUltimo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7854_16x16.png"))); // NOI18N
         jBtUltimo.setToolTipText("Ultimo Registro");
+        jBtUltimo.setContentAreaFilled(false);
         jBtUltimo.setEnabled(false);
         jBtUltimo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -308,8 +318,8 @@ public class TelaPaises extends javax.swing.JInternalFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(114, 114, 114)
                 .addComponent(jBtPrimeiro, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -317,7 +327,7 @@ public class TelaPaises extends javax.swing.JInternalFrame {
                 .addComponent(jBtProximo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtUltimo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(98, 98, 98))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel5Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAnterior, jBtPrimeiro, jBtProximo, jBtUltimo});
@@ -335,12 +345,12 @@ public class TelaPaises extends javax.swing.JInternalFrame {
 
         jPanel5Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAnterior, jBtPrimeiro, jBtProximo, jBtUltimo});
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Botões de Manutenção", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.blue));
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), java.awt.Color.blue)); // NOI18N
 
-        jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7183_16x16.png"))); // NOI18N
+        jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
         jBtNovo.setText("Novo");
         jBtNovo.setToolTipText("Novo Registro");
-        jBtNovo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jBtNovo.setContentAreaFilled(false);
         jBtNovo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtNovo.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jBtNovo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -353,7 +363,7 @@ public class TelaPaises extends javax.swing.JInternalFrame {
         jBtAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
         jBtAlterar.setText("Alterar");
         jBtAlterar.setToolTipText("Alterar Registro");
-        jBtAlterar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jBtAlterar.setContentAreaFilled(false);
         jBtAlterar.setEnabled(false);
         jBtAlterar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtAlterar.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -367,7 +377,7 @@ public class TelaPaises extends javax.swing.JInternalFrame {
         jBtExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
         jBtExcluir.setText("Excluir");
         jBtExcluir.setToolTipText("Excluir Registro");
-        jBtExcluir.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jBtExcluir.setContentAreaFilled(false);
         jBtExcluir.setEnabled(false);
         jBtExcluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtExcluir.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -381,7 +391,7 @@ public class TelaPaises extends javax.swing.JInternalFrame {
         jBtSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
         jBtSalvar.setText("Gravar");
         jBtSalvar.setToolTipText("Salvar Registro");
-        jBtSalvar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jBtSalvar.setContentAreaFilled(false);
         jBtSalvar.setEnabled(false);
         jBtSalvar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtSalvar.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -395,7 +405,7 @@ public class TelaPaises extends javax.swing.JInternalFrame {
         jBtCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Close_Icon_16.png"))); // NOI18N
         jBtCancelar.setText("Cancelar");
         jBtCancelar.setToolTipText("Cancelar Operação");
-        jBtCancelar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jBtCancelar.setContentAreaFilled(false);
         jBtCancelar.setEnabled(false);
         jBtCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtCancelar.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -409,7 +419,7 @@ public class TelaPaises extends javax.swing.JInternalFrame {
         jBtSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Log_Out_Icon_16.png"))); // NOI18N
         jBtSair.setText("Sair");
         jBtSair.setToolTipText("Sair da Tela");
-        jBtSair.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jBtSair.setContentAreaFilled(false);
         jBtSair.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtSair.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jBtSair.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -424,36 +434,29 @@ public class TelaPaises extends javax.swing.JInternalFrame {
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jBtNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtNovo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtAlterar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtExcluir)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtSalvar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtCancelar)
-                .addGap(18, 18, 18)
-                .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtSair)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        jPanel6Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterar, jBtCancelar, jBtExcluir, jBtNovo, jBtSair, jBtSalvar});
-
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jBtSair)
-                        .addComponent(jBtCancelar))
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jBtAlterar)
-                        .addComponent(jBtExcluir)
-                        .addComponent(jBtSalvar, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jBtNovo)))
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jBtSair)
+                .addComponent(jBtCancelar))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jBtAlterar)
+                .addComponent(jBtExcluir)
+                .addComponent(jBtSalvar)
+                .addComponent(jBtNovo))
         );
 
         jPanel6Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterar, jBtCancelar, jBtExcluir, jBtNovo, jBtSair, jBtSalvar});
@@ -464,11 +467,12 @@ public class TelaPaises extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -477,8 +481,8 @@ public class TelaPaises extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Manutenção", jPanel2);
@@ -487,19 +491,15 @@ public class TelaPaises extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 387, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(300, 150, 403, 289);
+        setBounds(300, 150, 461, 266);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jIdPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jIdPaisActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jIdPaisActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
         // TODO add your handling code here:
@@ -508,104 +508,121 @@ public class TelaPaises extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroPaisesTRI) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            acao = 1;
+            Novo();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        if (jNomePais.getText().equals("BRASIL")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse País não pode ser modificado...!!!");
-        } else {
-            conecta.abrirConexao();
-            try {
-                conecta.executaSQL("SELECT * FROM PAISES WHERE IdPais='" + jIdPais.getText() + "'");
-                conecta.rs.first();
-                nomeUserPaises = conecta.rs.getString("UsuarioInsert");
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(rootPane, "Não foi possivel encontrar o usuário.");
-            }
-            if (nomeUserPaises == null ? nameUser == null : nomeUserPaises.equals(nameUser)) {
-                acao = 2;
-                Alterar();
-                statusMov = "Alterou";
-                horaMov = jHoraSistema.getText();
-                dataModFinal = jDataSistema.getText();
-
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroPaisesTRI) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jNomePais.getText().equals("BRASIL")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse País não pode ser modificado...!!!");
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserPaises + " só esse usuário poderá modificar.");
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM PAISES WHERE IdPais='" + jIdPais.getText() + "'");
+                    conecta.rs.first();
+                    nomeUserPaises = conecta.rs.getString("UsuarioInsert");
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(rootPane, "Não foi possivel encontrar o usuário.");
+                }
+                if (nomeUserPaises == null ? nameUser == null : nomeUserPaises.equals(nameUser)) {
+                    acao = 2;
+                    Alterar();
+                    statusMov = "Alterou";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserPaises + " só esse usuário poderá modificar.");
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        if (jNomePais.getText().equals("BRASIL")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse País não pode ser excluído...!!!");
-        } else {
-            conecta.abrirConexao();
-            try {
-                conecta.executaSQL("SELECT * FROM PAISES WHERE IdPais='" + jIdPais.getText() + "'");
-                conecta.rs.first();
-                nomeUserPaises = conecta.rs.getString("UsuarioInsert");
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(rootPane, "Não foi possivel encontrar o usuário.");
-            }
-            if (nomeUserPaises == null ? nameUser == null : nomeUserPaises.equals(nameUser)) {
-                buscarPais();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroPaisesTRI) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jNomePais.getText().equals("BRASIL")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse País não pode ser excluído...!!!");
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserPaises + " só esse usuário poderá excluir.");
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM PAISES WHERE IdPais='" + jIdPais.getText() + "'");
+                    conecta.rs.first();
+                    nomeUserPaises = conecta.rs.getString("UsuarioInsert");
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(rootPane, "Não foi possivel encontrar o usuário.");
+                }
+                if (nomeUserPaises == null ? nameUser == null : nomeUserPaises.equals(nameUser)) {
+                    buscarPais();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserPaises + " só esse usuário poderá excluir.");
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jNomePais.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Nome do PAISES não podem ser em branco");
-            jNomePais.requestFocus();
-        } else {
-            if (jCodPais.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe o código do país.");
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroPaisesTRI) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jNomePais.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Nome do PAISES não podem ser em branco");
+                jNomePais.requestFocus();
             } else {
-                objPaises.setCodPais(Integer.parseInt(jCodPais.getText()));
-                objPaises.setNomePais(jNomePais.getText());
-                objPaises.setNomeUsuario(nameUser);
-                try {
-                    conecta.abrirConexao();
-                    conecta.executaSQL("SELECT * FROM PAISES WHERE NomePais='" + jNomePais.getText() + "'");
-                    conecta.rs.first();
-                    nomePais = conecta.rs.getString("NomePais");
-                } catch (Exception ex) {
-                }
-                // Se a acao for igual 1 Incluir
-                if (acao == 1) {
-                    if (jNomePais.getText().trim().equals(nomePais)) {
-                        JOptionPane.showMessageDialog(rootPane, "Pais já cadastrado.");
-                    } else {
-                        control.Salvar(objPaises);
-                        buscarID();
+                if (jCodPais.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe o código do país.");
+                } else {
+                    objPaises.setCodPais(Integer.parseInt(jCodPais.getText()));
+                    objPaises.setNomePais(jNomePais.getText());
+                    objPaises.setNomeUsuario(nameUser);
+                    try {
+                        conecta.abrirConexao();
+                        conecta.executaSQL("SELECT * FROM PAISES "
+                                + "WHERE NomePais='" + jNomePais.getText() + "'");
+                        conecta.rs.first();
+                        nomePais = conecta.rs.getString("NomePais");
+                    } catch (Exception ex) {
+                    }
+                    // Se a acao for igual 1 Incluir
+                    if (acao == 1) {
+                        if (jNomePais.getText().trim().equals(nomePais)) {
+                            JOptionPane.showMessageDialog(rootPane, "Pais já cadastrado.");
+                        } else {
+                            control.Salvar(objPaises);
+                            buscarID();
+                            objLog();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            JOptionPane.showMessageDialog(null, "Registro GRAVADO com sucesso!!!");
+                            Salvar();
+                        }
+                    }
+                    // Se aco for igual a 2 Alterar
+                    if (acao == 2) {
+                        objPaises.setCodPais(objPaises.getCodPais());
+                        objPaises.setNomePais(jNomePais.getText());
+                        objPaises.setIdPais(Integer.valueOf(jIdPais.getText()));
+                        control.Alterar(objPaises);
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        JOptionPane.showMessageDialog(null, "Registro GRAVADO com sucesso!!!");
+                        JOptionPane.showMessageDialog(null, "Registro ALTERADO com sucesso!!!");
                         Salvar();
                     }
                 }
-                // Se aco for igual a 2 Alterar
-                if (acao == 2) {
-                    objPaises.setCodPais(objPaises.getCodPais());
-                    objPaises.setNomePais(jNomePais.getText());
-                    objPaises.setIdPais(Integer.valueOf(jIdPais.getText()));
-                    control.Alterar(objPaises);
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(null, "Registro ALTERADO com sucesso!!!");
-                    Salvar();
-                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -614,10 +631,6 @@ public class TelaPaises extends javax.swing.JInternalFrame {
         Cancelar();
     }//GEN-LAST:event_jBtCancelarActionPerformed
 
-    private void jPesNomePaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPesNomePaisActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPesNomePaisActionPerformed
-
     private void jBtPesqPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqPaisActionPerformed
         // TODO add your handling code here:
         flag = 1;
@@ -625,8 +638,8 @@ public class TelaPaises extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe dados para pesquisa");
             jPesNomePais.requestFocus();
         } else {
-            jTabelaPais.setVisible(true);
-            preencherTabelaNome("SELECT * FROM PAISES WHERE NomePais LIKE  '" + jPesNomePais.getText() + "%'");
+            preencherTabelaNome("SELECT * FROM PAISES "
+                    + "WHERE NomePais LIKE  '" + jPesNomePais.getText() + "%'");
         }
     }//GEN-LAST:event_jBtPesqPaisActionPerformed
 
@@ -693,19 +706,13 @@ public class TelaPaises extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jBtUltimoActionPerformed
 
-    private void jPesNomePaisKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPesNomePaisKeyReleased
-        // TODO add your handling code here:        
-        preencherTabelaNome("SELECT * FROM PAISES WHERE NomePais LIKE  '" + jPesNomePais.getText() + "%'");
-    }//GEN-LAST:event_jPesNomePaisKeyReleased
-
     private void jCheckBox2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox2ItemStateChanged
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            jTabelaPais.setVisible(true);
-            this.preencherTabela();
+            this.preencherTabela("SELECT * FROM PAISES ORDER BY IdPais");
         } else {
-            jTabelaPais.setVisible(!true);
+            limparTabela();
         }
     }//GEN-LAST:event_jCheckBox2ItemStateChanged
 
@@ -910,65 +917,11 @@ public class TelaPaises extends javax.swing.JInternalFrame {
         }
     }
 
-    public void preencherTabela() {
-        ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"ID", "Nome Pais", "Código"};
-        conecta.abrirConexao();
-        conecta.executaSQL("SELECT * FROM PAISES ORDER BY IdPais");;
-        try {
-            conecta.rs.first();
-            do {
-                dados.add(new Object[]{conecta.rs.getInt("IdPais"), conecta.rs.getString("NomePais"), conecta.rs.getInt("CodPais")});
-            } while (conecta.rs.next());
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não existe dados a ser exibido!!!");
-        }
-        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-        jTabelaPais.setModel(modelo);
-        jTabelaPais.getColumnModel().getColumn(0).setPreferredWidth(50);
-        jTabelaPais.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaPais.getColumnModel().getColumn(1).setPreferredWidth(250);
-        jTabelaPais.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaPais.getColumnModel().getColumn(2).setPreferredWidth(70);
-        jTabelaPais.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaPais.getTableHeader().setReorderingAllowed(false);
-        jTabelaPais.setAutoResizeMode(jTabelaPais.AUTO_RESIZE_OFF);
-        jTabelaPais.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        conecta.desconecta();
-    }
-
-    // Método de pesquisa pela Descrição
-    public void preencherTabelaNome(String sql) {
-        ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"ID", "Nome Pais", "Código"};
-        conecta.abrirConexao();
-        conecta.executaSQL(sql);
-        try {
-            conecta.rs.first();
-            do {
-                dados.add(new Object[]{conecta.rs.getInt("IdPais"), conecta.rs.getString("NomePais"), conecta.rs.getInt("CodPais")});
-            } while (conecta.rs.next());
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Dados não encontrado, use o botão TODOS \nPara pesquisar TODOS OS REGISTROS");
-        }
-        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-        jTabelaPais.setModel(modelo);
-        jTabelaPais.getColumnModel().getColumn(0).setPreferredWidth(50);
-        jTabelaPais.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaPais.getColumnModel().getColumn(1).setPreferredWidth(250);
-        jTabelaPais.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaPais.getColumnModel().getColumn(2).setPreferredWidth(70);
-        jTabelaPais.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaPais.getTableHeader().setReorderingAllowed(false);
-        jTabelaPais.setAutoResizeMode(jTabelaPais.AUTO_RESIZE_OFF);
-        jTabelaPais.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        conecta.desconecta();
-    }
-
     public void buscarPais() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM CIDADES WHERE IdPais='" + jIdPais.getText() + "'");
+            conecta.executaSQL("SELECT * FROM CIDADES "
+                    + "WHERE IdPais='" + jIdPais.getText() + "'");
             conecta.rs.first();
             codPais = conecta.rs.getInt("IdPais");
             if (codPais != 0) {
@@ -989,6 +942,90 @@ public class TelaPaises extends javax.swing.JInternalFrame {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possivel obter o código da cidade.\nERRO:" + ex);
         }
+    }
+
+    public void preencherTabela(String sql) {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"ID País", "Nome País", "Código País"};
+        conecta.abrirConexao();
+        conecta.executaSQL(sql);
+        try {
+            conecta.rs.first();
+            do {
+                dados.add(new Object[]{conecta.rs.getInt("IdPais"), conecta.rs.getString("NomePais"), conecta.rs.getInt("CodPais")});
+            } while (conecta.rs.next());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não existe dados a ser exibido!!!");
+        }
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaPais.setModel(modelo);
+        jTabelaPais.getColumnModel().getColumn(0).setPreferredWidth(60);
+        jTabelaPais.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaPais.getColumnModel().getColumn(1).setPreferredWidth(280);
+        jTabelaPais.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaPais.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTabelaPais.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaPais.getTableHeader().setReorderingAllowed(false);
+        jTabelaPais.setAutoResizeMode(jTabelaPais.AUTO_RESIZE_OFF);
+        jTabelaPais.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        conecta.desconecta();
+    }
+
+    // Método de pesquisa pela Descrição
+    public void preencherTabelaNome(String sql) {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"ID País", "Nome País", "Código País"};
+        conecta.abrirConexao();
+        conecta.executaSQL(sql);
+        try {
+            conecta.rs.first();
+            do {
+                dados.add(new Object[]{conecta.rs.getInt("IdPais"), conecta.rs.getString("NomePais"), conecta.rs.getInt("CodPais")});
+            } while (conecta.rs.next());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Dados não encontrado, use o botão TODOS \nPara pesquisar TODOS OS REGISTROS");
+        }
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaPais.setModel(modelo);
+        jTabelaPais.getColumnModel().getColumn(0).setPreferredWidth(60);
+        jTabelaPais.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaPais.getColumnModel().getColumn(1).setPreferredWidth(280);
+        jTabelaPais.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaPais.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTabelaPais.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaPais.getTableHeader().setReorderingAllowed(false);
+        jTabelaPais.setAutoResizeMode(jTabelaPais.AUTO_RESIZE_OFF);
+        jTabelaPais.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        conecta.desconecta();
+    }
+
+    public void alinharCamposTabela() {
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        //
+        jTabelaPais.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaPais.getColumnModel().getColumn(2).setCellRenderer(direita);
+    }
+
+    public void limparTabela() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"ID País", "Nome País", "Código País"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaPais.setModel(modelo);
+        jTabelaPais.getColumnModel().getColumn(0).setPreferredWidth(60);
+        jTabelaPais.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaPais.getColumnModel().getColumn(1).setPreferredWidth(280);
+        jTabelaPais.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaPais.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTabelaPais.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaPais.getTableHeader().setReorderingAllowed(false);
+        jTabelaPais.setAutoResizeMode(jTabelaPais.AUTO_RESIZE_OFF);
+        jTabelaPais.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
     }
 
     public void objLog() {

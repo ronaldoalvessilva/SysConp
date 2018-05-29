@@ -16,6 +16,16 @@ import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloTriagem.codAlterar;
+import static gestor.Visao.TelaModuloTriagem.codExcluir;
+import static gestor.Visao.TelaModuloTriagem.codGravar;
+import static gestor.Visao.TelaModuloTriagem.codIncluir;
+import static gestor.Visao.TelaModuloTriagem.codUserAcesso;
+import static gestor.Visao.TelaModuloTriagem.codigoUser;
+import static gestor.Visao.TelaModuloTriagem.nomeGrupo;
+import static gestor.Visao.TelaModuloTriagem.nomeTela;
+import static gestor.Visao.TelaModuloTriagem.telaCadastroCidadesTRI;
+import static gestor.Visao.TelaModuloTriagem.telaCadastroPaisesTRI;
 import java.awt.Color;
 import java.sql.*;
 import javax.swing.text.MaskFormatter;
@@ -106,7 +116,7 @@ public class TelaCidades extends javax.swing.JInternalFrame {
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisa", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.blue));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisa", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), java.awt.Color.blue)); // NOI18N
 
         jBtPesqNome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/pesq.png"))); // NOI18N
         jBtPesqNome.addActionListener(new java.awt.event.ActionListener() {
@@ -205,7 +215,7 @@ public class TelaCidades extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("Listagem", jPanel1);
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.blue));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), java.awt.Color.blue)); // NOI18N
 
         jDdd.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jDdd.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -262,19 +272,16 @@ public class TelaCidades extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxPais, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jIdCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 247, Short.MAX_VALUE)
+                        .addComponent(jComboBoxPais, 0, 283, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(jIdCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jDdd, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jNomeCidade))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jComboBoxUf, jIdCidade});
-
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
@@ -296,7 +303,7 @@ public class TelaCidades extends javax.swing.JInternalFrame {
                 .addGap(0, 11, Short.MAX_VALUE))
         );
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Notões Navegação", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.blue));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Notões Navegação", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), java.awt.Color.blue)); // NOI18N
 
         jBtPrimeiro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7856_16x16.png"))); // NOI18N
         jBtPrimeiro.addActionListener(new java.awt.event.ActionListener() {
@@ -357,7 +364,7 @@ public class TelaCidades extends javax.swing.JInternalFrame {
 
         jPanel5Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAnterior, jBtPrimeiro, jBtProximo, jBtUltimo});
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Botões de Manutenção", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.blue));
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Botões de Manutenção", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), java.awt.Color.blue)); // NOI18N
 
         jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
         jBtNovo.setText("Novo");
@@ -483,9 +490,8 @@ public class TelaCidades extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -520,124 +526,140 @@ public class TelaCidades extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        preencherComboNovo();
-    }//GEN-LAST:event_jBtNovoActionPerformed
-
-    private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
-        // TODO add your handling code here: 
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM CIDADES WHERE IdCidade='" + jIdCidade.getText() + "'");
-            conecta.rs.first();
-            nomeUserCidade = conecta.rs.getString("UsuarioInsert");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Não foi possivel encontrar o usuário.");
-        }
-        if (nomeUserCidade == null ? nameUser == null : nomeUserCidade.equals(nameUser)) {
-            acao = 2;
-            Alterar();
-            statusMov = "Alterou";
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroCidadesTRI) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            acao = 1;
+            Novo();
+            statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
             preencherComboNovo();
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserCidade + " só esse usuário poderá modificar.");
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
+        }
+    }//GEN-LAST:event_jBtNovoActionPerformed
+
+    private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
+        // TODO add your handling code here: 
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroCidadesTRI) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM CIDADES WHERE IdCidade='" + jIdCidade.getText() + "'");
+                conecta.rs.first();
+                nomeUserCidade = conecta.rs.getString("UsuarioInsert");
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(rootPane, "Não foi possivel encontrar o usuário.");
+            }
+            if (nomeUserCidade == null ? nameUser == null : nomeUserCidade.equals(nameUser)) {
+                acao = 2;
+                Alterar();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                preencherComboNovo();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserCidade + " só esse usuário poderá modificar.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here   
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM CIDADES WHERE IdCidade='" + jIdCidade.getText() + "'");
-            conecta.rs.first();
-            nomeUserCidade = conecta.rs.getString("UsuarioInsert");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Não foi possivel encontrar o usuário.");
-        }
-        if (nomeUserCidade == null ? nameUser == null : nomeUserCidade.equals(nameUser)) {
-            buscarCidade();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroCidadesTRI) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM CIDADES WHERE IdCidade='" + jIdCidade.getText() + "'");
+                conecta.rs.first();
+                nomeUserCidade = conecta.rs.getString("UsuarioInsert");
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(rootPane, "Não foi possivel encontrar o usuário.");
+            }
+            if (nomeUserCidade == null ? nameUser == null : nomeUserCidade.equals(nameUser)) {
+                buscarCidade();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserCidade + " só esse usuário poderá excluir.");
+            }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserCidade + " só esse usuário poderá excluir.");
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jNomeCidade.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Nome da Cidade não podem ser em branco");
-        } else {
-            if (jDdd.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe o DDD da cidade");
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroCidadesTRI) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jNomeCidade.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Nome da Cidade não podem ser em branco");
             } else {
-                if (jComboBoxUf.getSelectedItem().equals("") && jComboBoxPais.getSelectedItem().equals("BRASIL")) {
-                    JOptionPane.showMessageDialog(rootPane, "Informe a UF da cidade.");
+                if (jDdd.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe o DDD da cidade");
                 } else {
-                    objCidades.setDddCidade(Integer.valueOf(jDdd.getText()));
-                    objCidades.setNomeCidade(jNomeCidade.getText());
-                    objCidades.setUfCidade((String) jComboBoxUf.getSelectedItem());
-                    objCidades.setNomeusuario(nameUser);
-                    try {
-                        conecta.abrirConexao();
-                        conecta.executaSQL("SELECT * FROM CIDADES WHERE NomeCidade='" + jNomeCidade.getText() + "'");
-                        conecta.rs.first();
-                        nomeCidade = conecta.rs.getString("NomeCidade");
-                    } catch (Exception e) {
-                    }
-                    if (!jComboBoxPais.getSelectedItem().equals("BRASIL")) {
-                        if (acao == 1) {
-                            if (jNomeCidade.getText().trim().equals(nomeCidade)) {
-                                JOptionPane.showMessageDialog(rootPane, "Cidade já cadastrada.");
-                            } else {
+                    if (jComboBoxUf.getSelectedItem().equals("") && jComboBoxPais.getSelectedItem().equals("BRASIL")) {
+                        JOptionPane.showMessageDialog(rootPane, "Informe a UF da cidade.");
+                    } else {
+                        objCidades.setDddCidade(Integer.valueOf(jDdd.getText()));
+                        objCidades.setNomeCidade(jNomeCidade.getText());
+                        objCidades.setUfCidade((String) jComboBoxUf.getSelectedItem());
+                        objCidades.setNomeusuario(nameUser);
+                        try {
+                            conecta.abrirConexao();
+                            conecta.executaSQL("SELECT * FROM CIDADES WHERE NomeCidade='" + jNomeCidade.getText() + "'");
+                            conecta.rs.first();
+                            nomeCidade = conecta.rs.getString("NomeCidade");
+                        } catch (Exception e) {
+                        }
+                        if (!jComboBoxPais.getSelectedItem().equals("BRASIL")) {
+                            if (acao == 1) {
+                                if (jNomeCidade.getText().trim().equals(nomeCidade)) {
+                                    JOptionPane.showMessageDialog(rootPane, "Cidade já cadastrada.");
+                                } else {
+                                    objCidades.setNomePais((String) jComboBoxPais.getSelectedItem());
+                                    control.incluirCidades(objCidades);
+                                    buscarID();
+                                    objLog();
+                                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                    JOptionPane.showMessageDialog(rootPane, "Cadastro Realizado com sucesso");
+                                    Salvar();
+                                }
+                            }
+                            if (acao == 2) {
                                 objCidades.setNomePais((String) jComboBoxPais.getSelectedItem());
-                                control.incluirCidades(objCidades);
-                                buscarID();
+                                objCidades.setIdCidade(Integer.valueOf(jIdCidade.getText()));
+                                control.alterarCidades(objCidades);
                                 objLog();
                                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                JOptionPane.showMessageDialog(rootPane, "Cadastro Realizado com sucesso");
+                                JOptionPane.showMessageDialog(null, "Cidade Alterado com sucesso !!!");
                                 Salvar();
                             }
-                        }
-                        if (acao == 2) {
-                            objCidades.setNomePais((String) jComboBoxPais.getSelectedItem());
-                            objCidades.setIdCidade(Integer.valueOf(jIdCidade.getText()));
-                            control.alterarCidades(objCidades);
-                            objLog();
-                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                            JOptionPane.showMessageDialog(null, "Cidade Alterado com sucesso !!!");
-                            Salvar();
-                        }
-                    } else if (jComboBoxPais.getSelectedItem().equals("BRASIL") && !jComboBoxUf.getSelectedItem().equals("")) {
-                        if (acao == 1) {
-                            if (jNomeCidade.getText().trim().equals(nomeCidade)) {
-                                JOptionPane.showMessageDialog(rootPane, "Cidade já cadastrada.");
-                            } else {
+                        } else if (jComboBoxPais.getSelectedItem().equals("BRASIL") && !jComboBoxUf.getSelectedItem().equals("")) {
+                            if (acao == 1) {
+                                if (jNomeCidade.getText().trim().equals(nomeCidade)) {
+                                    JOptionPane.showMessageDialog(rootPane, "Cidade já cadastrada.");
+                                } else {
+                                    objCidades.setNomePais((String) jComboBoxPais.getSelectedItem());
+                                    control.incluirCidades(objCidades);
+                                    buscarID();
+                                    objLog();
+                                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                    JOptionPane.showMessageDialog(rootPane, "Cadastro Realizado com sucesso");
+                                    Salvar();
+                                }
+                            }
+                            if (acao == 2) {
                                 objCidades.setNomePais((String) jComboBoxPais.getSelectedItem());
-                                control.incluirCidades(objCidades);
-                                buscarID();
+                                objCidades.setIdCidade(Integer.valueOf(jIdCidade.getText()));
+                                control.alterarCidades(objCidades);
                                 objLog();
                                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                JOptionPane.showMessageDialog(rootPane, "Cadastro Realizado com sucesso");
+                                JOptionPane.showMessageDialog(null, "Cidade Alterado com sucesso !!!");
                                 Salvar();
                             }
-                        }
-                        if (acao == 2) {
-                            objCidades.setNomePais((String) jComboBoxPais.getSelectedItem());
-                            objCidades.setIdCidade(Integer.valueOf(jIdCidade.getText()));
-                            control.alterarCidades(objCidades);
-                            objLog();
-                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                            JOptionPane.showMessageDialog(null, "Cidade Alterado com sucesso !!!");
-                            Salvar();
                         }
                     }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 

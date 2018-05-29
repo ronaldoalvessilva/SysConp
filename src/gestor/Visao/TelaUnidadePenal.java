@@ -16,6 +16,14 @@ import gestor.Modelo.UnidadePenal;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloTriagem.codAlterar;
+import static gestor.Visao.TelaModuloTriagem.codExcluir;
+import static gestor.Visao.TelaModuloTriagem.codIncluir;
+import static gestor.Visao.TelaModuloTriagem.codUserAcesso;
+import static gestor.Visao.TelaModuloTriagem.codigoUser;
+import static gestor.Visao.TelaModuloTriagem.nomeGrupo;
+import static gestor.Visao.TelaModuloTriagem.nomeTela;
+import static gestor.Visao.TelaModuloTriagem.telaCadastroUnidadePrisionalTRI;
 import java.awt.Color;
 import java.awt.HeadlessException;
 import java.sql.*;
@@ -655,95 +663,110 @@ public final class TelaUnidadePenal extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroUnidadePrisionalTRI) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            acao = 1;
+            Novo();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        acao = 2;
-        Alterar();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroUnidadePrisionalTRI) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            acao = 2;
+            Alterar();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir UNIDADE PENAL selecionado?", "Confirmação",
-                JOptionPane.YES_NO_OPTION);
-        if (resposta == JOptionPane.YES_OPTION) {
-            try {
-                objUnid.setIdUnid(Integer.parseInt(jIdUnid.getText()));
-                buscarUnidadeExcluir();
-                control.excluirUnid(objUnid);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                Excluir();
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(rootPane, "Não foi possivel EXCLUIR o REGISTRO\nERRO: " + ex);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroUnidadePrisionalTRI) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir UNIDADE PENAL selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                try {
+                    objUnid.setIdUnid(Integer.parseInt(jIdUnid.getText()));
+                    buscarUnidadeExcluir();
+                    control.excluirUnid(objUnid);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    Excluir();
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(rootPane, "Não foi possivel EXCLUIR o REGISTRO\nERRO: " + ex);
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
         }
-
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jComboBoxClasse.getSelectedItem().equals("Selecione...")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o tipo de unidade.");
-        } else if (jDescricao.getText().isEmpty() || jDescricao.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "DESCRIÇÃO da UNIDADE não pode ser em Branco.");
-            jDescricao.requestFocus();
-        } else {
-            objUnid.setClassUnid((String) jComboBoxClasse.getSelectedItem());
-            objUnid.setDescricaoUnid(jDescricao.getText());
-            objUnid.setEnderecoUnid(jEndereco.getText());
-            objUnid.setComplementoUnid(jComplemento.getText());
-            objUnid.setBairroUnid(jBairro.getText());
-            objUnid.setCidadeUnid(jCidade.getText());
-            objUnid.setEstadoUnid(jEstado.getText());
-            objUnid.setCepUnid(jCep.getText());
-            objUnid.setTelefoneUnid(jTelefone.getText());
-            objUnid.setFoneUnid(jFone.getText());
-            objUnid.setFaxUnid(jFax.getText());
-            objUnid.setObsUnid(jObservacao.getText());
-            try {
-                conecta.abrirConexao();
-                conecta.executaSQL("SELECT * FROM UNIDADE WHERE DescricaoUnid='" + jDescricao.getText() + "'");
-                conecta.rs.first();
-                nomeUnidade = conecta.rs.getString("DescricaoUnid");
-            } catch (Exception ex) {
-            }
-            try {
-                if (acao == 1) {
-                    if (jDescricao.getText().trim().equals(nomeUnidade)) {
-                        JOptionPane.showMessageDialog(rootPane, "Unidade Penal já cadastrada.");
-                    } else {
-                        control.incluirUnid(objUnid);
-                        buscarID();
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroUnidadePrisionalTRI) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jComboBoxClasse.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o tipo de unidade.");
+            } else if (jDescricao.getText().isEmpty() || jDescricao.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "DESCRIÇÃO da UNIDADE não pode ser em Branco.");
+                jDescricao.requestFocus();
+            } else {
+                objUnid.setClassUnid((String) jComboBoxClasse.getSelectedItem());
+                objUnid.setDescricaoUnid(jDescricao.getText());
+                objUnid.setEnderecoUnid(jEndereco.getText());
+                objUnid.setComplementoUnid(jComplemento.getText());
+                objUnid.setBairroUnid(jBairro.getText());
+                objUnid.setCidadeUnid(jCidade.getText());
+                objUnid.setEstadoUnid(jEstado.getText());
+                objUnid.setCepUnid(jCep.getText());
+                objUnid.setTelefoneUnid(jTelefone.getText());
+                objUnid.setFoneUnid(jFone.getText());
+                objUnid.setFaxUnid(jFax.getText());
+                objUnid.setObsUnid(jObservacao.getText());
+                try {
+                    conecta.abrirConexao();
+                    conecta.executaSQL("SELECT * FROM UNIDADE WHERE DescricaoUnid='" + jDescricao.getText() + "'");
+                    conecta.rs.first();
+                    nomeUnidade = conecta.rs.getString("DescricaoUnid");
+                } catch (Exception ex) {
+                }
+                try {
+                    if (acao == 1) {
+                        if (jDescricao.getText().trim().equals(nomeUnidade)) {
+                            JOptionPane.showMessageDialog(rootPane, "Unidade Penal já cadastrada.");
+                        } else {
+                            control.incluirUnid(objUnid);
+                            buscarID();
+                            objLog();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            JOptionPane.showMessageDialog(rootPane, "Registro GRAVADO com sucesso...");
+                            Salvar();
+                        }
+                    }
+                    if (acao == 2) {
+                        objUnid.setIdUnid(Integer.parseInt(jIdUnid.getText()));
+                        control.alterarUnid(objUnid);
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        JOptionPane.showMessageDialog(rootPane, "Registro GRAVADO com sucesso...");
+                        JOptionPane.showMessageDialog(rootPane, "Registro MODIFICADO com sucesso...");
                         Salvar();
                     }
+                } catch (HeadlessException | SQLException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Não foi possivel SALVAR o registro !!!\n\n\nERRO" + e);
                 }
-                if (acao == 2) {
-                    objUnid.setIdUnid(Integer.parseInt(jIdUnid.getText()));
-                    control.alterarUnid(objUnid);
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro MODIFICADO com sucesso...");
-                    Salvar();
-                }
-            } catch (HeadlessException | SQLException e) {
-                JOptionPane.showMessageDialog(rootPane, "Não foi possivel SALVAR o registro !!!\n\n\nERRO" + e);
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
