@@ -618,7 +618,7 @@
                           <Component id="jPanel4" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="0" pref="1" max="32767" attributes="0"/>
-                              <Component id="jPanel7" min="-2" pref="621" max="-2" attributes="0"/>
+                              <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -1483,10 +1483,10 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jBtCancelar" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jBtImpressao" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="jBtSair" min="-2" pref="51" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jBtImpressao" min="-2" pref="23" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="jBtImportarProntuario" min="-2" pref="28" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jBtObservacao" min="-2" pref="24" max="-2" attributes="0"/>
@@ -1494,24 +1494,24 @@
                           <Component id="jBtBuscarRegPortaria" min="-2" pref="23" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jBtAuditoriaPronCrc" min="-2" pref="23" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace pref="60" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="103" groupAlignment="2" attributes="0">
-                          <Component id="jBtNovo" alignment="2" min="-2" pref="41" max="-2" attributes="0"/>
-                          <Component id="jBtAlterar" alignment="2" min="-2" max="-2" attributes="0"/>
-                          <Component id="jBtExcluir" alignment="2" min="-2" max="-2" attributes="0"/>
-                          <Component id="jBtSalvar" alignment="2" min="-2" max="-2" attributes="0"/>
-                          <Component id="jBtCancelar" alignment="2" min="-2" max="-2" attributes="0"/>
                           <Component id="jBtImpressao" alignment="2" min="-2" max="-2" attributes="0"/>
-                          <Component id="jBtSair" alignment="2" min="-2" max="-2" attributes="0"/>
                           <Component id="jBtImportarProntuario" alignment="2" min="-2" max="-2" attributes="0"/>
                           <Component id="jBtObservacao" alignment="2" min="-2" max="-2" attributes="0"/>
                           <Component id="jBtBuscarRegPortaria" alignment="2" min="-2" max="-2" attributes="0"/>
                           <Component id="jBtAuditoriaPronCrc" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtSair" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtCancelar" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtSalvar" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtExcluir" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtAlterar" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtNovo" alignment="2" min="-2" pref="41" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1622,7 +1622,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/gestor/Imagens/gtklp-icone-3770-16.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Impress&#xe3;o"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Impress&#xe3;o"/>
                     <Property name="contentAreaFilled" type="boolean" value="false"/>
                     <Property name="enabled" type="boolean" value="false"/>
                     <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -1696,6 +1696,7 @@
                       <Image iconType="3" name="/gestor/Imagens/kde-file-downloads-icone-4393-16.png"/>
                     </Property>
                     <Property name="toolTipText" type="java.lang.String" value="Importar Prontu&#xe1;rio de Interno"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <Events>
@@ -4329,32 +4330,32 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jBtCancelar1" min="-2" pref="75" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jBtImpressao1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="jBtSair1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jBtImpressao1" min="-2" pref="22" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="jBtObservacao1" min="-2" pref="27" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jBtBuscarRegPortaria1" min="-2" pref="27" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jBtAuditoriaPronCrc1" min="-2" pref="24" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="103" groupAlignment="2" attributes="0">
-                          <Component id="jBtNovo1" alignment="2" min="-2" pref="41" max="-2" attributes="0"/>
-                          <Component id="jBtAlterar1" alignment="2" min="-2" max="-2" attributes="0"/>
-                          <Component id="jBtExcluir1" alignment="2" min="-2" max="-2" attributes="0"/>
-                          <Component id="jBtSalvar1" alignment="2" min="-2" max="-2" attributes="0"/>
-                          <Component id="jBtCancelar1" alignment="2" min="-2" max="-2" attributes="0"/>
                           <Component id="jBtImpressao1" alignment="2" min="-2" max="-2" attributes="0"/>
-                          <Component id="jBtSair1" alignment="2" min="-2" max="-2" attributes="0"/>
                           <Component id="jBtObservacao1" alignment="2" min="-2" max="-2" attributes="0"/>
                           <Component id="jBtBuscarRegPortaria1" alignment="2" min="-2" max="-2" attributes="0"/>
                           <Component id="jBtAuditoriaPronCrc1" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtSair1" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtCancelar1" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtSalvar1" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtExcluir1" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtAlterar1" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtNovo1" alignment="2" min="-2" pref="41" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -4465,7 +4466,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/gestor/Imagens/gtklp-icone-3770-16.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Impress&#xe3;o"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Impress&#xe3;o"/>
                     <Property name="contentAreaFilled" type="boolean" value="false"/>
                     <Property name="enabled" type="boolean" value="false"/>
                     <Property name="horizontalTextPosition" type="int" value="0"/>

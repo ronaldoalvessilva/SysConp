@@ -1397,7 +1397,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         });
 
         jBtImpressao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/gtklp-icone-3770-16.png"))); // NOI18N
-        jBtImpressao.setText("Impressão");
+        jBtImpressao.setToolTipText("Impressão");
         jBtImpressao.setContentAreaFilled(false);
         jBtImpressao.setEnabled(false);
         jBtImpressao.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1453,6 +1453,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
 
         jBtImportarProntuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/kde-file-downloads-icone-4393-16.png"))); // NOI18N
         jBtImportarProntuario.setToolTipText("Importar Prontuário de Interno");
+        jBtImportarProntuario.setContentAreaFilled(false);
         jBtImportarProntuario.setEnabled(false);
         jBtImportarProntuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1475,10 +1476,10 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtCancelar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtImpressao)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtImpressao, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtImportarProntuario, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtObservacao, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1486,22 +1487,22 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 .addComponent(jBtBuscarRegPortaria, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtAuditoriaPronCrc, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                .addComponent(jBtNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(jBtAlterar)
-                .addComponent(jBtExcluir)
-                .addComponent(jBtSalvar)
-                .addComponent(jBtCancelar)
                 .addComponent(jBtImpressao)
-                .addComponent(jBtSair)
                 .addComponent(jBtImportarProntuario)
                 .addComponent(jBtObservacao)
                 .addComponent(jBtBuscarRegPortaria)
-                .addComponent(jBtAuditoriaPronCrc))
+                .addComponent(jBtAuditoriaPronCrc)
+                .addComponent(jBtSair)
+                .addComponent(jBtCancelar)
+                .addComponent(jBtSalvar)
+                .addComponent(jBtExcluir)
+                .addComponent(jBtAlterar)
+                .addComponent(jBtNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Logradouro", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
@@ -1641,7 +1642,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 1, Short.MAX_VALUE)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 621, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -2831,7 +2832,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         });
 
         jBtImpressao1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/gtklp-icone-3770-16.png"))); // NOI18N
-        jBtImpressao1.setText("Impressão");
+        jBtImpressao1.setToolTipText("Impressão");
         jBtImpressao1.setContentAreaFilled(false);
         jBtImpressao1.setEnabled(false);
         jBtImpressao1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -2900,30 +2901,30 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtCancelar1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtImpressao1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtSair1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtImpressao1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtObservacao1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtBuscarRegPortaria1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtAuditoriaPronCrc1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel33Layout.setVerticalGroup(
             jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                .addComponent(jBtNovo1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(jBtAlterar1)
-                .addComponent(jBtExcluir1)
-                .addComponent(jBtSalvar1)
-                .addComponent(jBtCancelar1)
                 .addComponent(jBtImpressao1)
-                .addComponent(jBtSair1)
                 .addComponent(jBtObservacao1)
                 .addComponent(jBtBuscarRegPortaria1)
-                .addComponent(jBtAuditoriaPronCrc1))
+                .addComponent(jBtAuditoriaPronCrc1)
+                .addComponent(jBtSair1)
+                .addComponent(jBtCancelar1)
+                .addComponent(jBtSalvar1)
+                .addComponent(jBtExcluir1)
+                .addComponent(jBtAlterar1)
+                .addComponent(jBtNovo1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
