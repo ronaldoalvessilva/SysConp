@@ -1022,8 +1022,8 @@ public class TelaOcorrenciaBaseUm extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaActionPerformed
         // TODO add your handling code here:
-        TelaAuditoriaOcorrenciasP1 objAudiOcorre = new TelaAuditoriaOcorrenciasP1();
-        TelaModuloPortarias.jPainelPortarias.add(objAudiOcorre);
+        TelaAuditoriaOcorrenciasBaseUm objAudiOcorre = new TelaAuditoriaOcorrenciasBaseUm();
+        TelaModuloBaseUm.jPainelBaseSegurancaPavilhao.add(objAudiOcorre);
         objAudiOcorre.show();
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
 
