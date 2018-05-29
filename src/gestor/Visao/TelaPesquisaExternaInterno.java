@@ -430,7 +430,7 @@ public class TelaPesquisaExternaInterno extends javax.swing.JDialog {
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
             this.pesquisarDadosInternos("SELECT * FROM PRONTUARIOSCRC_TRANSFERENCIA_UNIDADES "
-                    + "WHERE TransfConf='" + transfConf + "'"
+                    + "WHERE TransConf='" + transfConf + "'"
                     + "ORDER BY PRONTUARIOSCRC_TRANSFERENCIA_UNIDADES.IdInternoCrc");
         } else {
             jtotalRegistros.setText("");
@@ -447,7 +447,7 @@ public class TelaPesquisaExternaInterno extends javax.swing.JDialog {
         } else {
             pesquisarDadosInternos("SELECT * FROM PRONTUARIOSCRC_TRANSFERENCIA_UNIDADES "
                     + "WHERE NomeInternoCrc LIKE'%" + jNomeInternoExt.getText() + "%' "
-                    + "AND TransfConf='" + transfConf + "'");
+                    + "AND TransConf='" + transfConf + "'");
         }
     }//GEN-LAST:event_jBtPesqNomeInternoActionPerformed
 
@@ -460,7 +460,7 @@ public class TelaPesquisaExternaInterno extends javax.swing.JDialog {
         } else {
             pesquisarDadosInternos("SELECT * FROM PRONTUARIOSCRC_TRANSFERENCIA_UNIDADES "
                     + "WHERE MaeInternoCrc LIKE'%" + jNomeMaeInterno.getText() + "%' "
-                    + "AND TransfConf='" + transfConf + "'");
+                    + "AND TransConf='" + transfConf + "'");
         }
     }//GEN-LAST:event_jBtPesqNomeMaeInternoActionPerformed
 
@@ -473,7 +473,7 @@ public class TelaPesquisaExternaInterno extends javax.swing.JDialog {
             nomeInterno = "" + jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 3);
             jNomeInternoExt.setText(nomeInterno);
             nomeMaeInterno = "" + jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 4);
-            jNomeInternoExt.setText(nomeMaeInterno);
+            jNomeMaeInterno.setText(nomeMaeInterno);
         }
     }//GEN-LAST:event_jTabelaInternoMouseClicked
 
@@ -632,7 +632,6 @@ public class TelaPesquisaExternaInterno extends javax.swing.JDialog {
     private javax.swing.JTextField jNomeMaeInterno;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel30;
-    private javax.swing.JPanel jPanel31;
     private javax.swing.JPanel jPanel32;
     private javax.swing.JPanel jPanel33;
     private javax.swing.JScrollPane jScrollPane1;
