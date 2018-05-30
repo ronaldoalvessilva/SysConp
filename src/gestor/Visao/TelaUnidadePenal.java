@@ -16,13 +16,6 @@ import gestor.Modelo.UnidadePenal;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
-import static gestor.Visao.TelaModuloTriagem.codAlterar;
-import static gestor.Visao.TelaModuloTriagem.codExcluir;
-import static gestor.Visao.TelaModuloTriagem.codIncluir;
-import static gestor.Visao.TelaModuloTriagem.codUserAcesso;
-import static gestor.Visao.TelaModuloTriagem.codigoUser;
-import static gestor.Visao.TelaModuloTriagem.nomeGrupo;
-import static gestor.Visao.TelaModuloTriagem.nomeTela;
 import static gestor.Visao.TelaModuloTriagem.telaCadastroUnidadePrisionalTRI;
 import java.awt.Color;
 import java.awt.HeadlessException;
@@ -37,6 +30,13 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
+import static gestor.Visao.TelaModuloTriagem.codIncluirTRI;
+import static gestor.Visao.TelaModuloTriagem.codAlterarTRI;
+import static gestor.Visao.TelaModuloTriagem.codExcluirTRI;
+import static gestor.Visao.TelaModuloTriagem.codigoUserTRI;
+import static gestor.Visao.TelaModuloTriagem.codUserAcessoTRI;
+import static gestor.Visao.TelaModuloTriagem.nomeGrupoTRI;
+import static gestor.Visao.TelaModuloTriagem.nomeTelaTRI;
 
 /**
  *
@@ -663,7 +663,7 @@ public final class TelaUnidadePenal extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroUnidadePrisionalTRI) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroUnidadePrisionalTRI) && codIncluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             acao = 1;
             Novo();
             statusMov = "Incluiu";
@@ -676,7 +676,7 @@ public final class TelaUnidadePenal extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroUnidadePrisionalTRI) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroUnidadePrisionalTRI) && codAlterarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             acao = 2;
             Alterar();
             statusMov = "Alterou";
@@ -689,7 +689,7 @@ public final class TelaUnidadePenal extends javax.swing.JInternalFrame {
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroUnidadePrisionalTRI) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroUnidadePrisionalTRI) && codExcluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -714,7 +714,7 @@ public final class TelaUnidadePenal extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroUnidadePrisionalTRI) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroUnidadePrisionalTRI) && codExcluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             if (jComboBoxClasse.getSelectedItem().equals("Selecione...")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o tipo de unidade.");
             } else if (jDescricao.getText().isEmpty() || jDescricao.getText().equals("")) {

@@ -24,7 +24,6 @@ import static gestor.Visao.TelaModuloSeguranca.codigoUser;
 import static gestor.Visao.TelaModuloSeguranca.nomeGrupo;
 import static gestor.Visao.TelaModuloSeguranca.nomeTela;
 import static gestor.Visao.TelaModuloSeguranca.telaLocalPertencesInternos;
-import static gestor.Visao.TelaModuloSeguranca.telaObjetosInternos;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.util.ArrayList;

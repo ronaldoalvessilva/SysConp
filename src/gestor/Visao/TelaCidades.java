@@ -16,14 +16,6 @@ import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
-import static gestor.Visao.TelaModuloTriagem.codAlterar;
-import static gestor.Visao.TelaModuloTriagem.codExcluir;
-import static gestor.Visao.TelaModuloTriagem.codGravar;
-import static gestor.Visao.TelaModuloTriagem.codIncluir;
-import static gestor.Visao.TelaModuloTriagem.codUserAcesso;
-import static gestor.Visao.TelaModuloTriagem.codigoUser;
-import static gestor.Visao.TelaModuloTriagem.nomeGrupo;
-import static gestor.Visao.TelaModuloTriagem.nomeTela;
 import static gestor.Visao.TelaModuloTriagem.telaCadastroCidadesTRI;
 import static gestor.Visao.TelaModuloTriagem.telaCadastroPaisesTRI;
 import java.awt.Color;
@@ -32,6 +24,14 @@ import javax.swing.text.MaskFormatter;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import static gestor.Visao.TelaModuloTriagem.codIncluirTRI;
+import static gestor.Visao.TelaModuloTriagem.codAlterarTRI;
+import static gestor.Visao.TelaModuloTriagem.codExcluirTRI;
+import static gestor.Visao.TelaModuloTriagem.codGravarTRI;
+import static gestor.Visao.TelaModuloTriagem.codigoUserTRI;
+import static gestor.Visao.TelaModuloTriagem.codUserAcessoTRI;
+import static gestor.Visao.TelaModuloTriagem.nomeGrupoTRI;
+import static gestor.Visao.TelaModuloTriagem.nomeTelaTRI;
 
 /**
  *
@@ -526,7 +526,7 @@ public class TelaCidades extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroCidadesTRI) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroCidadesTRI) && codIncluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             acao = 1;
             Novo();
             statusMov = "Incluiu";
@@ -540,7 +540,7 @@ public class TelaCidades extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here: 
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroCidadesTRI) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroCidadesTRI) && codAlterarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM CIDADES WHERE IdCidade='" + jIdCidade.getText() + "'");
@@ -566,7 +566,7 @@ public class TelaCidades extends javax.swing.JInternalFrame {
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here   
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroCidadesTRI) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroCidadesTRI) && codExcluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM CIDADES WHERE IdCidade='" + jIdCidade.getText() + "'");
@@ -587,7 +587,7 @@ public class TelaCidades extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroCidadesTRI) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroCidadesTRI) && codGravarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             if (jNomeCidade.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Nome da Cidade não podem ser em branco");
             } else {

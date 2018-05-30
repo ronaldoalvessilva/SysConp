@@ -23,6 +23,15 @@ import static gestor.Visao.TelaModuloSeguranca.codigoUser;
 import static gestor.Visao.TelaModuloSeguranca.nomeGrupo;
 import static gestor.Visao.TelaModuloSeguranca.nomeTela;
 import static gestor.Visao.TelaModuloSeguranca.telaObjetosInternos;
+import static gestor.Visao.TelaModuloTriagem.codAlterarTRI;
+import static gestor.Visao.TelaModuloTriagem.codExcluirTRI;
+import static gestor.Visao.TelaModuloTriagem.codGravarTRI;
+import static gestor.Visao.TelaModuloTriagem.codIncluirTRI;
+import static gestor.Visao.TelaModuloTriagem.codUserAcessoTRI;
+import static gestor.Visao.TelaModuloTriagem.codigoUserTRI;
+import static gestor.Visao.TelaModuloTriagem.nomeGrupoTRI;
+import static gestor.Visao.TelaModuloTriagem.nomeTelaTRI;
+import static gestor.Visao.TelaModuloTriagem.telaObjetosInternosTRI;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -311,6 +320,7 @@ public class TelaPertences extends javax.swing.JInternalFrame {
 
         jBtNovaFoto.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jBtNovaFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7183_16x16.png"))); // NOI18N
+        jBtNovaFoto.setContentAreaFilled(false);
         jBtNovaFoto.setEnabled(false);
         jBtNovaFoto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -320,6 +330,7 @@ public class TelaPertences extends javax.swing.JInternalFrame {
 
         jBtExcluirFoto.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jBtExcluirFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
+        jBtExcluirFoto.setContentAreaFilled(false);
         jBtExcluirFoto.setEnabled(false);
         jBtExcluirFoto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -356,9 +367,9 @@ public class TelaPertences extends javax.swing.JInternalFrame {
                         .addGroup(jPanel3Layout.createSequentialGroup()
                             .addComponent(jComboBoxUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jBtNovaFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBtNovaFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jBtExcluirFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jBtExcluirFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel3Layout.createSequentialGroup()
                             .addComponent(jLabel1)
                             .addGap(143, 143, 143)
@@ -380,9 +391,6 @@ public class TelaPertences extends javax.swing.JInternalFrame {
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtExcluirFoto, jBtNovaFoto});
-
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -596,6 +604,13 @@ public class TelaPertences extends javax.swing.JInternalFrame {
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
+        } else if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaObjetosInternosTRI) && codIncluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
+            acao = 1;
+            Novo();
+            corCampo();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
@@ -604,6 +619,13 @@ public class TelaPertences extends javax.swing.JInternalFrame {
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
         if (codigoUser == codUserAcesso && nomeTela.equals(telaObjetosInternos) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            acao = 2;
+            Alterar();
+            corCampo();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaObjetosInternosTRI) && codAlterarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             acao = 2;
             Alterar();
             corCampo();
@@ -619,6 +641,8 @@ public class TelaPertences extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if (codigoUser == codUserAcesso && nomeTela.equals(telaObjetosInternos) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             VerificarEntPertences();
+        } else if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaObjetosInternosTRI) && codExcluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
+            VerificarEntPertences();
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a excluir registro.");
         }
@@ -627,6 +651,52 @@ public class TelaPertences extends javax.swing.JInternalFrame {
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
         if (codigoUser == codUserAcesso && nomeTela.equals(telaObjetosInternos) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jDataCadastro.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Data de cadastro não pode ser em branco.");
+                jDataCadastro.requestFocus();
+                jDataCadastro.setBackground(Color.red);
+            } else {
+                if (jDescricaoPertence.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a descrição.");
+                    jDescricaoPertence.requestFocus();
+                    jDescricaoPertence.setBackground(Color.red);
+                } else {
+                    if (caminho == null) {
+                        JOptionPane.showMessageDialog(rootPane, "Insira a foto do pertence.");
+                    } else {
+                        objPer.setStatusLanc((String) jComboBoxStatus.getSelectedItem());
+                        objPer.setDataCadastro(jDataCadastro.getDate());
+                        objPer.setDescricaoPertence(jDescricaoPertence.getText());
+                        objPer.setFotoPertence(caminho);
+                        objPer.setUnidade((String) jComboBoxUnidade.getSelectedItem());
+                        if (acao == 1) {
+                            // log de usuario
+                            objPer.setUsuarioInsert(nameUser);
+                            objPer.setDataInsert(dataModFinal);
+                            objPer.setHoraInsert(horaMov);
+                            control.incluirPertences(objPer);
+                            buscarId();
+                            objLog();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso");
+                            Salvar();
+                        }
+                        if (acao == 2) {
+                            // log de usuario
+                            objPer.setUsuarioUp(nameUser);
+                            objPer.setDataUp(dataModFinal);
+                            objPer.setHoraUp(horaMov);
+                            objPer.setIdPertence(Integer.valueOf(jIDPertences.getText()));
+                            control.alterarPertences(objPer);
+                            objLog();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso");
+                            Salvar();
+                        }
+                    }
+                }
+            }
+        } else if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaObjetosInternosTRI) && codGravarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             if (jDataCadastro.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Data de cadastro não pode ser em branco.");
                 jDataCadastro.requestFocus();

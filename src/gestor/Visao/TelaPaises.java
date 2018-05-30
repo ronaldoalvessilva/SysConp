@@ -16,14 +16,6 @@ import gestor.Modelo.Paises;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
-import static gestor.Visao.TelaModuloTriagem.codAlterar;
-import static gestor.Visao.TelaModuloTriagem.codExcluir;
-import static gestor.Visao.TelaModuloTriagem.codGravar;
-import static gestor.Visao.TelaModuloTriagem.codIncluir;
-import static gestor.Visao.TelaModuloTriagem.codUserAcesso;
-import static gestor.Visao.TelaModuloTriagem.codigoUser;
-import static gestor.Visao.TelaModuloTriagem.nomeGrupo;
-import static gestor.Visao.TelaModuloTriagem.nomeTela;
 import static gestor.Visao.TelaModuloTriagem.telaCadastroPaisesTRI;
 import static gestor.Visao.TelaModuloTriagem.telaCadastroUnidadePrisionalTRI;
 import java.sql.*;
@@ -34,6 +26,14 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import static gestor.Visao.TelaModuloTriagem.codIncluirTRI;
+import static gestor.Visao.TelaModuloTriagem.codAlterarTRI;
+import static gestor.Visao.TelaModuloTriagem.codExcluirTRI;
+import static gestor.Visao.TelaModuloTriagem.codGravarTRI;
+import static gestor.Visao.TelaModuloTriagem.codigoUserTRI;
+import static gestor.Visao.TelaModuloTriagem.codUserAcessoTRI;
+import static gestor.Visao.TelaModuloTriagem.nomeGrupoTRI;
+import static gestor.Visao.TelaModuloTriagem.nomeTelaTRI;
 
 /**
  *
@@ -508,7 +508,7 @@ public class TelaPaises extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroPaisesTRI) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroPaisesTRI) && codIncluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             acao = 1;
             Novo();
             statusMov = "Incluiu";
@@ -521,7 +521,7 @@ public class TelaPaises extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroPaisesTRI) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroPaisesTRI) && codAlterarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             if (jNomePais.getText().equals("BRASIL")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse País não pode ser modificado...!!!");
             } else {
@@ -551,7 +551,7 @@ public class TelaPaises extends javax.swing.JInternalFrame {
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroPaisesTRI) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroPaisesTRI) && codExcluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             if (jNomePais.getText().equals("BRASIL")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse País não pode ser excluído...!!!");
             } else {
@@ -576,7 +576,7 @@ public class TelaPaises extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroPaisesTRI) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroPaisesTRI) && codGravarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             if (jNomePais.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Nome do PAISES não podem ser em branco");
                 jNomePais.requestFocus();

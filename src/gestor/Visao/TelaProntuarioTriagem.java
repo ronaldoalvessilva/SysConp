@@ -24,15 +24,6 @@ import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
-import static gestor.Visao.TelaModuloTriagem.codAbrir;
-import static gestor.Visao.TelaModuloTriagem.codAlterar;
-import static gestor.Visao.TelaModuloTriagem.codExcluir;
-import static gestor.Visao.TelaModuloTriagem.codGravar;
-import static gestor.Visao.TelaModuloTriagem.codIncluir;
-import static gestor.Visao.TelaModuloTriagem.codUserAcesso;
-import static gestor.Visao.TelaModuloTriagem.codigoUser;
-import static gestor.Visao.TelaModuloTriagem.nomeGrupo;
-import static gestor.Visao.TelaModuloTriagem.nomeTela;
 import static gestor.Visao.TelaModuloTriagem.telaCadastroProntuarioBioTRI;
 import static gestor.Visao.TelaModuloTriagem.telaCadastroProntuarioBuscarEntTRI;
 import static gestor.Visao.TelaModuloTriagem.telaCadastroProntuarioImportTRI;
@@ -66,6 +57,15 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 import org.opencv.core.Core;
+import static gestor.Visao.TelaModuloTriagem.codAbrirTRI;
+import static gestor.Visao.TelaModuloTriagem.codIncluirTRI;
+import static gestor.Visao.TelaModuloTriagem.codAlterarTRI;
+import static gestor.Visao.TelaModuloTriagem.codExcluirTRI;
+import static gestor.Visao.TelaModuloTriagem.codGravarTRI;
+import static gestor.Visao.TelaModuloTriagem.codigoUserTRI;
+import static gestor.Visao.TelaModuloTriagem.codUserAcessoTRI;
+import static gestor.Visao.TelaModuloTriagem.nomeGrupoTRI;
+import static gestor.Visao.TelaModuloTriagem.nomeTelaTRI;
 
 /**
  *
@@ -3625,7 +3625,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroProntuarioManuTRI) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioManuTRI) && codIncluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             verificarParamentrosCrc();
             acao = 1;
             Novo();
@@ -3640,7 +3640,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:  
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroProntuarioManuTRI) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioManuTRI) && codAlterarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM PARAMETROSCRC "
@@ -3666,7 +3666,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroProntuarioManuTRI) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioManuTRI) && codExcluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             verificarEntradaInterno();
         } else {
             JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
@@ -3675,7 +3675,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroProntuarioManuTRI) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioManuTRI) && codGravarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             if (jNomeInterno.getText().isEmpty() || jNomeInterno.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Nome do INTERNO não pode ser em branco...");
                 jNomeInterno.requestFocus();
@@ -4223,7 +4223,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     private void jBtImpressaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImpressaoActionPerformed
         // TODO add your handling code here:
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaCadastroProntuarioPrintTRI) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES") || codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioPrintTRI) && codAbrirTRI == 1) {
             if (jIdInterno.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Não é possível listar o relatório, pois, o interno não código.");
             } else {
@@ -4285,7 +4285,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     private void jBtObservacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtObservacaoActionPerformed
         // TODO add your handling code here:
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaCadastroProntuarioObsTRI) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES") || codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioObsTRI) && codAbrirTRI == 1) {
             TelaObservacoesInternos objObsInt = new TelaObservacoesInternos();
             TelaModuloCRC.jPainelCRC.add(objObsInt);
             objObsInt.show();
@@ -4296,7 +4296,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     private void jBtBuscarRegPortariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtBuscarRegPortariaActionPerformed
         // TODO add your handling code here:    
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaCadastroProntuarioBuscarEntTRI) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES") || codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioBuscarEntTRI) && codAbrirTRI == 1) {
             TelaPesqEntradaIntPortariaTriagem objPesqRegInternos = new TelaPesqEntradaIntPortariaTriagem();
             TelaModuloTriagem.jPainelTriagem.add(objPesqRegInternos);
             objPesqRegInternos.show();
@@ -4312,7 +4312,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     private void jBtNovo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovo1ActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroProntuarioManuTRI) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioManuTRI) && codIncluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             verificarParamentrosCrc();
             acao = 1;
             Novo();
@@ -4327,7 +4327,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     private void jBtAlterar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterar1ActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroProntuarioManuTRI) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioManuTRI) && codAlterarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM PARAMETROSCRC WHERE UsuarioAutorizado='" + nameUser + "'");
@@ -4353,7 +4353,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     private void jBtExcluir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluir1ActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroProntuarioManuTRI) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioManuTRI) && codExcluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             verificarEntradaInterno();
         } else {
             JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
@@ -4362,7 +4362,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     private void jBtSalvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvar1ActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaCadastroProntuarioManuTRI) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioManuTRI) && codGravarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             if (jNomeInterno.getText().isEmpty() || jNomeInterno.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Nome do INTERNO não pode ser em branco...");
                 jNomeInterno.requestFocus();
@@ -4592,7 +4592,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     private void jBtImpressao1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImpressao1ActionPerformed
         // TODO add your handling code here:
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaCadastroProntuarioPrintTRI) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES") || codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioPrintTRI) && codAbrirTRI == 1) {
             if (jIdInterno.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Não é possível listar o relatório, pois, o interno não código.");
             } else {
@@ -4641,7 +4641,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     private void jBtObservacao1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtObservacao1ActionPerformed
         // TODO add your handling code here:
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaCadastroProntuarioObsTRI) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES") || codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioObsTRI) && codAbrirTRI == 1) {
             TelaObservacoesInternos objObsInt = new TelaObservacoesInternos();
             TelaModuloCRC.jPainelCRC.add(objObsInt);
             objObsInt.show();
@@ -4652,7 +4652,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     private void jBtBuscarRegPortaria1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtBuscarRegPortaria1ActionPerformed
         // TODO add your handling code here:
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaCadastroProntuarioBuscarEntTRI) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES") || codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioBuscarEntTRI) && codAbrirTRI == 1) {
             TelaPesqEntradaIntPortariaTriagem objPesqRegInternos = new TelaPesqEntradaIntPortariaTriagem();
             TelaModuloTriagem.jPainelTriagem.add(objPesqRegInternos);
             objPesqRegInternos.show();
@@ -4663,7 +4663,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     private void jBtPeculiaridadeFrenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPeculiaridadeFrenteActionPerformed
         // TODO add your handling code here:
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaCadastroProntuarioPecFreTRI) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES") || codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioPecFreTRI) && codAbrirTRI == 1) {
             mostrarTelaPeculiaridadeFrenteTriagem();
         } else {
             JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
@@ -4672,7 +4672,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     private void jBtPeculiaridadeCostasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPeculiaridadeCostasActionPerformed
         // TODO add your handling code here:
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaCadastroProntuarioPecCosTRI) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES") || codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioPecCosTRI) && codAbrirTRI == 1) {
             mostrarTelaPeculiaridadeCostasTriagem();
         } else {
             JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
@@ -4681,7 +4681,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     private void jBtBiometriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtBiometriaActionPerformed
         // TODO add your handling code here:
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaCadastroProntuarioBioTRI) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES") || codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioBioTRI) && codAbrirTRI == 1) {
             mostrarTelaBiometriaInterno();
         } else {
             JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
@@ -4879,7 +4879,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     private void jBtImportarProntuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImportarProntuarioActionPerformed
         // TODO add your handling code here:
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaCadastroProntuarioImportTRI) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES") || codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioImportTRI) && codAbrirTRI == 1) {
             mostrarTelaPesquisaExterna();
         } else {
             JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
