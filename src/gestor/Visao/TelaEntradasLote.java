@@ -28,6 +28,19 @@ import gestor.Modelo.RolVisitas;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloTriagem.codigoUserGroupTRI;
+import static gestor.Visao.TelaModuloTriagem.codigoGrupoTRI;
+import static gestor.Visao.TelaModuloTriagem.codAbrirTRI;
+import static gestor.Visao.TelaModuloTriagem.codGravarTRI;
+import static gestor.Visao.TelaModuloTriagem.codConcultarTRI;
+import static gestor.Visao.TelaModuloTriagem.codAlterarTRI;
+import static gestor.Visao.TelaModuloTriagem.codExcluirTRI;
+import static gestor.Visao.TelaModuloTriagem.codIncluirTRI;
+import static gestor.Visao.TelaModuloTriagem.codUserAcessoTRI;
+import static gestor.Visao.TelaModuloTriagem.codigoUserTRI;
+import static gestor.Visao.TelaModuloTriagem.nomeGrupoTRI;
+import static gestor.Visao.TelaModuloTriagem.nomeTelaTRI;
+import static gestor.Visao.TelaModuloTriagem.telaEntredaInternosManuTRI;
 import java.awt.Color;
 import java.awt.HeadlessException;
 import java.awt.Image;
@@ -1357,289 +1370,322 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
 
     private void jBtSalvarlancActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarlancActionPerformed
         // TODO add your handling code here:
-        if (jDescricaoOp.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome da operação de entrada");
-            jDescricaoOp.requestFocus();
-        } else {
-            if (jDataLancamento.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data de lançamento");
-                jDataLancamento.requestFocus();
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaEntredaInternosManuTRI) && codGravarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
+            if (jDescricaoOp.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome da operação de entrada");
+                jDescricaoOp.requestFocus();
             } else {
-                objEntLote.setDateLancamento(jDataLancamento.getDate());
-                objEntLote.setStatusEntrada(statusEntrada);
-                objEntLote.setNomeOperacao(jDescricaoOp.getText());
-                objEntLote.setObs(jTextAreaObs.getText());
-                // log de usuario
-                objEntLote.setUsuarioInsert(nameUser);
-                objEntLote.setDataInsert(dataModFinal);
-                objEntLote.setHoraInsert(horaMov);
-                try {
-                    if (acao == 1) {
-                        control.incluirEntradaLote(objEntLote);
-                        buscarCodEnt();
-                        objLog();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        JOptionPane.showMessageDialog(rootPane, "Registro INCLUIDO com sucesso, será necessário\nincluir os internos na aba (INTERNOS)\npara que possa ser registrado a movimentação.");
-                        Salvar();
+                if (jDataLancamento.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data de lançamento");
+                    jDataLancamento.requestFocus();
+                } else {
+                    objEntLote.setDateLancamento(jDataLancamento.getDate());
+                    objEntLote.setStatusEntrada(statusEntrada);
+                    objEntLote.setNomeOperacao(jDescricaoOp.getText());
+                    objEntLote.setObs(jTextAreaObs.getText());
+                    // log de usuario
+                    objEntLote.setUsuarioInsert(nameUser);
+                    objEntLote.setDataInsert(dataModFinal);
+                    objEntLote.setHoraInsert(horaMov);
+                    try {
+                        if (acao == 1) {
+                            control.incluirEntradaLote(objEntLote);
+                            buscarCodEnt();
+                            objLog();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            JOptionPane.showMessageDialog(rootPane, "Registro INCLUIDO com sucesso, será necessário\nincluir os internos na aba (INTERNOS)\npara que possa ser registrado a movimentação.");
+                            Salvar();
+                        }
+                        if (acao == 2) {
+                            // log de usuario
+                            objEntLote.setUsuarioUp(nameUser);
+                            objEntLote.setDataUp(dataModFinal);
+                            objEntLote.setHoraUp(horaMov);
+                            objEntLote.setIdLanc(Integer.parseInt(jIDLanc.getText()));
+                            control.alterarEntradaLote(objEntLote);
+                            objLog();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            JOptionPane.showMessageDialog(rootPane, "Registro ALTERADO com sucesso. Se necessário\n faça aleração dos internos na aba(INTERNOS)");
+                            Salvar();
+                        }
+                    } catch (HeadlessException e) {
+                        JOptionPane.showMessageDialog(rootPane, "Não foi possível GRAVAR registro !!!\n" + e);
                     }
-                    if (acao == 2) {
-                        // log de usuario
-                        objEntLote.setUsuarioUp(nameUser);
-                        objEntLote.setDataUp(dataModFinal);
-                        objEntLote.setHoraUp(horaMov);
-                        objEntLote.setIdLanc(Integer.parseInt(jIDLanc.getText()));
-                        control.alterarEntradaLote(objEntLote);
-                        objLog();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        JOptionPane.showMessageDialog(rootPane, "Registro ALTERADO com sucesso. Se necessário\n faça aleração dos internos na aba(INTERNOS)");
-                        Salvar();
-                    }
-                } catch (HeadlessException e) {
-                    JOptionPane.showMessageDialog(rootPane, "Não foi possível GRAVAR registro !!!\n" + e);
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso nao autorizado.");
         }
     }//GEN-LAST:event_jBtSalvarlancActionPerformed
 
     private void jBtExcluirlancActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirlancActionPerformed
-
-        objEntLote.setStatusEntrada(jStatusEntrada.getText());
-        if (jStatusEntrada.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser excluida, o mesmo encontra-se FINALIZADO");
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaEntredaInternosManuTRI) && codExcluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
+            objEntLote.setStatusEntrada(jStatusEntrada.getText());
+            if (jStatusEntrada.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser excluida, o mesmo encontra-se FINALIZADO");
+            } else {
+                verificarItens();
+            }
         } else {
-            verificarItens();
+            JOptionPane.showMessageDialog(rootPane, "Acesso nao autorizado.");
         }
     }//GEN-LAST:event_jBtExcluirlancActionPerformed
 
     private void jBtAlterarlancActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarlancActionPerformed
         // TODO add your handling code here:
-        objEntLote.setStatusEntrada(jStatusEntrada.getText());
-        if (jStatusEntrada.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaEntredaInternosManuTRI) && codAlterarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
+            objEntLote.setStatusEntrada(jStatusEntrada.getText());
+            if (jStatusEntrada.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                Alterar();
+                corCampo();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 2;
-            Alterar();
-            corCampo();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Acesso nao autorizado.");
         }
     }//GEN-LAST:event_jBtAlterarlancActionPerformed
 
     private void jBtNovolancActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovolancActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampo();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaEntredaInternosManuTRI) && codIncluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
+            acao = 1;
+            Novo();
+            corCampo();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso nao autorizado.");
+        }
     }//GEN-LAST:event_jBtNovolancActionPerformed
 
     private void jBtNovoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoItemActionPerformed
         // TODO add your handling code here:
-        objEntLote.setStatusEntrada(jStatusEntrada.getText());
-        if (jStatusEntrada.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaEntredaInternosManuTRI);
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaEntredaInternosManuTRI) && codIncluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
+            objEntLote.setStatusEntrada(jStatusEntrada.getText());
+            if (jStatusEntrada.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 3;
+                NovoItem();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 3;
-            NovoItem();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Acesso nao autorizado.");
         }
     }//GEN-LAST:event_jBtNovoItemActionPerformed
 
     private void jBtAlterarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarItemActionPerformed
         // TODO add your handling code here:
-        objEntLote.setStatusEntrada(jStatusEntrada.getText());
-        if (jStatusEntrada.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaEntredaInternosManuTRI);
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaEntredaInternosManuTRI) && codAlterarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
+            objEntLote.setStatusEntrada(jStatusEntrada.getText());
+            if (jStatusEntrada.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 4;
+                flag = 1;
+                AlterarItem();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 4;
-            flag = 1;
-            AlterarItem();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Acesso nao autorizado.");
         }
     }//GEN-LAST:event_jBtAlterarItemActionPerformed
 
     private void jBtExcluirItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirItemActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        objEntLote.setStatusEntrada(jStatusEntrada.getText());
-        if (jStatusEntrada.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse  interno não poderá ser excluído, o mesmo encontra-se FINALIZADO");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o INTERNO selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objItens.setIdItem(Integer.valueOf(idItem));
-                controle.excluirItensEntLote(objItens);
-                //
-                objItens.setIdItem(coditem);
-                objItens.setIdEntrada(Integer.valueOf(jIDLanc.getText()));
-                controlMov.excluirMovInterno(objItens);
-                // Alterar na tabela de ITENSNOVAENTRADA como "não" para poder ser excluido caso necessário
-                objItensNova.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
-                objItensNova.setUtilizacaoCrc(excluirUtilizacao); // Passa como "não"
-                controlPort.alterarUtilizacaoNovaEntrada(objItensNova); // Tabela ITENSNOVAENTRADA
-                // ATUALIZAR OS DADOS PENAIS COM A NOVA DA DE ENTRADA - 11/07/2016      
-                jDataEntrada.setDate(null);
-                objDadosPena.setDataNovaEntrada(jDataEntrada.getDate());
-                objDadosPena.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
-                controleNovaData.incluirDataNovaEntrada(objDadosPena);
-                //
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                ExcluirItem();
-                preencherTabelaItens("SELECT * FROM ITENSENTRADA "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON ITENSENTRADA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "INNER JOIN UNIDADE ON ITENSENTRADA.IdUnid=UNIDADE.IdUnid "
-                        + "INNER JOIN DADOSPENAISINTERNOS "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                        + "WHERE IdEntrada='" + jIDLanc.getText() + "'");
+        buscarAcessoUsuario(telaEntredaInternosManuTRI);
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaEntredaInternosManuTRI) && codExcluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objEntLote.setStatusEntrada(jStatusEntrada.getText());
+            if (jStatusEntrada.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse  interno não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o INTERNO selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objItens.setIdItem(Integer.valueOf(idItem));
+                    controle.excluirItensEntLote(objItens);
+                    //
+                    objItens.setIdItem(coditem);
+                    objItens.setIdEntrada(Integer.valueOf(jIDLanc.getText()));
+                    controlMov.excluirMovInterno(objItens);
+                    // Alterar na tabela de ITENSNOVAENTRADA como "não" para poder ser excluido caso necessário
+                    objItensNova.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                    objItensNova.setUtilizacaoCrc(excluirUtilizacao); // Passa como "não"
+                    controlPort.alterarUtilizacaoNovaEntrada(objItensNova); // Tabela ITENSNOVAENTRADA
+                    // ATUALIZAR OS DADOS PENAIS COM A NOVA DA DE ENTRADA - 11/07/2016      
+                    jDataEntrada.setDate(null);
+                    objDadosPena.setDataNovaEntrada(jDataEntrada.getDate());
+                    objDadosPena.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                    controleNovaData.incluirDataNovaEntrada(objDadosPena);
+                    //
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    ExcluirItem();
+                    preencherTabelaItens("SELECT * FROM ITENSENTRADA "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON ITENSENTRADA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN UNIDADE ON ITENSENTRADA.IdUnid=UNIDADE.IdUnid "
+                            + "INNER JOIN DADOSPENAISINTERNOS "
+                            + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                            + "WHERE IdEntrada='" + jIDLanc.getText() + "'");
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso nao autorizado.");
         }
     }//GEN-LAST:event_jBtExcluirItemActionPerformed
 
     private void jBtSalvarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarItemActionPerformed
         // TODO add your handling code here:
-        if (jNomeInterno.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Nome do Interno não pode ser em branco,\nutilize o botão pesquisar ao lado.");
-            jNomeInterno.requestFocus();
-        } else {
-            if (jComboBoxUnidPenal.getSelectedItem() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Procedência (UNIDADE PENAL) não pode ser em branco.");
-                jComboBoxUnidPenal.requestFocus();
+        buscarAcessoUsuario(telaEntredaInternosManuTRI);
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaEntredaInternosManuTRI) && codGravarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
+            if (jNomeInterno.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Nome do Interno não pode ser em branco,\nutilize o botão pesquisar ao lado.");
+                jNomeInterno.requestFocus();
             } else {
-                if (jDataEntrada.getDate() == null) {
-                    JOptionPane.showMessageDialog(rootPane, "Data de Entrada não pode ser em branco.");
-                    jDataEntrada.requestFocus();
+                if (jComboBoxUnidPenal.getSelectedItem() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Procedência (UNIDADE PENAL) não pode ser em branco.");
+                    jComboBoxUnidPenal.requestFocus();
                 } else {
-                    if (jDataCrime.getDate() == null) {
-                        JOptionPane.showMessageDialog(rootPane, "Data do Crime não pode ser em branco.");
-                        jDataCrime.requestFocus();
+                    if (jDataEntrada.getDate() == null) {
+                        JOptionPane.showMessageDialog(rootPane, "Data de Entrada não pode ser em branco.");
+                        jDataEntrada.requestFocus();
                     } else {
-                        if (jDataPrisao.getDate() == null) {
-                            JOptionPane.showMessageDialog(rootPane, "Data da Prisão não pode ser em branco.");
-                            jDataPrisao.requestFocus();
+                        if (jDataCrime.getDate() == null) {
+                            JOptionPane.showMessageDialog(rootPane, "Data do Crime não pode ser em branco.");
+                            jDataCrime.requestFocus();
                         } else {
-                            if (jDataCondenacao.getDate() == null) {
-                                JOptionPane.showMessageDialog(rootPane, "Data da Condenção não pode ser em branco.");
-                                jDataCondenacao.requestFocus();
+                            if (jDataPrisao.getDate() == null) {
+                                JOptionPane.showMessageDialog(rootPane, "Data da Prisão não pode ser em branco.");
+                                jDataPrisao.requestFocus();
                             } else {
-                                if (jDataTerminoPena.getDate() == null) {
-                                    JOptionPane.showMessageDialog(rootPane, "Data do Termino da Pena não pode ser em branco.");
-                                    jDataTerminoPena.requestFocus();
+                                if (jDataCondenacao.getDate() == null) {
+                                    JOptionPane.showMessageDialog(rootPane, "Data da Condenção não pode ser em branco.");
+                                    jDataCondenacao.requestFocus();
                                 } else {
-                                    objItens.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
-                                    objItens.setNomeInterno(jNomeInterno.getText());
-                                    objItens.setNomeUnidade((String) jComboBoxUnidPenal.getSelectedItem());
-                                    objProCrc.setSexo((String) jComboBoxSexo.getSelectedItem());
-                                    objDadosPena.setDataEntrada(jDataEntrada.getDate());
-                                    objDadosPena.setDataCrime(jDataCrime.getDate());
-                                    objDadosPena.setDataPrisao(jDataPrisao.getDate());
-                                    objDadosPena.setDataCondenacao(jDataCondenacao.getDate());
-                                    objDadosPena.setRegime((String) jComboBoxRegime.getSelectedItem());
-                                    objDadosPena.setPena(jPena.getText());
-                                    objDadosPena.setArtigo1(jArtigo1.getText());
-                                    objDadosPena.setArtigo2(jArtigo2.getText());
-                                    objDadosPena.setArtigo3(jArtigo3.getText());
-                                    objDadosPena.setParagrafo1(jParagrafo1.getText());
-                                    objDadosPena.setParagrafo2(jParagrafo2.getText());
-                                    objDadosPena.setParagrafo3(jParagrafo3.getText());
-                                    objDadosPena.setTerminoPena(jDataTerminoPena.getDate());
-                                    objItens();
-                                    // Incluir os itens da Entrada
-                                    if (acao == 3) {
-                                        objItens.setIdEntrada((Integer.parseInt(jIDLanc.getText())));
+                                    if (jDataTerminoPena.getDate() == null) {
+                                        JOptionPane.showMessageDialog(rootPane, "Data do Termino da Pena não pode ser em branco.");
+                                        jDataTerminoPena.requestFocus();
+                                    } else {
+                                        objItens.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                                        objItens.setNomeInterno(jNomeInterno.getText());
+                                        objItens.setNomeUnidade((String) jComboBoxUnidPenal.getSelectedItem());
+                                        objProCrc.setSexo((String) jComboBoxSexo.getSelectedItem());
+                                        objDadosPena.setDataEntrada(jDataEntrada.getDate());
+                                        objDadosPena.setDataCrime(jDataCrime.getDate());
+                                        objDadosPena.setDataPrisao(jDataPrisao.getDate());
+                                        objDadosPena.setDataCondenacao(jDataCondenacao.getDate());
+                                        objDadosPena.setRegime((String) jComboBoxRegime.getSelectedItem());
+                                        objDadosPena.setPena(jPena.getText());
+                                        objDadosPena.setArtigo1(jArtigo1.getText());
+                                        objDadosPena.setArtigo2(jArtigo2.getText());
+                                        objDadosPena.setArtigo3(jArtigo3.getText());
+                                        objDadosPena.setParagrafo1(jParagrafo1.getText());
+                                        objDadosPena.setParagrafo2(jParagrafo2.getText());
+                                        objDadosPena.setParagrafo3(jParagrafo3.getText());
+                                        objDadosPena.setTerminoPena(jDataTerminoPena.getDate());
                                         objItens();
-                                        controle.incluirItensEntLote(objItens);
-                                        //
-                                        buscarIdItem();
-                                        // MODIFICAR A SITUAÇÃO DO INTERNO NA TABELA PRONTUARIOSCRC
-                                        objProCrc.setIdInterno(Integer.valueOf(jIDInterno.getText()));
-                                        objProCrc.setSituacao(situacao);
-                                        mod.alterarSituacaoInterno(objProCrc);
-                                        // TABLEA DADOSPENAISINTERNOS
-                                        objDadosPena.setIdInternoCrc(Integer.parseInt(jIDInterno.getText()));
-                                        objDadosPena.setNomeUnidade((String) jComboBoxUnidPenal.getSelectedItem());
-                                        controlInterno.alterarDadosPenaisLote(objDadosPena);
-                                        //Inserir na tabela de movimentação                                              
-                                        objItens.setDataEntrada(jDataEntrada.getDate());
-                                        objItens.setIdItem(codItemEnt);
-                                        controlMov.incluirMovInterno(objItens);
-                                        //
-                                        objItensNova.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
-                                        objItensNova.setUtilizacaoCrc(utilizacaoCrc);
-                                        controlPort.alterarUtilizacaoNovaEntrada(objItensNova);
-                                        // ATUALIZAR OS DADOS PENAIS COM A NOVA DA DE ENTRADA - 11/07/2016               
-                                        objDadosPena.setDataNovaEntrada(jDataEntrada.getDate());
-                                        objDadosPena.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
-                                        controleNovaData.incluirDataNovaEntrada(objDadosPena);
-                                        //ATUALIZAR ROL DE VISITAS
-                                        atualizarRolSaidaInterno();
-                                        //
-                                        objLog2();
-                                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                        //                                        
-                                        SalvarItem();
-                                        preencherTabelaItens("SELECT * FROM ITENSENTRADA "
-                                                + "INNER JOIN PRONTUARIOSCRC "
-                                                + "ON ITENSENTRADA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                                + "INNER JOIN UNIDADE "
-                                                + "ON ITENSENTRADA.IdUnid=UNIDADE.IdUnid "
-                                                + "INNER JOIN DADOSPENAISINTERNOS "
-                                                + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                                                + "WHERE IdEntrada='" + jIDLanc.getText() + "'");
-                                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso...");
-                                    }
-                                    // Alterar os itens da Entrada
-                                    if (acao == 4) {
-                                        // Para o log do registro
-                                        objItens.setUsuarioUp(nameUser);
-                                        objItens.setDataUp(jDataSistema.getText());
-                                        objItens.setHoraUp(jHoraSistema.getText());
-                                        //
-                                        objItens.setIdEntrada((Integer.parseInt(jIDLanc.getText())));
-                                        objProCrc.setIdInterno(Integer.parseInt(jIDInterno.getText()));
-                                        objItens.setIdItem(Integer.valueOf(idItem));
-                                        controle.alterarItensEntLote(objItens);
-                                        //
-                                        objDadosPena.setIdInternoCrc(Integer.parseInt(jIDInterno.getText()));
-                                        objDadosPena.setNomeUnidade((String) jComboBoxUnidPenal.getSelectedItem());
-                                        controlInterno.alterarDadosPenaisLote(objDadosPena);
-                                        //
-                                        objItens.setIdEntrada(Integer.valueOf(jIDLanc.getText()));
-                                        objItens.setIdInternoCrc(Integer.parseInt(jIDInterno.getText()));
-                                        controlMov.alterarMovInterno(objItens);
-                                        // ATUALIZAR OS DADOS PENAIS COM A NOVA DA DE ENTRADA - 11/07/2016               
-                                        objDadosPena.setDataNovaEntrada(jDataEntrada.getDate());
-                                        objDadosPena.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
-                                        controleNovaData.incluirDataNovaEntrada(objDadosPena);
-                                        //
-                                        objProCrc.setIdInterno(Integer.valueOf(jIDInterno.getText()));
-                                        objProCrc.setSituacao(situacao);
-                                        mod.alterarSituacaoInterno(objProCrc);
-                                        //
-                                        objLog2();
-                                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                                        
-                                        SalvarItem();
-                                        preencherTabelaItens("SELECT * FROM ITENSENTRADA "
-                                                + "INNER JOIN PRONTUARIOSCRC "
-                                                + "ON ITENSENTRADA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                                + "INNER JOIN UNIDADE "
-                                                + "ON ITENSENTRADA.IdUnid=UNIDADE.IdUnid "
-                                                + "INNER JOIN DADOSPENAISINTERNOS "
-                                                + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                                                + "WHERE IdEntrada='" + jIDLanc.getText() + "'");
-                                        JOptionPane.showMessageDialog(rootPane, "Registro gravado coom sucesso...");
+                                        // Incluir os itens da Entrada
+                                        if (acao == 3) {
+                                            objItens.setIdEntrada((Integer.parseInt(jIDLanc.getText())));
+                                            objItens();
+                                            controle.incluirItensEntLote(objItens);
+                                            //
+                                            buscarIdItem();
+                                            // MODIFICAR A SITUAÇÃO DO INTERNO NA TABELA PRONTUARIOSCRC
+                                            objProCrc.setIdInterno(Integer.valueOf(jIDInterno.getText()));
+                                            objProCrc.setSituacao(situacao);
+                                            mod.alterarSituacaoInterno(objProCrc);
+                                            // TABLEA DADOSPENAISINTERNOS
+                                            objDadosPena.setIdInternoCrc(Integer.parseInt(jIDInterno.getText()));
+                                            objDadosPena.setNomeUnidade((String) jComboBoxUnidPenal.getSelectedItem());
+                                            controlInterno.alterarDadosPenaisLote(objDadosPena);
+                                            //Inserir na tabela de movimentação                                              
+                                            objItens.setDataEntrada(jDataEntrada.getDate());
+                                            objItens.setIdItem(codItemEnt);
+                                            controlMov.incluirMovInterno(objItens);
+                                            //
+                                            objItensNova.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                                            objItensNova.setUtilizacaoCrc(utilizacaoCrc);
+                                            controlPort.alterarUtilizacaoNovaEntrada(objItensNova);
+                                            // ATUALIZAR OS DADOS PENAIS COM A NOVA DA DE ENTRADA - 11/07/2016               
+                                            objDadosPena.setDataNovaEntrada(jDataEntrada.getDate());
+                                            objDadosPena.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                                            controleNovaData.incluirDataNovaEntrada(objDadosPena);
+                                            //ATUALIZAR ROL DE VISITAS
+                                            atualizarRolSaidaInterno();
+                                            //
+                                            objLog2();
+                                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                            //                                        
+                                            SalvarItem();
+                                            preencherTabelaItens("SELECT * FROM ITENSENTRADA "
+                                                    + "INNER JOIN PRONTUARIOSCRC "
+                                                    + "ON ITENSENTRADA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                                    + "INNER JOIN UNIDADE "
+                                                    + "ON ITENSENTRADA.IdUnid=UNIDADE.IdUnid "
+                                                    + "INNER JOIN DADOSPENAISINTERNOS "
+                                                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                                                    + "WHERE IdEntrada='" + jIDLanc.getText() + "'");
+                                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso...");
+                                        }
+                                        // Alterar os itens da Entrada
+                                        if (acao == 4) {
+                                            // Para o log do registro
+                                            objItens.setUsuarioUp(nameUser);
+                                            objItens.setDataUp(jDataSistema.getText());
+                                            objItens.setHoraUp(jHoraSistema.getText());
+                                            //
+                                            objItens.setIdEntrada((Integer.parseInt(jIDLanc.getText())));
+                                            objProCrc.setIdInterno(Integer.parseInt(jIDInterno.getText()));
+                                            objItens.setIdItem(Integer.valueOf(idItem));
+                                            controle.alterarItensEntLote(objItens);
+                                            //
+                                            objDadosPena.setIdInternoCrc(Integer.parseInt(jIDInterno.getText()));
+                                            objDadosPena.setNomeUnidade((String) jComboBoxUnidPenal.getSelectedItem());
+                                            controlInterno.alterarDadosPenaisLote(objDadosPena);
+                                            //
+                                            objItens.setIdEntrada(Integer.valueOf(jIDLanc.getText()));
+                                            objItens.setIdInternoCrc(Integer.parseInt(jIDInterno.getText()));
+                                            controlMov.alterarMovInterno(objItens);
+                                            // ATUALIZAR OS DADOS PENAIS COM A NOVA DA DE ENTRADA - 11/07/2016               
+                                            objDadosPena.setDataNovaEntrada(jDataEntrada.getDate());
+                                            objDadosPena.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                                            controleNovaData.incluirDataNovaEntrada(objDadosPena);
+                                            //
+                                            objProCrc.setIdInterno(Integer.valueOf(jIDInterno.getText()));
+                                            objProCrc.setSituacao(situacao);
+                                            mod.alterarSituacaoInterno(objProCrc);
+                                            //
+                                            objLog2();
+                                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                                        
+                                            SalvarItem();
+                                            preencherTabelaItens("SELECT * FROM ITENSENTRADA "
+                                                    + "INNER JOIN PRONTUARIOSCRC "
+                                                    + "ON ITENSENTRADA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                                    + "INNER JOIN UNIDADE "
+                                                    + "ON ITENSENTRADA.IdUnid=UNIDADE.IdUnid "
+                                                    + "INNER JOIN DADOSPENAISINTERNOS "
+                                                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                                                    + "WHERE IdEntrada='" + jIDLanc.getText() + "'");
+                                            JOptionPane.showMessageDialog(rootPane, "Registro gravado coom sucesso...");
+                                        }
                                     }
                                 }
                             }
@@ -1647,6 +1693,8 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
                     }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso nao autorizado.");
         }
     }//GEN-LAST:event_jBtSalvarItemActionPerformed
 
@@ -2866,4 +2914,41 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
         conecta.desconecta();
     }
 
+    public void buscarAcessoUsuario(String pTela) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserTRI = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserTRI + "'");
+            conecta.rs.first();
+            codigoUserGroupTRI = conecta.rs.getInt("IdUsuario");
+            codigoGrupoTRI = conecta.rs.getInt("IdGrupo");
+            nomeGrupoTRI = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserTRI + "' "
+                    + "AND NomeTela='" + pTela + "'");
+            conecta.rs.first();
+            codUserAcessoTRI = conecta.rs.getInt("IdUsuario");
+            codAbrirTRI = conecta.rs.getInt("Abrir");
+            codIncluirTRI = conecta.rs.getInt("Incluir");
+            codAlterarTRI = conecta.rs.getInt("Alterar");
+            codExcluirTRI = conecta.rs.getInt("Excluir");
+            codGravarTRI = conecta.rs.getInt("Gravar");
+            codConcultarTRI = conecta.rs.getInt("Consultar");
+            nomeTelaTRI = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
 }

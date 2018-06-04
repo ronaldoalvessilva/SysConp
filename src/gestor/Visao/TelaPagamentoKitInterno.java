@@ -17,6 +17,27 @@ import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloSeguranca.codIncluir;
+import static gestor.Visao.TelaModuloSeguranca.codUserAcesso;
+import static gestor.Visao.TelaModuloSeguranca.codigoUser;
+import static gestor.Visao.TelaModuloSeguranca.nomeGrupo;
+import static gestor.Visao.TelaModuloSeguranca.nomeTela;
+import static gestor.Visao.TelaModuloTriagem.codAbrirTRI;
+import static gestor.Visao.TelaModuloTriagem.codAlterarTRI;
+import static gestor.Visao.TelaModuloTriagem.codConcultarTRI;
+import static gestor.Visao.TelaModuloTriagem.codExcluirTRI;
+import static gestor.Visao.TelaModuloTriagem.codGravarTRI;
+import static gestor.Visao.TelaModuloTriagem.codIncluirTRI;
+import static gestor.Visao.TelaModuloTriagem.codUserAcessoTRI;
+import static gestor.Visao.TelaModuloTriagem.codigoGrupoTRI;
+import static gestor.Visao.TelaModuloTriagem.codigoUserGroupTRI;
+import static gestor.Visao.TelaModuloTriagem.codigoUserTRI;
+import static gestor.Visao.TelaModuloTriagem.nomeGrupoTRI;
+import static gestor.Visao.TelaModuloTriagem.nomeTelaTRI;
+import static gestor.Visao.TelaModuloTriagem.telaControleDepositoTRI;
+import static gestor.Visao.TelaModuloTriagem.telaEntregaMaterialUsoInternosBioTRI;
+import static gestor.Visao.TelaModuloTriagem.telaEntregaMaterialUsoInternosTRI;
+import static gestor.Visao.TelaModuloTriagem.telaEntregaMaterialUsoTRI;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -1549,108 +1570,123 @@ public class TelaPagamentoKitInterno extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        limparCamposManutencao();
-        bloquearCampos();
-        bloquearBotoes();
-        limparTabelaInternos();
-        acao = 1;
-        Novo();
-        corCampos();
-        preencherComboBoxPavilhao();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaEntregaMaterialUsoTRI) && codIncluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            limparCamposManutencao();
+            bloquearCampos();
+            bloquearBotoes();
+            limparTabelaInternos();
+            acao = 1;
+            Novo();
+            corCampos();
+            preencherComboBoxPavilhao();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso nao autorizado.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        Integer rows = jTabelaInternos.getModel().getRowCount();
-        objPag.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse  Lançamento não poderá ser alterado, o mesmo encontra-se FINALIZADO");
-        } else {
-            if (rows != 0) {
-                jComboBoxPavilhao.setEnabled(!true);
-                preencherComboBoxPavilhao();
-                acao = 2;
-                bloquearCampos();
-                bloquearBotoes();
-                Alterar();
-                corCampos();
-                statusMov = "Alterou";
-                horaMov = jHoraSistema.getText();
-                dataModFinal = jDataSistema.getText();
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaEntregaMaterialUsoTRI) && codAlterarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            Integer rows = jTabelaInternos.getModel().getRowCount();
+            objPag.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse  Lançamento não poderá ser alterado, o mesmo encontra-se FINALIZADO");
             } else {
-                preencherComboBoxPavilhao();
-                acao = 2;
-                bloquearCampos();
-                bloquearBotoes();
-                Alterar();
-                jComboBoxPavilhao.setEnabled(true);
-                corCampos();
-                statusMov = "Alterou";
-                horaMov = jHoraSistema.getText();
-                dataModFinal = jDataSistema.getText();
+                if (rows != 0) {
+                    jComboBoxPavilhao.setEnabled(!true);
+                    preencherComboBoxPavilhao();
+                    acao = 2;
+                    bloquearCampos();
+                    bloquearBotoes();
+                    Alterar();
+                    corCampos();
+                    statusMov = "Alterou";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                } else {
+                    preencherComboBoxPavilhao();
+                    acao = 2;
+                    bloquearCampos();
+                    bloquearBotoes();
+                    Alterar();
+                    jComboBoxPavilhao.setEnabled(true);
+                    corCampos();
+                    statusMov = "Alterou";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                }
             }
-
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso nao autorizado.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        objPag.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse  Lançamento não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaEntregaMaterialUsoTRI) && codExcluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            objPag.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse  Lançamento não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                bloquearCampos();
+                bloquearBotoes();
+                verificarItens();
+            }
         } else {
-            bloquearCampos();
-            bloquearBotoes();
-            verificarItens();
+            JOptionPane.showMessageDialog(rootPane, "Acesso nao autorizado.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataLanc.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "É necessário informar a data do lançamento.");
-        } else if (jResponsavel.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "É necessário informar o responsável pelo registro.");
-        } else if (jComboBoxTipoKit.getSelectedItem().equals("Selecione...") || jComboBoxTipoKit.getSelectedItem().equals("") || jComboBoxTipoKit.getSelectedItem() == null) {
-            JOptionPane.showMessageDialog(rootPane, "É necessário o tipo de kit.");
-        } else if (jComboBoxPavilhao.getSelectedItem().equals("Selecione...") || jComboBoxPavilhao.getSelectedItem().equals("") || jComboBoxPavilhao.getSelectedItem() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe qual é o pavilhão.");
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaEntregaMaterialUsoTRI) && codGravarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jDataLanc.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário informar a data do lançamento.");
+            } else if (jResponsavel.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário informar o responsável pelo registro.");
+            } else if (jComboBoxTipoKit.getSelectedItem().equals("Selecione...") || jComboBoxTipoKit.getSelectedItem().equals("") || jComboBoxTipoKit.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário o tipo de kit.");
+            } else if (jComboBoxPavilhao.getSelectedItem().equals("Selecione...") || jComboBoxPavilhao.getSelectedItem().equals("") || jComboBoxPavilhao.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe qual é o pavilhão.");
+            } else {
+                objPag.setStatusLanc(jStatusLanc.getText());
+                objPag.setDataLanc(jDataLanc.getDate());
+                objPag.setResponsavel(jResponsavel.getText());
+                objPag.setHoraInicio(jHorarioInicial.getText());
+                objPag.setHoraTermino(jHorarioTermino.getText());
+                objPag.setTipoKit((String) jComboBoxTipoKit.getSelectedItem());
+                objPag.setDescricaoPavilhao((String) jComboBoxPavilhao.getSelectedItem());
+                objPag.setObservacao(jObservacao.getText());
+                if (acao == 1) {
+                    objPag.setUsuarioInsert(nameUser);
+                    objPag.setDataInsert(dataModFinal);
+                    objPag.setHorarioInsert(horaMov);
+                    //
+                    control.incluirPagamentoKit(objPag);
+                    buscarCodigo();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação             
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 2) {
+                    objPag.setUsuarioUp(nameUser);
+                    objPag.setDataUp(dataModFinal);
+                    objPag.setHorarioUp(horaMov);
+                    //
+                    objPag.setIdPagto(Integer.valueOf(jIdLanc.getText()));
+                    control.alterarPagamentoKit(objPag);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação     
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
         } else {
-            objPag.setStatusLanc(jStatusLanc.getText());
-            objPag.setDataLanc(jDataLanc.getDate());
-            objPag.setResponsavel(jResponsavel.getText());
-            objPag.setHoraInicio(jHorarioInicial.getText());
-            objPag.setHoraTermino(jHorarioTermino.getText());
-            objPag.setTipoKit((String) jComboBoxTipoKit.getSelectedItem());
-            objPag.setDescricaoPavilhao((String) jComboBoxPavilhao.getSelectedItem());
-            objPag.setObservacao(jObservacao.getText());
-            if (acao == 1) {
-                objPag.setUsuarioInsert(nameUser);
-                objPag.setDataInsert(dataModFinal);
-                objPag.setHorarioInsert(horaMov);
-                //
-                control.incluirPagamentoKit(objPag);
-                buscarCodigo();
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação             
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
-            if (acao == 2) {
-                objPag.setUsuarioUp(nameUser);
-                objPag.setDataUp(dataModFinal);
-                objPag.setHorarioUp(horaMov);
-                //
-                objPag.setIdPagto(Integer.valueOf(jIdLanc.getText()));
-                control.alterarPagamentoKit(objPag);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação     
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+            JOptionPane.showMessageDialog(rootPane, "Acesso nao autorizado.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -1953,282 +1989,316 @@ public class TelaPagamentoKitInterno extends javax.swing.JInternalFrame {
 
     private void jBtNovoInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoInternoActionPerformed
         // TODO add your handling code here:
-        objPag.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaEntregaMaterialUsoInternosTRI);
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaEntregaMaterialUsoTRI) && codIncluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
+            objPag.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 3;
+                limparCampos();
+                bloquearBotoes();
+                NovoInterno();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 3;
-            limparCampos();
-            bloquearBotoes();
-            NovoInterno();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Acesso nao autorizado.");
         }
     }//GEN-LAST:event_jBtNovoInternoActionPerformed
 
     private void jBtAlterarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarInternoActionPerformed
         // TODO add your handling code here:
-        objPag.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaEntregaMaterialUsoInternosTRI);
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaEntregaMaterialUsoTRI) && codAlterarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
+            objPag.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 4;
+                AlterarInterno();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 4;
-            AlterarInterno();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Acesso nao autorizado.");
         }
     }//GEN-LAST:event_jBtAlterarInternoActionPerformed
 
     private void jBtExcluirInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirInternoActionPerformed
         // TODO add your handling code here:
-        objPag.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaEntregaMaterialUsoInternosTRI);
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaEntregaMaterialUsoTRI) && codExcluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
+            objPag.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                objItensPagto.setIdItem(idItem);
+                controle.excluirPagamentoKitInterno(objItensPagto);
+                objLog2();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação            
+                ExcluirInterno();
+                preencherTabelaItensInterno("SELECT * FROM ITENS_PAGAMENTO_KIT_INTERNOS "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON ITENS_PAGAMENTO_KIT_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "WHERE IdPagto='" + jIdLanc.getText() + "'");
+                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUÍDO com sucesso.");
+            }
         } else {
-            statusMov = "Excluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
-            objItensPagto.setIdItem(idItem);
-            controle.excluirPagamentoKitInterno(objItensPagto);
-            objLog2();
-            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação            
-            ExcluirInterno();
-            preencherTabelaItensInterno("SELECT * FROM ITENS_PAGAMENTO_KIT_INTERNOS "
-                    + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON ITENS_PAGAMENTO_KIT_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE IdPagto='" + jIdLanc.getText() + "'");
-            JOptionPane.showMessageDialog(rootPane, "Registro EXCLUÍDO com sucesso.");
+            JOptionPane.showMessageDialog(rootPane, "Acesso nao autorizado.");
         }
     }//GEN-LAST:event_jBtExcluirInternoActionPerformed
 
     private void jBtSalvarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarInternoActionPerformed
         // TODO add your handling code here:
-        verificarInternos();
-        tipoEntrada = 0;
-        if (marcaTodos == 0 && kitAnual == 0 && kitQuinzenal == 0 && kitDecimal == 0 && kitMensal == 0 && kitSemetral == 0) {
-            JOptionPane.showMessageDialog(rootPane, "Informe um tipo de kit para ser entregue ao interno.");
-        } else if (jIdInterno.getText().equals("") || jNomeInterno.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe para qual interno será o kit.");
-        } else {
-            // KIT ANUAL            
-            if (jCheckBoxPrato.isSelected()) {
-                prato = 1;
-            } else if (!jCheckBoxPrato.isSelected()) {
-                prato = 0;
-            }
-            if (jCheckBoxGarfo.isSelected()) {
-                garfo = 1;
-            } else if (!jCheckBoxGarfo.isSelected()) {
-                garfo = 0;
-            }
-            if (jCheckBoxBermuda.isSelected()) {
-                bermuda = 1;
-            } else if (!jCheckBoxBermuda.isSelected()) {
-                bermuda = 0;
-            }
-            if (jCheckBoxColchao.isSelected()) {
-                colchao = 1;
-            } else if (!jCheckBoxColchao.isSelected()) {
-                colchao = 0;
-            }
-            if (jCheckBoxCamisa.isSelected()) {
-                camisa = 1;
-            } else if (!jCheckBoxCamisa.isSelected()) {
-                camisa = 0;
-            }
-            if (jCheckBoxCueca.isSelected()) {
-                cueca = 1;
-            } else if (!jCheckBoxCueca.isSelected()) {
-                cueca = 0;
-            }
-            if (jCheckBoxSandalia.isSelected()) {
-                sandalia = 1;
-            } else if (!jCheckBoxSandalia.isSelected()) {
-                sandalia = 0;
-            }
-            if (jCheckBoxCobertor.isSelected()) {
-                cobertor = 1;
-            } else if (!jCheckBoxCobertor.isSelected()) {
-                cobertor = 0;
-            }
-            if (jCheckBoxBolaFutsal.isSelected()) {
-                bola = 1;
-            } else if (!jCheckBoxBolaFutsal.isSelected()) {
-                bola = 0;
-            }
-            if (jCheckBoxCalcaoJogo.isSelected()) {
-                calcaoJogo = 1;
-            } else if (!jCheckBoxCalcaoJogo.isSelected()) {
-                calcaoJogo = 0;
-            }
-            if (jCheckBoxCamisaJogo.isSelected()) {
-                camisaJogo = 1;
-            } else if (!jCheckBoxCamisaJogo.isSelected()) {
-                camisaJogo = 0;
-            }
-            if (jCheckBoxParMeiao.isSelected()) {
-                parMeiao = 1;
-            } else if (!jCheckBoxParMeiao.isSelected()) {
-                parMeiao = 0;
-            }
-            // DECIMAL
-            if (jCheckBoxPapel.isSelected()) {
-                papelHigienico = 1;
-            } else if (!jCheckBoxPapel.isSelected()) {
-                papelHigienico = 0;
-            }
-            if (jCheckBoxSabonete.isSelected()) {
-                sabonete = 1;
-            } else if (!jCheckBoxSabonete.isSelected()) {
-                sabonete = 0;
-            }
-            // KIT QUINZENAL
-            if (jCheckBoxSabaoPo.isSelected()) {
-                sabaopo = 1;
-            } else if (!jCheckBoxSabaoPo.isSelected()) {
-                sabaopo = 0;
-            }
-            if (jCheckBoxCreme.isSelected()) {
-                cremeDental = 1;
-            } else if (!jCheckBoxCreme.isSelected()) {
-                cremeDental = 0;
-            }
-            if (jCheckBoxBarbeador.isSelected()) {
-                barbeador = 1;
-            } else if (!jCheckBoxBarbeador.isSelected()) {
-                barbeador = 0;
-            }
-            // SEMESTRAL     
-            if (jCheckBoxCopo.isSelected()) {
-                copo = 1;
-            } else if (!jCheckBoxCopo.isSelected()) {
-                copo = 0;
-            }
-            if (jCheckBoxColher.isSelected()) {
-                colher = 1;
-            } else if (!jCheckBoxColher.isSelected()) {
-                colher = 0;
-            }
-            if (jCheckBoxToalha.isSelected()) {
-                toalha = 1;
-            }
-            if (jCheckBoxLencol.isSelected()) {
-                lencol = 1;
-            } else if (!jCheckBoxLencol.isSelected()) {
-                lencol = 0;
-            }
-            if (jCheckBoxVasilha.isSelected()) {
-                vasilha = 1;
-            } else if (!jCheckBoxVasilha.isSelected()) {
-                vasilha = 0;
-            }
-            if (jCheckBoxEscova.isSelected()) {
-                escovaDente = 1;
-            } else if (!jCheckBoxEscova.isSelected()) {
-                escovaDente = 0;
-            }
-            // MENSAL
-            if (jCheckBoxAbsorvente.isSelected()) {
-                absorvente = 1;
-            }
-            // MENSAL
-            if (jCheckBoxAbsorvente.isSelected()) {
-                absorvente = 1;
-            } else if (!jCheckBoxAbsorvente.isSelected()) {
-                absorvente = 0;
-            }
-            if (jCheckBoxDesodorante.isSelected()) {
-                desodorante = 1;
-            } else if (!jCheckBoxDesodorante.isSelected()) {
-                desodorante = 0;
-            }
-            // TIPOS DE PAGAMENTO KIT
-            if (jCheckBoxMarcaTodos.isSelected()) {
-                marcaTodos = 1;
-            } else if (!jCheckBoxMarcaTodos.isSelected()) {
-                marcaTodos = 0;
-            }
-            if (jCheckBoxKitAnual.isSelected()) {
-                kitAnual = 1;
-            } else if (!jCheckBoxKitAnual.isSelected()) {
-                kitAnual = 0;
-            }
-            if (jCheckBoxKitQuinzenal.isSelected()) {
-                kitQuinzenal = 1;
-            } else if (!jCheckBoxKitQuinzenal.isSelected()) {
-                kitQuinzenal = 0;
-            }
-            if (jCheckBoxDecimal.isSelected()) {
-                kitDecimal = 1;
-            } else if (!jCheckBoxDecimal.isSelected()) {
-                kitDecimal = 0;
-            }
-            if (jCheckBoxSemestral.isSelected()) {
-                kitSemetral = 1;
-            } else if (!jCheckBoxSemestral.isSelected()) {
-                kitSemetral = 0;
-            }
-            if (jCheckBoxMensal.isSelected()) {
-                kitMensal = 1;
-            } else if (!jCheckBoxMensal.isSelected()) {
-                kitMensal = 0;
-            }
-            // KIT ANUAL            
-            objItensPagto.setPrato(prato);
-            objItensPagto.setGarfo(garfo);
-            objItensPagto.setBermuda(bermuda);
-            objItensPagto.setColchao(colchao);
-            objItensPagto.setCobertor(cobertor);
-            objItensPagto.setBolaJogo(bola);
-            objItensPagto.setCalcaoJogo(calcaoJogo);
-            objItensPagto.setCamisaJogo(camisaJogo);
-            objItensPagto.setParMeiao(parMeiao);
-            objItensPagto.setCamisa(camisa);
-            objItensPagto.setCueca(cueca);
-            objItensPagto.setSandalia(sandalia);
-            // KIT DECIMAL
-            objItensPagto.setSabonete(sabonete);
-            objItensPagto.setPapelHigienico(papelHigienico);
-            // KIT QUINZENAL
-            objItensPagto.setCremeDental(cremeDental);
-            objItensPagto.setBarbeador(barbeador);
-            objItensPagto.setSabaoPo(sabaopo);
-            // KIT SEMESTRAL
-            objItensPagto.setLencol(lencol);
-            objItensPagto.setCopo(copo);
-            objItensPagto.setColher(colher);
-            objItensPagto.setVasilha(vasilha);
-            objItensPagto.setToalha(toalha);
-            objItensPagto.setEscovaDente(escovaDente);
-            // KIT MENSAL
-            objItensPagto.setAbsorvente(absorvente);
-            objItensPagto.setDesodorante(desodorante);
-            // TIPOS DE KITS
-            objItensPagto.setMostraTodos(marcaTodos);
-            objItensPagto.setKitInicial(kitAnual);
-            objItensPagto.setKitDecimal(kitDecimal);
-            objItensPagto.setKitQuinzenal(kitQuinzenal);
-            objItensPagto.setKitMensal(kitMensal);
-            objItensPagto.setKitSemestral(kitSemetral);
-            //
-            objItensPagto.setTipoEntrada(tipoEntrada);
-            objItensPagto.setDataEntrega(jDataEntrega.getDate());
-            objItensPagto.setHoraEntrega(jHorarioPagto.getText());
-            //
-            objItensPagto.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
-            objItensPagto.setNomeInternoCrcKit(jNomeInterno.getText());
-            objItensPagto.setIdPagto(Integer.valueOf(jIdLanc.getText()));
-            if (acao == 3) {
-                if (jIdInterno.getText().equals(codigoInterno) && jIdLanc.getText().equals(codigoKit)) {
-                    JOptionPane.showMessageDialog(rootPane, "Esse interno já recebeu o kit nesse registro.");
-                } else {
-                    objItensPagto.setUsuarioInsert(nameUser);
-                    objItensPagto.setDataInsert(dataModFinal);
-                    objItensPagto.setHorarioInsert(horaMov);
+        buscarAcessoUsuario(telaEntregaMaterialUsoInternosTRI);
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaEntregaMaterialUsoTRI) && codGravarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
+            verificarInternos();
+            tipoEntrada = 0;
+            if (marcaTodos == 0 && kitAnual == 0 && kitQuinzenal == 0 && kitDecimal == 0 && kitMensal == 0 && kitSemetral == 0) {
+                JOptionPane.showMessageDialog(rootPane, "Informe um tipo de kit para ser entregue ao interno.");
+            } else if (jIdInterno.getText().equals("") || jNomeInterno.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe para qual interno será o kit.");
+            } else {
+                // KIT ANUAL            
+                if (jCheckBoxPrato.isSelected()) {
+                    prato = 1;
+                } else if (!jCheckBoxPrato.isSelected()) {
+                    prato = 0;
+                }
+                if (jCheckBoxGarfo.isSelected()) {
+                    garfo = 1;
+                } else if (!jCheckBoxGarfo.isSelected()) {
+                    garfo = 0;
+                }
+                if (jCheckBoxBermuda.isSelected()) {
+                    bermuda = 1;
+                } else if (!jCheckBoxBermuda.isSelected()) {
+                    bermuda = 0;
+                }
+                if (jCheckBoxColchao.isSelected()) {
+                    colchao = 1;
+                } else if (!jCheckBoxColchao.isSelected()) {
+                    colchao = 0;
+                }
+                if (jCheckBoxCamisa.isSelected()) {
+                    camisa = 1;
+                } else if (!jCheckBoxCamisa.isSelected()) {
+                    camisa = 0;
+                }
+                if (jCheckBoxCueca.isSelected()) {
+                    cueca = 1;
+                } else if (!jCheckBoxCueca.isSelected()) {
+                    cueca = 0;
+                }
+                if (jCheckBoxSandalia.isSelected()) {
+                    sandalia = 1;
+                } else if (!jCheckBoxSandalia.isSelected()) {
+                    sandalia = 0;
+                }
+                if (jCheckBoxCobertor.isSelected()) {
+                    cobertor = 1;
+                } else if (!jCheckBoxCobertor.isSelected()) {
+                    cobertor = 0;
+                }
+                if (jCheckBoxBolaFutsal.isSelected()) {
+                    bola = 1;
+                } else if (!jCheckBoxBolaFutsal.isSelected()) {
+                    bola = 0;
+                }
+                if (jCheckBoxCalcaoJogo.isSelected()) {
+                    calcaoJogo = 1;
+                } else if (!jCheckBoxCalcaoJogo.isSelected()) {
+                    calcaoJogo = 0;
+                }
+                if (jCheckBoxCamisaJogo.isSelected()) {
+                    camisaJogo = 1;
+                } else if (!jCheckBoxCamisaJogo.isSelected()) {
+                    camisaJogo = 0;
+                }
+                if (jCheckBoxParMeiao.isSelected()) {
+                    parMeiao = 1;
+                } else if (!jCheckBoxParMeiao.isSelected()) {
+                    parMeiao = 0;
+                }
+                // DECIMAL
+                if (jCheckBoxPapel.isSelected()) {
+                    papelHigienico = 1;
+                } else if (!jCheckBoxPapel.isSelected()) {
+                    papelHigienico = 0;
+                }
+                if (jCheckBoxSabonete.isSelected()) {
+                    sabonete = 1;
+                } else if (!jCheckBoxSabonete.isSelected()) {
+                    sabonete = 0;
+                }
+                // KIT QUINZENAL
+                if (jCheckBoxSabaoPo.isSelected()) {
+                    sabaopo = 1;
+                } else if (!jCheckBoxSabaoPo.isSelected()) {
+                    sabaopo = 0;
+                }
+                if (jCheckBoxCreme.isSelected()) {
+                    cremeDental = 1;
+                } else if (!jCheckBoxCreme.isSelected()) {
+                    cremeDental = 0;
+                }
+                if (jCheckBoxBarbeador.isSelected()) {
+                    barbeador = 1;
+                } else if (!jCheckBoxBarbeador.isSelected()) {
+                    barbeador = 0;
+                }
+                // SEMESTRAL     
+                if (jCheckBoxCopo.isSelected()) {
+                    copo = 1;
+                } else if (!jCheckBoxCopo.isSelected()) {
+                    copo = 0;
+                }
+                if (jCheckBoxColher.isSelected()) {
+                    colher = 1;
+                } else if (!jCheckBoxColher.isSelected()) {
+                    colher = 0;
+                }
+                if (jCheckBoxToalha.isSelected()) {
+                    toalha = 1;
+                }
+                if (jCheckBoxLencol.isSelected()) {
+                    lencol = 1;
+                } else if (!jCheckBoxLencol.isSelected()) {
+                    lencol = 0;
+                }
+                if (jCheckBoxVasilha.isSelected()) {
+                    vasilha = 1;
+                } else if (!jCheckBoxVasilha.isSelected()) {
+                    vasilha = 0;
+                }
+                if (jCheckBoxEscova.isSelected()) {
+                    escovaDente = 1;
+                } else if (!jCheckBoxEscova.isSelected()) {
+                    escovaDente = 0;
+                }
+                // MENSAL
+                if (jCheckBoxAbsorvente.isSelected()) {
+                    absorvente = 1;
+                }
+                // MENSAL
+                if (jCheckBoxAbsorvente.isSelected()) {
+                    absorvente = 1;
+                } else if (!jCheckBoxAbsorvente.isSelected()) {
+                    absorvente = 0;
+                }
+                if (jCheckBoxDesodorante.isSelected()) {
+                    desodorante = 1;
+                } else if (!jCheckBoxDesodorante.isSelected()) {
+                    desodorante = 0;
+                }
+                // TIPOS DE PAGAMENTO KIT
+                if (jCheckBoxMarcaTodos.isSelected()) {
+                    marcaTodos = 1;
+                } else if (!jCheckBoxMarcaTodos.isSelected()) {
+                    marcaTodos = 0;
+                }
+                if (jCheckBoxKitAnual.isSelected()) {
+                    kitAnual = 1;
+                } else if (!jCheckBoxKitAnual.isSelected()) {
+                    kitAnual = 0;
+                }
+                if (jCheckBoxKitQuinzenal.isSelected()) {
+                    kitQuinzenal = 1;
+                } else if (!jCheckBoxKitQuinzenal.isSelected()) {
+                    kitQuinzenal = 0;
+                }
+                if (jCheckBoxDecimal.isSelected()) {
+                    kitDecimal = 1;
+                } else if (!jCheckBoxDecimal.isSelected()) {
+                    kitDecimal = 0;
+                }
+                if (jCheckBoxSemestral.isSelected()) {
+                    kitSemetral = 1;
+                } else if (!jCheckBoxSemestral.isSelected()) {
+                    kitSemetral = 0;
+                }
+                if (jCheckBoxMensal.isSelected()) {
+                    kitMensal = 1;
+                } else if (!jCheckBoxMensal.isSelected()) {
+                    kitMensal = 0;
+                }
+                // KIT ANUAL            
+                objItensPagto.setPrato(prato);
+                objItensPagto.setGarfo(garfo);
+                objItensPagto.setBermuda(bermuda);
+                objItensPagto.setColchao(colchao);
+                objItensPagto.setCobertor(cobertor);
+                objItensPagto.setBolaJogo(bola);
+                objItensPagto.setCalcaoJogo(calcaoJogo);
+                objItensPagto.setCamisaJogo(camisaJogo);
+                objItensPagto.setParMeiao(parMeiao);
+                objItensPagto.setCamisa(camisa);
+                objItensPagto.setCueca(cueca);
+                objItensPagto.setSandalia(sandalia);
+                // KIT DECIMAL
+                objItensPagto.setSabonete(sabonete);
+                objItensPagto.setPapelHigienico(papelHigienico);
+                // KIT QUINZENAL
+                objItensPagto.setCremeDental(cremeDental);
+                objItensPagto.setBarbeador(barbeador);
+                objItensPagto.setSabaoPo(sabaopo);
+                // KIT SEMESTRAL
+                objItensPagto.setLencol(lencol);
+                objItensPagto.setCopo(copo);
+                objItensPagto.setColher(colher);
+                objItensPagto.setVasilha(vasilha);
+                objItensPagto.setToalha(toalha);
+                objItensPagto.setEscovaDente(escovaDente);
+                // KIT MENSAL
+                objItensPagto.setAbsorvente(absorvente);
+                objItensPagto.setDesodorante(desodorante);
+                // TIPOS DE KITS
+                objItensPagto.setMostraTodos(marcaTodos);
+                objItensPagto.setKitInicial(kitAnual);
+                objItensPagto.setKitDecimal(kitDecimal);
+                objItensPagto.setKitQuinzenal(kitQuinzenal);
+                objItensPagto.setKitMensal(kitMensal);
+                objItensPagto.setKitSemestral(kitSemetral);
+                //
+                objItensPagto.setTipoEntrada(tipoEntrada);
+                objItensPagto.setDataEntrega(jDataEntrega.getDate());
+                objItensPagto.setHoraEntrega(jHorarioPagto.getText());
+                //
+                objItensPagto.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                objItensPagto.setNomeInternoCrcKit(jNomeInterno.getText());
+                objItensPagto.setIdPagto(Integer.valueOf(jIdLanc.getText()));
+                if (acao == 3) {
+                    if (jIdInterno.getText().equals(codigoInterno) && jIdLanc.getText().equals(codigoKit)) {
+                        JOptionPane.showMessageDialog(rootPane, "Esse interno já recebeu o kit nesse registro.");
+                    } else {
+                        objItensPagto.setUsuarioInsert(nameUser);
+                        objItensPagto.setDataInsert(dataModFinal);
+                        objItensPagto.setHorarioInsert(horaMov);
+                        //
+                        controle.incluirPagamentoKitInterno(objItensPagto);
+                        objLog2();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        SalvarInterno();
+                        preencherTabelaItensInterno("SELECT * FROM ITENS_PAGAMENTO_KIT_INTERNOS "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON ITENS_PAGAMENTO_KIT_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE IdPagto='" + jIdLanc.getText() + "'");
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    }
+                }
+                if (acao == 4) {
+                    objItensPagto.setUsuarioUp(nameUser);
+                    objItensPagto.setDataUp(dataModFinal);
+                    objItensPagto.setHorarioUp(horaMov);
                     //
-                    controle.incluirPagamentoKitInterno(objItensPagto);
+                    objItensPagto.setIdItem(idItem);
+                    controle.alterarPagamentoKitInterno(objItensPagto);
                     objLog2();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     SalvarInterno();
@@ -2239,22 +2309,8 @@ public class TelaPagamentoKitInterno extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
             }
-            if (acao == 4) {
-                objItensPagto.setUsuarioUp(nameUser);
-                objItensPagto.setDataUp(dataModFinal);
-                objItensPagto.setHorarioUp(horaMov);
-                //
-                objItensPagto.setIdItem(idItem);
-                controle.alterarPagamentoKitInterno(objItensPagto);
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                SalvarInterno();
-                preencherTabelaItensInterno("SELECT * FROM ITENS_PAGAMENTO_KIT_INTERNOS "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON ITENS_PAGAMENTO_KIT_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "WHERE IdPagto='" + jIdLanc.getText() + "'");
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso nao autorizado.");
         }
     }//GEN-LAST:event_jBtSalvarInternoActionPerformed
 
@@ -2285,10 +2341,14 @@ public class TelaPagamentoKitInterno extends javax.swing.JInternalFrame {
 
     private void jBtBiometriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtBiometriaActionPerformed
         // TODO add your handling code here:
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Não é possível utilizar essa função, registro finalizado.");
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES") || codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaEntregaMaterialUsoInternosBioTRI) && codAbrirTRI == 1) {
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Não é possível utilizar essa função, registro finalizado.");
+            } else {
+                mostrarTelaBiometria();
+            }
         } else {
-            mostrarTelaBiometria();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtBiometriaActionPerformed
 
@@ -3788,5 +3848,43 @@ public class TelaPagamentoKitInterno extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jIdLanc.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String pTela) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUser = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUser + "'");
+            conecta.rs.first();
+            codigoUserGroupTRI = conecta.rs.getInt("IdUsuario");
+            codigoGrupoTRI = conecta.rs.getInt("IdGrupo");
+            nomeGrupo = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUser + "' "
+                    + "AND NomeTela='" + pTela + "'");
+            conecta.rs.first();
+            codUserAcesso = conecta.rs.getInt("IdUsuario");
+            codAbrirTRI = conecta.rs.getInt("Abrir");
+            codIncluirTRI = conecta.rs.getInt("Incluir");
+            codAlterarTRI = conecta.rs.getInt("Alterar");
+            codExcluirTRI = conecta.rs.getInt("Excluir");
+            codGravarTRI = conecta.rs.getInt("Gravar");
+            codConcultarTRI = conecta.rs.getInt("Consultar");
+            nomeTela = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

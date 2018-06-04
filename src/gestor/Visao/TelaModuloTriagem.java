@@ -116,7 +116,7 @@ public class TelaModuloTriagem extends javax.swing.JInternalFrame {
     String horaLembrete;
     String usuarioAgenda;
     String codigoAgendaComp;
-    //
+    //   
     public static int codigoUserTRI = 0;
     public static int codUserAcessoTRI = 0;
     public static int codigoUserGroupTRI = 0;
@@ -150,8 +150,19 @@ public class TelaModuloTriagem extends javax.swing.JInternalFrame {
     public static String telaEntradaPertencesPertencesTRI = "Controle de Pertences:Entrada Pertences:Pertences";
     public static String telaSaidaPertencesInternosTRI = "Controle de Pertences:Saida Pertences Internos:Manutenção";
     public static String telaSaidaPertencesPertencesTRI = "Controle de Pertences:Saida Pertences Internos:Pertences";
-    public static String telaRequisicaoMateriaisInternosTRI = "Cadastro:Requisição de Materiais Internos:Manutenção";
-    public static String telaRequisicaoMateriaisInternosProdutosTRI = "Cadastro:Requisição de Materiais Internos:Produtos";
+    public static String telaRequisicaoMateriaisInternosTRI = "Controle de Pertences:Requisição de Materiais Internos:Manutenção";
+    public static String telaRequisicaoMateriaisInternosProdutosTRI = "Controle de Pertences:Requisição de Materiais Internos:Produtos";
+    //
+    public static String telaControleDepositoTRI = "Controle de Pertences:Controle de Valores:Manutenção";
+    public static String telaControleDepositoInternosTRI = "Controle de Pertences:Controle de Valores:Internos";
+    // MOVIMENTAÇÃO
+    public static String telaEntregaMaterialUsoTRI = "Movimentação:Entrega de Material Uso Pessoal:Manutenção";
+    public static String telaEntregaMaterialUsoInternosTRI = "Movimentação:Entrega de Material Uso Pessoal:Internos";
+    public static String telaEntregaMaterialUsoInternosBioTRI = "Movimentação:Entrega de Material Uso Pessoal:Biometria";
+    public static String telaInicializarLeitorTRI = "Movimentação:Entrega de Material Uso Pessoal:Inicializar leitor";
+    public static String telaEntredaInternosManuTRI = "Movimentação:Entreda de Internos:Manutenção";
+    public static String telaEntredaInternosIntTRI = "Movimentação:Entreda de Internos:Internos";
+
     //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
@@ -176,6 +187,16 @@ public class TelaModuloTriagem extends javax.swing.JInternalFrame {
     String pNomeSPP = "";
     String pNomeRMI = "";
     String pNomeRMIP = "";
+    // CONTROLE DE DEPOSITOS NA TRIAGEM
+    String pNomeCDT = "";
+    String pNomeCDTI = "";
+    //
+    String pNomeEMUP = "";
+    String pNomeEMUPI = "";
+    String pNomeEMUIB = "";
+    String pNomeIL = "";
+    String pNomeEIN = "";
+    String pNomeEINI = "";
 
     /**
      * Creates new form TelaSeguranca
@@ -969,30 +990,35 @@ public class TelaModuloTriagem extends javax.swing.JInternalFrame {
 
     private void jControleValoresInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jControleValoresInternosActionPerformed
         // TODO add your handling code here:
-        if (objContrlDepTria == null || objContrlDepTria.isClosed()) {
-            objContrlDepTria = new TelaControleDepositoTriagem();
-            jPainelTriagem.add(objContrlDepTria);
-            objContrlDepTria.setVisible(true);
-        } else {
-            if (objContrlDepTria.isVisible()) {
-                if (objContrlDepTria.isIcon()) { // Se esta minimizado
-                    try {
-                        objContrlDepTria.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaControleDepositoTRI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES") || codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaControleDepositoTRI) && codAbrirTRI == 1) {
+            if (objContrlDepTria == null || objContrlDepTria.isClosed()) {
+                objContrlDepTria = new TelaControleDepositoTriagem();
+                jPainelTriagem.add(objContrlDepTria);
+                objContrlDepTria.setVisible(true);
+            } else {
+                if (objContrlDepTria.isVisible()) {
+                    if (objContrlDepTria.isIcon()) { // Se esta minimizado
+                        try {
+                            objContrlDepTria.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objContrlDepTria.toFront(); // traz para frente
+                        objContrlDepTria.pack();//volta frame 
                     }
                 } else {
-                    objContrlDepTria.toFront(); // traz para frente
-                    objContrlDepTria.pack();//volta frame 
+                    objContrlDepTria = new TelaControleDepositoTriagem();
+                    TelaModuloTriagem.jPainelTriagem.add(objContrlDepTria);//adicona frame ao JDesktopPane  
+                    objContrlDepTria.setVisible(true);
                 }
-            } else {
-                objContrlDepTria = new TelaControleDepositoTriagem();
-                TelaModuloTriagem.jPainelTriagem.add(objContrlDepTria);//adicona frame ao JDesktopPane  
-                objContrlDepTria.setVisible(true);
             }
-        }
-        try {
-            objContrlDepTria.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objContrlDepTria.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jControleValoresInternosActionPerformed
 
@@ -1211,59 +1237,69 @@ public class TelaModuloTriagem extends javax.swing.JInternalFrame {
 
     private void EntregaMaterialUsoPessoalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EntregaMaterialUsoPessoalActionPerformed
         // TODO add your handling code here:
-        if (objKitTria == null || objKitTria.isClosed()) {
-            objKitTria = new TelaPagamentoKitInterno();
-            jPainelTriagem.add(objKitTria);
-            objKitTria.setVisible(true);
-        } else {
-            if (objKitTria.isVisible()) {
-                if (objKitTria.isIcon()) { // Se esta minimizado
-                    try {
-                        objKitTria.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaEntregaMaterialUsoTRI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES") || codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaEntregaMaterialUsoTRI) && codAbrirTRI == 1) {
+            if (objKitTria == null || objKitTria.isClosed()) {
+                objKitTria = new TelaPagamentoKitInterno();
+                jPainelTriagem.add(objKitTria);
+                objKitTria.setVisible(true);
+            } else {
+                if (objKitTria.isVisible()) {
+                    if (objKitTria.isIcon()) { // Se esta minimizado
+                        try {
+                            objKitTria.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objKitTria.toFront(); // traz para frente
+                        objKitTria.pack();//volta frame 
                     }
                 } else {
-                    objKitTria.toFront(); // traz para frente
-                    objKitTria.pack();//volta frame 
+                    objKitTria = new TelaPagamentoKitInterno();
+                    TelaModuloTriagem.jPainelTriagem.add(objKitTria);//adicona frame ao JDesktopPane  
+                    objKitTria.setVisible(true);
                 }
-            } else {
-                objKitTria = new TelaPagamentoKitInterno();
-                TelaModuloTriagem.jPainelTriagem.add(objKitTria);//adicona frame ao JDesktopPane  
-                objKitTria.setVisible(true);
             }
-        }
-        try {
-            objKitTria.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objKitTria.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_EntregaMaterialUsoPessoalActionPerformed
 
     private void EntradaInternosUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EntradaInternosUnidadeActionPerformed
-        // TODO add your handling code here:
-        if (objEntradaInt == null || objEntradaInt.isClosed()) {
-            objEntradaInt = new TelaEntradasLote();
-            jPainelTriagem.add(objEntradaInt);
-            objEntradaInt.setVisible(true);
-        } else {
-            if (objEntradaInt.isVisible()) {
-                if (objEntradaInt.isIcon()) { // Se esta minimizado
-                    try {
-                        objEntradaInt.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        // TODO add your handling code here:telaEntredaInternosManuTRI
+        buscarAcessoUsuario(telaEntredaInternosManuTRI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES") || codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaEntredaInternosManuTRI) && codAbrirTRI == 1) {
+            if (objEntradaInt == null || objEntradaInt.isClosed()) {
+                objEntradaInt = new TelaEntradasLote();
+                jPainelTriagem.add(objEntradaInt);
+                objEntradaInt.setVisible(true);
+            } else {
+                if (objEntradaInt.isVisible()) {
+                    if (objEntradaInt.isIcon()) { // Se esta minimizado
+                        try {
+                            objEntradaInt.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objEntradaInt.toFront(); // traz para frente
+                        objEntradaInt.pack();//volta frame 
                     }
                 } else {
-                    objEntradaInt.toFront(); // traz para frente
-                    objEntradaInt.pack();//volta frame 
+                    objEntradaInt = new TelaEntradasLote();
+                    TelaModuloTriagem.jPainelTriagem.add(objEntradaInt);//adicona frame ao JDesktopPane  
+                    objEntradaInt.setVisible(true);
                 }
-            } else {
-                objEntradaInt = new TelaEntradasLote();
-                TelaModuloTriagem.jPainelTriagem.add(objEntradaInt);//adicona frame ao JDesktopPane  
-                objEntradaInt.setVisible(true);
             }
-        }
-        try {
-            objEntradaInt.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objEntradaInt.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_EntradaInternosUnidadeActionPerformed
 
@@ -1771,6 +1807,63 @@ public class TelaModuloTriagem extends javax.swing.JInternalFrame {
             pNomeRMIP = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaControleDepositoTRI + "'");
+            conecta.rs.first();
+            pNomeCDT = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaControleDepositoInternosTRI + "'");
+            conecta.rs.first();
+            pNomeCDTI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        // MOVIMENTAÇÃO
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaEntregaMaterialUsoTRI + "'");
+            conecta.rs.first();
+            pNomeEMUP = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaEntregaMaterialUsoInternosTRI + "'");
+            conecta.rs.first();
+            pNomeEMUPI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaEntregaMaterialUsoInternosBioTRI + "'");
+            conecta.rs.first();
+            pNomeEMUIB = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaInicializarLeitorTRI + "'");
+            conecta.rs.first();
+            pNomeIL = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaEntredaInternosManuTRI + "'");
+            conecta.rs.first();
+            pNomeEIN = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaEntredaInternosIntTRI + "'");
+            conecta.rs.first();
+            pNomeEINI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // MENU CADASTRO
         if (!pNomeCUP.equals(telaCadastroUnidadePrisionalTRI) || pNomeCUP == null || pNomeCUP.equals("")) {
             buscarCodigoModulo();
@@ -1885,6 +1978,55 @@ public class TelaModuloTriagem extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaRequisicaoMateriaisInternosProdutosTRI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeCDT.equals(telaControleDepositoTRI) || pNomeCDT == null || pNomeCDT.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaControleDepositoTRI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeCDTI.equals(telaControleDepositoInternosTRI) || pNomeCDTI == null || pNomeCDTI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaControleDepositoInternosTRI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        // MOVIMENTAÇÃO
+        if (!pNomeEMUP.equals(telaEntregaMaterialUsoTRI) || pNomeEMUP == null || pNomeEMUP.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaEntregaMaterialUsoTRI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeEMUPI.equals(telaEntregaMaterialUsoInternosTRI) || pNomeEMUPI == null || pNomeEMUPI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaEntregaMaterialUsoInternosTRI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeEMUIB.equals(telaEntregaMaterialUsoInternosBioTRI) || pNomeEMUIB == null || pNomeEMUIB.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaEntregaMaterialUsoInternosBioTRI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeIL.equals(telaInicializarLeitorTRI) || pNomeIL == null || pNomeIL.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaInicializarLeitorTRI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeEIN.equals(telaEntredaInternosManuTRI) || pNomeEIN == null || pNomeEIN.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaEntredaInternosManuTRI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeEINI.equals(telaEntredaInternosIntTRI) || pNomeEINI == null || pNomeEINI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaEntredaInternosIntTRI);
             controle.incluirTelaAcesso(objCadastroTela);
         }
     }

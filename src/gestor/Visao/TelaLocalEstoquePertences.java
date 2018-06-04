@@ -24,6 +24,16 @@ import static gestor.Visao.TelaModuloSeguranca.codigoUser;
 import static gestor.Visao.TelaModuloSeguranca.nomeGrupo;
 import static gestor.Visao.TelaModuloSeguranca.nomeTela;
 import static gestor.Visao.TelaModuloSeguranca.telaLocalPertencesInternos;
+import static gestor.Visao.TelaModuloTriagem.codAlterarTRI;
+import static gestor.Visao.TelaModuloTriagem.codExcluirTRI;
+import static gestor.Visao.TelaModuloTriagem.codGravarTRI;
+import static gestor.Visao.TelaModuloTriagem.codIncluirTRI;
+import static gestor.Visao.TelaModuloTriagem.codUserAcessoTRI;
+import static gestor.Visao.TelaModuloTriagem.codigoUserTRI;
+import static gestor.Visao.TelaModuloTriagem.nomeGrupoTRI;
+import static gestor.Visao.TelaModuloTriagem.nomeTelaTRI;
+import static gestor.Visao.TelaModuloTriagem.telaLocalPertencesInternosTRI;
+import static gestor.Visao.TelaModuloTriagem.telaObjetosInternosTRI;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -264,7 +274,6 @@ public class TelaLocalEstoquePertences extends javax.swing.JInternalFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
@@ -273,7 +282,7 @@ public class TelaLocalEstoquePertences extends javax.swing.JInternalFrame {
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(6, 6, 6))
+                .addGap(5, 5, 5))
         );
 
         jTabbedPane1.addTab("Listagem", jPanel1);
@@ -482,7 +491,7 @@ public class TelaLocalEstoquePertences extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -493,16 +502,16 @@ public class TelaLocalEstoquePertences extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 408, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        setBounds(300, 30, 422, 303);
+        setBounds(300, 30, 427, 293);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtPesqDescricaoLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDescricaoLocalActionPerformed
@@ -563,6 +572,13 @@ public class TelaLocalEstoquePertences extends javax.swing.JInternalFrame {
             acao = 1;
             corCampos();
             Novo();
+        } else if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaLocalPertencesInternosTRI) && codIncluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            acao = 1;
+            corCampos();
+            Novo();
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
@@ -571,6 +587,13 @@ public class TelaLocalEstoquePertences extends javax.swing.JInternalFrame {
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
         if (codigoUser == codUserAcesso && nomeTela.equals(telaLocalPertencesInternos) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            acao = 2;
+            corCampos();
+            Alterar();
+        } else if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaLocalPertencesInternosTRI) && codAlterarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             statusMov = "Alterou";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -603,6 +626,25 @@ public class TelaLocalEstoquePertences extends javax.swing.JInternalFrame {
                     Excluir();
                 }
             }
+        } else if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaLocalPertencesInternosTRI) && codExcluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
+            verificarLocal();
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            if (jIdLocal.getText().equals(codLocal)) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo está sendo utilizado.");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objLocal.setIdLocal(Integer.parseInt(jIdLocal.getText()));
+                    control.excluirLocalPertences(objLocal);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    Excluir();
+                }
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso para excluir registro.");
         }
@@ -611,6 +653,37 @@ public class TelaLocalEstoquePertences extends javax.swing.JInternalFrame {
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
         if (codigoUser == codUserAcesso && nomeTela.equals(telaLocalPertencesInternos) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jDescricaoLocal.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a descrição do local de armazenamento.");
+                jDescricaoLocal.requestFocus();
+                jDescricaoLocal.setBackground(Color.red);
+            } else {
+                objLocal.setStatusLocal((String) jComboBoxStatus.getSelectedItem());
+                objLocal.setDescricaoLocal(jDescricaoLocal.getText());
+                if (acao == 1) {
+                    objLocal.setUsuarioInsert(nameUser);
+                    objLocal.setDataInsert(dataModFinal);
+                    objLocal.setHorarioInsert(horaMov);
+                    control.incluirLocalPertences(objLocal);
+                    buscarCodigo();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    Salvar();
+                }
+                if (acao == 2) {
+                    objLocal.setUsuarioUp(nameUser);
+                    objLocal.setDataUp(dataModFinal);
+                    objLocal.setHorarioUp(horaMov);
+                    objLocal.setIdLocal(Integer.valueOf(jIdLocal.getText()));
+                    control.alterarLocalPertences(objLocal);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    Salvar();
+                }
+            }
+        } else if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaLocalPertencesInternosTRI) && codGravarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             if (jDescricaoLocal.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a descrição do local de armazenamento.");
                 jDescricaoLocal.requestFocus();

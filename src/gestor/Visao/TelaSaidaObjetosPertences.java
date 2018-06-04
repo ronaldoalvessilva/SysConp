@@ -32,6 +32,16 @@ import static gestor.Visao.TelaModuloSeguranca.nomeGrupo;
 import static gestor.Visao.TelaModuloSeguranca.nomeTela;
 import static gestor.Visao.TelaModuloSeguranca.telaSaidaPertencesInternos;
 import static gestor.Visao.TelaModuloSeguranca.telaSaidaPertencesPertences;
+import static gestor.Visao.TelaModuloTriagem.codAlterarTRI;
+import static gestor.Visao.TelaModuloTriagem.codExcluirTRI;
+import static gestor.Visao.TelaModuloTriagem.codGravarTRI;
+import static gestor.Visao.TelaModuloTriagem.codIncluirTRI;
+import static gestor.Visao.TelaModuloTriagem.codUserAcessoTRI;
+import static gestor.Visao.TelaModuloTriagem.codigoUserTRI;
+import static gestor.Visao.TelaModuloTriagem.nomeGrupoTRI;
+import static gestor.Visao.TelaModuloTriagem.nomeTelaTRI;
+import static gestor.Visao.TelaModuloTriagem.telaSaidaPertencesInternosTRI;
+import static gestor.Visao.TelaModuloTriagem.telaSaidaPertencesPertencesTRI;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -1121,6 +1131,13 @@ public class TelaSaidaObjetosPertences extends javax.swing.JInternalFrame {
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
+        } else if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaSaidaPertencesInternosTRI) && codIncluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
@@ -1129,6 +1146,19 @@ public class TelaSaidaObjetosPertences extends javax.swing.JInternalFrame {
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
         if (codigoUser == codUserAcesso && nomeTela.equals(telaSaidaPertencesInternos) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            verificarPertences(); // Verificar se existe pertences para o interno em questão.
+            objSaidaObj.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro de objetos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                Alterar();
+                corCampos();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaSaidaPertencesInternosTRI) && codAlterarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             verificarPertences(); // Verificar se existe pertences para o interno em questão.
             objSaidaObj.setStatusLanc(jStatusLanc.getText());
             if (jStatusLanc.getText().equals("FINALIZADO")) {
@@ -1155,6 +1185,13 @@ public class TelaSaidaObjetosPertences extends javax.swing.JInternalFrame {
             } else {
                 verificarItens();
             }
+        } else if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaSaidaPertencesInternosTRI) && codExcluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
+            objSaidaObj.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro de internos não poderá ser excluida, o mesmo encontra-se FINALIZADO");
+            } else {
+                verificarItens();
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a excluir registro.");
         }
@@ -1163,6 +1200,42 @@ public class TelaSaidaObjetosPertences extends javax.swing.JInternalFrame {
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:  
         if (codigoUser == codUserAcesso && nomeTela.equals(telaSaidaPertencesInternos) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jDataLanc.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data do registro.");
+                jDataLanc.setBackground(Color.red);
+                jDataLanc.requestFocus();
+            } else {
+                objSaidaObj.setStatusLanc(jStatusLanc.getText());
+                objSaidaObj.setDataLanc(jDataLanc.getDate());
+                objSaidaObj.setObservacao(jObservacao.getText());
+                if (acao == 1) {
+                    objSaidaObj.setUsuarioInsert(nameUser);
+                    objSaidaObj.setDataInsert(dataModFinal);
+                    objSaidaObj.setHorarioInsert(horaMov);
+                    objSaidaObj.setNomeInternoCrc(jNomeInternoCrcObjeto.getText());
+                    control.incluirSaidaObjetos(objSaidaObj);
+                    buscarCodigo();
+                    //              
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 2) {
+                    objSaidaObj.setUsuarioUp(nameUser);
+                    objSaidaObj.setDataUp(dataModFinal);
+                    objSaidaObj.setHorarioUp(horaMov);
+                    objSaidaObj.setIdLanc(Integer.parseInt(jIdLanc.getText()));
+                    objSaidaObj.setNomeInternoCrc(jNomeInternoCrcObjeto.getText());
+                    control.alterarSaidaObjetos(objSaidaObj);
+                    //               
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
+        } else if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaSaidaPertencesInternosTRI) && codGravarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             if (jDataLanc.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data do registro.");
                 jDataLanc.setBackground(Color.red);
@@ -1252,8 +1325,21 @@ public class TelaSaidaObjetosPertences extends javax.swing.JInternalFrame {
 
     private void jBtNovoObjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoObjetoActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario();
+        buscarAcessoUsuario(telaSaidaPertencesPertences);
+        buscarAcessoUsuario1(telaSaidaPertencesPertencesTRI);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaSaidaPertencesPertences) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            objSaidaObj.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa entrada de objetos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 3;
+                NovoObjeto();
+                corCampos();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaSaidaPertencesPertencesTRI) && codIncluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             objSaidaObj.setStatusLanc(jStatusLanc.getText());
             if (jStatusLanc.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Essa entrada de objetos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -1272,8 +1358,20 @@ public class TelaSaidaObjetosPertences extends javax.swing.JInternalFrame {
 
     private void jBtAlterarObjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarObjetoActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario();
+        buscarAcessoUsuario(telaSaidaPertencesPertences);
+        buscarAcessoUsuario1(telaSaidaPertencesPertencesTRI);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaSaidaPertencesPertences) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            objSaidaObj.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa entrada de objetos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 4;
+                AlterarObjeto();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaSaidaPertencesPertencesTRI) && codAlterarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             objSaidaObj.setStatusLanc(jStatusLanc.getText());
             if (jStatusLanc.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Essa entrada de objetos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -1291,8 +1389,43 @@ public class TelaSaidaObjetosPertences extends javax.swing.JInternalFrame {
 
     private void jBtExcluirObjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirObjetoActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario();
+        buscarAcessoUsuario(telaSaidaPertencesPertences);
+        buscarAcessoUsuario1(telaSaidaPertencesPertencesTRI);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaSaidaPertencesPertences) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            verificarSaldoPertences();
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objSaidaObj.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse  objeto não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o objeto selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    // Atualizar o saldo com o novo valor
+                    saldoEstoquePertence = quantidadeEstoque + objItensObj.getQuant();
+                    objSaldoPertences.setIdInternoCrc(Integer.valueOf(jIdInternoCrcObjeto.getText()));
+                    objSaldoPertences.setIdObj(Integer.valueOf(jIdPertence.getText()));
+                    objSaldoPertences.setSaldoEstoque((float) saldoEstoquePertence);
+                    controleSaldo.alterarQuantidadeEntradaObjetos(objSaldoPertences);  // Alterar saldo na tabela ESTOQUEPERTENCES               
+                    // Excluir da tabela ITENSOBJETOSSAIDA
+                    objItensObj.setIdItem(Integer.valueOf(idItem));
+                    controle.excluirItensSaidaObjetos(objItensObj);
+                    //
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    ExcluirObjeto();
+                    preencherTabelaItens("SELECT * FROM ITENSOBJETOSSAIDA "
+                            + "INNER JOIN PERTENCES "
+                            + "ON ITENSOBJETOSSAIDA.IdPertence=PERTENCES.IdPertence "
+                            + "INNER JOIN SAIDAOBJETOSPERTENCES "
+                            + "ON ITENSOBJETOSSAIDA.IdSaida=SAIDAOBJETOSPERTENCES.IdSaida "
+                            + "WHERE ITENSOBJETOSSAIDA.IdSaida='" + jIdLanc.getText() + "'");
+                }
+            }
+        } else if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaSaidaPertencesPertencesTRI) && codExcluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             verificarSaldoPertences();
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
@@ -1333,8 +1466,89 @@ public class TelaSaidaObjetosPertences extends javax.swing.JInternalFrame {
 
     private void jBtSalvarObjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarObjetoActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario();
+        buscarAcessoUsuario(telaSaidaPertencesPertences);
+        buscarAcessoUsuario1(telaSaidaPertencesPertencesTRI);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaSaidaPertencesPertences) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            verificarSaldoPertences(); // Verificar se a quantidade solicitada é compativel.
+            if (jDescricaoPertenceObjeto.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe qual pertence para esse interno.");
+            } else if (jDataSaida.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data do pertence para esse interno.");
+                jDataSaida.requestFocus();
+                jDataSaida.setBackground(Color.red);
+            } else if (jQuantidade.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a quantidade de pertence para esse interno.");
+                jQuantidade.requestFocus();
+                jQuantidade.setBackground(Color.red);
+            } else if (jQuantidade.getText().equals("0")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe uma quantidade maior que zero.");
+            } else if (jDescricaoLocalPertences.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o local para armazenar pertences.");
+            } else {
+                objItensObj.setDataSaida(jDataSaida.getDate());
+                objItensObj.setQuant(Float.valueOf(jQuantidade.getText()));
+                if (acao == 3) {
+                    // Verificar se a quantidade solicitada para sair é compativel para operação. Tabela ESTOQUEPERTENCES
+                    if (jIdInternoCrcObjeto.getText().equals(codInterno) && jIdPertence.getText().equals(codPertence) && quantidadeEstoque < objItensObj.getQuant()) {
+                        JOptionPane.showMessageDialog(rootPane, "Saldo Insuficiente para retirada desse pertence!!!");
+                    } else {
+                        saldoEstoquePertence = quantidadeEstoque - objItensObj.getQuant();
+                        objItensObj.setUsuarioInsert(nameUser);
+                        objItensObj.setDataInsert(dataModFinal);
+                        objItensObj.setHorarioInsert(horaMov);
+                        objItensObj.setIdLanc(Integer.parseInt(jIdLanc.getText()));
+                        objItensObj.setNomePertence(jDescricaoPertenceObjeto.getText());
+                        objItensObj.setDescricaoLocal(jDescricaoLocalPertences.getText());
+                        controle.incluirItensSaidaObjetos(objItensObj);
+                        //
+                        buscarCodigoItemObjeto(); // Buscar código do item na tabela ITENSOBJETOSSAIDA
+                        objSaldoPertences.setIdInternoCrc(Integer.valueOf(jIdInternoCrcObjeto.getText()));
+                        objSaldoPertences.setIdObj(Integer.valueOf(jIdPertence.getText()));
+                        objSaldoPertences.setSaldoEstoque((float) saldoEstoquePertence);
+                        controleSaldo.alterarQuantidadeEntradaObjetos(objSaldoPertences);  // Alterar saldo na tabela ESTOQUEPERTENCES               
+                        //
+                        preencherTabelaItens("SELECT * FROM ITENSOBJETOSSAIDA "
+                                + "INNER JOIN PERTENCES "
+                                + "ON ITENSOBJETOSSAIDA.IdPertence=PERTENCES.IdPertence "
+                                + "INNER JOIN SAIDAOBJETOSPERTENCES "
+                                + "ON ITENSOBJETOSSAIDA.IdSaida=SAIDAOBJETOSPERTENCES.IdSaida "
+                                + "WHERE ITENSOBJETOSSAIDA.IdSaida='" + jIdLanc.getText() + "'");
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com successo.");
+                        SalvarObjeto();
+                    }
+                }
+                if (acao == 4) {
+                    objItensObj.setUsuarioUp(nameUser);
+                    objItensObj.setDataUp(dataModFinal);
+                    objItensObj.setHorarioUp(horaMov);
+                    objItensObj.setNomePertence(jDescricaoPertenceObjeto.getText());
+                    objItensObj.setDescricaoLocal(jDescricaoLocalPertences.getText());
+                    objItensObj.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                    objItensObj.setIdItem(Integer.valueOf(idItem));
+                    controle.alterarItensSaidaObjetos(objItensObj);
+                    //  Alterar itens da tabela ESTOQUEPERTENCES
+                    objSaldoPertences.setIdMov(Integer.valueOf(jIdLanc.getText()));
+                    objSaldoPertences.setIdItemMov(idItemMov);
+                    objSaldoPertences.setIdObj(Integer.valueOf(jIdPertence.getText()));
+                    objSaldoPertences.setStatusMov(tipoMovimento);
+                    objSaldoPertences.setDataLanc(jDataSaida.getDate());
+                    objSaldoPertences.setDescricaoObjeto(jDescricaoPertenceObjeto.getText());
+                    objSaldoPertences.setDescricaoLocal(jDescricaoLocalPertences.getText());
+                    objSaldoPertences.setNomeInternoCrc(jNomeInternoCrcObjeto.getText());
+                    objSaldoPertences.setQtdLanc(Float.valueOf(jQuantidade.getText()));
+                    controleSaldo.alterarQuantidadeEntradaObjetos(objSaldoPertences);  // Alterar saldo na tabela ESTOQUEPERTENCES               
+                    //
+                    preencherTabelaItens("SELECT * FROM ITENSOBJETOSSAIDA "
+                            + "INNER JOIN PERTENCES "
+                            + "ON ITENSOBJETOSSAIDA.IdPertence=PERTENCES.IdPertence "
+                            + "INNER JOIN SAIDAOBJETOSPERTENCES "
+                            + "ON ITENSOBJETOSSAIDA.IdSaida=SAIDAOBJETOSPERTENCES.IdSaida "
+                            + "WHERE ITENSOBJETOSSAIDA.IdSaida='" + jIdLanc.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com successo.");
+                    SalvarObjeto();
+                }
+            }
+        } else if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaSaidaPertencesPertencesTRI) && codGravarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             verificarSaldoPertences(); // Verificar se a quantidade solicitada é compativel.
             if (jDescricaoPertenceObjeto.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe qual pertence para esse interno.");
@@ -2228,7 +2442,7 @@ public class TelaSaidaObjetosPertences extends javax.swing.JInternalFrame {
         objLogSys.setStatusMov(statusMov);
     }
 
-    public void buscarAcessoUsuario() {
+    public void buscarAcessoUsuario(String pTela) {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS "
@@ -2251,7 +2465,44 @@ public class TelaSaidaObjetosPertences extends javax.swing.JInternalFrame {
         try {
             conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
                     + "WHERE IdUsuario='" + codigoUser + "' "
-                    + "AND NomeTela='" + telaSaidaPertencesPertences + "'");
+                    + "AND NomeTela='" + pTela + "'");
+            conecta.rs.first();
+            codUserAcesso = conecta.rs.getInt("IdUsuario");
+            codAbrir = conecta.rs.getInt("Abrir");
+            codIncluir = conecta.rs.getInt("Incluir");
+            codAlterar = conecta.rs.getInt("Alterar");
+            codExcluir = conecta.rs.getInt("Excluir");
+            codGravar = conecta.rs.getInt("Gravar");
+            codConsultar = conecta.rs.getInt("Consultar");
+            nomeTela = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+    public void buscarAcessoUsuario1(String pTela) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUser = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUser + "'");
+            conecta.rs.first();
+            codigoUserGroup = conecta.rs.getInt("IdUsuario");
+            codigoGrupo = conecta.rs.getInt("IdGrupo");
+            nomeGrupo = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUser + "' "
+                    + "AND NomeTela='" + pTela + "'");
             conecta.rs.first();
             codUserAcesso = conecta.rs.getInt("IdUsuario");
             codAbrir = conecta.rs.getInt("Abrir");
