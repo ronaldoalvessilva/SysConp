@@ -2521,6 +2521,7 @@
                       <Image iconType="3" name="/gestor/Imagens/Copy-16x16.png"/>
                     </Property>
                     <Property name="toolTipText" type="java.lang.String" value="Copiar P&#xe9;rfil de Usu&#xe1;rio"/>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtCopiarPerfilActionPerformed"/>

@@ -1543,6 +1543,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
 
         jBtCopiarPerfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Copy-16x16.png"))); // NOI18N
         jBtCopiarPerfil.setToolTipText("Copiar Pérfil de Usuário");
+        jBtCopiarPerfil.setEnabled(false);
         jBtCopiarPerfil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCopiarPerfilActionPerformed(evt);
@@ -2157,6 +2158,19 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         statusMov = "Excluiu";
         horaMov = jHoraSistema.getText();
         dataModFinal = jDataSistema.getText();
+        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir Acesso selecionado?", "Confirmação",
+                JOptionPane.YES_NO_OPTION);
+        if (resposta == JOptionPane.YES_OPTION) {
+            objTelaAcesso.setIdTela(Integer.valueOf(codigoTelaAcesso));
+            controlaAcess.excluirTelaAcesso(objTelaAcesso);
+            objLog();
+            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+            ExcluirAcesso();
+            preencherTabelaAcessos("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + IdUsuario.getText() + "'");
+            JOptionPane.showMessageDialog(null, "Registro excluído com sucesso.");
+
+        }
     }//GEN-LAST:event_jBtExcluirAcessoActionPerformed
 
     private void jBtSalvarAcessoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarAcessoActionPerformed
@@ -2993,6 +3007,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         jBtCancelarAcesso.setEnabled(true);
         //
         jBtPesquisarModulo.setEnabled(true);
+        jBtCopiarPerfil.setEnabled(true);
     }
 
     public void AlterarAcesso() {
@@ -3013,6 +3028,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         jBtCancelarAcesso.setEnabled(true);
         //
         jBtPesquisarModulo.setEnabled(true);
+        jBtCopiarPerfil.setEnabled(!true);
     }
 
     public void ExcluirAcesso() {
@@ -3033,6 +3049,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         jBtCancelarAcesso.setEnabled(!true);
         //
         jBtPesquisarModulo.setEnabled(!true);
+        jBtCopiarPerfil.setEnabled(!true);
     }
 
     public void SalvarAcesso() {
@@ -3053,6 +3070,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         jBtCancelarAcesso.setEnabled(!true);
         //
         jBtPesquisarModulo.setEnabled(!true);
+        jBtCopiarPerfil.setEnabled(!true);
     }
 
     public void CancelarAcesso() {
@@ -3073,6 +3091,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         jBtCancelarAcesso.setEnabled(!true);
         //
         jBtPesquisarModulo.setEnabled(!true);
+        jBtCopiarPerfil.setEnabled(!true);
     }
 
     //PESQUISA O CÓDIGO DO MÓDULO DO USUÁRIO
