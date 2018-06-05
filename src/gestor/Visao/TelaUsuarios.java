@@ -2044,20 +2044,22 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         } else {
             objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
             objUser.setIdUsuario(Integer.valueOf(IdUsuario.getText()));
-            if (acao == 3 && jCodigoGrupo.getText().equals(codigoUserGrupo) && IdUsuario.getText().equals(codigoUsuarioGrupoNovo)) {
-                JOptionPane.showMessageDialog(rootPane, "Este grupo de usuário já foi cadastrado para esse Usuário.");
-            } else {
-                objUser.setNomeGrupo(jDescricaoGrupo.getText());
-                controle.incluirGrupoUsuarios(objUser);
-                objLog1();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                //
-                SalvarGrupo();
-                preencherTabelaGrupos("SELECT * FROM USUARIOS_GRUPOS "
-                        + "INNER JOIN GRUPOUSUARIOS "
-                        + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                        + "WHERE USUARIOS_GRUPOS.IdUsuario='" + IdUsuario.getText() + "'");
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+            if (acao == 3) {
+                if (jCodigoGrupo.getText().equals(codigoUserGrupo) && IdUsuario.getText().equals(codigoUsuarioGrupoNovo)) {
+                    JOptionPane.showMessageDialog(rootPane, "Este grupo de usuário já foi cadastrado para esse Usuário.");
+                } else {
+                    objUser.setNomeGrupo(jDescricaoGrupo.getText());
+                    controle.incluirGrupoUsuarios(objUser);
+                    objLog1();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    //
+                    SalvarGrupo();
+                    preencherTabelaGrupos("SELECT * FROM USUARIOS_GRUPOS "
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE USUARIOS_GRUPOS.IdUsuario='" + IdUsuario.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
             }
             if (acao == 4) {
                 objUser.setNomeGrupo(jDescricaoGrupo.getText());
