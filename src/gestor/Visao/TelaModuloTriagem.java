@@ -160,8 +160,8 @@ public class TelaModuloTriagem extends javax.swing.JInternalFrame {
     public static String telaEntregaMaterialUsoInternosTRI = "Movimentação:Entrega de Material Uso Pessoal:Internos";
     public static String telaEntregaMaterialUsoInternosBioTRI = "Movimentação:Entrega de Material Uso Pessoal:Biometria";
     public static String telaInicializarLeitorTRI = "Movimentação:Entrega de Material Uso Pessoal:Inicializar leitor";
-    public static String telaEntredaInternosManuTRI = "Movimentação:Entreda de Internos:Manutenção";
-    public static String telaEntredaInternosIntTRI = "Movimentação:Entreda de Internos:Internos";
+    public static String telaEntredaInternosManuTRI = "Movimentação:Entrada de Internos:Manutenção";
+    public static String telaEntredaInternosIntTRI = "Movimentação:Entrada de Internos:Internos";
 
     //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
