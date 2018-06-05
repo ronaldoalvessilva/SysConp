@@ -19,6 +19,7 @@ import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaUsuarios.IdUsuario;
+import static gestor.Visao.TelaUsuarios.jComboBoxModuloAcesso;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -135,14 +136,14 @@ public class TelaCopiaPerfilUsuario extends javax.swing.JDialog {
         jTabelaAcessos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaAcessos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Código", "Nome da Tela", "Abrir", "Incluir", "Alterar", "Excluir", "Consultar"
+                "Código", "Nome da Tela", "Abrir", "Incluir", "Alterar", "Excluir", "Consultar", "Nome do Módulo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, false, false, false
+                true, false, false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -163,6 +164,8 @@ public class TelaCopiaPerfilUsuario extends javax.swing.JDialog {
             jTabelaAcessos.getColumnModel().getColumn(5).setMinWidth(40);
             jTabelaAcessos.getColumnModel().getColumn(6).setMinWidth(40);
             jTabelaAcessos.getColumnModel().getColumn(6).setMaxWidth(40);
+            jTabelaAcessos.getColumnModel().getColumn(7).setMinWidth(150);
+            jTabelaAcessos.getColumnModel().getColumn(7).setMaxWidth(150);
         }
 
         jBtConfirmar.setForeground(new java.awt.Color(0, 153, 0));
@@ -309,7 +312,7 @@ public class TelaCopiaPerfilUsuario extends javax.swing.JDialog {
         } catch (Exception e) {
         }
         conecta.desconecta();
-    }   
+    }
 
     public void copiarPerfil() {
         for (int i = 0; i < jTabelaAcessos.getRowCount(); i++) {
@@ -352,6 +355,7 @@ public class TelaCopiaPerfilUsuario extends javax.swing.JDialog {
             } else if (pConsultarAcesso.equals("Sim")) {
                 pConsultar = 1;
             }
+            objTelaAcesso.setNomeModulo((String) jTabelaAcessos.getValueAt(i, 8));
             objTelaAcesso.setIncluir(pIncluir);
             objTelaAcesso.setAbrir(pAbrir);
             objTelaAcesso.setAlterar(pAlterar);
@@ -388,7 +392,7 @@ public class TelaCopiaPerfilUsuario extends javax.swing.JDialog {
 
     public void preencherTabelaAcessos(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Tela", "Abrir", "Incluir", "Alterar", "Excluir", "Gravar", "Consultar"};
+        String[] Colunas = new String[]{"Código", "Tela", "Abrir", "Incluir", "Alterar", "Excluir", "Gravar", "Consultar", "Nome do Módulo"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
@@ -430,7 +434,7 @@ public class TelaCopiaPerfilUsuario extends javax.swing.JDialog {
                 } else if (pConsultar == 1) {
                     pConsultarAcesso = "Sim";
                 }
-                dados.add(new Object[]{conecta.rs.getString("IdTela"), conecta.rs.getString("NomeTela"), pAbrirAcesso, pIncluirAcesso, pAlterarAcesso, pExcluirAcesso, pGravarAcesso, pConsultarAcesso});
+                dados.add(new Object[]{conecta.rs.getString("IdTela"), conecta.rs.getString("NomeTela"), pAbrirAcesso, pIncluirAcesso, pAlterarAcesso, pExcluirAcesso, pGravarAcesso, pConsultarAcesso, conecta.rs.getString("NomeModulo")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }
@@ -452,6 +456,8 @@ public class TelaCopiaPerfilUsuario extends javax.swing.JDialog {
         jTabelaAcessos.getColumnModel().getColumn(6).setResizable(false);
         jTabelaAcessos.getColumnModel().getColumn(7).setPreferredWidth(60);
         jTabelaAcessos.getColumnModel().getColumn(7).setResizable(false);
+        jTabelaAcessos.getColumnModel().getColumn(8).setPreferredWidth(150);
+        jTabelaAcessos.getColumnModel().getColumn(8).setResizable(false);
         jTabelaAcessos.getTableHeader().setReorderingAllowed(false);
         jTabelaAcessos.setAutoResizeMode(jTabelaAcessos.AUTO_RESIZE_OFF);
         jTabelaAcessos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
