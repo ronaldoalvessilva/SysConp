@@ -190,7 +190,7 @@ public class TelaModuloTriagem extends javax.swing.JInternalFrame {
     // CONTROLE DE DEPOSITOS NA TRIAGEM
     String pNomeCDT = "";
     String pNomeCDTI = "";
-    //
+    // MOVIMENTAÇÃO
     String pNomeEMUP = "";
     String pNomeEMUPI = "";
     String pNomeEMUIB = "";
