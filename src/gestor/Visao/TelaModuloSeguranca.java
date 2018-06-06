@@ -1403,7 +1403,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     private void LivroOcorrenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LivroOcorrenciasActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaLivroOcorrencias);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaBloqueioLiberacaoVisitasPortaria) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaLivroOcorrencias) && codAbrir == 1) {
             if (objOcoSegu == null || objOcoSegu.isClosed()) {
                 objOcoSegu = new TelaOcorrenciaSeguranca();
                 jPainelSeguranca.add(objOcoSegu);
