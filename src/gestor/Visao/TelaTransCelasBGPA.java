@@ -13,6 +13,14 @@ import gestor.Dao.ModeloTabela;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.TransferenciaLocalInternos;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloBaseDois.codAlterarB2;
+import static gestor.Visao.TelaModuloBaseDois.codGravarB2;
+import static gestor.Visao.TelaModuloBaseDois.codIncluirB2;
+import static gestor.Visao.TelaModuloBaseDois.codUserAcessoB2;
+import static gestor.Visao.TelaModuloBaseDois.codigoUserB2;
+import static gestor.Visao.TelaModuloBaseDois.nomeGrupoB2;
+import static gestor.Visao.TelaModuloBaseDois.nomeTelaB2;
+import static gestor.Visao.TelaModuloBaseDois.telaLocacaoInternosManutencaoB2;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaPesqInternoTransfLocacaoBGPA.idLoca;
@@ -752,26 +760,34 @@ public class TelaTransCelasBGPA extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUserB2 == codUserAcessoB2 && nomeTelaB2.equals(telaLocacaoInternosManutencaoB2) && codIncluirB2 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB2.equals("ADMINISTRADORES")) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here
-        objTranLocalInt.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa transferência não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        if (codigoUserB2 == codUserAcessoB2 && nomeTelaB2.equals(telaLocacaoInternosManutencaoB2) && codAlterarB2 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB2.equals("ADMINISTRADORES")) {
+            objTranLocalInt.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa transferência não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                Alterar();
+                corCampos();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 2;
-            Alterar();
-            corCampos();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
@@ -782,63 +798,67 @@ public class TelaTransCelasBGPA extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataLanc.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data de lançamento!!!");
-            jDataLanc.requestFocus();
-            jDataLanc.setBackground(Color.red);
-        } else {
-            if (jNomeInterno.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe qual é o interno a ser transferido");
+        if (codigoUserB2 == codUserAcessoB2 && nomeTelaB2.equals(telaLocacaoInternosManutencaoB2) && codGravarB2 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB2.equals("ADMINISTRADORES")) {
+            if (jDataLanc.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de lançamento!!!");
+                jDataLanc.requestFocus();
+                jDataLanc.setBackground(Color.red);
             } else {
-                if (jDescricaoCelaDestino.getText().equals("")) {
-                    JOptionPane.showMessageDialog(rootPane, "Informe qual é o Pavilhão e Cela de destino do interno");
+                if (jNomeInterno.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe qual é o interno a ser transferido");
                 } else {
-                    verificarLancamento();
-                    if (statusLanc == null ? statusTrans == null : statusLanc.equals(statusTrans)) {
-                        JOptionPane.showMessageDialog(rootPane, "Não é possível realizar a transferência desse interno,\npois o lançamento de origem ao qual ele pertence\nnão foi FINALIZADO. Finalize o lançamento e só\ndepois faça a transferência do interno.");
+                    if (jDescricaoCelaDestino.getText().equals("")) {
+                        JOptionPane.showMessageDialog(rootPane, "Informe qual é o Pavilhão e Cela de destino do interno");
                     } else {
-                        objTranLocalInt.setDataLanc(jDataLanc.getDate());
-                        if (acao == 1) {
-                            // Para o log do registro
-                            objTranLocalInt.setUsuarioInsert(nameUser);
-                            objTranLocalInt.setDataInsert(dataModFinal);
-                            objTranLocalInt.setHoraInsert(horaMov);
-                            //
+                        verificarLancamento();
+                        if (statusLanc == null ? statusTrans == null : statusLanc.equals(statusTrans)) {
+                            JOptionPane.showMessageDialog(rootPane, "Não é possível realizar a transferência desse interno,\npois o lançamento de origem ao qual ele pertence\nnão foi FINALIZADO. Finalize o lançamento e só\ndepois faça a transferência do interno.");
+                        } else {
                             objTranLocalInt.setDataLanc(jDataLanc.getDate());
-                            objTranLocalInt.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
-                            objTranLocalInt.setIdCela(Integer.valueOf(jIdCelaDestino.getText()));
-                            objTranLocalInt.setStatusLanc(jStatusLanc.getText());
-                            objTranLocalInt.setDescricaoCelaOrigem(jDescricaoCelaOrigem.getText());
-                            objTranLocalInt.setDescricaoPavilhaoOrigem(jPavilhaoOrigem.getText());
-                            control.incluirTransIntLocal(objTranLocalInt); // INSERT na tabela TRANSFERENCIALOCAL (MELHORADO EM 07/08/2015)
-                            buscarID();
-                            objTranLocalInt.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
-                            objTranLocalInt.setIdLanc(Integer.valueOf(idLoca));
-                            controle.transferirInternoLocal(objTranLocalInt); // UPDATE na Tabela ITENSLOCACAOINTERNO
-                            objLog();
-                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                            Salvar();
-                        }
-                        if (acao == 2) {
-                            objTranLocalInt.setUsuarioUp(nameUser);
-                            objTranLocalInt.setDataUp(dataModFinal);
-                            objTranLocalInt.setHoraUp(horaMov);
-                            objTranLocalInt.setDataLanc(jDataLanc.getDate());
-                            objTranLocalInt.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
-                            objTranLocalInt.setIdCela(Integer.valueOf(jIdCelaDestino.getText()));
-                            objTranLocalInt.setStatusLanc(jStatusLanc.getText());
-                            control.alterarTransIntLocal(objTranLocalInt);
-                            objTranLocalInt.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
-                            controle.transferirInternoLocal(objTranLocalInt);
-                            objLog();
-                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                            Salvar();
+                            if (acao == 1) {
+                                // Para o log do registro
+                                objTranLocalInt.setUsuarioInsert(nameUser);
+                                objTranLocalInt.setDataInsert(dataModFinal);
+                                objTranLocalInt.setHoraInsert(horaMov);
+                                //
+                                objTranLocalInt.setDataLanc(jDataLanc.getDate());
+                                objTranLocalInt.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                                objTranLocalInt.setIdCela(Integer.valueOf(jIdCelaDestino.getText()));
+                                objTranLocalInt.setStatusLanc(jStatusLanc.getText());
+                                objTranLocalInt.setDescricaoCelaOrigem(jDescricaoCelaOrigem.getText());
+                                objTranLocalInt.setDescricaoPavilhaoOrigem(jPavilhaoOrigem.getText());
+                                control.incluirTransIntLocal(objTranLocalInt); // INSERT na tabela TRANSFERENCIALOCAL (MELHORADO EM 07/08/2015)
+                                buscarID();
+                                objTranLocalInt.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                                objTranLocalInt.setIdLanc(Integer.valueOf(idLoca));
+                                controle.transferirInternoLocal(objTranLocalInt); // UPDATE na Tabela ITENSLOCACAOINTERNO
+                                objLog();
+                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                Salvar();
+                            }
+                            if (acao == 2) {
+                                objTranLocalInt.setUsuarioUp(nameUser);
+                                objTranLocalInt.setDataUp(dataModFinal);
+                                objTranLocalInt.setHoraUp(horaMov);
+                                objTranLocalInt.setDataLanc(jDataLanc.getDate());
+                                objTranLocalInt.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                                objTranLocalInt.setIdCela(Integer.valueOf(jIdCelaDestino.getText()));
+                                objTranLocalInt.setStatusLanc(jStatusLanc.getText());
+                                control.alterarTransIntLocal(objTranLocalInt);
+                                objTranLocalInt.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                                controle.transferirInternoLocal(objTranLocalInt);
+                                objLog();
+                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                Salvar();
+                            }
                         }
                     }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 

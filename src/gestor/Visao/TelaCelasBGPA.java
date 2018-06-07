@@ -14,6 +14,15 @@ import gestor.Dao.ModeloTabela;
 import gestor.Modelo.Celas;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloBaseDois.codAbrirB2;
+import static gestor.Visao.TelaModuloBaseDois.codExcluirB2;
+import static gestor.Visao.TelaModuloBaseDois.codGravarB2;
+import static gestor.Visao.TelaModuloBaseDois.codIncluirB2;
+import static gestor.Visao.TelaModuloBaseDois.codUserAcessoB2;
+import static gestor.Visao.TelaModuloBaseDois.codigoUserB2;
+import static gestor.Visao.TelaModuloBaseDois.nomeGrupoB2;
+import static gestor.Visao.TelaModuloBaseDois.nomeTelaB2;
+import static gestor.Visao.TelaModuloBaseDois.telaCelasB2;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -569,94 +578,110 @@ public class TelaCelasBGPA extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampo();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUserB2 == codUserAcessoB2 && nomeTelaB2.equals(telaCelasB2) && codIncluirB2 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB2.equals("ADMINISTRADORES")) {
+            acao = 1;
+            Novo();
+            corCampo();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        acao = 2;
-        Alterar();
-        corCampo();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUserB2 == codUserAcessoB2 && nomeTelaB2.equals(telaCelasB2) && codAbrirB2 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB2.equals("ADMINISTRADORES")) {
+            acao = 2;
+            Alterar();
+            corCampo();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        objCelas.setIdCela(Integer.parseInt(jIdCela.getText()));
-        objCelas.setEndCelaPav(jLocal.getText());
-        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir CELA selecionado?", "Confirmação",
-                JOptionPane.YES_NO_OPTION);
-        if (resposta == JOptionPane.YES_OPTION) {
-            control.excluirCelas(objCelas);
-            objLog();
-            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-            JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-            Excluir();
+        if (codigoUserB2 == codUserAcessoB2 && nomeTelaB2.equals(telaCelasB2) && codExcluirB2 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB2.equals("ADMINISTRADORES")) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objCelas.setIdCela(Integer.parseInt(jIdCela.getText()));
+            objCelas.setEndCelaPav(jLocal.getText());
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir CELA selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                control.excluirCelas(objCelas);
+                objLog();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                Excluir();
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jLocal.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(rootPane, "Descrição da Cela não pode ser em branco...");
-            jLocal.requestFocus();
-            jLocal.setBackground(Color.red);
-        } else {
-            if (jPavilhao.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe o pavilhão que a Cela pertence");
-                jPavilhao.requestFocus();
-                jPavilhao.setBackground(Color.red);
-            } else if (jComboBoxStatus.getSelectedItem().equals("Inativo") && jMotivoInativacao.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe o motivo pelo qual está sendo inativando a cela.");
-            } else if (jCapacidade.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a capacidade da Cela.");
-            } else if (jNumeroCela.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe o número da Cela.");
+        if (codigoUserB2 == codUserAcessoB2 && nomeTelaB2.equals(telaCelasB2) && codGravarB2 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB2.equals("ADMINISTRADORES")) {
+            if (jLocal.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(rootPane, "Descrição da Cela não pode ser em branco...");
+                jLocal.requestFocus();
+                jLocal.setBackground(Color.red);
             } else {
-                objCelas.setStatusCela((String) jComboBoxStatus.getSelectedItem());
-                objCelas.setEndCelaPav(jLocal.getText());
-                objCelas.setDescricaoPavilhao((String) jPavilhao.getText());
-                objCelas.setMotivo(jMotivoInativacao.getText());
-                objCelas.setCapacidade(Integer.valueOf(jCapacidade.getText()));
-                objCelas.setNumeroCela(Integer.valueOf(jNumeroCela.getText()));
-                objCelas.setNivelCela(nivelCela);
-                if (acao == 1) {
-                    // log de usuario
-                    objCelas.setUsuarioInsert(nameUser);
-                    objCelas.setDataInsert(dataModFinal);
-                    objCelas.setHoraInsert(horaMov);
-                    //
-                    control.incluirCelas(objCelas);
-                    buscarId();
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro GRAVADO com sucesso...");
-                    Salvar();
-                }
-                if (acao == 2) {
-                    // log de usuario
-                    objCelas.setUsuarioUp(nameUser);
-                    objCelas.setDataUp(dataModFinal);
-                    objCelas.setHoraUp(horaMov);
-                    //
-                    objCelas.setIdCela(Integer.parseInt(jIdCela.getText()));
-                    control.alterarCelas(objCelas);
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro ALTERADO com sucesso");
-                    Salvar();
+                if (jPavilhao.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe o pavilhão que a Cela pertence");
+                    jPavilhao.requestFocus();
+                    jPavilhao.setBackground(Color.red);
+                } else if (jComboBoxStatus.getSelectedItem().equals("Inativo") && jMotivoInativacao.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe o motivo pelo qual está sendo inativando a cela.");
+                } else if (jCapacidade.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a capacidade da Cela.");
+                } else if (jNumeroCela.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe o número da Cela.");
+                } else {
+                    objCelas.setStatusCela((String) jComboBoxStatus.getSelectedItem());
+                    objCelas.setEndCelaPav(jLocal.getText());
+                    objCelas.setDescricaoPavilhao((String) jPavilhao.getText());
+                    objCelas.setMotivo(jMotivoInativacao.getText());
+                    objCelas.setCapacidade(Integer.valueOf(jCapacidade.getText()));
+                    objCelas.setNumeroCela(Integer.valueOf(jNumeroCela.getText()));
+                    objCelas.setNivelCela(nivelCela);
+                    if (acao == 1) {
+                        // log de usuario
+                        objCelas.setUsuarioInsert(nameUser);
+                        objCelas.setDataInsert(dataModFinal);
+                        objCelas.setHoraInsert(horaMov);
+                        //
+                        control.incluirCelas(objCelas);
+                        buscarId();
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro GRAVADO com sucesso...");
+                        Salvar();
+                    }
+                    if (acao == 2) {
+                        // log de usuario
+                        objCelas.setUsuarioUp(nameUser);
+                        objCelas.setDataUp(dataModFinal);
+                        objCelas.setHoraUp(horaMov);
+                        //
+                        objCelas.setIdCela(Integer.parseInt(jIdCela.getText()));
+                        control.alterarCelas(objCelas);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro ALTERADO com sucesso");
+                        Salvar();
+                    }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 

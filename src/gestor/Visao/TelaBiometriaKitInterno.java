@@ -20,6 +20,18 @@ import gestor.Dao.ModeloTabela;
 import gestor.Modelo.ItensPagamentoKitInterno;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloBaseDois.codIncluirB2;
+import static gestor.Visao.TelaModuloBaseDois.codUserAcessoB2;
+import static gestor.Visao.TelaModuloBaseDois.codigoUserB2;
+import static gestor.Visao.TelaModuloBaseDois.nomeGrupoB2;
+import static gestor.Visao.TelaModuloBaseDois.nomeTelaB2;
+import static gestor.Visao.TelaModuloBaseDois.telaInicializarLeitorB2;
+import static gestor.Visao.TelaModuloBaseUm.codIncluirB1;
+import static gestor.Visao.TelaModuloBaseUm.codUserAcessoB1;
+import static gestor.Visao.TelaModuloBaseUm.codigoUserB1;
+import static gestor.Visao.TelaModuloBaseUm.nomeGrupoB1;
+import static gestor.Visao.TelaModuloBaseUm.nomeTelaB1;
+import static gestor.Visao.TelaModuloBaseUm.telaInicializarLeitorB1;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloTriagem.codIncluirTRI;
 import static gestor.Visao.TelaModuloTriagem.codUserAcessoTRI;
@@ -752,6 +764,144 @@ public class TelaBiometriaKitInterno extends javax.swing.JDialog {
     private void jBtIniciarLeitorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIniciarLeitorActionPerformed
         // TODO add your handling code here:
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaInicializarLeitorTRI) && codIncluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
+            Novo();
+            // Instanciar a DLL
+            CIS_SDK dll = CIS_SDK.INSTANCE;
+            //
+            int iRetorno = dll.CIS_SDK_Biometrico_Iniciar();
+            if (iRetorno != 1 && iRetorno == 0) {
+                JOptionPane.showMessageDialog(null, "COMANDO NÃO EXECUTADO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -1) {
+                JOptionPane.showMessageDialog(null, "LEITOR INCOMPATIVEL COM SDK...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -10) {
+                JOptionPane.showMessageDialog(null, "ERRO DESCONHECIDO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -11) {
+                JOptionPane.showMessageDialog(null, "FALTA DE MEMÓRIA...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -12) {
+                JOptionPane.showMessageDialog(null, "ARGUMENTO INVALIDO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -13) {
+                JOptionPane.showMessageDialog(null, "SDK EM USO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -14) {
+                JOptionPane.showMessageDialog(null, "TEMPLATE INVALIDO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -15) {
+                JOptionPane.showMessageDialog(null, "ERRO INTERNO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -16) {
+                JOptionPane.showMessageDialog(null, "NÃO HABILITADO PARA CAPTURAR DIGITAL...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -17) {
+                JOptionPane.showMessageDialog(null, "CANCELADO PELO USUARIO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -18) {
+                JOptionPane.showMessageDialog(null, "LEITURA NÃO É POSSIVEL...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -21) {
+                JOptionPane.showMessageDialog(null, "ERRO DESCONHECIDO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -22) {
+                JOptionPane.showMessageDialog(null, "SDK NÃO FOI INICIADO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -23) {
+                JOptionPane.showMessageDialog(null, "LEITOR NÃO CONECTADO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -24) {
+                JOptionPane.showMessageDialog(null, "ERRO NO LEITOR...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -25) {
+                JOptionPane.showMessageDialog(null, "FRAME DE DADOS VAZIO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -26) {
+                JOptionPane.showMessageDialog(null, "ORIGEM FALSA (FAKE)...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -27) {
+                JOptionPane.showMessageDialog(null, "HARDWARE INCOMPATIVEL...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -28) {
+                JOptionPane.showMessageDialog(null, "FIRMWARE INCOMPATIVEL...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -29) {
+                JOptionPane.showMessageDialog(null, "FRAME ALTERADO...");
+                return;
+            }
+            jBtCancelarLeitura.setEnabled(true);
+            new Thread(LerDigital1).start();
+        } else if (codigoUserB1 == codUserAcessoB1 && nomeTelaB1.equals(telaInicializarLeitorB1) && codIncluirB1 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB1.equals("ADMINISTRADORES")) {
+            Novo();
+            // Instanciar a DLL
+            CIS_SDK dll = CIS_SDK.INSTANCE;
+            //
+            int iRetorno = dll.CIS_SDK_Biometrico_Iniciar();
+            if (iRetorno != 1 && iRetorno == 0) {
+                JOptionPane.showMessageDialog(null, "COMANDO NÃO EXECUTADO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -1) {
+                JOptionPane.showMessageDialog(null, "LEITOR INCOMPATIVEL COM SDK...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -10) {
+                JOptionPane.showMessageDialog(null, "ERRO DESCONHECIDO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -11) {
+                JOptionPane.showMessageDialog(null, "FALTA DE MEMÓRIA...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -12) {
+                JOptionPane.showMessageDialog(null, "ARGUMENTO INVALIDO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -13) {
+                JOptionPane.showMessageDialog(null, "SDK EM USO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -14) {
+                JOptionPane.showMessageDialog(null, "TEMPLATE INVALIDO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -15) {
+                JOptionPane.showMessageDialog(null, "ERRO INTERNO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -16) {
+                JOptionPane.showMessageDialog(null, "NÃO HABILITADO PARA CAPTURAR DIGITAL...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -17) {
+                JOptionPane.showMessageDialog(null, "CANCELADO PELO USUARIO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -18) {
+                JOptionPane.showMessageDialog(null, "LEITURA NÃO É POSSIVEL...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -21) {
+                JOptionPane.showMessageDialog(null, "ERRO DESCONHECIDO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -22) {
+                JOptionPane.showMessageDialog(null, "SDK NÃO FOI INICIADO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -23) {
+                JOptionPane.showMessageDialog(null, "LEITOR NÃO CONECTADO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -24) {
+                JOptionPane.showMessageDialog(null, "ERRO NO LEITOR...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -25) {
+                JOptionPane.showMessageDialog(null, "FRAME DE DADOS VAZIO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -26) {
+                JOptionPane.showMessageDialog(null, "ORIGEM FALSA (FAKE)...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -27) {
+                JOptionPane.showMessageDialog(null, "HARDWARE INCOMPATIVEL...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -28) {
+                JOptionPane.showMessageDialog(null, "FIRMWARE INCOMPATIVEL...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -29) {
+                JOptionPane.showMessageDialog(null, "FRAME ALTERADO...");
+                return;
+            }
+            jBtCancelarLeitura.setEnabled(true);
+            new Thread(LerDigital1).start();
+        } else if (codigoUserB2 == codUserAcessoB2 && nomeTelaB2.equals(telaInicializarLeitorB2) && codIncluirB2 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB2.equals("ADMINISTRADORES")) {
             Novo();
             // Instanciar a DLL
             CIS_SDK dll = CIS_SDK.INSTANCE;

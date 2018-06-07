@@ -163,6 +163,7 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
     public TelaModuloBaseUm() {
         initComponents();
         this.setSize(840, 640); // Tamanho da tela 
+        pesquisarTelasAcessos();
         threadMensagem(); // A cada 5 minutos verifica mensagem 
     }
 
@@ -493,8 +494,8 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
 
     private void PopulacaoInternosAgentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PopulacaoInternosAgentesActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaLocacaoInternosManutencaoB1);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB1.equals("ADMINISTRADORES") || codigoUserB1 == codUserAcessoB1 && nomeTelaB1.equals(telaLocacaoInternosManutencaoB1) && codAbrirB1 == 1) {
+        buscarAcessoUsuario(telaPopulacaoInternosAgentesB1);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB1.equals("ADMINISTRADORES") || codigoUserB1 == codUserAcessoB1 && nomeTelaB1.equals(telaPopulacaoInternosAgentesB1) && codAbrirB1 == 1) {
             if (objPop == null || objPop.isClosed()) {
                 objPop = new TelaPopulacaoBaseSeguranca();
                 jPainelBaseSegurancaPavilhao.add(objPop);

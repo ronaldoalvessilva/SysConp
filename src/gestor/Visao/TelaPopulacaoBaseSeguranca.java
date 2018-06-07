@@ -22,6 +22,24 @@ import gestor.Modelo.PopBrasilMasc;
 import gestor.Modelo.PopEstrangeiraFem;
 import gestor.Modelo.PopEstrangeiraMasc;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloBaseDois.codAlterarB2;
+import static gestor.Visao.TelaModuloBaseDois.codExcluirB2;
+import static gestor.Visao.TelaModuloBaseDois.codGravarB2;
+import static gestor.Visao.TelaModuloBaseDois.codIncluirB2;
+import static gestor.Visao.TelaModuloBaseDois.codUserAcessoB2;
+import static gestor.Visao.TelaModuloBaseDois.codigoUserB2;
+import static gestor.Visao.TelaModuloBaseDois.nomeGrupoB2;
+import static gestor.Visao.TelaModuloBaseDois.nomeTelaB2;
+import static gestor.Visao.TelaModuloBaseDois.telaPopulacaoInternosAgentesB2;
+import static gestor.Visao.TelaModuloBaseUm.codAlterarB1;
+import static gestor.Visao.TelaModuloBaseUm.codExcluirB1;
+import static gestor.Visao.TelaModuloBaseUm.codGravarB1;
+import static gestor.Visao.TelaModuloBaseUm.codIncluirB1;
+import static gestor.Visao.TelaModuloBaseUm.codUserAcessoB1;
+import static gestor.Visao.TelaModuloBaseUm.codigoUserB1;
+import static gestor.Visao.TelaModuloBaseUm.nomeGrupoB1;
+import static gestor.Visao.TelaModuloBaseUm.nomeTelaB1;
+import static gestor.Visao.TelaModuloBaseUm.telaPopulacaoInternosAgentesB1;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -168,7 +186,7 @@ public final class TelaPopulacaoBaseSeguranca extends javax.swing.JInternalFrame
         setIconifiable(true);
         setTitle("...::: Cadastro de  População {BASESEG}:::...");
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "População Carceraria", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 0, 255)));
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "População Carceraria", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel13.setText("Agentes Masculino:");
@@ -232,7 +250,7 @@ public final class TelaPopulacaoBaseSeguranca extends javax.swing.JInternalFrame
 
         jPanel6Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPopAgenteFem, jPopAgenteMasc});
 
-        jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Totais da População", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 0, 255)));
+        jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Totais da População", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
 
         jLabel25.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel25.setText("Total Geral Internos:");
@@ -291,20 +309,15 @@ public final class TelaPopulacaoBaseSeguranca extends javax.swing.JInternalFrame
                 .addGap(0, 8, Short.MAX_VALUE))
         );
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados População", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 0, 255)));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados População", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
 
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Estrangeiros", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 0, 255)));
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Estrangeiros", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
 
-        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Homens", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(255, 0, 51)));
+        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Homens", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 0, 51))); // NOI18N
 
         jEstraHomeSemi.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jEstraHomeSemi.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jEstraHomeSemi.setEnabled(false);
-        jEstraHomeSemi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jEstraHomeSemiActionPerformed(evt);
-            }
-        });
 
         jEstaHomeAberto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jEstaHomeAberto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -388,7 +401,7 @@ public final class TelaPopulacaoBaseSeguranca extends javax.swing.JInternalFrame
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Mulheres", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(255, 0, 0)));
+        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Mulheres", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 0, 0))); // NOI18N
 
         jEstranMulherFechado.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jEstranMulherFechado.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -419,11 +432,6 @@ public final class TelaPopulacaoBaseSeguranca extends javax.swing.JInternalFrame
         jEstranMulherSemi.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jEstranMulherSemi.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jEstranMulherSemi.setEnabled(false);
-        jEstranMulherSemi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jEstranMulherSemiActionPerformed(evt);
-            }
-        });
 
         jEstranMulherAberto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jEstranMulherAberto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -501,9 +509,9 @@ public final class TelaPopulacaoBaseSeguranca extends javax.swing.JInternalFrame
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Brasileiros", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 0, 255)));
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Brasileiros", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
 
-        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Homens", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(255, 0, 51)));
+        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Homens", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 0, 51))); // NOI18N
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel7.setText("Fechado:");
@@ -595,7 +603,7 @@ public final class TelaPopulacaoBaseSeguranca extends javax.swing.JInternalFrame
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Mulheres", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(255, 0, 51)));
+        jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Mulheres", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 0, 51))); // NOI18N
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel19.setText("Fechado:");
@@ -727,7 +735,7 @@ public final class TelaPopulacaoBaseSeguranca extends javax.swing.JInternalFrame
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel16.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Botões", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 0, 255)));
+        jPanel16.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Botões", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
 
         jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
         jBtNovo.setText("Novo");
@@ -1036,218 +1044,277 @@ public final class TelaPopulacaoBaseSeguranca extends javax.swing.JInternalFrame
         setBounds(250, 15, 589, 556);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jEstranMulherSemiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEstranMulherSemiActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jEstranMulherSemiActionPerformed
-
-    private void jEstraHomeSemiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEstraHomeSemiActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jEstraHomeSemiActionPerformed
-
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampo();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUserB1 == codUserAcessoB1 && nomeTelaB1.equals(telaPopulacaoInternosAgentesB1) && codIncluirB1 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB1.equals("ADMINISTRADORES")) {
+            acao = 1;
+            Novo();
+            corCampo();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else if (codigoUserB2 == codUserAcessoB2 && nomeTelaB2.equals(telaPopulacaoInternosAgentesB2) && codIncluirB2 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB2.equals("ADMINISTRADORES")) {
+            acao = 1;
+            Novo();
+            corCampo();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        acao = 2;
-        objPopMov.setStatusPop(jStatusPop.getText());
-        if (jStatusPop.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse Registro não pode ser alterado, o mesmo encontra-se FINALIZADO");
+        if (codigoUserB1 == codUserAcessoB1 && nomeTelaB1.equals(telaPopulacaoInternosAgentesB1) && codAlterarB1 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB1.equals("ADMINISTRADORES")) {
+            acao = 2;
+            objPopMov.setStatusPop(jStatusPop.getText());
+            if (jStatusPop.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse Registro não pode ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                Alterar();
+                corCampo();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else if (codigoUserB2 == codUserAcessoB2 && nomeTelaB2.equals(telaPopulacaoInternosAgentesB2) && codAlterarB2 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB2.equals("ADMINISTRADORES")) {
+            acao = 2;
+            objPopMov.setStatusPop(jStatusPop.getText());
+            if (jStatusPop.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse Registro não pode ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                Alterar();
+                corCampo();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            Alterar();
-            corCampo();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        objPopMov.setStatusPop(jStatusPop.getText());
-        if (jStatusPop.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse Registro não pode ser excluido, o mesmo encontra-se FINALIZADO");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir essa população selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                // POPULAÇÃO DE AGENTES
-                objPopAgentes.setIdAgente(Integer.valueOf(jIdPop.getText()));
-                controlAge.excluirPopAgentes(objPopAgentes);
-                //POPULAÇÃO DE BRASILEIROS FEMININO
-                objPopBraFem.setIdPopBrasm(Integer.valueOf(jIdPop.getText()));
-                controlpf.excluirPopBraFem(objPopBraFem);
-                // POPULAÇÃO DE BRASILEIROS MASCULINO
-                objPopBraMasc.setIdPopBrash(Integer.valueOf(jIdPop.getText()));
-                controlpm.excluirPopBraMasc(objPopBraMasc);
-                // POPULAÇÃO DE ESTRANGEIROS FEMININO
-                objPopEsFem.setIdPopEstFem(Integer.valueOf(jIdPop.getText()));
-                controlf.excluirPopEstFem(objPopEsFem);
-                // POPULAÇÃO DE ESTRANGEIROS MASCULINO
-                objPopEsMas.setIdPopEsth(Integer.valueOf(jIdPop.getText()));
-                controle.excluirPopEstMasc(objPopEsMas);
-                // POPULAÇÃO (CABEÇALHO)
-                objPopMov.setIdPopMov(Integer.valueOf(jIdPop.getText()));
-                control.excluirMovPop(objPopMov);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                Excluir();
+        if (codigoUserB1 == codUserAcessoB1 && nomeTelaB1.equals(telaPopulacaoInternosAgentesB1) && codExcluirB1 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB1.equals("ADMINISTRADORES")) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objPopMov.setStatusPop(jStatusPop.getText());
+            if (jStatusPop.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse Registro não pode ser excluido, o mesmo encontra-se FINALIZADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir essa população selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    // POPULAÇÃO DE AGENTES
+                    objPopAgentes.setIdAgente(Integer.valueOf(jIdPop.getText()));
+                    controlAge.excluirPopAgentes(objPopAgentes);
+                    //POPULAÇÃO DE BRASILEIROS FEMININO
+                    objPopBraFem.setIdPopBrasm(Integer.valueOf(jIdPop.getText()));
+                    controlpf.excluirPopBraFem(objPopBraFem);
+                    // POPULAÇÃO DE BRASILEIROS MASCULINO
+                    objPopBraMasc.setIdPopBrash(Integer.valueOf(jIdPop.getText()));
+                    controlpm.excluirPopBraMasc(objPopBraMasc);
+                    // POPULAÇÃO DE ESTRANGEIROS FEMININO
+                    objPopEsFem.setIdPopEstFem(Integer.valueOf(jIdPop.getText()));
+                    controlf.excluirPopEstFem(objPopEsFem);
+                    // POPULAÇÃO DE ESTRANGEIROS MASCULINO
+                    objPopEsMas.setIdPopEsth(Integer.valueOf(jIdPop.getText()));
+                    controle.excluirPopEstMasc(objPopEsMas);
+                    // POPULAÇÃO (CABEÇALHO)
+                    objPopMov.setIdPopMov(Integer.valueOf(jIdPop.getText()));
+                    control.excluirMovPop(objPopMov);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    Excluir();
+                }
             }
+        } else if (codigoUserB2 == codUserAcessoB2 && nomeTelaB2.equals(telaPopulacaoInternosAgentesB2) && codExcluirB2 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB2.equals("ADMINISTRADORES")) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objPopMov.setStatusPop(jStatusPop.getText());
+            if (jStatusPop.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse Registro não pode ser excluido, o mesmo encontra-se FINALIZADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir essa população selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    // POPULAÇÃO DE AGENTES
+                    objPopAgentes.setIdAgente(Integer.valueOf(jIdPop.getText()));
+                    controlAge.excluirPopAgentes(objPopAgentes);
+                    //POPULAÇÃO DE BRASILEIROS FEMININO
+                    objPopBraFem.setIdPopBrasm(Integer.valueOf(jIdPop.getText()));
+                    controlpf.excluirPopBraFem(objPopBraFem);
+                    // POPULAÇÃO DE BRASILEIROS MASCULINO
+                    objPopBraMasc.setIdPopBrash(Integer.valueOf(jIdPop.getText()));
+                    controlpm.excluirPopBraMasc(objPopBraMasc);
+                    // POPULAÇÃO DE ESTRANGEIROS FEMININO
+                    objPopEsFem.setIdPopEstFem(Integer.valueOf(jIdPop.getText()));
+                    controlf.excluirPopEstFem(objPopEsFem);
+                    // POPULAÇÃO DE ESTRANGEIROS MASCULINO
+                    objPopEsMas.setIdPopEsth(Integer.valueOf(jIdPop.getText()));
+                    controle.excluirPopEstMasc(objPopEsMas);
+                    // POPULAÇÃO (CABEÇALHO)
+                    objPopMov.setIdPopMov(Integer.valueOf(jIdPop.getText()));
+                    control.excluirMovPop(objPopMov);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    Excluir();
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataPop.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe da data da população");
-            jDataPop.requestFocus();
-            jDataPop.setBackground(Color.red);
-        } else {
-            // Verificar se existe campo em branco na população estrangeira masculino
-            if (jEstaHomeAberto.getText().equals("") || jEstranHomeFechado.getText().equals("")
-                    || jEstranHomeProvisorio.getText().equals("") || jEstraHomeSemi.getText().equals("") || jTotalEstranMulheres.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Verifique os campos da população de estrangeiros masculino, se estão em branco.");
+        if (codigoUserB1 == codUserAcessoB1 && nomeTelaB1.equals(telaPopulacaoInternosAgentesB1) && codGravarB1 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB1.equals("ADMINISTRADORES")) {
+            if (jDataPop.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe da data da população");
+                jDataPop.requestFocus();
+                jDataPop.setBackground(Color.red);
             } else {
-                // Verificar se existe campo em branco na população estrangeira feminina
-                if (jEstranMulherAberto.getText().equals("") || jEstranMulherFechado.getText().equals("")
-                        || jEstranMulherProvisorio.getText().equals("") || jEstranMulherSemi.getText().equals("") || jTotalEstranMulheres.getText().equals("")) {
-                    JOptionPane.showMessageDialog(rootPane, "Verifique os campos da população estrangeiros feminina, se existe campo em branco");
+                // Verificar se existe campo em branco na população estrangeira masculino
+                if (jEstaHomeAberto.getText().equals("") || jEstranHomeFechado.getText().equals("")
+                        || jEstranHomeProvisorio.getText().equals("") || jEstraHomeSemi.getText().equals("") || jTotalEstranMulheres.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Verifique os campos da população de estrangeiros masculino, se estão em branco.");
                 } else {
-                    // Verificar se existe campo em branco na população brasileira masculino
-                    if (jBrasHomenAberto.getText().equals("") || jBrasHomenFechado.getText().equals("")
-                            || jBrasHomenProvisorio.getText().equals("") || jBrasHomenSemi.getText().equals("") || jTotalBrasHomens.getText().equals("")) {
-                        JOptionPane.showMessageDialog(rootPane, "Verifique os campos da população brasileira masculino, se existe campo em branco");
+                    // Verificar se existe campo em branco na população estrangeira feminina
+                    if (jEstranMulherAberto.getText().equals("") || jEstranMulherFechado.getText().equals("")
+                            || jEstranMulherProvisorio.getText().equals("") || jEstranMulherSemi.getText().equals("") || jTotalEstranMulheres.getText().equals("")) {
+                        JOptionPane.showMessageDialog(rootPane, "Verifique os campos da população estrangeiros feminina, se existe campo em branco");
                     } else {
-                        // Verificar se existe campo em branco na população brasileira feminino
-                        if (jBrasMulheresAberto.getText().equals("") || jBrasMulheresFechado.getText().equals("")
-                                || jBrasMulheresSemi.getText().equals("") || jBrasMulheresProvisorio.getText().equals("") || jBrasMulheresTotal.getText().equals("")) {
-                            JOptionPane.showMessageDialog(rootPane, "Verifique os campos da população brasileira feminino, se existe campo em branco");
+                        // Verificar se existe campo em branco na população brasileira masculino
+                        if (jBrasHomenAberto.getText().equals("") || jBrasHomenFechado.getText().equals("")
+                                || jBrasHomenProvisorio.getText().equals("") || jBrasHomenSemi.getText().equals("") || jTotalBrasHomens.getText().equals("")) {
+                            JOptionPane.showMessageDialog(rootPane, "Verifique os campos da população brasileira masculino, se existe campo em branco");
                         } else {
-                            // Verificar se existe campo em branco na população de agentes
-                            if (jPopAgenteMasc.getText().equals("") || jPopAgenteFem.getText().equals("")) {
-                                JOptionPane.showMessageDialog(rootPane, "Verifique os campós da população carcerária, se existe campp em branco.");
+                            // Verificar se existe campo em branco na população brasileira feminino
+                            if (jBrasMulheresAberto.getText().equals("") || jBrasMulheresFechado.getText().equals("")
+                                    || jBrasMulheresSemi.getText().equals("") || jBrasMulheresProvisorio.getText().equals("") || jBrasMulheresTotal.getText().equals("")) {
+                                JOptionPane.showMessageDialog(rootPane, "Verifique os campos da população brasileira feminino, se existe campo em branco");
                             } else {
-                                // Verificar se existe campo em branco nos totais de agentes e internos.
-                                if (jTotalGeralAgentes.getText().equals("") || jTotalGeralPopInternos.getText().equals("")) {
-                                    JOptionPane.showMessageDialog(rootPane, "Verifique os totais da polução de agentes e internos, se existe campo em brancio.");
+                                // Verificar se existe campo em branco na população de agentes
+                                if (jPopAgenteMasc.getText().equals("") || jPopAgenteFem.getText().equals("")) {
+                                    JOptionPane.showMessageDialog(rootPane, "Verifique os campós da população carcerária, se existe campp em branco.");
                                 } else {
-                                    // Data de Movimentação
-                                    objPopMov.setDataPopMov(jDataPop.getDate());
-                                    objPopMov.setStatusPop(statusPop);
-                                    // População Estrangeira Masculina
-                                    objPopEsMas.setEstraHomenAbe(Integer.valueOf(jEstaHomeAberto.getText()));
-                                    objPopEsMas.setEstraHomenFec(Integer.valueOf(jEstranHomeFechado.getText()));
-                                    objPopEsMas.setEstraHomenPro(Integer.valueOf(jEstranHomeProvisorio.getText()));
-                                    objPopEsMas.setEstraHomenSem(Integer.valueOf(jEstraHomeSemi.getText()));
-                                    objPopEsMas.setTotalGeralMasc(Integer.valueOf(jEstranTotalHomem.getText()));
-                                    // Popoulação Estrangeira Feminina
-                                    objPopEsFem.setEstraMulherAbe(Integer.valueOf(jEstranMulherAberto.getText()));
-                                    objPopEsFem.setEstraMulherFec(Integer.valueOf(jEstranMulherFechado.getText()));
-                                    objPopEsFem.setEstraMulherPro(Integer.valueOf(jEstranMulherProvisorio.getText()));
-                                    objPopEsFem.setEstraMulherSem(Integer.valueOf(jEstranMulherSemi.getText()));
-                                    objPopEsFem.setTotalGeralFem(Integer.valueOf(jTotalEstranMulheres.getText()));
-                                    // População Brasileira Masculina
-                                    objPopBraMasc.setBrasHomemAbe(Integer.valueOf(jBrasHomenAberto.getText()));
-                                    objPopBraMasc.setBrasHomemFec(Integer.valueOf(jBrasHomenFechado.getText()));
-                                    objPopBraMasc.setBrasHomemPro(Integer.valueOf(jBrasHomenProvisorio.getText()));
-                                    objPopBraMasc.setBrasHomemSem(Integer.valueOf(jBrasHomenSemi.getText()));
-                                    objPopBraMasc.setTotalGeralMas(Integer.valueOf(jTotalBrasHomens.getText()));
-                                    //População Brasileira Feminina
-                                    objPopBraFem.setBrasMulherAbe(Integer.valueOf(jBrasMulheresAberto.getText()));
-                                    objPopBraFem.setBrasMulherFec(Integer.valueOf(jBrasMulheresFechado.getText()));
-                                    objPopBraFem.setBrasMulherSem(Integer.valueOf(jBrasMulheresSemi.getText()));
-                                    objPopBraFem.setBrasMulherPro(Integer.valueOf(jBrasMulheresProvisorio.getText()));
-                                    objPopBraFem.setTotalGeralFem(Integer.valueOf(jBrasMulheresTotal.getText()));
-                                    // Totais de Agentes Masculino e Feminino
-                                    objPopAgentes.setAgenteMasc(Integer.valueOf(jPopAgenteMasc.getText()));
-                                    objPopAgentes.setAgenteFem(Integer.valueOf(jPopAgenteFem.getText()));
-                                    // Total Geral de Internos e Agentes
-                                    objPopMov.setTotalGeralAgentes(Integer.valueOf(jTotalGeralAgentes.getText()));
-                                    objPopMov.setTotalGeralInternos(Integer.valueOf(jTotalGeralPopInternos.getText()));
-                                    buscarDataPopulacao();
-                                    try {
-                                        if (acao == 1) {
-                                            if (dataPop == null ? dataPopBanco == null : dataPop.equals(dataPopBanco)) {
-                                                JOptionPane.showMessageDialog(rootPane, "População já foi cadastrada.");
-                                            } else {
+                                    // Verificar se existe campo em branco nos totais de agentes e internos.
+                                    if (jTotalGeralAgentes.getText().equals("") || jTotalGeralPopInternos.getText().equals("")) {
+                                        JOptionPane.showMessageDialog(rootPane, "Verifique os totais da polução de agentes e internos, se existe campo em brancio.");
+                                    } else {
+                                        // Data de Movimentação
+                                        objPopMov.setDataPopMov(jDataPop.getDate());
+                                        objPopMov.setStatusPop(statusPop);
+                                        // População Estrangeira Masculina
+                                        objPopEsMas.setEstraHomenAbe(Integer.valueOf(jEstaHomeAberto.getText()));
+                                        objPopEsMas.setEstraHomenFec(Integer.valueOf(jEstranHomeFechado.getText()));
+                                        objPopEsMas.setEstraHomenPro(Integer.valueOf(jEstranHomeProvisorio.getText()));
+                                        objPopEsMas.setEstraHomenSem(Integer.valueOf(jEstraHomeSemi.getText()));
+                                        objPopEsMas.setTotalGeralMasc(Integer.valueOf(jEstranTotalHomem.getText()));
+                                        // Popoulação Estrangeira Feminina
+                                        objPopEsFem.setEstraMulherAbe(Integer.valueOf(jEstranMulherAberto.getText()));
+                                        objPopEsFem.setEstraMulherFec(Integer.valueOf(jEstranMulherFechado.getText()));
+                                        objPopEsFem.setEstraMulherPro(Integer.valueOf(jEstranMulherProvisorio.getText()));
+                                        objPopEsFem.setEstraMulherSem(Integer.valueOf(jEstranMulherSemi.getText()));
+                                        objPopEsFem.setTotalGeralFem(Integer.valueOf(jTotalEstranMulheres.getText()));
+                                        // População Brasileira Masculina
+                                        objPopBraMasc.setBrasHomemAbe(Integer.valueOf(jBrasHomenAberto.getText()));
+                                        objPopBraMasc.setBrasHomemFec(Integer.valueOf(jBrasHomenFechado.getText()));
+                                        objPopBraMasc.setBrasHomemPro(Integer.valueOf(jBrasHomenProvisorio.getText()));
+                                        objPopBraMasc.setBrasHomemSem(Integer.valueOf(jBrasHomenSemi.getText()));
+                                        objPopBraMasc.setTotalGeralMas(Integer.valueOf(jTotalBrasHomens.getText()));
+                                        //População Brasileira Feminina
+                                        objPopBraFem.setBrasMulherAbe(Integer.valueOf(jBrasMulheresAberto.getText()));
+                                        objPopBraFem.setBrasMulherFec(Integer.valueOf(jBrasMulheresFechado.getText()));
+                                        objPopBraFem.setBrasMulherSem(Integer.valueOf(jBrasMulheresSemi.getText()));
+                                        objPopBraFem.setBrasMulherPro(Integer.valueOf(jBrasMulheresProvisorio.getText()));
+                                        objPopBraFem.setTotalGeralFem(Integer.valueOf(jBrasMulheresTotal.getText()));
+                                        // Totais de Agentes Masculino e Feminino
+                                        objPopAgentes.setAgenteMasc(Integer.valueOf(jPopAgenteMasc.getText()));
+                                        objPopAgentes.setAgenteFem(Integer.valueOf(jPopAgenteFem.getText()));
+                                        // Total Geral de Internos e Agentes
+                                        objPopMov.setTotalGeralAgentes(Integer.valueOf(jTotalGeralAgentes.getText()));
+                                        objPopMov.setTotalGeralInternos(Integer.valueOf(jTotalGeralPopInternos.getText()));
+                                        buscarDataPopulacao();
+                                        try {
+                                            if (acao == 1) {
+                                                if (dataPop == null ? dataPopBanco == null : dataPop.equals(dataPopBanco)) {
+                                                    JOptionPane.showMessageDialog(rootPane, "População já foi cadastrada.");
+                                                } else {
+                                                    // log de usuario
+                                                    objPopMov.setUsuarioInsert(nameUser);
+                                                    objPopMov.setDataInsert(dataModFinal);
+                                                    objPopMov.setHoraInsert(horaMov);
+                                                    control.incluirMovPop(objPopMov);
+                                                    buscarIDMov();
+                                                    //Inseri os dados na tabela população estrangeira masculino
+                                                    objPopEsMas.setIdPopEsth(Integer.valueOf(jIdPop.getText()));
+                                                    objPopEsMas.setDataPop(jDataPop.getDate());
+                                                    controle.incluirPopEstMasc(objPopEsMas);
+                                                    //Inseri os dados na tabela população estrangeira feminino
+                                                    objPopEsFem.setIdPopEstFem(Integer.valueOf(jIdPop.getText()));
+                                                    objPopEsFem.setDataPop(jDataPop.getDate());
+                                                    controlf.incluirPopEstFem(objPopEsFem);
+                                                    // Inseri os dados na tabela população brasileira masculino
+                                                    objPopBraMasc.setIdPopBrash(Integer.valueOf(jIdPop.getText()));
+                                                    objPopBraMasc.setDataPop(jDataPop.getDate());
+                                                    controlpm.incluirPopBraMasc(objPopBraMasc);
+                                                    // Inseri os dados na tabela população brasileira feminino
+                                                    objPopBraFem.setIdPopBrasm(Integer.valueOf(jIdPop.getText()));
+                                                    objPopBraFem.setDataPop(jDataPop.getDate());
+                                                    controlpf.incluirPopBraFem(objPopBraFem);
+                                                    // Inseri os dados na tabela população Agentes
+                                                    objPopAgentes.setIdAgente(Integer.valueOf(jIdPop.getText()));
+                                                    objPopAgentes.setDataMov(jDataPop.getDate());
+                                                    controlAge.incluirPopAgentes(objPopAgentes);
+                                                    objLog();
+                                                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                                    Salvar();
+                                                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                                }
+                                            }
+                                            if (acao == 2) {
                                                 // log de usuario
-                                                objPopMov.setUsuarioInsert(nameUser);
-                                                objPopMov.setDataInsert(dataModFinal);
-                                                objPopMov.setHoraInsert(horaMov);
-                                                control.incluirMovPop(objPopMov);
-                                                buscarIDMov();
-                                                //Inseri os dados na tabela população estrangeira masculino
+                                                objPopMov.setUsuarioUp(nameUser);
+                                                objPopMov.setDataUp(dataModFinal);
+                                                objPopMov.setHoraUp(horaMov);
+                                                //Alterar
+                                                objPopMov.setIdPopMov(Integer.valueOf(jIdPop.getText()));
+                                                objPopMov.setDataPopMov(jDataPop.getDate());
+                                                control.alterarMovPop(objPopMov);
+                                                //Alterar os dados na tabela população estrangeira masculino
                                                 objPopEsMas.setIdPopEsth(Integer.valueOf(jIdPop.getText()));
                                                 objPopEsMas.setDataPop(jDataPop.getDate());
-                                                controle.incluirPopEstMasc(objPopEsMas);
-                                                //Inseri os dados na tabela população estrangeira feminino
+                                                controle.alterarPopEstMasc(objPopEsMas);
+                                                //Alterar os dados na tabela população estrangeira feminino
                                                 objPopEsFem.setIdPopEstFem(Integer.valueOf(jIdPop.getText()));
                                                 objPopEsFem.setDataPop(jDataPop.getDate());
-                                                controlf.incluirPopEstFem(objPopEsFem);
-                                                // Inseri os dados na tabela população brasileira masculino
+                                                controlf.alterarPopEstFem(objPopEsFem);
+                                                //Alterar os dados na tabela população brasileira masculino
                                                 objPopBraMasc.setIdPopBrash(Integer.valueOf(jIdPop.getText()));
                                                 objPopBraMasc.setDataPop(jDataPop.getDate());
-                                                controlpm.incluirPopBraMasc(objPopBraMasc);
-                                                // Inseri os dados na tabela população brasileira feminino
+                                                controlpm.alterarPopBraMasc(objPopBraMasc);
+                                                //Alterar os dados na tabela população brasileira feminino
                                                 objPopBraFem.setIdPopBrasm(Integer.valueOf(jIdPop.getText()));
                                                 objPopBraFem.setDataPop(jDataPop.getDate());
-                                                controlpf.incluirPopBraFem(objPopBraFem);
-                                                // Inseri os dados na tabela população Agentes
+                                                controlpf.alterarPopBraFem(objPopBraFem);
+                                                //Alterar os dados na tabela população Agentes
                                                 objPopAgentes.setIdAgente(Integer.valueOf(jIdPop.getText()));
                                                 objPopAgentes.setDataMov(jDataPop.getDate());
-                                                controlAge.incluirPopAgentes(objPopAgentes);
+                                                controlAge.alterarPopAgentes(objPopAgentes);
                                                 objLog();
                                                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                                                 Salvar();
                                                 JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                                             }
+                                        } catch (HeadlessException | NumberFormatException e) {
+                                            JOptionPane.showMessageDialog(rootPane, "Não foi possivel gravar o registro.\nERRO: " + e);
                                         }
-                                        if (acao == 2) {
-                                            // log de usuario
-                                            objPopMov.setUsuarioUp(nameUser);
-                                            objPopMov.setDataUp(dataModFinal);
-                                            objPopMov.setHoraUp(horaMov);
-                                            //Alterar
-                                            objPopMov.setIdPopMov(Integer.valueOf(jIdPop.getText()));
-                                            objPopMov.setDataPopMov(jDataPop.getDate());
-                                            control.alterarMovPop(objPopMov);
-                                            //Alterar os dados na tabela população estrangeira masculino
-                                            objPopEsMas.setIdPopEsth(Integer.valueOf(jIdPop.getText()));
-                                            objPopEsMas.setDataPop(jDataPop.getDate());
-                                            controle.alterarPopEstMasc(objPopEsMas);
-                                            //Alterar os dados na tabela população estrangeira feminino
-                                            objPopEsFem.setIdPopEstFem(Integer.valueOf(jIdPop.getText()));
-                                            objPopEsFem.setDataPop(jDataPop.getDate());
-                                            controlf.alterarPopEstFem(objPopEsFem);
-                                            //Alterar os dados na tabela população brasileira masculino
-                                            objPopBraMasc.setIdPopBrash(Integer.valueOf(jIdPop.getText()));
-                                            objPopBraMasc.setDataPop(jDataPop.getDate());
-                                            controlpm.alterarPopBraMasc(objPopBraMasc);
-                                            //Alterar os dados na tabela população brasileira feminino
-                                            objPopBraFem.setIdPopBrasm(Integer.valueOf(jIdPop.getText()));
-                                            objPopBraFem.setDataPop(jDataPop.getDate());
-                                            controlpf.alterarPopBraFem(objPopBraFem);
-                                            //Alterar os dados na tabela população Agentes
-                                            objPopAgentes.setIdAgente(Integer.valueOf(jIdPop.getText()));
-                                            objPopAgentes.setDataMov(jDataPop.getDate());
-                                            controlAge.alterarPopAgentes(objPopAgentes);
-                                            objLog();
-                                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                            Salvar();
-                                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                                        }
-                                    } catch (HeadlessException | NumberFormatException e) {
-                                        JOptionPane.showMessageDialog(rootPane, "Não foi possivel gravar o registro.\nERRO: " + e);
                                     }
                                 }
                             }
@@ -1255,6 +1322,157 @@ public final class TelaPopulacaoBaseSeguranca extends javax.swing.JInternalFrame
                     }
                 }
             }
+        } else if (codigoUserB2 == codUserAcessoB2 && nomeTelaB2.equals(telaPopulacaoInternosAgentesB2) && codGravarB2 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB2.equals("ADMINISTRADORES")) {
+            if (jDataPop.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe da data da população");
+                jDataPop.requestFocus();
+                jDataPop.setBackground(Color.red);
+            } else {
+                // Verificar se existe campo em branco na população estrangeira masculino
+                if (jEstaHomeAberto.getText().equals("") || jEstranHomeFechado.getText().equals("")
+                        || jEstranHomeProvisorio.getText().equals("") || jEstraHomeSemi.getText().equals("") || jTotalEstranMulheres.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Verifique os campos da população de estrangeiros masculino, se estão em branco.");
+                } else {
+                    // Verificar se existe campo em branco na população estrangeira feminina
+                    if (jEstranMulherAberto.getText().equals("") || jEstranMulherFechado.getText().equals("")
+                            || jEstranMulherProvisorio.getText().equals("") || jEstranMulherSemi.getText().equals("") || jTotalEstranMulheres.getText().equals("")) {
+                        JOptionPane.showMessageDialog(rootPane, "Verifique os campos da população estrangeiros feminina, se existe campo em branco");
+                    } else {
+                        // Verificar se existe campo em branco na população brasileira masculino
+                        if (jBrasHomenAberto.getText().equals("") || jBrasHomenFechado.getText().equals("")
+                                || jBrasHomenProvisorio.getText().equals("") || jBrasHomenSemi.getText().equals("") || jTotalBrasHomens.getText().equals("")) {
+                            JOptionPane.showMessageDialog(rootPane, "Verifique os campos da população brasileira masculino, se existe campo em branco");
+                        } else {
+                            // Verificar se existe campo em branco na população brasileira feminino
+                            if (jBrasMulheresAberto.getText().equals("") || jBrasMulheresFechado.getText().equals("")
+                                    || jBrasMulheresSemi.getText().equals("") || jBrasMulheresProvisorio.getText().equals("") || jBrasMulheresTotal.getText().equals("")) {
+                                JOptionPane.showMessageDialog(rootPane, "Verifique os campos da população brasileira feminino, se existe campo em branco");
+                            } else {
+                                // Verificar se existe campo em branco na população de agentes
+                                if (jPopAgenteMasc.getText().equals("") || jPopAgenteFem.getText().equals("")) {
+                                    JOptionPane.showMessageDialog(rootPane, "Verifique os campós da população carcerária, se existe campp em branco.");
+                                } else {
+                                    // Verificar se existe campo em branco nos totais de agentes e internos.
+                                    if (jTotalGeralAgentes.getText().equals("") || jTotalGeralPopInternos.getText().equals("")) {
+                                        JOptionPane.showMessageDialog(rootPane, "Verifique os totais da polução de agentes e internos, se existe campo em brancio.");
+                                    } else {
+                                        // Data de Movimentação
+                                        objPopMov.setDataPopMov(jDataPop.getDate());
+                                        objPopMov.setStatusPop(statusPop);
+                                        // População Estrangeira Masculina
+                                        objPopEsMas.setEstraHomenAbe(Integer.valueOf(jEstaHomeAberto.getText()));
+                                        objPopEsMas.setEstraHomenFec(Integer.valueOf(jEstranHomeFechado.getText()));
+                                        objPopEsMas.setEstraHomenPro(Integer.valueOf(jEstranHomeProvisorio.getText()));
+                                        objPopEsMas.setEstraHomenSem(Integer.valueOf(jEstraHomeSemi.getText()));
+                                        objPopEsMas.setTotalGeralMasc(Integer.valueOf(jEstranTotalHomem.getText()));
+                                        // Popoulação Estrangeira Feminina
+                                        objPopEsFem.setEstraMulherAbe(Integer.valueOf(jEstranMulherAberto.getText()));
+                                        objPopEsFem.setEstraMulherFec(Integer.valueOf(jEstranMulherFechado.getText()));
+                                        objPopEsFem.setEstraMulherPro(Integer.valueOf(jEstranMulherProvisorio.getText()));
+                                        objPopEsFem.setEstraMulherSem(Integer.valueOf(jEstranMulherSemi.getText()));
+                                        objPopEsFem.setTotalGeralFem(Integer.valueOf(jTotalEstranMulheres.getText()));
+                                        // População Brasileira Masculina
+                                        objPopBraMasc.setBrasHomemAbe(Integer.valueOf(jBrasHomenAberto.getText()));
+                                        objPopBraMasc.setBrasHomemFec(Integer.valueOf(jBrasHomenFechado.getText()));
+                                        objPopBraMasc.setBrasHomemPro(Integer.valueOf(jBrasHomenProvisorio.getText()));
+                                        objPopBraMasc.setBrasHomemSem(Integer.valueOf(jBrasHomenSemi.getText()));
+                                        objPopBraMasc.setTotalGeralMas(Integer.valueOf(jTotalBrasHomens.getText()));
+                                        //População Brasileira Feminina
+                                        objPopBraFem.setBrasMulherAbe(Integer.valueOf(jBrasMulheresAberto.getText()));
+                                        objPopBraFem.setBrasMulherFec(Integer.valueOf(jBrasMulheresFechado.getText()));
+                                        objPopBraFem.setBrasMulherSem(Integer.valueOf(jBrasMulheresSemi.getText()));
+                                        objPopBraFem.setBrasMulherPro(Integer.valueOf(jBrasMulheresProvisorio.getText()));
+                                        objPopBraFem.setTotalGeralFem(Integer.valueOf(jBrasMulheresTotal.getText()));
+                                        // Totais de Agentes Masculino e Feminino
+                                        objPopAgentes.setAgenteMasc(Integer.valueOf(jPopAgenteMasc.getText()));
+                                        objPopAgentes.setAgenteFem(Integer.valueOf(jPopAgenteFem.getText()));
+                                        // Total Geral de Internos e Agentes
+                                        objPopMov.setTotalGeralAgentes(Integer.valueOf(jTotalGeralAgentes.getText()));
+                                        objPopMov.setTotalGeralInternos(Integer.valueOf(jTotalGeralPopInternos.getText()));
+                                        buscarDataPopulacao();
+                                        try {
+                                            if (acao == 1) {
+                                                if (dataPop == null ? dataPopBanco == null : dataPop.equals(dataPopBanco)) {
+                                                    JOptionPane.showMessageDialog(rootPane, "População já foi cadastrada.");
+                                                } else {
+                                                    // log de usuario
+                                                    objPopMov.setUsuarioInsert(nameUser);
+                                                    objPopMov.setDataInsert(dataModFinal);
+                                                    objPopMov.setHoraInsert(horaMov);
+                                                    control.incluirMovPop(objPopMov);
+                                                    buscarIDMov();
+                                                    //Inseri os dados na tabela população estrangeira masculino
+                                                    objPopEsMas.setIdPopEsth(Integer.valueOf(jIdPop.getText()));
+                                                    objPopEsMas.setDataPop(jDataPop.getDate());
+                                                    controle.incluirPopEstMasc(objPopEsMas);
+                                                    //Inseri os dados na tabela população estrangeira feminino
+                                                    objPopEsFem.setIdPopEstFem(Integer.valueOf(jIdPop.getText()));
+                                                    objPopEsFem.setDataPop(jDataPop.getDate());
+                                                    controlf.incluirPopEstFem(objPopEsFem);
+                                                    // Inseri os dados na tabela população brasileira masculino
+                                                    objPopBraMasc.setIdPopBrash(Integer.valueOf(jIdPop.getText()));
+                                                    objPopBraMasc.setDataPop(jDataPop.getDate());
+                                                    controlpm.incluirPopBraMasc(objPopBraMasc);
+                                                    // Inseri os dados na tabela população brasileira feminino
+                                                    objPopBraFem.setIdPopBrasm(Integer.valueOf(jIdPop.getText()));
+                                                    objPopBraFem.setDataPop(jDataPop.getDate());
+                                                    controlpf.incluirPopBraFem(objPopBraFem);
+                                                    // Inseri os dados na tabela população Agentes
+                                                    objPopAgentes.setIdAgente(Integer.valueOf(jIdPop.getText()));
+                                                    objPopAgentes.setDataMov(jDataPop.getDate());
+                                                    controlAge.incluirPopAgentes(objPopAgentes);
+                                                    objLog();
+                                                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                                    Salvar();
+                                                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                                }
+                                            }
+                                            if (acao == 2) {
+                                                // log de usuario
+                                                objPopMov.setUsuarioUp(nameUser);
+                                                objPopMov.setDataUp(dataModFinal);
+                                                objPopMov.setHoraUp(horaMov);
+                                                //Alterar
+                                                objPopMov.setIdPopMov(Integer.valueOf(jIdPop.getText()));
+                                                objPopMov.setDataPopMov(jDataPop.getDate());
+                                                control.alterarMovPop(objPopMov);
+                                                //Alterar os dados na tabela população estrangeira masculino
+                                                objPopEsMas.setIdPopEsth(Integer.valueOf(jIdPop.getText()));
+                                                objPopEsMas.setDataPop(jDataPop.getDate());
+                                                controle.alterarPopEstMasc(objPopEsMas);
+                                                //Alterar os dados na tabela população estrangeira feminino
+                                                objPopEsFem.setIdPopEstFem(Integer.valueOf(jIdPop.getText()));
+                                                objPopEsFem.setDataPop(jDataPop.getDate());
+                                                controlf.alterarPopEstFem(objPopEsFem);
+                                                //Alterar os dados na tabela população brasileira masculino
+                                                objPopBraMasc.setIdPopBrash(Integer.valueOf(jIdPop.getText()));
+                                                objPopBraMasc.setDataPop(jDataPop.getDate());
+                                                controlpm.alterarPopBraMasc(objPopBraMasc);
+                                                //Alterar os dados na tabela população brasileira feminino
+                                                objPopBraFem.setIdPopBrasm(Integer.valueOf(jIdPop.getText()));
+                                                objPopBraFem.setDataPop(jDataPop.getDate());
+                                                controlpf.alterarPopBraFem(objPopBraFem);
+                                                //Alterar os dados na tabela população Agentes
+                                                objPopAgentes.setIdAgente(Integer.valueOf(jIdPop.getText()));
+                                                objPopAgentes.setDataMov(jDataPop.getDate());
+                                                controlAge.alterarPopAgentes(objPopAgentes);
+                                                objLog();
+                                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                                Salvar();
+                                                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                            }
+                                        } catch (HeadlessException | NumberFormatException e) {
+                                            JOptionPane.showMessageDialog(rootPane, "Não foi possivel gravar o registro.\nERRO: " + e);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 

@@ -15,6 +15,15 @@ import gestor.Modelo.ItensLocacaoInternos;
 import gestor.Modelo.LocacaoInternos;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloBaseDois.codAlterarB2;
+import static gestor.Visao.TelaModuloBaseDois.codExcluirB2;
+import static gestor.Visao.TelaModuloBaseDois.codGravarB2;
+import static gestor.Visao.TelaModuloBaseDois.codIncluirB2;
+import static gestor.Visao.TelaModuloBaseDois.codUserAcessoB2;
+import static gestor.Visao.TelaModuloBaseDois.codigoUserB2;
+import static gestor.Visao.TelaModuloBaseDois.nomeGrupoB2;
+import static gestor.Visao.TelaModuloBaseDois.nomeTelaB2;
+import static gestor.Visao.TelaModuloBaseDois.telaLocacaoInternosManutencaoB2;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -70,6 +79,7 @@ public class TelaLocacaoInternoBGPA extends javax.swing.JInternalFrame {
      * Creates new form TelaLocacaoInterno
      */
     public static TelaFotoLocacaoInternoBGPA telafotocrcBGPA;
+
     public TelaLocacaoInternoBGPA() {
         initComponents();
         formatarCampos();
@@ -80,6 +90,7 @@ public class TelaLocacaoInternoBGPA extends javax.swing.JInternalFrame {
         telafotocrcBGPA = new TelaFotoLocacaoInternoBGPA(this, true);
         telafotocrcBGPA.setVisible(true);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -1007,79 +1018,95 @@ public class TelaLocacaoInternoBGPA extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUserB2 == codUserAcessoB2 && nomeTelaB2.equals(telaLocacaoInternosManutencaoB2) && codIncluirB2 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB2.equals("ADMINISTRADORES")) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        objLocaInt.setStatusLoca(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse  lançamento não poderá ser alterado, o lançamento encontra-se FINALIZADO");
+        if (codigoUserB2 == codUserAcessoB2 && nomeTelaB2.equals(telaLocacaoInternosManutencaoB2) && codAlterarB2 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB2.equals("ADMINISTRADORES")) {
+            objLocaInt.setStatusLoca(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse  lançamento não poderá ser alterado, o lançamento encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                Alterar();
+                corCampos();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 2;
-            Alterar();
-            corCampos();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterou registro.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        objLocaInt.setStatusLoca(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse  lançamento não poderá ser excluído, o lançamento encontra-se FINALIZADO");
+        if (codigoUserB2 == codUserAcessoB2 && nomeTelaB2.equals(telaLocacaoInternosManutencaoB2) && codExcluirB2 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB2.equals("ADMINISTRADORES")) {
+            objLocaInt.setStatusLoca(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse  lançamento não poderá ser excluído, o lançamento encontra-se FINALIZADO");
+            } else {
+                verificarItens();
+            }
         } else {
-            verificarItens();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a excluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataLocacao.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data de lançamento.");
-            jDataLocacao.requestFocus();
-            jDataLocacao.setBackground(Color.red);
-        } else {
-            if (jDescricaoCela.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a Cela.");
+        if (codigoUserB2 == codUserAcessoB2 && nomeTelaB2.equals(telaLocacaoInternosManutencaoB2) && codGravarB2 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB2.equals("ADMINISTRADORES")) {
+            if (jDataLocacao.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de lançamento.");
+                jDataLocacao.requestFocus();
+                jDataLocacao.setBackground(Color.red);
             } else {
-                objLocaInt.setStatusLoca(statusLoca);
-                objLocaInt.setDataLanca(jDataLocacao.getDate());
-                objLocaInt.setObservacao(jObservacao.getText());
-                // Para o log do registro
-                objLocaInt.setUsuarioInsert(nameUser);
-                objLocaInt.setDataInsert(dataModFinal);
-                objLocaInt.setHoraInsert(horaMov);
-                if (acao == 1) {
-                    objLocaInt.setDescricaoCela(jDescricaoCela.getText());
-                    control.incluirLocacaoInternos(objLocaInt);
-                    buscarId();
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    Salvar();
-                }
-                if (acao == 2) {
-                    // Log do registro usuarios
-                    objLocaInt.setUsuarioUp(nameUser);
-                    objLocaInt.setDataUp(dataModFinal);
-                    objLocaInt.setHoraUp(horaMov);
-                    objLocaInt.setDescricaoCela(jDescricaoCela.getText());
-                    objLocaInt.setIdLoca(Integer.valueOf(jIDLocacao.getText()));
-                    control.alterarLocacaoInternos(objLocaInt);
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    Salvar();
+                if (jDescricaoCela.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a Cela.");
+                } else {
+                    objLocaInt.setStatusLoca(statusLoca);
+                    objLocaInt.setDataLanca(jDataLocacao.getDate());
+                    objLocaInt.setObservacao(jObservacao.getText());
+                    // Para o log do registro
+                    objLocaInt.setUsuarioInsert(nameUser);
+                    objLocaInt.setDataInsert(dataModFinal);
+                    objLocaInt.setHoraInsert(horaMov);
+                    if (acao == 1) {
+                        objLocaInt.setDescricaoCela(jDescricaoCela.getText());
+                        control.incluirLocacaoInternos(objLocaInt);
+                        buscarId();
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        Salvar();
+                    }
+                    if (acao == 2) {
+                        // Log do registro usuarios
+                        objLocaInt.setUsuarioUp(nameUser);
+                        objLocaInt.setDataUp(dataModFinal);
+                        objLocaInt.setHoraUp(horaMov);
+                        objLocaInt.setDescricaoCela(jDescricaoCela.getText());
+                        objLocaInt.setIdLoca(Integer.valueOf(jIDLocacao.getText()));
+                        control.alterarLocacaoInternos(objLocaInt);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        Salvar();
+                    }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -1176,19 +1203,19 @@ public class TelaLocacaoInternoBGPA extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(rootPane, "Interno já foi locado na cela.");
                 } else {
                     objItensLoca.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
-                    controle.incluirInternoLocacao(objItensLoca);                    
+                    controle.incluirInternoLocacao(objItensLoca);
                     controlSaldo.incluirSaldo(objItensLoca);
                     objLog2();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                    
                     SalvarInterno();
                     preencherTabelaItens("SELECT * FROM PRONTUARIOSCRC "
-                    + "INNER JOIN ITENSLOCACAOINTERNO "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
-                    + "INNER JOIN CELAS "
-                    + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
-                    + "INNER JOIN PAVILHAO "
-                    + "ON CELAS.IdPav=PAVILHAO.IdPav "
-                    + "WHERE IdLoca='" + jIDLocacao.getText() + "'");
+                            + "INNER JOIN ITENSLOCACAOINTERNO "
+                            + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
+                            + "INNER JOIN CELAS "
+                            + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
+                            + "INNER JOIN PAVILHAO "
+                            + "ON CELAS.IdPav=PAVILHAO.IdPav "
+                            + "WHERE IdLoca='" + jIDLocacao.getText() + "'");
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
             }
@@ -1202,22 +1229,22 @@ public class TelaLocacaoInternoBGPA extends javax.swing.JInternalFrame {
                 objItensLoca.setIdCela(Integer.valueOf(jIdCela.getText()));
                 objItensLoca.setNomeInterno(jNomeInterno.getText());
                 objItensLoca.setIdItem(Integer.valueOf(idItem));
-                 objItensLoca.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
-                controle.alterarInternoLocacao(objItensLoca);               
+                objItensLoca.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                controle.alterarInternoLocacao(objItensLoca);
                 controlSaldo.alterarSaldo(objItensLoca);
                 objLog2();
                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                
                 SalvarInterno();
                 preencherTabelaItens("SELECT * FROM PRONTUARIOSCRC "
-                    + "INNER JOIN ITENSLOCACAOINTERNO "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
-                    + "INNER JOIN CELAS "
-                    + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
-                    + "INNER JOIN PAVILHAO "
-                    + "ON CELAS.IdPav=PAVILHAO.IdPav "
-                    + "WHERE IdLoca='" + jIDLocacao.getText() + "'");
+                        + "INNER JOIN ITENSLOCACAOINTERNO "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
+                        + "INNER JOIN CELAS "
+                        + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
+                        + "INNER JOIN PAVILHAO "
+                        + "ON CELAS.IdPav=PAVILHAO.IdPav "
+                        + "WHERE IdLoca='" + jIDLocacao.getText() + "'");
                 JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }            
+            }
         }
     }//GEN-LAST:event_jBtSalvarInternoActionPerformed
 
@@ -1273,17 +1300,17 @@ public class TelaLocacaoInternoBGPA extends javax.swing.JInternalFrame {
                 jIdCela.setText(conecta.rs.getString("IdCela"));
                 jDescricaoCela.setText(conecta.rs.getString("EndCelaPav"));
                 jDescricaoPavilhao.setText(conecta.rs.getString("DescricaoPav"));
-                jObservacao.setText(conecta.rs.getString("Observacao"));                                
+                jObservacao.setText(conecta.rs.getString("Observacao"));
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa..." + e);
             }
             preencherTabelaItens("SELECT * FROM PRONTUARIOSCRC "
-                        + "INNER JOIN ITENSLOCACAOINTERNO "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
-                        + "INNER JOIN CELAS "
-                        + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
-                        + "INNER JOIN PAVILHAO "
-                        + "ON CELAS.IdPav=PAVILHAO.IdPav WHERE IdLoca='" + jIDLocacao.getText() + "'");
+                    + "INNER JOIN ITENSLOCACAOINTERNO "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
+                    + "INNER JOIN CELAS "
+                    + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON CELAS.IdPav=PAVILHAO.IdPav WHERE IdLoca='" + jIDLocacao.getText() + "'");
         }
         conecta.desconecta();
     }//GEN-LAST:event_jTabelaLocacaoMouseClicked
@@ -1304,7 +1331,7 @@ public class TelaLocacaoInternoBGPA extends javax.swing.JInternalFrame {
             jBtBuscarInterno.setEnabled(true);
             jBtAuditoriaInterno.setEnabled(true);
             jBtZoom.setEnabled(true);
-            conecta.abrirConexao(); 
+            conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM ITENSLOCACAOINTERNO "
                         + "INNER JOIN PRONTUARIOSCRC "
@@ -1316,7 +1343,7 @@ public class TelaLocacaoInternoBGPA extends javax.swing.JInternalFrame {
                         + "INNER JOIN PAVILHAO "
                         + "ON CELAS.IdPav=PAVILHAO.IdPav "
                         + "WHERE NomeInternoCrc='" + jNomeInterno.getText() + "' "
-                        + "AND IdLoca='" + jIDLocacao.getText() + "'AND PRONTUARIOSCRC.IdInternoCrc='" + codigoInterno  + "'");
+                        + "AND IdLoca='" + jIDLocacao.getText() + "'AND PRONTUARIOSCRC.IdInternoCrc='" + codigoInterno + "'");
                 conecta.rs.first();
                 jIDInterno.setText(conecta.rs.getString("IdInternoCrc"));
                 jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));
@@ -1555,7 +1582,7 @@ public class TelaLocacaoInternoBGPA extends javax.swing.JInternalFrame {
         jIdCela.setText("");
         jDescricaoCela.setText("");
         jDescricaoPavilhao.setText("");
-        jObservacao.setText("");        
+        jObservacao.setText("");
         // Aba de interno
         jIDInterno.setText("");
         jNomeInterno.setText("");
@@ -1692,7 +1719,7 @@ public class TelaLocacaoInternoBGPA extends javax.swing.JInternalFrame {
             jBtAuditoria.setEnabled(!true);
             jBtAuditoriaInterno.setEnabled(!true);
             jBtZoom.setEnabled(!true);
-            limparTabelaItensInterno();            
+            limparTabelaItensInterno();
         }
         //Habilita/Desabilitar os campos
         jDataLocacao.setEnabled(!true);
@@ -2038,7 +2065,7 @@ public class TelaLocacaoInternoBGPA extends javax.swing.JInternalFrame {
         modelo.getLinhas().clear();
     }
 
-    public void alinharCamposTabelaItens(){
+    public void alinharCamposTabelaItens() {
         DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
@@ -2048,6 +2075,7 @@ public class TelaLocacaoInternoBGPA extends javax.swing.JInternalFrame {
         //
         jTabelaInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
     }
+
     public void objLog() {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
