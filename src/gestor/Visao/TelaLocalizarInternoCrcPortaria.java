@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -62,6 +64,7 @@ public class TelaLocalizarInternoCrcPortaria extends javax.swing.JInternalFrame 
         jPesqNomeInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jBtPesqNomeInterno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
+        jBtPesqNomeInterno.setContentAreaFilled(false);
         jBtPesqNomeInterno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesqNomeInternoActionPerformed(evt);
@@ -106,16 +109,21 @@ public class TelaLocalizarInternoCrcPortaria extends javax.swing.JInternalFrame 
         jTabelaPesqInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaPesqInternos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+                {null, null, null}
             },
             new String [] {
-
+                "Código", "Nome do Interno", "Situação do Interno"
             }
         ));
         jScrollPane1.setViewportView(jTabelaPesqInternos);
+        if (jTabelaPesqInternos.getColumnModel().getColumnCount() > 0) {
+            jTabelaPesqInternos.getColumnModel().getColumn(0).setMinWidth(50);
+            jTabelaPesqInternos.getColumnModel().getColumn(0).setMaxWidth(50);
+            jTabelaPesqInternos.getColumnModel().getColumn(1).setMinWidth(350);
+            jTabelaPesqInternos.getColumnModel().getColumn(1).setMaxWidth(350);
+            jTabelaPesqInternos.getColumnModel().getColumn(2).setMinWidth(200);
+            jTabelaPesqInternos.getColumnModel().getColumn(2).setMaxWidth(200);
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -125,7 +133,7 @@ public class TelaLocalizarInternoCrcPortaria extends javax.swing.JInternalFrame 
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -143,14 +151,14 @@ public class TelaLocalizarInternoCrcPortaria extends javax.swing.JInternalFrame 
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jTabbedPane1)
         );
 
-        setBounds(250, 10, 539, 308);
+        setBounds(250, 10, 640, 308);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtPesqNomeInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqNomeInternoActionPerformed
@@ -190,7 +198,7 @@ public class TelaLocalizarInternoCrcPortaria extends javax.swing.JInternalFrame 
 
     public void localizarProntuariosInternos(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{" Código", "     Nome do Interno ", " Situação do Interno"};
+        String[] Colunas = new String[]{"Código", "Nome do Interno ", "Situação do Interno"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
@@ -212,6 +220,18 @@ public class TelaLocalizarInternoCrcPortaria extends javax.swing.JInternalFrame 
         jTabelaPesqInternos.getTableHeader().setReorderingAllowed(false);
         jTabelaPesqInternos.setAutoResizeMode(jTabelaPesqInternos.AUTO_RESIZE_OFF);
         jTabelaPesqInternos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCamposTabela();
         conecta.desconecta();
+    }
+
+    public void alinharCamposTabela() {
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        //
+        jTabelaPesqInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
     }
 }

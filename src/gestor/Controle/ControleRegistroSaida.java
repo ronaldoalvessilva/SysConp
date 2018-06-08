@@ -7,8 +7,14 @@ package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.RegistroSaidaPortaria;
+import gestor.Modelo.TransferenciaInternosPortaria;
+import static gestor.Visao.TelaRegistroSaidaInternosPortaria.jIDlanc;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,7 +25,7 @@ public class ControleRegistroSaida {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     RegistroSaidaPortaria objSaida = new RegistroSaidaPortaria();
-   
+    public static int qtdInternosSaidaPorta = 0;
 
     public RegistroSaidaPortaria incluirRegSaidaInternos(RegistroSaidaPortaria objSaida) {
 
@@ -90,5 +96,37 @@ public class ControleRegistroSaida {
         }
         conecta.desconecta();
         return objSaida;
+    }
+
+    public List<TransferenciaInternosPortaria> read() throws Exception {
+        List<TransferenciaInternosPortaria> listaInternosSaidaPorta = new ArrayList<TransferenciaInternosPortaria>();
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ITENSREGSAIDA "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON ITENSREGSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "INNER JOIN REGSAIDACRC "
+                    + "ON ITENSREGSAIDA.IdSaida=REGSAIDACRC.IdSaida "                   
+                    + "WHERE ITENSREGSAIDA.IdSaida='" + jIDlanc.getText() + "'");
+            while (conecta.rs.next()) {
+                TransferenciaInternosPortaria pSaidaPortaria = new TransferenciaInternosPortaria();
+                pSaidaPortaria.setDataSaida(conecta.rs.getDate("DataSaida"));
+                pSaidaPortaria.setMatriculaCrc(conecta.rs.getString("MatriculaCrc"));
+                pSaidaPortaria.setCncPortaria(conecta.rs.getString("Cnc"));
+                pSaidaPortaria.setIdInternoSaida(conecta.rs.getInt("IdInternoCrc"));
+                pSaidaPortaria.setNomeInternoCrc(conecta.rs.getString("NomeInternoCrc"));
+                pSaidaPortaria.setNomeUnidade(conecta.rs.getString("DestinoSaida"));
+                pSaidaPortaria.setDocumento(conecta.rs.getString("DocumentoSaida"));
+                pSaidaPortaria.setHorarioSaida(conecta.rs.getString("HoraSaida"));
+                listaInternosSaidaPorta.add(pSaidaPortaria);
+                qtdInternosSaidaPorta++;
+            }
+            return listaInternosSaidaPorta;
+        } catch (SQLException ex) {
+            Logger.getLogger(ControleItensRegSaidaInternos.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            conecta.desconecta();
+        }
+        return null;
     }
 }

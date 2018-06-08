@@ -5,11 +5,15 @@
  */
 package gestor.Controle;
 
+import static gestor.Controle.ControleItensTransfInterno.qtdInternosTransf;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.ItensRegSaidaInternos;
 import gestor.Modelo.ItensTransInterno;
+import gestor.Modelo.ProntuarioFisicosPenaisInternos;
 import gestor.Modelo.RegistroSaidaPortaria;
 import gestor.Modelo.TransferenciaInternos;
+import gestor.Modelo.TransferenciaInternosPortaria;
+import static gestor.Visao.TelaTransfInterno.jIDlanc;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -213,5 +217,5 @@ public class ControleItensRegSaidaInternos {
             conecta.desconecta();
         }
         return null;
-    }
+    }    
 }
