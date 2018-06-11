@@ -36,7 +36,6 @@ import gestor.Modelo.RolVisitas;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
-import static gestor.Visao.TelaRegistroSaidaInternosPortaria.jDestinoInterno;
 import static gestor.Visao.TelaRegistroSaidaInternosPortaria.jIDlanc;
 import static gestor.Visao.TelaRegistroSaidaInternosPortaria.jNrDocumento;
 import static gestor.Visao.TelaRegistroSaidaInternosPortaria.jTabelaItensInterno;
@@ -50,6 +49,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import static gestor.Visao.TelaRegistroSaidaInternosPortaria.jTipoSaida;
 
 /**
  *
@@ -1090,7 +1090,7 @@ public class TelaBiometriaEntradaSaidaPortaria extends javax.swing.JDialog {
         statusRol = "FINALIZADO";
         objRol.setIdInterno(Integer.valueOf(jIdInternoKitBio.getText()));
         objRol.setStatusRol(statusRol);
-        objRol.setObsRol(jDestinoInterno.getText());
+        objRol.setObsRol(jTipoSaida.getText());
         objRol.setUsuarioUp(nameUser);
         objRol.setDataUp(jDataSistema.getText());
         objRol.setHoraUp(horaMov);

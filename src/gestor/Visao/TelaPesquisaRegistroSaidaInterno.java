@@ -9,11 +9,12 @@ import gestor.Dao.*;
 import gestor.Modelo.ProntuarioCrc;
 import static gestor.Visao.TelaRegistroSaidaInternosPortaria.FotoInternoCrcSaida;
 import static gestor.Visao.TelaRegistroSaidaInternosPortaria.jBtZoon;
+import static gestor.Visao.TelaRegistroSaidaInternosPortaria.jComboBoxUnidadeDestino;
 import static gestor.Visao.TelaRegistroSaidaInternosPortaria.jDataSaida;
 import static gestor.Visao.TelaRegistroSaidaInternosPortaria.jIDInterno;
 import static gestor.Visao.TelaRegistroSaidaInternosPortaria.jNomeInterno;
-import static gestor.Visao.TelaRegistroSaidaInternosPortaria.jDestinoInterno;
 import static gestor.Visao.TelaRegistroSaidaInternosPortaria.jNrDocumento;
+import static gestor.Visao.TelaRegistroSaidaInternosPortaria.jTipoSaida;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -223,7 +224,7 @@ public class TelaPesquisaRegistroSaidaInterno extends javax.swing.JInternalFrame
         if (jPesqNome.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe NOME para pesquisa!!!");
             jPesqNome.requestFocus();
-        } else {           
+        } else {
             preencherTabelaNome("SELECT * FROM ITENSCRCPORTARIA "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ITENSCRCPORTARIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -267,7 +268,7 @@ public class TelaPesquisaRegistroSaidaInterno extends javax.swing.JInternalFrame
                 conecta.rs.first();
                 jIDInterno.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
                 jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));
-                jDestinoInterno.setText(conecta.rs.getString("DestinoSaida"));
+                jTipoSaida.setText(conecta.rs.getString("DestinoSaida"));
                 jNrDocumento.setText(conecta.rs.getString("DocumentoSaida"));
                 jDataSaida.setDate(conecta.rs.getDate("DataSaida"));
                 idItemSaida = conecta.rs.getString("IdSaida"); //IdItemSaida antes
@@ -280,6 +281,12 @@ public class TelaPesquisaRegistroSaidaInterno extends javax.swing.JInternalFrame
                 FotoInternoCrcSaida.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInternoCrcSaida.getWidth(), FotoInternoCrcSaida.getHeight(), Image.SCALE_DEFAULT)));
                 conecta.desconecta();
                 jBtZoon.setEnabled(true);
+                if (jTipoSaida.getText().equals("TRANSFERENCIA")) {
+                    jComboBoxUnidadeDestino.setEnabled(true);
+                    preencherComboBoxGrupo();
+                } else {
+                    jComboBoxUnidadeDestino.setEnabled(!true);
+                }
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa INTERNO" + e);
             }
@@ -313,8 +320,23 @@ public class TelaPesquisaRegistroSaidaInterno extends javax.swing.JInternalFrame
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTabelaInterno;
     // End of variables declaration//GEN-END:variables
-  // Método de pesquisa pela Descrição
 
+    public void preencherComboBoxGrupo() {
+//        jComboBoxUnidadeDestino.removeAllItems();
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM UNIDADE");
+            conecta.rs.first();
+            do {
+                jComboBoxUnidadeDestino.addItem(conecta.rs.getString("DescricaoUnid"));
+            } while (conecta.rs.next());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Existe dados a serem exibidos !!!");
+        }
+        conecta.desconecta();
+    }
+
+// Método de pesquisa pela Descrição
     public void preencherTabelaNome(String sql) {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Item", "Código", "Nome do Interno", "Data Saída", "Destino Saída"};
@@ -391,7 +413,7 @@ public class TelaPesquisaRegistroSaidaInterno extends javax.swing.JInternalFrame
         conecta.desconecta();
     }
 
-    public void alinharCamposTabelaInterno(){
+    public void alinharCamposTabelaInterno() {
         DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
@@ -404,6 +426,7 @@ public class TelaPesquisaRegistroSaidaInterno extends javax.swing.JInternalFrame
         jTabelaInterno.getColumnModel().getColumn(3).setCellRenderer(centralizado);
         jTabelaInterno.getColumnModel().getColumn(4).setCellRenderer(centralizado);
     }
+
     public void limparTabelaInternos() {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Item", "Código", "Nome do Interno", "Data Saída", "Destino Saída"};

@@ -34,9 +34,13 @@ public class ItensRegSaidaInternos {
     private String horaUp;
     private String confirmaSaida;  
     private byte[] assinaturaDigital;       
-    private int idItemCrcPort;   
+    private int idItemCrcPort;  
+    private String locaSaida;
 
-    public ItensRegSaidaInternos(int idSaida, String idItemRegSaida, String idSaidTransfTmp, Date dataSaida, Date dataRetorno, String nomeDestino, String documento, String idItemSaida, int idItemCrcPortaria, int idInternoSaida, String nomeInterno, String nomeUnidade, String horarioSaida, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String confirmaSaida, byte[] assinaturaDigital, int idItemCrcPort) {
+    public ItensRegSaidaInternos() {
+    }
+
+    public ItensRegSaidaInternos(int idSaida, String idItemRegSaida, String idSaidTransfTmp, Date dataSaida, Date dataRetorno, String nomeDestino, String documento, String idItemSaida, int idItemCrcPortaria, int idInternoSaida, String nomeInterno, String nomeUnidade, String horarioSaida, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String confirmaSaida, byte[] assinaturaDigital, int idItemCrcPort, String locaSaida) {
         this.idSaida = idSaida;
         this.idItemRegSaida = idItemRegSaida;
         this.idSaidTransfTmp = idSaidTransfTmp;
@@ -59,9 +63,7 @@ public class ItensRegSaidaInternos {
         this.confirmaSaida = confirmaSaida;
         this.assinaturaDigital = assinaturaDigital;
         this.idItemCrcPort = idItemCrcPort;
-    }
-
-    public ItensRegSaidaInternos() {
+        this.locaSaida = locaSaida;
     }
 
     /**
@@ -371,4 +373,19 @@ public class ItensRegSaidaInternos {
     public void setIdItemCrcPort(int idItemCrcPort) {
         this.idItemCrcPort = idItemCrcPort;
     }
+
+    /**
+     * @return the locaSaida
+     */
+    public String getLocaSaida() {
+        return locaSaida;
+    }
+
+    /**
+     * @param locaSaida the locaSaida to set
+     */
+    public void setLocaSaida(String locaSaida) {
+        this.locaSaida = locaSaida;
+    }
+    
 }

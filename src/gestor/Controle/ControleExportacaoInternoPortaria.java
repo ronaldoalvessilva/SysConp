@@ -5,12 +5,12 @@
  */
 package gestor.Controle;
 
+import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ConexaoBancoDadosBAR;
 import gestor.Dao.ConexaoBancoDadosITB;
 import gestor.Dao.ConexaoBancoDadosLF;
 import gestor.Dao.ConexaoBancoDadosSSA;
 import gestor.Dao.ConexaoBancoDadosVC;
-import gestor.Modelo.ProntuarioFisicosPenaisInternos;
 import gestor.Modelo.TransferenciaInternosPortaria;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -22,6 +22,7 @@ import javax.swing.JOptionPane;
  */
 public class ControleExportacaoInternoPortaria {
 
+    ConexaoBancoDados conecta = new ConexaoBancoDados();
     ConexaoBancoDadosLF conectaLF = new ConexaoBancoDadosLF();
     ConexaoBancoDadosSSA conectaSSA = new ConexaoBancoDadosSSA();
     ConexaoBancoDadosITB conectaITB = new ConexaoBancoDadosITB();
@@ -166,6 +167,20 @@ public class ControleExportacaoInternoPortaria {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\nERRO: " + ex);
         }
         conectaBAR.desconecta();
+        return pSaidaPortaria;
+    }
+    
+    public TransferenciaInternosPortaria alterarConfirmacaoPortariaBAR(TransferenciaInternosPortaria pSaidaPortaria) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE TRANSFERENCIA_INTERNOS_PORTARIAS_UNIDADES SET ConfirmadoImp=? WHERE IdTransPortUni='" + pSaidaPortaria.getIdSaidTransfTmp() + "'");           
+            pst.setString(1, pSaidaPortaria.getConfirmaImp());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
         return pSaidaPortaria;
     }
 }

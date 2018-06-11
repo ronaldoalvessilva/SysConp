@@ -488,7 +488,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jBtSair" linkSize="5" min="-2" pref="38" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jBtLocalizarInterno" linkSize="3" min="-2" pref="105" max="-2" attributes="0"/>
+                              <Component id="jBtLocalizarInterno" min="-2" pref="105" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jBtFinalizar" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -516,7 +516,7 @@
                           <Component id="jBtSair" min="-2" max="-2" attributes="0"/>
                           <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                               <Component id="jBtFinalizar" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jBtLocalizarInterno" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jBtLocalizarInterno" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jBtAuditoria" linkSize="2" min="-2" max="-2" attributes="0"/>
                           <Group type="103" alignment="1" groupAlignment="0" attributes="0">

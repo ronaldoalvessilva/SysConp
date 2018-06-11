@@ -6,6 +6,7 @@
 package gestor.Visao;
 
 import gestor.Controle.ControleEntradaInternosPortaria;
+import gestor.Controle.ControleExportacaoInternoPortaria;
 import gestor.Controle.ControleItensEntradaPortaria;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
@@ -14,6 +15,8 @@ import gestor.Dao.ModeloTabela;
 import gestor.Modelo.EntradasInternosPortaria;
 import gestor.Modelo.ItensEntradaInternosPortaria;
 import gestor.Modelo.LogSistema;
+import gestor.Modelo.TransferenciaInternosPortaria;
+import static gestor.Visao.TelaImportarDadosInternosUnidades.idTransPortUni;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
@@ -41,6 +44,10 @@ public class TelaEntradaUnidadeInternoPortaria extends javax.swing.JInternalFram
     ItensEntradaInternosPortaria objItensEntIntPort = new ItensEntradaInternosPortaria();
     ControleEntradaInternosPortaria control = new ControleEntradaInternosPortaria();
     ControleItensEntradaPortaria controle = new ControleItensEntradaPortaria();
+    //
+    TransferenciaInternosPortaria pSaidaPortaria = new TransferenciaInternosPortaria();
+    ControleExportacaoInternoPortaria controlTransPort = new ControleExportacaoInternoPortaria();
+    //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
@@ -57,6 +64,7 @@ public class TelaEntradaUnidadeInternoPortaria extends javax.swing.JInternalFram
     String codEntrada;
     String entradaConfirmadaCrc;
     int count = 0;
+    String confirmaImp = "Sim";
 
     /**
      * Creates new form TelaEntradaUnidadeInternoPortaria
@@ -1087,7 +1095,13 @@ public class TelaEntradaUnidadeInternoPortaria extends javax.swing.JInternalFram
                 controle.incluirItensEntradaPortaria(objItensEntIntPort);
                 objLog2();
                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                preencherTabelaItensInterno("SELECT * FROM ITENSENTRADAPORTARIA WHERE IdLanc='" + jIdLanc.getText() + "'");
+                //CONFIRMAR QUE A PORTARIA UTILIZOU O CADASTRO FEITO PELA OUTRA UNIDADE
+                pSaidaPortaria.setConfirmaImp(confirmaImp);
+                pSaidaPortaria.setIdSaidTransfTmp(idTransPortUni);
+                controlTransPort.alterarConfirmacaoPortariaBAR(pSaidaPortaria);
+                //
+                preencherTabelaItensInterno("SELECT * FROM ITENSENTRADAPORTARIA "
+                        + "WHERE IdLanc='" + jIdLanc.getText() + "'");
                 JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 SalvarInterno();
             }
@@ -1101,7 +1115,8 @@ public class TelaEntradaUnidadeInternoPortaria extends javax.swing.JInternalFram
                 controle.alterarItensEntradaPortaria(objItensEntIntPort);
                 objLog2();
                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                preencherTabelaItensInterno("SELECT * FROM ITENSENTRADAPORTARIA WHERE IdLanc='" + jIdLanc.getText() + "'");
+                preencherTabelaItensInterno("SELECT * FROM ITENSENTRADAPORTARIA "
+                        + "WHERE IdLanc='" + jIdLanc.getText() + "'");
                 JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 SalvarInterno();
             }
@@ -1278,7 +1293,7 @@ public class TelaEntradaUnidadeInternoPortaria extends javax.swing.JInternalFram
         if (jStatusLanc.getText().equals("FINALIZADO")) {
             JOptionPane.showMessageDialog(rootPane, "Não é possível importar dados, registro já está finalizado.");
         } else {
-            acao = 1;
+            acao = 3;
             TelaImportarDadosInternosUnidades objImport = new TelaImportarDadosInternosUnidades();
             TelaModuloPortarias.jPainelPortarias.add(objImport);
             objImport.show();

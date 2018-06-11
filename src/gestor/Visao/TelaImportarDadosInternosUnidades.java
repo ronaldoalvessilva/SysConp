@@ -7,6 +7,7 @@ package gestor.Visao;
 
 import gestor.Dao.*;
 import gestor.Modelo.ProntuarioCrc;
+import static gestor.Visao.TelaEntradaUnidadeInternoPortaria.acao;
 import static gestor.Visao.TelaEntradaUnidadeInternoPortaria.jBtCancelarInterno;
 import static gestor.Visao.TelaEntradaUnidadeInternoPortaria.jBtSalvarInterno;
 import static gestor.Visao.TelaEntradaUnidadeInternoPortaria.jNomeInternoPortaria;
@@ -34,11 +35,10 @@ public class TelaImportarDadosInternosUnidades extends javax.swing.JInternalFram
     int flag;
     int count = 0;    
     String nomeInterno;
-    String idInt;
+    public static String idTransPortUni;
     String dataSaida;
     String confirmacaoSaida = "Não";
-    String codInt;
-    private int acao;
+    String codInt;   
 
     /**
      * Creates new form TelaPesquisaEntradaInternos
@@ -308,7 +308,7 @@ public class TelaImportarDadosInternosUnidades extends javax.swing.JInternalFram
         if (flag == 1 && evt.getClickCount() == 1) {
             nomeInterno = "" + jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 2);
             jPesqNome.setText(nomeInterno);
-            idInt = "" + jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 0);
+            idTransPortUni = "" + jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 0);
         }
     }//GEN-LAST:event_jTabelaInternoMouseClicked
 
@@ -321,13 +321,13 @@ public class TelaImportarDadosInternosUnidades extends javax.swing.JInternalFram
         // TODO add your handling code here:
         if (jPesqNome.getText().isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Selecione o nome do interno e clique no botão ENVIAR");
-        } else if (idInt == null) {
+        } else if (idTransPortUni == null) {
             JOptionPane.showMessageDialog(rootPane, "Selecione nome do interno corretamente para ENVIAR.");
         } else {
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM TRANSFERENCIA_INTERNOS_PORTARIAS_UNIDADES "
-                        + "WHERE TRANSFERENCIA_INTERNOS_PORTARIAS_UNIDADES.IdTransPortUni='" + idInt + "'");
+                        + "WHERE TRANSFERENCIA_INTERNOS_PORTARIAS_UNIDADES.IdTransPortUni='" + idTransPortUni + "'");
                 conecta.rs.first();
                 jNomeInternoPortaria.setText(conecta.rs.getString("NomeInterno"));
                 jComboBoxOrigemInterno.addItem(conecta.rs.getString("UnidadeOrigem"));
@@ -341,8 +341,8 @@ public class TelaImportarDadosInternosUnidades extends javax.swing.JInternalFram
                 //
                 jBtSalvarInterno.setEnabled(true);
                 jBtCancelarInterno.setEnabled(true);
-                acao = 1;
-                conecta.desconecta();//                
+                acao = 3;
+                conecta.desconecta();                
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO ao enviar dados." + e);
             }
