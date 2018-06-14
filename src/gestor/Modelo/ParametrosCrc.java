@@ -64,11 +64,12 @@ public class ParametrosCrc {
     private String caminhoAtualizaSis;
     private Date dataVersao;
     private Double numeroVersao;
+    private String caminhoExecAntigo;
 
     public ParametrosCrc() {
     }
 
-    public ParametrosCrc(int idPar, int qtdDias, String qtdHoras, String usuarioAutorizado, String regRetornoPortaria, String regEntradaPortaria, String docAudiencia, String docTrans, String docSaidaTmp, String docLivraPro, String valAudiencia, String valTrans, String valSaidaTmp, String valLivraPro, String docPro, String docAlvara, String valPro, String valAlvara, String usuarioInsert, String usuariosUp, String dataInsert, String dataUp, String horarioUp, String populacaoBgp, String locacaoBgp, String transferenciaBgp, String pavilhaoCelas, String populacaoBpa, String locacaoBpa, String transferenciaBpa, String pavilhaoCelasBpa, String caminhoImagemCrc, String caminhoImagemSS, String caminhoImagemFunc, String localFotoAdvogado, String localFotoVisitasDiversas, String localFotoOficial, String localFotoVisitasInternos, String localFotoColaboradores, String localFotoInternos, String biometriaMedicos, String biometriaEnfermerios, String biometriaTecnicos, String carcereFem, String localPDF_PI, String localPDF_PE, String localPDF_B1, String localPDF_B2, String caminhoAtualizaSis, Date dataVersao, Double numeroVersao) {
+    public ParametrosCrc(int idPar, int qtdDias, String qtdHoras, String usuarioAutorizado, String regRetornoPortaria, String regEntradaPortaria, String docAudiencia, String docTrans, String docSaidaTmp, String docLivraPro, String valAudiencia, String valTrans, String valSaidaTmp, String valLivraPro, String docPro, String docAlvara, String valPro, String valAlvara, String usuarioInsert, String usuariosUp, String dataInsert, String dataUp, String horarioUp, String populacaoBgp, String locacaoBgp, String transferenciaBgp, String pavilhaoCelas, String populacaoBpa, String locacaoBpa, String transferenciaBpa, String pavilhaoCelasBpa, String caminhoImagemCrc, String caminhoImagemSS, String caminhoImagemFunc, String localFotoAdvogado, String localFotoVisitasDiversas, String localFotoOficial, String localFotoVisitasInternos, String localFotoColaboradores, String localFotoInternos, String biometriaMedicos, String biometriaEnfermerios, String biometriaTecnicos, String carcereFem, String localPDF_PI, String localPDF_PE, String localPDF_B1, String localPDF_B2, String caminhoAtualizaSis, Date dataVersao, Double numeroVersao, String caminhoExecAntigo) {
         this.idPar = idPar;
         this.qtdDias = qtdDias;
         this.qtdHoras = qtdHoras;
@@ -120,6 +121,7 @@ public class ParametrosCrc {
         this.caminhoAtualizaSis = caminhoAtualizaSis;
         this.dataVersao = dataVersao;
         this.numeroVersao = numeroVersao;
+        this.caminhoExecAntigo = caminhoExecAntigo;
     }
 
     /**
@@ -836,5 +838,18 @@ public class ParametrosCrc {
         this.numeroVersao = numeroVersao;
     }
 
-    
+    /**
+     * @return the caminhoExecAntigo
+     */
+    public String getCaminhoExecAntigo() {
+        return caminhoExecAntigo;
+    }
+
+    /**
+     * @param caminhoExecAntigo the caminhoExecAntigo to set
+     */
+    public void setCaminhoExecAntigo(String caminhoExecAntigo) {
+        this.caminhoExecAntigo = caminhoExecAntigo;
+    }
+
 }
