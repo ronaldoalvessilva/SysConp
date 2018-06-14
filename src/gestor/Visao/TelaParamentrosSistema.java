@@ -174,6 +174,8 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jDataVersao = new com.toedter.calendar.JDateChooser();
         jLabel47 = new javax.swing.JLabel();
         jNumeroVersao = new javax.swing.JFormattedTextField();
+        jLabel48 = new javax.swing.JLabel();
+        jCaminhoExecutavelAntigo = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jBtAlterar = new javax.swing.JButton();
         jBtSalvar = new javax.swing.JButton();
@@ -1256,7 +1258,9 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
 
         jLabel45.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel45.setText("Cam. executável atualização sistema:");
+        jLabel45.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel45.setText("Caminho do exe. atualização sistema:");
+        jLabel45.setToolTipText("CAminho do executável de atualização do sistema");
 
         jCaminhoExecutavelAtualizacaoSis.setToolTipText("Caminho para atualização do sistema");
         jCaminhoExecutavelAtualizacaoSis.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -1271,11 +1275,21 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jDataVersao.setName("JDataVersao"); // NOI18N
 
         jLabel47.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel47.setForeground(new java.awt.Color(204, 0, 0));
         jLabel47.setText("Número da Versão:");
 
         jNumeroVersao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jNumeroVersao.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jNumeroVersao.setEnabled(false);
+
+        jLabel48.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel48.setForeground(new java.awt.Color(0, 0, 204));
+        jLabel48.setText("Caminho do exe. antigo sistema:");
+        jLabel48.setToolTipText("Caminho do executável antigo do sistema");
+
+        jCaminhoExecutavelAntigo.setToolTipText("Caminho para atualização do sistema");
+        jCaminhoExecutavelAntigo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jCaminhoExecutavelAntigo.setEnabled(false);
 
         javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
         jPanel25.setLayout(jPanel25Layout);
@@ -1285,17 +1299,22 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addGap(24, 24, 24)
                 .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel46)
-                    .addComponent(jLabel45))
+                    .addComponent(jLabel45)
+                    .addComponent(jLabel48))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCaminhoExecutavelAtualizacaoSis, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCaminhoExecutavelAntigo)
                     .addGroup(jPanel25Layout.createSequentialGroup()
-                        .addComponent(jDataVersao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel47)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jNumeroVersao, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jCaminhoExecutavelAtualizacaoSis, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel25Layout.createSequentialGroup()
+                                .addComponent(jDataVersao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel47)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jNumeroVersao, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel25Layout.setVerticalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1310,7 +1329,11 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                     .addComponent(jLabel47)
                     .addComponent(jDataVersao, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel46))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jCaminhoExecutavelAntigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel48))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
@@ -1329,7 +1352,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
             .addGroup(jPanel23Layout.createSequentialGroup()
                 .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1496,6 +1519,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         objParCrc.setCaminhoAtualizaSis(jCaminhoExecutavelAtualizacaoSis.getText());
         objParCrc.setDataVersao(jDataVersao.getDate());
         objParCrc.setNumeroVersao(Double.parseDouble(jNumeroVersao.getText()));
+        objParCrc.setCaminhoExecAntigo(jCaminhoExecutavelAntigo.getText());
         if (jNomeUsuarioParametros.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do Usuario Autorizado");
         } else {
@@ -1539,6 +1563,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtPesqUsuarios;
     private javax.swing.JButton jBtSair;
     private javax.swing.JButton jBtSalvar;
+    private javax.swing.JTextField jCaminhoExecutavelAntigo;
     private javax.swing.JTextField jCaminhoExecutavelAtualizacaoSis;
     public static javax.swing.JTextField jCaminhoImagemCRCInternos;
     public static javax.swing.JTextField jCaminhoImagemColaboradores;
@@ -1618,6 +1643,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel47;
+    private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -1682,6 +1708,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jLocalPDF_B2.setBackground(Color.white);
         //
         jCaminhoExecutavelAtualizacaoSis.setBackground(Color.white);
+        jCaminhoExecutavelAntigo.setBackground(Color.white);
         //
     }
 
@@ -1743,6 +1770,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
             jCaminhoExecutavelAtualizacaoSis.setText(conecta.rs.getString("CaminhoExecutavel"));
             jDataVersao.setDate(conecta.rs.getDate("DataVersao"));
             jNumeroVersao.setText(conecta.rs.getString("NumeroVersao"));
+            jCaminhoExecutavelAntigo.setText(conecta.rs.getString("CaminhoExecutavelAntigo"));
         } catch (SQLException ex) {
         }
         conecta.desconecta();
@@ -1803,6 +1831,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jCaminhoExecutavelAtualizacaoSis.setEnabled(true);
         jDataVersao.setEnabled(true);
         jNumeroVersao.setEnabled(true);
+        jCaminhoExecutavelAntigo.setEnabled(true);
         //
         jBtAlterar.setEnabled(!true);
         jBtSalvar.setEnabled(true);
@@ -1864,6 +1893,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jCaminhoExecutavelAtualizacaoSis.setEnabled(!true);
         jDataVersao.setEnabled(!true);
         jNumeroVersao.setEnabled(!true);
+        jCaminhoExecutavelAntigo.setEnabled(!true);
         //
         jBtAlterar.setEnabled(true);
         jBtSalvar.setEnabled(!true);
@@ -1916,6 +1946,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jCaminhoExecutavelAtualizacaoSis.setEnabled(!true);
         jDataVersao.setEnabled(!true);
         jNumeroVersao.setEnabled(!true);
+        jCaminhoExecutavelAntigo.setEnabled(!true);
         //
         jBtAlterar.setEnabled(true);
         jBtSalvar.setEnabled(!true);
