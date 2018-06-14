@@ -5,6 +5,7 @@
  */
 package gestor.Modelo;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Date;
 
 /**
@@ -54,8 +55,12 @@ public class ProntuarioCrc {
     private String horaFechamento;  
     private String confirmaEntrada;     
     private String cnc;   
+    private byte[] imagemInterno;
 
-    public ProntuarioCrc(int IdInterno, String Matricula, Date DataCadast, Date DataNasci, String FotoInterno, String FotoPerfil, String FotoCorpo1, String FotoCorpo2, String FotoCorpo3, String NomeInterno, String MaeInterno, String PaiInterno, String Alcunha, String RgInterno, String CpfInterno, String cartoaSus, String Escolaridade, String EstadoCivil, String Sexo, String situacao, String nomePais, String nomeCidade, String Religiao, String Profissao, String Endereco, String Bairro, String Cidade, String Estado, String telefone, String telefone1, String celular, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento, String confirmaEntrada, String cnc) {
+    public ProntuarioCrc() {
+    }
+
+    public ProntuarioCrc(int IdInterno, String Matricula, Date DataCadast, Date DataNasci, String FotoInterno, String FotoPerfil, String FotoCorpo1, String FotoCorpo2, String FotoCorpo3, String NomeInterno, String MaeInterno, String PaiInterno, String Alcunha, String RgInterno, String CpfInterno, String cartoaSus, String Escolaridade, String EstadoCivil, String Sexo, String situacao, String nomePais, String nomeCidade, String Religiao, String Profissao, String Endereco, String Bairro, String Cidade, String Estado, String telefone, String telefone1, String celular, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento, String confirmaEntrada, String cnc, byte[] imagemInterno) {
         this.IdInterno = IdInterno;
         this.Matricula = Matricula;
         this.DataCadast = DataCadast;
@@ -97,9 +102,7 @@ public class ProntuarioCrc {
         this.horaFechamento = horaFechamento;
         this.confirmaEntrada = confirmaEntrada;
         this.cnc = cnc;
-    }
-
-    public ProntuarioCrc() {
+        this.imagemInterno = imagemInterno;
     }
 
     /**
@@ -675,4 +678,19 @@ public class ProntuarioCrc {
     public void setCnc(String cnc) {
         this.cnc = cnc;
     }
+
+    /**
+     * @return the imagemInterno
+     */
+    public byte[] getImagemInterno() {
+        return imagemInterno;
+    }
+
+    /**
+     * @param imagemInterno the imagemInterno to set
+     */
+    public void setImagemInterno(byte[] imagemInterno) {
+        this.imagemInterno = imagemInterno;
+    }
+
 }
