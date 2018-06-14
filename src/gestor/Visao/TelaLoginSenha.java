@@ -48,6 +48,7 @@ public class TelaLoginSenha extends javax.swing.JDialog {
     int codigoEmpresa = 0;
     //
     String caminhoExecutavel = "";
+    String caminhoExecutavelAntigo = "";
     String dataVersao;
 
     /**
@@ -97,49 +98,54 @@ public class TelaLoginSenha extends javax.swing.JDialog {
                         && (jPassword.getText()).equals(conecta.rs.getString("SenhaUsuario"))
                         && (Codstatus == 1)) {
                     buscarEmpresa();
-                    File origem = new File("R://SISCONP//SysConp.jar");
-                    dataOrigem = origem.lastModified(); // Data do arquivo de origem
-                    tamanhoOrigem = origem.length();  // Tamanho do arquivo de origem        
-                    File destino = new File("C://SysConp//SysConp.jar");
-                    dataDestino = destino.lastModified();
-                    tamanhoDestino = destino.length();
-                    if (origem.exists() && destino.exists()) {
-                        if (dataOrigem > dataDestino || tamanhoOrigem > tamanhoDestino) {
-                            int resposta = JOptionPane.showConfirmDialog(this, "Existe uma nova atualização, deseja fazer isso agora?", "Confirmação",
-                                    JOptionPane.YES_NO_OPTION);
-                            if (resposta == JOptionPane.YES_OPTION) {
-                                // CHAMA O EXECUTAVEL DE INSTALAÇÃO
-                                Install_Sisconp();
-                                // UPDATE NO BANCO PARA ATUALIZAR A VERSÃO.
-                                versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
+                    // COMPARAR O ARQUIVO EXECUTAVEL PARA REALIZAR ATUALIZAÇÃO
+                    if (caminhoExecutavelAntigo == null) {
+                        JOptionPane.showMessageDialog(rootPane, "O caminho do arquivo executavel antigo não existe, solicite ajuda ao Administrador do Sistema.");
+                    } else {
+                        File origem = new File(caminhoExecutavelAntigo);
+                        dataOrigem = origem.lastModified(); // Data do arquivo de origem
+                        tamanhoOrigem = origem.length();  // Tamanho do arquivo de origem        
+                        File destino = new File("C://SysConp//SysConp.jar");
+                        dataDestino = destino.lastModified();
+                        tamanhoDestino = destino.length();
+                        if (origem.exists() && destino.exists()) {
+                            if (dataOrigem > dataDestino || tamanhoOrigem > tamanhoDestino) {
+                                int resposta = JOptionPane.showConfirmDialog(this, "Existe uma nova atualização, deseja fazer isso agora?", "Confirmação",
+                                        JOptionPane.YES_NO_OPTION);
+                                if (resposta == JOptionPane.YES_OPTION) {
+                                    // CHAMA O EXECUTAVEL DE INSTALAÇÃO
+                                    Install_Sisconp();
+                                    // UPDATE NO BANCO PARA ATUALIZAR A VERSÃO.
+                                    versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
 //                                java.util.Date data = new java.util.Date();
-                                versao.setDataVersao(dataVersao);
-                                PreparedStatement pst = conecta.con.prepareStatement("UPDATE EMPRESA SET VersaoAtual=?,DataVersao=? "
-                                        + "WHERE IdEmpresa='" + codigoEmpresa + "'");
-                                pst.setDouble(1, versao.getVersao());
-                                pst.setTimestamp(2, new java.sql.Timestamp(versao.getDataVersao().getTime()));
-                                pst.execute();
-                                System.exit(0);
-                            } else {
-                                versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
-                                if (versaoAtualSistema > versao.getVersao()) {
-                                    JOptionPane.showMessageDialog(rootPane, "Não é possível acessar o sistema, seu sistema está desatualizado. Faça a atualização e só assim você poderá acessar o sistema.");
+                                    versao.setDataVersao(dataVersao);
+                                    PreparedStatement pst = conecta.con.prepareStatement("UPDATE EMPRESA SET VersaoAtual=?,DataVersao=? "
+                                            + "WHERE IdEmpresa='" + codigoEmpresa + "'");
+                                    pst.setDouble(1, versao.getVersao());
+                                    pst.setTimestamp(2, new java.sql.Timestamp(versao.getDataVersao().getTime()));
+                                    pst.execute();
+                                    System.exit(0);
                                 } else {
-                                    idUserAcesso = conecta.rs.getString("IdUsuario");
-                                    nameUser = conecta.rs.getString("NomeUsuario");
-                                    TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
-                                    tp.setVisible(true);
-                                    conecta.desconecta();
-                                    this.dispose();
+                                    versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
+                                    if (versaoAtualSistema > versao.getVersao()) {
+                                        JOptionPane.showMessageDialog(rootPane, "Não é possível acessar o sistema, seu sistema está desatualizado. Faça a atualização e só assim você poderá acessar o sistema.");
+                                    } else {
+                                        idUserAcesso = conecta.rs.getString("IdUsuario");
+                                        nameUser = conecta.rs.getString("NomeUsuario");
+                                        TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
+                                        tp.setVisible(true);
+                                        conecta.desconecta();
+                                        this.dispose();
+                                    }
                                 }
+                            } else {
+                                idUserAcesso = conecta.rs.getString("IdUsuario");
+                                nameUser = conecta.rs.getString("NomeUsuario");
+                                TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
+                                tp.setVisible(true);
+                                conecta.desconecta();
+                                this.dispose();
                             }
-                        } else {
-                            idUserAcesso = conecta.rs.getString("IdUsuario");
-                            nameUser = conecta.rs.getString("NomeUsuario");
-                            TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
-                            tp.setVisible(true);
-                            conecta.desconecta();
-                            this.dispose();
                         }
                     }
                 } else {
@@ -471,6 +477,7 @@ public class TelaLoginSenha extends javax.swing.JDialog {
             conecta.executaSQL("SELECT * FROM PARAMETROSCRC");
             conecta.rs.first();
             caminhoExecutavel = conecta.rs.getString("CaminhoExecutavel");
+            caminhoExecutavelAntigo = conecta.rs.getString("CaminhoExecutavelAntigo");
             dataVersao = conecta.rs.getString("DataVersao");
         } catch (Exception e) {
         }
