@@ -66,6 +66,12 @@ import static gestor.Visao.TelaModuloTriagem.codigoUserTRI;
 import static gestor.Visao.TelaModuloTriagem.codUserAcessoTRI;
 import static gestor.Visao.TelaModuloTriagem.nomeGrupoTRI;
 import static gestor.Visao.TelaModuloTriagem.nomeTelaTRI;
+import java.awt.Graphics2D;
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -3817,6 +3823,23 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                                                                 conecta.desconecta();
                                                             } catch (SQLException | HeadlessException | NumberFormatException e) {
                                                             }
+                                                            // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS                                                            
+                                                            Image img = ((ImageIcon) jLabelFotoInterno.getIcon()).getImage();
+                                                            BufferedImage bi = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                                                                    img.getWidth(null),
+                                                                    img.getHeight(null),
+                                                                    BufferedImage.TYPE_INT_RGB);
+                                                            Graphics2D g2 = bi.createGraphics();
+                                                            g2.drawImage(img, 0, 0, null);
+                                                            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                                                            try {
+                                                                ImageIO.write(bi, "jpg", buffer);
+                                                            } catch (FileNotFoundException ex) {
+                                                                Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                                                            } catch (IOException ex) {
+                                                                Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                                                            }
+                                                            objProCrc.setImagemInterno(buffer.toByteArray());
                                                             if (acao == 1) {
                                                                 if (jNomeInterno.getText().trim().equals(nomeInternoCrc) && jMaeInterno.getText().trim().equals(nomeMaeInterno)) {
                                                                     JOptionPane.showMessageDialog(rootPane, "Esse Interno já foi cadastrado.");
@@ -3954,6 +3977,8 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             jFotoMedioEsquerdo.setIcon(null);
             jFotoAnularEsquerdo.setIcon(null);
             jFotoMinimoEsquerdo.setIcon(null);
+            // LIMPAR FOTOS
+            jLabelFotoInterno.setIcon(null);
             //
             conecta.abrirConexao();
             try {
@@ -3984,9 +4009,20 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                 jCartaoSus.setText(conecta.rs.getString("CartaoSus"));
                 // Capturando foto
                 caminhoFotoInternoTRIAGEM = conecta.rs.getString("FotoInternoCrc");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFotoInternoTRIAGEM);
-                jLabelFotoInterno.setIcon(i);
-                jLabelFotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jLabelFotoInterno.getWidth(), jLabelFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminhoFotoInternoTRIAGEM != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFotoInternoTRIAGEM);
+                    jLabelFotoInterno.setIcon(i);
+                    jLabelFotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jLabelFotoInterno.getWidth(), jLabelFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jLabelFotoInterno.getWidth(), jLabelFotoInterno.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jLabelFotoInterno.setIcon(icon);
+                }
                 //
                 jComboBoxEscolaridade.setSelectedItem(conecta.rs.getString("EscolaridadeCrc"));
                 jComboBoxEstadoCivil.setSelectedItem(conecta.rs.getString("EstadoCivilCrc"));
@@ -4076,7 +4112,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                 lerDigitaisCadastradas();
                 conecta.desconecta();
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por nome" + e);
+                JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa dos dados." + e);
             }
         }
     }//GEN-LAST:event_jTabelaInternoMouseClicked
@@ -4504,6 +4540,23 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                                                                 conecta.desconecta();
                                                             } catch (SQLException | HeadlessException | NumberFormatException e) {
                                                             }
+                                                            // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS 
+                                                            Image img = ((ImageIcon) jLabelFotoInterno.getIcon()).getImage();
+                                                            BufferedImage bi = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                                                                    img.getWidth(null),
+                                                                    img.getHeight(null),
+                                                                    BufferedImage.TYPE_INT_RGB);
+                                                            Graphics2D g2 = bi.createGraphics();
+                                                            g2.drawImage(img, 0, 0, null);
+                                                            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                                                            try {
+                                                                ImageIO.write(bi, "jpg", buffer);
+                                                            } catch (FileNotFoundException ex) {
+                                                                Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                                                            } catch (IOException ex) {
+                                                                Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                                                            }
+                                                            objProCrc.setImagemInterno(buffer.toByteArray());
                                                             if (acao == 1) {
                                                                 if (jNomeInterno.getText().trim().equals(nomeInternoCrc) && jMaeInterno.getText().trim().equals(nomeMaeInterno)) {
                                                                     JOptionPane.showMessageDialog(rootPane, "Esse Interno já foi cadastrado.");
