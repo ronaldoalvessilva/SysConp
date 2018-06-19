@@ -25,14 +25,20 @@ import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -4459,6 +4465,99 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                                                             conecta.desconecta();
                                                         } catch (SQLException | HeadlessException | NumberFormatException e) {
                                                         }
+                                                        // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE                                                         
+                                                        Image img = ((ImageIcon) jLabelFotoInterno.getIcon()).getImage();
+                                                        BufferedImage bi = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                                                                img.getWidth(null),
+                                                                img.getHeight(null),
+                                                                BufferedImage.TYPE_INT_RGB);
+                                                        Graphics2D g2 = bi.createGraphics();
+                                                        g2.drawImage(img, 0, 0, null);
+                                                        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                                                        try {
+                                                            ImageIO.write(bi, "jpg", buffer);
+                                                        } catch (FileNotFoundException ex) {
+                                                            Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                                                        } catch (IOException ex) {
+                                                            Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                                                        }
+                                                        objProCrc.setImagemInterno(buffer.toByteArray());
+                                                        // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL
+                                                        if (jFotoPerfil.getIcon() != null) {
+                                                            Image imgp = ((ImageIcon) jFotoPerfil.getIcon()).getImage();
+                                                            BufferedImage bip = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                                                                    imgp.getWidth(null),
+                                                                    imgp.getHeight(null),
+                                                                    BufferedImage.TYPE_INT_RGB);
+                                                            Graphics2D g2a = bip.createGraphics();
+                                                            g2a.drawImage(imgp, 0, 0, null);
+                                                            ByteArrayOutputStream bufferp = new ByteArrayOutputStream();
+                                                            try {
+                                                                ImageIO.write(bip, "jpg", bufferp);
+                                                            } catch (FileNotFoundException ex) {
+                                                                Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                                                            } catch (IOException ex) {
+                                                                Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                                                            }
+                                                            objDadosPena.setImagemPerfil(bufferp.toByteArray());
+                                                        }
+                                                        // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL - FOTO CORPO
+                                                        if (jFotoCorpo.getIcon() != null) {
+                                                            Image imgc = ((ImageIcon) jFotoCorpo.getIcon()).getImage();
+                                                            BufferedImage bic = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                                                                    imgc.getWidth(null),
+                                                                    imgc.getHeight(null),
+                                                                    BufferedImage.TYPE_INT_RGB);
+                                                            Graphics2D g2b = bic.createGraphics();
+                                                            g2b.drawImage(imgc, 0, 0, null);
+                                                            ByteArrayOutputStream bufferc = new ByteArrayOutputStream();
+                                                            try {
+                                                                ImageIO.write(bic, "jpg", bufferc);
+                                                            } catch (FileNotFoundException ex) {
+                                                                Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                                                            } catch (IOException ex) {
+                                                                Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                                                            }
+                                                            objDadosPena.setImagemCorpo(bufferc.toByteArray());
+                                                        }
+                                                        // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL - FOTO CORPO1
+                                                        if (jFotoCorpo1.getIcon() != null) {
+                                                            Image imgc1 = ((ImageIcon) jFotoCorpo1.getIcon()).getImage();
+                                                            BufferedImage bic1 = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                                                                    imgc1.getWidth(null),
+                                                                    imgc1.getHeight(null),
+                                                                    BufferedImage.TYPE_INT_RGB);
+                                                            Graphics2D g2c = bic1.createGraphics();
+                                                            g2c.drawImage(imgc1, 0, 0, null);
+                                                            ByteArrayOutputStream bufferc1 = new ByteArrayOutputStream();
+                                                            try {
+                                                                ImageIO.write(bic1, "jpg", bufferc1);
+                                                            } catch (FileNotFoundException ex) {
+                                                                Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                                                            } catch (IOException ex) {
+                                                                Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                                                            }
+                                                            objDadosPena.setImagemCorpo1(bufferc1.toByteArray());
+                                                        }
+                                                        // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL - FOTO CORPO2
+                                                        if (jFotoCorpo2.getIcon() != null) {
+                                                            Image imgc2 = ((ImageIcon) jFotoCorpo2.getIcon()).getImage();
+                                                            BufferedImage bic2 = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                                                                    imgc2.getWidth(null),
+                                                                    imgc2.getHeight(null),
+                                                                    BufferedImage.TYPE_INT_RGB);
+                                                            Graphics2D g2c2 = bic2.createGraphics();
+                                                            g2c2.drawImage(imgc2, 0, 0, null);
+                                                            ByteArrayOutputStream bufferc2 = new ByteArrayOutputStream();
+                                                            try {
+                                                                ImageIO.write(bic2, "jpg", bufferc2);
+                                                            } catch (FileNotFoundException ex) {
+                                                                Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                                                            } catch (IOException ex) {
+                                                                Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                                                            }
+                                                            objDadosPena.setImagemCorpo2(bufferc2.toByteArray());
+                                                        }
                                                         if (acao == 1) {
                                                             if (jNomeInterno.getText().trim().equals(nomeInternoCrc) && jMaeInterno.getText().trim().equals(nomeMaeInterno)) {
                                                                 JOptionPane.showMessageDialog(rootPane, "Esse Interno já foi cadastrado.");
@@ -4623,6 +4722,12 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             jBtImpressao1.setEnabled(true);
             jBtAuditoriaPronCrc1.setEnabled(true);
             jBtObservacao1.setEnabled(true);
+            // LIMPAR FOTOS
+            jLabelFotoInterno.setIcon(null);
+            jFotoPerfil.setIcon(null);
+            jFotoCorpo.setIcon(null);
+            jFotoCorpo1.setIcon(null);
+            jFotoCorpo2.setIcon(null);
             //
             bloquearCamposEdicao();
             //
@@ -4658,6 +4763,15 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
                 jLabelFotoInterno.setIcon(i);
                 jLabelFotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jLabelFotoInterno.getWidth(), jLabelFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                //
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jLabelFotoInterno.getWidth(), jLabelFotoInterno.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jLabelFotoInterno.setIcon(icon);
+                }
                 //
                 jComboBoxEscolaridade.setSelectedItem(conecta.rs.getString("EscolaridadeCrc"));
                 jComboBoxEstadoCivil.setSelectedItem(conecta.rs.getString("EstadoCivilCrc"));
@@ -4734,6 +4848,42 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                     javax.swing.ImageIcon t = new javax.swing.ImageIcon(caminhoFotoCorpo2);
                     jFotoCorpo2.setIcon(t);
                     jFotoCorpo2.setIcon(new ImageIcon(t.getImage().getScaledInstance(jFotoCorpo2.getWidth(), jFotoCorpo2.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO BANCO DE DADOS - FOTO PERFIL
+                byte[] imgPerfilBytes = ((byte[]) conecta.rs.getBytes("ImagemPerfil"));
+                if (imgPerfilBytes != null) {
+                    ImageIcon picPerf = null;
+                    picPerf = new ImageIcon(imgPerfilBytes);
+                    Image scaledp = picPerf.getImage().getScaledInstance(jFotoPerfil.getWidth(), jFotoPerfil.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon iconPerf = new ImageIcon(scaledp);
+                    jFotoPerfil.setIcon(iconPerf);
+                }
+                // BUSCAR A FOTO DO BANCO DE DADOS - FOTO CORPO
+                byte[] imgCorpoBytes = ((byte[]) conecta.rs.getBytes("ImagemCorpo"));
+                if (imgCorpoBytes != null) {
+                    ImageIcon picCorpo = null;
+                    picCorpo = new ImageIcon(imgCorpoBytes);
+                    Image scaled0 = picCorpo.getImage().getScaledInstance(jFotoCorpo.getWidth(), jFotoCorpo.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon iconCorpo = new ImageIcon(scaled0);
+                    jFotoCorpo.setIcon(iconCorpo);
+                }
+                // BUSCAR A FOTO DO BANCO DE DADOS - FOTO CORPO1
+                byte[] imgCorpo1Bytes = ((byte[]) conecta.rs.getBytes("ImagemCorpo1"));
+                if (imgCorpo1Bytes != null) {
+                    ImageIcon picCorpo1 = null;
+                    picCorpo1 = new ImageIcon(imgCorpo1Bytes);
+                    Image scaled1 = picCorpo1.getImage().getScaledInstance(jFotoCorpo1.getWidth(), jFotoCorpo1.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon iconCorpo1 = new ImageIcon(scaled1);
+                    jFotoCorpo1.setIcon(iconCorpo1);
+                }
+                // BUSCAR A FOTO DO BANCO DE DADOS - FOTO CORPO2
+                byte[] imgCorpo2Bytes = ((byte[]) conecta.rs.getBytes("ImagemCorpo2"));
+                if (imgCorpo2Bytes != null) {
+                    ImageIcon picCorpo2 = null;
+                    picCorpo2 = new ImageIcon(imgCorpo2Bytes);
+                    Image scaled2 = picCorpo2.getImage().getScaledInstance(jFotoCorpo2.getWidth(), jFotoCorpo2.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon iconCorpo2 = new ImageIcon(scaled2);
+                    jFotoCorpo2.setIcon(iconCorpo2);
                 }
                 //
                 jIdentificador.setText(conecta.rs.getString("Identificador"));
@@ -5199,12 +5349,107 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                                                         try {
                                                             // Verificar se o interno já foi cadastrado, se foi avisa
                                                             conecta.abrirConexao();
-                                                            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC WHERE NomeInternoCrc='" + jNomeInterno.getText() + "' AND MaeInternoCrc='" + jMaeInterno.getText() + "'");
+                                                            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                                                                    + "WHERE NomeInternoCrc='" + jNomeInterno.getText() + "' "
+                                                                    + "AND MaeInternoCrc='" + jMaeInterno.getText() + "'");
                                                             conecta.rs.first();
                                                             nomeInternoCrc = conecta.rs.getString("NomeInternoCrc");
                                                             nomeMaeInterno = conecta.rs.getString("MaeInternoCrc");
                                                             conecta.desconecta();
                                                         } catch (SQLException | HeadlessException | NumberFormatException e) {
+                                                        }
+                                                        // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE                                                         
+                                                        Image img = ((ImageIcon) jLabelFotoInterno.getIcon()).getImage();
+                                                        BufferedImage bi = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                                                                img.getWidth(null),
+                                                                img.getHeight(null),
+                                                                BufferedImage.TYPE_INT_RGB);
+                                                        Graphics2D g2 = bi.createGraphics();
+                                                        g2.drawImage(img, 0, 0, null);
+                                                        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                                                        try {
+                                                            ImageIO.write(bi, "jpg", buffer);
+                                                        } catch (FileNotFoundException ex) {
+                                                            Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                                                        } catch (IOException ex) {
+                                                            Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                                                        }
+                                                        objProCrc.setImagemInterno(buffer.toByteArray());
+                                                        // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL
+                                                        if (jFotoPerfil.getIcon() != null) {
+                                                            Image imgp = ((ImageIcon) jFotoPerfil.getIcon()).getImage();
+                                                            BufferedImage bip = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                                                                    imgp.getWidth(null),
+                                                                    imgp.getHeight(null),
+                                                                    BufferedImage.TYPE_INT_RGB);
+                                                            Graphics2D g2a = bip.createGraphics();
+                                                            g2a.drawImage(imgp, 0, 0, null);
+                                                            ByteArrayOutputStream bufferp = new ByteArrayOutputStream();
+                                                            try {
+                                                                ImageIO.write(bip, "jpg", bufferp);
+                                                            } catch (FileNotFoundException ex) {
+                                                                Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                                                            } catch (IOException ex) {
+                                                                Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                                                            }
+                                                            objDadosPena.setImagemPerfil(bufferp.toByteArray());
+                                                        }
+                                                        // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL - FOTO CORPO
+                                                        if (jFotoCorpo.getIcon() != null) {
+                                                            Image imgc = ((ImageIcon) jFotoCorpo.getIcon()).getImage();
+                                                            BufferedImage bic = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                                                                    imgc.getWidth(null),
+                                                                    imgc.getHeight(null),
+                                                                    BufferedImage.TYPE_INT_RGB);
+                                                            Graphics2D g2b = bic.createGraphics();
+                                                            g2b.drawImage(imgc, 0, 0, null);
+                                                            ByteArrayOutputStream bufferc = new ByteArrayOutputStream();
+                                                            try {
+                                                                ImageIO.write(bic, "jpg", bufferc);
+                                                            } catch (FileNotFoundException ex) {
+                                                                Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                                                            } catch (IOException ex) {
+                                                                Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                                                            }
+                                                            objDadosPena.setImagemCorpo(bufferc.toByteArray());
+                                                        }
+                                                        // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL - FOTO CORPO1
+                                                        if (jFotoCorpo1.getIcon() != null) {
+                                                            Image imgc1 = ((ImageIcon) jFotoCorpo1.getIcon()).getImage();
+                                                            BufferedImage bic1 = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                                                                    imgc1.getWidth(null),
+                                                                    imgc1.getHeight(null),
+                                                                    BufferedImage.TYPE_INT_RGB);
+                                                            Graphics2D g2c = bic1.createGraphics();
+                                                            g2c.drawImage(imgc1, 0, 0, null);
+                                                            ByteArrayOutputStream bufferc1 = new ByteArrayOutputStream();
+                                                            try {
+                                                                ImageIO.write(bic1, "jpg", bufferc1);
+                                                            } catch (FileNotFoundException ex) {
+                                                                Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                                                            } catch (IOException ex) {
+                                                                Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                                                            }
+                                                            objDadosPena.setImagemCorpo1(bufferc1.toByteArray());
+                                                        }
+                                                        // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL - FOTO CORPO2
+                                                        if (jFotoCorpo2.getIcon() != null) {
+                                                            Image imgc2 = ((ImageIcon) jFotoCorpo2.getIcon()).getImage();
+                                                            BufferedImage bic2 = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                                                                    imgc2.getWidth(null),
+                                                                    imgc2.getHeight(null),
+                                                                    BufferedImage.TYPE_INT_RGB);
+                                                            Graphics2D g2c2 = bic2.createGraphics();
+                                                            g2c2.drawImage(imgc2, 0, 0, null);
+                                                            ByteArrayOutputStream bufferc2 = new ByteArrayOutputStream();
+                                                            try {
+                                                                ImageIO.write(bic2, "jpg", bufferc2);
+                                                            } catch (FileNotFoundException ex) {
+                                                                Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                                                            } catch (IOException ex) {
+                                                                Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                                                            }
+                                                            objDadosPena.setImagemCorpo2(bufferc2.toByteArray());
                                                         }
                                                         if (acao == 1) {
                                                             if (jNomeInterno.getText().trim().equals(nomeInternoCrc) && jMaeInterno.getText().trim().equals(nomeMaeInterno)) {

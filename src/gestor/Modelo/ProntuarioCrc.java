@@ -692,5 +692,5 @@ public class ProntuarioCrc {
     public void setImagemInterno(byte[] imagemInterno) {
         this.imagemInterno = imagemInterno;
     }
-
+    
 }

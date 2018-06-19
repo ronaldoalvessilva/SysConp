@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gestor.Modelo;
 
 import java.util.Date;
@@ -13,52 +12,59 @@ import java.util.Date;
  * @author Ronaldo
  */
 public class DadosPenaisCrc {
-    
-private int IdPenais;
-private int IdInternoCrc;
-private String nomeUnidade;
-private Date DataEntrada;
-private Date DataCrime;
-private Date DataPrisao;
-private Date DataCondenacao;
-private String Participacao;
-private String Regime;
-private String Pena;
-private String Artigo1;
-private String Artigo2;
-private String Artigo3;
-private String Paragrafo1;
-private String Paragrafo2;
-private String Paragrafo3;
-private String crimeEdiondo;
-private Date terminoPena;
-private String FotoPerfil;
-private String FotoCorpo;
-private String FotoCorpo1;
-private String FotoCorpo2;
-private String FotoPolegarDireito;
-private String FotoPolegarEsquerdo;
-private String FotoIndicadorDireito;
-private String FotoIndicadorEsquerdo;
-private String FotoMedioDireito;
-private String FotoMedioEsquerto;
-private String FotoAnluarDireito;
-private String FotoAnluaresquerdo;
-private String FotoMeditoDireito;
-private String FotoMeditoEsquerdo;
-private String Identificador;
-private String Identificador1;
-private String Identificador2;
-private String Identificador3;
-private String Perfil;
-private String RegiaoCorpo;
-private String RegiaoCorpo1;
-private String RegiaoCorpo2;
-private String RegiaoCorpo3;  
-private String varaCondenatoria;   
-private Date dataNovaEntrada;  
 
-    public DadosPenaisCrc(int IdPenais, int IdInternoCrc, String nomeUnidade, Date DataEntrada, Date DataCrime, Date DataPrisao, Date DataCondenacao, String Participacao, String Regime, String Pena, String Artigo1, String Artigo2, String Artigo3, String Paragrafo1, String Paragrafo2, String Paragrafo3, String crimeEdiondo, Date terminoPena, String FotoPerfil, String FotoCorpo, String FotoCorpo1, String FotoCorpo2, String FotoPolegarDireito, String FotoPolegarEsquerdo, String FotoIndicadorDireito, String FotoIndicadorEsquerdo, String FotoMedioDireito, String FotoMedioEsquerto, String FotoAnluarDireito, String FotoAnluaresquerdo, String FotoMeditoDireito, String FotoMeditoEsquerdo, String Identificador, String Identificador1, String Identificador2, String Identificador3, String Perfil, String RegiaoCorpo, String RegiaoCorpo1, String RegiaoCorpo2, String RegiaoCorpo3, String varaCondenatoria, Date dataNovaEntrada) {
+    private int IdPenais;
+    private int IdInternoCrc;
+    private String nomeUnidade;
+    private Date DataEntrada;
+    private Date DataCrime;
+    private Date DataPrisao;
+    private Date DataCondenacao;
+    private String Participacao;
+    private String Regime;
+    private String Pena;
+    private String Artigo1;
+    private String Artigo2;
+    private String Artigo3;
+    private String Paragrafo1;
+    private String Paragrafo2;
+    private String Paragrafo3;
+    private String crimeEdiondo;
+    private Date terminoPena;
+    private String FotoPerfil;
+    private String FotoCorpo;
+    private String FotoCorpo1;
+    private String FotoCorpo2;
+    private String FotoPolegarDireito;
+    private String FotoPolegarEsquerdo;
+    private String FotoIndicadorDireito;
+    private String FotoIndicadorEsquerdo;
+    private String FotoMedioDireito;
+    private String FotoMedioEsquerto;
+    private String FotoAnluarDireito;
+    private String FotoAnluaresquerdo;
+    private String FotoMeditoDireito;
+    private String FotoMeditoEsquerdo;
+    private String Identificador;
+    private String Identificador1;
+    private String Identificador2;
+    private String Identificador3;
+    private String Perfil;
+    private String RegiaoCorpo;
+    private String RegiaoCorpo1;
+    private String RegiaoCorpo2;
+    private String RegiaoCorpo3;
+    private String varaCondenatoria;
+    private Date dataNovaEntrada;
+    private byte[] imagemPerfil;
+    private byte[] imagemCorpo;
+    private byte[] imagemCorpo1;
+    private byte[] imagemCorpo2;
+
+    public DadosPenaisCrc() {
+    }
+
+    public DadosPenaisCrc(int IdPenais, int IdInternoCrc, String nomeUnidade, Date DataEntrada, Date DataCrime, Date DataPrisao, Date DataCondenacao, String Participacao, String Regime, String Pena, String Artigo1, String Artigo2, String Artigo3, String Paragrafo1, String Paragrafo2, String Paragrafo3, String crimeEdiondo, Date terminoPena, String FotoPerfil, String FotoCorpo, String FotoCorpo1, String FotoCorpo2, String FotoPolegarDireito, String FotoPolegarEsquerdo, String FotoIndicadorDireito, String FotoIndicadorEsquerdo, String FotoMedioDireito, String FotoMedioEsquerto, String FotoAnluarDireito, String FotoAnluaresquerdo, String FotoMeditoDireito, String FotoMeditoEsquerdo, String Identificador, String Identificador1, String Identificador2, String Identificador3, String Perfil, String RegiaoCorpo, String RegiaoCorpo1, String RegiaoCorpo2, String RegiaoCorpo3, String varaCondenatoria, Date dataNovaEntrada, byte[] imagemPerfil, byte[] imagemCorpo, byte[] imagemCorpo1, byte[] imagemCorpo2) {
         this.IdPenais = IdPenais;
         this.IdInternoCrc = IdInternoCrc;
         this.nomeUnidade = nomeUnidade;
@@ -102,9 +108,10 @@ private Date dataNovaEntrada;
         this.RegiaoCorpo3 = RegiaoCorpo3;
         this.varaCondenatoria = varaCondenatoria;
         this.dataNovaEntrada = dataNovaEntrada;
-    }
-
-    public DadosPenaisCrc() {
+        this.imagemPerfil = imagemPerfil;
+        this.imagemCorpo = imagemCorpo;
+        this.imagemCorpo1 = imagemCorpo1;
+        this.imagemCorpo2 = imagemCorpo2;
     }
 
     /**
@@ -708,4 +715,61 @@ private Date dataNovaEntrada;
     public void setDataNovaEntrada(Date dataNovaEntrada) {
         this.dataNovaEntrada = dataNovaEntrada;
     }
+
+    /**
+     * @return the imagemPerfil
+     */
+    public byte[] getImagemPerfil() {
+        return imagemPerfil;
+    }
+
+    /**
+     * @param imagemPerfil the imagemPerfil to set
+     */
+    public void setImagemPerfil(byte[] imagemPerfil) {
+        this.imagemPerfil = imagemPerfil;
+    }
+
+    /**
+     * @return the imagemCorpo
+     */
+    public byte[] getImagemCorpo() {
+        return imagemCorpo;
+    }
+
+    /**
+     * @param imagemCorpo the imagemCorpo to set
+     */
+    public void setImagemCorpo(byte[] imagemCorpo) {
+        this.imagemCorpo = imagemCorpo;
+    }
+
+    /**
+     * @return the imagemCorpo1
+     */
+    public byte[] getImagemCorpo1() {
+        return imagemCorpo1;
+    }
+
+    /**
+     * @param imagemCorpo1 the imagemCorpo1 to set
+     */
+    public void setImagemCorpo1(byte[] imagemCorpo1) {
+        this.imagemCorpo1 = imagemCorpo1;
+    }
+
+    /**
+     * @return the imagemCorpo2
+     */
+    public byte[] getImagemCorpo2() {
+        return imagemCorpo2;
+    }
+
+    /**
+     * @param imagemCorpo2 the imagemCorpo2 to set
+     */
+    public void setImagemCorpo2(byte[] imagemCorpo2) {
+        this.imagemCorpo2 = imagemCorpo2;
+    }
+
 }

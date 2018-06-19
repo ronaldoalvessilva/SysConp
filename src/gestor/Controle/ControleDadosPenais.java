@@ -34,7 +34,7 @@ public class ControleDadosPenais {
         try (PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO DADOSPENAISINTERNOS (DataEntrada,DataCrime,DataPrisao,"
                 + "DataCondenacao,Participacao,Regime,Pena,Artigo1,Artigo2,Artigo3,Paragrafo1,Paragrafo2,Paragrafo3,"
                 + "CrimeEdiondo,TerminoPena,IdInternoCrc,IdUnid,Identificador,Identificador1,Identificador2,Identificador3,Perfil,RegiaoCorpo,RegiaoCorpo1,RegiaoCorpo2,"
-                + "FotoPerfil,FotoCorpo,FotoCorpo1,FotoCorpo2,VaraCondenatoria,DataNovaEntrada) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")) {
+                + "FotoPerfil,FotoCorpo,FotoCorpo1,FotoCorpo2,VaraCondenatoria,DataNovaEntrada,ImagemPerfil,ImagemCorpo,ImagemCorpo1,ImagemCorpo2) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")) {
             pst.setTimestamp(1, new java.sql.Timestamp(objDadosPena.getDataEntrada().getTime()));
             pst.setTimestamp(2, new java.sql.Timestamp(objDadosPena.getDataCrime().getTime()));
             pst.setTimestamp(3, new java.sql.Timestamp(objDadosPena.getDataPrisao().getTime()));
@@ -106,6 +106,10 @@ public class ControleDadosPenais {
             } else {
                 pst.setDate(31, null);
             }
+            pst.setBytes(32, objDadosPena.getImagemPerfil());
+            pst.setBytes(33, objDadosPena.getImagemCorpo());
+            pst.setBytes(34, objDadosPena.getImagemCorpo1());
+            pst.setBytes(35, objDadosPena.getImagemCorpo2());
             pst.execute();
         }
         conecta.desconecta();
@@ -119,8 +123,9 @@ public class ControleDadosPenais {
         // Alterar Registro na tabela de INTERNOS CRC
         try (PreparedStatement pst = conecta.con.prepareStatement("UPDATE DADOSPENAISINTERNOS SET DataEntrada=?,DataCrime=?,DataPrisao=?,"
                 + "DataCondenacao=?,Participacao=?,Regime=?,Pena=?,Artigo1=?,Artigo2=?,Artigo3=?,Paragrafo1=?,Paragrafo2=?,Paragrafo3=?,"
-                + "CrimeEdiondo=?,TerminoPena=?,IdUnid=?,IdInternoCrc=?,Identificador=?,Identificador1=?,Identificador2=?,Identificador3=?,Perfil=?,RegiaoCorpo=?,RegiaoCorpo1=?,RegiaoCorpo2=?,"
-                + "FotoPerfil=?,FotoCorpo=?,FotoCorpo1=?,FotoCorpo2=?,VaraCondenatoria=?,DataNovaEntrada=? WHERE IdInternoCrc='" + objDadosPena.getIdInternoCrc() + "'")) {
+                + "CrimeEdiondo=?,TerminoPena=?,IdUnid=?,IdInternoCrc=?,Identificador=?,Identificador1=?,Identificador2=?,Identificador3=?,"
+                + "Perfil=?,RegiaoCorpo=?,RegiaoCorpo1=?,RegiaoCorpo2=?,FotoPerfil=?,FotoCorpo=?,FotoCorpo1=?,FotoCorpo2=?,VaraCondenatoria=?,"
+                + "DataNovaEntrada=?,ImagemPerfil=?,ImagemCorpo=?,ImagemCorpo1=?,ImagemCorpo2=? WHERE IdInternoCrc='" + objDadosPena.getIdInternoCrc() + "'")) {
             pst.setTimestamp(1, new java.sql.Timestamp(objDadosPena.getDataEntrada().getTime()));
             pst.setTimestamp(2, new java.sql.Timestamp(objDadosPena.getDataCrime().getTime()));
             pst.setTimestamp(3, new java.sql.Timestamp(objDadosPena.getDataPrisao().getTime()));
@@ -192,9 +197,13 @@ public class ControleDadosPenais {
             } else {
                 pst.setDate(31, null);
             }
+            pst.setBytes(32, objDadosPena.getImagemPerfil());
+            pst.setBytes(33, objDadosPena.getImagemCorpo());
+            pst.setBytes(34, objDadosPena.getImagemCorpo1());
+            pst.setBytes(35, objDadosPena.getImagemCorpo2());
             pst.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Existe dados (UNIDADE) a serem exibidos !!!");
+            JOptionPane.showMessageDialog(null, "Não foi possível alterar os dados !!!");
         }
         conecta.desconecta();
         return objDadosPena;
@@ -229,7 +238,7 @@ public class ControleDadosPenais {
             pst.setInt(15, objDadosPena.getIdInternoCrc());
             pst.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Existe dados (UNIDADE) a serem exibidos !!!");
+            JOptionPane.showMessageDialog(null, "Não foi possível alterar os dados !!!");
         }
         conecta.desconecta();
         return objDadosPena;
