@@ -7,6 +7,8 @@ package gestor.Visao;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
+import com.lowagie.text.Element;
+import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.pdf.PdfWriter;
 import gestor.Controle.ControleAvaliacaoMedica;
@@ -17,6 +19,7 @@ import gestor.Dao.ModeloTabela;
 import gestor.Modelo.AvaliacaoMedica;
 import gestor.Modelo.ItensTratamentoInterno;
 import gestor.Modelo.LogSistema;
+import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloEnfermaria.codAbrir;
 import static gestor.Visao.TelaModuloEnfermaria.codAlterar;
@@ -56,6 +59,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
+import static javax.swing.text.StyleConstants.FontFamily;
 import javax.swing.text.StyledDocument;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
@@ -99,7 +103,8 @@ public class TelaAvaliacaoMedicaPsiquiatrica extends javax.swing.JInternalFrame 
     int pBtJus = 0;
     //
     String caminhoPDF = "";
-    String tituloOcorrencia = "OCORRÊNCIA_PROTARIA_INTERNA";
+    String tituloOcorrencia = "AVALIAÇÃO MÉDICA CLINICA E PSIQUIATRICA";
+    String nomeSistema = "SISCONP - Sistema de Controle Prisional";
     String dataPDF = "";
     String horaPDF = "";
     String textoAvaliacao;
@@ -512,13 +517,13 @@ public class TelaAvaliacaoMedicaPsiquiatrica extends javax.swing.JInternalFrame 
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel9.setText("Apresentação do Médico Examinador");
+        jLabel9.setText("AVALIAÇÃO DO MÉDICO EXAMINADOR");
 
-        jTextoAvaliacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTextoAvaliacao.setEnabled(false);
         jScrollPane4.setViewportView(jTextoAvaliacao);
 
         jTabbedPane2.setForeground(new java.awt.Color(0, 0, 255));
+        jTabbedPane2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
 
@@ -1484,9 +1489,46 @@ public class TelaAvaliacaoMedicaPsiquiatrica extends javax.swing.JInternalFrame 
                 javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
                 jFotoInternoAvaliacao.setIcon(i);
                 jFotoInternoAvaliacao.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoAvaliacao.getWidth(), jFotoInternoAvaliacao.getHeight(), Image.SCALE_DEFAULT)));
+                //
                 jTextoAvaliacao.setText(conecta.rs.getString("TextoAvaliacao"));
                 jComboBoxCorFonte.addItem(conecta.rs.getString("Fonte"));
                 jComboBoxSize.setSelectedItem(conecta.rs.getString("Tamanho"));
+                // TIPO DA FONTE
+                jTextoAvaliacao.setFont(new Font(jComboBoxCorFonte.getSelectedItem().toString(),
+                        Font.PLAIN, Integer.parseInt(jComboBoxSize.getSelectedItem().toString())));
+                // TAMANHO DA FONTE
+                String getSize = jComboBoxSize.getSelectedItem().toString();
+                Font f = jTextoAvaliacao.getFont();
+                // setting new size
+                jTextoAvaliacao.setFont(new Font(f.getFontName(),
+                        f.getStyle(), Integer.parseInt(getSize)));
+                //
+                pBtEsq = conecta.rs.getInt("BtEsq");
+                pBtCen = conecta.rs.getInt("BtCen");
+                pBtDir = conecta.rs.getInt("BtDir");
+                pBtJus = conecta.rs.getInt("BtJus");
+                if (pBtEsq == 1) {
+                    StyledDocument doc = jTextoAvaliacao.getStyledDocument();
+                    SimpleAttributeSet attribs = new SimpleAttributeSet();
+                    StyleConstants.setAlignment(attribs, StyleConstants.ALIGN_LEFT);
+                    doc.setParagraphAttributes(0, doc.getLength(), attribs, false);
+                } else if (pBtCen == 1) {
+                    StyledDocument doc = jTextoAvaliacao.getStyledDocument();
+                    SimpleAttributeSet attribs = new SimpleAttributeSet();
+                    StyleConstants.setAlignment(attribs, StyleConstants.ALIGN_CENTER);
+                    doc.setParagraphAttributes(0, doc.getLength(), attribs, false);
+                } else if (pBtDir == 1) {
+                    StyledDocument doc = jTextoAvaliacao.getStyledDocument();
+                    SimpleAttributeSet attribs = new SimpleAttributeSet();
+                    StyleConstants.setAlignment(attribs, StyleConstants.ALIGN_RIGHT);
+                    doc.setParagraphAttributes(0, doc.getLength(), attribs, false);
+                } else if (pBtJus == 1) {
+                    StyledDocument doc = jTextoAvaliacao.getStyledDocument();
+                    SimpleAttributeSet attribs = new SimpleAttributeSet();
+                    StyleConstants.setAlignment(attribs, StyleConstants.ALIGN_JUSTIFIED);
+                    doc.setParagraphAttributes(0, doc.getLength(), attribs, false);
+                }
+                //
                 conecta.desconecta();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "Não foi possível exibir registro.\nERRO: " + e);
@@ -1842,6 +1884,7 @@ public class TelaAvaliacaoMedicaPsiquiatrica extends javax.swing.JInternalFrame 
                 HashMap parametros = new HashMap();
                 parametros.put("codAvaliacao", jIdAvaliacao.getText());
                 parametros.put("nomeUsuario", nameUser);
+                parametros.put("descricaoUnidade", descricaoUnidade);
                 JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
                 JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
                 JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
@@ -1876,12 +1919,28 @@ public class TelaAvaliacaoMedicaPsiquiatrica extends javax.swing.JInternalFrame 
             String fileName = "";
             if (file.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
                 fileName = file.getSelectedFile().getAbsolutePath();
-                Document document = new Document();
+                Document document = new Document(PageSize.A4, 72, 72, 72, 72);
                 try {
                     PdfWriter.getInstance(document, new FileOutputStream(fileName));
                     document.open();
-                    // adicionando um parágrafo ao documento
-                    document.add(new Paragraph(jTextoAvaliacao.getText()));
+                    // adicionando um parágrafo ao documento nomeSistema 
+                    Paragraph p0 = new Paragraph(nomeSistema);
+                    Font f = new Font(fileName, WIDTH, WIDTH);
+                    p0.setAlignment(Element.ALIGN_LEFT);
+                    p0.setSpacingAfter(20);
+                    document.add(p0);
+                    document.add(new Paragraph("     "));
+                    Paragraph p1 = new Paragraph(tituloOcorrencia);
+                    p1.setAlignment(Element.ALIGN_CENTER);
+                    p1.setSpacingAfter(18);
+                    document.add(p1);
+                    document.add(new Paragraph("     "));
+                    document.add(new Paragraph(jMatriculaPenal.getText() + " - " + jNomeCompletoInternoCrc.getText()));
+                    document.add(new Paragraph("     "));
+                    Paragraph p2 = new Paragraph(jTextoAvaliacao.getText());
+                    p2.setAlignment(Element.ALIGN_JUSTIFIED);
+                    p2.setSpacingAfter(12);
+                    document.add(p2);
                     JOptionPane.showMessageDialog(rootPane, "Arquivo PDF gerado com sucesso.");
                 } catch (DocumentException de) {
                     System.err.println(de.getMessage());
@@ -2348,6 +2407,8 @@ public class TelaAvaliacaoMedicaPsiquiatrica extends javax.swing.JInternalFrame 
         jBtImprimir.setEnabled(true);
         jBtAuditoria.setEnabled(true);
         //
+        jBtNovoTratamento.setEnabled(true);
+        //
         jComboBoxCorFonte.setEnabled(!true);
         jComboBoxSize.setEnabled(!true);
         jBtEsquerda.setEnabled(!true);
@@ -2401,6 +2462,8 @@ public class TelaAvaliacaoMedicaPsiquiatrica extends javax.swing.JInternalFrame 
             jBtFinalizar.setEnabled(true);
             jBtImprimir.setEnabled(true);
             jBtAuditoria.setEnabled(true);
+            //
+            jBtNovoTratamento.setEnabled(true);
             //
             jComboBoxCorFonte.setEnabled(!true);
             jComboBoxSize.setEnabled(!true);
