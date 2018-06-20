@@ -462,6 +462,8 @@ public class TelaOcorrenciaPortaria extends javax.swing.JInternalFrame {
         );
 
         jScrollPane4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
+        jCorpoTextoOcorrencia.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jScrollPane4.setViewportView(jCorpoTextoOcorrencia);
 
         jTabbedPane2.setForeground(new java.awt.Color(0, 0, 255));
