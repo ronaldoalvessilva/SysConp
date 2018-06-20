@@ -133,14 +133,14 @@ public class TelaPesqInternoAvaliacaoMedica extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jTabelaLocacao);
         if (jTabelaLocacao.getColumnModel().getColumnCount() > 0) {
-            jTabelaLocacao.getColumnModel().getColumn(0).setMinWidth(50);
-            jTabelaLocacao.getColumnModel().getColumn(0).setMaxWidth(50);
+            jTabelaLocacao.getColumnModel().getColumn(0).setMinWidth(60);
+            jTabelaLocacao.getColumnModel().getColumn(0).setMaxWidth(60);
             jTabelaLocacao.getColumnModel().getColumn(1).setMinWidth(290);
             jTabelaLocacao.getColumnModel().getColumn(1).setMaxWidth(290);
-            jTabelaLocacao.getColumnModel().getColumn(2).setMinWidth(100);
-            jTabelaLocacao.getColumnModel().getColumn(2).setMaxWidth(100);
-            jTabelaLocacao.getColumnModel().getColumn(3).setMinWidth(180);
-            jTabelaLocacao.getColumnModel().getColumn(3).setMaxWidth(180);
+            jTabelaLocacao.getColumnModel().getColumn(2).setMinWidth(250);
+            jTabelaLocacao.getColumnModel().getColumn(2).setMaxWidth(250);
+            jTabelaLocacao.getColumnModel().getColumn(3).setMinWidth(280);
+            jTabelaLocacao.getColumnModel().getColumn(3).setMaxWidth(280);
         }
 
         jBtEnviar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -171,26 +171,28 @@ public class TelaPesqInternoAvaliacaoMedica extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jBtEnviar)
+                        .addComponent(jBtEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtSair)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtEnviar, jBtSair});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtEnviar)
-                    .addComponent(jBtSair))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jBtSair)))
         );
 
         jTabbedPane1.addTab("Pesquisar", jPanel1);
@@ -203,12 +205,10 @@ public class TelaPesqInternoAvaliacaoMedica extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jTabbedPane1)
         );
 
-        setBounds(300, 20, 429, 272);
+        setBounds(300, 20, 663, 312);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtPesqNomeInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqNomeInternoActionPerformed
@@ -328,13 +328,13 @@ public class TelaPesqInternoAvaliacaoMedica extends javax.swing.JInternalFrame {
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaLocacao.setModel(modelo);
-        jTabelaLocacao.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaLocacao.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaLocacao.getColumnModel().getColumn(0).setResizable(false);
         jTabelaLocacao.getColumnModel().getColumn(1).setPreferredWidth(290);
         jTabelaLocacao.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaLocacao.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTabelaLocacao.getColumnModel().getColumn(2).setPreferredWidth(250);
         jTabelaLocacao.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaLocacao.getColumnModel().getColumn(3).setPreferredWidth(180);
+        jTabelaLocacao.getColumnModel().getColumn(3).setPreferredWidth(280);
         jTabelaLocacao.getColumnModel().getColumn(3).setResizable(false);
         jTabelaLocacao.getTableHeader().setReorderingAllowed(false);
         jTabelaLocacao.setAutoResizeMode(jTabelaLocacao.AUTO_RESIZE_OFF);
@@ -359,13 +359,13 @@ public class TelaPesqInternoAvaliacaoMedica extends javax.swing.JInternalFrame {
         String[] Colunas = new String[]{"Código", "Nome do Interno", "Cela", "Pavilhão"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaLocacao.setModel(modelo);
-        jTabelaLocacao.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaLocacao.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaLocacao.getColumnModel().getColumn(0).setResizable(false);
         jTabelaLocacao.getColumnModel().getColumn(1).setPreferredWidth(290);
         jTabelaLocacao.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaLocacao.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTabelaLocacao.getColumnModel().getColumn(2).setPreferredWidth(250);
         jTabelaLocacao.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaLocacao.getColumnModel().getColumn(3).setPreferredWidth(180);
+        jTabelaLocacao.getColumnModel().getColumn(3).setPreferredWidth(280);
         jTabelaLocacao.getColumnModel().getColumn(3).setResizable(false);
         jTabelaLocacao.getTableHeader().setReorderingAllowed(false);
         jTabelaLocacao.setAutoResizeMode(jTabelaLocacao.AUTO_RESIZE_OFF);
