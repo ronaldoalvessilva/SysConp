@@ -2178,7 +2178,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
     private void jBtSalvarAcessoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarAcessoActionPerformed
         // TODO add your handling code here:
         verificarTelaAcesso();
-        if (jComboBoxModuloAcesso.getSelectedItem().equals("Selecione...") || jComboBoxModuloAcesso.getSelectedItem() == null) {
+        if (jComboBoxModuloAcesso.getSelectedItem() == null || jComboBoxModuloAcesso.getSelectedItem().equals("Selecione...")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o módulo de acesso.");
         } else if (jComboBoxTelaAcesso.getSelectedItem().equals("Selecione...") || jComboBoxTelaAcesso.getSelectedItem() == null) {
             JOptionPane.showMessageDialog(rootPane, "Informe a tela de acesso do usuário...");
