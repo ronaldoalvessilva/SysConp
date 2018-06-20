@@ -109,6 +109,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private TelaPerfilCarcerarioEnfermaria objPerfilCarEnf = null;
     private TelaPAI_NOVO objPaiMed = null;
     private TelaRegistroInternosAtendimento objRegIntAtend = null;
+    private TelaTiposTratamentos objTipoTrata = null;
     //    
     String dataLanc;
     int codUsuario;
@@ -213,6 +214,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     public static String telaPaiEPAI = "Movimentação:P.A.I.:E-PAI";
     //
     public static String telaOcorrenciaDiaManuENF = "Movimentação:Ocorrências Diárias:Manutenção";
+    public static String telaTipoTratamentoManu = "Cadastro:Tipo de Tratamentos:Manutenção";   
     //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
@@ -285,6 +287,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     String pNomePEPAI = "";
     //
     String pNomeODM = "";
+    String pNomeTTM = "";   
 
     /**
      * Creates new form TelaMedico
@@ -312,6 +315,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
         CadastroDoencas = new javax.swing.JMenuItem();
         jTiposExames = new javax.swing.JMenuItem();
         jTiposVacinas = new javax.swing.JMenuItem();
+        jTiposTratameto = new javax.swing.JMenuItem();
         jSeparator10 = new javax.swing.JPopupMenu.Separator();
         LocalEstoqueEnfermaria = new javax.swing.JMenuItem();
         jSeparator5 = new javax.swing.JPopupMenu.Separator();
@@ -385,6 +389,8 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/SISCONP 2.gif"))); // NOI18N
 
+        jPainelMedico.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout jPainelMedicoLayout = new javax.swing.GroupLayout(jPainelMedico);
         jPainelMedico.setLayout(jPainelMedicoLayout);
         jPainelMedicoLayout.setHorizontalGroup(
@@ -397,7 +403,6 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 36, Short.MAX_VALUE))
         );
-        jPainelMedico.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         Cadastros.setText("Cadastro");
 
@@ -424,6 +429,14 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
             }
         });
         Cadastros.add(jTiposVacinas);
+
+        jTiposTratameto.setText("Tipos de Tratamentos");
+        jTiposTratameto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTiposTratametoActionPerformed(evt);
+            }
+        });
+        Cadastros.add(jTiposTratameto);
         Cadastros.add(jSeparator10);
 
         LocalEstoqueEnfermaria.setText("Local de Armazenamento");
@@ -1982,8 +1995,41 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
-        //private TelaRegistroInternosAtendimento objRegIntAtend = null;
     }//GEN-LAST:event_RegistrarInternoAtendimentoActionPerformed
+
+    private void jTiposTratametoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTiposTratametoActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaRegistroIntAtendENF);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaRegistroIntAtendENF) && codAbrir == 1) {
+            if (objTipoTrata == null || objTipoTrata.isClosed()) {
+                objTipoTrata = new TelaTiposTratamentos();
+                jPainelMedico.add(objTipoTrata);
+                objTipoTrata.setVisible(true);
+            } else {
+                if (objTipoTrata.isVisible()) {
+                    if (objTipoTrata.isIcon()) { // Se esta minimizado
+                        try {
+                            objTipoTrata.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objTipoTrata.toFront(); // traz para frente
+                        objTipoTrata.pack();//volta frame 
+                    }
+                } else {
+                    objTipoTrata = new TelaTiposTratamentos();
+                    TelaModuloEnfermaria.jPainelMedico.add(objTipoTrata);//adicona frame ao JDesktopPane  
+                    objTipoTrata.setVisible(true);
+                }
+            }
+            try {
+                objTipoTrata.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jTiposTratametoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -2053,6 +2099,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator8;
     private javax.swing.JPopupMenu.Separator jSeparator9;
     private javax.swing.JMenuItem jTiposExames;
+    private javax.swing.JMenuItem jTiposTratameto;
     private javax.swing.JMenuItem jTiposVacinas;
     private javax.swing.JMenuItem relatorioInternosSemCartaoSUS;
     // End of variables declaration//GEN-END:variables
@@ -2748,7 +2795,13 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
             pNomeRIA = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
-
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaTipoTratamentoManu + "'");
+            conecta.rs.first();
+            pNomeTTM = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }                
         // INICIO DA COMPARAÇÃO
         if (!pNomeACD.equals(telaAcessoCadastroDoencasENF) || pNomeACD == null || pNomeACD.equals("")) {
             buscarCodigoModulo();
@@ -3102,6 +3155,12 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaRegistroIntAtendENF);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeTTM.equals(telaTipoTratamentoManu) || pNomeTTM == null || pNomeTTM.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaTipoTratamentoManu);
             controle.incluirTelaAcesso(objCadastroTela);
         }        
     }
