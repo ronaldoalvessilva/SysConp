@@ -25,8 +25,17 @@ public class AvaliacaoMedica {
     private String dataUp;
     private String horarioInsert;
     private String horarioUp;
+    private String fonte;
+    private String Tamanho;
+    private int Btesq;
+    private int BtCen;
+    private int BtDir;
+    private int BtJus;
 
-    public AvaliacaoMedica(int idAvalia, String statusAval, Date dataAval, int idInternoCrc, String nomeInterno, String textoAvaliacao, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
+    public AvaliacaoMedica() {
+    }
+
+    public AvaliacaoMedica(int idAvalia, String statusAval, Date dataAval, int idInternoCrc, String nomeInterno, String textoAvaliacao, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, String fonte, String Tamanho, int Btesq, int BtCen, int BtDir, int BtJus) {
         this.idAvalia = idAvalia;
         this.statusAval = statusAval;
         this.dataAval = dataAval;
@@ -39,9 +48,12 @@ public class AvaliacaoMedica {
         this.dataUp = dataUp;
         this.horarioInsert = horarioInsert;
         this.horarioUp = horarioUp;
-    }
-
-    public AvaliacaoMedica() {
+        this.fonte = fonte;
+        this.Tamanho = Tamanho;
+        this.Btesq = Btesq;
+        this.BtCen = BtCen;
+        this.BtDir = BtDir;
+        this.BtJus = BtJus;
     }
 
     /**
@@ -211,4 +223,89 @@ public class AvaliacaoMedica {
     public void setHorarioUp(String horarioUp) {
         this.horarioUp = horarioUp;
     }
+
+    /**
+     * @return the fonte
+     */
+    public String getFonte() {
+        return fonte;
+    }
+
+    /**
+     * @param fonte the fonte to set
+     */
+    public void setFonte(String fonte) {
+        this.fonte = fonte;
+    }
+
+    /**
+     * @return the Tamanho
+     */
+    public String getTamanho() {
+        return Tamanho;
+    }
+
+    /**
+     * @param Tamanho the Tamanho to set
+     */
+    public void setTamanho(String Tamanho) {
+        this.Tamanho = Tamanho;
+    }
+
+    /**
+     * @return the Btesq
+     */
+    public int getBtesq() {
+        return Btesq;
+    }
+
+    /**
+     * @param Btesq the Btesq to set
+     */
+    public void setBtesq(int Btesq) {
+        this.Btesq = Btesq;
+    }
+
+    /**
+     * @return the BtCen
+     */
+    public int getBtCen() {
+        return BtCen;
+    }
+
+    /**
+     * @param BtCen the BtCen to set
+     */
+    public void setBtCen(int BtCen) {
+        this.BtCen = BtCen;
+    }
+
+    /**
+     * @return the BtDir
+     */
+    public int getBtDir() {
+        return BtDir;
+    }
+
+    /**
+     * @param BtDir the BtDir to set
+     */
+    public void setBtDir(int BtDir) {
+        this.BtDir = BtDir;
+    }
+
+    /**
+     * @return the BtJus
+     */
+    public int getBtJus() {
+        return BtJus;
+    }
+
+    /**
+     * @param BtJus the BtJus to set
+     */
+    public void setBtJus(int BtJus) {
+        this.BtJus = BtJus;
+    }
+    
 }
