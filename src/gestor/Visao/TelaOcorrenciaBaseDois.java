@@ -471,6 +471,8 @@ public class TelaOcorrenciaBaseDois extends javax.swing.JInternalFrame {
         );
 
         jScrollPane4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
+        jCorpoTextoOcorrencia.setEnabled(false);
         jScrollPane4.setViewportView(jCorpoTextoOcorrencia);
 
         jTabbedPane2.setForeground(new java.awt.Color(0, 0, 255));
@@ -1216,6 +1218,42 @@ public class TelaOcorrenciaBaseDois extends javax.swing.JInternalFrame {
                 jCorpoTextoOcorrencia.setText(conecta.rs.getString("TextoArea"));
                 jComboBoxCorFonte.addItem(conecta.rs.getString("Fonte"));
                 jComboBoxSize.setSelectedItem(conecta.rs.getString("Tamanho"));
+                // TIPO DA FONTE
+                jCorpoTextoOcorrencia.setFont(new Font(jComboBoxCorFonte.getSelectedItem().toString(),
+                        Font.PLAIN, Integer.parseInt(jComboBoxSize.getSelectedItem().toString())));
+                // TAMANHO DA FONTE
+                String getSize = jComboBoxSize.getSelectedItem().toString();
+                Font f = jCorpoTextoOcorrencia.getFont();
+                // setting new size
+                jCorpoTextoOcorrencia.setFont(new Font(f.getFontName(),
+                        f.getStyle(), Integer.parseInt(getSize)));
+                //
+                pBtEsq = conecta.rs.getInt("BtEsq");
+                pBtCen = conecta.rs.getInt("BtCen");
+                pBtDir = conecta.rs.getInt("BtDir");
+                pBtJus = conecta.rs.getInt("BtJus");
+                if (pBtEsq == 1) {
+                    StyledDocument doc = jCorpoTextoOcorrencia.getStyledDocument();
+                    SimpleAttributeSet attribs = new SimpleAttributeSet();
+                    StyleConstants.setAlignment(attribs, StyleConstants.ALIGN_LEFT);
+                    doc.setParagraphAttributes(0, doc.getLength(), attribs, false);
+                } else if (pBtCen == 1) {
+                    StyledDocument doc = jCorpoTextoOcorrencia.getStyledDocument();
+                    SimpleAttributeSet attribs = new SimpleAttributeSet();
+                    StyleConstants.setAlignment(attribs, StyleConstants.ALIGN_CENTER);
+                    doc.setParagraphAttributes(0, doc.getLength(), attribs, false);
+                } else if (pBtDir == 1) {
+                    StyledDocument doc = jCorpoTextoOcorrencia.getStyledDocument();
+                    SimpleAttributeSet attribs = new SimpleAttributeSet();
+                    StyleConstants.setAlignment(attribs, StyleConstants.ALIGN_RIGHT);
+                    doc.setParagraphAttributes(0, doc.getLength(), attribs, false);
+                } else if (pBtJus == 1) {
+                    StyledDocument doc = jCorpoTextoOcorrencia.getStyledDocument();
+                    SimpleAttributeSet attribs = new SimpleAttributeSet();
+                    StyleConstants.setAlignment(attribs, StyleConstants.ALIGN_JUSTIFIED);
+                    doc.setParagraphAttributes(0, doc.getLength(), attribs, false);
+                }
+                //
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa dos dados.\nERROR: " + e);
             }
