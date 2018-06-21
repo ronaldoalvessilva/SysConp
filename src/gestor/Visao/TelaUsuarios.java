@@ -32,6 +32,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -1072,8 +1073,8 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel13)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel10)
                                     .addComponent(jCodigoModulo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1082,20 +1083,20 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel12)
                                     .addComponent(jComboBoxPermissaoModulo, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel5Layout.createSequentialGroup()
-                                        .addComponent(jComboBoxGrupoModulo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jComboBoxGrupoModulo, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jLabel24)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jBtPesqModulo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel5Layout.createSequentialGroup()
                                         .addComponent(jLabel25)
-                                        .addGap(0, 0, Short.MAX_VALUE))))
-                            .addComponent(jDescricaoModulo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jDescricaoModulo, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel26)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1543,6 +1544,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
 
         jBtCopiarPerfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Copy-16x16.png"))); // NOI18N
         jBtCopiarPerfil.setToolTipText("Copiar Pérfil de Usuário");
+        jBtCopiarPerfil.setContentAreaFilled(false);
         jBtCopiarPerfil.setEnabled(false);
         jBtCopiarPerfil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1636,7 +1638,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1795,14 +1797,15 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         jBtNovoGrupo.setEnabled(true);
         jCodigoGrupo.setText("");
         jDescricaoGrupo.setText("");
-        //
-        // jComboBoxPermissaoModulo.removeAllItems();
+        //        
         jComboBoxGrupoModulo.removeAllItems();
         jBtNovoModulo.setEnabled(true);
         jCodigoModulo.setText("");
         jComboBoxPermissaoModulo.setSelectedItem("Não");
         jComboBoxGrupoModulo.setSelectedItem("Selecione");
         jDescricaoModulo.setText("");
+        //
+        jBtCopiarPerfil.setEnabled(true);
         //
         conecta.abrirConexao();
         try {
@@ -1863,9 +1866,14 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
 
     private void jBtPesqModuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqModuloActionPerformed
         // TODO add your handling code here:
-        TelaPesqModulosUsuarios objPesqModuloUser = new TelaPesqModulosUsuarios();
-        TelaModuloConfiguracoes.jPainelConfiguracoes.add(objPesqModuloUser);
-        objPesqModuloUser.show();
+        Integer rows = jTabelaGrupo.getModel().getRowCount();
+        if (rows == 0) {
+            JOptionPane.showMessageDialog(rootPane, "Não existe grupo de acesso para o usuário.");
+        } else {
+            TelaPesqModulosUsuarios objPesqModuloUser = new TelaPesqModulosUsuarios();
+            TelaModuloConfiguracoes.jPainelConfiguracoes.add(objPesqModuloUser);
+            objPesqModuloUser.show();
+        }
     }//GEN-LAST:event_jBtPesqModuloActionPerformed
 
     private void jBtNovoModuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoModuloActionPerformed
@@ -3009,7 +3017,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         jBtCancelarAcesso.setEnabled(true);
         //
         jBtPesquisarModulo.setEnabled(true);
-        jBtCopiarPerfil.setEnabled(true);
+        jBtCopiarPerfil.setEnabled(!true);
     }
 
     public void AlterarAcesso() {
@@ -3072,7 +3080,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         jBtCancelarAcesso.setEnabled(!true);
         //
         jBtPesquisarModulo.setEnabled(!true);
-        jBtCopiarPerfil.setEnabled(!true);
+        jBtCopiarPerfil.setEnabled(true);
     }
 
     public void CancelarAcesso() {
@@ -3093,7 +3101,10 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         jBtCancelarAcesso.setEnabled(!true);
         //
         jBtPesquisarModulo.setEnabled(!true);
-        jBtCopiarPerfil.setEnabled(!true);
+        Integer rows = jTabelaAcessos.getModel().getRowCount();
+        if (rows != 0) {
+            jBtCopiarPerfil.setEnabled(true);
+        }
     }
 
     //PESQUISA O CÓDIGO DO MÓDULO DO USUÁRIO
@@ -3243,7 +3254,8 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Dados não encontrado, use o botão TODOS !!!");
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-        jTabelaUsuarios.setModel(modelo);
+        jTabelaUsuarios.setRowSorter(new TableRowSorter(modelo)); //FAZER ORDENAMENTO NA TABLEA  
+        jTabelaUsuarios.setModel(modelo);        
         jTabelaUsuarios.getColumnModel().getColumn(0).setPreferredWidth(50);
         jTabelaUsuarios.getColumnModel().getColumn(0).setResizable(false);
         jTabelaUsuarios.getColumnModel().getColumn(1).setPreferredWidth(60);
@@ -3283,6 +3295,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Dados não encontrado, use o botão TODOS \nPara pesquisar TODOS OS REGISTROS");
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaUsuarios.setRowSorter(new TableRowSorter(modelo)); //FAZER ORDENAMENTO NA TABLEA  
         jTabelaUsuarios.setModel(modelo);
         jTabelaUsuarios.getColumnModel().getColumn(0).setPreferredWidth(50);
         jTabelaUsuarios.getColumnModel().getColumn(0).setResizable(false);
@@ -3305,6 +3318,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código", "Status", "Nome Completo do Usuário", "Login", "Nome Departamento"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaUsuarios.setRowSorter(new TableRowSorter(modelo)); //FAZER ORDENAMENTO NA TABLEA  
         jTabelaUsuarios.setModel(modelo);
         jTabelaUsuarios.getColumnModel().getColumn(0).setPreferredWidth(50);
         jTabelaUsuarios.getColumnModel().getColumn(0).setResizable(false);
