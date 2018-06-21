@@ -1709,6 +1709,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         //
         jCaminhoExecutavelAtualizacaoSis.setBackground(Color.white);
         jCaminhoExecutavelAntigo.setBackground(Color.white);
+        jNumeroVersao.setBackground(Color.white);
         //
     }
 
