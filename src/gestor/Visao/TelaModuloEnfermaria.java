@@ -430,6 +430,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
         });
         Cadastros.add(jTiposVacinas);
 
+        jTiposTratameto.setForeground(new java.awt.Color(0, 0, 204));
         jTiposTratameto.setText("Tipos de Tratamentos");
         jTiposTratameto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1999,8 +2000,8 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
 
     private void jTiposTratametoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTiposTratametoActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaRegistroIntAtendENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaRegistroIntAtendENF) && codAbrir == 1) {
+        buscarAcessoUsuario(telaTipoTratamentoManu);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaTipoTratamentoManu) && codAbrir == 1) {
             if (objTipoTrata == null || objTipoTrata.isClosed()) {
                 objTipoTrata = new TelaTiposTratamentos();
                 jPainelMedico.add(objTipoTrata);
