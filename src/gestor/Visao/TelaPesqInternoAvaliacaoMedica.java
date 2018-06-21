@@ -252,9 +252,20 @@ public class TelaPesqInternoAvaliacaoMedica extends javax.swing.JInternalFrame {
                 jNomeCompletoInternoCrc.setText(conecta.rs.getString("NomeInternoCrc")); // Coluna 1 
                 //
                 caminho = conecta.rs.getString("FotoInternoCrc");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                jFotoInternoAvaliacao.setIcon(i);
-                jFotoInternoAvaliacao.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoAvaliacao.getWidth(), jFotoInternoAvaliacao.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    jFotoInternoAvaliacao.setIcon(i);
+                    jFotoInternoAvaliacao.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoAvaliacao.getWidth(), jFotoInternoAvaliacao.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // FOTO GRAVADA NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoInternoAvaliacao.getWidth(), jFotoInternoAvaliacao.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoInternoAvaliacao.setIcon(icon);
+                }
                 //
                 jPavilhaoInterno.setText(conecta.rs.getString("DescricaoPav"));
                 jCelaInterno.setText(conecta.rs.getString("EndCelaPav"));
