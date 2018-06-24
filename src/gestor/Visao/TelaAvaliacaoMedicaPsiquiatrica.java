@@ -1486,10 +1486,20 @@ public class TelaAvaliacaoMedicaPsiquiatrica extends javax.swing.JInternalFrame 
                 jCelaInterno.setText(conecta.rs.getString("EndCelaPav"));
                 // FOTO DO INTERNO
                 caminho = conecta.rs.getString("FotoInternoCrc");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                jFotoInternoAvaliacao.setIcon(i);
-                jFotoInternoAvaliacao.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoAvaliacao.getWidth(), jFotoInternoAvaliacao.getHeight(), Image.SCALE_DEFAULT)));
-                //
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    jFotoInternoAvaliacao.setIcon(i);
+                    jFotoInternoAvaliacao.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoAvaliacao.getWidth(), jFotoInternoAvaliacao.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR FOTO DO BANCO DE DADOS.
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoInternoAvaliacao.getWidth(), jFotoInternoAvaliacao.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoInternoAvaliacao.setIcon(icon);
+                }
                 jTextoAvaliacao.setText(conecta.rs.getString("TextoAvaliacao"));
                 jComboBoxCorFonte.addItem(conecta.rs.getString("Fonte"));
                 jComboBoxSize.setSelectedItem(conecta.rs.getString("Tamanho"));
