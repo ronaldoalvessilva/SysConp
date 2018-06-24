@@ -100,6 +100,7 @@ public class TelaModuloTriagem extends javax.swing.JInternalFrame {
     private TelaAgendaCompromissos objAgEventos = null;
     private TelaPagamentoKitInterno objKitTria = null;
     private TelaEntradasLote objEntradaInt = null;
+    private TelaPreLocaoInternos objPreLocacaoInternos = null;
     //
     String usuarioLogado, dataLanc;
     int codUsuario;
@@ -162,6 +163,8 @@ public class TelaModuloTriagem extends javax.swing.JInternalFrame {
     public static String telaInicializarLeitorTRI = "Movimentação:Entrega de Material Uso Pessoal:Inicializar leitor";
     public static String telaEntredaInternosManuTRI = "Movimentação:Entrada de Internos:Manutenção";
     public static String telaEntredaInternosIntTRI = "Movimentação:Entrada de Internos:Internos";
+    public static String telaPreLocacaoInternosManuTRI = "Movimentação:Pré-Locação:Manutenção";
+    public static String telaPreLocacaoInternosIntTRI = "Movimentação:Pré-Locação:Internos";
 
     //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
@@ -197,6 +200,8 @@ public class TelaModuloTriagem extends javax.swing.JInternalFrame {
     String pNomeIL = "";
     String pNomeEIN = "";
     String pNomeEINI = "";
+    String pNomePLM = "";
+    String pNomePLMI = "";
 
     /**
      * Creates new form TelaSeguranca
@@ -253,6 +258,7 @@ public class TelaModuloTriagem extends javax.swing.JInternalFrame {
         EntregaMaterialUsoPessoal = new javax.swing.JMenuItem();
         jSeparator11 = new javax.swing.JPopupMenu.Separator();
         EntradaInternosUnidade = new javax.swing.JMenuItem();
+        jPreLocacaoInternos = new javax.swing.JMenuItem();
         RelatoriosSeguranca = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
         MenuProntuariosTodos = new javax.swing.JMenuItem();
@@ -477,6 +483,15 @@ public class TelaModuloTriagem extends javax.swing.JInternalFrame {
             }
         });
         jMovimentacao.add(EntradaInternosUnidade);
+
+        jPreLocacaoInternos.setForeground(new java.awt.Color(0, 153, 0));
+        jPreLocacaoInternos.setText("Pré-Locação de Internos");
+        jPreLocacaoInternos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPreLocacaoInternosActionPerformed(evt);
+            }
+        });
+        jMovimentacao.add(jPreLocacaoInternos);
 
         jMenuBar1.add(jMovimentacao);
 
@@ -1303,6 +1318,41 @@ public class TelaModuloTriagem extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_EntradaInternosUnidadeActionPerformed
 
+    private void jPreLocacaoInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPreLocacaoInternosActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaPreLocacaoInternosManuTRI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES") || codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaPreLocacaoInternosManuTRI) && codAbrirTRI == 1) {
+            if (objPreLocacaoInternos == null || objPreLocacaoInternos.isClosed()) {
+                objPreLocacaoInternos = new TelaPreLocaoInternos();
+                jPainelTriagem.add(objPreLocacaoInternos);
+                objPreLocacaoInternos.setVisible(true);
+            } else {
+                if (objPreLocacaoInternos.isVisible()) {
+                    if (objPreLocacaoInternos.isIcon()) { // Se esta minimizado
+                        try {
+                            objPreLocacaoInternos.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objPreLocacaoInternos.toFront(); // traz para frente
+                        objPreLocacaoInternos.pack();//volta frame 
+                    }
+                } else {
+                    objPreLocacaoInternos = new TelaPreLocaoInternos();
+                    TelaModuloTriagem.jPainelTriagem.add(objPreLocacaoInternos);//adicona frame ao JDesktopPane  
+                    objPreLocacaoInternos.setVisible(true);
+                }
+            }
+            try {
+                objPreLocacaoInternos.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+//        private TelaPreLocaoInternos objPreLocacaoInternos = null;
+    }//GEN-LAST:event_jPreLocacaoInternosActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromissos;
@@ -1346,6 +1396,7 @@ public class TelaModuloTriagem extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenu jMovimentacao;
     public static javax.swing.JDesktopPane jPainelTriagem;
+    private javax.swing.JMenuItem jPreLocacaoInternos;
     private javax.swing.JMenuItem jProntuarioInterno;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator10;
@@ -1863,6 +1914,20 @@ public class TelaModuloTriagem extends javax.swing.JInternalFrame {
             conecta.rs.first();
             pNomeEINI = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
+        }        
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPreLocacaoInternosManuTRI + "'");
+            conecta.rs.first();
+            pNomePLM = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPreLocacaoInternosIntTRI + "'");
+            conecta.rs.first();
+            pNomePLMI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
         }
         // MENU CADASTRO
         if (!pNomeCUP.equals(telaCadastroUnidadePrisionalTRI) || pNomeCUP == null || pNomeCUP.equals("")) {
@@ -2027,6 +2092,19 @@ public class TelaModuloTriagem extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaEntredaInternosIntTRI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }        
+        if (!pNomePLM.equals(telaPreLocacaoInternosManuTRI) || pNomePLM == null || pNomePLM.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaPreLocacaoInternosManuTRI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+                
+        if (!pNomePLMI.equals(telaPreLocacaoInternosIntTRI) || pNomePLMI == null || pNomePLMI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaPreLocacaoInternosIntTRI);
             controle.incluirTelaAcesso(objCadastroTela);
         }
     }
