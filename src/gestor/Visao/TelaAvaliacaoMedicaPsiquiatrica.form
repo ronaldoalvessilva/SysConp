@@ -2060,7 +2060,7 @@
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/gestor/Imagens/icons8-doutor-em-medicina-64.png"/>
+              <Image iconType="3" name="/gestor/Imagens/Doctor-Male-64.png"/>
             </Property>
           </Properties>
         </Component>
