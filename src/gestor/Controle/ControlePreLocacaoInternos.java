@@ -21,22 +21,22 @@ public class ControlePreLocacaoInternos {
     ItensPreLocacao objItensPreLocacao = new ItensPreLocacao();
     int codUnid;
     int codInt;
-    
 
     public ItensPreLocacao incluirItensPreLocacaoInternos(ItensPreLocacao objItensPreLocacao) {
         buscarPavilhao(objItensPreLocacao.getDescricaoPavilhao());
         buscarInternoCrc(objItensPreLocacao.getNomeInternoCrc(), objItensPreLocacao.getIdInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENS_PRE_LOCACAO_INTERNOS (CodigoReg,IdInternoCrc,IdPav,IdEntrada,TipoPesq,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENS_PRE_LOCACAO_INTERNOS (CodigoReg,IdInternoCrc,IdPav,IdEntrada,TipoPesq,Confirmacao,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?)");
             pst.setInt(1, objItensPreLocacao.getCodigoReg());
             pst.setInt(2, codInt);
             pst.setInt(3, codUnid);
             pst.setInt(4, objItensPreLocacao.getIdEntrada());
             pst.setInt(5, objItensPreLocacao.getTipoPesquisa());
-            pst.setString(6, objItensPreLocacao.getUsuarioInsert());
-            pst.setString(7, objItensPreLocacao.getDataInsert());
-            pst.setString(8, objItensPreLocacao.getHorarioInsert());
+            pst.setString(6, objItensPreLocacao.getConfirmacao());
+            pst.setString(7, objItensPreLocacao.getUsuarioInsert());
+            pst.setString(8, objItensPreLocacao.getDataInsert());
+            pst.setString(9, objItensPreLocacao.getHorarioInsert());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\nERRO: " + ex);
@@ -50,15 +50,16 @@ public class ControlePreLocacaoInternos {
         buscarInternoCrc(objItensPreLocacao.getNomeInternoCrc(), objItensPreLocacao.getIdInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_PRE_LOCACAO_INTERNOS SET CodigoReg=?,IdInternoCrc=?,IdPav=?,IdEntrada=?,TipoPesq=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItem='" + objItensPreLocacao.getIdItem() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_PRE_LOCACAO_INTERNOS SET CodigoReg=?,IdInternoCrc=?,IdPav=?,IdEntrada=?,TipoPesq=?,Confirmacao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItem='" + objItensPreLocacao.getIdItem() + "'");
             pst.setInt(1, objItensPreLocacao.getCodigoReg());
             pst.setInt(2, codInt);
             pst.setInt(3, codUnid);
             pst.setInt(4, objItensPreLocacao.getIdEntrada());
             pst.setInt(5, objItensPreLocacao.getTipoPesquisa());
-            pst.setString(6, objItensPreLocacao.getUsuarioUp());
-            pst.setString(7, objItensPreLocacao.getDataUp());
-            pst.setString(8, objItensPreLocacao.getHorarioUp());
+            pst.setString(6, objItensPreLocacao.getConfirmacao());
+            pst.setString(7, objItensPreLocacao.getUsuarioUp());
+            pst.setString(8, objItensPreLocacao.getDataUp());
+            pst.setString(9, objItensPreLocacao.getHorarioUp());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO: " + ex);
@@ -75,6 +76,41 @@ public class ControlePreLocacaoInternos {
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objItensPreLocacao;
+    }
+
+    public ItensPreLocacao incluirItensExportacaoLocacaoInternos(ItensPreLocacao objItensPreLocacao) {
+        buscarPavilhao(objItensPreLocacao.getDescricaoPavilhao());
+        buscarInternoCrc(objItensPreLocacao.getNomeInternoCrc(), objItensPreLocacao.getIdInternoCrc());
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENS_EXPORTADO_LOCACAO_INTERNOS (CodigoReg,IdInternoCrc,IdPav,TipoPesq,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?)");
+            pst.setInt(1, objItensPreLocacao.getCodigoReg());
+            pst.setInt(2, codInt);
+            pst.setInt(3, codUnid);
+            pst.setInt(4, objItensPreLocacao.getTipoPesquisa());
+            pst.setString(5, objItensPreLocacao.getUsuarioInsert());
+            pst.setString(6, objItensPreLocacao.getDataInsert());
+            pst.setString(7, objItensPreLocacao.getHorarioInsert());
+            pst.execute();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objItensPreLocacao;
+    }
+
+    public ItensPreLocacao confirmcaoPreLocacaoInternos(ItensPreLocacao objItensPreLocacao) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_PRE_LOCACAO_INTERNOS SET Confirmacao=? WHERE CodigoReg='" + objItensPreLocacao.getIdEntrada() + "'AND IdInternoCrc='" + objItensPreLocacao.getIdInternoCrc() + "'");
+            pst.setString(1, objItensPreLocacao.getConfirmacao());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel CONFIRMAR os Dados.\nERRO: " + ex);
         }
         conecta.desconecta();
         return objItensPreLocacao;
