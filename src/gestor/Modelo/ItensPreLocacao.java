@@ -25,11 +25,12 @@ public class ItensPreLocacao {
     private String horarioInsert;
     private String horarioUp;
     private int tipoPesquisa;
+    private String confirmacao;
 
     public ItensPreLocacao() {
     }
 
-    public ItensPreLocacao(int IdItem, int CodigoReg, int IdPav, String descricaoPavilhao, int IdInternoCrc, String nomeInternoCrc, int idEntrada, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, int tipoPesquisa) {
+    public ItensPreLocacao(int IdItem, int CodigoReg, int IdPav, String descricaoPavilhao, int IdInternoCrc, String nomeInternoCrc, int idEntrada, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, int tipoPesquisa, String confirmacao) {
         this.IdItem = IdItem;
         this.CodigoReg = CodigoReg;
         this.IdPav = IdPav;
@@ -44,6 +45,7 @@ public class ItensPreLocacao {
         this.horarioInsert = horarioInsert;
         this.horarioUp = horarioUp;
         this.tipoPesquisa = tipoPesquisa;
+        this.confirmacao = confirmacao;
     }
 
     /**
@@ -240,6 +242,20 @@ public class ItensPreLocacao {
      */
     public void setTipoPesquisa(int tipoPesquisa) {
         this.tipoPesquisa = tipoPesquisa;
+    }
+
+    /**
+     * @return the confirmacao
+     */
+    public String getConfirmacao() {
+        return confirmacao;
+    }
+
+    /**
+     * @param confirmacao the confirmacao to set
+     */
+    public void setConfirmacao(String confirmacao) {
+        this.confirmacao = confirmacao;
     }
 
 }
