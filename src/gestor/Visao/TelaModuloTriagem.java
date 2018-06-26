@@ -32,6 +32,7 @@ import static gestor.Visao.TelaAgendaCompromissos.jNomeUsuarioAgenda;
 import static gestor.Visao.TelaAgendaCompromissos.jTabelaAgendaEventos;
 import static gestor.Visao.TelaAgendaCompromissos.jTextoEvento;
 import static gestor.Visao.TelaAgendaCompromissos.jtotalRegistros;
+import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
@@ -258,6 +259,7 @@ public class TelaModuloTriagem extends javax.swing.JInternalFrame {
         EntregaMaterialUsoPessoal = new javax.swing.JMenuItem();
         jSeparator11 = new javax.swing.JPopupMenu.Separator();
         EntradaInternosUnidade = new javax.swing.JMenuItem();
+        jSeparator13 = new javax.swing.JPopupMenu.Separator();
         jPreLocacaoInternos = new javax.swing.JMenuItem();
         RelatoriosSeguranca = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
@@ -274,6 +276,8 @@ public class TelaModuloTriagem extends javax.swing.JInternalFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jSeparator6 = new javax.swing.JPopupMenu.Separator();
         RelatorioValoresInternos = new javax.swing.JMenuItem();
+        jSeparator12 = new javax.swing.JPopupMenu.Separator();
+        RelatorioPreLocacaoInternos = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         CalculadoraPena = new javax.swing.JMenuItem();
         CalculadoraWindows = new javax.swing.JMenuItem();
@@ -483,6 +487,7 @@ public class TelaModuloTriagem extends javax.swing.JInternalFrame {
             }
         });
         jMovimentacao.add(EntradaInternosUnidade);
+        jMovimentacao.add(jSeparator13);
 
         jPreLocacaoInternos.setForeground(new java.awt.Color(0, 153, 0));
         jPreLocacaoInternos.setText("Pré-Locação de Internos");
@@ -579,6 +584,16 @@ public class TelaModuloTriagem extends javax.swing.JInternalFrame {
             }
         });
         RelatoriosSeguranca.add(RelatorioValoresInternos);
+        RelatoriosSeguranca.add(jSeparator12);
+
+        RelatorioPreLocacaoInternos.setForeground(new java.awt.Color(204, 0, 0));
+        RelatorioPreLocacaoInternos.setText("Relatório Geral de Pré-Locação de Internos");
+        RelatorioPreLocacaoInternos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RelatorioPreLocacaoInternosActionPerformed(evt);
+            }
+        });
+        RelatoriosSeguranca.add(RelatorioPreLocacaoInternos);
 
         jMenuBar1.add(RelatoriosSeguranca);
 
@@ -1350,8 +1365,38 @@ public class TelaModuloTriagem extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
-//        private TelaPreLocaoInternos objPreLocacaoInternos = null;
     }//GEN-LAST:event_jPreLocacaoInternosActionPerformed
+
+    private void RelatorioPreLocacaoInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatorioPreLocacaoInternosActionPerformed
+        // TODO add your handling code here:
+        try {
+            conecta.abrirConexao();
+            String path = "reports/RelatorioPreLocacaoInternosTriagemGeral.jasper";
+            conecta.executaSQL("SELECT * FROM PRE_LOCACAO_INTERNOS "
+                    + "INNER JOIN ITENS_PRE_LOCACAO_INTERNOS "
+                    + "ON PRE_LOCACAO_INTERNOS.CodigoReg=ITENS_PRE_LOCACAO_INTERNOS.CodigoReg "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON ITENS_PRE_LOCACAO_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON ITENS_PRE_LOCACAO_INTERNOS.IdPav=PAVILHAO.IdPav "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "ORDER BY PRE_LOCACAO_INTERNOS.CodigoReg,PRONTUARIOSCRC.NomeInternoCrc");
+            HashMap parametros = new HashMap();
+            parametros.put("descricaoUnidade", descricaoUnidade);
+            parametros.put("nomeUsuario", nameUser);
+            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao  
+            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+            jv.setTitle("Relatório Geral de Pré-Locação de Internos");
+            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+            jv.toFront(); // Traz o relatorio para frente da aplicação            
+            conecta.desconecta();
+        } catch (JRException e) {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório. \n\nERRO :" + e);
+        }
+    }//GEN-LAST:event_RelatorioPreLocacaoInternosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1371,6 +1416,7 @@ public class TelaModuloTriagem extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem RelatorioCelas;
     private javax.swing.JMenuItem RelatorioEntradaInternosUnidade;
     private javax.swing.JMenuItem RelatorioPavilhao;
+    private javax.swing.JMenuItem RelatorioPreLocacaoInternos;
     private javax.swing.JMenuItem RelatorioPrevisaoSaidaInternos;
     private javax.swing.JMenuItem RelatorioValoresInternos;
     private javax.swing.JMenu RelatoriosSeguranca;
@@ -1401,6 +1447,8 @@ public class TelaModuloTriagem extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator10;
     private javax.swing.JPopupMenu.Separator jSeparator11;
+    private javax.swing.JPopupMenu.Separator jSeparator12;
+    private javax.swing.JPopupMenu.Separator jSeparator13;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
@@ -1914,7 +1962,7 @@ public class TelaModuloTriagem extends javax.swing.JInternalFrame {
             conecta.rs.first();
             pNomeEINI = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
-        }        
+        }
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaPreLocacaoInternosManuTRI + "'");
@@ -2093,14 +2141,14 @@ public class TelaModuloTriagem extends javax.swing.JInternalFrame {
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaEntredaInternosIntTRI);
             controle.incluirTelaAcesso(objCadastroTela);
-        }        
+        }
         if (!pNomePLM.equals(telaPreLocacaoInternosManuTRI) || pNomePLM == null || pNomePLM.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaPreLocacaoInternosManuTRI);
             controle.incluirTelaAcesso(objCadastroTela);
         }
-                
+
         if (!pNomePLMI.equals(telaPreLocacaoInternosIntTRI) || pNomePLMI == null || pNomePLMI.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
