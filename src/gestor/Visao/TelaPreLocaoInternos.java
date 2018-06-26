@@ -13,6 +13,7 @@ import gestor.Dao.ModeloTabela;
 import gestor.Modelo.ItensPreLocacao;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.PreLocacao;
+import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
@@ -35,11 +36,19 @@ import java.awt.Image;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRResultSetDataSource;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -79,14 +88,25 @@ public class TelaPreLocaoInternos extends javax.swing.JInternalFrame {
     public static String idItem;
     int botaoRBu = 0;
     int codigoInternoCrc = 0;
+    String confirmacao = "Não";
+    //
+    String preLocacaoBP1 = "";
+    String preLocacaoBP2 = "";
 
     /**
      * Creates new form TelaPreLocaoInternos
      */
+    public static TelaExportarPreLocacao telaExpPreLocacao;
+
     public TelaPreLocaoInternos() {
         initComponents();
         formatarCampos();
         corCampos();
+    }
+
+    public void ExportarInternos() {
+        telaExpPreLocacao = new TelaExportarPreLocacao(this, true);
+        telaExpPreLocacao.setVisible(true);
     }
 
     /**
@@ -1055,6 +1075,7 @@ public class TelaPreLocaoInternos extends javax.swing.JInternalFrame {
         Integer rows = jTabelaItensInterno.getModel().getRowCount();
         if (rows != 0) {
             try {
+                conecta.abrirConexao();
                 conecta.executaSQL("SELECT * FROM PRE_LOCACAO_INTERNOS "
                         + "WHERE CodigoReg='" + jCodigoReg.getText() + "'");
                 conecta.rs.first();
@@ -1187,6 +1208,7 @@ public class TelaPreLocaoInternos extends javax.swing.JInternalFrame {
                     botaoRBu = 0;
                 }
                 objItensPreLocacao.setTipoPesquisa(botaoRBu);
+                objItensPreLocacao.setConfirmacao(confirmacao);
                 if (acao == 3) {
                     if (codigoInternoCrc == objItensPreLocacao.getIdInternoCrc()) {
                         JOptionPane.showMessageDialog(rootPane, "Esse interno já foi incluído nesse registro, tente adicionar outro interno.");
@@ -1270,13 +1292,37 @@ public class TelaPreLocaoInternos extends javax.swing.JInternalFrame {
 
     private void jBtImpressaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImpressaoActionPerformed
         // TODO add your handling code here:
-        objPreLocacao.setStatusReg(jStatusReg.getText());
-        if (jStatusReg.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
-        } else if (jCodigoReg.getText().equals("")) {
+        if (jCodigoReg.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Não é possível buscar internos, não foi inserido nenhum registro.");
         } else {
-
+            try {
+                conecta.abrirConexao();
+                String path = "reports/RelatorioPreLocacaoInternosTriagem.jasper";
+                conecta.executaSQL("SELECT * FROM PRE_LOCACAO_INTERNOS "
+                        + "INNER JOIN ITENS_PRE_LOCACAO_INTERNOS "
+                        + "ON PRE_LOCACAO_INTERNOS.CodigoReg=ITENS_PRE_LOCACAO_INTERNOS.CodigoReg "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON ITENS_PRE_LOCACAO_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "INNER JOIN PAVILHAO "
+                        + "ON ITENS_PRE_LOCACAO_INTERNOS.IdPav=PAVILHAO.IdPav "
+                        + "INNER JOIN DADOSPENAISINTERNOS "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                        + "WHERE PRE_LOCACAO_INTERNOS.CodigoReg='" + jCodigoReg.getText() + "'");
+                HashMap parametros = new HashMap();
+                parametros.put("pCodigoRegistro", jCodigoReg.getText());
+                parametros.put("descricaoUnidade", descricaoUnidade);
+                parametros.put("nomeUsuario", nameUser);
+                JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao  
+                jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                jv.setTitle("Relatório de Pré-Locação de Internos - Individual");
+                jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                jv.toFront(); // Traz o relatorio para frente da aplicação            
+                conecta.desconecta();
+            } catch (JRException e) {
+                JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório. \n\nERRO :" + e);
+            }
         }
     }//GEN-LAST:event_jBtImpressaoActionPerformed
 
@@ -1289,11 +1335,20 @@ public class TelaPreLocaoInternos extends javax.swing.JInternalFrame {
 
     private void jBtExportarInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExportarInternosActionPerformed
         // TODO add your handling code here:
+        verificarParametro();
         Integer rows = jTabelaItensInterno.getModel().getRowCount();
         objPreLocacao.setStatusReg(jStatusReg.getText());
-        if (jStatusReg.getText().equals("ABERTO")) {
+        if (preLocacaoBP1 == null) {
+            JOptionPane.showMessageDialog(rootPane, "O parametro da base 1 está vazio, solicite ao administrador do sistema para verificar.");
+        } else if (preLocacaoBP1.equals("Desabilitado")) {
+            JOptionPane.showMessageDialog(rootPane, "O parametro da base 1 está desabilitado, solicite ao administrador do sistema para verificar.");
+        } else if (preLocacaoBP2 == null) {
+            JOptionPane.showMessageDialog(rootPane, "O parametro da base 2 está vazio, solicite ao administrador do sistema para verificar.");
+        } else if (preLocacaoBP2.equals("Desabilitado")) {
+            JOptionPane.showMessageDialog(rootPane, "O parametro da base 2 está desabilitado, solicite ao administrador do sistema para verificar.");
+        } else if (jStatusReg.getText().equals("ABERTO")) {
             JOptionPane.showMessageDialog(rootPane, "Não é possível exportar os registro, documento ainda não foi FINALIZADO");
-        } else if (rows != 0) {
+        } else if (rows == 0) {
             JOptionPane.showMessageDialog(rootPane, "Não é possível exportar registro, não existe nenhum registro de interno na tabela abaixo.");
         } else {
             ExportarInternos();
@@ -1309,7 +1364,6 @@ public class TelaPreLocaoInternos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         count = 0;
-        count1 = 0;
         if (flag == 1) {
             String IdLanc = "" + jTabelaInternosExportados.getValueAt(jTabelaInternosExportados.getSelectedRow(), 0);
             //
@@ -1338,6 +1392,7 @@ public class TelaPreLocaoInternos extends javax.swing.JInternalFrame {
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa dos registros.\nERROR: " + e);
             }
+            count1 = 0;
             preencherTabelaItens("SELECT * FROM ITENS_PRE_LOCACAO_INTERNOS "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ITENS_PRE_LOCACAO_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -1476,10 +1531,23 @@ public class TelaPreLocaoInternos extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jStatusReg;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTabelaInternosExportados;
-    private javax.swing.JTable jTabelaItensInterno;
+    public static javax.swing.JTable jTabelaItensInterno;
     private javax.swing.JLabel jtotalRegistros;
-    private javax.swing.JLabel jtotalRegistros1;
+    public static javax.swing.JLabel jtotalRegistros1;
     // End of variables declaration//GEN-END:variables
+
+    public void verificarParametro() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM PARAMETROSCRC");
+            conecta.rs.first();
+            preLocacaoBP1 = conecta.rs.getString("PreLocacaoB1");
+            preLocacaoBP2 = conecta.rs.getString("PreLocacaoB2");
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaPreLocaoInternos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        conecta.desconecta();
+    }
 
     public void pesquisarInternoCadastrado() {
         conecta.abrirConexao();
@@ -1691,10 +1759,6 @@ public class TelaPreLocaoInternos extends javax.swing.JInternalFrame {
             bloquearTodosCampos();
             jBtNovo.setEnabled(true);
         }
-    }
-
-    public void ExportarInternos() {
-
     }
 
     public void verificarItens() {
