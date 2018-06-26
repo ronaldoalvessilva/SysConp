@@ -5,18 +5,23 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleLogSistema;
+import gestor.Controle.ControlePreLocacaoInternos;
 import gestor.Dao.*;
-import gestor.Modelo.EntradaLote;
-import gestor.Modelo.ItensEntradaLote;
-import static gestor.Visao.TelaEntradasLote.idItem;
-import static gestor.Visao.TelaPreLocaoInternos.jDocEntrada;
-import static gestor.Visao.TelaPreLocaoInternos.jFotoInternoExportado;
-import static gestor.Visao.TelaPreLocaoInternos.jIdInternoReg;
-import static gestor.Visao.TelaPreLocaoInternos.jNomeInternoReg;
-import java.awt.Image;
+import gestor.Modelo.ItensPreLocacao;
+import gestor.Modelo.LogSistema;
+import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
+import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaPreLocaoInternos.jBtNovoInterno;
+import static gestor.Visao.TelaPreLocaoInternos.jCodigoReg;
+import static gestor.Visao.TelaPreLocaoInternos.jTabelaItensInterno;
+import static gestor.Visao.TelaPreLocaoInternos.jtotalRegistros1;
+import java.awt.Rectangle;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.swing.ImageIcon;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -29,12 +34,25 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class TelaPesqInternoEntradaCrcPreLocacaoVarios extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
-    EntradaLote objEntLote = new EntradaLote();
-    ItensEntradaLote objItens = new ItensEntradaLote();
+    ItensPreLocacao objItensPreLocacao = new ItensPreLocacao();
+    ControlePreLocacaoInternos controle = new ControlePreLocacaoInternos();
+    //
+    ControleLogSistema controlLog = new ControleLogSistema();
+    LogSistema objLogSys = new LogSistema();
+    //
     int flag;
     String dataEntrada;
     String dataSaida;
     String caminho;
+    int count1 = 0;
+    int botaoRBu = 0;
+    String nomeModuloTela2 = "TRIAGEM:Pré-Locação de Internos:Internos";
+    String statusMov;
+    String horaMov;
+    String dataModFinal;
+    //
+    String idItem = "";
+    String confirmacao = "Não";
 
     /**
      * Creates new form TelaPesqColaborador
@@ -81,6 +99,7 @@ public class TelaPesqInternoEntradaCrcPreLocacaoVarios extends javax.swing.JInte
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 255));
         jLabel1.setText("Pavilhão");
 
         jCheckBoxTodos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -98,6 +117,7 @@ public class TelaPesqInternoEntradaCrcPreLocacaoVarios extends javax.swing.JInte
         jRegistro.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jComboBoxDescricaoPavilhao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxDescricaoPavilhao.setForeground(new java.awt.Color(0, 0, 255));
         jComboBoxDescricaoPavilhao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
         jComboBoxDescricaoPavilhao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
@@ -330,48 +350,75 @@ public class TelaPesqInternoEntradaCrcPreLocacaoVarios extends javax.swing.JInte
 
     private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
         // TODO add your handling code here:
-//        flag = 1;
-//        if (flag == 1) {
-//            String nomeInterno = "" + jTabelaPesqInterno.getValueAt(jTabelaPesqInterno.getSelectedRow(), 2);
-//            jNomeInternoReg.setText(nomeInterno);
-//            String idInterno = "" + jTabelaPesqInterno.getValueAt(jTabelaPesqInterno.getSelectedRow(), 1);
-//            jIdInternoReg.setText(idInterno);
-//            String idReg = "" + jTabelaPesqInterno.getValueAt(jTabelaPesqInterno.getSelectedRow(), 0);
-//            //
-//            conecta.abrirConexao();
-//            try {
-//                conecta.executaSQL("SELECT * FROM ITENSENTRADA "
-//                        + "INNER JOIN PRONTUARIOSCRC "
-//                        + "ON ITENSENTRADA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-//                        + "WHERE PRONTUARIOSCRC.IdInternoCrc='" + idInterno + "' "
-//                        + "AND IdEntrada='" + idReg + "'");
-//                conecta.rs.first();
-//                // Tabela Funcionarios
-//                jIdInternoReg.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
-//                jNomeInternoReg.setText(conecta.rs.getString("NomeInternoCrc"));
-//                // Capturando foto
-//                caminho = conecta.rs.getString("FotoInternoCrc");
-//                if (caminho != null) {
-//                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-//                    jFotoInternoExportado.setIcon(i);
-//                    jFotoInternoExportado.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoExportado.getWidth(), jFotoInternoExportado.getHeight(), Image.SCALE_DEFAULT)));
-//                }
-//                // BUSCAR FOTO DO BANCO DE DADOS.
-//                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
-//                if (imgBytes != null) {
-//                    ImageIcon pic = null;
-//                    pic = new ImageIcon(imgBytes);
-//                    Image scaled = pic.getImage().getScaledInstance(jFotoInternoExportado.getWidth(), jFotoInternoExportado.getHeight(), Image.SCALE_DEFAULT);
-//                    ImageIcon icon = new ImageIcon(scaled);
-//                    jFotoInternoExportado.setIcon(icon);
-//                }
-//                jDocEntrada.setText(conecta.rs.getString("IdEntrada"));
-//                conecta.desconecta();
-//            } catch (SQLException ex) {
-//                JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa dos dados." + ex);
-//            }
-//            dispose();
-//        }
+        statusMov = "Incluiu";
+        horaMov = jHoraSistema.getText();
+        dataModFinal = jDataSistema.getText();
+        //
+        Integer rows = jTabelaPesqInterno.getModel().getRowCount();
+        if (rows == 0) {
+            JOptionPane.showMessageDialog(rootPane, "Não existe dados a ser exportador.");
+        } else if (jRegistro.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário informar o número do registro primeiro");
+        } else if (jComboBoxDescricaoPavilhao.getSelectedItem().equals("Selecione...")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o pavilhão para os internos abaixo.");
+        } else {
+            try {
+                for (int p = 0; p < jTabelaPesqInterno.getRowCount(); p++) {
+                    objItensPreLocacao.setCodigoReg(Integer.valueOf(jCodigoReg.getText()));
+                    objItensPreLocacao.setIdEntrada(Integer.valueOf(jRegistro.getText()));
+                    objItensPreLocacao.setDescricaoPavilhao((String) jComboBoxDescricaoPavilhao.getSelectedItem());
+                    objItensPreLocacao.setTipoPesquisa(botaoRBu);
+                    objItensPreLocacao.setIdInternoCrc((int) jTabelaPesqInterno.getValueAt(p, 1));
+                    objItensPreLocacao.setNomeInternoCrc((String) jTabelaPesqInterno.getValueAt(p, 2));
+                    objItensPreLocacao.setConfirmacao(confirmacao);
+                    //
+                    objItensPreLocacao.setUsuarioInsert(nameUser);
+                    objItensPreLocacao.setDataInsert(dataModFinal);
+                    objItensPreLocacao.setHorarioInsert(horaMov);
+                    controle.incluirItensPreLocacaoInternos(objItensPreLocacao);
+                    preencherTabelaItens("SELECT * FROM ITENS_PRE_LOCACAO_INTERNOS "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON ITENS_PRE_LOCACAO_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN PRE_LOCACAO_INTERNOS "
+                            + "ON ITENS_PRE_LOCACAO_INTERNOS.CodigoReg=PRE_LOCACAO_INTERNOS.CodigoReg "
+                            + "INNER JOIN PAVILHAO "
+                            + "ON ITENS_PRE_LOCACAO_INTERNOS.IdPav=PAVILHAO.IdPav "
+                            + "WHERE ITENS_PRE_LOCACAO_INTERNOS.CodigoReg='" + jCodigoReg.getText() + "'");
+
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(TelaExportacaoInternos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                Thread t = new Thread() {
+                    public void run() {
+                        jProgressBar1.setMaximum(jTabelaPesqInterno.getRowCount());
+                        Rectangle rect;
+                        for (int i = 0; i < jTabelaPesqInterno.getRowCount(); i++) {
+                            rect = jTabelaPesqInterno.getCellRect(i, 0, true);
+                            try {
+                                jTabelaPesqInterno.scrollRectToVisible(rect);
+                            } catch (java.lang.ClassCastException e) {
+                            }
+                            jTabelaPesqInterno.setRowSelectionInterval(i, 1);
+                            jProgressBar1.setValue((i + 1));
+                            try {
+                                Thread.sleep(20);
+                            } catch (InterruptedException ex) {
+                            }
+                        }
+                        jProgressBar1.setValue(0);
+                        try {
+                            Salvar();
+                            JOptionPane.showMessageDialog(rootPane, "Fim do processo.");
+                        } catch (Exception e) {
+                        }
+                    }
+                };
+                t.start();
+            } catch (Exception e) {
+            }
+        }
     }//GEN-LAST:event_jBtConfirmarActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
@@ -380,9 +427,10 @@ public class TelaPesqInternoEntradaCrcPreLocacaoVarios extends javax.swing.JInte
     }//GEN-LAST:event_jBtSairActionPerformed
 
     private void jCheckBoxTodosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxTodosItemStateChanged
-        // TODO add your handling code here:
+        // TODO add your handling code here:      
         flag = 1;
         if (jRegistro.getText().equals("")) {
+            jRegistro.requestFocus();
             JOptionPane.showMessageDialog(rootPane, "Informe o código do registro de entrada dos internos.");
         } else {
             if (evt.getStateChange() == evt.SELECTED) {
@@ -402,6 +450,7 @@ public class TelaPesqInternoEntradaCrcPreLocacaoVarios extends javax.swing.JInte
 
     private void jTabelaPesqInternoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaPesqInternoMouseClicked
         // TODO add your handling code here:
+        flag = 1;
         if (flag == 1) {
             String nomeInterno = "" + jTabelaPesqInterno.getValueAt(jTabelaPesqInterno.getSelectedRow(), 2);
             jComboBoxDescricaoPavilhao.setSelectedItem(nomeInterno);
@@ -433,7 +482,10 @@ public class TelaPesqInternoEntradaCrcPreLocacaoVarios extends javax.swing.JInte
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
-//Preencher tabela com todos os INTERNOS
+    public void Salvar() {
+        jBtNovoInterno.setEnabled(true);
+    }
+
     public void buscarInternos(String sql) {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Registro", "Código", "Nome do Interno ", "Unidade Penal (Procedência)", "Regime"};
@@ -442,7 +494,7 @@ public class TelaPesqInternoEntradaCrcPreLocacaoVarios extends javax.swing.JInte
             conecta.executaSQL(sql);
             conecta.rs.first();
             do {
-                dados.add(new Object[]{conecta.rs.getInt("IdEntrada"), conecta.rs.getString("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("DescricaoUnid"), conecta.rs.getString("Regime")});
+                dados.add(new Object[]{conecta.rs.getInt("IdEntrada"), conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("DescricaoUnid"), conecta.rs.getString("Regime")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");
@@ -508,5 +560,73 @@ public class TelaPesqInternoEntradaCrcPreLocacaoVarios extends javax.swing.JInte
             JOptionPane.showMessageDialog(null, "Não Existe dados a serem exibidos !!!");
         }
         conecta.desconecta();
+    }
+
+    public void preencherTabelaItens(String sql) {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Item", "Doc.", "Código", "Nome do Interno", "Pavilhão"};
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL(sql);
+            conecta.rs.first();
+            count1 = 0;
+            do {
+                count1 = count1 + 1;
+                jtotalRegistros1.setText(Integer.toString(count1)); // Converter inteiro em string para exibir na tela
+                dados.add(new Object[]{conecta.rs.getInt("IdItem"), conecta.rs.getInt("IdEntrada"), conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("DescricaoPav")});
+            } while (conecta.rs.next());
+        } catch (SQLException ex) {
+        }
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaItensInterno.setModel(modelo);
+        jTabelaItensInterno.getColumnModel().getColumn(0).setPreferredWidth(60);
+        jTabelaItensInterno.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaItensInterno.getColumnModel().getColumn(1).setPreferredWidth(60);
+        jTabelaItensInterno.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaItensInterno.getColumnModel().getColumn(2).setPreferredWidth(60);
+        jTabelaItensInterno.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaItensInterno.getColumnModel().getColumn(3).setPreferredWidth(300);
+        jTabelaItensInterno.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaItensInterno.getColumnModel().getColumn(4).setPreferredWidth(250);
+        jTabelaItensInterno.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaItensInterno.getTableHeader().setReorderingAllowed(false);
+        jTabelaItensInterno.setAutoResizeMode(jTabelaItensInterno.AUTO_RESIZE_OFF);
+        jTabelaItensInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCamposTabelaItens();
+        conecta.desconecta();
+    }
+
+    public void limparTabelaItens() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Item", "Doc.", "Código", "Nome do Interno", "Pavilhão"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaItensInterno.setModel(modelo);
+        jTabelaItensInterno.getColumnModel().getColumn(0).setPreferredWidth(60);
+        jTabelaItensInterno.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaItensInterno.getColumnModel().getColumn(1).setPreferredWidth(60);
+        jTabelaItensInterno.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaItensInterno.getColumnModel().getColumn(2).setPreferredWidth(60);
+        jTabelaItensInterno.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaItensInterno.getColumnModel().getColumn(3).setPreferredWidth(300);
+        jTabelaItensInterno.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaItensInterno.getColumnModel().getColumn(4).setPreferredWidth(250);
+        jTabelaItensInterno.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaItensInterno.getTableHeader().setReorderingAllowed(false);
+        jTabelaItensInterno.setAutoResizeMode(jTabelaItensInterno.AUTO_RESIZE_OFF);
+        jTabelaItensInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
+    }
+
+    public void alinharCamposTabelaItens() {
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        //
+        jTabelaItensInterno.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaItensInterno.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+        jTabelaItensInterno.getColumnModel().getColumn(2).setCellRenderer(centralizado);
     }
 }
