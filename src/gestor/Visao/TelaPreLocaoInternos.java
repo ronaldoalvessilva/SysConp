@@ -31,6 +31,8 @@ import static gestor.Visao.TelaModuloTriagem.nomeGrupoTRI;
 import static gestor.Visao.TelaModuloTriagem.nomeTelaTRI;
 import static gestor.Visao.TelaModuloTriagem.telaPreLocacaoInternosIntTRI;
 import static gestor.Visao.TelaModuloTriagem.telaPreLocacaoInternosManuTRI;
+import static gestor.Visao.TelaPesqInternoEntradaCrcPreLocacao.jRegistroEntrada;
+import static gestor.Visao.TelaPesqInternoEntradaCrcPreLocacaoVarios.jRegistroEntradaVarios;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -89,6 +91,7 @@ public class TelaPreLocaoInternos extends javax.swing.JInternalFrame {
     int botaoRBu = 0;
     int codigoInternoCrc = 0;
     String confirmacao = "Não";
+    String confirmaUtil = "Sim"; // CONFIRMA O USO DO REGISTRO NA TABELA ITENSENTRADA.
     //
     String preLocacaoBP1 = "";
     String preLocacaoBP2 = "";
@@ -1218,6 +1221,18 @@ public class TelaPreLocaoInternos extends javax.swing.JInternalFrame {
                         objItensPreLocacao.setDataInsert(dataModFinal);
                         objItensPreLocacao.setHorarioInsert(horaMov);
                         controle.incluirItensPreLocacaoInternos(objItensPreLocacao);
+                        // CONFIRMAÇÃO PARA TABELA ITENSENTRADA PARA PESQUISA DE UTILIZAÇÃO 
+                        if (jRBtUmaUm.isSelected()) {
+                            objItensPreLocacao.setIdEntrada(Integer.valueOf(jRegistroEntrada.getText()));
+                            objItensPreLocacao.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
+                            objItensPreLocacao.setConfirmaUtil(confirmaUtil);
+                            controle.confirmcaoPreLocacaoInternosEntrada(objItensPreLocacao);
+                        } else if (jRBtVarios.isSelected()) {
+                            objItensPreLocacao.setIdEntrada(Integer.valueOf(jRegistroEntradaVarios.getText()));
+                            objItensPreLocacao.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
+                            objItensPreLocacao.setConfirmaUtil(confirmaUtil);
+                            controle.confirmcaoPreLocacaoInternosEntrada(objItensPreLocacao);
+                        }
                         //
                         objLog2();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
@@ -1241,7 +1256,18 @@ public class TelaPreLocaoInternos extends javax.swing.JInternalFrame {
                     objItensPreLocacao.setHorarioUp(horaMov);
                     objItensPreLocacao.setIdItem(Integer.valueOf(idItem));
                     controle.alterarItensPreLocacaoInternos(objItensPreLocacao);
-                    //
+                    // CONFIRMAÇÃO PARA TABELA ITENSENTRADA PARA PESQUISA DE UTILIZAÇÃO 
+                    if (jRBtUmaUm.isSelected()) {
+                        objItensPreLocacao.setIdEntrada(Integer.valueOf(jRegistroEntrada.getText()));
+                        objItensPreLocacao.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
+                        objItensPreLocacao.setConfirmaUtil(confirmaUtil);
+                        controle.confirmcaoPreLocacaoInternosEntrada(objItensPreLocacao);
+                    } else if (jRBtVarios.isSelected()) {
+                        objItensPreLocacao.setIdEntrada(Integer.valueOf(jRegistroEntradaVarios.getText()));
+                        objItensPreLocacao.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
+                        objItensPreLocacao.setConfirmaUtil(confirmaUtil);
+                        controle.confirmcaoPreLocacaoInternosEntrada(objItensPreLocacao);
+                    }
                     objLog2();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
                     bloquearBotoes();
@@ -1574,6 +1600,7 @@ public class TelaPreLocaoInternos extends javax.swing.JInternalFrame {
         //
         jIdInternoReg.setBackground(Color.white);
         jNomeInternoReg.setBackground(Color.white);
+        jDocEntrada.setBackground(Color.white);
         jComboBoxPavilhaoReg.setBackground(Color.white);
     }
 
@@ -1706,6 +1733,11 @@ public class TelaPreLocaoInternos extends javax.swing.JInternalFrame {
     }
 
     public void ExcluirInterno() {
+        jIdInternoReg.setText("");
+        jNomeInternoReg.setText("");
+        jDocEntrada.setText("");
+        jComboBoxPavilhaoReg.setSelectedItem("Selecione...");
+        //
         jBtNovoInterno.setEnabled(true);
         //
         jBtNovo.setEnabled(true);
@@ -1728,6 +1760,11 @@ public class TelaPreLocaoInternos extends javax.swing.JInternalFrame {
     }
 
     public void CancelarInterno() {
+        jIdInternoReg.setText("");
+        jNomeInternoReg.setText("");
+        jDocEntrada.setText("");
+        jComboBoxPavilhaoReg.setSelectedItem("Selecione...");
+        //
         jBtNovoInterno.setEnabled(true);
         //
         jBtNovo.setEnabled(true);
