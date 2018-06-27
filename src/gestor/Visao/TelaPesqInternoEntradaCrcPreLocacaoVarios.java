@@ -53,6 +53,7 @@ public class TelaPesqInternoEntradaCrcPreLocacaoVarios extends javax.swing.JInte
     //
     String idItem = "";
     String confirmacao = "Não";
+    String confirmaUtil = "Não"; // CONFIRMAÇÃO DE QUE O REGISTRO NÃO FOI UTILIZADO NA TABELA ITENSENTRADA
 
     /**
      * Creates new form TelaPesqColaborador
@@ -75,7 +76,7 @@ public class TelaPesqInternoEntradaCrcPreLocacaoVarios extends javax.swing.JInte
         jLabel1 = new javax.swing.JLabel();
         jCheckBoxTodos = new javax.swing.JCheckBox();
         jLabel2 = new javax.swing.JLabel();
-        jRegistro = new javax.swing.JTextField();
+        jRegistroEntradaVarios = new javax.swing.JTextField();
         jComboBoxDescricaoPavilhao = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -113,8 +114,10 @@ public class TelaPesqInternoEntradaCrcPreLocacaoVarios extends javax.swing.JInte
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Registo de Entrada");
 
-        jRegistro.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jRegistro.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jRegistroEntradaVarios.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRegistroEntradaVarios.setForeground(new java.awt.Color(204, 0, 0));
+        jRegistroEntradaVarios.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jRegistroEntradaVarios.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jComboBoxDescricaoPavilhao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxDescricaoPavilhao.setForeground(new java.awt.Color(0, 0, 255));
@@ -149,7 +152,7 @@ public class TelaPesqInternoEntradaCrcPreLocacaoVarios extends javax.swing.JInte
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jRegistro))
+                            .addComponent(jRegistroEntradaVarios))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -169,7 +172,7 @@ public class TelaPesqInternoEntradaCrcPreLocacaoVarios extends javax.swing.JInte
                     .addComponent(jLabel5)
                     .addComponent(jCheckBoxTodos)
                     .addComponent(jLabel4)
-                    .addComponent(jRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jRegistroEntradaVarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel1)
@@ -357,7 +360,7 @@ public class TelaPesqInternoEntradaCrcPreLocacaoVarios extends javax.swing.JInte
         Integer rows = jTabelaPesqInterno.getModel().getRowCount();
         if (rows == 0) {
             JOptionPane.showMessageDialog(rootPane, "Não existe dados a ser exportador.");
-        } else if (jRegistro.getText().equals("")) {
+        } else if (jRegistroEntradaVarios.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "É necessário informar o número do registro primeiro");
         } else if (jComboBoxDescricaoPavilhao.getSelectedItem().equals("Selecione...")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o pavilhão para os internos abaixo.");
@@ -365,7 +368,7 @@ public class TelaPesqInternoEntradaCrcPreLocacaoVarios extends javax.swing.JInte
             try {
                 for (int p = 0; p < jTabelaPesqInterno.getRowCount(); p++) {
                     objItensPreLocacao.setCodigoReg(Integer.valueOf(jCodigoReg.getText()));
-                    objItensPreLocacao.setIdEntrada(Integer.valueOf(jRegistro.getText()));
+                    objItensPreLocacao.setIdEntrada(Integer.valueOf(jRegistroEntradaVarios.getText()));
                     objItensPreLocacao.setDescricaoPavilhao((String) jComboBoxDescricaoPavilhao.getSelectedItem());
                     objItensPreLocacao.setTipoPesquisa(botaoRBu);
                     objItensPreLocacao.setIdInternoCrc((int) jTabelaPesqInterno.getValueAt(p, 1));
@@ -429,8 +432,8 @@ public class TelaPesqInternoEntradaCrcPreLocacaoVarios extends javax.swing.JInte
     private void jCheckBoxTodosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxTodosItemStateChanged
         // TODO add your handling code here:      
         flag = 1;
-        if (jRegistro.getText().equals("")) {
-            jRegistro.requestFocus();
+        if (jRegistroEntradaVarios.getText().equals("")) {
+            jRegistroEntradaVarios.requestFocus();
             JOptionPane.showMessageDialog(rootPane, "Informe o código do registro de entrada dos internos.");
         } else {
             if (evt.getStateChange() == evt.SELECTED) {
@@ -441,7 +444,8 @@ public class TelaPesqInternoEntradaCrcPreLocacaoVarios extends javax.swing.JInte
                         + "ON ITENSENTRADA.IdUnid=UNIDADE.IdUnid "
                         + "INNER JOIN DADOSPENAISINTERNOS "
                         + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                        + "WHERE ITENSENTRADA.IdEntrada='" + jRegistro.getText() + "'");
+                        + "WHERE ITENSENTRADA.IdEntrada='" + jRegistroEntradaVarios.getText() + "' "
+                        + "AND ConfirmaUtil='" + confirmaUtil + "'");
             } else {
                 limparTabelaInternos();
             }
@@ -476,7 +480,7 @@ public class TelaPesqInternoEntradaCrcPreLocacaoVarios extends javax.swing.JInte
     private javax.swing.JPanel jPanel31;
     private javax.swing.JPanel jPanel32;
     private javax.swing.JProgressBar jProgressBar1;
-    private javax.swing.JTextField jRegistro;
+    public static javax.swing.JTextField jRegistroEntradaVarios;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTabelaPesqInterno;
     private javax.swing.JLabel jtotalRegistros;
