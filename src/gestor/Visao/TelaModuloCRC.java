@@ -3163,7 +3163,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
                     } else {
                         objEntradasPortarias = new TelaAlertaEntradaInternosPortaria();
                         TelaModuloCRC.jPainelCRC.add(objEntradasPortarias);//adicona frame ao JDesktopPane  
-                        objRecados.setVisible(true);
+                        objEntradasPortarias.setVisible(true);
                     }
                 }
                 try {
