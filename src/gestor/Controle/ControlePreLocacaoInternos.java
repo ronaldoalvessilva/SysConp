@@ -116,6 +116,20 @@ public class ControlePreLocacaoInternos {
         return objItensPreLocacao;
     }
 
+    public ItensPreLocacao confirmcaoPreLocacaoInternosEntrada(ItensPreLocacao objItensPreLocacao) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSENTRADA SET ConfirmaUtil=? WHERE IdEntrada='" + objItensPreLocacao.getIdEntrada() + "'AND IdInternoCrc='" + objItensPreLocacao.getIdInternoCrc() + "'");
+            pst.setString(1, objItensPreLocacao.getConfirmaUtil());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel CONFIRMAR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objItensPreLocacao;
+    }
+
     public void buscarPavilhao(String nome) {
         conecta.abrirConexao();
         try {
