@@ -9,6 +9,7 @@ import gestor.Dao.*;
 import gestor.Modelo.EntradaLote;
 import gestor.Modelo.ItensEntradaLote;
 import static gestor.Visao.TelaEntradasLote.idItem;
+import static gestor.Visao.TelaPreLocaoInternos.jCodigoReg;
 import static gestor.Visao.TelaPreLocaoInternos.jDocEntrada;
 import static gestor.Visao.TelaPreLocaoInternos.jFotoInternoExportado;
 import static gestor.Visao.TelaPreLocaoInternos.jIdInternoReg;
@@ -35,13 +36,14 @@ public class TelaPesqInternoEntradaCrcPreLocacao extends javax.swing.JInternalFr
     String dataEntrada;
     String dataSaida;
     String caminho;
+    String confirmacao = "Não";
 
     /**
      * Creates new form TelaPesqColaborador
      */
     public TelaPesqInternoEntradaCrcPreLocacao() {
         initComponents();
-        jNomeInternoCrc.setDocument(new LimiteDigitos(50));
+        formatarCampos();        
     }
 
     /**
@@ -61,7 +63,7 @@ public class TelaPesqInternoEntradaCrcPreLocacao extends javax.swing.JInternalFr
         jLabel1 = new javax.swing.JLabel();
         jCheckBoxTodos = new javax.swing.JCheckBox();
         jLabel2 = new javax.swing.JLabel();
-        jRegistro = new javax.swing.JTextField();
+        jRegistroEntrada = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTabelaPesqInterno = new javax.swing.JTable();
         jBtEnviar = new javax.swing.JButton();
@@ -98,10 +100,13 @@ public class TelaPesqInternoEntradaCrcPreLocacao extends javax.swing.JInternalFr
         });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel2.setText("Registo:");
+        jLabel2.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel2.setText("Registo Entrada:");
 
-        jRegistro.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jRegistro.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jRegistroEntrada.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRegistroEntrada.setForeground(new java.awt.Color(204, 0, 0));
+        jRegistroEntrada.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jRegistroEntrada.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -110,23 +115,23 @@ public class TelaPesqInternoEntradaCrcPreLocacao extends javax.swing.JInternalFr
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRegistro)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jRegistroEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jNomeInternoCrc, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jNomeInternoCrc, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtPesqNome, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBoxTodos)
                 .addGap(22, 22, 22))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                .addComponent(jRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(jLabel2)
+                .addComponent(jRegistroEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(jLabel1)
                 .addComponent(jNomeInternoCrc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(jBtPesqNome)
@@ -189,13 +194,13 @@ public class TelaPesqInternoEntradaCrcPreLocacao extends javax.swing.JInternalFr
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 755, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 769, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jBtEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtSair)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -227,7 +232,7 @@ public class TelaPesqInternoEntradaCrcPreLocacao extends javax.swing.JInternalFr
             .addComponent(jTabbedPane1)
         );
 
-        setBounds(300, 20, 796, 328);
+        setBounds(300, 20, 810, 328);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEnviarActionPerformed
@@ -247,6 +252,7 @@ public class TelaPesqInternoEntradaCrcPreLocacao extends javax.swing.JInternalFr
                         + "ON ITENSENTRADA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                         + "WHERE PRONTUARIOSCRC.IdInternoCrc='" + idInterno + "' "
                         + "AND IdEntrada='" + idReg + "'");
+                        
                 conecta.rs.first();
                 // Tabela Funcionarios
                 jIdInternoReg.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
@@ -287,7 +293,7 @@ public class TelaPesqInternoEntradaCrcPreLocacao extends javax.swing.JInternalFr
         if (jNomeInternoCrc.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe um nome ou parte do nome para pesquisar.");
             jNomeInternoCrc.requestFocus();
-        } else if (jRegistro.getText().equals("")) {
+        } else if (jRegistroEntrada.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o código do registro de entrada dos internos.");
         } else {
             buscarInternos("SELECT * FROM ITENSENTRADA "
@@ -298,14 +304,15 @@ public class TelaPesqInternoEntradaCrcPreLocacao extends javax.swing.JInternalFr
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "WHERE NomeInternoCrc LIKE'%" + jNomeInternoCrc.getText() + "%' "
-                    + "AND ITENSENTRADA.IdEntrada='" + jRegistro.getText() + "'");
+                    + "AND ITENSENTRADA.IdEntrada='" + jRegistroEntrada.getText() + "' "
+                    + "AND ConfirmaUtil='" + confirmacao + "'");
         }
     }//GEN-LAST:event_jBtPesqNomeActionPerformed
 
     private void jCheckBoxTodosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxTodosItemStateChanged
         // TODO add your handling code here:
         flag = 1;
-        if (jRegistro.getText().equals("")) {
+        if (jRegistroEntrada.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o código do registro de entrada dos internos.");
         } else {
             if (evt.getStateChange() == evt.SELECTED) {
@@ -316,7 +323,8 @@ public class TelaPesqInternoEntradaCrcPreLocacao extends javax.swing.JInternalFr
                         + "ON ITENSENTRADA.IdUnid=UNIDADE.IdUnid "
                         + "INNER JOIN DADOSPENAISINTERNOS "
                         + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                        + "WHERE ITENSENTRADA.IdEntrada='" + jRegistro.getText() + "'");
+                        + "WHERE ITENSENTRADA.IdEntrada='" + jRegistroEntrada.getText() + "' "
+                        + "AND ConfirmaUtil='" + confirmacao + "'");
             } else {
                 limparTabelaInternos();
             }
@@ -343,12 +351,16 @@ public class TelaPesqInternoEntradaCrcPreLocacao extends javax.swing.JInternalFr
     private javax.swing.JTextField jNomeInternoCrc;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jRegistro;
+    public static javax.swing.JTextField jRegistroEntrada;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTabelaPesqInterno;
     // End of variables declaration//GEN-END:variables
 
+    public void formatarCampos(){
+        //jRegistro.setText(jCodigoReg.getText());
+        jNomeInternoCrc.setDocument(new LimiteDigitos(200));
+    }
 //Preencher tabela com todos os INTERNOS
     public void buscarInternos(String sql) {
         ArrayList dados = new ArrayList();
