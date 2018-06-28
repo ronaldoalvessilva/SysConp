@@ -46,7 +46,7 @@ public class TelaExportarPreLocacao extends javax.swing.JDialog {
     String descricaoPavilhao;
     //
     int tipoPesq = 0;
-    String confirmacao = "Não"; // PARA PESQUISAR OS INTERNOS
+    String confirmacao = "Não"; // PARA PESQUISAR OS INTERNOS E AS BASES PODEREM PESQUISAR
     String confirmacaoExp = "Sim"; // PARA GRAVAR O USO DO INTERNO
 
     /**
@@ -472,6 +472,7 @@ public class TelaExportarPreLocacao extends javax.swing.JDialog {
             objItensPreLocacao.setNomeInternoCrc(jNomeInternoExp.getText());
             objItensPreLocacao.setDescricaoPavilhao(jDescricaoPavilhaoExp.getText());
             objItensPreLocacao.setTipoPesquisa(tipoPesq);
+            objItensPreLocacao.setConfirmacao(confirmacao);
             // LOG DO USUÁRIO
             objItensPreLocacao.setUsuarioInsert(nameUser);
             objItensPreLocacao.setDataInsert(dataModFinal);
@@ -492,6 +493,7 @@ public class TelaExportarPreLocacao extends javax.swing.JDialog {
                     objItensPreLocacao.setNomeInternoCrc((String) jTabelaExportarInterno.getValueAt(p, 1));
                     objItensPreLocacao.setDescricaoPavilhao((String) jTabelaExportarInterno.getValueAt(p, 2));
                     objItensPreLocacao.setTipoPesquisa(tipoPesq);
+                    objItensPreLocacao.setConfirmacao(confirmacao);
                     // LOG DO USUÁRIO
                     objItensPreLocacao.setUsuarioInsert(nameUser);
                     objItensPreLocacao.setDataInsert(dataModFinal);

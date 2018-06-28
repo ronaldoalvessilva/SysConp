@@ -103,6 +103,21 @@ public class ControlePreLocacaoInternos {
         return objItensPreLocacao;
     }
 
+    // CONFIRMAR QUE O INTERNO FOI LOCADO ATRAVES DA BASE I E BASE II
+    public ItensPreLocacao confirmarLocacaoInternosPavilhao(ItensPreLocacao objItensPreLocacao) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_EXPORTADO_LOCACAO_INTERNOS SET ConfirmaBase=? WHERE IdInternoCrc='" + objItensPreLocacao.getIdInternoCrc() + "'");
+            pst.setString(1, objItensPreLocacao.getConfirmacao());
+            pst.execute();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel CONFIRMAR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objItensPreLocacao;
+    }
+
     public ItensPreLocacao confirmcaoPreLocacaoInternos(ItensPreLocacao objItensPreLocacao) {
 
         conecta.abrirConexao();

@@ -32,6 +32,7 @@ import static gestor.Visao.TelaAgendaCompromissos.jNomeUsuarioAgenda;
 import static gestor.Visao.TelaAgendaCompromissos.jTabelaAgendaEventos;
 import static gestor.Visao.TelaAgendaCompromissos.jTextoEvento;
 import static gestor.Visao.TelaAgendaCompromissos.jtotalRegistros;
+import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
@@ -58,6 +59,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -94,6 +97,7 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
     private TelaCelasBGP objCelas = null;
     private TelaConsultaOficialJusticaBGP objConsultaOFJUS = null;
     private TelaPagamentoKitInterno objKit = null;
+    private TelaAlertaPreLocacaoTriagem objAlertaPreLocacao = null;
     //
     String pathFoto;
     String dataLanc;
@@ -156,6 +160,9 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
     String pNomeEMUPI = "";
     String pNomeEMUIB = "";
     String pNomeIL = "";
+    //
+    String preLocacao = "";
+    String confirmaLocacao = "Não";
 
     /**
      * Creates new form TelaSeguranca
@@ -219,7 +226,10 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
         jSeparator11 = new javax.swing.JPopupMenu.Separator();
         ListaPassagemInterna = new javax.swing.JMenuItem();
         ListaPassagemExterna = new javax.swing.JMenuItem();
+        jSeparator9 = new javax.swing.JPopupMenu.Separator();
         RelatorioEntradaInternosUnidade = new javax.swing.JMenuItem();
+        jSeparator10 = new javax.swing.JPopupMenu.Separator();
+        RelatoriioPreLocacaoInternosTriagem = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -234,6 +244,8 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/SISCONP 2.gif"))); // NOI18N
 
+        jPainelBaseSegurancaPavilhao.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout jPainelBaseSegurancaPavilhaoLayout = new javax.swing.GroupLayout(jPainelBaseSegurancaPavilhao);
         jPainelBaseSegurancaPavilhao.setLayout(jPainelBaseSegurancaPavilhaoLayout);
         jPainelBaseSegurancaPavilhaoLayout.setHorizontalGroup(
@@ -244,9 +256,8 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
             jPainelBaseSegurancaPavilhaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPainelBaseSegurancaPavilhaoLayout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 564, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 34, Short.MAX_VALUE))
+                .addGap(0, 38, Short.MAX_VALUE))
         );
-        jPainelBaseSegurancaPavilhao.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         Cadastro.setText("Cadastro");
 
@@ -460,6 +471,7 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
             }
         });
         RelatoriosSeguranca.add(ListaPassagemExterna);
+        RelatoriosSeguranca.add(jSeparator9);
 
         RelatorioEntradaInternosUnidade.setText("Relatório de Entrada de Internos na Unidade");
         RelatorioEntradaInternosUnidade.addActionListener(new java.awt.event.ActionListener() {
@@ -468,6 +480,16 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
             }
         });
         RelatoriosSeguranca.add(RelatorioEntradaInternosUnidade);
+        RelatoriosSeguranca.add(jSeparator10);
+
+        RelatoriioPreLocacaoInternosTriagem.setForeground(new java.awt.Color(204, 0, 0));
+        RelatoriioPreLocacaoInternosTriagem.setText("Relatório Geral de Pré-Locação de Internos - Triagem");
+        RelatoriioPreLocacaoInternosTriagem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RelatoriioPreLocacaoInternosTriagemActionPerformed(evt);
+            }
+        });
+        RelatoriosSeguranca.add(RelatoriioPreLocacaoInternosTriagem);
 
         jMenuBar1.add(RelatoriosSeguranca);
 
@@ -720,7 +742,9 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
                     + "ON ITENSAGENDALABORATIVA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "INNER JOIN EMPRESALAB "
                     + "ON ITENSAGENDALABORATIVA.IdEmp=EMPRESALAB.IdEmp "
-                    + "WHERE TipoEmpresa='" + tipoEmpresa + "'AND StatusInterno='" + statusInterno + "'ORDER BY RazaoSocial,NomeInternoCrc");
+                    + "WHERE TipoEmpresa='" + tipoEmpresa + "' "
+                    + "AND StatusInterno='" + statusInterno + "' "
+                    + "ORDER BY RazaoSocial,NomeInternoCrc");
             HashMap parametros = new HashMap();
             parametros.put("tipoEmpresa", tipoEmpresa);
             parametros.put("statusEmpresa", statusInterno);
@@ -1071,6 +1095,37 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jEntregaMaterialUsoPessoalActionPerformed
 
+    private void RelatoriioPreLocacaoInternosTriagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatoriioPreLocacaoInternosTriagemActionPerformed
+        // TODO add your handling code here:
+        try {
+            conecta.abrirConexao();
+            String path = "reports/RelatorioPreLocacaoInternosTriagemGeral.jasper";
+            conecta.executaSQL("SELECT * FROM PRE_LOCACAO_INTERNOS "
+                    + "INNER JOIN ITENS_PRE_LOCACAO_INTERNOS "
+                    + "ON PRE_LOCACAO_INTERNOS.CodigoReg=ITENS_PRE_LOCACAO_INTERNOS.CodigoReg "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON ITENS_PRE_LOCACAO_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON ITENS_PRE_LOCACAO_INTERNOS.IdPav=PAVILHAO.IdPav "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "ORDER BY PRE_LOCACAO_INTERNOS.CodigoReg,PRONTUARIOSCRC.NomeInternoCrc");
+            HashMap parametros = new HashMap();
+            parametros.put("descricaoUnidade", descricaoUnidade);
+            parametros.put("nomeUsuario", nameUser);
+            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao  
+            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+            jv.setTitle("Relatório Geral de Pré-Locação de Internos");
+            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+            jv.toFront(); // Traz o relatorio para frente da aplicação            
+            conecta.desconecta();
+        } catch (JRException e) {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório. \n\nERRO :" + e);
+        }
+    }//GEN-LAST:event_RelatoriioPreLocacaoInternosTriagemActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromisso;
@@ -1092,6 +1147,7 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
     public static javax.swing.JMenuItem Pavilhao;
     public static javax.swing.JMenu PavilhaoCela;
     public static javax.swing.JMenuItem PopulacaoInternosAgentes;
+    private javax.swing.JMenuItem RelatoriioPreLocacaoInternosTriagem;
     private javax.swing.JMenuItem RelatorioEntradaInternosUnidade;
     private javax.swing.JMenuItem RelatorioGeralPavilhaoCelas;
     private javax.swing.JMenu RelatoriosSeguranca;
@@ -1108,6 +1164,7 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jOficialJustica;
     public static javax.swing.JDesktopPane jPainelBaseSegurancaPavilhao;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator10;
     private javax.swing.JPopupMenu.Separator jSeparator11;
     private javax.swing.JPopupMenu.Separator jSeparator12;
     private javax.swing.JPopupMenu.Separator jSeparator2;
@@ -1117,7 +1174,20 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator6;
     private javax.swing.JPopupMenu.Separator jSeparator7;
     private javax.swing.JPopupMenu.Separator jSeparator8;
+    private javax.swing.JPopupMenu.Separator jSeparator9;
     // End of variables declaration//GEN-END:variables
+
+    public void verificarParamentro() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM PARAMETROSCRC");
+            conecta.rs.first();
+            preLocacao = conecta.rs.getString("PreLocacaoB1");
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaModuloBaseUm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        conecta.desconecta();
+    }
 
     public void buscarAcessoUsuario(String nomeTelaAcesso) {
         conecta.abrirConexao();
@@ -1166,24 +1236,50 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
             public void run() {
                 verificarRecado(); // Verificar recados a cada 5 minutos   
                 verificarAgendaCompromisso();
+                verificarAlertaTriagem();
             }
         }, periodo, tempo);
     }
 
-    public void calcPena() {
-        try {
-            Runtime.getRuntime().exec("cmd.exe /c start calcpena.exe");
-        } catch (IOException iOException) {
-            iOException.printStackTrace();
-        }
-    }
-// Calculadora do Windows
-
-    public void CalcWindows() {
-        try {
-            Runtime.getRuntime().exec("cmd.exe /c start calc.exe");
-        } catch (IOException iOException) {
-            iOException.printStackTrace();
+    public void verificarAlertaTriagem() {
+        verificarParamentro();
+        if (preLocacao.equals("Habilitado")) {
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM ITENS_EXPORTADO_LOCACAO_INTERNOS "
+                        + "WHERE ConfirmaBase='" + confirmaLocacao + "'");
+                conecta.rs.first();
+                confirmaLocacao = conecta.rs.getString("ConfirmaBase");
+                if (confirmaLocacao.equals("Não")) {
+                    if (objAlertaPreLocacao == null || objAlertaPreLocacao.isClosed()) {
+                        objAlertaPreLocacao = new TelaAlertaPreLocacaoTriagem();
+                        TelaModuloBaseUm.jPainelBaseSegurancaPavilhao.add(objAlertaPreLocacao);
+                        objAlertaPreLocacao.setVisible(true);
+                    } else {
+                        if (objAlertaPreLocacao.isVisible()) {
+                            if (objAlertaPreLocacao.isIcon()) { // Se esta minimizado
+                                try {
+                                    objAlertaPreLocacao.setIcon(false); // maximiniza
+                                } catch (PropertyVetoException ex) {
+                                }
+                            } else {
+                                objAlertaPreLocacao.toFront(); // traz para frente
+                                objAlertaPreLocacao.pack();//volta frame 
+                            }
+                        } else {
+                            objAlertaPreLocacao = new TelaAlertaPreLocacaoTriagem();
+                            TelaModuloBaseUm.jPainelBaseSegurancaPavilhao.add(objAlertaPreLocacao);//adicona frame ao JDesktopPane  
+                            objAlertaPreLocacao.setVisible(true);
+                        }
+                    }
+                    try {
+                        objAlertaPreLocacao.setSelected(true);
+                    } catch (java.beans.PropertyVetoException e) {
+                    }
+                }
+            } catch (SQLException ex) {
+            }
+            conecta.desconecta();
         }
     }
 
@@ -1191,7 +1287,9 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
         buscarUsuario(nameUser);
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM AGENDARECADOS WHERE IdUsuario='" + codUsuario + "'AND StatusAgenda='" + statusAgenda + "'");
+            conecta.executaSQL("SELECT * FROM AGENDARECADOS "
+                    + "WHERE IdUsuario='" + codUsuario + "' "
+                    + "AND StatusAgenda='" + statusAgenda + "'");
             conecta.rs.first();
             if (codUsuario == conecta.rs.getInt("IdUsuario")) {
                 TelaRecadosCrc objRecados = new TelaRecadosCrc();
@@ -1201,7 +1299,8 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
                 preencherTabelaTodosRecados("SELECT * FROM AGENDARECADOS "
                         + "INNER JOIN USUARIOS "
                         + "ON AGENDARECADOS.IdUsuario=USUARIOS.IdUsuario "
-                        + "WHERE NomeUsuario='" + nameUser + "'AND StatusAgenda='" + statusAgenda + "'");
+                        + "WHERE NomeUsuario='" + nameUser + "' "
+                        + "AND StatusAgenda='" + statusAgenda + "'");
                 if (flag == 1) {
                     jBtNovo.setEnabled(true);
                     jBtAlterar.setEnabled(true);
@@ -1215,7 +1314,8 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
                         conecta.executaSQL("SELECT * FROM AGENDARECADOS "
                                 + "INNER JOIN USUARIOS "
                                 + "ON AGENDARECADOS.IdUsuario=USUARIOS.IdUsuario "
-                                + "WHERE NomeUsuario='" + nameUser + "'AND StatusAgenda='" + statusAgenda + "'");
+                                + "WHERE NomeUsuario='" + nameUser + "' "
+                                + "AND StatusAgenda='" + statusAgenda + "'");
                         conecta.rs.last();
                         jIDLanc.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
                         jDataLanc.setDate(conecta.rs.getDate("DataLanc"));
@@ -1239,7 +1339,8 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
     public void buscarUsuario(String nomeUser) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM USUARIOS WHERE NomeUsuario='" + nomeUser + "'");
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nomeUser + "'");
             conecta.rs.first();
             codUsuario = conecta.rs.getInt("IdUsuario");
             nomeUsuarioCompromisso = conecta.rs.getString("NomeUsuario");
@@ -1287,7 +1388,8 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
         buscarUsuario(nameUser);
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM AGENDA_COMPROMISSOS WHERE UsuarioAgenda='" + nameUser + "' "
+            conecta.executaSQL("SELECT * FROM AGENDA_COMPROMISSOS "
+                    + "WHERE UsuarioAgenda='" + nameUser + "' "
                     + "AND StatusAgenda='" + statusAgenda + "' "
                     + "AND DataLembrete='" + jDataSistema.getText() + "' "
                     + "AND HoraLembrete<='" + jHoraSistema.getText().toString() + "'");
@@ -1317,7 +1419,10 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
                     conecta.abrirConexao();
                     try {
                         conecta.executaSQL("SELECT * FROM AGENDA_COMPROMISSOS "
-                                + "WHERE AGENDA_COMPROMISSOS.UsuarioAgenda='" + nomeUsuarioCompromisso + "'AND AGENDA_COMPROMISSOS.StatusAgenda='" + statusAgenda + "'AND HoraLembrete<='" + jHoraSistema.getText().toString() + "'AND IdAgenda='" + codigoAgendaComp + "'");
+                                + "WHERE AGENDA_COMPROMISSOS.UsuarioAgenda='" + nomeUsuarioCompromisso + "' "
+                                + "AND AGENDA_COMPROMISSOS.StatusAgenda='" + statusAgenda + "' "
+                                + "AND HoraLembrete<='" + jHoraSistema.getText().toString() + "' "
+                                + "AND IdAgenda='" + codigoAgendaComp + "'");
                         conecta.rs.first();
                         jCodigoAgendaComp.setText(String.valueOf(conecta.rs.getInt("IdAgenda")));
                         jComboBoxStatusComp.setSelectedItem(conecta.rs.getString("StatusAgenda"));
