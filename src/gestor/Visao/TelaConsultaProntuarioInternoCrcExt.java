@@ -10,7 +10,9 @@ import gestor.Controle.ControleDadosPenais;
 import gestor.Controle.ControleInternoCrc;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
+import gestor.Dao.ConexaoBancoDadosBAR;
 import gestor.Dao.ConexaoBancoDadosITB;
+import gestor.Dao.ConexaoBancoDadosLF;
 import gestor.Dao.ConexaoBancoDadosSSA;
 import gestor.Dao.ConexaoBancoDadosVC;
 import gestor.Dao.LimiteDigitos;
@@ -23,27 +25,17 @@ import gestor.Modelo.LogSistema;
 import gestor.Modelo.ProntuarioCrc;
 import static gestor.Visao.ConsultaGerencialInternosUnidade.jIdInternoExt;
 import static gestor.Visao.ConsultaGerencialInternosUnidade.jTabelaInterno;
+import static gestor.Visao.ConsultaGerencialInternosUnidade.nomeUnidadeBAR;
 import static gestor.Visao.ConsultaGerencialInternosUnidade.nomeUnidadeITB;
 import static gestor.Visao.ConsultaGerencialInternosUnidade.nomeUnidadeLF;
 import static gestor.Visao.ConsultaGerencialInternosUnidade.nomeUnidadeSSA;
 import static gestor.Visao.ConsultaGerencialInternosUnidade.nomeUnidadeVC;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import java.awt.Color;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.sql.SQLException;
-import java.util.HashMap;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRResultSetDataSource;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -55,6 +47,8 @@ public final class TelaConsultaProntuarioInternoCrcExt extends javax.swing.JInte
     ConexaoBancoDadosSSA conectaSSA = new ConexaoBancoDadosSSA();
     ConexaoBancoDadosITB conectaITB = new ConexaoBancoDadosITB();
     ConexaoBancoDadosVC conectaVC = new ConexaoBancoDadosVC();
+    ConexaoBancoDadosBAR conectaBAR = new ConexaoBancoDadosBAR();
+    ConexaoBancoDadosLF conectaLF = new ConexaoBancoDadosLF();
     //
     ProntuarioCrc objProCrc = new ProntuarioCrc();
     DadosPenaisCrc objDadosPena = new DadosPenaisCrc();
@@ -62,6 +56,7 @@ public final class TelaConsultaProntuarioInternoCrcExt extends javax.swing.JInte
     ControleInternoCrc control = new ControleInternoCrc();
     ControleDadosFisicos controlFisicos = new ControleDadosFisicos();
     ControleDadosPenais controlPenais = new ControleDadosPenais();
+    //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     //
@@ -408,17 +403,17 @@ public final class TelaConsultaProntuarioInternoCrcExt extends javax.swing.JInte
 
         jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
-        FotoInternoExt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/SEM FOTO_HOMEM.jpg"))); // NOI18N
+        FotoInternoExt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(FotoInternoExt, javax.swing.GroupLayout.PREFERRED_SIZE, 157, Short.MAX_VALUE)
+            .addComponent(FotoInternoExt, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(FotoInternoExt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(FotoInternoExt, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
         );
 
         jComboBoxPais.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -541,7 +536,7 @@ public final class TelaConsultaProntuarioInternoCrcExt extends javax.swing.JInte
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1377,7 +1372,7 @@ public final class TelaConsultaProntuarioInternoCrcExt extends javax.swing.JInte
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel FotoInternoExt;
+    public static javax.swing.JLabel FotoInternoExt;
     private javax.swing.JTextField jAlcunha;
     private javax.swing.JTextField jAltura;
     private javax.swing.JTextField jArtigo1;
@@ -1411,7 +1406,7 @@ public final class TelaConsultaProntuarioInternoCrcExt extends javax.swing.JInte
     private javax.swing.JComboBox jComboBoxRegime;
     private javax.swing.JComboBox jComboBoxRosto;
     private javax.swing.JComboBox jComboBoxSexo;
-    private javax.swing.JTextField jComboBoxUnid;
+    public static javax.swing.JTextField jComboBoxUnid;
     private com.toedter.calendar.JDateChooser jDataCadastro;
     private com.toedter.calendar.JDateChooser jDataCondenacao;
     private com.toedter.calendar.JDateChooser jDataCrime;
@@ -2012,7 +2007,90 @@ public final class TelaConsultaProntuarioInternoCrcExt extends javax.swing.JInte
                 caminhoFotoPerfil = conectaVC.rs.getString("FotoPerfil");
                 conectaVC.desconecta();
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por nome" + e);
+                JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa dos dados.\nERROR: " + e);
+            }
+        }else if (nomeUnidadeBAR == jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 5)) {   
+            conectaBAR.abrirConexao();
+            try {
+                conectaBAR.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                        + "INNER JOIN DADOSFISICOSINTERNOS "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
+                        + "INNER JOIN PAISES "
+                        + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
+                        + "INNER JOIN CIDADES "
+                        + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
+                        + "INNER JOIN DADOSPENAISINTERNOS "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                        + "INNER JOIN UNIDADE "
+                        + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                        + "WHERE PRONTUARIOSCRC.IdInternoCrc='" + jIdInternoExt.getText() + "'");
+                conectaBAR.rs.first();
+                jIdInterno.setText(String.valueOf(conectaBAR.rs.getInt("IdInternoCrc")));
+                jMatriculaPenal.setText(conectaBAR.rs.getString("MatriculaCrc"));
+                jCNC.setText(conectaBAR.rs.getString("Cnc"));
+                jDataCadastro.setDate(conectaBAR.rs.getDate("DataCadastCrc"));
+                jDataNascimento.setDate(conectaBAR.rs.getDate("DataNasciCrc"));
+                jNomeInterno.setText(conectaBAR.rs.getString("NomeInternoCrc"));
+                jMaeInterno.setText(conectaBAR.rs.getString("MaeInternoCrc"));
+                jPaiInterno.setText(conectaBAR.rs.getString("PaiInternoCrc"));
+                jAlcunha.setText(conectaBAR.rs.getString("AlcunhaCrc"));
+                jRGInterno.setText(conectaBAR.rs.getString("RgInternoCrc"));
+                jCPFInterno.setText(conectaBAR.rs.getString("CpfInternoCrc"));
+                jCartaoSus.setText(conectaBAR.rs.getString("CartaoSus"));               
+                jComboBoxEscolaridade.setSelectedItem(conectaBAR.rs.getString("EscolaridadeCrc"));
+                jComboBoxEstadoCivil.setSelectedItem(conectaBAR.rs.getString("EstadoCivilCrc"));
+                jComboBoxSexo.setSelectedItem(conectaBAR.rs.getString("SexoCrc"));
+                jSituacao.setText(conectaBAR.rs.getString("SituacaoCrc"));
+                jComboBoxPais.setText(conectaBAR.rs.getString("NomePais"));
+                jComboBoxCidade.setText(conectaBAR.rs.getString("NomeCidade"));
+                jReligiao.setText(conectaBAR.rs.getString("ReligiaoCrc"));
+                jProfissao.setText(conectaBAR.rs.getString("ProfissaoCrc"));
+                jEndereco.setText(conectaBAR.rs.getString("EnderecoCrc"));
+                jBairro.setText(conectaBAR.rs.getString("BairroCrc"));
+                jCidade.setText(conectaBAR.rs.getString("CidadeCrc"));
+                jEstado.setText(conectaBAR.rs.getString("EstadoCrc"));
+                // Tabela Dados Fisicos
+                jComboBoxCutis.setSelectedItem(conectaBAR.rs.getString("Cutis"));
+                jComboBoxOlhos.setSelectedItem(conectaBAR.rs.getString("Olhos"));
+                jComboBoxCabelos.setSelectedItem(conectaBAR.rs.getString("Cabelos"));
+                jComboBoxBarba.setSelectedItem(conectaBAR.rs.getString("Barba"));
+                jComboBoxBigode.setSelectedItem(conectaBAR.rs.getString("Bigode"));
+                jComboBoxNariz.setSelectedItem(conectaBAR.rs.getString("Nariz"));
+                jComboBoxBoca.setSelectedItem(conectaBAR.rs.getString("Boca"));
+                jComboBoxRosto.setSelectedItem(conectaBAR.rs.getString("Rosto"));
+                jComboBoxLabios.setSelectedItem(conectaBAR.rs.getString("Labios"));
+                jCamisa.setText(conectaBAR.rs.getString("Camisa"));
+                jCalca.setText(conectaBAR.rs.getString("Calca"));
+                jSapato.setText(conectaBAR.rs.getString("Sapato"));
+                jPeso.setText(conectaBAR.rs.getString("Peso"));
+                jAltura.setText(conectaBAR.rs.getString("Altura"));
+                jParticularidade.setText(conectaBAR.rs.getString("Sinais"));
+                jComboBoxOrelha.setSelectedItem(conectaBAR.rs.getString("Orelhas"));
+                jComboBoxPescoco.setSelectedItem(conectaBAR.rs.getString("Pescoco"));
+                jComboBoxCompleicao.setSelectedItem(conectaBAR.rs.getString("Compleicao"));
+                // Tabela Dados Penais
+                jDataEntrada.setDate(conectaBAR.rs.getDate("DataEntrada"));
+                jComboBoxUnid.setText(conectaBAR.rs.getString("DescricaoUnid"));
+                jDataCrime.setDate(conectaBAR.rs.getDate("DataCrime"));
+                jDataPrisao.setDate(conectaBAR.rs.getDate("DataPrisao"));
+                jDataCondenacao.setDate(conectaBAR.rs.getDate("DataCondenacao"));
+                jComboBoxParticipacao.setSelectedItem(conectaBAR.rs.getString("Participacao"));
+                jComboBoxRegime.setSelectedItem(conectaBAR.rs.getString("Regime"));
+                jPena.setText(conectaBAR.rs.getString("Pena"));
+                jArtigo1.setText(conectaBAR.rs.getString("Artigo1"));
+                jArtigo2.setText(conectaBAR.rs.getString("Artigo2"));
+                jArtigo3.setText(conectaBAR.rs.getString("Artigo3"));
+                jParagrafo1.setText(conectaBAR.rs.getString("Paragrafo1"));
+                jParagrafo2.setText(conectaBAR.rs.getString("Paragrafo2"));
+                jParagrafo3.setText(conectaBAR.rs.getString("Paragrafo3"));
+                jComboBoxEdiondo.setSelectedItem(conectaBAR.rs.getString("CrimeEdiondo"));
+                jDataTerPena.setDate(conectaBAR.rs.getDate("TerminoPena"));
+                jVaraCondenacao.setText(conectaBAR.rs.getString("VaraCondenatoria"));
+                jDataNovaEntrada.setDate(conectaBAR.rs.getDate("DataNovaEntrada"));
+                caminhoFotoPerfil = conectaBAR.rs.getString("FotoPerfil");
+                conectaBAR.desconecta();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa dos dados.\nERROR: " + e);
             }
         }
     }
