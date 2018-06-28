@@ -549,6 +549,16 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
                         jFotoInterno.setIcon(i);
                         jFotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
                     }
+                    // FOTO DE FRENTE - BANCO DE DADOS
+                    byte[] imgBytes = ((byte[]) conectaLF.rs.getBytes("ImagemFrente"));
+                    if (imgBytes != null) {
+                        ImageIcon pic = null;
+                        pic = new ImageIcon(imgBytes);
+                        Image scaled = pic.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT);
+                        ImageIcon icon = new ImageIcon(scaled);
+                        jFotoInterno.setIcon(icon);
+                    }
+                    //
                 } else if (nomeUnidadeSSA == jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 5)) {
                     // SALVADOR
                     conectaSSA.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
@@ -566,9 +576,18 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
                     jNomeMaeInterno.setText(conectaSSA.rs.getString("MaeInternoCrc"));
                     caminho = conectaSSA.rs.getString("FotoInternoCrc");
                     if (caminho != null) {
-                        javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                        jFotoInterno.setIcon(i);
-                        jFotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                        javax.swing.ImageIcon s = new javax.swing.ImageIcon(caminho);
+                        jFotoInterno.setIcon(s);
+                        jFotoInterno.setIcon(new ImageIcon(s.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                    }
+                    // FOTO DE FRENTE - BANCO DE DADOS
+                    byte[] imgsBytes = ((byte[]) conectaSSA.rs.getBytes("ImagemFrente"));
+                    if (imgsBytes != null) {
+                        ImageIcon pics = null;
+                        pics = new ImageIcon(imgsBytes);
+                        Image scaleds = pics.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT);
+                        ImageIcon icon = new ImageIcon(scaleds);
+                        jFotoInterno.setIcon(icon);
                     }
                 } else if (nomeUnidadeITB == jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 5)) {
                     // ITABUNA
@@ -587,9 +606,18 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
                     jNomeMaeInterno.setText(conectaITB.rs.getString("MaeInternoCrc"));
                     caminho = conectaITB.rs.getString("FotoInternoCrc");
                     if (caminho != null) {
-                        javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                        jFotoInterno.setIcon(i);
-                        jFotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                        javax.swing.ImageIcon t = new javax.swing.ImageIcon(caminho);
+                        jFotoInterno.setIcon(t);
+                        jFotoInterno.setIcon(new ImageIcon(t.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                    }
+                    // FOTO DE FRENTE - BANCO DE DADOS
+                    byte[] imgiBytes = ((byte[]) conectaITB.rs.getBytes("ImagemFrente"));
+                    if (imgiBytes != null) {
+                        ImageIcon pici = null;
+                        pici = new ImageIcon(imgiBytes);
+                        Image scaledi = pici.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT);
+                        ImageIcon icon = new ImageIcon(scaledi);
+                        jFotoInterno.setIcon(icon);
                     }
                 } else if (nomeUnidadeVC == jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 5)) {
                     // VITORIA DA CONQUISTA
@@ -608,9 +636,18 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
                     jNomeMaeInterno.setText(conectaVC.rs.getString("MaeInternoCrc"));
                     caminho = conectaVC.rs.getString("FotoInternoCrc");
                     if (caminho != null) {
-                        javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                        jFotoInterno.setIcon(i);
-                        jFotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                        javax.swing.ImageIcon v = new javax.swing.ImageIcon(caminho);
+                        jFotoInterno.setIcon(v);
+                        jFotoInterno.setIcon(new ImageIcon(v.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                    }
+                    // FOTO DE FRENTE - BANCO DE DADOS
+                    byte[] imgvBytes = ((byte[]) conectaVC.rs.getBytes("ImagemFrente"));
+                    if (imgvBytes != null) {
+                        ImageIcon picv = null;
+                        picv = new ImageIcon(imgvBytes);
+                        Image scaledv = picv.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT);
+                        ImageIcon icon = new ImageIcon(scaledv);
+                        jFotoInterno.setIcon(icon);
                     }
                 } else if (nomeUnidadeBAR == jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 5)) {
                     // BARREIRAS
@@ -629,9 +666,18 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
                     jNomeMaeInterno.setText(conectaBAR.rs.getString("MaeInternoCrc"));
                     caminho = conectaBAR.rs.getString("FotoInternoCrc");
                     if (caminho != null) {
-                        javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                        jFotoInterno.setIcon(i);
-                        jFotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                        javax.swing.ImageIcon b = new javax.swing.ImageIcon(caminho);
+                        jFotoInterno.setIcon(b);
+                        jFotoInterno.setIcon(new ImageIcon(b.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                    }
+                    // FOTO DE FRENTE - BANCO DE DADOS
+                    byte[] imgbBytes = ((byte[]) conectaBAR.rs.getBytes("ImagemFrente"));
+                    if (imgbBytes != null) {
+                        ImageIcon picb = null;
+                        picb = new ImageIcon(imgbBytes);
+                        Image scaledb = picb.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT);
+                        ImageIcon icon = new ImageIcon(scaledb);
+                        jFotoInterno.setIcon(icon);
                     }
                 }
             } catch (Exception e) {
@@ -1608,7 +1654,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
                 String dia3 = dataEntrada3.substring(8, 10);
                 String mes3 = dataEntrada3.substring(5, 7);
                 String ano3 = dataEntrada3.substring(0, 4);
-                dataEntrada3 = dia3 + "/" + mes3 + "/" + ano3;                
+                dataEntrada3 = dia3 + "/" + mes3 + "/" + ano3;
                 dadosVC.add(new Object[]{conectaVC.rs.getInt("IdInternoCrc"), conectaVC.rs.getString("Cnc"), conectaVC.rs.getString("NomeInternoCrc"), conectaVC.rs.getString("SituacaoCrc"), dataEntrada3, nomeUnidadeVC});
                 dados.addAll(dadosVC);
             } while (conectaVC.rs.next());
