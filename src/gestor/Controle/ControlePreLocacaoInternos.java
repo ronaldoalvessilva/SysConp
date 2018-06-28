@@ -86,14 +86,15 @@ public class ControlePreLocacaoInternos {
         buscarInternoCrc(objItensPreLocacao.getNomeInternoCrc(), objItensPreLocacao.getIdInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENS_EXPORTADO_LOCACAO_INTERNOS (CodigoReg,IdInternoCrc,IdPav,TipoPesq,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENS_EXPORTADO_LOCACAO_INTERNOS (CodigoReg,IdInternoCrc,IdPav,ConfirmacaoBase,TipoPesq,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?)");
             pst.setInt(1, objItensPreLocacao.getCodigoReg());
             pst.setInt(2, codInt);
             pst.setInt(3, codUnid);
-            pst.setInt(4, objItensPreLocacao.getTipoPesquisa());
-            pst.setString(5, objItensPreLocacao.getUsuarioInsert());
-            pst.setString(6, objItensPreLocacao.getDataInsert());
-            pst.setString(7, objItensPreLocacao.getHorarioInsert());
+            pst.setString(4, objItensPreLocacao.getConfirmacao());
+            pst.setInt(5, objItensPreLocacao.getTipoPesquisa());
+            pst.setString(6, objItensPreLocacao.getUsuarioInsert());
+            pst.setString(7, objItensPreLocacao.getDataInsert());
+            pst.setString(8, objItensPreLocacao.getHorarioInsert());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\nERRO: " + ex);
