@@ -17,19 +17,24 @@ import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.text.DefaultFormatterFactory;
-import javax.swing.text.MaskFormatter;
 import org.opencv.core.Core;
 
 /**
@@ -41,6 +46,7 @@ public class TelaAdvogados extends javax.swing.JInternalFrame {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     Advogados objAdv = new Advogados();
     ControleAdvogados control = new ControleAdvogados();
+    //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
@@ -819,6 +825,25 @@ public class TelaAdvogados extends javax.swing.JInternalFrame {
             objAdv.setCpfAdvogado(jCPF.getText());
             objAdv.setOabAdvogado(jOAB.getText());
             objAdv.setObsAdvogado(jObsAdvogado.getText());
+            // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE   
+            if (FotoAdvogado.getIcon() != null) {
+                Image img = ((ImageIcon) FotoAdvogado.getIcon()).getImage();
+                BufferedImage bi = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                        img.getWidth(null),
+                        img.getHeight(null),
+                        BufferedImage.TYPE_INT_RGB);
+                Graphics2D g2 = bi.createGraphics();
+                g2.drawImage(img, 0, 0, null);
+                ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                try {
+                    ImageIO.write(bi, "jpg", buffer);
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                objAdv.setImagemFrenteAD(buffer.toByteArray());
+            }
             // log de usuario
             objAdv.setUsuarioInsert(nameUser);
             objAdv.setDataInsert(dataModFinal);
@@ -876,7 +901,8 @@ public class TelaAdvogados extends javax.swing.JInternalFrame {
             jPesqNome.requestFocus();
         } else {
             jTabelaAdvogados.setVisible(true);
-            pesquisarNomesAdvogados("SELECT * FROM ADVOGADOS WHERE NomeAdvogado LIKE'%" + jPesqNome.getText() + "%'");
+            pesquisarNomesAdvogados("SELECT * FROM ADVOGADOS "
+                    + "WHERE NomeAdvogado LIKE'%" + jPesqNome.getText() + "%'");
         }
     }//GEN-LAST:event_jBtPesqNomeActionPerformed
 
@@ -899,7 +925,8 @@ public class TelaAdvogados extends javax.swing.JInternalFrame {
             jBtPesquisaAdvogadoOAB.setEnabled(true);
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM ADVOGADOS WHERE NomeAdvogado='" + nomeAdvogado + "' "
+                conecta.executaSQL("SELECT * FROM ADVOGADOS "
+                        + "WHERE NomeAdvogado='" + nomeAdvogado + "' "
                         + "AND IdAdvogado='" + idAdv + "'");
                 conecta.rs.first();
                 jIDAd.setText(String.valueOf(conecta.rs.getInt("IdAdvogado")));
@@ -910,6 +937,16 @@ public class TelaAdvogados extends javax.swing.JInternalFrame {
                 javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoAdvogados);
                 FotoAdvogado.setIcon(i);
                 FotoAdvogado.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoAdvogado.getWidth(), FotoAdvogado.getHeight(), Image.SCALE_DEFAULT)));
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteAD"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(FotoAdvogado.getWidth(), FotoAdvogado.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    FotoAdvogado.setIcon(icon);
+                }
+                //
                 jRG.setText(conecta.rs.getString("RgAdvogado"));
                 jCPF.setText(conecta.rs.getString("CpfAdvogado"));
                 jOAB.setText(conecta.rs.getString("OabAdvogado"));
