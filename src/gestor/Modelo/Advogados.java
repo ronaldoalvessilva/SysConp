@@ -29,9 +29,13 @@ public class Advogados {
     private String horaInsert;
     private String horaUp;
     private String dataFechamento;
-    private String horaFechamento;    
+    private String horaFechamento; 
+    private byte[] imagemFrenteAD;
 
-    public Advogados(int idAdvogado, String statusAdv, Date dataCadastro, String fotoAdvogado, String nomeAdvogado, String rgAdvogado, String cpfAdvogado, String oabAdvogado, String obsAdvogado, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String dataFechamento, String horaFechamento) {
+    public Advogados() {
+    }
+
+    public Advogados(int idAdvogado, String statusAdv, Date dataCadastro, String fotoAdvogado, String nomeAdvogado, String rgAdvogado, String cpfAdvogado, String oabAdvogado, String obsAdvogado, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento, byte[] imagemFrenteAD) {
         this.idAdvogado = idAdvogado;
         this.statusAdv = statusAdv;
         this.dataCadastro = dataCadastro;
@@ -46,11 +50,10 @@ public class Advogados {
         this.dataInsert = dataInsert;
         this.dataUp = dataUp;
         this.horaInsert = horaInsert;
+        this.horaUp = horaUp;
         this.dataFechamento = dataFechamento;
         this.horaFechamento = horaFechamento;
-    }
-
-    public Advogados() {
+        this.imagemFrenteAD = imagemFrenteAD;
     }
 
     /**
@@ -290,4 +293,19 @@ public class Advogados {
     public void setHoraFechamento(String horaFechamento) {
         this.horaFechamento = horaFechamento;
     }
+
+    /**
+     * @return the imagemFrenteAD
+     */
+    public byte[] getImagemFrenteAD() {
+        return imagemFrenteAD;
+    }
+
+    /**
+     * @param imagemFrenteAD the imagemFrenteAD to set
+     */
+    public void setImagemFrenteAD(byte[] imagemFrenteAD) {
+        this.imagemFrenteAD = imagemFrenteAD;
+    }
+    
 }
