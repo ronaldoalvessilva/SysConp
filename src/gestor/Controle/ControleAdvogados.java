@@ -23,7 +23,7 @@ public class ControleAdvogados {
     public Advogados incluirAdvogados(Advogados objAdv) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ADVOGADOS (DataCadastro,fotoAdvogado,NomeAdvogado,RgAdvogado,CpfAdvogado,OabAdvogado,ObsAdvogado,UsuarioInsert,DataInsert,HorarioInsert,StatusAdv) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ADVOGADOS (DataCadastro,fotoAdvogado,NomeAdvogado,RgAdvogado,CpfAdvogado,OabAdvogado,ObsAdvogado,UsuarioInsert,DataInsert,HorarioInsert,StatusAdv,ImagemFrenteAD) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setTimestamp(1, new java.sql.Timestamp(objAdv.getDataCadastro().getTime()));
             pst.setString(2, objAdv.getFotoAdvogado());
             pst.setString(3, objAdv.getNomeAdvogado());
@@ -35,9 +35,10 @@ public class ControleAdvogados {
             pst.setString(9, objAdv.getDataInsert());
             pst.setString(10,objAdv.getHoraInsert());
             pst.setString(11, objAdv.getStatusAdv());
+            pst.setBytes(12, objAdv.getImagemFrenteAD());
             pst.execute();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados\n\nERRO" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\n\nERRO: " + ex);
         }
         conecta.desconecta();
         return objAdv;
@@ -46,7 +47,7 @@ public class ControleAdvogados {
     public Advogados alterarAdvogados(Advogados objAdv) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ADVOGADOS SET DataCadastro=?,fotoAdvogado=?,NomeAdvogado=?,RgAdvogado=?,CpfAdvogado=?,OabAdvogado=?,ObsAdvogado=?,UsuarioUp=?,DataUp=?,HorarioUp=?,StatusAdv=? WHERE IdAdvogado='" + objAdv.getIdAdvogado() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ADVOGADOS SET DataCadastro=?,fotoAdvogado=?,NomeAdvogado=?,RgAdvogado=?,CpfAdvogado=?,OabAdvogado=?,ObsAdvogado=?,UsuarioUp=?,DataUp=?,HorarioUp=?,StatusAdv=?,ImagemFrenteAD=? WHERE IdAdvogado='" + objAdv.getIdAdvogado() + "'");
             pst.setTimestamp(1, new java.sql.Timestamp(objAdv.getDataCadastro().getTime()));
             pst.setString(2, objAdv.getFotoAdvogado());
             pst.setString(3, objAdv.getNomeAdvogado());
@@ -58,6 +59,7 @@ public class ControleAdvogados {
             pst.setString(9, objAdv.getDataUp());
             pst.setString(10,objAdv.getHoraUp());
             pst.setString(11, objAdv.getStatusAdv());
+            pst.setBytes(12, objAdv.getImagemFrenteAD());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados\n\nERRO" + ex);
