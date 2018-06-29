@@ -838,9 +838,9 @@ public class TelaAdvogados extends javax.swing.JInternalFrame {
                 try {
                     ImageIO.write(bi, "jpg", buffer);
                 } catch (FileNotFoundException ex) {
-                    Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(TelaAdvogados.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (IOException ex) {
-                    Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(TelaAdvogados.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 objAdv.setImagemFrenteAD(buffer.toByteArray());
             }
