@@ -150,6 +150,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     public static TelaPeculiaridade telaPeculiaridade;
     public static TelaPeculiaridadeFrente telaPeculiaridadeFrente;
     public static TelaPesquisaExternaInterno telaPesquisaExterna;
+    public static PdfView pdfView;
 
     //
     public TelaProntuarioCrc() {
@@ -179,6 +180,11 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     public void mostrarTelaPesquisaExterna() {
         telaPesquisaExterna = new TelaPesquisaExternaInterno(this, true);
         telaPesquisaExterna.setVisible(true);
+    }
+
+    public void mostrarDocumentosPDF() {
+        pdfView = new PdfView(this, true);
+        pdfView.setVisible(true);
     }
 
     /**
@@ -281,6 +287,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jBtObservacao = new javax.swing.JButton();
         jBtBuscarRegPortaria = new javax.swing.JButton();
         jBtImportarProntuario = new javax.swing.JButton();
+        jBtPDF = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
         jEndereco = new javax.swing.JTextField();
@@ -1467,6 +1474,14 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             }
         });
 
+        jBtPDF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Pdf16.png"))); // NOI18N
+        jBtPDF.setToolTipText("Adicionar Documentos dos Internos");
+        jBtPDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPDFActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -1491,9 +1506,11 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 .addComponent(jBtObservacao, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtBuscarRegPortaria, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jBtAuditoriaPronCrc, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addGap(39, 39, 39))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1508,7 +1525,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 .addComponent(jBtSalvar)
                 .addComponent(jBtExcluir)
                 .addComponent(jBtAlterar)
-                .addComponent(jBtNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jBtNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtPDF))
         );
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Logradouro", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
@@ -1648,7 +1666,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 1, Short.MAX_VALUE)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 621, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -5821,6 +5839,15 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         mostrarTelaPesquisaExterna();
     }//GEN-LAST:event_jBtImportarProntuarioActionPerformed
 
+    private void jBtPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPDFActionPerformed
+        // TODO add your handling code here:
+        if (jIdInterno.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Não existe interno selecionado para incluir ou consultar a sua documentação,\nselecione primeiro o interno para poder consultar ou incluir a documentação.");
+        } else {
+            mostrarDocumentosPDF();
+        }
+    }//GEN-LAST:event_jBtPDFActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JTextField jAlcunha;
@@ -5860,6 +5887,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtNovo1;
     private javax.swing.JButton jBtObservacao;
     private javax.swing.JButton jBtObservacao1;
+    private javax.swing.JButton jBtPDF;
     private javax.swing.JButton jBtPeculiaridadeCostas;
     private javax.swing.JButton jBtPeculiaridadeFrente;
     private javax.swing.JButton jBtPesqAlcunha;
