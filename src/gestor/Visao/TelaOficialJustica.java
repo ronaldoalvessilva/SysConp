@@ -17,10 +17,18 @@ import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -38,6 +46,7 @@ public class TelaOficialJustica extends javax.swing.JInternalFrame {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     OficialJustica objOficial = new OficialJustica();
     ControleOficialJustica control = new ControleOficialJustica();
+    //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
@@ -815,6 +824,25 @@ public class TelaOficialJustica extends javax.swing.JInternalFrame {
                 nomeOficialJustica = conecta.rs.getString("NomeOficial");
             } catch (Exception e) {
             }
+            // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE   
+            if (FotoOficialJustica.getIcon() != null) {
+                Image img = ((ImageIcon) FotoOficialJustica.getIcon()).getImage();
+                BufferedImage bi = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                        img.getWidth(null),
+                        img.getHeight(null),
+                        BufferedImage.TYPE_INT_RGB);
+                Graphics2D g2 = bi.createGraphics();
+                g2.drawImage(img, 0, 0, null);
+                ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                try {
+                    ImageIO.write(bi, "jpg", buffer);
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(TelaOficialJustica.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(TelaOficialJustica.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                objOficial.setImagemFrenteOF(buffer.toByteArray());
+            }
             if (acao == 1) {
                 // log de usuario
                 objOficial.setUsuarioInsert(nameUser);
@@ -898,6 +926,15 @@ public class TelaOficialJustica extends javax.swing.JInternalFrame {
                 javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFotoOffice);
                 FotoOficialJustica.setIcon(i);
                 FotoOficialJustica.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoOficialJustica.getWidth(), FotoOficialJustica.getHeight(), Image.SCALE_DEFAULT)));
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteOF"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(FotoOficialJustica.getWidth(), FotoOficialJustica.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    FotoOficialJustica.setIcon(icon);
+                }
                 jRG.setText(conecta.rs.getString("RgOficial"));
                 jCPF.setText(conecta.rs.getString("CpfOficial"));
                 jREGOficial.setText(conecta.rs.getString("REGOficial"));

@@ -14,18 +14,6 @@ import gestor.Modelo.ItensExameMedicoPsiquiatricoSolicitado;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.SolicitacaoExamesMedicoPsiquiatrico;
 import static gestor.Visao.TelaLoginSenha.nameUser;
-import static gestor.Visao.TelaModuloEnfermaria.codAbrir;
-import static gestor.Visao.TelaModuloEnfermaria.codAlterar;
-import static gestor.Visao.TelaModuloEnfermaria.codConcultar;
-import static gestor.Visao.TelaModuloEnfermaria.codExcluir;
-import static gestor.Visao.TelaModuloEnfermaria.codGravar;
-import static gestor.Visao.TelaModuloEnfermaria.codIncluir;
-import static gestor.Visao.TelaModuloEnfermaria.codUserAcesso;
-import static gestor.Visao.TelaModuloEnfermaria.codigoGrupo;
-import static gestor.Visao.TelaModuloEnfermaria.codigoUser;
-import static gestor.Visao.TelaModuloEnfermaria.codigoUserGroup;
-import static gestor.Visao.TelaModuloEnfermaria.nomeGrupo;
-import static gestor.Visao.TelaModuloEnfermaria.nomeTela;
 import static gestor.Visao.TelaModuloEnfermaria.telaSolicitacaoExamesIntManuENF;
 import static gestor.Visao.TelaModuloEnfermaria.telaSolicitacaoExamesIntManuExameENF;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
@@ -41,6 +29,18 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import static gestor.Visao.TelaModuloEnfermaria.codigoUserENF;
+import static gestor.Visao.TelaModuloEnfermaria.codUserAcessoENF;
+import static gestor.Visao.TelaModuloEnfermaria.codigoUserGroupENF;
+import static gestor.Visao.TelaModuloEnfermaria.codAbrirENF;
+import static gestor.Visao.TelaModuloEnfermaria.codIncluirENF;
+import static gestor.Visao.TelaModuloEnfermaria.codAlterarENF;
+import static gestor.Visao.TelaModuloEnfermaria.codExcluirENF;
+import static gestor.Visao.TelaModuloEnfermaria.codGravarENF;
+import static gestor.Visao.TelaModuloEnfermaria.codConsultarENF;
+import static gestor.Visao.TelaModuloEnfermaria.codigoGrupoENF;
+import static gestor.Visao.TelaModuloEnfermaria.nomeGrupoENF;
+import static gestor.Visao.TelaModuloEnfermaria.nomeTelaENF;
 
 /**
  *
@@ -1141,7 +1141,7 @@ public class TelaSolicitacaoExamesMedicoPsiquiatrico extends javax.swing.JIntern
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaSolicitacaoExamesIntManuENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaSolicitacaoExamesIntManuENF) && codIncluir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaSolicitacaoExamesIntManuENF) && codIncluirENF == 1) {
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -1157,7 +1157,7 @@ public class TelaSolicitacaoExamesMedicoPsiquiatrico extends javax.swing.JIntern
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaSolicitacaoExamesIntManuENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaSolicitacaoExamesIntManuENF) && codAlterar == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaSolicitacaoExamesIntManuENF) && codAlterarENF == 1) {
             objSoliEx.setStatusSolExame(jStatusSolExame.getText());
             if (jStatusSolExame.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
@@ -1176,7 +1176,7 @@ public class TelaSolicitacaoExamesMedicoPsiquiatrico extends javax.swing.JIntern
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaSolicitacaoExamesIntManuENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaSolicitacaoExamesIntManuENF) && codExcluir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaSolicitacaoExamesIntManuENF) && codExcluirENF == 1) {
             verificarItens();
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
@@ -1206,7 +1206,7 @@ public class TelaSolicitacaoExamesMedicoPsiquiatrico extends javax.swing.JIntern
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaSolicitacaoExamesIntManuENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaSolicitacaoExamesIntManuENF) && codGravar == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaSolicitacaoExamesIntManuENF) && codGravarENF == 1) {
             if (jDataSolExame.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data da solicitação do exame.");
             } else if (jNomeInternoSolExame.getText().equals("")) {
@@ -1274,7 +1274,7 @@ public class TelaSolicitacaoExamesMedicoPsiquiatrico extends javax.swing.JIntern
     private void jBtNovoExameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoExameActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaSolicitacaoExamesIntManuExameENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaSolicitacaoExamesIntManuExameENF) && codIncluir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaSolicitacaoExamesIntManuExameENF) && codIncluirENF == 1) {
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -1293,7 +1293,7 @@ public class TelaSolicitacaoExamesMedicoPsiquiatrico extends javax.swing.JIntern
     private void jBtAlterarExameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarExameActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaSolicitacaoExamesIntManuExameENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaSolicitacaoExamesIntManuExameENF) && codAlterar == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaSolicitacaoExamesIntManuExameENF) && codAlterarENF == 1) {
             statusMov = "Alterou";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -1312,7 +1312,7 @@ public class TelaSolicitacaoExamesMedicoPsiquiatrico extends javax.swing.JIntern
     private void jBtExcluirExameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirExameActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaSolicitacaoExamesIntManuExameENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaSolicitacaoExamesIntManuExameENF) && codExcluir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaSolicitacaoExamesIntManuExameENF) && codExcluirENF == 1) {
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -1349,7 +1349,7 @@ public class TelaSolicitacaoExamesMedicoPsiquiatrico extends javax.swing.JIntern
     private void jBtSalvarExameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarExameActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaSolicitacaoExamesIntManuExameENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaSolicitacaoExamesIntManuExameENF) && codGravar == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaSolicitacaoExamesIntManuExameENF) && codGravarENF == 1) {
             if (jDescricaoExameSolicitado.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o tipo de exame do interno.");
             } else {
@@ -2111,33 +2111,33 @@ public class TelaSolicitacaoExamesMedicoPsiquiatrico extends javax.swing.JIntern
             conecta.executaSQL("SELECT * FROM USUARIOS "
                     + "WHERE NomeUsuario='" + nameUser + "'");
             conecta.rs.first();
-            codigoUser = conecta.rs.getInt("IdUsuario");
+            codigoUserENF = conecta.rs.getInt("IdUsuario");
         } catch (Exception e) {
         }
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
                     + "INNER JOIN GRUPOUSUARIOS "
                     + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                    + "WHERE IdUsuario='" + codigoUser + "'");
+                    + "WHERE IdUsuario='" + codigoUserENF + "'");
             conecta.rs.first();
-            codigoUserGroup = conecta.rs.getInt("IdUsuario");
-            codigoGrupo = conecta.rs.getInt("IdGrupo");
-            nomeGrupo = conecta.rs.getString("NomeGrupo");
+            codigoUserGroupENF = conecta.rs.getInt("IdUsuario");
+            codigoGrupoENF = conecta.rs.getInt("IdGrupo");
+            nomeGrupoENF = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
         }
         try {
             conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
-                    + "WHERE IdUsuario='" + codigoUser + "' "
+                    + "WHERE IdUsuario='" + codigoUserENF + "' "
                     + "AND NomeTela='" + nomeTelaAcesso + "'");
             conecta.rs.first();
-            codUserAcesso = conecta.rs.getInt("IdUsuario");
-            codAbrir = conecta.rs.getInt("Abrir");
-            codIncluir = conecta.rs.getInt("Incluir");
-            codAlterar = conecta.rs.getInt("Alterar");
-            codExcluir = conecta.rs.getInt("Excluir");
-            codGravar = conecta.rs.getInt("Gravar");
-            codConcultar = conecta.rs.getInt("Consultar");
-            nomeTela = conecta.rs.getString("NomeTela");
+            codUserAcessoENF = conecta.rs.getInt("IdUsuario");
+            codAbrirENF = conecta.rs.getInt("Abrir");
+            codIncluirENF = conecta.rs.getInt("Incluir");
+            codAlterarENF = conecta.rs.getInt("Alterar");
+            codExcluirENF = conecta.rs.getInt("Excluir");
+            codGravarENF = conecta.rs.getInt("Gravar");
+            codConsultarENF = conecta.rs.getInt("Consultar");
+            nomeTelaENF = conecta.rs.getString("NomeTela");
         } catch (Exception e) {
         }
         conecta.desconecta();

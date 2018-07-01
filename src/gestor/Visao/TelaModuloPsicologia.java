@@ -5,8 +5,10 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleTelasSistema;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
+import gestor.Modelo.CadastroTelasSistema;
 import static gestor.Visao.TelaAgendaCompromissos.jAssunto;
 import static gestor.Visao.TelaAgendaCompromissos.jBtAlterarComp;
 import static gestor.Visao.TelaAgendaCompromissos.jBtCancelarComp;
@@ -71,6 +73,9 @@ import net.sf.jasperreports.view.JasperViewer;
 public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
+    CadastroTelasSistema objCadastroTela = new CadastroTelasSistema();
+    ControleTelasSistema controle = new ControleTelasSistema();
+    //
     private TelaConsultaProntuarioInternoCrc objIntPsi = null;
     private TelaAdmissaoPsicologica objAdmPsi = null;
     private TelaConsultaLocalInternoPsicologia objConLocalIntPsi = null;
@@ -103,6 +108,28 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     String horaLembrete;
     String usuarioAgenda;
     String codigoAgendaComp;
+    //
+    public static String nomeModuloPSICOLOGIA = "PSICOLOGIA";
+    // MENU CADASTRO    
+    public static String telaConsultaProntuarioInternosDocPSI = "Consulta:Prontuario:Documentos";
+    //
+    int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
+    // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
+    // MENU CADASTRO
+    String pNomeCPID = "";
+    //
+    public static int codigoUserPSI = 0;
+    public static int codUserAcessoPSI = 0;
+    public static int codigoUserGroupPSI = 0;
+    public static int codAbrirPSI = 0;
+    public static int codIncluirPSI = 0;
+    public static int codAlterarPSI = 0;
+    public static int codExcluirPSI = 0;
+    public static int codGravarPSI = 0;
+    public static int codConsultarPSI = 0;
+    public static int codigoGrupoPSI = 0;
+    public static String nomeGrupoPSI = "";
+    public static String nomeTelaPSI = "";
 
     /**
      * Creates new form TelaPsicologia
@@ -111,6 +138,7 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
         initComponents();
         this.setSize(840, 640); // Tamanho da tela 
         threadMensagem(); // A cada 5 minutos verifica mensagem 
+        pesquisarTelasAcessos();
     }
 
     /**
@@ -617,7 +645,14 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
         try {
             conecta.abrirConexao();
             String path = "reports/ListagemGeralConfere.jasper";
-            conecta.executaSQL("SELECT * FROM ITENSLOCACAOINTERNO INNER JOIN PRONTUARIOSCRC ON ITENSLOCACAOINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc INNER JOIN CELAS ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela INNER JOIN PAVILHAO ON CELAS.IdPav=PAVILHAO.IdPav ORDER BY DescricaoPav,PRONTUARIOSCRC.NomeInternoCrc,CELAS.EndCelaPav");
+            conecta.executaSQL("SELECT * FROM ITENSLOCACAOINTERNO "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON ITENSLOCACAOINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "INNER JOIN CELAS "
+                    + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON CELAS.IdPav=PAVILHAO.IdPav "
+                    + "ORDER BY DescricaoPav,PRONTUARIOSCRC.NomeInternoCrc,CELAS.EndCelaPav");
             HashMap parametros = new HashMap();
             parametros.put("nomeUsuario", nameUser);
             JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
@@ -725,7 +760,8 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
                     + "INNER JOIN EMPRESALAB "
                     + "ON FICHALABORATIVA.IdEmp=EMPRESALAB.IdEmp "
                     + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON ITENSFICHALAB.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc ORDER BY NomeInternoCrc,DataInicio");
+                    + "ON ITENSFICHALAB.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "ORDER BY NomeInternoCrc,DataInicio");
             HashMap parametros = new HashMap();
             parametros.put("nomeUsuario", nameUser);
             JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
@@ -1159,5 +1195,75 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
         jTabelaAgendaEventos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
         jTabelaAgendaEventos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
         jTabelaAgendaEventos.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+    }
+
+    public void pesquisarTelasAcessos() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaConsultaProntuarioInternosDocPSI + "'");
+            conecta.rs.first();
+            pNomeCPID = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+
+        // MENU CONSULTA
+        if (!pNomeCPID.equals(telaConsultaProntuarioInternosDocPSI) || pNomeCPID == null || pNomeCPID.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaConsultaProntuarioInternosDocPSI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+
+    }
+
+    // MÉTODO PARA BUSCAR O CÓDIGO DO MÓDULO, CASO NÃO TENHA SIDO CADASTRADO.
+    public void buscarCodigoModulo() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM MODULOS "
+                    + "WHERE NomeModulo='" + nomeModuloPSICOLOGIA + "'");
+            conecta.rs.first();
+            pCodModulo = conecta.rs.getInt("IdModulo");
+        } catch (SQLException ex) {
+        }
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserPSI = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserPSI + "'");
+            conecta.rs.first();
+            codigoUserGroupPSI = conecta.rs.getInt("IdUsuario");
+            codigoGrupoPSI = conecta.rs.getInt("IdGrupo");
+            nomeGrupoPSI = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserPSI + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoPSI = conecta.rs.getInt("IdUsuario");
+            codAbrirPSI = conecta.rs.getInt("Abrir");
+            codIncluirPSI = conecta.rs.getInt("Incluir");
+            codAlterarPSI = conecta.rs.getInt("Alterar");
+            codExcluirPSI = conecta.rs.getInt("Excluir");
+            codGravarPSI = conecta.rs.getInt("Gravar");
+            codConsultarPSI = conecta.rs.getInt("Consultar");
+            nomeTelaPSI = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

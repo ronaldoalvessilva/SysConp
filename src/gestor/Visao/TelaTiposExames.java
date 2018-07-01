@@ -12,16 +12,10 @@ import gestor.Dao.ModeloTabela;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.TipoExameMedico;
 import static gestor.Visao.TelaLoginSenha.nameUser;
-import static gestor.Visao.TelaModuloEnfermaria.codAbrir;
 import static gestor.Visao.TelaModuloEnfermaria.codAlterar;
-import static gestor.Visao.TelaModuloEnfermaria.codConcultar;
 import static gestor.Visao.TelaModuloEnfermaria.codExcluir;
 import static gestor.Visao.TelaModuloEnfermaria.codGravar;
-import static gestor.Visao.TelaModuloEnfermaria.codIncluir;
-import static gestor.Visao.TelaModuloEnfermaria.codUserAcesso;
 import static gestor.Visao.TelaModuloEnfermaria.codigoGrupo;
-import static gestor.Visao.TelaModuloEnfermaria.codigoUser;
-import static gestor.Visao.TelaModuloEnfermaria.codigoUserGroup;
 import static gestor.Visao.TelaModuloEnfermaria.nomeGrupo;
 import static gestor.Visao.TelaModuloEnfermaria.nomeTela;
 import static gestor.Visao.TelaModuloEnfermaria.telaTipoExamesENF;
@@ -34,6 +28,12 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import static gestor.Visao.TelaModuloEnfermaria.codConsultar;
+import static gestor.Visao.TelaModuloEnfermaria.codigoUserENF;
+import static gestor.Visao.TelaModuloEnfermaria.codUserAcessoENF;
+import static gestor.Visao.TelaModuloEnfermaria.codigoUserGroupENF;
+import static gestor.Visao.TelaModuloEnfermaria.codAbrirENF;
+import static gestor.Visao.TelaModuloEnfermaria.codIncluirENF;
 
 /**
  *
@@ -527,7 +527,7 @@ public class TelaTiposExames extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaTipoExamesENF) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserENF == codUserAcessoENF && nomeTela.equals(telaTipoExamesENF) && codIncluirENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             acao = 1;
             Novo();
             corCampos();
@@ -541,7 +541,7 @@ public class TelaTiposExames extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaTipoExamesENF) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserENF == codUserAcessoENF && nomeTela.equals(telaTipoExamesENF) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             acao = 2;
             Alterar();
             statusMov = "Alterou";
@@ -554,7 +554,7 @@ public class TelaTiposExames extends javax.swing.JInternalFrame {
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaTipoExamesENF) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserENF == codUserAcessoENF && nomeTela.equals(telaTipoExamesENF) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             // VERIFICAR SE O TIPO DE EXAME JÁ ESTÁ ASSOCIADO A TABELA DE EXAMES. (AINDA NÃO FOI CRIADO.)
             verificarExames();
             statusMov = "Excluiu";
@@ -579,7 +579,7 @@ public class TelaTiposExames extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaTipoExamesENF) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserENF == codUserAcessoENF && nomeTela.equals(telaTipoExamesENF) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             if (jComboBoxCategoria.getSelectedItem().equals("Selecione...")) {
                 JOptionPane.showMessageDialog(rootPane, "Selecione o tipo de Categoria de Exame.");
             } else if (jNomeExame.getText().equals("")) {
@@ -922,32 +922,32 @@ public class TelaTiposExames extends javax.swing.JInternalFrame {
             conecta.executaSQL("SELECT * FROM USUARIOS "
                     + "WHERE NomeUsuario='" + nameUser + "'");
             conecta.rs.first();
-            codigoUser = conecta.rs.getInt("IdUsuario");
+            codigoUserENF = conecta.rs.getInt("IdUsuario");
         } catch (Exception e) {
         }
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
                     + "INNER JOIN GRUPOUSUARIOS "
                     + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                    + "WHERE IdUsuario='" + codigoUser + "'");
+                    + "WHERE IdUsuario='" + codigoUserENF + "'");
             conecta.rs.first();
-            codigoUserGroup = conecta.rs.getInt("IdUsuario");
+            codigoUserGroupENF = conecta.rs.getInt("IdUsuario");
             codigoGrupo = conecta.rs.getInt("IdGrupo");
             nomeGrupo = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
         }
         try {
             conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
-                    + "WHERE IdUsuario='" + codigoUser + "' "
+                    + "WHERE IdUsuario='" + codigoUserENF + "' "
                     + "AND NomeTela='" + telaTipoExamesENF + "'");
             conecta.rs.first();
-            codUserAcesso = conecta.rs.getInt("IdUsuario");
-            codAbrir = conecta.rs.getInt("Abrir");
-            codIncluir = conecta.rs.getInt("Incluir");
+            codUserAcessoENF = conecta.rs.getInt("IdUsuario");
+            codAbrirENF = conecta.rs.getInt("Abrir");
+            codIncluirENF = conecta.rs.getInt("Incluir");
             codAlterar = conecta.rs.getInt("Alterar");
             codExcluir = conecta.rs.getInt("Excluir");
             codGravar = conecta.rs.getInt("Gravar");
-            codConcultar = conecta.rs.getInt("Consultar");
+            codConsultar = conecta.rs.getInt("Consultar");
             nomeTela = conecta.rs.getString("NomeTela");
         } catch (Exception e) {
         }

@@ -13,14 +13,23 @@ import gestor.Dao.LimiteDigitosAlfa;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.VisitasDiversas;
+import static gestor.Visao.TelaAdvogados.FotoAdvogado;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -38,6 +47,7 @@ public class TelaVisitasDiversas extends javax.swing.JInternalFrame {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     VisitasDiversas objViDi = new VisitasDiversas();
     ControleVisitasDiversas control = new ControleVisitasDiversas();
+    //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
@@ -52,7 +62,7 @@ public class TelaVisitasDiversas extends javax.swing.JInternalFrame {
     String codVisita;
     String nomeVisita;
     int count = 0;
-    String rgVisita;    
+    String rgVisita;
 
     /**
      * Creates new form TelaVisitasDiversas
@@ -695,7 +705,8 @@ public class TelaVisitasDiversas extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe um nome ou parte dele para pesquisa.");
             jPesqNomeVisitas.requestFocus();
         } else {
-            pesquisarNomesVisitas("SELECT * FROM VISITASDIVERSAS WHERE NomeVisita LIKE'%" + jPesqNomeVisitas.getText() + "%'");
+            pesquisarNomesVisitas("SELECT * FROM VISITASDIVERSAS "
+                    + "WHERE NomeVisita LIKE'%" + jPesqNomeVisitas.getText() + "%'");
         }
     }//GEN-LAST:event_jBtPesqNomeActionPerformed
 
@@ -735,6 +746,15 @@ public class TelaVisitasDiversas extends javax.swing.JInternalFrame {
                 javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFotoVisitasDiversas);
                 FotoVisitaDiversas.setIcon(i);
                 FotoVisitaDiversas.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoVisitaDiversas.getWidth(), FotoVisitaDiversas.getHeight(), Image.SCALE_DEFAULT)));
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteVD"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(FotoVisitaDiversas.getWidth(), FotoVisitaDiversas.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    FotoVisitaDiversas.setIcon(icon);
+                }
                 jCPF.setText(conecta.rs.getString("CpfVisita"));
                 jRG.setText(conecta.rs.getString("RgVisita"));
                 jCNH.setText(conecta.rs.getString("CnhVisita"));
@@ -801,6 +821,25 @@ public class TelaVisitasDiversas extends javax.swing.JInternalFrame {
             objViDi.setClasseVisita(jClasse.getText());
             objViDi.setObsVisita(jObservacao.getText());
             objViDi.setTipoVisita((String) jComboBoxTipoVisita.getSelectedItem());
+            // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE   
+            if (FotoVisitaDiversas.getIcon() != null) {
+                Image img = ((ImageIcon) FotoVisitaDiversas.getIcon()).getImage();
+                BufferedImage bi = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                        img.getWidth(null),
+                        img.getHeight(null),
+                        BufferedImage.TYPE_INT_RGB);
+                Graphics2D g2 = bi.createGraphics();
+                g2.drawImage(img, 0, 0, null);
+                ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                try {
+                    ImageIO.write(bi, "jpg", buffer);
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(TelaVisitasDiversas.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(TelaVisitasDiversas.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                objViDi.setImagemFrenteVD(buffer.toByteArray());
+            }
             if (acao == 1) {
                 if (jNomeVisita.getText().trim().equals(nomeVisita) && jRG.getText().equals(rgVisita)) {
                     JOptionPane.showMessageDialog(rootPane, "Vista já cadastrada.");
@@ -961,7 +1000,8 @@ public class TelaVisitasDiversas extends javax.swing.JInternalFrame {
     public void pesquisarVisitaCadastrada() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM VISITASDIVERSAS WHERE NomeVisita='" + jNomeVisita.getText().trim() + "'");
+            conecta.executaSQL("SELECT * FROM VISITASDIVERSAS "
+                    + "WHERE NomeVisita='" + jNomeVisita.getText().trim() + "'");
             conecta.rs.first();
             nomeVisita = conecta.rs.getString("NomeVisita");
             rgVisita = conecta.rs.getString("RgVisita");

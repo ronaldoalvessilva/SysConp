@@ -7,8 +7,6 @@ package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
-import static gestor.Visao.TelaConsultaProntuarioInternoCrc.jIdInterno;
-import static gestor.Visao.TelaConsultaProntuarioInternoCrc.jNomeInterno;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,6 +14,8 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import static gestor.Visao.TelaConsultaProntuarioInternoCrc.jIdInternoConPSP;
+import static gestor.Visao.TelaConsultaProntuarioInternoCrc.jNomeInternoConPSP;
  
 /**
  *
@@ -44,7 +44,7 @@ public class TelaConsultaAtestadoMedico extends javax.swing.JDialog {
         setLocationRelativeTo(telaAtestadosMedicoPsiquiatrico);
         initComponents();
         formatarCampos();
-        jNomeInternoPsicologico.setText(jNomeInterno.getText());
+        jNomeInternoPsicologico.setText(jNomeInternoConPSP.getText());
 
     }
 
@@ -301,7 +301,7 @@ public class TelaConsultaAtestadoMedico extends javax.swing.JDialog {
             this.pesquisarData("SELECT * FROM ATESTADO_MEDICO_PSIQUIATRICO "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ATESTADO_MEDICO_PSIQUIATRICO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE ATESTADO_MEDICO_PSIQUIATRICO.IdInternoCrc='" + jIdInterno.getText() + "'");                    
+                    + "WHERE ATESTADO_MEDICO_PSIQUIATRICO.IdInternoCrc='" + jIdInternoConPSP.getText() + "'");                    
         } else {
             jtotalRegistros.setText("");
             jTextoAtestadoMédicoPsiquiatrico.setText("");
@@ -331,7 +331,7 @@ public class TelaConsultaAtestadoMedico extends javax.swing.JDialog {
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON ATESTADO_MEDICO_PSIQUIATRICO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                             + "WHERE ATESTADO_MEDICO_PSIQUIATRICO.DataAtesta BETWEEN'" + dataInicial + "' "
-                            + "AND '" + dataFinal + "'AND ATESTADO_MEDICO_PSIQUIATRICO.IdInternoCrc='" + jIdInterno.getText() + "'");                           
+                            + "AND '" + dataFinal + "'AND ATESTADO_MEDICO_PSIQUIATRICO.IdInternoCrc='" + jIdInternoConPSP.getText() + "'");                           
                 }
             }
         }
@@ -344,7 +344,7 @@ public class TelaConsultaAtestadoMedico extends javax.swing.JDialog {
             //       
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM ATESTADO_MEDICO_PSIQUIATRICO WHERE IdItem='" + codItem + "'AND IdInternoCrc='" + jIdInterno.getText() + "'");
+                conecta.executaSQL("SELECT * FROM ATESTADO_MEDICO_PSIQUIATRICO WHERE IdItem='" + codItem + "'AND IdInternoCrc='" + jIdInternoConPSP.getText() + "'");
                 conecta.rs.first();
                 jTextoAtestadoMédicoPsiquiatrico.setText(conecta.rs.getString("TextoAtestado"));
                 conecta.desconecta();

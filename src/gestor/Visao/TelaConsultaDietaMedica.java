@@ -7,8 +7,6 @@ package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
-import static gestor.Visao.TelaConsultaProntuarioInternoCrc.jIdInterno;
-import static gestor.Visao.TelaConsultaProntuarioInternoCrc.jNomeInterno;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,6 +14,8 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import static gestor.Visao.TelaConsultaProntuarioInternoCrc.jIdInternoConPSP;
+import static gestor.Visao.TelaConsultaProntuarioInternoCrc.jNomeInternoConPSP;
  
 /**
  *
@@ -44,7 +44,7 @@ public class TelaConsultaDietaMedica extends javax.swing.JDialog {
         setLocationRelativeTo(telaDietaMedicaPsiquiatrica);
         initComponents();
         formatarCampos();
-        jNomeInternoPsicologico.setText(jNomeInterno.getText());
+        jNomeInternoPsicologico.setText(jNomeInternoConPSP.getText());
 
     }
 
@@ -301,7 +301,7 @@ public class TelaConsultaDietaMedica extends javax.swing.JDialog {
             this.pesquisarData("SELECT * FROM DIETA_MEDICA_PSIQUIATRICA "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON DIETA_MEDICA_PSIQUIATRICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE DIETA_MEDICA_PSIQUIATRICA.IdInternoCrc='" + jIdInterno.getText() + "'");                    
+                    + "WHERE DIETA_MEDICA_PSIQUIATRICA.IdInternoCrc='" + jIdInternoConPSP.getText() + "'");                    
         } else {
             jtotalRegistros.setText("");
             jTextoDietaMedica.setText("");
@@ -331,7 +331,7 @@ public class TelaConsultaDietaMedica extends javax.swing.JDialog {
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON DIETA_MEDICA_PSIQUIATRICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                             + "WHERE DIETA_MEDICA_PSIQUIATRICA.DataDieta BETWEEN'" + dataInicial + "' "
-                            + "AND '" + dataFinal + "'AND DIETA_MEDICA_PSIQUIATRICA.IdInternoCrc='" + jIdInterno.getText() + "'");                           
+                            + "AND '" + dataFinal + "'AND DIETA_MEDICA_PSIQUIATRICA.IdInternoCrc='" + jIdInternoConPSP.getText() + "'");                           
                 }
             }
         }
@@ -344,7 +344,7 @@ public class TelaConsultaDietaMedica extends javax.swing.JDialog {
             //       
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM DIETA_MEDICA_PSIQUIATRICA WHERE IdItem='" + codItem + "'AND IdInternoCrc='" + jIdInterno.getText() + "'");
+                conecta.executaSQL("SELECT * FROM DIETA_MEDICA_PSIQUIATRICA WHERE IdItem='" + codItem + "'AND IdInternoCrc='" + jIdInternoConPSP.getText() + "'");
                 conecta.rs.first();
                 jTextoDietaMedica.setText(conecta.rs.getString("TextoDieta"));
                 conecta.desconecta();

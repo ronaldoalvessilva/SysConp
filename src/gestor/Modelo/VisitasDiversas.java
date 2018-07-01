@@ -30,9 +30,13 @@ public class VisitasDiversas {
     private String horaUp;
     private String dataFechamento;
     private String horaFechamento;  
-    private String tipoVisita;   
+    private String tipoVisita;
+    private byte[] imagemFrenteVD;
 
-    public VisitasDiversas(int IdVisita, Date DataCadastro, String FotoVisita, String NomeVisita, String RgVisita, String CpfVisita, String cnhVisita, String classeVisita, String ObsVisita, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento, String tipoVisita) {
+    public VisitasDiversas() {
+    }
+
+    public VisitasDiversas(int IdVisita, Date DataCadastro, String FotoVisita, String NomeVisita, String RgVisita, String CpfVisita, String cnhVisita, String classeVisita, String ObsVisita, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento, String tipoVisita, byte[] imagemFrenteVD) {
         this.IdVisita = IdVisita;
         this.DataCadastro = DataCadastro;
         this.FotoVisita = FotoVisita;
@@ -51,9 +55,7 @@ public class VisitasDiversas {
         this.dataFechamento = dataFechamento;
         this.horaFechamento = horaFechamento;
         this.tipoVisita = tipoVisita;
-    }
-
-    public VisitasDiversas() {
+        this.imagemFrenteVD = imagemFrenteVD;
     }
 
     /**
@@ -307,4 +309,19 @@ public class VisitasDiversas {
     public void setTipoVisita(String tipoVisita) {
         this.tipoVisita = tipoVisita;
     }
+
+    /**
+     * @return the imagemFrenteVD
+     */
+    public byte[] getImagemFrenteVD() {
+        return imagemFrenteVD;
+    }
+
+    /**
+     * @param imagemFrenteVD the imagemFrenteVD to set
+     */
+    public void setImagemFrenteVD(byte[] imagemFrenteVD) {
+        this.imagemFrenteVD = imagemFrenteVD;
+    }
+    
 }

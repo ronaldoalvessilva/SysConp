@@ -10,9 +10,9 @@ import gestor.Controle.ControleObservacaoInternos;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.ObservacaoInterno;
-import static gestor.Visao.TelaConsultaProntuarioInternoCrc.jIdInterno;
 import java.awt.Color;
 import java.sql.SQLException;
+import static gestor.Visao.TelaConsultaProntuarioInternoCrc.jIdInternoConPSP;
 
 /**
  *
@@ -47,7 +47,7 @@ public class TelaObservacaoProntuarioUnico extends javax.swing.JDialog {
         corCampos();
         jObservacoes.setLineWrap(true);
         jObservacoes.setWrapStyleWord(true);
-        buscarRegistros("SELECT * FROM REGOBSERVACOES WHERE IdInternoCrc='" + jIdInterno.getText() + "'");    
+        buscarRegistros("SELECT * FROM REGOBSERVACOES WHERE IdInternoCrc='" + jIdInternoConPSP.getText() + "'");    
     }
 
     /**

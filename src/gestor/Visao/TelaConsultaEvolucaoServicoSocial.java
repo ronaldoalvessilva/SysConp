@@ -7,8 +7,6 @@ package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
-import static gestor.Visao.TelaConsultaProntuarioInternoCrc.jIdInterno;
-import static gestor.Visao.TelaConsultaProntuarioInternoCrc.jNomeInterno;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,6 +14,8 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import static gestor.Visao.TelaConsultaProntuarioInternoCrc.jIdInternoConPSP;
+import static gestor.Visao.TelaConsultaProntuarioInternoCrc.jNomeInternoConPSP;
  
 /**
  *
@@ -43,7 +43,7 @@ public class TelaConsultaEvolucaoServicoSocial extends javax.swing.JDialog {
         setLocationRelativeTo(telaPronturaioUnicoSS);
         initComponents();
         formatarCampos();
-        jNomeInternoServiçoSocial.setText(jNomeInterno.getText());
+        jNomeInternoServiçoSocial.setText(jNomeInternoConPSP.getText());
 
     }
 
@@ -300,7 +300,7 @@ public class TelaConsultaEvolucaoServicoSocial extends javax.swing.JDialog {
             this.pesquisarData("SELECT * FROM EVOLUCAO_ATENDIMENTO_SOCIAL "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON EVOLUCAO_ATENDIMENTO_SOCIAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "                   
-                    + "WHERE EVOLUCAO_ATENDIMENTO_SOCIAL.IdInternoCrc='" + jIdInterno.getText() + "'");
+                    + "WHERE EVOLUCAO_ATENDIMENTO_SOCIAL.IdInternoCrc='" + jIdInternoConPSP.getText() + "'");
         } else {
             jtotalRegistros.setText("");
             jTextoEvolucaoPsiquiatrica.setText("");
@@ -330,7 +330,7 @@ public class TelaConsultaEvolucaoServicoSocial extends javax.swing.JDialog {
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON EVOLUCAO_ATENDIMENTO_SOCIAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "                          
                             + "WHERE EVOLUCAO_ATENDIMENTO_SOCIAL.DataEvol BETWEEN'" + dataInicial + "' "
-                            + "AND '" + dataFinal + "'AND EVOLUCAO_ATENDIMENTO_SOCIAL.IdInternoCrc='" + jIdInterno.getText() + "'");
+                            + "AND '" + dataFinal + "'AND EVOLUCAO_ATENDIMENTO_SOCIAL.IdInternoCrc='" + jIdInternoConPSP.getText() + "'");
                 }
             }
         }
@@ -343,7 +343,7 @@ public class TelaConsultaEvolucaoServicoSocial extends javax.swing.JDialog {
             //       
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM EVOLUCAO_ATENDIMENTO_SOCIAL WHERE IdItem='" + codItem + "'AND IdInternoCrc='" + jIdInterno.getText() + "'");
+                conecta.executaSQL("SELECT * FROM EVOLUCAO_ATENDIMENTO_SOCIAL WHERE IdItem='" + codItem + "'AND IdInternoCrc='" + jIdInternoConPSP.getText() + "'");
                 conecta.rs.first();
                 jTextoEvolucaoPsiquiatrica.setText(conecta.rs.getString("TextoEvolucao"));
                 conecta.desconecta();

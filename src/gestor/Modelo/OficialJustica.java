@@ -29,9 +29,13 @@ public class OficialJustica {
     private String horaInsert;
     private String horaUp;
     private String dataFechamento;
-    private String horaFechamento;    
+    private String horaFechamento;
+    private byte[] imagemFrenteOF;
 
-    public OficialJustica(int idOficial, String statusOficial, Date dataCadastro, String fotoOficial, String nomeOficial, String rgOficial, String cpfOficial, String regOficial, String obsOficial, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento) {
+    public OficialJustica() {
+    }
+
+    public OficialJustica(int idOficial, String statusOficial, Date dataCadastro, String fotoOficial, String nomeOficial, String rgOficial, String cpfOficial, String regOficial, String obsOficial, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento, byte[] imagemFrenteOF) {
         this.idOficial = idOficial;
         this.statusOficial = statusOficial;
         this.dataCadastro = dataCadastro;
@@ -49,9 +53,7 @@ public class OficialJustica {
         this.horaUp = horaUp;
         this.dataFechamento = dataFechamento;
         this.horaFechamento = horaFechamento;
-    }
-
-    public OficialJustica() {
+        this.imagemFrenteOF = imagemFrenteOF;
     }
 
     /**
@@ -291,4 +293,19 @@ public class OficialJustica {
     public void setHoraFechamento(String horaFechamento) {
         this.horaFechamento = horaFechamento;
     }
+
+    /**
+     * @return the imagemFrenteOF
+     */
+    public byte[] getImagemFrenteOF() {
+        return imagemFrenteOF;
+    }
+
+    /**
+     * @param imagemFrenteOF the imagemFrenteOF to set
+     */
+    public void setImagemFrenteOF(byte[] imagemFrenteOF) {
+        this.imagemFrenteOF = imagemFrenteOF;
+    }
+        
 }

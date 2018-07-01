@@ -24,7 +24,7 @@ public class ControleVisitasDiversas {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO VISITASDIVERSAS (DataCadastro,FotoVisita,NomeVisita,RgVisita,CpfVisita,CnhVisita,ClasseVisita,ObsVisita,UsuarioInsert,DataInsert,HorarioInsert,TipoVisita) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO VISITASDIVERSAS (DataCadastro,FotoVisita,NomeVisita,RgVisita,CpfVisita,CnhVisita,ClasseVisita,ObsVisita,UsuarioInsert,DataInsert,HorarioInsert,TipoVisita,ImagemFrenteVD) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setTimestamp(1, new java.sql.Timestamp(objViDi.getDataCadastro().getTime()));
             pst.setString(2, objViDi.getFotoVisita());
             pst.setString(3, objViDi.getNomeVisita());
@@ -37,9 +37,10 @@ public class ControleVisitasDiversas {
             pst.setString(10, objViDi.getDataInsert());
             pst.setString(11, objViDi.getHoraInsert());
             pst.setString(12, objViDi.getTipoVisita());
+            pst.setBytes(13, objViDi.getImagemFrenteVD());
             pst.execute();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados\nERRO: " + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\nERRO: " + ex);
         }
         conecta.desconecta();
         return objViDi;
@@ -49,7 +50,7 @@ public class ControleVisitasDiversas {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE VISITASDIVERSAS SET DataCadastro=?,FotoVisita=?,NomeVisita=?,RgVisita=?,CpfVisita=?,CnhVisita=?,ClasseVisita=?,ObsVisita=?,UsuarioUp=?,DataUp=?,HorarioUp=?,TipoVisita=? WHERE IdVisita='" + objViDi.getIdVisita() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE VISITASDIVERSAS SET DataCadastro=?,FotoVisita=?,NomeVisita=?,RgVisita=?,CpfVisita=?,CnhVisita=?,ClasseVisita=?,ObsVisita=?,UsuarioUp=?,DataUp=?,HorarioUp=?,TipoVisita=?,ImagemFrenteVD=? WHERE IdVisita='" + objViDi.getIdVisita() + "'");
             pst.setTimestamp(1, new java.sql.Timestamp(objViDi.getDataCadastro().getTime()));
             pst.setString(2, objViDi.getFotoVisita());
             pst.setString(3, objViDi.getNomeVisita());
@@ -62,9 +63,10 @@ public class ControleVisitasDiversas {
             pst.setString(10, objViDi.getDataUp());
             pst.setString(11, objViDi.getHoraUp());
             pst.setString(12, objViDi.getTipoVisita());
+            pst.setBytes(13, objViDi.getImagemFrenteVD());
             pst.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados\nERRO: " + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO: " + ex);
         }
         conecta.desconecta();
         return objViDi;

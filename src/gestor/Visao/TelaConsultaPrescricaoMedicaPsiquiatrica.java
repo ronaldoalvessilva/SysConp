@@ -7,8 +7,6 @@ package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
-import static gestor.Visao.TelaConsultaProntuarioInternoCrc.jIdInterno;
-import static gestor.Visao.TelaConsultaProntuarioInternoCrc.jNomeInterno;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,6 +14,8 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import static gestor.Visao.TelaConsultaProntuarioInternoCrc.jIdInternoConPSP;
+import static gestor.Visao.TelaConsultaProntuarioInternoCrc.jNomeInternoConPSP;
  
 /**
  *
@@ -44,7 +44,7 @@ public class TelaConsultaPrescricaoMedicaPsiquiatrica extends javax.swing.JDialo
         setLocationRelativeTo(telaProntuarioUnicoPrescricaoMEDPSIQ);
         initComponents();
         formatarCampos();
-        jNomeInternoPsicologico.setText(jNomeInterno.getText());
+        jNomeInternoPsicologico.setText(jNomeInternoConPSP.getText());
 
     }
 
@@ -301,7 +301,7 @@ public class TelaConsultaPrescricaoMedicaPsiquiatrica extends javax.swing.JDialo
             this.pesquisarData("SELECT * FROM PRESCRICAO_MEDICA_PSIQUIATRICA "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON PRESCRICAO_MEDICA_PSIQUIATRICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE PRESCRICAO_MEDICA_PSIQUIATRICA.IdInternoCrc='" + jIdInterno.getText() + "' "
+                    + "WHERE PRESCRICAO_MEDICA_PSIQUIATRICA.IdInternoCrc='" + jIdInternoConPSP.getText() + "' "
                     + "AND TipoP='" + tipoPrescricao + "'");
         } else {
             jtotalRegistros.setText("");
@@ -332,7 +332,7 @@ public class TelaConsultaPrescricaoMedicaPsiquiatrica extends javax.swing.JDialo
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON PRESCRICAO_MEDICA_PSIQUIATRICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                             + "WHERE PRESCRICAO_MEDICA_PSIQUIATRICA.DataPres BETWEEN'" + dataInicial + "' "
-                            + "AND '" + dataFinal + "'AND PRESCRICAO_MEDICA_PSIQUIATRICA.IdInternoCrc='" + jIdInterno.getText() + "' "
+                            + "AND '" + dataFinal + "'AND PRESCRICAO_MEDICA_PSIQUIATRICA.IdInternoCrc='" + jIdInternoConPSP.getText() + "' "
                             + "AND TipoP='" + tipoPrescricao + "'");
                 }
             }
@@ -346,7 +346,7 @@ public class TelaConsultaPrescricaoMedicaPsiquiatrica extends javax.swing.JDialo
             //       
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM PRESCRICAO_MEDICA_PSIQUIATRICA WHERE IdItem='" + codItem + "'AND IdInternoCrc='" + jIdInterno.getText() + "'");
+                conecta.executaSQL("SELECT * FROM PRESCRICAO_MEDICA_PSIQUIATRICA WHERE IdItem='" + codItem + "'AND IdInternoCrc='" + jIdInternoConPSP.getText() + "'");
                 conecta.rs.first();                
                 jTextoEvolucaoMedica.setText(conecta.rs.getString("TextoPrescricao"));
                 conecta.desconecta();

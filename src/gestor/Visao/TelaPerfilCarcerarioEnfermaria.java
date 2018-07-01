@@ -15,18 +15,6 @@ import gestor.Modelo.LogSistema;
 import gestor.Modelo.PerfilCarcerario;
 import gestor.Modelo.PerfilCarcerarioInterno;
 import static gestor.Visao.TelaLoginSenha.nameUser;
-import static gestor.Visao.TelaModuloEnfermaria.codAbrir;
-import static gestor.Visao.TelaModuloEnfermaria.codAlterar;
-import static gestor.Visao.TelaModuloEnfermaria.codConcultar;
-import static gestor.Visao.TelaModuloEnfermaria.codExcluir;
-import static gestor.Visao.TelaModuloEnfermaria.codGravar;
-import static gestor.Visao.TelaModuloEnfermaria.codIncluir;
-import static gestor.Visao.TelaModuloEnfermaria.codUserAcesso;
-import static gestor.Visao.TelaModuloEnfermaria.codigoGrupo;
-import static gestor.Visao.TelaModuloEnfermaria.codigoUser;
-import static gestor.Visao.TelaModuloEnfermaria.codigoUserGroup;
-import static gestor.Visao.TelaModuloEnfermaria.nomeGrupo;
-import static gestor.Visao.TelaModuloEnfermaria.nomeTela;
 import static gestor.Visao.TelaModuloEnfermaria.telaPerfilCarManuENF;
 import static gestor.Visao.TelaModuloEnfermaria.telaPerfilCarPerCarENF;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
@@ -43,6 +31,18 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import static gestor.Visao.TelaModuloEnfermaria.codigoUserENF;
+import static gestor.Visao.TelaModuloEnfermaria.codUserAcessoENF;
+import static gestor.Visao.TelaModuloEnfermaria.codigoUserGroupENF;
+import static gestor.Visao.TelaModuloEnfermaria.codAbrirENF;
+import static gestor.Visao.TelaModuloEnfermaria.codIncluirENF;
+import static gestor.Visao.TelaModuloEnfermaria.codAlterarENF;
+import static gestor.Visao.TelaModuloEnfermaria.codExcluirENF;
+import static gestor.Visao.TelaModuloEnfermaria.codGravarENF;
+import static gestor.Visao.TelaModuloEnfermaria.codConsultarENF;
+import static gestor.Visao.TelaModuloEnfermaria.codigoGrupoENF;
+import static gestor.Visao.TelaModuloEnfermaria.nomeGrupoENF;
+import static gestor.Visao.TelaModuloEnfermaria.nomeTelaENF;
 
 /**
  *
@@ -1746,7 +1746,7 @@ public class TelaPerfilCarcerarioEnfermaria extends javax.swing.JInternalFrame {
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPerfilCarManuENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaPerfilCarManuENF) && codIncluir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaPerfilCarManuENF) && codIncluirENF == 1) {
             acao = 1;
             bloquearCampos();
             limparCamposNovo();
@@ -1762,7 +1762,7 @@ public class TelaPerfilCarcerarioEnfermaria extends javax.swing.JInternalFrame {
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPerfilCarManuENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaPerfilCarManuENF) && codAlterar == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaPerfilCarManuENF) && codAlterarENF == 1) {
             objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
             if (jStatusPerfil.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -1781,7 +1781,7 @@ public class TelaPerfilCarcerarioEnfermaria extends javax.swing.JInternalFrame {
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPerfilCarManuENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaPerfilCarManuENF) && codExcluir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaPerfilCarManuENF) && codExcluirENF == 1) {
             verificarInternoPerfil();
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
@@ -1805,7 +1805,7 @@ public class TelaPerfilCarcerarioEnfermaria extends javax.swing.JInternalFrame {
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPerfilCarManuENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaPerfilCarManuENF) && codGravar == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaPerfilCarManuENF) && codGravarENF == 1) {
             verificarExistenciaInternoPerfil();
             if (jDataPerfil.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data de cadastro do perfil carcerário");
@@ -1902,7 +1902,7 @@ public class TelaPerfilCarcerarioEnfermaria extends javax.swing.JInternalFrame {
     private void jBtNovoPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoPerfilActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPerfilCarPerCarENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaPerfilCarPerCarENF) && codIncluir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaPerfilCarPerCarENF) && codIncluirENF == 1) {
             objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
             if (jStatusPerfil.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -1921,7 +1921,7 @@ public class TelaPerfilCarcerarioEnfermaria extends javax.swing.JInternalFrame {
     private void jBtAlterarPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarPerfilActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPerfilCarPerCarENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaPerfilCarPerCarENF) && codAlterar == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaPerfilCarPerCarENF) && codAlterarENF == 1) {
             objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
             if (jStatusPerfil.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -1940,7 +1940,7 @@ public class TelaPerfilCarcerarioEnfermaria extends javax.swing.JInternalFrame {
     private void jBtExcluirPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirPerfilActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPerfilCarPerCarENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaPerfilCarPerCarENF) && codExcluir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaPerfilCarPerCarENF) && codExcluirENF == 1) {
             objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
             if (jStatusPerfil.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
@@ -1964,7 +1964,7 @@ public class TelaPerfilCarcerarioEnfermaria extends javax.swing.JInternalFrame {
     private void jBtSalvarPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarPerfilActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPerfilCarPerCarENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaPerfilCarPerCarENF) && codGravar == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaPerfilCarPerCarENF) && codGravarENF == 1) {
             verificarPerfilCarcerario();
             objPerfil.setResidenciaFixa((String) jComboBoxResidenciaFixa.getSelectedItem());
             objPerfil.setFilhosRecPaternidade(Integer.valueOf(jFilhosRecPaternidade.getText()));
@@ -2926,33 +2926,33 @@ public class TelaPerfilCarcerarioEnfermaria extends javax.swing.JInternalFrame {
             conecta.executaSQL("SELECT * FROM USUARIOS "
                     + "WHERE NomeUsuario='" + nameUser + "'");
             conecta.rs.first();
-            codigoUser = conecta.rs.getInt("IdUsuario");
+            codigoUserENF = conecta.rs.getInt("IdUsuario");
         } catch (Exception e) {
         }
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
                     + "INNER JOIN GRUPOUSUARIOS "
                     + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                    + "WHERE IdUsuario='" + codigoUser + "'");
+                    + "WHERE IdUsuario='" + codigoUserENF + "'");
             conecta.rs.first();
-            codigoUserGroup = conecta.rs.getInt("IdUsuario");
-            codigoGrupo = conecta.rs.getInt("IdGrupo");
-            nomeGrupo = conecta.rs.getString("NomeGrupo");
+            codigoUserGroupENF = conecta.rs.getInt("IdUsuario");
+            codigoGrupoENF = conecta.rs.getInt("IdGrupo");
+            nomeGrupoENF = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
         }
         try {
             conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
-                    + "WHERE IdUsuario='" + codigoUser + "' "
+                    + "WHERE IdUsuario='" + codigoUserENF + "' "
                     + "AND NomeTela='" + nomeTelaAcesso + "'");
             conecta.rs.first();
-            codUserAcesso = conecta.rs.getInt("IdUsuario");
-            codAbrir = conecta.rs.getInt("Abrir");
-            codIncluir = conecta.rs.getInt("Incluir");
-            codAlterar = conecta.rs.getInt("Alterar");
-            codExcluir = conecta.rs.getInt("Excluir");
-            codGravar = conecta.rs.getInt("Gravar");
-            codConcultar = conecta.rs.getInt("Consultar");
-            nomeTela = conecta.rs.getString("NomeTela");
+            codUserAcessoENF = conecta.rs.getInt("IdUsuario");
+            codAbrirENF = conecta.rs.getInt("Abrir");
+            codIncluirENF = conecta.rs.getInt("Incluir");
+            codAlterarENF = conecta.rs.getInt("Alterar");
+            codExcluirENF = conecta.rs.getInt("Excluir");
+            codGravarENF = conecta.rs.getInt("Gravar");
+            codConsultarENF = conecta.rs.getInt("Consultar");
+            nomeTelaENF = conecta.rs.getString("NomeTela");
         } catch (Exception e) {
         }
         conecta.desconecta();

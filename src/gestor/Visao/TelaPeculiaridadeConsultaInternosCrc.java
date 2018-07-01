@@ -14,7 +14,6 @@ import gestor.Modelo.PeculiaridadeCostas;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
-import static gestor.Visao.TelaConsultaProntuarioInternoCrc.jIdInterno;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -22,6 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import static gestor.Visao.TelaConsultaProntuarioInternoCrc.jIdInternoConPSP;
 
 /**
  *
@@ -55,7 +55,7 @@ public class TelaPeculiaridadeConsultaInternosCrc extends javax.swing.JDialog {
         preencherTabelaPeculiaridadeCostas("SELECT * FROM PECULIARIDADE_COSTAS "
                 + "INNER JOIN PRONTUARIOSCRC "
                 + "ON PECULIARIDADE_COSTAS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                + "WHERE PECULIARIDADE_COSTAS.IdInternoCrc='" + jIdInterno.getText() + "'");
+                + "WHERE PECULIARIDADE_COSTAS.IdInternoCrc='" + jIdInternoConPSP.getText() + "'");
         formatarCampos();
     }
 
@@ -325,7 +325,7 @@ public class TelaPeculiaridadeConsultaInternosCrc extends javax.swing.JDialog {
                 preencherTabelaPeculiaridadeCostas("SELECT * FROM PECULIARIDADE_COSTAS "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON PECULIARIDADE_COSTAS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "WHERE PECULIARIDADE_COSTAS.IdInternoCrc='" + jIdInterno.getText() + "'");
+                        + "WHERE PECULIARIDADE_COSTAS.IdInternoCrc='" + jIdInternoConPSP.getText() + "'");
                 JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso...");
                 Excluir();
             } catch (Exception ex) {
@@ -340,7 +340,7 @@ public class TelaPeculiaridadeConsultaInternosCrc extends javax.swing.JDialog {
         if (jDataCadastro.getDate() == null) {
             JOptionPane.showMessageDialog(rootPane, "Informe a data de Cadastro da peculiaridade.");
         } else {
-            objPecuCosta.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+            objPecuCosta.setIdInternoCrc(Integer.valueOf(jIdInternoConPSP.getText()));
             objPecuCosta.setDataPec(jDataCadastro.getDate());
             objPecuCosta.setRegiaoCostas((String) jComboBoxRegiaoCorpo.getSelectedItem());
             objPecuCosta.setTextoPeculiaridade(jTextoParticularidade.getText());
@@ -355,7 +355,7 @@ public class TelaPeculiaridadeConsultaInternosCrc extends javax.swing.JDialog {
                 preencherTabelaPeculiaridadeCostas("SELECT * FROM PECULIARIDADE_COSTAS "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON PECULIARIDADE_COSTAS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "WHERE PECULIARIDADE_COSTAS.IdInternoCrc='" + jIdInterno.getText() + "'");
+                        + "WHERE PECULIARIDADE_COSTAS.IdInternoCrc='" + jIdInternoConPSP.getText() + "'");
                 Salvar();
                 JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
             }
@@ -370,7 +370,7 @@ public class TelaPeculiaridadeConsultaInternosCrc extends javax.swing.JDialog {
                 preencherTabelaPeculiaridadeCostas("SELECT * FROM PECULIARIDADE_COSTAS "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON PECULIARIDADE_COSTAS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "WHERE PECULIARIDADE_COSTAS.IdInternoCrc='" + jIdInterno.getText() + "'");
+                        + "WHERE PECULIARIDADE_COSTAS.IdInternoCrc='" + jIdInternoConPSP.getText() + "'");
                 Salvar();
                 JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
             }

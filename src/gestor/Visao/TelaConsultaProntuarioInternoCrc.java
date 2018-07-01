@@ -20,8 +20,40 @@ import gestor.Modelo.DadosPenaisCrc;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.ProntuarioCrc;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloEnfermaria.codAlterar;
+import static gestor.Visao.TelaModuloEnfermaria.codExcluir;
+import static gestor.Visao.TelaModuloEnfermaria.codGravar;
+import static gestor.Visao.TelaModuloEnfermaria.codConsultar;
+import static gestor.Visao.TelaModuloEnfermaria.nomeGrupo;
+import static gestor.Visao.TelaModuloEnfermaria.nomeTela;
+import static gestor.Visao.TelaModuloEnfermaria.telaConsultaProntuarioInternosDocENF;
+import static gestor.Visao.TelaModuloJuridico.codigoUserGroupJURI;
+import static gestor.Visao.TelaModuloJuridico.codigoGrupoJURI;
+import static gestor.Visao.TelaModuloJuridico.codIncluirJURI;
+import static gestor.Visao.TelaModuloJuridico.codAlterarJURI;
+import static gestor.Visao.TelaModuloJuridico.codExcluirJURI;
+import static gestor.Visao.TelaModuloJuridico.codGravarJURI;
+import static gestor.Visao.TelaModuloJuridico.codAbrirJURI;
+import static gestor.Visao.TelaModuloJuridico.codUserAcessoJURI;
+import static gestor.Visao.TelaModuloJuridico.codigoUserJURI;
+import static gestor.Visao.TelaModuloJuridico.nomeGrupoJURI;
+import static gestor.Visao.TelaModuloJuridico.nomeTelaJURI;
+import static gestor.Visao.TelaModuloJuridico.telaConsultaProntuarioInternosDocJURI;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloPsicologia.codigoUserGroupPSI;
+import static gestor.Visao.TelaModuloPsicologia.codigoGrupoPSI;
+import static gestor.Visao.TelaModuloPsicologia.codAbrirPSI;
+import static gestor.Visao.TelaModuloPsicologia.codIncluirPSI;
+import static gestor.Visao.TelaModuloPsicologia.codAlterarPSI;
+import static gestor.Visao.TelaModuloPsicologia.codExcluirPSI;
+import static gestor.Visao.TelaModuloPsicologia.codGravarPSI;
+import static gestor.Visao.TelaModuloPsicologia.codConsultarPSI;
+import static gestor.Visao.TelaModuloPsicologia.codUserAcessoPSI;
+import static gestor.Visao.TelaModuloPsicologia.codigoUserPSI;
+import static gestor.Visao.TelaModuloPsicologia.nomeGrupoPSI;
+import static gestor.Visao.TelaModuloPsicologia.nomeTelaPSI;
+import static gestor.Visao.TelaModuloPsicologia.telaConsultaProntuarioInternosDocPSI;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -44,6 +76,12 @@ import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
+import static gestor.Visao.TelaModuloJuridico.codConsultarJURI;
+import static gestor.Visao.TelaModuloEnfermaria.codigoUserENF;
+import static gestor.Visao.TelaModuloEnfermaria.codUserAcessoENF;
+import static gestor.Visao.TelaModuloEnfermaria.codigoUserGroupENF;
+import static gestor.Visao.TelaModuloEnfermaria.codAbrirENF;
+import static gestor.Visao.TelaModuloEnfermaria.codIncluirENF;
 
 /**
  *
@@ -58,8 +96,10 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
     ControleInternoCrc control = new ControleInternoCrc();
     ControleDadosFisicos controlFisicos = new ControleDadosFisicos();
     ControleDadosPenais controlPenais = new ControleDadosPenais();
+    //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
+    //
     int acao;
     int flag;
     String codInternoCrc; // Verificar se existe movimentação do intero para não ser excluído
@@ -101,7 +141,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
     int codigoUsuario;
     int codigoGrupo;
     int codigoGrupoAdm = 1;
-     // CAMINHO DAS IMAGENS DA MÃO DIREITA
+    // CAMINHO DAS IMAGENS DA MÃO DIREITA
     String caminhoBiometria1 = "";
     String caminhoBiometria2 = "";
     String caminhoBiometria3 = "";
@@ -143,6 +183,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
     public static TelaObservacaoProntuarioUnico telaObsInterno;
     public static TelaConsultaExamesMedicos telaConsultaExames;
     //
+    public static PdfViewPSP consultaDocInternos;
 
     public TelaConsultaProntuarioInternoCrc() {
         super();
@@ -232,11 +273,15 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         telaObsInterno = new TelaObservacaoProntuarioUnico(this, true);
         telaObsInterno.setVisible(true);
     }
-    
-    public void mostrarExamesMedicos(){
-         
+
+    public void mostrarExamesMedicos() {
         telaConsultaExames = new TelaConsultaExamesMedicos(this, true);
         telaConsultaExames.setVisible(true);
+    }
+
+    public void mostrarDocInternos() {
+        consultaDocInternos = new PdfViewPSP(this, true);
+        consultaDocInternos.setVisible(true);
     }
 
     /**
@@ -275,10 +320,10 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jIdInterno = new javax.swing.JTextField();
+        jIdInternoConPSP = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jNomeInterno = new javax.swing.JTextField();
+        jNomeInternoConPSP = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jMatriculaPenal = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
@@ -316,7 +361,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         jCartaoSus = new javax.swing.JTextField();
         jBtZoonFoto = new javax.swing.JButton();
         jLabel162 = new javax.swing.JLabel();
-        jCNC = new javax.swing.JTextField();
+        jCNC_PSP = new javax.swing.JTextField();
         jPanel7 = new javax.swing.JPanel();
         jBtImprimirProntuario = new javax.swing.JButton();
         jBtSair = new javax.swing.JButton();
@@ -825,9 +870,9 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setText("Código:");
 
-        jIdInterno.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jIdInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jIdInterno.setEnabled(false);
+        jIdInternoConPSP.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jIdInternoConPSP.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jIdInternoConPSP.setEnabled(false);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel7.setText("Data Cadastro:");
@@ -835,8 +880,8 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel8.setText("Nome:");
 
-        jNomeInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jNomeInterno.setEnabled(false);
+        jNomeInternoConPSP.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNomeInternoConPSP.setEnabled(false);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel9.setText("M.P.");
@@ -974,9 +1019,9 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         jLabel162.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel162.setText("CNC:");
 
-        jCNC.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jCNC.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jCNC.setEnabled(false);
+        jCNC_PSP.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jCNC_PSP.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jCNC_PSP.setEnabled(false);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -1003,7 +1048,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jDataCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jIdInterno))
+                                    .addComponent(jIdInternoConPSP))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel4Layout.createSequentialGroup()
@@ -1018,10 +1063,10 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabel162)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jCNC, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(jCNC_PSP, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addComponent(jPaiInterno)
                             .addComponent(jMaeInterno)
-                            .addComponent(jNomeInterno)
+                            .addComponent(jNomeInternoConPSP)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(jAlcunha)
@@ -1090,10 +1135,10 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jCNC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCNC_PSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel162)
                             .addComponent(jMatriculaPenal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jIdInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jIdInternoConPSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1105,7 +1150,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
                                     .addComponent(jDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(8, 8, 8)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jNomeInternoConPSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel8))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -3304,7 +3349,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         });
 
         jBtDocumentos.setForeground(new java.awt.Color(51, 153, 0));
-        jBtDocumentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/file-open-man-icone-6358-16.png"))); // NOI18N
+        jBtDocumentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Pdf16.png"))); // NOI18N
         jBtDocumentos.setText("Documentos");
         jBtDocumentos.setToolTipText("Documentação do Interno");
         jBtDocumentos.setEnabled(false);
@@ -3450,7 +3495,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
             String nomeInterno = "" + jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 1);
             jPesqNome.setText(nomeInterno);
             String idInt = "" + jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 0);
-            jIdInterno.setText(idInt);
+            jIdInternoConPSP.setText(idInt);
             // Habilitar botões
             jBtZoonFoto.setEnabled(true);
             jBtPeculiaridadeCostas.setEnabled(true);
@@ -3491,12 +3536,12 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
                         + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
                         + "WHERE PRONTUARIOSCRC.NomeInternoCrc='" + nomeInterno + "'AND PRONTUARIOSCRC.IdInternoCrc='" + idInt + "'");
                 conecta.rs.first();
-                jIdInterno.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
+                jIdInternoConPSP.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
                 jMatriculaPenal.setText(conecta.rs.getString("MatriculaCrc"));
-                jCNC.setText(conecta.rs.getString("Cnc"));
+                jCNC_PSP.setText(conecta.rs.getString("Cnc"));
                 jDataCadastro.setDate(conecta.rs.getDate("DataCadastCrc"));
                 jDataNascimento.setDate(conecta.rs.getDate("DataNasciCrc"));
-                jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));
+                jNomeInternoConPSP.setText(conecta.rs.getString("NomeInternoCrc"));
                 jMaeInterno.setText(conecta.rs.getString("MaeInternoCrc"));
                 jPaiInterno.setText(conecta.rs.getString("PaiInternoCrc"));
                 jAlcunha.setText(conecta.rs.getString("AlcunhaCrc"));
@@ -3769,7 +3814,18 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
 
     private void jBtDocumentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtDocumentosActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(rootPane, "Em Desenvolvimento");
+        buscarAcessoUsuario(telaConsultaProntuarioInternosDocJURI);
+        buscarAcessoUsuario1(telaConsultaProntuarioInternosDocPSI);
+        buscarAcessoUsuario2(telaConsultaProntuarioInternosDocENF);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaConsultaProntuarioInternosDocJURI) && codAbrirJURI == 1) {
+            mostrarDocInternos();
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaConsultaProntuarioInternosDocPSI) && codAbrirPSI == 1) {
+            mostrarDocInternos();
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTela.equals(telaConsultaProntuarioInternosDocENF) && codAbrirENF == 1) {
+            mostrarDocInternos();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtDocumentosActionPerformed
 
     private void jBtOdontologicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtOdontologicaActionPerformed
@@ -3791,17 +3847,17 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
             jPesquisaCNC.requestFocus();
         } else {
             buscarInternosMatricula("SELECT * FROM PRONTUARIOSCRC "
-                + "INNER JOIN DADOSFISICOSINTERNOS "
-                + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
-                + "INNER JOIN PAISES "
-                + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
-                + "INNER JOIN CIDADES "
-                + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
-                + "INNER JOIN DADOSPENAISINTERNOS "
-                + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                + "INNER JOIN UNIDADE "
-                + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                + "WHERE Cnc LIKE'%" + jPesquisaCNC.getText() + "%'");
+                    + "INNER JOIN DADOSFISICOSINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
+                    + "INNER JOIN PAISES "
+                    + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
+                    + "INNER JOIN CIDADES "
+                    + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "INNER JOIN UNIDADE "
+                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                    + "WHERE Cnc LIKE'%" + jPesquisaCNC.getText() + "%'");
         }
     }//GEN-LAST:event_jBtCNCPesquisaActionPerformed
 
@@ -3837,7 +3893,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
     private javax.swing.JButton jBtSair;
     private javax.swing.JButton jBtTerapiaOcupacional;
     private javax.swing.JButton jBtZoonFoto;
-    private javax.swing.JTextField jCNC;
+    public static javax.swing.JTextField jCNC_PSP;
     private javax.swing.JFormattedTextField jCPFInterno;
     private javax.swing.JTextField jCalca;
     private javax.swing.JTextField jCamisa;
@@ -3890,7 +3946,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
     private javax.swing.JLabel jFotoPerfil;
     private javax.swing.JLabel jFotoPolegarDireito;
     private javax.swing.JLabel jFotoPolegarEsquerdo;
-    public static javax.swing.JTextField jIdInterno;
+    public static javax.swing.JTextField jIdInternoConPSP;
     private javax.swing.JTextField jIdentificador;
     private javax.swing.JTextField jIdentificador1;
     private javax.swing.JTextField jIdentificador2;
@@ -4059,7 +4115,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
     private javax.swing.JLabel jLabelFotoInterno;
     private javax.swing.JTextField jMaeInterno;
     private javax.swing.JTextField jMatriculaPenal;
-    public static javax.swing.JTextField jNomeInterno;
+    public static javax.swing.JTextField jNomeInternoConPSP;
     private javax.swing.JTextField jPaiInterno;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -4163,7 +4219,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         jMatriculaPenal.setEnabled(!true);
         jDataCadastro.setEnabled(!true);
         jDataNascimento.setEnabled(!true);
-        jNomeInterno.setEnabled(!true);
+        jNomeInternoConPSP.setEnabled(!true);
         jMaeInterno.setEnabled(!true);
         jPaiInterno.setEnabled(!true);
         jAlcunha.setEnabled(!true);
@@ -4233,9 +4289,9 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
     }
 
     public void corCampos() {
-        jIdInterno.setBackground(Color.white);
+        jIdInternoConPSP.setBackground(Color.white);
         jMatriculaPenal.setBackground(Color.white);
-        jCNC.setBackground(Color.white);
+        jCNC_PSP.setBackground(Color.white);
         jDataCadastro.setBackground(Color.white);
         jDataNascimento.setBackground(Color.white);
         jDataEntrada.setBackground(Color.white);
@@ -4243,7 +4299,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         jDataPrisao.setBackground(Color.white);
         jDataCondenacao.setBackground(Color.white);
         jDataTerPena.setBackground(Color.white);
-        jNomeInterno.setBackground(Color.white);
+        jNomeInternoConPSP.setBackground(Color.white);
         jMaeInterno.setBackground(Color.white);
         jPaiInterno.setBackground(Color.white);
         jAlcunha.setBackground(Color.white);
@@ -4307,7 +4363,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
 
     public void Novo() {
         // Limpar campos para inclusão
-        jIdInterno.setText("");
+        jIdInternoConPSP.setText("");
         jMatriculaPenal.setText("");
         jDataCadastro.setCalendar(Calendar.getInstance());
         jDataNascimento.setCalendar(Calendar.getInstance());
@@ -4338,7 +4394,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         caminhoMedioEsquerdo = "";
         caminhoAnularEsquerdo = "";
         caminhoMininoEsquerdo = "";
-        jNomeInterno.setText("");
+        jNomeInternoConPSP.setText("");
         jMaeInterno.setText("");
         jPaiInterno.setText("");
         jAlcunha.setText("");
@@ -4402,7 +4458,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         jMatriculaPenal.setEnabled(true);
         jDataCadastro.setEnabled(true);
         jDataNascimento.setEnabled(true);
-        jNomeInterno.setEnabled(true);
+        jNomeInternoConPSP.setEnabled(true);
         jMaeInterno.setEnabled(true);
         jPaiInterno.setEnabled(true);
         jAlcunha.setEnabled(true);
@@ -4477,7 +4533,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         jMatriculaPenal.setEnabled(true);
         jDataCadastro.setEnabled(true);
         jDataNascimento.setEnabled(true);
-        jNomeInterno.setEnabled(true);
+        jNomeInternoConPSP.setEnabled(true);
         jMaeInterno.setEnabled(true);
         jPaiInterno.setEnabled(true);
         jAlcunha.setEnabled(true);
@@ -4550,7 +4606,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
     public void Excluir() {
 
         jMatriculaPenal.setText("");
-        jNomeInterno.setText("");
+        jNomeInternoConPSP.setText("");
         jMaeInterno.setText("");
         jPaiInterno.setText("");
         jAlcunha.setText("");
@@ -4614,7 +4670,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         jMatriculaPenal.setEnabled(!true);
         jDataCadastro.setEnabled(!true);
         jDataNascimento.setEnabled(!true);
-        jNomeInterno.setEnabled(!true);
+        jNomeInternoConPSP.setEnabled(!true);
         jMaeInterno.setEnabled(!true);
         jPaiInterno.setEnabled(!true);
         jAlcunha.setEnabled(!true);
@@ -4691,7 +4747,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         jMatriculaPenal.setEnabled(!true);
         jDataCadastro.setEnabled(!true);
         jDataNascimento.setEnabled(!true);
-        jNomeInterno.setEnabled(!true);
+        jNomeInternoConPSP.setEnabled(!true);
         jMaeInterno.setEnabled(!true);
         jPaiInterno.setEnabled(!true);
         jAlcunha.setEnabled(!true);
@@ -4765,9 +4821,9 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
 
     public void Cancelar() {
 
-        if (jIdInterno.getText().equals("")) {
+        if (jIdInternoConPSP.getText().equals("")) {
             // Limpar campos para inclusão
-            jIdInterno.setText("");
+            jIdInternoConPSP.setText("");
             jMatriculaPenal.setText("");
             jDataCadastro.setDate(null);
             jDataNascimento.setDate(null);
@@ -4798,7 +4854,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
             caminhoMedioEsquerdo = "";
             caminhoAnularEsquerdo = "";
             caminhoMininoEsquerdo = "";
-            jNomeInterno.setText("");
+            jNomeInternoConPSP.setText("");
             jMaeInterno.setText("");
             jPaiInterno.setText("");
             jAlcunha.setText("");
@@ -4861,7 +4917,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
             jMatriculaPenal.setEnabled(!true);
             jDataCadastro.setEnabled(!true);
             jDataNascimento.setEnabled(!true);
-            jNomeInterno.setEnabled(!true);
+            jNomeInternoConPSP.setEnabled(!true);
             jMaeInterno.setEnabled(!true);
             jPaiInterno.setEnabled(!true);
             jAlcunha.setEnabled(!true);
@@ -4933,7 +4989,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
             jMatriculaPenal.setEnabled(!true);
             jDataCadastro.setEnabled(!true);
             jDataNascimento.setEnabled(!true);
-            jNomeInterno.setEnabled(!true);
+            jNomeInternoConPSP.setEnabled(!true);
             jMaeInterno.setEnabled(!true);
             jPaiInterno.setEnabled(!true);
             jAlcunha.setEnabled(!true);
@@ -5017,7 +5073,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
             jCartaoSus.setDocument(new LimiteDigitosSoNum(20));
             jPesqNome.setDocument(new LimiteDigitos(50));
             jPesqMatricula.setDocument(new LimiteDigitosAlfa(15));
-            jNomeInterno.setDocument(new LimiteDigitos(50));
+            jNomeInternoConPSP.setDocument(new LimiteDigitos(50));
             jMatriculaPenal.setDocument(new LimiteDigitosAlfa(16));
             jMaeInterno.setDocument(new LimiteDigitos(50));
             jPaiInterno.setDocument(new LimiteDigitos(50));
@@ -5055,17 +5111,17 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         dataModFinal = jDataSistema.getText();
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ITENSENTRADA WHERE IdInternoCrc='" + jIdInterno.getText() + "'");
+            conecta.executaSQL("SELECT * FROM ITENSENTRADA WHERE IdInternoCrc='" + jIdInternoConPSP.getText() + "'");
             conecta.rs.first();
             codInternoCrc = conecta.rs.getString("IdInternoCrc");
         } catch (SQLException ex) {
         }
-        if (jIdInterno.getText().equals(codInternoCrc)) {
+        if (jIdInternoConPSP.getText().equals(codInternoCrc)) {
             JOptionPane.showMessageDialog(rootPane, "Esse interno não pode ser excluído, existe movimentação para o mesmo!!!");
         } else {
-            objDadosPena.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
-            objDadosFis.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
-            objProCrc.setIdInterno(Integer.valueOf(jIdInterno.getText()));
+            objDadosPena.setIdInternoCrc(Integer.valueOf(jIdInternoConPSP.getText()));
+            objDadosFis.setIdInternoCrc(Integer.valueOf(jIdInternoConPSP.getText()));
+            objProCrc.setIdInterno(Integer.valueOf(jIdInternoConPSP.getText()));
             int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir PRONTUÁRIO selecionado?", "Confirmação",
                     JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
@@ -5089,7 +5145,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         try {
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC");
             conecta.rs.last();
-            jIdInterno.setText(conecta.rs.getString("IdInternoCrc"));
+            jIdInternoConPSP.setText(conecta.rs.getString("IdInternoCrc"));
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possivel identificar o número do prontuario... \nERRO: " + e);
         }
@@ -5280,7 +5336,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
         objLogSys.setNomeModuloTela(nomeModuloTela);
-        objLogSys.setIdLancMov(Integer.valueOf(jIdInterno.getText()));
+        objLogSys.setIdLancMov(Integer.valueOf(jIdInternoConPSP.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
     }
@@ -5288,7 +5344,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
     public void confirmarRegistroPortaria() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ITENSENTRADAPORTARIA WHERE NomeInterno='" + jNomeInterno.getText() + "'");
+            conecta.executaSQL("SELECT * FROM ITENSENTRADAPORTARIA WHERE NomeInterno='" + jNomeInternoConPSP.getText() + "'");
             conecta.rs.first();
             nomeInterno = conecta.rs.getString("NomeInternoCrc");
         } catch (SQLException ex) {
@@ -5315,6 +5371,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         } catch (SQLException ex) {
         }
     }
+
     public void buscarCaminhoTempleteImagem() {
         conecta.abrirConexao();
         try {
@@ -5335,11 +5392,12 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         }
         conecta.desconecta();
     }
-     public void lerDigitaisCadastradas() {
+
+    public void lerDigitaisCadastradas() {
         // LER A IMAGEM DA DIGITAL E MOSTRAR NA TELA
         try {
             BufferedImage imagem1;
-            imagem1 = ImageIO.read(new File(caminhoBiometria1 + jIdInterno.getText() + "-" + jNomeInterno.getText() + "-Digital1-MD" + ".gif"));
+            imagem1 = ImageIO.read(new File(caminhoBiometria1 + jIdInternoConPSP.getText() + "-" + jNomeInternoConPSP.getText() + "-Digital1-MD" + ".gif"));
             javax.swing.ImageIcon a = new javax.swing.ImageIcon(imagem1);
             jFotoPolegarDireito.setIcon(a);
             jFotoPolegarDireito.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoPolegarDireito.getWidth(), jFotoPolegarDireito.getHeight(), Image.SCALE_DEFAULT)));
@@ -5348,7 +5406,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         //
         try {
             BufferedImage imagem2;
-            imagem2 = ImageIO.read(new File(caminhoBiometria2 + jIdInterno.getText() + "-" + jNomeInterno.getText() + "-Digital2-MD" + ".gif"));
+            imagem2 = ImageIO.read(new File(caminhoBiometria2 + jIdInternoConPSP.getText() + "-" + jNomeInternoConPSP.getText() + "-Digital2-MD" + ".gif"));
             javax.swing.ImageIcon b = new javax.swing.ImageIcon(imagem2);
             jFotoIndicadorDireito.setIcon(b);
             jFotoIndicadorDireito.setIcon(new ImageIcon(b.getImage().getScaledInstance(jFotoIndicadorDireito.getWidth(), jFotoIndicadorDireito.getHeight(), Image.SCALE_DEFAULT)));
@@ -5357,7 +5415,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         //
         try {
             BufferedImage imagem3;
-            imagem3 = ImageIO.read(new File(caminhoBiometria3 + jIdInterno.getText() + "-" + jNomeInterno.getText() + "-Digital3-MD" + ".gif"));
+            imagem3 = ImageIO.read(new File(caminhoBiometria3 + jIdInternoConPSP.getText() + "-" + jNomeInternoConPSP.getText() + "-Digital3-MD" + ".gif"));
             javax.swing.ImageIcon c = new javax.swing.ImageIcon(imagem3);
             jFotoMedioDireito.setIcon(c);
             jFotoMedioDireito.setIcon(new ImageIcon(c.getImage().getScaledInstance(jFotoMedioDireito.getWidth(), jFotoMedioDireito.getHeight(), Image.SCALE_DEFAULT)));
@@ -5366,7 +5424,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         //
         try {
             BufferedImage imagem4;
-            imagem4 = ImageIO.read(new File(caminhoBiometria4 + jIdInterno.getText() + "-" + jNomeInterno.getText() + "-Digital4-MD" + ".gif"));
+            imagem4 = ImageIO.read(new File(caminhoBiometria4 + jIdInternoConPSP.getText() + "-" + jNomeInternoConPSP.getText() + "-Digital4-MD" + ".gif"));
             javax.swing.ImageIcon d = new javax.swing.ImageIcon(imagem4);
             jFotoAnularDireito.setIcon(d);
             jFotoAnularDireito.setIcon(new ImageIcon(d.getImage().getScaledInstance(jFotoAnularDireito.getWidth(), jFotoAnularDireito.getHeight(), Image.SCALE_DEFAULT)));
@@ -5374,7 +5432,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         }
         try {
             BufferedImage imagem5;
-            imagem5 = ImageIO.read(new File(caminhoBiometria5 + jIdInterno.getText() + "-" + jNomeInterno.getText() + "-Digital5-MD" + ".gif"));
+            imagem5 = ImageIO.read(new File(caminhoBiometria5 + jIdInternoConPSP.getText() + "-" + jNomeInternoConPSP.getText() + "-Digital5-MD" + ".gif"));
             javax.swing.ImageIcon e = new javax.swing.ImageIcon(imagem5);
             jFotoMininoDireito.setIcon(e);
             jFotoMininoDireito.setIcon(new ImageIcon(e.getImage().getScaledInstance(jFotoMininoDireito.getWidth(), jFotoMininoDireito.getHeight(), Image.SCALE_DEFAULT)));
@@ -5383,7 +5441,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         //
         try {
             BufferedImage imagem6;
-            imagem6 = ImageIO.read(new File(caminhoBiometria6 + jIdInterno.getText() + "-" + jNomeInterno.getText() + "-Digital6-ME" + ".gif"));
+            imagem6 = ImageIO.read(new File(caminhoBiometria6 + jIdInternoConPSP.getText() + "-" + jNomeInternoConPSP.getText() + "-Digital6-ME" + ".gif"));
             javax.swing.ImageIcon f = new javax.swing.ImageIcon(imagem6);
             jFotoPolegarEsquerdo.setIcon(f);
             jFotoPolegarEsquerdo.setIcon(new ImageIcon(f.getImage().getScaledInstance(jFotoPolegarEsquerdo.getWidth(), jFotoPolegarEsquerdo.getHeight(), Image.SCALE_DEFAULT)));
@@ -5391,7 +5449,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         }
         try {
             BufferedImage imagem7;
-            imagem7 = ImageIO.read(new File(caminhoBiometria4 + jIdInterno.getText() + "-" + jNomeInterno.getText() + "-Digital7-ME" + ".gif"));
+            imagem7 = ImageIO.read(new File(caminhoBiometria4 + jIdInternoConPSP.getText() + "-" + jNomeInternoConPSP.getText() + "-Digital7-ME" + ".gif"));
             javax.swing.ImageIcon g = new javax.swing.ImageIcon(imagem7);
             jFotoIndicadorEsquerdo.setIcon(g);
             jFotoIndicadorEsquerdo.setIcon(new ImageIcon(g.getImage().getScaledInstance(jFotoIndicadorEsquerdo.getWidth(), jFotoIndicadorEsquerdo.getHeight(), Image.SCALE_DEFAULT)));
@@ -5399,7 +5457,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         }
         try {
             BufferedImage imagem8;
-            imagem8 = ImageIO.read(new File(caminhoBiometria5 + jIdInterno.getText() + "-" + jNomeInterno.getText() + "-Digital8-ME" + ".gif"));
+            imagem8 = ImageIO.read(new File(caminhoBiometria5 + jIdInternoConPSP.getText() + "-" + jNomeInternoConPSP.getText() + "-Digital8-ME" + ".gif"));
             javax.swing.ImageIcon h = new javax.swing.ImageIcon(imagem8);
             jFotoMedioEsquerdo.setIcon(h);
             jFotoMedioEsquerdo.setIcon(new ImageIcon(h.getImage().getScaledInstance(jFotoMedioEsquerdo.getWidth(), jFotoMedioEsquerdo.getHeight(), Image.SCALE_DEFAULT)));
@@ -5408,7 +5466,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         //
         try {
             BufferedImage imagem9;
-            imagem9 = ImageIO.read(new File(caminhoBiometria9 + jIdInterno.getText() + "-" + jNomeInterno.getText() + "-Digital9-ME" + ".gif"));
+            imagem9 = ImageIO.read(new File(caminhoBiometria9 + jIdInternoConPSP.getText() + "-" + jNomeInternoConPSP.getText() + "-Digital9-ME" + ".gif"));
             javax.swing.ImageIcon i = new javax.swing.ImageIcon(imagem9);
             jFotoAnularEsquerdo.setIcon(i);
             jFotoAnularEsquerdo.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoAnularEsquerdo.getWidth(), jFotoAnularEsquerdo.getHeight(), Image.SCALE_DEFAULT)));
@@ -5417,11 +5475,125 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         //
         try {
             BufferedImage imagem10;
-            imagem10 = ImageIO.read(new File(caminhoBiometria10 + jIdInterno.getText() + "-" + jNomeInterno.getText() + "-Digital10-ME" + ".gif"));
+            imagem10 = ImageIO.read(new File(caminhoBiometria10 + jIdInternoConPSP.getText() + "-" + jNomeInternoConPSP.getText() + "-Digital10-ME" + ".gif"));
             javax.swing.ImageIcon j = new javax.swing.ImageIcon(imagem10);
             jFotoMinimoEsquerdo.setIcon(j);
             jFotoMinimoEsquerdo.setIcon(new ImageIcon(j.getImage().getScaledInstance(jFotoMinimoEsquerdo.getWidth(), jFotoMinimoEsquerdo.getHeight(), Image.SCALE_DEFAULT)));
         } catch (Exception e) {
         }
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserJURI = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserJURI + "'");
+            conecta.rs.first();
+            codigoUserGroupJURI = conecta.rs.getInt("IdUsuario");
+            codigoGrupoJURI = conecta.rs.getInt("IdGrupo");
+            nomeGrupoJURI = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserJURI + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoJURI = conecta.rs.getInt("IdUsuario");
+            codAbrirJURI = conecta.rs.getInt("Abrir");
+            codIncluirJURI = conecta.rs.getInt("Incluir");
+            codAlterarJURI = conecta.rs.getInt("Alterar");
+            codExcluirJURI = conecta.rs.getInt("Excluir");
+            codGravarJURI = conecta.rs.getInt("Gravar");
+            codConsultarJURI = conecta.rs.getInt("Consultar");
+            nomeTelaJURI = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void buscarAcessoUsuario1(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserPSI = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserPSI + "'");
+            conecta.rs.first();
+            codigoUserGroupPSI = conecta.rs.getInt("IdUsuario");
+            codigoGrupoPSI = conecta.rs.getInt("IdGrupo");
+            nomeGrupoPSI = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserPSI + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoPSI = conecta.rs.getInt("IdUsuario");
+            codAbrirPSI = conecta.rs.getInt("Abrir");
+            codIncluirPSI = conecta.rs.getInt("Incluir");
+            codAlterarPSI = conecta.rs.getInt("Alterar");
+            codExcluirPSI = conecta.rs.getInt("Excluir");
+            codGravarPSI = conecta.rs.getInt("Gravar");
+            codConsultarPSI = conecta.rs.getInt("Consultar");
+            nomeTelaPSI = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void buscarAcessoUsuario2(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserENF = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserENF + "'");
+            conecta.rs.first();
+            codigoUserGroupENF = conecta.rs.getInt("IdUsuario");
+            codigoGrupo = conecta.rs.getInt("IdGrupo");
+            nomeGrupo = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserENF + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoENF = conecta.rs.getInt("IdUsuario");
+            codAbrirENF = conecta.rs.getInt("Abrir");
+            codIncluirENF = conecta.rs.getInt("Incluir");
+            codAlterar = conecta.rs.getInt("Alterar");
+            codExcluir = conecta.rs.getInt("Excluir");
+            codGravar = conecta.rs.getInt("Gravar");
+            codConsultar = conecta.rs.getInt("Consultar");
+            nomeTela = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

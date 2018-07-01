@@ -130,18 +130,18 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     String situacaoRet = "RETORNO A UNIDADE"; // Todos os Retornos
     //
     String cartaoSUS = "";
-    public static int codigoUser = 0;
-    public static int codUserAcesso = 0;
-    public static int codigoUserGroup = 0;
-    public static int codAbrir = 0;
-    public static int codIncluir = 0;
-    public static int codAlterar = 0;
-    public static int codExcluir = 0;
-    public static int codGravar = 0;
-    public static int codConcultar = 0;
-    public static int codigoGrupo = 0;
-    public static String nomeGrupo = "";
-    public static String nomeTela = "";
+    public static int codigoUserENF = 0;
+    public static int codUserAcessoENF = 0;
+    public static int codigoUserGroupENF = 0;
+    public static int codAbrirENF = 0;
+    public static int codIncluirENF = 0;
+    public static int codAlterarENF = 0;
+    public static int codExcluirENF = 0;
+    public static int codGravarENF = 0;
+    public static int codConsultarENF = 0;
+    public static int codigoGrupoENF = 0;
+    public static String nomeGrupoENF = "";
+    public static String nomeTelaENF = "";
     // TELAS DE ACESSOS AO MÓDULO ENFERMARIA
     public static String nomeModuloENFER = "ENFERMARIA";
     // MENU CADASTRO    
@@ -214,7 +214,9 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     public static String telaPaiEPAI = "Movimentação:P.A.I.:E-PAI";
     //
     public static String telaOcorrenciaDiaManuENF = "Movimentação:Ocorrências Diárias:Manutenção";
-    public static String telaTipoTratamentoManu = "Cadastro:Tipo de Tratamentos:Manutenção";   
+    public static String telaTipoTratamentoManu = "Cadastro:Tipo de Tratamentos:Manutenção";  
+    //
+    public static String telaConsultaProntuarioInternosDocENF = "Consulta:Prontuario:Documentos";
     //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
@@ -288,6 +290,8 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     //
     String pNomeODM = "";
     String pNomeTTM = "";   
+    //
+    String pNomeCPID = "";
 
     /**
      * Creates new form TelaMedico
@@ -872,7 +876,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private void AdmissaoMedicaPsiquiatricaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdmissaoMedicaPsiquiatricaActionPerformed
         // TODO add your handling code here:       
         buscarAcessoUsuario(telaAcessoProntuarioMedicoENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaAcessoProntuarioMedicoENF) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAcessoProntuarioMedicoENF) && codAbrirENF == 1) {
             if (objAdmMedico == null || objAdmMedico.isClosed()) {
                 objAdmMedico = new TelaAdmissaoMedica();
                 jPainelMedico.add(objAdmMedico);
@@ -935,7 +939,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private void AdmissoaEnfermagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdmissoaEnfermagemActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAdmissaoEnfeIntManuENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaAdmissaoEnfeIntManuENF) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAdmissaoEnfeIntManuENF) && codAbrirENF == 1) {
             if (objAdmEnfermagem == null || objAdmEnfermagem.isClosed()) {
                 objAdmEnfermagem = new TelaAdmissaoEnfermagem();
                 jPainelMedico.add(objAdmEnfermagem);
@@ -969,7 +973,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private void AtendimentoTecEnfermagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtendimentoTecEnfermagemActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAtendTecEnfIntManuENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaAtendTecEnfIntManuENF) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAtendTecEnfIntManuENF) && codAbrirENF == 1) {
             if (objEvolTecEnfer == null || objEvolTecEnfer.isClosed()) {
                 objEvolTecEnfer = new TelaEvolucaoTecEnfermagem();
                 jPainelMedico.add(objEvolTecEnfer);
@@ -1003,7 +1007,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private void AprazementomedicoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AprazementomedicoesActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAprazaMedManuENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaAprazaMedManuENF) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAprazaMedManuENF) && codAbrirENF == 1) {
             if (objAbraMed == null || objAbraMed.isClosed()) {
                 objAbraMed = new TelaAprazamentoMedicacoes();
                 jPainelMedico.add(objAbraMed);
@@ -1095,7 +1099,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private void LivroOcorrenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LivroOcorrenciaActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaOcorrenciaDiaManuENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaOcorrenciaDiaManuENF) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaOcorrenciaDiaManuENF) && codAbrirENF == 1) {
             if (objOcorreMedica == null || objOcorreMedica.isClosed()) {
                 objOcorreMedica = new TelaOcorrenciaMedica();
                 jPainelMedico.add(objOcorreMedica);
@@ -1129,7 +1133,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private void CadastroDoencasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastroDoencasActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAcessoCadastroDoencasENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaAcessoCadastroDoencasENF) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAcessoCadastroDoencasENF) && codAbrirENF == 1) {
             if (objCadDoenca == null || objCadDoenca.isClosed()) {
                 objCadDoenca = new TelaCadastroDoencas();
                 jPainelMedico.add(objCadDoenca);
@@ -1163,7 +1167,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private void LocalEstoqueEnfermariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LocalEstoqueEnfermariaActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaLocalArmazenaENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaLocalArmazenaENF) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaLocalArmazenaENF) && codAbrirENF == 1) {
             if (objLocalEnf == null || objLocalEnf.isClosed()) {
                 objLocalEnf = new TelaLocalArmazenamentoEnfermaria();
                 jPainelMedico.add(objLocalEnf);
@@ -1197,7 +1201,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private void SolicitacaoMedicamentosFarmaciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SolicitacaoMedicamentosFarmaciaActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaSolicitacaoMateriaisManuENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaSolicitacaoMateriaisManuENF) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaSolicitacaoMateriaisManuENF) && codAbrirENF == 1) {
             if (objSolProd == null || objSolProd.isClosed()) {
                 objSolProd = new TelaSolicitacaoProdutosENFAR();
                 jPainelMedico.add(objSolProd);
@@ -1231,7 +1235,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private void AprovadorSolicitacaoMedicamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AprovadorSolicitacaoMedicamentosActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAprovadorSolicitacaoENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaAprovadorSolicitacaoENF) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAprovadorSolicitacaoENF) && codAbrirENF == 1) {
             if (objUserAproSol == null || objUserAproSol.isClosed()) {
                 objUserAproSol = new TelaAprovadorSolicitacaoMedicamentosENFA();
                 jPainelMedico.add(objUserAproSol);
@@ -1265,7 +1269,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private void SolicitantesMedicamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SolicitantesMedicamentosActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaSolicitantesMedicamentosENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaSolicitantesMedicamentosENF) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaSolicitantesMedicamentosENF) && codAbrirENF == 1) {
             if (objSoliciante == null || objSoliciante.isClosed()) {
                 objSoliciante = new TelaSolicitantesMedicamentos();
                 jPainelMedico.add(objSoliciante);
@@ -1299,7 +1303,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private void jMotivoDevolucaoProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMotivoDevolucaoProdutosActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaMotivoSaidaProdutoENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaMotivoSaidaProdutoENF) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaMotivoSaidaProdutoENF) && codAbrirENF == 1) {
             if (objMotENFAR == null || objMotENFAR.isClosed()) {
                 objMotENFAR = new TelaMotivoSaidaProdutosENFAR();
                 jPainelMedico.add(objMotENFAR);
@@ -1333,7 +1337,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private void DevolucaoMedicamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DevolucaoMedicamentosActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaDevolucaoMedicamentosManuENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaDevolucaoMedicamentosManuENF) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaDevolucaoMedicamentosManuENF) && codAbrirENF == 1) {
             if (objDevolMed == null || objDevolMed.isClosed()) {
                 objDevolMed = new TelaDevolucaoMedicamentosEnfermariaFarmacia();
                 jPainelMedico.add(objDevolMed);
@@ -1367,7 +1371,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private void RequisicaoProdutosMedicaoAvulsaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RequisicaoProdutosMedicaoAvulsaActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaRequisiçãoAvulsaMateriaisManutENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaRequisiçãoAvulsaMateriaisManutENF) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaRequisiçãoAvulsaMateriaisManutENF) && codAbrirENF == 1) {
             if (objReqSaidENF == null || objReqSaidENF.isClosed()) {
                 objReqSaidENF = new TelaRequisicaoAvulsaMedicamentosENF();
                 jPainelMedico.add(objReqSaidENF);
@@ -1430,7 +1434,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private void EstornoSaidaAvulsaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstornoSaidaAvulsaActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaEstornoRequisiçãoMateriaisManutENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaEstornoRequisiçãoMateriaisManutENF) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaEstornoRequisiçãoMateriaisManutENF) && codAbrirENF == 1) {
             if (objEstornoReqMed == null || objEstornoReqMed.isClosed()) {
                 objEstornoReqMed = new TelaEstornoRequisicaoMateriaisENF();
                 jPainelMedico.add(objEstornoReqMed);
@@ -1464,7 +1468,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private void AvaliacaoSaudeMedicaPsiquiatricaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AvaliacaoSaudeMedicaPsiquiatricaActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAvaliaSaudeMedPsiENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaAvaliaSaudeMedPsiENF) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAvaliaSaudeMedPsiENF) && codAbrirENF == 1) {
             if (objAvalicaioMedica == null || objAvalicaioMedica.isClosed()) {
                 objAvalicaioMedica = new TelaAvaliacaoMedicaPsiquiatrica();
                 jPainelMedico.add(objAvalicaioMedica);
@@ -1498,7 +1502,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private void RequisicaoMedicamentosInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RequisicaoMedicamentosInternosActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaRequisicaoMedicaInterManuENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaRequisicaoMedicaInterManuENF) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaRequisicaoMedicaInterManuENF) && codAbrirENF == 1) {
             if (objRequisicaoMedInternos == null || objRequisicaoMedInternos.isClosed()) {
                 objRequisicaoMedInternos = new TelaRequisicaoMedicamentosInternos();
                 jPainelMedico.add(objRequisicaoMedInternos);
@@ -1636,7 +1640,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private void jTiposExamesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTiposExamesActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaTipoExamesENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaTipoExamesENF) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaTipoExamesENF) && codAbrirENF == 1) {
             if (objTipoEx == null || objTipoEx.isClosed()) {
                 objTipoEx = new TelaTiposExames();
                 jPainelMedico.add(objTipoEx);
@@ -1670,7 +1674,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private void SolicitacaoExameMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SolicitacaoExameMedicoActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaSolicitacaoExamesIntManuENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaSolicitacaoExamesIntManuENF) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaSolicitacaoExamesIntManuENF) && codAbrirENF == 1) {
             if (objSoliExame == null || objSoliExame.isClosed()) {
                 objSoliExame = new TelaSolicitacaoExamesMedicoPsiquiatrico();
                 jPainelMedico.add(objSoliExame);
@@ -1704,7 +1708,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private void jTiposVacinasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTiposVacinasActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaTiposVacinasENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaTiposVacinasENF) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaTiposVacinasENF) && codAbrirENF == 1) {
             if (objTipoVac == null || objTipoVac.isClosed()) {
                 objTipoVac = new TelaTiposVacinas();
                 jPainelMedico.add(objTipoVac);
@@ -1738,7 +1742,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private void jCalendarioVacinasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCalendarioVacinasActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaCalendarioVacinasIntManuENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaCalendarioVacinasIntManuENF) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaCalendarioVacinasIntManuENF) && codAbrirENF == 1) {
             if (objCalVacina == null || objCalVacina.isClosed()) {
                 objCalVacina = new TelaCalendarioVacinasInternos();
                 jPainelMedico.add(objCalVacina);
@@ -1772,7 +1776,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private void JHistoricoDoencaFamiliaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JHistoricoDoencaFamiliaActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaHistDoencaFamManuENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaHistDoencaFamManuENF) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaHistDoencaFamManuENF) && codAbrirENF == 1) {
             if (objHistDoencaAtual == null || objHistDoencaAtual.isClosed()) {
                 objHistDoencaAtual = new TelaHistoricoDoencasFamiliar();
                 jPainelMedico.add(objHistDoencaAtual);
@@ -1806,7 +1810,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private void jEncaminhamentosCirurgiasEspecialistasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEncaminhamentosCirurgiasEspecialistasActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaEncamInterCiruEspeManuENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaEncamInterCiruEspeManuENF) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaEncamInterCiruEspeManuENF) && codAbrirENF == 1) {
             if (objEncaInteCE == null || objEncaInteCE.isClosed()) {
                 objEncaInteCE = new TelaEncaminhamentoInternosCirurgiasEspecialistas();
                 jPainelMedico.add(objEncaInteCE);
@@ -1892,7 +1896,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private void JPerfilCarcerarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JPerfilCarcerarioActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPerfilCarManuENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaPerfilCarManuENF) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaPerfilCarManuENF) && codAbrirENF == 1) {
             if (objPerfilCarEnf == null || objPerfilCarEnf.isClosed()) {
                 objPerfilCarEnf = new TelaPerfilCarcerarioEnfermaria();
                 jPainelMedico.add(objPerfilCarEnf);
@@ -1926,7 +1930,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiManu);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaPaiManu) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaPaiManu) && codAbrirENF == 1) {
             if (objPaiMed == null || objPaiMed.isClosed()) {
                 objPaiMed = new TelaPAI_NOVO();
                 jPainelMedico.add(objPaiMed);
@@ -1967,7 +1971,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private void RegistrarInternoAtendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrarInternoAtendimentoActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaRegistroIntAtendENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaRegistroIntAtendENF) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaRegistroIntAtendENF) && codAbrirENF == 1) {
             if (objRegIntAtend == null || objRegIntAtend.isClosed()) {
                 objRegIntAtend = new TelaRegistroInternosAtendimento();
                 jPainelMedico.add(objRegIntAtend);
@@ -2001,7 +2005,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private void jTiposTratametoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTiposTratametoActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaTipoTratamentoManu);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaTipoTratamentoManu) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaTipoTratamentoManu) && codAbrirENF == 1) {
             if (objTipoTrata == null || objTipoTrata.isClosed()) {
                 objTipoTrata = new TelaTiposTratamentos();
                 jPainelMedico.add(objTipoTrata);
@@ -2111,33 +2115,33 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
             conecta.executaSQL("SELECT * FROM USUARIOS "
                     + "WHERE NomeUsuario='" + nameUser + "'");
             conecta.rs.first();
-            codigoUser = conecta.rs.getInt("IdUsuario");
+            codigoUserENF = conecta.rs.getInt("IdUsuario");
         } catch (Exception e) {
         }
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
                     + "INNER JOIN GRUPOUSUARIOS "
                     + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                    + "WHERE IdUsuario='" + codigoUser + "'");
+                    + "WHERE IdUsuario='" + codigoUserENF + "'");
             conecta.rs.first();
-            codigoUserGroup = conecta.rs.getInt("IdUsuario");
-            codigoGrupo = conecta.rs.getInt("IdGrupo");
-            nomeGrupo = conecta.rs.getString("NomeGrupo");
+            codigoUserGroupENF = conecta.rs.getInt("IdUsuario");
+            codigoGrupoENF = conecta.rs.getInt("IdGrupo");
+            nomeGrupoENF = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
         }
         try {
             conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
-                    + "WHERE IdUsuario='" + codigoUser + "' "
+                    + "WHERE IdUsuario='" + codigoUserENF + "' "
                     + "AND NomeTela='" + nomeTelaAcesso + "'");
             conecta.rs.first();
-            codUserAcesso = conecta.rs.getInt("IdUsuario");
-            codAbrir = conecta.rs.getInt("Abrir");
-            codIncluir = conecta.rs.getInt("Incluir");
-            codAlterar = conecta.rs.getInt("Alterar");
-            codExcluir = conecta.rs.getInt("Excluir");
-            codGravar = conecta.rs.getInt("Gravar");
-            codConcultar = conecta.rs.getInt("Consultar");
-            nomeTela = conecta.rs.getString("NomeTela");
+            codUserAcessoENF = conecta.rs.getInt("IdUsuario");
+            codAbrirENF = conecta.rs.getInt("Abrir");
+            codIncluirENF = conecta.rs.getInt("Incluir");
+            codAlterarENF = conecta.rs.getInt("Alterar");
+            codExcluirENF = conecta.rs.getInt("Excluir");
+            codGravarENF = conecta.rs.getInt("Gravar");
+            codConsultarENF = conecta.rs.getInt("Consultar");
+            nomeTelaENF = conecta.rs.getString("NomeTela");
         } catch (Exception e) {
         }
         conecta.desconecta();
@@ -2802,7 +2806,15 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
             conecta.rs.first();
             pNomeTTM = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
-        }                
+        }       
+        // CONSULTA
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaConsultaProntuarioInternosDocENF + "'");
+            conecta.rs.first();
+            pNomeCPID = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        } 
         // INICIO DA COMPARAÇÃO
         if (!pNomeACD.equals(telaAcessoCadastroDoencasENF) || pNomeACD == null || pNomeACD.equals("")) {
             buscarCodigoModulo();
@@ -3163,7 +3175,14 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaTipoTratamentoManu);
             controle.incluirTelaAcesso(objCadastroTela);
-        }        
+        }    
+        // CONSULTA
+        if (!pNomeCPID.equals(telaConsultaProntuarioInternosDocENF) || pNomeCPID == null || pNomeCPID.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaConsultaProntuarioInternosDocENF);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }    
     }
 
     // MÉTODO PARA BUSCAR O CÓDIGO DO MÓDULO, CASO NÃO TENHA SIDO CADASTRADO.

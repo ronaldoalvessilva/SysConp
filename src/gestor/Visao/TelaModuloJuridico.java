@@ -5,8 +5,10 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleTelasSistema;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
+import gestor.Modelo.CadastroTelasSistema;
 import static gestor.Visao.TelaAgendaCompromissos.jAssunto;
 import static gestor.Visao.TelaAgendaCompromissos.jBtAlterarComp;
 import static gestor.Visao.TelaAgendaCompromissos.jBtCancelarComp;
@@ -77,6 +79,8 @@ import net.sf.jasperreports.view.JasperViewer;
 public class TelaModuloJuridico extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
+    CadastroTelasSistema objCadastroTela = new CadastroTelasSistema();
+    ControleTelasSistema controle = new ControleTelasSistema();
     //
     private TelaConsultaProntuarioInternoCrc objriIntJu = null;
     private TelaConsultaLocalInternoJuridico objLocalIntJu = null;
@@ -120,6 +124,28 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
     String situacaoTran = "TRANSFERENCIA"; // Todas as Transferencias
     String situacaoNull = ""; // Cadastrado mas não foi feito entrada
     String situacaoSai = "SAIDA TEMPORARIA";
+    //
+    public static String nomeModuloJURIDICO = "JURIDICO";
+    // MENU CADASTRO    
+    public static String telaConsultaProntuarioInternosDocJURI = "Consulta:Prontuario:Documentos";
+    //
+    int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
+    // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
+    // MENU CADASTRO
+    String pNomeCPID = "";
+    //
+    public static int codigoUserJURI = 0;
+    public static int codUserAcessoJURI = 0;
+    public static int codigoUserGroupJURI = 0;
+    public static int codAbrirJURI = 0;
+    public static int codIncluirJURI = 0;
+    public static int codAlterarJURI = 0;
+    public static int codExcluirJURI = 0;
+    public static int codGravarJURI = 0;
+    public static int codConsultarJURI = 0;
+    public static int codigoGrupoJURI = 0;
+    public static String nomeGrupoJURI = "";
+    public static String nomeTelaJURI = "";
 
     /**
      * Creates new form TelaJuridico
@@ -129,6 +155,7 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
         this.setSize(840, 640); // Tamanho da tela        
 //        buscarAgendamentoInternos();      
         threadMensagem();
+        pesquisarTelasAcessos();
     }
 
     /**
@@ -1415,5 +1442,75 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
         jTabelaAgendaEventos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
         jTabelaAgendaEventos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
         jTabelaAgendaEventos.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+    }
+
+    public void pesquisarTelasAcessos() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaConsultaProntuarioInternosDocJURI + "'");
+            conecta.rs.first();
+            pNomeCPID = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+
+        // MENU CONSULTA
+        if (!pNomeCPID.equals(telaConsultaProntuarioInternosDocJURI) || pNomeCPID == null || pNomeCPID.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaConsultaProntuarioInternosDocJURI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+
+    }
+
+    // MÉTODO PARA BUSCAR O CÓDIGO DO MÓDULO, CASO NÃO TENHA SIDO CADASTRADO.
+    public void buscarCodigoModulo() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM MODULOS "
+                    + "WHERE NomeModulo='" + nomeModuloJURI + "'");
+            conecta.rs.first();
+            pCodModulo = conecta.rs.getInt("IdModulo");
+        } catch (SQLException ex) {
+        }
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserJURI = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserJURI + "'");
+            conecta.rs.first();
+            codigoUserGroupJURI = conecta.rs.getInt("IdUsuario");
+            codigoGrupoJURI = conecta.rs.getInt("IdGrupo");
+            nomeGrupoJURI = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserJURI + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoJURI = conecta.rs.getInt("IdUsuario");
+            codAbrirJURI = conecta.rs.getInt("Abrir");
+            codIncluirJURI = conecta.rs.getInt("Incluir");
+            codAlterarJURI = conecta.rs.getInt("Alterar");
+            codExcluirJURI = conecta.rs.getInt("Excluir");
+            codGravarJURI = conecta.rs.getInt("Gravar");
+            codConsultarJURI = conecta.rs.getInt("Consultar");
+            nomeTelaJURI = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

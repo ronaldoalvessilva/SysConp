@@ -7,8 +7,6 @@ package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
-import static gestor.Visao.TelaConsultaProntuarioInternoCrc.jIdInterno;
-import static gestor.Visao.TelaConsultaProntuarioInternoCrc.jNomeInterno;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,6 +14,8 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import static gestor.Visao.TelaConsultaProntuarioInternoCrc.jIdInternoConPSP;
+import static gestor.Visao.TelaConsultaProntuarioInternoCrc.jNomeInternoConPSP;
 
 /**
  *
@@ -43,7 +43,7 @@ public class TelaConsultaEvolucaoOdontologia extends javax.swing.JDialog {
         setLocationRelativeTo(telaProntuarioUnicoOD);
         initComponents();
         formatarCampos();
-        jNomeInternoServiçoSocial.setText(jNomeInterno.getText());
+        jNomeInternoServiçoSocial.setText(jNomeInternoConPSP.getText());
 
     }
 
@@ -300,7 +300,7 @@ public class TelaConsultaEvolucaoOdontologia extends javax.swing.JDialog {
             this.pesquisarData("SELECT * FROM ODONTOPROCEDIMENTO "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ODONTOPROCEDIMENTO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "                    
-                    + "WHERE ODONTOPROCEDIMENTO.IdInternoCrc='" + jIdInterno.getText() + "'");
+                    + "WHERE ODONTOPROCEDIMENTO.IdInternoCrc='" + jIdInternoConPSP.getText() + "'");
         } else {
             jtotalRegistros.setText("");
             jTextoEvolucaoPsiquiatrica.setText("");
@@ -331,7 +331,7 @@ public class TelaConsultaEvolucaoOdontologia extends javax.swing.JDialog {
                             + "ON ODONTOPROCEDIMENTO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "                           
                             + "WHERE ODONTOPROCEDIMENTO.DataPro BETWEEN'" + dataInicial + "' "
                             + "AND '" + dataFinal + "' "
-                            + "AND ODONTOPROCEDIMENTO.IdInternoCrc='" + jIdInterno.getText() + "'");
+                            + "AND ODONTOPROCEDIMENTO.IdInternoCrc='" + jIdInternoConPSP.getText() + "'");
                 }
             }
         }
@@ -344,7 +344,7 @@ public class TelaConsultaEvolucaoOdontologia extends javax.swing.JDialog {
             //       
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM ODONTOPROCEDIMENTO WHERE IdPro='" + codItem + "'AND IdInternoCrc='" + jIdInterno.getText() + "'");
+                conecta.executaSQL("SELECT * FROM ODONTOPROCEDIMENTO WHERE IdPro='" + codItem + "'AND IdInternoCrc='" + jIdInternoConPSP.getText() + "'");
                 conecta.rs.first();
                 jTextoEvolucaoPsiquiatrica.setText(conecta.rs.getString("Procedimento"));
                 conecta.desconecta();

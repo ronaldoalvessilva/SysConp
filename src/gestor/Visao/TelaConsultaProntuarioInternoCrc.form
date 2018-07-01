@@ -553,7 +553,7 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                               <Component id="jDataCadastro" max="32767" attributes="0"/>
-                                              <Component id="jIdInterno" max="32767" attributes="0"/>
+                                              <Component id="jIdInternoConPSP" max="32767" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
@@ -570,13 +570,13 @@
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="jLabel162" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="jCNC" min="-2" pref="97" max="-2" attributes="0"/>
+                                                  <Component id="jCNC_PSP" min="-2" pref="97" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>
                                       <Component id="jPaiInterno" max="32767" attributes="0"/>
                                       <Component id="jMaeInterno" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jNomeInterno" max="32767" attributes="0"/>
+                                      <Component id="jNomeInternoConPSP" max="32767" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                               <Component id="jAlcunha" linkSize="27" max="32767" attributes="0"/>
@@ -661,10 +661,10 @@
                               <Group type="102" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="2" attributes="0">
-                                      <Component id="jCNC" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jCNC_PSP" alignment="2" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel162" alignment="2" min="-2" max="-2" attributes="0"/>
                                       <Component id="jMatriculaPenal" alignment="2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jIdInterno" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jIdInternoConPSP" alignment="2" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel5" alignment="2" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
@@ -678,7 +678,7 @@
                                           </Group>
                                           <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="jNomeInterno" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jNomeInternoConPSP" alignment="3" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -761,7 +761,7 @@
                     <Property name="text" type="java.lang.String" value="C&#xf3;digo:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jIdInterno">
+                <Component class="javax.swing.JTextField" name="jIdInternoConPSP">
                   <Properties>
                     <Property name="horizontalAlignment" type="int" value="4"/>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -791,7 +791,7 @@
                     <Property name="text" type="java.lang.String" value="Nome:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jNomeInterno">
+                <Component class="javax.swing.JTextField" name="jNomeInternoConPSP">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
@@ -1210,7 +1210,7 @@
                     <Property name="text" type="java.lang.String" value="CNC:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jCNC">
+                <Component class="javax.swing.JTextField" name="jCNC_PSP">
                   <Properties>
                     <Property name="horizontalAlignment" type="int" value="4"/>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -1220,6 +1220,9 @@
                     </Property>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>
@@ -5349,7 +5352,7 @@
                   <Color blue="0" green="99" red="33" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/gestor/Imagens/file-open-man-icone-6358-16.png"/>
+                  <Image iconType="3" name="/gestor/Imagens/Pdf16.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Documentos"/>
                 <Property name="toolTipText" type="java.lang.String" value="Documenta&#xe7;&#xe3;o do Interno"/>

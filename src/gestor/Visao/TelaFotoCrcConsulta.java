@@ -6,9 +6,9 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import static gestor.Visao.TelaConsultaProntuarioInternoCrc.jIdInterno;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import static gestor.Visao.TelaConsultaProntuarioInternoCrc.jIdInternoConPSP;
 
 /**
  *
@@ -139,7 +139,7 @@ public class TelaFotoCrcConsulta extends javax.swing.JDialog {
     public void buscarFotoInterno() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC WHERE IdInternoCrc='" + jIdInterno.getText() + "'");
+            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC WHERE IdInternoCrc='" + jIdInternoConPSP.getText() + "'");
             conecta.rs.first();
             caminhoFoto = conecta.rs.getString("FotoInternoCrc");
             // Capturando foto                

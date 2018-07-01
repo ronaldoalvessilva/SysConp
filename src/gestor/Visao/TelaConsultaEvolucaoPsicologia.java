@@ -7,8 +7,6 @@ package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
-import static gestor.Visao.TelaConsultaProntuarioInternoCrc.jIdInterno;
-import static gestor.Visao.TelaConsultaProntuarioInternoCrc.jNomeInterno;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,6 +14,8 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import static gestor.Visao.TelaConsultaProntuarioInternoCrc.jIdInternoConPSP;
+import static gestor.Visao.TelaConsultaProntuarioInternoCrc.jNomeInternoConPSP;
  
 /**
  *
@@ -43,7 +43,7 @@ public class TelaConsultaEvolucaoPsicologia extends javax.swing.JDialog {
         setLocationRelativeTo(telaProntuarioUnicoPSI);
         initComponents();
         formatarCampos();
-        jNomeInternoPsicologico.setText(jNomeInterno.getText());
+        jNomeInternoPsicologico.setText(jNomeInternoConPSP.getText());
 
     }
 
@@ -300,7 +300,7 @@ public class TelaConsultaEvolucaoPsicologia extends javax.swing.JDialog {
             this.pesquisarData("SELECT * FROM EVOLUCAOPSICOLOGICA "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON EVOLUCAOPSICOLOGICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "                   
-                    + "WHERE EVOLUCAOPSICOLOGICA.IdInternoCrc='" + jIdInterno.getText() + "'");
+                    + "WHERE EVOLUCAOPSICOLOGICA.IdInternoCrc='" + jIdInternoConPSP.getText() + "'");
         } else {
             jtotalRegistros.setText("");
             jTextoEvolucaoPsiquiatrica.setText("");
@@ -330,7 +330,7 @@ public class TelaConsultaEvolucaoPsicologia extends javax.swing.JDialog {
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON EVOLUCAOPSICOLOGICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "                           
                             + "WHERE EVOLUCAOPSICOLOGICA.DataEvolucao BETWEEN'" + dataInicial + "' "
-                            + "AND '" + dataFinal + "'AND EVOLUCAOPSICOLOGICA.IdInternoCrc='" + jIdInterno.getText() + "'");
+                            + "AND '" + dataFinal + "'AND EVOLUCAOPSICOLOGICA.IdInternoCrc='" + jIdInternoConPSP.getText() + "'");
                 }
             }
         }
@@ -343,7 +343,7 @@ public class TelaConsultaEvolucaoPsicologia extends javax.swing.JDialog {
             //       
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM EVOLUCAOPSICOLOGICA WHERE IdEvolucao='" + codItem + "'AND IdInternoCrc='" + jIdInterno.getText() + "'");
+                conecta.executaSQL("SELECT * FROM EVOLUCAOPSICOLOGICA WHERE IdEvolucao='" + codItem + "'AND IdInternoCrc='" + jIdInternoConPSP.getText() + "'");
                 conecta.rs.first();
                 jTextoEvolucaoPsiquiatrica.setText(conecta.rs.getString("Historico"));
                 conecta.desconecta();
