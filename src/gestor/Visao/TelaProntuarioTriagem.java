@@ -151,6 +151,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
     String codIntPenal;
     //
     String confirmarTransf = "Sim";
+    //
     /**
      * Creates new form TelaTriagem
      */
@@ -169,7 +170,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         setResizable(false);
         corCampos();
         formatarCampos();
-        buscarCaminhoTempleteImagem();
+        buscarCaminhoTempleteImagem();        
     }
 
     public void mostrarTelaFotoTriagem() {
@@ -3680,7 +3681,8 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:  
+        validaCpf(jCPFInterno.getText());
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioManuTRI) && codGravarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             if (jNomeInterno.getText().isEmpty() || jNomeInterno.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Nome do INTERNO não pode ser em branco...");
@@ -3717,7 +3719,6 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                                                 JOptionPane.showMessageDialog(rootPane, "DATA CONDENAÇÃO não pode ser em branco");
                                                 jDataCondenacao.requestFocus();
                                             } else {
-
                                                 if (jComboBoxUnid.getText().equals("")) {
                                                     JOptionPane.showMessageDialog(rootPane, "Informe a unidade penal");
                                                     jComboBoxUnid.requestFocus();
@@ -3961,7 +3962,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                                                                 }
                                                             }
                                                             if (acao == 2) {
-                                                                try {
+                                                                try {                                                                    
                                                                     objProCrc.setUsuarioUp(nameUser);
                                                                     objProCrc.setDataUp(jDataSistema.getText());
                                                                     objProCrc.setHoraUp(jHoraSistema.getText());
@@ -4518,6 +4519,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     private void jBtSalvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvar1ActionPerformed
         // TODO add your handling code here:
+        validaCpf(jCPFInterno.getText());
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioManuTRI) && codGravarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             if (jNomeInterno.getText().isEmpty() || jNomeInterno.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Nome do INTERNO não pode ser em branco...");
@@ -7091,6 +7093,57 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             jFotoMinimoEsquerdo.setIcon(j);
             jFotoMinimoEsquerdo.setIcon(new ImageIcon(j.getImage().getScaledInstance(jFotoMinimoEsquerdo.getWidth(), jFotoMinimoEsquerdo.getHeight(), Image.SCALE_DEFAULT)));
         } catch (Exception e) {
+        }
+    }
+
+    /**
+     * Método para verifica se determinado cpf é válido.
+     *
+     * @param xCPF
+     * @param cpf - Uma String contendo o cpf.
+     * @return true se o cpf é válido e false se não é válido.
+     * @author FONTE: www.guj.com.br
+     */
+    public static boolean validaCpf(String xCPF) {
+        try {
+            int d1, d4, xx, nCount, resto, digito1, digito2;
+            String Check;
+            String Separadores = "/-.";
+            d1 = 0;
+            d4 = 0;
+            xx = 1;
+            for (nCount = 0; nCount < xCPF.length() - 2; nCount++) {
+                String s_aux = xCPF.substring(nCount, nCount + 1);
+
+                if (Separadores.indexOf(s_aux) == -1) {
+                    d1 = d1 + (11 - xx) * Integer.valueOf(s_aux).intValue();
+                    d4 = d4 + (12 - xx) * Integer.valueOf(s_aux).intValue();
+                    xx++;
+                }
+            }
+            resto = (d1 % 11);
+            if (resto < 2) {
+                digito1 = 0;
+            } else {
+                digito1 = 11 - resto;
+            }
+            d4 = d4 + 2 * digito1;
+            resto = (d4 % 11);
+
+            if (resto < 2) {
+                digito2 = 0;
+            } else {
+                digito2 = 11 - resto;
+            }
+            Check = String.valueOf(digito1) + String.valueOf(digito2);
+            String s_aux2 = xCPF.substring(xCPF.length() - 2, xCPF.length());
+            if (s_aux2.compareTo(Check) != 0) {               
+                JOptionPane.showMessageDialog(null, "CPF digitado é inválido.");
+                return false;
+            }            
+            return true;
+        } catch (Exception e) {
+            return false;
         }
     }
 }
