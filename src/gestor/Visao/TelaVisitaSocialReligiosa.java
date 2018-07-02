@@ -27,11 +27,19 @@ import static gestor.Visao.TelaModuloServicoSocial.nomeGrupo;
 import static gestor.Visao.TelaModuloServicoSocial.nomeTela;
 import static gestor.Visao.TelaModuloServicoSocial.telaVisitantesRelSS;
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -1109,6 +1117,25 @@ public class TelaVisitaSocialReligiosa extends javax.swing.JInternalFrame {
                     numeroRG = conecta.rs.getString("RgVisitaRel");
                 } catch (SQLException ex) {
                 }
+                // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE   
+                if (jLabelFoto.getIcon() != null) {
+                    Image img = ((ImageIcon) jLabelFoto.getIcon()).getImage();
+                    BufferedImage bi = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                            img.getWidth(null),
+                            img.getHeight(null),
+                            BufferedImage.TYPE_INT_RGB);
+                    Graphics2D g2 = bi.createGraphics();
+                    g2.drawImage(img, 0, 0, null);
+                    ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                    try {
+                        ImageIO.write(bi, "jpg", buffer);
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(TelaVisitaSocialReligiosa.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(TelaVisitaSocialReligiosa.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    objVisita.setImagemFrenteVI(buffer.toByteArray());
+                }
                 if (acao == 1 && jNomeVisita.getText().trim().equals(nomeVisitaInterno) && jRG.getText().trim().equals(numeroRG)) {
                     JOptionPane.showMessageDialog(rootPane, "Essa visita já foi cadastrada, verifique o cadastro da mesma.");
                 } else {
@@ -1211,6 +1238,15 @@ public class TelaVisitaSocialReligiosa extends javax.swing.JInternalFrame {
                 javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
                 jLabelFoto.setIcon(i);
                 jLabelFoto.setIcon(new ImageIcon(i.getImage().getScaledInstance(jLabelFoto.getWidth(), jLabelFoto.getHeight(), Image.SCALE_DEFAULT)));
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteVI"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jLabelFoto.getWidth(), jLabelFoto.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jLabelFoto.setIcon(icon);
+                }
                 //
                 jReligiao.setText(conecta.rs.getString("ReligiaoVisitaRel"));
                 jDataNascVisita.setDate(conecta.rs.getDate("DataNascRel"));
