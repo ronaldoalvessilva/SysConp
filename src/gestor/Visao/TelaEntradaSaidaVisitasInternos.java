@@ -1456,16 +1456,38 @@ public class TelaEntradaSaidaVisitasInternos extends javax.swing.JInternalFrame 
                     jPavilhao.setText(conecta.rs.getString("DescricaoPav"));
                     // Capturando foto
                     caminho = conecta.rs.getString("FotoInternoCrc");
-                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                    jFotoInternoVisitasInterno.setIcon(i);
-                    jFotoInternoVisitasInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoVisitasInterno.getWidth(), jFotoInternoVisitasInterno.getHeight(), Image.SCALE_DEFAULT)));
+                    if (caminho != null) {
+                        javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                        jFotoInternoVisitasInterno.setIcon(i);
+                        jFotoInternoVisitasInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoVisitasInterno.getWidth(), jFotoInternoVisitasInterno.getHeight(), Image.SCALE_DEFAULT)));
+                    }
+                    // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                    byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                    if (imgBytes != null) {
+                        ImageIcon pic = null;
+                        pic = new ImageIcon(imgBytes);
+                        Image scaled = pic.getImage().getScaledInstance(jFotoInternoVisitasInterno.getWidth(), jFotoInternoVisitasInterno.getHeight(), Image.SCALE_DEFAULT);
+                        ImageIcon icon = new ImageIcon(scaled);
+                        jFotoInternoVisitasInterno.setIcon(icon);
+                    }
                     jIDVisita.setText(conecta.rs.getString("IdVisita")); //Coluna 0
                     jNomeVisitante.setText(conecta.rs.getString("NomeVisita")); // Coluna 1
                     // Capturando foto
                     caminhoVisita = conecta.rs.getString("ImagemVisita");
-                    javax.swing.ImageIcon v = new javax.swing.ImageIcon(caminhoVisita);
-                    jFotoVisitaInterno.setIcon(v);
-                    jFotoVisitaInterno.setIcon(new ImageIcon(v.getImage().getScaledInstance(jFotoVisitaInterno.getWidth(), jFotoVisitaInterno.getHeight(), Image.SCALE_DEFAULT)));
+                    if (caminhoVisita != null) {
+                        javax.swing.ImageIcon v = new javax.swing.ImageIcon(caminhoVisita);
+                        jFotoVisitaInterno.setIcon(v);
+                        jFotoVisitaInterno.setIcon(new ImageIcon(v.getImage().getScaledInstance(jFotoVisitaInterno.getWidth(), jFotoVisitaInterno.getHeight(), Image.SCALE_DEFAULT)));
+                    }
+                    // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                    byte[] img2Bytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteVI"));
+                    if (img2Bytes != null) {
+                        ImageIcon pic2 = null;
+                        pic2 = new ImageIcon(img2Bytes);
+                        Image scaled2 = pic2.getImage().getScaledInstance(jFotoVisitaInterno.getWidth(), jFotoVisitaInterno.getHeight(), Image.SCALE_DEFAULT);
+                        ImageIcon icon2 = new ImageIcon(scaled2);
+                        jFotoVisitaInterno.setIcon(icon2);
+                    }
                     idItem = conecta.rs.getString("IdItem"); // Coluna 2                
                     jDataEntrada.setDate(conecta.rs.getDate("DataEntrada"));
                     jDataSaida.setDate(conecta.rs.getDate("DataSaida"));
@@ -1491,18 +1513,39 @@ public class TelaEntradaSaidaVisitasInternos extends javax.swing.JInternalFrame 
                     jRegimePenal.setText(conecta.rs.getString("SituacaoCrc"));
                     // LIMPAR O PAVILHÃO CASO NÃO EXISTA
                     jPavilhao.setText("");
-                    // Capturando foto
                     caminho = conecta.rs.getString("FotoInternoCrc");
-                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                    jFotoInternoVisitasInterno.setIcon(i);
-                    jFotoInternoVisitasInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoVisitasInterno.getWidth(), jFotoInternoVisitasInterno.getHeight(), Image.SCALE_DEFAULT)));
+                    if (caminho != null) {
+                        javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                        jFotoInternoVisitasInterno.setIcon(i);
+                        jFotoInternoVisitasInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoVisitasInterno.getWidth(), jFotoInternoVisitasInterno.getHeight(), Image.SCALE_DEFAULT)));
+                    }
+                    // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                    byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                    if (imgBytes != null) {
+                        ImageIcon pic = null;
+                        pic = new ImageIcon(imgBytes);
+                        Image scaled = pic.getImage().getScaledInstance(jFotoInternoVisitasInterno.getWidth(), jFotoInternoVisitasInterno.getHeight(), Image.SCALE_DEFAULT);
+                        ImageIcon icon = new ImageIcon(scaled);
+                        jFotoInternoVisitasInterno.setIcon(icon);
+                    }
                     jIDVisita.setText(conecta.rs.getString("IdVisita")); //Coluna 0
                     jNomeVisitante.setText(conecta.rs.getString("NomeVisita")); // Coluna 1
                     // Capturando foto
                     caminhoVisita = conecta.rs.getString("ImagemVisita");
-                    javax.swing.ImageIcon v = new javax.swing.ImageIcon(caminhoVisita);
-                    jFotoVisitaInterno.setIcon(v);
-                    jFotoVisitaInterno.setIcon(new ImageIcon(v.getImage().getScaledInstance(jFotoVisitaInterno.getWidth(), jFotoVisitaInterno.getHeight(), Image.SCALE_DEFAULT)));
+                    if (caminhoVisita != null) {
+                        javax.swing.ImageIcon v = new javax.swing.ImageIcon(caminhoVisita);
+                        jFotoVisitaInterno.setIcon(v);
+                        jFotoVisitaInterno.setIcon(new ImageIcon(v.getImage().getScaledInstance(jFotoVisitaInterno.getWidth(), jFotoVisitaInterno.getHeight(), Image.SCALE_DEFAULT)));
+                    }
+                    // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                    byte[] img2Bytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteVI"));
+                    if (img2Bytes != null) {
+                        ImageIcon pic2 = null;
+                        pic2 = new ImageIcon(img2Bytes);
+                        Image scaled2 = pic2.getImage().getScaledInstance(jFotoVisitaInterno.getWidth(), jFotoVisitaInterno.getHeight(), Image.SCALE_DEFAULT);
+                        ImageIcon icon2 = new ImageIcon(scaled2);
+                        jFotoVisitaInterno.setIcon(icon2);
+                    }
                     idItem = conecta.rs.getString("IdItem"); // Coluna 2                
                     jDataEntrada.setDate(conecta.rs.getDate("DataEntrada"));
                     jDataSaida.setDate(conecta.rs.getDate("DataSaida"));
