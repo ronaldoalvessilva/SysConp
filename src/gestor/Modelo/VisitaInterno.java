@@ -49,9 +49,13 @@ public class VisitaInterno {
     private byte[] biometriaDedo1;
     private byte[] biometriaDedo2;
     private byte[] biometriaDedo3;
-    private byte[] biometriaDedo4;    
+    private byte[] biometriaDedo4;
+    private byte[] imagemFrenteVI;
 
-    public VisitaInterno(int idVisita, String statusVisita, String foto, String nomeVisita, String parentescoVisita, Date dataNascVisita, String sexoVisita, Date dataCadVisita, Date dataAntecedente, String adultoCrianca, String visitaIntima, String rg, String emissor, String cpf, String enderecoVisita, String bairroVisita, String cidadeVisita, String cepVisita, String estadoVisita, String telefoneVisita, String telefone1Visita, String celularVisita, String celular1Visita, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento, String nacionalidade, Date dataEmissao, byte[] biometriaDedo1, byte[] biometriaDedo2, byte[] biometriaDedo3, byte[] biometriaDedo4) {
+    public VisitaInterno() {
+    }
+
+    public VisitaInterno(int idVisita, String statusVisita, String foto, String nomeVisita, String parentescoVisita, Date dataNascVisita, String sexoVisita, Date dataCadVisita, Date dataAntecedente, String adultoCrianca, String visitaIntima, String rg, String emissor, String cpf, String enderecoVisita, String bairroVisita, String cidadeVisita, String cepVisita, String estadoVisita, String telefoneVisita, String telefone1Visita, String celularVisita, String celular1Visita, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento, String nacionalidade, Date dataEmissao, byte[] biometriaDedo1, byte[] biometriaDedo2, byte[] biometriaDedo3, byte[] biometriaDedo4, byte[] imagemFrenteVI) {
         this.idVisita = idVisita;
         this.statusVisita = statusVisita;
         this.foto = foto;
@@ -89,9 +93,7 @@ public class VisitaInterno {
         this.biometriaDedo2 = biometriaDedo2;
         this.biometriaDedo3 = biometriaDedo3;
         this.biometriaDedo4 = biometriaDedo4;
-    }
-
-    public VisitaInterno() {
+        this.imagemFrenteVI = imagemFrenteVI;
     }
 
     /**
@@ -611,4 +613,19 @@ public class VisitaInterno {
     public void setBiometriaDedo4(byte[] biometriaDedo4) {
         this.biometriaDedo4 = biometriaDedo4;
     }
+
+    /**
+     * @return the imagemFrenteVI
+     */
+    public byte[] getImagemFrenteVI() {
+        return imagemFrenteVI;
+    }
+
+    /**
+     * @param imagemFrenteVI the imagemFrenteVI to set
+     */
+    public void setImagemFrenteVI(byte[] imagemFrenteVI) {
+        this.imagemFrenteVI = imagemFrenteVI;
+    }
+
 }
