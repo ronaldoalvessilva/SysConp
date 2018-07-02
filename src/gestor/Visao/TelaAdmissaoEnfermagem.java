@@ -28,12 +28,12 @@ import gestor.Modelo.EvolucaoEnfermagem;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.RegistroAtendimentoInternos;
 import static gestor.Visao.TelaLoginSenha.nameUser;
-import static gestor.Visao.TelaModuloEnfermaria.codAlterar;
-import static gestor.Visao.TelaModuloEnfermaria.codExcluir;
-import static gestor.Visao.TelaModuloEnfermaria.codGravar;
-import static gestor.Visao.TelaModuloEnfermaria.codigoGrupo;
-import static gestor.Visao.TelaModuloEnfermaria.nomeGrupo;
-import static gestor.Visao.TelaModuloEnfermaria.nomeTela;
+import static gestor.Visao.TelaModuloEnfermaria.codAlterarENF;
+import static gestor.Visao.TelaModuloEnfermaria.codExcluirENF;
+import static gestor.Visao.TelaModuloEnfermaria.codGravarENF;
+import static gestor.Visao.TelaModuloEnfermaria.codigoGrupoENF;
+import static gestor.Visao.TelaModuloEnfermaria.nomeGrupoENF;
+import static gestor.Visao.TelaModuloEnfermaria.nomeTelaENF;
 import static gestor.Visao.TelaModuloEnfermaria.telaAdmissaoEnfeIntEvolENF;
 import static gestor.Visao.TelaModuloEnfermaria.telaAdmissaoEnfeIntManuENF;
 import static gestor.Visao.TelaModuloEnfermaria.telaAdmissãoEnfeIntAEFP1ENF;
@@ -68,7 +68,7 @@ import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
-import static gestor.Visao.TelaModuloEnfermaria.codConsultar;
+import static gestor.Visao.TelaModuloEnfermaria.codConsultarENF;
 import static gestor.Visao.TelaModuloEnfermaria.codigoUserENF;
 import static gestor.Visao.TelaModuloEnfermaria.codUserAcessoENF;
 import static gestor.Visao.TelaModuloEnfermaria.codigoUserGroupENF;
@@ -4802,7 +4802,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAdmissaoEnfeIntManuENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTela.equals(telaAdmissaoEnfeIntManuENF) && codIncluirENF == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAdmissaoEnfeIntManuENF) && codIncluirENF == 1) {
             acao = 1;
             bloquearCampos();
             Novo();
@@ -4818,7 +4818,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAdmissaoEnfeIntManuENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTela.equals(telaAdmissaoEnfeIntManuENF) && codAlterar == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAdmissaoEnfeIntManuENF) && codAlterarENF == 1) {
             objAdmEnfermagem.setStatusLanc(jStatusLanc.getText());
             if (jStatusLanc.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse antedimento não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -4839,7 +4839,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAdmissaoEnfeIntManuENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTela.equals(telaAdmissaoEnfeIntManuENF) && codExcluir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAdmissaoEnfeIntManuENF) && codExcluirENF == 1) {
             verificarEvolucao();
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
@@ -4874,7 +4874,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAdmissaoEnfeIntManuENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTela.equals(telaAdmissaoEnfeIntManuENF) && codGravar == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAdmissaoEnfeIntManuENF) && codGravarENF == 1) {
             if (jDataLanc.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data do atendimento.");
                 jDataLanc.requestFocus();
@@ -5546,7 +5546,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         // TODO add your handling code here: 
         verificarInternoRegistradoAdm();
         buscarAcessoUsuario(telaAdmissaoEnfeIntEvolENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTela.equals(telaAdmissaoEnfeIntEvolENF) && codIncluirENF == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAdmissaoEnfeIntEvolENF) && codIncluirENF == 1) {
             if (atendido.equals("Sim") && jIdLanc.getText().equals(codigoAtend) && jIdInternoMedico.getText().equals(codigoInternoAtend)) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
             } else {
@@ -5564,7 +5564,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
 
     private void jBtAlterarEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarEvolucaoActionPerformed
         buscarAcessoUsuario(telaAdmissaoEnfeIntEvolENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTela.equals(telaAdmissaoEnfeIntEvolENF) && codAlterar == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAdmissaoEnfeIntEvolENF) && codAlterarENF == 1) {
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM EVOLUCAOENFERMAGEM WHERE IdItem='" + jIdEvolucao.getText() + "'");
@@ -5592,7 +5592,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private void jBtExcluirEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirEvolucaoActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAdmissaoEnfeIntEvolENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTela.equals(telaAdmissaoEnfeIntEvolENF) && codExcluir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAdmissaoEnfeIntEvolENF) && codExcluirENF == 1) {
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -5633,7 +5633,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private void jBtSalvarEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarEvolucaoActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAdmissaoEnfeIntEvolENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTela.equals(telaAdmissaoEnfeIntEvolENF) && codGravar == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAdmissaoEnfeIntEvolENF) && codGravarENF == 1) {
             if (jDataEvolu.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data da evolução do interno.");
                 jDataEvolu.requestFocus();
@@ -5769,7 +5769,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private void jBtNovoAFP1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoAFP1ActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAdmissãoEnfeIntAEFP1ENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTela.equals(telaAdmissãoEnfeIntAEFP1ENF) && codIncluirENF == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAdmissãoEnfeIntAEFP1ENF) && codIncluirENF == 1) {
             acao = 3;
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
@@ -5784,7 +5784,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private void jBtAlterarAFP1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarAFP1ActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAdmissãoEnfeIntAEFP1ENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTela.equals(telaAdmissãoEnfeIntAEFP1ENF) && codAlterar == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAdmissãoEnfeIntAEFP1ENF) && codAlterarENF == 1) {
             acao = 4;
             statusMov = "Alterou";
             horaMov = jHoraSistema.getText();
@@ -5799,7 +5799,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private void jBtExcluirAFP1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirAFP1ActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAdmissãoEnfeIntAEFP1ENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTela.equals(telaAdmissãoEnfeIntAEFP1ENF) && codExcluir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAdmissãoEnfeIntAEFP1ENF) && codExcluirENF == 1) {
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -5823,7 +5823,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private void jBtSalvarAFP1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarAFP1ActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAdmissãoEnfeIntAEFP1ENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTela.equals(telaAdmissãoEnfeIntAEFP1ENF) && codGravar == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAdmissãoEnfeIntAEFP1ENF) && codGravarENF == 1) {
             verificarAEFP1();
             objAfP1.setHipertensao((String) jComboBoxHipertensao.getSelectedItem());
             objAfP1.setCardiopatias((String) jComboBoxCardiopatias.getSelectedItem());
@@ -5903,7 +5903,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private void jBtNovoAFP2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoAFP2ActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAdmissãoEnfeIntAEFP2ENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTela.equals(telaAdmissãoEnfeIntAEFP2ENF) && codIncluirENF == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAdmissãoEnfeIntAEFP2ENF) && codIncluirENF == 1) {
             acao = 7;
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
@@ -5918,7 +5918,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private void jBtAlterarAFP2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarAFP2ActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAdmissãoEnfeIntAEFP2ENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTela.equals(telaAdmissãoEnfeIntAEFP2ENF) && codAlterar == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAdmissãoEnfeIntAEFP2ENF) && codAlterarENF == 1) {
             acao = 8;
             statusMov = "Alterou";
             horaMov = jHoraSistema.getText();
@@ -5933,7 +5933,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private void jBtExcluirAFP2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirAFP2ActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAdmissãoEnfeIntAEFP2ENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTela.equals(telaAdmissãoEnfeIntAEFP2ENF) && codExcluir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAdmissãoEnfeIntAEFP2ENF) && codExcluirENF == 1) {
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -5957,7 +5957,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private void jBtSalvarAFP2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarAFP2ActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAdmissãoEnfeIntAEFP2ENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTela.equals(telaAdmissãoEnfeIntAEFP2ENF) && codGravar == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAdmissãoEnfeIntAEFP2ENF) && codGravarENF == 1) {
             verificarAEFP2();
             if (jNumeroGestacoes.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o número de gestações ou coloque 0.");
@@ -6071,7 +6071,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private void jBtNovoAFP3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoAFP3ActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAdmissãoEnfeIntAEFP3ENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTela.equals(telaAdmissãoEnfeIntAEFP3ENF) && codIncluirENF == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAdmissãoEnfeIntAEFP3ENF) && codIncluirENF == 1) {
             acao = 9;
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
@@ -6086,7 +6086,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private void jBtAlterarAFP3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarAFP3ActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAdmissãoEnfeIntAEFP3ENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTela.equals(telaAdmissãoEnfeIntAEFP3ENF) && codAlterar == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAdmissãoEnfeIntAEFP3ENF) && codAlterarENF == 1) {
             acao = 10;
             statusMov = "Alterou";
             horaMov = jHoraSistema.getText();
@@ -6101,7 +6101,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private void jBtExcluirAFP3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirAFP3ActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAdmissãoEnfeIntAEFP3ENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTela.equals(telaAdmissãoEnfeIntAEFP3ENF) && codExcluir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAdmissãoEnfeIntAEFP3ENF) && codExcluirENF == 1) {
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -6125,7 +6125,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private void jBtSalvarAFP3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarAFP3ActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAdmissãoEnfeIntAEFP3ENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTela.equals(telaAdmissãoEnfeIntAEFP3ENF) && codGravar == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAdmissãoEnfeIntAEFP3ENF) && codGravarENF == 1) {
             verificarAEFP3();
             objAfP3.setDataUltimaMenstruacao(jDataUltimaMenstruacao.getDate());
             objAfP3.setGestante((String) jComboBoxGestante.getSelectedItem());
@@ -6241,7 +6241,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private void jBtNovoAFP4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoAFP4ActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAdmissãoEnfeIntAEFP4ENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTela.equals(telaAdmissãoEnfeIntAEFP4ENF) && codIncluirENF == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAdmissãoEnfeIntAEFP4ENF) && codIncluirENF == 1) {
             acao = 11;
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
@@ -6256,7 +6256,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private void jBtAlterarAFP4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarAFP4ActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAdmissãoEnfeIntAEFP4ENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTela.equals(telaAdmissãoEnfeIntAEFP4ENF) && codAlterar == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAdmissãoEnfeIntAEFP4ENF) && codAlterarENF == 1) {
             acao = 12;
             statusMov = "Alterou";
             horaMov = jHoraSistema.getText();
@@ -6271,7 +6271,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private void jBtExcluirAFP4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirAFP4ActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAdmissãoEnfeIntAEFP4ENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTela.equals(telaAdmissãoEnfeIntAEFP4ENF) && codExcluir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAdmissãoEnfeIntAEFP4ENF) && codExcluirENF == 1) {
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -6295,7 +6295,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private void jBtSalvarAFP4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarAFP4ActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAdmissãoEnfeIntAEFP4ENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTela.equals(telaAdmissãoEnfeIntAEFP4ENF) && codGravar == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAdmissãoEnfeIntAEFP4ENF) && codGravarENF == 1) {
             DecimalFormat valorReal = new DecimalFormat("#,##00.0");
             valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
             verificarAEFP4();
@@ -10487,8 +10487,8 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                     + "WHERE IdUsuario='" + codigoUserENF + "'");
             conecta.rs.first();
             codigoUserGroupENF = conecta.rs.getInt("IdUsuario");
-            codigoGrupo = conecta.rs.getInt("IdGrupo");
-            nomeGrupo = conecta.rs.getString("NomeGrupo");
+            codigoGrupoENF = conecta.rs.getInt("IdGrupo");
+            nomeGrupoENF = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
         }
         try {
@@ -10499,11 +10499,11 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             codUserAcessoENF = conecta.rs.getInt("IdUsuario");
             codAbrirENF = conecta.rs.getInt("Abrir");
             codIncluirENF = conecta.rs.getInt("Incluir");
-            codAlterar = conecta.rs.getInt("Alterar");
-            codExcluir = conecta.rs.getInt("Excluir");
-            codGravar = conecta.rs.getInt("Gravar");
-            codConsultar = conecta.rs.getInt("Consultar");
-            nomeTela = conecta.rs.getString("NomeTela");
+            codAlterarENF = conecta.rs.getInt("Alterar");
+            codExcluirENF = conecta.rs.getInt("Excluir");
+            codGravarENF = conecta.rs.getInt("Gravar");
+            codConsultarENF = conecta.rs.getInt("Consultar");
+            nomeTelaENF = conecta.rs.getString("NomeTela");
         } catch (Exception e) {
         }
         conecta.desconecta();
