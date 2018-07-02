@@ -12,12 +12,12 @@ import gestor.Dao.ModeloTabela;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.SolicitanteMedicamentos;
 import static gestor.Visao.TelaLoginSenha.nameUser;
-import static gestor.Visao.TelaModuloEnfermaria.codAlterar;
-import static gestor.Visao.TelaModuloEnfermaria.codExcluir;
-import static gestor.Visao.TelaModuloEnfermaria.codGravar;
-import static gestor.Visao.TelaModuloEnfermaria.codigoGrupo;
-import static gestor.Visao.TelaModuloEnfermaria.nomeGrupo;
-import static gestor.Visao.TelaModuloEnfermaria.nomeTela;
+import static gestor.Visao.TelaModuloEnfermaria.codAlterarENF;
+import static gestor.Visao.TelaModuloEnfermaria.codExcluirENF;
+import static gestor.Visao.TelaModuloEnfermaria.codGravarENF;
+import static gestor.Visao.TelaModuloEnfermaria.codigoGrupoENF;
+import static gestor.Visao.TelaModuloEnfermaria.nomeGrupoENF;
+import static gestor.Visao.TelaModuloEnfermaria.nomeTelaENF;
 import static gestor.Visao.TelaModuloEnfermaria.telaSolicitantesMedicamentosENF;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
@@ -29,7 +29,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
-import static gestor.Visao.TelaModuloEnfermaria.codConsultar;
+import static gestor.Visao.TelaModuloEnfermaria.codConsultarENF;
 import static gestor.Visao.TelaModuloEnfermaria.codigoUserENF;
 import static gestor.Visao.TelaModuloEnfermaria.codUserAcessoENF;
 import static gestor.Visao.TelaModuloEnfermaria.codigoUserGroupENF;
@@ -776,7 +776,7 @@ public class TelaSolicitantesMedicamentos extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        if (codigoUserENF == codUserAcessoENF && nomeTela.equals(telaSolicitantesMedicamentosENF) && codIncluirENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaSolicitantesMedicamentosENF) && codIncluirENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
             acao = 1;
             Novo();
             corCampos();
@@ -790,7 +790,7 @@ public class TelaSolicitantesMedicamentos extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        if (codigoUserENF == codUserAcessoENF && nomeTela.equals(telaSolicitantesMedicamentosENF) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaSolicitantesMedicamentosENF) && codAlterarENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
             acao = 2;
             Alterar();
             statusMov = "Alterou";
@@ -803,7 +803,7 @@ public class TelaSolicitantesMedicamentos extends javax.swing.JInternalFrame {
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        if (codigoUserENF == codUserAcessoENF && nomeTela.equals(telaSolicitantesMedicamentosENF) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaSolicitantesMedicamentosENF) && codExcluirENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -815,7 +815,7 @@ public class TelaSolicitantesMedicamentos extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (codigoUserENF == codUserAcessoENF && nomeTela.equals(telaSolicitantesMedicamentosENF) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaSolicitantesMedicamentosENF) && codGravarENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
             if (jNomeSolicitanteMedicamento.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o nome do solicitante.");
             } else {
@@ -1177,8 +1177,8 @@ public class TelaSolicitantesMedicamentos extends javax.swing.JInternalFrame {
                     + "WHERE IdUsuario='" + codigoUserENF + "'");
             conecta.rs.first();
             codigoUserGroupENF = conecta.rs.getInt("IdUsuario");
-            codigoGrupo = conecta.rs.getInt("IdGrupo");
-            nomeGrupo = conecta.rs.getString("NomeGrupo");
+            codigoGrupoENF = conecta.rs.getInt("IdGrupo");
+            nomeGrupoENF = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
         }
         try {
@@ -1189,11 +1189,11 @@ public class TelaSolicitantesMedicamentos extends javax.swing.JInternalFrame {
             codUserAcessoENF = conecta.rs.getInt("IdUsuario");
             codAbrirENF = conecta.rs.getInt("Abrir");
             codIncluirENF = conecta.rs.getInt("Incluir");
-            codAlterar = conecta.rs.getInt("Alterar");
-            codExcluir = conecta.rs.getInt("Excluir");
-            codGravar = conecta.rs.getInt("Gravar");
-            codConsultar = conecta.rs.getInt("Consultar");
-            nomeTela = conecta.rs.getString("NomeTela");
+            codAlterarENF = conecta.rs.getInt("Alterar");
+            codExcluirENF = conecta.rs.getInt("Excluir");
+            codGravarENF = conecta.rs.getInt("Gravar");
+            codConsultarENF = conecta.rs.getInt("Consultar");
+            nomeTelaENF = conecta.rs.getString("NomeTela");
         } catch (Exception e) {
         }
         conecta.desconecta();
