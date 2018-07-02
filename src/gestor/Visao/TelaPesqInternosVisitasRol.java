@@ -243,7 +243,7 @@ public class TelaPesqInternosVisitasRol extends javax.swing.JInternalFrame {
                 jFotoInternoVisitasInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoVisitasInterno.getWidth(), jFotoInternoVisitasInterno.getHeight(), Image.SCALE_DEFAULT)));
                 jPavilhao.setText(conecta.rs.getString("DescricaoPav"));
                  // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
-                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteVI"));
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
                 if (imgBytes != null) {
                     ImageIcon pic = null;
                     pic = new ImageIcon(imgBytes);
