@@ -33,7 +33,7 @@ public class ControleVisitaInterno {
     public VisitaInterno incluirVisitaInterno(VisitaInterno objVisita) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO VISITASINTERNO (StatusVisita,ImagemVisita,NomeVisita,ParentescoVisita,DataNasc,SexoVisita,DataCadVisita,Classificacao,EnderecoVisita,BairroVisita,CidadeVisita,CepVisita,EstadoVisita,TelefoneVisita,Telefone1Visita,CelularVisita,Celular1Visita,RgVisita,EmissorVisita,CpfVisita,DataValiAnte,UsuarioInsert,DataInsert,HorarioInsert,VisitaIntima,Nacionalidade,DataEmissao) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO VISITASINTERNO (StatusVisita,ImagemVisita,NomeVisita,ParentescoVisita,DataNasc,SexoVisita,DataCadVisita,Classificacao,EnderecoVisita,BairroVisita,CidadeVisita,CepVisita,EstadoVisita,TelefoneVisita,Telefone1Visita,CelularVisita,Celular1Visita,RgVisita,EmissorVisita,CpfVisita,DataValiAnte,UsuarioInsert,DataInsert,HorarioInsert,VisitaIntima,Nacionalidade,DataEmissao,ImagemFrenteVI) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setString(1, objVisita.getStatusVisita());
             pst.setString(2, objVisita.getFoto());
             pst.setString(3, objVisita.getNomeVisita());
@@ -61,9 +61,10 @@ public class ControleVisitaInterno {
             pst.setString(25, objVisita.getVisitaIntima());
             pst.setString(26, objVisita.getNacionalidade());
             pst.setTimestamp(27, new java.sql.Timestamp(objVisita.getDataEmissao().getTime()));
+            pst.setBytes(28, objVisita.getImagemFrenteVI());
             pst.execute();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados\n\nERRO" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\n\nERRO: " + ex);
         }
         conecta.desconecta();
         return objVisita;
@@ -72,7 +73,7 @@ public class ControleVisitaInterno {
     public VisitaInterno alterarVisitaInterno(VisitaInterno objVisita) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE VISITASINTERNO SET StatusVisita=?,ImagemVisita=?,NomeVisita=?,ParentescoVisita=?,DataNasc=?,SexoVisita=?,DataCadVisita=?,Classificacao=?,EnderecoVisita=?,BairroVisita=?,CidadeVisita=?,CepVisita=?,EstadoVisita=?,TelefoneVisita=?,Telefone1Visita=?,CelularVisita=?,Celular1Visita=?,RgVisita=?,EmissorVisita=?,CpfVisita=?,DataValiAnte=?,UsuarioUp=?,DataUp=?,HorarioUp=?,VisitaIntima=?,Nacionalidade=?,DataEmissao=? WHERE IdVisita='" + objVisita.getIdVisita() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE VISITASINTERNO SET StatusVisita=?,ImagemVisita=?,NomeVisita=?,ParentescoVisita=?,DataNasc=?,SexoVisita=?,DataCadVisita=?,Classificacao=?,EnderecoVisita=?,BairroVisita=?,CidadeVisita=?,CepVisita=?,EstadoVisita=?,TelefoneVisita=?,Telefone1Visita=?,CelularVisita=?,Celular1Visita=?,RgVisita=?,EmissorVisita=?,CpfVisita=?,DataValiAnte=?,UsuarioUp=?,DataUp=?,HorarioUp=?,VisitaIntima=?,Nacionalidade=?,DataEmissao=?,ImagemFrenteVI=? WHERE IdVisita='" + objVisita.getIdVisita() + "'");
             pst.setString(1, objVisita.getStatusVisita());
             pst.setString(2, objVisita.getFoto());
             pst.setString(3, objVisita.getNomeVisita());
@@ -100,9 +101,10 @@ public class ControleVisitaInterno {
             pst.setString(25, objVisita.getVisitaIntima());
             pst.setString(26, objVisita.getNacionalidade());
             pst.setTimestamp(27, new java.sql.Timestamp(objVisita.getDataEmissao().getTime()));
+            pst.setBytes(28, objVisita.getImagemFrenteVI());
             pst.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados\n\nERRO" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
         }
         conecta.desconecta();
         return objVisita;
