@@ -21,12 +21,12 @@ import gestor.Modelo.RegistroAtendimentoInternos;
 import gestor.Visao.TelaAcessoBiometriaColaboradores.CIS_SDK;
 import static gestor.Visao.TelaBiometriaEntradaSaidaPortaria.caminhoFotoInterno;
 import static gestor.Visao.TelaLoginSenha.nameUser;
-import static gestor.Visao.TelaModuloEnfermaria.codAlterar;
-import static gestor.Visao.TelaModuloEnfermaria.codExcluir;
-import static gestor.Visao.TelaModuloEnfermaria.codGravar;
-import static gestor.Visao.TelaModuloEnfermaria.codigoGrupo;
-import static gestor.Visao.TelaModuloEnfermaria.nomeGrupo;
-import static gestor.Visao.TelaModuloEnfermaria.nomeTela;
+import static gestor.Visao.TelaModuloEnfermaria.codAlterarENF;
+import static gestor.Visao.TelaModuloEnfermaria.codExcluirENF;
+import static gestor.Visao.TelaModuloEnfermaria.codGravarENF;
+import static gestor.Visao.TelaModuloEnfermaria.codigoGrupoENF;
+import static gestor.Visao.TelaModuloEnfermaria.nomeGrupoENF;
+import static gestor.Visao.TelaModuloEnfermaria.nomeTelaENF;
 import static gestor.Visao.TelaModuloEnfermaria.nomeModuloENFER;
 import static gestor.Visao.TelaModuloEnfermaria.telaAcessoCadastroDoencasENF;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
@@ -41,7 +41,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
-import static gestor.Visao.TelaModuloEnfermaria.codConsultar;
+import static gestor.Visao.TelaModuloEnfermaria.codConsultarENF;
 import static gestor.Visao.TelaModuloEnfermaria.codigoUserENF;
 import static gestor.Visao.TelaModuloEnfermaria.codUserAcessoENF;
 import static gestor.Visao.TelaModuloEnfermaria.codigoUserGroupENF;
@@ -710,7 +710,7 @@ public class TelaRegistroInternosAtendimento extends javax.swing.JInternalFrame 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:           
         buscarAcessoUsuario(telaAcessoCadastroDoencasENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTela.equals(telaAcessoCadastroDoencasENF) && codGravar == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAcessoCadastroDoencasENF) && codGravarENF == 1) {
             verificarInternos();
             if (jIdInternoKitBio.getText().equals("") || jNomeInternoKitBio.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Informe o nome do interno.");
@@ -755,7 +755,7 @@ public class TelaRegistroInternosAtendimento extends javax.swing.JInternalFrame 
     private void jBtIniciarLeitorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIniciarLeitorActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAcessoCadastroDoencasENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTela.equals(telaAcessoCadastroDoencasENF) && codIncluirENF == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAcessoCadastroDoencasENF) && codIncluirENF == 1) {
             Novo();
             // Instanciar a DLL
             CIS_SDK dll = CIS_SDK.INSTANCE;
@@ -1483,8 +1483,8 @@ public class TelaRegistroInternosAtendimento extends javax.swing.JInternalFrame 
                     + "WHERE IdUsuario='" + codigoUserENF + "'");
             conecta.rs.first();
             codigoUserGroupENF = conecta.rs.getInt("IdUsuario");
-            codigoGrupo = conecta.rs.getInt("IdGrupo");
-            nomeGrupo = conecta.rs.getString("NomeGrupo");
+            codigoGrupoENF = conecta.rs.getInt("IdGrupo");
+            nomeGrupoENF = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
         }
         try {
@@ -1495,11 +1495,11 @@ public class TelaRegistroInternosAtendimento extends javax.swing.JInternalFrame 
             codUserAcessoENF = conecta.rs.getInt("IdUsuario");
             codAbrirENF = conecta.rs.getInt("Abrir");
             codIncluirENF = conecta.rs.getInt("Incluir");
-            codAlterar = conecta.rs.getInt("Alterar");
-            codExcluir = conecta.rs.getInt("Excluir");
-            codGravar = conecta.rs.getInt("Gravar");
-            codConsultar = conecta.rs.getInt("Consultar");
-            nomeTela = conecta.rs.getString("NomeTela");
+            codAlterarENF = conecta.rs.getInt("Alterar");
+            codExcluirENF = conecta.rs.getInt("Excluir");
+            codGravarENF = conecta.rs.getInt("Gravar");
+            codConsultarENF = conecta.rs.getInt("Consultar");
+            nomeTelaENF = conecta.rs.getString("NomeTela");
         } catch (Exception e) {
         }
         conecta.desconecta();
