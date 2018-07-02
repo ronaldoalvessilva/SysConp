@@ -238,11 +238,13 @@ public class TelaPesqInternosVisitasRol extends javax.swing.JInternalFrame {
                 jRegimePenal.setText(conecta.rs.getString("Regime"));
                 idRol = conecta.rs.getInt("IdRol");
                 caminho = conecta.rs.getString("FotoInternoCrc");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                jFotoInternoVisitasInterno.setIcon(i);
-                jFotoInternoVisitasInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoVisitasInterno.getWidth(), jFotoInternoVisitasInterno.getHeight(), Image.SCALE_DEFAULT)));
-                jPavilhao.setText(conecta.rs.getString("DescricaoPav"));
-                 // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    jFotoInternoVisitasInterno.setIcon(i);
+                    jFotoInternoVisitasInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoVisitasInterno.getWidth(), jFotoInternoVisitasInterno.getHeight(), Image.SCALE_DEFAULT)));
+                    jPavilhao.setText(conecta.rs.getString("DescricaoPav"));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
                 byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
                 if (imgBytes != null) {
                     ImageIcon pic = null;
@@ -338,7 +340,7 @@ public class TelaPesqInternosVisitasRol extends javax.swing.JInternalFrame {
             conecta.executaSQL(sql);
             conecta.rs.first();
             do {
-                dados.add(new Object[]{conecta.rs.getInt("IdRol"), conecta.rs.getInt("IdInternoCrc"),conecta.rs.getString("NomeInternoCrc")});
+                dados.add(new Object[]{conecta.rs.getInt("IdRol"), conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");
