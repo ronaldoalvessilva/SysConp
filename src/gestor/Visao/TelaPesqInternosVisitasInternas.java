@@ -221,7 +221,8 @@ public class TelaPesqInternosVisitasInternas extends javax.swing.JInternalFrame 
                         + "INNER JOIN ITENSLOCACAOINTERNO "
                         + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
                         + "INNER JOIN CELAS ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
-                        + "INNER JOIN PAVILHAO ON CELAS.IdPav=PAVILHAO.IdPav WHERE NomeInternoCrc='" + nomeInterno + "'");
+                        + "INNER JOIN PAVILHAO ON CELAS.IdPav=PAVILHAO.IdPav "
+                        + "WHERE NomeInternoCrc='" + nomeInterno + "'");
                 conecta.rs.first();
                 // Tabela Funcionarios
                 jIdInterno.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
@@ -229,10 +230,21 @@ public class TelaPesqInternosVisitasInternas extends javax.swing.JInternalFrame 
                 jSituacao.setText(conecta.rs.getString("SituacaoCrc"));
                 idRol = conecta.rs.getInt("IdRol");
                 caminho = conecta.rs.getString("FotoInternoCrc");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                jFotoInternoVisitasInterno.setIcon(i);
-                jFotoInternoVisitasInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoVisitasInterno.getWidth(), jFotoInternoVisitasInterno.getHeight(), Image.SCALE_DEFAULT)));
-                jPavilhao.setText(conecta.rs.getString("DescricaoPav"));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    jFotoInternoVisitasInterno.setIcon(i);
+                    jFotoInternoVisitasInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoVisitasInterno.getWidth(), jFotoInternoVisitasInterno.getHeight(), Image.SCALE_DEFAULT)));
+                    jPavilhao.setText(conecta.rs.getString("DescricaoPav"));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoInternoVisitasInterno.getWidth(), jFotoInternoVisitasInterno.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoInternoVisitasInterno.setIcon(icon);
+                }
                 conecta.desconecta();
                 jBtZoonInterno.setEnabled(true);
             } catch (SQLException ex) {
