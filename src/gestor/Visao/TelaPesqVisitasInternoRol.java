@@ -212,7 +212,7 @@ public class TelaPesqVisitasInternoRol extends javax.swing.JInternalFrame {
         if (jPesqNome.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe NOME para pesquisa!!!");
             jPesqNome.requestFocus();
-        } else {            
+        } else {
             pesquisarVisitasRol("SELECT * FROM ITENSROL "
                     + "INNER JOIN VISITASINTERNO "
                     + "ON ITENSROL.IdVisita=VISITASINTERNO.IdVisita "
@@ -254,10 +254,12 @@ public class TelaPesqVisitasInternoRol extends javax.swing.JInternalFrame {
                 jNomeVisitante.setText(conecta.rs.getString("NomeVisita"));
                 // Capturando foto
                 caminhoVisita = conecta.rs.getString("ImagemVisita");
-                javax.swing.ImageIcon v = new javax.swing.ImageIcon(caminhoVisita);
-                jFotoVisitaInterno.setIcon(v);
-                jFotoVisitaInterno.setIcon(new ImageIcon(v.getImage().getScaledInstance(jFotoVisitaInterno.getWidth(), jFotoVisitaInterno.getHeight(), Image.SCALE_DEFAULT)));
-                 // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                if (caminhoVisita != null) {
+                    javax.swing.ImageIcon v = new javax.swing.ImageIcon(caminhoVisita);
+                    jFotoVisitaInterno.setIcon(v);
+                    jFotoVisitaInterno.setIcon(new ImageIcon(v.getImage().getScaledInstance(jFotoVisitaInterno.getWidth(), jFotoVisitaInterno.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
                 byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteVI"));
                 if (imgBytes != null) {
                     ImageIcon pic = null;
@@ -278,7 +280,7 @@ public class TelaPesqVisitasInternoRol extends javax.swing.JInternalFrame {
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
         flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {           
+        if (evt.getStateChange() == evt.SELECTED) {
             this.pesquisarVisitasRol("SELECT * FROM ITENSROL "
                     + "INNER JOIN VISITASINTERNO "
                     + "ON ITENSROL.IdVisita=VISITASINTERNO.IdVisita "
