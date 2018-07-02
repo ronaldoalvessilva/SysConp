@@ -251,9 +251,20 @@ public class TelaPesqInternaRolInterno extends javax.swing.JInternalFrame {
                 jNomeVisitanteInterna.setText(conecta.rs.getString("NomeInternoCrc"));
                 // Capturando foto
                 caminhoVisita = conecta.rs.getString("FotoInternoCrc");
-                javax.swing.ImageIcon v = new javax.swing.ImageIcon(caminhoVisita);
-                jFotoVisitaInterno.setIcon(v);
-                jFotoVisitaInterno.setIcon(new ImageIcon(v.getImage().getScaledInstance(jFotoVisitaInterno.getWidth(), jFotoVisitaInterno.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminhoVisita != null) {
+                    javax.swing.ImageIcon v = new javax.swing.ImageIcon(caminhoVisita);
+                    jFotoVisitaInterno.setIcon(v);
+                    jFotoVisitaInterno.setIcon(new ImageIcon(v.getImage().getScaledInstance(jFotoVisitaInterno.getWidth(), jFotoVisitaInterno.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoVisitaInterno.getWidth(), jFotoVisitaInterno.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoVisitaInterno.setIcon(icon);
+                }
                 jBtZoonInterna.setEnabled(true);
                 conecta.desconecta();
             } catch (SQLException e) {
