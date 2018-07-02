@@ -233,6 +233,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     public TelaModuloServicoSocial() {
         initComponents();
         this.setSize(840, 640); // Tamanho da tela 
+        pesquisarTelasAcessos();
         threadMensagem();
     }
 
