@@ -23,7 +23,7 @@ public class ControleVisitaInternoReligiosa {
     public VisitaInterno incluirVisitaInterno(VisitaInterno objVisita) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO VISITAS_RELIGIOSA_INTERNOS (StatusVisitaRel,ImagemVisitaRel,NomeVisitaRel,ReligiaoVisitaRel,DataNascRel,SexoVisitaRel,DataCadVisitaRel,ClassificacaoRel,EnderecoVisitaRel,BairroVisitaRel,CidadeVisitaRel,CepVisitaRel,EstadoVisitaRel,TelefoneVisitaRel,Telefone1VisitaRel,CelularVisitaRel,Celular1VisitaRel,RgVisitaRel,EmissorVisitaRel,CpfVisitaRel,DataValiAnteRel,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO VISITAS_RELIGIOSA_INTERNOS (StatusVisitaRel,ImagemVisitaRel,NomeVisitaRel,ReligiaoVisitaRel,DataNascRel,SexoVisitaRel,DataCadVisitaRel,ClassificacaoRel,EnderecoVisitaRel,BairroVisitaRel,CidadeVisitaRel,CepVisitaRel,EstadoVisitaRel,TelefoneVisitaRel,Telefone1VisitaRel,CelularVisitaRel,Celular1VisitaRel,RgVisitaRel,EmissorVisitaRel,CpfVisitaRel,DataValiAnteRel,UsuarioInsert,DataInsert,HorarioInsert,ImagemFrenteVR) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setString(1, objVisita.getStatusVisita());
             pst.setString(2, objVisita.getFoto());
             pst.setString(3, objVisita.getNomeVisita());
@@ -48,6 +48,7 @@ public class ControleVisitaInternoReligiosa {
             pst.setString(22, objVisita.getUsuarioInsert());
             pst.setString(23, objVisita.getDataInsert());
             pst.setString(24, objVisita.getHoraInsert());
+            pst.setBytes(25, objVisita.getImagemFrenteVI());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados\nERRO: " + ex);
@@ -59,7 +60,7 @@ public class ControleVisitaInternoReligiosa {
     public VisitaInterno alterarVisitaInterno(VisitaInterno objVisita) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE VISITAS_RELIGIOSA_INTERNOS SET StatusVisitaRel=?,ImagemVisitaRel=?,NomeVisitaRel=?,ReligiaoVisitaRel=?,DataNascRel=?,SexoVisitaRel=?,DataCadVisitaRel=?,ClassificacaoRel=?,EnderecoVisitaRel=?,BairroVisitaRel=?,CidadeVisitaRel=?,CepVisitaRel=?,EstadoVisitaRel=?,TelefoneVisitaRel=?,Telefone1VisitaRel=?,CelularVisitaRel=?,Celular1VisitaRel=?,RgVisitaRel=?,EmissorVisitaRel=?,CpfVisitaRel=?,DataValiAnteRel=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdVisitaRel='" + objVisita.getIdVisita() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE VISITAS_RELIGIOSA_INTERNOS SET StatusVisitaRel=?,ImagemVisitaRel=?,NomeVisitaRel=?,ReligiaoVisitaRel=?,DataNascRel=?,SexoVisitaRel=?,DataCadVisitaRel=?,ClassificacaoRel=?,EnderecoVisitaRel=?,BairroVisitaRel=?,CidadeVisitaRel=?,CepVisitaRel=?,EstadoVisitaRel=?,TelefoneVisitaRel=?,Telefone1VisitaRel=?,CelularVisitaRel=?,Celular1VisitaRel=?,RgVisitaRel=?,EmissorVisitaRel=?,CpfVisitaRel=?,DataValiAnteRel=?,UsuarioUp=?,DataUp=?,HorarioUp=?,ImagemFrenteVR=? WHERE IdVisitaRel='" + objVisita.getIdVisita() + "'");
             pst.setString(1, objVisita.getStatusVisita());
             pst.setString(2, objVisita.getFoto());
             pst.setString(3, objVisita.getNomeVisita());
@@ -84,6 +85,7 @@ public class ControleVisitaInternoReligiosa {
             pst.setString(22, objVisita.getUsuarioUp());
             pst.setString(23, objVisita.getDataUp());
             pst.setString(24, objVisita.getHoraUp());
+            pst.setBytes(25, objVisita.getImagemFrenteVI());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO: " + ex);
