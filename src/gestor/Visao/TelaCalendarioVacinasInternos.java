@@ -14,12 +14,12 @@ import gestor.Modelo.CalendarioVacinasInternos;
 import gestor.Modelo.ItensCartilhaVacinasInternos;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
-import static gestor.Visao.TelaModuloEnfermaria.codAlterar;
-import static gestor.Visao.TelaModuloEnfermaria.codExcluir;
-import static gestor.Visao.TelaModuloEnfermaria.codGravar;
-import static gestor.Visao.TelaModuloEnfermaria.codigoGrupo;
-import static gestor.Visao.TelaModuloEnfermaria.nomeGrupo;
-import static gestor.Visao.TelaModuloEnfermaria.nomeTela;
+import static gestor.Visao.TelaModuloEnfermaria.codAlterarENF;
+import static gestor.Visao.TelaModuloEnfermaria.codExcluirENF;
+import static gestor.Visao.TelaModuloEnfermaria.codGravarENF;
+import static gestor.Visao.TelaModuloEnfermaria.codigoGrupoENF;
+import static gestor.Visao.TelaModuloEnfermaria.nomeGrupoENF;
+import static gestor.Visao.TelaModuloEnfermaria.nomeTelaENF;
 import static gestor.Visao.TelaModuloEnfermaria.telaCalendarioVacinasIntManuENF;
 import static gestor.Visao.TelaModuloEnfermaria.telaCalendarioVacinasIntVaciENF;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
@@ -39,7 +39,7 @@ import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
-import static gestor.Visao.TelaModuloEnfermaria.codConsultar;
+import static gestor.Visao.TelaModuloEnfermaria.codConsultarENF;
 import static gestor.Visao.TelaModuloEnfermaria.codigoUserENF;
 import static gestor.Visao.TelaModuloEnfermaria.codUserAcessoENF;
 import static gestor.Visao.TelaModuloEnfermaria.codigoUserGroupENF;
@@ -1419,7 +1419,7 @@ public class TelaCalendarioVacinasInternos extends javax.swing.JInternalFrame {
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaCalendarioVacinasIntManuENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTela.equals(telaCalendarioVacinasIntManuENF) && codIncluirENF == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaCalendarioVacinasIntManuENF) && codIncluirENF == 1) {
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -1435,7 +1435,7 @@ public class TelaCalendarioVacinasInternos extends javax.swing.JInternalFrame {
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaCalendarioVacinasIntManuENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTela.equals(telaCalendarioVacinasIntManuENF) && codAlterar == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaCalendarioVacinasIntManuENF) && codAlterarENF == 1) {
             objCal.setStatusCart(jStatusReg.getText());
             if (jStatusReg.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
@@ -1454,7 +1454,7 @@ public class TelaCalendarioVacinasInternos extends javax.swing.JInternalFrame {
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaCalendarioVacinasIntManuENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTela.equals(telaCalendarioVacinasIntManuENF) && codExcluir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaCalendarioVacinasIntManuENF) && codExcluirENF == 1) {
             verificarItens();
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
@@ -1486,7 +1486,7 @@ public class TelaCalendarioVacinasInternos extends javax.swing.JInternalFrame {
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaCalendarioVacinasIntManuENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTela.equals(telaCalendarioVacinasIntManuENF) && codGravar == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaCalendarioVacinasIntManuENF) && codGravarENF == 1) {
             if (jDataReg.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data do registro.");
             } else if (jNomeInternoVacina.getText().equals("")) {
@@ -1545,7 +1545,8 @@ public class TelaCalendarioVacinasInternos extends javax.swing.JInternalFrame {
         } else {
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM CARTILHA_VACINAS_INTERNOS WHERE IdCart='" + jCodRegistro.getText() + "'");
+                conecta.executaSQL("SELECT * FROM CARTILHA_VACINAS_INTERNOS "
+                        + "WHERE IdCart='" + jCodRegistro.getText() + "'");
                 conecta.rs.first();
                 jStatusReg.setText(conecta.rs.getString("StatusCart"));
                 if (jStatusReg.getText().equals("FINALIZADO")) {
@@ -1577,7 +1578,7 @@ public class TelaCalendarioVacinasInternos extends javax.swing.JInternalFrame {
     private void jBtNovaVacinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaVacinaActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaCalendarioVacinasIntVaciENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTela.equals(telaCalendarioVacinasIntVaciENF) && codIncluirENF == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaCalendarioVacinasIntVaciENF) && codIncluirENF == 1) {
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -1596,7 +1597,7 @@ public class TelaCalendarioVacinasInternos extends javax.swing.JInternalFrame {
     private void jBtAlterarVacinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarVacinaActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaCalendarioVacinasIntVaciENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTela.equals(telaCalendarioVacinasIntVaciENF) && codAlterar == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaCalendarioVacinasIntVaciENF) && codAlterarENF == 1) {
             statusMov = "Alterou";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -1615,7 +1616,7 @@ public class TelaCalendarioVacinasInternos extends javax.swing.JInternalFrame {
     private void jBtExcluirVacinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirVacinaActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaCalendarioVacinasIntVaciENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTela.equals(telaCalendarioVacinasIntVaciENF) && codExcluir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaCalendarioVacinasIntVaciENF) && codExcluirENF == 1) {
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -1652,7 +1653,7 @@ public class TelaCalendarioVacinasInternos extends javax.swing.JInternalFrame {
     private void jBtSalvarVacinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarVacinaActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaCalendarioVacinasIntVaciENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTela.equals(telaCalendarioVacinasIntVaciENF) && codGravar == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaCalendarioVacinasIntVaciENF) && codGravarENF == 1) {
             if (jDescricaoVacina.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o nome da vacina.");
             } else if (jDataPrimeiraDose.getDate() == null) {
@@ -2717,8 +2718,8 @@ public class TelaCalendarioVacinasInternos extends javax.swing.JInternalFrame {
                     + "WHERE IdUsuario='" + codigoUserENF + "'");
             conecta.rs.first();
             codigoUserGroupENF = conecta.rs.getInt("IdUsuario");
-            codigoGrupo = conecta.rs.getInt("IdGrupo");
-            nomeGrupo = conecta.rs.getString("NomeGrupo");
+            codigoGrupoENF = conecta.rs.getInt("IdGrupo");
+            nomeGrupoENF = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
         }
         try {
@@ -2729,11 +2730,11 @@ public class TelaCalendarioVacinasInternos extends javax.swing.JInternalFrame {
             codUserAcessoENF = conecta.rs.getInt("IdUsuario");
             codAbrirENF = conecta.rs.getInt("Abrir");
             codIncluirENF = conecta.rs.getInt("Incluir");
-            codAlterar = conecta.rs.getInt("Alterar");
-            codExcluir = conecta.rs.getInt("Excluir");
-            codGravar = conecta.rs.getInt("Gravar");
-            codConsultar = conecta.rs.getInt("Consultar");
-            nomeTela = conecta.rs.getString("NomeTela");
+            codAlterarENF = conecta.rs.getInt("Alterar");
+            codExcluirENF = conecta.rs.getInt("Excluir");
+            codGravarENF = conecta.rs.getInt("Gravar");
+            codConsultarENF = conecta.rs.getInt("Consultar");
+            nomeTelaENF = conecta.rs.getString("NomeTela");
         } catch (Exception e) {
         }
         conecta.desconecta();
