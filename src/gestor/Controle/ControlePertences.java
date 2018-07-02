@@ -23,7 +23,7 @@ public class ControlePertences {
     public Pertences incluirPertences(Pertences objPer) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO PERTENCES (StatusLanc,DataCadastro,DescricaoPertence,FotoPertence,Unidade,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO PERTENCES (StatusLanc,DataCadastro,DescricaoPertence,FotoPertence,Unidade,UsuarioInsert,DataInsert,HorarioInsert,ImagenFrentePER) VALUES(?,?,?,?,?,?,?,?,?)");
             pst.setString(1, objPer.getStatusLanc());
             pst.setTimestamp(2, new java.sql.Timestamp(objPer.getDataCadastro().getTime()));
             pst.setString(3, objPer.getDescricaoPertence());
@@ -32,9 +32,10 @@ public class ControlePertences {
             pst.setString(6, objPer.getUsuarioInsert());
             pst.setString(7, objPer.getDataInsert());
             pst.setString(8, objPer.getHoraInsert());
+            pst.setBytes(9, objPer.getImagenFrentePER());
             pst.execute();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados\n\nERRO: " + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\n\nERRO: " + ex);
         }
         conecta.desconecta();
         return objPer;
@@ -43,7 +44,7 @@ public class ControlePertences {
     public Pertences alterarPertences(Pertences objPer) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE PERTENCES SET StatusLanc=?,DataCadastro=?,DescricaoPertence=?,FotoPertence=?,Unidade=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdPertence='" + objPer.getIdPertence() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE PERTENCES SET StatusLanc=?,DataCadastro=?,DescricaoPertence=?,FotoPertence=?,Unidade=?,UsuarioUp=?,DataUp=?,HorarioUp=?,ImagenFrentePER=? WHERE IdPertence='" + objPer.getIdPertence() + "'");
             pst.setString(1, objPer.getStatusLanc());
             pst.setTimestamp(2, new java.sql.Timestamp(objPer.getDataCadastro().getTime()));
             pst.setString(3, objPer.getDescricaoPertence());
@@ -52,9 +53,10 @@ public class ControlePertences {
             pst.setString(6, objPer.getUsuarioInsert());
             pst.setString(7, objPer.getDataInsert());
             pst.setString(8, objPer.getHoraInsert());
+            pst.setBytes(9, objPer.getImagenFrentePER());
             pst.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados\n\nERRO: " + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
         }
         conecta.desconecta();
         return objPer;
@@ -66,7 +68,7 @@ public class ControlePertences {
             PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM PERTENCES WHERE IdPertence='" + objPer.getIdPertence() + "'");
             pst.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados\n\nERRO" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados.\n\nERRO: " + ex);
         }
         conecta.desconecta();
         return objPer;

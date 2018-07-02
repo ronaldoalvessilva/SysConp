@@ -27,8 +27,12 @@ public class Pertences {
     private String horaUp;
     private String dataFechamento;
     private String horaFechamento;  
+    private byte[] imagenFrentePER;
 
-    public Pertences(int IdPertence, String statusLanc, Date DataCadastro, String DescricaoPertence, String fotoPertence, String unidade, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento) {
+    public Pertences() {
+    }
+
+    public Pertences(int IdPertence, String statusLanc, Date DataCadastro, String DescricaoPertence, String fotoPertence, String unidade, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento, byte[] imagenFrentePER) {
         this.IdPertence = IdPertence;
         this.statusLanc = statusLanc;
         this.DataCadastro = DataCadastro;
@@ -43,9 +47,7 @@ public class Pertences {
         this.horaUp = horaUp;
         this.dataFechamento = dataFechamento;
         this.horaFechamento = horaFechamento;
-    }
-
-    public Pertences() {
+        this.imagenFrentePER = imagenFrentePER;
     }
 
     /**
@@ -243,4 +245,19 @@ public class Pertences {
     public void setHoraFechamento(String horaFechamento) {
         this.horaFechamento = horaFechamento;
     }
+
+    /**
+     * @return the imagenFrentePER
+     */
+    public byte[] getImagenFrentePER() {
+        return imagenFrentePER;
+    }
+
+    /**
+     * @param imagenFrentePER the imagenFrentePER to set
+     */
+    public void setImagenFrentePER(byte[] imagenFrentePER) {
+        this.imagenFrentePER = imagenFrentePER;
+    }
+   
 }

@@ -12,6 +12,16 @@ import gestor.Dao.ModeloTabela;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.Pertences;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPortarias.codAlterarP1;
+import static gestor.Visao.TelaModuloPortarias.codExcluirP1;
+import static gestor.Visao.TelaModuloPortarias.codGravarP1;
+import static gestor.Visao.TelaModuloPortarias.codIncluirP1;
+import static gestor.Visao.TelaModuloPortarias.codUserAcessoP1;
+import static gestor.Visao.TelaModuloPortarias.codigoUserP1;
+import static gestor.Visao.TelaModuloPortarias.nomeGrupoP1;
+import static gestor.Visao.TelaModuloPortarias.nomeTelaP1;
+import static gestor.Visao.TelaModuloPortarias.telaCadastroPertenccesManuP1;
+import static gestor.Visao.TelaModuloPortarias.telaCadastroVeiculosManuP1;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloSeguranca.codAlterar;
@@ -33,10 +43,18 @@ import static gestor.Visao.TelaModuloTriagem.nomeGrupoTRI;
 import static gestor.Visao.TelaModuloTriagem.nomeTelaTRI;
 import static gestor.Visao.TelaModuloTriagem.telaObjetosInternosTRI;
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -611,6 +629,13 @@ public class TelaPertences extends javax.swing.JInternalFrame {
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
+        } else if (codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaCadastroPertenccesManuP1) && codIncluirP1 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES")) {
+            acao = 1;
+            Novo();
+            corCampo();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
@@ -632,6 +657,13 @@ public class TelaPertences extends javax.swing.JInternalFrame {
             statusMov = "Alterou";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
+        } else if (codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaCadastroPertenccesManuP1) && codAlterarP1 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES")) {
+            acao = 2;
+            Alterar();
+            corCampo();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
         }
@@ -642,6 +674,8 @@ public class TelaPertences extends javax.swing.JInternalFrame {
         if (codigoUser == codUserAcesso && nomeTela.equals(telaObjetosInternos) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             VerificarEntPertences();
         } else if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaObjetosInternosTRI) && codExcluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
+            VerificarEntPertences();
+        } else if (codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaCadastroPertenccesManuP1) && codExcluirP1 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES")) {
             VerificarEntPertences();
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a excluir registro.");
@@ -669,6 +703,25 @@ public class TelaPertences extends javax.swing.JInternalFrame {
                         objPer.setDescricaoPertence(jDescricaoPertence.getText());
                         objPer.setFotoPertence(caminho);
                         objPer.setUnidade((String) jComboBoxUnidade.getSelectedItem());
+                         // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE   
+                            if (jFotoPertence.getIcon() != null) {
+                                Image img = ((ImageIcon) jFotoPertence.getIcon()).getImage();
+                                BufferedImage bi = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                                        img.getWidth(null),
+                                        img.getHeight(null),
+                                        BufferedImage.TYPE_INT_RGB);
+                                Graphics2D g2 = bi.createGraphics();
+                                g2.drawImage(img, 0, 0, null);
+                                ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                                try {
+                                    ImageIO.write(bi, "jpg", buffer);
+                                } catch (FileNotFoundException ex) {
+                                    Logger.getLogger(TelaPertences.class.getName()).log(Level.SEVERE, null, ex);
+                                } catch (IOException ex) {
+                                    Logger.getLogger(TelaPertences.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                                objPer.setImagenFrentePER(buffer.toByteArray());
+                            }
                         if (acao == 1) {
                             // log de usuario
                             objPer.setUsuarioInsert(nameUser);
@@ -742,6 +795,52 @@ public class TelaPertences extends javax.swing.JInternalFrame {
                     }
                 }
             }
+        } else if (codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaCadastroPertenccesManuP1) && codGravarP1 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES")) {
+            if (jDataCadastro.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Data de cadastro não pode ser em branco.");
+                jDataCadastro.requestFocus();
+                jDataCadastro.setBackground(Color.red);
+            } else {
+                if (jDescricaoPertence.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a descrição.");
+                    jDescricaoPertence.requestFocus();
+                    jDescricaoPertence.setBackground(Color.red);
+                } else {
+                    if (caminho == null) {
+                        JOptionPane.showMessageDialog(rootPane, "Insira a foto do pertence.");
+                    } else {
+                        objPer.setStatusLanc((String) jComboBoxStatus.getSelectedItem());
+                        objPer.setDataCadastro(jDataCadastro.getDate());
+                        objPer.setDescricaoPertence(jDescricaoPertence.getText());
+                        objPer.setFotoPertence(caminho);
+                        objPer.setUnidade((String) jComboBoxUnidade.getSelectedItem());
+                        if (acao == 1) {
+                            // log de usuario
+                            objPer.setUsuarioInsert(nameUser);
+                            objPer.setDataInsert(dataModFinal);
+                            objPer.setHoraInsert(horaMov);
+                            control.incluirPertences(objPer);
+                            buscarId();
+                            objLog();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso");
+                            Salvar();
+                        }
+                        if (acao == 2) {
+                            // log de usuario
+                            objPer.setUsuarioUp(nameUser);
+                            objPer.setDataUp(dataModFinal);
+                            objPer.setHoraUp(horaMov);
+                            objPer.setIdPertence(Integer.valueOf(jIDPertences.getText()));
+                            control.alterarPertences(objPer);
+                            objLog();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso");
+                            Salvar();
+                        }
+                    }
+                }
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar registro.");
         }
@@ -764,7 +863,8 @@ public class TelaPertences extends javax.swing.JInternalFrame {
         if (jPesqDescricao.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe uma descrição para pesquisa.");
         } else {
-            pesquisarTodosPertences("SELECT * FROM PERTENCES WHERE DescricaoPertence LIKE'%" + jPesqDescricao.getText() + "%'");
+            pesquisarTodosPertences("SELECT * FROM PERTENCES "
+                    + "WHERE DescricaoPertence LIKE'%" + jPesqDescricao.getText() + "%'");
         }
     }//GEN-LAST:event_jBtPesqDescricaoActionPerformed
 
@@ -783,7 +883,8 @@ public class TelaPertences extends javax.swing.JInternalFrame {
             jBtAuditoria.setEnabled(true);
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM PERTENCES WHERE DescricaoPertence LIKE'" + descricaoPertence + "%'");
+                conecta.executaSQL("SELECT * FROM PERTENCES "
+                        + "WHERE DescricaoPertence='" + descricaoPertence + "'");
                 conecta.rs.first();
                 jIDPertences.setText(String.valueOf(conecta.rs.getInt("IdPertence")));
                 jComboBoxStatus.setSelectedItem(conecta.rs.getString("StatusLanc"));
@@ -795,6 +896,15 @@ public class TelaPertences extends javax.swing.JInternalFrame {
                 javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
                 jFotoPertence.setIcon(i);
                 jFotoPertence.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoPertence.getWidth(), jFotoPertence.getHeight(), Image.SCALE_DEFAULT)));
+                 // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrentePER"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoPertence.getWidth(), jFotoPertence.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoPertence.setIcon(icon);
+                }
                 conecta.desconecta();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por nome" + e);
@@ -828,8 +938,7 @@ public class TelaPertences extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
 
     private void jBtNovaFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaFotoActionPerformed
-        // TODO add your handling code here:
-        // Incluir Foto Frente
+        // TODO add your handling code here:       
         javax.swing.JFileChooser seletor = new javax.swing.JFileChooser();
         int acao = seletor.showOpenDialog(this);
         if (acao == JFileChooser.APPROVE_OPTION) {
@@ -841,7 +950,7 @@ public class TelaPertences extends javax.swing.JInternalFrame {
             jFotoPertence.setIcon(new ImageIcon(image.getImage().getScaledInstance(jFotoPertence.getWidth(), jFotoPertence.getHeight(), Image.SCALE_DEFAULT)));
             caminho = f.getPath();
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Seleção da foto do interno cancelada.");
+            JOptionPane.showMessageDialog(rootPane, "Seleção da foto do pertence cancelada.");
         }
     }//GEN-LAST:event_jBtNovaFotoActionPerformed
 

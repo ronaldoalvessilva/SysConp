@@ -32,9 +32,13 @@ public class Veiculos {
     private String horaInsert;
     private String horaUp;
     private String dataFechamento;
-    private String horaFechamento;      
+    private String horaFechamento;
+    private byte[] imagenFrenteVE;
 
-    public Veiculos(int idVeiculo, String statusVei, Date dataCadastro, String placaVeiculo, String marcaVeiculo, String modeloVeiculo, String cidade, String estado, String fotoFrente, String fotoLadoDireito, String fotoLadoEsquerdo, String fotoFundo, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento) {
+    public Veiculos() {
+    }
+
+    public Veiculos(int idVeiculo, String statusVei, Date dataCadastro, String placaVeiculo, String marcaVeiculo, String modeloVeiculo, String cidade, String estado, String fotoFrente, String fotoLadoDireito, String fotoLadoEsquerdo, String fotoFundo, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento, byte[] imagenFrenteVE) {
         this.idVeiculo = idVeiculo;
         this.statusVei = statusVei;
         this.dataCadastro = dataCadastro;
@@ -55,9 +59,7 @@ public class Veiculos {
         this.horaUp = horaUp;
         this.dataFechamento = dataFechamento;
         this.horaFechamento = horaFechamento;
-    }
-
-    public Veiculos() {
+        this.imagenFrenteVE = imagenFrenteVE;
     }
 
     /**
@@ -339,4 +341,19 @@ public class Veiculos {
     public void setHoraFechamento(String horaFechamento) {
         this.horaFechamento = horaFechamento;
     }
+
+    /**
+     * @return the imagenFrenteVE
+     */
+    public byte[] getImagenFrenteVE() {
+        return imagenFrenteVE;
+    }
+
+    /**
+     * @param imagenFrenteVE the imagenFrenteVE to set
+     */
+    public void setImagenFrenteVE(byte[] imagenFrenteVE) {
+        this.imagenFrenteVE = imagenFrenteVE;
+    }
+
 }

@@ -163,22 +163,22 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     String cartaoCPF = "";
     String pCnc = "";
     //
-    public static int codigoUser = 0;
-    public static int codUserAcesso = 0;
-    public static int codigoUserGroup = 0;
-    public static int codAbrir = 0;
-    public static int codIncluir = 0;
-    public static int codAlterar = 0;
-    public static int codExcluir = 0;
-    public static int codGravar = 0;
-    public static int codConcultar = 0;
-    public static int codigoGrupo = 0;
-    public static String nomeGrupo = "";
-    public static String nomeTela = "";
+    public static int codigoUserCRC = 0;
+    public static int codUserAcessoCRC = 0;
+    public static int codigoUserGroupCRC = 0;
+    public static int codAbrirCRC = 0;
+    public static int codIncluirCRC = 0;
+    public static int codAlterarCRC = 0;
+    public static int codExcluirCRC = 0;
+    public static int codGravarCRC = 0;
+    public static int codConsultarCRC = 0;
+    public static int codigoGrupoCRC = 0;
+    public static String nomeGrupoCRC = "";
+    public static String nomeTelaCRC = "";
     // TELAS DE ACESSOS AO MÓDULO CRC
     public static String nomeModuloCRC = "CRC";
     // MENU CADASTRO    
-    public static String telaConsultaGerencialInternosExterna = "Consulta:Consulta Gerencial Internos Unidade";
+    public static String telaConsultaGerencialInternosExternaCRC = "Consulta:Consulta Gerencial Internos Unidade";
     //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
@@ -327,7 +327,9 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         jMenuUtilitarios = new javax.swing.JMenu();
         jCalculadoraPena = new javax.swing.JMenuItem();
         jCalculadoraWindows = new javax.swing.JMenuItem();
+        jSeparator28 = new javax.swing.JPopupMenu.Separator();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jSeparator27 = new javax.swing.JPopupMenu.Separator();
         GerarPopulacaoInternosNominal = new javax.swing.JMenuItem();
 
         jMenuItem8.setText("jMenuItem8");
@@ -1040,6 +1042,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             }
         });
         jMenuUtilitarios.add(jCalculadoraWindows);
+        jMenuUtilitarios.add(jSeparator28);
 
         jMenuItem3.setText("Fechamento de Movimentação de Internos");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
@@ -1048,6 +1051,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             }
         });
         jMenuUtilitarios.add(jMenuItem3);
+        jMenuUtilitarios.add(jSeparator27);
 
         GerarPopulacaoInternosNominal.setText("Gerar População Nominal");
         GerarPopulacaoInternosNominal.addActionListener(new java.awt.event.ActionListener() {
@@ -2638,8 +2642,8 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
 
     private void jConsultaGeralInternosExternaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jConsultaGeralInternosExternaActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaConsultaGerencialInternosExterna);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaConsultaGerencialInternosExterna) && codAbrir == 1) {
+        buscarAcessoUsuario(telaConsultaGerencialInternosExternaCRC);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaConsultaGerencialInternosExternaCRC) && codAbrirCRC == 1) {
             if (objConsultaGIU == null || objConsultaGIU.isClosed()) {
                 objConsultaGIU = new ConsultaGerencialInternosUnidade();
                 jPainelCRC.add(objConsultaGIU);
@@ -2783,6 +2787,8 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator24;
     private javax.swing.JPopupMenu.Separator jSeparator25;
     private javax.swing.JPopupMenu.Separator jSeparator26;
+    private javax.swing.JPopupMenu.Separator jSeparator27;
+    private javax.swing.JPopupMenu.Separator jSeparator28;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
@@ -3383,15 +3389,15 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
-                    + "WHERE NomeTela='" + telaConsultaGerencialInternosExterna + "'");
+                    + "WHERE NomeTela='" + telaConsultaGerencialInternosExternaCRC + "'");
             conecta.rs.first();
             pNomeCGIE = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
-        if (!pNomeCGIE.equals(telaConsultaGerencialInternosExterna) || pNomeCGIE == null || pNomeCGIE.equals("")) {
+        if (!pNomeCGIE.equals(telaConsultaGerencialInternosExternaCRC) || pNomeCGIE == null || pNomeCGIE.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
-            objCadastroTela.setNomeTela(telaConsultaGerencialInternosExterna);
+            objCadastroTela.setNomeTela(telaConsultaGerencialInternosExternaCRC);
             controle.incluirTelaAcesso(objCadastroTela);
         }
     }
@@ -3414,33 +3420,33 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             conecta.executaSQL("SELECT * FROM USUARIOS "
                     + "WHERE NomeUsuario='" + nameUser + "'");
             conecta.rs.first();
-            codigoUser = conecta.rs.getInt("IdUsuario");
+            codigoUserCRC = conecta.rs.getInt("IdUsuario");
         } catch (Exception e) {
         }
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
                     + "INNER JOIN GRUPOUSUARIOS "
                     + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                    + "WHERE IdUsuario='" + codigoUser + "'");
+                    + "WHERE IdUsuario='" + codigoUserCRC + "'");
             conecta.rs.first();
-            codigoUserGroup = conecta.rs.getInt("IdUsuario");
-            codigoGrupo = conecta.rs.getInt("IdGrupo");
-            nomeGrupo = conecta.rs.getString("NomeGrupo");
+            codigoUserGroupCRC = conecta.rs.getInt("IdUsuario");
+            codigoGrupoCRC = conecta.rs.getInt("IdGrupo");
+            nomeGrupoCRC = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
         }
         try {
             conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
-                    + "WHERE IdUsuario='" + codigoUser + "' "
+                    + "WHERE IdUsuario='" + codigoUserCRC + "' "
                     + "AND NomeTela='" + nomeTelaAcesso + "'");
             conecta.rs.first();
-            codUserAcesso = conecta.rs.getInt("IdUsuario");
-            codAbrir = conecta.rs.getInt("Abrir");
-            codIncluir = conecta.rs.getInt("Incluir");
-            codAlterar = conecta.rs.getInt("Alterar");
-            codExcluir = conecta.rs.getInt("Excluir");
-            codGravar = conecta.rs.getInt("Gravar");
-            codConcultar = conecta.rs.getInt("Consultar");
-            nomeTela = conecta.rs.getString("NomeTela");
+            codUserAcessoCRC = conecta.rs.getInt("IdUsuario");
+            codAbrirCRC = conecta.rs.getInt("Abrir");
+            codIncluirCRC = conecta.rs.getInt("Incluir");
+            codAlterarCRC = conecta.rs.getInt("Alterar");
+            codExcluirCRC = conecta.rs.getInt("Excluir");
+            codGravarCRC = conecta.rs.getInt("Gravar");
+            codConsultarCRC = conecta.rs.getInt("Consultar");
+            nomeTelaCRC = conecta.rs.getString("NomeTela");
         } catch (Exception e) {
         }
         conecta.desconecta();

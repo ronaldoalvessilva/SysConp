@@ -15,6 +15,16 @@ import gestor.Modelo.LogSistema;
 import gestor.Modelo.VisitasDiversas;
 import static gestor.Visao.TelaAdvogados.FotoAdvogado;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPortarias.codAlterarP1;
+import static gestor.Visao.TelaModuloPortarias.codExcluirP1;
+import static gestor.Visao.TelaModuloPortarias.codGravarP1;
+import static gestor.Visao.TelaModuloPortarias.codIncluirP1;
+import static gestor.Visao.TelaModuloPortarias.codUserAcessoP1;
+import static gestor.Visao.TelaModuloPortarias.codigoUserP1;
+import static gestor.Visao.TelaModuloPortarias.nomeGrupoP1;
+import static gestor.Visao.TelaModuloPortarias.nomeTelaP1;
+import static gestor.Visao.TelaModuloPortarias.telaCadastroAdvogadosManuP1;
+import static gestor.Visao.TelaModuloPortarias.telaCadastroVisitasDiversasManuP1;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -736,7 +746,8 @@ public class TelaVisitasDiversas extends javax.swing.JInternalFrame {
             //
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM VISITASDIVERSAS WHERE IdVisita='" + idVisita + "'");
+                conecta.executaSQL("SELECT * FROM VISITASDIVERSAS "
+                        + "WHERE IdVisita='" + idVisita + "'");
                 conecta.rs.first();
                 jIdVisita.setText(String.valueOf(conecta.rs.getInt("IdVisita")));
                 jComboBoxTipoVisita.setSelectedItem(conecta.rs.getString("TipoVisita"));
@@ -769,105 +780,121 @@ public class TelaVisitasDiversas extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampo();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaCadastroVisitasDiversasManuP1) && codIncluirP1 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES")) {
+            acao = 1;
+            Novo();
+            corCampo();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        acao = 2;
-        Alterar();
-        corCampo();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaCadastroVisitasDiversasManuP1) && codAlterarP1 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES")) {
+            acao = 2;
+            Alterar();
+            corCampo();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        VerificarEntVisitas();
+        if (codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaCadastroVisitasDiversasManuP1) && codExcluirP1 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES")) {
+            VerificarEntVisitas();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        pesquisarVisitaCadastrada();
-        if (jDataCadastro.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data de cadastro.");
-            jDataCadastro.requestFocus();
-            jDataCadastro.setBackground(Color.red);
-        } else if (jNomeVisita.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome da visita.");
-            jNomeVisita.requestFocus();
-            jNomeVisita.setBackground(Color.red);
-        } else if (caminhoFotoVisitasDiversas == null) {
-            JOptionPane.showMessageDialog(rootPane, "Coloque a foto da Visita");
-        } else if (jComboBoxTipoVisita.getSelectedItem() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o tipo de visita.");
-        } else if (jComboBoxTipoVisita.getSelectedItem().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o tipo de visita.");
-        } else if (jComboBoxTipoVisita.getSelectedItem().equals("Selecione...")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o tipo de visita.");
-        } else {
-            objViDi.setDataCadastro(jDataCadastro.getDate());
-            objViDi.setFotoVisita(caminhoFotoVisitasDiversas);
-            objViDi.setNomeVisita(jNomeVisita.getText().trim());
-            objViDi.setRgVisita(jRG.getText());
-            objViDi.setCpfVisita(jCPF.getText());
-            objViDi.setCnhVisita(jCNH.getText());
-            objViDi.setClasseVisita(jClasse.getText());
-            objViDi.setObsVisita(jObservacao.getText());
-            objViDi.setTipoVisita((String) jComboBoxTipoVisita.getSelectedItem());
-            // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE   
-            if (FotoVisitaDiversas.getIcon() != null) {
-                Image img = ((ImageIcon) FotoVisitaDiversas.getIcon()).getImage();
-                BufferedImage bi = new BufferedImage(//é a imagem na memória e que pode ser alterada
-                        img.getWidth(null),
-                        img.getHeight(null),
-                        BufferedImage.TYPE_INT_RGB);
-                Graphics2D g2 = bi.createGraphics();
-                g2.drawImage(img, 0, 0, null);
-                ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-                try {
-                    ImageIO.write(bi, "jpg", buffer);
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(TelaVisitasDiversas.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(TelaVisitasDiversas.class.getName()).log(Level.SEVERE, null, ex);
+        if (codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaCadastroVisitasDiversasManuP1) && codGravarP1 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES")) {
+            pesquisarVisitaCadastrada();
+            if (jDataCadastro.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de cadastro.");
+                jDataCadastro.requestFocus();
+                jDataCadastro.setBackground(Color.red);
+            } else if (jNomeVisita.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome da visita.");
+                jNomeVisita.requestFocus();
+                jNomeVisita.setBackground(Color.red);
+            } else if (caminhoFotoVisitasDiversas == null) {
+                JOptionPane.showMessageDialog(rootPane, "Coloque a foto da Visita");
+            } else if (jComboBoxTipoVisita.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o tipo de visita.");
+            } else if (jComboBoxTipoVisita.getSelectedItem().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o tipo de visita.");
+            } else if (jComboBoxTipoVisita.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o tipo de visita.");
+            } else {
+                objViDi.setDataCadastro(jDataCadastro.getDate());
+                objViDi.setFotoVisita(caminhoFotoVisitasDiversas);
+                objViDi.setNomeVisita(jNomeVisita.getText().trim());
+                objViDi.setRgVisita(jRG.getText());
+                objViDi.setCpfVisita(jCPF.getText());
+                objViDi.setCnhVisita(jCNH.getText());
+                objViDi.setClasseVisita(jClasse.getText());
+                objViDi.setObsVisita(jObservacao.getText());
+                objViDi.setTipoVisita((String) jComboBoxTipoVisita.getSelectedItem());
+                // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE   
+                if (FotoVisitaDiversas.getIcon() != null) {
+                    Image img = ((ImageIcon) FotoVisitaDiversas.getIcon()).getImage();
+                    BufferedImage bi = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                            img.getWidth(null),
+                            img.getHeight(null),
+                            BufferedImage.TYPE_INT_RGB);
+                    Graphics2D g2 = bi.createGraphics();
+                    g2.drawImage(img, 0, 0, null);
+                    ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                    try {
+                        ImageIO.write(bi, "jpg", buffer);
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(TelaVisitasDiversas.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(TelaVisitasDiversas.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    objViDi.setImagemFrenteVD(buffer.toByteArray());
                 }
-                objViDi.setImagemFrenteVD(buffer.toByteArray());
-            }
-            if (acao == 1) {
-                if (jNomeVisita.getText().trim().equals(nomeVisita) && jRG.getText().equals(rgVisita)) {
-                    JOptionPane.showMessageDialog(rootPane, "Vista já cadastrada.");
-                } else {
+                if (acao == 1) {
+                    if (jNomeVisita.getText().trim().equals(nomeVisita) && jRG.getText().equals(rgVisita)) {
+                        JOptionPane.showMessageDialog(rootPane, "Vista já cadastrada.");
+                    } else {
+                        // log de usuario
+                        objViDi.setUsuarioInsert(nameUser);
+                        objViDi.setDataInsert(dataModFinal);
+                        objViDi.setHoraInsert(horaMov);
+                        control.incluirVisitas(objViDi);
+                        buscarID();
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        Salvar();
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    }
+                }
+                if (acao == 2) {
                     // log de usuario
-                    objViDi.setUsuarioInsert(nameUser);
-                    objViDi.setDataInsert(dataModFinal);
-                    objViDi.setHoraInsert(horaMov);
-                    control.incluirVisitas(objViDi);
-                    buscarID();
+                    objViDi.setUsuarioUp(nameUser);
+                    objViDi.setDataUp(dataModFinal);
+                    objViDi.setHoraUp(horaMov);
+                    objViDi.setIdVisita(Integer.valueOf(jIdVisita.getText()));
+                    control.alterarVisitas(objViDi);
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     Salvar();
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
             }
-            if (acao == 2) {
-                // log de usuario
-                objViDi.setUsuarioUp(nameUser);
-                objViDi.setDataUp(dataModFinal);
-                objViDi.setHoraUp(horaMov);
-                objViDi.setIdVisita(Integer.valueOf(jIdVisita.getText()));
-                control.alterarVisitas(objViDi);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 

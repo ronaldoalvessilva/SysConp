@@ -24,7 +24,7 @@ public class ControleVeiculos {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO VEICULOS (DataCadastro,ModeloVeiculo,MarcaVeiculo,PlacaVeiculo,CidadeVeiculo,EstadoVeiculo,FotoFrente,FotoLadoEsquerdo,FotoLadoDireito,FotoFundo,UsuarioInsert,DataInsert,HorarioInsert,StatusVei) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO VEICULOS (DataCadastro,ModeloVeiculo,MarcaVeiculo,PlacaVeiculo,CidadeVeiculo,EstadoVeiculo,FotoFrente,FotoLadoEsquerdo,FotoLadoDireito,FotoFundo,UsuarioInsert,DataInsert,HorarioInsert,StatusVei,ImagemFrenteVE) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setTimestamp(1, new java.sql.Timestamp(objVeic.getDataCadastro().getTime()));
             pst.setString(2, objVeic.getModeloVeiculo());
             pst.setString(3, objVeic.getMarcaVeiculo());
@@ -51,6 +51,7 @@ public class ControleVeiculos {
             pst.setString(12, objVeic.getDataInsert());
             pst.setString(13, objVeic.getHoraInsert());
             pst.setString(14, objVeic.getStatusVei());
+            pst.setBytes(15, objVeic.getImagenFrenteVE());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\n\nERRO: " + ex);
@@ -63,7 +64,7 @@ public class ControleVeiculos {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE VEICULOS SET DataCadastro=?,ModeloVeiculo=?,MarcaVeiculo=?,PlacaVeiculo=?,CidadeVeiculo=?,EstadoVeiculo=?,FotoFrente=?,FotoLadoEsquerdo=?,FotoLadoDireito=?,FotoFundo=?,UsuarioUp=?,DataUp=?,HorarioUp=?,StatusVei=? WHERE IdVeiculo='" + objVeic.getIdVeiculo() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE VEICULOS SET DataCadastro=?,ModeloVeiculo=?,MarcaVeiculo=?,PlacaVeiculo=?,CidadeVeiculo=?,EstadoVeiculo=?,FotoFrente=?,FotoLadoEsquerdo=?,FotoLadoDireito=?,FotoFundo=?,UsuarioUp=?,DataUp=?,HorarioUp=?,StatusVei=?,ImagemFrenteVE=? WHERE IdVeiculo='" + objVeic.getIdVeiculo() + "'");
             pst.setTimestamp(1, new java.sql.Timestamp(objVeic.getDataCadastro().getTime()));
             pst.setString(2, objVeic.getModeloVeiculo());
             pst.setString(3, objVeic.getMarcaVeiculo());
@@ -91,9 +92,10 @@ public class ControleVeiculos {
             pst.setString(12, objVeic.getDataInsert());
             pst.setString(13, objVeic.getHoraInsert());
             pst.setString(14, objVeic.getStatusVei());
+            pst.setBytes(15, objVeic.getImagenFrenteVE());
             pst.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados\n\nERRO" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.n\nERRO: " + ex);
         }
         conecta.desconecta();
         return objVeic;

@@ -14,6 +14,16 @@ import gestor.Dao.ModeloTabela;
 import gestor.Modelo.Advogados;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPortarias.codAlterarP1;
+import static gestor.Visao.TelaModuloPortarias.codExcluirP1;
+import static gestor.Visao.TelaModuloPortarias.codGravarP1;
+import static gestor.Visao.TelaModuloPortarias.codIncluirP1;
+import static gestor.Visao.TelaModuloPortarias.codUserAcessoP1;
+import static gestor.Visao.TelaModuloPortarias.codigoUserP1;
+import static gestor.Visao.TelaModuloPortarias.nomeGrupoP1;
+import static gestor.Visao.TelaModuloPortarias.nomeTelaP1;
+import static gestor.Visao.TelaModuloPortarias.telaCadastroAdvogadosManuP1;
+import static gestor.Visao.TelaModuloPortarias.telaCadastroPertenccesManuP1;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -771,115 +781,131 @@ public class TelaAdvogados extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampo();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaCadastroAdvogadosManuP1) && codIncluirP1 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES")) {
+            acao = 1;
+            Novo();
+            corCampo();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        acao = 2;
-        Alterar();
-        corCampo();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaCadastroAdvogadosManuP1) && codAlterarP1 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES")) {
+            acao = 2;
+            Alterar();
+            corCampo();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        verificarEntAdvogados();
+        if (codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaCadastroAdvogadosManuP1) && codExcluirP1 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES")) {
+            verificarEntAdvogados();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataCadastro.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data de cadastro.");
-            jDataCadastro.requestFocus();
-            jDataCadastro.setBackground(Color.red);
-        } else if (jNomeAdvogado.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do advogado.");
-            jNomeAdvogado.requestFocus();
-            jNomeAdvogado.setBackground(Color.red);
-        } else if (jOAB.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o número da OAB do advogado.");
-            jOAB.requestFocus();
-            jOAB.setBackground(Color.red);
-        } else if (caminhoAdvogados == null) {
-            JOptionPane.showMessageDialog(rootPane, "Coloque a foto do Advogado");
-        } else if (jComboBoxStatus.getSelectedItem().equals("Selecione...")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o status do advogado.");
-        } else if (jComboBoxStatus.getSelectedItem() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o status do advogado.");
-        } else if (jComboBoxStatus.getSelectedItem().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o status do advogado.");
-        } else {
-            objAdv.setDataCadastro(jDataCadastro.getDate());
-            objAdv.setStatusAdv((String) jComboBoxStatus.getSelectedItem());
-            objAdv.setFotoAdvogado(caminhoAdvogados);
-            objAdv.setNomeAdvogado(jNomeAdvogado.getText().trim());
-            objAdv.setRgAdvogado(jRG.getText());
-            objAdv.setCpfAdvogado(jCPF.getText());
-            objAdv.setOabAdvogado(jOAB.getText());
-            objAdv.setObsAdvogado(jObsAdvogado.getText());
-            // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE   
-            if (FotoAdvogado.getIcon() != null) {
-                Image img = ((ImageIcon) FotoAdvogado.getIcon()).getImage();
-                BufferedImage bi = new BufferedImage(//é a imagem na memória e que pode ser alterada
-                        img.getWidth(null),
-                        img.getHeight(null),
-                        BufferedImage.TYPE_INT_RGB);
-                Graphics2D g2 = bi.createGraphics();
-                g2.drawImage(img, 0, 0, null);
-                ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-                try {
-                    ImageIO.write(bi, "jpg", buffer);
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(TelaAdvogados.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(TelaAdvogados.class.getName()).log(Level.SEVERE, null, ex);
+        if (codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaCadastroAdvogadosManuP1) && codGravarP1 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES")) {
+            if (jDataCadastro.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de cadastro.");
+                jDataCadastro.requestFocus();
+                jDataCadastro.setBackground(Color.red);
+            } else if (jNomeAdvogado.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do advogado.");
+                jNomeAdvogado.requestFocus();
+                jNomeAdvogado.setBackground(Color.red);
+            } else if (jOAB.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o número da OAB do advogado.");
+                jOAB.requestFocus();
+                jOAB.setBackground(Color.red);
+            } else if (caminhoAdvogados == null) {
+                JOptionPane.showMessageDialog(rootPane, "Coloque a foto do Advogado");
+            } else if (jComboBoxStatus.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o status do advogado.");
+            } else if (jComboBoxStatus.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o status do advogado.");
+            } else if (jComboBoxStatus.getSelectedItem().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o status do advogado.");
+            } else {
+                objAdv.setDataCadastro(jDataCadastro.getDate());
+                objAdv.setStatusAdv((String) jComboBoxStatus.getSelectedItem());
+                objAdv.setFotoAdvogado(caminhoAdvogados);
+                objAdv.setNomeAdvogado(jNomeAdvogado.getText().trim());
+                objAdv.setRgAdvogado(jRG.getText());
+                objAdv.setCpfAdvogado(jCPF.getText());
+                objAdv.setOabAdvogado(jOAB.getText());
+                objAdv.setObsAdvogado(jObsAdvogado.getText());
+                // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE   
+                if (FotoAdvogado.getIcon() != null) {
+                    Image img = ((ImageIcon) FotoAdvogado.getIcon()).getImage();
+                    BufferedImage bi = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                            img.getWidth(null),
+                            img.getHeight(null),
+                            BufferedImage.TYPE_INT_RGB);
+                    Graphics2D g2 = bi.createGraphics();
+                    g2.drawImage(img, 0, 0, null);
+                    ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                    try {
+                        ImageIO.write(bi, "jpg", buffer);
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(TelaAdvogados.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(TelaAdvogados.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    objAdv.setImagemFrenteAD(buffer.toByteArray());
                 }
-                objAdv.setImagemFrenteAD(buffer.toByteArray());
-            }
-            // log de usuario
-            objAdv.setUsuarioInsert(nameUser);
-            objAdv.setDataInsert(dataModFinal);
-            objAdv.setHoraInsert(horaMov);
-            try {
-                conecta.abrirConexao();
-                conecta.executaSQL("SELECT * FROM ADVOGADOS "
-                        + "WHERE NomeAdvogado='" + jNomeAdvogado.getText() + "'");
-                conecta.rs.first();
-                nomeAdvogado = conecta.rs.getString("NomeAdvogado");
-            } catch (Exception e) {
-            }
-            if (acao == 1) {
-                if (jNomeAdvogado.getText().trim().equals(nomeAdvogado)) {
-                    JOptionPane.showMessageDialog(rootPane, "Advogado já cadastrado.");
-                } else {
-                    control.incluirAdvogados(objAdv);
-                    buscarID();
+                // log de usuario
+                objAdv.setUsuarioInsert(nameUser);
+                objAdv.setDataInsert(dataModFinal);
+                objAdv.setHoraInsert(horaMov);
+                try {
+                    conecta.abrirConexao();
+                    conecta.executaSQL("SELECT * FROM ADVOGADOS "
+                            + "WHERE NomeAdvogado='" + jNomeAdvogado.getText() + "'");
+                    conecta.rs.first();
+                    nomeAdvogado = conecta.rs.getString("NomeAdvogado");
+                } catch (Exception e) {
+                }
+                if (acao == 1) {
+                    if (jNomeAdvogado.getText().trim().equals(nomeAdvogado)) {
+                        JOptionPane.showMessageDialog(rootPane, "Advogado já cadastrado.");
+                    } else {
+                        control.incluirAdvogados(objAdv);
+                        buscarID();
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        Salvar();
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    }
+                }
+                if (acao == 2) {
+                    // log de usuario
+                    objAdv.setUsuarioUp(nameUser);
+                    objAdv.setDataUp(dataModFinal);
+                    objAdv.setHoraUp(horaMov);
+                    objAdv.setIdAdvogado(Integer.valueOf(jIDAd.getText()));
+                    control.alterarAdvogados(objAdv);
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     Salvar();
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
             }
-            if (acao == 2) {
-                // log de usuario
-                objAdv.setUsuarioUp(nameUser);
-                objAdv.setDataUp(dataModFinal);
-                objAdv.setHoraUp(horaMov);
-                objAdv.setIdAdvogado(Integer.valueOf(jIDAd.getText()));
-                control.alterarAdvogados(objAdv);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
