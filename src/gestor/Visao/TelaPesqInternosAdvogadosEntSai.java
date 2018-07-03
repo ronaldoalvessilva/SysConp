@@ -224,9 +224,20 @@ public class TelaPesqInternosAdvogadosEntSai extends javax.swing.JInternalFrame 
                 jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));
                 // Capturando foto
                 caminho = conecta.rs.getString("FotoInternoCrc");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                jFotoInternoAdvogado.setIcon(i);
-                jFotoInternoAdvogado.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoAdvogado.getWidth(), jFotoInternoAdvogado.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    jFotoInternoAdvogado.setIcon(i);
+                    jFotoInternoAdvogado.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoAdvogado.getWidth(), jFotoInternoAdvogado.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] img2Bytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (img2Bytes != null) {
+                    ImageIcon pic2 = null;
+                    pic2 = new ImageIcon(img2Bytes);
+                    Image scaled2 = pic2.getImage().getScaledInstance(jFotoInternoAdvogado.getWidth(), jFotoInternoAdvogado.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon2 = new ImageIcon(scaled2);
+                    jFotoInternoAdvogado.setIcon(icon2);
+                }
                 jSituacaoCrc.setText(conecta.rs.getString("SituacaoCrc"));
                 jDataEntradaInterno.setDate(conecta.rs.getDate("DataEntrada"));
                 jBtZoonFotoInterno.setEnabled(true);
