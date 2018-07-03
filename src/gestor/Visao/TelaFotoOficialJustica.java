@@ -24,6 +24,7 @@ public class TelaFotoOficialJustica extends javax.swing.JDialog {
 
     /**
      * Creates new form TelaFotoCrc
+     *
      * @param parent
      * @param modal
      */
@@ -45,7 +46,7 @@ public class TelaFotoOficialJustica extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jFotoInternoCrc = new javax.swing.JLabel();
+        jFotoOficialJustica = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("...::: Foto Oficial de Justiça:::...");
@@ -58,14 +59,14 @@ public class TelaFotoOficialJustica extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jFotoInternoCrc, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+                .addComponent(jFotoOficialJustica, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jFotoInternoCrc, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
+                .addComponent(jFotoOficialJustica, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -140,21 +141,32 @@ public class TelaFotoOficialJustica extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jFotoInternoCrc;
+    private javax.swing.JLabel jFotoOficialJustica;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 
     public void buscarFotoInterno() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM OFICIAL_JUSTICA WHERE IdOficial='" + jIDOficialJustica.getText() + "'");
+            conecta.executaSQL("SELECT * FROM OFICIAL_JUSTICA "
+                    + "WHERE IdOficial='" + jIDOficialJustica.getText() + "'");
             conecta.rs.first();
             caminhoFoto = conecta.rs.getString("FotoOficial");
             // Capturando foto                
-            javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFoto);
-            jFotoInternoCrc.setIcon(i);
-            jFotoInternoCrc.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoCrc.getWidth(), jFotoInternoCrc.getHeight(), Image.SCALE_DEFAULT)));
-            //
+            if (caminhoFoto != null) {
+                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFoto);
+                jFotoOficialJustica.setIcon(i);
+                jFotoOficialJustica.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoOficialJustica.getWidth(), jFotoOficialJustica.getHeight(), Image.SCALE_DEFAULT)));
+            }
+            // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+            byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteOF"));
+            if (imgBytes != null) {
+                ImageIcon pic = null;
+                pic = new ImageIcon(imgBytes);
+                Image scaled = pic.getImage().getScaledInstance(jFotoOficialJustica.getWidth(), jFotoOficialJustica.getHeight(), Image.SCALE_DEFAULT);
+                ImageIcon icon = new ImageIcon(scaled);
+                jFotoOficialJustica.setIcon(icon);
+            }
         } catch (Exception e) {
         }
         conecta.desconecta();
