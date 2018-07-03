@@ -14,6 +14,21 @@ import gestor.Modelo.EntradaSaidaAdvogados;
 import gestor.Modelo.ItensEntradaAdvogados;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPortarias.codigoUserGroupP1;
+import static gestor.Visao.TelaModuloPortarias.codigoGrupoP1;
+import static gestor.Visao.TelaModuloPortarias.codAbrirP1;
+import static gestor.Visao.TelaModuloPortarias.codAlterarP1;
+import static gestor.Visao.TelaModuloPortarias.codExcluirP1;
+import static gestor.Visao.TelaModuloPortarias.codGravarP1;
+import static gestor.Visao.TelaModuloPortarias.codConsultarP1;
+import static gestor.Visao.TelaModuloPortarias.codIncluirP1;
+import static gestor.Visao.TelaModuloPortarias.codUserAcessoP1;
+import static gestor.Visao.TelaModuloPortarias.codigoUserP1;
+import static gestor.Visao.TelaModuloPortarias.nomeGrupoP1;
+import static gestor.Visao.TelaModuloPortarias.nomeTelaP1;
+import static gestor.Visao.TelaModuloPortarias.telaEntradaSaidaAdDEPADVP1;
+import static gestor.Visao.TelaModuloPortarias.telaEntradaSaidaAdDEPManuP1;
+import static gestor.Visao.TelaModuloPortarias.telaEntradaSaidaVisitasReligiosasVisiP1;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -148,8 +163,6 @@ public class TelaEntradaSaidaAdvogados extends javax.swing.JInternalFrame {
         jBtBuscarSetor = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jIDDepto = new javax.swing.JTextField();
-        jPanel3 = new javax.swing.JPanel();
-        jFotoAdvogado = new javax.swing.JLabel();
         jBtZoonAdvogadoDepartamento = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         jDataEntrada = new com.toedter.calendar.JDateChooser();
@@ -171,6 +184,8 @@ public class TelaEntradaSaidaAdvogados extends javax.swing.JInternalFrame {
         jBtSairVisita = new javax.swing.JButton();
         jBtBuscarAdvogado = new javax.swing.JButton();
         jBtAudItensEntSaiAdvogados = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jFotoAdvogado = new javax.swing.JLabel();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
@@ -266,7 +281,7 @@ public class TelaEntradaSaidaAdvogados extends javax.swing.JInternalFrame {
                         .addComponent(jBtNomeAdvogado, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jCheckBox1)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -369,7 +384,7 @@ public class TelaEntradaSaidaAdvogados extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 702, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 742, Short.MAX_VALUE)
                     .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -384,7 +399,7 @@ public class TelaEntradaSaidaAdvogados extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -469,7 +484,7 @@ public class TelaEntradaSaidaAdvogados extends javax.swing.JInternalFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -481,7 +496,7 @@ public class TelaEntradaSaidaAdvogados extends javax.swing.JInternalFrame {
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Botões", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
 
-        jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7183_16x16.png"))); // NOI18N
+        jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
         jBtNovo.setText("Novo");
         jBtNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -556,8 +571,8 @@ public class TelaEntradaSaidaAdvogados extends javax.swing.JInternalFrame {
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jBtNovo)
                     .addComponent(jBtAlterar)
@@ -569,7 +584,7 @@ public class TelaEntradaSaidaAdvogados extends javax.swing.JInternalFrame {
                     .addComponent(jBtCancelar)
                     .addComponent(jBtAuditoriaManu, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtImpressao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel7Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterar, jBtAuditoriaManu, jBtCancelar, jBtExcluir, jBtFinalizar, jBtImpressao, jBtNovo, jBtSalvar});
@@ -649,19 +664,6 @@ public class TelaEntradaSaidaAdvogados extends javax.swing.JInternalFrame {
         jIDDepto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jIDDepto.setEnabled(false);
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jFotoAdvogado, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jFotoAdvogado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
         jBtZoonAdvogadoDepartamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/11985_16x16.png"))); // NOI18N
         jBtZoonAdvogadoDepartamento.setToolTipText("Ampliar Foto Advogado");
         jBtZoonAdvogadoDepartamento.setContentAreaFilled(false);
@@ -676,64 +678,63 @@ public class TelaEntradaSaidaAdvogados extends javax.swing.JInternalFrame {
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jIDAdvogado, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(jAdvogadoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBtPesqAdvogado, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtZoonAdvogadoDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jIDAdvogado, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addGroup(jPanel8Layout.createSequentialGroup()
-                                .addComponent(jAdvogadoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtPesqAdvogado, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jIDDepto, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jDepartamento, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jBtBuscarSetor, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBtZoonAdvogadoDepartamento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
+                    .addComponent(jIDDepto, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(jDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtBuscarSetor, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jPanel8Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jAdvogadoNome, jDepartamento});
+
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jBtZoonAdvogadoDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jIDAdvogado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jAdvogadoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBtPesqAdvogado))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel7)))
-                    .addComponent(jBtZoonAdvogadoDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(2, 2, 2)
+                        .addComponent(jLabel4)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jIDDepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtBuscarSetor))
-                .addGap(18, 18, 18))
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                    .addComponent(jAdvogadoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jIDAdvogado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtPesqAdvogado))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(24, 24, 24))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(jDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jIDDepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBtBuscarSetor))))
+                .addGap(33, 33, 33))
         );
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados Entrada/Saida", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
@@ -773,18 +774,18 @@ public class TelaEntradaSaidaAdvogados extends javax.swing.JInternalFrame {
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel6)
                     .addComponent(jDataEntrada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel8)
-                    .addComponent(jHorarioEntrada))
-                .addGap(18, 18, 18)
+                    .addComponent(jHorarioEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jDataSaida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel9)
                     .addComponent(jLabel10)
-                    .addComponent(jHorarioSaida))
+                    .addComponent(jHorarioSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
@@ -841,7 +842,7 @@ public class TelaEntradaSaidaAdvogados extends javax.swing.JInternalFrame {
 
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Botões", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
 
-        jBtNovoAdvogado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7183_16x16.png"))); // NOI18N
+        jBtNovoAdvogado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
         jBtNovoAdvogado.setText("Novo");
         jBtNovoAdvogado.setEnabled(false);
         jBtNovoAdvogado.addActionListener(new java.awt.event.ActionListener() {
@@ -906,7 +907,8 @@ public class TelaEntradaSaidaAdvogados extends javax.swing.JInternalFrame {
         jBtAudItensEntSaiAdvogados.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtAudItensEntSaiAdvogados.setForeground(new java.awt.Color(255, 0, 0));
         jBtAudItensEntSaiAdvogados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
-        jBtAudItensEntSaiAdvogados.setText("Auditoria");
+        jBtAudItensEntSaiAdvogados.setToolTipText("Auditoria");
+        jBtAudItensEntSaiAdvogados.setContentAreaFilled(false);
         jBtAudItensEntSaiAdvogados.setEnabled(false);
         jBtAudItensEntSaiAdvogados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -918,65 +920,86 @@ public class TelaEntradaSaidaAdvogados extends javax.swing.JInternalFrame {
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel12Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBtAlterarAdvogado)
+                    .addComponent(jBtExcluirAdvogado)
+                    .addComponent(jBtSalvarAdvogado)
+                    .addComponent(jBtNovoAdvogado))
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jBtAlterarAdvogado)
-                            .addComponent(jBtExcluirAdvogado)
-                            .addComponent(jBtSalvarAdvogado))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jBtBuscarAdvogado, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jBtAudItensEntSaiAdvogados, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jBtSairVisita, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jBtSairVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBtBuscarAdvogado)
+                            .addGroup(jPanel12Layout.createSequentialGroup()
+                                .addGap(2, 2, 2)
+                                .addComponent(jBtCancelarAdvogado))))
                     .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addComponent(jBtNovoAdvogado)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBtCancelarAdvogado)
-                        .addContainerGap())))
+                        .addGap(35, 35, 35)
+                        .addComponent(jBtAudItensEntSaiAdvogados, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
 
-        jPanel12Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarAdvogado, jBtAudItensEntSaiAdvogados, jBtBuscarAdvogado, jBtCancelarAdvogado, jBtExcluirAdvogado, jBtNovoAdvogado, jBtSairVisita, jBtSalvarAdvogado});
+        jPanel12Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarAdvogado, jBtExcluirAdvogado, jBtNovoAdvogado, jBtSalvarAdvogado});
+
+        jPanel12Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtBuscarAdvogado, jBtCancelarAdvogado, jBtSairVisita});
 
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBtNovoAdvogado)
-                    .addComponent(jBtCancelarAdvogado))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBtAlterarAdvogado)
-                    .addComponent(jBtBuscarAdvogado))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBtExcluirAdvogado)
-                    .addComponent(jBtAudItensEntSaiAdvogados))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBtSalvarAdvogado)
-                    .addComponent(jBtSairVisita))
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addComponent(jBtNovoAdvogado)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtAlterarAdvogado)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtExcluirAdvogado)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtSalvarAdvogado))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addComponent(jBtCancelarAdvogado)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtBuscarAdvogado)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtSairVisita)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtAudItensEntSaiAdvogados)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel12Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterarAdvogado, jBtAudItensEntSaiAdvogados, jBtBuscarAdvogado, jBtCancelarAdvogado, jBtExcluirAdvogado, jBtNovoAdvogado, jBtSairVisita, jBtSalvarAdvogado});
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoAdvogado, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoAdvogado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -988,7 +1011,9 @@ public class TelaEntradaSaidaAdvogados extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
         );
@@ -999,15 +1024,15 @@ public class TelaEntradaSaidaAdvogados extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(8, 8, 8)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(23, 23, 23))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1029,14 +1054,16 @@ public class TelaEntradaSaidaAdvogados extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 727, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 503, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 493, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        setBounds(250, 20, 743, 532);
+        setBounds(250, 20, 783, 524);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtPesqDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDataActionPerformed
@@ -1123,71 +1150,87 @@ public class TelaEntradaSaidaAdvogados extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampo();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaAdDEPManuP1) && codIncluirP1 == 1) {
+            acao = 1;
+            Novo();
+            corCampo();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        objEntSaiAd.setStatusLanc(jStatusEntCola.getText());
-        if (jStatusEntCola.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa entrada de visitantes não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaAdDEPManuP1) && codAlterarP1 == 1) {
+            objEntSaiAd.setStatusLanc(jStatusEntCola.getText());
+            if (jStatusEntCola.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa entrada de visitantes não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                Alterar();
+                corCampo();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 2;
-            Alterar();
-            corCampo();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        objEntSaiAd.setStatusLanc(jStatusEntCola.getText());
-        if (jStatusEntCola.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa entrada de visitantes não poderá ser excluída, o mesmo encontra-se FINALIZADO");
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaAdDEPManuP1) && codExcluirP1 == 1) {
+            objEntSaiAd.setStatusLanc(jStatusEntCola.getText());
+            if (jStatusEntCola.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa entrada de visitantes não poderá ser excluída, o mesmo encontra-se FINALIZADO");
+            } else {
+                verificarItens();
+            }
         } else {
-            verificarItens();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDatalancamento.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data do lancamento.");
-            jDatalancamento.requestFocus();
-            jDatalancamento.setBackground(Color.white);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaAdDEPManuP1) && codGravarP1 == 1) {
+            if (jDatalancamento.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data do lancamento.");
+                jDatalancamento.requestFocus();
+                jDatalancamento.setBackground(Color.white);
+            } else {
+                objEntSaiAd.setDataLanc(jDatalancamento.getDate());
+                objEntSaiAd.setObsLanc(jObservacao.getText());
+                objEntSaiAd.setStatusLanc(statusEnt);
+                objEntSaiAd.setUsuarioInsert(nameUser);
+                objEntSaiAd.setDataInsert(dataModFinal);
+                objEntSaiAd.setHoraInsert(horaMov);
+                if (acao == 1) {
+                    control.incluirEntAdvogado(objEntSaiAd);
+                    buscarID();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    Salvar();
+                }
+                if (acao == 2) {
+                    objEntSaiAd.setUsuarioUp(nameUser);
+                    objEntSaiAd.setDataUp(dataModFinal);
+                    objEntSaiAd.setHoraUp(horaMov);
+                    objEntSaiAd.setIdLanc(Integer.valueOf(jIDlanc.getText()));
+                    control.alterarEntAdvogado(objEntSaiAd);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    Salvar();
+                }
+            }
         } else {
-            objEntSaiAd.setDataLanc(jDatalancamento.getDate());
-            objEntSaiAd.setObsLanc(jObservacao.getText());
-            objEntSaiAd.setStatusLanc(statusEnt);
-            objEntSaiAd.setUsuarioInsert(nameUser);
-            objEntSaiAd.setDataInsert(dataModFinal);
-            objEntSaiAd.setHoraInsert(horaMov);
-            if (acao == 1) {
-                control.incluirEntAdvogado(objEntSaiAd);
-                buscarID();
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                Salvar();
-            }
-            if (acao == 2) {
-                objEntSaiAd.setUsuarioUp(nameUser);
-                objEntSaiAd.setDataUp(dataModFinal);
-                objEntSaiAd.setHoraUp(horaMov);
-                objEntSaiAd.setIdLanc(Integer.valueOf(jIDlanc.getText()));
-                control.alterarEntAdvogado(objEntSaiAd);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                Salvar();
-            }
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -1254,15 +1297,33 @@ public class TelaEntradaSaidaAdvogados extends javax.swing.JInternalFrame {
             jBtAudItensEntSaiAdvogados.setEnabled(true);
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM ITENSADVOGADO INNER JOIN ADVOGADOS ON ITENSADVOGADO.IdAdvogado = ADVOGADOS.IdAdvogado INNER JOIN DEPARTAMENTOS ON ITENSADVOGADO.IdDepartamento = DEPARTAMENTOS.IdDepartamento WHERE NomeAdvogado='" + jAdvogadoNome.getText() + "' AND IdLanc='" + jIDlanc.getText() + "'AND HorarioEntrada='" + jHorarioEntrada.getText() + "'");
+                conecta.executaSQL("SELECT * FROM ITENSADVOGADO "
+                        + "INNER JOIN ADVOGADOS "
+                        + "ON ITENSADVOGADO.IdAdvogado=ADVOGADOS.IdAdvogado "
+                        + "INNER JOIN DEPARTAMENTOS "
+                        + "ON ITENSADVOGADO.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
+                        + "WHERE NomeAdvogado='" + jAdvogadoNome.getText() + "' "
+                        + "AND IdLanc='" + jIDlanc.getText() + "' "
+                        + "AND HorarioEntrada='" + jHorarioEntrada.getText() + "'");
                 conecta.rs.first();
                 jIDAdvogado.setText(conecta.rs.getString("IdAdvogado")); //Coluna 0
                 jAdvogadoNome.setText(conecta.rs.getString("NomeAdvogado")); // Coluna 1
                 // Capturando foto
                 caminho = conecta.rs.getString("FotoAdvogado");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                jFotoAdvogado.setIcon(i);
-                jFotoAdvogado.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoAdvogado.getWidth(), jFotoAdvogado.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    jFotoAdvogado.setIcon(i);
+                    jFotoAdvogado.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoAdvogado.getWidth(), jFotoAdvogado.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteAD"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoAdvogado.getWidth(), jFotoAdvogado.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoAdvogado.setIcon(icon);
+                }
                 idItem = conecta.rs.getString("IdItem"); // Coluna 2
                 jIDDepto.setText(conecta.rs.getString("IdDepartamento"));
                 jDepartamento.setText(conecta.rs.getString("NomeDepartamento"));
@@ -1279,135 +1340,158 @@ public class TelaEntradaSaidaAdvogados extends javax.swing.JInternalFrame {
 
     private void jBtNovoAdvogadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoAdvogadoActionPerformed
         // TODO add your handling code here:
-        objEntSaiAd.setStatusLanc(jStatusEntCola.getText());
-        if (jStatusEntCola.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa entrada de advogado não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaEntradaSaidaAdDEPADVP1);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaAdDEPADVP1) && codIncluirP1 == 1) {
+            objEntSaiAd.setStatusLanc(jStatusEntCola.getText());
+            if (jStatusEntCola.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa entrada de advogado não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 3;
+                NovoAdvogado();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 3;
-            NovoAdvogado();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtNovoAdvogadoActionPerformed
 
     private void jBtAlterarAdvogadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarAdvogadoActionPerformed
         // TODO add your handling code here:
-        objEntSaiAd.setStatusLanc(jStatusEntCola.getText());
-        if (jStatusEntCola.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa entrada de advogado não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaEntradaSaidaAdDEPADVP1);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaAdDEPADVP1) && codAlterarP1 == 1) {
+            objEntSaiAd.setStatusLanc(jStatusEntCola.getText());
+            if (jStatusEntCola.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa entrada de advogado não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 4;
+                AlterarAdvogado();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 4;
-            AlterarAdvogado();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtAlterarAdvogadoActionPerformed
 
     private void jBtExcluirAdvogadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirAdvogadoActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        objEntSaiAd.setStatusLanc(jStatusEntCola.getText());
-        if (jStatusEntCola.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse movimento não poderá ser excluído, o mesmo encontra-se FINALIZADO");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o lancamento selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objItensAdvogado.setIdItem(Integer.valueOf(idItem));
-                controle.excluirItensVisita(objItensAdvogado);
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                ExcluirAdvogado();
-                preencherTabelaItens("SELECT * FROM ITENSADVOGADO INNER JOIN ADVOGADOS ON ITENSADVOGADO.IdAdvogado=ADVOGADOS.IdAdvogado WHERE IdLanc='" + jIDlanc.getText() + "'");
+        buscarAcessoUsuario(telaEntradaSaidaAdDEPADVP1);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaAdDEPADVP1) && codExcluirP1 == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objEntSaiAd.setStatusLanc(jStatusEntCola.getText());
+            if (jStatusEntCola.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse movimento não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o lancamento selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objItensAdvogado.setIdItem(Integer.valueOf(idItem));
+                    controle.excluirItensVisita(objItensAdvogado);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    ExcluirAdvogado();
+                    preencherTabelaItens("SELECT * FROM ITENSADVOGADO "
+                            + "INNER JOIN ADVOGADOS "
+                            + "ON ITENSADVOGADO.IdAdvogado=ADVOGADOS.IdAdvogado "
+                            + "WHERE IdLanc='" + jIDlanc.getText() + "'");
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtExcluirAdvogadoActionPerformed
 
     private void jBtSalvarAdvogadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarAdvogadoActionPerformed
         // TODO add your handling code here:
-        horaEntradaEncontrada = "";
-        horaSaidaEncontrado = "";
-        if (jAdvogadoNome.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do advogado.");
-            jAdvogadoNome.setBackground(Color.red);
-        } else {
-            if (jDepartamento.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe o nome do Departamento.");
-                jDepartamento.requestFocus();
-                jDepartamento.setBackground(Color.red);
+        buscarAcessoUsuario(telaEntradaSaidaAdDEPADVP1);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaAdDEPADVP1) && codGravarP1 == 1) {
+            horaEntradaEncontrada = "";
+            horaSaidaEncontrado = "";
+            if (jAdvogadoNome.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do advogado.");
+                jAdvogadoNome.setBackground(Color.red);
             } else {
-                if (jDataEntrada.getDate() == null) {
-                    JOptionPane.showMessageDialog(rootPane, "Informe a data de entrada do advogado.");
-                    jDataEntrada.requestFocus();
-                    jDataEntrada.setBackground(Color.red);
+                if (jDepartamento.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe o nome do Departamento.");
+                    jDepartamento.requestFocus();
+                    jDepartamento.setBackground(Color.red);
                 } else {
-                    if (jHorarioEntrada.getText().equals("")) {
-                        JOptionPane.showMessageDialog(rootPane, "É necessário informar um horário de entrada.");
-                        jHorarioEntrada.requestFocus();
-                        jHorarioEntrada.setBackground(Color.red);
+                    if (jDataEntrada.getDate() == null) {
+                        JOptionPane.showMessageDialog(rootPane, "Informe a data de entrada do advogado.");
+                        jDataEntrada.requestFocus();
+                        jDataEntrada.setBackground(Color.red);
                     } else {
-                        if (jDataSaida.getDate() == null) {
-                            JOptionPane.showMessageDialog(rootPane, "É necessário informar uma data de saida.");
-                            jDataSaida.requestFocus();
-                            jDataSaida.setBackground(Color.red);
+                        if (jHorarioEntrada.getText().equals("")) {
+                            JOptionPane.showMessageDialog(rootPane, "É necessário informar um horário de entrada.");
+                            jHorarioEntrada.requestFocus();
+                            jHorarioEntrada.setBackground(Color.red);
                         } else {
-                            if (jHorarioSaida.getText().equals("")) {
-                                jHorarioSaida.setText("00:00");
+                            if (jDataSaida.getDate() == null) {
+                                JOptionPane.showMessageDialog(rootPane, "É necessário informar uma data de saida.");
+                                jDataSaida.requestFocus();
+                                jDataSaida.setBackground(Color.red);
                             } else {
-                                objItensAdvogado.setIdlanc(Integer.valueOf(jIDlanc.getText()));
-                                objItensAdvogado.setIdAdvogado(Integer.valueOf(jIDAdvogado.getText()));
-                                objItensAdvogado.setDataEntrada(jDataEntrada.getDate());
-                                objItensAdvogado.setHorarioEntrada(jHorarioEntrada.getText());
-                                objItensAdvogado.setDataSaida(jDataSaida.getDate());
-                                objItensAdvogado.setHorarioSaida(jHorarioSaida.getText());
-                                // Log usuario
-                                objItensAdvogado.setUsuarioInsert(nameUser);
-                                objItensAdvogado.setDataInsert(dataModFinal);
-                                objItensAdvogado.setHoraInsert(horaMov);
-                                if (acao == 3) {
+                                if (jHorarioSaida.getText().equals("")) {
+                                    jHorarioSaida.setText("00:00");
+                                } else {
                                     objItensAdvogado.setIdlanc(Integer.valueOf(jIDlanc.getText()));
                                     objItensAdvogado.setIdAdvogado(Integer.valueOf(jIDAdvogado.getText()));
-                                    objItensAdvogado.setNomeAdvogado(jAdvogadoNome.getText());
-                                    objItensAdvogado.setNomeDepartamento(jDepartamento.getText());
-                                    controle.incluirItensVisitas(objItensAdvogado);
-                                    objLog2();
-                                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                    preencherTabelaItens("SELECT * FROM ITENSADVOGADO "
-                                            + "INNER JOIN ADVOGADOS "
-                                            + "ON ITENSADVOGADO.IdAdvogado=ADVOGADOS.IdAdvogado "
-                                            + "WHERE IdLanc='" + jIDlanc.getText() + "'");
-                                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                                    SalvarAdvogado();
-                                }
-                                if (acao == 4) {
-                                    objItensAdvogado.setUsuarioUp(nameUser);
-                                    objItensAdvogado.setDataUp(dataModFinal);
-                                    objItensAdvogado.setHoraUp(horaMov);
-                                    objItensAdvogado.setIdlanc(Integer.valueOf(jIDlanc.getText()));
-                                    objItensAdvogado.setIdAdvogado(Integer.valueOf(jIDAdvogado.getText()));
-                                    objItensAdvogado.setNomeAdvogado(jAdvogadoNome.getText());
-                                    objItensAdvogado.setIdItem(Integer.valueOf(idItem));
-                                    objItensAdvogado.setNomeDepartamento(jDepartamento.getText());
-                                    controle.alterarItensVisitas(objItensAdvogado);
-                                    objLog2();
-                                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                    preencherTabelaItens("SELECT * FROM ITENSADVOGADO "
-                                            + "INNER JOIN ADVOGADOS "
-                                            + "ON ITENSADVOGADO.IdAdvogado=ADVOGADOS.IdAdvogado "
-                                            + "WHERE IdLanc='" + jIDlanc.getText() + "'");
-                                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                                    SalvarAdvogado();
+                                    objItensAdvogado.setDataEntrada(jDataEntrada.getDate());
+                                    objItensAdvogado.setHorarioEntrada(jHorarioEntrada.getText());
+                                    objItensAdvogado.setDataSaida(jDataSaida.getDate());
+                                    objItensAdvogado.setHorarioSaida(jHorarioSaida.getText());
+                                    // Log usuario
+                                    objItensAdvogado.setUsuarioInsert(nameUser);
+                                    objItensAdvogado.setDataInsert(dataModFinal);
+                                    objItensAdvogado.setHoraInsert(horaMov);
+                                    if (acao == 3) {
+                                        objItensAdvogado.setIdlanc(Integer.valueOf(jIDlanc.getText()));
+                                        objItensAdvogado.setIdAdvogado(Integer.valueOf(jIDAdvogado.getText()));
+                                        objItensAdvogado.setNomeAdvogado(jAdvogadoNome.getText());
+                                        objItensAdvogado.setNomeDepartamento(jDepartamento.getText());
+                                        controle.incluirItensVisitas(objItensAdvogado);
+                                        objLog2();
+                                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                        preencherTabelaItens("SELECT * FROM ITENSADVOGADO "
+                                                + "INNER JOIN ADVOGADOS "
+                                                + "ON ITENSADVOGADO.IdAdvogado=ADVOGADOS.IdAdvogado "
+                                                + "WHERE IdLanc='" + jIDlanc.getText() + "'");
+                                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                        SalvarAdvogado();
+                                    }
+                                    if (acao == 4) {
+                                        objItensAdvogado.setUsuarioUp(nameUser);
+                                        objItensAdvogado.setDataUp(dataModFinal);
+                                        objItensAdvogado.setHoraUp(horaMov);
+                                        objItensAdvogado.setIdlanc(Integer.valueOf(jIDlanc.getText()));
+                                        objItensAdvogado.setIdAdvogado(Integer.valueOf(jIDAdvogado.getText()));
+                                        objItensAdvogado.setNomeAdvogado(jAdvogadoNome.getText());
+                                        objItensAdvogado.setIdItem(Integer.valueOf(idItem));
+                                        objItensAdvogado.setNomeDepartamento(jDepartamento.getText());
+                                        controle.alterarItensVisitas(objItensAdvogado);
+                                        objLog2();
+                                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                        preencherTabelaItens("SELECT * FROM ITENSADVOGADO "
+                                                + "INNER JOIN ADVOGADOS "
+                                                + "ON ITENSADVOGADO.IdAdvogado=ADVOGADOS.IdAdvogado "
+                                                + "WHERE IdLanc='" + jIDlanc.getText() + "'");
+                                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                        SalvarAdvogado();
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtSalvarAdvogadoActionPerformed
 
@@ -2274,5 +2358,43 @@ public class TelaEntradaSaidaAdvogados extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jIDlanc.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserP1 = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserP1 + "'");
+            conecta.rs.first();
+            codigoUserGroupP1 = conecta.rs.getInt("IdUsuario");
+            codigoGrupoP1 = conecta.rs.getInt("IdGrupo");
+            nomeGrupoP1 = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserP1 + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoP1 = conecta.rs.getInt("IdUsuario");
+            codAbrirP1 = conecta.rs.getInt("Abrir");
+            codIncluirP1 = conecta.rs.getInt("Incluir");
+            codAlterarP1 = conecta.rs.getInt("Alterar");
+            codExcluirP1 = conecta.rs.getInt("Excluir");
+            codGravarP1 = conecta.rs.getInt("Gravar");
+            codConsultarP1 = conecta.rs.getInt("Consultar");
+            nomeTelaP1 = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }
