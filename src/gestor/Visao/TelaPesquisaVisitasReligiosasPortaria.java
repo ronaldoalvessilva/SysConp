@@ -346,9 +346,20 @@ public class TelaPesquisaVisitasReligiosasPortaria extends javax.swing.JInternal
                 jIdVistaRel.setText(String.valueOf(conecta.rs.getInt("IdVisitaRel")));
                 jNomeVisitaReligiosa.setText(conecta.rs.getString("NomeVisitaRel"));
                 caminho = conecta.rs.getString("ImagemVisitaRel");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                jFotoVisitaReligiosa.setIcon(i);
-                jFotoVisitaReligiosa.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoVisitaReligiosa.getWidth(), jFotoVisitaReligiosa.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    jFotoVisitaReligiosa.setIcon(i);
+                    jFotoVisitaReligiosa.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoVisitaReligiosa.getWidth(), jFotoVisitaReligiosa.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] img2Bytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteVR"));
+                if (img2Bytes != null) {
+                    ImageIcon pic2 = null;
+                    pic2 = new ImageIcon(img2Bytes);
+                    Image scaled2 = pic2.getImage().getScaledInstance(jFotoVisitaReligiosa.getWidth(), jFotoVisitaReligiosa.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon2 = new ImageIcon(scaled2);
+                    jFotoVisitaReligiosa.setIcon(icon2);
+                }
                 conecta.desconecta();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa VISITA." + e);
