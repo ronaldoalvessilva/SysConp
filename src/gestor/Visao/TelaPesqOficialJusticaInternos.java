@@ -214,15 +214,27 @@ public class TelaPesqOficialJusticaInternos extends javax.swing.JInternalFrame {
             jIDOficialJustica.setText(idFunc);
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM OFICIAL_JUSTICA WHERE NomeOficial='" + nomeAdvogado + "'");
+                conecta.executaSQL("SELECT * FROM OFICIAL_JUSTICA "
+                        + "WHERE NomeOficial='" + nomeAdvogado + "'");
                 conecta.rs.first();
                 jIDOficialJustica.setText(String.valueOf(conecta.rs.getInt("IdOficial")));
                 jNomeOficialJustica.setText(conecta.rs.getString("NomeOficial"));
                 // Capturando foto
                 caminhoOficial = conecta.rs.getString("FotoOficial");
-                javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoOficial);
-                jFotoOficialJustica.setIcon(a);
-                jFotoOficialJustica.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoOficialJustica.getWidth(), jFotoOficialJustica.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminhoOficial != null) {
+                    javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoOficial);
+                    jFotoOficialJustica.setIcon(a);
+                    jFotoOficialJustica.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoOficialJustica.getWidth(), jFotoOficialJustica.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteOF"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoOficialJustica.getWidth(), jFotoOficialJustica.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoOficialJustica.setIcon(icon);
+                }
                 jBtZoonFotoOficialJustica.setEnabled(true);
                 conecta.desconecta();
             } catch (SQLException ex) {
@@ -244,7 +256,7 @@ public class TelaPesqOficialJusticaInternos extends javax.swing.JInternalFrame {
         if (jPesqNomeAdvogado.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe um nome ou parte do nome para pesquisar.");
             jPesqNomeAdvogado.requestFocus();
-        } else {            
+        } else {
             buscarVisitas("SELECT * FROM OFICIAL_JUSTICA "
                     + "WHERE NomeOficial LIKE'%" + jPesqNomeAdvogado.getText() + "%' "
                     + "AND StatusOficial='" + statusOficial + "'");
@@ -254,7 +266,7 @@ public class TelaPesqOficialJusticaInternos extends javax.swing.JInternalFrame {
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
         flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {            
+        if (evt.getStateChange() == evt.SELECTED) {
             this.buscarVisitas("SELECT * FROM OFICIAL_JUSTICA "
                     + "WHERE StatusOficial='" + statusOficial + "'");
         } else {
