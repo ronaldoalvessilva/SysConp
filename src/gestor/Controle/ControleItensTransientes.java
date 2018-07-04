@@ -38,6 +38,8 @@ public class ControleItensTransientes {
             buscarColaborador(objItensTransi.getNomeColaborador(), objItensTransi.getIdFunc());
         } else if (objItensTransi.getTipoTrans() == 2) {
             buscarVisitasDiversas(objItensTransi.getNomeVisitaDiversa(), objItensTransi.getIdVisitaDiversas());
+        } else if (objItensTransi.getTipoTrans() == 3) {
+            buscarOficialJustica(objItensTransi.getNomeOficial(), objItensTransi.getIdOficial());
         }
         conecta.abrirConexao();
         try {
@@ -70,6 +72,8 @@ public class ControleItensTransientes {
             buscarColaborador(objItensTransi.getNomeColaborador(), objItensTransi.getIdFunc());
         } else if (objItensTransi.getTipoTrans() == 2) {
             buscarVisitasDiversas(objItensTransi.getNomeVisitaDiversa(), objItensTransi.getIdVisitaDiversas());
+        } else if (objItensTransi.getTipoTrans() == 3) {
+            buscarOficialJustica(objItensTransi.getNomeOficial(), objItensTransi.getIdOficial());
         }
         conecta.abrirConexao();
         try {
@@ -95,7 +99,7 @@ public class ControleItensTransientes {
         return objItensTransi;
     }
 
-    public ItensTransientes alterarItensTransientesBiometria(ItensTransientes objItensTransi) {        
+    public ItensTransientes alterarItensTransientesBiometria(ItensTransientes objItensTransi) {
         conecta.abrirConexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_TRANSIENTES_VISITAS_DIVERSAS SET DataSaida=?,HoraSaida=?,UsuarioUp=?,DataUp=?,HorarioUp=?,AssinaturaSaida=? WHERE IdItem='" + objItensTransi.getIdItens() + "'");
@@ -152,11 +156,23 @@ public class ControleItensTransientes {
     public void buscarVisitasDiversas(String nomeVisita, int codigoVisita) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM VISITASDIVERSAS WHERE NomeVisita='" + nomeVisita + "'AND IdVisita='" + codigoVisita + "'");
+            conecta.executaSQL("SELECT * FROM VISITASDIVERSAS WHERE NomeVisita='" + nomeVisita + "' AND IdVisita='" + codigoVisita + "'");
             conecta.rs.first();
             codigoTransiente = conecta.rs.getInt("IdVisita");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Existe dados (VISITAS DIVERSAS) a serem exibidos !!!");
+        }
+        conecta.desconecta();
+    }
+
+    public void buscarOficialJustica(String nomeOficial, int codigoOficial) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM OFICIAL_JUSTICA WHERE NomeOficial='" + nomeOficial + "' AND IdOficial='" + codigoOficial + "'");
+            conecta.rs.first();
+            codigoTransiente = conecta.rs.getInt("IdOficial");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Existe dados (OFICIAL DE JUSTIÇA) a serem exibidos !!!");
         }
         conecta.desconecta();
     }
@@ -186,6 +202,7 @@ public class ControleItensTransientes {
                 pDigi.setBiometriaDedo2(conecta.rs.getBytes("BiometriaDedo2"));
                 pDigi.setBiometriaDedo3(conecta.rs.getBytes("BiometriaDedo3"));
                 pDigi.setBiometriaDedo4(conecta.rs.getBytes("BiometriaDedo4"));
+                pDigi.setImagemFrenteOF(conecta.rs.getBytes("ImagemFrenteOF"));
                 listaColaboradores.add(pDigi);
                 qtdColaboradores++;
             }
