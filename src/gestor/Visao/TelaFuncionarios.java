@@ -2941,7 +2941,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                     jFotoColaborador.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_DEFAULT)));
                 }
                 // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
-                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteCO"));
                 if (imgBytes != null) {
                     ImageIcon pic = null;
                     pic = new ImageIcon(imgBytes);
