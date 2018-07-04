@@ -226,15 +226,27 @@ public class TelaPesqColaborador extends javax.swing.JInternalFrame {
                             + "ON COLABORADOR.IdCargo=CARGOS.IdCargo "
                             + "INNER JOIN DEPARTAMENTOS "
                             + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
-                            + "WHERE NomeFunc='" + nomeFuncionario + "'AND StatusFunc='" + statusFunc + "'");
+                            + "WHERE NomeFunc='" + nomeFuncionario + "' "
+                            + "AND StatusFunc='" + statusFunc + "'");
                     conecta.rs.first();
                     // Tabela Funcionarios
                     jIDFunc.setText(String.valueOf(conecta.rs.getInt("IdFunc")));
                     jNomeFuncionario.setText(conecta.rs.getString("NomeFunc"));
                     caminho = conecta.rs.getString("ImagemFunc");
-                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                    jFotoColaborador.setIcon(i);
-                    jFotoColaborador.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_DEFAULT)));
+                    if (caminho != null) {
+                        javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                        jFotoColaborador.setIcon(i);
+                        jFotoColaborador.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_DEFAULT)));
+                    }
+                    // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                    byte[] img2Bytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteCO"));
+                    if (img2Bytes != null) {
+                        ImageIcon pic2 = null;
+                        pic2 = new ImageIcon(img2Bytes);
+                        Image scaled2 = pic2.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_DEFAULT);
+                        ImageIcon icon2 = new ImageIcon(scaled2);
+                        jFotoColaborador.setIcon(icon2);
+                    }
                     jSetorFunc.setText(conecta.rs.getString("NomeDepartamento"));
                     jCargoFunc.setText(conecta.rs.getString("NomeCargo"));
                     jBtZoonColaborador.setEnabled(true);
@@ -348,7 +360,7 @@ public class TelaPesqColaborador extends javax.swing.JInternalFrame {
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
         direita.setHorizontalAlignment(SwingConstants.RIGHT);
         //
-        jTabelaPesqFunc.getColumnModel().getColumn(0).setCellRenderer(centralizado);        
+        jTabelaPesqFunc.getColumnModel().getColumn(0).setCellRenderer(centralizado);
     }
 
     public void limparTabela() {
