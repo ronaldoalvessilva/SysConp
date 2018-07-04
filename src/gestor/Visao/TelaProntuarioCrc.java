@@ -4781,10 +4781,12 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 jCartaoSus.setText(conecta.rs.getString("CartaoSus"));
                 // Capturando foto
                 caminho = conecta.rs.getString("FotoInternoCrc");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                jLabelFotoInterno.setIcon(i);
-                jLabelFotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jLabelFotoInterno.getWidth(), jLabelFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
-                //
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    jLabelFotoInterno.setIcon(i);
+                    jLabelFotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jLabelFotoInterno.getWidth(), jLabelFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
                 byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
                 if (imgBytes != null) {
                     ImageIcon pic = null;
@@ -8119,6 +8121,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jDataDocumentoPrisao.setDate(null);
         jHoraDocumento.setText("");
     }
+
     /**
      * Método para verifica se determinado cpf é válido.
      *
@@ -8160,10 +8163,10 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             }
             Check = String.valueOf(digito1) + String.valueOf(digito2);
             String s_aux2 = xCPF.substring(xCPF.length() - 2, xCPF.length());
-            if (s_aux2.compareTo(Check) != 0) {               
+            if (s_aux2.compareTo(Check) != 0) {
                 JOptionPane.showMessageDialog(null, "CPF digitado é inválido.");
                 return false;
-            }            
+            }
             return true;
         } catch (Exception e) {
             return false;
