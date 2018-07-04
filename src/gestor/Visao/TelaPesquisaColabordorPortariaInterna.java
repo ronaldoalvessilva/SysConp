@@ -247,9 +247,20 @@ public class TelaPesquisaColabordorPortariaInterna extends javax.swing.JInternal
                 jNomeTransiente.setText(conecta.rs.getString("NomeFunc"));
                 //
                 caminho = conecta.rs.getString("ImagemFunc");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                jFotoTransiente.setIcon(i);
-                jFotoTransiente.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoTransiente.getWidth(), jFotoTransiente.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    jFotoTransiente.setIcon(i);
+                    jFotoTransiente.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoTransiente.getWidth(), jFotoTransiente.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteCO"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoTransiente.getWidth(), jFotoTransiente.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoTransiente.setIcon(icon);
+                }
                 jBtZoom.setEnabled(true);
                 //
             } catch (SQLException ex) {
