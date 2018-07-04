@@ -210,14 +210,26 @@ public class TelaPesqVisitasDiversasPortariaInterna extends javax.swing.JInterna
             jIdTransiente.setText(idFunc);
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM VISITASDIVERSAS WHERE NomeVisita='" + nomeVisitante + "'");
+                conecta.executaSQL("SELECT * FROM VISITASDIVERSAS "
+                        + "WHERE NomeVisita='" + nomeVisitante + "'");
                 conecta.rs.first();
                 jIdTransiente.setText(String.valueOf(conecta.rs.getInt("IdVisita")));
                 jNomeTransiente.setText(conecta.rs.getString("NomeVisita"));
                 caminho = conecta.rs.getString("FotoVisita");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                jFotoTransiente.setIcon(i);
-                jFotoTransiente.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoTransiente.getWidth(), jFotoTransiente.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    jFotoTransiente.setIcon(i);
+                    jFotoTransiente.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoTransiente.getWidth(), jFotoTransiente.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteVI"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoTransiente.getWidth(), jFotoTransiente.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoTransiente.setIcon(icon);
+                }
                 jBtZoom.setEnabled(true);
                 conecta.desconecta();
             } catch (SQLException ex) {
@@ -239,7 +251,7 @@ public class TelaPesqVisitasDiversasPortariaInterna extends javax.swing.JInterna
         if (jNomeVisita.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe um nome ou parte do nome para pesquisar.");
             jNomeVisita.requestFocus();
-        } else {           
+        } else {
             buscarVisitas("SELECT * FROM VISITASDIVERSAS WHERE NomeVisita LIKE'%" + jNomeVisita.getText() + "%'");
         }
     }//GEN-LAST:event_jBtPesqNomeActionPerformed
@@ -247,7 +259,7 @@ public class TelaPesqVisitasDiversasPortariaInterna extends javax.swing.JInterna
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
         flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {            
+        if (evt.getStateChange() == evt.SELECTED) {
             this.buscarVisitas("SELECT * FROM VISITASDIVERSAS");
         } else {
             limparTabela();
