@@ -24,13 +24,22 @@ import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaProntuarioCrc.jLabelFotoInterno;
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -2578,11 +2587,13 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         // TODO add your handling code here:   
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ITENSENTRADASFUNC WHERE IdFunc='" + jIDFunc.getText() + "'ORDER BY IdFunc");
+            conecta.executaSQL("SELECT * FROM ITENSENTRADASFUNC "
+                    + "WHERE IdFunc='" + jIDFunc.getText() + "'ORDER BY IdFunc");
             conecta.rs.first();
             idFunc = conecta.rs.getString("IdFunc");
             //
-            conecta.executaSQL("SELECT * FROM DEPENDENTES WHERE IdFunc='" + jIDFunc.getText() + "'");
+            conecta.executaSQL("SELECT * FROM DEPENDENTES "
+                    + "WHERE IdFunc='" + jIDFunc.getText() + "'");
             conecta.rs.first();
             codFuncDep = conecta.rs.getString("IdFunc");
         } catch (SQLException ex) {
@@ -2673,6 +2684,25 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                                 objCola.setPais(jPais.getText());
                                 objCola.setNaturalidade(jNaturalidade.getText());
                                 objCola.setEstadoNacionalidade((String) jComboBoxEstadoNaturalidade.getSelectedItem());
+                                // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE   
+                                if (jFotoColaborador.getIcon() != null) {
+                                    Image img = ((ImageIcon) jFotoColaborador.getIcon()).getImage();
+                                    BufferedImage bi = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                                            img.getWidth(null),
+                                            img.getHeight(null),
+                                            BufferedImage.TYPE_INT_RGB);
+                                    Graphics2D g2 = bi.createGraphics();
+                                    g2.drawImage(img, 0, 0, null);
+                                    ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                                    try {
+                                        ImageIO.write(bi, "jpg", buffer);
+                                    } catch (FileNotFoundException ex) {
+                                        Logger.getLogger(TelaFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
+                                    } catch (IOException ex) {
+                                        Logger.getLogger(TelaFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
+                                    objCola.setImagemFrenteCO(buffer.toByteArray());
+                                }
                                 // DADOS DO ENDEREÇO
                                 objEnd.setEndereco(jEndereco.getText());
                                 objEnd.setBairroEnd(jBairro.getText());
@@ -2713,7 +2743,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                                 objDoc.setTipoConjugue((String) jComboBoxTipoConjugue.getSelectedItem());
                                 objDoc.setDataNasConjugue(jDataNasConjugue.getDate());
                                 objDoc.setNomeConjugue(jNomeConjugue.getText());
-                                //
+                                //                                
                                 verificarColaborador();
                                 if (acao == 1 && jNomeFuncionario.getText().trim().equals(nomeColaborador) && jNomeMae.getText().trim().equals(nomeMaeColaborador)) {
                                     JOptionPane.showMessageDialog(rootPane, "Esse colaborador já foi cadastrada, verifique o cadastro do mesmo.");
@@ -2905,10 +2935,20 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                 jDataNascimento.setDate(conecta.rs.getDate("DataNascimento"));
                 // Capturando foto
                 caminhoFotoFunc = conecta.rs.getString("ImagemFunc");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFotoFunc);
-                jFotoColaborador.setIcon(i);
-                jFotoColaborador.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_DEFAULT)));
-                //
+                if (caminhoFotoFunc != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFotoFunc);
+                    jFotoColaborador.setIcon(i);
+                    jFotoColaborador.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoColaborador.setIcon(icon);
+                }
                 jNomeMae.setText(conecta.rs.getString("NomeMae"));
                 jNomePai.setText(conecta.rs.getString("NomePai"));
                 jReligiao.setText(conecta.rs.getString("Religiao"));
@@ -2987,7 +3027,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                     + "INNER JOIN DEPARTAMENTOS "
                     + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
                     + "INNER JOIN CARGOS "
-                    + "ON COLABORADOR.IdCargo=CARGOS.IdCargo WHERE StatusFunc='" + jComboBoxPesqFunc.getSelectedItem()  + "'ORDER BY NomeFunc");
+                    + "ON COLABORADOR.IdCargo=CARGOS.IdCargo WHERE StatusFunc='" + jComboBoxPesqFunc.getSelectedItem() + "'ORDER BY NomeFunc");
         } else {
             jtotalRegistros.setText("");
             limparTabela();
@@ -3119,6 +3159,25 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                                 objCola.setPais(jPais.getText());
                                 objCola.setNaturalidade(jNaturalidade.getText());
                                 objCola.setEstadoNacionalidade((String) jComboBoxEstadoNaturalidade.getSelectedItem());
+                                // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE   
+                                if (jFotoColaborador.getIcon() != null) {
+                                    Image img = ((ImageIcon) jFotoColaborador.getIcon()).getImage();
+                                    BufferedImage bi = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                                            img.getWidth(null),
+                                            img.getHeight(null),
+                                            BufferedImage.TYPE_INT_RGB);
+                                    Graphics2D g2 = bi.createGraphics();
+                                    g2.drawImage(img, 0, 0, null);
+                                    ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                                    try {
+                                        ImageIO.write(bi, "jpg", buffer);
+                                    } catch (FileNotFoundException ex) {
+                                        Logger.getLogger(TelaFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
+                                    } catch (IOException ex) {
+                                        Logger.getLogger(TelaFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
+                                    objCola.setImagemFrenteCO(buffer.toByteArray());
+                                }
                                 // DADOS DO ENDEREÇO
                                 objEnd.setEndereco(jEndereco.getText());
                                 objEnd.setBairroEnd(jBairro.getText());
@@ -3358,6 +3417,25 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                                 objCola.setPais(jPais.getText());
                                 objCola.setNaturalidade(jNaturalidade.getText());
                                 objCola.setEstadoNacionalidade((String) jComboBoxEstadoNaturalidade.getSelectedItem());
+                                // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE   
+                                if (jFotoColaborador.getIcon() != null) {
+                                    Image img = ((ImageIcon) jFotoColaborador.getIcon()).getImage();
+                                    BufferedImage bi = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                                            img.getWidth(null),
+                                            img.getHeight(null),
+                                            BufferedImage.TYPE_INT_RGB);
+                                    Graphics2D g2 = bi.createGraphics();
+                                    g2.drawImage(img, 0, 0, null);
+                                    ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                                    try {
+                                        ImageIO.write(bi, "jpg", buffer);
+                                    } catch (FileNotFoundException ex) {
+                                        Logger.getLogger(TelaFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
+                                    } catch (IOException ex) {
+                                        Logger.getLogger(TelaFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
+                                    objCola.setImagemFrenteCO(buffer.toByteArray());
+                                }
                                 // DADOS DO ENDEREÇO
                                 objEnd.setEndereco(jEndereco.getText());
                                 objEnd.setBairroEnd(jBairro.getText());
@@ -5687,14 +5765,4 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         objLogSys.setStatusMov(statusMov);
     }
 
-    // Executar programa externo da webcam
-//    public void webCam() {
-//        try {
-//            Process p = Runtime.getRuntime().exec("C:\\SysConp\\MyCam/MyCam.exe");
-//            if (p.exitValue() == 0) {
-//                System.out.println("Programa terminou normalmente");
-//            }
-//        } catch (Exception e) {
-//        }
-//}
 }
