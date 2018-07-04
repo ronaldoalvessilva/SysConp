@@ -222,7 +222,7 @@ public class TelaPesqVisitasDiversasPortariaInterna extends javax.swing.JInterna
                     jFotoTransiente.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoTransiente.getWidth(), jFotoTransiente.getHeight(), Image.SCALE_DEFAULT)));
                 }
                 // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
-                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteVI"));
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteVD"));
                 if (imgBytes != null) {
                     ImageIcon pic = null;
                     pic = new ImageIcon(imgBytes);
