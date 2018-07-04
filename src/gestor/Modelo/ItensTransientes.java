@@ -36,8 +36,13 @@ public class ItensTransientes {
     private String horarioUp;
     private String tipoOperacao;    
     private byte [] assinaturaEntradaColaborador;   
+    private int idOficial;
+    private String nomeOficial;
 
-    public ItensTransientes(int idItens, int idTrans, int idAdvogado, int idFunc, int idVisitaDiversas, int tipoTrans, String nomeAdvogado, String nomeColaborador, String nomeVisitaDiversa, String destino, String motivo, Date dataEntrada, String horaEntrada, Date dataSaida, String horaSaida, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, String tipoOperacao, byte[] assinaturaEntradaColaborador) {
+    public ItensTransientes() {
+    }
+
+    public ItensTransientes(int idItens, int idTrans, int idAdvogado, int idFunc, int idVisitaDiversas, int tipoTrans, String nomeAdvogado, String nomeColaborador, String nomeVisitaDiversa, String destino, String motivo, Date dataEntrada, String horaEntrada, Date dataSaida, String horaSaida, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, String tipoOperacao, byte[] assinaturaEntradaColaborador, int idOficial, String nomeOficial) {
         this.idItens = idItens;
         this.idTrans = idTrans;
         this.idAdvogado = idAdvogado;
@@ -61,9 +66,8 @@ public class ItensTransientes {
         this.horarioUp = horarioUp;
         this.tipoOperacao = tipoOperacao;
         this.assinaturaEntradaColaborador = assinaturaEntradaColaborador;
-    }
-
-    public ItensTransientes() {
+        this.idOficial = idOficial;
+        this.nomeOficial = nomeOficial;
     }
 
     /**
@@ -387,4 +391,33 @@ public class ItensTransientes {
     public void setAssinaturaEntradaColaborador(byte[] assinaturaEntradaColaborador) {
         this.assinaturaEntradaColaborador = assinaturaEntradaColaborador;
     }
+
+    /**
+     * @return the idOficial
+     */
+    public int getIdOficial() {
+        return idOficial;
+    }
+
+    /**
+     * @param idOficial the idOficial to set
+     */
+    public void setIdOficial(int idOficial) {
+        this.idOficial = idOficial;
+    }
+
+    /**
+     * @return the nomeOficial
+     */
+    public String getNomeOficial() {
+        return nomeOficial;
+    }
+
+    /**
+     * @param nomeOficial the nomeOficial to set
+     */
+    public void setNomeOficial(String nomeOficial) {
+        this.nomeOficial = nomeOficial;
+    }
+   
 }
