@@ -26,6 +26,7 @@ public class TelaFotoVisitasPortariaInterna extends javax.swing.JDialog {
 
     /**
      * Creates new form TelaFotoCrc
+     *
      * @param parent
      * @param modal
      */
@@ -33,7 +34,7 @@ public class TelaFotoVisitasPortariaInterna extends javax.swing.JDialog {
         this.telaAcessoTransientes = parent;
         this.setModal(modal);
         setLocationRelativeTo(telaAcessoTransientes);
-        initComponents();       
+        initComponents();
         if (tipoVisita == 0) {
             buscarFotoAdvogado();
         } else if (tipoVisita == 1) {
@@ -179,14 +180,24 @@ public class TelaFotoVisitasPortariaInterna extends javax.swing.JDialog {
     public void buscarFotoAdvogado() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ADVOGADOS WHERE IdAdvogado='" + jIdTransiente.getText() + "'");
+            conecta.executaSQL("SELECT * FROM ADVOGADOS "
+                    + "WHERE IdAdvogado='" + jIdTransiente.getText() + "'");
             conecta.rs.first();
             caminhoFotoAdvogado = conecta.rs.getString("FotoAdvogado");
-            // Capturando foto                
-            javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoAdvogado);
-            jFotoVisitanteTranseinte.setIcon(a);
-            jFotoVisitanteTranseinte.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoVisitanteTranseinte.getWidth(), jFotoVisitanteTranseinte.getHeight(), Image.SCALE_DEFAULT)));
-            //
+            if (caminhoFotoAdvogado != null) {
+                javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoAdvogado);
+                jFotoVisitanteTranseinte.setIcon(a);
+                jFotoVisitanteTranseinte.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoVisitanteTranseinte.getWidth(), jFotoVisitanteTranseinte.getHeight(), Image.SCALE_DEFAULT)));
+            }
+            // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+            byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteAD"));
+            if (imgBytes != null) {
+                ImageIcon pic = null;
+                pic = new ImageIcon(imgBytes);
+                Image scaled = pic.getImage().getScaledInstance(jFotoVisitanteTranseinte.getWidth(), jFotoVisitanteTranseinte.getHeight(), Image.SCALE_DEFAULT);
+                ImageIcon icon = new ImageIcon(scaled);
+                jFotoVisitanteTranseinte.setIcon(icon);
+            }
         } catch (Exception e) {
         }
         conecta.desconecta();
@@ -195,14 +206,24 @@ public class TelaFotoVisitasPortariaInterna extends javax.swing.JDialog {
     public void buscarFotoVisitas() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM VISITASDIVERSAS WHERE IdVisita='" + jIdTransiente.getText() + "'");
+            conecta.executaSQL("SELECT * FROM VISITASDIVERSAS "
+                    + "WHERE IdVisita='" + jIdTransiente.getText() + "'");
             conecta.rs.first();
             caminhoFotoVisita = conecta.rs.getString("FotoVisita");
-            // Capturando foto                
-            javax.swing.ImageIcon b = new javax.swing.ImageIcon(caminhoFotoVisita);
-            jFotoVisitanteTranseinte.setIcon(b);
-            jFotoVisitanteTranseinte.setIcon(new ImageIcon(b.getImage().getScaledInstance(jFotoVisitanteTranseinte.getWidth(), jFotoVisitanteTranseinte.getHeight(), Image.SCALE_DEFAULT)));
-            //
+            if (caminhoFotoVisita != null) {
+                javax.swing.ImageIcon b = new javax.swing.ImageIcon(caminhoFotoVisita);
+                jFotoVisitanteTranseinte.setIcon(b);
+                jFotoVisitanteTranseinte.setIcon(new ImageIcon(b.getImage().getScaledInstance(jFotoVisitanteTranseinte.getWidth(), jFotoVisitanteTranseinte.getHeight(), Image.SCALE_DEFAULT)));
+            }
+            // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+            byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteVI"));
+            if (imgBytes != null) {
+                ImageIcon pic = null;
+                pic = new ImageIcon(imgBytes);
+                Image scaled = pic.getImage().getScaledInstance(jFotoVisitanteTranseinte.getWidth(), jFotoVisitanteTranseinte.getHeight(), Image.SCALE_DEFAULT);
+                ImageIcon icon = new ImageIcon(scaled);
+                jFotoVisitanteTranseinte.setIcon(icon);
+            }
         } catch (Exception e) {
         }
         conecta.desconecta();
@@ -211,13 +232,24 @@ public class TelaFotoVisitasPortariaInterna extends javax.swing.JDialog {
     public void buscarFotoColaborador() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM COLABORADOR WHERE IdFunc='" + jIdTransiente.getText() + "'");
+            conecta.executaSQL("SELECT * FROM COLABORADOR "
+                    + "WHERE IdFunc='" + jIdTransiente.getText() + "'");
             conecta.rs.first();
             caminhoFotoColaborador = conecta.rs.getString("ImagemFunc");
-            // Capturando foto                
-            javax.swing.ImageIcon c = new javax.swing.ImageIcon(caminhoFotoColaborador);
-            jFotoVisitanteTranseinte.setIcon(c);
-            jFotoVisitanteTranseinte.setIcon(new ImageIcon(c.getImage().getScaledInstance(jFotoVisitanteTranseinte.getWidth(), jFotoVisitanteTranseinte.getHeight(), Image.SCALE_DEFAULT)));            
+            if (caminhoFotoColaborador != null) {
+                javax.swing.ImageIcon c = new javax.swing.ImageIcon(caminhoFotoColaborador);
+                jFotoVisitanteTranseinte.setIcon(c);
+                jFotoVisitanteTranseinte.setIcon(new ImageIcon(c.getImage().getScaledInstance(jFotoVisitanteTranseinte.getWidth(), jFotoVisitanteTranseinte.getHeight(), Image.SCALE_DEFAULT)));
+            }
+            // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+            byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteCO"));
+            if (imgBytes != null) {
+                ImageIcon pic = null;
+                pic = new ImageIcon(imgBytes);
+                Image scaled = pic.getImage().getScaledInstance(jFotoVisitanteTranseinte.getWidth(), jFotoVisitanteTranseinte.getHeight(), Image.SCALE_DEFAULT);
+                ImageIcon icon = new ImageIcon(scaled);
+                jFotoVisitanteTranseinte.setIcon(icon);
+            }
         } catch (Exception e) {
         }
         conecta.desconecta();
