@@ -77,7 +77,7 @@ public class ControleColaborador {
         buscarDepto(objCola.getNomeDepartamento()); // Pesquisa o ID do DEPARTAMENTO
         conecta.abrirConexao();
         try {
-             PreparedStatement pst = conecta.con.prepareStatement("UPDATE COLABORADOR  SET StatusFunc=?,DataCadFunc=?,NomeFunc=?,MatriculaFunc=?,SexoFunc=?,EscolaFunc=?,EstadoCivil=?,DataNascimento=?,ImagemFunc=?,NomeMae=?,NomePai=?,Religiao=?,TipoSangue=?,IdCargo=?,IdDepartamento=?,CargaHoraria=?,RegimeTrabalho=?,HorarioInicio=?,HorarioFinal=?,Funcao=?,Nacionalidade=?,Pais=?,Naturalidade=?,EstadoNaturalidade=?,UsuarioUp=?,DataUp=?,HorarioUp=?,ImagemFrenteCO=? WHERE IdFunc='" + objCola.getIdFunc()  + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE COLABORADOR  SET StatusFunc=?,DataCadFunc=?,NomeFunc=?,MatriculaFunc=?,SexoFunc=?,EscolaFunc=?,EstadoCivil=?,DataNascimento=?,ImagemFunc=?,NomeMae=?,NomePai=?,Religiao=?,TipoSangue=?,IdCargo=?,IdDepartamento=?,CargaHoraria=?,RegimeTrabalho=?,HorarioInicio=?,HorarioFinal=?,Funcao=?,Nacionalidade=?,Pais=?,Naturalidade=?,EstadoNaturalidade=?,UsuarioUp=?,DataUp=?,HorarioUp=?,ImagemFrenteCO=? WHERE IdFunc='" + objCola.getIdFunc() + "'");
             pst.setString(1, objCola.getStatusFunc());
             pst.setTimestamp(2, new java.sql.Timestamp(objCola.getDataCadastro().getTime()));
             pst.setString(3, objCola.getNomeFuncionario());
