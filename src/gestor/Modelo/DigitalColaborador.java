@@ -21,9 +21,13 @@ public class DigitalColaborador {
     private byte[] biometriaDedo1;
     private byte[] biometriaDedo2;
     private byte[] biometriaDedo3;
-    private byte[] biometriaDedo4;          
+    private byte[] biometriaDedo4;    
+    private byte[] imagemFrenteOF;
 
-    public DigitalColaborador(int idFunc, String nomeFunc, String caminhoFotoColaborador, String funcao, String departamento, String matricula, String fotoColaborador, byte[] biometriaDedo1, byte[] biometriaDedo2, byte[] biometriaDedo3, byte[] biometriaDedo4) {
+    public DigitalColaborador() {
+    }
+
+    public DigitalColaborador(int idFunc, String nomeFunc, String caminhoFotoColaborador, String funcao, String departamento, String matricula, String fotoColaborador, byte[] biometriaDedo1, byte[] biometriaDedo2, byte[] biometriaDedo3, byte[] biometriaDedo4, byte[] imagemFrenteOF) {
         this.idFunc = idFunc;
         this.nomeFunc = nomeFunc;
         this.caminhoFotoColaborador = caminhoFotoColaborador;
@@ -35,9 +39,7 @@ public class DigitalColaborador {
         this.biometriaDedo2 = biometriaDedo2;
         this.biometriaDedo3 = biometriaDedo3;
         this.biometriaDedo4 = biometriaDedo4;
-    }
-
-    public DigitalColaborador() {
+        this.imagemFrenteOF = imagemFrenteOF;
     }
 
     /**
@@ -193,4 +195,19 @@ public class DigitalColaborador {
     public void setBiometriaDedo4(byte[] biometriaDedo4) {
         this.biometriaDedo4 = biometriaDedo4;
     }
+
+    /**
+     * @return the imagemFrenteOF
+     */
+    public byte[] getImagemFrenteOF() {
+        return imagemFrenteOF;
+    }
+
+    /**
+     * @param imagemFrenteOF the imagemFrenteOF to set
+     */
+    public void setImagemFrenteOF(byte[] imagemFrenteOF) {
+        this.imagemFrenteOF = imagemFrenteOF;
+    }
+   
 }
