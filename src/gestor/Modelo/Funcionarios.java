@@ -12,7 +12,7 @@ import java.util.Date;
  * @author Ronaldo
  */
 public class Funcionarios {
-           
+
     private int idFunc;
     private String statusFunc;
     private Date dataCadastro;
@@ -45,9 +45,13 @@ public class Funcionarios {
     private String dataInsert;
     private String dataUp;
     private String horarioInsert;
-    private String horarioUp;    
+    private String horarioUp;
+    private byte[] imagemFrenteCO;
 
-    public Funcionarios(int idFunc, String statusFunc, Date dataCadastro, String foto, String nomeFuncionario, String sexo, String escolaridade, String matricula, int idCargo, String nomeCargo, int idDepartamento, String nomeDepartamento, String estadoCivil, Date dataNascimento, String nomeMae, String nomePai, String religiao, String tipoSangue, String cargaHoraria, String regimeTrabalho, String horarioInicio, String horarioFinal, String funcao, String nacionalidade, String pais, String naturalidade, String estadoNacionalidade, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
+    public Funcionarios() {
+    }
+
+    public Funcionarios(int idFunc, String statusFunc, Date dataCadastro, String foto, String nomeFuncionario, String sexo, String escolaridade, String matricula, int idCargo, String nomeCargo, int idDepartamento, String nomeDepartamento, String estadoCivil, Date dataNascimento, String nomeMae, String nomePai, String religiao, String tipoSangue, String cargaHoraria, String regimeTrabalho, String horarioInicio, String horarioFinal, String funcao, String nacionalidade, String pais, String naturalidade, String estadoNacionalidade, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, byte[] imagemFrenteCO) {
         this.idFunc = idFunc;
         this.statusFunc = statusFunc;
         this.dataCadastro = dataCadastro;
@@ -81,9 +85,7 @@ public class Funcionarios {
         this.dataUp = dataUp;
         this.horarioInsert = horarioInsert;
         this.horarioUp = horarioUp;
-    }
-
-    public Funcionarios() {
+        this.imagemFrenteCO = imagemFrenteCO;
     }
 
     /**
@@ -547,4 +549,19 @@ public class Funcionarios {
     public void setHorarioUp(String horarioUp) {
         this.horarioUp = horarioUp;
     }
+
+    /**
+     * @return the imagemFrenteCO
+     */
+    public byte[] getImagemFrenteCO() {
+        return imagemFrenteCO;
+    }
+
+    /**
+     * @param imagemFrenteCO the imagemFrenteCO to set
+     */
+    public void setImagemFrenteCO(byte[] imagemFrenteCO) {
+        this.imagemFrenteCO = imagemFrenteCO;
+    }
+
 }
