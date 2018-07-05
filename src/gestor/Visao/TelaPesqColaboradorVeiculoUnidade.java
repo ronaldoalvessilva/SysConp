@@ -227,9 +227,20 @@ public class TelaPesqColaboradorVeiculoUnidade extends javax.swing.JInternalFram
                 jIdFunc.setText(String.valueOf(conecta.rs.getInt("IdFunc")));
                 jNomeColaboradorVeiculoUnid.setText(conecta.rs.getString("NomeFunc"));
                 caminho = conecta.rs.getString("ImagemFunc");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                jFotoColaboradorMotorista.setIcon(i);
-                jFotoColaboradorMotorista.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoColaboradorMotorista.getWidth(), jFotoColaboradorMotorista.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    jFotoColaboradorMotorista.setIcon(i);
+                    jFotoColaboradorMotorista.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoColaboradorMotorista.getWidth(), jFotoColaboradorMotorista.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteCO"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoColaboradorMotorista.getWidth(), jFotoColaboradorMotorista.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoColaboradorMotorista.setIcon(icon);
+                }
                 jNomeDepto.setText(conecta.rs.getString("NomeDepartamento"));
                 jIdDepto.setText(conecta.rs.getString("IdDepartamento"));
                 conecta.desconecta();
