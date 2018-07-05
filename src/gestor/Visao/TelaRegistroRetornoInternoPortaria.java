@@ -30,6 +30,7 @@ import static gestor.Visao.TelaModuloPortarias.codUserAcessoP1;
 import static gestor.Visao.TelaModuloPortarias.codigoUserP1;
 import static gestor.Visao.TelaModuloPortarias.nomeGrupoP1;
 import static gestor.Visao.TelaModuloPortarias.nomeTelaP1;
+import static gestor.Visao.TelaModuloPortarias.telaRegistroRetornoRIBioP1;
 import static gestor.Visao.TelaModuloPortarias.telaRegistroRetornoRIIntP1;
 import static gestor.Visao.TelaModuloPortarias.telaRegistroRetornoRIManuP1;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
@@ -1568,11 +1569,15 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
     }//GEN-LAST:event_jBtZoonActionPerformed
 
     private void jBtBiometriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtBiometriaActionPerformed
-        // TODO add your handling code here:
-        if (jStatusRetorno.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro já foi FINALIZADO.");
+        // TODO add your handling code here:telaRegistroRetornoRIBioP1       
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaRegistroRetornoRIBioP1) && codGravarP1 == 1) {
+            if (jStatusRetorno.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro já foi FINALIZADO.");
+            } else {
+                mostrarBiometriaRetorno();
+            }
         } else {
-            mostrarBiometriaRetorno();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtBiometriaActionPerformed
 
