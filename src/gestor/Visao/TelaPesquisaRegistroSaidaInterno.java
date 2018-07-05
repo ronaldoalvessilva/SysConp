@@ -276,9 +276,20 @@ public class TelaPesquisaRegistroSaidaInterno extends javax.swing.JInternalFrame
                 idInt = conecta.rs.getString("IdItem");
                 // Capturando foto
                 caminho = conecta.rs.getString("FotoInternoCrc");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                FotoInternoCrcSaida.setIcon(i);
-                FotoInternoCrcSaida.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInternoCrcSaida.getWidth(), FotoInternoCrcSaida.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    FotoInternoCrcSaida.setIcon(i);
+                    FotoInternoCrcSaida.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInternoCrcSaida.getWidth(), FotoInternoCrcSaida.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(FotoInternoCrcSaida.getWidth(), FotoInternoCrcSaida.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    FotoInternoCrcSaida.setIcon(icon);
+                }
                 conecta.desconecta();
                 jBtZoon.setEnabled(true);
                 if (jTipoSaida.getText().equals("TRANSFERENCIA")) {
@@ -322,7 +333,6 @@ public class TelaPesquisaRegistroSaidaInterno extends javax.swing.JInternalFrame
     // End of variables declaration//GEN-END:variables
 
     public void preencherComboBoxGrupo() {
-//        jComboBoxUnidadeDestino.removeAllItems();
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM UNIDADE");
