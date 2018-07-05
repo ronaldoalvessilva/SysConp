@@ -28,7 +28,7 @@ public class TelaPesqInternosAlbergados extends javax.swing.JInternalFrame {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     int flag;
     String situacaoEnt = "ENTRADA NA UNIDADE";
-    String situacaoRet = "RETORNO A UNIDADE";    
+    String situacaoRet = "RETORNO A UNIDADE";
     String caminho;
     String statusInterno = "Ativo";
 
@@ -214,7 +214,7 @@ public class TelaPesqInternosAlbergados extends javax.swing.JInternalFrame {
             try {
                 conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                         + "INNER JOIN ITENS_LISTA_PASSAGEM_ALBERGADOS "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENS_LISTA_PASSAGEM_ALBERGADOS.IdInternoCrc "                       
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENS_LISTA_PASSAGEM_ALBERGADOS.IdInternoCrc "
                         + "WHERE NomeInternoCrc='" + jPesqNomeInterno.getText() + "' "
                         + "AND SituacaoCrc='" + situacaoEnt + "' "
                         + "AND StatusInterno='" + statusInterno + "' "
@@ -223,11 +223,22 @@ public class TelaPesqInternosAlbergados extends javax.swing.JInternalFrame {
                         + "AND StatusInterno='" + statusInterno + "'");
                 conecta.rs.first();
                 jIdInterno.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
-                jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));                
+                jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));
                 caminho = conecta.rs.getString("FotoInternoCrc");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                jFotoInternoLabor.setIcon(i);
-                jFotoInternoLabor.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoLabor.getWidth(), jFotoInternoLabor.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    jFotoInternoLabor.setIcon(i);
+                    jFotoInternoLabor.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoLabor.getWidth(), jFotoInternoLabor.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoInternoLabor.getWidth(), jFotoInternoLabor.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoInternoLabor.setIcon(icon);
+                }
                 conecta.desconecta();
                 jBtZoon.setEnabled(true);
             } catch (SQLException ex) {
@@ -249,10 +260,10 @@ public class TelaPesqInternosAlbergados extends javax.swing.JInternalFrame {
         if (jPesqNomeInterno.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe um nome ou parte do nome para pesquisar.");
             jPesqNomeInterno.requestFocus();
-        } else {           
+        } else {
             buscarInternoAgendados("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN ITENS_LISTA_PASSAGEM_ALBERGADOS "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENS_LISTA_PASSAGEM_ALBERGADOS.IdInternoCrc "                   
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENS_LISTA_PASSAGEM_ALBERGADOS.IdInternoCrc "
                     + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%' "
                     + "AND SituacaoCrc='" + situacaoEnt + "' "
                     + "AND StatusInterno='" + statusInterno + "' "
@@ -264,10 +275,10 @@ public class TelaPesqInternosAlbergados extends javax.swing.JInternalFrame {
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
         flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {            
+        if (evt.getStateChange() == evt.SELECTED) {
             this.buscarInternoAgendados("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN ITENS_LISTA_PASSAGEM_ALBERGADOS "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENS_LISTA_PASSAGEM_ALBERGADOS.IdInternoCrc " 
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENS_LISTA_PASSAGEM_ALBERGADOS.IdInternoCrc "
                     + "WHERE StatusInterno='" + statusInterno + "'");
         } else {
             limparTabelaInternos();
