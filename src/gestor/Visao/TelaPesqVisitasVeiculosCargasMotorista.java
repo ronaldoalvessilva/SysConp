@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -62,12 +64,13 @@ public class TelaPesqVisitasVeiculosCargasMotorista extends javax.swing.JInterna
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Listagem de Visitas Diversas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 255)));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Listagem de Visitas Diversas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jPesqNomeVisita.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jBtPesqNome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtPesqNome.setToolTipText("Pesquisa por Nome");
+        jBtPesqNome.setContentAreaFilled(false);
         jBtPesqNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesqNomeActionPerformed(evt);
@@ -114,13 +117,10 @@ public class TelaPesqVisitasVeiculosCargasMotorista extends javax.swing.JInterna
         jTabelaPesqVisitasDiversas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaPesqVisitasDiversas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+                {null, null}
             },
             new String [] {
-
+                "Código", "Nome da Visita"
             }
         ));
         jTabelaPesqVisitasDiversas.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -129,6 +129,12 @@ public class TelaPesqVisitasVeiculosCargasMotorista extends javax.swing.JInterna
             }
         });
         jScrollPane1.setViewportView(jTabelaPesqVisitasDiversas);
+        if (jTabelaPesqVisitasDiversas.getColumnModel().getColumnCount() > 0) {
+            jTabelaPesqVisitasDiversas.getColumnModel().getColumn(0).setMinWidth(70);
+            jTabelaPesqVisitasDiversas.getColumnModel().getColumn(0).setMaxWidth(70);
+            jTabelaPesqVisitasDiversas.getColumnModel().getColumn(1).setMinWidth(400);
+            jTabelaPesqVisitasDiversas.getColumnModel().getColumn(1).setMaxWidth(400);
+        }
 
         jBtEnviar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtEnviar.setForeground(new java.awt.Color(0, 0, 255));
@@ -156,15 +162,14 @@ public class TelaPesqVisitasVeiculosCargasMotorista extends javax.swing.JInterna
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jBtEnviar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtSair)
-                        .addGap(0, 228, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addComponent(jBtSair))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,14 +190,14 @@ public class TelaPesqVisitasVeiculosCargasMotorista extends javax.swing.JInterna
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(250, 20, 437, 286);
+        setBounds(250, 20, 512, 286);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEnviarActionPerformed
@@ -205,7 +210,9 @@ public class TelaPesqVisitasVeiculosCargasMotorista extends javax.swing.JInterna
             jIdMotorista.setText(idVisita);
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM VISITASDIVERSAS WHERE NomeVisita='" + jPesqNomeVisita.getText() + "'AND IdVisita='" + idVisita + "'");
+                conecta.executaSQL("SELECT * FROM VISITASDIVERSAS "
+                        + "WHERE NomeVisita='" + jPesqNomeVisita.getText() + "' "
+                        + "AND IdVisita='" + idVisita + "'");
                 conecta.rs.first();
                 // Tabela Funcionarios
                 jIdMotorista.setText(String.valueOf(conecta.rs.getInt("IdVisita")));
@@ -213,9 +220,20 @@ public class TelaPesqVisitasVeiculosCargasMotorista extends javax.swing.JInterna
                 jRGMotorista.setText(conecta.rs.getString("RgVisita"));
                 jCPFMotorista.setText(conecta.rs.getString("CpfVisita"));
                 caminho = conecta.rs.getString("FotoVisita");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                FotoMotoristaCarga.setIcon(i);
-                FotoMotoristaCarga.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoMotoristaCarga.getWidth(), FotoMotoristaCarga.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    FotoMotoristaCarga.setIcon(i);
+                    FotoMotoristaCarga.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoMotoristaCarga.getWidth(), FotoMotoristaCarga.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteVD"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(FotoMotoristaCarga.getWidth(), FotoMotoristaCarga.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    FotoMotoristaCarga.setIcon(icon);
+                }
                 conecta.desconecta();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por nome" + ex);
@@ -238,7 +256,8 @@ public class TelaPesqVisitasVeiculosCargasMotorista extends javax.swing.JInterna
             jPesqNomeVisita.requestFocus();
         } else {
             jTabelaPesqVisitasDiversas.setVisible(true);
-            buscarVisitas("SELECT * FROM VISITASDIVERSAS WHERE NomeVisita LIKE'%" + jPesqNomeVisita.getText() + "%'");
+            buscarVisitas("SELECT * FROM VISITASDIVERSAS "
+                    + "WHERE NomeVisita LIKE'%" + jPesqNomeVisita.getText() + "%'");
         }
     }//GEN-LAST:event_jBtPesqNomeActionPerformed
 
@@ -246,10 +265,9 @@ public class TelaPesqVisitasVeiculosCargasMotorista extends javax.swing.JInterna
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            jTabelaPesqVisitasDiversas.setVisible(true);
             this.buscarVisitas("SELECT * FROM VISITASDIVERSAS");
         } else {
-            jTabelaPesqVisitasDiversas.setVisible(!true);
+            limparTabela();
         }
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
@@ -282,7 +300,7 @@ public class TelaPesqVisitasVeiculosCargasMotorista extends javax.swing.JInterna
 //Preencher tabela com todos os COLABORADORES
     public void buscarVisitas(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"ID", "    Nome da Visita"};
+        String[] Colunas = new String[]{"Código", "Nome da Visita"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
@@ -295,13 +313,40 @@ public class TelaPesqVisitasVeiculosCargasMotorista extends javax.swing.JInterna
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaPesqVisitasDiversas.setModel(modelo);
-        jTabelaPesqVisitasDiversas.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaPesqVisitasDiversas.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaPesqVisitasDiversas.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaPesqVisitasDiversas.getColumnModel().getColumn(1).setPreferredWidth(350);
+        jTabelaPesqVisitasDiversas.getColumnModel().getColumn(1).setPreferredWidth(400);
         jTabelaPesqVisitasDiversas.getColumnModel().getColumn(1).setResizable(false);
         jTabelaPesqVisitasDiversas.getTableHeader().setReorderingAllowed(false);
         jTabelaPesqVisitasDiversas.setAutoResizeMode(jTabelaPesqVisitasDiversas.AUTO_RESIZE_OFF);
         jTabelaPesqVisitasDiversas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCamposTabela();
         conecta.desconecta();
+    }
+
+    public void alinharCamposTabela() {
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        //
+        jTabelaPesqVisitasDiversas.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+    }
+
+    public void limparTabela() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Nome da Visita"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaPesqVisitasDiversas.setModel(modelo);
+        jTabelaPesqVisitasDiversas.getColumnModel().getColumn(0).setPreferredWidth(70);
+        jTabelaPesqVisitasDiversas.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaPesqVisitasDiversas.getColumnModel().getColumn(1).setPreferredWidth(400);
+        jTabelaPesqVisitasDiversas.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaPesqVisitasDiversas.getTableHeader().setReorderingAllowed(false);
+        jTabelaPesqVisitasDiversas.setAutoResizeMode(jTabelaPesqVisitasDiversas.AUTO_RESIZE_OFF);
+        jTabelaPesqVisitasDiversas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
     }
 }
