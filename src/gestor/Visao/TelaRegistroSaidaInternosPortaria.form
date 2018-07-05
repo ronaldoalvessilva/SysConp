@@ -1351,7 +1351,7 @@
                               <Component id="jBtCancelarItem" linkSize="7" alignment="0" max="32767" attributes="0"/>
                               <Component id="jBtSairItens" linkSize="7" alignment="0" min="-2" pref="47" max="-2" attributes="0"/>
                               <Component id="jBtBiometria" linkSize="7" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jBtImpressao" linkSize="7" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jBtExportarRegistros" linkSize="7" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -1373,7 +1373,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jBtBiometria" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jBtImpressao" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtExportarRegistros" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="jBtSairItens" linkSize="8" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -1491,7 +1491,7 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtBiometriaActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="jBtImpressao">
+                <Component class="javax.swing.JButton" name="jBtExportarRegistros">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="11" style="1"/>
@@ -1505,7 +1505,7 @@
                     <Property name="text" type="java.lang.String" value="Exportar"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtImpressaoActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtExportarRegistrosActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>
