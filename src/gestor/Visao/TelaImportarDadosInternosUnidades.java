@@ -74,7 +74,7 @@ public class TelaImportarDadosInternosUnidades extends javax.swing.JInternalFram
         jSeparator1 = new javax.swing.JSeparator();
 
         setClosable(true);
-        setTitle("...::: Pesquisa de Internos Saída :::...");
+        setTitle("...::: Importar Internos Outra Unidade :::...");
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar Saídas de Internos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
 
