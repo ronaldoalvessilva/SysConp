@@ -1594,7 +1594,7 @@ public class TelaEntradaSaidaVisitasInternos extends javax.swing.JInternalFrame 
                 dataModFinal = jDataSistema.getText();
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtAlterarVisitaActionPerformed
 
@@ -1627,7 +1627,7 @@ public class TelaEntradaSaidaVisitasInternos extends javax.swing.JInternalFrame 
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtExcluirVisitaActionPerformed
 
@@ -1736,7 +1736,7 @@ public class TelaEntradaSaidaVisitasInternos extends javax.swing.JInternalFrame 
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtSalvarVisitaActionPerformed
 
