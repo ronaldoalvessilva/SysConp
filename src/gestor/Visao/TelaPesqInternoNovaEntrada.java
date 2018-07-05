@@ -128,7 +128,7 @@ public class TelaPesqInternoNovaEntrada extends javax.swing.JInternalFrame {
                 {null, null, null}
             },
             new String [] {
-                "Código", "Nome do Interno", "Matricula Penal"
+                "Código", "Nome do Interno", "CNC"
             }
         ));
         jTabelaPesqInterno.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -301,13 +301,13 @@ public class TelaPesqInternoNovaEntrada extends javax.swing.JInternalFrame {
 //Preencher tabela com todos os INTERNOS
     public void buscarInternos(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome do Interno ", "Matricula Penal"};
+        String[] Colunas = new String[]{"Código", "Nome do Interno ", "CNC"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
             conecta.rs.first();
             do {
-                dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("MatriculaCrc")});
+                dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("Cnc")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");
@@ -329,7 +329,7 @@ public class TelaPesqInternoNovaEntrada extends javax.swing.JInternalFrame {
 
     public void limparTabela() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome do Interno ", "Matricula Penal"};
+        String[] Colunas = new String[]{"Código", "Nome do Interno ", "CNC"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaPesqInterno.setModel(modelo);
         jTabelaPesqInterno.getColumnModel().getColumn(0).setPreferredWidth(70);
