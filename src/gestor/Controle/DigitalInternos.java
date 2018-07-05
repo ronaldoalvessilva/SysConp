@@ -23,9 +23,13 @@ public class DigitalInternos {
     private byte[] biometriaDedo3;
     private byte[] biometriaDedo4;  
     private String  idItemSaida;
-    private int  idItemCrcPort;    
+    private int  idItemCrcPort;  
+    private byte[] imagemFrente;
 
-    public DigitalInternos(int idInternoCrc, String nomeInternoCrc, String caminhoFotoInterno, String matriculaPenal, String Regime, String pavilhao, String cela, byte[] biometriaDedo1, byte[] biometriaDedo2, byte[] biometriaDedo3, byte[] biometriaDedo4, String idItemSaida, int idItemCrcPort) {
+    public DigitalInternos() {
+    }
+
+    public DigitalInternos(int idInternoCrc, String nomeInternoCrc, String caminhoFotoInterno, String matriculaPenal, String Regime, String pavilhao, String cela, byte[] biometriaDedo1, byte[] biometriaDedo2, byte[] biometriaDedo3, byte[] biometriaDedo4, String idItemSaida, int idItemCrcPort, byte[] imagemFrente) {
         this.idInternoCrc = idInternoCrc;
         this.nomeInternoCrc = nomeInternoCrc;
         this.caminhoFotoInterno = caminhoFotoInterno;
@@ -39,9 +43,7 @@ public class DigitalInternos {
         this.biometriaDedo4 = biometriaDedo4;
         this.idItemSaida = idItemSaida;
         this.idItemCrcPort = idItemCrcPort;
-    }
-
-    public DigitalInternos() {
+        this.imagemFrente = imagemFrente;
     }
 
     /**
@@ -225,4 +227,19 @@ public class DigitalInternos {
     public void setIdItemCrcPort(int idItemCrcPort) {
         this.idItemCrcPort = idItemCrcPort;
     }
+
+    /**
+     * @return the imagemFrente
+     */
+    public byte[] getImagemFrente() {
+        return imagemFrente;
+    }
+
+    /**
+     * @param imagemFrente the imagemFrente to set
+     */
+    public void setImagemFrente(byte[] imagemFrente) {
+        this.imagemFrente = imagemFrente;
+    }
+    
 }
