@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -22,16 +24,17 @@ import javax.swing.ListSelectionModel;
  */
 public class TelaPesqInternosPertence extends javax.swing.JInternalFrame {
 
-    ConexaoBancoDados conecta = new ConexaoBancoDados();   
+    ConexaoBancoDados conecta = new ConexaoBancoDados();
     int flag;
     public static String idRol;
     String caminho;
     String situacaoEnt = "ENTRADA NA UNIDADE";
+
     /**
      * Creates new form TelaPesqColaborador
      */
     public TelaPesqInternosPertence() {
-        initComponents();       
+        initComponents();
     }
 
     /**
@@ -61,12 +64,13 @@ public class TelaPesqInternosPertence extends javax.swing.JInternalFrame {
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Listagem de Internos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 255)));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Listagem de Internos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jPesqNomeInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jBtPesqNome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtPesqNome.setToolTipText("Pesquisa por Nome");
+        jBtPesqNome.setContentAreaFilled(false);
         jBtPesqNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesqNomeActionPerformed(evt);
@@ -113,13 +117,10 @@ public class TelaPesqInternosPertence extends javax.swing.JInternalFrame {
         jTabelaPesqInternosRol.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaPesqInternosRol.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+                {null, null}
             },
             new String [] {
-
+                "ID Rol", "Nome do Interno"
             }
         ));
         jTabelaPesqInternosRol.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -128,6 +129,12 @@ public class TelaPesqInternosPertence extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(jTabelaPesqInternosRol);
+        if (jTabelaPesqInternosRol.getColumnModel().getColumnCount() > 0) {
+            jTabelaPesqInternosRol.getColumnModel().getColumn(0).setMinWidth(70);
+            jTabelaPesqInternosRol.getColumnModel().getColumn(0).setMaxWidth(70);
+            jTabelaPesqInternosRol.getColumnModel().getColumn(1).setMinWidth(380);
+            jTabelaPesqInternosRol.getColumnModel().getColumn(1).setMaxWidth(380);
+        }
 
         jBtEnviar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtEnviar.setForeground(new java.awt.Color(0, 0, 255));
@@ -161,10 +168,13 @@ public class TelaPesqInternosPertence extends javax.swing.JInternalFrame {
                         .addComponent(jBtEnviar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtSair)
-                        .addGap(0, 268, Short.MAX_VALUE))
+                        .addGap(0, 273, Short.MAX_VALUE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtEnviar, jBtSair});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -184,41 +194,53 @@ public class TelaPesqInternosPertence extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(250, 20, 477, 286);
+        setBounds(250, 20, 494, 286);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEnviarActionPerformed
         // TODO add your handling code here:
         flag = 1;
-        if(flag == 1){
-             String nomeInterno = "" + jTabelaPesqInternosRol.getValueAt(jTabelaPesqInternosRol.getSelectedRow(), 1);
+        if (flag == 1) {
+            String nomeInterno = "" + jTabelaPesqInternosRol.getValueAt(jTabelaPesqInternosRol.getSelectedRow(), 1);
             jPesqNomeInterno.setText(nomeInterno);
             String idFunc = "" + jTabelaPesqInternosRol.getValueAt(jTabelaPesqInternosRol.getSelectedRow(), 0);
             jIDInterno.setText(idFunc);//           
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC WHERE NomeInternoCrc='" + jPesqNomeInterno.getText() + "'");
-                conecta.rs.first();                              
-                jIDInterno.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));              
-                jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));        
+                conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                        + "WHERE NomeInternoCrc='" + jPesqNomeInterno.getText() + "'");
+                conecta.rs.first();
+                jIDInterno.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
+                jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));
                 // Capturando foto
                 caminho = conecta.rs.getString("FotoInternoCrc");
-                javax.swing.ImageIcon v = new javax.swing.ImageIcon(caminho);
-                jFotoInterno.setIcon(v);
-                jFotoInterno.setIcon(new ImageIcon(v.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
-                conecta.desconecta();               
+                if (caminho != null) {
+                    javax.swing.ImageIcon v = new javax.swing.ImageIcon(caminho);
+                    jFotoInterno.setIcon(v);
+                    jFotoInterno.setIcon(new ImageIcon(v.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoInterno.setIcon(icon);
+                }
+                conecta.desconecta();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por nome" + ex);
             }
             dispose();
-        }                   
+        }
     }//GEN-LAST:event_jBtEnviarActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
@@ -229,31 +251,30 @@ public class TelaPesqInternosPertence extends javax.swing.JInternalFrame {
     private void jBtPesqNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqNomeActionPerformed
         // TODO add your handling code here:      
         flag = 1;
-        if(jPesqNomeInterno.getText().equals("")){
+        if (jPesqNomeInterno.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe um nome ou parte do nome para pesquisar.");
             jPesqNomeInterno.requestFocus();
-        }else{
-            jTabelaPesqInternosRol.setVisible(true);
-            buscarInternoVisitas("SELECT * FROM PRONTUARIOSCRC WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%'");
+        } else {
+            buscarInternoVisitas("SELECT * FROM PRONTUARIOSCRC "
+                    + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%'");
         }
     }//GEN-LAST:event_jBtPesqNomeActionPerformed
 
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
-         flag = 1;
+        flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            jTabelaPesqInternosRol.setVisible(true);
             this.buscarInternoVisitas("SELECT * FROM PRONTUARIOSCRC");
         } else {
-            jTabelaPesqInternosRol.setVisible(!true);
+            limparTabela();
         }
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
     private void jTabelaPesqInternosRolMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaPesqInternosRolMouseClicked
         // TODO add your handling code here:
-         flag = 1;
-        if(flag == 1 && evt.getClickCount() == 1){
-             String nomeInterno = "" + jTabelaPesqInternosRol.getValueAt(jTabelaPesqInternosRol.getSelectedRow(), 1);
+        flag = 1;
+        if (flag == 1 && evt.getClickCount() == 1) {
+            String nomeInterno = "" + jTabelaPesqInternosRol.getValueAt(jTabelaPesqInternosRol.getSelectedRow(), 1);
             jPesqNomeInterno.setText(nomeInterno);
             String idFunc = "" + jTabelaPesqInternosRol.getValueAt(jTabelaPesqInternosRol.getSelectedRow(), 0);
             jIDInterno.setText(idFunc);//  
@@ -278,7 +299,7 @@ public class TelaPesqInternosPertence extends javax.swing.JInternalFrame {
 //Preencher tabela com todos os COLABORADORES
     public void buscarInternoVisitas(String sql) {
         ArrayList dados = new ArrayList();
-            String[] Colunas = new String[]{"ID Rol", "    Nome do Interno"};
+        String[] Colunas = new String[]{"ID Rol", "Nome do Interno"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
@@ -291,13 +312,40 @@ public class TelaPesqInternosPertence extends javax.swing.JInternalFrame {
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaPesqInternosRol.setModel(modelo);
-        jTabelaPesqInternosRol.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaPesqInternosRol.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaPesqInternosRol.getColumnModel().getColumn(0).setResizable(false);
         jTabelaPesqInternosRol.getColumnModel().getColumn(1).setPreferredWidth(380);
-        jTabelaPesqInternosRol.getColumnModel().getColumn(1).setResizable(false);        
+        jTabelaPesqInternosRol.getColumnModel().getColumn(1).setResizable(false);
         jTabelaPesqInternosRol.getTableHeader().setReorderingAllowed(false);
         jTabelaPesqInternosRol.setAutoResizeMode(jTabelaPesqInternosRol.AUTO_RESIZE_OFF);
         jTabelaPesqInternosRol.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharTabela();
         conecta.desconecta();
+    }
+
+    public void limparTabela() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"ID Rol", "Nome do Interno"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaPesqInternosRol.setModel(modelo);
+        jTabelaPesqInternosRol.getColumnModel().getColumn(0).setPreferredWidth(70);
+        jTabelaPesqInternosRol.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaPesqInternosRol.getColumnModel().getColumn(1).setPreferredWidth(380);
+        jTabelaPesqInternosRol.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaPesqInternosRol.getTableHeader().setReorderingAllowed(false);
+        jTabelaPesqInternosRol.setAutoResizeMode(jTabelaPesqInternosRol.AUTO_RESIZE_OFF);
+        jTabelaPesqInternosRol.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
+    }
+
+    public void alinharTabela() {
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        //
+        jTabelaPesqInternosRol.getColumnModel().getColumn(0).setCellRenderer(centralizado);
     }
 }
