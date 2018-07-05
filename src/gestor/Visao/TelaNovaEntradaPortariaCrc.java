@@ -14,17 +14,29 @@ import gestor.Modelo.ItensNovaEntrada;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.NovaEntradaCrcP1;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPortarias.codigoUserGroupP1;
+import static gestor.Visao.TelaModuloPortarias.codigoGrupoP1;
+import static gestor.Visao.TelaModuloPortarias.codAbrirP1;
+import static gestor.Visao.TelaModuloPortarias.codAlterarP1;
+import static gestor.Visao.TelaModuloPortarias.codExcluirP1;
+import static gestor.Visao.TelaModuloPortarias.codGravarP1;
+import static gestor.Visao.TelaModuloPortarias.codConsultarP1;
+import static gestor.Visao.TelaModuloPortarias.codIncluirP1;
+import static gestor.Visao.TelaModuloPortarias.codUserAcessoP1;
+import static gestor.Visao.TelaModuloPortarias.codigoUserP1;
+import static gestor.Visao.TelaModuloPortarias.nomeGrupoP1;
+import static gestor.Visao.TelaModuloPortarias.nomeTelaP1;
+import static gestor.Visao.TelaModuloPortarias.telaNovaEntradaIntP1;
+import static gestor.Visao.TelaModuloPortarias.telaNovaEntradaManuP1;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
-import java.awt.Image;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -124,7 +136,7 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jDataLanc = new com.toedter.calendar.JDateChooser();
-        jButton1 = new javax.swing.JButton();
+        jBthelp = new javax.swing.JButton();
         jPanel13 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jObservacao = new javax.swing.JTextArea();
@@ -134,8 +146,6 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
         jIdInternoPortaria = new javax.swing.JTextField();
         jNomeInternoPortaria = new javax.swing.JTextField();
         jBtPesquisarInternos = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
-        jMatriculaPenal = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jNrOficio = new javax.swing.JTextField();
         jComboBoxOrigem = new javax.swing.JComboBox();
@@ -376,7 +386,7 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7183_16x16.png"))); // NOI18N
+        jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
         jBtNovo.setToolTipText("Novo");
         jBtNovo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtNovo.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -542,12 +552,12 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
         jDataLanc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jDataLanc.setEnabled(false);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Ajuda_8446_16x16.png"))); // NOI18N
-        jButton1.setToolTipText("Ajuda");
-        jButton1.setContentAreaFilled(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jBthelp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Ajuda_8446_16x16.png"))); // NOI18N
+        jBthelp.setToolTipText("Ajuda");
+        jBthelp.setContentAreaFilled(false);
+        jBthelp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jBthelpActionPerformed(evt);
             }
         });
 
@@ -560,24 +570,24 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTipoOperacao, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(0, 354, Short.MAX_VALUE))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
                         .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
+                            .addComponent(jIdlanc, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel12Layout.createSequentialGroup()
-                                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jIdlanc, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jStatusLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addGroup(jPanel12Layout.createSequentialGroup()
-                                        .addComponent(jDataLanc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(43, 43, 43)
-                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 28, Short.MAX_VALUE)))
+                                .addComponent(jLabel2)
+                                .addGap(0, 225, Short.MAX_VALUE))
+                            .addComponent(jStatusLanc))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jDataLanc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBthelp, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(19, 19, 19))
         );
         jPanel12Layout.setVerticalGroup(
@@ -590,10 +600,10 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jIdlanc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jStatusLanc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jIdlanc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDataLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(jBthelp))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -655,12 +665,6 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel7.setText("Matricula Penal");
-
-        jMatriculaPenal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jMatriculaPenal.setEnabled(false);
-
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel12.setText("Nr. Ofício");
 
@@ -685,8 +689,8 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
-                            .addComponent(jIdInternoPortaria, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jIdInternoPortaria, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
@@ -697,11 +701,7 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel12)
-                            .addComponent(jNrOficio, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jMatriculaPenal, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jNrOficio, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jComboBoxOrigem, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -715,25 +715,20 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jIdInternoPortaria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jNomeInternoPortaria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jBtPesquisarInternos, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jIdInternoPortaria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jNomeInternoPortaria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtPesquisarInternos))
                 .addGap(9, 9, 9)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel7)
-                        .addComponent(jLabel13)))
+                    .addComponent(jLabel13))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jNrOficio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jMatriculaPenal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(48, 48, 48))
         );
@@ -766,7 +761,7 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
 
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        jBtNovoItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7183_16x16.png"))); // NOI18N
+        jBtNovoItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
         jBtNovoItem.setToolTipText("Novo");
         jBtNovoItem.setEnabled(false);
         jBtNovoItem.addActionListener(new java.awt.event.ActionListener() {
@@ -884,8 +879,8 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
                 .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -976,74 +971,90 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaNovaEntradaManuP1) && codIncluirP1 == 1) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        objNovaEnt.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaNovaEntradaManuP1) && codAlterarP1 == 1) {
+            objNovaEnt.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                Alterar();
+                corCampos();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 2;
-            Alterar();
-            corCampos();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        objNovaEnt.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser excluida, o mesmo encontra-se FINALIZADO");
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaNovaEntradaManuP1) && codExcluirP1 == 1) {
+            objNovaEnt.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser excluida, o mesmo encontra-se FINALIZADO");
+            } else {
+                verificarItens();
+            }
         } else {
-            verificarItens();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataLanc.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data de entrada na unidade.");
-            jDataLanc.requestFocus();
-            jDataLanc.setBackground(Color.red);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaNovaEntradaManuP1) && codGravarP1 == 1) {
+            if (jDataLanc.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de entrada na unidade.");
+                jDataLanc.requestFocus();
+                jDataLanc.setBackground(Color.red);
+            } else {
+                objNovaEnt.setStatusLanc(jStatusLanc.getText());
+                objNovaEnt.setDataLanc(jDataLanc.getDate());
+                objNovaEnt.setTipoOperacao(jTipoOperacao.getText());
+                objNovaEnt.setObservacao(jObservacao.getText());
+                if (acao == 1) {
+                    // log de usuario
+                    objNovaEnt.setUsuarioInsert(nameUser);
+                    objNovaEnt.setDataInsert(dataModFinal);
+                    objNovaEnt.setHorarioInsert(horaMov);
+                    control.incluirNovaEntrada(objNovaEnt);
+                    buscarCodigo();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    Salvar();
+                }
+                if (acao == 2) {
+                    // log de usuario
+                    objNovaEnt.setUsuarioUp(nameUser);
+                    objNovaEnt.setDataUp(dataModFinal);
+                    objNovaEnt.setHorarioUp(horaMov);
+                    objNovaEnt.setIdEntrada(Integer.valueOf(jIdlanc.getText()));
+                    control.alterarNovaEntrada(objNovaEnt);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    Salvar();
+                }
+            }
         } else {
-            objNovaEnt.setStatusLanc(jStatusLanc.getText());
-            objNovaEnt.setDataLanc(jDataLanc.getDate());
-            objNovaEnt.setTipoOperacao(jTipoOperacao.getText());
-            objNovaEnt.setObservacao(jObservacao.getText());
-            if (acao == 1) {
-                // log de usuario
-                objNovaEnt.setUsuarioInsert(nameUser);
-                objNovaEnt.setDataInsert(dataModFinal);
-                objNovaEnt.setHorarioInsert(horaMov);
-                control.incluirNovaEntrada(objNovaEnt);
-                buscarCodigo();
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                Salvar();
-            }
-            if (acao == 2) {
-                // log de usuario
-                objNovaEnt.setUsuarioUp(nameUser);
-                objNovaEnt.setDataUp(dataModFinal);
-                objNovaEnt.setHorarioUp(horaMov);
-                objNovaEnt.setIdEntrada(Integer.valueOf(jIdlanc.getText()));
-                control.alterarNovaEntrada(objNovaEnt);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                Salvar();
-            }
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -1084,91 +1095,126 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
 
     private void jBtNovoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoItemActionPerformed
         // TODO add your handling code here:
-        objNovaEnt.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaNovaEntradaIntP1);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaNovaEntradaIntP1) && codIncluirP1 == 1) {
+            objNovaEnt.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 3;
+                NovoItem();
+                preencherComboNovo();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 3;
-            NovoItem();
-            preencherComboNovo();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtNovoItemActionPerformed
 
     private void jBtAlterarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarItemActionPerformed
         // TODO add your handling code here:
-        objNovaEnt.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaNovaEntradaIntP1);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaNovaEntradaIntP1) && codAlterarP1 == 1) {
+            objNovaEnt.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 4;
+                flag = 1;
+                AlterarItem();
+                preencherComboNovo();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 4;
-            flag = 1;
-            AlterarItem();
-            preencherComboNovo();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtAlterarItemActionPerformed
 
     private void jBtExcluirItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirItemActionPerformed
         // TODO add your handling code here:
-        verificarUtilizacaoCrc();
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        objNovaEnt.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse  interno não poderá ser excluído, o mesmo encontra-se FINALIZADO");
-        } else if (utilizadoCrc.equals("Sim")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro já está sendo utilizado pelo CRC");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o INTERNO selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objItensNova.setIdItem(Integer.valueOf(idItem));
-                controle.excluirItensNovaEntrada(objItensNova);
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                ExcluirItem();
-                preencherTabelaItens("SELECT * FROM ITENSNOVAENTRADA "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON ITENSNOVAENTRADA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "WHERE IdEntrada='" + jIdlanc.getText() + "'");
+        buscarAcessoUsuario(telaNovaEntradaIntP1);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaNovaEntradaIntP1) && codExcluirP1 == 1) {
+            verificarUtilizacaoCrc();
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objNovaEnt.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse  interno não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else if (utilizadoCrc.equals("Sim")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro já está sendo utilizado pelo CRC");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o INTERNO selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objItensNova.setIdItem(Integer.valueOf(idItem));
+                    controle.excluirItensNovaEntrada(objItensNova);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    ExcluirItem();
+                    preencherTabelaItens("SELECT * FROM ITENSNOVAENTRADA "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON ITENSNOVAENTRADA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "WHERE IdEntrada='" + jIdlanc.getText() + "'");
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtExcluirItemActionPerformed
 
     private void jBtSalvarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarItemActionPerformed
         // TODO add your handling code here:
-        verificarUtilizacaoCrc();
-        utilizadoCrc = "Não";
-        if (jNomeInternoPortaria.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para lançamento.");
-        } else if (jNrOficio.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o número do oficio do interno.");
-        } else if (jComboBoxOrigem.getSelectedItem().equals("Selecione") || jComboBoxOrigem.getSelectedItem().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a origem do interno.");
-        } else {
-            objItensNova.setIdEntrada(Integer.valueOf(jIdlanc.getText()));
-            objItensNova.setIdInternoCrc(Integer.valueOf(jIdInternoPortaria.getText()));
-            objItensNova.setNomeInternoCrc(jNomeInternoPortaria.getText());
-            objItensNova.setDataEntrada(jDataLanc.getDate());
-            objItensNova.setUtilizacaoCrc(utilizadoCrc);
-            objItensNova.setNrOficio(jNrOficio.getText());
-            objItensNova.setOrigemInterno((String) jComboBoxOrigem.getSelectedItem());
-            if (acao == 3) {
-                // Criar rotina para verificar se já foi cadastrado
-                if (jIdInternoPortaria.getText().equals(codInterno) && jIdlanc.getText().equals(codEntrada)) {
-                    JOptionPane.showMessageDialog(rootPane, "Esse interno já foi registrado nesse documento.");
-                } else {
-                    objItensNova.setUsuarioInsert(nameUser);
-                    objItensNova.setDataInsert(jDataSistema.getText());
-                    objItensNova.setHorarioInsert(jHoraSistema.getText());
-                    controle.incluiritensNovaEntrada(objItensNova);
+        buscarAcessoUsuario(telaNovaEntradaIntP1);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaNovaEntradaIntP1) && codGravarP1 == 1) {
+            verificarUtilizacaoCrc();
+            utilizadoCrc = "Não";
+            if (jNomeInternoPortaria.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para lançamento.");
+            } else if (jNrOficio.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o número do oficio do interno.");
+            } else if (jComboBoxOrigem.getSelectedItem().equals("Selecione") || jComboBoxOrigem.getSelectedItem().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a origem do interno.");
+            } else {
+                objItensNova.setIdEntrada(Integer.valueOf(jIdlanc.getText()));
+                objItensNova.setIdInternoCrc(Integer.valueOf(jIdInternoPortaria.getText()));
+                objItensNova.setNomeInternoCrc(jNomeInternoPortaria.getText());
+                objItensNova.setDataEntrada(jDataLanc.getDate());
+                objItensNova.setUtilizacaoCrc(utilizadoCrc);
+                objItensNova.setNrOficio(jNrOficio.getText());
+                objItensNova.setOrigemInterno((String) jComboBoxOrigem.getSelectedItem());
+                if (acao == 3) {
+                    // Criar rotina para verificar se já foi cadastrado
+                    if (jIdInternoPortaria.getText().equals(codInterno) && jIdlanc.getText().equals(codEntrada)) {
+                        JOptionPane.showMessageDialog(rootPane, "Esse interno já foi registrado nesse documento.");
+                    } else {
+                        objItensNova.setUsuarioInsert(nameUser);
+                        objItensNova.setDataInsert(jDataSistema.getText());
+                        objItensNova.setHorarioInsert(jHoraSistema.getText());
+                        controle.incluiritensNovaEntrada(objItensNova);
+                        objLog2();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        preencherTabelaItens("SELECT * FROM ITENSNOVAENTRADA "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON ITENSNOVAENTRADA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE IdEntrada='" + jIdlanc.getText() + "'");
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso...");
+                        SalvarItem();
+                    }
+                }
+                if (acao == 4) {
+
+                    objItensNova.setUsuarioUp(nameUser);
+                    objItensNova.setDataUp(jDataSistema.getText());
+                    objItensNova.setHorarioUp(jHoraSistema.getText());
+                    objItensNova.setIdItem(Integer.valueOf(idItem));
+                    objItensNova.setNomeInternoCrc(jNomeInternoPortaria.getText());
+                    controle.alterarItensNovaEntrada(objItensNova);
                     objLog2();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     preencherTabelaItens("SELECT * FROM ITENSNOVAENTRADA "
@@ -1179,23 +1225,8 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
                     SalvarItem();
                 }
             }
-            if (acao == 4) {
-
-                objItensNova.setUsuarioUp(nameUser);
-                objItensNova.setDataUp(jDataSistema.getText());
-                objItensNova.setHorarioUp(jHoraSistema.getText());
-                objItensNova.setIdItem(Integer.valueOf(idItem));
-                objItensNova.setNomeInternoCrc(jNomeInternoPortaria.getText());
-                controle.alterarItensNovaEntrada(objItensNova);
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                preencherTabelaItens("SELECT * FROM ITENSNOVAENTRADA "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON ITENSNOVAENTRADA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "WHERE IdEntrada='" + jIdlanc.getText() + "'");
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso...");
-                SalvarItem();
-            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtSalvarItemActionPerformed
 
@@ -1274,18 +1305,13 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
                 conecta.executaSQL("SELECT * FROM ITENSNOVAENTRADA "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON ITENSNOVAENTRADA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "WHERE NomeInternoCrc='" + jNomeInternoPortaria.getText() + "' AND IdEntrada='" + jIdlanc.getText() + "'AND IdItem='" + idItem + "'");
+                        + "WHERE NomeInternoCrc='" + jNomeInternoPortaria.getText() + "' "
+                        + "AND IdEntrada='" + jIdlanc.getText() + "' "
+                        + "AND IdItem='" + idItem + "'");
                 conecta.rs.first();
-                jIdInternoPortaria.setText(conecta.rs.getString("IdInternoCrc")); //Coluna 0
-                jMatriculaPenal.setText(conecta.rs.getString("MatriculaCrc"));
+                jIdInternoPortaria.setText(conecta.rs.getString("IdInternoCrc")); //Coluna 0                
                 jNomeInternoPortaria.setText(conecta.rs.getString("NomeInternoCrc")); // Coluna 1
-                idItem = conecta.rs.getString("IdItem"); // Coluna 2                
-//                // Capturando foto
-//                caminho = conecta.rs.getString("FotoInternoCrc");
-//                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-//                jFotoInternoPortaria.setIcon(i);
-//                jFotoInternoPortaria.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoPortaria.getWidth(), jFotoInternoPortaria.getHeight(), Image.SCALE_DEFAULT)));
-                //              
+                idItem = conecta.rs.getString("IdItem"); // Coluna 2                            
                 jNrOficio.setText(conecta.rs.getString("NrOficio"));
                 jComboBoxOrigem.setSelectedItem(conecta.rs.getString("OrigemInterno"));
                 conecta.desconecta();
@@ -1295,9 +1321,9 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jTabelaEntradaInternosP1MouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jBthelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBthelpActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jBthelpActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1319,7 +1345,7 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtSair;
     private javax.swing.JButton jBtSalvar;
     public static javax.swing.JButton jBtSalvarItem;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jBthelp;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox jComboBoxOrigem;
     private com.toedter.calendar.JDateChooser jDataLanc;
@@ -1340,9 +1366,7 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel63;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
-    public static javax.swing.JTextField jMatriculaPenal;
     public static javax.swing.JTextField jNomeInternoPortaria;
     private javax.swing.JTextField jNrOficio;
     private javax.swing.JTextArea jObservacao;
@@ -1378,11 +1402,10 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
     public void bloquearCamposPesquisa() {
         jTipoOperacao.setEnabled(!true);
         jDataLanc.setEnabled(!true);
-        jObservacao.setEnabled(!true);        
+        jObservacao.setEnabled(!true);
         //
         jIdInternoPortaria.setText("");
         jNomeInternoPortaria.setText("");
-        jMatriculaPenal.setText("");
         jComboBoxOrigem.setSelectedItem(null);
         jNrOficio.setText("");
         //
@@ -1407,9 +1430,7 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
         //
         jIdInternoPortaria.setBackground(Color.white);
         jNomeInternoPortaria.setBackground(Color.white);
-        jMatriculaPenal.setBackground(Color.white);
         jNrOficio.setBackground(Color.white);
-//        jSituacaoUnidade.setBackground(Color.white);
     }
 
     public void Novo() {
@@ -1439,7 +1460,6 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
         limparTabelaInternos();
         jIdInternoPortaria.setText("");
         jNomeInternoPortaria.setText("");
-        jMatriculaPenal.setText("");
         jComboBoxOrigem.setSelectedItem(null);
         jNrOficio.setText("");
     }
@@ -1615,7 +1635,6 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
     public void NovoItem() {
         jIdInternoPortaria.setText("");
         jNomeInternoPortaria.setText("");
-        jMatriculaPenal.setText("");
         jComboBoxOrigem.setSelectedItem(null);
         jNrOficio.setText("");
         //
@@ -1663,9 +1682,7 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
 
     public void ExcluirItem() {
         jIdInternoPortaria.setText("");
-//        jFotoInternoPortaria.setIcon(null);
         jNomeInternoPortaria.setText("");
-        jMatriculaPenal.setText("");
         jComboBoxOrigem.setSelectedItem(null);
         jNrOficio.setText("");
         //
@@ -1691,9 +1708,7 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
 
     public void SalvarItem() {
         jIdInternoPortaria.setText("");
-//        jFotoInternoPortaria.setIcon(null);
         jNomeInternoPortaria.setText("");
-        jMatriculaPenal.setText("");
         jComboBoxOrigem.setSelectedItem(null);
         jNrOficio.setText("");
         //
@@ -1719,9 +1734,7 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
 
     public void CancelarItem() {
         jIdInternoPortaria.setText("");
-//        jFotoInternoPortaria.setIcon(null);
         jNomeInternoPortaria.setText("");
-        jMatriculaPenal.setText("");
         jComboBoxOrigem.setSelectedItem(null);
         jNrOficio.setText("");
         //
@@ -1765,7 +1778,8 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
         dataModFinal = jDataSistema.getText();
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ITENSNOVAENTRADA WHERE IdEntrada='" + jIdlanc.getText() + "'");
+            conecta.executaSQL("SELECT * FROM ITENSNOVAENTRADA "
+                    + "WHERE IdEntrada='" + jIdlanc.getText() + "'");
             conecta.rs.first();
             codEntrada = conecta.rs.getString("IdEntrada");
             if (jIdlanc.getText().equals(codEntrada)) {
@@ -2015,5 +2029,43 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jIdlanc.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserP1 = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserP1 + "'");
+            conecta.rs.first();
+            codigoUserGroupP1 = conecta.rs.getInt("IdUsuario");
+            codigoGrupoP1 = conecta.rs.getInt("IdGrupo");
+            nomeGrupoP1 = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserP1 + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoP1 = conecta.rs.getInt("IdUsuario");
+            codAbrirP1 = conecta.rs.getInt("Abrir");
+            codIncluirP1 = conecta.rs.getInt("Incluir");
+            codAlterarP1 = conecta.rs.getInt("Alterar");
+            codExcluirP1 = conecta.rs.getInt("Excluir");
+            codGravarP1 = conecta.rs.getInt("Gravar");
+            codConsultarP1 = conecta.rs.getInt("Consultar");
+            nomeTelaP1 = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }
