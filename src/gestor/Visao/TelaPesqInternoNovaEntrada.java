@@ -143,10 +143,10 @@ public class TelaPesqInternoNovaEntrada extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jTabelaPesqInterno);
         if (jTabelaPesqInterno.getColumnModel().getColumnCount() > 0) {
-            jTabelaPesqInterno.getColumnModel().getColumn(0).setMinWidth(50);
-            jTabelaPesqInterno.getColumnModel().getColumn(0).setMaxWidth(50);
-            jTabelaPesqInterno.getColumnModel().getColumn(1).setMinWidth(280);
-            jTabelaPesqInterno.getColumnModel().getColumn(1).setMaxWidth(280);
+            jTabelaPesqInterno.getColumnModel().getColumn(0).setMinWidth(70);
+            jTabelaPesqInterno.getColumnModel().getColumn(0).setMaxWidth(70);
+            jTabelaPesqInterno.getColumnModel().getColumn(1).setMinWidth(300);
+            jTabelaPesqInterno.getColumnModel().getColumn(1).setMaxWidth(300);
             jTabelaPesqInterno.getColumnModel().getColumn(2).setMinWidth(150);
             jTabelaPesqInterno.getColumnModel().getColumn(2).setMaxWidth(150);
         }
@@ -178,7 +178,7 @@ public class TelaPesqInternoNovaEntrada extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jBtEnviar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -187,17 +187,20 @@ public class TelaPesqInternoNovaEntrada extends javax.swing.JInternalFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtEnviar, jBtSair});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtEnviar)
                     .addComponent(jBtSair))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Pesquisas", jPanel1);
@@ -206,14 +209,14 @@ public class TelaPesqInternoNovaEntrada extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1)
         );
 
-        setBounds(250, 20, 494, 286);
+        setBounds(250, 20, 563, 303);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEnviarActionPerformed
@@ -234,18 +237,11 @@ public class TelaPesqInternoNovaEntrada extends javax.swing.JInternalFrame {
                 jBtCancelarItem.setEnabled(true);
                 conecta.abrirConexao();
                 try {
-                    conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC WHERE NomeInternoCrc='" + jNomeInternoCrc.getText() + "'");
+                    conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                            + "WHERE NomeInternoCrc='" + jNomeInternoCrc.getText() + "'");
                     conecta.rs.first();
                     jIdInternoPortaria.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
                     jNomeInternoPortaria.setText(conecta.rs.getString("NomeInternoCrc"));
-                    // Capturando foto
-//                    caminho = conecta.rs.getString("FotoInternoCrc");
-//                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-//                    jFotoInternoPortaria.setIcon(i);
-//                    jFotoInternoPortaria.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoPortaria.getWidth(), jFotoInternoPortaria.getHeight(), Image.SCALE_DEFAULT)));
-                    //              
-                    jMatriculaPenal.setText(conecta.rs.getString("MatriculaCrc"));
-//                    jSituacaoUnidade.setText(conecta.rs.getString("SituacaoCrc"));
                     conecta.desconecta();
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por nome" + ex);
@@ -266,7 +262,7 @@ public class TelaPesqInternoNovaEntrada extends javax.swing.JInternalFrame {
         if (jNomeInternoCrc.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe um nome ou parte do nome para pesquisar.");
             jNomeInternoCrc.requestFocus();
-        } else {            
+        } else {
             buscarInternos("SELECT * FROM PRONTUARIOSCRC WHERE NomeInternoCrc LIKE'%" + jNomeInternoCrc.getText() + "%'");
         }
     }//GEN-LAST:event_jBtPesqNomeActionPerformed
@@ -284,7 +280,7 @@ public class TelaPesqInternoNovaEntrada extends javax.swing.JInternalFrame {
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
         flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {            
+        if (evt.getStateChange() == evt.SELECTED) {
             this.buscarInternos("SELECT * FROM PRONTUARIOSCRC");
         } else {
             limparTabela();
@@ -322,9 +318,9 @@ public class TelaPesqInternoNovaEntrada extends javax.swing.JInternalFrame {
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaPesqInterno.setModel(modelo);
-        jTabelaPesqInterno.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaPesqInterno.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaPesqInterno.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaPesqInterno.getColumnModel().getColumn(1).setPreferredWidth(280);
+        jTabelaPesqInterno.getColumnModel().getColumn(1).setPreferredWidth(300);
         jTabelaPesqInterno.getColumnModel().getColumn(1).setResizable(false);
         jTabelaPesqInterno.getColumnModel().getColumn(2).setPreferredWidth(150);
         jTabelaPesqInterno.getColumnModel().getColumn(2).setResizable(false);
@@ -340,9 +336,9 @@ public class TelaPesqInternoNovaEntrada extends javax.swing.JInternalFrame {
         String[] Colunas = new String[]{"Código", "Nome do Interno ", "Matricula Penal"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaPesqInterno.setModel(modelo);
-        jTabelaPesqInterno.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaPesqInterno.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaPesqInterno.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaPesqInterno.getColumnModel().getColumn(1).setPreferredWidth(280);
+        jTabelaPesqInterno.getColumnModel().getColumn(1).setPreferredWidth(300);
         jTabelaPesqInterno.getColumnModel().getColumn(1).setResizable(false);
         jTabelaPesqInterno.getColumnModel().getColumn(2).setPreferredWidth(150);
         jTabelaPesqInterno.getColumnModel().getColumn(2).setResizable(false);
@@ -351,7 +347,8 @@ public class TelaPesqInternoNovaEntrada extends javax.swing.JInternalFrame {
         jTabelaPesqInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         modelo.getLinhas().clear();
     }
-    public void alinharCamposTabela(){
+
+    public void alinharCamposTabela() {
         DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
@@ -360,6 +357,6 @@ public class TelaPesqInternoNovaEntrada extends javax.swing.JInternalFrame {
         direita.setHorizontalAlignment(SwingConstants.RIGHT);
         //
         jTabelaPesqInterno.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-        jTabelaPesqInterno.getColumnModel().getColumn(2).setCellRenderer(direita);        
+        jTabelaPesqInterno.getColumnModel().getColumn(2).setCellRenderer(direita);
     }
 }
