@@ -121,7 +121,7 @@ public class TelaPesqVeiculos extends javax.swing.JInternalFrame {
                         .addComponent(jBtPlacaVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jPesqModeloVeiculo, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                        .addComponent(jPesqModeloVeiculo, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtPesqNomeVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -200,7 +200,7 @@ public class TelaPesqVeiculos extends javax.swing.JInternalFrame {
                         .addComponent(jBtEnviar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtSair)
-                        .addGap(0, 250, Short.MAX_VALUE))
+                        .addGap(0, 264, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -223,14 +223,14 @@ public class TelaPesqVeiculos extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(250, 20, 459, 286);
+        setBounds(250, 20, 473, 286);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEnviarActionPerformed
@@ -242,7 +242,9 @@ public class TelaPesqVeiculos extends javax.swing.JInternalFrame {
             String idVeiculo = "" + jTabelaPesqVeiculos.getValueAt(jTabelaPesqVeiculos.getSelectedRow(), 0);
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM VEICULOS WHERE ModeloVeiculo='" + modeloVeiculo + "'AND IdVeiculo='" + idVeiculo + "'");
+                conecta.executaSQL("SELECT * FROM VEICULOS "
+                        + "WHERE ModeloVeiculo='" + modeloVeiculo + "' "
+                        + "AND IdVeiculo='" + idVeiculo + "'");
                 conecta.rs.first();
                 // Tabela Funcionarios
                 jIdVeiculo.setText(String.valueOf(conecta.rs.getInt("IdVeiculo")));
@@ -251,9 +253,20 @@ public class TelaPesqVeiculos extends javax.swing.JInternalFrame {
                 jMarcaVeiculo.setText(conecta.rs.getString("MarcaVeiculo"));
                 //
                 caminhoVeiculo = conecta.rs.getString("FotoFrente");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoVeiculo);
-                jFotoVeiculoDiv.setIcon(i);
-                jFotoVeiculoDiv.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoVeiculoDiv.getWidth(), jFotoVeiculoDiv.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminhoVeiculo != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoVeiculo);
+                    jFotoVeiculoDiv.setIcon(i);
+                    jFotoVeiculoDiv.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoVeiculoDiv.getWidth(), jFotoVeiculoDiv.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] img2Bytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteVE"));
+                if (img2Bytes != null) {
+                    ImageIcon pic2 = null;
+                    pic2 = new ImageIcon(img2Bytes);
+                    Image scaled2 = pic2.getImage().getScaledInstance(jFotoVeiculoDiv.getWidth(), jFotoVeiculoDiv.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon2 = new ImageIcon(scaled2);
+                    jFotoVeiculoDiv.setIcon(icon2);
+                }
                 conecta.desconecta();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por nome" + ex);
@@ -274,7 +287,7 @@ public class TelaPesqVeiculos extends javax.swing.JInternalFrame {
         if (jPesqModeloVeiculo.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe um nome ou parte do nome para pesquisar.");
             jPesqModeloVeiculo.requestFocus();
-        } else {            
+        } else {
             buscarVeiculos("SELECT * FROM VEICULOS WHERE ModeloVeiculo LIKE'%" + jPesqModeloVeiculo.getText() + "%'");
         }
     }//GEN-LAST:event_jBtPesqNomeVeiculoActionPerformed
@@ -282,7 +295,7 @@ public class TelaPesqVeiculos extends javax.swing.JInternalFrame {
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
         flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {           
+        if (evt.getStateChange() == evt.SELECTED) {
             this.buscarVeiculos("SELECT * FROM VEICULOS ORDER BY ModeloVeiculo");
         } else {
             limparTabela();
