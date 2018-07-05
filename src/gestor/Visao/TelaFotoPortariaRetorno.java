@@ -153,14 +153,24 @@ public class TelaFotoPortariaRetorno extends javax.swing.JDialog {
     public void buscarFotoInterno() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC WHERE IdInternoCrc='" + jIdInterno.getText() + "'");
+            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                    + "WHERE IdInternoCrc='" + jIdInterno.getText() + "'");
             conecta.rs.first();
             caminhoFoto = conecta.rs.getString("FotoInternoCrc");
-            // Capturando foto                
-            javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFoto);
-            jFotoInternoCrc.setIcon(i);
-            jFotoInternoCrc.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoCrc.getWidth(), jFotoInternoCrc.getHeight(), Image.SCALE_DEFAULT)));
-            //
+            if (caminhoFoto != null) {
+                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFoto);
+                jFotoInternoCrc.setIcon(i);
+                jFotoInternoCrc.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoCrc.getWidth(), jFotoInternoCrc.getHeight(), Image.SCALE_DEFAULT)));
+            }
+            // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+            byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+            if (imgBytes != null) {
+                ImageIcon pic = null;
+                pic = new ImageIcon(imgBytes);
+                Image scaled = pic.getImage().getScaledInstance(jFotoInternoCrc.getWidth(), jFotoInternoCrc.getHeight(), Image.SCALE_DEFAULT);
+                ImageIcon icon = new ImageIcon(scaled);
+                jFotoInternoCrc.setIcon(icon);
+            }
         } catch (Exception e) {
         }
         conecta.desconecta();
