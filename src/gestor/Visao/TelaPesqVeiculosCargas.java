@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -27,11 +29,12 @@ public class TelaPesqVeiculosCargas extends javax.swing.JInternalFrame {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     int flag;
     String caminhoVei;
+
     /**
      * Creates new form TelaPesqColaborador
      */
     public TelaPesqVeiculosCargas() {
-        initComponents();       
+        initComponents();
     }
 
     /**
@@ -64,12 +67,13 @@ public class TelaPesqVeiculosCargas extends javax.swing.JInternalFrame {
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Listagem de Veiculos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 255)));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Listagem de Veiculos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jPesqModeloVeiculo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jBtPesqNomeVeiculo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtPesqNomeVeiculo.setToolTipText("Pesquisa por Nome");
+        jBtPesqNomeVeiculo.setContentAreaFilled(false);
         jBtPesqNomeVeiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesqNomeVeiculoActionPerformed(evt);
@@ -93,6 +97,7 @@ public class TelaPesqVeiculosCargas extends javax.swing.JInternalFrame {
         jPlavaVeiculo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jBtPlacaVeiculo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
+        jBtPlacaVeiculo.setContentAreaFilled(false);
         jBtPlacaVeiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPlacaVeiculoActionPerformed(evt);
@@ -111,7 +116,7 @@ public class TelaPesqVeiculosCargas extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jPesqModeloVeiculo, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                        .addComponent(jPesqModeloVeiculo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtPesqNomeVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -141,13 +146,10 @@ public class TelaPesqVeiculosCargas extends javax.swing.JInternalFrame {
         jTabelaPesqVeiculos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaPesqVeiculos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+                {null, null, null}
             },
             new String [] {
-
+                "Código", "Modelo do Veiculo", "Placa"
             }
         ));
         jTabelaPesqVeiculos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -156,6 +158,14 @@ public class TelaPesqVeiculosCargas extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(jTabelaPesqVeiculos);
+        if (jTabelaPesqVeiculos.getColumnModel().getColumnCount() > 0) {
+            jTabelaPesqVeiculos.getColumnModel().getColumn(0).setMinWidth(70);
+            jTabelaPesqVeiculos.getColumnModel().getColumn(0).setMaxWidth(70);
+            jTabelaPesqVeiculos.getColumnModel().getColumn(1).setMinWidth(350);
+            jTabelaPesqVeiculos.getColumnModel().getColumn(1).setMaxWidth(350);
+            jTabelaPesqVeiculos.getColumnModel().getColumn(2).setMinWidth(80);
+            jTabelaPesqVeiculos.getColumnModel().getColumn(2).setMaxWidth(80);
+        }
 
         jBtEnviar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtEnviar.setForeground(new java.awt.Color(0, 0, 255));
@@ -183,26 +193,27 @@ public class TelaPesqVeiculosCargas extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jBtEnviar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtSair))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jBtSair)
+                        .addGap(0, 326, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtEnviar)
                     .addComponent(jBtSair))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Pesquisas", jPanel1);
@@ -211,44 +222,57 @@ public class TelaPesqVeiculosCargas extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1)
         );
 
-        setBounds(250, 20, 436, 286);
+        setBounds(250, 20, 535, 310);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEnviarActionPerformed
         // TODO add your handling code here:
         flag = 1;
-        if(flag == 1){
-             String modeloVeiculo = "" + jTabelaPesqVeiculos.getValueAt(jTabelaPesqVeiculos.getSelectedRow(), 1);
+        if (flag == 1) {
+            String modeloVeiculo = "" + jTabelaPesqVeiculos.getValueAt(jTabelaPesqVeiculos.getSelectedRow(), 1);
             jPesqModeloVeiculo.setText(modeloVeiculo);
-             String idVeiculo = "" + jTabelaPesqVeiculos.getValueAt(jTabelaPesqVeiculos.getSelectedRow(), 0);
-             jIdVeiculo.setText(idVeiculo);
+            String idVeiculo = "" + jTabelaPesqVeiculos.getValueAt(jTabelaPesqVeiculos.getSelectedRow(), 0);
+            jIdVeiculo.setText(idVeiculo);
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM VEICULOS WHERE ModeloVeiculo='" + jPesqModeloVeiculo.getText() + "'AND IdVeiculo='" + idVeiculo + "'");
+                conecta.executaSQL("SELECT * FROM VEICULOS "
+                        + "WHERE ModeloVeiculo='" + jPesqModeloVeiculo.getText() + "' "
+                        + "AND IdVeiculo='" + idVeiculo + "'");
                 conecta.rs.first();
                 // Tabela Veiculos
-                jIdVeiculo.setText(String.valueOf(conecta.rs.getInt("IdVeiculo")));              
-                jModeloVeiculo.setText(conecta.rs.getString("ModeloVeiculo")); 
+                jIdVeiculo.setText(String.valueOf(conecta.rs.getInt("IdVeiculo")));
+                jModeloVeiculo.setText(conecta.rs.getString("ModeloVeiculo"));
                 jPlaca.setText(conecta.rs.getString("PlacaVeiculo"));
                 jMarcaVeiculo.setText(conecta.rs.getString("MarcaVeiculo"));
                 //
                 caminhoVei = conecta.rs.getString("FotoFrente");
-                javax.swing.ImageIcon v = new javax.swing.ImageIcon(caminhoVei);
-                FotoVeiculoCargas.setIcon(v);
-                FotoVeiculoCargas.setIcon(new ImageIcon(v.getImage().getScaledInstance(FotoVeiculoCargas.getWidth(), FotoVeiculoCargas.getHeight(), Image.SCALE_DEFAULT)));
-                conecta.desconecta();               
+                if (caminhoVei != null) {
+                    javax.swing.ImageIcon v = new javax.swing.ImageIcon(caminhoVei);
+                    FotoVeiculoCargas.setIcon(v);
+                    FotoVeiculoCargas.setIcon(new ImageIcon(v.getImage().getScaledInstance(FotoVeiculoCargas.getWidth(), FotoVeiculoCargas.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteVE"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(FotoVeiculoCargas.getWidth(), FotoVeiculoCargas.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    FotoVeiculoCargas.setIcon(icon);
+                }
+                conecta.desconecta();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por nome" + ex);
             }
             dispose();
-        }                   
+        }
     }//GEN-LAST:event_jBtEnviarActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
@@ -260,23 +284,23 @@ public class TelaPesqVeiculosCargas extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         // Pesquisar colaborador por nome           
         flag = 1;
-        if(jPesqModeloVeiculo.getText().equals("")){
+        if (jPesqModeloVeiculo.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe um nome ou parte do nome para pesquisar.");
             jPesqModeloVeiculo.requestFocus();
-        }else{      
+        } else {
             jTabelaPesqVeiculos.setVisible(true);
-            buscarVeiculos("SELECT * FROM VEICULOS WHERE ModeloVeiculo LIKE'%" + jPesqModeloVeiculo.getText()+ "%'");
-        }            
+            buscarVeiculos("SELECT * FROM VEICULOS "
+                    + "WHERE ModeloVeiculo LIKE'%" + jPesqModeloVeiculo.getText() + "%'");
+        }
     }//GEN-LAST:event_jBtPesqNomeVeiculoActionPerformed
 
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            jTabelaPesqVeiculos.setVisible(true);
             this.buscarVeiculos("SELECT * FROM VEICULOS ORDER BY ModeloVeiculo");
         } else {
-            jTabelaPesqVeiculos.setVisible(!true);
+            limparTabela();
         }
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
@@ -287,18 +311,19 @@ public class TelaPesqVeiculosCargas extends javax.swing.JInternalFrame {
             jPesqModeloVeiculo.requestFocus();
         } else {
             jTabelaPesqVeiculos.setVisible(true);
-            buscarVeiculos("SELECT * FROM VEICULOS WHERE PlacaVeiculo LIKE'%" + jPlavaVeiculo.getText() + "%'");
+            buscarVeiculos("SELECT * FROM VEICULOS "
+                    + "WHERE PlacaVeiculo LIKE'%" + jPlavaVeiculo.getText() + "%'");
         }
     }//GEN-LAST:event_jBtPlacaVeiculoActionPerformed
 
     private void jTabelaPesqVeiculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaPesqVeiculosMouseClicked
         // TODO add your handling code here:
         flag = 1;
-        if(flag == 1 && evt.getClickCount() == 1){
-             String modeloVeiculo = "" + jTabelaPesqVeiculos.getValueAt(jTabelaPesqVeiculos.getSelectedRow(), 1);
+        if (flag == 1 && evt.getClickCount() == 1) {
+            String modeloVeiculo = "" + jTabelaPesqVeiculos.getValueAt(jTabelaPesqVeiculos.getSelectedRow(), 1);
             jPesqModeloVeiculo.setText(modeloVeiculo);
-             String idVeiculo = "" + jTabelaPesqVeiculos.getValueAt(jTabelaPesqVeiculos.getSelectedRow(), 0);
-             jIdVeiculo.setText(idVeiculo);
+            String idVeiculo = "" + jTabelaPesqVeiculos.getValueAt(jTabelaPesqVeiculos.getSelectedRow(), 0);
+            jIdVeiculo.setText(idVeiculo);
         }
     }//GEN-LAST:event_jTabelaPesqVeiculosMouseClicked
 
@@ -323,7 +348,7 @@ public class TelaPesqVeiculosCargas extends javax.swing.JInternalFrame {
 //Preencher tabela com todos os COLABORADORES
     public void buscarVeiculos(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"ID", "    Modelo do Veiculo", " Placa"};
+        String[] Colunas = new String[]{"Código", "Modelo do Veiculo", "Placa"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
@@ -336,15 +361,45 @@ public class TelaPesqVeiculosCargas extends javax.swing.JInternalFrame {
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaPesqVeiculos.setModel(modelo);
-        jTabelaPesqVeiculos.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaPesqVeiculos.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaPesqVeiculos.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaPesqVeiculos.getColumnModel().getColumn(1).setPreferredWidth(300);
+        jTabelaPesqVeiculos.getColumnModel().getColumn(1).setPreferredWidth(350);
         jTabelaPesqVeiculos.getColumnModel().getColumn(1).setResizable(false);
         jTabelaPesqVeiculos.getColumnModel().getColumn(2).setPreferredWidth(80);
-        jTabelaPesqVeiculos.getColumnModel().getColumn(2).setResizable(false);   
+        jTabelaPesqVeiculos.getColumnModel().getColumn(2).setResizable(false);
         jTabelaPesqVeiculos.getTableHeader().setReorderingAllowed(false);
         jTabelaPesqVeiculos.setAutoResizeMode(jTabelaPesqVeiculos.AUTO_RESIZE_OFF);
         jTabelaPesqVeiculos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCamposTabela();
         conecta.desconecta();
+    }
+
+    public void limparTabela() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Modelo do Veiculo", "Placa"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaPesqVeiculos.setModel(modelo);
+        jTabelaPesqVeiculos.getColumnModel().getColumn(0).setPreferredWidth(70);
+        jTabelaPesqVeiculos.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaPesqVeiculos.getColumnModel().getColumn(1).setPreferredWidth(350);
+        jTabelaPesqVeiculos.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaPesqVeiculos.getColumnModel().getColumn(2).setPreferredWidth(80);
+        jTabelaPesqVeiculos.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaPesqVeiculos.getTableHeader().setReorderingAllowed(false);
+        jTabelaPesqVeiculos.setAutoResizeMode(jTabelaPesqVeiculos.AUTO_RESIZE_OFF);
+        jTabelaPesqVeiculos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
+    }
+
+    public void alinharCamposTabela() {
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        //
+        jTabelaPesqVeiculos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaPesqVeiculos.getColumnModel().getColumn(0).setCellRenderer(direita);
     }
 }
