@@ -186,7 +186,7 @@ public class TelaPesquisaRegistroRetornoInterno extends javax.swing.JInternalFra
                         .addComponent(jBtEnviar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtSair))
-                    .addComponent(jScrollPane1))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -226,7 +226,7 @@ public class TelaPesquisaRegistroRetornoInterno extends javax.swing.JInternalFra
         if (jPesqNome.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe NOME para pesquisa!!!");
             jPesqNome.requestFocus();
-        } else {           
+        } else {
             // Estava impedindo que os internos com saida livramento e progressão retornassem para unidade caso cometesse outro crime           
             preencherTabelaNome("SELECT * FROM MOVISR "
                     + "INNER JOIN PRONTUARIOSCRC "
@@ -274,9 +274,20 @@ public class TelaPesquisaRegistroRetornoInterno extends javax.swing.JInternalFra
                 jNrDocumento.setText(conecta.rs.getString("NrDocSaida"));
                 // Capturando foto
                 caminho = conecta.rs.getString("FotoInternoCrc");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                jFotoInternoRetorno.setIcon(i);
-                jFotoInternoRetorno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoRetorno.getWidth(), jFotoInternoRetorno.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    jFotoInternoRetorno.setIcon(i);
+                    jFotoInternoRetorno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoRetorno.getWidth(), jFotoInternoRetorno.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoInternoRetorno.getWidth(), jFotoInternoRetorno.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoInternoRetorno.setIcon(icon);
+                }
                 conecta.desconecta();
                 jBtZoon.setEnabled(true);
             } catch (SQLException e) {
@@ -289,7 +300,7 @@ public class TelaPesquisaRegistroRetornoInterno extends javax.swing.JInternalFra
     private void jCheckBox2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox2ItemStateChanged
         // TODO add your handling code here:
         flag = 1;
-        if (evt.getStateChange() == ItemEvent.SELECTED) {            
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
             this.preencherTabelaNome("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN MOVISR "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=MOVISR.IdInternoCrc "
@@ -368,7 +379,8 @@ public class TelaPesquisaRegistroRetornoInterno extends javax.swing.JInternalFra
         jTabelaInterno.setAutoResizeMode(jTabelaInterno.AUTO_RESIZE_OFF);
         jTabelaInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
-    public void alinharCamposTabela(){
+
+    public void alinharCamposTabela() {
         DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
