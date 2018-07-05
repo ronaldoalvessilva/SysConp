@@ -86,6 +86,7 @@ public class TelaBiometriaEntradaSaidaPortaria extends javax.swing.JDialog {
     String horaMov;
     String dataModFinal;
     public static String caminhoFotoInterno;
+    public static byte[] imagemFrente;
     // VARIVAEL PARA ARMAZENAR AS DIGITAIS DO BANCO DE DADOS
     String caminhoBiometria = "";
     String caminhoBiometria1 = "";
@@ -835,9 +836,20 @@ public class TelaBiometriaEntradaSaidaPortaria extends javax.swing.JDialog {
                         idItemSaidaPort = dd.getIdItemSaida();
                         idItemCrcPortSai = dd.getIdItemCrcPort();
                         caminhoFotoInterno = dd.getCaminhoFotoInterno();
-                        javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoInterno);
-                        jFotoInternoKitBio.setIcon(a);
-                        jFotoInternoKitBio.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoInternoKitBio.getWidth(), jFotoInternoKitBio.getHeight(), Image.SCALE_DEFAULT)));
+                        if (caminhoFotoInterno != null) {
+                            javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoInterno);
+                            jFotoInternoKitBio.setIcon(a);
+                            jFotoInternoKitBio.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoInternoKitBio.getWidth(), jFotoInternoKitBio.getHeight(), Image.SCALE_DEFAULT)));
+                        }
+                        // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                        imagemFrente = dd.getImagemFrente();
+                        if (imagemFrente != null) {
+                            ImageIcon pic = null;
+                            pic = new ImageIcon(imagemFrente);
+                            Image scaled = pic.getImage().getScaledInstance(jFotoInternoKitBio.getWidth(), jFotoInternoKitBio.getHeight(), Image.SCALE_DEFAULT);
+                            ImageIcon icon = new ImageIcon(scaled);
+                            jFotoInternoKitBio.setIcon(icon);
+                        }
                         JOptionPane.showMessageDialog(null, "Digital capturada com sucesso !!!");
                         int idRetorno = dll.CIS_SDK_Biometrico_Finalizar();
                         return;
@@ -851,9 +863,20 @@ public class TelaBiometriaEntradaSaidaPortaria extends javax.swing.JDialog {
                         idItemSaidaPort = dd.getIdItemSaida();
                         idItemCrcPortSai = dd.getIdItemCrcPort();
                         caminhoFotoInterno = dd.getCaminhoFotoInterno();
-                        javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoInterno);
-                        jFotoInternoKitBio.setIcon(a);
-                        jFotoInternoKitBio.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoInternoKitBio.getWidth(), jFotoInternoKitBio.getHeight(), Image.SCALE_DEFAULT)));
+                        if (caminhoFotoInterno != null) {
+                            javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoInterno);
+                            jFotoInternoKitBio.setIcon(a);
+                            jFotoInternoKitBio.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoInternoKitBio.getWidth(), jFotoInternoKitBio.getHeight(), Image.SCALE_DEFAULT)));
+                        }
+                        // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                        imagemFrente = dd.getImagemFrente();
+                        if (imagemFrente != null) {
+                            ImageIcon pic = null;
+                            pic = new ImageIcon(imagemFrente);
+                            Image scaled = pic.getImage().getScaledInstance(jFotoInternoKitBio.getWidth(), jFotoInternoKitBio.getHeight(), Image.SCALE_DEFAULT);
+                            ImageIcon icon = new ImageIcon(scaled);
+                            jFotoInternoKitBio.setIcon(icon);
+                        }
                         JOptionPane.showMessageDialog(null, "Digital capturada com sucesso !!!");
                         int idRetorno = dll.CIS_SDK_Biometrico_Finalizar();
                         return;
@@ -867,9 +890,20 @@ public class TelaBiometriaEntradaSaidaPortaria extends javax.swing.JDialog {
                         idItemSaidaPort = dd.getIdItemSaida();
                         idItemCrcPortSai = dd.getIdItemCrcPort();
                         caminhoFotoInterno = dd.getCaminhoFotoInterno();
-                        javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoInterno);
-                        jFotoInternoKitBio.setIcon(a);
-                        jFotoInternoKitBio.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoInternoKitBio.getWidth(), jFotoInternoKitBio.getHeight(), Image.SCALE_DEFAULT)));
+                        if (caminhoFotoInterno != null) {
+                            javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoInterno);
+                            jFotoInternoKitBio.setIcon(a);
+                            jFotoInternoKitBio.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoInternoKitBio.getWidth(), jFotoInternoKitBio.getHeight(), Image.SCALE_DEFAULT)));
+                        }
+                        // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                        imagemFrente = dd.getImagemFrente();
+                        if (imagemFrente != null) {
+                            ImageIcon pic = null;
+                            pic = new ImageIcon(imagemFrente);
+                            Image scaled = pic.getImage().getScaledInstance(jFotoInternoKitBio.getWidth(), jFotoInternoKitBio.getHeight(), Image.SCALE_DEFAULT);
+                            ImageIcon icon = new ImageIcon(scaled);
+                            jFotoInternoKitBio.setIcon(icon);
+                        }
                         JOptionPane.showMessageDialog(null, "Digital capturada com sucesso !!!");
                         int idRetorno = dll.CIS_SDK_Biometrico_Finalizar();
                         return;
@@ -883,9 +917,20 @@ public class TelaBiometriaEntradaSaidaPortaria extends javax.swing.JDialog {
                         idItemSaidaPort = dd.getIdItemSaida();
                         idItemCrcPortSai = dd.getIdItemCrcPort();
                         caminhoFotoInterno = dd.getCaminhoFotoInterno();
-                        javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoInterno);
-                        jFotoInternoKitBio.setIcon(a);
-                        jFotoInternoKitBio.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoInternoKitBio.getWidth(), jFotoInternoKitBio.getHeight(), Image.SCALE_DEFAULT)));
+                        if (caminhoFotoInterno != null) {
+                            javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoInterno);
+                            jFotoInternoKitBio.setIcon(a);
+                            jFotoInternoKitBio.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoInternoKitBio.getWidth(), jFotoInternoKitBio.getHeight(), Image.SCALE_DEFAULT)));
+                        }
+                        // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                        imagemFrente = dd.getImagemFrente();
+                        if (imagemFrente != null) {
+                            ImageIcon pic = null;
+                            pic = new ImageIcon(imagemFrente);
+                            Image scaled = pic.getImage().getScaledInstance(jFotoInternoKitBio.getWidth(), jFotoInternoKitBio.getHeight(), Image.SCALE_DEFAULT);
+                            ImageIcon icon = new ImageIcon(scaled);
+                            jFotoInternoKitBio.setIcon(icon);
+                        }
                         JOptionPane.showMessageDialog(null, "Digital capturada com sucesso !!!");
                         int idRetorno = dll.CIS_SDK_Biometrico_Finalizar();
                         return;
