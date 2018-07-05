@@ -222,14 +222,32 @@ public class TelaPesqInternosLabor extends javax.swing.JInternalFrame {
                         + "ON ITENSAGENDALABORATIVA.IdAgenda=AGENDALABORATIVA.IdAgenda "
                         + "INNER JOIN EMPRESALAB "
                         + "ON AGENDALABORATIVA.IdEmp=EMPRESALAB.IdEmp "
-                        + "WHERE RazaoSocial='" + jNomeEmpresa.getText() + "'AND StatusLanc='" + statusEmp + "'AND NomeInternoCrc='" + jPesqNomeInterno.getText() + "'AND SituacaoCrc='" + situacaoEnt + "'OR RazaoSocial='" + jNomeEmpresa.getText() + "'AND StatusLanc='" + statusEmp + "'AND NomeInternoCrc='" + jPesqNomeInterno.getText() + "'AND SituacaoCrc='" + situacaoRet + "'");
+                        + "WHERE RazaoSocial='" + jNomeEmpresa.getText() + "' "
+                        + "AND StatusLanc='" + statusEmp + "' "
+                        + "AND NomeInternoCrc='" + jPesqNomeInterno.getText() + "' "
+                        + "AND SituacaoCrc='" + situacaoEnt + "' "
+                        + "OR RazaoSocial='" + jNomeEmpresa.getText() + "' "
+                        + "AND StatusLanc='" + statusEmp + "' "
+                        + "AND NomeInternoCrc='" + jPesqNomeInterno.getText() + "' "
+                        + "AND SituacaoCrc='" + situacaoRet + "'");
                 conecta.rs.first();
                 jIdInterno.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
                 jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));
                 caminho = conecta.rs.getString("FotoInternoCrc");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                jFotoInternoLabor.setIcon(i);
-                jFotoInternoLabor.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoLabor.getWidth(), jFotoInternoLabor.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    jFotoInternoLabor.setIcon(i);
+                    jFotoInternoLabor.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoLabor.getWidth(), jFotoInternoLabor.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoInternoLabor.getWidth(), jFotoInternoLabor.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoInternoLabor.setIcon(icon);
+                }
                 conecta.desconecta();
                 jBtZoon.setEnabled(true);
             } catch (SQLException ex) {
@@ -251,7 +269,7 @@ public class TelaPesqInternosLabor extends javax.swing.JInternalFrame {
         if (jPesqNomeInterno.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe um nome ou parte do nome para pesquisar.");
             jPesqNomeInterno.requestFocus();
-        } else {           
+        } else {
             buscarInternoAgendados("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN ITENSAGENDALABORATIVA "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSAGENDALABORATIVA.IdInternoCrc "
@@ -259,14 +277,16 @@ public class TelaPesqInternosLabor extends javax.swing.JInternalFrame {
                     + "ON ITENSAGENDALABORATIVA.IdAgenda=AGENDALABORATIVA.IdAgenda "
                     + "INNER JOIN EMPRESALAB "
                     + "ON AGENDALABORATIVA.IdEmp=EMPRESALAB.IdEmp "
-                    + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%'AND RazaoSocial='" + jNomeEmpresa.getText() + "'AND StatusInterno='" + statusInterno + "'");
+                    + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%' "
+                    + "AND RazaoSocial='" + jNomeEmpresa.getText() + "' "
+                    + "AND StatusInterno='" + statusInterno + "'");
         }
     }//GEN-LAST:event_jBtPesqNomeActionPerformed
 
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
         flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {            
+        if (evt.getStateChange() == evt.SELECTED) {
             this.buscarInternoAgendados("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN ITENSAGENDALABORATIVA "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSAGENDALABORATIVA.IdInternoCrc "
@@ -274,7 +294,8 @@ public class TelaPesqInternosLabor extends javax.swing.JInternalFrame {
                     + "ON ITENSAGENDALABORATIVA.IdAgenda=AGENDALABORATIVA.IdAgenda "
                     + "INNER JOIN EMPRESALAB "
                     + "ON AGENDALABORATIVA.IdEmp=EMPRESALAB.IdEmp "
-                    + "WHERE RazaoSocial='" + jNomeEmpresa.getText() + "'AND StatusInterno='" + statusInterno + "'");
+                    + "WHERE RazaoSocial='" + jNomeEmpresa.getText() + "' "
+                    + "AND StatusInterno='" + statusInterno + "'");
         } else {
             limparTabelaInternos();
         }
