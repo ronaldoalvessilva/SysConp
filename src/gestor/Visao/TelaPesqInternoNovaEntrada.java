@@ -13,15 +13,10 @@ import static gestor.Visao.TelaNovaEntradaPortariaCrc.jBtCancelarItem;
 import static gestor.Visao.TelaNovaEntradaPortariaCrc.jBtExcluirItem;
 import static gestor.Visao.TelaNovaEntradaPortariaCrc.jBtNovoItem;
 import static gestor.Visao.TelaNovaEntradaPortariaCrc.jBtSalvarItem;
-//import static gestor.Visao.TelaNovaEntradaPortariaCrc.jFotoInternoPortaria;
 import static gestor.Visao.TelaNovaEntradaPortariaCrc.jIdInternoPortaria;
-import static gestor.Visao.TelaNovaEntradaPortariaCrc.jMatriculaPenal;
 import static gestor.Visao.TelaNovaEntradaPortariaCrc.jNomeInternoPortaria;
-//import static gestor.Visao.TelaNovaEntradaPortariaCrc.jSituacaoUnidade;
-import java.awt.Image;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -263,7 +258,8 @@ public class TelaPesqInternoNovaEntrada extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe um nome ou parte do nome para pesquisar.");
             jNomeInternoCrc.requestFocus();
         } else {
-            buscarInternos("SELECT * FROM PRONTUARIOSCRC WHERE NomeInternoCrc LIKE'%" + jNomeInternoCrc.getText() + "%'");
+            buscarInternos("SELECT * FROM PRONTUARIOSCRC "
+                    + "WHERE NomeInternoCrc LIKE'%" + jNomeInternoCrc.getText() + "%'");
         }
     }//GEN-LAST:event_jBtPesqNomeActionPerformed
 
