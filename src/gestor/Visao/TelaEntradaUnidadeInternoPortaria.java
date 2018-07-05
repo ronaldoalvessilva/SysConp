@@ -18,6 +18,20 @@ import gestor.Modelo.LogSistema;
 import gestor.Modelo.TransferenciaInternosPortaria;
 import static gestor.Visao.TelaImportarDadosInternosUnidades.idTransPortUni;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPortarias.codigoUserGroupP1;
+import static gestor.Visao.TelaModuloPortarias.codigoGrupoP1;
+import static gestor.Visao.TelaModuloPortarias.codAbrirP1;
+import static gestor.Visao.TelaModuloPortarias.codAlterarP1;
+import static gestor.Visao.TelaModuloPortarias.codExcluirP1;
+import static gestor.Visao.TelaModuloPortarias.codGravarP1;
+import static gestor.Visao.TelaModuloPortarias.codConsultarP1;
+import static gestor.Visao.TelaModuloPortarias.codIncluirP1;
+import static gestor.Visao.TelaModuloPortarias.codUserAcessoP1;
+import static gestor.Visao.TelaModuloPortarias.codigoUserP1;
+import static gestor.Visao.TelaModuloPortarias.nomeGrupoP1;
+import static gestor.Visao.TelaModuloPortarias.nomeTelaP1;
+import static gestor.Visao.TelaModuloPortarias.telaEntradaInternoUniPRIManuP1;
+import static gestor.Visao.TelaModuloPortarias.telaEntradaInternoUniPRIIntP1;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -155,7 +169,7 @@ public class TelaEntradaUnidadeInternoPortaria extends javax.swing.JInternalFram
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("...::: Entrada Internos na Unidade {P1} :::...");
+        setTitle("...::: Entrada Internos na Unidade PRIMEIRA VEZ  {P1} :::...");
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
@@ -910,72 +924,88 @@ public class TelaEntradaUnidadeInternoPortaria extends javax.swing.JInternalFram
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(rootPane, "ATENÇÃO: Antes de realizar a entrada dos internos que chegaram pela primeira vez na unidade, faça uma pesquisa\npara ter certeza que esses mesmos internos não sejam evadidos da unidade penal. Utilize o botão LOCALIZAR logo\n abaixo para realizar a pesquisa.");
-        acao = 1;
-        Novo();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        corCampos();
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaInternoUniPRIManuP1) && codIncluirP1 == 1) {
+            JOptionPane.showMessageDialog(rootPane, "ATENÇÃO: Antes de realizar a entrada dos internos que chegaram pela primeira vez na unidade, faça uma pesquisa\npara ter certeza que esses mesmos internos não sejam evadidos da unidade penal. Utilize o botão LOCALIZAR logo\n abaixo para realizar a pesquisa.");
+            acao = 1;
+            Novo();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            corCampos();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        objEntIntPort.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaInternoUniPRIManuP1) && codAlterarP1 == 1) {
+            objEntIntPort.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                corCampos();
+                Alterar();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 2;
-            corCampos();
-            Alterar();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        objEntIntPort.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser excluida, o mesmo encontra-se FINALIZADO");
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaInternoUniPRIManuP1) && codExcluirP1 == 1) {
+            objEntIntPort.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser excluida, o mesmo encontra-se FINALIZADO");
+            } else {
+                verificarItens();
+            }
         } else {
-            verificarItens();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataLanc.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data do lançamento.");
-            jDataLanc.requestFocus();
-            jDataLanc.setBackground(Color.red);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaInternoUniPRIManuP1) && codGravarP1 == 1) {
+            if (jDataLanc.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data do lançamento.");
+                jDataLanc.requestFocus();
+                jDataLanc.setBackground(Color.red);
+            } else {
+                objEntIntPort.setStatusLanc(jStatusLanc.getText());
+                objEntIntPort.setDataLanc(jDataLanc.getDate());
+                objEntIntPort.setObservacao(jObservacao.getText());
+                objEntIntPort.setUsuarioInsert(nameUser);
+                objEntIntPort.setDataInsert(jDataSistema.getText());
+                objEntIntPort.setHorarioInsert(horaMov);
+                if (acao == 1) {
+                    control.incluirEntradaInternosUnid(objEntIntPort);
+                    buscarId();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    Salvar();
+                }
+                if (acao == 2) {
+                    objEntIntPort.setUsuarioUp(nameUser);
+                    objEntIntPort.setDataUp(jDataSistema.getText());
+                    objEntIntPort.setHorarioUp(horaMov);
+                    objEntIntPort.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                    control.alterarEntradaInternosUnid(objEntIntPort);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    Salvar();
+                }
+            }
         } else {
-            objEntIntPort.setStatusLanc(jStatusLanc.getText());
-            objEntIntPort.setDataLanc(jDataLanc.getDate());
-            objEntIntPort.setObservacao(jObservacao.getText());
-            objEntIntPort.setUsuarioInsert(nameUser);
-            objEntIntPort.setDataInsert(jDataSistema.getText());
-            objEntIntPort.setHorarioInsert(horaMov);
-            if (acao == 1) {
-                control.incluirEntradaInternosUnid(objEntIntPort);
-                buscarId();
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                Salvar();
-            }
-            if (acao == 2) {
-                objEntIntPort.setUsuarioUp(nameUser);
-                objEntIntPort.setDataUp(jDataSistema.getText());
-                objEntIntPort.setHorarioUp(horaMov);
-                objEntIntPort.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                control.alterarEntradaInternosUnid(objEntIntPort);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                Salvar();
-            }
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -988,7 +1018,8 @@ public class TelaEntradaUnidadeInternoPortaria extends javax.swing.JInternalFram
         // TODO add your handling code here:
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ENTRADAINTERNOSPORTARIA WHERE IdLanc='" + jIdLanc.getText() + "'");
+            conecta.executaSQL("SELECT * FROM ENTRADAINTERNOSPORTARIA "
+                    + "WHERE IdLanc='" + jIdLanc.getText() + "'");
             conecta.rs.first();
             jStatusLanc.setText(conecta.rs.getString("StatusLanc"));
             if (jStatusLanc.getText().equals("FINALIZADO")) {
@@ -1011,115 +1042,135 @@ public class TelaEntradaUnidadeInternoPortaria extends javax.swing.JInternalFram
 
     private void jBtNovoInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoInternoActionPerformed
         // TODO add your handling code here:
-        objEntIntPort.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaEntradaInternoUniPRIIntP1);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaInternoUniPRIIntP1) && codIncluirP1 == 1) {
+            objEntIntPort.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 3;
+                NovoInterno();
+                preencherComboNovo();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 3;
-            NovoInterno();
-            preencherComboNovo();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtNovoInternoActionPerformed
 
     private void jBtAlterarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarInternoActionPerformed
         // TODO add your handling code here:
-        objEntIntPort.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
-        } else {
-            if (entradaConfirmadaCrc.equals("Sim")) {
-                JOptionPane.showMessageDialog(rootPane, "Esse registro não poder ser modificado, o mesmo está sendo utilizado no CRC.");
+        buscarAcessoUsuario(telaEntradaInternoUniPRIIntP1);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaInternoUniPRIIntP1) && codAlterarP1 == 1) {
+            objEntIntPort.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
             } else {
-                acao = 4;
-                AlterarInterno();
-                preencherComboNovo();
-                statusMov = "Alterou";
-                horaMov = jHoraSistema.getText();
-                dataModFinal = jDataSistema.getText();
+                if (entradaConfirmadaCrc.equals("Sim")) {
+                    JOptionPane.showMessageDialog(rootPane, "Esse registro não poder ser modificado, o mesmo está sendo utilizado no CRC.");
+                } else {
+                    acao = 4;
+                    AlterarInterno();
+                    preencherComboNovo();
+                    statusMov = "Alterou";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtAlterarInternoActionPerformed
 
     private void jBtExcluirInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirInternoActionPerformed
         // TODO add your handling code here:
-        if (entradaConfirmadaCrc.equals("Sim")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poder ser excluído, o mesmo está sendo utilizado no CRC.");
-        } else {
-            statusMov = "Excluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
-            objEntIntPort.setStatusLanc(jStatusLanc.getText());
-            if (jStatusLanc.getText().equals("FINALIZADO")) {
-                JOptionPane.showMessageDialog(rootPane, "Esse  interno não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaEntradaInternoUniPRIIntP1);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaInternoUniPRIIntP1) && codExcluirP1 == 1) {
+            if (entradaConfirmadaCrc.equals("Sim")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poder ser excluído, o mesmo está sendo utilizado no CRC.");
             } else {
-                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o INTERNO selecionado?", "Confirmação",
-                        JOptionPane.YES_NO_OPTION);
-                if (resposta == JOptionPane.YES_OPTION) {
-                    objItensEntIntPort.setIdItem(Integer.valueOf(idItem));
-                    controle.excluirItensEntradaPortaria(objItensEntIntPort);
-                    objLog2();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                    ExcluirInterno();
-                    preencherTabelaItensInterno("SELECT * FROM ITENSENTRADAPORTARIA WHERE IdLanc='" + jIdLanc.getText() + "'");
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                objEntIntPort.setStatusLanc(jStatusLanc.getText());
+                if (jStatusLanc.getText().equals("FINALIZADO")) {
+                    JOptionPane.showMessageDialog(rootPane, "Esse  interno não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+                } else {
+                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o INTERNO selecionado?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta == JOptionPane.YES_OPTION) {
+                        objItensEntIntPort.setIdItem(Integer.valueOf(idItem));
+                        controle.excluirItensEntradaPortaria(objItensEntIntPort);
+                        objLog2();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                        ExcluirInterno();
+                        preencherTabelaItensInterno("SELECT * FROM ITENSENTRADAPORTARIA WHERE IdLanc='" + jIdLanc.getText() + "'");
+                    }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtExcluirInternoActionPerformed
 
     private void jBtSalvarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarInternoActionPerformed
         // TODO add your handling code here:
-        if (jNomeInternoPortaria.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno a ser cadastrado.");
-            jNomeInternoPortaria.requestFocus();
-            jNomeInternoPortaria.setBackground(Color.red);
-        } else if (jDataChegada.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data de chegado da interno");
-        } else if (jComboBoxOrigemInterno.getSelectedItem().equals("Selecione")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a origem do interno.");
-        } else {
-            objItensEntIntPort.setNomeInternoCrc(jNomeInternoPortaria.getText());
-            objItensEntIntPort.setDataChegada(jDataChegada.getDate());
-            objItensEntIntPort.setHorarioChegada(jHorario.getText());
-            objItensEntIntPort.setNumeroOficio(jOficio.getText());
-            objItensEntIntPort.setConfirmaEntrada(confirmaEntrada);
-            objItensEntIntPort.setOrigemInterno((String) jComboBoxOrigemInterno.getSelectedItem());
-            if (acao == 3) {
-                objItensEntIntPort.setUsuarioInsert(nameUser);
-                objItensEntIntPort.setDataInsert(jDataSistema.getText());
-                objItensEntIntPort.setHorarioInsert(horaMov);
-                objItensEntIntPort.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                controle.incluirItensEntradaPortaria(objItensEntIntPort);
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                //CONFIRMAR QUE A PORTARIA UTILIZOU O CADASTRO FEITO PELA OUTRA UNIDADE
-                pSaidaPortaria.setConfirmaImp(confirmaImp);
-                pSaidaPortaria.setIdSaidTransfTmp(idTransPortUni);
-                controlTransPort.alterarConfirmacaoPortariaBAR(pSaidaPortaria);
-                //
-                preencherTabelaItensInterno("SELECT * FROM ITENSENTRADAPORTARIA "
-                        + "WHERE IdLanc='" + jIdLanc.getText() + "'");
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                SalvarInterno();
-            }
-            if (acao == 4) {
+        buscarAcessoUsuario(telaEntradaInternoUniPRIIntP1);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaInternoUniPRIIntP1) && codGravarP1 == 1) {
+            if (jNomeInternoPortaria.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno a ser cadastrado.");
+                jNomeInternoPortaria.requestFocus();
+                jNomeInternoPortaria.setBackground(Color.red);
+            } else if (jDataChegada.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de chegado da interno");
+            } else if (jComboBoxOrigemInterno.getSelectedItem().equals("Selecione")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a origem do interno.");
+            } else {
+                objItensEntIntPort.setNomeInternoCrc(jNomeInternoPortaria.getText());
+                objItensEntIntPort.setDataChegada(jDataChegada.getDate());
+                objItensEntIntPort.setHorarioChegada(jHorario.getText());
+                objItensEntIntPort.setNumeroOficio(jOficio.getText());
                 objItensEntIntPort.setConfirmaEntrada(confirmaEntrada);
-                objItensEntIntPort.setUsuarioUp(nameUser);
-                objItensEntIntPort.setDataUp(jDataSistema.getText());
-                objItensEntIntPort.setHorarioUp(horaMov);
-                objItensEntIntPort.setIdItem(idItem);
-                objItensEntIntPort.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                controle.alterarItensEntradaPortaria(objItensEntIntPort);
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                preencherTabelaItensInterno("SELECT * FROM ITENSENTRADAPORTARIA "
-                        + "WHERE IdLanc='" + jIdLanc.getText() + "'");
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                SalvarInterno();
+                objItensEntIntPort.setOrigemInterno((String) jComboBoxOrigemInterno.getSelectedItem());
+                if (acao == 3) {
+                    objItensEntIntPort.setUsuarioInsert(nameUser);
+                    objItensEntIntPort.setDataInsert(jDataSistema.getText());
+                    objItensEntIntPort.setHorarioInsert(horaMov);
+                    objItensEntIntPort.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                    controle.incluirItensEntradaPortaria(objItensEntIntPort);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    //CONFIRMAR QUE A PORTARIA UTILIZOU O CADASTRO FEITO PELA OUTRA UNIDADE
+                    pSaidaPortaria.setConfirmaImp(confirmaImp);
+                    pSaidaPortaria.setIdSaidTransfTmp(idTransPortUni);
+                    controlTransPort.alterarConfirmacaoPortariaBAR(pSaidaPortaria);
+                    //
+                    preencherTabelaItensInterno("SELECT * FROM ITENSENTRADAPORTARIA "
+                            + "WHERE IdLanc='" + jIdLanc.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    SalvarInterno();
+                }
+                if (acao == 4) {
+                    objItensEntIntPort.setConfirmaEntrada(confirmaEntrada);
+                    objItensEntIntPort.setUsuarioUp(nameUser);
+                    objItensEntIntPort.setDataUp(jDataSistema.getText());
+                    objItensEntIntPort.setHorarioUp(horaMov);
+                    objItensEntIntPort.setIdItem(idItem);
+                    objItensEntIntPort.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                    controle.alterarItensEntradaPortaria(objItensEntIntPort);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    preencherTabelaItensInterno("SELECT * FROM ITENSENTRADAPORTARIA "
+                            + "WHERE IdLanc='" + jIdLanc.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    SalvarInterno();
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtSalvarInternoActionPerformed
 
@@ -2042,5 +2093,43 @@ public class TelaEntradaUnidadeInternoPortaria extends javax.swing.JInternalFram
         objLogSys.setIdLancMov(Integer.valueOf(jIdLanc.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserP1 = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserP1 + "'");
+            conecta.rs.first();
+            codigoUserGroupP1 = conecta.rs.getInt("IdUsuario");
+            codigoGrupoP1 = conecta.rs.getInt("IdGrupo");
+            nomeGrupoP1 = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserP1 + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoP1 = conecta.rs.getInt("IdUsuario");
+            codAbrirP1 = conecta.rs.getInt("Abrir");
+            codIncluirP1 = conecta.rs.getInt("Incluir");
+            codAlterarP1 = conecta.rs.getInt("Alterar");
+            codExcluirP1 = conecta.rs.getInt("Excluir");
+            codGravarP1 = conecta.rs.getInt("Gravar");
+            codConsultarP1 = conecta.rs.getInt("Consultar");
+            nomeTelaP1 = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }
