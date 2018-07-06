@@ -643,6 +643,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="RelatorioPrevisaoSaida">
               <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="cc" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Relat&#xf3;rio Previs&#xe3;o de Sa&#xed;da de Internos"/>
               </Properties>
               <Events>
