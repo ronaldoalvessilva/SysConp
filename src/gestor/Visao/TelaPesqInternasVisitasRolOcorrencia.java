@@ -258,12 +258,22 @@ public class TelaPesqInternasVisitasRolOcorrencia extends javax.swing.JInternalF
                 jNomeVisita.setText(conecta.rs.getString("NomeInternoCrc"));
                 // Capturando foto
                 caminhoVisita = conecta.rs.getString("FotoInternoCrc");
-                javax.swing.ImageIcon v = new javax.swing.ImageIcon(caminhoVisita);
-                jFotoVisita.setIcon(v);
-                jFotoVisita.setIcon(new ImageIcon(v.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT)));
-          //      jGrauParentescoVisita.setText(conecta.rs.getString("ParentescoVisita"));              
+                if (caminhoVisita != null) {
+                    javax.swing.ImageIcon v = new javax.swing.ImageIcon(caminhoVisita);
+                    jFotoVisita.setIcon(v);
+                    jFotoVisita.setIcon(new ImageIcon(v.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoVisita.setIcon(icon);
+                }
                 conecta.desconecta();
-            } catch (SQLException e) {                
+            } catch (SQLException e) {
             }
             dispose();
         }
