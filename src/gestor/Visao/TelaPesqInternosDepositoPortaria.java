@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -215,12 +217,23 @@ public class TelaPesqInternosDepositoPortaria extends javax.swing.JInternalFrame
                 conecta.rs.first();
                 // Tabela Internos que estão no Rol
                 jIdInterno.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
-                jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));                   
+                jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));
                 // Capturando foto
                 caminho = conecta.rs.getString("FotoInternoCrc");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                jFotoInternoDeposito.setIcon(i);
-                jFotoInternoDeposito.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoDeposito.getWidth(), jFotoInternoDeposito.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    jFotoInternoDeposito.setIcon(i);
+                    jFotoInternoDeposito.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoDeposito.getWidth(), jFotoInternoDeposito.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoInternoDeposito.getWidth(), jFotoInternoDeposito.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoInternoDeposito.setIcon(icon);
+                }
                 conecta.desconecta();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por nome" + ex);
@@ -252,10 +265,9 @@ public class TelaPesqInternosDepositoPortaria extends javax.swing.JInternalFrame
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            jTabelaPesqInternosRol.setVisible(true);
             this.buscarInternoVisitas("SELECT * FROM PRONTUARIOSCRC");
         } else {
-            jTabelaPesqInternosRol.setVisible(!true);
+            limparTabela();
         }
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
@@ -308,6 +320,34 @@ public class TelaPesqInternosDepositoPortaria extends javax.swing.JInternalFrame
         jTabelaPesqInternosRol.getTableHeader().setReorderingAllowed(false);
         jTabelaPesqInternosRol.setAutoResizeMode(jTabelaPesqInternosRol.AUTO_RESIZE_OFF);
         jTabelaPesqInternosRol.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCamposTabela();
         conecta.desconecta();
     }
+
+    public void limparTabela() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Nome do Interno"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaPesqInternosRol.setModel(modelo);
+        jTabelaPesqInternosRol.getColumnModel().getColumn(0).setPreferredWidth(60);
+        jTabelaPesqInternosRol.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaPesqInternosRol.getColumnModel().getColumn(1).setPreferredWidth(350);
+        jTabelaPesqInternosRol.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaPesqInternosRol.getTableHeader().setReorderingAllowed(false);
+        jTabelaPesqInternosRol.setAutoResizeMode(jTabelaPesqInternosRol.AUTO_RESIZE_OFF);
+        jTabelaPesqInternosRol.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
+    }
+
+    public void alinharCamposTabela() {
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        //
+        jTabelaPesqInternosRol.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+    }
+
 }
