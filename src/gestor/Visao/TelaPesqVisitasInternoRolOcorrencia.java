@@ -256,12 +256,23 @@ public class TelaPesqVisitasInternoRolOcorrencia extends javax.swing.JInternalFr
                 jNomeVisita.setText(conecta.rs.getString("NomeVisita"));
                 // Capturando foto
                 caminhoVisita = conecta.rs.getString("ImagemVisita");
-                javax.swing.ImageIcon v = new javax.swing.ImageIcon(caminhoVisita);
-                jFotoVisita.setIcon(v);
-                jFotoVisita.setIcon(new ImageIcon(v.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT)));
-                jGrauParentescoVisita.setText(conecta.rs.getString("ParentescoVisita"));                
+                if (caminhoVisita != null) {
+                    javax.swing.ImageIcon v = new javax.swing.ImageIcon(caminhoVisita);
+                    jFotoVisita.setIcon(v);
+                    jFotoVisita.setIcon(new ImageIcon(v.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] img2Bytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteVI"));
+                if (img2Bytes != null) {
+                    ImageIcon pic2 = null;
+                    pic2 = new ImageIcon(img2Bytes);
+                    Image scaled2 = pic2.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon2 = new ImageIcon(scaled2);
+                    jFotoVisita.setIcon(icon2);
+                }
+                jGrauParentescoVisita.setText(conecta.rs.getString("ParentescoVisita"));
                 conecta.desconecta();
-            } catch (SQLException e) {                
+            } catch (SQLException e) {
             }
             dispose();
         }
