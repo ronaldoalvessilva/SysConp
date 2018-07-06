@@ -200,7 +200,15 @@ public class TelaRelatorioPrevisaoSaidaPortaria extends javax.swing.JInternalFra
                     try {
                         conecta.abrirConexao();
                         String path = "reports/RelatorioPrevisaoSaidaInternosDiversos.jasper";
-                        conecta.executaSQL("SELECT * FROM ITENSPREVISAOSAIDA INNER JOIN PRONTUARIOSCRC ON ITENSPREVISAOSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc INNER JOIN DADOSPENAISINTERNOS ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc WHERE DataPrevSaida BETWEEN'" + dataInicial + "'AND'" + dataFinal + "'AND ConfirmaSaida='" + confirmaSaida + "'ORDER BY Beneficio,DataPrevSaida,NomeInternoCrc");
+                        conecta.executaSQL("SELECT * FROM ITENSPREVISAOSAIDA "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON ITENSPREVISAOSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "INNER JOIN DADOSPENAISINTERNOS "
+                                + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                                + "WHERE DataPrevSaida BETWEEN'" + dataInicial + "' "
+                                + "AND'" + dataFinal + "' "
+                                + "AND ConfirmaSaida='" + confirmaSaida + "' "
+                                + "ORDER BY Beneficio,DataPrevSaida,NomeInternoCrc");
                         HashMap parametros = new HashMap();
                         parametros.put("dataInicial", dataInicial);
                         parametros.put("dataFinal", dataFinal);
