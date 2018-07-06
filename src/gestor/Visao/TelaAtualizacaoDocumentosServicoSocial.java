@@ -1231,28 +1231,44 @@ public class TelaAtualizacaoDocumentosServicoSocial extends javax.swing.JInterna
                         control.incluirAtualizacaoDocumentosInternos(objAtual);
                         buscarCodigo();
                         if (modulo.equals("SERVICO SOCIAL")) {
-                            if (!jRG.getText().equals("") && jCPF.getText().equals("")) {
-                                // ATUALIZAR RG PRONTUARIO DO INTERNO
+                            if (!jRG.getText().equals("") && jCPF.getText().equals("") && jCartaoSus.getText().equals("")) {
+                                // ATUALIZAR RG 
                                 objAtual.setIdInternoCrc(Integer.valueOf(jIdInternoAtual.getText()));
                                 objAtual.setrG(jRG.getText());
                                 control.atualizarAtualizacaoDocumentosInternosRG(objAtual);
-                            } else if (!jCPF.getText().equals("") && jRG.getText().equals("")) {
-                                // ATUALIZAR CPF DO PRONTUARIO DO INTERNO
+                            } else if (!jCPF.getText().equals("") && jRG.getText().equals("") && jCartaoSus.getText().equals("")) {
+                                // ATUALIZAR CPF 
                                 objAtual.setIdInternoCrc(Integer.valueOf(jIdInternoAtual.getText()));
                                 objAtual.setcPF(jCPF.getText());
                                 control.atualizarAtualizacaoDocumentosInternosCPF(objAtual);
                             } else if (!jCartaoSus.getText().equals("") && jRG.getText().equals("") && jCPF.getText().equals("")) {
-                                // ATUALIZAR CARTÃO DO SUS PRONTUARIO DO INTERNO
+                                // ATUALIZAR CARTÃO DO SUS 
                                 objAtual.setIdInternoCrc(Integer.valueOf(jIdInternoAtual.getText()));
                                 objAtual.setCartaoSus(jCartaoSus.getText());
                                 control.atualizarAtualizacaoDocumentosInternosSUS(objAtual);
-                            } else if (!jRG.getText().equals("") && !jCPF.getText().equals("")) {
+                            } else if (!jCartaoSus.getText().equals("") && !jRG.getText().equals("") && jCPF.getText().equals("")) {
+                                // ATUALIZAR CARTÃO DO SUS E RG
+                                objAtual.setIdInternoCrc(Integer.valueOf(jIdInternoAtual.getText()));
+                                objAtual.setCartaoSus(jCartaoSus.getText());
+                                objAtual.setrG(jRG.getText());
+                                control.atualizarAtualizacaoDocumentosInternosRG(objAtual);
+                                control.atualizarAtualizacaoDocumentosInternosSUS(objAtual);
+                            } else if (!jCartaoSus.getText().equals("") && jRG.getText().equals("") && !jCPF.getText().equals("")) {
+                                // ATUALIZAR CARTÃO DO SUS 
+                                objAtual.setIdInternoCrc(Integer.valueOf(jIdInternoAtual.getText()));
+                                objAtual.setCartaoSus(jCartaoSus.getText());
+                                objAtual.setcPF(jCPF.getText());
+                                control.atualizarAtualizacaoDocumentosInternosSUS(objAtual);
+                                control.atualizarAtualizacaoDocumentosInternosCPF(objAtual);
+                            } else if (!jRG.getText().equals("") && !jCPF.getText().equals("") && jCartaoSus.getText().equals("")) {
+                                //ATUALIZA RG E CPF
                                 objAtual.setIdInternoCrc(Integer.valueOf(jIdInternoAtual.getText()));
                                 objAtual.setrG(jRG.getText());
                                 objAtual.setcPF(jCPF.getText());
                                 control.atualizarAtualizacaoDocumentosInternosRG(objAtual);
                                 control.atualizarAtualizacaoDocumentosInternosCPF(objAtual);
                             } else if (!jRG.getText().equals("") && !jCPF.getText().equals("") && !jCartaoSus.getText().equals("")) {
+                                // ATUALIZA RG, CPF E CARTÃO DO SUS
                                 objAtual.setIdInternoCrc(Integer.valueOf(jIdInternoAtual.getText()));
                                 objAtual.setrG(jRG.getText());
                                 objAtual.setcPF(jCPF.getText());
@@ -1278,28 +1294,44 @@ public class TelaAtualizacaoDocumentosServicoSocial extends javax.swing.JInterna
                     objAtual.setCodigoDoc(Integer.valueOf(jCodigoDoc.getText()));
                     control.alterarAtualizacaoDocumentosInternos(objAtual);
                     if (modulo.equals("SERVICO SOCIAL")) {
-                        if (!jRG.getText().equals("") && jCPF.getText().equals("")) {
-                            // ATUALIZAR RG PRONTUARIO DO INTERNO
+                        if (!jRG.getText().equals("") && jCPF.getText().equals("") && jCartaoSus.getText().equals("")) {
+                            // ATUALIZAR RG 
                             objAtual.setIdInternoCrc(Integer.valueOf(jIdInternoAtual.getText()));
                             objAtual.setrG(jRG.getText());
                             control.atualizarAtualizacaoDocumentosInternosRG(objAtual);
-                        } else if (!jCPF.getText().equals("") && jRG.getText().equals("")) {
-                            // ATUALIZAR CPF DO PRONTUARIO DO INTERNO
+                        } else if (!jCPF.getText().equals("") && jRG.getText().equals("") && jCartaoSus.getText().equals("")) {
+                            // ATUALIZAR CPF 
                             objAtual.setIdInternoCrc(Integer.valueOf(jIdInternoAtual.getText()));
                             objAtual.setcPF(jCPF.getText());
                             control.atualizarAtualizacaoDocumentosInternosCPF(objAtual);
                         } else if (!jCartaoSus.getText().equals("") && jRG.getText().equals("") && jCPF.getText().equals("")) {
-                            // ATUALIZAR CARTÃO DO SUS PRONTUARIO DO INTERNO
+                            // ATUALIZAR CARTÃO DO SUS 
                             objAtual.setIdInternoCrc(Integer.valueOf(jIdInternoAtual.getText()));
                             objAtual.setCartaoSus(jCartaoSus.getText());
                             control.atualizarAtualizacaoDocumentosInternosSUS(objAtual);
-                        } else if (!jRG.getText().equals("") && !jCPF.getText().equals("")) {
+                        } else if (!jCartaoSus.getText().equals("") && !jRG.getText().equals("") && jCPF.getText().equals("")) {
+                            // ATUALIZAR CARTÃO DO SUS E RG
+                            objAtual.setIdInternoCrc(Integer.valueOf(jIdInternoAtual.getText()));
+                            objAtual.setCartaoSus(jCartaoSus.getText());
+                            objAtual.setrG(jRG.getText());
+                            control.atualizarAtualizacaoDocumentosInternosRG(objAtual);
+                            control.atualizarAtualizacaoDocumentosInternosSUS(objAtual);
+                        } else if (!jCartaoSus.getText().equals("") && jRG.getText().equals("") && !jCPF.getText().equals("")) {
+                            // ATUALIZAR CARTÃO DO SUS 
+                            objAtual.setIdInternoCrc(Integer.valueOf(jIdInternoAtual.getText()));
+                            objAtual.setCartaoSus(jCartaoSus.getText());
+                            objAtual.setcPF(jCPF.getText());
+                            control.atualizarAtualizacaoDocumentosInternosSUS(objAtual);
+                            control.atualizarAtualizacaoDocumentosInternosCPF(objAtual);
+                        } else if (!jRG.getText().equals("") && !jCPF.getText().equals("") && jCartaoSus.getText().equals("")) {
+                            //ATUALIZA RG E CPF
                             objAtual.setIdInternoCrc(Integer.valueOf(jIdInternoAtual.getText()));
                             objAtual.setrG(jRG.getText());
                             objAtual.setcPF(jCPF.getText());
                             control.atualizarAtualizacaoDocumentosInternosRG(objAtual);
                             control.atualizarAtualizacaoDocumentosInternosCPF(objAtual);
                         } else if (!jRG.getText().equals("") && !jCPF.getText().equals("") && !jCartaoSus.getText().equals("")) {
+                            // ATUALIZA RG, CPF E CARTÃO DO SUS
                             objAtual.setIdInternoCrc(Integer.valueOf(jIdInternoAtual.getText()));
                             objAtual.setrG(jRG.getText());
                             objAtual.setcPF(jCPF.getText());
