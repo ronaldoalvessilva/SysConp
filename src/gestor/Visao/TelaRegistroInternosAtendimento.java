@@ -163,7 +163,8 @@ public class TelaRegistroInternosAtendimento extends javax.swing.JInternalFrame 
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("...::: Registro de Atendimento de Internos :::...");
+        setTitle("...::: Registro de Atendimento de Internos - BIOMETRIA :::...");
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Biometria16Vermelho.png"))); // NOI18N
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
