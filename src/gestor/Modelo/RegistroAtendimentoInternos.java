@@ -33,8 +33,12 @@ public class RegistroAtendimentoInternos {
     private int IdAtend;
     private int IdEvol;  
     private String atendeEvol;
+    private String impressaoAuto;
 
-    public RegistroAtendimentoInternos(int idRegistro, Date dataReg, String horario, int idInternoCrc, String nomeInternoCrc, String tipoAtemdimento, int idDepartamento, String nomeDepartamento, byte[] assinaturaDigital, String atendido, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, Date dataAtendimento, int IdAtend, int IdEvol, String atendeEvol) {
+    public RegistroAtendimentoInternos() {
+    }
+
+    public RegistroAtendimentoInternos(int idRegistro, Date dataReg, String horario, int idInternoCrc, String nomeInternoCrc, String tipoAtemdimento, int idDepartamento, String nomeDepartamento, byte[] assinaturaDigital, String atendido, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, Date dataAtendimento, int IdAtend, int IdEvol, String atendeEvol, String impressaoAuto) {
         this.idRegistro = idRegistro;
         this.dataReg = dataReg;
         this.horario = horario;
@@ -55,9 +59,7 @@ public class RegistroAtendimentoInternos {
         this.IdAtend = IdAtend;
         this.IdEvol = IdEvol;
         this.atendeEvol = atendeEvol;
-    }
-
-    public RegistroAtendimentoInternos() {
+        this.impressaoAuto = impressaoAuto;
     }
 
     /**
@@ -339,4 +341,19 @@ public class RegistroAtendimentoInternos {
     public void setAtendeEvol(String atendeEvol) {
         this.atendeEvol = atendeEvol;
     }
+
+    /**
+     * @return the impressaoAuto
+     */
+    public String getImpressaoAuto() {
+        return impressaoAuto;
+    }
+
+    /**
+     * @param impressaoAuto the impressaoAuto to set
+     */
+    public void setImpressaoAuto(String impressaoAuto) {
+        this.impressaoAuto = impressaoAuto;
+    }
+
 }
