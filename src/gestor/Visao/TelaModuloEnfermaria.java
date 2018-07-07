@@ -110,6 +110,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private TelaPAI_NOVO objPaiMed = null;
     private TelaRegistroInternosAtendimento objRegIntAtend = null;
     private TelaTiposTratamentos objTipoTrata = null;
+    private TelaRegistroInternosAtendimentoImpresso objAutoImp = null;
     //    
     String dataLanc;
     int codUsuario;
@@ -214,9 +215,11 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     public static String telaPaiEPAI = "Movimentação:P.A.I.:E-PAI";
     //
     public static String telaOcorrenciaDiaManuENF = "Movimentação:Ocorrências Diárias:Manutenção";
-    public static String telaTipoTratamentoManu = "Cadastro:Tipo de Tratamentos:Manutenção";  
+    public static String telaTipoTratamentoManu = "Cadastro:Tipo de Tratamentos:Manutenção";
     //
     public static String telaConsultaProntuarioInternosDocENF = "Consulta:Prontuario:Documentos";
+    //
+    public static String telaRegistroAtenImpENF = "Cadastro:Registro de Atencimento de Internos Impresso";
     //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
@@ -289,9 +292,12 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     String pNomePEPAI = "";
     //
     String pNomeODM = "";
-    String pNomeTTM = "";   
+    String pNomeTTM = "";
     //
     String pNomeCPID = "";
+    //
+    String pNomeRAII = "";
+    //    
 
     /**
      * Creates new form TelaMedico
@@ -331,7 +337,9 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
         AgendaEventos = new javax.swing.JMenuItem();
         AgendaRecados = new javax.swing.JMenuItem();
         jSeparator17 = new javax.swing.JPopupMenu.Separator();
+        jMenu2 = new javax.swing.JMenu();
         RegistrarInternoAtendimento = new javax.swing.JMenuItem();
+        RegistroAtendimentoImpresso = new javax.swing.JMenuItem();
         jSeparator8 = new javax.swing.JPopupMenu.Separator();
         Sair = new javax.swing.JMenuItem();
         ControleMedicamentos = new javax.swing.JMenu();
@@ -496,14 +504,28 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
         Cadastros.add(AgendaRecados);
         Cadastros.add(jSeparator17);
 
+        jMenu2.setForeground(new java.awt.Color(0, 102, 0));
+        jMenu2.setText("Registro de Atendimento de Internos - (Biometria ou Impressão)");
+
         RegistrarInternoAtendimento.setForeground(new java.awt.Color(204, 0, 0));
-        RegistrarInternoAtendimento.setText("Registrar Interno para Atendimento");
+        RegistrarInternoAtendimento.setText("Registrar  Atendimento por Biometria");
         RegistrarInternoAtendimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RegistrarInternoAtendimentoActionPerformed(evt);
             }
         });
-        Cadastros.add(RegistrarInternoAtendimento);
+        jMenu2.add(RegistrarInternoAtendimento);
+
+        RegistroAtendimentoImpresso.setForeground(new java.awt.Color(0, 0, 204));
+        RegistroAtendimentoImpresso.setText("Registro Atendimento por Impressão");
+        RegistroAtendimentoImpresso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegistroAtendimentoImpressoActionPerformed(evt);
+            }
+        });
+        jMenu2.add(RegistroAtendimentoImpresso);
+
+        Cadastros.add(jMenu2);
         Cadastros.add(jSeparator8);
 
         Sair.setText("Sair");
@@ -2036,6 +2058,40 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jTiposTratametoActionPerformed
 
+    private void RegistroAtendimentoImpressoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistroAtendimentoImpressoActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaTipoTratamentoManu);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaTipoTratamentoManu) && codAbrirENF == 1) {
+            if (objAutoImp == null || objAutoImp.isClosed()) {
+                objAutoImp = new TelaRegistroInternosAtendimentoImpresso();
+                jPainelMedico.add(objAutoImp);
+                objAutoImp.setVisible(true);
+            } else {
+                if (objAutoImp.isVisible()) {
+                    if (objAutoImp.isIcon()) { // Se esta minimizado
+                        try {
+                            objAutoImp.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objAutoImp.toFront(); // traz para frente
+                        objAutoImp.pack();//volta frame 
+                    }
+                } else {
+                    objAutoImp = new TelaRegistroInternosAtendimentoImpresso();
+                    TelaModuloEnfermaria.jPainelMedico.add(objAutoImp);//adicona frame ao JDesktopPane  
+                    objAutoImp.setVisible(true);
+                }
+            }
+            try {
+                objAutoImp.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_RegistroAtendimentoImpressoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AdmissaoMedicaPsiquiatrica;
@@ -2065,6 +2121,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private javax.swing.JMenu Movimentacao;
     private javax.swing.JMenuItem ProntuarioInternos;
     private javax.swing.JMenuItem RegistrarInternoAtendimento;
+    private javax.swing.JMenuItem RegistroAtendimentoImpresso;
     private javax.swing.JMenuItem RelatorioGeralPavilhaoCelas;
     private javax.swing.JMenuItem RelatorioInternosUnidadePenal;
     private javax.swing.JMenu Relatorios;
@@ -2078,6 +2135,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jEncaminhamentosCirurgiasEspecialistas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem2;
@@ -2379,6 +2437,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
 
     // PESQUISA E CADASTRO DAS TELAS DO MÓDULO ENFERMARIA PARA CONTROLE DE ACESSO DE USUÁRIOS.
     public void pesquisarTelasAcessos() {
+        //CADASTRO
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
@@ -2429,6 +2488,28 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
             pNomeMSP = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRegistroIntAtendENF + "'");
+            conecta.rs.first();
+            pNomeRIA = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaTipoTratamentoManu + "'");
+            conecta.rs.first();
+            pNomeTTM = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }               
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRegistroAtenImpENF + "'");
+            conecta.rs.first();
+            pNomeRAII = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }   
+        // CONTROLE DE MEDICAMENTOS
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaSolicitacaoMateriaisManuENF + "'");
@@ -2569,6 +2650,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
             pNomeSEIME = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        // MOVIMENTAÇÃO
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaEncamInterCiruEspeManuENF + "'");
@@ -2792,21 +2874,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
             conecta.rs.first();
             pNomeODM = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
-        }
-        try {
-            conecta.executaSQL("SELECT * FROM TELAS "
-                    + "WHERE NomeTela='" + telaRegistroIntAtendENF + "'");
-            conecta.rs.first();
-            pNomeRIA = conecta.rs.getString("NomeTela");
-        } catch (SQLException ex) {
-        }
-        try {
-            conecta.executaSQL("SELECT * FROM TELAS "
-                    + "WHERE NomeTela='" + telaTipoTratamentoManu + "'");
-            conecta.rs.first();
-            pNomeTTM = conecta.rs.getString("NomeTela");
-        } catch (SQLException ex) {
-        }       
+        }        
         // CONSULTA
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
@@ -2815,7 +2883,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
             pNomeCPID = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         } 
-        // INICIO DA COMPARAÇÃO
+        // CADASTRO
         if (!pNomeACD.equals(telaAcessoCadastroDoencasENF) || pNomeACD == null || pNomeACD.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
@@ -2858,6 +2926,13 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
             objCadastroTela.setNomeTela(telaMotivoSaidaProdutoENF);
             controle.incluirTelaAcesso(objCadastroTela);
         }
+        if (!pNomeRAII.equals(telaRegistroAtenImpENF) || pNomeRAII == null || pNomeRAII.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRegistroAtenImpENF);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }    
+        // CONTROLE DE MEDICAMENTOS
         if (!pNomeSMM.equals(telaSolicitacaoMateriaisManuENF) || pNomeSMM == null || pNomeSMM.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
@@ -2918,6 +2993,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
             objCadastroTela.setNomeTela(telaEstornoRequisiçãoMateriaisManutItensENF);
             controle.incluirTelaAcesso(objCadastroTela);
         }
+        //MOVIMENTAÇÃO
         if (!pNomeAPM.equals(telaAcessoProntuarioMedicoENF) || pNomeAPM == null || pNomeAPM.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
@@ -3175,7 +3251,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaTipoTratamentoManu);
             controle.incluirTelaAcesso(objCadastroTela);
-        }    
+        }                    
         // CONSULTA
         if (!pNomeCPID.equals(telaConsultaProntuarioInternosDocENF) || pNomeCPID == null || pNomeCPID.equals("")) {
             buscarCodigoModulo();
