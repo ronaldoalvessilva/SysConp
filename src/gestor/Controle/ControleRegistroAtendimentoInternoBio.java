@@ -38,7 +38,7 @@ public class ControleRegistroAtendimentoInternoBio {
         buscarDepartamento(objRegAtend.getNomeDepartamento());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO REGISTRO_ATENDIMENTO_INTERNO_PSP (DataReg,Horario,IdInternoCrc,TipoAtendimento,IdDepartamento,AssinaturaDigital,Atendido,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO REGISTRO_ATENDIMENTO_INTERNO_PSP (DataReg,Horario,IdInternoCrc,TipoAtendimento,IdDepartamento,AssinaturaDigital,Atendido,UsuarioInsert,DataInsert,HorarioInsert,Impresso) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
             pst.setTimestamp(1, new java.sql.Timestamp(objRegAtend.getDataReg().getTime()));
             pst.setString(2, objRegAtend.getHorario());
             pst.setInt(3, codInt);
@@ -49,6 +49,7 @@ public class ControleRegistroAtendimentoInternoBio {
             pst.setString(8, objRegAtend.getUsuarioInsert());
             pst.setString(9, objRegAtend.getDataInsert());
             pst.setString(10, objRegAtend.getHorarioInsert());
+            pst.setString(11, objRegAtend.getImpressaoAuto());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\nERRO: " + ex);
