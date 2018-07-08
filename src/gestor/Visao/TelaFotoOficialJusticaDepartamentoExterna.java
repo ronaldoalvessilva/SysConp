@@ -24,6 +24,7 @@ public class TelaFotoOficialJusticaDepartamentoExterna extends javax.swing.JDial
 
     /**
      * Creates new form TelaFotoCrc
+     *
      * @param parent
      * @param modal
      */
@@ -174,11 +175,20 @@ public class TelaFotoOficialJusticaDepartamentoExterna extends javax.swing.JDial
             conecta.executaSQL("SELECT * FROM OFICIAL_JUSTICA WHERE IdOficial='" + jIdOficial.getText() + "'");
             conecta.rs.first();
             caminhoFoto = conecta.rs.getString("FotoOficial");
-            // Capturando foto                
-            javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFoto);
-            jFotoOficialJustica.setIcon(i);
-            jFotoOficialJustica.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoOficialJustica.getWidth(), jFotoOficialJustica.getHeight(), Image.SCALE_DEFAULT)));
-            //
+            if (caminhoFoto != null) {
+                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFoto);
+                jFotoOficialJustica.setIcon(i);
+                jFotoOficialJustica.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoOficialJustica.getWidth(), jFotoOficialJustica.getHeight(), Image.SCALE_DEFAULT)));
+            }
+            // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+            byte[] img2Bytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteOF"));
+            if (img2Bytes != null) {
+                ImageIcon pic2 = null;
+                pic2 = new ImageIcon(img2Bytes);
+                Image scaled2 = pic2.getImage().getScaledInstance(jFotoOficialJustica.getWidth(), jFotoOficialJustica.getHeight(), Image.SCALE_DEFAULT);
+                ImageIcon icon2 = new ImageIcon(scaled2);
+                jFotoOficialJustica.setIcon(icon2);
+            }
         } catch (Exception e) {
         }
         conecta.desconecta();
