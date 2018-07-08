@@ -56,7 +56,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jFotoInternoCrc" pref="430" max="32767" attributes="0"/>
+                  <Component id="jFotoColaborador" pref="430" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -65,14 +65,14 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jFotoInternoCrc" pref="338" max="32767" attributes="0"/>
+                  <Component id="jFotoColaborador" pref="338" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="jFotoInternoCrc">
+        <Component class="javax.swing.JLabel" name="jFotoColaborador">
         </Component>
       </SubComponents>
     </Container>
