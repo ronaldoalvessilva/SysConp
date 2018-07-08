@@ -1453,12 +1453,12 @@ public class TelaEntradaSaidaColaborador extends javax.swing.JInternalFrame {
                 jNomeFuncionario.setText(conecta.rs.getString("NomeFunc")); // Coluna 1
                 // Capturando foto
                 caminho = conecta.rs.getString("ImagemFunc");
-                if(caminho != null){
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                jFotoColaborador.setIcon(i);
-                jFotoColaborador.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    jFotoColaborador.setIcon(i);
+                    jFotoColaborador.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_DEFAULT)));
                 }
-                 // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
                 byte[] img2Bytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteCO"));
                 if (img2Bytes != null) {
                     ImageIcon pic2 = null;
@@ -1529,10 +1529,14 @@ public class TelaEntradaSaidaColaborador extends javax.swing.JInternalFrame {
 
     private void jBtBiometriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtBiometriaActionPerformed
         // TODO add your handling code here:
-        if (jStatusEntCola.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Não é possível acessar a biomeria com o regisro finalizado.");
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaCOLManuP1) && codAbrirP1 == 1) {
+            if (jStatusEntCola.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Não é possível acessar a biomeria com o regisro finalizado.");
+            } else {
+                mostrarBiometriacolaborador();
+            }
         } else {
-            mostrarBiometriacolaborador();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtBiometriaActionPerformed
 
