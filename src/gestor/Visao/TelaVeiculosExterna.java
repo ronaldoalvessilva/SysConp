@@ -13,14 +13,31 @@ import gestor.Dao.ModeloTabela;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.Veiculos;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPortariaExterna.codAlterarP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.codExcluirP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.codGravarP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.codIncluirP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.codUserAcessoP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.codigoUserP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.nomeGrupoP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.nomeTelaP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.telaCadastroVeiculosManuP1E;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -844,100 +861,135 @@ public class TelaVeiculosExterna extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampo();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaCadastroVeiculosManuP1E) && codIncluirP1E == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES")) {
+            acao = 1;
+            Novo();
+            corCampo();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        acao = 2;
-        Alterar();
-        corCampo();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaCadastroVeiculosManuP1E) && codAlterarP1E == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES")) {
+            acao = 2;
+            Alterar();
+            corCampo();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        VerificarEntVisitas();
+        if (codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaCadastroVeiculosManuP1E) && codExcluirP1E == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES")) {
+            VerificarEntVisitas();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataCadastro.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data de cadastro");
-            jDataCadastro.requestFocus();
-            jDataCadastro.setBackground(Color.red);
-        } else {
-            if (jModeloVeiculo.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe o modelo do veiculo.");
-                jModeloVeiculo.requestFocus();
-                jModeloVeiculo.setBackground(Color.red);
+        if (codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaCadastroVeiculosManuP1E) && codGravarP1E == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES")) {
+            if (jDataCadastro.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de cadastro");
+                jDataCadastro.requestFocus();
+                jDataCadastro.setBackground(Color.red);
             } else {
-                if (jPlacaVeiculo.getText().equals("")) {
-                    JOptionPane.showMessageDialog(rootPane, "Informe a placa do veiculo.");
-                    jPlacaVeiculo.requestFocus();
-                    jPlacaVeiculo.setBackground(Color.red);
+                if (jModeloVeiculo.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe o modelo do veiculo.");
+                    jModeloVeiculo.requestFocus();
+                    jModeloVeiculo.setBackground(Color.red);
                 } else {
-                    if (caminhoFotoFrente == null) {
-                        JOptionPane.showMessageDialog(rootPane, "A foto da Frente do veiculo é necessaria.");
+                    if (jPlacaVeiculo.getText().equals("")) {
+                        JOptionPane.showMessageDialog(rootPane, "Informe a placa do veiculo.");
+                        jPlacaVeiculo.requestFocus();
+                        jPlacaVeiculo.setBackground(Color.red);
                     } else {
-                        objVeic.setStatusVei((String) jComboBoxStatus.getSelectedItem());
-                        objVeic.setDataCadastro(jDataCadastro.getDate());
-                        objVeic.setModeloVeiculo(jModeloVeiculo.getText());
-                        objVeic.setMarcaVeiculo(jMarcaVeiculo.getText());
-                        objVeic.setPlacaVeiculo(jPlacaVeiculo.getText());
-                        objVeic.setCidade(jCidade.getText());
-                        objVeic.setEstado(jEstado.getText());
-                        objVeic.setFotoFrente(caminhoFotoFrente);
-                        objVeic.setFotoLadoDireito(caminhoFotoLadoDireito);
-                        objVeic.setFotoLadoEsquerdo(CaminhoFotoLadoEsquerdo);
-                        objVeic.setFotoFundo(caminhoFotoFundo);
-                        // log de usuario
-                        objVeic.setUsuarioInsert(nameUser);
-                        objVeic.setDataInsert(dataModFinal);
-                        objVeic.setHoraInsert(horaMov);
-                        try {
-                            conecta.abrirConexao();
-                            conecta.executaSQL("SELECT * FROM VEICULOS "
-                                    + "WHERE ModeloVeiculo='" + jModeloVeiculo.getText() + "'");
-                            conecta.rs.first();
-                            nomeVeiculo = conecta.rs.getString("ModeloVeiculo");
-                            placaVeiculo = conecta.rs.getString("PlacaVeiculo");
-                        } catch (Exception e) {
-                        }
-                        if (acao == 1) {
-                            if (jModeloVeiculo.getText().trim().equals(nomeVeiculo) && jPlacaVeiculo.getText().equals(placaVeiculo)) {
-                                JOptionPane.showMessageDialog(rootPane, "Esse veiculo já foi cadastrado.");
-                            } else {
-                                control.incluirVeiculos(objVeic);
-                                buscarID();
+                        if (caminhoFotoFrente == null) {
+                            JOptionPane.showMessageDialog(rootPane, "A foto da Frente do veiculo é necessaria.");
+                        } else {
+                            objVeic.setStatusVei((String) jComboBoxStatus.getSelectedItem());
+                            objVeic.setDataCadastro(jDataCadastro.getDate());
+                            objVeic.setModeloVeiculo(jModeloVeiculo.getText());
+                            objVeic.setMarcaVeiculo(jMarcaVeiculo.getText());
+                            objVeic.setPlacaVeiculo(jPlacaVeiculo.getText());
+                            objVeic.setCidade(jCidade.getText());
+                            objVeic.setEstado(jEstado.getText());
+                            objVeic.setFotoFrente(caminhoFotoFrente);
+                            objVeic.setFotoLadoDireito(caminhoFotoLadoDireito);
+                            objVeic.setFotoLadoEsquerdo(CaminhoFotoLadoEsquerdo);
+                            objVeic.setFotoFundo(caminhoFotoFundo);
+                            // log de usuario
+                            objVeic.setUsuarioInsert(nameUser);
+                            objVeic.setDataInsert(dataModFinal);
+                            objVeic.setHoraInsert(horaMov);
+                            try {
+                                conecta.abrirConexao();
+                                conecta.executaSQL("SELECT * FROM VEICULOS "
+                                        + "WHERE ModeloVeiculo='" + jModeloVeiculo.getText() + "'");
+                                conecta.rs.first();
+                                nomeVeiculo = conecta.rs.getString("ModeloVeiculo");
+                                placaVeiculo = conecta.rs.getString("PlacaVeiculo");
+                            } catch (Exception e) {
+                            }
+                            // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE   
+                            if (jFotoVeiculoUniFrente.getIcon() != null) {
+                                Image img = ((ImageIcon) jFotoVeiculoUniFrente.getIcon()).getImage();
+                                BufferedImage bi = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                                        img.getWidth(null),
+                                        img.getHeight(null),
+                                        BufferedImage.TYPE_INT_RGB);
+                                Graphics2D g2 = bi.createGraphics();
+                                g2.drawImage(img, 0, 0, null);
+                                ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                                try {
+                                    ImageIO.write(bi, "jpg", buffer);
+                                } catch (FileNotFoundException ex) {
+                                    Logger.getLogger(TelaVeiculosExterna.class.getName()).log(Level.SEVERE, null, ex);
+                                } catch (IOException ex) {
+                                    Logger.getLogger(TelaVeiculosExterna.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                                objVeic.setImagenFrenteVE(buffer.toByteArray());
+                            }
+                            if (acao == 1) {
+                                if (jModeloVeiculo.getText().trim().equals(nomeVeiculo) && jPlacaVeiculo.getText().equals(placaVeiculo)) {
+                                    JOptionPane.showMessageDialog(rootPane, "Esse veiculo já foi cadastrado.");
+                                } else {
+                                    control.incluirVeiculos(objVeic);
+                                    buscarID();
+                                    objLog();
+                                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                    Salvar();
+                                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                }
+                            }
+                            if (acao == 2) {
+                                // log de usuario
+                                objVeic.setUsuarioUp(nameUser);
+                                objVeic.setDataUp(dataModFinal);
+                                objVeic.setHoraUp(horaMov);
+                                objVeic.setIdVeiculo(Integer.valueOf(jIDVeiculo.getText()));
+                                control.alterarVeiculos(objVeic);
                                 objLog();
                                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                                 Salvar();
                                 JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                             }
                         }
-                        if (acao == 2) {
-                            // log de usuario
-                            objVeic.setUsuarioUp(nameUser);
-                            objVeic.setDataUp(dataModFinal);
-                            objVeic.setHoraUp(horaMov);
-                            objVeic.setIdVeiculo(Integer.valueOf(jIDVeiculo.getText()));
-                            control.alterarVeiculos(objVeic);
-                            objLog();
-                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                            Salvar();
-                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                        }
                     }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -991,10 +1043,22 @@ public class TelaVeiculosExterna extends javax.swing.JInternalFrame {
                 jCidade.setText(conecta.rs.getString("CidadeVeiculo"));
                 jEstado.setText(conecta.rs.getString("EstadoVeiculo"));
                 // Capturando foto frente
+                // Capturando foto frente
                 caminhoFotoFrente = conecta.rs.getString("FotoFrente");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFotoFrente);
-                jFotoVeiculoUniFrente.setIcon(i);
-                jFotoVeiculoUniFrente.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoVeiculoUniFrente.getWidth(), jFotoVeiculoUniFrente.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminhoFotoFrente != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFotoFrente);
+                    jFotoVeiculoUniFrente.setIcon(i);
+                    jFotoVeiculoUniFrente.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoVeiculoUniFrente.getWidth(), jFotoVeiculoUniFrente.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteVE"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoVeiculoUniFrente.getWidth(), jFotoVeiculoUniFrente.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoVeiculoUniFrente.setIcon(icon);
+                }
                 // Capturando foto Lado direito
                 caminhoFotoLadoDireito = conecta.rs.getString("FotoLadoDireito");
                 if (caminhoFotoLadoDireito != null) {
