@@ -754,9 +754,11 @@ public class TelaVisitasDiversas extends javax.swing.JInternalFrame {
                 jDataCadastro.setDate(conecta.rs.getDate("DataCadastro"));
                 jNomeVisita.setText(conecta.rs.getString("NomeVisita"));
                 caminhoFotoVisitasDiversas = conecta.rs.getString("FotoVisita");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFotoVisitasDiversas);
-                FotoVisitaDiversas.setIcon(i);
-                FotoVisitaDiversas.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoVisitaDiversas.getWidth(), FotoVisitaDiversas.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminhoFotoVisitasDiversas != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFotoVisitasDiversas);
+                    FotoVisitaDiversas.setIcon(i);
+                    FotoVisitaDiversas.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoVisitaDiversas.getWidth(), FotoVisitaDiversas.getHeight(), Image.SCALE_DEFAULT)));
+                }
                 // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
                 byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteVD"));
                 if (imgBytes != null) {
