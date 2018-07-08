@@ -216,9 +216,20 @@ public class TelaPesqAdvogadosExterna extends javax.swing.JInternalFrame {
                 jIDAdvogado.setText(String.valueOf(conecta.rs.getInt("IdAdvogado")));
                 jAdvogadoNome.setText(conecta.rs.getString("NomeAdvogado"));
                 caminho = conecta.rs.getString("FotoAdvogado");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                jFotoAdvogado.setIcon(i);
-                jFotoAdvogado.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoAdvogado.getWidth(), jFotoAdvogado.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    jFotoAdvogado.setIcon(i);
+                    jFotoAdvogado.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoAdvogado.getWidth(), jFotoAdvogado.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteAD"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoAdvogado.getWidth(), jFotoAdvogado.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoAdvogado.setIcon(icon);
+                }
                 jBtZoonAdvogadoDepartamento.setEnabled(true);
                 conecta.desconecta();
             } catch (SQLException ex) {
