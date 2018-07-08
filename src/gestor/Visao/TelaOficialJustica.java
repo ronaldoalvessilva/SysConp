@@ -948,9 +948,11 @@ public class TelaOficialJustica extends javax.swing.JInternalFrame {
                 jDataCadastro.setDate(conecta.rs.getDate("DataCadastro"));
                 jNomeOficialJustica.setText(conecta.rs.getString("NomeOficial"));
                 caminhoFotoOffice = conecta.rs.getString("FotoOficial");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFotoOffice);
-                FotoOficialJustica.setIcon(i);
-                FotoOficialJustica.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoOficialJustica.getWidth(), FotoOficialJustica.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminhoFotoOffice != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFotoOffice);
+                    FotoOficialJustica.setIcon(i);
+                    FotoOficialJustica.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoOficialJustica.getWidth(), FotoOficialJustica.getHeight(), Image.SCALE_DEFAULT)));
+                }
                 // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
                 byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteOF"));
                 if (imgBytes != null) {
