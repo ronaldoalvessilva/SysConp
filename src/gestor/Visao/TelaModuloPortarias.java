@@ -177,20 +177,21 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
     public static String telaEntradaSaidaAdIntManuP1 = "Movimentação:Entrada de Saida de Advogados de Internos:Manutenção";
     public static String telaEntradaSaidaAdIntInterP1 = "Movimentação:Entrada e Saida de Advogados de Internos:Internos";
     //   
-    public static String telaEntradaSaidaAdDEPManuP1 = "Portaria:Entrada/Saida de Advogados:Manutenção";
-    public static String telaEntradaSaidaAdDEPADVP1 = "Portaria:Entrada/Saida de Advogados:Advogados";
+    public static String telaEntradaSaidaAdDEPManuP1 = "Movimentação:Entrada e Saida de Advogados Departamento:Manutenção";
+    public static String telaEntradaSaidaAdDEPADVP1 = "Movimentação:Entrada e Saida de Advogados Departamento:Advogados";
     //
     public static String telaEntradaSaidaOFJManuP1 = "Movimetação:Entrada e Saida de Oficial de Justiça:Manutenção";
     public static String telaEntradaSaidaOFJInteP1 = "Movimentação:Entrada e Saida de Oficial de Justiça:Internos";
     //
-    public static String telaEntradaSaidaOJManuP1 = "Movimentação:Entrada e Saida de Oficial de Justiça:Manutenção";
-    public static String telaEntradaSaidaOJDepP1 = "Movimentação:Entrada e Saida de Oficial de Justiça:Oficial de Justiça";
+    public static String telaEntradaSaidaOJManuP1 = "Movimentação:Entrada e Saida de Oficial de Justiça Departamento:Manutenção";
+    public static String telaEntradaSaidaOJDepP1 = "Movimentação:Entrada e Saida de Oficial de Justiça Departamento:Oficial de Justiça";
     //
     public static String telaEntradaSaidaVDManuP1 = "Movimentação:Entrada e Saida de Visitas Diversas:Manutenção";
     public static String telaEntradaSaidaVDVDP1 = "Movimentação:Entrada e Saida de Visitas Diversas:Visitas Diversas";
     //
     public static String telaEntradaSaidaCOLManuP1 = "Movimentação:Entrada e Saida de Colaborador:Manutenção";
     public static String telaEntradaSaidaCOLcolP1 = "Movimentação:Entrada e Saida de Colaborador:Colaborador";
+    public static String telaEntradaSaidaCOLBioP1 = "Movimentação:Entrada e Saida de Colaborador:Biometria";
     //
     public static String telaAcessosPortariaManuP1 = "Movimentação:Acessos Portaria:Manutenção";
     public static String telaAcessosPortariaTranP1 = "Movimentação:Acessos Portaria:Transientes";
@@ -278,6 +279,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
     //
     String pNomeESCM = "";
     String pNomeESCC = "";
+    String pNomeESCB = "";
     //
     String pNomeAPM = "";
     String pNomeAPT = "";
@@ -3156,6 +3158,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
             pNomeCOM = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        // MOVIMENTAÇÃO
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaEntradaSaidaAdIntManuP1 + "'");
@@ -3184,7 +3187,6 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
             pNomeESADMA = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
-        // MOVIMENTAÇÃO
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaEntradaSaidaVisitasInternosManuP1 + "'");
@@ -3295,6 +3297,13 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
                     + "WHERE NomeTela='" + telaEntradaSaidaCOLcolP1 + "'");
             conecta.rs.first();
             pNomeESCC = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaEntradaSaidaCOLBioP1 + "'");
+            conecta.rs.first();
+            pNomeESCB = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
@@ -3619,7 +3628,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
         if (!pNomeESADM.equals(telaEntradaSaidaAdDEPManuP1) || pNomeESADM == null || pNomeESADM.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
-            objCadastroTela.setNomeTela(telaEntradaSaidaAdIntManuP1);
+            objCadastroTela.setNomeTela(telaEntradaSaidaAdDEPManuP1);
             controle.incluirTelaAcesso(objCadastroTela);
         }
         if (!pNomeESADMA.equals(telaEntradaSaidaAdDEPADVP1) || pNomeESADMA == null || pNomeESADMA.equals("")) {
@@ -3674,6 +3683,12 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaEntradaSaidaCOLcolP1);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeESCB.equals(telaEntradaSaidaCOLBioP1) || pNomeESCB == null || pNomeESCB.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaEntradaSaidaCOLBioP1);
             controle.incluirTelaAcesso(objCadastroTela);
         }
         if (!pNomeAPM.equals(telaAcessosPortariaManuP1) || pNomeAPM == null || pNomeAPM.equals("")) {
