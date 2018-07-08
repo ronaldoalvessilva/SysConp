@@ -224,10 +224,22 @@ public class TelaPesqColaboradorVeiculoUnidadeExterna extends javax.swing.JInter
                 // Tabela Funcionarios
                 jIdFunc.setText(String.valueOf(conecta.rs.getInt("IdFunc")));
                 jNomeColaboradorVeiculoUnid.setText(conecta.rs.getString("NomeFunc"));
+                // Capturando foto
                 caminho = conecta.rs.getString("ImagemFunc");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                jFotoColaboradorMotorista.setIcon(i);
-                jFotoColaboradorMotorista.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoColaboradorMotorista.getWidth(), jFotoColaboradorMotorista.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    jFotoColaboradorMotorista.setIcon(i);
+                    jFotoColaboradorMotorista.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoColaboradorMotorista.getWidth(), jFotoColaboradorMotorista.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteCO"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoColaboradorMotorista.getWidth(), jFotoColaboradorMotorista.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoColaboradorMotorista.setIcon(icon);
+                }
                 jNomeDepto.setText(conecta.rs.getString("NomeDepartamento"));
                 jIdDepto.setText(conecta.rs.getString("IdDepartamento"));
                 conecta.desconecta();
@@ -249,7 +261,7 @@ public class TelaPesqColaboradorVeiculoUnidadeExterna extends javax.swing.JInter
         if (jNomeColaborador.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe um nome ou parte do nome para pesquisar.");
             jNomeColaborador.requestFocus();
-        } else {            
+        } else {
             buscarFunc("SELECT * FROM COLABORADOR "
                     + "INNER JOIN CARGOS "
                     + "ON COLABORADOR.IdCargo=CARGOS.IdCargo "
@@ -262,7 +274,7 @@ public class TelaPesqColaboradorVeiculoUnidadeExterna extends javax.swing.JInter
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
         flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {           
+        if (evt.getStateChange() == evt.SELECTED) {
             this.buscarFunc("SELECT * FROM COLABORADOR "
                     + "INNER JOIN CARGOS "
                     + "ON COLABORADOR.IdCargo=CARGOS.IdCargo "
@@ -346,9 +358,10 @@ public class TelaPesqColaboradorVeiculoUnidadeExterna extends javax.swing.JInter
         jTabelaPesqFunc.getTableHeader().setReorderingAllowed(false);
         jTabelaPesqFunc.setAutoResizeMode(jTabelaPesqFunc.AUTO_RESIZE_OFF);
         jTabelaPesqFunc.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-         modelo.getLinhas().clear();
+        modelo.getLinhas().clear();
     }
-    public void alinharCamposTabela(){
+
+    public void alinharCamposTabela() {
         DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
@@ -356,6 +369,6 @@ public class TelaPesqColaboradorVeiculoUnidadeExterna extends javax.swing.JInter
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
         direita.setHorizontalAlignment(SwingConstants.RIGHT);
         //
-        jTabelaPesqFunc.getColumnModel().getColumn(0).setCellRenderer(centralizado);        
+        jTabelaPesqFunc.getColumnModel().getColumn(0).setCellRenderer(centralizado);
     }
 }
