@@ -960,9 +960,11 @@ public class TelaAdvogados extends javax.swing.JInternalFrame {
                 jDataCadastro.setDate(conecta.rs.getDate("DataCadastro"));
                 jNomeAdvogado.setText(conecta.rs.getString("NomeAdvogado"));
                 caminhoAdvogados = conecta.rs.getString("FotoAdvogado");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoAdvogados);
-                FotoAdvogado.setIcon(i);
-                FotoAdvogado.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoAdvogado.getWidth(), FotoAdvogado.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminhoAdvogados != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoAdvogados);
+                    FotoAdvogado.setIcon(i);
+                    FotoAdvogado.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoAdvogado.getWidth(), FotoAdvogado.getHeight(), Image.SCALE_DEFAULT)));
+                }
                 // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
                 byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteAD"));
                 if (imgBytes != null) {
