@@ -246,10 +246,22 @@ public class TelaPesqVeiculosUnidadeExterna extends javax.swing.JInternalFrame {
                 jIdVeiculo.setText(String.valueOf(conecta.rs.getInt("IdVeiculo")));
                 jModeloVeiculo.setText(conecta.rs.getString("ModeloVeiculo"));
                 jPlacaVeiculo.setText(conecta.rs.getString("PlacaVeiculo"));
+                // Capturando foto
                 caminhoVei = conecta.rs.getString("FotoFrente");
-                javax.swing.ImageIcon v = new javax.swing.ImageIcon(caminhoVei);
-                jFotoVeiculoUnidade.setIcon(v);
-                jFotoVeiculoUnidade.setIcon(new ImageIcon(v.getImage().getScaledInstance(jFotoVeiculoUnidade.getWidth(), jFotoVeiculoUnidade.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminhoVei != null) {
+                    javax.swing.ImageIcon v = new javax.swing.ImageIcon(caminhoVei);
+                    jFotoVeiculoUnidade.setIcon(v);
+                    jFotoVeiculoUnidade.setIcon(new ImageIcon(v.getImage().getScaledInstance(jFotoVeiculoUnidade.getWidth(), jFotoVeiculoUnidade.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] img2Bytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteVE"));
+                if (img2Bytes != null) {
+                    ImageIcon pic2 = null;
+                    pic2 = new ImageIcon(img2Bytes);
+                    Image scaled2 = pic2.getImage().getScaledInstance(jFotoVeiculoUnidade.getWidth(), jFotoVeiculoUnidade.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon2 = new ImageIcon(scaled2);
+                    jFotoVeiculoUnidade.setIcon(icon2);
+                }
                 conecta.desconecta();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por nome" + ex);
@@ -279,7 +291,7 @@ public class TelaPesqVeiculosUnidadeExterna extends javax.swing.JInternalFrame {
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
         flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {            
+        if (evt.getStateChange() == evt.SELECTED) {
             this.buscarVeiculos("SELECT * FROM VEICULOS ORDER BY ModeloVeiculo");
         } else {
             limparCampos();
@@ -291,7 +303,7 @@ public class TelaPesqVeiculosUnidadeExterna extends javax.swing.JInternalFrame {
         if (jPlavaVeiculo.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe um nome ou parte do nome para pesquisar.");
             jPesqModeloVeiculo.requestFocus();
-        } else {            
+        } else {
             buscarVeiculos("SELECT * FROM VEICULOS WHERE PlacaVeiculo LIKE'%" + jPlavaVeiculo.getText() + "%'");
         }
     }//GEN-LAST:event_jBtPlacaVeiculoActionPerformed
