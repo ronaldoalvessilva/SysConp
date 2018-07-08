@@ -112,7 +112,7 @@ public class ControleAtualizacaoDocumentos {
         conecta.abrirConexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("UPDATE PRONTUARIOSCRC SET CartaoSus=? WHERE IdInternoCrc='" + objAtual.getIdInternoCrc() + "'");           
-            pst.setString(1, objAtual.getcPF());           
+            pst.setString(1, objAtual.getCartaoSus());           
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados do INTERNO.\n\nERRO: " + ex);
