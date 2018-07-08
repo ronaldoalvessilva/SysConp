@@ -15,6 +15,21 @@ import gestor.Modelo.EntradaSaidaAdvogados;
 import gestor.Modelo.ItensEntradaAdvogados;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPortariaExterna.codigoUserGroupP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.codigoGrupoP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.codConsultarP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.codAbrirP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.codAlterarP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.codExcluirP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.codGravarP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.codIncluirP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.codUserAcessoP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.codigoUserP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.nomeGrupoP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.nomeTelaP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.telaEntradaSaidaAdDEPADVP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.telaEntradaSaidaAdDEPManuP1E;
+import static gestor.Visao.TelaModuloPortarias.telaEntradaSaidaAdDEPADVP1;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -1129,71 +1144,87 @@ public class TelaEntradaSaidaAdvogadosExterna extends javax.swing.JInternalFrame
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampo();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaEntradaSaidaAdDEPManuP1E) && codIncluirP1E == 1) {
+            acao = 1;
+            Novo();
+            corCampo();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        objEntSaiAd.setStatusLanc(jStatusEntCola.getText());
-        if (jStatusEntCola.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa entrada de visitantes não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaEntradaSaidaAdDEPManuP1E) && codAlterarP1E == 1) {
+            objEntSaiAd.setStatusLanc(jStatusEntCola.getText());
+            if (jStatusEntCola.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa entrada de visitantes não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                Alterar();
+                corCampo();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 2;
-            Alterar();
-            corCampo();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        objEntSaiAd.setStatusLanc(jStatusEntCola.getText());
-        if (jStatusEntCola.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa entrada de visitantes não poderá ser excluída, o mesmo encontra-se FINALIZADO");
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaEntradaSaidaAdDEPManuP1E) && codExcluirP1E == 1) {
+            objEntSaiAd.setStatusLanc(jStatusEntCola.getText());
+            if (jStatusEntCola.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa entrada de visitantes não poderá ser excluída, o mesmo encontra-se FINALIZADO");
+            } else {
+                verificarItens();
+            }
         } else {
-            verificarItens();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDatalancamento.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data do lancamento.");
-            jDatalancamento.requestFocus();
-            jDatalancamento.setBackground(Color.white);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaEntradaSaidaAdDEPManuP1E) && codGravarP1E == 1) {
+            if (jDatalancamento.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data do lancamento.");
+                jDatalancamento.requestFocus();
+                jDatalancamento.setBackground(Color.white);
+            } else {
+                objEntSaiAd.setDataLanc(jDatalancamento.getDate());
+                objEntSaiAd.setObsLanc(jObservacao.getText());
+                objEntSaiAd.setStatusLanc(statusEnt);
+                objEntSaiAd.setUsuarioInsert(nameUser);
+                objEntSaiAd.setDataInsert(dataModFinal);
+                objEntSaiAd.setHoraInsert(horaMov);
+                if (acao == 1) {
+                    control.incluirEntAdvogado(objEntSaiAd);
+                    buscarID();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    Salvar();
+                }
+                if (acao == 2) {
+                    objEntSaiAd.setUsuarioUp(nameUser);
+                    objEntSaiAd.setDataUp(dataModFinal);
+                    objEntSaiAd.setHoraUp(horaMov);
+                    objEntSaiAd.setIdLanc(Integer.valueOf(jIDlanc.getText()));
+                    control.alterarEntAdvogado(objEntSaiAd);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    Salvar();
+                }
+            }
         } else {
-            objEntSaiAd.setDataLanc(jDatalancamento.getDate());
-            objEntSaiAd.setObsLanc(jObservacao.getText());
-            objEntSaiAd.setStatusLanc(statusEnt);
-            objEntSaiAd.setUsuarioInsert(nameUser);
-            objEntSaiAd.setDataInsert(dataModFinal);
-            objEntSaiAd.setHoraInsert(horaMov);
-            if (acao == 1) {
-                control.incluirEntAdvogado(objEntSaiAd);
-                buscarID();
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                Salvar();
-            }
-            if (acao == 2) {
-                objEntSaiAd.setUsuarioUp(nameUser);
-                objEntSaiAd.setDataUp(dataModFinal);
-                objEntSaiAd.setHoraUp(horaMov);
-                objEntSaiAd.setIdLanc(Integer.valueOf(jIDlanc.getText()));
-                control.alterarEntAdvogado(objEntSaiAd);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                Salvar();
-            }
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -1273,9 +1304,20 @@ public class TelaEntradaSaidaAdvogadosExterna extends javax.swing.JInternalFrame
                 jAdvogadoNome.setText(conecta.rs.getString("NomeAdvogado")); // Coluna 1
                 // Capturando foto
                 caminho = conecta.rs.getString("FotoAdvogado");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                jFotoAdvogado.setIcon(i);
-                jFotoAdvogado.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoAdvogado.getWidth(), jFotoAdvogado.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    jFotoAdvogado.setIcon(i);
+                    jFotoAdvogado.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoAdvogado.getWidth(), jFotoAdvogado.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteAD"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoAdvogado.getWidth(), jFotoAdvogado.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoAdvogado.setIcon(icon);
+                }
                 idItem = conecta.rs.getString("IdItem"); // Coluna 2
                 jIDDepto.setText(conecta.rs.getString("IdDepartamento"));
                 jDepartamento.setText(conecta.rs.getString("NomeDepartamento"));
@@ -1293,139 +1335,159 @@ public class TelaEntradaSaidaAdvogadosExterna extends javax.swing.JInternalFrame
 
     private void jBtNovoAdvogadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoAdvogadoActionPerformed
         // TODO add your handling code here:
-        objEntSaiAd.setStatusLanc(jStatusEntCola.getText());
-        if (jStatusEntCola.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa entrada de advogado não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaEntradaSaidaAdDEPADVP1E);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaEntradaSaidaAdDEPADVP1E) && codIncluirP1E == 1) {
+            objEntSaiAd.setStatusLanc(jStatusEntCola.getText());
+            if (jStatusEntCola.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa entrada de advogado não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 3;
+                NovoAdvogado();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 3;
-            NovoAdvogado();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtNovoAdvogadoActionPerformed
 
     private void jBtAlterarAdvogadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarAdvogadoActionPerformed
         // TODO add your handling code here:
-        objEntSaiAd.setStatusLanc(jStatusEntCola.getText());
-        if (jStatusEntCola.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa entrada de advogado não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaEntradaSaidaAdDEPADVP1E);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaEntradaSaidaAdDEPADVP1E) && codAlterarP1E == 1) {
+            objEntSaiAd.setStatusLanc(jStatusEntCola.getText());
+            if (jStatusEntCola.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa entrada de advogado não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 4;
+                AlterarAdvogado();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 4;
-            AlterarAdvogado();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtAlterarAdvogadoActionPerformed
 
     private void jBtExcluirAdvogadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirAdvogadoActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        objEntSaiAd.setStatusLanc(jStatusEntCola.getText());
-        if (jStatusEntCola.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse movimento não poderá ser excluído, o mesmo encontra-se FINALIZADO");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o lancamento selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objItensAdvogado.setIdItem(Integer.valueOf(idItem));
-                controle.excluirItensVisita(objItensAdvogado);
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                ExcluirAdvogado();
-                preencherTabelaItens("SELECT * FROM ITENSADVOGADO INNER JOIN ADVOGADOS ON ITENSADVOGADO.IdAdvogado=ADVOGADOS.IdAdvogado WHERE IdLanc='" + jIDlanc.getText() + "'");
+        buscarAcessoUsuario(telaEntradaSaidaAdDEPADVP1E);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaEntradaSaidaAdDEPADVP1E) && codExcluirP1E == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objEntSaiAd.setStatusLanc(jStatusEntCola.getText());
+            if (jStatusEntCola.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse movimento não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o lancamento selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objItensAdvogado.setIdItem(Integer.valueOf(idItem));
+                    controle.excluirItensVisita(objItensAdvogado);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    ExcluirAdvogado();
+                    preencherTabelaItens("SELECT * FROM ITENSADVOGADO INNER JOIN ADVOGADOS ON ITENSADVOGADO.IdAdvogado=ADVOGADOS.IdAdvogado WHERE IdLanc='" + jIDlanc.getText() + "'");
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtExcluirAdvogadoActionPerformed
 
     private void jBtSalvarAdvogadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarAdvogadoActionPerformed
         // TODO add your handling code here:
-        horaEntradaEncontrada = "";
-        horaSaidaEncontrado = "";
-        if (jAdvogadoNome.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do advogado.");
-            jAdvogadoNome.setBackground(Color.red);
-        } else {
-            if (jDepartamento.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe o nome do Departamento.");
-                jDepartamento.requestFocus();
-                jDepartamento.setBackground(Color.red);
+        buscarAcessoUsuario(telaEntradaSaidaAdDEPADVP1);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaEntradaSaidaAdDEPADVP1E) && codGravarP1E == 1) {
+            horaEntradaEncontrada = "";
+            horaSaidaEncontrado = "";
+            if (jAdvogadoNome.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do advogado.");
+                jAdvogadoNome.setBackground(Color.red);
             } else {
-                if (jDataEntrada.getDate() == null) {
-                    JOptionPane.showMessageDialog(rootPane, "Informe a data de entrada do advogado.");
-                    jDataEntrada.requestFocus();
-                    jDataEntrada.setBackground(Color.red);
+                if (jDepartamento.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe o nome do Departamento.");
+                    jDepartamento.requestFocus();
+                    jDepartamento.setBackground(Color.red);
                 } else {
-                    if (jHorarioEntrada.getText().equals("")) {
-                        JOptionPane.showMessageDialog(rootPane, "É necessário informar um horário de entrada.");
-                        jHorarioEntrada.requestFocus();
-                        jHorarioEntrada.setBackground(Color.red);
+                    if (jDataEntrada.getDate() == null) {
+                        JOptionPane.showMessageDialog(rootPane, "Informe a data de entrada do advogado.");
+                        jDataEntrada.requestFocus();
+                        jDataEntrada.setBackground(Color.red);
                     } else {
-                        if (jDataSaida.getDate() == null) {
-                            JOptionPane.showMessageDialog(rootPane, "É necessário informar uma data de saida.");
-                            jDataSaida.requestFocus();
-                            jDataSaida.setBackground(Color.red);
+                        if (jHorarioEntrada.getText().equals("")) {
+                            JOptionPane.showMessageDialog(rootPane, "É necessário informar um horário de entrada.");
+                            jHorarioEntrada.requestFocus();
+                            jHorarioEntrada.setBackground(Color.red);
                         } else {
-                            if (jHorarioSaida.getText().equals("")) {
-                                jHorarioSaida.setText("00:00");
+                            if (jDataSaida.getDate() == null) {
+                                JOptionPane.showMessageDialog(rootPane, "É necessário informar uma data de saida.");
+                                jDataSaida.requestFocus();
+                                jDataSaida.setBackground(Color.red);
                             } else {
-                                objItensAdvogado.setIdlanc(Integer.valueOf(jIDlanc.getText()));
-                                objItensAdvogado.setIdAdvogado(Integer.valueOf(jIDAdvogado.getText()));
-                                objItensAdvogado.setDataEntrada(jDataEntrada.getDate());
-                                objItensAdvogado.setHorarioEntrada(jHorarioEntrada.getText());
-                                objItensAdvogado.setDataSaida(jDataSaida.getDate());
-                                objItensAdvogado.setHorarioSaida(jHorarioSaida.getText());
-                                objItensAdvogado.setMotivoVisita(jMotivo.getText());
-                                if (acao == 3) {
-                                    // Log usuario
-                                    objItensAdvogado.setUsuarioInsert(nameUser);
-                                    objItensAdvogado.setDataInsert(dataModFinal);
-                                    objItensAdvogado.setHoraInsert(horaMov);
-                                    //
+                                if (jHorarioSaida.getText().equals("")) {
+                                    jHorarioSaida.setText("00:00");
+                                } else {
                                     objItensAdvogado.setIdlanc(Integer.valueOf(jIDlanc.getText()));
                                     objItensAdvogado.setIdAdvogado(Integer.valueOf(jIDAdvogado.getText()));
-                                    objItensAdvogado.setNomeAdvogado(jAdvogadoNome.getText());
-                                    objItensAdvogado.setNomeDepartamento(jDepartamento.getText());
-                                    controle.incluirItensVisitas(objItensAdvogado);
-                                    objLog2();
-                                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                    SalvarAdvogado();
-                                    preencherTabelaItens("SELECT * FROM ITENSADVOGADO "
-                                            + "INNER JOIN ADVOGADOS "
-                                            + "ON ITENSADVOGADO.IdAdvogado=ADVOGADOS.IdAdvogado "
-                                            + "WHERE IdLanc='" + jIDlanc.getText() + "'");
-                                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                    objItensAdvogado.setDataEntrada(jDataEntrada.getDate());
+                                    objItensAdvogado.setHorarioEntrada(jHorarioEntrada.getText());
+                                    objItensAdvogado.setDataSaida(jDataSaida.getDate());
+                                    objItensAdvogado.setHorarioSaida(jHorarioSaida.getText());
+                                    objItensAdvogado.setMotivoVisita(jMotivo.getText());
+                                    if (acao == 3) {
+                                        // Log usuario
+                                        objItensAdvogado.setUsuarioInsert(nameUser);
+                                        objItensAdvogado.setDataInsert(dataModFinal);
+                                        objItensAdvogado.setHoraInsert(horaMov);
+                                        //
+                                        objItensAdvogado.setIdlanc(Integer.valueOf(jIDlanc.getText()));
+                                        objItensAdvogado.setIdAdvogado(Integer.valueOf(jIDAdvogado.getText()));
+                                        objItensAdvogado.setNomeAdvogado(jAdvogadoNome.getText());
+                                        objItensAdvogado.setNomeDepartamento(jDepartamento.getText());
+                                        controle.incluirItensVisitas(objItensAdvogado);
+                                        objLog2();
+                                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                        SalvarAdvogado();
+                                        preencherTabelaItens("SELECT * FROM ITENSADVOGADO "
+                                                + "INNER JOIN ADVOGADOS "
+                                                + "ON ITENSADVOGADO.IdAdvogado=ADVOGADOS.IdAdvogado "
+                                                + "WHERE IdLanc='" + jIDlanc.getText() + "'");
+                                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
 
-                                }
-                                if (acao == 4) {
-                                    objItensAdvogado.setUsuarioUp(nameUser);
-                                    objItensAdvogado.setDataUp(dataModFinal);
-                                    objItensAdvogado.setHoraUp(horaMov);
-                                    //
-                                    objItensAdvogado.setIdlanc(Integer.valueOf(jIDlanc.getText()));
-                                    objItensAdvogado.setIdAdvogado(Integer.valueOf(jIDAdvogado.getText()));
-                                    objItensAdvogado.setNomeAdvogado(jAdvogadoNome.getText());
-                                    objItensAdvogado.setIdItem(Integer.valueOf(idItem));
-                                    objItensAdvogado.setNomeDepartamento(jDepartamento.getText());
-                                    controle.alterarItensVisitas(objItensAdvogado);
-                                    objLog2();
-                                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                    SalvarAdvogado();
-                                    preencherTabelaItens("SELECT * FROM ITENSADVOGADO "
-                                            + "INNER JOIN ADVOGADOS "
-                                            + "ON ITENSADVOGADO.IdAdvogado=ADVOGADOS.IdAdvogado "
-                                            + "WHERE IdLanc='" + jIDlanc.getText() + "'");
-                                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                    }
+                                    if (acao == 4) {
+                                        objItensAdvogado.setUsuarioUp(nameUser);
+                                        objItensAdvogado.setDataUp(dataModFinal);
+                                        objItensAdvogado.setHoraUp(horaMov);
+                                        //
+                                        objItensAdvogado.setIdlanc(Integer.valueOf(jIDlanc.getText()));
+                                        objItensAdvogado.setIdAdvogado(Integer.valueOf(jIDAdvogado.getText()));
+                                        objItensAdvogado.setNomeAdvogado(jAdvogadoNome.getText());
+                                        objItensAdvogado.setIdItem(Integer.valueOf(idItem));
+                                        objItensAdvogado.setNomeDepartamento(jDepartamento.getText());
+                                        controle.alterarItensVisitas(objItensAdvogado);
+                                        objLog2();
+                                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                        SalvarAdvogado();
+                                        preencherTabelaItens("SELECT * FROM ITENSADVOGADO "
+                                                + "INNER JOIN ADVOGADOS "
+                                                + "ON ITENSADVOGADO.IdAdvogado=ADVOGADOS.IdAdvogado "
+                                                + "WHERE IdLanc='" + jIDlanc.getText() + "'");
+                                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtSalvarAdvogadoActionPerformed
 
@@ -2311,5 +2373,43 @@ public class TelaEntradaSaidaAdvogadosExterna extends javax.swing.JInternalFrame
         objLogSys.setIdLancMov(Integer.valueOf(jIDlanc.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserP1E = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserP1E + "'");
+            conecta.rs.first();
+            codigoUserGroupP1E = conecta.rs.getInt("IdUsuario");
+            codigoGrupoP1E = conecta.rs.getInt("IdGrupo");
+            nomeGrupoP1E = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserP1E + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoP1E = conecta.rs.getInt("IdUsuario");
+            codAbrirP1E = conecta.rs.getInt("Abrir");
+            codIncluirP1E = conecta.rs.getInt("Incluir");
+            codAlterarP1E = conecta.rs.getInt("Alterar");
+            codExcluirP1E = conecta.rs.getInt("Excluir");
+            codGravarP1E = conecta.rs.getInt("Gravar");
+            codConsultarP1E = conecta.rs.getInt("Consultar");
+            nomeTelaP1E = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }
