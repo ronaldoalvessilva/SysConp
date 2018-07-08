@@ -14,13 +14,30 @@ import gestor.Dao.ModeloTabela;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.OficialJustica;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPortariaExterna.codAlterarP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.codExcluirP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.codGravarP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.codIncluirP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.codUserAcessoP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.codigoUserP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.nomeGrupoP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.nomeTelaP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.telaCadastroOficialManuP1E;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -752,97 +769,132 @@ public class TelaOficialJusticaExterna extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampo();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaCadastroOficialManuP1E) && codIncluirP1E == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES")) {
+            acao = 1;
+            Novo();
+            corCampo();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        acao = 2;
-        Alterar();
-        corCampo();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaCadastroOficialManuP1E) && codAlterarP1E == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES")) {
+            acao = 2;
+            Alterar();
+            corCampo();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        verificarEntAdvogados();
+        if (codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaCadastroOficialManuP1E) && codExcluirP1E == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES")) {
+            verificarEntAdvogados();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataCadastro.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data de cadastro.");
-            jDataCadastro.requestFocus();
-            jDataCadastro.setBackground(Color.red);
-        } else if (jNomeOficialJustica.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do oficial de justiça.");
-            jNomeOficialJustica.requestFocus();
-            jNomeOficialJustica.setBackground(Color.red);
-        } else if (jREGOficial.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o número do REG do oficial de justiça.");
-            jREGOficial.requestFocus();
-            jREGOficial.setBackground(Color.red);
-        } else if (caminhoFotoOfficeEXT == null) {
-            JOptionPane.showMessageDialog(rootPane, "Coloque a foto do oficial de justiça");
-        } else if (jComboBoxStatusOficial.getSelectedItem().equals("Selecione...")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o status do Oficial de Justiça");
-        } else if (jComboBoxStatusOficial.getSelectedItem().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o status do Oficial de Justiça");
-        } else if (jComboBoxStatusOficial.getSelectedItem() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o status do Oficial de Justiça");
-        } else {
-            objOficial.setStatusOficial((String) jComboBoxStatusOficial.getSelectedItem());
-            objOficial.setDataCadastro(jDataCadastro.getDate());
-            objOficial.setFotoOficial(caminhoFotoOfficeEXT);
-            objOficial.setNomeOficial(jNomeOficialJustica.getText().trim());
-            objOficial.setRgOficial(jRG.getText());
-            objOficial.setCpfOficial(jCPF.getText());
-            objOficial.setRegOficial(jREGOficial.getText());
-            objOficial.setObsOficial(jObsOficial.getText());
-            //
-            try {
-                conecta.abrirConexao();
-                conecta.executaSQL("SELECT * FROM OFICIAL_JUSTICA "
-                        + "WHERE NomeOficial='" + jNomeOficialJustica.getText() + "'");
-                conecta.rs.first();
-                nomeOficialJustica = conecta.rs.getString("NomeOficial");
-            } catch (Exception e) {
-            }
-            if (acao == 1) {
-                // log de usuario
-                objOficial.setUsuarioInsert(nameUser);
-                objOficial.setDataInsert(dataModFinal);
-                objOficial.setHoraInsert(horaMov);
-                if (jNomeOficialJustica.getText().trim().equals(nomeOficialJustica)) {
-                    JOptionPane.showMessageDialog(rootPane, "Oficial de Justiça já cadastrado.");
-                } else {
-                    control.incluirOficialJustica(objOficial);
-                    buscarID();
+        if (codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaCadastroOficialManuP1E) && codGravarP1E == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES")) {
+            if (jDataCadastro.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de cadastro.");
+                jDataCadastro.requestFocus();
+                jDataCadastro.setBackground(Color.red);
+            } else if (jNomeOficialJustica.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do oficial de justiça.");
+                jNomeOficialJustica.requestFocus();
+                jNomeOficialJustica.setBackground(Color.red);
+            } else if (jREGOficial.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o número do REG do oficial de justiça.");
+                jREGOficial.requestFocus();
+                jREGOficial.setBackground(Color.red);
+            } else if (caminhoFotoOfficeEXT == null) {
+                JOptionPane.showMessageDialog(rootPane, "Coloque a foto do oficial de justiça");
+            } else if (jComboBoxStatusOficial.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o status do Oficial de Justiça");
+            } else if (jComboBoxStatusOficial.getSelectedItem().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o status do Oficial de Justiça");
+            } else if (jComboBoxStatusOficial.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o status do Oficial de Justiça");
+            } else {
+                objOficial.setStatusOficial((String) jComboBoxStatusOficial.getSelectedItem());
+                objOficial.setDataCadastro(jDataCadastro.getDate());
+                objOficial.setFotoOficial(caminhoFotoOfficeEXT);
+                objOficial.setNomeOficial(jNomeOficialJustica.getText().trim());
+                objOficial.setRgOficial(jRG.getText());
+                objOficial.setCpfOficial(jCPF.getText());
+                objOficial.setRegOficial(jREGOficial.getText());
+                objOficial.setObsOficial(jObsOficial.getText());
+                //
+                try {
+                    conecta.abrirConexao();
+                    conecta.executaSQL("SELECT * FROM OFICIAL_JUSTICA "
+                            + "WHERE NomeOficial='" + jNomeOficialJustica.getText() + "'");
+                    conecta.rs.first();
+                    nomeOficialJustica = conecta.rs.getString("NomeOficial");
+                } catch (Exception e) {
+                }
+                // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE   
+                if (FotoOficialJusticaExt.getIcon() != null) {
+                    Image img = ((ImageIcon) FotoOficialJusticaExt.getIcon()).getImage();
+                    BufferedImage bi = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                            img.getWidth(null),
+                            img.getHeight(null),
+                            BufferedImage.TYPE_INT_RGB);
+                    Graphics2D g2 = bi.createGraphics();
+                    g2.drawImage(img, 0, 0, null);
+                    ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                    try {
+                        ImageIO.write(bi, "jpg", buffer);
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(TelaOficialJusticaExterna.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(TelaOficialJusticaExterna.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    objOficial.setImagemFrenteOF(buffer.toByteArray());
+                }
+                if (acao == 1) {
+                    // log de usuario
+                    objOficial.setUsuarioInsert(nameUser);
+                    objOficial.setDataInsert(dataModFinal);
+                    objOficial.setHoraInsert(horaMov);
+                    if (jNomeOficialJustica.getText().trim().equals(nomeOficialJustica)) {
+                        JOptionPane.showMessageDialog(rootPane, "Oficial de Justiça já cadastrado.");
+                    } else {
+                        control.incluirOficialJustica(objOficial);
+                        buscarID();
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        Salvar();
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    }
+                }
+                if (acao == 2) {
+                    // log de usuario
+                    objOficial.setUsuarioUp(nameUser);
+                    objOficial.setDataUp(dataModFinal);
+                    objOficial.setHoraUp(horaMov);
+                    objOficial.setIdOficial(Integer.valueOf(jIdOficial.getText()));
+                    control.alterarOficialJustica(objOficial);
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     Salvar();
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
             }
-            if (acao == 2) {
-                // log de usuario
-                objOficial.setUsuarioUp(nameUser);
-                objOficial.setDataUp(dataModFinal);
-                objOficial.setHoraUp(horaMov);
-                objOficial.setIdOficial(Integer.valueOf(jIdOficial.getText()));
-                control.alterarOficialJustica(objOficial);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -896,9 +948,20 @@ public class TelaOficialJusticaExterna extends javax.swing.JInternalFrame {
                 jDataCadastro.setDate(conecta.rs.getDate("DataCadastro"));
                 jNomeOficialJustica.setText(conecta.rs.getString("NomeOficial"));
                 caminhoFotoOfficeEXT = conecta.rs.getString("FotoOficial");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFotoOfficeEXT);
-                FotoOficialJusticaExt.setIcon(i);
-                FotoOficialJusticaExt.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoOficialJusticaExt.getWidth(), FotoOficialJusticaExt.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminhoFotoOfficeEXT != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFotoOfficeEXT);
+                    FotoOficialJusticaExt.setIcon(i);
+                    FotoOficialJusticaExt.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoOficialJusticaExt.getWidth(), FotoOficialJusticaExt.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteOF"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(FotoOficialJusticaExt.getWidth(), FotoOficialJusticaExt.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    FotoOficialJusticaExt.setIcon(icon);
+                }
                 jRG.setText(conecta.rs.getString("RgOficial"));
                 jCPF.setText(conecta.rs.getString("CpfOficial"));
                 jREGOficial.setText(conecta.rs.getString("REGOficial"));
