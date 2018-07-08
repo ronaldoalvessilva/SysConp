@@ -14,12 +14,25 @@ import gestor.Modelo.EntradaSaidaFunc;
 import gestor.Modelo.ItensEntSaiFunc;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPortariaExterna.codigoUserGroupP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.codigoGrupoP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.codAbrirP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.codAlterarP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.codExcluirP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.codGravarP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.codConsultarP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.codIncluirP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.codUserAcessoP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.codigoUserP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.nomeGrupoP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.nomeTelaP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.telaEntradaSaidaCOLManuP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.telaEntradaSaidaCOLcolP1E;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -28,8 +41,6 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.text.DefaultFormatterFactory;
-import javax.swing.text.MaskFormatter;
 
 /**
  *
@@ -88,7 +99,7 @@ public class TelaEntradaSaidaColaboradorExterna extends javax.swing.JInternalFra
         telafotocolaboradorExt = new TelaFotoColaboradorExterna(this, true);
         telafotocolaboradorExt.setVisible(true);
     }
-    
+
     public void mostrarBiometriacolaborador() {
         biometriaFunc = new TelaAcessoBiometriaColaboradoresPortariaExterna(this, true);
         biometriaFunc.setVisible(true);
@@ -1023,87 +1034,103 @@ public class TelaEntradaSaidaColaboradorExterna extends javax.swing.JInternalFra
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampo();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaEntradaSaidaCOLManuP1E) && codIncluirP1E == 1) {
+            acao = 1;
+            Novo();
+            corCampo();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        objEntSaiFunc.setStatusLanc(jStatusEntCola.getText());
-        if (jStatusEntCola.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa entrada de colaboradores não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaEntradaSaidaCOLManuP1E) && codAlterarP1E == 1) {
+            objEntSaiFunc.setStatusLanc(jStatusEntCola.getText());
+            if (jStatusEntCola.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa entrada de colaboradores não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                Alterar();
+                corCampo();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 2;
-            Alterar();
-            corCampo();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
-        // TODO add your handling code here:        
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        objEntSaiFunc.setStatusLanc(jStatusEntCola.getText());
-        if (jStatusEntCola.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa entrada de colaboradores não poderá ser excluída, o mesmo encontra-se FINALIZADO");
-        } else {
-            verificarColaborador();
-            if (jIDlanc.getText().equals(codLanc)) {
-                JOptionPane.showMessageDialog(rootPane, "Exclua os Colaboradores primeiros para depois excluir o documento.");
+        // TODO add your handling code here:  
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaEntradaSaidaCOLManuP1E) && codExcluirP1E == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objEntSaiFunc.setStatusLanc(jStatusEntCola.getText());
+            if (jStatusEntCola.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa entrada de colaboradores não poderá ser excluída, o mesmo encontra-se FINALIZADO");
             } else {
-                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
-                        JOptionPane.YES_NO_OPTION);
-                if (resposta == JOptionPane.YES_OPTION) {
-                    objEntSaiFunc.setIdLanc(Integer.valueOf(jIDlanc.getText()));
-                    control.excluirEntradaSaiFunc(objEntSaiFunc);
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    Excluir();
+                verificarColaborador();
+                if (jIDlanc.getText().equals(codLanc)) {
+                    JOptionPane.showMessageDialog(rootPane, "Exclua os Colaboradores primeiros para depois excluir o documento.");
+                } else {
+                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta == JOptionPane.YES_OPTION) {
+                        objEntSaiFunc.setIdLanc(Integer.valueOf(jIDlanc.getText()));
+                        control.excluirEntradaSaiFunc(objEntSaiFunc);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        Excluir();
+                    }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDatalancamento.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data do lancamento.");
-            jDatalancamento.requestFocus();
-            jDatalancamento.setBackground(Color.white);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaEntradaSaidaCOLManuP1E) && codGravarP1E == 1) {
+            if (jDatalancamento.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data do lancamento.");
+                jDatalancamento.requestFocus();
+                jDatalancamento.setBackground(Color.white);
+            } else {
+                objEntSaiFunc.setDataLanc(jDatalancamento.getDate());
+                objEntSaiFunc.setObsLanc(jObservacao.getText());
+                objEntSaiFunc.setStatusLanc(statusEnt);
+                objEntSaiFunc.setUsuarioInsert(nameUser);
+                objEntSaiFunc.setDataInsert(dataModFinal);
+                objEntSaiFunc.setHoraInsert(horaMov);
+                if (acao == 1) {
+                    control.incluirEntradaSaiFunc(objEntSaiFunc);
+                    buscarID();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    Salvar();
+                }
+                if (acao == 2) {
+                    objEntSaiFunc.setUsuarioUp(nameUser);
+                    objEntSaiFunc.setDataUp(dataModFinal);
+                    objEntSaiFunc.setHoraUp(horaMov);
+                    objEntSaiFunc.setIdLanc(Integer.valueOf(jIDlanc.getText()));
+                    control.alterarEntradaSaiFunc(objEntSaiFunc);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    Salvar();
+                }
+            }
         } else {
-            objEntSaiFunc.setDataLanc(jDatalancamento.getDate());
-            objEntSaiFunc.setObsLanc(jObservacao.getText());
-            objEntSaiFunc.setStatusLanc(statusEnt);
-            objEntSaiFunc.setUsuarioInsert(nameUser);
-            objEntSaiFunc.setDataInsert(dataModFinal);
-            objEntSaiFunc.setHoraInsert(horaMov);
-            if (acao == 1) {
-                control.incluirEntradaSaiFunc(objEntSaiFunc);
-                buscarID();
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                Salvar();
-            }
-            if (acao == 2) {
-                objEntSaiFunc.setUsuarioUp(nameUser);
-                objEntSaiFunc.setDataUp(dataModFinal);
-                objEntSaiFunc.setHoraUp(horaMov);
-                objEntSaiFunc.setIdLanc(Integer.valueOf(jIDlanc.getText()));
-                control.alterarEntradaSaiFunc(objEntSaiFunc);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                Salvar();
-            }
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -1161,147 +1188,167 @@ public class TelaEntradaSaidaColaboradorExterna extends javax.swing.JInternalFra
 
     private void jBtNovoFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoFuncActionPerformed
         // TODO add your handling code here:
-        objEntSaiFunc.setStatusLanc(jStatusEntCola.getText());
-        if (jStatusEntCola.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa entrada de colaboradores não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaEntradaSaidaCOLcolP1E);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaEntradaSaidaCOLcolP1E) && codIncluirP1E == 1) {
+            objEntSaiFunc.setStatusLanc(jStatusEntCola.getText());
+            if (jStatusEntCola.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa entrada de colaboradores não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 3;
+                NovoFunc();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 3;
-            NovoFunc();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtNovoFuncActionPerformed
 
     private void jBtAlterarFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarFuncActionPerformed
         // TODO add your handling code here:
-        verificarBiometriaFunc();
-        objEntSaiFunc.setStatusLanc(jStatusEntCola.getText());
-        if (jStatusEntCola.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa entrada de colaboradores não poderá ser alterado, o mesmo encontra-se FINALIZADO");
-        } else {
-            if (assinaturaEntrada != null && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
-                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, registro contabilizado através da biometria.");
-            } else if (assinaturaEntrada != null && nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
-                acao = 4;
-                AlterarFunc();
-                statusMov = "Alterou";
-                horaMov = jHoraSistema.getText();
-                dataModFinal = jDataSistema.getText();
-            } else if (assinaturaEntrada == null && !horaEntrada.equals("")) {
-                acao = 4;
-                AlterarFunc();
-                statusMov = "Alterou";
-                horaMov = jHoraSistema.getText();
-                dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaEntradaSaidaCOLcolP1E);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaEntradaSaidaCOLcolP1E) && codAlterarP1E == 1) {
+            verificarBiometriaFunc();
+            objEntSaiFunc.setStatusLanc(jStatusEntCola.getText());
+            if (jStatusEntCola.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa entrada de colaboradores não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                if (assinaturaEntrada != null && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+                    JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, registro contabilizado através da biometria.");
+                } else if (assinaturaEntrada != null && nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+                    acao = 4;
+                    AlterarFunc();
+                    statusMov = "Alterou";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                } else if (assinaturaEntrada == null && !horaEntrada.equals("")) {
+                    acao = 4;
+                    AlterarFunc();
+                    statusMov = "Alterou";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtAlterarFuncActionPerformed
 
     private void jBtExcluirFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirFuncActionPerformed
         // TODO add your handling code here:
-        verificarBiometriaFunc();
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        objEntSaiFunc.setStatusLanc(jStatusEntCola.getText());
-        if (jStatusEntCola.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse  colaborador não poderá ser excluído, o mesmo encontra-se FINALIZADO");
-        } else {
-            if (assinaturaEntrada != null) {
-                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, registro contabilizado através da biometria.");
+        buscarAcessoUsuario(telaEntradaSaidaCOLcolP1E);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaEntradaSaidaCOLcolP1E) && codExcluirP1E == 1) {
+            verificarBiometriaFunc();
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objEntSaiFunc.setStatusLanc(jStatusEntCola.getText());
+            if (jStatusEntCola.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse  colaborador não poderá ser excluído, o mesmo encontra-se FINALIZADO");
             } else {
-                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o COLABORADOR selecionado?", "Confirmação",
-                        JOptionPane.YES_NO_OPTION);
-                if (resposta == JOptionPane.YES_OPTION) {
-                    objItensFunc.setIdItem(Integer.valueOf(idItem));
-                    controle.excluirItensFunc(objItensFunc);
-                    objLog2();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                    ExcluirFunc();
-                    preencherTabelaItens("SELECT * FROM ITENSENTRADASFUNC "
-                            + "INNER JOIN COLABORADOR "
-                            + "ON ITENSENTRADASFUNC.IdFunc=COLABORADOR.IdFunc "
-                            + "WHERE IdLanc='" + jIDlanc.getText() + "'");
+                if (assinaturaEntrada != null) {
+                    JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, registro contabilizado através da biometria.");
+                } else {
+                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o COLABORADOR selecionado?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta == JOptionPane.YES_OPTION) {
+                        objItensFunc.setIdItem(Integer.valueOf(idItem));
+                        controle.excluirItensFunc(objItensFunc);
+                        objLog2();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                        ExcluirFunc();
+                        preencherTabelaItens("SELECT * FROM ITENSENTRADASFUNC "
+                                + "INNER JOIN COLABORADOR "
+                                + "ON ITENSENTRADASFUNC.IdFunc=COLABORADOR.IdFunc "
+                                + "WHERE IdLanc='" + jIDlanc.getText() + "'");
+                    }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtExcluirFuncActionPerformed
 
     private void jBtSalvarFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarFuncActionPerformed
         // TODO add your handling code here:
-        horaEntradaEncontrada = "";
-        horaSaidaEncontrado = "";
-        if (jNomeFuncionario.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do colaborador.");
-            jNomeFuncionario.setBackground(Color.red);
-        } else {
-            if (jDataEntrada.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data de entrada do colaborador.");
-                jDataEntrada.requestFocus();
-                jDataEntrada.setBackground(Color.red);
+        buscarAcessoUsuario(telaEntradaSaidaCOLcolP1E);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaEntradaSaidaCOLcolP1E) && codGravarP1E == 1) {
+            horaEntradaEncontrada = "";
+            horaSaidaEncontrado = "";
+            if (jNomeFuncionario.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do colaborador.");
+                jNomeFuncionario.setBackground(Color.red);
             } else {
-                if (jHorarioEntrada.getText().equals("")) {
-                    JOptionPane.showMessageDialog(rootPane, "É necessário informar um horário de entrada.");
-                    jHorarioEntrada.requestFocus();
-                    jHorarioEntrada.setBackground(Color.red);
+                if (jDataEntrada.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data de entrada do colaborador.");
+                    jDataEntrada.requestFocus();
+                    jDataEntrada.setBackground(Color.red);
                 } else {
-                    if (jDataSaida.getDate() == null) {
-                        JOptionPane.showMessageDialog(rootPane, "É necessário informar uma data de saida.");
-                        jDataSaida.requestFocus();
-                        jDataSaida.setBackground(Color.red);
+                    if (jHorarioEntrada.getText().equals("")) {
+                        JOptionPane.showMessageDialog(rootPane, "É necessário informar um horário de entrada.");
+                        jHorarioEntrada.requestFocus();
+                        jHorarioEntrada.setBackground(Color.red);
                     } else {
-                        if (jHorarioSaida.getText().equals("")) {
-                            jHorarioSaida.setText("00:00");
+                        if (jDataSaida.getDate() == null) {
+                            JOptionPane.showMessageDialog(rootPane, "É necessário informar uma data de saida.");
+                            jDataSaida.requestFocus();
+                            jDataSaida.setBackground(Color.red);
                         } else {
-                            objItensFunc.setIdlanc(Integer.valueOf(jIDlanc.getText()));
-                            objItensFunc.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-                            objItensFunc.setDataEntrada(jDataEntrada.getDate());
-                            objItensFunc.setHorarioEntrada(jHorarioEntrada.getText());
-                            objItensFunc.setDataSaida(jDataSaida.getDate());
-                            objItensFunc.setHorarioSaida(jHorarioSaida.getText());
-                            // Log de usuário
-                            objItensFunc.setUsuarioInsert(nameUser);
-                            objItensFunc.setDataInsert(dataModFinal);
-                            objItensFunc.setHoraInsert(horaMov);
-                            if (acao == 3) {
+                            if (jHorarioSaida.getText().equals("")) {
+                                jHorarioSaida.setText("00:00");
+                            } else {
                                 objItensFunc.setIdlanc(Integer.valueOf(jIDlanc.getText()));
                                 objItensFunc.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-                                objItensFunc.setNomeColaborador(jNomeFuncionario.getText());
-                                controle.incluirItensFunc(objItensFunc);
-                                objLog2();
-                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                objItensFunc.setDataEntrada(jDataEntrada.getDate());
+                                objItensFunc.setHorarioEntrada(jHorarioEntrada.getText());
+                                objItensFunc.setDataSaida(jDataSaida.getDate());
+                                objItensFunc.setHorarioSaida(jHorarioSaida.getText());
+                                // Log de usuário
+                                objItensFunc.setUsuarioInsert(nameUser);
+                                objItensFunc.setDataInsert(dataModFinal);
+                                objItensFunc.setHoraInsert(horaMov);
+                                if (acao == 3) {
+                                    objItensFunc.setIdlanc(Integer.valueOf(jIDlanc.getText()));
+                                    objItensFunc.setIdFunc(Integer.valueOf(jIDFunc.getText()));
+                                    objItensFunc.setNomeColaborador(jNomeFuncionario.getText());
+                                    controle.incluirItensFunc(objItensFunc);
+                                    objLog2();
+                                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                    preencherTabelaItens("SELECT * FROM ITENSENTRADASFUNC "
+                                            + "INNER JOIN COLABORADOR "
+                                            + "ON ITENSENTRADASFUNC.IdFunc=COLABORADOR.IdFunc "
+                                            + "WHERE IdLanc='" + jIDlanc.getText() + "'");
+                                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                    SalvarFunc();
+                                }
+                                if (acao == 4) {
+                                    // Log de usuário
+                                    objItensFunc.setUsuarioUp(nameUser);
+                                    objItensFunc.setDataUp(dataModFinal);
+                                    objItensFunc.setHoraUp(horaMov);
+                                    objItensFunc.setIdlanc(Integer.valueOf(jIDlanc.getText()));
+                                    objItensFunc.setIdFunc(Integer.valueOf(jIDFunc.getText()));
+                                    objItensFunc.setNomeColaborador(jNomeFuncionario.getText());
+                                    objItensFunc.setIdItem(Integer.valueOf(idItem));
+                                    controle.alterarItensFunc(objItensFunc);
+                                    objLog2();
+                                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                    SalvarFunc();
+                                }
                                 preencherTabelaItens("SELECT * FROM ITENSENTRADASFUNC "
                                         + "INNER JOIN COLABORADOR "
                                         + "ON ITENSENTRADASFUNC.IdFunc=COLABORADOR.IdFunc "
                                         + "WHERE IdLanc='" + jIDlanc.getText() + "'");
-                                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                                SalvarFunc();
                             }
-                            if (acao == 4) {
-                                // Log de usuário
-                                objItensFunc.setUsuarioUp(nameUser);
-                                objItensFunc.setDataUp(dataModFinal);
-                                objItensFunc.setHoraUp(horaMov);
-                                objItensFunc.setIdlanc(Integer.valueOf(jIDlanc.getText()));
-                                objItensFunc.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-                                objItensFunc.setNomeColaborador(jNomeFuncionario.getText());
-                                objItensFunc.setIdItem(Integer.valueOf(idItem));
-                                controle.alterarItensFunc(objItensFunc);
-                                objLog2();
-                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                                SalvarFunc();
-                            }
-                            preencherTabelaItens("SELECT * FROM ITENSENTRADASFUNC "
-                                    + "INNER JOIN COLABORADOR "
-                                    + "ON ITENSENTRADASFUNC.IdFunc=COLABORADOR.IdFunc "
-                                    + "WHERE IdLanc='" + jIDlanc.getText() + "'");
                         }
                     }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtSalvarFuncActionPerformed
 
@@ -1382,7 +1429,7 @@ public class TelaEntradaSaidaColaboradorExterna extends javax.swing.JInternalFra
 
     private void jTabelaColaboradorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaColaboradorMouseClicked
         // TODO add your handling code here:
-          if (flag == 1) {
+        if (flag == 1) {
             String nomeColaborador = "" + jTabelaColaborador.getValueAt(jTabelaColaborador.getSelectedRow(), 1);
             jNomeFuncionario.setText(nomeColaborador);
             idItem = "" + jTabelaColaborador.getValueAt(jTabelaColaborador.getSelectedRow(), 2);
@@ -1417,9 +1464,20 @@ public class TelaEntradaSaidaColaboradorExterna extends javax.swing.JInternalFra
                 jNomeFuncionario.setText(conecta.rs.getString("NomeFunc")); // Coluna 1
                 // Capturando foto
                 caminho = conecta.rs.getString("ImagemFunc");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                jFotoColaborador.setIcon(i);
-                jFotoColaborador.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    jFotoColaborador.setIcon(i);
+                    jFotoColaborador.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] img2Bytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteCO"));
+                if (img2Bytes != null) {
+                    ImageIcon pic2 = null;
+                    pic2 = new ImageIcon(img2Bytes);
+                    Image scaled2 = pic2.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon2 = new ImageIcon(scaled2);
+                    jFotoColaborador.setIcon(icon2);
+                }
                 idItem = conecta.rs.getString("IdItem");
                 jSetorFunc.setText(conecta.rs.getString("NomeDepartamento"));
                 jCargoFunc.setText(conecta.rs.getString("NomeCargo"));
@@ -1482,10 +1540,14 @@ public class TelaEntradaSaidaColaboradorExterna extends javax.swing.JInternalFra
 
     private void jBtBiometriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtBiometriaActionPerformed
         // TODO add your handling code here:
-        if (jStatusEntCola.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Não é possível acessar a biomeria com o regisro finalizado.");
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaEntradaSaidaCOLManuP1E) && codAbrirP1E == 1) {
+            if (jStatusEntCola.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Não é possível acessar a biomeria com o regisro finalizado.");
+            } else {
+                mostrarBiometriacolaborador();
+            }
         } else {
-            mostrarBiometriacolaborador();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtBiometriaActionPerformed
 
@@ -2045,7 +2107,6 @@ public class TelaEntradaSaidaColaboradorExterna extends javax.swing.JInternalFra
     }
 
     //Preencher tabela com todos os dados de entrada/saída COLABORADOR
-
     public void pesquisarTodasEntSai(String sql) {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código", "Data", "Status", "Observação"};
@@ -2267,5 +2328,43 @@ public class TelaEntradaSaidaColaboradorExterna extends javax.swing.JInternalFra
             codLanc = conecta.rs.getString("IdLanc");
         } catch (SQLException ex) {
         }
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserP1E = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserP1E + "'");
+            conecta.rs.first();
+            codigoUserGroupP1E = conecta.rs.getInt("IdUsuario");
+            codigoGrupoP1E = conecta.rs.getInt("IdGrupo");
+            nomeGrupoP1E = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserP1E + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoP1E = conecta.rs.getInt("IdUsuario");
+            codAbrirP1E = conecta.rs.getInt("Abrir");
+            codIncluirP1E = conecta.rs.getInt("Incluir");
+            codAlterarP1E = conecta.rs.getInt("Alterar");
+            codExcluirP1E = conecta.rs.getInt("Excluir");
+            codGravarP1E = conecta.rs.getInt("Gravar");
+            codConsultarP1E = conecta.rs.getInt("Consultar");
+            nomeTelaP1E = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }
