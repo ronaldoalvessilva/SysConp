@@ -43,7 +43,7 @@ public class TelaFotoVisitaDiversasExterna extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jFotoInternoCrc = new javax.swing.JLabel();
+        FotoVisitasDiversas = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("...::: Foto Visita Diversas :::...");
@@ -56,14 +56,14 @@ public class TelaFotoVisitaDiversasExterna extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jFotoInternoCrc, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+                .addComponent(FotoVisitasDiversas, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jFotoInternoCrc, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
+                .addComponent(FotoVisitasDiversas, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -162,7 +162,7 @@ public class TelaFotoVisitaDiversasExterna extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jFotoInternoCrc;
+    private javax.swing.JLabel FotoVisitasDiversas;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 
@@ -172,11 +172,20 @@ public class TelaFotoVisitaDiversasExterna extends javax.swing.JDialog {
             conecta.executaSQL("SELECT * FROM VISITASDIVERSAS WHERE IdVisita='" + jIDVisita.getText() + "'");
             conecta.rs.first();
             caminhoFoto = conecta.rs.getString("FotoVisita");
-            // Capturando foto                
-            javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFoto);
-            jFotoInternoCrc.setIcon(i);
-            jFotoInternoCrc.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoCrc.getWidth(), jFotoInternoCrc.getHeight(), Image.SCALE_DEFAULT)));
-            //
+            if (caminhoFoto != null) {
+                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFoto);
+                FotoVisitasDiversas.setIcon(i);
+                FotoVisitasDiversas.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoVisitasDiversas.getWidth(), FotoVisitasDiversas.getHeight(), Image.SCALE_DEFAULT)));
+            }
+            // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+            byte[] img2Bytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteVI"));
+            if (img2Bytes != null) {
+                ImageIcon pic2 = null;
+                pic2 = new ImageIcon(img2Bytes);
+                Image scaled2 = pic2.getImage().getScaledInstance(FotoVisitasDiversas.getWidth(), FotoVisitasDiversas.getHeight(), Image.SCALE_DEFAULT);
+                ImageIcon icon2 = new ImageIcon(scaled2);
+                FotoVisitasDiversas.setIcon(icon2);
+            }
         } catch (Exception e) {
         }
         conecta.desconecta();
