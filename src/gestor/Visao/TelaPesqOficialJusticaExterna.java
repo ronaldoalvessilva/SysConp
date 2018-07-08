@@ -8,7 +8,6 @@ package gestor.Visao;
 import gestor.Dao.*;
 import static gestor.Visao.TelaEntradaSaidaOficialJusticaExterna.jNomeOficialJustica;
 import static gestor.Visao.TelaEntradaSaidaOficialJusticaExterna.jBtZoonAdvogadoDepartamento;
-import static gestor.Visao.TelaEntradaSaidaOficialJusticaExterna.jFotoAdvogado;
 import static gestor.Visao.TelaEntradaSaidaOficialJusticaExterna.jIdOficial;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -18,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import static gestor.Visao.TelaEntradaSaidaOficialJusticaExterna.jFotoOficialJustica;
 
 /**
  *
@@ -216,9 +216,20 @@ public class TelaPesqOficialJusticaExterna extends javax.swing.JInternalFrame {
                 jIdOficial.setText(String.valueOf(conecta.rs.getInt("IdOficial")));
                 jNomeOficialJustica.setText(conecta.rs.getString("NomeOficial"));
                 caminho = conecta.rs.getString("FotoOficial");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                jFotoAdvogado.setIcon(i);
-                jFotoAdvogado.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoAdvogado.getWidth(), jFotoAdvogado.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    jFotoOficialJustica.setIcon(i);
+                    jFotoOficialJustica.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoOficialJustica.getWidth(), jFotoOficialJustica.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] img2Bytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteOF"));
+                if (img2Bytes != null) {
+                    ImageIcon pic2 = null;
+                    pic2 = new ImageIcon(img2Bytes);
+                    Image scaled2 = pic2.getImage().getScaledInstance(jFotoOficialJustica.getWidth(), jFotoOficialJustica.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon2 = new ImageIcon(scaled2);
+                    jFotoOficialJustica.setIcon(icon2);
+                }
                 jBtZoonAdvogadoDepartamento.setEnabled(true);
                 conecta.desconecta();
             } catch (SQLException ex) {
