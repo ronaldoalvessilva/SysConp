@@ -149,16 +149,10 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jPanel20 = new javax.swing.JPanel();
         jLabel35 = new javax.swing.JLabel();
         jFotosWebCamVisitasInternos = new javax.swing.JTextField();
-        jPanel21 = new javax.swing.JPanel();
-        jLabel37 = new javax.swing.JLabel();
-        jLabel38 = new javax.swing.JLabel();
-        jLabel39 = new javax.swing.JLabel();
-        jComboBoxMedicos = new javax.swing.JComboBox();
-        jComboBoxEnfermeiros = new javax.swing.JComboBox();
-        jComboBoxTecnicos = new javax.swing.JComboBox();
         jPanel22 = new javax.swing.JPanel();
         jLabel34 = new javax.swing.JLabel();
         jFotosWebCamInternos = new javax.swing.JTextField();
+        jPanel27 = new javax.swing.JPanel();
         jPanel23 = new javax.swing.JPanel();
         jPanel24 = new javax.swing.JPanel();
         jLabel40 = new javax.swing.JLabel();
@@ -180,6 +174,14 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jNumeroVersao = new javax.swing.JFormattedTextField();
         jLabel48 = new javax.swing.JLabel();
         jCaminhoExecutavelAntigo = new javax.swing.JTextField();
+        jPanel26 = new javax.swing.JPanel();
+        jPanel21 = new javax.swing.JPanel();
+        jLabel37 = new javax.swing.JLabel();
+        jLabel38 = new javax.swing.JLabel();
+        jLabel39 = new javax.swing.JLabel();
+        jComboBoxMedicos = new javax.swing.JComboBox();
+        jComboBoxEnfermeiros = new javax.swing.JComboBox();
+        jComboBoxTecnicos = new javax.swing.JComboBox();
         jPanel3 = new javax.swing.JPanel();
         jBtAlterar = new javax.swing.JButton();
         jBtSalvar = new javax.swing.JButton();
@@ -1063,7 +1065,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                     .addComponent(jFotosWebCamVisitasInternos)
                     .addGroup(jPanel20Layout.createSequentialGroup()
                         .addComponent(jLabel35)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 439, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel20Layout.setVerticalGroup(
@@ -1073,73 +1075,6 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jFotosWebCamVisitasInternos, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 5, Short.MAX_VALUE))
-        );
-
-        jPanel21.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Controle Biometria na Enfermaria", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
-
-        jLabel37.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel37.setText("Habilita/Desabilita Controle Biometrico nos Atendimentos da Enfermaria - (MÉDICOS/PSI):");
-
-        jLabel38.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel38.setText("Habilita/Desabilita Controle Biometrico nos Atendimentos da Enfermaria - (ENFERMEIROS):");
-
-        jLabel39.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel39.setText("Habilita/Desabilita Controle Biometrico nos Atendimentos da Enfermaria - TÉCNICOS ENFE:");
-
-        jComboBoxMedicos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxMedicos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
-        jComboBoxMedicos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jComboBoxMedicos.setEnabled(false);
-
-        jComboBoxEnfermeiros.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxEnfermeiros.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
-        jComboBoxEnfermeiros.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jComboBoxEnfermeiros.setEnabled(false);
-
-        jComboBoxTecnicos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxTecnicos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
-        jComboBoxTecnicos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jComboBoxTecnicos.setEnabled(false);
-
-        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
-        jPanel21.setLayout(jPanel21Layout);
-        jPanel21Layout.setHorizontalGroup(
-            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel21Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel21Layout.createSequentialGroup()
-                        .addComponent(jLabel37)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxMedicos, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel21Layout.createSequentialGroup()
-                        .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel38)
-                            .addComponent(jLabel39))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBoxTecnicos, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBoxEnfermeiros, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap())
-        );
-
-        jPanel21Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jComboBoxEnfermeiros, jComboBoxMedicos, jComboBoxTecnicos});
-
-        jPanel21Layout.setVerticalGroup(
-            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel21Layout.createSequentialGroup()
-                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel37)
-                    .addComponent(jComboBoxMedicos, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel38)
-                    .addComponent(jComboBoxEnfermeiros, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel39)
-                    .addComponent(jComboBoxTecnicos, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jPanel22.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Fotos WebCam Internos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 153, 0))); // NOI18N
@@ -1172,6 +1107,19 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addGap(0, 7, Short.MAX_VALUE))
         );
 
+        jPanel27.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        javax.swing.GroupLayout jPanel27Layout = new javax.swing.GroupLayout(jPanel27);
+        jPanel27.setLayout(jPanel27Layout);
+        jPanel27Layout.setHorizontalGroup(
+            jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel27Layout.setVerticalGroup(
+            jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
         jPanel19.setLayout(jPanel19Layout);
         jPanel19Layout.setHorizontalGroup(
@@ -1180,8 +1128,8 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel19Layout.setVerticalGroup(
@@ -1190,8 +1138,8 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -1391,6 +1339,95 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         );
 
         jTabbedPane1.addTab("Diversos", jPanel23);
+
+        jPanel21.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Controle Biometria na Enfermaria - Atendimentos/Evolução", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
+
+        jLabel37.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel37.setText("Habilita/Desabilita Controle Biometrico nos Atendimentos da Enfermaria - (MÉDICOS/PSI):");
+        jLabel37.setToolTipText("Habilita/Desabilita Controle Biometrico nos Atendimentos da Enfermaria - (MÉDICOS/PSI):");
+
+        jLabel38.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel38.setText("Habilita/Desabilita Controle Biometrico nos Atendimentos da Enfermaria - (ENFERMEIROS):");
+
+        jLabel39.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel39.setText("Habilita/Desabilita Controle Biometrico nos Atendimentos da Enfermaria - TÉCNICOS ENFE:");
+
+        jComboBoxMedicos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxMedicos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
+        jComboBoxMedicos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxMedicos.setEnabled(false);
+
+        jComboBoxEnfermeiros.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxEnfermeiros.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
+        jComboBoxEnfermeiros.setToolTipText("Habilita/Desabilita Controle Biometrico nos Atendimentos da Enfermaria - (ENFERMEIROS):");
+        jComboBoxEnfermeiros.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxEnfermeiros.setEnabled(false);
+
+        jComboBoxTecnicos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxTecnicos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
+        jComboBoxTecnicos.setToolTipText("Habilita/Desabilita Controle Biometrico nos Atendimentos da Enfermaria - TÉCNICOS ENFE:");
+        jComboBoxTecnicos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxTecnicos.setEnabled(false);
+
+        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
+        jPanel21.setLayout(jPanel21Layout);
+        jPanel21Layout.setHorizontalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel21Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel21Layout.createSequentialGroup()
+                        .addComponent(jLabel37)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxMedicos, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel21Layout.createSequentialGroup()
+                        .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel38)
+                            .addComponent(jLabel39))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBoxTecnicos, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxEnfermeiros, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
+        );
+
+        jPanel21Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jComboBoxEnfermeiros, jComboBoxMedicos, jComboBoxTecnicos});
+
+        jPanel21Layout.setVerticalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel21Layout.createSequentialGroup()
+                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel37)
+                    .addComponent(jComboBoxMedicos, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel38)
+                    .addComponent(jComboBoxEnfermeiros, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel39)
+                    .addComponent(jComboBoxTecnicos, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel26Layout = new javax.swing.GroupLayout(jPanel26);
+        jPanel26.setLayout(jPanel26Layout);
+        jPanel26Layout.setHorizontalGroup(
+            jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel26Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel26Layout.setVerticalGroup(
+            jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel26Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(142, 142, 142))
+        );
+
+        jTabbedPane1.addTab("Enfermaria", jPanel26);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
 
@@ -1713,6 +1750,8 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel23;
     private javax.swing.JPanel jPanel24;
     private javax.swing.JPanel jPanel25;
+    private javax.swing.JPanel jPanel26;
+    private javax.swing.JPanel jPanel27;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -1986,6 +2025,10 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jFotosWebCamColaboradores.setEnabled(!true);
         jFotosWebCamInternos.setEnabled(!true);
         jFotosWebCamVisitasInternos.setEnabled(!true);
+        //
+        jComboBoxMedicos.setEnabled(!true);
+        jComboBoxEnfermeiros.setEnabled(!true);
+        jComboBoxTecnicos.setEnabled(!true);        
         //
         jComboBoxCarcereFem.setEnabled(!true);
         jLocalPDF_P1.setEnabled(!true);
