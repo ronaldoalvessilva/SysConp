@@ -63,6 +63,7 @@ public class TelaAcessoBiometriaColaboradoresPortariaExterna extends javax.swing
     String caminhoBiometria3 = "";
     // PARA GRAVAR NO BANCO DE DADOS
     public static byte[] pDigitalCapturada = null;
+    public static byte[] imagemFrenteCola = null;
     // PESQUISA PARA TRAZER AS VISITAS ATIVAS E COM BIOMETRIA CADASTRADA   
     String pVisita = "";
     String statusVisita = "Ativo";
@@ -798,10 +799,20 @@ public class TelaAcessoBiometriaColaboradoresPortariaExterna extends javax.swing
                         jFuncaoColaborador.setText(dd.getFuncao());
                         jDepartamento.setText(dd.getDepartamento());
                         caminhoFotoColaborador = dd.getFotoColaborador();
-                        javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoColaborador);
-                        jFotoColaborador.setIcon(a);
-                        jFotoColaborador.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_DEFAULT)));
-                        //
+                        if (caminhoFotoColaborador != null) {
+                            javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoColaborador);
+                            jFotoColaborador.setIcon(a);
+                            jFotoColaborador.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_DEFAULT)));
+                        }
+                        // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                        imagemFrenteCola = dd.getImagemFrenteOF();
+                        if (imagemFrenteCola != null) {
+                            ImageIcon pic2 = null;
+                            pic2 = new ImageIcon(imagemFrenteCola);
+                            Image scaled2 = pic2.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_DEFAULT);
+                            ImageIcon icon2 = new ImageIcon(scaled2);
+                            jFotoColaborador.setIcon(icon2);
+                        }
                         JOptionPane.showMessageDialog(null, "Digital capturada com sucesso !!!");
                         int idRetorno = dll.CIS_SDK_Biometrico_Finalizar();
                         return;
@@ -812,10 +823,20 @@ public class TelaAcessoBiometriaColaboradoresPortariaExterna extends javax.swing
                         jFuncaoColaborador.setText(dd.getFuncao());
                         jDepartamento.setText(dd.getDepartamento());
                         caminhoFotoColaborador = dd.getFotoColaborador();
-                        javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoColaborador);
-                        jFotoColaborador.setIcon(a);
-                        jFotoColaborador.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_DEFAULT)));
-                        //
+                        if (caminhoFotoColaborador != null) {
+                            javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoColaborador);
+                            jFotoColaborador.setIcon(a);
+                            jFotoColaborador.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_DEFAULT)));
+                        }
+                        // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                        imagemFrenteCola = dd.getImagemFrenteOF();
+                        if (imagemFrenteCola != null) {
+                            ImageIcon pic2 = null;
+                            pic2 = new ImageIcon(imagemFrenteCola);
+                            Image scaled2 = pic2.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_DEFAULT);
+                            ImageIcon icon2 = new ImageIcon(scaled2);
+                            jFotoColaborador.setIcon(icon2);
+                        }
                         JOptionPane.showMessageDialog(null, "Digital capturada com sucesso !!!");
                         int idRetorno = dll.CIS_SDK_Biometrico_Finalizar();
                         return;
@@ -826,10 +847,20 @@ public class TelaAcessoBiometriaColaboradoresPortariaExterna extends javax.swing
                         jFuncaoColaborador.setText(dd.getFuncao());
                         jDepartamento.setText(dd.getDepartamento());
                         caminhoFotoColaborador = dd.getFotoColaborador();
-                        javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoColaborador);
-                        jFotoColaborador.setIcon(a);
-                        jFotoColaborador.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_DEFAULT)));
-                        //
+                        if (caminhoFotoColaborador != null) {
+                            javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoColaborador);
+                            jFotoColaborador.setIcon(a);
+                            jFotoColaborador.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_DEFAULT)));
+                        }
+                        // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                        imagemFrenteCola = dd.getImagemFrenteOF();
+                        if (imagemFrenteCola != null) {
+                            ImageIcon pic2 = null;
+                            pic2 = new ImageIcon(imagemFrenteCola);
+                            Image scaled2 = pic2.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_DEFAULT);
+                            ImageIcon icon2 = new ImageIcon(scaled2);
+                            jFotoColaborador.setIcon(icon2);
+                        }
                         JOptionPane.showMessageDialog(null, "Digital capturada com sucesso !!!");
                         int idRetorno = dll.CIS_SDK_Biometrico_Finalizar();
                         return;
@@ -840,10 +871,20 @@ public class TelaAcessoBiometriaColaboradoresPortariaExterna extends javax.swing
                         jFuncaoColaborador.setText(dd.getFuncao());
                         jDepartamento.setText(dd.getDepartamento());
                         caminhoFotoColaborador = dd.getFotoColaborador();
-                        javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoColaborador);
-                        jFotoColaborador.setIcon(a);
-                        jFotoColaborador.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_DEFAULT)));
-                        //
+                        if (caminhoFotoColaborador != null) {
+                            javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoColaborador);
+                            jFotoColaborador.setIcon(a);
+                            jFotoColaborador.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_DEFAULT)));
+                        }
+                        // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                        imagemFrenteCola = dd.getImagemFrenteOF();
+                        if (imagemFrenteCola != null) {
+                            ImageIcon pic2 = null;
+                            pic2 = new ImageIcon(imagemFrenteCola);
+                            Image scaled2 = pic2.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_DEFAULT);
+                            ImageIcon icon2 = new ImageIcon(scaled2);
+                            jFotoColaborador.setIcon(icon2);
+                        }
                         JOptionPane.showMessageDialog(null, "Digital capturada com sucesso !!!");
                         int idRetorno = dll.CIS_SDK_Biometrico_Finalizar();
                         return;
@@ -930,7 +971,7 @@ public class TelaAcessoBiometriaColaboradoresPortariaExterna extends javax.swing
     };            
     
     // -----------------------------------------------------------------------------
-    public void corCampos() {       
+    public void corCampos() {
         jIdColaborador.setBackground(Color.white);
         jNomeColaborador.setBackground(Color.white);
         jFuncaoColaborador.setBackground(Color.white);
@@ -962,7 +1003,7 @@ public class TelaAcessoBiometriaColaboradoresPortariaExterna extends javax.swing
         jNomeColaborador.setText("");
         jFuncaoColaborador.setText("");
         jDepartamento.setText("");
-        jFotoColaborador.setIcon(null);       
+        jFotoColaborador.setIcon(null);
         jDataEntrada.setDate(null);
         jHorarioEntrada.setText("");
         //       
@@ -979,7 +1020,7 @@ public class TelaAcessoBiometriaColaboradoresPortariaExterna extends javax.swing
         jNomeColaborador.setText("");
         jFuncaoColaborador.setText("");
         jDepartamento.setText("");
-        jFotoColaborador.setIcon(null);        
+        jFotoColaborador.setIcon(null);
         jDataEntrada.setDate(null);
         jHorarioEntrada.setText("");
         //
