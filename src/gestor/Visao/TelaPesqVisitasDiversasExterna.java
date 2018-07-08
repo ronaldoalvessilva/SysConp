@@ -216,10 +216,22 @@ public class TelaPesqVisitasDiversasExterna extends javax.swing.JInternalFrame {
                 conecta.rs.first();
                 jIDVisita.setText(String.valueOf(conecta.rs.getInt("IdVisita")));
                 jNomeVisitante.setText(conecta.rs.getString("NomeVisita"));
+                // Capturando foto
                 caminho = conecta.rs.getString("FotoVisita");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                FotoVisitasDiversas.setIcon(i);
-                FotoVisitasDiversas.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoVisitasDiversas.getWidth(), FotoVisitasDiversas.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    FotoVisitasDiversas.setIcon(i);
+                    FotoVisitasDiversas.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoVisitasDiversas.getWidth(), FotoVisitasDiversas.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] img2Bytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteVI"));
+                if (img2Bytes != null) {
+                    ImageIcon pic2 = null;
+                    pic2 = new ImageIcon(img2Bytes);
+                    Image scaled2 = pic2.getImage().getScaledInstance(FotoVisitasDiversas.getWidth(), FotoVisitasDiversas.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon2 = new ImageIcon(scaled2);
+                    FotoVisitasDiversas.setIcon(icon2);
+                }
                 jBtZoonVisitaDiversas.setEnabled(true);
                 conecta.desconecta();
             } catch (SQLException ex) {
@@ -241,7 +253,7 @@ public class TelaPesqVisitasDiversasExterna extends javax.swing.JInternalFrame {
         if (jNomeVisita.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe um nome ou parte do nome para pesquisar.");
             jNomeVisita.requestFocus();
-        } else {           
+        } else {
             buscarVisitas("SELECT * FROM VISITASDIVERSAS "
                     + "WHERE NomeVisita LIKE'%" + jNomeVisita.getText() + "%' "
                     + "AND TipoVisita!='" + statusVisita + "'");
@@ -251,7 +263,7 @@ public class TelaPesqVisitasDiversasExterna extends javax.swing.JInternalFrame {
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
         flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {            
+        if (evt.getStateChange() == evt.SELECTED) {
             this.buscarVisitas("SELECT * FROM VISITASDIVERSAS "
                     + "WHERE TipoVisita!='" + statusVisita + "'");
         } else {
