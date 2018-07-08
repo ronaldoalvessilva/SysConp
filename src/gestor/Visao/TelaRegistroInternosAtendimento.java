@@ -86,6 +86,8 @@ public class TelaRegistroInternosAtendimento extends javax.swing.JInternalFrame 
     String idRegistro = "";
     String DataRegistro = "";
     int codigoDepto = 0;
+    //
+    String pImpressao = "Não";
 
     /**
      * Creates new form TelaRegistroInternosAtendimento
@@ -740,6 +742,7 @@ public class TelaRegistroInternosAtendimento extends javax.swing.JInternalFrame 
                     objRegAtend.setHorario(jHorarioSaidaEntrada.getText());
                     objRegAtend.setAssinaturaDigital(pDigitalCapturada);
                     objRegAtend.setAtendido(atendido);
+                    objRegAtend.setImpressaoAuto(pImpressao);
                     control.incluirRegAtend(objRegAtend);
                     buscarRegistro();
                     objLog();
@@ -852,7 +855,8 @@ public class TelaRegistroInternosAtendimento extends javax.swing.JInternalFrame 
                 + "INNER JOIN PRONTUARIOSCRC "
                 + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                 + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInternoOdonto.getText() + "%' "
-                + "AND IdDepartamento='" + codigoDepto + "'");
+                + "AND IdDepartamento='" + codigoDepto + "'"
+                + "AND Impresso='" + pImpressao + "'");
     }//GEN-LAST:event_jBtPesqNomeInternoActionPerformed
 
     private void jBtIdPesqAtendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIdPesqAtendActionPerformed
@@ -862,7 +866,8 @@ public class TelaRegistroInternosAtendimento extends javax.swing.JInternalFrame 
                 + "INNER JOIN PRONTUARIOSCRC "
                 + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                 + "WHERE REGISTRO_ATENDIMENTO_INTERNO_PSP.IdReg='" + jIDPesqAtend.getText() + "' "
-                + "AND IdDepartamento='" + codigoDepto + "'");
+                + "AND IdDepartamento='" + codigoDepto + "'"
+                + "AND Impresso='" + pImpressao + "'");
     }//GEN-LAST:event_jBtIdPesqAtendActionPerformed
 
     private void jBtPesqDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDataActionPerformed
@@ -887,7 +892,8 @@ public class TelaRegistroInternosAtendimento extends javax.swing.JInternalFrame 
                             + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                             + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
                             + "AND '" + dataFinal + "' "
-                            + "AND IdDepartamento='" + codigoDepto + "'");
+                            + "AND IdDepartamento='" + codigoDepto + "'"
+                            + "AND Impresso='" + pImpressao + "'");
                 }
             }
         }
@@ -900,7 +906,8 @@ public class TelaRegistroInternosAtendimento extends javax.swing.JInternalFrame 
             this.preencherTabelaRegistros("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "AND IdDepartamento='" + codigoDepto + "'");
+                    + "AND IdDepartamento='" + codigoDepto + "' "
+                    + "AND Impresso='" + pImpressao + "'");
         } else {
             count = 0;
             jtotalRegistros.setText("");
@@ -1457,7 +1464,7 @@ public class TelaRegistroInternosAtendimento extends javax.swing.JInternalFrame 
         //
         jTabelaRegistroInterno.getColumnModel().getColumn(0).setCellRenderer(centralizado);
         jTabelaRegistroInterno.getColumnModel().getColumn(2).setCellRenderer(centralizado);
-    }    
+    }
 
     public void objLog() {
         objLogSys.setDataMov(dataModFinal);
