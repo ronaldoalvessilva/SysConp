@@ -43,6 +43,15 @@ import java.io.IOException;
 import com.lowagie.text.*;
 import com.lowagie.text.pdf.PdfWriter;
 import gestor.Controle.ControleOcorrenciasPortariaExterna;
+import static gestor.Visao.TelaModuloPortariaExterna.codAlterarP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.codExcluirP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.codGravarP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.codIncluirP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.codUserAcessoP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.codigoUserP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.nomeGrupoP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.nomeTelaP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.telaOcorrenciaManuP1E;
 import java.io.BufferedOutputStream;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -885,111 +894,127 @@ public class TelaOcorrenciaPortariaExterna extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        loadFont();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        //Impedir que a janela seja fechada pelo X 
-        setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
-    }//GEN-LAST:event_jBtNovoActionPerformed
-
-    private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
-        // TODO add your handling code here:
-        objOcorr.setStatusLanc(jStatusOcorrencia.getText());
-        if (jStatusOcorrencia.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa ocorrência não poderá ser alterado, o mesmo encontra-se FINALIZADO");
-        } else {
-            acao = 2;
-            Alterar();
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaOcorrenciaManuP1E) && codIncluirP1E == 1) {
+            acao = 1;
+            Novo();
             loadFont();
             corCampos();
-            statusMov = "Alterou";
+            statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
             //Impedir que a janela seja fechada pelo X 
             setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
+    }//GEN-LAST:event_jBtNovoActionPerformed
+
+    private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
+        // TODO add your handling code here:
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaOcorrenciaManuP1E) && codAlterarP1E == 1) {
+            objOcorr.setStatusLanc(jStatusOcorrencia.getText());
+            if (jStatusOcorrencia.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa ocorrência não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                Alterar();
+                loadFont();
+                corCampos();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                //Impedir que a janela seja fechada pelo X 
+                setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        objOcorr.setStatusLanc(jStatusOcorrencia.getText());
-        if (jStatusOcorrencia.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa ocorrência não poderá ser alterado, o mesmo encontra-se FINALIZADO");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objOcorr.setIdLanc(Integer.parseInt(jIdOcorrencia.getText()));
-                control.excluirOcorrenciaP1E(objOcorr);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                Excluir();
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaOcorrenciaManuP1E) && codExcluirP1E == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objOcorr.setStatusLanc(jStatusOcorrencia.getText());
+            if (jStatusOcorrencia.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa ocorrência não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objOcorr.setIdLanc(Integer.parseInt(jIdOcorrencia.getText()));
+                    control.excluirOcorrenciaP1E(objOcorr);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    Excluir();
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataOcorrencia.getDate() == null) {
-            jDataOcorrencia.requestFocus();
-            jDataOcorrencia.setBackground(Color.red);
-            JOptionPane.showMessageDialog(rootPane, "Informe a data da Ocorrência.");
-        } else {
-            if (jTituloOcorrencia.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe o titulo da Ocorrência.");
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaOcorrenciaManuP1E) && codGravarP1E == 1) {
+            if (jDataOcorrencia.getDate() == null) {
+                jDataOcorrencia.requestFocus();
+                jDataOcorrencia.setBackground(Color.red);
+                JOptionPane.showMessageDialog(rootPane, "Informe a data da Ocorrência.");
             } else {
-                objOcorr.setStatusLanc(statusEntrada);
-                objOcorr.setDataLanc(jDataOcorrencia.getDate());
-                objOcorr.setTitulo(jTituloOcorrencia.getText());
-                objOcorr.setTextoArea(jCorpoTextoOcorrencia.getText());
-                objOcorr.setFonte((String) jComboBoxCorFonte.getSelectedItem());
-                objOcorr.setTamanho((String) jComboBoxSize.getSelectedItem());
-                objOcorr.setBtesq(pBtEsq);
-                objOcorr.setBtCen(pBtCen);
-                objOcorr.setBtDir(pBtDir);
-                objOcorr.setBtJus(pBtJus);
-                if (acao == 1) {
-                    objOcorr.setUsuarioInsert(nameUser);
-                    objOcorr.setDataInsert(jDataSistema.getText());
-                    objOcorr.setHorarioInsert(jHoraSistema.getText());
-                    control.incluirOcorrenciaP1E(objOcorr);
-                    buscarID();
-                    Salvar();
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja continuar digitando a ocorrência?", "Confirmação",
-                            JOptionPane.YES_NO_OPTION);
-                    if (resposta == JOptionPane.YES_OPTION) {
-                        Alterar();
-                        acao = 2;
+                if (jTituloOcorrencia.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe o titulo da Ocorrência.");
+                } else {
+                    objOcorr.setStatusLanc(statusEntrada);
+                    objOcorr.setDataLanc(jDataOcorrencia.getDate());
+                    objOcorr.setTitulo(jTituloOcorrencia.getText());
+                    objOcorr.setTextoArea(jCorpoTextoOcorrencia.getText());
+                    objOcorr.setFonte((String) jComboBoxCorFonte.getSelectedItem());
+                    objOcorr.setTamanho((String) jComboBoxSize.getSelectedItem());
+                    objOcorr.setBtesq(pBtEsq);
+                    objOcorr.setBtCen(pBtCen);
+                    objOcorr.setBtDir(pBtDir);
+                    objOcorr.setBtJus(pBtJus);
+                    if (acao == 1) {
+                        objOcorr.setUsuarioInsert(nameUser);
+                        objOcorr.setDataInsert(jDataSistema.getText());
+                        objOcorr.setHorarioInsert(jHoraSistema.getText());
+                        control.incluirOcorrenciaP1E(objOcorr);
+                        buscarID();
+                        Salvar();
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        int resposta = JOptionPane.showConfirmDialog(this, "Deseja continuar digitando a ocorrência?", "Confirmação",
+                                JOptionPane.YES_NO_OPTION);
+                        if (resposta == JOptionPane.YES_OPTION) {
+                            Alterar();
+                            acao = 2;
+                        }
                     }
-                }
-                if (acao == 2) {
-                    objOcorr.setUsuarioUp(nameUser);
-                    objOcorr.setDataUp(jDataSistema.getText());
-                    objOcorr.setHorarioUp(jHoraSistema.getText());
-                    objOcorr.setIdLanc(Integer.valueOf(jIdOcorrencia.getText()));
-                    control.alterarOcorrenciaP1E(objOcorr);
-                    Salvar();
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja continuar digitando a ocorrência?", "Confirmação",
-                            JOptionPane.YES_NO_OPTION);
-                    if (resposta == JOptionPane.YES_OPTION) {
-                        Alterar();
+                    if (acao == 2) {
+                        objOcorr.setUsuarioUp(nameUser);
+                        objOcorr.setDataUp(jDataSistema.getText());
+                        objOcorr.setHorarioUp(jHoraSistema.getText());
+                        objOcorr.setIdLanc(Integer.valueOf(jIdOcorrencia.getText()));
+                        control.alterarOcorrenciaP1E(objOcorr);
+                        Salvar();
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        int resposta = JOptionPane.showConfirmDialog(this, "Deseja continuar digitando a ocorrência?", "Confirmação",
+                                JOptionPane.YES_NO_OPTION);
+                        if (resposta == JOptionPane.YES_OPTION) {
+                            Alterar();
+                        }
                     }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
