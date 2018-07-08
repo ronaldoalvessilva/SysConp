@@ -1042,9 +1042,11 @@ public class TelaVeiculos extends javax.swing.JInternalFrame {
                 jEstado.setText(conecta.rs.getString("EstadoVeiculo"));
                 // Capturando foto frente
                 caminhoFotoFrente = conecta.rs.getString("FotoFrente");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFotoFrente);
-                jFotoVeiculoUniFrente.setIcon(i);
-                jFotoVeiculoUniFrente.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoVeiculoUniFrente.getWidth(), jFotoVeiculoUniFrente.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminhoFotoFrente != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFotoFrente);
+                    jFotoVeiculoUniFrente.setIcon(i);
+                    jFotoVeiculoUniFrente.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoVeiculoUniFrente.getWidth(), jFotoVeiculoUniFrente.getHeight(), Image.SCALE_DEFAULT)));
+                }
                 // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
                 byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteVE"));
                 if (imgBytes != null) {
