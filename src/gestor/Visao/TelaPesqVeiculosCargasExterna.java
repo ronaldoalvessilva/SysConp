@@ -241,18 +241,31 @@ public class TelaPesqVeiculosCargasExterna extends javax.swing.JInternalFrame {
             jIdVeiculo.setText(idVeiculo);
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM VEICULOS WHERE ModeloVeiculo='" + jPesqModeloVeiculo.getText() + "'AND IdVeiculo='" + idVeiculo + "'");
+                conecta.executaSQL("SELECT * FROM VEICULOS "
+                        + "WHERE ModeloVeiculo='" + jPesqModeloVeiculo.getText() + "' "
+                        + "AND IdVeiculo='" + idVeiculo + "'");
                 conecta.rs.first();
                 // Tabela Veiculos
                 jIdVeiculo.setText(String.valueOf(conecta.rs.getInt("IdVeiculo")));
                 jModeloVeiculo.setText(conecta.rs.getString("ModeloVeiculo"));
                 jPlaca.setText(conecta.rs.getString("PlacaVeiculo"));
                 jMarcaVeiculo.setText(conecta.rs.getString("MarcaVeiculo"));
-                //
+                /// Capturando foto
                 caminhoVei = conecta.rs.getString("FotoFrente");
-                javax.swing.ImageIcon v = new javax.swing.ImageIcon(caminhoVei);
-                FotoVeiculoCargas.setIcon(v);
-                FotoVeiculoCargas.setIcon(new ImageIcon(v.getImage().getScaledInstance(FotoVeiculoCargas.getWidth(), FotoVeiculoCargas.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminhoVei != null) {
+                    javax.swing.ImageIcon v = new javax.swing.ImageIcon(caminhoVei);
+                    FotoVeiculoCargas.setIcon(v);
+                    FotoVeiculoCargas.setIcon(new ImageIcon(v.getImage().getScaledInstance(FotoVeiculoCargas.getWidth(), FotoVeiculoCargas.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] img2Bytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteVE"));
+                if (img2Bytes != null) {
+                    ImageIcon pic2 = null;
+                    pic2 = new ImageIcon(img2Bytes);
+                    Image scaled2 = pic2.getImage().getScaledInstance(FotoVeiculoCargas.getWidth(), FotoVeiculoCargas.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon2 = new ImageIcon(scaled2);
+                    FotoVeiculoCargas.setIcon(icon2);
+                }
                 conecta.desconecta();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por nome" + ex);
@@ -273,7 +286,7 @@ public class TelaPesqVeiculosCargasExterna extends javax.swing.JInternalFrame {
         if (jPesqModeloVeiculo.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe um nome ou parte do nome para pesquisar.");
             jPesqModeloVeiculo.requestFocus();
-        } else {            
+        } else {
             buscarVeiculos("SELECT * FROM VEICULOS WHERE ModeloVeiculo LIKE'%" + jPesqModeloVeiculo.getText() + "%'");
         }
     }//GEN-LAST:event_jBtPesqNomeVeiculoActionPerformed
@@ -281,7 +294,7 @@ public class TelaPesqVeiculosCargasExterna extends javax.swing.JInternalFrame {
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
         flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {            
+        if (evt.getStateChange() == evt.SELECTED) {
             this.buscarVeiculos("SELECT * FROM VEICULOS ORDER BY ModeloVeiculo");
         } else {
             limparTabela();
@@ -293,7 +306,7 @@ public class TelaPesqVeiculosCargasExterna extends javax.swing.JInternalFrame {
         if (jPlavaVeiculo.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe um nome ou parte do nome para pesquisar.");
             jPesqModeloVeiculo.requestFocus();
-        } else {            
+        } else {
             buscarVeiculos("SELECT * FROM VEICULOS WHERE PlacaVeiculo LIKE'%" + jPlavaVeiculo.getText() + "%'");
         }
     }//GEN-LAST:event_jBtPlacaVeiculoActionPerformed
