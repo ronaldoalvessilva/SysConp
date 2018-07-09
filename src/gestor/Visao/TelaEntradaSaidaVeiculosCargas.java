@@ -1703,7 +1703,7 @@ public class TelaEntradaSaidaVeiculosCargas extends javax.swing.JInternalFrame {
     private void jBtSalvarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarItemActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaEntradaSaidaESVCVP1);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaESVCVP1) && codExcluirP1 == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaESVCVP1) && codGravarP1 == 1) {
             horaEntradaEncontrada = "";
             horaSaidaEncontrado = "";
             if (jNomeAjudante.getText().equals("")) {
