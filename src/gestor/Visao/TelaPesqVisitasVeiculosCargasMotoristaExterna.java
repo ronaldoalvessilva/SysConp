@@ -220,10 +220,22 @@ public class TelaPesqVisitasVeiculosCargasMotoristaExterna extends javax.swing.J
                 jNomeMotorista.setText(conecta.rs.getString("NomeVisita"));
                 jRGMotorista.setText(conecta.rs.getString("RgVisita"));
                 jCPFMotorista.setText(conecta.rs.getString("CpfVisita"));
+                // Capturando foto
                 caminho = conecta.rs.getString("FotoVisita");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                FotoMotoristaCarga.setIcon(i);
-                FotoMotoristaCarga.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoMotoristaCarga.getWidth(), FotoMotoristaCarga.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    FotoMotoristaCarga.setIcon(i);
+                    FotoMotoristaCarga.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoMotoristaCarga.getWidth(), FotoMotoristaCarga.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteVD"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(FotoMotoristaCarga.getWidth(), FotoMotoristaCarga.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    FotoMotoristaCarga.setIcon(icon);
+                }
                 conecta.desconecta();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por nome" + ex);
@@ -244,7 +256,7 @@ public class TelaPesqVisitasVeiculosCargasMotoristaExterna extends javax.swing.J
         if (jPesqNomeVisita.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe um nome ou parte do nome para pesquisar.");
             jPesqNomeVisita.requestFocus();
-        } else {           
+        } else {
             buscarVisitas("SELECT * FROM VISITASDIVERSAS WHERE NomeVisita LIKE'%" + jPesqNomeVisita.getText() + "%'");
         }
     }//GEN-LAST:event_jBtPesqNomeActionPerformed
