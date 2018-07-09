@@ -250,10 +250,22 @@ public class TelaPesqVeiculosExterna extends javax.swing.JInternalFrame {
                 jPlaca.setText(conecta.rs.getString("PlacaVeiculo"));
                 jMarcaVeiculo.setText(conecta.rs.getString("MarcaVeiculo"));
                 //
+                // Capturando foto frente
                 caminhoVeiculo = conecta.rs.getString("FotoFrente");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoVeiculo);
-                jFotoVeiculoDiv.setIcon(i);
-                jFotoVeiculoDiv.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoVeiculoDiv.getWidth(), jFotoVeiculoDiv.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminhoVeiculo != null) {
+                    javax.swing.ImageIcon v = new javax.swing.ImageIcon(caminhoVeiculo);
+                    jFotoVeiculoDiv.setIcon(v);
+                    jFotoVeiculoDiv.setIcon(new ImageIcon(v.getImage().getScaledInstance(jFotoVeiculoDiv.getWidth(), jFotoVeiculoDiv.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] img2Bytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteVE"));
+                if (img2Bytes != null) {
+                    ImageIcon pic2 = null;
+                    pic2 = new ImageIcon(img2Bytes);
+                    Image scaled2 = pic2.getImage().getScaledInstance(jFotoVeiculoDiv.getWidth(), jFotoVeiculoDiv.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon2 = new ImageIcon(scaled2);
+                    jFotoVeiculoDiv.setIcon(icon2);
+                }
                 conecta.desconecta();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por nome" + ex);
@@ -274,7 +286,7 @@ public class TelaPesqVeiculosExterna extends javax.swing.JInternalFrame {
         if (jPesqModeloVeiculo.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe um nome ou parte do nome para pesquisar.");
             jPesqModeloVeiculo.requestFocus();
-        } else {            
+        } else {
             buscarVeiculos("SELECT * FROM VEICULOS WHERE ModeloVeiculo LIKE'%" + jPesqModeloVeiculo.getText() + "%'");
         }
     }//GEN-LAST:event_jBtPesqNomeVeiculoActionPerformed
@@ -282,7 +294,7 @@ public class TelaPesqVeiculosExterna extends javax.swing.JInternalFrame {
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
         flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {           
+        if (evt.getStateChange() == evt.SELECTED) {
             this.buscarVeiculos("SELECT * FROM VEICULOS ORDER BY ModeloVeiculo");
         } else {
             limparTabela();
