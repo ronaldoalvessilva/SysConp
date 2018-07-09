@@ -216,11 +216,22 @@ public class TelaPesqVisitasVeiculosCargasAjudanteExterna extends javax.swing.JI
                 jNomeAjudante.setText(conecta.rs.getString("NomeVisita"));
                 jRGAjudante.setText(conecta.rs.getString("RgVisita"));
                 jCPFAjudante.setText(conecta.rs.getString("CpfVisita"));
-                //
+                // Capturando foto
                 caminhoAju = conecta.rs.getString("FotoVisita");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoAju);
-                FotoAjudante.setIcon(i);
-                FotoAjudante.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoAjudante.getWidth(), FotoAjudante.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminhoAju != null) {
+                    javax.swing.ImageIcon j = new javax.swing.ImageIcon(caminhoAju);
+                    FotoAjudante.setIcon(j);
+                    FotoAjudante.setIcon(new ImageIcon(j.getImage().getScaledInstance(FotoAjudante.getWidth(), FotoAjudante.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] img3Bytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteVD"));
+                if (img3Bytes != null) {
+                    ImageIcon pic3 = null;
+                    pic3 = new ImageIcon(img3Bytes);
+                    Image scaled3 = pic3.getImage().getScaledInstance(FotoAjudante.getWidth(), FotoAjudante.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon3 = new ImageIcon(scaled3);
+                    FotoAjudante.setIcon(icon3);
+                }
                 conecta.desconecta();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por nome" + ex);
