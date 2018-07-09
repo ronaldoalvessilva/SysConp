@@ -218,9 +218,20 @@ public class TelaPesqVisitasVeiculosExterna extends javax.swing.JInternalFrame {
                 jCPF.setText(conecta.rs.getString("CpfVisita"));
                 //
                 caminhoVisita = conecta.rs.getString("FotoVisita");
-                javax.swing.ImageIcon v = new javax.swing.ImageIcon(caminhoVisita);
-                jFotoVisitaDiv.setIcon(v);
-                jFotoVisitaDiv.setIcon(new ImageIcon(v.getImage().getScaledInstance(jFotoVisitaDiv.getWidth(), jFotoVisitaDiv.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminhoVisita != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoVisita);
+                    jFotoVisitaDiv.setIcon(i);
+                    jFotoVisitaDiv.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoVisitaDiv.getWidth(), jFotoVisitaDiv.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteVD"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoVisitaDiv.getWidth(), jFotoVisitaDiv.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoVisitaDiv.setIcon(icon);
+                }
                 conecta.desconecta();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por nome" + ex);
