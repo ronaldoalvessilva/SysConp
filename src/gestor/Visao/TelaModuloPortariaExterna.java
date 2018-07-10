@@ -96,6 +96,7 @@ public class TelaModuloPortariaExterna extends javax.swing.JInternalFrame {
     private TelaInstituicaoReligiosaPortarias objInstRel = null;
     private TelaConsultaVisitaSocialReligiosa objConVisRel = null;
     private TelaConsultaRolVisitasReligiosas objConRolRel = null;
+    private TelaRegistroChegadaVisitasInternosPortariaExterna objRegChega = null;
     //
     String dataLanc;
     int codUsuario;
@@ -159,7 +160,9 @@ public class TelaModuloPortariaExterna extends javax.swing.JInternalFrame {
     public static String telaEntradaSaidaESVTManuP1E = "Movimentação:Entrada e Saida de Veiculos de Terceiro:Manutenção";
     public static String telaEntradaSaidaESVTVP1E = "Movimentação:Entrada e Saida de Veiculos de Terceiro:Veiculos e Visitantes";
     //
-    public static String telaOcorrenciaManuP1E = "Movimentação:Movimentação:Ocorrências Diárias:Manutenção";
+    public static String telaOcorrenciaManuP1E = "Movimentação:Ocorrências Diárias:Manutenção";
+    //
+    public static String telaRegistroChegadaPortExtManuP1E = "Movimentação:Registro Chegada Visita Portaria Externa:Manutenção";
     //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
@@ -252,6 +255,8 @@ public class TelaModuloPortariaExterna extends javax.swing.JInternalFrame {
         VeiculosCargasDescargas = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
         LivroOcorrencias = new javax.swing.JMenuItem();
+        jSeparator6 = new javax.swing.JPopupMenu.Separator();
+        RegistroChegadaVisitasInterno = new javax.swing.JMenuItem();
         Relatorios = new javax.swing.JMenu();
         RelatorioRolVisitas = new javax.swing.JMenuItem();
         RelatorioEntradaSaidaVistasInternos = new javax.swing.JMenuItem();
@@ -293,6 +298,8 @@ public class TelaModuloPortariaExterna extends javax.swing.JInternalFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/SISCONP 2.gif"))); // NOI18N
 
+        jPainelPortariaExterna.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout jPainelPortariaExternaLayout = new javax.swing.GroupLayout(jPainelPortariaExterna);
         jPainelPortariaExterna.setLayout(jPainelPortariaExternaLayout);
         jPainelPortariaExternaLayout.setHorizontalGroup(
@@ -305,7 +312,6 @@ public class TelaModuloPortariaExterna extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 551, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 47, Short.MAX_VALUE))
         );
-        jPainelPortariaExterna.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         Cadastros.setText("Cadastro");
 
@@ -499,6 +505,16 @@ public class TelaModuloPortariaExterna extends javax.swing.JInternalFrame {
             }
         });
         Movimentacao.add(LivroOcorrencias);
+        Movimentacao.add(jSeparator6);
+
+        RegistroChegadaVisitasInterno.setForeground(new java.awt.Color(204, 0, 0));
+        RegistroChegadaVisitasInterno.setText("Registro Chegada de Visitas de Internos");
+        RegistroChegadaVisitasInterno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegistroChegadaVisitasInternoActionPerformed(evt);
+            }
+        });
+        Movimentacao.add(RegistroChegadaVisitasInterno);
 
         jMenuBar2.add(Movimentacao);
 
@@ -1405,6 +1421,36 @@ public class TelaModuloPortariaExterna extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_InstituicaoReligiosaActionPerformed
 
+    private void RegistroChegadaVisitasInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistroChegadaVisitasInternoActionPerformed
+        // TODO add your handling code here:
+         if (objRegChega == null || objRegChega.isClosed()) {
+            objRegChega = new TelaRegistroChegadaVisitasInternosPortariaExterna();
+            jPainelPortariaExterna.add(objRegChega);
+            objRegChega.setVisible(true);
+        } else {
+            if (objRegChega.isVisible()) {
+                if (objRegChega.isIcon()) { // Se esta minimizado
+                    try {
+                        objRegChega.setIcon(false); // maximiniza
+                    } catch (PropertyVetoException ex) {
+                    }
+                } else {
+                    objRegChega.toFront(); // traz para frente
+                    objRegChega.pack();//volta frame
+                }
+            } else {
+                objRegChega = new TelaRegistroChegadaVisitasInternosPortariaExterna();
+                TelaModuloPortariaExterna.jPainelPortariaExterna.add(objRegChega);//adicona frame ao JDesktopPane
+                objRegChega.setVisible(true);
+            }
+        }
+        try {
+            objRegChega.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
+        }
+//        private TelaRegistroChegadaVisitasInternosPortariaExterna objRegChega = null;
+    }//GEN-LAST:event_RegistroChegadaVisitasInternoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromissos;
@@ -1420,6 +1466,7 @@ public class TelaModuloPortariaExterna extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem LivroOcorrencias;
     private javax.swing.JMenu Movimentacao;
     private javax.swing.JMenuItem OficialJusticaDepartamento;
+    private javax.swing.JMenuItem RegistroChegadaVisitasInterno;
     private javax.swing.JMenuItem RelatorioCadastroColaboradores;
     private javax.swing.JMenuItem RelatorioCadastroVeiculos;
     private javax.swing.JMenuItem RelatorioEntradaSaidaAdvogadosDepartamento;
@@ -1467,6 +1514,7 @@ public class TelaModuloPortariaExterna extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
+    private javax.swing.JPopupMenu.Separator jSeparator6;
     private javax.swing.JPopupMenu.Separator jSeparator9;
     // End of variables declaration//GEN-END:variables
 
