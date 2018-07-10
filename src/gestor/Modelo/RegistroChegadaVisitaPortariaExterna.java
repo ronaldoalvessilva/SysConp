@@ -33,11 +33,12 @@ public class RegistroChegadaVisitaPortariaExterna {
     private String horarioInsert;
     private String horarioUp;
     private int tipoOperacao;
+    private int ordemChegadaVisita;
 
     public RegistroChegadaVisitaPortariaExterna() {
     }
 
-    public RegistroChegadaVisitaPortariaExterna(int idRegVisita, String statusReg, Date DataReg, int idVisita, int idRol, String nomeVisita, int idInternoCrc, String nomeInterno, Date dataChegada, String horaChegada, byte[] assinaturaDigitalVisita, int tipoAssinatura, String motivoNaoAssinarDigital, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, int tipoOperacao) {
+    public RegistroChegadaVisitaPortariaExterna(int idRegVisita, String statusReg, Date DataReg, int idVisita, int idRol, String nomeVisita, int idInternoCrc, String nomeInterno, Date dataChegada, String horaChegada, byte[] assinaturaDigitalVisita, int tipoAssinatura, String motivoNaoAssinarDigital, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, int tipoOperacao, int ordemChegadaVisita) {
         this.idRegVisita = idRegVisita;
         this.statusReg = statusReg;
         this.DataReg = DataReg;
@@ -58,6 +59,7 @@ public class RegistroChegadaVisitaPortariaExterna {
         this.horarioInsert = horarioInsert;
         this.horarioUp = horarioUp;
         this.tipoOperacao = tipoOperacao;
+        this.ordemChegadaVisita = ordemChegadaVisita;
     }
 
     /**
@@ -339,5 +341,19 @@ public class RegistroChegadaVisitaPortariaExterna {
     public void setTipoOperacao(int tipoOperacao) {
         this.tipoOperacao = tipoOperacao;
     }
-    
+
+    /**
+     * @return the ordemChegadaVisita
+     */
+    public int getOrdemChegadaVisita() {
+        return ordemChegadaVisita;
+    }
+
+    /**
+     * @param ordemChegadaVisita the ordemChegadaVisita to set
+     */
+    public void setOrdemChegadaVisita(int ordemChegadaVisita) {
+        this.ordemChegadaVisita = ordemChegadaVisita;
+    }
+
 }
