@@ -1265,8 +1265,8 @@ public class TelaRegistroChegadaVisitasInternosPortariaExterna extends javax.swi
                     SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
                     dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                     dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
-                    popularTabelaNomeVisita("SELECT * FROM ENTRADASFAMILIAR "
-                            + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
+                    popularTabelaNomeVisita("SELECT * FROM REGISTRO_CHEGADA_VISITAS_INTERNOS_PORTARIA_EXTERNA "
+                            + "WHERE DataReg BETWEEN'" + dataInicial + "' "
                             + "AND'" + dataFinal + "'");
                 }
             }
