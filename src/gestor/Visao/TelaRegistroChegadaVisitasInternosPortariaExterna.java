@@ -104,7 +104,8 @@ public class TelaRegistroChegadaVisitasInternosPortariaExterna extends javax.swi
     public static String caminhoFotoVisita;
     public static String caminhoFotoInterno;
     String horarioSaidaBio = "00:00";
-    byte[] assinaturaVisita = null;
+    public static byte[] assinaturaVisita = null;
+    public static byte[] imagemFreteVisita = null;
     int codigoItem = 0;
     int tipoOperacao = 0;
     int ordemChegada = 0; //ORDEM DE REGISTRO E CHEGADA DA VISITA A PORTARIA
@@ -1665,10 +1666,20 @@ public class TelaRegistroChegadaVisitasInternosPortariaExterna extends javax.swi
                         jPavilhao.setText(dd.getPavilhao());
                         jCodigoVisita.setText(String.valueOf(dd.getIdVisita()));
                         caminhoFotoVisita = dd.getCaminhoFotoVisita();
-                        javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoVisita);
-                        jFotoVisita.setIcon(a);
-                        jFotoVisita.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT)));
-                        //
+                        if (caminhoFotoVisita != null) {
+                            javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoVisita);
+                            jFotoVisita.setIcon(a);
+                            jFotoVisita.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT)));
+                        }
+                        // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                        imagemFreteVisita = dd.getImagemFrenteVI();
+                        if (imagemFreteVisita != null) {
+                            ImageIcon pic = null;
+                            pic = new ImageIcon(imagemFreteVisita);
+                            Image scaled = pic.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT);
+                            ImageIcon icon = new ImageIcon(scaled);
+                            jFotoVisita.setIcon(icon);
+                        }
                         jGrauParentesco.setText(dd.getGrauParentesco());
                         jNomeVisitante.setText(dd.getNomeVisita());
                         JOptionPane.showMessageDialog(null, "Digital capturada com sucesso !!!");
@@ -1683,10 +1694,20 @@ public class TelaRegistroChegadaVisitasInternosPortariaExterna extends javax.swi
                         jPavilhao.setText(dd.getPavilhao());
                         jCodigoVisita.setText(String.valueOf(dd.getIdVisita()));
                         caminhoFotoVisita = dd.getCaminhoFotoVisita();
-                        javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoVisita);
-                        jFotoVisita.setIcon(a);
-                        jFotoVisita.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT)));
-                        //
+                        if (caminhoFotoVisita != null) {
+                            javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoVisita);
+                            jFotoVisita.setIcon(a);
+                            jFotoVisita.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT)));
+                        }
+                        // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                        imagemFreteVisita = dd.getImagemFrenteVI();
+                        if (imagemFreteVisita != null) {
+                            ImageIcon pic = null;
+                            pic = new ImageIcon(imagemFreteVisita);
+                            Image scaled = pic.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT);
+                            ImageIcon icon = new ImageIcon(scaled);
+                            jFotoVisita.setIcon(icon);
+                        }
                         jGrauParentesco.setText(dd.getGrauParentesco());
                         jNomeVisitante.setText(dd.getNomeVisita());
                         JOptionPane.showMessageDialog(null, "Digital capturada com sucesso !!!");
@@ -1701,10 +1722,20 @@ public class TelaRegistroChegadaVisitasInternosPortariaExterna extends javax.swi
                         jPavilhao.setText(dd.getPavilhao());
                         jCodigoVisita.setText(String.valueOf(dd.getIdVisita()));
                         caminhoFotoVisita = dd.getCaminhoFotoVisita();
-                        javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoVisita);
-                        jFotoVisita.setIcon(a);
-                        jFotoVisita.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT)));
-                        //
+                        if (caminhoFotoVisita != null) {
+                            javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoVisita);
+                            jFotoVisita.setIcon(a);
+                            jFotoVisita.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT)));
+                        }
+                        // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                        imagemFreteVisita = dd.getImagemFrenteVI();
+                        if (imagemFreteVisita != null) {
+                            ImageIcon pic = null;
+                            pic = new ImageIcon(imagemFreteVisita);
+                            Image scaled = pic.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT);
+                            ImageIcon icon = new ImageIcon(scaled);
+                            jFotoVisita.setIcon(icon);
+                        }
                         jGrauParentesco.setText(dd.getGrauParentesco());
                         jNomeVisitante.setText(dd.getNomeVisita());
                         JOptionPane.showMessageDialog(null, "Digital capturada com sucesso !!!");
@@ -1719,10 +1750,20 @@ public class TelaRegistroChegadaVisitasInternosPortariaExterna extends javax.swi
                         jPavilhao.setText(dd.getPavilhao());
                         jCodigoVisita.setText(String.valueOf(dd.getIdVisita()));
                         caminhoFotoVisita = dd.getCaminhoFotoVisita();
-                        javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoVisita);
-                        jFotoVisita.setIcon(a);
-                        jFotoVisita.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT)));
-                        //
+                        if (caminhoFotoVisita != null) {
+                            javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoVisita);
+                            jFotoVisita.setIcon(a);
+                            jFotoVisita.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT)));
+                        }
+                        // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                        imagemFreteVisita = dd.getImagemFrenteVI();
+                        if (imagemFreteVisita != null) {
+                            ImageIcon pic = null;
+                            pic = new ImageIcon(imagemFreteVisita);
+                            Image scaled = pic.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT);
+                            ImageIcon icon = new ImageIcon(scaled);
+                            jFotoVisita.setIcon(icon);
+                        }
                         jGrauParentesco.setText(dd.getGrauParentesco());
                         jNomeVisitante.setText(dd.getNomeVisita());
                         JOptionPane.showMessageDialog(null, "Digital capturada com sucesso !!!");
