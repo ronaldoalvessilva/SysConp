@@ -22,8 +22,19 @@ import gestor.Modelo.Digital;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.RegistroChegadaVisitaPortariaExterna;
 import gestor.Modelo.VisitaInterno;
-//import static gestor.Visao.TelaEntradaSaidaVisitasInternos.jIDlanc;
+import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPortariaExterna.codAbrirP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.codGravarP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.codIncluirP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.codUserAcessoP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.codigoUserP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.nomeGrupoP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.nomeTelaP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.telaRegistroChegadaPortExtBioP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.telaRegistroChegadaPortExtManuP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.telaRegistroChegadaPortExtPesqP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.telaRegistroChegadaPortExtRelP1E;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -32,11 +43,18 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableRowSorter;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRResultSetDataSource;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -58,11 +76,11 @@ public class TelaRegistroChegadaVisitasInternosPortariaExterna extends javax.swi
     String dataModFinal;
     String dataInicial;
     String dataFinal;
-    String dataRegistro;
-    String dataPesquisa;
+    String dataRegistro = "";
+    String dataPesquisa = "";
+    String dataRelatorio = "";
     String codLanc;
     String caminho, caminhoVisita;
-    int acao;
     int flag;
     int count1;
     // VARIVAEL PARA ARMAZENAR AS DIGITAIS DO BANCO DE DADOS
@@ -86,9 +104,10 @@ public class TelaRegistroChegadaVisitasInternosPortariaExterna extends javax.swi
     public static String caminhoFotoVisita;
     public static String caminhoFotoInterno;
     String horarioSaidaBio = "00:00";
-    byte[] assinaturaVisita;
+    byte[] assinaturaVisita = null;
     int codigoItem = 0;
     int tipoOperacao = 0;
+    int ordemChegada = 0; //ORDEM DE REGISTRO E CHEGADA DA VISITA A PORTARIA
 
     // CÓDIGO DA BIOMETRIA CIS FS-80H
     public interface CIS_SDK extends StdCallLibrary {
@@ -120,6 +139,7 @@ public class TelaRegistroChegadaVisitasInternosPortariaExterna extends javax.swi
     public TelaRegistroChegadaVisitasInternosPortariaExterna() {
         initComponents();
         corCampos();
+        formatarCampos();
         verificarVisitasBiometrica();
     }
 
@@ -204,11 +224,14 @@ public class TelaRegistroChegadaVisitasInternosPortariaExterna extends javax.swi
         jBtPesquisarVisita = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
+        jPanel12 = new javax.swing.JPanel();
+        jBtImpressao = new javax.swing.JButton();
+        jDataRelChegada = new com.toedter.calendar.JDateChooser();
 
         setClosable(true);
         setIconifiable(true);
         setTitle("...::: Registro de Chegada Visitas Internos {PORTARIA EXTERNA} :::...");
-        setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Biometria16Vermelho.png"))); // NOI18N
 
         jTabbedPane4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -337,6 +360,11 @@ public class TelaRegistroChegadaVisitasInternosPortariaExterna extends javax.swi
                 "Código", "Data", "Nome da Visita do Interno", "Grau Parentesco"
             }
         ));
+        jTabelaVisitasInternos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabelaVisitasInternosMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTabelaVisitasInternos);
         if (jTabelaVisitasInternos.getColumnModel().getColumnCount() > 0) {
             jTabelaVisitasInternos.getColumnModel().getColumn(0).setMinWidth(70);
@@ -416,14 +444,14 @@ public class TelaRegistroChegadaVisitasInternosPortariaExterna extends javax.swi
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGap(6, 6, 6))
         );
 
         jTabbedPane4.addTab("Listagem", jPanel1);
@@ -489,9 +517,6 @@ public class TelaRegistroChegadaVisitasInternosPortariaExterna extends javax.swi
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jRegimePenal, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -517,6 +542,9 @@ public class TelaRegistroChegadaVisitasInternosPortariaExterna extends javax.swi
                                 .addContainerGap())))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel5Layout.createSequentialGroup()
@@ -580,6 +608,7 @@ public class TelaRegistroChegadaVisitasInternosPortariaExterna extends javax.swi
 
         jHorarioEntrada.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jHorarioEntrada.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jHorarioEntrada.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jHorarioEntrada.setEnabled(false);
 
         jIdRol.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -700,7 +729,7 @@ public class TelaRegistroChegadaVisitasInternosPortariaExterna extends javax.swi
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -841,7 +870,7 @@ public class TelaRegistroChegadaVisitasInternosPortariaExterna extends javax.swi
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jFotoVisita, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jFotoVisita, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
         jPanel3Layout.setVerticalGroup(
@@ -905,14 +934,14 @@ public class TelaRegistroChegadaVisitasInternosPortariaExterna extends javax.swi
 
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(77, Short.MAX_VALUE)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jBtPesquisarVisita)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtIniciarLeitor)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtCancelarLeitura)
-                .addGap(28, 28, 28))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel7Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtCancelarLeitura, jBtIniciarLeitor, jBtPesquisarVisita});
@@ -928,15 +957,53 @@ public class TelaRegistroChegadaVisitasInternosPortariaExterna extends javax.swi
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+        );
+
+        jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Data da Chegada", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(204, 51, 0))); // NOI18N
+
+        jBtImpressao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jBtImpressao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/gtklp-icone-3770-16.png"))); // NOI18N
+        jBtImpressao.setText("Relatório Chegada");
+        jBtImpressao.setToolTipText("Impressão dos Registros de Chegada");
+        jBtImpressao.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBtImpressao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtImpressaoActionPerformed(evt);
+            }
+        });
+
+        jDataRelChegada.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jBtImpressao, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(jDataRelChegada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addComponent(jDataRelChegada, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jBtImpressao)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -945,97 +1012,111 @@ public class TelaRegistroChegadaVisitasInternosPortariaExterna extends javax.swi
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jTabbedPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 528, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(12, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jTabbedPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setBounds(300, 30, 752, 559);
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanel12, jPanel3, jPanel7, jPanel8});
+
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6))
+                    .addComponent(jTabbedPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        setBounds(300, 30, 752, 551);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtIniciarLeitorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIniciarLeitorActionPerformed
-        // TODO add your handling code here:        
-        // Instanciar a DLL
-        CIS_SDK dll = CIS_SDK.INSTANCE;
-        //
-        int iRetorno = dll.CIS_SDK_Biometrico_Iniciar();
-        if (iRetorno != 1 && iRetorno == 0) {
-            JOptionPane.showMessageDialog(null, "COMANDO NÃO EXECUTADO...");
-            return;
-        } else if (iRetorno != 1 && iRetorno == -1) {
-            JOptionPane.showMessageDialog(null, "LEITOR INCOMPATIVEL COM SDK...");
-            return;
-        } else if (iRetorno != 1 && iRetorno == -10) {
-            JOptionPane.showMessageDialog(null, "ERRO DESCONHECIDO...");
-            return;
-        } else if (iRetorno != 1 && iRetorno == -11) {
-            JOptionPane.showMessageDialog(null, "FALTA DE MEMÓRIA...");
-            return;
-        } else if (iRetorno != 1 && iRetorno == -12) {
-            JOptionPane.showMessageDialog(null, "ARGUMENTO INVALIDO...");
-            return;
-        } else if (iRetorno != 1 && iRetorno == -13) {
-            JOptionPane.showMessageDialog(null, "SDK EM USO...");
-            return;
-        } else if (iRetorno != 1 && iRetorno == -14) {
-            JOptionPane.showMessageDialog(null, "TEMPLATE INVALIDO...");
-            return;
-        } else if (iRetorno != 1 && iRetorno == -15) {
-            JOptionPane.showMessageDialog(null, "ERRO INTERNO...");
-            return;
-        } else if (iRetorno != 1 && iRetorno == -16) {
-            JOptionPane.showMessageDialog(null, "NÃO HABILITADO PARA CAPTURAR DIGITAL...");
-            return;
-        } else if (iRetorno != 1 && iRetorno == -17) {
-            JOptionPane.showMessageDialog(null, "CANCELADO PELO USUARIO...");
-            return;
-        } else if (iRetorno != 1 && iRetorno == -18) {
-            JOptionPane.showMessageDialog(null, "LEITURA NÃO É POSSIVEL...");
-            return;
-        } else if (iRetorno != 1 && iRetorno == -21) {
-            JOptionPane.showMessageDialog(null, "ERRO DESCONHECIDO...");
-            return;
-        } else if (iRetorno != 1 && iRetorno == -22) {
-            JOptionPane.showMessageDialog(null, "SDK NÃO FOI INICIADO...");
-            return;
-        } else if (iRetorno != 1 && iRetorno == -23) {
-            JOptionPane.showMessageDialog(null, "LEITOR NÃO CONECTADO...");
-            return;
-        } else if (iRetorno != 1 && iRetorno == -24) {
-            JOptionPane.showMessageDialog(null, "ERRO NO LEITOR...");
-            return;
-        } else if (iRetorno != 1 && iRetorno == -25) {
-            JOptionPane.showMessageDialog(null, "FRAME DE DADOS VAZIO...");
-            return;
-        } else if (iRetorno != 1 && iRetorno == -26) {
-            JOptionPane.showMessageDialog(null, "ORIGEM FALSA (FAKE)...");
-            return;
-        } else if (iRetorno != 1 && iRetorno == -27) {
-            JOptionPane.showMessageDialog(null, "HARDWARE INCOMPATIVEL...");
-            return;
-        } else if (iRetorno != 1 && iRetorno == -28) {
-            JOptionPane.showMessageDialog(null, "FIRMWARE INCOMPATIVEL...");
-            return;
-        } else if (iRetorno != 1 && iRetorno == -29) {
-            JOptionPane.showMessageDialog(null, "FRAME ALTERADO...");
-            return;
+        // TODO add your handling code here:    
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaRegistroChegadaPortExtBioP1E) && codAbrirP1E == 1) {
+            // Instanciar a DLL
+            CIS_SDK dll = CIS_SDK.INSTANCE;
+            //
+            int iRetorno = dll.CIS_SDK_Biometrico_Iniciar();
+            if (iRetorno != 1 && iRetorno == 0) {
+                JOptionPane.showMessageDialog(null, "COMANDO NÃO EXECUTADO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -1) {
+                JOptionPane.showMessageDialog(null, "LEITOR INCOMPATIVEL COM SDK...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -10) {
+                JOptionPane.showMessageDialog(null, "ERRO DESCONHECIDO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -11) {
+                JOptionPane.showMessageDialog(null, "FALTA DE MEMÓRIA...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -12) {
+                JOptionPane.showMessageDialog(null, "ARGUMENTO INVALIDO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -13) {
+                JOptionPane.showMessageDialog(null, "SDK EM USO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -14) {
+                JOptionPane.showMessageDialog(null, "TEMPLATE INVALIDO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -15) {
+                JOptionPane.showMessageDialog(null, "ERRO INTERNO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -16) {
+                JOptionPane.showMessageDialog(null, "NÃO HABILITADO PARA CAPTURAR DIGITAL...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -17) {
+                JOptionPane.showMessageDialog(null, "CANCELADO PELO USUARIO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -18) {
+                JOptionPane.showMessageDialog(null, "LEITURA NÃO É POSSIVEL...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -21) {
+                JOptionPane.showMessageDialog(null, "ERRO DESCONHECIDO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -22) {
+                JOptionPane.showMessageDialog(null, "SDK NÃO FOI INICIADO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -23) {
+                JOptionPane.showMessageDialog(null, "LEITOR NÃO CONECTADO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -24) {
+                JOptionPane.showMessageDialog(null, "ERRO NO LEITOR...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -25) {
+                JOptionPane.showMessageDialog(null, "FRAME DE DADOS VAZIO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -26) {
+                JOptionPane.showMessageDialog(null, "ORIGEM FALSA (FAKE)...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -27) {
+                JOptionPane.showMessageDialog(null, "HARDWARE INCOMPATIVEL...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -28) {
+                JOptionPane.showMessageDialog(null, "FIRMWARE INCOMPATIVEL...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -29) {
+                JOptionPane.showMessageDialog(null, "FRAME ALTERADO...");
+                return;
+            }
+            jBtCancelarLeitura.setEnabled(true);
+            new Thread(LerDigital1).start();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
-        jBtCancelarLeitura.setEnabled(true);
-        new Thread(LerDigital1).start();
     }//GEN-LAST:event_jBtIniciarLeitorActionPerformed
 
     private void jBtCancelarLeituraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarLeituraActionPerformed
@@ -1050,59 +1131,86 @@ public class TelaRegistroChegadaVisitasInternosPortariaExterna extends javax.swi
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        jStatus.setText("FINALIZADO");
-        verificarInternoVisitaCadastrado();
-        if (jIdInternoBio.getText().equals("") || jNomeInternoBio.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do Interno para gravar o registro.");
-        } else if (jCodigoVisita.getText().equals("") || jNomeVisitante.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome da visita para gravar o registro.");
-        } else if (jIdRol.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe qual Rol a visita pertence.");
-        } else if (jDataEntrada.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data de chegada da visita.");
-        } else if (jHorarioEntrada.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o horário de chegada da visita.");
-        } else if (jRBManual.isSelected() && jMotivoLancamentoManual.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o motivo pelo qual o registro está sendo manual.");
-        } else {
-            if (jRBDigital.isSelected()) {
-                tipoOperacao = 1;
-            } else if (!jRBDigital.isSelected()) {
-                tipoOperacao = 0;
-            }
-            objRegChegaVisitas.setStatusReg(jStatus.getText());
-            objRegChegaVisitas.setDataReg(jDataRegistro.getDate());
-            objRegChegaVisitas.setIdInternoCrc(Integer.valueOf(jIdInternoBio.getText()));
-            objRegChegaVisitas.setNomeInterno(jNomeInternoBio.getText());
-            objRegChegaVisitas.setIdVisita(Integer.valueOf(jCodigoVisita.getText()));
-            objRegChegaVisitas.setNomeVisita(jNomeVisitante.getText());
-            objRegChegaVisitas.setDataChegada(jDataEntrada.getDate());
-            objRegChegaVisitas.setHoraChegada(jHorarioEntrada.getText());
-            objRegChegaVisitas.setIdRol(Integer.valueOf(jIdRol.getText()));
-            objRegChegaVisitas.setTipoAssinatura(tipoOperacao);
-            objRegChegaVisitas.setMotivoNaoAssinarDigital(jMotivoLancamentoManual.getText());
-            objRegChegaVisitas.setAssinaturaDigitalVisita(pDigitalCapturada);
-            // Para o log do registro
-            objRegChegaVisitas.setUsuarioInsert(nameUser);
-            objRegChegaVisitas.setDataInsert(dataModFinal);
-            objRegChegaVisitas.setHorarioInsert(horaMov);
-            if (acao == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaRegistroChegadaPortExtManuP1E) && codGravarP1E == 1) {
+            jStatus.setText("FINALIZADO");
+//            verificarOrdemChegada();
+            verificarInternoVisitaCadastrado();
+            if (jIdInternoBio.getText().equals("") || jNomeInternoBio.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do Interno para gravar o registro.");
+            } else if (jCodigoVisita.getText().equals("") || jNomeVisitante.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome da visita para gravar o registro.");
+            } else if (jIdRol.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe qual Rol a visita pertence.");
+            } else if (jDataEntrada.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de chegada da visita.");
+            } else if (jHorarioEntrada.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o horário de chegada da visita.");
+            } else if (jRBManual.isSelected() && jMotivoLancamentoManual.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o motivo pelo qual o registro está sendo manual.");
+            } else {
+                if (jRBDigital.isSelected()) {
+                    tipoOperacao = 1;
+                } else if (!jRBDigital.isSelected()) {
+                    tipoOperacao = 0;
+                }
+                objRegChegaVisitas.setStatusReg(jStatus.getText());
+                objRegChegaVisitas.setDataReg(jDataRegistro.getDate());
+                objRegChegaVisitas.setIdInternoCrc(Integer.valueOf(jIdInternoBio.getText()));
+                objRegChegaVisitas.setNomeInterno(jNomeInternoBio.getText());
+                objRegChegaVisitas.setIdVisita(Integer.valueOf(jCodigoVisita.getText()));
+                objRegChegaVisitas.setNomeVisita(jNomeVisitante.getText());
+                objRegChegaVisitas.setDataChegada(jDataEntrada.getDate());
+                objRegChegaVisitas.setHoraChegada(jHorarioEntrada.getText());
+                objRegChegaVisitas.setIdRol(Integer.valueOf(jIdRol.getText()));
+                objRegChegaVisitas.setTipoAssinatura(tipoOperacao);
+                objRegChegaVisitas.setMotivoNaoAssinarDigital(jMotivoLancamentoManual.getText());
+                objRegChegaVisitas.setAssinaturaDigitalVisita(pDigitalCapturada);
                 if (jIdInternoBio.getText().trim().equals(codigoInternoGrava) && jCodigoVisita.getText().trim().equals(codigoVisitaGrava) && dataPesquisa.equals(dataRegistro)) {
                     JOptionPane.showMessageDialog(rootPane, "Essa visita já está registrada.");
                 } else if (!jIdInternoBio.getText().trim().equals(codigoInternoGrava) && !jCodigoVisita.getText().trim().equals(codigoVisitaGrava) && !dataPesquisa.equals(dataRegistro)) {
-                    control.incluirRegistroChegadaVisitasInternos(objRegChegaVisitas);
-                    buscarRegistroChegada();
-                    objLog2();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    Salvar();
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realizar outro cadastro?", "Confirmação",
-                            JOptionPane.YES_NO_OPTION);
-                    if (resposta == JOptionPane.YES_OPTION) {
-                        Novo();
+                    verificarOrdemChegada();
+                    if (dataPesquisa.equals(dataRegistro)) {
+                        ordemChegada = ordemChegada + 1;
+                        objRegChegaVisitas.setOrdemChegadaVisita(ordemChegada);
+                        // Para o log do registro
+                        objRegChegaVisitas.setUsuarioInsert(nameUser);
+                        objRegChegaVisitas.setDataInsert(dataModFinal);
+                        objRegChegaVisitas.setHorarioInsert(horaMov);
+                        control.incluirRegistroChegadaVisitasInternos(objRegChegaVisitas);
+                        buscarRegistroChegada();
+                        objLog2();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        Salvar();
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realizar outro cadastro?", "Confirmação",
+                                JOptionPane.YES_NO_OPTION);
+                        if (resposta == JOptionPane.YES_OPTION) {
+                            Novo();
+                        }
+                    } else {
+                        ordemChegada = 1;
+                        objRegChegaVisitas.setOrdemChegadaVisita(ordemChegada);
+                        // Para o log do registro
+                        objRegChegaVisitas.setUsuarioInsert(nameUser);
+                        objRegChegaVisitas.setDataInsert(dataModFinal);
+                        objRegChegaVisitas.setHorarioInsert(horaMov);
+                        control.incluirRegistroChegadaVisitasInternos(objRegChegaVisitas);
+                        buscarRegistroChegada();
+                        objLog2();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        Salvar();
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realizar outro cadastro?", "Confirmação",
+                                JOptionPane.YES_NO_OPTION);
+                        if (resposta == JOptionPane.YES_OPTION) {
+                            Novo();
+                        }
                     }
                 }
+
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -1113,12 +1221,15 @@ public class TelaRegistroChegadaVisitasInternosPortariaExterna extends javax.swi
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaRegistroChegadaPortExtManuP1E) && codIncluirP1E == 1) {
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtPesqIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqIDActionPerformed
@@ -1199,6 +1310,9 @@ public class TelaRegistroChegadaVisitasInternosPortariaExterna extends javax.swi
         if (evt.getStateChange() == evt.SELECTED) {
             jBtIniciarLeitor.setEnabled(true);
             jBtPesquisarVisita.setEnabled(!true);
+            if (jRegistro.getText().equals("")) {
+                jMotivoLancamentoManual.setEnabled(!true);
+            }
         }
     }//GEN-LAST:event_jRBDigitalItemStateChanged
 
@@ -1207,22 +1321,139 @@ public class TelaRegistroChegadaVisitasInternosPortariaExterna extends javax.swi
         if (evt.getStateChange() == evt.SELECTED) {
             jBtIniciarLeitor.setEnabled(!true);
             jBtPesquisarVisita.setEnabled(true);
-            jMotivoLancamentoManual.setEnabled(true);
+            if (jRegistro.getText().equals("")) {
+                jMotivoLancamentoManual.setEnabled(true);
+            }
         }
     }//GEN-LAST:event_jRBManualItemStateChanged
 
     private void jBtPesquisarVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarVisitaActionPerformed
         // TODO add your handling code here:
-        TelaPesqVisitasInternoChegadaPortExt objPesqVisitaChe = new TelaPesqVisitasInternoChegadaPortExt();
-        TelaModuloPortariaExterna.jPainelPortariaExterna.add(objPesqVisitaChe);
-        objPesqVisitaChe.show();
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaRegistroChegadaPortExtPesqP1E) && codAbrirP1E == 1) {
+            TelaPesqVisitasInternoChegadaPortExt objPesqVisitaChe = new TelaPesqVisitasInternoChegadaPortExt();
+            TelaModuloPortariaExterna.jPainelPortariaExterna.add(objPesqVisitaChe);
+            objPesqVisitaChe.show();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtPesquisarVisitaActionPerformed
+
+    private void jBtImpressaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImpressaoActionPerformed
+        // TODO add your handling code here:
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaRegistroChegadaPortExtRelP1E) && codAbrirP1E == 1) {
+            if (jDataRelChegada.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de chegada das visitas.");
+            } else {
+                SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                dataRelatorio = formatoAmerica.format(jDataRelChegada.getDate().getTime());
+                try {
+                    conecta.abrirConexao();
+                    String path = "reports/RelatorioRegistroChegadaVisitaPortariaExterna.jasper";
+                    conecta.executaSQL("SELECT * FROM REGISTRO_CHEGADA_VISITAS_INTERNOS_PORTARIA_EXTERNA "
+                            + "INNER JOIN VISITASINTERNO "
+                            + "ON REGISTRO_CHEGADA_VISITAS_INTERNOS_PORTARIA_EXTERNA.IdVisita=VISITASINTERNO.IdVisita "
+                            + "WHERE REGISTRO_CHEGADA_VISITAS_INTERNOS_PORTARIA_EXTERNA.DataInsert='" + dataRelatorio + "' "
+                            + "ORDER BY DataChegada,HoraChegada");
+                    HashMap parametros = new HashMap();
+                    parametros.put("DataInsert", dataRelatorio);
+                    parametros.put("descricaoUnidade", descricaoUnidade);
+                    parametros.put("nomeUsuario", nameUser);
+                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                    jv.setTitle("Relatório de Registro de Chegada de Visitas na Portaria Externa");
+                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                    jv.toFront(); // Traz o relatorio para frente da aplicação            
+                    conecta.desconecta();
+                } catch (JRException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
+    }//GEN-LAST:event_jBtImpressaoActionPerformed
+
+    private void jTabelaVisitasInternosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaVisitasInternosMouseClicked
+        // TODO add your handling code here:     
+        flag = 1;
+        if (flag == 1) {
+            String IdLanc = "" + jTabelaVisitasInternos.getValueAt(jTabelaVisitasInternos.getSelectedRow(), 0);
+            jIDPesqLanc.setText(IdLanc);
+            //            
+            bloquearCamposBotoes();
+            //
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM REGISTRO_CHEGADA_VISITAS_INTERNOS_PORTARIA_EXTERNA "
+                        + "INNER JOIN VISITASINTERNO "
+                        + "ON REGISTRO_CHEGADA_VISITAS_INTERNOS_PORTARIA_EXTERNA.IdVisita=VISITASINTERNO.IdVisita "
+                        + "INNER JOIN ROLVISITAS "
+                        + "ON REGISTRO_CHEGADA_VISITAS_INTERNOS_PORTARIA_EXTERNA.IdRol=ROLVISITAS.IdRol "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON ROLVISITAS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "INNER JOIN DADOSPENAISINTERNOS "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                        + "INNER JOIN ITENSLOCACAOINTERNO "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
+                        + "INNER JOIN CELAS "
+                        + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
+                        + "INNER JOIN PAVILHAO "
+                        + "ON CELAS.IdPav=PAVILHAO.IdPav "
+                        + "INNER JOIN ITENSROL "
+                        + "ON ROLVISITAS.IdRol=ITENSROL.IdRol "
+                        + "WHERE REGISTRO_CHEGADA_VISITAS_INTERNOS_PORTARIA_EXTERNA.IdRegVisita='" + IdLanc + "'");
+                conecta.rs.first();
+                jRegistro.setText(String.valueOf(conecta.rs.getInt("IdRegVisita")));
+                jStatus.setText(conecta.rs.getString("StatusReg"));
+                jDataRegistro.setDate(conecta.rs.getDate("DataReg"));
+                jCodigoVisita.setText(String.valueOf(conecta.rs.getInt("IdVisita")));
+                jNomeVisitante.setText(conecta.rs.getString("NomeVisita"));
+                jGrauParentesco.setText(conecta.rs.getString("ParentescoVisita"));
+                // Capturando foto
+                caminhoVisita = conecta.rs.getString("ImagemVisita");
+                if (caminhoVisita != null) {
+                    javax.swing.ImageIcon v = new javax.swing.ImageIcon(caminhoVisita);
+                    jFotoVisita.setIcon(v);
+                    jFotoVisita.setIcon(new ImageIcon(v.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteVI"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoVisita.setIcon(icon);
+                }
+                jIdInternoBio.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
+                jNomeInternoBio.setText(conecta.rs.getString("NomeInternoCrc"));
+                jRegimePenal.setText(conecta.rs.getString("Regime"));
+                jPavilhao.setText(conecta.rs.getString("DescricaoPav"));
+                tipoOperacao = conecta.rs.getInt("TipoOperacao");
+                if (tipoOperacao == 0) {
+                    jRBManual.setSelected(true);
+                } else if (tipoOperacao == 1) {
+                    jRBDigital.setSelected(true);
+                }
+                jIdRol.setText(String.valueOf(conecta.rs.getInt("IdRol")));
+                jDataEntrada.setDate(conecta.rs.getDate("DataChegada"));
+                jHorarioEntrada.setText(conecta.rs.getString("HoraChegada"));
+                jMotivoLancamentoManual.setText(conecta.rs.getString("MotivoNaoAssinarDigital"));
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa..." + e);
+            }
+            conecta.desconecta();
+        }
+    }//GEN-LAST:event_jTabelaVisitasInternosMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup grupoBotoes;
     private javax.swing.JButton jBtCancelar;
     private javax.swing.JButton jBtCancelarLeitura;
+    private javax.swing.JButton jBtImpressao;
     private javax.swing.JButton jBtIniciarLeitor;
     private javax.swing.JButton jBtNovo;
     private javax.swing.JButton jBtPesqData;
@@ -1237,6 +1468,7 @@ public class TelaRegistroChegadaVisitasInternosPortariaExterna extends javax.swi
     private com.toedter.calendar.JDateChooser jDataPesqFinal;
     private com.toedter.calendar.JDateChooser jDataPesqInicial;
     private com.toedter.calendar.JDateChooser jDataRegistro;
+    private com.toedter.calendar.JDateChooser jDataRelChegada;
     public static javax.swing.JLabel jFotoVisita;
     public static javax.swing.JTextField jGrauParentesco;
     private javax.swing.JFormattedTextField jHorarioEntrada;
@@ -1268,6 +1500,7 @@ public class TelaRegistroChegadaVisitasInternosPortariaExterna extends javax.swi
     public static javax.swing.JTextField jNomeVisitante;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel30;
@@ -1591,9 +1824,35 @@ public class TelaRegistroChegadaVisitasInternosPortariaExterna extends javax.swi
         jNomeVisitante.setBackground(Color.white);
         jDataEntrada.setBackground(Color.white);
         jHorarioEntrada.setBackground(Color.white);
+        jMotivoLancamentoManual.setBackground(Color.white);
+    }
+
+    public void formatarCampos() {
+        jMotivoLancamentoManual.setLineWrap(true);
+        jMotivoLancamentoManual.setWrapStyleWord(true);
+    }
+
+    public void bloquearCamposBotoes() {
+        jIdRol.setEnabled(!true);
+        jDataEntrada.setEnabled(!true);
+        jHorarioEntrada.setEnabled(!true);
+        jRBDigital.setEnabled(!true);
+        jRBManual.setEnabled(!true);
+        jMotivoLancamentoManual.setEnabled(!true);
+        //
+        jBtNovo.setEnabled(true);
+        jBtSalvar.setEnabled(!true);
+        jBtCancelar.setEnabled(!true);
+        jBtIniciarLeitor.setEnabled(!true);
+        jBtPesquisarVisita.setEnabled(!true);
     }
 
     public void Novo() {
+        ordemChegada = 0;
+        //
+        dataRegistro = "";
+        dataPesquisa = "";
+        //
         jRegistro.setText("");
         jStatus.setText("ABERTO");
         jDataRegistro.setCalendar(Calendar.getInstance());
@@ -1605,24 +1864,23 @@ public class TelaRegistroChegadaVisitasInternosPortariaExterna extends javax.swi
         jFotoVisita.setIcon(null);
         jGrauParentesco.setText("");
         jNomeVisitante.setText("");
+        jMotivoLancamentoManual.setText("");
         //
         jDataEntrada.setCalendar(Calendar.getInstance());
         jHorarioEntrada.setText(jHoraSistema.getText());
         //        
-        jDataEntrada.setEnabled(true);
-        jHorarioEntrada.setEnabled(true);
+        jDataEntrada.setEnabled(!true);
+        jHorarioEntrada.setEnabled(!true);
         jRBDigital.setEnabled(true);
         jRBManual.setEnabled(true);
+        //
+        grupoBotoes.clearSelection();
         //
         jBtNovo.setEnabled(!true);
         jBtSalvar.setEnabled(true);
         jBtCancelar.setEnabled(true);
-        jBtIniciarLeitor.setEnabled(true);
-        jBtPesquisarVisita.setEnabled(true);
-    }
-
-    public void Excluir() {
-
+        jBtIniciarLeitor.setEnabled(!true);
+        jBtPesquisarVisita.setEnabled(!true);
     }
 
     public void Salvar() {
@@ -1708,7 +1966,7 @@ public class TelaRegistroChegadaVisitasInternosPortariaExterna extends javax.swi
 
     public void verificarInternoVisitaCadastrado() {
         SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-        dataPesquisa = formatoAmerica.format(jDataRegistro.getDate().getTime());       
+        dataPesquisa = formatoAmerica.format(jDataRegistro.getDate().getTime());
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM REGISTRO_CHEGADA_VISITAS_INTERNOS_PORTARIA_EXTERNA "
@@ -1720,7 +1978,23 @@ public class TelaRegistroChegadaVisitasInternosPortariaExterna extends javax.swi
             codigoVisitaGrava = conecta.rs.getString("IdVisita");
             codigoRegistroGrava = conecta.rs.getString("IdRegVisita");
             dataRegistro = conecta.rs.getString("DataInsert");
+            ordemChegada = conecta.rs.getInt("OrdemChegada");
             assinaturaVisita = conecta.rs.getBytes("AssinaturaDigitalVisita");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void verificarOrdemChegada() {
+        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+        dataPesquisa = formatoAmerica.format(jDataRegistro.getDate().getTime());
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM REGISTRO_CHEGADA_VISITAS_INTERNOS_PORTARIA_EXTERNA "
+                    + "WHERE DataInsert='" + dataPesquisa + "'");
+            conecta.rs.last();
+            dataRegistro = conecta.rs.getString("DataInsert");
+            ordemChegada = conecta.rs.getInt("OrdemChegada");
         } catch (Exception e) {
         }
         conecta.desconecta();
@@ -1742,12 +2016,13 @@ public class TelaRegistroChegadaVisitasInternosPortariaExterna extends javax.swi
                 String anoe = dataEntrada.substring(0, 4);
                 dataEntrada = diae + "/" + mese + "/" + anoe;
                 jtotalRegistros.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{conecta.rs.getInt("IdRegVisita"), dataEntrada, conecta.rs.getString("NomeVisita"), conecta.rs.getString("Parentesco")});
+                dados.add(new Object[]{conecta.rs.getInt("IdRegVisita"), dataEntrada, conecta.rs.getString("NomeVisita"), conecta.rs.getString("ParentescoVisita")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaVisitasInternos.setRowSorter(new TableRowSorter(modelo)); //FAZER ORDENAMENTO NA TABLEA  
         jTabelaVisitasInternos.setModel(modelo);
         jTabelaVisitasInternos.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaVisitasInternos.getColumnModel().getColumn(0).setResizable(false);
@@ -1768,6 +2043,7 @@ public class TelaRegistroChegadaVisitasInternosPortariaExterna extends javax.swi
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código", "Data", "Nome da Visita do Interno", "Grau de Parentesco"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaVisitasInternos.setRowSorter(new TableRowSorter(modelo)); //FAZER ORDENAMENTO NA TABLEA 
         jTabelaVisitasInternos.setModel(modelo);
         jTabelaVisitasInternos.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaVisitasInternos.getColumnModel().getColumn(0).setResizable(false);
