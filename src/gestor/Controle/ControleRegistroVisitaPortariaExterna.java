@@ -27,7 +27,7 @@ public class ControleRegistroVisitaPortariaExterna {
         buscarInterno(objRegChegaVisitas.getNomeInterno(), objRegChegaVisitas.getIdInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO REGISTRO_CHEGADA_VISITAS_INTERNOS_PORTARIA_EXTERNA (StatusReg,DataReg,IdVisita,IdInternoCrc,IdRol,DataChegada,HoraChegada,AssinaturaDigitalVisita,TipoOperacao,MotivoNaoAssinarDigital,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO REGISTRO_CHEGADA_VISITAS_INTERNOS_PORTARIA_EXTERNA (StatusReg,DataReg,IdVisita,IdInternoCrc,IdRol,DataChegada,HoraChegada,OrdemChegada,AssinaturaDigitalVisita,TipoOperacao,MotivoNaoAssinarDigital,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setString(1, objRegChegaVisitas.getStatusReg());
             pst.setTimestamp(2, new java.sql.Timestamp(objRegChegaVisitas.getDataReg().getTime()));
             pst.setInt(3, codVisita);
@@ -35,12 +35,13 @@ public class ControleRegistroVisitaPortariaExterna {
             pst.setInt(5, objRegChegaVisitas.getIdRol());
             pst.setTimestamp(6, new java.sql.Timestamp(objRegChegaVisitas.getDataChegada().getTime()));
             pst.setString(7, objRegChegaVisitas.getHoraChegada());
-            pst.setBytes(8, objRegChegaVisitas.getAssinaturaDigitalVisita());
-            pst.setInt(9, objRegChegaVisitas.getTipoOperacao());
-            pst.setString(10, objRegChegaVisitas.getMotivoNaoAssinarDigital());
-            pst.setString(11, objRegChegaVisitas.getUsuarioInsert());
-            pst.setString(12, objRegChegaVisitas.getDataInsert());
-            pst.setString(13, objRegChegaVisitas.getHorarioInsert());
+            pst.setInt(8, objRegChegaVisitas.getOrdemChegadaVisita());
+            pst.setBytes(9, objRegChegaVisitas.getAssinaturaDigitalVisita());
+            pst.setInt(10, objRegChegaVisitas.getTipoOperacao());
+            pst.setString(11, objRegChegaVisitas.getMotivoNaoAssinarDigital());
+            pst.setString(12, objRegChegaVisitas.getUsuarioInsert());
+            pst.setString(13, objRegChegaVisitas.getDataInsert());
+            pst.setString(14, objRegChegaVisitas.getHorarioInsert());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados na tabela (REGISTRO_CHEGADA_VISITAS_INTERNOS_PORTARIA_EXTERNA).\n\nERRO: " + ex);
