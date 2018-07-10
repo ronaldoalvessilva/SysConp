@@ -120,6 +120,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
     private TelaConsultaRolVisitasReligiosas objConRolRel = null;
     private TelaEntradaSaidaVisitasReligiosas objEntSaiVisitaRel = null;
     private TelaConsultaInternosIsolamento objConIsola = null;
+    private TelaConsultaVisitasPortariaExterna objConRegVisita = null;
     //
     String dataLanc;
     int codUsuario;
@@ -384,7 +385,9 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
         RegistroProntuarioInterno = new javax.swing.JMenuItem();
         ConsultaPopulacaoCarceraria = new javax.swing.JMenuItem();
         ConsultaAgendamentoEscolta = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        ConsultaIsolamentoInternos = new javax.swing.JMenuItem();
+        jSeparator24 = new javax.swing.JPopupMenu.Separator();
+        ConsultaRegistroVisitasPortariaExt = new javax.swing.JMenuItem();
         Movimentacao = new javax.swing.JMenu();
         ControleAcessosPessoas = new javax.swing.JMenu();
         EntSaiVisitasInternos = new javax.swing.JMenuItem();
@@ -649,14 +652,24 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
         });
         Consultas.add(ConsultaAgendamentoEscolta);
 
-        jMenuItem2.setForeground(new java.awt.Color(204, 0, 0));
-        jMenuItem2.setText("Isolamento de Internos");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        ConsultaIsolamentoInternos.setForeground(new java.awt.Color(204, 0, 0));
+        ConsultaIsolamentoInternos.setText("Isolamento de Internos");
+        ConsultaIsolamentoInternos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                ConsultaIsolamentoInternosActionPerformed(evt);
             }
         });
-        Consultas.add(jMenuItem2);
+        Consultas.add(ConsultaIsolamentoInternos);
+        Consultas.add(jSeparator24);
+
+        ConsultaRegistroVisitasPortariaExt.setForeground(new java.awt.Color(0, 0, 204));
+        ConsultaRegistroVisitasPortariaExt.setText("Consulta de Registros de Visitas de Internos a Portaria");
+        ConsultaRegistroVisitasPortariaExt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ConsultaRegistroVisitasPortariaExtActionPerformed(evt);
+            }
+        });
+        Consultas.add(ConsultaRegistroVisitasPortariaExt);
 
         jMenuBar2.add(Consultas);
 
@@ -2674,7 +2687,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
         objRelEntradaInterPort.show();
     }//GEN-LAST:event_RelatorioEntradaInternosActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void ConsultaIsolamentoInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultaIsolamentoInternosActionPerformed
         // TODO add your handling code here:
         if (objConIsola == null || objConIsola.isClosed()) {
             objConIsola = new TelaConsultaInternosIsolamento();
@@ -2701,8 +2714,36 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
             objConIsola.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {
         }
-//        private TelaConsultaInternosIsolamento objConIsola = null;
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_ConsultaIsolamentoInternosActionPerformed
+
+    private void ConsultaRegistroVisitasPortariaExtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultaRegistroVisitasPortariaExtActionPerformed
+        // TODO add your handling code here:
+        if (objConRegVisita == null || objConRegVisita.isClosed()) {
+            objConRegVisita = new TelaConsultaVisitasPortariaExterna();
+            jPainelPortarias.add(objConRegVisita);
+            objConRegVisita.setVisible(true);
+        } else {
+            if (objConRegVisita.isVisible()) {
+                if (objConRegVisita.isIcon()) { // Se esta minimizado
+                    try {
+                        objConRegVisita.setIcon(false); // maximiniza
+                    } catch (PropertyVetoException ex) {
+                    }
+                } else {
+                    objConRegVisita.toFront(); // traz para frente
+                    objConRegVisita.pack();//volta frame
+                }
+            } else {
+                objConRegVisita = new TelaConsultaVisitasPortariaExterna();
+                TelaModuloPortarias.jPainelPortarias.add(objConRegVisita);//adicona frame ao JDesktopPane
+                objConRegVisita.setVisible(true);
+            }
+        }
+        try {
+            objConRegVisita.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
+        }       
+    }//GEN-LAST:event_ConsultaRegistroVisitasPortariaExtActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -2715,7 +2756,9 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem ConsultaAgendamentoEscolta;
     private javax.swing.JMenuItem ConsultaColaboradores;
     private javax.swing.JMenuItem ConsultaFamiliaresInternos;
+    private javax.swing.JMenuItem ConsultaIsolamentoInternos;
     private javax.swing.JMenuItem ConsultaPopulacaoCarceraria;
+    private javax.swing.JMenuItem ConsultaRegistroVisitasPortariaExt;
     private javax.swing.JMenuItem ConsultaRolVisitas;
     private javax.swing.JMenu Consultas;
     private javax.swing.JMenu ControleAcessosInternos;
@@ -2785,7 +2828,6 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem13;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jOficialJustica;
     public static javax.swing.JDesktopPane jPainelPortarias;
@@ -2806,6 +2848,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator21;
     private javax.swing.JPopupMenu.Separator jSeparator22;
     private javax.swing.JPopupMenu.Separator jSeparator23;
+    private javax.swing.JPopupMenu.Separator jSeparator24;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
