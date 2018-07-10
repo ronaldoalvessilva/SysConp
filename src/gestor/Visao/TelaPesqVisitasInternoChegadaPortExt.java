@@ -200,7 +200,7 @@ public class TelaPesqVisitasInternoChegadaPortExt extends javax.swing.JInternalF
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(200, 10, 567, 287);
+        setBounds(350, 30, 567, 287);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNomeActionPerformed
