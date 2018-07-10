@@ -163,6 +163,9 @@ public class TelaModuloPortariaExterna extends javax.swing.JInternalFrame {
     public static String telaOcorrenciaManuP1E = "Movimentação:Ocorrências Diárias:Manutenção";
     //
     public static String telaRegistroChegadaPortExtManuP1E = "Movimentação:Registro Chegada Visita Portaria Externa:Manutenção";
+    public static String telaRegistroChegadaPortExtPesqP1E = "Movimentação:Registro Chegada Visita Portaria Externa:Pesquisar Visita";
+    public static String telaRegistroChegadaPortExtBioP1E = "Movimentação:Registro Chegada Visita Portaria Externa:Biometria";
+    public static String telaRegistroChegadaPortExtRelP1E = "Movimentação:Registro Chegada Visita Portaria Externa:Relatório";
     //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
@@ -198,8 +201,16 @@ public class TelaModuloPortariaExterna extends javax.swing.JInternalFrame {
     String pNomeOCR = "";
     //
     String pNomeRCVP = "";
-    //pNomeRCVP
-    //telaRegistroChegadaPortExtManuP1E
+    //
+    String pNomeRCPEP = "";
+    String pNomeRCPEB = "";
+    String pNomeRCPER = "";
+    //pNomeRCPEP
+    //pNomeRCPEB
+    //pNomeRCPER
+    //telaRegistroChegadaPortExtPesqP1E
+    //telaRegistroChegadaPortExtBioP1E
+    //telaRegistroChegadaPortExtRelP1E
 
     /**
      * Creates new form TelaPortarias
@@ -1941,6 +1952,27 @@ public class TelaModuloPortariaExterna extends javax.swing.JInternalFrame {
             pNomeRCVP = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRegistroChegadaPortExtPesqP1E + "'");
+            conecta.rs.first();
+            pNomeRCPEP = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRegistroChegadaPortExtBioP1E + "'");
+            conecta.rs.first();
+            pNomeRCPEB = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRegistroChegadaPortExtRelP1E + "'");
+            conecta.rs.first();
+            pNomeRCPER = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         //CADASTRO
         if (!pNomeCVPM.equals(telaCadastroVeiculosManuP1E) || pNomeCVPM == null || pNomeCVPM.equals("")) {
             buscarCodigoModulo();
@@ -2071,6 +2103,24 @@ public class TelaModuloPortariaExterna extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaRegistroChegadaPortExtManuP1E);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeRCPEP.equals(telaRegistroChegadaPortExtPesqP1E) || pNomeRCPEP == null || pNomeRCPEP.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRegistroChegadaPortExtPesqP1E);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeRCPEB.equals(telaRegistroChegadaPortExtBioP1E) || pNomeRCPEB == null || pNomeRCPEB.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRegistroChegadaPortExtBioP1E);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeRCPER.equals(telaRegistroChegadaPortExtRelP1E) || pNomeRCPER == null || pNomeRCPER.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRegistroChegadaPortExtRelP1E);
             controle.incluirTelaAcesso(objCadastroTela);
         }
     }
