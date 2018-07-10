@@ -175,6 +175,7 @@ public class ControleVisitaInterno {
                 pDigi.setBiometriaDedo2(conecta.rs.getBytes("BiometriaDedo2"));
                 pDigi.setBiometriaDedo3(conecta.rs.getBytes("BiometriaDedo3"));
                 pDigi.setBiometriaDedo4(conecta.rs.getBytes("BiometriaDedo4"));
+                pDigi.setImagemFrenteVI(conecta.rs.getBytes("ImagemFrenteVI"));
                 listaVisitas.add(pDigi);       
                 qtdVisitas ++;
             }
