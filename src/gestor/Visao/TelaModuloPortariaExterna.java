@@ -196,13 +196,18 @@ public class TelaModuloPortariaExterna extends javax.swing.JInternalFrame {
     String pNomeESVTV = "";
     //
     String pNomeOCR = "";
+    //
+    String pNomeRCVP = "";
+    //pNomeRCVP
+    //telaRegistroChegadaPortExtManuP1E
 
     /**
      * Creates new form TelaPortarias
      */
     public TelaModuloPortariaExterna() {
         initComponents();
-        this.setSize(840, 640); // Tamanho da tela          
+        this.setSize(840, 640); // Tamanho da tela  
+        pesquisarTelasAcessos();
         threadMensagem();
     }
 
@@ -1423,32 +1428,35 @@ public class TelaModuloPortariaExterna extends javax.swing.JInternalFrame {
 
     private void RegistroChegadaVisitasInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistroChegadaVisitasInternoActionPerformed
         // TODO add your handling code here:
-         if (objRegChega == null || objRegChega.isClosed()) {
-            objRegChega = new TelaRegistroChegadaVisitasInternosPortariaExterna();
-            jPainelPortariaExterna.add(objRegChega);
-            objRegChega.setVisible(true);
-        } else {
-            if (objRegChega.isVisible()) {
-                if (objRegChega.isIcon()) { // Se esta minimizado
-                    try {
-                        objRegChega.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaRegistroChegadaPortExtManuP1E) && codAbrirP1E == 1) {
+            if (objRegChega == null || objRegChega.isClosed()) {
+                objRegChega = new TelaRegistroChegadaVisitasInternosPortariaExterna();
+                jPainelPortariaExterna.add(objRegChega);
+                objRegChega.setVisible(true);
+            } else {
+                if (objRegChega.isVisible()) {
+                    if (objRegChega.isIcon()) { // Se esta minimizado
+                        try {
+                            objRegChega.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objRegChega.toFront(); // traz para frente
+                        objRegChega.pack();//volta frame
                     }
                 } else {
-                    objRegChega.toFront(); // traz para frente
-                    objRegChega.pack();//volta frame
+                    objRegChega = new TelaRegistroChegadaVisitasInternosPortariaExterna();
+                    TelaModuloPortariaExterna.jPainelPortariaExterna.add(objRegChega);//adicona frame ao JDesktopPane
+                    objRegChega.setVisible(true);
                 }
-            } else {
-                objRegChega = new TelaRegistroChegadaVisitasInternosPortariaExterna();
-                TelaModuloPortariaExterna.jPainelPortariaExterna.add(objRegChega);//adicona frame ao JDesktopPane
-                objRegChega.setVisible(true);
             }
+            try {
+                objRegChega.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
-        try {
-            objRegChega.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
-        }
-//        private TelaRegistroChegadaVisitasInternosPortariaExterna objRegChega = null;
     }//GEN-LAST:event_RegistroChegadaVisitasInternoActionPerformed
 
 
@@ -1926,6 +1934,13 @@ public class TelaModuloPortariaExterna extends javax.swing.JInternalFrame {
             pNomeOCR = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRegistroChegadaPortExtManuP1E + "'");
+            conecta.rs.first();
+            pNomeRCVP = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         //CADASTRO
         if (!pNomeCVPM.equals(telaCadastroVeiculosManuP1E) || pNomeCVPM == null || pNomeCVPM.equals("")) {
             buscarCodigoModulo();
@@ -2050,6 +2065,12 @@ public class TelaModuloPortariaExterna extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaOcorrenciaManuP1E);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeRCVP.equals(telaRegistroChegadaPortExtManuP1E) || pNomeRCVP == null || pNomeRCVP.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRegistroChegadaPortExtManuP1E);
             controle.incluirTelaAcesso(objCadastroTela);
         }
     }
