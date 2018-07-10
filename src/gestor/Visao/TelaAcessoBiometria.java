@@ -73,6 +73,7 @@ public class TelaAcessoBiometria extends javax.swing.JDialog {
     String caminhoBiometria3 = "";
     // PARA GRAVAR NO BANCO DE DADOS
     public static byte[] pDigitalCapturada = null;
+    public static byte[] imagemFreteVisitaVI = null;
     // PESQUISA PARA TRAZER AS VISITAS ATIVAS E COM BIOMETRIA CADASTRADA   
     String pVisita = "";
     String statusVisita = "Ativo";
@@ -863,10 +864,20 @@ public class TelaAcessoBiometria extends javax.swing.JDialog {
                         jPavilhao.setText(dd.getPavilhao());
                         jCodigoVisita.setText(String.valueOf(dd.getIdVisita()));
                         caminhoFotoVisita = dd.getCaminhoFotoVisita();
-                        javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoVisita);
-                        jFotoVisita.setIcon(a);
-                        jFotoVisita.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT)));
-                        //
+                        if (caminhoFotoVisita != null) {
+                            javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoVisita);
+                            jFotoVisita.setIcon(a);
+                            jFotoVisita.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT)));
+                        }
+                        // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                        imagemFreteVisitaVI = dd.getImagemFrenteVI();
+                        if (imagemFreteVisitaVI != null) {
+                            ImageIcon pic = null;
+                            pic = new ImageIcon(imagemFreteVisitaVI);
+                            Image scaled = pic.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT);
+                            ImageIcon icon = new ImageIcon(scaled);
+                            jFotoVisita.setIcon(icon);
+                        }
                         jGrauParentesco.setText(dd.getGrauParentesco());
                         jNomeVisitante.setText(dd.getNomeVisita());
                         JOptionPane.showMessageDialog(null, "Digital capturada com sucesso !!!");
@@ -881,10 +892,20 @@ public class TelaAcessoBiometria extends javax.swing.JDialog {
                         jPavilhao.setText(dd.getPavilhao());
                         jCodigoVisita.setText(String.valueOf(dd.getIdVisita()));
                         caminhoFotoVisita = dd.getCaminhoFotoVisita();
-                        javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoVisita);
-                        jFotoVisita.setIcon(a);
-                        jFotoVisita.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT)));
-                        //
+                        if (caminhoFotoVisita != null) {
+                            javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoVisita);
+                            jFotoVisita.setIcon(a);
+                            jFotoVisita.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT)));
+                        }
+                        // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                        imagemFreteVisitaVI = dd.getImagemFrenteVI();
+                        if (imagemFreteVisitaVI != null) {
+                            ImageIcon pic = null;
+                            pic = new ImageIcon(imagemFreteVisitaVI);
+                            Image scaled = pic.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT);
+                            ImageIcon icon = new ImageIcon(scaled);
+                            jFotoVisita.setIcon(icon);
+                        }
                         jGrauParentesco.setText(dd.getGrauParentesco());
                         jNomeVisitante.setText(dd.getNomeVisita());
                         JOptionPane.showMessageDialog(null, "Digital capturada com sucesso !!!");
@@ -917,15 +938,25 @@ public class TelaAcessoBiometria extends javax.swing.JDialog {
                         jPavilhao.setText(dd.getPavilhao());
                         jCodigoVisita.setText(String.valueOf(dd.getIdVisita()));
                         caminhoFotoVisita = dd.getCaminhoFotoVisita();
-                        javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoVisita);
-                        jFotoVisita.setIcon(a);
-                        jFotoVisita.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT)));
-                        //
+                        if (caminhoFotoVisita != null) {
+                            javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoVisita);
+                            jFotoVisita.setIcon(a);
+                            jFotoVisita.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT)));
+                        }
+                        // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                        imagemFreteVisitaVI = dd.getImagemFrenteVI();
+                        if (imagemFreteVisitaVI != null) {
+                            ImageIcon pic = null;
+                            pic = new ImageIcon(imagemFreteVisitaVI);
+                            Image scaled = pic.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT);
+                            ImageIcon icon = new ImageIcon(scaled);
+                            jFotoVisita.setIcon(icon);
+                        }
                         jGrauParentesco.setText(dd.getGrauParentesco());
                         jNomeVisitante.setText(dd.getNomeVisita());
                         JOptionPane.showMessageDialog(null, "Digital capturada com sucesso !!!");
                         int idRetorno = dll.CIS_SDK_Biometrico_Finalizar();
-                        return;                        
+                        return;
                     }
                     // SE TODOS AS DIGITAIS FOREM IGUAL A -2 , DIGITAL NÃO CADASTRADA
                     if (iRetorno == -2 && iRetornod1 == -2 && iRetornod2 == -2 && iRetornod3 == -2 && qtdVisitas == pVar) {
