@@ -26,9 +26,13 @@ public class Digital {
     private byte[] biometriaDedo1;
     private byte[] biometriaDedo2;
     private byte[] biometriaDedo3;
-    private byte[] biometriaDedo4;          
+    private byte[] biometriaDedo4; 
+    private byte[] imagemFrenteVI;
 
-    public Digital(int idRol, int idInternoCrc, String nomeInternoCrc, String caminhoFotoInterno, String Regime, String pavilhao, String statusRol, int idVisita, String nomeVisita, String caminhoFotoVisita, String statusVisitaInterno, String grauParentesco, byte[] biometriaDedo1, byte[] biometriaDedo2, byte[] biometriaDedo3, byte[] biometriaDedo4) {
+    public Digital() {
+    }
+
+    public Digital(int idRol, int idInternoCrc, String nomeInternoCrc, String caminhoFotoInterno, String Regime, String pavilhao, String statusRol, int idVisita, String nomeVisita, String caminhoFotoVisita, String statusVisitaInterno, String grauParentesco, byte[] biometriaDedo1, byte[] biometriaDedo2, byte[] biometriaDedo3, byte[] biometriaDedo4, byte[] imagemFrenteVI) {
         this.idRol = idRol;
         this.idInternoCrc = idInternoCrc;
         this.nomeInternoCrc = nomeInternoCrc;
@@ -45,9 +49,7 @@ public class Digital {
         this.biometriaDedo2 = biometriaDedo2;
         this.biometriaDedo3 = biometriaDedo3;
         this.biometriaDedo4 = biometriaDedo4;
-    }
-
-    public Digital() {
+        this.imagemFrenteVI = imagemFrenteVI;
     }
 
     /**
@@ -273,4 +275,19 @@ public class Digital {
     public void setBiometriaDedo4(byte[] biometriaDedo4) {
         this.biometriaDedo4 = biometriaDedo4;
     }
+
+    /**
+     * @return the imagemFrenteVI
+     */
+    public byte[] getImagemFrenteVI() {
+        return imagemFrenteVI;
+    }
+
+    /**
+     * @param imagemFrenteVI the imagemFrenteVI to set
+     */
+    public void setImagemFrenteVI(byte[] imagemFrenteVI) {
+        this.imagemFrenteVI = imagemFrenteVI;
+    }
+   
 }
