@@ -23,8 +23,13 @@ public class ItensEntradaSaidaOJInternos {
     private String dataUp;
     private String horaInsert;
     private String horaUp;
+    private int idPavilhao;
+    private String descricaoPavilhao;
 
-    public ItensEntradaSaidaOJInternos(int idItem, int idlanc, int idOficial, String nomeOficial, int idInternoCrc, String nomeInterno, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp) {
+    public ItensEntradaSaidaOJInternos() {
+    }
+
+    public ItensEntradaSaidaOJInternos(int idItem, int idlanc, int idOficial, String nomeOficial, int idInternoCrc, String nomeInterno, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, int idPavilhao, String descricaoPavilhao) {
         this.idItem = idItem;
         this.idlanc = idlanc;
         this.idOficial = idOficial;
@@ -37,9 +42,8 @@ public class ItensEntradaSaidaOJInternos {
         this.dataUp = dataUp;
         this.horaInsert = horaInsert;
         this.horaUp = horaUp;
-    }
-
-    public ItensEntradaSaidaOJInternos() {
+        this.idPavilhao = idPavilhao;
+        this.descricaoPavilhao = descricaoPavilhao;
     }
 
     /**
@@ -209,4 +213,34 @@ public class ItensEntradaSaidaOJInternos {
     public void setHoraUp(String horaUp) {
         this.horaUp = horaUp;
     }
+
+    /**
+     * @return the idPavilhao
+     */
+    public int getIdPavilhao() {
+        return idPavilhao;
+    }
+
+    /**
+     * @param idPavilhao the idPavilhao to set
+     */
+    public void setIdPavilhao(int idPavilhao) {
+        this.idPavilhao = idPavilhao;
+    }
+
+    /**
+     * @return the descricaoPavilhao
+     */
+    public String getDescricaoPavilhao() {
+        return descricaoPavilhao;
+    }
+
+    /**
+     * @param descricaoPavilhao the descricaoPavilhao to set
+     */
+    public void setDescricaoPavilhao(String descricaoPavilhao) {
+        this.descricaoPavilhao = descricaoPavilhao;
+    }
+
+    
 }
