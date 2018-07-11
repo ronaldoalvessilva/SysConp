@@ -46,7 +46,7 @@ public class ControleItensEntSaiOficialJusticaInternos {
         buscarInterno(objItensEntSaiOJInternos.getNomeInterno(),objItensEntSaiOJInternos.getIdInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_ENTRADAS_OFICIAL_JUSTICA_INTERNOS SET IdInternoCrc=?,IdAdvogado=?,Idlanc=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE idItem='" + objItensEntSaiOJInternos.getIdItem() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_ENTRADAS_OFICIAL_JUSTICA_INTERNOS SET IdInternoCrc=?,IdOficial=?,Idlanc=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE idItem='" + objItensEntSaiOJInternos.getIdItem() + "'");
             pst.setInt(1, codInterno);
             pst.setInt(2, objItensEntSaiOJInternos.getIdOficial());
             pst.setInt(3, objItensEntSaiOJInternos.getIdlanc()); 
