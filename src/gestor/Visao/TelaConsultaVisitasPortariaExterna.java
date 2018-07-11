@@ -7,16 +7,24 @@ package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
+import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
+import static gestor.Visao.TelaLoginSenha.nameUser;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableRowSorter;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRResultSetDataSource;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -28,12 +36,15 @@ public class TelaConsultaVisitasPortariaExterna extends javax.swing.JInternalFra
     //
     int flag;
     int count;
+    //
     String dataInicial;
     String dataFinal;
     String dataRegistro = "";
     String dataPesquisa = "";
     String dataRelatorio = "";
     String dataEntrada;
+    String dataReg;    
+    //
     String caminhoVisita;
     String caminhoInterno;
     String codigoInternoReg;
@@ -60,9 +71,9 @@ public class TelaConsultaVisitasPortariaExterna extends javax.swing.JInternalFra
         jScrollPane2 = new javax.swing.JScrollPane();
         jTabelaVisitasInternos = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
-        jBtAtualizar = new javax.swing.JButton();
-        jBtSair = new javax.swing.JButton();
         jBtImpressao = new javax.swing.JButton();
+        jDataRelChegada = new com.toedter.calendar.JDateChooser();
+        jLabel4 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jDataPesqInicial = new com.toedter.calendar.JDateChooser();
@@ -85,6 +96,9 @@ public class TelaConsultaVisitasPortariaExterna extends javax.swing.JInternalFra
         FotoVisitante = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         FotoInterno = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        jBtAtualizar = new javax.swing.JButton();
+        jBtSair = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -99,6 +113,7 @@ public class TelaConsultaVisitasPortariaExterna extends javax.swing.JInternalFra
                 "Código", "Nome do Interno"
             }
         ));
+        jTabelaInternos.setToolTipText("Clique no registro selecionado para mostra a foto do interno");
         jTabelaInternos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTabelaInternosMouseClicked(evt);
@@ -108,8 +123,8 @@ public class TelaConsultaVisitasPortariaExterna extends javax.swing.JInternalFra
         if (jTabelaInternos.getColumnModel().getColumnCount() > 0) {
             jTabelaInternos.getColumnModel().getColumn(0).setMinWidth(70);
             jTabelaInternos.getColumnModel().getColumn(0).setMaxWidth(70);
-            jTabelaInternos.getColumnModel().getColumn(1).setMinWidth(300);
-            jTabelaInternos.getColumnModel().getColumn(1).setMaxWidth(300);
+            jTabelaInternos.getColumnModel().getColumn(1).setMinWidth(350);
+            jTabelaInternos.getColumnModel().getColumn(1).setMaxWidth(350);
         }
 
         jTabelaVisitasInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -121,6 +136,7 @@ public class TelaConsultaVisitasPortariaExterna extends javax.swing.JInternalFra
                 "Data Chegada", "Hora Chegada", "Ordem", "Código", "Nome do Visitante", "Grau de Parentesco"
             }
         ));
+        jTabelaVisitasInternos.setToolTipText("Clique no registro selecionado para mostrar o interno correspondente a visita");
         jTabelaVisitasInternos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTabelaVisitasInternosMouseClicked(evt);
@@ -144,60 +160,43 @@ public class TelaConsultaVisitasPortariaExterna extends javax.swing.JInternalFra
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
 
-        jBtAtualizar.setForeground(new java.awt.Color(0, 102, 0));
-        jBtAtualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
-        jBtAtualizar.setText("Atualizar");
-        jBtAtualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtAtualizarActionPerformed(evt);
-            }
-        });
-
-        jBtSair.setForeground(new java.awt.Color(204, 0, 0));
-        jBtSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/shutdown-icone-6920-16.png"))); // NOI18N
-        jBtSair.setText("Sair");
-        jBtSair.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtSairActionPerformed(evt);
-            }
-        });
-
         jBtImpressao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/gtklp-icone-3770-16.png"))); // NOI18N
         jBtImpressao.setText("Impressão");
+        jBtImpressao.setToolTipText("Relatório de Chegada de Visitas na Portaria");
         jBtImpressao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtImpressaoActionPerformed(evt);
             }
         });
 
+        jDataRelChegada.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel4.setText("Data Chegada:");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(64, 64, 64)
-                .addComponent(jBtImpressao)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jDataRelChegada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addComponent(jBtImpressao, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
-
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAtualizar, jBtImpressao, jBtSair});
-
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBtAtualizar)
-                    .addComponent(jBtSair)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel4)
+                    .addComponent(jDataRelChegada, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtImpressao))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
-
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAtualizar, jBtImpressao, jBtSair});
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Pesquisas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 102, 0))); // NOI18N
 
@@ -207,7 +206,7 @@ public class TelaConsultaVisitasPortariaExterna extends javax.swing.JInternalFra
         jDataPesqInicial.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jBtPesquisaRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
-        jBtPesquisaRegistro.setToolTipText("Pesquisa data do Registro");
+        jBtPesquisaRegistro.setToolTipText("Pesquisa por data de Registro");
         jBtPesquisaRegistro.setContentAreaFilled(false);
         jBtPesquisaRegistro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -221,6 +220,7 @@ public class TelaConsultaVisitasPortariaExterna extends javax.swing.JInternalFra
         jNomeVisitantePesquisa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jPesqNomeVisita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
+        jPesqNomeVisita.setToolTipText("Pesquisar Visita pelo nome");
         jPesqNomeVisita.setContentAreaFilled(false);
         jPesqNomeVisita.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -230,6 +230,7 @@ public class TelaConsultaVisitasPortariaExterna extends javax.swing.JInternalFra
 
         jCheckBox1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jCheckBox1.setText("Todos");
+        jCheckBox1.setToolTipText("Pesquisar todos os registros");
         jCheckBox1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jCheckBox1ItemStateChanged(evt);
@@ -264,7 +265,7 @@ public class TelaConsultaVisitasPortariaExterna extends javax.swing.JInternalFra
                                 .addComponent(jDataPesqFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jBtPesquisaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jCheckBox1))
                             .addComponent(jNomeVisitantePesquisa))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -343,13 +344,13 @@ public class TelaConsultaVisitasPortariaExterna extends javax.swing.JInternalFra
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(204, 0, 0));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("CONSULTA DE REGISTRO DE VISITAS DE INTERNOS NA PORTARIA EXTERNA");
+        jLabel3.setText("CONSULTA DE REGISTROS DE VISITAS DE INTERNOS NA PORTARIA EXTERNA");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -364,6 +365,7 @@ public class TelaConsultaVisitasPortariaExterna extends javax.swing.JInternalFra
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Foto do Visitante", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(204, 0, 0))); // NOI18N
 
         FotoVisitante.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        FotoVisitante.setToolTipText("Foto da Visita do Interno");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -385,6 +387,7 @@ public class TelaConsultaVisitasPortariaExterna extends javax.swing.JInternalFra
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Foto do Interno", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         FotoInterno.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        FotoInterno.setToolTipText("Foto do interno");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -410,7 +413,7 @@ public class TelaConsultaVisitasPortariaExterna extends javax.swing.JInternalFra
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -428,6 +431,52 @@ public class TelaConsultaVisitasPortariaExterna extends javax.swing.JInternalFra
 
         jPanel6Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPanel1, jPanel2});
 
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        jBtAtualizar.setForeground(new java.awt.Color(0, 102, 0));
+        jBtAtualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
+        jBtAtualizar.setText("Atualizar");
+        jBtAtualizar.setToolTipText("Atualizar Registros");
+        jBtAtualizar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBtAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAtualizarActionPerformed(evt);
+            }
+        });
+
+        jBtSair.setForeground(new java.awt.Color(204, 0, 0));
+        jBtSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/shutdown-icone-6920-16.png"))); // NOI18N
+        jBtSair.setText("Sair");
+        jBtSair.setToolTipText("Sair da tela");
+        jBtSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtSairActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addComponent(jBtAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBtAtualizar)
+                    .addComponent(jBtSair))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel7Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAtualizar, jBtSair});
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -442,19 +491,19 @@ public class TelaConsultaVisitasPortariaExterna extends javax.swing.JInternalFra
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(7, 7, 7)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -466,7 +515,9 @@ public class TelaConsultaVisitasPortariaExterna extends javax.swing.JInternalFra
                         .addGap(1, 1, 1)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -480,7 +531,7 @@ public class TelaConsultaVisitasPortariaExterna extends javax.swing.JInternalFra
                 .addGap(31, 31, 31))
         );
 
-        setBounds(200, 30, 916, 508);
+        setBounds(200, 30, 947, 508);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAtualizarActionPerformed
@@ -515,7 +566,7 @@ public class TelaConsultaVisitasPortariaExterna extends javax.swing.JInternalFra
                     SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
                     dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                     dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
-                    popularTabelaNomeVisita("ELECT * FROM REGISTRO_CHEGADA_VISITAS_INTERNOS_PORTARIA_EXTERNA "
+                    popularTabelaNomeVisita("SELECT * FROM REGISTRO_CHEGADA_VISITAS_INTERNOS_PORTARIA_EXTERNA "
                             + "INNER JOIN VISITASINTERNO "
                             + "ON REGISTRO_CHEGADA_VISITAS_INTERNOS_PORTARIA_EXTERNA.IdVisita=VISITASINTERNO.IdVisita "
                             + "WHERE DataReg BETWEEN'" + dataInicial + "' "
@@ -555,6 +606,35 @@ public class TelaConsultaVisitasPortariaExterna extends javax.swing.JInternalFra
 
     private void jBtImpressaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImpressaoActionPerformed
         // TODO add your handling code here:
+        if (jDataRelChegada.getDate() == null) {
+            JOptionPane.showMessageDialog(rootPane, "Informe a data da chegada da visita para imprimir o relatório.");
+        } else {
+            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+            dataRelatorio = formatoAmerica.format(jDataRelChegada.getDate().getTime());
+            try {
+                conecta.abrirConexao();
+                String path = "reports/RelatorioRegistroChegadaVisitaPortariaExterna.jasper";
+                conecta.executaSQL("SELECT * FROM REGISTRO_CHEGADA_VISITAS_INTERNOS_PORTARIA_EXTERNA "
+                        + "INNER JOIN VISITASINTERNO "
+                        + "ON REGISTRO_CHEGADA_VISITAS_INTERNOS_PORTARIA_EXTERNA.IdVisita=VISITASINTERNO.IdVisita "
+                        + "WHERE REGISTRO_CHEGADA_VISITAS_INTERNOS_PORTARIA_EXTERNA.DataInsert='" + dataRelatorio + "' "
+                        + "ORDER BY DataChegada,HoraChegada");
+                HashMap parametros = new HashMap();
+                parametros.put("DataInsert", dataRelatorio);
+                parametros.put("descricaoUnidade", descricaoUnidade);
+                parametros.put("nomeUsuario", nameUser);
+                JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                jv.setTitle("Relatório de Registro de Chegada de Visitas na Portaria Externa");
+                jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                jv.toFront(); // Traz o relatorio para frente da aplicação            
+                conecta.desconecta();
+            } catch (JRException e) {
+                JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+            }
+        }
     }//GEN-LAST:event_jBtImpressaoActionPerformed
 
     private void jTabelaVisitasInternosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaVisitasInternosMouseClicked
@@ -563,6 +643,7 @@ public class TelaConsultaVisitasPortariaExterna extends javax.swing.JInternalFra
         flag = 1;
         if (flag == 1) {
             idVisitaReg = "" + jTabelaVisitasInternos.getValueAt(jTabelaVisitasInternos.getSelectedRow(), 3);
+            dataReg = "" + jTabelaVisitasInternos.getValueAt(jTabelaVisitasInternos.getSelectedRow(), 0);
             //
             conecta.abrirConexao();
             try {
@@ -570,7 +651,7 @@ public class TelaConsultaVisitasPortariaExterna extends javax.swing.JInternalFra
                         + "INNER JOIN VISITASINTERNO "
                         + "ON REGISTRO_CHEGADA_VISITAS_INTERNOS_PORTARIA_EXTERNA.IdVisita=VISITASINTERNO.IdVisita "
                         + "WHERE REGISTRO_CHEGADA_VISITAS_INTERNOS_PORTARIA_EXTERNA.IdVisita='" + idVisitaReg + "'");
-                conecta.rs.first();
+                conecta.rs.first();                
                 // Capturando foto
                 caminhoVisita = conecta.rs.getString("ImagemVisita");
                 if (caminhoVisita != null) {
@@ -591,12 +672,14 @@ public class TelaConsultaVisitasPortariaExterna extends javax.swing.JInternalFra
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa..." + e);
             }
             conecta.desconecta();
+            // PREENCHER A TABELA DE INTERNO CORRESPONDENTE A VISITA
             preencherTabelaInternos("SELECT * FROM REGISTRO_CHEGADA_VISITAS_INTERNOS_PORTARIA_EXTERNA "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON REGISTRO_CHEGADA_VISITAS_INTERNOS_PORTARIA_EXTERNA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "INNER JOIN VISITASINTERNO "
                     + "ON REGISTRO_CHEGADA_VISITAS_INTERNOS_PORTARIA_EXTERNA.IdVisita=VISITASINTERNO.IdVisita "
-                    + "WHERE VISITASINTERNO.IdVisita='" + idVisitaReg + "'");
+                    + "WHERE VISITASINTERNO.IdVisita='" + idVisitaReg + "' "
+                    + "AND REGISTRO_CHEGADA_VISITAS_INTERNOS_PORTARIA_EXTERNA.DataInsert='" + dataReg + "'");
         }
     }//GEN-LAST:event_jTabelaVisitasInternosMouseClicked
 
@@ -647,10 +730,12 @@ public class TelaConsultaVisitasPortariaExterna extends javax.swing.JInternalFra
     private javax.swing.JCheckBox jCheckBox1;
     private com.toedter.calendar.JDateChooser jDataPesqFinal;
     private com.toedter.calendar.JDateChooser jDataPesqInicial;
+    private com.toedter.calendar.JDateChooser jDataRelChegada;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel63;
     private javax.swing.JTextField jNomeVisitantePesquisa;
     private javax.swing.JPanel jPanel1;
@@ -662,6 +747,7 @@ public class TelaConsultaVisitasPortariaExterna extends javax.swing.JInternalFra
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JButton jPesqNomeVisita;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -769,7 +855,7 @@ public class TelaConsultaVisitasPortariaExterna extends javax.swing.JInternalFra
         jTabelaInternos.setModel(modelo);
         jTabelaInternos.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaInternos.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaInternos.getColumnModel().getColumn(1).setPreferredWidth(300);
+        jTabelaInternos.getColumnModel().getColumn(1).setPreferredWidth(350);
         jTabelaInternos.getColumnModel().getColumn(1).setResizable(false);
         jTabelaInternos.getTableHeader().setReorderingAllowed(false);
         jTabelaInternos.setAutoResizeMode(jTabelaInternos.AUTO_RESIZE_OFF);
