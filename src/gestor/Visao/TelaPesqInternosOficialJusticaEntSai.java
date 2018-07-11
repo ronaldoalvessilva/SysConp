@@ -9,9 +9,9 @@ import gestor.Dao.*;
 import static gestor.Visao.TelaEntradaSaidaOficialJusticaInternos.jBtZoonFotoInterno;
 import static gestor.Visao.TelaEntradaSaidaOficialJusticaInternos.jIdInterno;
 import static gestor.Visao.TelaEntradaSaidaOficialJusticaInternos.jNomeInterno;
-import static gestor.Visao.TelaEntradaSaidaOficialJusticaInternos.jSituacaoCrc;
 import static gestor.Visao.TelaEntradaSaidaOficialJusticaInternos.jDataEntradaInterno;
 import static gestor.Visao.TelaEntradaSaidaOficialJusticaInternos.jFotoInternoOficialJustica;
+import static gestor.Visao.TelaEntradaSaidaOficialJusticaInternos.codigoPavilhao;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -20,6 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import static gestor.Visao.TelaEntradaSaidaOficialJusticaInternos.jDescricaoPavilhao;
 
 /**
  *
@@ -31,7 +32,7 @@ public class TelaPesqInternosOficialJusticaEntSai extends javax.swing.JInternalF
     int flag;
     String situacaoEnt = "ENTRADA NA UNIDADE";
     String situacaoRet = "RETORNO A UNIDADE";
-    String caminho;    
+    String caminho;
 
     /**
      * Creates new form TelaPesqColaborador
@@ -217,17 +218,35 @@ public class TelaPesqInternosOficialJusticaEntSai extends javax.swing.JInternalF
                 conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                         + "INNER JOIN DADOSPENAISINTERNOS "
                         + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                        + "WHERE NomeInternoCrc='" + jPesqNomeInterno.getText() + "' "
+                        + "INNER JOIN ITENSLOCACAOINTERNO "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
+                        + "INNER JOIN CELAS "
+                        + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
+                        + "INNER JOIN PAVILHAO "
+                        + "ON CELAS.IdPav=PAVILHAO.IdPav "
+                        + "WHERE PRONTUARIOSCRC.NomeInternoCrc='" + jPesqNomeInterno.getText() + "' "
                         + "AND PRONTUARIOSCRC.IdInternoCrc='" + idFunc + "'");
                 conecta.rs.first();
                 jIdInterno.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
                 jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));
                 // Capturando foto
                 caminho = conecta.rs.getString("FotoInternoCrc");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                jFotoInternoOficialJustica.setIcon(i);
-                jFotoInternoOficialJustica.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoOficialJustica.getWidth(), jFotoInternoOficialJustica.getHeight(), Image.SCALE_DEFAULT)));
-                jSituacaoCrc.setText(conecta.rs.getString("SituacaoCrc"));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    jFotoInternoOficialJustica.setIcon(i);
+                    jFotoInternoOficialJustica.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoOficialJustica.getWidth(), jFotoInternoOficialJustica.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] img2Bytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (img2Bytes != null) {
+                    ImageIcon pic2 = null;
+                    pic2 = new ImageIcon(img2Bytes);
+                    Image scaled2 = pic2.getImage().getScaledInstance(jFotoInternoOficialJustica.getWidth(), jFotoInternoOficialJustica.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon2 = new ImageIcon(scaled2);
+                    jFotoInternoOficialJustica.setIcon(icon2);
+                }
+                codigoPavilhao = conecta.rs.getInt("IdPav");
+                jDescricaoPavilhao.setText(conecta.rs.getString("DescricaoPav"));
                 jDataEntradaInterno.setDate(conecta.rs.getDate("DataEntrada"));
                 jBtZoonFotoInterno.setEnabled(true);
                 conecta.desconecta();
