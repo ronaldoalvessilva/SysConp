@@ -11,6 +11,7 @@ import com.sun.jna.Pointer;
 import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.ptr.PointerByReference;
 import com.sun.jna.win32.StdCallLibrary;
+import gestor.Controle.ControleAlertasPortariaPavilhoes;
 import gestor.Controle.ControleEntradaSaidaVisitasInternos;
 import gestor.Controle.ControleItensEntradaSaidaVisitasInternos;
 import gestor.Controle.ControleLogSistema;
@@ -20,6 +21,7 @@ import static gestor.Controle.ControleVisitaInterno.qtdVisitas;
 import gestor.Controle.ControleVisitasFamiliarInternos;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
+import gestor.Modelo.AlertaVisitasPortariaPavilhoes;
 import gestor.Modelo.Digital;
 import gestor.Modelo.EntradaSaidaVisitasInternos;
 import gestor.Modelo.ItensEntradaSaidaVisitasInternos;
@@ -56,6 +58,10 @@ public class TelaAcessoBiometria extends javax.swing.JDialog {
     ControleItensEntradaSaidaVisitasInternos controle = new ControleItensEntradaSaidaVisitasInternos();
     //
     ControleVisitasFamiliarInternos objControl = new ControleVisitasFamiliarInternos();
+    //
+    AlertaVisitasPortariaPavilhoes objAlertaPortPav = new AlertaVisitasPortariaPavilhoes();
+    ControleAlertasPortariaPavilhoes controleOFPortPav = new ControleAlertasPortariaPavilhoes();
+    //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
