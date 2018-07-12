@@ -5,12 +5,14 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleAlertasPortariaPavilhoes;
 import gestor.Controle.ControleEntSaiAdvInternos;
 import gestor.Controle.ControleItensEntSaiAdvInternos;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleVisitasAdvogados;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
+import gestor.Modelo.AlertaVisitasPortariaPavilhoes;
 import gestor.Modelo.EntradaSaidaAdvogadosInternos;
 import gestor.Modelo.ItensEntradaSaidaAdvInternos;
 import gestor.Modelo.LogSistema;
@@ -60,6 +62,10 @@ public class TelaEntradaSaidaAdvogadosInternos extends javax.swing.JInternalFram
     ControleItensEntSaiAdvInternos controle = new ControleItensEntSaiAdvInternos();
     VisitasAdvogadosInternos objVisitasAdvInt = new VisitasAdvogadosInternos();
     ControleVisitasAdvogados controleAd = new ControleVisitasAdvogados();
+    //
+    AlertaVisitasPortariaPavilhoes objAlertaPortPav = new AlertaVisitasPortariaPavilhoes();
+    ControleAlertasPortariaPavilhoes controleOFPortPav = new ControleAlertasPortariaPavilhoes();
+    //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
@@ -85,6 +91,9 @@ public class TelaEntradaSaidaAdvogadosInternos extends javax.swing.JInternalFram
     String verHorarioSaida = "00:00";
     String verHorarioEntrada = "00:00";
     String horaEntradaEncontrada, codigoRegistro, horaSaidaEncontrado;
+    //
+    public static int codigoPavilhao = 0;
+    String confirmacaoUso = "Não"; // VARIAVEL QUE CONTROLA SE O PAVILHAO CONFIRMOU O REGISTRO
     //
 
     /**
@@ -157,7 +166,7 @@ public class TelaEntradaSaidaAdvogadosInternos extends javax.swing.JInternalFram
         jNomeInterno = new javax.swing.JTextField();
         jIdInterno = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jSituacaoCrc = new javax.swing.JTextField();
+        jDescricaoPavilhao = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jDataEntradaInterno = new com.toedter.calendar.JDateChooser();
         jBtPesqInterno = new javax.swing.JButton();
@@ -212,7 +221,7 @@ public class TelaEntradaSaidaAdvogadosInternos extends javax.swing.JInternalFram
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 255)));
+        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jBtPesqData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtPesqData.setContentAreaFilled(false);
@@ -556,10 +565,10 @@ public class TelaEntradaSaidaAdvogadosInternos extends javax.swing.JInternalFram
         jIdInterno.setEnabled(false);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel7.setText("Situação na Unidade");
+        jLabel7.setText("Pavilhão");
 
-        jSituacaoCrc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jSituacaoCrc.setEnabled(false);
+        jDescricaoPavilhao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDescricaoPavilhao.setEnabled(false);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel8.setText("Data Entrada");
@@ -610,7 +619,7 @@ public class TelaEntradaSaidaAdvogadosInternos extends javax.swing.JInternalFram
                             .addGroup(jPanel9Layout.createSequentialGroup()
                                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel7)
-                                    .addComponent(jSituacaoCrc, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jDescricaoPavilhao, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jDataEntradaInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -636,7 +645,7 @@ public class TelaEntradaSaidaAdvogadosInternos extends javax.swing.JInternalFram
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSituacaoCrc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jDescricaoPavilhao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel8)
@@ -651,7 +660,7 @@ public class TelaEntradaSaidaAdvogadosInternos extends javax.swing.JInternalFram
                 {null, null, null, null}
             },
             new String [] {
-                "Código", "Nome do Interno", "Situação", "Data Entrada"
+                "Código", "Nome do Interno", "Pavilhão", "Data Entrada"
             }
         ));
         jTabelaInternos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1220,6 +1229,12 @@ public class TelaEntradaSaidaAdvogadosInternos extends javax.swing.JInternalFram
                         + "ON ITENSADVOGADOINTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                         + "INNER JOIN DADOSPENAISINTERNOS "
                         + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                        + "INNER JOIN ITENSLOCACAOINTERNO "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
+                        + "INNER JOIN CELAS "
+                        + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
+                        + "INNER JOIN PAVILHAO "
+                        + "ON CELAS.IdPav=PAVILHAO.IdPav "
                         + "WHERE IdLanc='" + IdLanc + "'");
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa..." + e);
@@ -1408,7 +1423,14 @@ public class TelaEntradaSaidaAdvogadosInternos extends javax.swing.JInternalFram
                         + "ON ITENSADVOGADOINTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                         + "INNER JOIN DADOSPENAISINTERNOS "
                         + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                        + "WHERE NomeInternoCrc='" + jNomeInterno.getText() + "' AND IdLanc='" + jIDlanc.getText() + "'");
+                        + "INNER JOIN ITENSLOCACAOINTERNO "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
+                        + "INNER JOIN CELAS "
+                        + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
+                        + "INNER JOIN PAVILHAO "
+                        + "ON CELAS.IdPav=PAVILHAO.IdPav "
+                        + "WHERE NomeInternoCrc='" + jNomeInterno.getText() + "' "
+                        + "AND IdLanc='" + jIDlanc.getText() + "'");
                 conecta.rs.first();
                 jIdInterno.setText(conecta.rs.getString("IdInternoCrc"));
                 jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));
@@ -1429,7 +1451,8 @@ public class TelaEntradaSaidaAdvogadosInternos extends javax.swing.JInternalFram
                     ImageIcon icon2 = new ImageIcon(scaled2);
                     jFotoInternoAdvogado.setIcon(icon2);
                 }
-                jSituacaoCrc.setText(conecta.rs.getString("SituacaoCrc"));
+                codigoPavilhao = conecta.rs.getInt("IdPav");
+                jDescricaoPavilhao.setText(conecta.rs.getString("DescricaoPav"));
                 jDataEntradaInterno.setDate(conecta.rs.getDate("DataEntrada"));
                 conecta.desconecta();
             } catch (SQLException ex) {
@@ -1492,6 +1515,11 @@ public class TelaEntradaSaidaAdvogadosInternos extends javax.swing.JInternalFram
                 int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o interno selecionado?", "Confirmação",
                         JOptionPane.YES_NO_OPTION);
                 if (resposta == JOptionPane.YES_OPTION) {
+                    // EXCLUIR REGISTROS DE ALERTA PARA PORTARIA DE ACORDO COM O PARÂMETRO (HABILITADO - DESABILITADO)                   
+                    objAlertaPortPav.setIdRegistroAD(Integer.valueOf(jIDlanc.getText()));//  
+                    objAlertaPortPav.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                    controleOFPortPav.excluirAcessoAdvogadoPortariaPavilhoes(objAlertaPortPav);
+                    //
                     objItensEntSaiAdvInternos.setIdItem(Integer.valueOf(idItem));
                     controle.excluirItensEnSaiAdvInternos(objItensEntSaiAdvInternos);
                     objVisitasAdvInt.setIdLanc(Integer.valueOf(jIDlanc.getText()));
@@ -1536,6 +1564,22 @@ public class TelaEntradaSaidaAdvogadosInternos extends javax.swing.JInternalFram
                     controle.incluirItensEnSaiAdvInternos(objItensEntSaiAdvInternos);
                     objAdvogadosInternos();
                     controleAd.incluirAdvogadosInterno(objVisitasAdvInt); // Incluir os internos no cadastro do advogdo
+                    // INCLUIR REGISTROS DE ALERTA PARA PORTARIA DE ACORDO COM O PARÂMETRO (HABILITADO - DESABILITADO)
+                    objAlertaPortPav.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                    objAlertaPortPav.setNomeInternoCrc(jNomeInterno.getText());
+                    objAlertaPortPav.setIdRegistroAD(Integer.valueOf(jIDlanc.getText()));
+                    objAlertaPortPav.setIdAdvogado(Integer.valueOf(jIDAdvogado.getText()));
+                    objAlertaPortPav.setDataChegada(jDataEntrada.getDate());
+                    objAlertaPortPav.setHoraChegada(jHorarioEntrada.getText());
+                    objAlertaPortPav.setConfirmacao(confirmacaoUso);
+                    objAlertaPortPav.setIdPav(codigoPavilhao);
+                    objAlertaPortPav.setDescricaoPavilhao(jDescricaoPavilhao.getText());
+                    // USUARIO NA PORTARIA QUE FEZ O LANÇAMENTO DO REGISTRO
+                    objAlertaPortPav.setUsuarioInsert(nameUser);
+                    objAlertaPortPav.setDataInsert(dataModFinal);
+                    objAlertaPortPav.setHorarioInsert(horaMov);
+                    controleOFPortPav.incluirAcessoAdvogadoPortariaPavilhoes(objAlertaPortPav);
+                    //
                     objLog2();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     preencherTabelaItens("SELECT * FROM ITENSADVOGADOINTERNOS "
@@ -1543,6 +1587,12 @@ public class TelaEntradaSaidaAdvogadosInternos extends javax.swing.JInternalFram
                             + "ON ITENSADVOGADOINTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                             + "INNER JOIN DADOSPENAISINTERNOS "
                             + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                            + "INNER JOIN ITENSLOCACAOINTERNO "
+                            + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
+                            + "INNER JOIN CELAS "
+                            + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
+                            + "INNER JOIN PAVILHAO "
+                            + "ON CELAS.IdPav=PAVILHAO.IdPav "
                             + "WHERE Idlanc='" + jIDlanc.getText() + "'");
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                     SalvarInterno();
@@ -1559,6 +1609,22 @@ public class TelaEntradaSaidaAdvogadosInternos extends javax.swing.JInternalFram
                     controle.alterarItensEnSaiAdvInternos(objItensEntSaiAdvInternos);
                     objAdvogadosInternos();
                     controleAd.alterarAdvogadosInterno(objVisitasAdvInt); // Alterar os internos no cadastro do advogado
+                    // ALTERAR REGISTROS DE ALERTA PARA PORTARIA DE ACORDO COM O PARÂMETRO (HABILITADO - DESABILITADO)
+                    objAlertaPortPav.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                    objAlertaPortPav.setNomeInternoCrc(jNomeInterno.getText());
+                    objAlertaPortPav.setIdRegistroAD(Integer.valueOf(jIDlanc.getText()));
+                    objAlertaPortPav.setIdAdvogado(Integer.valueOf(jIDAdvogado.getText()));
+                    objAlertaPortPav.setDataChegada(jDataEntrada.getDate());
+                    objAlertaPortPav.setHoraChegada(jHorarioEntrada.getText());
+                    objAlertaPortPav.setConfirmacao(confirmacaoUso);
+                    objAlertaPortPav.setIdPav(codigoPavilhao);
+                    objAlertaPortPav.setDescricaoPavilhao(jDescricaoPavilhao.getText());
+                    // USUARIO NA PORTARIA QUE MODIFICOU O LANÇAMENTO DO REGISTRO
+                    objAlertaPortPav.setUsuarioUp(nameUser);
+                    objAlertaPortPav.setDataUp(dataModFinal);
+                    objAlertaPortPav.setHorarioUp(horaMov);
+                    controleOFPortPav.alterarAcessoAdvogadoPortariaPavilhoes(objAlertaPortPav);
+                    //
                     objLog2();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     preencherTabelaItens("SELECT * FROM ITENSADVOGADOINTERNOS "
@@ -1566,6 +1632,12 @@ public class TelaEntradaSaidaAdvogadosInternos extends javax.swing.JInternalFram
                             + "ON ITENSADVOGADOINTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                             + "INNER JOIN DADOSPENAISINTERNOS "
                             + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                            + "INNER JOIN ITENSLOCACAOINTERNO "
+                            + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
+                            + "INNER JOIN CELAS "
+                            + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
+                            + "INNER JOIN PAVILHAO "
+                            + "ON CELAS.IdPav=PAVILHAO.IdPav "
                             + "WHERE Idlanc='" + jIDlanc.getText() + "'");
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                     SalvarInterno();
@@ -1685,6 +1757,7 @@ public class TelaEntradaSaidaAdvogadosInternos extends javax.swing.JInternalFram
     private com.toedter.calendar.JDateChooser jDataPesqInicial;
     public static com.toedter.calendar.JDateChooser jDataSaida;
     private com.toedter.calendar.JDateChooser jDatalancamento;
+    public static javax.swing.JTextField jDescricaoPavilhao;
     public static javax.swing.JLabel jFotoAdvogado;
     public static javax.swing.JLabel jFotoInternoAdvogado;
     public static javax.swing.JFormattedTextField jHorarioEntrada;
@@ -1733,7 +1806,6 @@ public class TelaEntradaSaidaAdvogadosInternos extends javax.swing.JInternalFram
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    public static javax.swing.JTextField jSituacaoCrc;
     private javax.swing.JTextField jStatusEntCola;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
@@ -1812,7 +1884,7 @@ public class TelaEntradaSaidaAdvogadosInternos extends javax.swing.JInternalFram
         jNomeInterno.setText("");
         jFotoInternoAdvogado.setIcon(null);
         jDataEntrada.setDate(null);
-        jSituacaoCrc.setText("");
+        jDescricaoPavilhao.setText("");
         jDataEntradaInterno.setDate(null);
         jHorarioEntrada.setText("00:00");
         jDataSaida.setDate(null);
@@ -1846,7 +1918,7 @@ public class TelaEntradaSaidaAdvogadosInternos extends javax.swing.JInternalFram
         jHorarioSaida.setBackground(Color.white);
         jIdInterno.setBackground(Color.white);
         jNomeInterno.setBackground(Color.white);
-        jSituacaoCrc.setBackground(Color.white);
+        jDescricaoPavilhao.setBackground(Color.white);
         jDataEntradaInterno.setBackground(Color.white);
     }
 
@@ -1873,7 +1945,7 @@ public class TelaEntradaSaidaAdvogadosInternos extends javax.swing.JInternalFram
         jIdInterno.setText("");
         jFotoInternoAdvogado.setIcon(null);
         jNomeInterno.setText("");
-        jSituacaoCrc.setText("");
+        jDescricaoPavilhao.setText("");
         jDataEntradaInterno.setDate(null);
         //
         jDataEntrada.setEnabled(true);
@@ -1929,7 +2001,7 @@ public class TelaEntradaSaidaAdvogadosInternos extends javax.swing.JInternalFram
         // Dados do interno
         jIdInterno.setText("");
         jNomeInterno.setText("");
-        jSituacaoCrc.setText("");
+        jDescricaoPavilhao.setText("");
         jDataEntradaInterno.setDate(null);
         //Habilitar/Desabilitar campos        
         jDatalancamento.setEnabled(!true);
@@ -2050,7 +2122,7 @@ public class TelaEntradaSaidaAdvogadosInternos extends javax.swing.JInternalFram
         jIdInterno.setText("");
         jNomeInterno.setText("");
         jFotoInternoAdvogado.setIcon(null);
-        jSituacaoCrc.setText("");
+        jDescricaoPavilhao.setText("");
         jDataEntradaInterno.setDate(null);
         // Habilitar/Desabilitar campos
         jBtZoonFotoInterno.setEnabled(!true);
@@ -2089,7 +2161,7 @@ public class TelaEntradaSaidaAdvogadosInternos extends javax.swing.JInternalFram
         jIdInterno.setText("");
         jNomeInterno.setText("");
         jFotoInternoAdvogado.setIcon(null);
-        jSituacaoCrc.setText("");
+        jDescricaoPavilhao.setText("");
         jDataEntradaInterno.setDate(null);
         // Habilitar/Desabilitar campos
         jBtPesqInterno.setEnabled(!true);
@@ -2110,7 +2182,7 @@ public class TelaEntradaSaidaAdvogadosInternos extends javax.swing.JInternalFram
         jIdInterno.setText("");
         jNomeInterno.setText("");
         jFotoInternoAdvogado.setIcon(null);
-        jSituacaoCrc.setText("");
+        jDescricaoPavilhao.setText("");
         jDataEntradaInterno.setDate(null);
         // Habilitar/Desabilitar campos
         jBtPesqInterno.setEnabled(!true);
@@ -2323,7 +2395,7 @@ public class TelaEntradaSaidaAdvogadosInternos extends javax.swing.JInternalFram
 
     public void preencherTabelaItens(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome do Interno", "Situação", "Data Entrada"};
+        String[] Colunas = new String[]{"Código", "Nome do Interno", "Pavilhão", "Data Entrada"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
@@ -2335,7 +2407,7 @@ public class TelaEntradaSaidaAdvogadosInternos extends javax.swing.JInternalFram
                 String mes = dataEntrada.substring(5, 7);
                 String ano = dataEntrada.substring(0, 4);
                 dataEntrada = dia + "/" + mes + "/" + ano;
-                dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("SituacaoCrc"), dataEntrada});
+                dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("DescricaoPav"), dataEntrada});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }
@@ -2370,7 +2442,7 @@ public class TelaEntradaSaidaAdvogadosInternos extends javax.swing.JInternalFram
 
     public void limparTabelaItens() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome do Interno", "Situação", "Data Entrada"};
+        String[] Colunas = new String[]{"Código", "Nome do Interno", "Pavilhão", "Data Entrada"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaInternos.setModel(modelo);
         jTabelaInternos.getColumnModel().getColumn(0).setPreferredWidth(50);
@@ -2394,7 +2466,8 @@ public class TelaEntradaSaidaAdvogadosInternos extends javax.swing.JInternalFram
         dataModFinal = jDataSistema.getText();
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ITENSADVOGADOINTERNOS WHERE IdLanc='" + jIDlanc.getText() + "'");
+            conecta.executaSQL("SELECT * FROM ITENSADVOGADOINTERNOS "
+                    + "WHERE IdLanc='" + jIDlanc.getText() + "'");
             conecta.rs.first();
             codlanc = conecta.rs.getString("IdLanc");
             if (jIDlanc.getText().equals(codlanc)) {
