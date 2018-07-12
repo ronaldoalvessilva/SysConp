@@ -5,12 +5,14 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleAlertasPortariaPavilhoes;
 import gestor.Controle.ControleEntradaSaidaVisitasInternos;
 import gestor.Controle.ControleItensEntradaSaidaVisitasInternos;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleVisitasFamiliarInternos;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
+import gestor.Modelo.AlertaVisitasPortariaPavilhoes;
 import gestor.Modelo.EntradaSaidaVisitasInternos;
 import gestor.Modelo.ItensEntradaSaidaVisitasInternos;
 import gestor.Modelo.LogSistema;
@@ -59,6 +61,10 @@ public class TelaEntradaSaidaVisitasInternos extends javax.swing.JInternalFrame 
     ItensEntradaSaidaVisitasInternos objItensVisitaInternos = new ItensEntradaSaidaVisitasInternos();
     ControleItensEntradaSaidaVisitasInternos controle = new ControleItensEntradaSaidaVisitasInternos();
     ControleVisitasFamiliarInternos objControl = new ControleVisitasFamiliarInternos(); //Atualizar historico visitas internos (com erro)
+    //
+    AlertaVisitasPortariaPavilhoes objAlertaPortPav = new AlertaVisitasPortariaPavilhoes();
+    ControleAlertasPortariaPavilhoes controleOFPortPav = new ControleAlertasPortariaPavilhoes();
+    //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
@@ -91,6 +97,8 @@ public class TelaEntradaSaidaVisitasInternos extends javax.swing.JInternalFrame 
     String codigoInternoGrava;
     String codigoVisitaGrava;
     String codigoRegistroGrava;
+    public static int codigoPavilhao = 0;
+    String confirmacaoUso = "Não"; // VARIAVEL QUE CONTROLA SE O PAVILHAO CONFIRMOU O REGISTRO
     /**
      * Creates new form TelaEntradaSaidaVistasInternos
      */
@@ -170,21 +178,6 @@ public class TelaEntradaSaidaVisitasInternos extends javax.swing.JInternalFrame 
         jScrollPane2 = new javax.swing.JScrollPane();
         jTabelaVisitasInternos = new javax.swing.JTable();
         jTabbedPane2 = new javax.swing.JTabbedPane();
-        jPanel9 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jIdInterno = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jNomeInterno = new javax.swing.JTextField();
-        jBtPesqInterno = new javax.swing.JButton();
-        jPanel8 = new javax.swing.JPanel();
-        jFotoInternoVisitasInterno = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jRegimePenal = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
-        jPavilhao = new javax.swing.JTextField();
-        jBtZoonFoto = new javax.swing.JButton();
-        jLabel20 = new javax.swing.JLabel();
-        jtotalItens = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jIDVisita = new javax.swing.JTextField();
@@ -202,6 +195,22 @@ public class TelaEntradaSaidaVisitasInternos extends javax.swing.JInternalFrame 
         jHorarioSaida = new javax.swing.JFormattedTextField();
         jLabel10 = new javax.swing.JLabel();
         jBtZoonVisita = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jIdInterno = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jNomeInterno = new javax.swing.JTextField();
+        jBtPesqInterno = new javax.swing.JButton();
+        jPanel8 = new javax.swing.JPanel();
+        jFotoInternoVisitasInterno = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jRegimePenal = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jPavilhao = new javax.swing.JTextField();
+        jBtZoonFoto = new javax.swing.JButton();
+        jLabel20 = new javax.swing.JLabel();
+        jtotalItens = new javax.swing.JLabel();
         jPanel14 = new javax.swing.JPanel();
         jBtBuscarInterno = new javax.swing.JButton();
         jBtAuditoriaItens = new javax.swing.JButton();
@@ -228,7 +237,7 @@ public class TelaEntradaSaidaVisitasInternos extends javax.swing.JInternalFrame 
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 255)));
+        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jBtPesqData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtPesqData.setContentAreaFilled(false);
@@ -612,146 +621,6 @@ public class TelaEntradaSaidaVisitasInternos extends javax.swing.JInternalFrame 
         jTabbedPane2.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
         jTabbedPane2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel3.setText("Código");
-
-        jIdInterno.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jIdInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jIdInterno.setEnabled(false);
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel4.setText("Nome do Interno");
-
-        jNomeInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jNomeInterno.setEnabled(false);
-
-        jBtPesqInterno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
-        jBtPesqInterno.setToolTipText("Pesquisar Internos no Rol");
-        jBtPesqInterno.setContentAreaFilled(false);
-        jBtPesqInterno.setEnabled(false);
-        jBtPesqInterno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtPesqInternoActionPerformed(evt);
-            }
-        });
-
-        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
-
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jFotoInternoVisitasInterno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jFotoInternoVisitasInterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel13.setText("Regime");
-
-        jRegimePenal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jRegimePenal.setEnabled(false);
-
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel11.setText("Pavilhão");
-
-        jPavilhao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jPavilhao.setEnabled(false);
-
-        jBtZoonFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/11985_16x16.png"))); // NOI18N
-        jBtZoonFoto.setToolTipText("Ampliar Foto de Interno");
-        jBtZoonFoto.setEnabled(false);
-        jBtZoonFoto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtZoonFotoActionPerformed(evt);
-            }
-        });
-
-        jLabel20.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel20.setText("Total Itens");
-
-        jtotalItens.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jtotalItens.setForeground(new java.awt.Color(255, 0, 0));
-        jtotalItens.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jNomeInterno)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBtZoonFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addGroup(jPanel9Layout.createSequentialGroup()
-                                .addComponent(jIdInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtPesqInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(86, 86, 86)
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel20)
-                            .addComponent(jtotalItens, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 99, Short.MAX_VALUE))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel13)
-                            .addComponent(jRegimePenal, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPavilhao)
-                            .addGroup(jPanel9Layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel20)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jIdInterno)
-                            .addComponent(jBtPesqInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtotalItens))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4))
-                    .addComponent(jBtZoonFoto))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel11))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRegimePenal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPavilhao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
-
-        jPanel9Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jIdInterno, jtotalItens});
-
-        jTabbedPane2.addTab("Interno", jPanel9);
-
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -917,6 +786,161 @@ public class TelaEntradaSaidaVisitasInternos extends javax.swing.JInternalFrame 
         );
 
         jTabbedPane2.addTab("Visita", jPanel10);
+
+        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel3.setText("Código");
+
+        jIdInterno.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jIdInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jIdInterno.setEnabled(false);
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel4.setText("Nome do Interno");
+
+        jNomeInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNomeInterno.setEnabled(false);
+
+        jBtPesqInterno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
+        jBtPesqInterno.setToolTipText("Pesquisar Internos no Rol");
+        jBtPesqInterno.setContentAreaFilled(false);
+        jBtPesqInterno.setEnabled(false);
+        jBtPesqInterno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPesqInternoActionPerformed(evt);
+            }
+        });
+
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoInternoVisitasInterno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoInternoVisitasInterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel13.setText("Regime");
+
+        jRegimePenal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jRegimePenal.setEnabled(false);
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel11.setText("Pavilhão");
+
+        jPavilhao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPavilhao.setEnabled(false);
+
+        jBtZoonFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/11985_16x16.png"))); // NOI18N
+        jBtZoonFoto.setToolTipText("Ampliar Foto de Interno");
+        jBtZoonFoto.setEnabled(false);
+        jBtZoonFoto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtZoonFotoActionPerformed(evt);
+            }
+        });
+
+        jLabel20.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel20.setText("Total Itens");
+
+        jtotalItens.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jtotalItens.setForeground(new java.awt.Color(255, 0, 0));
+        jtotalItens.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jNomeInterno)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBtZoonFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addComponent(jIdInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jBtPesqInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(86, 86, 86)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel20)
+                            .addComponent(jtotalItens, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 99, Short.MAX_VALUE))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13)
+                            .addComponent(jRegimePenal, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPavilhao)
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel20)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jIdInterno)
+                            .addComponent(jBtPesqInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtotalItens))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel4))
+                    .addComponent(jBtZoonFoto))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel11))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRegimePenal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPavilhao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        jPanel9Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jIdInterno, jtotalItens});
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jTabbedPane2.addTab("Internos", jPanel3);
 
         jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Botões", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
 
@@ -1453,6 +1477,7 @@ public class TelaEntradaSaidaVisitasInternos extends javax.swing.JInternalFrame 
                     jIdInterno.setText(conecta.rs.getString("IdInternoCrc"));
                     jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));
                     jRegimePenal.setText(conecta.rs.getString("Regime"));
+                    codigoPavilhao = conecta.rs.getInt("IdPav");
                     jPavilhao.setText(conecta.rs.getString("DescricaoPav"));
                     // Capturando foto
                     caminho = conecta.rs.getString("FotoInternoCrc");
@@ -1612,6 +1637,11 @@ public class TelaEntradaSaidaVisitasInternos extends javax.swing.JInternalFrame 
                 int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o VISITANTE selecionado?", "Confirmação",
                         JOptionPane.YES_NO_OPTION);
                 if (resposta == JOptionPane.YES_OPTION) {
+                    // EXCLUIR REGISTROS DE ALERTA PARA PORTARIA DE ACORDO COM O PARÂMETRO (HABILITADO - DESABILITADO)                   
+                    objAlertaPortPav.setIdRegistroVI(Integer.valueOf(jIDlanc.getText()));//  
+                    objAlertaPortPav.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                    controleOFPortPav.excluirAcessoVisitaInternoPortariaPavilhoes(objAlertaPortPav);
+                    //
                     objItensVisitaInternos.setIdItem(Integer.valueOf(idItemVisita));
                     controle.excluirItensVisitaInternos(objItensVisitaInternos);
                     buscarIdInternoVisita();
@@ -1689,6 +1719,21 @@ public class TelaEntradaSaidaVisitasInternos extends javax.swing.JInternalFrame 
                                             controle.incluirItensVisitasInternos(objItensVisitaInternos);
                                             buscarIdInternoVisita();
                                             objControl.incluirInternoVisita(objItensVisitaInternos);
+                                            // INCLUIR REGISTROS DE ALERTA PARA PORTARIA DE ACORDO COM O PARÂMETRO (HABILITADO - DESABILITADO)
+                                            objAlertaPortPav.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                                            objAlertaPortPav.setNomeInternoCrc(jNomeInterno.getText());
+                                            objAlertaPortPav.setIdRegistroVI(Integer.valueOf(jIDlanc.getText()));
+                                            objAlertaPortPav.setIdVisita(Integer.valueOf(jIDVisita.getText()));
+                                            objAlertaPortPav.setDataChegada(jDataEntrada.getDate());
+                                            objAlertaPortPav.setHoraChegada(jHorarioEntrada.getText());
+                                            objAlertaPortPav.setConfirmacao(confirmacaoUso);
+                                            objAlertaPortPav.setIdPav(codigoPavilhao);
+                                            objAlertaPortPav.setDescricaoPavilhao(jPavilhao.getText());
+                                            // USUARIO NA PORTARIA QUE FEZ O LANÇAMENTO DO REGISTRO
+                                            objAlertaPortPav.setUsuarioInsert(nameUser);
+                                            objAlertaPortPav.setDataInsert(dataModFinal);
+                                            objAlertaPortPav.setHorarioInsert(horaMov);
+                                            controleOFPortPav.incluirAcessoVisitaInternoPortariaPavilhoes(objAlertaPortPav);
                                             objLog2();
                                             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                                             SalvarVisita();
@@ -1720,6 +1765,22 @@ public class TelaEntradaSaidaVisitasInternos extends javax.swing.JInternalFrame 
                                         controle.alterarItensVisitasInternos(objItensVisitaInternos);
                                         buscarIdInternoVisita();
                                         objControl.alterarInternoVisita(objItensVisitaInternos);
+                                        // ALTERAR REGISTROS DE ALERTA PARA PORTARIA DE ACORDO COM O PARÂMETRO (HABILITADO - DESABILITADO)
+                                        objAlertaPortPav.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                                        objAlertaPortPav.setNomeInternoCrc(jNomeInterno.getText());
+                                        objAlertaPortPav.setIdRegistroVI(Integer.valueOf(jIDlanc.getText()));
+                                        objAlertaPortPav.setIdVisita(Integer.valueOf(jIDVisita.getText()));
+                                        objAlertaPortPav.setDataChegada(jDataEntrada.getDate());
+                                        objAlertaPortPav.setHoraChegada(jHorarioEntrada.getText());
+                                        objAlertaPortPav.setConfirmacao(confirmacaoUso);
+                                        objAlertaPortPav.setIdPav(codigoPavilhao);
+                                        objAlertaPortPav.setDescricaoPavilhao(jPavilhao.getText());
+                                        // USUARIO NA PORTARIA QUE MODIFICOU O LANÇAMENTO DO REGISTRO
+                                        objAlertaPortPav.setUsuarioUp(nameUser);
+                                        objAlertaPortPav.setDataUp(dataModFinal);
+                                        objAlertaPortPav.setHorarioUp(horaMov);
+                                        controleOFPortPav.alterarAcessoVisitaInternoPortariaPavilhoes(objAlertaPortPav);
+                                        //
                                         objLog2();
                                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                                         SalvarVisita();
@@ -1920,6 +1981,7 @@ public class TelaEntradaSaidaVisitasInternos extends javax.swing.JInternalFrame 
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel30;
     private javax.swing.JPanel jPanel31;
     private javax.swing.JPanel jPanel32;
