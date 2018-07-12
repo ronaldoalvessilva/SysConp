@@ -132,7 +132,7 @@ public class TelaModuloBaseDois extends javax.swing.JInternalFrame {
     public static String nomeTelaB2 = "";
     // TELAS DE ACESSOS AO MÓDULO ENFERMARIA
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
-    public static String nomeModuloB2 = "BASE DOIS";
+    public static String nomeModuloB2 = "BASE PAVILHAO DOIS";
     // MENU CADASTRO
     public static String telaPavilhaoB2 = "Cadastro:Pavilhão:Manutenção";
     public static String telaCelasB2 = "Cadastro:Celas:Manutenção";
