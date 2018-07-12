@@ -1520,7 +1520,8 @@ public class TelaEntradaSaidaOficialJusticaInternos extends javax.swing.JInterna
                         JOptionPane.YES_NO_OPTION);
                 if (resposta == JOptionPane.YES_OPTION) {
                     // EXCLUIR REGISTROS DE ALERTA PARA PORTARIA DE ACORDO COM O PARÂMETRO (HABILITADO - DESABILITADO)                   
-                    objAlertaPortPav.setIdRegistroOF(Integer.valueOf(jIDlanc.getText()));//          
+                    objAlertaPortPav.setIdRegistroOF(Integer.valueOf(jIDlanc.getText()));//   
+                    objAlertaPortPav.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
                     controleOFPortPav.excluirAcessoOficialPortariaPavilhoes(objAlertaPortPav);
                     //
                     objItensEntSaiOJInternos.setIdItem(Integer.valueOf(idItem));
