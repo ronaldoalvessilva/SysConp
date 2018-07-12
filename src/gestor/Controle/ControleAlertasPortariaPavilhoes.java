@@ -195,12 +195,27 @@ public class ControleAlertasPortariaPavilhoes {
             pst.setString(11, objAlertaPortPav.getHorarioUp());
             pst.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados do ALERTA.\n\nERRO: " + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados do ALERTA.\n\nERRO: " + ex);
         }
         conecta.desconecta();
         return objAlertaPortPav;
     }
 
+    public AlertaVisitasPortariaPavilhoes alterarConfirmaVisitaInternoPortariaPavilhoes(AlertaVisitasPortariaPavilhoes objAlertaPortPav) {
+        buscarInterno(objAlertaPortPav.getNomeInternoCrc(), objAlertaPortPav.getIdInternoCrc());
+        buscarPavilhao(objAlertaPortPav.getDescricaoPavilhao(), objAlertaPortPav.getIdPav());
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA SET Confirmacao=? WHERE IdRegistroVI='" + objAlertaPortPav.getIdRegistroVI()+ "'AND IdInternoCrc='" + objAlertaPortPav.getIdInternoCrc()  + "'");            
+            pst.setInt(1, objAlertaPortPav.getIdVisita());                       
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados do ALERTA.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAlertaPortPav;
+    }
+    
     public AlertaVisitasPortariaPavilhoes excluirAcessoVisitaInternoPortariaPavilhoes(AlertaVisitasPortariaPavilhoes objAlertaPortPav) {
 
         conecta.abrirConexao();
