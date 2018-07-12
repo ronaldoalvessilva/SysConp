@@ -9,9 +9,9 @@ import gestor.Dao.*;
 import static gestor.Visao.TelaEntradaSaidaAdvogadosInternos.jBtZoonFotoInterno;
 import static gestor.Visao.TelaEntradaSaidaAdvogadosInternos.jIdInterno;
 import static gestor.Visao.TelaEntradaSaidaAdvogadosInternos.jNomeInterno;
-import static gestor.Visao.TelaEntradaSaidaAdvogadosInternos.jSituacaoCrc;
 import static gestor.Visao.TelaEntradaSaidaAdvogadosInternos.jDataEntradaInterno;
 import static gestor.Visao.TelaEntradaSaidaAdvogadosInternos.jFotoInternoAdvogado;
+import static gestor.Visao.TelaEntradaSaidaAdvogadosInternos.codigoPavilhao;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -20,6 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import static gestor.Visao.TelaEntradaSaidaAdvogadosInternos.jDescricaoPavilhao;
 
 /**
  *
@@ -133,8 +134,8 @@ public class TelaPesqInternosAdvogadosEntSai extends javax.swing.JInternalFrame 
         });
         jScrollPane1.setViewportView(jTabelaPesqInternos);
         if (jTabelaPesqInternos.getColumnModel().getColumnCount() > 0) {
-            jTabelaPesqInternos.getColumnModel().getColumn(0).setMinWidth(50);
-            jTabelaPesqInternos.getColumnModel().getColumn(0).setMaxWidth(50);
+            jTabelaPesqInternos.getColumnModel().getColumn(0).setMinWidth(80);
+            jTabelaPesqInternos.getColumnModel().getColumn(0).setMaxWidth(80);
             jTabelaPesqInternos.getColumnModel().getColumn(1).setMinWidth(370);
             jTabelaPesqInternos.getColumnModel().getColumn(1).setMaxWidth(370);
         }
@@ -172,7 +173,7 @@ public class TelaPesqInternosAdvogadosEntSai extends javax.swing.JInternalFrame 
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtSair)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -201,7 +202,7 @@ public class TelaPesqInternosAdvogadosEntSai extends javax.swing.JInternalFrame 
             .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(250, 20, 460, 284);
+        setBounds(250, 20, 493, 284);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEnviarActionPerformed
@@ -217,7 +218,13 @@ public class TelaPesqInternosAdvogadosEntSai extends javax.swing.JInternalFrame 
                 conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                         + "INNER JOIN DADOSPENAISINTERNOS "
                         + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                        + "WHERE NomeInternoCrc='" + jPesqNomeInterno.getText() + "' "
+                        + "INNER JOIN ITENSLOCACAOINTERNO "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
+                        + "INNER JOIN CELAS "
+                        + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
+                        + "INNER JOIN PAVILHAO "
+                        + "ON CELAS.IdPav=PAVILHAO.IdPav "
+                        + "WHERE PRONTUARIOSCRC.NomeInternoCrc='" + jPesqNomeInterno.getText() + "' "
                         + "AND PRONTUARIOSCRC.IdInternoCrc='" + idInterno + "'");
                 conecta.rs.first();
                 jIdInterno.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
@@ -238,7 +245,8 @@ public class TelaPesqInternosAdvogadosEntSai extends javax.swing.JInternalFrame 
                     ImageIcon icon2 = new ImageIcon(scaled2);
                     jFotoInternoAdvogado.setIcon(icon2);
                 }
-                jSituacaoCrc.setText(conecta.rs.getString("SituacaoCrc"));
+                codigoPavilhao = conecta.rs.getInt("IdPav");
+                jDescricaoPavilhao.setText(conecta.rs.getString("DescricaoPav"));
                 jDataEntradaInterno.setDate(conecta.rs.getDate("DataEntrada"));
                 jBtZoonFotoInterno.setEnabled(true);
                 conecta.desconecta();
@@ -328,7 +336,7 @@ public class TelaPesqInternosAdvogadosEntSai extends javax.swing.JInternalFrame 
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaPesqInternos.setModel(modelo);
-        jTabelaPesqInternos.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaPesqInternos.getColumnModel().getColumn(0).setPreferredWidth(80);
         jTabelaPesqInternos.getColumnModel().getColumn(0).setResizable(false);
         jTabelaPesqInternos.getColumnModel().getColumn(1).setPreferredWidth(370);
         jTabelaPesqInternos.getColumnModel().getColumn(1).setResizable(false);
@@ -355,7 +363,7 @@ public class TelaPesqInternosAdvogadosEntSai extends javax.swing.JInternalFrame 
         String[] Colunas = new String[]{"Código", "Nome do Interno"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaPesqInternos.setModel(modelo);
-        jTabelaPesqInternos.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaPesqInternos.getColumnModel().getColumn(0).setPreferredWidth(80);
         jTabelaPesqInternos.getColumnModel().getColumn(0).setResizable(false);
         jTabelaPesqInternos.getColumnModel().getColumn(1).setPreferredWidth(370);
         jTabelaPesqInternos.getColumnModel().getColumn(1).setResizable(false);
