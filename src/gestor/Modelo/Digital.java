@@ -16,6 +16,7 @@ public class Digital {
     private String nomeInternoCrc;
     private String caminhoFotoInterno;
     private String Regime;
+    private int idPav;
     private String pavilhao;
     private String statusRol;
     private int idVisita;
@@ -32,12 +33,13 @@ public class Digital {
     public Digital() {
     }
 
-    public Digital(int idRol, int idInternoCrc, String nomeInternoCrc, String caminhoFotoInterno, String Regime, String pavilhao, String statusRol, int idVisita, String nomeVisita, String caminhoFotoVisita, String statusVisitaInterno, String grauParentesco, byte[] biometriaDedo1, byte[] biometriaDedo2, byte[] biometriaDedo3, byte[] biometriaDedo4, byte[] imagemFrenteVI) {
+    public Digital(int idRol, int idInternoCrc, String nomeInternoCrc, String caminhoFotoInterno, String Regime, int idPav, String pavilhao, String statusRol, int idVisita, String nomeVisita, String caminhoFotoVisita, String statusVisitaInterno, String grauParentesco, byte[] biometriaDedo1, byte[] biometriaDedo2, byte[] biometriaDedo3, byte[] biometriaDedo4, byte[] imagemFrenteVI) {
         this.idRol = idRol;
         this.idInternoCrc = idInternoCrc;
         this.nomeInternoCrc = nomeInternoCrc;
         this.caminhoFotoInterno = caminhoFotoInterno;
         this.Regime = Regime;
+        this.idPav = idPav;
         this.pavilhao = pavilhao;
         this.statusRol = statusRol;
         this.idVisita = idVisita;
@@ -120,6 +122,20 @@ public class Digital {
      */
     public void setRegime(String Regime) {
         this.Regime = Regime;
+    }
+
+    /**
+     * @return the idPav
+     */
+    public int getIdPav() {
+        return idPav;
+    }
+
+    /**
+     * @param idPav the idPav to set
+     */
+    public void setIdPav(int idPav) {
+        this.idPav = idPav;
     }
 
     /**
@@ -289,5 +305,5 @@ public class Digital {
     public void setImagemFrenteVI(byte[] imagemFrenteVI) {
         this.imagemFrenteVI = imagemFrenteVI;
     }
-   
+    
 }
