@@ -166,6 +166,7 @@ public class ControleVisitaInterno {
                 pDigi.setIdInternoCrc(conecta.rs.getInt("IdInternoCrc"));
                 pDigi.setNomeInternoCrc(conecta.rs.getString("NomeInternoCrc"));
                 pDigi.setRegime(conecta.rs.getString("Regime"));
+                pDigi.setIdPav(conecta.rs.getInt("IdPav"));
                 pDigi.setPavilhao(conecta.rs.getString("DescricaoPav"));
                 pDigi.setIdVisita(conecta.rs.getInt("IdVisita"));                
                 pDigi.setNomeVisita(conecta.rs.getString("NomeVisita"));
