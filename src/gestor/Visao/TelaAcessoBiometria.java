@@ -97,6 +97,9 @@ public class TelaAcessoBiometria extends javax.swing.JDialog {
     byte[] assinaturaVisita;
     int codigoItem = 0;
     String tipoOperacao = "Entrada/Saida";
+    //
+    public static int codigoPavilhao = 0; // CÓDIGO DO PAVILHÃO
+    String confirmacaoUso = "Não"; // VARIAVEL QUE CONTROLA SE O PAVILHAO CONFIRMOU O REGISTRO
 
     // CÓDIGO DA BIOMETRIA CIS FS-80H
     public interface CIS_SDK extends StdCallLibrary {
@@ -379,7 +382,7 @@ public class TelaAcessoBiometria extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jBtSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
+        jBtSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/filesave.png"))); // NOI18N
         jBtSalvar.setToolTipText("Gravar");
         jBtSalvar.setEnabled(false);
         jBtSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -388,7 +391,7 @@ public class TelaAcessoBiometria extends javax.swing.JDialog {
             }
         });
 
-        jBtSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Log_Out_Icon_16.png"))); // NOI18N
+        jBtSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/shutdown-icone-6920-32.png"))); // NOI18N
         jBtSair.setToolTipText("Sair");
         jBtSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -397,7 +400,8 @@ public class TelaAcessoBiometria extends javax.swing.JDialog {
         });
 
         jBtIniciarLeitor.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtIniciarLeitor.setForeground(new java.awt.Color(0, 153, 51));
+        jBtIniciarLeitor.setForeground(new java.awt.Color(0, 204, 153));
+        jBtIniciarLeitor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Biometria16.png"))); // NOI18N
         jBtIniciarLeitor.setText("Iniciar Leitor Digital");
         jBtIniciarLeitor.setToolTipText("Iniciar Leitura Biometrica");
         jBtIniciarLeitor.addActionListener(new java.awt.event.ActionListener() {
@@ -408,6 +412,7 @@ public class TelaAcessoBiometria extends javax.swing.JDialog {
 
         jBtCancelarLeitura.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtCancelarLeitura.setForeground(new java.awt.Color(255, 0, 0));
+        jBtCancelarLeitura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Biometria16Vermelho.png"))); // NOI18N
         jBtCancelarLeitura.setText("Cancelar Leitura");
         jBtCancelarLeitura.setToolTipText("Cancelar Leitura");
         jBtCancelarLeitura.setEnabled(false);
@@ -431,7 +436,7 @@ public class TelaAcessoBiometria extends javax.swing.JDialog {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jFotoVisita, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+            .addComponent(jFotoVisita, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -442,22 +447,25 @@ public class TelaAcessoBiometria extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jBtIniciarLeitor)
+                            .addGap(308, 308, 308)
+                            .addComponent(jBtCancelarLeitura))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jBtSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jBtIniciarLeitor)
-                        .addGap(348, 348, 348)
-                        .addComponent(jBtCancelarLeitura)))
+                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(11, 11, 11)
+                                        .addComponent(jBtSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -473,12 +481,12 @@ public class TelaAcessoBiometria extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jBtSair)
-                            .addComponent(jBtSalvar))
+                            .addComponent(jBtSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -535,6 +543,21 @@ public class TelaAcessoBiometria extends javax.swing.JDialog {
                 //
                 controle.incluirItensVisitasInternos(objItensVisitaInternos);
                 objControl.incluirInternoVisita(objItensVisitaInternos);
+                // INCLUIR REGISTROS DE ALERTA PARA PORTARIA DE ACORDO COM O PARÂMETRO (HABILITADO - DESABILITADO)
+                objAlertaPortPav.setIdInternoCrc(Integer.valueOf(jIdInternoBio.getText()));
+                objAlertaPortPav.setNomeInternoCrc(jNomeInternoBio.getText());
+                objAlertaPortPav.setIdRegistroVI(Integer.valueOf(jIDlanc.getText()));
+                objAlertaPortPav.setIdVisita(Integer.valueOf(jCodigoVisita.getText()));
+                objAlertaPortPav.setDataChegada(jDataEntrada.getDate());
+                objAlertaPortPav.setHoraChegada(jHorarioEntrada.getText());
+                objAlertaPortPav.setConfirmacao(confirmacaoUso);
+                objAlertaPortPav.setIdPav(codigoPavilhao);
+                objAlertaPortPav.setDescricaoPavilhao(jPavilhao.getText());
+                // USUARIO NA PORTARIA QUE FEZ O LANÇAMENTO DO REGISTRO
+                objAlertaPortPav.setUsuarioInsert(nameUser);
+                objAlertaPortPav.setDataInsert(dataModFinal);
+                objAlertaPortPav.setHorarioInsert(horaMov);
+                controleOFPortPav.incluirAcessoVisitaInternoPortariaPavilhoes(objAlertaPortPav);
                 objLog2();
                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                 Salvar();
@@ -867,6 +890,7 @@ public class TelaAcessoBiometria extends javax.swing.JDialog {
                         jIdInternoBio.setText(String.valueOf(dd.getIdInternoCrc()));
                         jNomeInternoBio.setText(dd.getNomeInternoCrc());
                         jRegimePenal.setText(dd.getRegime());
+                        codigoPavilhao = dd.getIdPav();
                         jPavilhao.setText(dd.getPavilhao());
                         jCodigoVisita.setText(String.valueOf(dd.getIdVisita()));
                         caminhoFotoVisita = dd.getCaminhoFotoVisita();
@@ -895,6 +919,7 @@ public class TelaAcessoBiometria extends javax.swing.JDialog {
                         jIdInternoBio.setText(String.valueOf(dd.getIdInternoCrc()));
                         jNomeInternoBio.setText(dd.getNomeInternoCrc());
                         jRegimePenal.setText(dd.getRegime());
+                        codigoPavilhao = dd.getIdPav();
                         jPavilhao.setText(dd.getPavilhao());
                         jCodigoVisita.setText(String.valueOf(dd.getIdVisita()));
                         caminhoFotoVisita = dd.getCaminhoFotoVisita();
@@ -923,6 +948,7 @@ public class TelaAcessoBiometria extends javax.swing.JDialog {
                         jIdInternoBio.setText(String.valueOf(dd.getIdInternoCrc()));
                         jNomeInternoBio.setText(dd.getNomeInternoCrc());
                         jRegimePenal.setText(dd.getRegime());
+                        codigoPavilhao = dd.getIdPav();
                         jPavilhao.setText(dd.getPavilhao());
                         jCodigoVisita.setText(String.valueOf(dd.getIdVisita()));
                         caminhoFotoVisita = dd.getCaminhoFotoVisita();
@@ -941,6 +967,7 @@ public class TelaAcessoBiometria extends javax.swing.JDialog {
                         jIdInternoBio.setText(String.valueOf(dd.getIdInternoCrc()));
                         jNomeInternoBio.setText(dd.getNomeInternoCrc());
                         jRegimePenal.setText(dd.getRegime());
+                        codigoPavilhao = dd.getIdPav();
                         jPavilhao.setText(dd.getPavilhao());
                         jCodigoVisita.setText(String.valueOf(dd.getIdVisita()));
                         caminhoFotoVisita = dd.getCaminhoFotoVisita();
