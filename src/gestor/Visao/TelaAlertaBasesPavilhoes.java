@@ -7,24 +7,34 @@ package gestor.Visao;
 
 import gestor.Controle.ControleAlertasPortariaPavilhoes;
 import gestor.Controle.ControleLogSistema;
-import gestor.Controle.ControleRegistroVisitaPortariaExterna;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.AlertaVisitasPortariaPavilhoes;
 import gestor.Modelo.LogSistema;
-import gestor.Modelo.RegistroChegadaVisitaPortariaExterna;
+import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
+import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloBaseDois.nomeModuloB2;
 import static gestor.Visao.TelaModuloBaseUm.nomeModuloB1;
+import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableRowSorter;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRResultSetDataSource;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -49,8 +59,12 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
     String dataEntradaAD;
     String dataEntradaOF;
     String dataReg;
+    String dataInicial;
+    String dataFinal;
     //
     String caminhoVisita;
+    String caminhoAdvogado;
+    String caminhoOficial;
     String caminhoInterno;
     String codigoInternoReg;
     String idVisitaReg;
@@ -66,7 +80,21 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
     String nivelPavilhao = "";
     String nomePavilhao1 = "PAVILHAO I";
     String nomePavilhao2 = "PAVILHAO A";
-    int codigoInterno;
+    int codigoInternoVI;
+    int codigoInternoAD;
+    int codigoInternoOF;
+    //
+    int opcaoVisita = 0;
+    int opcaoAdvogado = 0;
+    int opcaoOficial = 0;
+    //  
+    int codigoRegistroVI = 0;
+    int codigoRegistroAD = 0;
+    int codigoRegistroOF = 0;
+    //
+    int codigoAlertaVI = 0;
+    int codigoAlertaAD = 0;
+    int codigoAlertaOF = 0;
 
     /**
      * Creates new form TelaAlertaBasesPavilhoes
@@ -76,16 +104,25 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
         buscarPavilhao(nomePavilhao1, nomePavilhao2);
         popularTabelaNomeVisita("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
                 + "INNER JOIN VISITASINTERNO "
-                + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdVisita=VISITASINTERNO.IdVisita INNER JOIN PAVILHAO ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
-                + "WHERE Confirmacao='" + confirmacao + "' AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "'");
+                + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdVisita=VISITASINTERNO.IdVisita "
+                + "INNER JOIN PAVILHAO "
+                + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
+                + "WHERE Confirmacao='" + confirmacao + "' "
+                + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "'");
         popularTabelaAdvogado("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
                 + "INNER JOIN ADVOGADOS "
-                + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdAdvogado=ADVOGADOS.IdAdvogado INNER JOIN PAVILHAO ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
-                + "WHERE Confirmacao='" + confirmacao + "' AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "'");
+                + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdAdvogado=ADVOGADOS.IdAdvogado "
+                + "INNER JOIN PAVILHAO "
+                + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
+                + "WHERE Confirmacao='" + confirmacao + "' "
+                + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "'");
         popularTabelaOficialJustica("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
                 + "INNER JOIN OFICIAL_JUSTICA "
-                + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdOficial=OFICIAL_JUSTICA.IdOficial INNER JOIN PAVILHAO ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
-                + "WHERE Confirmacao='" + confirmacao + "' AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "'");
+                + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdOficial=OFICIAL_JUSTICA.IdOficial "
+                + "INNER JOIN PAVILHAO "
+                + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
+                + "WHERE Confirmacao='" + confirmacao + "' "
+                + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "'");
     }
 
     /**
@@ -106,18 +143,21 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
         jBtPesquisaCodigo = new javax.swing.JButton();
         jBtPesquisaNome = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jData = new com.toedter.calendar.JDateChooser();
+        jDataPesqChegada = new com.toedter.calendar.JDateChooser();
         jBtDataPesquisa = new javax.swing.JButton();
         jRBVisitas = new javax.swing.JRadioButton();
         jRBAdvogados = new javax.swing.JRadioButton();
         jRBOficialJustica = new javax.swing.JRadioButton();
+        jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jBtAtualizar = new javax.swing.JButton();
-        jBtConfirmar = new javax.swing.JButton();
+        jBtConfirmarVisitasInterno = new javax.swing.JButton();
         jBtSair = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
+        jBtConfirmarAdvogado = new javax.swing.JButton();
+        jBtConfirmarOficialJustica = new javax.swing.JButton();
+        jBtRelatorio = new javax.swing.JButton();
+        jComboBoxTipoRelatorio = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         VisitasInternos = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -190,7 +230,8 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("Data:");
 
-        jData.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDataPesqChegada.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDataPesqChegada.setMaxSelectableDate(new java.util.Date(253370775715000L));
 
         jBtDataPesquisa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtDataPesquisa.setToolTipText("Pesquisa por data de chegada");
@@ -215,6 +256,9 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
         jRBOficialJustica.setForeground(new java.awt.Color(0, 0, 204));
         jRBOficialJustica.setText("Oficial Justiça");
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel4.setText("Tipo pesquisa:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -223,7 +267,8 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -233,7 +278,7 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jDataPesqChegada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtDataPesquisa))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -259,7 +304,7 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jBtPesquisaCodigo)
                     .addComponent(jBtDataPesquisa)
-                    .addComponent(jData, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDataPesqChegada, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(jCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
@@ -272,7 +317,8 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jRBOficialJustica)
                     .addComponent(jRBAdvogados)
-                    .addComponent(jRBVisitas))
+                    .addComponent(jRBVisitas)
+                    .addComponent(jLabel4))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -289,12 +335,15 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/accept.png"))); // NOI18N
-        jBtConfirmar.setText("Confirmar");
-        jBtConfirmar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jBtConfirmar.addActionListener(new java.awt.event.ActionListener() {
+        jBtConfirmarVisitasInterno.setForeground(new java.awt.Color(204, 0, 0));
+        jBtConfirmarVisitasInterno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/accept.png"))); // NOI18N
+        jBtConfirmarVisitasInterno.setText("Confirmar");
+        jBtConfirmarVisitasInterno.setToolTipText("Confirmar Chegada da Visita");
+        jBtConfirmarVisitasInterno.setEnabled(false);
+        jBtConfirmarVisitasInterno.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBtConfirmarVisitasInterno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtConfirmarActionPerformed(evt);
+                jBtConfirmarVisitasInternoActionPerformed(evt);
             }
         });
 
@@ -307,26 +356,48 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton7.setText("jButton7");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        jBtConfirmarAdvogado.setForeground(new java.awt.Color(0, 0, 204));
+        jBtConfirmarAdvogado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/tick.png"))); // NOI18N
+        jBtConfirmarAdvogado.setText("Confirmar");
+        jBtConfirmarAdvogado.setToolTipText("Confirmar Chegada de Advogado");
+        jBtConfirmarAdvogado.setEnabled(false);
+        jBtConfirmarAdvogado.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBtConfirmarAdvogado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                jBtConfirmarAdvogadoActionPerformed(evt);
             }
         });
 
-        jButton8.setText("jButton8");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        jBtConfirmarOficialJustica.setForeground(new java.awt.Color(153, 0, 102));
+        jBtConfirmarOficialJustica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/40_16x16.png"))); // NOI18N
+        jBtConfirmarOficialJustica.setText("Confirmar");
+        jBtConfirmarOficialJustica.setToolTipText("Confirmar Chegada de Oficial de Justiça");
+        jBtConfirmarOficialJustica.setEnabled(false);
+        jBtConfirmarOficialJustica.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBtConfirmarOficialJustica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                jBtConfirmarOficialJusticaActionPerformed(evt);
             }
         });
 
-        jButton9.setText("jButton9");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        jBtRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/gtklp-icone-3770-16.png"))); // NOI18N
+        jBtRelatorio.setText("Relatórios");
+        jBtRelatorio.setToolTipText("Imprimir Relatório Geral dos Visitantes");
+        jBtRelatorio.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBtRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                jBtRelatorioActionPerformed(evt);
             }
         });
+
+        jComboBoxTipoRelatorio.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxTipoRelatorio.setForeground(new java.awt.Color(0, 102, 0));
+        jComboBoxTipoRelatorio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Visitas", "Advogados", "Oficial" }));
+        jComboBoxTipoRelatorio.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 102, 0));
+        jLabel5.setText("Tipos Relatórios");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -337,15 +408,21 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jBtSair, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jButton8, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jBtConfirmarOficialJustica, javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jBtAtualizar)
-                        .addComponent(jBtConfirmar)
-                        .addComponent(jButton7)
-                        .addComponent(jButton9)))
+                        .addComponent(jBtConfirmarVisitasInterno)
+                        .addComponent(jBtConfirmarAdvogado)))
                 .addGap(10, 10, 10))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBtRelatorio, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jComboBoxTipoRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAtualizar, jBtConfirmar, jBtSair, jButton7, jButton8, jButton9});
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAtualizar, jBtConfirmarAdvogado, jBtConfirmarOficialJustica, jBtConfirmarVisitasInterno, jBtRelatorio, jBtSair, jComboBoxTipoRelatorio});
 
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -353,19 +430,23 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
                 .addGap(26, 26, 26)
                 .addComponent(jBtAtualizar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtConfirmar)
-                .addGap(72, 72, 72)
-                .addComponent(jButton7)
+                .addComponent(jBtConfirmarVisitasInterno)
+                .addGap(52, 52, 52)
+                .addComponent(jBtConfirmarAdvogado)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton8)
+                .addComponent(jBtConfirmarOficialJustica)
+                .addGap(33, 33, 33)
+                .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton9)
+                .addComponent(jComboBoxTipoRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtRelatorio)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBtSair)
                 .addContainerGap())
         );
 
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAtualizar, jBtConfirmar, jBtSair, jButton7, jButton8, jButton9});
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAtualizar, jBtConfirmarAdvogado, jBtConfirmarOficialJustica, jBtConfirmarVisitasInterno, jBtRelatorio, jBtSair});
 
         jTabbedPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -466,7 +547,7 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
             VisitasInternosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(VisitasInternosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(VisitasInternosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -475,7 +556,7 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
                 .addGap(6, 6, 6))
         );
 
-        jTabbedPane1.addTab("Visitas Interno", VisitasInternos);
+        jTabbedPane1.addTab("Visitas Interno", new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/accept.png")), VisitasInternos); // NOI18N
 
         Advogados.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
@@ -489,9 +570,9 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
             }
         ));
         jTabelaAdvogados.setToolTipText("Clique para Selecionar Advogado e mostrar a foto");
-        jTabelaAdvogados.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTabelaAdvogadosKeyPressed(evt);
+        jTabelaAdvogados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabelaAdvogadosMouseClicked(evt);
             }
         });
         jScrollPane3.setViewportView(jTabelaAdvogados);
@@ -571,7 +652,7 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
             AdvogadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AdvogadosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(AdvogadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -580,7 +661,7 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
                 .addGap(6, 6, 6))
         );
 
-        jTabbedPane1.addTab("Advogados", Advogados);
+        jTabbedPane1.addTab("Advogados", new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/tick.png")), Advogados); // NOI18N
 
         OficialJustica.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
@@ -594,13 +675,9 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
             }
         ));
         jTabelaOficialJustica.setToolTipText("Clique para Selecionar Oficial Justiça e mostrar a foto");
-        jTabelaOficialJustica.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                jTabelaOficialJusticaAncestorAdded(evt);
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+        jTabelaOficialJustica.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabelaOficialJusticaMouseClicked(evt);
             }
         });
         jScrollPane4.setViewportView(jTabelaOficialJustica);
@@ -680,7 +757,7 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
             OficialJusticaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(OficialJusticaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(OficialJusticaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -689,7 +766,7 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
                 .addGap(6, 6, 6))
         );
 
-        jTabbedPane1.addTab("Oficial Justiça", OficialJustica);
+        jTabbedPane1.addTab("Oficial Justiça", new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/40_16x16.png")), OficialJustica, ""); // NOI18N
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Foto Visita Interno", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(204, 0, 0))); // NOI18N
 
@@ -709,19 +786,26 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
         jTabelaInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInternos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
+                {null, null, null}
             },
             new String [] {
-                "Código", "Nome do Interno"
+                "Registro", "Código", "Nome do Interno"
             }
         ));
         jTabelaInternos.setToolTipText("");
+        jTabelaInternos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabelaInternosMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTabelaInternos);
         if (jTabelaInternos.getColumnModel().getColumnCount() > 0) {
-            jTabelaInternos.getColumnModel().getColumn(0).setMinWidth(70);
-            jTabelaInternos.getColumnModel().getColumn(0).setMaxWidth(70);
-            jTabelaInternos.getColumnModel().getColumn(1).setMinWidth(350);
-            jTabelaInternos.getColumnModel().getColumn(1).setMaxWidth(350);
+            jTabelaInternos.getColumnModel().getColumn(0).setMinWidth(60);
+            jTabelaInternos.getColumnModel().getColumn(0).setMaxWidth(60);
+            jTabelaInternos.getColumnModel().getColumn(1).setMinWidth(70);
+            jTabelaInternos.getColumnModel().getColumn(1).setMaxWidth(70);
+            jTabelaInternos.getColumnModel().getColumn(2).setMinWidth(350);
+            jTabelaInternos.getColumnModel().getColumn(2).setMaxWidth(350);
         }
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Foto Oficial Justiça", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 153, 0))); // NOI18N
@@ -825,33 +909,206 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
 
     private void jBtPesquisaCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaCodigoActionPerformed
         // TODO add your handling code here:
+        count = 0;
+        if (jRBVisitas.isSelected()) {
+            opcaoVisita = 1;
+        } else if (!jRBVisitas.isSelected()) {
+            opcaoVisita = 0;
+        }
+        if (jRBAdvogados.isSelected()) {
+            opcaoAdvogado = 1;
+        } else if (!jRBAdvogados.isSelected()) {
+            opcaoAdvogado = 0;
+        }
+        if (jRBOficialJustica.isSelected()) {
+            opcaoOficial = 1;
+        } else if (!jRBOficialJustica.isSelected()) {
+            opcaoOficial = 0;
+        }
+        if (jCodigo.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o código do visitante para pesquisa.");
+        } else if (!jCodigo.getText().equals("") && opcaoVisita == 1) {
+            buscarPavilhao(nomePavilhao1, nomePavilhao2);
+            popularTabelaNomeVisita("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
+                    + "INNER JOIN VISITASINTERNO "
+                    + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdVisita=VISITASINTERNO.IdVisita "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
+                    + "WHERE Confirmacao='" + confirmacao + "' "
+                    + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
+                    + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdVisita='" + jCodigo.getText() + "'");
+        } else if (!jCodigo.getText().equals("") && opcaoAdvogado == 1) {
+            buscarPavilhao(nomePavilhao1, nomePavilhao2);
+            popularTabelaAdvogado("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
+                    + "INNER JOIN ADVOGADOS "
+                    + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdAdvogado=ADVOGADOS.IdAdvogado "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
+                    + "WHERE Confirmacao='" + confirmacao + "' "
+                    + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
+                    + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdAdvogado='" + jCodigo.getText() + "'");
+        } else if (!jCodigo.getText().equals("") && opcaoOficial == 1) {
+            buscarPavilhao(nomePavilhao1, nomePavilhao2);
+            popularTabelaOficialJustica("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
+                    + "INNER JOIN OFICIAL_JUSTICA "
+                    + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdOficial=OFICIAL_JUSTICA.IdOficial "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
+                    + "WHERE Confirmacao='" + confirmacao + "' "
+                    + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
+                    + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdOficial='" + jCodigo.getText() + "'");
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "É necessário selecionar o tipo de pesquisa.");
+        }
     }//GEN-LAST:event_jBtPesquisaCodigoActionPerformed
 
     private void jBtDataPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtDataPesquisaActionPerformed
         // TODO add your handling code here:
+        count = 0;
+        count1 = 0;
+        count2 = 0;
+        if (jRBVisitas.isSelected()) {
+            opcaoVisita = 1;
+        } else if (!jRBVisitas.isSelected()) {
+            opcaoVisita = 0;
+        }
+        if (jRBAdvogados.isSelected()) {
+            opcaoAdvogado = 1;
+        } else if (!jRBAdvogados.isSelected()) {
+            opcaoAdvogado = 0;
+        }
+        if (jRBOficialJustica.isSelected()) {
+            opcaoOficial = 1;
+        } else if (!jRBOficialJustica.isSelected()) {
+            opcaoOficial = 0;
+        }
+        count = 0;
+        if (jDataPesqChegada.getDate() == null) {
+            JOptionPane.showMessageDialog(rootPane, "Informe a data para pesquisa.");
+            jDataPesqChegada.requestFocus();
+            jDataPesqChegada.setBackground(Color.red);
+        } else {
+            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+            dataInicial = formatoAmerica.format(jDataPesqChegada.getDate().getTime());
+            if (jDataPesqChegada.getDate() != null && opcaoVisita == 1) {
+                buscarPavilhao(nomePavilhao1, nomePavilhao2);
+                popularTabelaNomeVisita("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
+                        + "INNER JOIN VISITASINTERNO "
+                        + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdVisita=VISITASINTERNO.IdVisita "
+                        + "INNER JOIN PAVILHAO "
+                        + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
+                        + "WHERE Confirmacao='" + confirmacao + "' "
+                        + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
+                        + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.DataChegada='" + dataInicial + "'");
+            } else if (jDataPesqChegada.getDate() != null && opcaoAdvogado == 1) {
+                buscarPavilhao(nomePavilhao1, nomePavilhao2);
+                popularTabelaAdvogado("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
+                        + "INNER JOIN ADVOGADOS "
+                        + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdAdvogado=ADVOGADOS.IdAdvogado "
+                        + "INNER JOIN PAVILHAO "
+                        + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
+                        + "WHERE Confirmacao='" + confirmacao + "' "
+                        + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
+                        + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.DataChegada='" + dataInicial + "'");
+            } else if (jDataPesqChegada.getDate() != null && opcaoOficial == 1) {
+                buscarPavilhao(nomePavilhao1, nomePavilhao2);
+                popularTabelaOficialJustica("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
+                        + "INNER JOIN OFICIAL_JUSTICA "
+                        + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdOficial=OFICIAL_JUSTICA.IdOficial "
+                        + "INNER JOIN PAVILHAO "
+                        + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
+                        + "WHERE Confirmacao='" + confirmacao + "' "
+                        + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
+                        + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.DataChegada='" + dataInicial + "'");
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "É necessário selecionar o tipo de pesquisa.");
+            }
+        }
     }//GEN-LAST:event_jBtDataPesquisaActionPerformed
 
     private void jBtPesquisaNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaNomeActionPerformed
         // TODO add your handling code here:
+        count = 0;
+        count1 = 0;
+        count2 = 0;
+        if (jRBVisitas.isSelected()) {
+            opcaoVisita = 1;
+        } else if (!jRBVisitas.isSelected()) {
+            opcaoVisita = 0;
+        }
+        if (jRBAdvogados.isSelected()) {
+            opcaoAdvogado = 1;
+        } else if (!jRBAdvogados.isSelected()) {
+            opcaoAdvogado = 0;
+        }
+        if (jRBOficialJustica.isSelected()) {
+            opcaoOficial = 1;
+        } else if (!jRBOficialJustica.isSelected()) {
+            opcaoOficial = 0;
+        }
+        if (jNomeVisitante.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o nome do visitante para pesquisa.");
+        } else if (!jNomeVisitante.getText().equals("") && opcaoVisita == 1) {
+            buscarPavilhao(nomePavilhao1, nomePavilhao2);
+            popularTabelaNomeVisita("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
+                    + "INNER JOIN VISITASINTERNO "
+                    + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdVisita=VISITASINTERNO.IdVisita "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
+                    + "WHERE Confirmacao='" + confirmacao + "' "
+                    + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
+                    + "AND NomeVisita LIKE'%" + jNomeVisitante.getText() + "%'");
+        } else if (jNomeVisitante.getText().equals("") && opcaoAdvogado == 1) {
+            buscarPavilhao(nomePavilhao1, nomePavilhao2);
+            popularTabelaAdvogado("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
+                    + "INNER JOIN ADVOGADOS "
+                    + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdAdvogado=ADVOGADOS.IdAdvogado "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
+                    + "WHERE Confirmacao='" + confirmacao + "' "
+                    + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
+                    + "AND NomeAdvogado LIKE'%" + jNomeVisitante.getText() + "%'");
+        } else if (!jNomeVisitante.getText().equals("") && opcaoOficial == 1) {
+            buscarPavilhao(nomePavilhao1, nomePavilhao2);
+            popularTabelaOficialJustica("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
+                    + "INNER JOIN OFICIAL_JUSTICA "
+                    + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdOficial=OFICIAL_JUSTICA.IdOficial "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
+                    + "WHERE Confirmacao='" + confirmacao + "' "
+                    + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
+                    + "AND NomeOficial LIKE'%" + jNomeVisitante.getText() + "%'");
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "É necessário selecionar o tipo de pesquisa.");
+        }
     }//GEN-LAST:event_jBtPesquisaNomeActionPerformed
 
     private void jBtAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAtualizarActionPerformed
         // TODO add your handling code here:
+        count = 0;
+        count1 = 0;
+        count2 = 0;
         if (nomeModuloB1.equals("BASE PAVILHAO UM")) {
             buscarPavilhao(nomePavilhao1, nomePavilhao2);
             popularTabelaNomeVisita("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
                     + "INNER JOIN VISITASINTERNO "
-                    + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdVisita=VISITASINTERNO.IdVisita INNER JOIN PAVILHAO ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
+                    + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdVisita=VISITASINTERNO.IdVisita "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
                     + "WHERE Confirmacao='" + confirmacao + "' "
                     + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "'");
             popularTabelaAdvogado("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
                     + "INNER JOIN ADVOGADOS "
-                    + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdAdvogado=ADVOGADOS.IdAdvogado INNER JOIN PAVILHAO ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
+                    + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdAdvogado=ADVOGADOS.IdAdvogado "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
                     + "WHERE Confirmacao='" + confirmacao + "' "
                     + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "'");
             popularTabelaOficialJustica("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
                     + "INNER JOIN OFICIAL_JUSTICA "
-                    + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdOficial=OFICIAL_JUSTICA.IdOficial INNER JOIN PAVILHAO ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
+                    + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdOficial=OFICIAL_JUSTICA.IdOficial "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
                     + "WHERE Confirmacao='" + confirmacao + "' "
                     + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "'");
         } else if (nomeModuloB2.equals("BASE PAVILHAO DOIS")) {
@@ -859,28 +1116,135 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jBtAtualizarActionPerformed
 
-    private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
+    private void jBtConfirmarVisitasInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarVisitasInternoActionPerformed
         // TODO add your handling code here:
-        // BASE DO PAVILHAO UM OU A E BASE DO PAVILHAO II OU B
-        if (nomeModuloB1.equals("BASE PAVILHAO UM")) {
-            objAlertaPortPav.setConfirmacao(respostaConf);
-            controleOFPortPav.alterarConfirmaVisitaInternoPortariaPavilhoes(objAlertaPortPav);
-        } else if (nomeModuloB2.equals("BASE PAVILHAO DOIS")) {
+        objAlertaPortPav.setConfirmacao(respostaConf);
+        objAlertaPortPav.setIdRegAlerta(codigoAlertaVI);
+        controleOFPortPav.alterarConfirmaVisitaInternoPortariaPavilhoes(objAlertaPortPav);
+        buscarPavilhao(nomePavilhao1, nomePavilhao2);
+        popularTabelaNomeVisita("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
+                + "INNER JOIN VISITASINTERNO "
+                + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdVisita=VISITASINTERNO.IdVisita "
+                + "INNER JOIN PAVILHAO "
+                + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
+                + "WHERE Confirmacao='" + confirmacao + "' "
+                + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "'");
+        jBtConfirmarVisitasInterno.setEnabled(!true);
+        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+    }//GEN-LAST:event_jBtConfirmarVisitasInternoActionPerformed
 
+    private void jBtConfirmarAdvogadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarAdvogadoActionPerformed
+        // TODO add your handling code here:
+        objAlertaPortPav.setConfirmacao(respostaConf);
+        objAlertaPortPav.setIdRegAlerta(codigoAlertaAD);
+        controleOFPortPav.alterarConfirmaVisitaInternoPortariaPavilhoes(objAlertaPortPav);
+        buscarPavilhao(nomePavilhao1, nomePavilhao2);
+        popularTabelaNomeVisita("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
+                + "INNER JOIN VISITASINTERNO "
+                + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdVisita=VISITASINTERNO.IdVisita "
+                + "INNER JOIN PAVILHAO "
+                + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
+                + "WHERE Confirmacao='" + confirmacao + "' "
+                + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "'");
+        jBtConfirmarAdvogado.setEnabled(!true);
+        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+    }//GEN-LAST:event_jBtConfirmarAdvogadoActionPerformed
+
+    private void jBtConfirmarOficialJusticaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarOficialJusticaActionPerformed
+        // TODO add your handling code here:
+        objAlertaPortPav.setConfirmacao(respostaConf);
+        objAlertaPortPav.setIdRegAlerta(codigoAlertaOF);
+        controleOFPortPav.alterarConfirmaVisitaInternoPortariaPavilhoes(objAlertaPortPav);
+        buscarPavilhao(nomePavilhao1, nomePavilhao2);
+        popularTabelaNomeVisita("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
+                + "INNER JOIN VISITASINTERNO "
+                + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdVisita=VISITASINTERNO.IdVisita "
+                + "INNER JOIN PAVILHAO "
+                + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
+                + "WHERE Confirmacao='" + confirmacao + "' "
+                + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "'");
+        jBtConfirmarOficialJustica.setEnabled(!true);
+        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+    }//GEN-LAST:event_jBtConfirmarOficialJusticaActionPerformed
+
+    private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
+        // TODO add your handling code here:
+        if (jComboBoxTipoRelatorio.getSelectedItem().equals("Selecione...")) {
+            JOptionPane.showMessageDialog(rootPane, "Selecione o tipo de relatório.");
+        } else if (jComboBoxTipoRelatorio.getSelectedItem().equals("Visitas")) {
+            //VISITAS DE INTERNO
+            try {
+                conecta.abrirConexao();
+                String path = "reports/RelatorioVisitasInternosPavilhoes.jasper";
+                conecta.executaSQL("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "INNER JOIN VISITASINTERNO "
+                        + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdVisita=VISITASINTERNO.IdVisita");
+                HashMap parametros = new HashMap();
+                parametros.put("descricaoUnidade", descricaoUnidade);
+                parametros.put("nomeUsuario", nameUser);
+                JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                jv.setTitle("Relatório Entreadas na portaria de Visitas Internos nos pavilhões.");
+                jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                jv.toFront(); // Traz o relatorio para frente da aplicação            
+                conecta.desconecta();
+            } catch (JRException e) {
+                JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório de Visitas.\n\nERRO :" + e);
+            }
+        } else if (jComboBoxTipoRelatorio.getSelectedItem().equals("Advogados")) {
+            // ADVOGADOS
+            try {
+                conecta.abrirConexao();
+                String path = "reports/RelatorioOficialJusticaInternosPavilhoes.jasper";
+                conecta.executaSQL("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "INNER JOIN OFICIAL_JUSTICA "
+                        + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdOficial=OFICIAL_JUSTICA.IdOficial");
+                HashMap parametros = new HashMap();
+                parametros.put("descricaoUnidade", descricaoUnidade);
+                parametros.put("nomeUsuario", nameUser);
+                JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                jv.setTitle("Relatório Entreadas na portaria de Oficial de Justiça Internos nos pavilhões.");
+                jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                jv.toFront(); // Traz o relatorio para frente da aplicação            
+                conecta.desconecta();
+            } catch (JRException e) {
+                JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório de Advogados.\n\nERRO :" + e);
+            }
+        } else if (jComboBoxTipoRelatorio.getSelectedItem().equals("Oficial")) {
+            // OFICIAL DE JUSTIÇA
+            try {
+                conecta.abrirConexao();
+                String path = "reports/RelatorioAdvogadosInternosPavilhoes.jasper";
+                conecta.executaSQL("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "INNER JOIN ADVOGADOS "
+                        + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdAdvogado=ADVOGADOS.IdAdvogado");
+                HashMap parametros = new HashMap();
+                parametros.put("descricaoUnidade", descricaoUnidade);
+                parametros.put("nomeUsuario", nameUser);
+                JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                jv.setTitle("Relatório Entreadas na portaria de Advogados Internos nos pavilhões.");
+                jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                jv.toFront(); // Traz o relatorio para frente da aplicação            
+                conecta.desconecta();
+            } catch (JRException e) {
+                JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório de Oficial de Justiça \n\nERRO :" + e);
+            }
         }
-    }//GEN-LAST:event_jBtConfirmarActionPerformed
-
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
-
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton9ActionPerformed
+    }//GEN-LAST:event_jBtRelatorioActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
         // TODO add your handling code here:
@@ -893,6 +1257,11 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
         if (flag == 1) {
             String idVisita = "" + jTabelaVisitasInternos.getValueAt(jTabelaVisitasInternos.getSelectedRow(), 2);
             //
+            jBtConfirmarVisitasInterno.setEnabled(true);
+            jBtConfirmarAdvogado.setEnabled(!true);
+            jBtConfirmarOficialJustica.setEnabled(!true);
+            jBtRelatorio.setEnabled(!true);
+            //
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
@@ -902,7 +1271,9 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
                         + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                         + "WHERE ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdVisita='" + idVisita + "'");
                 conecta.rs.first();
-                codigoInterno = conecta.rs.getInt("IdInternoCrc");
+                codigoInternoVI = conecta.rs.getInt("IdInternoCrc");
+                codigoRegistroVI = conecta.rs.getInt("IdRegistroVI");
+                codigoAlertaVI = conecta.rs.getInt("IdRegAlerta");
                 caminhoVisita = conecta.rs.getString("ImagemVisita");
                 if (caminhoVisita != null) {
                     javax.swing.ImageIcon v = new javax.swing.ImageIcon(caminhoVisita);
@@ -910,13 +1281,13 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
                     jFotoVisitasInterno.setIcon(new ImageIcon(v.getImage().getScaledInstance(jFotoVisitasInterno.getWidth(), jFotoVisitasInterno.getHeight(), Image.SCALE_DEFAULT)));
                 }
                 // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
-                byte[] img2Bytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteVI"));
-                if (img2Bytes != null) {
-                    ImageIcon pic2 = null;
-                    pic2 = new ImageIcon(img2Bytes);
-                    Image scaled2 = pic2.getImage().getScaledInstance(jFotoVisitasInterno.getWidth(), jFotoVisitasInterno.getHeight(), Image.SCALE_DEFAULT);
-                    ImageIcon icon2 = new ImageIcon(scaled2);
-                    jFotoVisitasInterno.setIcon(icon2);
+                byte[] img1Bytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteVI"));
+                if (img1Bytes != null) {
+                    ImageIcon pic1 = null;
+                    pic1 = new ImageIcon(img1Bytes);
+                    Image scaled1 = pic1.getImage().getScaledInstance(jFotoVisitasInterno.getWidth(), jFotoVisitasInterno.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon1 = new ImageIcon(scaled1);
+                    jFotoVisitasInterno.setIcon(icon1);
                 }
                 caminhoInterno = conecta.rs.getString("FotoInternoCrc");
                 if (caminhoInterno != null) {
@@ -936,20 +1307,178 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
             } catch (Exception e) {
             }
             conecta.desconecta();
-            popularTabelaInternos("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
+            popularTabelaInternosVisitas("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdInternoCrc='" + codigoInterno + "'");
+                    + "WHERE ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdVisita='" + idVisita + "'");
         }
     }//GEN-LAST:event_jTabelaVisitasInternosMouseClicked
 
-    private void jTabelaAdvogadosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTabelaAdvogadosKeyPressed
+    private void jTabelaAdvogadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaAdvogadosMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTabelaAdvogadosKeyPressed
+        flag = 1;
+        if (flag == 1) {
+            String idAdvogado = "" + jTabelaAdvogados.getValueAt(jTabelaAdvogados.getSelectedRow(), 2);
+            //
+            jBtConfirmarVisitasInterno.setEnabled(!true);
+            jBtConfirmarAdvogado.setEnabled(true);
+            jBtConfirmarOficialJustica.setEnabled(!true);
+            jBtRelatorio.setEnabled(!true);
+            //
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
+                        + "INNER JOIN ADVOGADOS "
+                        + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdAdvogado=ADVOGADOS.IdAdvogado "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "WHERE ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdAdvogado='" + idAdvogado + "'");
+                conecta.rs.first();
+                codigoInternoAD = conecta.rs.getInt("IdInternoCrc");
+                codigoRegistroAD = conecta.rs.getInt("IdRegistroAD");
+                codigoAlertaAD = conecta.rs.getInt("IdRegAlerta");
+                caminhoAdvogado = conecta.rs.getString("FotoAdvogado");
+                if (caminhoAdvogado != null) {
+                    javax.swing.ImageIcon v = new javax.swing.ImageIcon(caminhoAdvogado);
+                    jFotoAdvogado.setIcon(v);
+                    jFotoAdvogado.setIcon(new ImageIcon(v.getImage().getScaledInstance(jFotoAdvogado.getWidth(), jFotoAdvogado.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] img2Bytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteAD"));
+                if (img2Bytes != null) {
+                    ImageIcon pic2 = null;
+                    pic2 = new ImageIcon(img2Bytes);
+                    Image scaled2 = pic2.getImage().getScaledInstance(jFotoAdvogado.getWidth(), jFotoAdvogado.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon2 = new ImageIcon(scaled2);
+                    jFotoAdvogado.setIcon(icon2);
+                }
+                caminhoInterno = conecta.rs.getString("FotoInternoCrc");
+                if (caminhoInterno != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoInterno);
+                    jFotoInterno.setIcon(i);
+                    jFotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoInterno.setIcon(icon);
+                }
+            } catch (Exception e) {
+            }
+            conecta.desconecta();
+            popularTabelaInternosAdvogados("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "WHERE ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdAdvogado='" + idAdvogado + "'");
+        }
+    }//GEN-LAST:event_jTabelaAdvogadosMouseClicked
 
-    private void jTabelaOficialJusticaAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jTabelaOficialJusticaAncestorAdded
+    private void jTabelaOficialJusticaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaOficialJusticaMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTabelaOficialJusticaAncestorAdded
+        flag = 1;
+        if (flag == 1) {
+            String idOficial = "" + jTabelaOficialJustica.getValueAt(jTabelaOficialJustica.getSelectedRow(), 2);
+            //
+            jBtConfirmarVisitasInterno.setEnabled(!true);
+            jBtConfirmarAdvogado.setEnabled(!true);
+            jBtConfirmarOficialJustica.setEnabled(true);
+            jBtRelatorio.setEnabled(!true);
+            //
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
+                        + "INNER JOIN OFICIAL_JUSTICA "
+                        + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdOficial=OFICIAL_JUSTICA.IdOficial "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "WHERE ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdOficial='" + idOficial + "'");
+                conecta.rs.first();
+                codigoInternoOF = conecta.rs.getInt("IdInternoCrc");
+                codigoRegistroOF = conecta.rs.getInt("IdRegistroOF");
+                codigoAlertaOF = conecta.rs.getInt("IdRegAlerta");
+                caminhoOficial = conecta.rs.getString("FotoOficial");
+                if (caminhoOficial != null) {
+                    javax.swing.ImageIcon v = new javax.swing.ImageIcon(caminhoOficial);
+                    jFotoOficialJustica.setIcon(v);
+                    jFotoOficialJustica.setIcon(new ImageIcon(v.getImage().getScaledInstance(jFotoOficialJustica.getWidth(), jFotoOficialJustica.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] img4Bytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteOF"));
+                if (img4Bytes != null) {
+                    ImageIcon pic4 = null;
+                    pic4 = new ImageIcon(img4Bytes);
+                    Image scaled4 = pic4.getImage().getScaledInstance(jFotoOficialJustica.getWidth(), jFotoOficialJustica.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon4 = new ImageIcon(scaled4);
+                    jFotoOficialJustica.setIcon(icon4);
+                }
+                caminhoInterno = conecta.rs.getString("FotoInternoCrc");
+                if (caminhoInterno != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoInterno);
+                    jFotoInterno.setIcon(i);
+                    jFotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoInterno.setIcon(icon);
+                }
+            } catch (Exception e) {
+            }
+            conecta.desconecta();
+            popularTabelaInternosOficialJustica("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "WHERE ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdOficial='" + idOficial + "'");
+        }
+    }//GEN-LAST:event_jTabelaOficialJusticaMouseClicked
+
+    private void jTabelaInternosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaInternosMouseClicked
+        // TODO add your handling code here:
+        flag = 1;
+        if (flag == 1) {
+            String idInterno = "" + jTabelaInternos.getValueAt(jTabelaInternos.getSelectedRow(), 1);
+            String idRegistro = "" + jTabelaInternos.getValueAt(jTabelaInternos.getSelectedRow(), 0);
+            //
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "WHERE ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdRegistroVI='" + idRegistro + "' "
+                        + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdInternoCrc='" + idInterno + "' "
+                        + "OR ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdRegistroAD='" + idRegistro + "' "
+                        + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdInternoCrc='" + idInterno + "' "
+                        + "OR ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdRegistroOF='" + idRegistro + "' "
+                        + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdInternoCrc='" + idInterno + "'");
+                conecta.rs.first();
+                caminhoInterno = conecta.rs.getString("FotoInternoCrc");
+                if (caminhoInterno != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoInterno);
+                    jFotoInterno.setIcon(i);
+                    jFotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoInterno.setIcon(icon);
+                }
+            } catch (Exception e) {
+            }
+            conecta.desconecta();
+        }
+    }//GEN-LAST:event_jTabelaInternosMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -958,16 +1487,17 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
     private javax.swing.JPanel VisitasInternos;
     private javax.swing.ButtonGroup grupoBotesPVAO;
     private javax.swing.JButton jBtAtualizar;
-    private javax.swing.JButton jBtConfirmar;
+    private javax.swing.JButton jBtConfirmarAdvogado;
+    private javax.swing.JButton jBtConfirmarOficialJustica;
+    private javax.swing.JButton jBtConfirmarVisitasInterno;
     private javax.swing.JButton jBtDataPesquisa;
     private javax.swing.JButton jBtPesquisaCodigo;
     private javax.swing.JButton jBtPesquisaNome;
+    private javax.swing.JButton jBtRelatorio;
     private javax.swing.JButton jBtSair;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JTextField jCodigo;
-    private com.toedter.calendar.JDateChooser jData;
+    private javax.swing.JComboBox<String> jComboBoxTipoRelatorio;
+    private com.toedter.calendar.JDateChooser jDataPesqChegada;
     private javax.swing.JLabel jFotoAdvogado;
     private javax.swing.JLabel jFotoInterno;
     private javax.swing.JLabel jFotoOficialJustica;
@@ -975,6 +1505,8 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel64;
     private javax.swing.JLabel jLabel65;
@@ -1109,7 +1641,7 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
             conecta.executaSQL(sql);
             conecta.rs.first();
             do {
-                count2 = count1 + 2;
+                count2 = count2 + 1;
                 // Formatar a data Entrada
                 dataEntradaOF = conecta.rs.getString("DataChegada");
                 String diae = dataEntradaOF.substring(8, 10);
@@ -1139,25 +1671,83 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
         conecta.desconecta();
     }
 
-    public void popularTabelaInternos(String sql) {
+    public void popularTabelaInternosVisitas(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome do Interno"};
+        String[] Colunas = new String[]{"Registro", "Código", "Nome do Interno"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
             conecta.rs.first();
             do {
-                dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc")});
+                dados.add(new Object[]{conecta.rs.getInt("IdRegistroVI"), conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaInternos.setRowSorter(new TableRowSorter(modelo)); //FAZER ORDENAMENTO NA TABLEA  
         jTabelaInternos.setModel(modelo);
-        jTabelaInternos.getColumnModel().getColumn(0).setPreferredWidth(70);
+        jTabelaInternos.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaInternos.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaInternos.getColumnModel().getColumn(1).setPreferredWidth(350);
+        jTabelaInternos.getColumnModel().getColumn(1).setPreferredWidth(70);
         jTabelaInternos.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaInternos.getColumnModel().getColumn(2).setPreferredWidth(350);
+        jTabelaInternos.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaInternos.getTableHeader().setReorderingAllowed(false);
+        jTabelaInternos.setAutoResizeMode(jTabelaInternos.AUTO_RESIZE_OFF);
+        jTabelaInternos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharTabelaInterno();
+        conecta.desconecta();
+    }
+
+    public void popularTabelaInternosAdvogados(String sql) {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Registro", "Código", "Nome do Interno"};
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL(sql);
+            conecta.rs.first();
+            do {
+                dados.add(new Object[]{conecta.rs.getInt("IdRegistroAD"), conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc")});
+            } while (conecta.rs.next());
+        } catch (SQLException ex) {
+        }
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaInternos.setRowSorter(new TableRowSorter(modelo)); //FAZER ORDENAMENTO NA TABLEA  
+        jTabelaInternos.setModel(modelo);
+        jTabelaInternos.getColumnModel().getColumn(0).setPreferredWidth(60);
+        jTabelaInternos.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaInternos.getColumnModel().getColumn(1).setPreferredWidth(70);
+        jTabelaInternos.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaInternos.getColumnModel().getColumn(2).setPreferredWidth(350);
+        jTabelaInternos.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaInternos.getTableHeader().setReorderingAllowed(false);
+        jTabelaInternos.setAutoResizeMode(jTabelaInternos.AUTO_RESIZE_OFF);
+        jTabelaInternos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharTabelaInterno();
+        conecta.desconecta();
+    }
+
+    public void popularTabelaInternosOficialJustica(String sql) {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Registro", "Código", "Nome do Interno"};
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL(sql);
+            conecta.rs.first();
+            do {
+                dados.add(new Object[]{conecta.rs.getInt("IdRegistroOF"), conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc")});
+            } while (conecta.rs.next());
+        } catch (SQLException ex) {
+        }
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaInternos.setRowSorter(new TableRowSorter(modelo)); //FAZER ORDENAMENTO NA TABLEA  
+        jTabelaInternos.setModel(modelo);
+        jTabelaInternos.getColumnModel().getColumn(0).setPreferredWidth(60);
+        jTabelaInternos.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaInternos.getColumnModel().getColumn(1).setPreferredWidth(70);
+        jTabelaInternos.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaInternos.getColumnModel().getColumn(2).setPreferredWidth(350);
+        jTabelaInternos.getColumnModel().getColumn(2).setResizable(false);
         jTabelaInternos.getTableHeader().setReorderingAllowed(false);
         jTabelaInternos.setAutoResizeMode(jTabelaInternos.AUTO_RESIZE_OFF);
         jTabelaInternos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -1227,14 +1817,16 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
 
     public void limparTabelaInterno() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome do Interno"};
+        String[] Colunas = new String[]{"Registro", "Código", "Nome do Interno"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaInternos.setRowSorter(new TableRowSorter(modelo)); //FAZER ORDENAMENTO NA TABLEA  
         jTabelaInternos.setModel(modelo);
         jTabelaInternos.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaInternos.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaInternos.getColumnModel().getColumn(1).setPreferredWidth(350);
+        jTabelaInternos.getColumnModel().getColumn(1).setPreferredWidth(70);
         jTabelaInternos.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaInternos.getColumnModel().getColumn(2).setPreferredWidth(350);
+        jTabelaInternos.getColumnModel().getColumn(2).setResizable(false);
         jTabelaInternos.getTableHeader().setReorderingAllowed(false);
         jTabelaInternos.setAutoResizeMode(jTabelaInternos.AUTO_RESIZE_OFF);
         jTabelaInternos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -1289,5 +1881,6 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
         direita.setHorizontalAlignment(SwingConstants.RIGHT);
         //
         jTabelaInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
     }
 }
