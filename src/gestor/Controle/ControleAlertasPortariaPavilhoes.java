@@ -53,7 +53,7 @@ public class ControleAlertasPortariaPavilhoes {
         buscarPavilhao(objAlertaPortPav.getDescricaoPavilhao(), objAlertaPortPav.getIdPav());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA SET IdRegistroOF=?,DataChegada=?,HoraChegada=?,IdInternoCrc=?,IdPav=?,IdOficial=?,AssinaturaDigitalVisita=?,Confirmacao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdRegistroOF='" + objAlertaPortPav.getIdRegistroOF() + "'AND IdInternoCrc='" + objAlertaPortPav.getIdInternoCrc()  + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA SET IdRegistroOF=?,DataChegada=?,HoraChegada=?,IdInternoCrc=?,IdPav=?,IdOficial=?,AssinaturaDigitalVisita=?,Confirmacao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdRegistroOF='" + objAlertaPortPav.getIdRegistroOF() + "'AND IdInternoCrc='" + objAlertaPortPav.getIdInternoCrc() + "'");
             pst.setInt(1, objAlertaPortPav.getIdRegistroOF());
             pst.setTimestamp(2, new java.sql.Timestamp(objAlertaPortPav.getDataChegada().getTime()));
             pst.setString(3, objAlertaPortPav.getHoraChegada());
@@ -77,7 +77,7 @@ public class ControleAlertasPortariaPavilhoes {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA WHERE IdRegistroOF='" + objAlertaPortPav.getIdRegistroOF() + "'AND IdInternoCrc='" + objAlertaPortPav.getIdInternoCrc()  + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA WHERE IdRegistroOF='" + objAlertaPortPav.getIdRegistroOF() + "'AND IdInternoCrc='" + objAlertaPortPav.getIdInternoCrc() + "'");
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados do ALERTA.\n\nERRO: " + ex);
@@ -86,8 +86,8 @@ public class ControleAlertasPortariaPavilhoes {
         return objAlertaPortPav;
     }
 ///------------------------------------------- TELA DE ADVOGADOS ----------------------------------------------
-   
- public AlertaVisitasPortariaPavilhoes incluirAcessoAdvogadoPortariaPavilhoes(AlertaVisitasPortariaPavilhoes objAlertaPortPav) {
+
+    public AlertaVisitasPortariaPavilhoes incluirAcessoAdvogadoPortariaPavilhoes(AlertaVisitasPortariaPavilhoes objAlertaPortPav) {
         buscarInterno(objAlertaPortPav.getNomeInternoCrc(), objAlertaPortPav.getIdInternoCrc());
         buscarPavilhao(objAlertaPortPav.getDescricaoPavilhao(), objAlertaPortPav.getIdPav());
         conecta.abrirConexao();
@@ -117,7 +117,7 @@ public class ControleAlertasPortariaPavilhoes {
         buscarPavilhao(objAlertaPortPav.getDescricaoPavilhao(), objAlertaPortPav.getIdPav());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA SET IdRegistroAD=?,DataChegada=?,HoraChegada=?,IdInternoCrc=?,IdPav=?,IdAdvogado=?,AssinaturaDigitalVisita=?,Confirmacao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdRegistroAD='" + objAlertaPortPav.getIdRegistroAD()+ "'AND IdInternoCrc='" + objAlertaPortPav.getIdInternoCrc()  + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA SET IdRegistroAD=?,DataChegada=?,HoraChegada=?,IdInternoCrc=?,IdPav=?,IdAdvogado=?,AssinaturaDigitalVisita=?,Confirmacao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdRegistroAD='" + objAlertaPortPav.getIdRegistroAD() + "'AND IdInternoCrc='" + objAlertaPortPav.getIdInternoCrc() + "'");
             pst.setInt(1, objAlertaPortPav.getIdRegistroAD());
             pst.setTimestamp(2, new java.sql.Timestamp(objAlertaPortPav.getDataChegada().getTime()));
             pst.setString(3, objAlertaPortPav.getHoraChegada());
@@ -141,7 +141,7 @@ public class ControleAlertasPortariaPavilhoes {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA WHERE IdRegistroAD='" + objAlertaPortPav.getIdRegistroAD()+ "'AND IdInternoCrc='" + objAlertaPortPav.getIdInternoCrc()  + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA WHERE IdRegistroAD='" + objAlertaPortPav.getIdRegistroAD() + "'AND IdInternoCrc='" + objAlertaPortPav.getIdInternoCrc() + "'");
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados do ALERTA.\n\nERRO: " + ex);
@@ -149,7 +149,7 @@ public class ControleAlertasPortariaPavilhoes {
         conecta.desconecta();
         return objAlertaPortPav;
     }
-    
+
 ///------------------------------------------- INICIO METODO PARA VISITAS INTERNOS --------------------------------------------------
     public AlertaVisitasPortariaPavilhoes incluirAcessoVisitaInternoPortariaPavilhoes(AlertaVisitasPortariaPavilhoes objAlertaPortPav) {
         buscarInterno(objAlertaPortPav.getNomeInternoCrc(), objAlertaPortPav.getIdInternoCrc());
@@ -181,7 +181,7 @@ public class ControleAlertasPortariaPavilhoes {
         buscarPavilhao(objAlertaPortPav.getDescricaoPavilhao(), objAlertaPortPav.getIdPav());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA SET IdRegistroVI=?,DataChegada=?,HoraChegada=?,IdInternoCrc=?,IdPav=?,IdVisita=?,AssinaturaDigitalVisita=?,Confirmacao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdRegistroVI='" + objAlertaPortPav.getIdRegistroVI()+ "'AND IdInternoCrc='" + objAlertaPortPav.getIdInternoCrc()  + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA SET IdRegistroVI=?,DataChegada=?,HoraChegada=?,IdInternoCrc=?,IdPav=?,IdVisita=?,AssinaturaDigitalVisita=?,Confirmacao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdRegistroVI='" + objAlertaPortPav.getIdRegistroVI() + "'AND IdInternoCrc='" + objAlertaPortPav.getIdInternoCrc() + "'");
             pst.setInt(1, objAlertaPortPav.getIdRegistroVI());
             pst.setTimestamp(2, new java.sql.Timestamp(objAlertaPortPav.getDataChegada().getTime()));
             pst.setString(3, objAlertaPortPav.getHoraChegada());
@@ -202,12 +202,10 @@ public class ControleAlertasPortariaPavilhoes {
     }
 
     public AlertaVisitasPortariaPavilhoes alterarConfirmaVisitaInternoPortariaPavilhoes(AlertaVisitasPortariaPavilhoes objAlertaPortPav) {
-        buscarInterno(objAlertaPortPav.getNomeInternoCrc(), objAlertaPortPav.getIdInternoCrc());
-        buscarPavilhao(objAlertaPortPav.getDescricaoPavilhao(), objAlertaPortPav.getIdPav());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA SET Confirmacao=? WHERE IdRegistroVI='" + objAlertaPortPav.getIdRegistroVI()+ "'AND IdInternoCrc='" + objAlertaPortPav.getIdInternoCrc()  + "'");            
-            pst.setInt(1, objAlertaPortPav.getIdVisita());                       
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA SET Confirmacao=? WHERE IdRegAlerta='" + objAlertaPortPav.getIdRegAlerta() + "'");
+            pst.setString(1, objAlertaPortPav.getConfirmacao());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados do ALERTA.\n\nERRO: " + ex);
@@ -215,12 +213,12 @@ public class ControleAlertasPortariaPavilhoes {
         conecta.desconecta();
         return objAlertaPortPav;
     }
-    
+
     public AlertaVisitasPortariaPavilhoes excluirAcessoVisitaInternoPortariaPavilhoes(AlertaVisitasPortariaPavilhoes objAlertaPortPav) {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA WHERE IdRegistroVI='" + objAlertaPortPav.getIdRegistroVI()+ "'AND IdInternoCrc='" + objAlertaPortPav.getIdInternoCrc()  + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA WHERE IdRegistroVI='" + objAlertaPortPav.getIdRegistroVI() + "'AND IdInternoCrc='" + objAlertaPortPav.getIdInternoCrc() + "'");
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados do ALERTA.\n\nERRO: " + ex);
@@ -228,7 +226,7 @@ public class ControleAlertasPortariaPavilhoes {
         conecta.desconecta();
         return objAlertaPortPav;
     }
-                
+
 /// ---------------------------------------------- FIM DO METODO -------------------------------------------------------   
     public void buscarInterno(String nome, int codigo) {
         conecta.abrirConexao();
