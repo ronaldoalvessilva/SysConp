@@ -204,7 +204,7 @@ public class ControleAlertasPortariaPavilhoes {
     public AlertaVisitasPortariaPavilhoes alterarConfirmaVisitaInternoPortariaPavilhoes(AlertaVisitasPortariaPavilhoes objAlertaPortPav) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA SET Confirmacao=? WHERE IdRegAlerta='" + objAlertaPortPav.getIdRegAlerta() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA SET Confirmacao=? WHERE IdRegAlerta='" + objAlertaPortPav.getIdRegAlerta() + "'AND Confirmacao='" + objAlertaPortPav.getConfirmaReposta()+ "'");
             pst.setString(1, objAlertaPortPav.getConfirmacao());
             pst.executeUpdate();
         } catch (SQLException ex) {
