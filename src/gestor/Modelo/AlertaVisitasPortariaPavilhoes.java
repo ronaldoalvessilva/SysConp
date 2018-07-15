@@ -28,6 +28,7 @@ public class AlertaVisitasPortariaPavilhoes {
     private int idOficial;
     private String nomeOficial;
     private String confirmacao;
+    private String confirmaReposta;
     private int idPav;
     private String descricaoPavilhao;
     private byte[] assinaturaDigitalVisita;
@@ -41,7 +42,7 @@ public class AlertaVisitasPortariaPavilhoes {
     public AlertaVisitasPortariaPavilhoes() {
     }
 
-    public AlertaVisitasPortariaPavilhoes(int idRegAlerta, int idRegistroAD, int idRegistroVI, int idRegistroOF, Date dataChegada, String horaChegada, int idInternoCrc, String nomeInternoCrc, int idVisita, String nomeVisita, int idAdvogado, String nomeAdvogado, int idOficial, String nomeOficial, String confirmacao, int idPav, String descricaoPavilhao, byte[] assinaturaDigitalVisita, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
+    public AlertaVisitasPortariaPavilhoes(int idRegAlerta, int idRegistroAD, int idRegistroVI, int idRegistroOF, Date dataChegada, String horaChegada, int idInternoCrc, String nomeInternoCrc, int idVisita, String nomeVisita, int idAdvogado, String nomeAdvogado, int idOficial, String nomeOficial, String confirmacao, String confirmaReposta, int idPav, String descricaoPavilhao, byte[] assinaturaDigitalVisita, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
         this.idRegAlerta = idRegAlerta;
         this.idRegistroAD = idRegistroAD;
         this.idRegistroVI = idRegistroVI;
@@ -57,6 +58,7 @@ public class AlertaVisitasPortariaPavilhoes {
         this.idOficial = idOficial;
         this.nomeOficial = nomeOficial;
         this.confirmacao = confirmacao;
+        this.confirmaReposta = confirmaReposta;
         this.idPav = idPav;
         this.descricaoPavilhao = descricaoPavilhao;
         this.assinaturaDigitalVisita = assinaturaDigitalVisita;
@@ -279,6 +281,20 @@ public class AlertaVisitasPortariaPavilhoes {
     }
 
     /**
+     * @return the confirmaReposta
+     */
+    public String getConfirmaReposta() {
+        return confirmaReposta;
+    }
+
+    /**
+     * @param confirmaReposta the confirmaReposta to set
+     */
+    public void setConfirmaReposta(String confirmaReposta) {
+        this.confirmaReposta = confirmaReposta;
+    }
+
+    /**
      * @return the idPav
      */
     public int getIdPav() {
@@ -403,6 +419,5 @@ public class AlertaVisitasPortariaPavilhoes {
     public void setHorarioUp(String horarioUp) {
         this.horarioUp = horarioUp;
     }
-
     
 }
