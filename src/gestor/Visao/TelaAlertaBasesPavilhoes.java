@@ -11,17 +11,21 @@ import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.AlertaVisitasPortariaPavilhoes;
 import gestor.Modelo.LogSistema;
-import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloBaseDois.nomeModuloB2;
+import static gestor.Visao.TelaModuloBaseUm.codConsultarB1;
+import static gestor.Visao.TelaModuloBaseUm.codGravarB1;
+import static gestor.Visao.TelaModuloBaseUm.codUserAcessoB1;
+import static gestor.Visao.TelaModuloBaseUm.codigoUserB1;
+import static gestor.Visao.TelaModuloBaseUm.nomeGrupoB1;
 import static gestor.Visao.TelaModuloBaseUm.nomeModuloB1;
+import static gestor.Visao.TelaModuloBaseUm.nomeTelaB1;
+import static gestor.Visao.TelaModuloBaseUm.telaAlertaVisitantesPortariaB1;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -30,11 +34,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableRowSorter;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRResultSetDataSource;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -62,6 +61,9 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
     String dataInicial;
     String dataFinal;
     //
+    public static String dataInicialRel;
+    public static String dataFinalRel;
+    //
     String caminhoVisita;
     String caminhoAdvogado;
     String caminhoOficial;
@@ -76,10 +78,11 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
     //
     String confirmacao = "Não";
     String respostaConf = "Sim";
-    int codigoPavilhao = 0;
+    public static int codigoPavilhao = 0;
+    public static String descricaoPavilhao = "";
     String nivelPavilhao = "";
-    String nomePavilhao1 = "PAVILHAO I";
-    String nomePavilhao2 = "PAVILHAO A";
+    public static String nomePavilhao1 = "PAVILHAO I";
+    public static String nomePavilhao2 = "PAVILHAO A";
     int codigoInternoVI;
     int codigoInternoAD;
     int codigoInternoOF;
@@ -95,10 +98,16 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
     int codigoAlertaVI = 0;
     int codigoAlertaAD = 0;
     int codigoAlertaOF = 0;
+    //
+    String idVisita;
+    String idAdvogado;
+    String idOficial;
 
     /**
      * Creates new form TelaAlertaBasesPavilhoes
      */
+    public static TelaRelatorioVisitantesBasesPavilhoes relVisitasBase;
+
     public TelaAlertaBasesPavilhoes() {
         initComponents();
         buscarPavilhao(nomePavilhao1, nomePavilhao2);
@@ -109,20 +118,25 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
                 + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
                 + "WHERE Confirmacao='" + confirmacao + "' "
                 + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "'");
-        popularTabelaAdvogado("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
+        popularTabelaAdvogado("SELECT DataChegada,HoraChegada,ADVOGADOS.IdAdvogado,ADVOGADOS.NomeAdvogado FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
                 + "INNER JOIN ADVOGADOS "
                 + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdAdvogado=ADVOGADOS.IdAdvogado "
                 + "INNER JOIN PAVILHAO "
                 + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
                 + "WHERE Confirmacao='" + confirmacao + "' "
-                + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "'");
-        popularTabelaOficialJustica("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
+                + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' GROUP BY DataChegada,HoraChegada,ADVOGADOS.IdAdvogado,ADVOGADOS.NomeAdvogado ");
+        popularTabelaOficialJustica("SELECT DataChegada,HoraChegada, OFICIAL_JUSTICA.IdOficial, OFICIAL_JUSTICA.NomeOficial FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
                 + "INNER JOIN OFICIAL_JUSTICA "
                 + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdOficial=OFICIAL_JUSTICA.IdOficial "
                 + "INNER JOIN PAVILHAO "
                 + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
                 + "WHERE Confirmacao='" + confirmacao + "' "
-                + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "'");
+                + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "'GROUP BY DataChegada,HoraChegada,OFICIAL_JUSTICA.IdOficial,OFICIAL_JUSTICA.NomeOficial");
+    }
+
+    public void mostrarTelaRela() {
+        relVisitasBase = new TelaRelatorioVisitantesBasesPavilhoes(this, true);
+        relVisitasBase.setVisible(true);
     }
 
     /**
@@ -156,8 +170,6 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
         jBtConfirmarAdvogado = new javax.swing.JButton();
         jBtConfirmarOficialJustica = new javax.swing.JButton();
         jBtRelatorio = new javax.swing.JButton();
-        jComboBoxTipoRelatorio = new javax.swing.JComboBox<>();
-        jLabel5 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         VisitasInternos = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -390,56 +402,46 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
             }
         });
 
-        jComboBoxTipoRelatorio.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxTipoRelatorio.setForeground(new java.awt.Color(0, 102, 0));
-        jComboBoxTipoRelatorio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Visitas", "Advogados", "Oficial" }));
-        jComboBoxTipoRelatorio.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 102, 0));
-        jLabel5.setText("Tipos Relatórios");
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtSair, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jBtConfirmarOficialJustica, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jBtAtualizar)
-                        .addComponent(jBtConfirmarVisitasInterno)
-                        .addComponent(jBtConfirmarAdvogado)))
-                .addGap(10, 10, 10))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtRelatorio, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jComboBoxTipoRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jBtRelatorio)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jBtSair, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jBtConfirmarOficialJustica, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jBtAtualizar)
+                                        .addComponent(jBtConfirmarAdvogado)))
+                                .addGap(10, 10, 10))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jBtConfirmarVisitasInterno)
+                                .addContainerGap())))))
         );
 
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAtualizar, jBtConfirmarAdvogado, jBtConfirmarOficialJustica, jBtConfirmarVisitasInterno, jBtRelatorio, jBtSair, jComboBoxTipoRelatorio});
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAtualizar, jBtConfirmarAdvogado, jBtConfirmarOficialJustica, jBtConfirmarVisitasInterno, jBtRelatorio, jBtSair});
 
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(jBtAtualizar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtConfirmarVisitasInterno)
                 .addGap(52, 52, 52)
+                .addComponent(jBtConfirmarVisitasInterno)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtConfirmarAdvogado)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtConfirmarOficialJustica)
-                .addGap(33, 33, 33)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBoxTipoRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(77, 77, 77)
                 .addComponent(jBtRelatorio)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBtSair)
@@ -1118,131 +1120,86 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
 
     private void jBtConfirmarVisitasInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarVisitasInternoActionPerformed
         // TODO add your handling code here:
-        objAlertaPortPav.setConfirmacao(respostaConf);
-        objAlertaPortPav.setIdRegAlerta(codigoAlertaVI);
-        controleOFPortPav.alterarConfirmaVisitaInternoPortariaPavilhoes(objAlertaPortPav);
-        buscarPavilhao(nomePavilhao1, nomePavilhao2);
-        popularTabelaNomeVisita("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
-                + "INNER JOIN VISITASINTERNO "
-                + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdVisita=VISITASINTERNO.IdVisita "
-                + "INNER JOIN PAVILHAO "
-                + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
-                + "WHERE Confirmacao='" + confirmacao + "' "
-                + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "'");
-        jBtConfirmarVisitasInterno.setEnabled(!true);
-        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB1.equals("ADMINISTRADORES") || codigoUserB1 == codUserAcessoB1 && nomeTelaB1.equals(telaAlertaVisitantesPortariaB1) && codGravarB1 == 1) {
+            objAlertaPortPav.setConfirmacao(respostaConf);
+            objAlertaPortPav.setIdRegAlerta(codigoAlertaVI);
+            controleOFPortPav.alterarConfirmaVisitaInternoPortariaPavilhoes(objAlertaPortPav);
+            buscarPavilhao(nomePavilhao1, nomePavilhao2);
+            popularTabelaNomeVisita("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
+                    + "INNER JOIN VISITASINTERNO "
+                    + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdVisita=VISITASINTERNO.IdVisita "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
+                    + "WHERE Confirmacao='" + confirmacao + "' "
+                    + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "'");
+            popularTabelaInternosVisitas("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "WHERE ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdVisita='" + idVisita + "'");
+            jBtConfirmarVisitasInterno.setEnabled(!true);
+            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação do administrador.");
+        }
     }//GEN-LAST:event_jBtConfirmarVisitasInternoActionPerformed
 
     private void jBtConfirmarAdvogadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarAdvogadoActionPerformed
         // TODO add your handling code here:
-        objAlertaPortPav.setConfirmacao(respostaConf);
-        objAlertaPortPav.setIdRegAlerta(codigoAlertaAD);
-        controleOFPortPav.alterarConfirmaVisitaInternoPortariaPavilhoes(objAlertaPortPav);
-        buscarPavilhao(nomePavilhao1, nomePavilhao2);
-        popularTabelaNomeVisita("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
-                + "INNER JOIN VISITASINTERNO "
-                + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdVisita=VISITASINTERNO.IdVisita "
-                + "INNER JOIN PAVILHAO "
-                + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
-                + "WHERE Confirmacao='" + confirmacao + "' "
-                + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "'");
-        jBtConfirmarAdvogado.setEnabled(!true);
-        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB1.equals("ADMINISTRADORES") || codigoUserB1 == codUserAcessoB1 && nomeTelaB1.equals(telaAlertaVisitantesPortariaB1) && codGravarB1 == 1) {
+            objAlertaPortPav.setConfirmacao(respostaConf);
+            objAlertaPortPav.setIdRegAlerta(codigoAlertaAD);
+            controleOFPortPav.alterarConfirmaVisitaInternoPortariaPavilhoes(objAlertaPortPav);
+            buscarPavilhao(nomePavilhao1, nomePavilhao2);
+            popularTabelaAdvogado("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
+                    + "INNER JOIN VISITASINTERNO "
+                    + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdVisita=VISITASINTERNO.IdVisita "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
+                    + "WHERE Confirmacao='" + confirmacao + "' "
+                    + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "'");
+            popularTabelaInternosAdvogados("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "WHERE ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdAdvogado='" + idAdvogado + "'");
+            jBtConfirmarAdvogado.setEnabled(!true);
+            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação do administrador.");
+        }
     }//GEN-LAST:event_jBtConfirmarAdvogadoActionPerformed
 
     private void jBtConfirmarOficialJusticaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarOficialJusticaActionPerformed
         // TODO add your handling code here:
-        objAlertaPortPav.setConfirmacao(respostaConf);
-        objAlertaPortPav.setIdRegAlerta(codigoAlertaOF);
-        controleOFPortPav.alterarConfirmaVisitaInternoPortariaPavilhoes(objAlertaPortPav);
-        buscarPavilhao(nomePavilhao1, nomePavilhao2);
-        popularTabelaNomeVisita("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
-                + "INNER JOIN VISITASINTERNO "
-                + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdVisita=VISITASINTERNO.IdVisita "
-                + "INNER JOIN PAVILHAO "
-                + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
-                + "WHERE Confirmacao='" + confirmacao + "' "
-                + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "'");
-        jBtConfirmarOficialJustica.setEnabled(!true);
-        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB1.equals("ADMINISTRADORES") || codigoUserB1 == codUserAcessoB1 && nomeTelaB1.equals(telaAlertaVisitantesPortariaB1) && codGravarB1 == 1) {
+            objAlertaPortPav.setConfirmacao(respostaConf);
+            objAlertaPortPav.setIdRegAlerta(codigoAlertaOF);
+            controleOFPortPav.alterarConfirmaVisitaInternoPortariaPavilhoes(objAlertaPortPav);
+            buscarPavilhao(nomePavilhao1, nomePavilhao2);
+            popularTabelaOficialJustica("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
+                    + "INNER JOIN VISITASINTERNO "
+                    + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdVisita=VISITASINTERNO.IdVisita "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
+                    + "WHERE Confirmacao='" + confirmacao + "' "
+                    + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "'");
+            popularTabelaInternosOficialJustica("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "WHERE ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdOficial='" + idOficial + "'");
+            jBtConfirmarOficialJustica.setEnabled(!true);
+            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação do administrador.");
+        }
     }//GEN-LAST:event_jBtConfirmarOficialJusticaActionPerformed
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
         // TODO add your handling code here:
-        if (jComboBoxTipoRelatorio.getSelectedItem().equals("Selecione...")) {
-            JOptionPane.showMessageDialog(rootPane, "Selecione o tipo de relatório.");
-        } else if (jComboBoxTipoRelatorio.getSelectedItem().equals("Visitas")) {
-            //VISITAS DE INTERNO
-            try {
-                conecta.abrirConexao();
-                String path = "reports/RelatorioVisitasInternosPavilhoes.jasper";
-                conecta.executaSQL("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "INNER JOIN VISITASINTERNO "
-                        + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdVisita=VISITASINTERNO.IdVisita");
-                HashMap parametros = new HashMap();
-                parametros.put("descricaoUnidade", descricaoUnidade);
-                parametros.put("nomeUsuario", nameUser);
-                JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                jv.setTitle("Relatório Entreadas na portaria de Visitas Internos nos pavilhões.");
-                jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                jv.toFront(); // Traz o relatorio para frente da aplicação            
-                conecta.desconecta();
-            } catch (JRException e) {
-                JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório de Visitas.\n\nERRO :" + e);
-            }
-        } else if (jComboBoxTipoRelatorio.getSelectedItem().equals("Advogados")) {
-            // ADVOGADOS
-            try {
-                conecta.abrirConexao();
-                String path = "reports/RelatorioOficialJusticaInternosPavilhoes.jasper";
-                conecta.executaSQL("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "INNER JOIN OFICIAL_JUSTICA "
-                        + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdOficial=OFICIAL_JUSTICA.IdOficial");
-                HashMap parametros = new HashMap();
-                parametros.put("descricaoUnidade", descricaoUnidade);
-                parametros.put("nomeUsuario", nameUser);
-                JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                jv.setTitle("Relatório Entreadas na portaria de Oficial de Justiça Internos nos pavilhões.");
-                jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                jv.toFront(); // Traz o relatorio para frente da aplicação            
-                conecta.desconecta();
-            } catch (JRException e) {
-                JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório de Advogados.\n\nERRO :" + e);
-            }
-        } else if (jComboBoxTipoRelatorio.getSelectedItem().equals("Oficial")) {
-            // OFICIAL DE JUSTIÇA
-            try {
-                conecta.abrirConexao();
-                String path = "reports/RelatorioAdvogadosInternosPavilhoes.jasper";
-                conecta.executaSQL("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "INNER JOIN ADVOGADOS "
-                        + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdAdvogado=ADVOGADOS.IdAdvogado");
-                HashMap parametros = new HashMap();
-                parametros.put("descricaoUnidade", descricaoUnidade);
-                parametros.put("nomeUsuario", nameUser);
-                JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                jv.setTitle("Relatório Entreadas na portaria de Advogados Internos nos pavilhões.");
-                jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                jv.toFront(); // Traz o relatorio para frente da aplicação            
-                conecta.desconecta();
-            } catch (JRException e) {
-                JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório de Oficial de Justiça \n\nERRO :" + e);
-            }
+        buscarPavilhao(nomePavilhao1, nomePavilhao2);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB1.equals("ADMINISTRADORES") || codigoUserB1 == codUserAcessoB1 && nomeTelaB1.equals(telaAlertaVisitantesPortariaB1) && codConsultarB1 == 1) {
+            mostrarTelaRela();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação do administrador.");
         }
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
@@ -1255,12 +1212,11 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (flag == 1) {
-            String idVisita = "" + jTabelaVisitasInternos.getValueAt(jTabelaVisitasInternos.getSelectedRow(), 2);
+            idVisita = "" + jTabelaVisitasInternos.getValueAt(jTabelaVisitasInternos.getSelectedRow(), 2);
             //
             jBtConfirmarVisitasInterno.setEnabled(true);
             jBtConfirmarAdvogado.setEnabled(!true);
             jBtConfirmarOficialJustica.setEnabled(!true);
-            jBtRelatorio.setEnabled(!true);
             //
             conecta.abrirConexao();
             try {
@@ -1318,12 +1274,11 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (flag == 1) {
-            String idAdvogado = "" + jTabelaAdvogados.getValueAt(jTabelaAdvogados.getSelectedRow(), 2);
+            idAdvogado = "" + jTabelaAdvogados.getValueAt(jTabelaAdvogados.getSelectedRow(), 2);
             //
             jBtConfirmarVisitasInterno.setEnabled(!true);
             jBtConfirmarAdvogado.setEnabled(true);
             jBtConfirmarOficialJustica.setEnabled(!true);
-            jBtRelatorio.setEnabled(!true);
             //
             conecta.abrirConexao();
             try {
@@ -1381,12 +1336,11 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (flag == 1) {
-            String idOficial = "" + jTabelaOficialJustica.getValueAt(jTabelaOficialJustica.getSelectedRow(), 2);
+            idOficial = "" + jTabelaOficialJustica.getValueAt(jTabelaOficialJustica.getSelectedRow(), 2);
             //
             jBtConfirmarVisitasInterno.setEnabled(!true);
             jBtConfirmarAdvogado.setEnabled(!true);
             jBtConfirmarOficialJustica.setEnabled(true);
-            jBtRelatorio.setEnabled(!true);
             //
             conecta.abrirConexao();
             try {
@@ -1496,7 +1450,6 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtRelatorio;
     private javax.swing.JButton jBtSair;
     private javax.swing.JTextField jCodigo;
-    private javax.swing.JComboBox<String> jComboBoxTipoRelatorio;
     private com.toedter.calendar.JDateChooser jDataPesqChegada;
     private javax.swing.JLabel jFotoAdvogado;
     private javax.swing.JLabel jFotoInterno;
@@ -1506,7 +1459,6 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel64;
     private javax.swing.JLabel jLabel65;
@@ -1551,6 +1503,7 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
                     + "OR DescricaoPav='" + descricao2 + "'");
             conecta.rs.first();
             codigoPavilhao = conecta.rs.getInt("IdPav");
+            descricaoPavilhao = conecta.rs.getString("DescricaoPav");
         } catch (SQLException ex) {
             Logger.getLogger(TelaAlertaBasesPavilhoes.class.getName()).log(Level.SEVERE, null, ex);
         }
