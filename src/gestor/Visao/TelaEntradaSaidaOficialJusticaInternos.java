@@ -1534,11 +1534,17 @@ public class TelaEntradaSaidaOficialJusticaInternos extends javax.swing.JInterna
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
                     ExcluirInterno();
-                    preencherTabelaItens("SELECT * FROM ITENS_ENTRADAS_OFICIAL_JUSTICA_INTERNOS "
+                     preencherTabelaItens("SELECT * FROM ITENS_ENTRADAS_OFICIAL_JUSTICA_INTERNOS "
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON ITENS_ENTRADAS_OFICIAL_JUSTICA_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                             + "INNER JOIN DADOSPENAISINTERNOS "
                             + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                            + "INNER JOIN ITENSLOCACAOINTERNO "
+                            + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
+                            + "INNER JOIN CELAS "
+                            + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
+                            + "INNER JOIN PAVILHAO "
+                            + "ON CELAS.IdPav=PAVILHAO.IdPav "
                             + "WHERE Idlanc='" + jIDlanc.getText() + "'");
                 }
             }
