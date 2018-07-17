@@ -114,6 +114,7 @@ public class TelaBiometriaKitInterno extends javax.swing.JDialog {
     int kitQuinzenal = 0;
     int kitMensal = 0;
     int kitSemetral = 0;
+    int kitPersonalizado = 0;
 
     /**
      * Creates new form TelaBiometriaKitInterno
@@ -191,6 +192,47 @@ public class TelaBiometriaKitInterno extends javax.swing.JDialog {
         jSeparator2 = new javax.swing.JSeparator();
         jPanel2 = new javax.swing.JPanel();
         jFotoInternoKitBio = new javax.swing.JLabel();
+        jCheckBoxPersonalizada = new javax.swing.JCheckBox();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel14 = new javax.swing.JPanel();
+        jCheckBoxCueca = new javax.swing.JCheckBox();
+        jCheckBoxPrato = new javax.swing.JCheckBox();
+        jCheckBoxSandalia = new javax.swing.JCheckBox();
+        jCheckBoxCamisa = new javax.swing.JCheckBox();
+        jCheckBoxGarfo = new javax.swing.JCheckBox();
+        jCheckBoxColchao = new javax.swing.JCheckBox();
+        jCheckBoxBermuda = new javax.swing.JCheckBox();
+        jCheckBoxCobertor = new javax.swing.JCheckBox();
+        jCheckBoxBolaFutsal = new javax.swing.JCheckBox();
+        jCheckBoxCalcaoJogo = new javax.swing.JCheckBox();
+        jCheckBoxCamisaJogo = new javax.swing.JCheckBox();
+        jCheckBoxParMeiao = new javax.swing.JCheckBox();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        jCheckBoxAbsorvente = new javax.swing.JCheckBox();
+        jCheckBoxDesodorante = new javax.swing.JCheckBox();
+        jPanel15 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jPanel10 = new javax.swing.JPanel();
+        jCheckBoxPapel = new javax.swing.JCheckBox();
+        jCheckBoxSabonete = new javax.swing.JCheckBox();
+        jPanel19 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel11 = new javax.swing.JPanel();
+        jCheckBoxSabaoPo = new javax.swing.JCheckBox();
+        jCheckBoxBarbeador = new javax.swing.JCheckBox();
+        jCheckBoxCreme = new javax.swing.JCheckBox();
+        jPanel16 = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        jPanel13 = new javax.swing.JPanel();
+        jCheckBoxLencol = new javax.swing.JCheckBox();
+        jCheckBoxToalha = new javax.swing.JCheckBox();
+        jCheckBoxCopo = new javax.swing.JCheckBox();
+        jCheckBoxVasilha = new javax.swing.JCheckBox();
+        jCheckBoxColher = new javax.swing.JCheckBox();
+        jCheckBoxEscova = new javax.swing.JCheckBox();
+        jPanel18 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("...::: Registro de Kit de Internos {Biometria} :::...");
@@ -249,7 +291,6 @@ public class TelaBiometriaKitInterno extends javax.swing.JDialog {
 
         jCheckBoxKitAnual.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jCheckBoxKitAnual.setText("Kit Anual");
-        jCheckBoxKitAnual.setEnabled(false);
         jCheckBoxKitAnual.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jCheckBoxKitAnualItemStateChanged(evt);
@@ -258,8 +299,7 @@ public class TelaBiometriaKitInterno extends javax.swing.JDialog {
 
         jCheckBoxDecimal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jCheckBoxDecimal.setForeground(new java.awt.Color(0, 153, 51));
-        jCheckBoxDecimal.setText("Kit Decimal");
-        jCheckBoxDecimal.setEnabled(false);
+        jCheckBoxDecimal.setText("Kit Decendial");
         jCheckBoxDecimal.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jCheckBoxDecimalItemStateChanged(evt);
@@ -269,7 +309,6 @@ public class TelaBiometriaKitInterno extends javax.swing.JDialog {
         jCheckBoxSemestral.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jCheckBoxSemestral.setForeground(new java.awt.Color(0, 0, 255));
         jCheckBoxSemestral.setText("Kit Semestral");
-        jCheckBoxSemestral.setEnabled(false);
         jCheckBoxSemestral.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jCheckBoxSemestralItemStateChanged(evt);
@@ -277,8 +316,7 @@ public class TelaBiometriaKitInterno extends javax.swing.JDialog {
         });
 
         jCheckBoxMarcaTodos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jCheckBoxMarcaTodos.setText("Marca Todos");
-        jCheckBoxMarcaTodos.setEnabled(false);
+        jCheckBoxMarcaTodos.setText("Kit Inicial");
         jCheckBoxMarcaTodos.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jCheckBoxMarcaTodosItemStateChanged(evt);
@@ -288,7 +326,6 @@ public class TelaBiometriaKitInterno extends javax.swing.JDialog {
         jCheckBoxMensal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jCheckBoxMensal.setForeground(new java.awt.Color(153, 0, 102));
         jCheckBoxMensal.setText("Kit Mensal");
-        jCheckBoxMensal.setEnabled(false);
         jCheckBoxMensal.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jCheckBoxMensalItemStateChanged(evt);
@@ -298,7 +335,6 @@ public class TelaBiometriaKitInterno extends javax.swing.JDialog {
         jCheckBoxKitQuinzenal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jCheckBoxKitQuinzenal.setForeground(new java.awt.Color(204, 0, 0));
         jCheckBoxKitQuinzenal.setText("Kit Quinzenal");
-        jCheckBoxKitQuinzenal.setEnabled(false);
         jCheckBoxKitQuinzenal.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jCheckBoxKitQuinzenalItemStateChanged(evt);
@@ -347,7 +383,7 @@ public class TelaBiometriaKitInterno extends javax.swing.JDialog {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jCheckBoxMarcaTodos)
                             .addComponent(jCheckBoxDecimal))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jCheckBoxKitAnual)
                             .addComponent(jCheckBoxSemestral))
@@ -421,8 +457,9 @@ public class TelaBiometriaKitInterno extends javax.swing.JDialog {
         });
 
         jBtIniciarLeitor.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtIniciarLeitor.setForeground(new java.awt.Color(0, 153, 0));
-        jBtIniciarLeitor.setText("Iniciar Leitor Digital");
+        jBtIniciarLeitor.setForeground(new java.awt.Color(0, 153, 153));
+        jBtIniciarLeitor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Biometria16.png"))); // NOI18N
+        jBtIniciarLeitor.setText("Iniciar Leitor ");
         jBtIniciarLeitor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtIniciarLeitorActionPerformed(evt);
@@ -431,6 +468,7 @@ public class TelaBiometriaKitInterno extends javax.swing.JDialog {
 
         jBtCancelarLeitura.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtCancelarLeitura.setForeground(new java.awt.Color(204, 0, 0));
+        jBtCancelarLeitura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Biometria16Vermelho.png"))); // NOI18N
         jBtCancelarLeitura.setText("Cancelar Leitura");
         jBtCancelarLeitura.setEnabled(false);
         jBtCancelarLeitura.addActionListener(new java.awt.event.ActionListener() {
@@ -454,6 +492,439 @@ public class TelaBiometriaKitInterno extends javax.swing.JDialog {
             .addComponent(jFotoInternoKitBio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        jCheckBoxPersonalizada.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jCheckBoxPersonalizada.setForeground(new java.awt.Color(204, 0, 0));
+        jCheckBoxPersonalizada.setText("Seleção Personalizada");
+
+        jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        jCheckBoxCueca.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jCheckBoxCueca.setText("Cueca");
+
+        jCheckBoxPrato.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jCheckBoxPrato.setText("Prato ");
+
+        jCheckBoxSandalia.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jCheckBoxSandalia.setText("Sandália");
+
+        jCheckBoxCamisa.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jCheckBoxCamisa.setText("Camisa");
+
+        jCheckBoxGarfo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jCheckBoxGarfo.setText("Garfo");
+
+        jCheckBoxColchao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jCheckBoxColchao.setText("Colchão");
+
+        jCheckBoxBermuda.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jCheckBoxBermuda.setText("Bermuda");
+
+        jCheckBoxCobertor.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jCheckBoxCobertor.setText("Cobertor");
+
+        jCheckBoxBolaFutsal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jCheckBoxBolaFutsal.setText("Bola Futsal");
+
+        jCheckBoxCalcaoJogo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jCheckBoxCalcaoJogo.setText("Calção Jg.");
+
+        jCheckBoxCamisaJogo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jCheckBoxCamisaJogo.setText("Camisa Jg.");
+
+        jCheckBoxParMeiao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jCheckBoxParMeiao.setText("Par meião");
+
+        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
+        jPanel14.setLayout(jPanel14Layout);
+        jPanel14Layout.setHorizontalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCheckBoxBolaFutsal)
+                    .addComponent(jCheckBoxCueca))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCheckBoxPrato)
+                    .addComponent(jCheckBoxCalcaoJogo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel14Layout.createSequentialGroup()
+                        .addComponent(jCheckBoxCamisaJogo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCheckBoxParMeiao))
+                    .addGroup(jPanel14Layout.createSequentialGroup()
+                        .addComponent(jCheckBoxSandalia, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCheckBoxCamisa)))
+                .addGap(10, 10, 10)
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCheckBoxGarfo)
+                    .addComponent(jCheckBoxCobertor))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCheckBoxBermuda)
+                    .addComponent(jCheckBoxColchao))
+                .addContainerGap(83, Short.MAX_VALUE))
+        );
+        jPanel14Layout.setVerticalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCheckBoxCueca)
+                    .addComponent(jCheckBoxPrato)
+                    .addComponent(jCheckBoxSandalia)
+                    .addComponent(jCheckBoxCamisa)
+                    .addComponent(jCheckBoxGarfo)
+                    .addComponent(jCheckBoxBermuda))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCheckBoxBolaFutsal)
+                    .addComponent(jCheckBoxCalcaoJogo)
+                    .addComponent(jCheckBoxCamisaJogo)
+                    .addComponent(jCheckBoxParMeiao)
+                    .addComponent(jCheckBoxCobertor)
+                    .addComponent(jCheckBoxColchao))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Anual", jPanel3);
+
+        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        jCheckBoxAbsorvente.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jCheckBoxAbsorvente.setForeground(new java.awt.Color(153, 0, 102));
+        jCheckBoxAbsorvente.setText("Absorvente");
+
+        jCheckBoxDesodorante.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jCheckBoxDesodorante.setForeground(new java.awt.Color(153, 0, 102));
+        jCheckBoxDesodorante.setText("Desodorante");
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCheckBoxDesodorante)
+                    .addComponent(jCheckBoxAbsorvente))
+                .addContainerGap(23, Short.MAX_VALUE))
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jCheckBoxAbsorvente)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckBoxDesodorante)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
+        jPanel15.setLayout(jPanel15Layout);
+        jPanel15Layout.setHorizontalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 458, Short.MAX_VALUE)
+        );
+        jPanel15Layout.setVerticalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("Mensal", jPanel4);
+
+        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        jCheckBoxPapel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jCheckBoxPapel.setForeground(new java.awt.Color(0, 153, 0));
+        jCheckBoxPapel.setText("Papel Higiênico");
+
+        jCheckBoxSabonete.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jCheckBoxSabonete.setForeground(new java.awt.Color(0, 153, 0));
+        jCheckBoxSabonete.setText("Sabonete");
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCheckBoxSabonete)
+                    .addComponent(jCheckBoxPapel))
+                .addContainerGap(14, Short.MAX_VALUE))
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jCheckBoxPapel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jCheckBoxSabonete)
+                .addContainerGap())
+        );
+
+        jPanel19.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
+        jPanel19.setLayout(jPanel19Layout);
+        jPanel19Layout.setHorizontalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 457, Short.MAX_VALUE)
+        );
+        jPanel19Layout.setVerticalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 62, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("Decendial", jPanel5);
+
+        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        jCheckBoxSabaoPo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jCheckBoxSabaoPo.setForeground(new java.awt.Color(204, 0, 0));
+        jCheckBoxSabaoPo.setText("Sabão Pó");
+
+        jCheckBoxBarbeador.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jCheckBoxBarbeador.setForeground(new java.awt.Color(204, 0, 0));
+        jCheckBoxBarbeador.setText("Barbeador");
+
+        jCheckBoxCreme.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jCheckBoxCreme.setForeground(new java.awt.Color(204, 0, 0));
+        jCheckBoxCreme.setText("C. Dental");
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addComponent(jCheckBoxSabaoPo)
+                        .addGap(18, 18, 18)
+                        .addComponent(jCheckBoxCreme))
+                    .addComponent(jCheckBoxBarbeador))
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCheckBoxSabaoPo)
+                    .addComponent(jCheckBoxCreme))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jCheckBoxBarbeador)
+                .addContainerGap())
+        );
+
+        jPanel16.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
+        jPanel16.setLayout(jPanel16Layout);
+        jPanel16Layout.setHorizontalGroup(
+            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 358, Short.MAX_VALUE)
+        );
+        jPanel16Layout.setVerticalGroup(
+            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 61, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("Quinzenal", jPanel6);
+
+        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        jCheckBoxLencol.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jCheckBoxLencol.setForeground(new java.awt.Color(0, 0, 255));
+        jCheckBoxLencol.setText("Lençol");
+
+        jCheckBoxToalha.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jCheckBoxToalha.setForeground(new java.awt.Color(0, 0, 255));
+        jCheckBoxToalha.setText("Toalha");
+
+        jCheckBoxCopo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jCheckBoxCopo.setForeground(new java.awt.Color(0, 0, 255));
+        jCheckBoxCopo.setText("Copo/Caneca");
+
+        jCheckBoxVasilha.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jCheckBoxVasilha.setForeground(new java.awt.Color(0, 0, 255));
+        jCheckBoxVasilha.setText("Vasilha/Pote");
+
+        jCheckBoxColher.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jCheckBoxColher.setForeground(new java.awt.Color(0, 0, 255));
+        jCheckBoxColher.setText("Colher ");
+
+        jCheckBoxEscova.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jCheckBoxEscova.setForeground(new java.awt.Color(0, 0, 255));
+        jCheckBoxEscova.setText("Escova Dente");
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addComponent(jCheckBoxLencol)
+                        .addGap(57, 57, 57)
+                        .addComponent(jCheckBoxColher))
+                    .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addComponent(jCheckBoxCopo)
+                        .addGap(18, 18, 18)
+                        .addComponent(jCheckBoxEscova)))
+                .addGap(28, 28, 28)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCheckBoxVasilha)
+                    .addComponent(jCheckBoxToalha))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jCheckBoxToalha)
+                    .addComponent(jCheckBoxColher)
+                    .addComponent(jCheckBoxLencol))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCheckBoxCopo)
+                    .addComponent(jCheckBoxEscova)
+                    .addComponent(jCheckBoxVasilha))
+                .addContainerGap())
+        );
+
+        jPanel18.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
+        jPanel18.setLayout(jPanel18Layout);
+        jPanel18Layout.setHorizontalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 228, Short.MAX_VALUE)
+        );
+        jPanel18Layout.setVerticalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("Semestral", jPanel8);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -476,7 +947,11 @@ public class TelaBiometriaKitInterno extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jBtIniciarLeitor)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtCancelarLeitura, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jBtCancelarLeitura, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jCheckBoxPersonalizada)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
 
@@ -501,16 +976,20 @@ public class TelaBiometriaKitInterno extends javax.swing.JDialog {
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckBoxPersonalizada)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtSair, jBtSalvar});
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtCancelarLeitura, jBtIniciarLeitor});
 
-        setSize(new java.awt.Dimension(657, 408));
+        setSize(new java.awt.Dimension(667, 536));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -688,6 +1167,11 @@ public class TelaBiometriaKitInterno extends javax.swing.JDialog {
                 kitMensal = 1;
             } else if (!jCheckBoxMensal.isSelected()) {
                 kitMensal = 0;
+            }
+            if(jCheckBoxPersonalizada.isSelected()){
+                kitPersonalizado = 1;
+            }else if(!jCheckBoxPersonalizada.isSelected()){
+                kitPersonalizado = 0;
             }
             // KIT ANUAL            
             objItensPagto.setPrato(prato);
@@ -1501,12 +1985,38 @@ public class TelaBiometriaKitInterno extends javax.swing.JDialog {
     private javax.swing.JButton jBtSair;
     private javax.swing.JButton jBtSalvar;
     public static javax.swing.JTextField jCelaKitBio;
+    public static javax.swing.JCheckBox jCheckBoxAbsorvente;
+    public static javax.swing.JCheckBox jCheckBoxBarbeador;
+    public static javax.swing.JCheckBox jCheckBoxBermuda;
+    public static javax.swing.JCheckBox jCheckBoxBolaFutsal;
+    public static javax.swing.JCheckBox jCheckBoxCalcaoJogo;
+    public static javax.swing.JCheckBox jCheckBoxCamisa;
+    public static javax.swing.JCheckBox jCheckBoxCamisaJogo;
+    public static javax.swing.JCheckBox jCheckBoxCobertor;
+    public static javax.swing.JCheckBox jCheckBoxColchao;
+    public static javax.swing.JCheckBox jCheckBoxColher;
+    public static javax.swing.JCheckBox jCheckBoxCopo;
+    public static javax.swing.JCheckBox jCheckBoxCreme;
+    public static javax.swing.JCheckBox jCheckBoxCueca;
     public static javax.swing.JCheckBox jCheckBoxDecimal;
+    public static javax.swing.JCheckBox jCheckBoxDesodorante;
+    public static javax.swing.JCheckBox jCheckBoxEscova;
+    public static javax.swing.JCheckBox jCheckBoxGarfo;
     private javax.swing.JCheckBox jCheckBoxKitAnual;
     private javax.swing.JCheckBox jCheckBoxKitQuinzenal;
+    public static javax.swing.JCheckBox jCheckBoxLencol;
     private javax.swing.JCheckBox jCheckBoxMarcaTodos;
     private javax.swing.JCheckBox jCheckBoxMensal;
+    public static javax.swing.JCheckBox jCheckBoxPapel;
+    public static javax.swing.JCheckBox jCheckBoxParMeiao;
+    private javax.swing.JCheckBox jCheckBoxPersonalizada;
+    public static javax.swing.JCheckBox jCheckBoxPrato;
+    public static javax.swing.JCheckBox jCheckBoxSabaoPo;
+    public static javax.swing.JCheckBox jCheckBoxSabonete;
+    public static javax.swing.JCheckBox jCheckBoxSandalia;
     private javax.swing.JCheckBox jCheckBoxSemestral;
+    public static javax.swing.JCheckBox jCheckBoxToalha;
+    public static javax.swing.JCheckBox jCheckBoxVasilha;
     private com.toedter.calendar.JDateChooser jDataEntrega;
     public static javax.swing.JLabel jFotoInternoKitBio;
     private javax.swing.JFormattedTextField jHorarioPagto;
@@ -1522,11 +2032,26 @@ public class TelaBiometriaKitInterno extends javax.swing.JDialog {
     public static javax.swing.JTextField jMatriculaPenalKitBio;
     public static javax.swing.JTextField jNomeInternoKitBio;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
+    private javax.swing.JPanel jPanel16;
+    private javax.swing.JPanel jPanel18;
+    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     public static javax.swing.JTextField jPavilhaoKitBio;
     public static javax.swing.JTextField jRegimeKitBio;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
 
     private static Runnable LerDigital1 = new Runnable() {
@@ -1799,7 +2324,7 @@ public class TelaBiometriaKitInterno extends javax.swing.JDialog {
  
  //---------------------------------------------------------------------
      
-     public void Novo() {
+    public void Novo() {
         jIdInternoKitBio.setText("");
         jNomeInternoKitBio.setText("");
         jRegimeKitBio.setText("");
@@ -1855,6 +2380,101 @@ public class TelaBiometriaKitInterno extends javax.swing.JDialog {
         //
         jBtSalvar.setEnabled(!true);
         jBtIniciarLeitor.setEnabled(true);
+    }
+
+    public void abrirCampos() {
+        jCheckBoxMarcaTodos.setEnabled(true);
+        jCheckBoxKitQuinzenal.setEnabled(true);
+        jCheckBoxMensal.setEnabled(true);
+        jCheckBoxKitAnual.setEnabled(true);
+        jCheckBoxPersonalizada.setEnabled(true);
+        //
+        jBtSalvar.setEnabled(true);
+        jCheckBoxMarcaTodos.setEnabled(true);
+        jCheckBoxDecimal.setEnabled(true);
+        jCheckBoxKitQuinzenal.setEnabled(true);
+        jCheckBoxSemestral.setEnabled(true);
+        jCheckBoxMensal.setEnabled(true);
+        // KIT ANUAL         
+        jCheckBoxCobertor.setEnabled(true);
+        jCheckBoxBolaFutsal.setEnabled(true);
+        jCheckBoxPrato.setEnabled(true);
+        jCheckBoxColchao.setEnabled(true);
+        jCheckBoxCamisa.setEnabled(true);
+        jCheckBoxBermuda.setEnabled(true);
+        jCheckBoxCueca.setEnabled(true);
+        jCheckBoxSandalia.setEnabled(true);
+        jCheckBoxCobertor.setEnabled(true);
+        jCheckBoxBolaFutsal.setEnabled(true);
+        jCheckBoxCalcaoJogo.setEnabled(true);
+        jCheckBoxCamisaJogo.setEnabled(true);
+        jCheckBoxParMeiao.setEnabled(true);
+        jCheckBoxGarfo.setEnabled(true);
+        // DECIMAL
+        jCheckBoxPapel.setEnabled(true);
+        jCheckBoxSabonete.setEnabled(true);
+        // QUINZENAL
+        jCheckBoxCreme.setEnabled(true);
+        jCheckBoxBarbeador.setEnabled(true);
+        jCheckBoxSabaoPo.setEnabled(true);
+        //SEMESTRAL
+        jCheckBoxLencol.setEnabled(true);
+        jCheckBoxCopo.setEnabled(true);
+        jCheckBoxVasilha.setEnabled(true);
+        jCheckBoxColher.setEnabled(true);
+        jCheckBoxToalha.setEnabled(true);
+        jCheckBoxEscova.setEnabled(true);
+        // MENSAL
+        jCheckBoxAbsorvente.setEnabled(true);
+        jCheckBoxDesodorante.setEnabled(true);
+        //
+        jDataEntrega.setEnabled(!true);
+        jHorarioPagto.setEnabled(!true);
+    }
+
+    public void bloquearCampos() {
+        //
+        jCheckBoxMarcaTodos.setEnabled(!true);
+        jCheckBoxDecimal.setEnabled(!true);
+        jCheckBoxKitQuinzenal.setEnabled(!true);
+        jCheckBoxSemestral.setEnabled(!true);
+        jCheckBoxMensal.setEnabled(!true);
+        jCheckBoxPersonalizada.setEnabled(!true);
+        // KIT ANUAL         
+        jCheckBoxCobertor.setEnabled(!true);
+        jCheckBoxBolaFutsal.setEnabled(!true);
+        jCheckBoxPrato.setEnabled(!true);
+        jCheckBoxColchao.setEnabled(!true);
+        jCheckBoxCamisa.setEnabled(!true);
+        jCheckBoxBermuda.setEnabled(!true);
+        jCheckBoxCueca.setEnabled(!true);
+        jCheckBoxSandalia.setEnabled(!true);
+        jCheckBoxCobertor.setEnabled(!true);
+        jCheckBoxBolaFutsal.setEnabled(!true);
+        jCheckBoxCalcaoJogo.setEnabled(!true);
+        jCheckBoxCamisaJogo.setEnabled(!true);
+        jCheckBoxParMeiao.setEnabled(!true);
+        jCheckBoxGarfo.setEnabled(!true);
+        // DECIMAL
+        jCheckBoxPapel.setEnabled(!true);
+        jCheckBoxSabonete.setEnabled(!true);
+        // QUINZENAL
+        jCheckBoxCreme.setEnabled(!true);
+        jCheckBoxBarbeador.setEnabled(!true);
+        jCheckBoxSabaoPo.setEnabled(!true);
+        //SEMESTRAL
+        jCheckBoxLencol.setEnabled(!true);
+        jCheckBoxCopo.setEnabled(!true);
+        jCheckBoxVasilha.setEnabled(!true);
+        jCheckBoxColher.setEnabled(!true);
+        jCheckBoxToalha.setEnabled(!true);
+        jCheckBoxEscova.setEnabled(!true);
+        // MENSAL
+        jCheckBoxAbsorvente.setEnabled(!true);
+        jCheckBoxDesodorante.setEnabled(!true);
+        //
+        jDataEntrega.setEnabled(!true);
+        jHorarioPagto.setEnabled(!true);
     }
 
     public void verificarInternos() {
