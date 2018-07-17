@@ -254,8 +254,8 @@ public class TelaConsultaLocalInternoBaseSeguranca extends javax.swing.JInternal
             jTabelaLocacao.getColumnModel().getColumn(0).setMaxWidth(50);
             jTabelaLocacao.getColumnModel().getColumn(1).setMinWidth(270);
             jTabelaLocacao.getColumnModel().getColumn(1).setMaxWidth(270);
-            jTabelaLocacao.getColumnModel().getColumn(2).setMinWidth(100);
-            jTabelaLocacao.getColumnModel().getColumn(2).setMaxWidth(100);
+            jTabelaLocacao.getColumnModel().getColumn(2).setMinWidth(200);
+            jTabelaLocacao.getColumnModel().getColumn(2).setMaxWidth(200);
             jTabelaLocacao.getColumnModel().getColumn(3).setMinWidth(180);
             jTabelaLocacao.getColumnModel().getColumn(3).setMaxWidth(180);
         }
@@ -553,7 +553,7 @@ public class TelaConsultaLocalInternoBaseSeguranca extends javax.swing.JInternal
         jTabelaLocacao.getColumnModel().getColumn(0).setResizable(false);
         jTabelaLocacao.getColumnModel().getColumn(1).setPreferredWidth(270);
         jTabelaLocacao.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaLocacao.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTabelaLocacao.getColumnModel().getColumn(2).setPreferredWidth(200);
         jTabelaLocacao.getColumnModel().getColumn(2).setResizable(false);
         jTabelaLocacao.getColumnModel().getColumn(3).setPreferredWidth(150);
         jTabelaLocacao.getColumnModel().getColumn(3).setResizable(false);
@@ -573,7 +573,7 @@ public class TelaConsultaLocalInternoBaseSeguranca extends javax.swing.JInternal
         jTabelaLocacao.getColumnModel().getColumn(0).setResizable(false);
         jTabelaLocacao.getColumnModel().getColumn(1).setPreferredWidth(270);
         jTabelaLocacao.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaLocacao.getColumnModel().getColumn(2).setPreferredWidth(180);
+        jTabelaLocacao.getColumnModel().getColumn(2).setPreferredWidth(200);
         jTabelaLocacao.getColumnModel().getColumn(2).setResizable(false);
         jTabelaLocacao.getColumnModel().getColumn(3).setPreferredWidth(70);
         jTabelaLocacao.getColumnModel().getColumn(3).setResizable(false);
