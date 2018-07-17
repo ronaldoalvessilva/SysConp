@@ -299,7 +299,7 @@ public class TelaPagamentoKitInterno extends javax.swing.JInternalFrame {
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 255)));
+        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jBtPesqData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtPesqData.setContentAreaFilled(false);
@@ -567,7 +567,7 @@ public class TelaPagamentoKitInterno extends javax.swing.JInternalFrame {
         jLabel14.setText("Tipo de Kit");
 
         jComboBoxTipoKit.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxTipoKit.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Kit Anual", "Kit Decimal", "Kit Quinzenal", "Kit Semestral", "Kit Mensal" }));
+        jComboBoxTipoKit.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Kit Inicial", "Kit Anual", "Kit Decimal", "Kit Quinzenal", "Kit Semestral", "Kit Mensal", "Kit Personalizado" }));
         jComboBoxTipoKit.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTipoKit.setEnabled(false);
 
@@ -1281,7 +1281,7 @@ public class TelaPagamentoKitInterno extends javax.swing.JInternalFrame {
             .addComponent(jFotoInternoKit, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
         );
 
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Frequência", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 0))); // NOI18N
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Frequência", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
         jCheckBoxKitAnual.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jCheckBoxKitAnual.setText("Kit Anual");
@@ -1380,7 +1380,6 @@ public class TelaPagamentoKitInterno extends javax.swing.JInternalFrame {
         jBtBiometria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Biometria16Vermelho.png"))); // NOI18N
         jBtBiometria.setText("Biometria");
         jBtBiometria.setToolTipText("Pesquisar Interno pelo Biometria");
-        jBtBiometria.setEnabled(false);
         jBtBiometria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtBiometriaActionPerformed(evt);
@@ -3157,7 +3156,9 @@ public class TelaPagamentoKitInterno extends javax.swing.JInternalFrame {
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES") || codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaEntregaMaterialUsoInternosBioTRI) && codAbrirTRI == 1) {
             if (jStatusLanc.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Não é possível utilizar essa função, registro finalizado.");
-            } else {
+            } else if(jIdLanc.getText().equals("")){
+                JOptionPane.showMessageDialog(rootPane, "Não existe lançamento para ativar a biometria.");
+            }else {                
                 mostrarTelaBiometria();
             }
         } else if (codigoUserB1 == codUserAcessoB1 && nomeTelaB1.equals(telaEntregaMaterialUsoInternosBioB1) && codIncluirB1 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB1.equals("ADMINISTRADORES")) {

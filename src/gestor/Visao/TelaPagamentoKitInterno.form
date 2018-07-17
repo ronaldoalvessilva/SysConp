@@ -862,13 +862,15 @@
                       <Font name="Tahoma" size="11" style="1"/>
                     </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="6">
+                      <StringArray count="8">
                         <StringItem index="0" value="Selecione..."/>
-                        <StringItem index="1" value="Kit Anual"/>
-                        <StringItem index="2" value="Kit Decimal"/>
-                        <StringItem index="3" value="Kit Quinzenal"/>
-                        <StringItem index="4" value="Kit Semestral"/>
-                        <StringItem index="5" value="Kit Mensal"/>
+                        <StringItem index="1" value="Kit Inicial"/>
+                        <StringItem index="2" value="Kit Anual"/>
+                        <StringItem index="3" value="Kit Decimal"/>
+                        <StringItem index="4" value="Kit Quinzenal"/>
+                        <StringItem index="5" value="Kit Semestral"/>
+                        <StringItem index="6" value="Kit Mensal"/>
+                        <StringItem index="7" value="Kit Personalizado"/>
                       </StringArray>
                     </Property>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -2190,7 +2192,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Biometria"/>
             <Property name="toolTipText" type="java.lang.String" value="Pesquisar Interno pelo Biometria"/>
-            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtBiometriaActionPerformed"/>
