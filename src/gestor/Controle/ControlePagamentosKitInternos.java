@@ -30,14 +30,14 @@ public class ControlePagamentosKitInternos {
     String pBio = null;
     public static int qtdInternos = 0;
 
-     public ItensPagamentoKitInterno incluirPagamentoKitInterno(ItensPagamentoKitInterno objItensPagto) {
+    public ItensPagamentoKitInterno incluirPagamentoKitInterno(ItensPagamentoKitInterno objItensPagto) {
         buscarInterno(objItensPagto.getNomeInternoCrcKit(), objItensPagto.getIdInternoCrc());
         conecta.abrirConexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENS_PAGAMENTO_KIT_INTERNOS (IdPagto,IdInternoCrc,Copo,Prato,Colher,Vasilha,Garfo,"
                     + "Absorvente,Bermuda,Colchas,Colchao,Toalha,Camisa,Cueca,Sandalia,CremeDental,Sabonete,PapelHigienico,Barbeador,EscovaDente,MostraTodos,KitInicial,"
                     + "KitQuinzenal,TipoEntrada,DataEntrega,Horario,AssinaturaDigital,UsuarioInsert,DataInsert,"
-                    + "HorarioInsert,Cobertor,BolaFutSal,CalcaoJg,CamisaJg,ParMeiao,SabaoPo,Desodorante,KitDecimal,KitSemestral,kitMensal) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                    + "HorarioInsert,Cobertor,BolaFutSal,CalcaoJg,CamisaJg,ParMeiao,SabaoPo,Desodorante,KitDecimal,KitSemestral,kitMensal,KitPersonalizado) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setInt(1, objItensPagto.getIdPagto());
             pst.setInt(2, codInterno);
             pst.setInt(3, objItensPagto.getCopo());
@@ -82,6 +82,7 @@ public class ControlePagamentosKitInternos {
             pst.setInt(38, objItensPagto.getKitDecimal());
             pst.setInt(39, objItensPagto.getKitSemestral());
             pst.setInt(40, objItensPagto.getKitMensal());
+            pst.setInt(41, objItensPagto.getKitPersonalizado());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\n\nERRO:" + ex);
@@ -98,7 +99,7 @@ public class ControlePagamentosKitInternos {
                     + "Vasilha=?,Garfo=?,Absorvente=?,Bermuda=?,Colchas=?,Colchao=?,Toalha=?,Camisa=?,Cueca=?,Sandalia=?,CremeDental=?,Sabonete=?,"
                     + "PapelHigienico=?,Barbeador=?,EscovaDente=?,MostraTodos=?,KitInicial=?,KitQuinzenal=?,TipoEntrada=?,DataEntrega=?,Horario=?,"
                     + "UsuarioUp=?,DataUp=?,HorarioUp=?,Cobertor=?,BolaFutSal=?,CalcaoJg=?,CamisaJg=?,ParMeiao=?,SabaoPo=?,Desodorante=?,KitDecimal=?,"
-                    + "KitSemestral=?,kitMensal=? WHERE IdItem='" + objItensPagto.getIdItem() + "'");
+                    + "KitSemestral=?,kitMensal=?,AssinaturaDigital=?,KitPersonalizado=? WHERE IdItem='" + objItensPagto.getIdItem() + "'");
             pst.setInt(1, objItensPagto.getIdPagto());
             pst.setInt(2, codInterno);
             pst.setInt(3, objItensPagto.getCopo());
@@ -142,6 +143,8 @@ public class ControlePagamentosKitInternos {
             pst.setInt(37, objItensPagto.getKitDecimal());
             pst.setInt(38, objItensPagto.getKitSemestral());
             pst.setInt(39, objItensPagto.getKitMensal());
+            pst.setBytes(40, objItensPagto.getAssinaturaDigital());
+            pst.setInt(41, objItensPagto.getKitPersonalizado());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
