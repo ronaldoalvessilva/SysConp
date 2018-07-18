@@ -57,9 +57,13 @@ public class ItensPagamentoKitInterno {
     private int sabaoPo;
     private int kitDecimal;
     private int kitMensal; 
-    private int kitSemestral;          
+    private int kitSemestral;     
+    private int kitPersonalizado;
 
-    public ItensPagamentoKitInterno(int idItem, int idPagto, int idInternoCrc, String nomeInternoCrcKit, int copo, int prato, int colher, int vasilha, int garfo, int absorvente, int bermuda, int lencol, int colchao, int toalha, int camisa, int cueca, int sandalia, int cremeDental, int sabonete, int papelHigienico, int barbeador, int escovaDente, int mostraTodos, int kitInicial, int kitQuinzenal, int tipoEntrada, Date dataEntrega, String horaEntrega, byte[] assinaturaDigital, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp, int cobertor, int bolaJogo, int calcaoJogo, int camisaJogo, int parMeiao, int desodorante, int sabaoPo, int kitDecimal, int kitMensal, int kitSemestral) {
+    public ItensPagamentoKitInterno() {
+    }
+
+    public ItensPagamentoKitInterno(int idItem, int idPagto, int idInternoCrc, String nomeInternoCrcKit, int copo, int prato, int colher, int vasilha, int garfo, int absorvente, int bermuda, int lencol, int colchao, int toalha, int camisa, int cueca, int sandalia, int cremeDental, int sabonete, int papelHigienico, int barbeador, int escovaDente, int mostraTodos, int kitInicial, int kitQuinzenal, int tipoEntrada, Date dataEntrega, String horaEntrega, byte[] assinaturaDigital, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp, int cobertor, int bolaJogo, int calcaoJogo, int camisaJogo, int parMeiao, int desodorante, int sabaoPo, int kitDecimal, int kitMensal, int kitSemestral, int kitPersonalizado) {
         this.idItem = idItem;
         this.idPagto = idPagto;
         this.idInternoCrc = idInternoCrc;
@@ -105,9 +109,7 @@ public class ItensPagamentoKitInterno {
         this.kitDecimal = kitDecimal;
         this.kitMensal = kitMensal;
         this.kitSemestral = kitSemestral;
-    }
-
-    public ItensPagamentoKitInterno() {
+        this.kitPersonalizado = kitPersonalizado;
     }
 
     /**
@@ -739,4 +741,19 @@ public class ItensPagamentoKitInterno {
     public void setKitSemestral(int kitSemestral) {
         this.kitSemestral = kitSemestral;
     }
+
+    /**
+     * @return the kitPersonalizado
+     */
+    public int getKitPersonalizado() {
+        return kitPersonalizado;
+    }
+
+    /**
+     * @param kitPersonalizado the kitPersonalizado to set
+     */
+    public void setKitPersonalizado(int kitPersonalizado) {
+        this.kitPersonalizado = kitPersonalizado;
+    }
+    
 }
