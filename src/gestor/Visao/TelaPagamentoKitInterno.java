@@ -1139,6 +1139,7 @@ public class TelaPagamentoKitInterno extends javax.swing.JInternalFrame {
         jBtNovoInterno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
         jBtNovoInterno.setText("Novo");
         jBtNovoInterno.setContentAreaFilled(false);
+        jBtNovoInterno.setEnabled(false);
         jBtNovoInterno.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtNovoInterno.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jBtNovoInterno.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -1587,6 +1588,10 @@ public class TelaPagamentoKitInterno extends javax.swing.JInternalFrame {
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa..." + e);
             }
+            if (!jIdLanc.getText().equals("")) {
+                jBtBiometria.setEnabled(true);
+                jBtNovoInterno.setEnabled(true);
+            }
             preencherTabelaItensInterno("SELECT * FROM ITENS_PAGAMENTO_KIT_INTERNOS "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ITENS_PAGAMENTO_KIT_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -1980,6 +1985,7 @@ public class TelaPagamentoKitInterno extends javax.swing.JInternalFrame {
             jBtSalvarInterno.setEnabled(!true);
             jBtCancelarInterno.setEnabled(true);
             jBtAuditoriaItens.setEnabled(true);
+            jBtPesquisarInternoKit.setEnabled(!true);
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM ITENS_PAGAMENTO_KIT_INTERNOS "
@@ -2261,6 +2267,8 @@ public class TelaPagamentoKitInterno extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
             } else {
                 acao = 4;
+                bloquearCampos();
+                bloquearBotoes();
                 AlterarInterno();
                 statusMov = "Alterou";
                 horaMov = jHoraSistema.getText();
@@ -2309,7 +2317,9 @@ public class TelaPagamentoKitInterno extends javax.swing.JInternalFrame {
                 objItensPagto.setIdItem(idItem);
                 controle.excluirPagamentoKitInterno(objItensPagto);
                 objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação            
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
+                bloquearCampos();
+                bloquearBotoes();
                 ExcluirInterno();
                 preencherTabelaItensInterno("SELECT * FROM ITENS_PAGAMENTO_KIT_INTERNOS "
                         + "INNER JOIN PRONTUARIOSCRC "
@@ -3156,9 +3166,9 @@ public class TelaPagamentoKitInterno extends javax.swing.JInternalFrame {
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES") || codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaEntregaMaterialUsoInternosBioTRI) && codAbrirTRI == 1) {
             if (jStatusLanc.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Não é possível utilizar essa função, registro finalizado.");
-            } else if(jIdLanc.getText().equals("")){
+            } else if (jIdLanc.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Não existe lançamento para ativar a biometria.");
-            }else {                
+            } else {
                 mostrarTelaBiometria();
             }
         } else if (codigoUserB1 == codUserAcessoB1 && nomeTelaB1.equals(telaEntregaMaterialUsoInternosBioB1) && codIncluirB1 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB1.equals("ADMINISTRADORES")) {
@@ -3973,6 +3983,7 @@ public class TelaPagamentoKitInterno extends javax.swing.JInternalFrame {
         jBtSalvar.setEnabled(!true);
         jBtCancelar.setEnabled(!true);
         jBtFinalizar.setEnabled(!true);
+        jBtImpressao.setEnabled(!true);
         jBtAuditoria.setEnabled(!true);
         //
         jBtPesquisarInternoKit.setEnabled(!true);
@@ -4042,6 +4053,7 @@ public class TelaPagamentoKitInterno extends javax.swing.JInternalFrame {
             bloquearBotoes();
             bloquearCampos();
             jBtNovo.setEnabled(true);
+            jBtImpressao.setEnabled(!true);
         } else {
             bloquearBotoes();
             bloquearCampos();
@@ -4050,8 +4062,10 @@ public class TelaPagamentoKitInterno extends javax.swing.JInternalFrame {
             jBtExcluir.setEnabled(true);
             jBtFinalizar.setEnabled(true);
             jBtAuditoria.setEnabled(true);
+            jBtImpressao.setEnabled(true);
             //       
             jBtNovoInterno.setEnabled(true);
+            jBtBiometria.setEnabled(true);
         }
     }
 
@@ -4081,6 +4095,7 @@ public class TelaPagamentoKitInterno extends javax.swing.JInternalFrame {
             jBtSalvar.setEnabled(!true);
             jBtCancelar.setEnabled(!true);
             jBtFinalizar.setEnabled(!true);
+            jBtImpressao.setEnabled(true);
             //
             jBtNovoInterno.setEnabled(!true);
             jBtAlterarInterno.setEnabled(!true);
@@ -4234,16 +4249,16 @@ public class TelaPagamentoKitInterno extends javax.swing.JInternalFrame {
         jBtAlterarInterno.setEnabled(!true);
         jBtExcluirInterno.setEnabled(!true);
         jBtSalvarInterno.setEnabled(!true);
-        jBtCancelarInterno.setEnabled(true);
+        jBtCancelarInterno.setEnabled(!true);
         jBtAuditoriaItens.setEnabled(!true);
         //
         jBtNovo.setEnabled(true);
-        jBtAlterar.setEnabled(true);
-        jBtExcluir.setEnabled(true);
+        jBtAlterar.setEnabled(!true);
+        jBtExcluir.setEnabled(!true);
         jBtSalvar.setEnabled(!true);
         jBtCancelar.setEnabled(!true);
-        jBtAuditoria.setEnabled(true);
-        jBtFinalizar.setEnabled(true);
+        jBtAuditoria.setEnabled(!true);
+        jBtFinalizar.setEnabled(!true);
     }
 
     public void SalvarInterno() {
@@ -4326,6 +4341,7 @@ public class TelaPagamentoKitInterno extends javax.swing.JInternalFrame {
         jBtExcluirInterno.setEnabled(!true);
         jBtSalvarInterno.setEnabled(!true);
         jBtCancelarInterno.setEnabled(!true);
+        jBtPesquisarInternoKit.setEnabled(!true);
         jBtAuditoriaItens.setEnabled(!true);
         //
         jBtNovo.setEnabled(true);
@@ -4415,6 +4431,8 @@ public class TelaPagamentoKitInterno extends javax.swing.JInternalFrame {
         jBtSalvarInterno.setEnabled(!true);
         jBtCancelarInterno.setEnabled(!true);
         jBtAuditoriaItens.setEnabled(!true);
+        jBtPesquisarInternoKit.setEnabled(!true);
+        jBtBiometria.setEnabled(true);
         // ABA MANUTENÇÃO
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(true);
