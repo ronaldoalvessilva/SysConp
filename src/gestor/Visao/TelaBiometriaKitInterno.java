@@ -458,7 +458,6 @@ public class TelaBiometriaKitInterno extends javax.swing.JDialog {
             }
         });
 
-        jBtIniciarLeitor.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtIniciarLeitor.setForeground(new java.awt.Color(0, 153, 153));
         jBtIniciarLeitor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Biometria16.png"))); // NOI18N
         jBtIniciarLeitor.setText("Iniciar Leitor ");
@@ -468,7 +467,6 @@ public class TelaBiometriaKitInterno extends javax.swing.JDialog {
             }
         });
 
-        jBtCancelarLeitura.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtCancelarLeitura.setForeground(new java.awt.Color(204, 0, 0));
         jBtCancelarLeitura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Biometria16Vermelho.png"))); // NOI18N
         jBtCancelarLeitura.setText("Cancelar Leitura");
@@ -947,9 +945,11 @@ public class TelaBiometriaKitInterno extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
                                 .addComponent(jBtIniciarLeitor)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtCancelarLeitura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(jBtCancelarLeitura)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jCheckBoxPersonalizada)
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -958,6 +958,8 @@ public class TelaBiometriaKitInterno extends javax.swing.JDialog {
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtSair, jBtSalvar});
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtCancelarLeitura, jBtIniciarLeitor});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
