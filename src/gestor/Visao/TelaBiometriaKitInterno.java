@@ -67,6 +67,7 @@ import static gestor.Visao.TelaPagamentoKitInterno.jCheckBoxVasilha;
 import static gestor.Visao.TelaPagamentoKitInterno.jIdLanc;
 import static gestor.Visao.TelaPagamentoKitInterno.jTabelaInternos;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -236,6 +237,7 @@ public class TelaBiometriaKitInterno extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("...::: Registro de Kit de Internos {Biometria} :::...");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/gestor/Imagens/Biometria16Vermelho.png")));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
 
@@ -947,7 +949,7 @@ public class TelaBiometriaKitInterno extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jBtIniciarLeitor)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtCancelarLeitura, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE))))
+                                .addComponent(jBtCancelarLeitura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jCheckBoxPersonalizada)
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -1168,9 +1170,10 @@ public class TelaBiometriaKitInterno extends javax.swing.JDialog {
             } else if (!jCheckBoxMensal.isSelected()) {
                 kitMensal = 0;
             }
-            if(jCheckBoxPersonalizada.isSelected()){
+            // KIT PERSONALIZADO
+            if (jCheckBoxPersonalizada.isSelected()) {
                 kitPersonalizado = 1;
-            }else if(!jCheckBoxPersonalizada.isSelected()){
+            } else if (!jCheckBoxPersonalizada.isSelected()) {
                 kitPersonalizado = 0;
             }
             // KIT ANUAL            
@@ -1209,6 +1212,7 @@ public class TelaBiometriaKitInterno extends javax.swing.JDialog {
             objItensPagto.setKitDecimal(kitDecimal);
             objItensPagto.setKitQuinzenal(kitQuinzenal);
             objItensPagto.setKitMensal(kitMensal);
+            objItensPagto.setKitPersonalizado(kitPersonalizado);
             //
             objItensPagto.setTipoEntrada(tipoEntrada);
             objItensPagto.setDataEntrega(jDataEntrega.getDate());
@@ -2481,7 +2485,8 @@ public class TelaBiometriaKitInterno extends javax.swing.JDialog {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM ITENS_PAGAMENTO_KIT_INTERNOS "
-                    + "WHERE IdInternoCrc='" + jIdInternoKitBio.getText() + "'AND IdPagto='" + jIdLanc.getText() + "'");
+                    + "WHERE IdInternoCrc='" + jIdInternoKitBio.getText() + "' "
+                    + "AND IdPagto='" + jIdLanc.getText() + "'");
             conecta.rs.first();
             codigoInterno = conecta.rs.getString("IdInternoCrc");
             codigoKit = conecta.rs.getString("IdPagto");
