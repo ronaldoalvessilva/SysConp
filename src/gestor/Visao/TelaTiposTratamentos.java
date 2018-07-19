@@ -894,8 +894,7 @@ public class TelaTiposTratamentos extends javax.swing.JInternalFrame {
         direita.setHorizontalAlignment(SwingConstants.RIGHT);
         //
         jTabelaTiposTratamentos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-        jTabelaTiposTratamentos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
-        jTabelaTiposTratamentos.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+        jTabelaTiposTratamentos.getColumnModel().getColumn(1).setCellRenderer(centralizado);        
     }
 
     public void objLog() {
