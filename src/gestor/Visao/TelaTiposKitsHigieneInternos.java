@@ -14,6 +14,20 @@ import gestor.Modelo.ItensKitHigiene;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.TiposKit;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloAlmoxarifado.codAlterarAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.codExcluirAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.codGravarAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.codIncluirAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.codUserAcessoAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.codigoUserAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.nomeGrupoAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.codigoUserGroupAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.codigoGrupoAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.nomeTelaAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.codAbrirAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.codConsultarAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.telaCadastroTipoKitPagamentoKitAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.telaCadastroTipoKitPagamentoManuAL;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -1350,112 +1364,128 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        bloquearCampos();
-        bloquearBotoes();
-        Novo();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaCadastroTipoKitPagamentoManuAL) && codIncluirAL == 1) {
+            acao = 1;
+            bloquearCampos();
+            bloquearBotoes();
+            Novo();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        acao = 2;
-        bloquearCampos();
-        bloquearBotoes();
-        Alterar();
-        statusMov = "Alterar";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaCadastroTipoKitPagamentoManuAL) && codAlterarAL == 1) {
+            acao = 2;
+            bloquearCampos();
+            bloquearBotoes();
+            Alterar();
+            statusMov = "Alterar";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
-        // TODO add your handling code here:                               
-        bloquearCampos();
-        bloquearBotoes();
-        Excluir();
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        verificarItens();
+        // TODO add your handling code here: 
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaCadastroTipoKitPagamentoManuAL) && codExcluirAL == 1) {
+            bloquearCampos();
+            bloquearBotoes();
+            Excluir();
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            verificarItens();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
+        }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataKit.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "É necessario informar a data do kit.");
-        } else if (kitInicial == 0 && kitAnual == 0 && kitQuinzenal == 0 && kitDecendial == 0 && kitSemestral == 0 && kitMensal == 0) {
-            JOptionPane.showMessageDialog(rootPane, "Informe um tipo de kit para ser entregue ao interno.");
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaCadastroTipoKitPagamentoManuAL) && codGravarAL == 1) {
+            if (jDataKit.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "É necessario informar a data do kit.");
+            } else if (kitInicial == 0 && kitAnual == 0 && kitQuinzenal == 0 && kitDecendial == 0 && kitSemestral == 0 && kitMensal == 0) {
+                JOptionPane.showMessageDialog(rootPane, "Informe um tipo de kit para ser entregue ao interno.");
+            } else {
+                objKit.setStatusKit((String) jComboBoxStatusKit.getSelectedItem());
+                objKit.setDataKit(jDataKit.getDate());
+                objKit.setObservacaoKit(jObservacaoKit.getText());
+                // TIPOS DE PAGAMENTO KIT
+                if (jCheckBoxKitInicial.isSelected()) {
+                    kitInicial = 1;
+                } else if (!jCheckBoxKitInicial.isSelected()) {
+                    kitInicial = 0;
+                }
+                if (jCheckBoxKitAnual.isSelected()) {
+                    kitAnual = 1;
+                } else if (!jCheckBoxKitAnual.isSelected()) {
+                    kitAnual = 0;
+                }
+                if (jCheckBoxKitQuinzenal.isSelected()) {
+                    kitQuinzenal = 1;
+                } else if (!jCheckBoxKitQuinzenal.isSelected()) {
+                    kitQuinzenal = 0;
+                }
+                if (jCheckBoxDecendial.isSelected()) {
+                    kitDecendial = 1;
+                } else if (!jCheckBoxDecendial.isSelected()) {
+                    kitDecendial = 0;
+                }
+                if (jCheckBoxSemestral.isSelected()) {
+                    kitSemestral = 1;
+                } else if (!jCheckBoxSemestral.isSelected()) {
+                    kitSemestral = 0;
+                }
+                if (jCheckBoxMensal.isSelected()) {
+                    kitMensal = 1;
+                } else if (!jCheckBoxMensal.isSelected()) {
+                    kitMensal = 0;
+                }
+                // TIPOS DE KITS
+                objKit.setKitSemestral(kitSemestral);
+                objKit.setKitInicial(kitInicial);
+                objKit.setKitDecendial(kitDecendial);
+                objKit.setKitQuinzenal(kitQuinzenal);
+                objKit.setKitMensal(kitMensal);
+                objKit.setKitAnual(kitAnual);
+                if (acao == 1) {
+                    objKit.setUsuarioInsert(nameUser);
+                    objKit.setDataInsert(dataModFinal);
+                    objKit.setHorarioInsert(horaMov);
+                    //
+                    control.incluirKitHigiene(objKit);
+                    buscarCodigo();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearCampos();
+                    bloquearBotoes();
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 2) {
+                    objKit.setUsuarioUp(nameUser);
+                    objKit.setDataUp(dataModFinal);
+                    objKit.setHorarioUp(horaMov);
+                    objKit.setIdKit(Integer.valueOf(jIdKit.getText()));
+                    control.alterarKitHigiene(objKit);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearCampos();
+                    bloquearBotoes();
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
         } else {
-            objKit.setStatusKit((String) jComboBoxStatusKit.getSelectedItem());
-            objKit.setDataKit(jDataKit.getDate());
-            objKit.setObservacaoKit(jObservacaoKit.getText());
-            // TIPOS DE PAGAMENTO KIT
-            if (jCheckBoxKitInicial.isSelected()) {
-                kitInicial = 1;
-            } else if (!jCheckBoxKitInicial.isSelected()) {
-                kitInicial = 0;
-            }
-            if (jCheckBoxKitAnual.isSelected()) {
-                kitAnual = 1;
-            } else if (!jCheckBoxKitAnual.isSelected()) {
-                kitAnual = 0;
-            }
-            if (jCheckBoxKitQuinzenal.isSelected()) {
-                kitQuinzenal = 1;
-            } else if (!jCheckBoxKitQuinzenal.isSelected()) {
-                kitQuinzenal = 0;
-            }
-            if (jCheckBoxDecendial.isSelected()) {
-                kitDecendial = 1;
-            } else if (!jCheckBoxDecendial.isSelected()) {
-                kitDecendial = 0;
-            }
-            if (jCheckBoxSemestral.isSelected()) {
-                kitSemestral = 1;
-            } else if (!jCheckBoxSemestral.isSelected()) {
-                kitSemestral = 0;
-            }
-            if (jCheckBoxMensal.isSelected()) {
-                kitMensal = 1;
-            } else if (!jCheckBoxMensal.isSelected()) {
-                kitMensal = 0;
-            }
-            // TIPOS DE KITS
-            objKit.setKitSemestral(kitSemestral);
-            objKit.setKitInicial(kitInicial);
-            objKit.setKitDecendial(kitDecendial);
-            objKit.setKitQuinzenal(kitQuinzenal);
-            objKit.setKitMensal(kitMensal);
-            objKit.setKitAnual(kitAnual);
-            if (acao == 1) {
-                objKit.setUsuarioInsert(nameUser);
-                objKit.setDataInsert(dataModFinal);
-                objKit.setHorarioInsert(horaMov);
-                //
-                control.incluirKitHigiene(objKit);
-                buscarCodigo();
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                bloquearCampos();
-                bloquearBotoes();
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
-            if (acao == 2) {
-                objKit.setUsuarioUp(nameUser);
-                objKit.setDataUp(dataModFinal);
-                objKit.setHorarioUp(horaMov);
-                objKit.setIdKit(Integer.valueOf(jIdKit.getText()));
-                control.alterarKitHigiene(objKit);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                bloquearCampos();
-                bloquearBotoes();
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -1555,91 +1585,49 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
 
     private void jBtNovoProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoProdutoActionPerformed
         // TODO add your handling code here:
-        acao = 3;
-        bloquearCampos();
-        bloquearBotoes();
-        NovoProduto();
-        buscarTipoKit();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaCadastroTipoKitPagamentoKitAL);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaCadastroTipoKitPagamentoKitAL) && codIncluirAL == 1) {
+            acao = 3;
+            bloquearCampos();
+            bloquearBotoes();
+            NovoProduto();
+            buscarTipoKit();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
+        }
     }//GEN-LAST:event_jBtNovoProdutoActionPerformed
 
     private void jBtAlterarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarProdutoActionPerformed
         // TODO add your handling code here:
-        acao = 4;
-        bloquearCampos();
-        bloquearBotoes();
-        AlterarProduto();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaCadastroTipoKitPagamentoKitAL);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaCadastroTipoKitPagamentoKitAL) && codAlterarAL == 1) {
+            acao = 4;
+            bloquearCampos();
+            bloquearBotoes();
+            AlterarProduto();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
+        }
     }//GEN-LAST:event_jBtAlterarProdutoActionPerformed
 
     private void jBtExcluirProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirProdutoActionPerformed
-        // TODO add your handling code here:        
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                JOptionPane.YES_NO_OPTION);
-        if (resposta == JOptionPane.YES_OPTION) {
-            objItensKit.setIdItem(Integer.valueOf(idItem));
-            controle.excluirItensKitHigiene(objItensKit);
-            objLog2();
-            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-            preencherTabelaItens("SELECT * FROM PRODUTOS_KITS_HIGIENE_INTERNO "
-                    + "INNER JOIN KITS_HIGIENE_INTERNO "
-                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdKit=KITS_HIGIENE_INTERNO.IdKit "
-                    + "INNER JOIN PRODUTOS_AC "
-                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                    + "WHERE PRODUTOS_KITS_HIGIENE_INTERNO.IdKit='" + jIdKit.getText() + "'");
-            bloquearCampos();
-            bloquearBotoes();
-            ExcluirProduto();
-            JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
-        }
-    }//GEN-LAST:event_jBtExcluirProdutoActionPerformed
-
-    private void jBtSalvarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarProdutoActionPerformed
-        // TODO add your handling code here:
-        DecimalFormat qtdReal = new DecimalFormat("###,##00.0");
-        qtdReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
-        if (jCodProduto.getText().equals("") && jDescricaoProduto.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o produto para o kit.");
-        } else if (jComboBoxUnidade.getSelectedItem().equals("Selecione...")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a unidade de armazenamento do produto.");
-        } else if (jQtdItem.getText().equals("") && !jCodigoBarras.getText().equals("")) {
-            pQuantidade = 1;
-            objItensKit.setQuantItem(pQuantidade);
-        } else if (jQtdItem.getText().equals("") && jCodigoBarras.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a quantidade");
-        } else {
-            try {
-                objItensKit.setQuantItem(qtdReal.parse(jQtdItem.getText()).floatValue());
-            } catch (ParseException ex) {
-            }
-            if (kitInicial == 1) {
-                objItensKit.setKitInicial(kitInicial);
-            } else if (kitQuinzenal == 1) {
-                objItensKit.setKitQuinzenal(kitQuinzenal);
-            } else if (kitMensal == 1) {
-                objItensKit.setKitMensal(kitMensal);
-            } else if (kitDecendial == 1) {
-                objItensKit.setKitDecendial(kitDecendial);
-            } else if (kitSemestral == 1) {
-                objItensKit.setKitSemestral(kitSemestral);
-            } else if (kitAnual == 1) {
-                objItensKit.setKitAnual(kitAnual);
-            }
-            if (acao == 3) {
-                objItensKit.setUsuarioInsert(nameUser);
-                objItensKit.setDataInsert(dataModFinal);
-                objItensKit.setHorarioInsert(horaMov);
-                objItensKit.setIdKit(Integer.valueOf(jIdKit.getText()));
-                objItensKit.setIdProd(Integer.valueOf(jCodProduto.getText()));
-                objItensKit.setNomeProduto(jDescricaoProduto.getText());
-                controle.incluirItensKitHigiene(objItensKit);
+        // TODO add your handling code here: 
+        buscarAcessoUsuario(telaCadastroTipoKitPagamentoKitAL);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaCadastroTipoKitPagamentoKitAL) && codExcluirAL == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objItensKit.setIdItem(Integer.valueOf(idItem));
+                controle.excluirItensKitHigiene(objItensKit);
                 objLog2();
                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                 preencherTabelaItens("SELECT * FROM PRODUTOS_KITS_HIGIENE_INTERNO "
@@ -1650,31 +1638,93 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
                         + "WHERE PRODUTOS_KITS_HIGIENE_INTERNO.IdKit='" + jIdKit.getText() + "'");
                 bloquearCampos();
                 bloquearBotoes();
-                SalvarProduto();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                ExcluirProduto();
+                JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
             }
-            if (acao == 4) {
-                objItensKit.setUsuarioUp(nameUser);
-                objItensKit.setDataUp(dataModFinal);
-                objItensKit.setHorarioUp(horaMov);
-                objItensKit.setIdItem(Integer.valueOf(idItem));
-                objItensKit.setIdKit(Integer.valueOf(jIdKit.getText()));
-                objItensKit.setIdProd(Integer.valueOf(jCodProduto.getText()));
-                objItensKit.setNomeProduto(jDescricaoProduto.getText());
-                controle.alterarItensKitHigiene(objItensKit);
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                preencherTabelaItens("SELECT * FROM PRODUTOS_KITS_HIGIENE_INTERNO "
-                        + "INNER JOIN KITS_HIGIENE_INTERNO "
-                        + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdKit=KITS_HIGIENE_INTERNO.IdKit "
-                        + "INNER JOIN PRODUTOS_AC "
-                        + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                        + "WHERE PRODUTOS_KITS_HIGIENE_INTERNO.IdReq='" + jIdKit.getText() + "'");
-                bloquearCampos();
-                bloquearBotoes();
-                SalvarProduto();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
+        }
+    }//GEN-LAST:event_jBtExcluirProdutoActionPerformed
+
+    private void jBtSalvarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarProdutoActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaCadastroTipoKitPagamentoKitAL);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaCadastroTipoKitPagamentoKitAL) && codGravarAL == 1) {
+            DecimalFormat qtdReal = new DecimalFormat("###,##00.0");
+            qtdReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
+            if (jCodProduto.getText().equals("") && jDescricaoProduto.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o produto para o kit.");
+            } else if (jComboBoxUnidade.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a unidade de armazenamento do produto.");
+            } else if (jQtdItem.getText().equals("") && !jCodigoBarras.getText().equals("")) {
+                pQuantidade = 1;
+                objItensKit.setQuantItem(pQuantidade);
+            } else if (jQtdItem.getText().equals("") && jCodigoBarras.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a quantidade");
+            } else {
+                try {
+                    objItensKit.setQuantItem(qtdReal.parse(jQtdItem.getText()).floatValue());
+                } catch (ParseException ex) {
+                }
+                if (kitInicial == 1) {
+                    objItensKit.setKitInicial(kitInicial);
+                } else if (kitQuinzenal == 1) {
+                    objItensKit.setKitQuinzenal(kitQuinzenal);
+                } else if (kitMensal == 1) {
+                    objItensKit.setKitMensal(kitMensal);
+                } else if (kitDecendial == 1) {
+                    objItensKit.setKitDecendial(kitDecendial);
+                } else if (kitSemestral == 1) {
+                    objItensKit.setKitSemestral(kitSemestral);
+                } else if (kitAnual == 1) {
+                    objItensKit.setKitAnual(kitAnual);
+                }
+                if (acao == 3) {
+                    objItensKit.setUsuarioInsert(nameUser);
+                    objItensKit.setDataInsert(dataModFinal);
+                    objItensKit.setHorarioInsert(horaMov);
+                    objItensKit.setIdKit(Integer.valueOf(jIdKit.getText()));
+                    objItensKit.setIdProd(Integer.valueOf(jCodProduto.getText()));
+                    objItensKit.setNomeProduto(jDescricaoProduto.getText());
+                    controle.incluirItensKitHigiene(objItensKit);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    preencherTabelaItens("SELECT * FROM PRODUTOS_KITS_HIGIENE_INTERNO "
+                            + "INNER JOIN KITS_HIGIENE_INTERNO "
+                            + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdKit=KITS_HIGIENE_INTERNO.IdKit "
+                            + "INNER JOIN PRODUTOS_AC "
+                            + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
+                            + "WHERE PRODUTOS_KITS_HIGIENE_INTERNO.IdKit='" + jIdKit.getText() + "'");
+                    bloquearCampos();
+                    bloquearBotoes();
+                    SalvarProduto();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 4) {
+                    objItensKit.setUsuarioUp(nameUser);
+                    objItensKit.setDataUp(dataModFinal);
+                    objItensKit.setHorarioUp(horaMov);
+                    objItensKit.setIdItem(Integer.valueOf(idItem));
+                    objItensKit.setIdKit(Integer.valueOf(jIdKit.getText()));
+                    objItensKit.setIdProd(Integer.valueOf(jCodProduto.getText()));
+                    objItensKit.setNomeProduto(jDescricaoProduto.getText());
+                    controle.alterarItensKitHigiene(objItensKit);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    preencherTabelaItens("SELECT * FROM PRODUTOS_KITS_HIGIENE_INTERNO "
+                            + "INNER JOIN KITS_HIGIENE_INTERNO "
+                            + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdKit=KITS_HIGIENE_INTERNO.IdKit "
+                            + "INNER JOIN PRODUTOS_AC "
+                            + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
+                            + "WHERE PRODUTOS_KITS_HIGIENE_INTERNO.IdReq='" + jIdKit.getText() + "'");
+                    bloquearCampos();
+                    bloquearBotoes();
+                    SalvarProduto();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
         }
     }//GEN-LAST:event_jBtSalvarProdutoActionPerformed
 
@@ -2166,7 +2216,7 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
         //
         jBtPesqProduto.setEnabled(true);
         jBtSalvarProduto.setEnabled(true);
-        jBtCancelarProduto.setEnabled(true);       
+        jBtCancelarProduto.setEnabled(true);
     }
 
     public void ExcluirProduto() {
@@ -2387,4 +2437,43 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
     }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserAL = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserAL + "'");
+            conecta.rs.first();
+            codigoUserGroupAL = conecta.rs.getInt("IdUsuario");
+            codigoGrupoAL = conecta.rs.getInt("IdGrupo");
+            nomeGrupoAL = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserAL + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoAL = conecta.rs.getInt("IdUsuario");
+            codAbrirAL = conecta.rs.getInt("Abrir");
+            codIncluirAL = conecta.rs.getInt("Incluir");
+            codAlterarAL = conecta.rs.getInt("Alterar");
+            codExcluirAL = conecta.rs.getInt("Excluir");
+            codGravarAL = conecta.rs.getInt("Gravar");
+            codConsultarAL = conecta.rs.getInt("Consultar");
+            nomeTelaAL = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
 }
