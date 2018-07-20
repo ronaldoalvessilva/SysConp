@@ -25,6 +25,21 @@ import gestor.Modelo.NotaFiscalCompra;
 import gestor.Modelo.ParcelasPagtoCompras;
 import gestor.Modelo.ProdutoMedicamento;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloAlmoxarifado.codAlterarAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.codExcluirAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.codGravarAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.codIncluirAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.codUserAcessoAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.codigoUserAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.nomeGrupoAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.codigoUserGroupAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.codigoGrupoAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.nomeTelaAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.codAbrirAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.codConsultarAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.telaMovimentacaoNotaFiscaItensAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.telaMovimentacaoNotaFiscaParcelasAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.telaMovimentcaoNotaFiscaManuAL;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -2182,126 +2197,142 @@ public class TelaEntradaProdutosAC extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        acao = 1;
-        Novo();
-        corCampos();
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMovimentcaoNotaFiscaManuAL) && codIncluirAL == 1) {
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            acao = 1;
+            Novo();
+            corCampos();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        objNFEComprasv.setStatusNf(jStatusNFe.getText());
-        if (jStatusNFe.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa NFe não poderá ser excluida, a mesma encontra-se FINALIZADA");
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMovimentcaoNotaFiscaManuAL) && codAlterarAL == 1) {
+            objNFEComprasv.setStatusNf(jStatusNFe.getText());
+            if (jStatusNFe.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa NFe não poderá ser excluida, a mesma encontra-se FINALIZADA");
+            } else {
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                acao = 2;
+                Alterar();
+                corCampos();
+            }
         } else {
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
-            acao = 2;
-            Alterar();
-            corCampos();
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        objNFEComprasv.setStatusNf(jStatusNFe.getText());
-        if (jStatusNFe.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa NFe não poderá ser excluida, a mesma encontra-se FINALIZADA");
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMovimentcaoNotaFiscaManuAL) && codExcluirAL == 1) {
+            objNFEComprasv.setStatusNf(jStatusNFe.getText());
+            if (jStatusNFe.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa NFe não poderá ser excluida, a mesma encontra-se FINALIZADA");
+            } else {
+                verificarItens();
+            }
         } else {
-            verificarItens();
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        DecimalFormat valorReal = new DecimalFormat("###,##00.0");
-        valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
-        if (jNrNFe.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o número da NFE.");
-            jNrNFe.setBackground(Color.red);
-            jNrNFe.requestFocus();
-        } else if (jDescricaoFornecedor.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe qual é o fornecedor do documento.");
-        } else if (jDataEmissao.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data de emissão do documento.");
-            jDataEmissao.requestFocus();
-            jDataEmissao.setBackground(Color.red);
-        } else if (jIdLocal.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o código do local.");
-            jIdLocal.requestFocus();
-            jIdLocal.setBackground(Color.red);
-        } else if (jComboBoxTipoDocumento.getSelectedItem() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o tipo de documento.");
-            jComboBoxTipoDocumento.requestFocus();
-            jComboBoxTipoDocumento.setBackground(Color.red);
-        } else if (jComboBoxFormaPagto.getSelectedItem() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o tipo de pagamento do documento.");
-            jComboBoxFormaPagto.requestFocus();
-            jComboBoxFormaPagto.setBackground(Color.red);
-        } else if (jDataEntrada.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data de entrada do documento.");
-            jDataEntrada.requestFocus();
-            jDataEntrada.setBackground(Color.red);
-        } else if (jValorTotalProdutos.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o valor total dos produtos.");
-            jValorTotalProdutos.requestFocus();
-            jValorTotalProdutos.setBackground(Color.red);
-        } else if (jValorTotalNota.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o valor total da nota fiscal.");
-            jValorTotalNota.requestFocus();
-            jValorTotalNota.setBackground(Color.red);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMovimentcaoNotaFiscaManuAL) && codGravarAL == 1) {
+            DecimalFormat valorReal = new DecimalFormat("###,##00.0");
+            valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
+            if (jNrNFe.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o número da NFE.");
+                jNrNFe.setBackground(Color.red);
+                jNrNFe.requestFocus();
+            } else if (jDescricaoFornecedor.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe qual é o fornecedor do documento.");
+            } else if (jDataEmissao.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de emissão do documento.");
+                jDataEmissao.requestFocus();
+                jDataEmissao.setBackground(Color.red);
+            } else if (jIdLocal.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o código do local.");
+                jIdLocal.requestFocus();
+                jIdLocal.setBackground(Color.red);
+            } else if (jComboBoxTipoDocumento.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o tipo de documento.");
+                jComboBoxTipoDocumento.requestFocus();
+                jComboBoxTipoDocumento.setBackground(Color.red);
+            } else if (jComboBoxFormaPagto.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o tipo de pagamento do documento.");
+                jComboBoxFormaPagto.requestFocus();
+                jComboBoxFormaPagto.setBackground(Color.red);
+            } else if (jDataEntrada.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de entrada do documento.");
+                jDataEntrada.requestFocus();
+                jDataEntrada.setBackground(Color.red);
+            } else if (jValorTotalProdutos.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o valor total dos produtos.");
+                jValorTotalProdutos.requestFocus();
+                jValorTotalProdutos.setBackground(Color.red);
+            } else if (jValorTotalNota.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o valor total da nota fiscal.");
+                jValorTotalNota.requestFocus();
+                jValorTotalNota.setBackground(Color.red);
+            } else {
+                objNFEComprasv.setModelo(jModelo.getText());
+                objNFEComprasv.setSerieNf(jSerie.getText());
+                objNFEComprasv.setNumeroNf(jNrNFe.getText());
+                objNFEComprasv.setStatusNf(jStatusNFe.getText());
+                objNFEComprasv.setIdLocal(Integer.valueOf(jIdLocal.getText()));
+                objNFEComprasv.setNomeFornecedor(jDescricaoFornecedor.getText());
+                objNFEComprasv.setDataEmissao(jDataEmissao.getDate());
+                objNFEComprasv.setTipodocumento((String) jComboBoxTipoDocumento.getSelectedItem());
+                objNFEComprasv.setFormaPagamento((String) jComboBoxFormaPagto.getSelectedItem());
+                objNFEComprasv.setDataEntrada(jDataEntrada.getDate());
+                try {
+                    objNFEComprasv.setBaseCalculoICMS(valorReal.parse(jBaseCalculoICMS.getText()).floatValue());
+                    objNFEComprasv.setValorICMS(valorReal.parse(jValorICMS.getText()).floatValue());
+                    objNFEComprasv.setBaseCalculoICMS(valorReal.parse(jBaseCalculoICMS.getText()).floatValue());
+                    objNFEComprasv.setValorICMSSub(valorReal.parse(jValorICMSSub.getText()).floatValue());
+                    objNFEComprasv.setValorTotalProdutos(valorReal.parse(jValorTotalProdutos.getText()).floatValue());
+                    objNFEComprasv.setValorTotalFrete(valorReal.parse(jValorTotalFrete.getText()).floatValue());
+                    objNFEComprasv.setValorTotalSeguro(valorReal.parse(jValorTotalSeguro.getText()).floatValue());
+                    objNFEComprasv.setValorTotalDesconto(valorReal.parse(jValorTotalDesconto.getText()).floatValue());
+                    objNFEComprasv.setValorTotalIPI(valorReal.parse(jValorTotalIPI.getText()).floatValue());
+                    objNFEComprasv.setValorTotalNFE(valorReal.parse(jValorTotalNota.getText()).floatValue());
+                } catch (ParseException ex) {
+                }
+                objNFEComprasv.setObservacaoNF(jObservacao.getText());
+                if (acao == 1) {
+                    objNFEComprasv.setUsuarioInsert(nameUser);
+                    objNFEComprasv.setDataInsert(dataModFinal);
+                    objNFEComprasv.setHorarioInsert(horaMov);
+                    control.incluirNFeCompras(objNFEComprasv);
+                    buscarCodigoDoc();
+                    //
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 2) {
+                    objNFEComprasv.setUsuarioUp(nameUser);
+                    objNFEComprasv.setDataUp(dataModFinal);
+                    objNFEComprasv.setHorarioUp(horaMov);
+                    //
+                    objNFEComprasv.setIdNfEntrada(Integer.valueOf(jIdLanc.getText()));
+                    control.alterarNFeCompras(objNFEComprasv);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
         } else {
-            objNFEComprasv.setModelo(jModelo.getText());
-            objNFEComprasv.setSerieNf(jSerie.getText());
-            objNFEComprasv.setNumeroNf(jNrNFe.getText());
-            objNFEComprasv.setStatusNf(jStatusNFe.getText());
-            objNFEComprasv.setIdLocal(Integer.valueOf(jIdLocal.getText()));
-            objNFEComprasv.setNomeFornecedor(jDescricaoFornecedor.getText());
-            objNFEComprasv.setDataEmissao(jDataEmissao.getDate());
-            objNFEComprasv.setTipodocumento((String) jComboBoxTipoDocumento.getSelectedItem());
-            objNFEComprasv.setFormaPagamento((String) jComboBoxFormaPagto.getSelectedItem());
-            objNFEComprasv.setDataEntrada(jDataEntrada.getDate());
-            try {
-                objNFEComprasv.setBaseCalculoICMS(valorReal.parse(jBaseCalculoICMS.getText()).floatValue());
-                objNFEComprasv.setValorICMS(valorReal.parse(jValorICMS.getText()).floatValue());
-                objNFEComprasv.setBaseCalculoICMS(valorReal.parse(jBaseCalculoICMS.getText()).floatValue());
-                objNFEComprasv.setValorICMSSub(valorReal.parse(jValorICMSSub.getText()).floatValue());
-                objNFEComprasv.setValorTotalProdutos(valorReal.parse(jValorTotalProdutos.getText()).floatValue());
-                objNFEComprasv.setValorTotalFrete(valorReal.parse(jValorTotalFrete.getText()).floatValue());
-                objNFEComprasv.setValorTotalSeguro(valorReal.parse(jValorTotalSeguro.getText()).floatValue());
-                objNFEComprasv.setValorTotalDesconto(valorReal.parse(jValorTotalDesconto.getText()).floatValue());
-                objNFEComprasv.setValorTotalIPI(valorReal.parse(jValorTotalIPI.getText()).floatValue());
-                objNFEComprasv.setValorTotalNFE(valorReal.parse(jValorTotalNota.getText()).floatValue());
-            } catch (ParseException ex) {
-            }
-            objNFEComprasv.setObservacaoNF(jObservacao.getText());
-            if (acao == 1) {
-                objNFEComprasv.setUsuarioInsert(nameUser);
-                objNFEComprasv.setDataInsert(dataModFinal);
-                objNFEComprasv.setHorarioInsert(horaMov);
-                control.incluirNFeCompras(objNFEComprasv);
-                buscarCodigoDoc();
-                //
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
-            if (acao == 2) {
-                objNFEComprasv.setUsuarioUp(nameUser);
-                objNFEComprasv.setDataUp(dataModFinal);
-                objNFEComprasv.setHorarioUp(horaMov);
-                //
-                objNFEComprasv.setIdNfEntrada(Integer.valueOf(jIdLanc.getText()));
-                control.alterarNFeCompras(objNFEComprasv);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -2432,107 +2463,168 @@ public class TelaEntradaProdutosAC extends javax.swing.JInternalFrame {
 
     private void jBtNovoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoItemActionPerformed
         // TODO add your handling code here:
-        objNFEComprasv.setStatusNf(jStatusNFe.getText());
-        if (jStatusNFe.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaMovimentacaoNotaFiscaItensAL);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMovimentacaoNotaFiscaItensAL) && codIncluirAL == 1) {
+            objNFEComprasv.setStatusNf(jStatusNFe.getText());
+            if (jStatusNFe.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 3;
+                NovoItem();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 3;
-            NovoItem();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
         }
     }//GEN-LAST:event_jBtNovoItemActionPerformed
 
     private void jBtAlterarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarItemActionPerformed
         // TODO add your handling code here:
-        objNFEComprasv.setStatusNf(jStatusNFe.getText());
-        if (jStatusNFe.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaMovimentacaoNotaFiscaItensAL);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMovimentacaoNotaFiscaItensAL) && codAlterarAL == 1) {
+            objNFEComprasv.setStatusNf(jStatusNFe.getText());
+            if (jStatusNFe.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 4;
+                AlterarItem();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 4;
-            AlterarItem();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
         }
     }//GEN-LAST:event_jBtAlterarItemActionPerformed
 
     private void jBtExcluirItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirItemActionPerformed
-        // TODO add your handling code here:       
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        objNFEComprasv.setStatusNf(jStatusNFe.getText());
-        if (jStatusNFe.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objHistCompra.setIdCompra(Integer.valueOf(jNrNFe.getText()));
-                controleHist.excluirHistoricoComprasProdutFornecedor(objHistCompra);
-                controleHist.excluirHistoricoComprasProduto(objHistCompra);
-                //
-                objItensCompras.setIdItem(Integer.valueOf(idItem));
-                controle.excluirItensCompras(objItensCompras);                               
-                //
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                ExcluirItem();
-                preencherTabelaItens("SELECT * FROM ITENS_COMPRAS_MATERIAIS "
-                        + "INNER JOIN NF_COMPRAS "
-                        + "ON ITENS_COMPRAS_MATERIAIS.IdNfEntrada=NF_COMPRAS.IdNfEntrada "
-                        + "INNER JOIN PRODUTOS_AC "
-                        + "ON ITENS_COMPRAS_MATERIAIS.IdProd=PRODUTOS_AC.IdProd "
-                        + "WHERE NF_COMPRAS.IdNfEntrada='" + jIdLanc.getText() + "'");
+        // TODO add your handling code here: 
+        buscarAcessoUsuario(telaMovimentacaoNotaFiscaItensAL);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMovimentacaoNotaFiscaItensAL) && codExcluirAL == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objNFEComprasv.setStatusNf(jStatusNFe.getText());
+            if (jStatusNFe.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objHistCompra.setIdCompra(Integer.valueOf(jNrNFe.getText()));
+                    controleHist.excluirHistoricoComprasProdutFornecedor(objHistCompra);
+                    controleHist.excluirHistoricoComprasProduto(objHistCompra);
+                    //
+                    objItensCompras.setIdItem(Integer.valueOf(idItem));
+                    controle.excluirItensCompras(objItensCompras);
+                    //
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    ExcluirItem();
+                    preencherTabelaItens("SELECT * FROM ITENS_COMPRAS_MATERIAIS "
+                            + "INNER JOIN NF_COMPRAS "
+                            + "ON ITENS_COMPRAS_MATERIAIS.IdNfEntrada=NF_COMPRAS.IdNfEntrada "
+                            + "INNER JOIN PRODUTOS_AC "
+                            + "ON ITENS_COMPRAS_MATERIAIS.IdProd=PRODUTOS_AC.IdProd "
+                            + "WHERE NF_COMPRAS.IdNfEntrada='" + jIdLanc.getText() + "'");
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
         }
     }//GEN-LAST:event_jBtExcluirItemActionPerformed
 
     private void jBtSalvarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarItemActionPerformed
         // TODO add your handling code here:
-        DecimalFormat valorReal = new DecimalFormat("#,##00.0");
-        valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
-        //
-        DecimalFormat valorRealUni = new DecimalFormat("#,##00.0");
-        valorRealUni.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
-        if (jIdProd.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o produto para esse lançamento.");
-        } else if (jQuantidade.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a quantidade do produto.");
-        } else if (jValorUnitario.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o valor unitário do produto.");
-        } else if (jDataVcto.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data de vencimento do lote.");
-        } else if (jLote.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o Lote do produto.");
-        } else {
-            objItensCompras.setIdNfEntrada(Integer.valueOf(jIdLanc.getText()));
-            objItensCompras.setDescricaoProduto(jDescricaoProduto.getText());
-            objItensCompras.setLote(jLote.getText());
-            objItensCompras.setDataVcto(jDataVcto.getDate());
-            try {
-                objItensCompras.setQtdItem(valorReal.parse(jQuantidade.getText()).floatValue());
-                objItensCompras.setValorUN(valorReal.parse(jValorUnitario.getText()).floatValue());
-                objItensCompras.setAliquotaICMS(valorReal.parse(jAliquotoICMS.getText()).floatValue());
-                objItensCompras.setAliquotaIPI(valorReal.parse(jAliquotaIPI.getText()).floatValue());
-                objItensCompras.setValorTotalItem(valorReal.parse(jValorTotalItem.getText()).floatValue());
-            } catch (ParseException ex) {
-                Logger.getLogger(TelaInventarioProdutosAC.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            verificarProduto();
+        buscarAcessoUsuario(telaMovimentacaoNotaFiscaItensAL);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMovimentacaoNotaFiscaItensAL) && codGravarAL == 1) {
+            DecimalFormat valorReal = new DecimalFormat("#,##00.0");
+            valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
+            //
+            DecimalFormat valorRealUni = new DecimalFormat("#,##00.0");
+            valorRealUni.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
+            if (jIdProd.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o produto para esse lançamento.");
+            } else if (jQuantidade.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a quantidade do produto.");
+            } else if (jValorUnitario.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o valor unitário do produto.");
+            } else if (jDataVcto.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de vencimento do lote.");
+            } else if (jLote.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o Lote do produto.");
+            } else {
+                objItensCompras.setIdNfEntrada(Integer.valueOf(jIdLanc.getText()));
+                objItensCompras.setDescricaoProduto(jDescricaoProduto.getText());
+                objItensCompras.setLote(jLote.getText());
+                objItensCompras.setDataVcto(jDataVcto.getDate());
+                try {
+                    objItensCompras.setQtdItem(valorReal.parse(jQuantidade.getText()).floatValue());
+                    objItensCompras.setValorUN(valorReal.parse(jValorUnitario.getText()).floatValue());
+                    objItensCompras.setAliquotaICMS(valorReal.parse(jAliquotoICMS.getText()).floatValue());
+                    objItensCompras.setAliquotaIPI(valorReal.parse(jAliquotaIPI.getText()).floatValue());
+                    objItensCompras.setValorTotalItem(valorReal.parse(jValorTotalItem.getText()).floatValue());
+                } catch (ParseException ex) {
+                    Logger.getLogger(TelaInventarioProdutosAC.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                verificarProduto();
 //            if (acao == 3 && jIdProd.getText().equals(codProd) && jIdLanc.getText().equals(codNf) && jLote.getText().equals(loteProd)) {
-            if (acao == 3) {
-                if (jIdProd.getText().equals(codProd) && jIdLanc.getText().equals(codNf) && jLote.getText().equals(loteProd)) {
-                    JOptionPane.showMessageDialog(rootPane, "Esse produto já foi incluído nessa nota fiscal.");
-                } else {
-                    objItensCompras.setUsuarioInsert(nameUser);
-                    objItensCompras.setDataInsert(dataModFinal);
-                    objItensCompras.setHorarioInsert(horaMov);
-                    controle.incluirItensCompras(objItensCompras);
-                    buscarItem();
+                if (acao == 3) {
+                    if (jIdProd.getText().equals(codProd) && jIdLanc.getText().equals(codNf) && jLote.getText().equals(loteProd)) {
+                        JOptionPane.showMessageDialog(rootPane, "Esse produto já foi incluído nessa nota fiscal.");
+                    } else {
+                        objItensCompras.setUsuarioInsert(nameUser);
+                        objItensCompras.setDataInsert(dataModFinal);
+                        objItensCompras.setHorarioInsert(horaMov);
+                        controle.incluirItensCompras(objItensCompras);
+                        buscarItem();
+                        // INCLUIR PRODUTO NA TABELA HISTORICO_COMPRA_AC
+                        objHistCompra.setIdCompra(Integer.valueOf(jIdLanc.getText()));
+                        objHistCompra.setNfCompra(Integer.valueOf(jNrNFe.getText()));
+                        objHistCompra.setNomeLivro(jDescricaoProduto.getText());
+                        objHistCompra.setDataMov(jDataEntrada.getDate());
+                        try {
+                            objHistCompra.setQtdeCompra(valorRealUni.parse(jQuantidade.getText()).floatValue());
+                            objHistCompra.setValorUnit(valorRealUni.parse(jValorUnitario.getText()).floatValue());
+                            objHistCompra.setValorTotal(valorRealUni.parse(jValorTotalItem.getText()).floatValue());
+                        } catch (ParseException ex) {
+                        }
+                        controleHist.incluirHistoricoComprasProduto(objHistCompra);
+                        // ATUALIZAR DADOS DO FORNECEDOR NA TABELA DE PRODUTOS_AC   
+                        objHistorForn.setIdNfEntrada(Integer.valueOf(idItem));
+                        objHistorForn.setNfCompra(Integer.valueOf(jNrNFe.getText()));
+                        objHistorForn.setDataMov(jDataEntrada.getDate());
+                        objHistorForn.setNomeFornecedor(jDescricaoFornecedor.getText());
+                        try {
+                            objHistorForn.setQtdeCompra(valorRealUni.parse(jQuantidade.getText()).floatValue());
+                            objHistorForn.setValorUnit(valorRealUni.parse(jValorUnitario.getText()).floatValue());
+                        } catch (ParseException ex) {
+                        }
+                        objHistorForn.setDescricaoProduto(jDescricaoProduto.getText());
+                        controlAtualCompras.incluirDadosFornecedor(objHistorForn);
+                        //
+                        objLog2();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        preencherTabelaItens("SELECT * FROM ITENS_COMPRAS_MATERIAIS "
+                                + "INNER JOIN NF_COMPRAS "
+                                + "ON ITENS_COMPRAS_MATERIAIS.IdNfEntrada=NF_COMPRAS.IdNfEntrada "
+                                + "INNER JOIN PRODUTOS_AC "
+                                + "ON ITENS_COMPRAS_MATERIAIS.IdProd=PRODUTOS_AC.IdProd "
+                                + "WHERE ITENS_COMPRAS_MATERIAIS.IdNfEntrada='" + jIdLanc.getText() + "'");
+                        SalvarItem();
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    }
+                }
+                if (acao == 4) {
+                    objItensCompras.setUsuarioUp(nameUser);
+                    objItensCompras.setDataUp(dataModFinal);
+                    objItensCompras.setHorarioUp(horaMov);
+                    objItensCompras.setIdItem(Integer.valueOf(idItem));
+                    controle.alterarItensCompras(objItensCompras);
                     // INCLUIR PRODUTO NA TABELA HISTORICO_COMPRA_AC
                     objHistCompra.setIdCompra(Integer.valueOf(jIdLanc.getText()));
+                    objHistCompra.setIdLivro(Integer.valueOf(jIdProd.getText()));
                     objHistCompra.setNfCompra(Integer.valueOf(jNrNFe.getText()));
                     objHistCompra.setNomeLivro(jDescricaoProduto.getText());
                     objHistCompra.setDataMov(jDataEntrada.getDate());
@@ -2542,19 +2634,7 @@ public class TelaEntradaProdutosAC extends javax.swing.JInternalFrame {
                         objHistCompra.setValorTotal(valorRealUni.parse(jValorTotalItem.getText()).floatValue());
                     } catch (ParseException ex) {
                     }
-                    controleHist.incluirHistoricoComprasProduto(objHistCompra);
-                    // ATUALIZAR DADOS DO FORNECEDOR NA TABELA DE PRODUTOS_AC   
-                    objHistorForn.setIdNfEntrada(Integer.valueOf(idItem));
-                    objHistorForn.setNfCompra(Integer.valueOf(jNrNFe.getText()));
-                    objHistorForn.setDataMov(jDataEntrada.getDate());
-                    objHistorForn.setNomeFornecedor(jDescricaoFornecedor.getText());
-                    try {
-                        objHistorForn.setQtdeCompra(valorRealUni.parse(jQuantidade.getText()).floatValue());
-                        objHistorForn.setValorUnit(valorRealUni.parse(jValorUnitario.getText()).floatValue());
-                    } catch (ParseException ex) {
-                    }
-                    objHistorForn.setDescricaoProduto(jDescricaoProduto.getText());
-                    controlAtualCompras.incluirDadosFornecedor(objHistorForn);
+                    controleHist.alterarHistoricoComprasProduto(objHistCompra);
                     //
                     objLog2();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -2568,37 +2648,8 @@ public class TelaEntradaProdutosAC extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
             }
-            if (acao == 4) {
-                objItensCompras.setUsuarioUp(nameUser);
-                objItensCompras.setDataUp(dataModFinal);
-                objItensCompras.setHorarioUp(horaMov);
-                objItensCompras.setIdItem(Integer.valueOf(idItem));
-                controle.alterarItensCompras(objItensCompras);
-                // INCLUIR PRODUTO NA TABELA HISTORICO_COMPRA_AC
-                objHistCompra.setIdCompra(Integer.valueOf(jIdLanc.getText()));
-                objHistCompra.setIdLivro(Integer.valueOf(jIdProd.getText()));
-                objHistCompra.setNfCompra(Integer.valueOf(jNrNFe.getText()));
-                objHistCompra.setNomeLivro(jDescricaoProduto.getText());
-                objHistCompra.setDataMov(jDataEntrada.getDate());
-                try {
-                    objHistCompra.setQtdeCompra(valorRealUni.parse(jQuantidade.getText()).floatValue());
-                    objHistCompra.setValorUnit(valorRealUni.parse(jValorUnitario.getText()).floatValue());
-                    objHistCompra.setValorTotal(valorRealUni.parse(jValorTotalItem.getText()).floatValue());
-                } catch (ParseException ex) {
-                }
-                controleHist.alterarHistoricoComprasProduto(objHistCompra);
-                //
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                preencherTabelaItens("SELECT * FROM ITENS_COMPRAS_MATERIAIS "
-                        + "INNER JOIN NF_COMPRAS "
-                        + "ON ITENS_COMPRAS_MATERIAIS.IdNfEntrada=NF_COMPRAS.IdNfEntrada "
-                        + "INNER JOIN PRODUTOS_AC "
-                        + "ON ITENS_COMPRAS_MATERIAIS.IdProd=PRODUTOS_AC.IdProd "
-                        + "WHERE ITENS_COMPRAS_MATERIAIS.IdNfEntrada='" + jIdLanc.getText() + "'");
-                SalvarItem();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
         }
     }//GEN-LAST:event_jBtSalvarItemActionPerformed
 
@@ -2670,114 +2721,134 @@ public class TelaEntradaProdutosAC extends javax.swing.JInternalFrame {
 
     private void jBtNovaParcelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaParcelaActionPerformed
         // TODO add your handling code here:
-        objNFEComprasv.setStatusNf(jStatusNFe.getText());
-        if (jStatusNFe.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaMovimentacaoNotaFiscaParcelasAL);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMovimentacaoNotaFiscaParcelasAL) && codIncluirAL == 1) {
+            objNFEComprasv.setStatusNf(jStatusNFe.getText());
+            if (jStatusNFe.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 5;
+                NovaParcela();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 5;
-            NovaParcela();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
         }
     }//GEN-LAST:event_jBtNovaParcelaActionPerformed
 
     private void jBtAlterarParcelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarParcelaActionPerformed
         // TODO add your handling code here:
-        objNFEComprasv.setStatusNf(jStatusNFe.getText());
-        if (jStatusNFe.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaMovimentacaoNotaFiscaParcelasAL);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMovimentacaoNotaFiscaParcelasAL) && codAlterarAL == 1) {
+            objNFEComprasv.setStatusNf(jStatusNFe.getText());
+            if (jStatusNFe.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 6;
+                AlterarParcela();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 6;
-            AlterarParcela();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
         }
     }//GEN-LAST:event_jBtAlterarParcelaActionPerformed
 
     private void jBtExcluirParcelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirParcelaActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        objNFEComprasv.setStatusNf(jStatusNFe.getText());
-        if (jStatusNFe.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objParCompras.setIdParc(Integer.valueOf(jCodParcela.getText()));
-                controlParCompras.excluirParcelasCompras(objParCompras);
-                objLog3();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                preencherTabelaParcelas("SELECT * FROM PARCELAS_COMPRAS "
-                        + "INNER JOIN NF_COMPRAS "
-                        + "ON PARCELAS_COMPRAS.IdNfEntrada=NF_COMPRAS.IdNfEntrada "
-                        + "INNER JOIN FORNECEDORES_AC "
-                        + "ON PARCELAS_COMPRAS.IdForn=FORNECEDORES_AC.IdForn "
-                        + "WHERE NF_COMPRAS.IdNfEntrada='" + objParCompras.getIdNfEntrada() + "'");
+        buscarAcessoUsuario(telaMovimentacaoNotaFiscaParcelasAL);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMovimentacaoNotaFiscaParcelasAL) && codExcluirAL == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objNFEComprasv.setStatusNf(jStatusNFe.getText());
+            if (jStatusNFe.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objParCompras.setIdParc(Integer.valueOf(jCodParcela.getText()));
+                    controlParCompras.excluirParcelasCompras(objParCompras);
+                    objLog3();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    preencherTabelaParcelas("SELECT * FROM PARCELAS_COMPRAS "
+                            + "INNER JOIN NF_COMPRAS "
+                            + "ON PARCELAS_COMPRAS.IdNfEntrada=NF_COMPRAS.IdNfEntrada "
+                            + "INNER JOIN FORNECEDORES_AC "
+                            + "ON PARCELAS_COMPRAS.IdForn=FORNECEDORES_AC.IdForn "
+                            + "WHERE NF_COMPRAS.IdNfEntrada='" + objParCompras.getIdNfEntrada() + "'");
+                }
+                ExcluirParcela();
             }
-            ExcluirParcela();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
         }
     }//GEN-LAST:event_jBtExcluirParcelaActionPerformed
 
     private void jBtSalvarParcelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarParcelaActionPerformed
         // TODO add your handling code here:
-        DecimalFormat valorRealParc = new DecimalFormat("###,##00.0");
-        valorRealParc.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
-        if (jDataVctoParcela.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data da parcela de pagamento.");
-        } else if (jValorParcela.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o valor da parcela de pagamento.");
+        buscarAcessoUsuario(telaMovimentacaoNotaFiscaParcelasAL);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMovimentacaoNotaFiscaParcelasAL) && codGravarAL == 1) {
+            DecimalFormat valorRealParc = new DecimalFormat("###,##00.0");
+            valorRealParc.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
+            if (jDataVctoParcela.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data da parcela de pagamento.");
+            } else if (jValorParcela.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o valor da parcela de pagamento.");
+            } else {
+                objParCompras.setIdNfEntrada(Integer.valueOf(jIdLanc.getText()));
+                objParCompras.setNomeFornecedor(jDescricaoFornecedorParcela.getText());
+                objParCompras.setDataVcto(jDataVctoParcela.getDate());
+                try {
+                    objParCompras.setValorParcela(valorRealParc.parse(jValorParcela.getText()).floatValue());
+                    objParCompras.setValorTotalParcelas(valorRealParc.parse(jValorTotalDocumento.getText()).floatValue());
+                } catch (ParseException ex) {
+                    Logger.getLogger(TelaInventarioProdutosAC.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                if (acao == 5) {
+                    objParCompras.setUsuarioInsert(nameUser);
+                    objParCompras.setDataInsert(dataModFinal);
+                    objParCompras.setHorarioInsert(horaMov);
+                    //               
+                    controlParCompras.incluirParcelasCompras(objParCompras);
+                    buscarCodParcela();
+                    objLog3();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    preencherTabelaParcelas("SELECT * FROM PARCELAS_COMPRAS "
+                            + "INNER JOIN NF_COMPRAS "
+                            + "ON PARCELAS_COMPRAS.IdNfEntrada=NF_COMPRAS.IdNfEntrada "
+                            + "INNER JOIN FORNECEDORES_AC "
+                            + "ON PARCELAS_COMPRAS.IdForn=FORNECEDORES_AC.IdForn "
+                            + "WHERE NF_COMPRAS.IdNfEntrada='" + jCodigoDoc.getText() + "'");
+                    SalvarParcela();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 6) {
+                    objParCompras.setUsuarioUp(nameUser);
+                    objParCompras.setDataUp(dataModFinal);
+                    objParCompras.setHorarioUp(horaMov);
+                    //
+                    objParCompras.setIdParc(Integer.valueOf(jCodParcela.getText()));
+                    controlParCompras.alterarParcelasCompras(objParCompras);
+                    objLog3();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    preencherTabelaParcelas("SELECT * FROM PARCELAS_COMPRAS "
+                            + "INNER JOIN NF_COMPRAS "
+                            + "ON PARCELAS_COMPRAS.IdNfEntrada=NF_COMPRAS.IdNfEntrada "
+                            + "INNER JOIN FORNECEDORES_AC "
+                            + "ON PARCELAS_COMPRAS.IdForn=FORNECEDORES_AC.IdForn "
+                            + "WHERE NF_COMPRAS.IdNfEntrada='" + jCodigoDoc.getText() + "'");
+                    SalvarParcela();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
         } else {
-            objParCompras.setIdNfEntrada(Integer.valueOf(jIdLanc.getText()));
-            objParCompras.setNomeFornecedor(jDescricaoFornecedorParcela.getText());
-            objParCompras.setDataVcto(jDataVctoParcela.getDate());
-            try {
-                objParCompras.setValorParcela(valorRealParc.parse(jValorParcela.getText()).floatValue());
-                objParCompras.setValorTotalParcelas(valorRealParc.parse(jValorTotalDocumento.getText()).floatValue());
-            } catch (ParseException ex) {
-                Logger.getLogger(TelaInventarioProdutosAC.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            if (acao == 5) {
-                objParCompras.setUsuarioInsert(nameUser);
-                objParCompras.setDataInsert(dataModFinal);
-                objParCompras.setHorarioInsert(horaMov);
-                //               
-                controlParCompras.incluirParcelasCompras(objParCompras);
-                buscarCodParcela();
-                objLog3();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                preencherTabelaParcelas("SELECT * FROM PARCELAS_COMPRAS "
-                        + "INNER JOIN NF_COMPRAS "
-                        + "ON PARCELAS_COMPRAS.IdNfEntrada=NF_COMPRAS.IdNfEntrada "
-                        + "INNER JOIN FORNECEDORES_AC "
-                        + "ON PARCELAS_COMPRAS.IdForn=FORNECEDORES_AC.IdForn "
-                        + "WHERE NF_COMPRAS.IdNfEntrada='" + jCodigoDoc.getText() + "'");
-                SalvarParcela();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
-            if (acao == 6) {
-                objParCompras.setUsuarioUp(nameUser);
-                objParCompras.setDataUp(dataModFinal);
-                objParCompras.setHorarioUp(horaMov);
-                //
-                objParCompras.setIdParc(Integer.valueOf(jCodParcela.getText()));
-                controlParCompras.alterarParcelasCompras(objParCompras);
-                objLog3();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                preencherTabelaParcelas("SELECT * FROM PARCELAS_COMPRAS "
-                        + "INNER JOIN NF_COMPRAS "
-                        + "ON PARCELAS_COMPRAS.IdNfEntrada=NF_COMPRAS.IdNfEntrada "
-                        + "INNER JOIN FORNECEDORES_AC "
-                        + "ON PARCELAS_COMPRAS.IdForn=FORNECEDORES_AC.IdForn "
-                        + "WHERE NF_COMPRAS.IdNfEntrada='" + jCodigoDoc.getText() + "'");
-                SalvarParcela();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
         }
     }//GEN-LAST:event_jBtSalvarParcelaActionPerformed
 
@@ -4652,5 +4723,43 @@ public class TelaEntradaProdutosAC extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jIdLanc.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserAL = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserAL + "'");
+            conecta.rs.first();
+            codigoUserGroupAL = conecta.rs.getInt("IdUsuario");
+            codigoGrupoAL = conecta.rs.getInt("IdGrupo");
+            nomeGrupoAL = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserAL + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoAL = conecta.rs.getInt("IdUsuario");
+            codAbrirAL = conecta.rs.getInt("Abrir");
+            codIncluirAL = conecta.rs.getInt("Incluir");
+            codAlterarAL = conecta.rs.getInt("Alterar");
+            codExcluirAL = conecta.rs.getInt("Excluir");
+            codGravarAL = conecta.rs.getInt("Gravar");
+            codConsultarAL = conecta.rs.getInt("Consultar");
+            nomeTelaAL = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }
