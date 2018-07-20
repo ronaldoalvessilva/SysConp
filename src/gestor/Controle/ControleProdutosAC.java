@@ -31,7 +31,7 @@ public class ControleProdutosAC {
         try {
             PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO PRODUTOS_AC (StatusProd,CodigoBarra,DescricaoProd,UnidadeProd,ReferenciaProd,FotoProduto,FotoProduto2,IdGrupo,IdForn,IdLocal,DataFabricacao,DataCompra,"
                     + "DataValidade,ValorCompra,QtdCompra,DataSaida,QtdSaida,AliquotaIcms,AliquotaIpi,ClassificacaoFiscal,Observacao,"
-                    + "UsuarioInsert,DataInsert,HorarioInsert,Modulo) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                    + "UsuarioInsert,DataInsert,HorarioInsert,Modulo,CompoeKit) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setString(1, objProdMed.getStatusProd());
             pst.setString(2, objProdMed.getCodigoBarra());
             pst.setString(3, objProdMed.getDescricao());
@@ -81,6 +81,7 @@ public class ControleProdutosAC {
             pst.setString(23, objProdMed.getDataInsert());
             pst.setString(24, objProdMed.getHorarioInsert());
             pst.setString(25, objProdMed.getModulo());
+            pst.setString(26, objProdMed.getCompoeKit());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados\nERRO: " + ex);
@@ -97,7 +98,7 @@ public class ControleProdutosAC {
         try {
             PreparedStatement pst = conecta.con.prepareStatement("UPDATE PRODUTOS_AC SET StatusProd=?,CodigoBarra=?,DescricaoProd=?,UnidadeProd=?,ReferenciaProd=?,FotoProduto=?,FotoProduto2=?,IdGrupo=?,IdForn=?,IdLocal=?,DataFabricacao=?,DataCompra=?,"
                     + "DataValidade=?,ValorCompra=?,QtdCompra=?,DataSaida=?,QtdSaida=?,AliquotaIcms=?,AliquotaIpi=?,ClassificacaoFiscal=?,Observacao=?,"
-                    + "UsuarioUp=?,DataUp=?,HorarioUp=?,Modulo=? WHERE IdProd='" + objProdMed.getIdProd() + "'");
+                    + "UsuarioUp=?,DataUp=?,HorarioUp=?,Modulo=?,CompoeKit=? WHERE IdProd='" + objProdMed.getIdProd() + "'");
             pst.setString(1, objProdMed.getStatusProd());
             pst.setString(2, objProdMed.getCodigoBarra());
             pst.setString(3, objProdMed.getDescricao());
@@ -147,6 +148,7 @@ public class ControleProdutosAC {
             pst.setString(23, objProdMed.getDataUp());
             pst.setString(24, objProdMed.getHorarioUp());
             pst.setString(25, objProdMed.getModulo());
+            pst.setString(26, objProdMed.getCompoeKit());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados\nERRO: " + ex);
