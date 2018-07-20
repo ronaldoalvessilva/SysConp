@@ -95,6 +95,7 @@ public class TelaRequisicaoMateriaisInternosAC extends javax.swing.JInternalFram
     String estornoProduto = "Não";
     String atendReq = "Sim";
     String modulo = "A";
+    float pQuantidade = 0;
 
     /**
      * Creates new form TelaRequisicaoMateriaisInternos
@@ -438,7 +439,7 @@ public class TelaRequisicaoMateriaisInternosAC extends javax.swing.JInternalFram
                 .addContainerGap()
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1356,8 +1357,7 @@ public class TelaRequisicaoMateriaisInternosAC extends javax.swing.JInternalFram
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8))
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jTabbedPane1.addTab("Produtos", jPanel8);
@@ -1370,12 +1370,10 @@ public class TelaRequisicaoMateriaisInternosAC extends javax.swing.JInternalFram
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1)
-                .addContainerGap())
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(300, 20, 528, 509);
+        setBounds(300, 20, 528, 501);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtPesqCodigoReqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqCodigoReqActionPerformed
@@ -1680,6 +1678,7 @@ public class TelaRequisicaoMateriaisInternosAC extends javax.swing.JInternalFram
 
     private void jCodigoBarrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCodigoBarrasActionPerformed
         // TODO add your handling code here:
+        pQuantidade = 1;
         if (jIdRequiscaoUsuario.getText().equals("")) {
             conecta.abrirConexao();
             conecta.executaSQL("SELECT * FROM PRODUTOS_AC "
@@ -1697,6 +1696,7 @@ public class TelaRequisicaoMateriaisInternosAC extends javax.swing.JInternalFram
                     jDataVctoLote.setDate(conecta.rs.getDate("DataVenc"));
                     jValorUnitarioItem.setText(conecta.rs.getString("ValorCompra"));
                     jComboBoxUnidade.setSelectedItem(conecta.rs.getString("UnidadeProd"));
+                    jQtdItem.setText(String.valueOf(pQuantidade));
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "Produto não cadastro.");
                 }
@@ -1847,7 +1847,10 @@ public class TelaRequisicaoMateriaisInternosAC extends javax.swing.JInternalFram
             JOptionPane.showMessageDialog(rootPane, "Informe o produto para requisição.");
         } else if (jComboBoxUnidade.getSelectedItem().equals("Selecione...")) {
             JOptionPane.showMessageDialog(rootPane, "Informe a unidade de armazenamento do produto.");
-        } else if (jQtdItem.getText().equals("")) {
+        } else if (jQtdItem.getText().equals("") && !jCodigoBarras.getText().equals("")) {
+            pQuantidade = 1;
+            objItensReqMatInter.setQtdItem(pQuantidade);
+        } else if (jQtdItem.getText().equals("") && jCodigoBarras.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe a quantidade");
         } else {
             objItensReqMatInter.setIdProd(Integer.valueOf(jCodProduto.getText()));
