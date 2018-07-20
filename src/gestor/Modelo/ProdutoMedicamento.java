@@ -68,8 +68,12 @@ public class ProdutoMedicamento {
     private String substancias;
     private String acoesTerapeuticas; 
     private String modulo;    
+    private String compoeKit;
 
-    public ProdutoMedicamento(int idProd, String statusProd, String codigoBarra, String descricao, String unidade, String referencia, float pesoBruto, float pesoLiquido, float fatorCorrecao, float fatorCoccao, String aplicaDose, int qdtTotalDose, String fotoProduto, String fotoProduto1, int idGrupo, int idForn, int idLocal, int idLote, int idLanc, String nomeGrupo, String nomeLocal, String DescricaoFornecedor, Date dataFabricacao, Date dataCompra, Date dataValidade, float valorCompra, float qtdCompra, Date dataSaida, float qtdSaida, float aliquotaIcms, float aliquotaIpi, String classificaoFiscal, String observacao, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, float estoqueMaximo, float estoqueMinimo, float pontoPedido, float saldoAtual, Date dataVencLote, String lote, float qtdLote, String tipoInventario, String tipoEntrada, String tipoSaida, Date dataEstoque, String topicos, String contraIndicaoes, String substancias, String acoesTerapeuticas, String modulo) {
+    public ProdutoMedicamento() {
+    }
+
+    public ProdutoMedicamento(int idProd, String statusProd, String codigoBarra, String descricao, String unidade, String referencia, float pesoBruto, float pesoLiquido, float fatorCorrecao, float fatorCoccao, String aplicaDose, int qdtTotalDose, String fotoProduto, String fotoProduto1, int idGrupo, int idForn, int idLocal, int idLote, int idLanc, String nomeGrupo, String nomeLocal, String DescricaoFornecedor, Date dataFabricacao, Date dataCompra, Date dataValidade, float valorCompra, float qtdCompra, Date dataSaida, float qtdSaida, float aliquotaIcms, float aliquotaIpi, String classificaoFiscal, String observacao, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, float estoqueMaximo, float estoqueMinimo, float pontoPedido, float saldoAtual, Date dataVencLote, String lote, float qtdLote, String tipoInventario, String tipoEntrada, String tipoSaida, Date dataEstoque, String topicos, String contraIndicaoes, String substancias, String acoesTerapeuticas, String modulo, String compoeKit) {
         this.idProd = idProd;
         this.statusProd = statusProd;
         this.codigoBarra = codigoBarra;
@@ -125,9 +129,7 @@ public class ProdutoMedicamento {
         this.substancias = substancias;
         this.acoesTerapeuticas = acoesTerapeuticas;
         this.modulo = modulo;
-    }
-
-    public ProdutoMedicamento() {
+        this.compoeKit = compoeKit;
     }
 
     /**
@@ -899,4 +901,19 @@ public class ProdutoMedicamento {
     public void setModulo(String modulo) {
         this.modulo = modulo;
     }
+
+    /**
+     * @return the compoeKit
+     */
+    public String getCompoeKit() {
+        return compoeKit;
+    }
+
+    /**
+     * @param compoeKit the compoeKit to set
+     */
+    public void setCompoeKit(String compoeKit) {
+        this.compoeKit = compoeKit;
+    }
+  
 }
