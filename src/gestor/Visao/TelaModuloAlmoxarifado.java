@@ -87,6 +87,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     private TelaAgendaCompromissos objAgEventos = null;
     private TelaConsultaLocalInternoBaseSeguranca objLocaliza = null;
     private TelaMovimentacaoCrcAlmox objMoviCrcAlmos = null;
+    private TelaTiposKitsHigieneInternos objKitHigiente = null;
     //
     String dataLanc;
     int codUsuario;
@@ -132,6 +133,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         LocalArmazenamento = new javax.swing.JMenuItem();
         GrupoProdutos = new javax.swing.JMenuItem();
         Produtos = new javax.swing.JMenuItem();
+        TiposKitsInternos = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         AgendaCompromisso = new javax.swing.JMenuItem();
         AgendaRecados = new javax.swing.JMenuItem();
@@ -140,6 +142,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         jMenu2 = new javax.swing.JMenu();
         jLocalizacaoInternos = new javax.swing.JMenuItem();
         MovimentacaoCrc = new javax.swing.JMenuItem();
+        ConsultaEstoque = new javax.swing.JMenuItem();
         Movimentacao = new javax.swing.JMenu();
         EntradaMateriais = new javax.swing.JMenuItem();
         InventarioMateriais = new javax.swing.JMenuItem();
@@ -150,7 +153,6 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         EstornoRequisicao = new javax.swing.JMenuItem();
         jSeparator7 = new javax.swing.JPopupMenu.Separator();
         SolicitacaoComprasMateriaisInternos = new javax.swing.JMenuItem();
-        ConsultaEstoque = new javax.swing.JMenuItem();
         Relatorios = new javax.swing.JMenu();
         RelatorioCadastroProdutos = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
@@ -228,6 +230,14 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
             }
         });
         Cadastros.add(Produtos);
+
+        TiposKitsInternos.setText("Tipos de Kit de Higiene de Internos");
+        TiposKitsInternos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TiposKitsInternosActionPerformed(evt);
+            }
+        });
+        Cadastros.add(TiposKitsInternos);
         Cadastros.add(jSeparator2);
 
         AgendaCompromisso.setText("Agenda de Compromissos Pessoal");
@@ -274,6 +284,14 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
             }
         });
         jMenu2.add(MovimentacaoCrc);
+
+        ConsultaEstoque.setText("Consulta de Estoque");
+        ConsultaEstoque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ConsultaEstoqueActionPerformed(evt);
+            }
+        });
+        jMenu2.add(ConsultaEstoque);
 
         jMenuBar1.add(jMenu2);
 
@@ -333,14 +351,6 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
             }
         });
         Movimentacao.add(SolicitacaoComprasMateriaisInternos);
-
-        ConsultaEstoque.setText("Consulta de Estoque");
-        ConsultaEstoque.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ConsultaEstoqueActionPerformed(evt);
-            }
-        });
-        Movimentacao.add(ConsultaEstoque);
 
         jMenuBar1.add(Movimentacao);
 
@@ -995,6 +1005,36 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_MovimentacaoCrcActionPerformed
 
+    private void TiposKitsInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TiposKitsInternosActionPerformed
+        // TODO add your handling code here:
+        if (objKitHigiente == null || objKitHigiente.isClosed()) {
+            objKitHigiente = new TelaTiposKitsHigieneInternos();
+            jPainelAlmoxarifado.add(objKitHigiente);
+            objKitHigiente.setVisible(true);
+        } else {
+            if (objKitHigiente.isVisible()) {
+                if (objKitHigiente.isIcon()) { // Se esta minimizado
+                    try {
+                        objKitHigiente.setIcon(false); // maximiniza
+                    } catch (PropertyVetoException ex) {
+                    }
+                } else {
+                    objKitHigiente.toFront(); // traz para frente
+                    objKitHigiente.pack();//volta frame 
+                }
+            } else {
+                objKitHigiente = new TelaTiposKitsHigieneInternos();
+                TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objKitHigiente);//adicona frame ao JDesktopPane  
+                objKitHigiente.setVisible(true);
+            }
+        }
+        try {
+            objKitHigiente.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
+        }
+        // TelaTiposKitsHigieneInternos objKitHigiente = null;
+    }//GEN-LAST:event_TiposKitsInternosActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromisso;
@@ -1024,6 +1064,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem RequisicaoMateriaisInternos;
     private javax.swing.JMenuItem Sair;
     private javax.swing.JMenuItem SolicitacaoComprasMateriaisInternos;
+    private javax.swing.JMenuItem TiposKitsInternos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuItem jLocalizacaoInternos;
     private javax.swing.JMenu jMenu1;
