@@ -512,25 +512,23 @@
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               <Component id="jCodReq" alignment="0" min="-2" pref="51" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jStatusReq" min="-2" pref="116" max="-2" attributes="0"/>
+                              <Component id="jStatusReq" min="-2" pref="140" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                               <Component id="jDataReq" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jIdLocal" min="-2" pref="69" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jBtPesqLocalArmazenamento" min="-2" pref="27" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="jIdLocal" min="-2" pref="85" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jBtPesqLocalArmazenamento" min="-2" pref="27" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -547,11 +545,11 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
-                              <Component id="jCodReq" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jStatusReq" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jDataReq" alignment="2" min="-2" pref="19" max="-2" attributes="0"/>
                               <Component id="jIdLocal" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jBtPesqLocalArmazenamento" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jDataReq" alignment="2" min="-2" pref="19" max="-2" attributes="0"/>
+                              <Component id="jStatusReq" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jCodReq" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="19" max="32767" attributes="0"/>
                       </Group>
@@ -1145,10 +1143,10 @@
                                               </Group>
                                               <Component id="jMatriculaAutorizadorReq" alignment="0" max="32767" attributes="0"/>
                                           </Group>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jLabel19" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jDepartamentoReqAutorizador" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
+                                              <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jDepartamentoReqAutorizador" alignment="0" min="-2" pref="192" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
