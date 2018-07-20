@@ -19,6 +19,15 @@ import gestor.Modelo.HistoricoMovimentacaoEstoque;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.ProdutoMedicamento;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloAlmoxarifado.codAlterarAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.codExcluirAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.codGravarAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.codIncluirAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.codUserAcessoAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.codigoUserAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.nomeGrupoAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.nomeTelaAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.telaCadastroProdutoAL;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -164,6 +173,8 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
         jDataFabricacao = new com.toedter.calendar.JDateChooser();
         jReferencia = new javax.swing.JTextField();
         jLabel42 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jComboBoxCompoeKit = new javax.swing.JComboBox<>();
         jPanel22 = new javax.swing.JPanel();
         jPanel19 = new javax.swing.JPanel();
         jFotoProduto = new javax.swing.JLabel();
@@ -523,7 +534,7 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7183_16x16.png"))); // NOI18N
+        jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
         jBtNovo.setText("Novo");
         jBtNovo.setContentAreaFilled(false);
         jBtNovo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -676,6 +687,16 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
         jLabel42.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel42.setText("Referência");
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel3.setText("Compõe Kit Interno");
+
+        jComboBoxCompoeKit.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxCompoeKit.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Sim", "Não" }));
+        jComboBoxCompoeKit.setToolTipText("Se o produto faz parte do Kit do Interno");
+        jComboBoxCompoeKit.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxCompoeKit.setEnabled(false);
+
         javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
         jPanel21.setLayout(jPanel21Layout);
         jPanel21Layout.setHorizontalGroup(
@@ -688,31 +709,35 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
                         .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel33)
                             .addComponent(jIdProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jCodigoBarra, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel38))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel40)
                             .addComponent(jComboBoxStatusProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel21Layout.createSequentialGroup()
                                 .addComponent(jLabel35)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jComboBoxUnidProduto, 0, 88, Short.MAX_VALUE)))
+                                .addGap(0, 78, Short.MAX_VALUE))
+                            .addComponent(jComboBoxUnidProduto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel21Layout.createSequentialGroup()
-                        .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel21Layout.createSequentialGroup()
                                 .addGap(2, 2, 2)
                                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel43)
                                     .addComponent(jDataFabricacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel42)))
+                                    .addGroup(jPanel21Layout.createSequentialGroup()
+                                        .addComponent(jLabel42)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(jReferencia))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBoxCompoeKit, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel34)
                             .addGroup(jPanel21Layout.createSequentialGroup()
                                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -720,20 +745,20 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
                                     .addComponent(jIdGrupo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
                                     .addComponent(jIdFor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
                                     .addComponent(jLabel41))
-                                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel21Layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel39)
-                                            .addComponent(jDescricaoGrupo, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)))
-                                    .addGroup(jPanel21Layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jNomeFornecedor)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jBtPesqFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jBtPesqGrupoMedicamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(7, 7, 7)
+                                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel39)
+                                    .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel3)
+                                        .addGroup(jPanel21Layout.createSequentialGroup()
+                                            .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jDescricaoGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jNomeFornecedor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(jBtPesqFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jBtPesqGrupoMedicamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -745,51 +770,54 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
             .addGroup(jPanel21Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel33)
-                            .addComponent(jLabel38))
-                        .addComponent(jLabel35, javax.swing.GroupLayout.Alignment.TRAILING))
-                    .addComponent(jLabel40))
+                    .addComponent(jLabel33)
+                    .addComponent(jLabel40)
+                    .addComponent(jLabel38)
+                    .addComponent(jLabel35))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jIdProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCodigoBarra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxUnidProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxStatusProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxUnidProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                .addComponent(jLabel34)
-                .addGap(3, 3, 3)
-                .addComponent(jDescricaoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel37)
-                    .addComponent(jLabel36))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jIdGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDescricaoGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtPesqGrupoMedicamentos))
-                .addGap(26, 26, 26)
-                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jIdFor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jNomeFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtPesqFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jCodigoBarra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jIdProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel43)
-                    .addComponent(jLabel42))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jDataFabricacao, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(5, 5, 5))
-            .addGroup(jPanel21Layout.createSequentialGroup()
-                .addGap(145, 145, 145)
-                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel41)
-                    .addComponent(jLabel39))
-                .addContainerGap(79, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel21Layout.createSequentialGroup()
+                        .addComponent(jLabel34)
+                        .addGap(3, 3, 3)
+                        .addComponent(jDescricaoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel37)
+                            .addComponent(jLabel36))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(jIdGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jDescricaoGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBtPesqGrupoMedicamentos))
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(jIdFor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jNomeFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBtPesqFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel43)
+                            .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel42)
+                                .addComponent(jLabel3)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(jDataFabricacao, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxCompoeKit, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(5, 5, 5))
+                    .addGroup(jPanel21Layout.createSequentialGroup()
+                        .addGap(96, 96, 96)
+                        .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel41)
+                            .addComponent(jLabel39))
+                        .addContainerGap(72, Short.MAX_VALUE))))
         );
 
         jPanel21Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jDescricaoGrupo, jNomeFornecedor});
@@ -983,41 +1011,39 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jDataCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel20))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jValorCompraProduto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9)
+                    .addComponent(jValorCompraProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
                     .addComponent(jDataValidadeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(jQtdCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel21)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jQtdCompra, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel21)
-                            .addComponent(jLabel20)
-                            .addComponent(jLabel10))
-                        .addGap(7, 7, 7)
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jDataCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jDataValidadeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jQtdCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addGap(7, 7, 7)
-                        .addComponent(jValorCompraProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 13, Short.MAX_VALUE))
+                    .addComponent(jLabel20)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel9))
+                .addGap(7, 7, 7)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jDataCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jValorCompraProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDataValidadeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jQtdCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addComponent(jLabel21)
+                .addGap(39, 39, 39))
         );
 
         jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Informações Saída", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
@@ -1166,15 +1192,19 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Estoque", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel24.setForeground(new java.awt.Color(153, 0, 102));
         jLabel24.setText("Estoque Máximo:");
 
         jLabel25.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel25.setForeground(new java.awt.Color(0, 0, 204));
         jLabel25.setText("Estoque Minimo:");
 
         jLabel26.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel26.setForeground(new java.awt.Color(204, 0, 0));
         jLabel26.setText("Ponto Pedido:");
 
         jLabel27.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel27.setForeground(new java.awt.Color(0, 102, 0));
         jLabel27.setText("Saldo Atual:");
 
         jEstoqueMaximo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -1327,7 +1357,7 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtNovo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7183_16x16.png"))); // NOI18N
+        jBtNovo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
         jBtNovo1.setText("Novo");
         jBtNovo1.setContentAreaFilled(false);
         jBtNovo1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1590,154 +1620,172 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaCadastroProdutoAL) && codIncluirAL == 1) {
+            acao = 1;
+            limparTabelaLotes();
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        acao = 2;
-        Alterar();
-        corCampos();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaCadastroProdutoAL) && codAlterarAL == 1) {
+            acao = 2;
+            Alterar();
+            corCampos();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
-        // TODO add your handling code here:    
-        verificarProdutoLote(); // Verificar se o produto tem lote para impedir de excluir
-        verificarProdutoSaldoEstoque(); // Verifiar se o produto tem saldo para impedir de excluir.
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
-                JOptionPane.YES_NO_OPTION);
-        if (jIdProduto.getText().equals(codProdutoLote)) {
-            JOptionPane.showMessageDialog(rootPane, "Esse produto não pode ser excluído, existe lote para o mesmo.");
-        } else if (jIdProduto.getText().equals(codProdutoSaldo)) {
-            JOptionPane.showMessageDialog(rootPane, "Esse produto não pode ser excluído, existe saldo de estoque ou já teve movimentação.");
-        } else {
-            if (resposta == JOptionPane.YES_OPTION) {
-                objProdMed.setIdProd(Integer.parseInt(jIdProduto.getText()));
-                control.excluirProdutoAC(objProdMed);
-                controlEst.excluirEstoqueProduto(objProdMed);
-                controlHistMov.excluirHistoricoProdutoAC(objHistMovAC);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                Excluir();
+        // TODO add your handling code here:   
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaCadastroProdutoAL) && codExcluirAL == 1) {
+            verificarProdutoLote(); // Verificar se o produto tem lote para impedir de excluir
+            verificarProdutoSaldoEstoque(); // Verifiar se o produto tem saldo para impedir de excluir.
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (jIdProduto.getText().equals(codProdutoLote)) {
+                JOptionPane.showMessageDialog(rootPane, "Esse produto não pode ser excluído, existe lote para o mesmo.");
+            } else if (jIdProduto.getText().equals(codProdutoSaldo)) {
+                JOptionPane.showMessageDialog(rootPane, "Esse produto não pode ser excluído, existe saldo de estoque ou já teve movimentação.");
+            } else {
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objProdMed.setIdProd(Integer.parseInt(jIdProduto.getText()));
+                    control.excluirProdutoAC(objProdMed);
+                    controlEst.excluirEstoqueProduto(objProdMed);
+                    controlHistMov.excluirHistoricoProdutoAC(objHistMovAC);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    Excluir();
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        DecimalFormat valorReal = new DecimalFormat("###,##00.0");
-        valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
-        if (jComboBoxStatusProduto.getSelectedItem() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe se o produto está ativo ou inativo.");
-            jComboBoxStatusProduto.requestFocus();
-            jComboBoxStatusProduto.setBackground(Color.red);
-        } else if (jDescricaoGrupo.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a que grupo o produto pertence.");
-        } else if (jDescricaoProduto.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a descrição do produto.");
-            jDescricaoProduto.requestFocus();
-            jDescricaoProduto.setBackground(Color.red);
-        } else if (jComboBoxUnidProduto.getSelectedItem() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a unidade de armazenamento do produto.");
-            jComboBoxUnidProduto.requestFocus();
-            jComboBoxUnidProduto.setBackground(Color.red);
-        } else if (jLocalMaster.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a localidade de armazenamento do produto.");
-        } else if (jNomeFornecedor.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do fornecedor para esse produto.");
-        } else {
-            objProdMed.setStatusProd((String) jComboBoxStatusProduto.getSelectedItem());
-            objProdMed.setCodigoBarra(jCodigoBarra.getText());
-            objProdMed.setDescricao(jDescricaoProduto.getText());
-            objProdMed.setUnidade((String) jComboBoxUnidProduto.getSelectedItem());
-            objProdMed.setReferencia(jReferencia.getText());
-            objProdMed.setFotoProduto(caminhoFoto);
-            objProdMed.setFotoProduto1(caminhoFoto1);
-            objProdMed.setDataFabricacao(jDataFabricacao.getDate());
-            objProdMed.setDataCompra(jDataCompra.getDate());
-            objProdMed.setDataValidade(jDataValidadeProduto.getDate());
-            objProdMed.setModulo(modulo);
-            try {
-                objProdMed.setValorCompra(valorReal.parse(jValorCompraProduto.getText()).floatValue());
-                objProdMed.setQtdCompra(valorReal.parse(jQtdCompra.getText()).floatValue());
-                objProdMed.setQtdSaida(valorReal.parse(jQtdSaida.getText()).floatValue());
-                objProdMed.setAliquotaIcms(valorReal.parse(jAliquotaIcms.getText()).floatValue());
-                objProdMed.setAliquotaIpi(valorReal.parse(jAliquotaIpi.getText()).floatValue());
-                //
-                objProdMed.setEstoqueMaximo(valorReal.parse(jEstoqueMaximo.getText()).floatValue());
-                objProdMed.setEstoqueMinimo(valorReal.parse(jEstoqueMinimo.getText()).floatValue());
-                objProdMed.setPontoPedido(valorReal.parse(jPontoPedido.getText()).floatValue());
-                objProdMed.setSaldoAtual(valorReal.parse(jSaldoAtual.getText()).floatValue());                
-            } catch (ParseException ex) {
-            }
-            objProdMed.setDataSaida(jDataSaida.getDate());
-            objProdMed.setClassificaoFiscal(jClassificacao.getText());
-            objProdMed.setObservacao(jObservacao.getText());
-            objProdMed.setLote(loteProdutos);
-            objProdMed.setQtdLote((float) qtdLote);
-            objProdMed.setTipoInventario(tipoInventario);
-            if (acao == 1) {
-                // VERIFICAR SE O PRODUTO JÁ FOI CADASTRADO, CASO JÁ TENHA SIDO CADASTRADO BLOQUEIA
-                verificarProdutoCadastrado();
-                if (jDescricaoProduto.getText().trim().equals(nomeProdutoAC)) {
-                    JOptionPane.showMessageDialog(rootPane, "Produto já foi cadastrado.");
-                } else {
-                    objProdMed.setUsuarioInsert(nameUser);
-                    objProdMed.setDataInsert(dataModFinal);
-                    objProdMed.setHorarioInsert(horaMov);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaCadastroProdutoAL) && codGravarAL == 1) {
+            DecimalFormat valorReal = new DecimalFormat("###,##00.0");
+            valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
+            if (jComboBoxStatusProduto.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe se o produto está ativo ou inativo.");
+                jComboBoxStatusProduto.requestFocus();
+                jComboBoxStatusProduto.setBackground(Color.red);
+            } else if (jDescricaoGrupo.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a que grupo o produto pertence.");
+            } else if (jDescricaoProduto.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a descrição do produto.");
+                jDescricaoProduto.requestFocus();
+                jDescricaoProduto.setBackground(Color.red);
+            } else if (jComboBoxUnidProduto.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a unidade de armazenamento do produto.");
+                jComboBoxUnidProduto.requestFocus();
+                jComboBoxUnidProduto.setBackground(Color.red);
+            } else if (jLocalMaster.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a localidade de armazenamento do produto.");
+            } else if (jNomeFornecedor.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do fornecedor para esse produto.");
+            } else {
+                objProdMed.setStatusProd((String) jComboBoxStatusProduto.getSelectedItem());
+                objProdMed.setCodigoBarra(jCodigoBarra.getText());
+                objProdMed.setDescricao(jDescricaoProduto.getText());
+                objProdMed.setUnidade((String) jComboBoxUnidProduto.getSelectedItem());
+                objProdMed.setReferencia(jReferencia.getText());
+                objProdMed.setFotoProduto(caminhoFoto);
+                objProdMed.setFotoProduto1(caminhoFoto1);
+                objProdMed.setDataFabricacao(jDataFabricacao.getDate());
+                objProdMed.setDataCompra(jDataCompra.getDate());
+                objProdMed.setDataValidade(jDataValidadeProduto.getDate());
+                objProdMed.setModulo(modulo);
+                objProdMed.setCompoeKit((String)jComboBoxCompoeKit.getSelectedItem());
+                try {
+                    objProdMed.setValorCompra(valorReal.parse(jValorCompraProduto.getText()).floatValue());
+                    objProdMed.setQtdCompra(valorReal.parse(jQtdCompra.getText()).floatValue());
+                    objProdMed.setQtdSaida(valorReal.parse(jQtdSaida.getText()).floatValue());
+                    objProdMed.setAliquotaIcms(valorReal.parse(jAliquotaIcms.getText()).floatValue());
+                    objProdMed.setAliquotaIpi(valorReal.parse(jAliquotaIpi.getText()).floatValue());
+                    //
+                    objProdMed.setEstoqueMaximo(valorReal.parse(jEstoqueMaximo.getText()).floatValue());
+                    objProdMed.setEstoqueMinimo(valorReal.parse(jEstoqueMinimo.getText()).floatValue());
+                    objProdMed.setPontoPedido(valorReal.parse(jPontoPedido.getText()).floatValue());
+                    objProdMed.setSaldoAtual(valorReal.parse(jSaldoAtual.getText()).floatValue());
+                } catch (ParseException ex) {
+                }
+                objProdMed.setDataSaida(jDataSaida.getDate());
+                objProdMed.setClassificaoFiscal(jClassificacao.getText());
+                objProdMed.setObservacao(jObservacao.getText());
+                objProdMed.setLote(loteProdutos);
+                objProdMed.setQtdLote((float) qtdLote);
+                objProdMed.setTipoInventario(tipoInventario);
+                if (acao == 1) {
+                    // VERIFICAR SE O PRODUTO JÁ FOI CADASTRADO, CASO JÁ TENHA SIDO CADASTRADO BLOQUEIA
+                    verificarProdutoCadastrado();
+                    if (jDescricaoProduto.getText().trim().equals(nomeProdutoAC)) {
+                        JOptionPane.showMessageDialog(rootPane, "Produto já foi cadastrado.");
+                    } else {
+                        objProdMed.setUsuarioInsert(nameUser);
+                        objProdMed.setDataInsert(dataModFinal);
+                        objProdMed.setHorarioInsert(horaMov);
+                        //
+                        objProdMed.setNomeGrupo(jDescricaoGrupo.getText());
+                        objProdMed.setDescricaoFornecedor(jNomeFornecedor.getText());
+                        objProdMed.setNomeLocal(jLocalMaster.getText());
+                        control.incluirProdutoAC(objProdMed);
+                        buscarID();
+                        objProdMed.setIdProd(Integer.valueOf(jIdProduto.getText()));
+                        objProdMed.setIdLocal(codLocal);
+                        controlEst.incluirEstoqueProduto(objProdMed);
+                        // Incluir o produto na tabela de lotes (LOTEPRODUTOS)
+                        // Somente inlui o produto, não altera, as alterações somente a quantidade no inventário.
+                        controleLote.incluirLoteProdutoAC(objProdMed);
+                        // CRIAR PRODUTO PARA CONSULTA NA TABELA HISTORICO_NOVIMENTACAO_ESTOQUE_FAR
+                        objHistMovAC.setIdProd(Integer.valueOf(jIdProduto.getText()));
+                        objHistMovAC.setIdLocal(codLocal);
+                        objHistMovAC.setDescricaoLocal(jLocalMaster.getText());
+                        objHistMovAC.setSaldoAtual((float) qtdLote);
+                        controlHistMov.incluirHistoricoProdutoCadastroAC(objHistMovAC);
+                        //
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        Salvar();
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    }
+                }
+                if (acao == 2) {
+                    objProdMed.setUsuarioUp(nameUser);
+                    objProdMed.setDataUp(dataModFinal);
+                    objProdMed.setHorarioUp(horaMov);
                     //
                     objProdMed.setNomeGrupo(jDescricaoGrupo.getText());
                     objProdMed.setDescricaoFornecedor(jNomeFornecedor.getText());
                     objProdMed.setNomeLocal(jLocalMaster.getText());
-                    control.incluirProdutoAC(objProdMed);
-                    buscarID();
                     objProdMed.setIdProd(Integer.valueOf(jIdProduto.getText()));
-                    objProdMed.setIdLocal(codLocal);
-                    controlEst.incluirEstoqueProduto(objProdMed);
-                    // Incluir o produto na tabela de lotes (LOTEPRODUTOS)
-                    // Somente inlui o produto, não altera, as alterações somente a quantidade no inventário.
-                    controleLote.incluirLoteProdutoAC(objProdMed);
-                    // CRIAR PRODUTO PARA CONSULTA NA TABELA HISTORICO_NOVIMENTACAO_ESTOQUE_FAR
-                    objHistMovAC.setIdProd(Integer.valueOf(jIdProduto.getText()));
-                    objHistMovAC.setIdLocal(codLocal);
-                    objHistMovAC.setDescricaoLocal(jLocalMaster.getText());
-                    objHistMovAC.setSaldoAtual((float) qtdLote);
-                    controlHistMov.incluirHistoricoProdutoCadastroAC(objHistMovAC);
-                    //
+                    control.alterarProdutoAC(objProdMed);
+                    controlEst.alterarEstoqueProduto(objProdMed);
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     Salvar();
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
             }
-            if (acao == 2) {
-                objProdMed.setUsuarioUp(nameUser);
-                objProdMed.setDataUp(dataModFinal);
-                objProdMed.setHorarioUp(horaMov);
-                //
-                objProdMed.setNomeGrupo(jDescricaoGrupo.getText());
-                objProdMed.setDescricaoFornecedor(jNomeFornecedor.getText());
-                objProdMed.setNomeLocal(jLocalMaster.getText());
-                objProdMed.setIdProd(Integer.valueOf(jIdProduto.getText()));
-                control.alterarProdutoAC(objProdMed);
-                controlEst.alterarEstoqueProduto(objProdMed);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -1812,7 +1860,8 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
                         + "INNER JOIN FORNECEDORES_AC ON PRODUTOS_AC.IdForn=FORNECEDORES_AC.IdForn "
                         + "INNER JOIN LOCAL_ARMAZENAMENTO_AC ON PRODUTOS_AC.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
                         + "INNER JOIN SALDO_ESTOQUE_AC ON PRODUTOS_AC.IdProd=SALDO_ESTOQUE_AC.IdProd "
-                        + "WHERE DescricaoProd='" + jPesqDescricaoProd.getText() + "'AND PRODUTOS_AC.IdProd='" + idProd + "'");
+                        + "WHERE DescricaoProd='" + jPesqDescricaoProd.getText() + "' "
+                        + "AND PRODUTOS_AC.IdProd='" + idProd + "'");
                 conecta.rs.first();
                 jIdProduto.setText(String.valueOf(conecta.rs.getInt("IdProd")));
                 jCodigoBarra.setText(conecta.rs.getString("CodigoBarra"));
@@ -1825,6 +1874,7 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
                 jNomeFornecedor.setText(conecta.rs.getString("RazaoSocial"));
                 jDataFabricacao.setDate(conecta.rs.getDate("DataFabricacao"));
                 jReferencia.setText(conecta.rs.getString("ReferenciaProd"));
+                jComboBoxCompoeKit.setSelectedItem(conecta.rs.getString("CompoeKit"));
                 // Capturando foto
                 caminhoFoto = conecta.rs.getString("FotoProduto");
                 if (caminhoFoto != null) {
@@ -1898,7 +1948,8 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
                 preencherTabelaLotes("SELECT * FROM LOTE_PRODUTOS_AC "
                         + "INNER JOIN PRODUTOS_AC "
                         + "ON LOTE_PRODUTOS_AC.IdProd=PRODUTOS_AC.IdProd "
-                        + "WHERE LOTE_PRODUTOS_AC.IdProd='" + jIdProduto.getText() + "' AND Qtd!='" + 0 + "'");
+                        + "WHERE LOTE_PRODUTOS_AC.IdProd='" + jIdProduto.getText() + "' "
+                        + "AND Qtd!='" + 0 + "'");
                 conecta.desconecta();
             } catch (Exception e) {
             }
@@ -1917,7 +1968,8 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
                     + "ON PRODUTOS_AC.IdForn=FORNECEDORES_AC.IdForn "
                     + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
                     + "ON PRODUTOS_AC.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
-                    + "WHERE PRODUTOS_AC.Modulo='" + modulo + "'ORDER BY PRODUTOS_AC.DescricaoProd");                   
+                    + "WHERE PRODUTOS_AC.Modulo='" + modulo + "' "
+                    + "ORDER BY PRODUTOS_AC.DescricaoProd");
         } else {
             jtotalRegistros.setText("");
             limparTabelaProdutos();
@@ -1931,155 +1983,173 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
 
     private void jBtSalvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvar1ActionPerformed
         // TODO add your handling code here:
-        DecimalFormat valorReal = new DecimalFormat("###,##00.0");
-        valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
-        if (jComboBoxStatusProduto.getSelectedItem() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe se o produto está ativo ou inativo.");
-            jComboBoxStatusProduto.requestFocus();
-            jComboBoxStatusProduto.setBackground(Color.red);
-        } else if (jDescricaoGrupo.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a que grupo o produto pertence.");
-        } else if (jDescricaoProduto.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a descrição do produto.");
-            jDescricaoProduto.requestFocus();
-            jDescricaoProduto.setBackground(Color.red);
-        } else if (jComboBoxUnidProduto.getSelectedItem() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a unidade de armazenamento do produto.");
-            jComboBoxUnidProduto.requestFocus();
-            jComboBoxUnidProduto.setBackground(Color.red);
-        } else if (jLocalMaster.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a localidade de armazenamento do produto.");
-        } else if (jNomeFornecedor.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do fornecedor para esse produto.");
-        } else {
-            objProdMed.setStatusProd((String) jComboBoxStatusProduto.getSelectedItem());
-            objProdMed.setCodigoBarra(jCodigoBarra.getText());
-            objProdMed.setDescricao(jDescricaoProduto.getText());
-            objProdMed.setUnidade((String) jComboBoxUnidProduto.getSelectedItem());
-            objProdMed.setReferencia(jReferencia.getText());
-            objProdMed.setFotoProduto(caminhoFoto);
-            objProdMed.setFotoProduto1(caminhoFoto1);
-            objProdMed.setDataFabricacao(jDataFabricacao.getDate());
-            objProdMed.setDataCompra(jDataCompra.getDate());
-            objProdMed.setDataValidade(jDataValidadeProduto.getDate());
-            objProdMed.setModulo(modulo);
-            try {
-                objProdMed.setValorCompra(valorReal.parse(jValorCompraProduto.getText()).floatValue());
-                objProdMed.setQtdCompra(valorReal.parse(jQtdCompra.getText()).floatValue());
-                objProdMed.setQtdSaida(valorReal.parse(jQtdSaida.getText()).floatValue());
-                objProdMed.setAliquotaIcms(valorReal.parse(jAliquotaIcms.getText()).floatValue());
-                objProdMed.setAliquotaIpi(valorReal.parse(jAliquotaIpi.getText()).floatValue());
-                //
-                objProdMed.setEstoqueMaximo(valorReal.parse(jEstoqueMaximo.getText()).floatValue());
-                objProdMed.setEstoqueMinimo(valorReal.parse(jEstoqueMinimo.getText()).floatValue());
-                objProdMed.setPontoPedido(valorReal.parse(jPontoPedido.getText()).floatValue());
-                objProdMed.setSaldoAtual(valorReal.parse(jSaldoAtual.getText()).floatValue());
-                objProdMed.setTipoInventario(tipoInventario);
-            } catch (ParseException ex) {
-            }
-            objProdMed.setDataSaida(jDataSaida.getDate());
-            objProdMed.setClassificaoFiscal(jClassificacao.getText());
-            objProdMed.setObservacao(jObservacao.getText());
-            objProdMed.setLote(loteProdutos);
-            objProdMed.setQtdLote((float) qtdLote);
-            if (acao == 1) {
-                // VERIFICAR SE O PRODUTO JÁ FOI CADASTRADO, CASO JÁ TENHA SIDO CADASTRADO BLOQUEIA
-                verificarProdutoCadastrado();
-                if (jDescricaoProduto.getText().trim().equals(nomeProdutoAC)) {
-                    JOptionPane.showMessageDialog(rootPane, "Produto já foi cadastrado.");
-                } else {
-                    objProdMed.setUsuarioInsert(nameUser);
-                    objProdMed.setDataInsert(dataModFinal);
-                    objProdMed.setHorarioInsert(horaMov);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaCadastroProdutoAL) && codGravarAL == 1) {
+            DecimalFormat valorReal = new DecimalFormat("###,##00.0");
+            valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
+            if (jComboBoxStatusProduto.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe se o produto está ativo ou inativo.");
+                jComboBoxStatusProduto.requestFocus();
+                jComboBoxStatusProduto.setBackground(Color.red);
+            } else if (jDescricaoGrupo.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a que grupo o produto pertence.");
+            } else if (jDescricaoProduto.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a descrição do produto.");
+                jDescricaoProduto.requestFocus();
+                jDescricaoProduto.setBackground(Color.red);
+            } else if (jComboBoxUnidProduto.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a unidade de armazenamento do produto.");
+                jComboBoxUnidProduto.requestFocus();
+                jComboBoxUnidProduto.setBackground(Color.red);
+            } else if (jLocalMaster.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a localidade de armazenamento do produto.");
+            } else if (jNomeFornecedor.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do fornecedor para esse produto.");
+            } else {
+                objProdMed.setStatusProd((String) jComboBoxStatusProduto.getSelectedItem());
+                objProdMed.setCodigoBarra(jCodigoBarra.getText());
+                objProdMed.setDescricao(jDescricaoProduto.getText());
+                objProdMed.setUnidade((String) jComboBoxUnidProduto.getSelectedItem());
+                objProdMed.setReferencia(jReferencia.getText());
+                objProdMed.setFotoProduto(caminhoFoto);
+                objProdMed.setFotoProduto1(caminhoFoto1);
+                objProdMed.setDataFabricacao(jDataFabricacao.getDate());
+                objProdMed.setDataCompra(jDataCompra.getDate());
+                objProdMed.setDataValidade(jDataValidadeProduto.getDate());
+                objProdMed.setModulo(modulo);
+                objProdMed.setCompoeKit((String)jComboBoxCompoeKit.getSelectedItem());
+                try {
+                    objProdMed.setValorCompra(valorReal.parse(jValorCompraProduto.getText()).floatValue());
+                    objProdMed.setQtdCompra(valorReal.parse(jQtdCompra.getText()).floatValue());
+                    objProdMed.setQtdSaida(valorReal.parse(jQtdSaida.getText()).floatValue());
+                    objProdMed.setAliquotaIcms(valorReal.parse(jAliquotaIcms.getText()).floatValue());
+                    objProdMed.setAliquotaIpi(valorReal.parse(jAliquotaIpi.getText()).floatValue());
+                    //
+                    objProdMed.setEstoqueMaximo(valorReal.parse(jEstoqueMaximo.getText()).floatValue());
+                    objProdMed.setEstoqueMinimo(valorReal.parse(jEstoqueMinimo.getText()).floatValue());
+                    objProdMed.setPontoPedido(valorReal.parse(jPontoPedido.getText()).floatValue());
+                    objProdMed.setSaldoAtual(valorReal.parse(jSaldoAtual.getText()).floatValue());
+                    objProdMed.setTipoInventario(tipoInventario);
+                } catch (ParseException ex) {
+                }
+                objProdMed.setDataSaida(jDataSaida.getDate());
+                objProdMed.setClassificaoFiscal(jClassificacao.getText());
+                objProdMed.setObservacao(jObservacao.getText());
+                objProdMed.setLote(loteProdutos);
+                objProdMed.setQtdLote((float) qtdLote);
+                if (acao == 1) {
+                    // VERIFICAR SE O PRODUTO JÁ FOI CADASTRADO, CASO JÁ TENHA SIDO CADASTRADO BLOQUEIA
+                    verificarProdutoCadastrado();
+                    if (jDescricaoProduto.getText().trim().equals(nomeProdutoAC)) {
+                        JOptionPane.showMessageDialog(rootPane, "Produto já foi cadastrado.");
+                    } else {
+                        objProdMed.setUsuarioInsert(nameUser);
+                        objProdMed.setDataInsert(dataModFinal);
+                        objProdMed.setHorarioInsert(horaMov);
+                        //
+                        objProdMed.setNomeGrupo(jDescricaoGrupo.getText());
+                        objProdMed.setDescricaoFornecedor(jNomeFornecedor.getText());
+                        objProdMed.setNomeLocal(jLocalMaster.getText());
+                        control.incluirProdutoAC(objProdMed);
+                        buscarID();
+                        objProdMed.setIdProd(Integer.valueOf(jIdProduto.getText()));
+                        objProdMed.setIdLocal(codLocal);
+                        controlEst.incluirEstoqueProduto(objProdMed);
+                        // Incluir o produto na tabela de lotes (LOTEPRODUTOS)
+                        // Somente inlui o produto, não altera, as alterações somente a quantidade no inventário.
+                        controleLote.incluirLoteProdutoAC(objProdMed);
+                        // CRIAR PRODUTO PARA CONSULTA NA TABELA HISTORICO_NOVIMENTACAO_ESTOQUE_FAR
+                        objHistMovAC.setIdProd(Integer.valueOf(jIdProduto.getText()));
+                        objHistMovAC.setIdLocal(codLocal);
+                        objHistMovAC.setDescricaoLocal(jLocalMaster.getText());
+                        objHistMovAC.setSaldoAtual((float) qtdLote);
+                        controlHistMov.incluirHistoricoProdutoCadastroAC(objHistMovAC);
+                        //
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        Salvar();
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    }
+                }
+                if (acao == 2) {
+                    objProdMed.setUsuarioUp(nameUser);
+                    objProdMed.setDataUp(dataModFinal);
+                    objProdMed.setHorarioUp(horaMov);
                     //
                     objProdMed.setNomeGrupo(jDescricaoGrupo.getText());
                     objProdMed.setDescricaoFornecedor(jNomeFornecedor.getText());
                     objProdMed.setNomeLocal(jLocalMaster.getText());
-                    control.incluirProdutoAC(objProdMed);
-                    buscarID();
                     objProdMed.setIdProd(Integer.valueOf(jIdProduto.getText()));
-                    objProdMed.setIdLocal(codLocal);
-                    controlEst.incluirEstoqueProduto(objProdMed);
-                    // Incluir o produto na tabela de lotes (LOTEPRODUTOS)
-                    // Somente inlui o produto, não altera, as alterações somente a quantidade no inventário.
-                    controleLote.incluirLoteProdutoAC(objProdMed);
-                    // CRIAR PRODUTO PARA CONSULTA NA TABELA HISTORICO_NOVIMENTACAO_ESTOQUE_FAR
-                    objHistMovAC.setIdProd(Integer.valueOf(jIdProduto.getText()));
-                    objHistMovAC.setIdLocal(codLocal);
-                    objHistMovAC.setDescricaoLocal(jLocalMaster.getText());
-                    objHistMovAC.setSaldoAtual((float) qtdLote);
-                    controlHistMov.incluirHistoricoProdutoCadastroAC(objHistMovAC);
-                    //
+                    control.alterarProdutoAC(objProdMed);
+                    controlEst.alterarEstoqueProduto(objProdMed);
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     Salvar();
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
             }
-            if (acao == 2) {
-                objProdMed.setUsuarioUp(nameUser);
-                objProdMed.setDataUp(dataModFinal);
-                objProdMed.setHorarioUp(horaMov);
-                //
-                objProdMed.setNomeGrupo(jDescricaoGrupo.getText());
-                objProdMed.setDescricaoFornecedor(jNomeFornecedor.getText());
-                objProdMed.setNomeLocal(jLocalMaster.getText());
-                objProdMed.setIdProd(Integer.valueOf(jIdProduto.getText()));
-                control.alterarProdutoAC(objProdMed);
-                controlEst.alterarEstoqueProduto(objProdMed);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
         }
     }//GEN-LAST:event_jBtSalvar1ActionPerformed
 
     private void jBtExcluir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluir1ActionPerformed
         // TODO add your handling code here:
-        verificarProdutoLote(); // Verificar se o produto tem lote para impedir de excluir
-        verificarProdutoSaldoEstoque(); // Verifiar se o produto tem saldo para impedir de excluir.
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
-                JOptionPane.YES_NO_OPTION);
-        if (jIdProduto.getText().equals(codProdutoLote)) {
-            JOptionPane.showMessageDialog(rootPane, "Esse produto não pode ser excluído, existe lote para o mesmo.");
-        } else if (jIdProduto.getText().equals(codProdutoSaldo)) {
-            JOptionPane.showMessageDialog(rootPane, "Esse produto não pode ser excluído, existe saldo de estoque ou já teve movimentação.");
-        } else {
-            if (resposta == JOptionPane.YES_OPTION) {
-                objProdMed.setIdProd(Integer.parseInt(jIdProduto.getText()));
-                control.excluirProdutoAC(objProdMed);
-                controlEst.excluirEstoqueProduto(objProdMed);
-                controlHistMov.excluirHistoricoProdutoAC(objHistMovAC);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                Excluir();
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaCadastroProdutoAL) && codExcluirAL == 1) {
+            verificarProdutoLote(); // Verificar se o produto tem lote para impedir de excluir
+            verificarProdutoSaldoEstoque(); // Verifiar se o produto tem saldo para impedir de excluir.
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (jIdProduto.getText().equals(codProdutoLote)) {
+                JOptionPane.showMessageDialog(rootPane, "Esse produto não pode ser excluído, existe lote para o mesmo.");
+            } else if (jIdProduto.getText().equals(codProdutoSaldo)) {
+                JOptionPane.showMessageDialog(rootPane, "Esse produto não pode ser excluído, existe saldo de estoque ou já teve movimentação.");
+            } else {
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objProdMed.setIdProd(Integer.parseInt(jIdProduto.getText()));
+                    control.excluirProdutoAC(objProdMed);
+                    controlEst.excluirEstoqueProduto(objProdMed);
+                    controlHistMov.excluirHistoricoProdutoAC(objHistMovAC);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    Excluir();
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
         }
     }//GEN-LAST:event_jBtExcluir1ActionPerformed
 
     private void jBtAlterar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterar1ActionPerformed
         // TODO add your handling code here:
-        acao = 2;
-        Alterar();
-        corCampos();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaCadastroProdutoAL) && codAlterarAL == 1) {
+            acao = 2;
+            Alterar();
+            corCampos();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
+        }
     }//GEN-LAST:event_jBtAlterar1ActionPerformed
 
     private void jBtNovo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovo1ActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaCadastroProdutoAL) && codIncluirAL == 1) {
+            acao = 1;
+            limparTabelaLotes();
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
+        }
     }//GEN-LAST:event_jBtNovo1ActionPerformed
 
     private void jBtSair1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSair1ActionPerformed
@@ -2268,6 +2338,7 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
     private javax.swing.JCheckBox jCheckBoxTodosFornecedoresProduto;
     private javax.swing.JFormattedTextField jClassificacao;
     private javax.swing.JFormattedTextField jCodigoBarra;
+    private javax.swing.JComboBox<String> jComboBoxCompoeKit;
     private javax.swing.JComboBox jComboBoxStatusProduto;
     private javax.swing.JComboBox jComboBoxUnidProduto;
     private com.toedter.calendar.JDateChooser jDataCompra;
@@ -2298,6 +2369,7 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
@@ -2422,12 +2494,13 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
         jComboBoxUnidProduto.setSelectedItem("UN");
         jIdGrupo.setText("");
         jDescricaoGrupo.setText("");
-        jReferencia.setText("");
         jFotoProduto.setIcon(null);
         jFotoProduto1.setIcon(null);
         jIdFor.setText("");
         jNomeFornecedor.setText("");
         jDataFabricacao.setCalendar(Calendar.getInstance());
+        jReferencia.setText("");
+        jComboBoxCompoeKit.setSelectedItem("Selecione...");
         //
         jDataCompra.setDate(null);
         jValorCompraProduto.setText("0,00");
@@ -2453,6 +2526,7 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
         jComboBoxUnidProduto.setEnabled(true);
         jBtPesqGrupoMedicamentos.setEnabled(true);
         jReferencia.setEnabled(true);
+        jComboBoxCompoeKit.setEnabled(true);
         jBtPesqFornecedor.setEnabled(true);
         jDataFabricacao.setEnabled(true);
         jBtNovaFoto.setEnabled(true);
@@ -2491,7 +2565,6 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
         jBtExcluir1.setEnabled(!true);
         jBtSalvar1.setEnabled(true);
         jBtCancelar1.setEnabled(true);
-        preencherTabelaLotes("SELECT * FROM LOTE_PRODUTOS_AC WHERE IdProd='" + jIdProduto.getText() + "'");
     }
 
     public void Alterar() {
@@ -2502,6 +2575,7 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
         jComboBoxUnidProduto.setEnabled(true);
         jBtPesqGrupoMedicamentos.setEnabled(true);
         jReferencia.setEnabled(true);
+        jComboBoxCompoeKit.setEnabled(true);
         jBtPesqFornecedor.setEnabled(true);
         jDataFabricacao.setEnabled(true);
         jBtNovaFoto.setEnabled(true);
@@ -2549,6 +2623,7 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
         jIdGrupo.setText("");
         jDescricaoGrupo.setText("");
         jReferencia.setText("");
+        jComboBoxCompoeKit.setSelectedItem(null);
         jFotoProduto.setIcon(null);
         jIdFor.setText("");
         jNomeFornecedor.setText("");
@@ -2578,6 +2653,7 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
         jComboBoxUnidProduto.setEnabled(!true);
         jBtPesqGrupoMedicamentos.setEnabled(!true);
         jReferencia.setEnabled(!true);
+        jComboBoxCompoeKit.setEnabled(!true);
         jBtPesqFornecedor.setEnabled(!true);
         jDataFabricacao.setEnabled(!true);
         jBtNovaFoto.setEnabled(!true);
@@ -2624,6 +2700,7 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
         jComboBoxUnidProduto.setEnabled(!true);
         jBtPesqGrupoMedicamentos.setEnabled(!true);
         jReferencia.setEnabled(!true);
+        jComboBoxCompoeKit.setEnabled(!true);
         jBtPesqFornecedor.setEnabled(!true);
         jDataFabricacao.setEnabled(!true);
         jBtNovaFoto.setEnabled(!true);
@@ -2672,6 +2749,7 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
             jIdGrupo.setText("");
             jDescricaoGrupo.setText("");
             jReferencia.setText("");
+            jComboBoxCompoeKit.setSelectedItem(null);
             jFotoProduto.setIcon(null);
             jIdFor.setText("");
             jNomeFornecedor.setText("");
@@ -2701,6 +2779,7 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
             jComboBoxUnidProduto.setEnabled(!true);
             jBtPesqGrupoMedicamentos.setEnabled(!true);
             jReferencia.setEnabled(!true);
+            jComboBoxCompoeKit.setEnabled(!true);
             jBtPesqFornecedor.setEnabled(!true);
             jDataFabricacao.setEnabled(!true);
             jBtNovaFoto.setEnabled(!true);
@@ -2745,6 +2824,7 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
             jComboBoxUnidProduto.setEnabled(!true);
             jBtPesqGrupoMedicamentos.setEnabled(!true);
             jReferencia.setEnabled(!true);
+            jComboBoxCompoeKit.setEnabled(!true);
             jBtPesqFornecedor.setEnabled(!true);
             jDataFabricacao.setEnabled(!true);
             jBtNovaFoto.setEnabled(!true);
@@ -2787,7 +2867,8 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
     public void verificarProdutoCadastrado() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM PRODUTOS_AC WHERE DescricaoProd='" + jDescricaoProduto.getText() + "'");
+            conecta.executaSQL("SELECT * FROM PRODUTOS_AC "
+                    + "WHERE DescricaoProd='" + jDescricaoProduto.getText() + "'");
             conecta.rs.first();
             nomeProdutoAC = conecta.rs.getString("DescricaoProd");
         } catch (Exception e) {
@@ -2810,7 +2891,8 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
     public void verificarProdutoLote() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM LOTE_PRODUTOS_AC WHERE IdProd='" + jIdProduto.getText() + "'");
+            conecta.executaSQL("SELECT * FROM LOTE_PRODUTOS_AC "
+                    + "WHERE IdProd='" + jIdProduto.getText() + "'");
             conecta.rs.first();
             codProdutoLote = conecta.rs.getString("IdProd");
         } catch (SQLException ex) {
@@ -2822,7 +2904,8 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
     public void verificarProdutoSaldoEstoque() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM SALDO_ESTOQUE_AC WHERE IdProd='" + jIdProduto.getText() + "'");
+            conecta.executaSQL("SELECT * FROM SALDO_ESTOQUE_AC "
+                    + "WHERE IdProd='" + jIdProduto.getText() + "'");
             conecta.rs.first();
             codProdutoSaldo = conecta.rs.getString("IdProd");
         } catch (SQLException ex) {
@@ -2944,6 +3027,23 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
         jTabelaLote.getColumnModel().getColumn(0).setCellRenderer(centralizado);
         jTabelaLote.getColumnModel().getColumn(1).setCellRenderer(direita);
         jTabelaLote.getColumnModel().getColumn(2).setCellRenderer(direita);
+    }
+
+    public void limparTabelaLotes() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Data Vcto.", "Lote", "Quantidade"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaLote.setModel(modelo);
+        jTabelaLote.getColumnModel().getColumn(0).setPreferredWidth(70);
+        jTabelaLote.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaLote.getColumnModel().getColumn(1).setPreferredWidth(70);
+        jTabelaLote.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaLote.getColumnModel().getColumn(2).setPreferredWidth(70);
+        jTabelaLote.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaLote.getTableHeader().setReorderingAllowed(false);
+        jTabelaLote.setAutoResizeMode(jTabelaLote.AUTO_RESIZE_OFF);
+        jTabelaLote.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
     }
 
     public void preencherTabelaHistoricoFornecedor(String sql) {
