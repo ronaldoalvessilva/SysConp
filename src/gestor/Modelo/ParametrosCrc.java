@@ -67,11 +67,13 @@ public class ParametrosCrc {
     private String caminhoExecAntigo;
     private String preLocacaoB1;
     private String preLocacaoB2;
+    private String pHabilitaBaseI;
+    private String pHabilitaBaseII;
 
     public ParametrosCrc() {
     }
 
-    public ParametrosCrc(int idPar, int qtdDias, String qtdHoras, String usuarioAutorizado, String regRetornoPortaria, String regEntradaPortaria, String docAudiencia, String docTrans, String docSaidaTmp, String docLivraPro, String valAudiencia, String valTrans, String valSaidaTmp, String valLivraPro, String docPro, String docAlvara, String valPro, String valAlvara, String usuarioInsert, String usuariosUp, String dataInsert, String dataUp, String horarioUp, String populacaoBgp, String locacaoBgp, String transferenciaBgp, String pavilhaoCelas, String populacaoBpa, String locacaoBpa, String transferenciaBpa, String pavilhaoCelasBpa, String caminhoImagemCrc, String caminhoImagemSS, String caminhoImagemFunc, String localFotoAdvogado, String localFotoVisitasDiversas, String localFotoOficial, String localFotoVisitasInternos, String localFotoColaboradores, String localFotoInternos, String biometriaMedicos, String biometriaEnfermerios, String biometriaTecnicos, String carcereFem, String localPDF_PI, String localPDF_PE, String localPDF_B1, String localPDF_B2, String caminhoAtualizaSis, Date dataVersao, Double numeroVersao, String caminhoExecAntigo, String preLocacaoB1, String preLocacaoB2) {
+    public ParametrosCrc(int idPar, int qtdDias, String qtdHoras, String usuarioAutorizado, String regRetornoPortaria, String regEntradaPortaria, String docAudiencia, String docTrans, String docSaidaTmp, String docLivraPro, String valAudiencia, String valTrans, String valSaidaTmp, String valLivraPro, String docPro, String docAlvara, String valPro, String valAlvara, String usuarioInsert, String usuariosUp, String dataInsert, String dataUp, String horarioUp, String populacaoBgp, String locacaoBgp, String transferenciaBgp, String pavilhaoCelas, String populacaoBpa, String locacaoBpa, String transferenciaBpa, String pavilhaoCelasBpa, String caminhoImagemCrc, String caminhoImagemSS, String caminhoImagemFunc, String localFotoAdvogado, String localFotoVisitasDiversas, String localFotoOficial, String localFotoVisitasInternos, String localFotoColaboradores, String localFotoInternos, String biometriaMedicos, String biometriaEnfermerios, String biometriaTecnicos, String carcereFem, String localPDF_PI, String localPDF_PE, String localPDF_B1, String localPDF_B2, String caminhoAtualizaSis, Date dataVersao, Double numeroVersao, String caminhoExecAntigo, String preLocacaoB1, String preLocacaoB2, String pHabilitaBaseI, String pHabilitaBaseII) {
         this.idPar = idPar;
         this.qtdDias = qtdDias;
         this.qtdHoras = qtdHoras;
@@ -126,6 +128,8 @@ public class ParametrosCrc {
         this.caminhoExecAntigo = caminhoExecAntigo;
         this.preLocacaoB1 = preLocacaoB1;
         this.preLocacaoB2 = preLocacaoB2;
+        this.pHabilitaBaseI = pHabilitaBaseI;
+        this.pHabilitaBaseII = pHabilitaBaseII;
     }
 
     /**
@@ -884,4 +888,32 @@ public class ParametrosCrc {
         this.preLocacaoB2 = preLocacaoB2;
     }
 
+    /**
+     * @return the pHabilitaBaseI
+     */
+    public String getpHabilitaBaseI() {
+        return pHabilitaBaseI;
+    }
+
+    /**
+     * @param pHabilitaBaseI the pHabilitaBaseI to set
+     */
+    public void setpHabilitaBaseI(String pHabilitaBaseI) {
+        this.pHabilitaBaseI = pHabilitaBaseI;
+    }
+
+    /**
+     * @return the pHabilitaBaseII
+     */
+    public String getpHabilitaBaseII() {
+        return pHabilitaBaseII;
+    }
+
+    /**
+     * @param pHabilitaBaseII the pHabilitaBaseII to set
+     */
+    public void setpHabilitaBaseII(String pHabilitaBaseII) {
+        this.pHabilitaBaseII = pHabilitaBaseII;
+    }
+    
 }
