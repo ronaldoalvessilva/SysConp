@@ -168,6 +168,17 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
     //
     String preLocacao = "";
     String confirmaLocacao = "Não";
+    // VARIAVEIS PARA CRIAR ALERTA NAS BASES DOS PAVILHÕES
+    public static int codigoPavilhao = 0;
+    public static String descricaoPavilhao = "";
+    String nivelPavilhao = "";
+    public static String nomePavilhao1 = "PAVILHAO I";
+    public static String nomePavilhao2 = "PAVILHAO A";
+    String confirmarVisitas = "Não";
+    int pBuscaPavilhao1 = 0;
+    String pBuscaConfirmacao = "";
+    String alertaPavilhao = "";
+    String pHabilitado = "Habilitado";
 
     /**
      * Creates new form TelaSeguranca
@@ -1289,6 +1300,7 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
                 verificarRecado(); // Verificar recados a cada 5 minutos   
                 verificarAgendaCompromisso();
                 verificarAlertaTriagem();
+                alertaVisitantes();
             }
         }, periodo, tempo);
     }
@@ -1384,7 +1396,6 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
                 }
             }
         } catch (SQLException ex) {
-            //  JOptionPane.showMessageDialog(rootPane, "Não foi possível verificar mensagem.\nERRO:" + ex);
         }
     }
 
@@ -1433,6 +1444,86 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
         jTabelaTodosRecados.getTableHeader().setReorderingAllowed(false);
         jTabelaTodosRecados.setAutoResizeMode(jTabelaTodosRecados.AUTO_RESIZE_OFF);
         jTabelaTodosRecados.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        conecta.desconecta();
+    }
+
+    public void alertaVisitantes() {
+
+        buscarParamentroVisitas();
+        if (!alertaPavilhao.equals("") && alertaPavilhao.equals(pHabilitado)) {
+            buscarPavilhao(nomePavilhao1, nomePavilhao2);
+            conecta.abrirConexao();
+            try {
+                conecta.abrirConexao();
+                conecta.executaSQL("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
+                        + "INNER JOIN PAVILHAO "
+                        + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
+                        + "WHERE ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
+                        + "AND Confirmacao='" + confirmarVisitas + "'");
+                conecta.rs.first();
+                pBuscaPavilhao1 = conecta.rs.getInt("IdPav");
+                pBuscaConfirmacao = conecta.rs.getString("Confirmacao");
+            } catch (Exception e) {
+            }
+            if (codigoPavilhao == pBuscaPavilhao1 && pBuscaConfirmacao.equals("Não")) {
+                if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB1.equals("ADMINISTRADORES") || codigoUserB1 == codUserAcessoB1 && nomeTelaB1.equals(telaAlertaVisitantesPortariaB1) && codAbrirB1 == 1) {
+                    if (objAlertaVPI == null || objAlertaVPI.isClosed()) {
+                        objAlertaVPI = new TelaAlertaBasesPavilhoes();
+                        jPainelBaseSegurancaPavilhao.add(objAlertaVPI);
+                        objAlertaVPI.setVisible(true);
+                    } else {
+                        if (objAlertaVPI.isVisible()) {
+                            if (objAlertaVPI.isIcon()) { // Se esta minimizado
+                                try {
+                                    objAlertaVPI.setIcon(false); // maximiniza
+                                } catch (PropertyVetoException ex) {
+                                }
+                            } else {
+                                objAlertaVPI.toFront(); // traz para frente
+                                objAlertaVPI.pack();//volta frame
+                            }
+                        } else {
+                            objAlertaVPI = new TelaAlertaBasesPavilhoes();
+                            TelaModuloBaseUm.jPainelBaseSegurancaPavilhao.add(objAlertaVPI);//adicona frame ao JDesktopPane
+                            objAlertaVPI.setVisible(true);
+                        }
+                    }
+                    try {
+                        objAlertaVPI.setSelected(true);
+                    } catch (java.beans.PropertyVetoException e) {
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Existe visitantes chegando no pavilhão, porém você não tem acesso, solicite liberação ao administrador.");
+                }
+            }
+        }
+    }
+
+    public void buscarPavilhao(String descricao, String descricao2) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM PAVILHAO "
+                    + "WHERE DescricaoPav='" + descricao + "' "
+                    + "OR DescricaoPav='" + descricao2 + "'");
+            conecta.rs.first();
+            codigoPavilhao = conecta.rs.getInt("IdPav");
+            descricaoPavilhao = conecta.rs.getString("DescricaoPav");
+        } catch (SQLException ex) {
+
+        }
+        conecta.desconecta();
+    }
+
+    // BUSCAR PARAMETRO PARA ALERTA DOS VISITANTES
+    public void buscarParamentroVisitas() {
+
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM PARAMETROSCRC ");
+            conecta.rs.first();
+            alertaPavilhao = conecta.rs.getString("HabilitarAlertaVisitasBaseI");
+        } catch (SQLException ex) {
+        }
         conecta.desconecta();
     }
 
@@ -1731,4 +1822,5 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
         } catch (SQLException ex) {
         }
     }
+
 }
