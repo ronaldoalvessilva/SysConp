@@ -113,6 +113,8 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jComboBoxCadastroPavilhaoCelas = new javax.swing.JComboBox();
         jLabel49 = new javax.swing.JLabel();
         jComboBoxHabilitarPreLocaB1 = new javax.swing.JComboBox<>();
+        jLabel51 = new javax.swing.JLabel();
+        jComboBoxHabilitarVisitantesBaseI = new javax.swing.JComboBox<>();
         jPanel11 = new javax.swing.JPanel();
         jComboBoxTransferenciaBpa = new javax.swing.JComboBox();
         jComboBoxLocacaoBpa = new javax.swing.JComboBox();
@@ -124,6 +126,8 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jLabel27 = new javax.swing.JLabel();
         jLabel50 = new javax.swing.JLabel();
         jComboBoxHabilitarPreLocaB2 = new javax.swing.JComboBox<>();
+        jLabel52 = new javax.swing.JLabel();
+        jComboBoxHabilitarVisitantesBaseII = new javax.swing.JComboBox<>();
         jPanel12 = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
         jLabel29 = new javax.swing.JLabel();
@@ -655,6 +659,14 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jComboBoxHabilitarPreLocaB1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxHabilitarPreLocaB1.setEnabled(false);
 
+        jLabel51.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel51.setText("Habilitar Alerta Visitas");
+
+        jComboBoxHabilitarVisitantesBaseI.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxHabilitarVisitantesBaseI.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Habilitado", "Desabilitado" }));
+        jComboBoxHabilitarVisitantesBaseI.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxHabilitarVisitantesBaseI.setEnabled(false);
+
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
@@ -668,8 +680,6 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                     .addComponent(jLabel20))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBoxTransferencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxCadastroPavilhaoCelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jComboBoxLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -677,7 +687,16 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jComboBoxHabilitarPreLocaB1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel49))))
+                            .addComponent(jLabel49)))
+                    .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel10Layout.createSequentialGroup()
+                            .addComponent(jComboBoxTransferencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jLabel51))
+                        .addGroup(jPanel10Layout.createSequentialGroup()
+                            .addComponent(jComboBoxCadastroPavilhaoCelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jComboBoxHabilitarVisitantesBaseI, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(31, 31, 31))
         );
 
@@ -698,12 +717,19 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel22)
-                    .addComponent(jComboBoxTransferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jComboBoxCadastroPavilhaoCelas, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel23))
-                .addGap(0, 8, Short.MAX_VALUE))
+                    .addComponent(jComboBoxTransferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel51))
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(jComboBoxCadastroPavilhaoCelas, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel23))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jComboBoxHabilitarVisitantesBaseI, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
         jPanel10Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jComboBoxLocacao, jComboBoxPopulacao, jComboBoxTransferencia});
@@ -750,33 +776,48 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jComboBoxHabilitarPreLocaB2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxHabilitarPreLocaB2.setEnabled(false);
 
+        jLabel52.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel52.setText("Habilitar Alerta Visitas");
+
+        jComboBoxHabilitarVisitantesBaseII.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxHabilitarVisitantesBaseII.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Habilitado", "Desabilitado" }));
+        jComboBoxHabilitarVisitantesBaseII.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxHabilitarVisitantesBaseII.setEnabled(false);
+
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel11Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addComponent(jLabel27)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxCadastroPavilhaoCelasBpa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel24)
-                            .addComponent(jLabel25)
-                            .addComponent(jLabel26))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBoxTransferenciaBpa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBoxLocacaoBpa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBoxPopulacaoBpa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel27, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel24, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel25, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel26, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBoxHabilitarPreLocaB2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel50))
-                .addGap(24, 24, 24))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBoxCadastroPavilhaoCelasBpa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxTransferenciaBpa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel52)
+                            .addComponent(jComboBoxHabilitarVisitantesBaseII, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBoxLocacaoBpa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxPopulacaoBpa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBoxHabilitarPreLocaB2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel50))))
+                .addGap(18, 18, 18))
         );
+
+        jPanel11Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jComboBoxHabilitarPreLocaB2, jComboBoxHabilitarVisitantesBaseII});
+
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
@@ -792,12 +833,14 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel24)
-                    .addComponent(jComboBoxTransferenciaBpa, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jComboBoxTransferenciaBpa, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel52))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jComboBoxCadastroPavilhaoCelasBpa, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel27))
-                .addContainerGap())
+                    .addComponent(jLabel27)
+                    .addComponent(jComboBoxHabilitarVisitantesBaseII, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(5, 5, 5))
         );
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
@@ -807,16 +850,16 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 595, Short.MAX_VALUE)
                     .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 121, Short.MAX_VALUE))
+                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("BASE-I/BASE-II", jPanel9);
@@ -1593,6 +1636,8 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         objParCrc.setCaminhoExecAntigo(jCaminhoExecutavelAntigo.getText());
         objParCrc.setPreLocacaoB1((String) jComboBoxHabilitarPreLocaB1.getSelectedItem());
         objParCrc.setPreLocacaoB2((String) jComboBoxHabilitarPreLocaB2.getSelectedItem());
+        objParCrc.setpHabilitaBaseI((String) jComboBoxHabilitarVisitantesBaseI.getSelectedItem());
+        objParCrc.setpHabilitaBaseII((String) jComboBoxHabilitarVisitantesBaseII.getSelectedItem());
         if (jNomeUsuarioParametros.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do Usuario Autorizado");
         } else {
@@ -1653,6 +1698,8 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox jComboBoxEnfermeiros;
     private javax.swing.JComboBox<String> jComboBoxHabilitarPreLocaB1;
     private javax.swing.JComboBox<String> jComboBoxHabilitarPreLocaB2;
+    private javax.swing.JComboBox<String> jComboBoxHabilitarVisitantesBaseI;
+    private javax.swing.JComboBox<String> jComboBoxHabilitarVisitantesBaseII;
     private javax.swing.JComboBox jComboBoxLocacao;
     private javax.swing.JComboBox jComboBoxLocacaoBpa;
     private javax.swing.JComboBox jComboBoxMedicos;
@@ -1722,6 +1769,8 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
+    private javax.swing.JLabel jLabel51;
+    private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -1854,6 +1903,9 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
             //
             jComboBoxHabilitarPreLocaB1.setSelectedItem(conecta.rs.getString("PreLocacaoB1"));
             jComboBoxHabilitarPreLocaB2.setSelectedItem(conecta.rs.getString("PreLocacaoB2"));
+            //
+            jComboBoxHabilitarVisitantesBaseI.setSelectedItem(conecta.rs.getString("HabilitarAlertaVisitasBaseI"));
+            jComboBoxHabilitarVisitantesBaseII.setSelectedItem(conecta.rs.getString("HabilitarAlertaVisitasBaseII"));
         } catch (SQLException ex) {
         }
         conecta.desconecta();
@@ -1918,6 +1970,9 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         //
         jComboBoxHabilitarPreLocaB1.setEnabled(true);
         jComboBoxHabilitarPreLocaB2.setEnabled(true);
+        //
+        jComboBoxHabilitarVisitantesBaseI.setEnabled(true);
+        jComboBoxHabilitarVisitantesBaseII.setEnabled(true);
         //
         jBtAlterar.setEnabled(!true);
         jBtSalvar.setEnabled(true);
@@ -1984,6 +2039,9 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jComboBoxHabilitarPreLocaB1.setEnabled(!true);
         jComboBoxHabilitarPreLocaB2.setEnabled(!true);
         //
+        jComboBoxHabilitarVisitantesBaseI.setEnabled(!true);
+        jComboBoxHabilitarVisitantesBaseII.setEnabled(!true);
+        //
         jBtAlterar.setEnabled(true);
         jBtSalvar.setEnabled(!true);
         jBtCancelar.setEnabled(!true);
@@ -2028,7 +2086,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         //
         jComboBoxMedicos.setEnabled(!true);
         jComboBoxEnfermeiros.setEnabled(!true);
-        jComboBoxTecnicos.setEnabled(!true);        
+        jComboBoxTecnicos.setEnabled(!true);
         //
         jComboBoxCarcereFem.setEnabled(!true);
         jLocalPDF_P1.setEnabled(!true);
@@ -2043,6 +2101,9 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         //
         jComboBoxHabilitarPreLocaB1.setEnabled(!true);
         jComboBoxHabilitarPreLocaB2.setEnabled(!true);
+        //
+        jComboBoxHabilitarVisitantesBaseI.setEnabled(!true);
+        jComboBoxHabilitarVisitantesBaseII.setEnabled(!true);
         //
         jBtAlterar.setEnabled(true);
         jBtSalvar.setEnabled(!true);
