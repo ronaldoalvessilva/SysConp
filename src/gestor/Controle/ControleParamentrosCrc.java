@@ -29,7 +29,8 @@ public class ControleParamentrosCrc {
                     + "DocAudiencia=?,DocTrans=?,DocSaidaTmp=?,DocLivraPro=?,ValAudiencia=?,Valtrans=?,ValSaidaTmp=?,ValLivraPro=?,DocPro=?,DocAlvara=?,ValPro=?,ValAlvara=?,PopulacaoBgp=?,LocacaoBgp=?,"
                     + "TransferenciaBgp=?,PavilhaoCelaBgp=?,PopulacaoBpa=?,LocacaoBpa=?,TransferenciaBpa=?,PavilhaoCelaBpa=?,CaminhoImagemServicoSocial=?,CaminhoImagemCRCInterno=?,LocalFotosAdvogados=?,"
                     + "LocalFotoVisitasDiversas=?,LocalFotosOficialJustica=?,LocalFotosVisitasInternos=?,LocalFotosInternos=?,LocalFotosColaboradores=?,CaminhoImagemColaboradores=?,BiometriaMedicos=?,"
-                    + "BiometriaEnfermeiros=?,BiometriaTecnicos=?,CarcereFem=?,LocalPDF_PI=?,LocalPDF_PE=?,LocalPDF_B1=?,LocalPDF_B2=?,CaminhoExecutavel=?,DataVersao=?,NumeroVersao=?,PreLocacaoB1=?,PreLocacaoB2=? WHERE IdPar='" + objParCrc.getIdPar() + "'");
+                    + "BiometriaEnfermeiros=?,BiometriaTecnicos=?,CarcereFem=?,LocalPDF_PI=?,LocalPDF_PE=?,LocalPDF_B1=?,LocalPDF_B2=?,CaminhoExecutavel=?,DataVersao=?,NumeroVersao=?,PreLocacaoB1=?,"
+                    + "PreLocacaoB2=?,HabilitarAlertaVisitasBaseI=?,HabilitarAlertaVisitasBaseII=? WHERE IdPar='" + objParCrc.getIdPar() + "'");
             pst.setInt(1, objParCrc.getQtdDias());
             pst.setString(2, objParCrc.getQtdHoras());
             pst.setString(3, objParCrc.getUsuarioAutorizado());
@@ -80,6 +81,8 @@ public class ControleParamentrosCrc {
             pst.setDouble(48, objParCrc.getNumeroVersao());
             pst.setString(49, objParCrc.getPreLocacaoB1());
             pst.setString(50, objParCrc.getPreLocacaoB2());
+            pst.setString(51, objParCrc.getpHabilitaBaseI());
+            pst.setString(52, objParCrc.getpHabilitaBaseII());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO: " + ex);
