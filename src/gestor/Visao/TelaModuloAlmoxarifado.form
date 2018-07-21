@@ -142,10 +142,7 @@
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="RequisicaoMateriaisInternos">
                   <Properties>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="0" green="0" red="ff" type="rgb"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="(Kit de Internos) - Requisi&#xe7;&#xe3;o de Materiais para Internos"/>
+                    <Property name="text" type="java.lang.String" value="Requisi&#xe7;&#xe3;o de Materiais para Internos"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RequisicaoMateriaisInternosActionPerformed"/>

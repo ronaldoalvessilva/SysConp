@@ -393,8 +393,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
 
         jMenu4.setText("Saída de Materiais");
 
-        RequisicaoMateriaisInternos.setForeground(new java.awt.Color(255, 0, 0));
-        RequisicaoMateriaisInternos.setText("(Kit de Internos) - Requisição de Materiais para Internos");
+        RequisicaoMateriaisInternos.setText("Requisição de Materiais para Internos");
         RequisicaoMateriaisInternos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RequisicaoMateriaisInternosActionPerformed(evt);
