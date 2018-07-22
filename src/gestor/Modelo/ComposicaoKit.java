@@ -12,23 +12,34 @@ import java.util.Date;
  * @author ronal
  */
 public class ComposicaoKit {
-        private int idRegistroComp;
-	private String statusComp;
-	private Date dataComp;
-	private String usuarioInsert;
-	private String usuarioUp;
-	private String dataInsert;
-	private String dataUp;
-	private String horarioInsert;
-	private String horarioUp;
+
+    private int idRegistroComp;
+    private String statusComp;
+    private Date dataComp;
+    private int idKit;
+    private int idItem;
+    private int idFunc;
+    private String nomeColaborador;
+    private String observacao;
+    private String usuarioInsert;
+    private String usuarioUp;
+    private String dataInsert;
+    private String dataUp;
+    private String horarioInsert;
+    private String horarioUp;
 
     public ComposicaoKit() {
     }
 
-    public ComposicaoKit(int idRegistroComp, String statusComp, Date dataComp, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
+    public ComposicaoKit(int idRegistroComp, String statusComp, Date dataComp, int idKit, int idItem, int idFunc, String nomeColaborador, String observacao, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
         this.idRegistroComp = idRegistroComp;
         this.statusComp = statusComp;
         this.dataComp = dataComp;
+        this.idKit = idKit;
+        this.idItem = idItem;
+        this.idFunc = idFunc;
+        this.nomeColaborador = nomeColaborador;
+        this.observacao = observacao;
         this.usuarioInsert = usuarioInsert;
         this.usuarioUp = usuarioUp;
         this.dataInsert = dataInsert;
@@ -77,6 +88,76 @@ public class ComposicaoKit {
      */
     public void setDataComp(Date dataComp) {
         this.dataComp = dataComp;
+    }
+
+    /**
+     * @return the idKit
+     */
+    public int getIdKit() {
+        return idKit;
+    }
+
+    /**
+     * @param idKit the idKit to set
+     */
+    public void setIdKit(int idKit) {
+        this.idKit = idKit;
+    }
+
+    /**
+     * @return the idItem
+     */
+    public int getIdItem() {
+        return idItem;
+    }
+
+    /**
+     * @param idItem the idItem to set
+     */
+    public void setIdItem(int idItem) {
+        this.idItem = idItem;
+    }
+
+    /**
+     * @return the idFunc
+     */
+    public int getIdFunc() {
+        return idFunc;
+    }
+
+    /**
+     * @param idFunc the idFunc to set
+     */
+    public void setIdFunc(int idFunc) {
+        this.idFunc = idFunc;
+    }
+
+    /**
+     * @return the nomeColaborador
+     */
+    public String getNomeColaborador() {
+        return nomeColaborador;
+    }
+
+    /**
+     * @param nomeColaborador the nomeColaborador to set
+     */
+    public void setNomeColaborador(String nomeColaborador) {
+        this.nomeColaborador = nomeColaborador;
+    }
+
+    /**
+     * @return the observacao
+     */
+    public String getObservacao() {
+        return observacao;
+    }
+
+    /**
+     * @param observacao the observacao to set
+     */
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
     }
 
     /**
@@ -162,5 +243,5 @@ public class ComposicaoKit {
     public void setHorarioUp(String horarioUp) {
         this.horarioUp = horarioUp;
     }
-        
+
 }
