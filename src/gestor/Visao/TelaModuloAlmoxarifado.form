@@ -145,7 +145,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="0" red="cc" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Montagem de Pagamento Kit de Internos"/>
+                    <Property name="text" type="java.lang.String" value="Montagem de Pagamento Kit de Internos - Em Lote"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MontagemKitInternosActionPerformed"/>
@@ -153,7 +153,10 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="RequisicaoMateriaisInternos">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Requisi&#xe7;&#xe3;o de Materiais para Internos"/>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="cc" green="0" red="0" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Kit de Higiene de Internos - Individual"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RequisicaoMateriaisInternosActionPerformed"/>

@@ -396,7 +396,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         jMenu4.setText("Saída de Materiais");
 
         MontagemKitInternos.setForeground(new java.awt.Color(204, 0, 0));
-        MontagemKitInternos.setText("Montagem de Pagamento Kit de Internos");
+        MontagemKitInternos.setText("Montagem de Pagamento Kit de Internos - Em Lote");
         MontagemKitInternos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MontagemKitInternosActionPerformed(evt);
@@ -404,7 +404,8 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         });
         jMenu4.add(MontagemKitInternos);
 
-        RequisicaoMateriaisInternos.setText("Requisição de Materiais para Internos");
+        RequisicaoMateriaisInternos.setForeground(new java.awt.Color(0, 0, 204));
+        RequisicaoMateriaisInternos.setText("Kit de Higiene de Internos - Individual");
         RequisicaoMateriaisInternos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RequisicaoMateriaisInternosActionPerformed(evt);
