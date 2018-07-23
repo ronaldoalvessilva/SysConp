@@ -87,7 +87,7 @@ public class ControleComposicaoKit {
     public void buscarColaborador(String nome, int codigo) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM COLABORADOR WHERE NomeFunc=" + nome + "'AND IdFunc='" + codigo + "'");
+            conecta.executaSQL("SELECT * FROM COLABORADOR WHERE NomeFunc='" + nome + "'AND IdFunc='" + codigo + "'");
             conecta.rs.first();
             codFunc = conecta.rs.getInt("IdFunc");
         } catch (Exception e) {
