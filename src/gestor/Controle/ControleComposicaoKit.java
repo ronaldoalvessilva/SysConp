@@ -26,7 +26,7 @@ public class ControleComposicaoKit {
         buscarColaborador(objComp.getNomeColaborador(), objComp.getIdFunc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO COMPOSICAO_PAGAMENTO_KIT_INTERNOS (StatusComp,DataComp,IdKit,IdItem,IdFunc,Observacao,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE (StatusComp,DataComp,IdKit,IdItem,IdFunc,Observacao,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?)");
             pst.setString(1, objComp.getStatusComp());
             pst.setTimestamp(2, new java.sql.Timestamp(objComp.getDataComp().getTime()));
             pst.setInt(3, objComp.getIdKit());
@@ -48,7 +48,7 @@ public class ControleComposicaoKit {
         buscarColaborador(objComp.getNomeColaborador(), objComp.getIdFunc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE COMPOSICAO_PAGAMENTO_KIT_INTERNOS SET StatusComp=?,DataComp=?,IdKit=?,IdItem=?,IdFunc=?,Observacao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdRegistroComp='" + objComp.getIdRegistroComp() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE SET StatusComp=?,DataComp=?,IdKit=?,IdItem=?,IdFunc=?,Observacao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdRegistroComp='" + objComp.getIdRegistroComp() + "'");
             pst.setString(1, objComp.getStatusComp());
             pst.setTimestamp(2, new java.sql.Timestamp(objComp.getDataComp().getTime()));
             pst.setInt(3, objComp.getIdKit());
@@ -70,7 +70,7 @@ public class ControleComposicaoKit {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS WHERE IdRegistroComp='" + objComp.getIdRegistroComp() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE WHERE IdRegistroComp='" + objComp.getIdRegistroComp() + "'");
             pst.setString(1, objComp.getStatusComp());
             pst.setTimestamp(2, new java.sql.Timestamp(objComp.getDataComp().getTime()));
             pst.setString(3, objComp.getUsuarioInsert());
