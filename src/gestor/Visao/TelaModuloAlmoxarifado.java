@@ -140,7 +140,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     public static String telaMovimentacaoSolicitacaoManuAL = "Movimentação:Solicitação de Materiais:Manutenção";
     public static String telaMovimentacaoSolicitacaoItensAL = "Movimentação:Solicitação de Materiais:Itens";
     //
-    public static String telaMontagemPagamentoKitAL = "Movimentação:Montagem de Kit de Internos:Manutenção";
+    public static String telaMontagemPagamentoKitAL = "Movimentação:Montagem de Kit de Higiene de Internos:Dados Iniciais";
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
     // MENU CADASTRO
     String pNomeCF = "";
