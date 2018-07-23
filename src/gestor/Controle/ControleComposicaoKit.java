@@ -55,9 +55,9 @@ public class ControleComposicaoKit {
             pst.setInt(4, objComp.getIdItem());
             pst.setInt(5, codFunc);
             pst.setString(6, objComp.getObservacao());
-            pst.setString(7, objComp.getUsuarioInsert());
-            pst.setString(8, objComp.getDataInsert());
-            pst.setString(9, objComp.getHorarioInsert());
+            pst.setString(7, objComp.getUsuarioUp());
+            pst.setString(8, objComp.getDataUp());
+            pst.setString(9, objComp.getHorarioUp());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR registro.\nERRO: " + ex);
