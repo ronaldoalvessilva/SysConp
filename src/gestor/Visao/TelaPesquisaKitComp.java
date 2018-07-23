@@ -8,6 +8,7 @@ package gestor.Visao;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.codigoPesquisaKit;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.codigoPesquisaKitItem;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jRBtKitAnual;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jRBtKitDecendial;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jRBtKitInicial;
@@ -331,6 +332,7 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
                             + "WHERE PRODUTOS_KITS_HIGIENE_INTERNO.IdKit='" + IdKit + "' "
                             + "AND KitInicial='" + kitInicial + "'");
                     conecta.rs.first();
+                    codigoPesquisaKitItem = conecta.rs.getInt("IdItem");
                     codigoPesquisaKit = conecta.rs.getInt("IdKit");
                     kitInicial = conecta.rs.getInt("KitInicial");
                     if (kitInicial == 1) {
@@ -352,6 +354,7 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
                             + "WHERE PRODUTOS_KITS_HIGIENE_INTERNO.IdKit='" + IdKit + "' "
                             + "AND KitQuinzenal='" + kitQuinzenal + "'");
                     conecta.rs.first();
+                    codigoPesquisaKitItem = conecta.rs.getInt("IdItem");
                     codigoPesquisaKit = conecta.rs.getInt("IdKit");
                     kitQuinzenal = conecta.rs.getInt("KitQuinzenal");
                     conecta.desconecta();
@@ -375,6 +378,7 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
                             + "WHERE PRODUTOS_KITS_HIGIENE_INTERNO.IdKit='" + IdKit + "' "
                             + "AND KitMensal='" + kitMensal + "'");
                     conecta.rs.first();
+                    codigoPesquisaKitItem = conecta.rs.getInt("IdItem");
                     codigoPesquisaKit = conecta.rs.getInt("IdKit");
                     kitMensal = conecta.rs.getInt("KitMensal");
                     if (kitMensal == 1) {
@@ -396,6 +400,7 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
                             + "WHERE PRODUTOS_KITS_HIGIENE_INTERNO.IdKit='" + IdKit + "' "
                             + "AND KitDecendial='" + kitDecendial + "'");
                     conecta.rs.first();
+                    codigoPesquisaKitItem = conecta.rs.getInt("IdItem");
                     codigoPesquisaKit = conecta.rs.getInt("IdKit");
                     kitDecendial = conecta.rs.getInt("KitDecendial");
                     if (kitDecendial == 1) {
@@ -417,6 +422,7 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
                             + "WHERE PRODUTOS_KITS_HIGIENE_INTERNO.IdKit='" + IdKit + "' "
                             + "AND KitSemestral='" + kitSemestral + "'");
                     conecta.rs.first();
+                    codigoPesquisaKitItem = conecta.rs.getInt("IdItem");
                     codigoPesquisaKit = conecta.rs.getInt("IdKit");
                     kitSemestral = conecta.rs.getInt("KitSemestral");
                     if (kitSemestral == 1) {
@@ -438,6 +444,7 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
                             + "WHERE PRODUTOS_KITS_HIGIENE_INTERNO.IdKit='" + IdKit + "' "
                             + "AND KitAnual='" + kitAnual + "'");
                     conecta.rs.first();
+                    codigoPesquisaKitItem = conecta.rs.getInt("IdItem");
                     codigoPesquisaKit = conecta.rs.getInt("IdKit");
                     kitAnual = conecta.rs.getInt("KitAnual");
                     if (kitAnual == 1) {
@@ -634,7 +641,7 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
         jTabelaProdutosKit.getColumnModel().getColumn(0).setResizable(false);
         jTabelaProdutosKit.getColumnModel().getColumn(1).setPreferredWidth(70);
         jTabelaProdutosKit.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaProdutosKit.getColumnModel().getColumn(2).setPreferredWidth(50);
+        jTabelaProdutosKit.getColumnModel().getColumn(2).setPreferredWidth(70);
         jTabelaProdutosKit.getColumnModel().getColumn(2).setResizable(false);
         jTabelaProdutosKit.getColumnModel().getColumn(3).setPreferredWidth(300);
         jTabelaProdutosKit.getColumnModel().getColumn(3).setResizable(false);
@@ -658,7 +665,7 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
         jTabelaProdutosKit.getColumnModel().getColumn(0).setResizable(false);
         jTabelaProdutosKit.getColumnModel().getColumn(1).setPreferredWidth(70);
         jTabelaProdutosKit.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaProdutosKit.getColumnModel().getColumn(2).setPreferredWidth(50);
+        jTabelaProdutosKit.getColumnModel().getColumn(2).setPreferredWidth(70);
         jTabelaProdutosKit.getColumnModel().getColumn(2).setResizable(false);
         jTabelaProdutosKit.getColumnModel().getColumn(3).setPreferredWidth(300);
         jTabelaProdutosKit.getColumnModel().getColumn(3).setResizable(false);
