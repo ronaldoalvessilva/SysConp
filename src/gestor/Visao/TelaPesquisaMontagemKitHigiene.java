@@ -28,6 +28,7 @@ import static gestor.Visao.TelaMontagemPagamentoKitInterno.jIdFunc;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jIdRegistroComp;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jNomeColaborador;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jObservacao;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jRBtKitSemestral;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jStatusComp;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -164,51 +165,27 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
 
         jRBtKitInicialp.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jRBtKitInicialp.setText("Inicial");
-        jRBtKitInicialp.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jRBtKitInicialpItemStateChanged(evt);
-            }
-        });
+        jRBtKitInicialp.setEnabled(false);
 
         jRBtKitQuinzenalp.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jRBtKitQuinzenalp.setText("Quinzenal");
-        jRBtKitQuinzenalp.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jRBtKitQuinzenalpItemStateChanged(evt);
-            }
-        });
+        jRBtKitQuinzenalp.setEnabled(false);
 
         jRBtKitMensalp.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jRBtKitMensalp.setText("Mensal");
-        jRBtKitMensalp.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jRBtKitMensalpItemStateChanged(evt);
-            }
-        });
+        jRBtKitMensalp.setEnabled(false);
 
         jRBtKitDecendialp.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jRBtKitDecendialp.setText("Decendial");
-        jRBtKitDecendialp.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jRBtKitDecendialpItemStateChanged(evt);
-            }
-        });
+        jRBtKitDecendialp.setEnabled(false);
 
         jRBtKitSemestralp.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jRBtKitSemestralp.setText("Semestral");
-        jRBtKitSemestralp.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jRBtKitSemestralpItemStateChanged(evt);
-            }
-        });
+        jRBtKitSemestralp.setEnabled(false);
 
         jRBtKitAnualp.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jRBtKitAnualp.setText("Anual");
-        jRBtKitAnualp.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jRBtKitAnualpItemStateChanged(evt);
-            }
-        });
+        jRBtKitAnualp.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -423,74 +400,9 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jRBtKitInicialpItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRBtKitInicialpItemStateChanged
-        // TODO add your handling code here:
-        count = 0;
-        if (evt.getStateChange() == evt.SELECTED) {
-//            preencherTabelaItensKit("SELECT * FROM PRODUTOS_KITS_HIGIENE_INTERNO "
-//                    + "INNER JOIN PRODUTOS_AC "
-//                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-//                    + "WHERE KitInicial='" + codigoPesquisaKit + "'");
-        }
-    }//GEN-LAST:event_jRBtKitInicialpItemStateChanged
-
-    private void jRBtKitDecendialpItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRBtKitDecendialpItemStateChanged
-        // TODO add your handling code here:
-        count = 0;
-        if (evt.getStateChange() == evt.SELECTED) {
-//            preencherTabelaItensKit("SELECT * FROM PRODUTOS_KITS_HIGIENE_INTERNO "
-//                    + "INNER JOIN PRODUTOS_AC "
-//                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-//                    + "WHERE KitDecendial='" + codigoPesquisaKit + "'");
-        }
-    }//GEN-LAST:event_jRBtKitDecendialpItemStateChanged
-
-    private void jRBtKitQuinzenalpItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRBtKitQuinzenalpItemStateChanged
-        // TODO add your handling code here:
-        count = 0;
-//        if (evt.getStateChange() == evt.SELECTED) {
-//            preencherTabelaItensKit("SELECT * FROM PRODUTOS_KITS_HIGIENE_INTERNO "
-//                    + "INNER JOIN PRODUTOS_AC "
-//                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-//                    + "WHERE KitQuinzenal='" + codigoPesquisaKit + "'");
-//        }
-    }//GEN-LAST:event_jRBtKitQuinzenalpItemStateChanged
-
-    private void jRBtKitSemestralpItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRBtKitSemestralpItemStateChanged
-        // TODO add your handling code here:
-        count = 0;
-//        if (evt.getStateChange() == evt.SELECTED) {
-//            preencherTabelaItensKit("SELECT * FROM PRODUTOS_KITS_HIGIENE_INTERNO "
-//                    + "INNER JOIN PRODUTOS_AC "
-//                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-//                    + "WHERE KitSemestral='" + codigoPesquisaKit + "'");
-//        }
-    }//GEN-LAST:event_jRBtKitSemestralpItemStateChanged
-
-    private void jRBtKitAnualpItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRBtKitAnualpItemStateChanged
-        // TODO add your handling code here:
-        count = 0;
-//        if (evt.getStateChange() == evt.SELECTED) {
-//            preencherTabelaItensKit("SELECT * FROM PRODUTOS_KITS_HIGIENE_INTERNO "
-//                    + "INNER JOIN PRODUTOS_AC "
-//                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-//                    + "WHERE KitAnual='" + codigoPesquisaKit + "'");
-//        }
-    }//GEN-LAST:event_jRBtKitAnualpItemStateChanged
-
-    private void jRBtKitMensalpItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRBtKitMensalpItemStateChanged
-        // TODO add your handling code here:
-        count = 0;
-        if (evt.getStateChange() == evt.SELECTED) {
-//            preencherTabelaItensKit("SELECT * FROM PRODUTOS_KITS_HIGIENE_INTERNO "
-//                    + "INNER JOIN PRODUTOS_AC "
-//                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-//                    + "WHERE KitMensal='" + codigoPesquisaKit + "'");
-        }
-    }//GEN-LAST:event_jRBtKitMensalpItemStateChanged
-
     private void jBtPesquisaCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaCodigoActionPerformed
         // TODO add your handling code here:
+        count = 0;
         if (jCodigoRegistro.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o código do Registro para pesquisa.");
         } else {
@@ -511,6 +423,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
 
     private void jBtPesquisaDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaDataActionPerformed
         // TODO add your handling code here:
+        count = 0;
         flag = 1;
         if (jDataPesqInicial.getDate() == null) {
             JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
@@ -546,6 +459,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
 
     private void jCheckBoxTodosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxTodosItemStateChanged
         // TODO add your handling code here:
+        count = 0;
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
             this.preencherTabelaRegistrosMontagemKits("SELECT * FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
@@ -561,6 +475,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                     + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd");
         } else {
             limparTabela();
+            jtotalRegistros.setText("");
         }
     }//GEN-LAST:event_jCheckBoxTodosItemStateChanged
 
@@ -569,7 +484,48 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
         flag = 1;
         if (flag == 1) {
             idLanc = "" + TabelaRegistrosMontagemKits.getValueAt(TabelaRegistrosMontagemKits.getSelectedRow(), 0);
+            jCodigoRegistro.setText(idLanc);
             idKit = "" + TabelaRegistrosMontagemKits.getValueAt(TabelaRegistrosMontagemKits.getSelectedRow(), 2);
+            if (kitInicial == 1) {
+                jRBtKitInicialp.setSelected(true);
+            } else if (kitInicial == 0) {
+                jRBtKitInicialp.setSelected(!true);
+            }
+            if (kitQuinzenal == 1) {
+                jRBtKitQuinzenal.setSelected(true);
+                jRBtKitQuinzenalp.setSelected(true);
+            } else if (kitQuinzenal == 0) {
+                jRBtKitQuinzenal.setSelected(!true);
+                jRBtKitQuinzenalp.setSelected(!true);
+            }
+            if (kitMensal == 1) {
+                jRBtKitMensal.setSelected(true);
+                jRBtKitMensalp.setSelected(true);
+            } else if (kitMensal == 0) {
+                jRBtKitMensal.setSelected(!true);
+                jRBtKitMensalp.setSelected(!true);
+            }
+            if (kitDecendial == 1) {
+                jRBtKitDecendial.setSelected(true);
+                jRBtKitDecendialp.setSelected(true);
+            } else if (kitDecendial == 0) {
+                jRBtKitDecendial.setSelected(!true);
+                jRBtKitDecendialp.setSelected(!true);
+            }
+            if (kitSemestral == 1) {
+                jRBtKitSemestral.setSelected(true);
+                jRBtKitSemestralp.setSelected(true);
+            } else if (kitSemestral == 0) {
+                jRBtKitSemestral.setSelected(!true);
+                jRBtKitSemestralp.setSelected(!true);
+            }
+            if (kitAnual == 1) {
+                jRBtKitAnual.setSelected(true);
+                jRBtKitAnualp.setSelected(true);
+            } else if (kitAnual == 0) {
+                jRBtKitAnual.setSelected(!true);
+                jRBtKitAnualp.setSelected(!true);
+            }
         }
     }//GEN-LAST:event_TabelaRegistrosMontagemKitsMouseClicked
 
@@ -809,9 +765,9 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                     codigoPesquisaKit = conecta.rs.getInt("IdKit");
                     kitSemestral = conecta.rs.getInt("KitSemestral");
                     if (kitSemestral == 1) {
-                        jRBtKitSemestralp.setSelected(true);
+                        jRBtKitSemestral.setSelected(true);
                     } else if (kitSemestral == 0) {
-                        jRBtKitSemestralp.setSelected(!true);
+                        jRBtKitSemestral.setSelected(!true);
                     }
                     jIdFunc.setText(String.valueOf(conecta.rs.getInt("IdFunc")));
                     jNomeColaborador.setText(conecta.rs.getString("NomeFunc"));
@@ -839,7 +795,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
             } else if (kitAnual == 1) {
                 conecta.abrirConexao();
                 try {
-                   conecta.executaSQL("SELECT * FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
+                    conecta.executaSQL("SELECT * FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
                             + "INNER JOIN COLABORADOR "
                             + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdFunc=COLABORADOR.IdFunc "
                             + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
@@ -974,7 +930,9 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
         try {
             conecta.executaSQL(sql);
             conecta.rs.first();
+            count = 0;
             do {
+                count = count + 1;
                 dataEmissao = conecta.rs.getString("DataComp");
                 String dia = dataEmissao.substring(8, 10);
                 String mes = dataEmissao.substring(5, 7);
@@ -1000,6 +958,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                 } else if (kitSemestral == 1) {
                     nomeKit = "Kit Semestral";
                 }
+                jtotalRegistros.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela 
                 dados.add(new Object[]{conecta.rs.getInt("IdRegistroComp"), dataEmissao, conecta.rs.getInt("IdKit"), nomeKit, conecta.rs.getString("IdFunc"), conecta.rs.getString("NomeFunc"), conecta.rs.getString("Observacao")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
