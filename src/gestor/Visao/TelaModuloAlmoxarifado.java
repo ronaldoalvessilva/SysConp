@@ -141,6 +141,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     public static String telaMovimentacaoSolicitacaoItensAL = "Movimentação:Solicitação de Materiais:Itens";
     //
     public static String telaMontagemPagamentoKitAL = "Movimentação:Montagem de Kit de Higiene de Internos:Dados Iniciais";
+    public static String telaMontagemPagamentoKitPavIntAL = "Movimentação:Montagem de Kit de Higiene de Internos:Pavilhão/Internos";
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
     // MENU CADASTRO
     String pNomeCF = "";
@@ -165,9 +166,10 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     String pNomeSCM = "";
     String pNomeSCI = "";
     String pNomeMPKI = "";
+    String pNomeMPKPI = "";
 
-    //pNomeMKI
-//   telaMontagemPagamentoKitAL
+    //pNomeMPKPI
+//   telaMontagemPagamentoKitPavIntAL
     //
     public static int codigoUserAL = 0;
     public static int codUserAcessoAL = 0;
@@ -1697,6 +1699,13 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
             pNomeMPKI = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaMontagemPagamentoKitPavIntAL + "'");
+            conecta.rs.first();
+            pNomeMPKPI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // CADASTRO
         if (!pNomeCF.equals(telaCadastroFornecedoresAL) || pNomeCF == null || pNomeCF.equals("")) {
             buscarCodigoModulo();
@@ -1817,6 +1826,12 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaMontagemPagamentoKitAL);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeMPKPI.equals(telaMontagemPagamentoKitPavIntAL) || pNomeMPKPI == null || pNomeMPKPI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaMontagemPagamentoKitPavIntAL);
             controle.incluirTelaAcesso(objCadastroTela);
         }
     }
