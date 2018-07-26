@@ -873,7 +873,7 @@ public class TelaTransfInterno extends javax.swing.JInternalFrame {
 
         jBtExportarProntuarios.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtExportarProntuarios.setForeground(new java.awt.Color(0, 0, 255));
-        jBtExportarProntuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Copy-16x16.png"))); // NOI18N
+        jBtExportarProntuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/upload-16.png"))); // NOI18N
         jBtExportarProntuarios.setText("Expo.");
         jBtExportarProntuarios.setToolTipText("Exportar Prontuários de Internos");
         jBtExportarProntuarios.addActionListener(new java.awt.event.ActionListener() {
