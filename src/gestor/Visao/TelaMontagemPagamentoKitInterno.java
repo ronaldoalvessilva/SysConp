@@ -6,7 +6,6 @@
 package gestor.Visao;
 
 import gestor.Controle.ControleComposicaoKit;
-import static gestor.Controle.ControleItensRegSaidaInternos.qtdInternos;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControlePavilhaoInternosMontaKit;
 import gestor.Dao.ConexaoBancoDados;
@@ -14,6 +13,7 @@ import gestor.Dao.ModeloTabela;
 import gestor.Modelo.ComposicaoKit;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.PavilhaoInternoMontaKit;
+import gestor.Modelo.PavilhaoInternosMontagemKit;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloAlmoxarifado.codAlterarAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.codExcluirAL;
@@ -51,13 +51,15 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     ComposicaoKit objComp = new ComposicaoKit();
     ControleComposicaoKit control = new ControleComposicaoKit();
     //
+    PavilhaoInternosMontagemKit objPavInt = new PavilhaoInternosMontagemKit();
     ControlePavilhaoInternosMontaKit controle = new ControlePavilhaoInternosMontaKit();
     //   
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
-    String nomeModuloTela = "Almoxarifado:Montagem de Pagamento do Kit de Interno:Dados Iniciais";
-    String nomeModuloTela2 = "Almoxarifado:Montagem de Pagamento do Kit de Interno:Geral";
+    String nomeModuloTela = "Almoxarifado:Montagem de Pagamento do Kit de Interno:Dados Iniciais/Geral";
+    String nomeModuloTela2 = "Almoxarifado:Montagem de Pagamento do Kit de Interno:Pavilhão/Internos";
+    String nomeModuloTela3 = "Almoxarifado:Montagem de Pagamento do Kit de Interno:Composição Kit";
     //
     int flag = 0;
     int acao = 0;
@@ -86,13 +88,14 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public static int codigoPesquisaKit = 0;
     public static int codigoPesquisaKitItem = 0;
     // ABA PAVILHÃO/INTERNOS
-    int codigoPavilhao = 0;
+    public static int codigoPavilhao = 0;
     String situacaoEntrada = "ENTRADA NA UNIDADE";
     String situacaoRetorno = "RETORNO A UNIDADE";
     String idInterno;
     String cncInterno;
     String nomeInterno;
     public static int qtdInternos = 0;
+    int idRegPavInt = 0;
 
     /**
      * Creates new form TelaMontagemPagamentoKitInterno
@@ -100,6 +103,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public static TelaPesquisaKitComp pesqKit;
     public static TelaPesquisaColaboradorMontagemKitAL pesqCola;
     public static TelaPesquisaMontagemKitHigiene pesqMontaReg;
+    public static TelaConsultaEstoqueMontagemKit pesqSaldoEstoque;
 
     public TelaMontagemPagamentoKitInterno() {
         super();
@@ -122,6 +126,11 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public void mostrarPesquisas() {
         pesqMontaReg = new TelaPesquisaMontagemKitHigiene(this, true);
         pesqMontaReg.setVisible(true);
+    }
+
+    public void mostraEstoque() {
+        pesqSaldoEstoque = new TelaConsultaEstoqueMontagemKit(this, true);
+        pesqSaldoEstoque.setVisible(true);
     }
 
     /**
@@ -191,10 +200,10 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jBtSelecionarTodosInternos = new javax.swing.JButton();
         jBtSalvarPavInternos = new javax.swing.JButton();
         jBtAuditoriaPavInternos = new javax.swing.JButton();
-        jBtAlterarPavilhaoInterno = new javax.swing.JButton();
         jBtCancelarPavilhaoInterno = new javax.swing.JButton();
         jBtExcluirUmInterno = new javax.swing.JButton();
         jBtExcluirTodosInternos = new javax.swing.JButton();
+        jBtSaldoEstoque = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTabelaInternosSelecionados = new javax.swing.JTable();
@@ -206,21 +215,21 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jPanel16 = new javax.swing.JPanel();
         jPanel17 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        jTabelaProduto = new javax.swing.JTable();
         jPanel18 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        jCodigoProd = new javax.swing.JTextField();
+        jUnidadeProd = new javax.swing.JTextField();
+        jDescricaoProd = new javax.swing.JTextField();
+        jQuantidadeProd = new javax.swing.JFormattedTextField();
         jPanel39 = new javax.swing.JPanel();
         jPanel40 = new javax.swing.JPanel();
         jLabel70 = new javax.swing.JLabel();
         jPanel41 = new javax.swing.JPanel();
-        jtotalProdutosKit1 = new javax.swing.JLabel();
+        jtotalProdutosKitInternos = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jButton21 = new javax.swing.JButton();
         jButton22 = new javax.swing.JButton();
@@ -361,7 +370,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jTabelaGeralProdutosKit.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaGeralProdutosKit.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Descrição Produtos", "Un.", "Quant."
@@ -530,7 +539,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel5)
                                     .addComponent(jLabel6))
-                                .addGap(0, 237, Short.MAX_VALUE)))
+                                .addGap(0, 221, Short.MAX_VALUE)))
                         .addGap(10, 10, 10))
                     .addGroup(jPanel13Layout.createSequentialGroup()
                         .addComponent(jIdFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -796,7 +805,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jPanel31.setLayout(jPanel31Layout);
         jPanel31Layout.setHorizontalGroup(
             jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 144, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanel31Layout.setVerticalGroup(
             jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -810,7 +819,9 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -838,8 +849,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -855,6 +866,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jBtNovoPavInternos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
         jBtNovoPavInternos.setText("Novo");
         jBtNovoPavInternos.setEnabled(false);
+        jBtNovoPavInternos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jBtNovoPavInternos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtNovoPavInternosActionPerformed(evt);
@@ -864,6 +876,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jBtExcluirPavInternos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
         jBtExcluirPavInternos.setText("Excluir");
         jBtExcluirPavInternos.setEnabled(false);
+        jBtExcluirPavInternos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jBtExcluirPavInternos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtExcluirPavInternosActionPerformed(evt);
@@ -872,7 +885,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
         jBtSelecionarUmInterno.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtSelecionarUmInterno.setForeground(new java.awt.Color(0, 102, 0));
-        jBtSelecionarUmInterno.setText(">");
+        jBtSelecionarUmInterno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/250718131515_16.png"))); // NOI18N
         jBtSelecionarUmInterno.setToolTipText("Adicionar interno selecionado na tabela a direita");
         jBtSelecionarUmInterno.setEnabled(false);
         jBtSelecionarUmInterno.addActionListener(new java.awt.event.ActionListener() {
@@ -883,7 +896,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
         jBtSelecionarTodosInternos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtSelecionarTodosInternos.setForeground(new java.awt.Color(0, 102, 0));
-        jBtSelecionarTodosInternos.setText(">>");
+        jBtSelecionarTodosInternos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/250718131115_16.png"))); // NOI18N
         jBtSelecionarTodosInternos.setToolTipText("Adicionar todos os internos para tabela a direita");
         jBtSelecionarTodosInternos.setEnabled(false);
         jBtSelecionarTodosInternos.addActionListener(new java.awt.event.ActionListener() {
@@ -895,6 +908,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jBtSalvarPavInternos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
         jBtSalvarPavInternos.setText("Gravar");
         jBtSalvarPavInternos.setEnabled(false);
+        jBtSalvarPavInternos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jBtSalvarPavInternos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtSalvarPavInternosActionPerformed(evt);
@@ -905,18 +919,10 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jBtAuditoriaPavInternos.setContentAreaFilled(false);
         jBtAuditoriaPavInternos.setEnabled(false);
 
-        jBtAlterarPavilhaoInterno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
-        jBtAlterarPavilhaoInterno.setText("Alterar");
-        jBtAlterarPavilhaoInterno.setEnabled(false);
-        jBtAlterarPavilhaoInterno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtAlterarPavilhaoInternoActionPerformed(evt);
-            }
-        });
-
         jBtCancelarPavilhaoInterno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Close_Icon_16.png"))); // NOI18N
         jBtCancelarPavilhaoInterno.setText("Cancelar");
         jBtCancelarPavilhaoInterno.setEnabled(false);
+        jBtCancelarPavilhaoInterno.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jBtCancelarPavilhaoInterno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCancelarPavilhaoInternoActionPerformed(evt);
@@ -925,8 +931,9 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
         jBtExcluirUmInterno.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtExcluirUmInterno.setForeground(new java.awt.Color(204, 0, 0));
-        jBtExcluirUmInterno.setText("<");
+        jBtExcluirUmInterno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/250718131526_16.png"))); // NOI18N
         jBtExcluirUmInterno.setToolTipText("Excluir interno selecionado");
+        jBtExcluirUmInterno.setEnabled(false);
         jBtExcluirUmInterno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtExcluirUmInternoActionPerformed(evt);
@@ -935,11 +942,23 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
         jBtExcluirTodosInternos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtExcluirTodosInternos.setForeground(new java.awt.Color(204, 0, 0));
-        jBtExcluirTodosInternos.setText("<<");
+        jBtExcluirTodosInternos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/250718131210_16.png"))); // NOI18N
         jBtExcluirTodosInternos.setToolTipText("Excluir todos os internos selecionados");
+        jBtExcluirTodosInternos.setEnabled(false);
         jBtExcluirTodosInternos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtExcluirTodosInternosActionPerformed(evt);
+            }
+        });
+
+        jBtSaldoEstoque.setForeground(new java.awt.Color(0, 0, 255));
+        jBtSaldoEstoque.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/overlays.png"))); // NOI18N
+        jBtSaldoEstoque.setText("S.Estoque");
+        jBtSaldoEstoque.setToolTipText("Consultar Estoque de Produtos");
+        jBtSaldoEstoque.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBtSaldoEstoque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtSaldoEstoqueActionPerformed(evt);
             }
         });
 
@@ -952,24 +971,23 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jBtNovoPavInternos)
-                            .addComponent(jBtAlterarPavilhaoInterno)
-                            .addComponent(jBtExcluirPavInternos)
-                            .addComponent(jBtSalvarPavInternos)
-                            .addComponent(jBtCancelarPavilhaoInterno)
-                            .addComponent(jBtSelecionarUmInterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jBtSelecionarTodosInternos, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
-                            .addComponent(jBtAuditoriaPavInternos, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jBtExcluirUmInterno)
-                            .addComponent(jBtExcluirTodosInternos))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                                .addComponent(jBtNovoPavInternos)
+                                .addComponent(jBtExcluirPavInternos)
+                                .addComponent(jBtSalvarPavInternos)
+                                .addComponent(jBtCancelarPavilhaoInterno)
+                                .addComponent(jBtSelecionarUmInterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jBtSelecionarTodosInternos, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+                                .addComponent(jBtAuditoriaPavInternos, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jBtExcluirUmInterno)
+                                .addComponent(jBtExcluirTodosInternos))))
+                    .addComponent(jBtSaldoEstoque))
                 .addContainerGap())
         );
 
-        jPanel7Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarPavilhaoInterno, jBtCancelarPavilhaoInterno, jBtExcluirPavInternos, jBtExcluirTodosInternos, jBtExcluirUmInterno, jBtNovoPavInternos, jBtSalvarPavInternos, jBtSelecionarTodosInternos, jBtSelecionarUmInterno});
+        jPanel7Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtCancelarPavilhaoInterno, jBtExcluirPavInternos, jBtExcluirTodosInternos, jBtExcluirUmInterno, jBtNovoPavInternos, jBtSaldoEstoque, jBtSalvarPavInternos, jBtSelecionarTodosInternos, jBtSelecionarUmInterno});
 
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -977,22 +995,22 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 .addGap(25, 25, 25)
                 .addComponent(jBtNovoPavInternos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtAlterarPavilhaoInterno)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtExcluirPavInternos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtSalvarPavInternos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtCancelarPavilhaoInterno)
-                .addGap(31, 31, 31)
+                .addGap(62, 62, 62)
                 .addComponent(jBtSelecionarUmInterno)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtSelecionarTodosInternos)
-                .addGap(32, 32, 32)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtExcluirUmInterno)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtExcluirTodosInternos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addComponent(jBtSaldoEstoque)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtAuditoriaPavInternos, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1025,7 +1043,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jPanel33.setLayout(jPanel33Layout);
         jPanel33Layout.setHorizontalGroup(
             jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 117, Short.MAX_VALUE)
+            .addGap(0, 113, Short.MAX_VALUE)
         );
         jPanel33Layout.setVerticalGroup(
             jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1116,27 +1134,27 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
         jPanel17.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Produtos do Kit", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(102, 0, 0))); // NOI18N
 
-        jTable4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        jTabelaProduto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTabelaProduto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Item", "Código", "Descrição Produto", "Un.", "Quant."
             }
         ));
-        jScrollPane4.setViewportView(jTable4);
-        if (jTable4.getColumnModel().getColumnCount() > 0) {
-            jTable4.getColumnModel().getColumn(0).setMinWidth(50);
-            jTable4.getColumnModel().getColumn(0).setMaxWidth(50);
-            jTable4.getColumnModel().getColumn(1).setMinWidth(70);
-            jTable4.getColumnModel().getColumn(1).setMaxWidth(70);
-            jTable4.getColumnModel().getColumn(2).setMinWidth(250);
-            jTable4.getColumnModel().getColumn(2).setMaxWidth(250);
-            jTable4.getColumnModel().getColumn(3).setMinWidth(50);
-            jTable4.getColumnModel().getColumn(3).setMaxWidth(50);
-            jTable4.getColumnModel().getColumn(4).setMinWidth(70);
-            jTable4.getColumnModel().getColumn(4).setMaxWidth(70);
+        jScrollPane4.setViewportView(jTabelaProduto);
+        if (jTabelaProduto.getColumnModel().getColumnCount() > 0) {
+            jTabelaProduto.getColumnModel().getColumn(0).setMinWidth(50);
+            jTabelaProduto.getColumnModel().getColumn(0).setMaxWidth(50);
+            jTabelaProduto.getColumnModel().getColumn(1).setMinWidth(70);
+            jTabelaProduto.getColumnModel().getColumn(1).setMaxWidth(70);
+            jTabelaProduto.getColumnModel().getColumn(2).setMinWidth(250);
+            jTabelaProduto.getColumnModel().getColumn(2).setMaxWidth(250);
+            jTabelaProduto.getColumnModel().getColumn(3).setMinWidth(50);
+            jTabelaProduto.getColumnModel().getColumn(3).setMaxWidth(50);
+            jTabelaProduto.getColumnModel().getColumn(4).setMinWidth(70);
+            jTabelaProduto.getColumnModel().getColumn(4).setMaxWidth(70);
         }
 
         jPanel18.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
@@ -1153,13 +1171,19 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel11.setText("Descrição");
 
-        jTextField6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jCodigoProd.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jCodigoProd.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jCodigoProd.setEnabled(false);
 
-        jTextField7.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jUnidadeProd.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jUnidadeProd.setEnabled(false);
 
-        jTextField8.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDescricaoProd.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDescricaoProd.setEnabled(false);
 
-        jFormattedTextField1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jQuantidadeProd.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jQuantidadeProd.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jQuantidadeProd.setEnabled(false);
 
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
         jPanel18.setLayout(jPanel18Layout);
@@ -1168,22 +1192,22 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             .addGroup(jPanel18Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField8)
+                    .addComponent(jDescricaoProd)
                     .addGroup(jPanel18Layout.createSequentialGroup()
                         .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel11)
                             .addGroup(jPanel18Layout.createSequentialGroup()
                                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel8)
-                                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jCodigoProd, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel9)
-                                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jUnidadeProd, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel10)
-                                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(jQuantidadeProd, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -1197,13 +1221,13 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                     .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jQuantidadeProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jUnidadeProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCodigoProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jDescricaoProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1239,17 +1263,17 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
         jPanel41.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
 
-        jtotalProdutosKit1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jtotalProdutosKitInternos.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
         javax.swing.GroupLayout jPanel41Layout = new javax.swing.GroupLayout(jPanel41);
         jPanel41.setLayout(jPanel41Layout);
         jPanel41Layout.setHorizontalGroup(
             jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jtotalProdutosKit1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+            .addComponent(jtotalProdutosKitInternos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
         jPanel41Layout.setVerticalGroup(
             jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jtotalProdutosKit1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE)
+            .addComponent(jtotalProdutosKitInternos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
@@ -1288,20 +1312,24 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jButton21.setForeground(new java.awt.Color(102, 0, 102));
         jButton21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/overlays.png"))); // NOI18N
         jButton21.setText("Consultar Estoque");
+        jButton21.setEnabled(false);
         jButton21.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
         jButton22.setForeground(new java.awt.Color(0, 102, 102));
         jButton22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/document-file-search-zoom-preview-icone-3750-16.png"))); // NOI18N
         jButton22.setText("Consultar Kit");
+        jButton22.setEnabled(false);
         jButton22.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
         jButton23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/refresh-reload-icone-6258-16.png"))); // NOI18N
         jButton23.setText("Alterar Qtd. kit");
+        jButton23.setEnabled(false);
         jButton23.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
         jButton20.setForeground(new java.awt.Color(204, 0, 0));
         jButton20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/overlays.png"))); // NOI18N
         jButton20.setText("Selecionar Produtos");
+        jButton20.setEnabled(false);
         jButton20.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
@@ -1346,7 +1374,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jPanel19.setLayout(jPanel19Layout);
         jPanel19Layout.setHorizontalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 188, Short.MAX_VALUE)
+            .addGap(0, 172, Short.MAX_VALUE)
         );
         jPanel19Layout.setVerticalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1477,10 +1505,10 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTabbedPane1))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1491,7 +1519,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 .addContainerGap())
         );
 
-        setBounds(200, 30, 919, 557);
+        setBounds(200, 30, 903, 557);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
@@ -1502,6 +1530,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             bloquearCampos();
             limparCampos();
             limparTabelaItensKit();
+            limparTabelasAbaPavIntComp();
             Novo();
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
@@ -1701,26 +1730,74 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         dataModFinal = jDataSistema.getText();
         acao = 3;
         bloquearBotoes();
+        bloquearCampos();
         NovoPavilhaoInterno();
         pesquisarPavilhao();
     }//GEN-LAST:event_jBtNovoPavInternosActionPerformed
 
-    private void jBtAlterarPavilhaoInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarPavilhaoInternoActionPerformed
-        // TODO add your handling code here:
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        acao = 4;
-        bloquearBotoes();
-        AlterarPavilhaoInterno();
-    }//GEN-LAST:event_jBtAlterarPavilhaoInternoActionPerformed
-
     private void jBtExcluirPavInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirPavInternosActionPerformed
         // TODO add your handling code here:
+        bloquearBotoes();
+        bloquearCampos();
+        limparTabelasAbaPavIntComp();
+        ExcluirPavilhaoInterno();
     }//GEN-LAST:event_jBtExcluirPavInternosActionPerformed
 
     private void jBtSalvarPavInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarPavInternosActionPerformed
         // TODO add your handling code here:
+        Integer row = jTabelaInternos.getRowCount();
+        Integer row2 = jTabelaInternosSelecionados.getRowCount();
+        if (row2 == 0) {
+            JOptionPane.showMessageDialog(rootPane, "Não existe internos selecionados para pagamento dos kits.");
+        } else {
+            if (acao == 3) {
+                // SE A TABELA NÃO FOR VAZIA, GRAVA TAMBÉM OS ID´S DOS INTERNOS
+                // TABELA PAVILHAO_INTERNOS_KIT_LOTE
+                if (row != 0) {
+                    for (int i = 0; i < jTabelaInternos.getRowCount(); i++) {
+                        objPavInt.setUsuarioInsert(nameUser);
+                        objPavInt.setDataInsert(dataModFinal);
+                        objPavInt.setHorarioInsert(horaMov);
+                        objPavInt.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
+                        objPavInt.setIdPav(codigoPavilhao);
+                        objPavInt.setDescricaoPavilhao((String) jComboBoxPavilhoes.getSelectedItem());
+                        objPavInt.setIdInternoCrc((int) jTabelaInternos.getValueAt(i, 0));
+                        objPavInt.setNomeInternoCrc((String) jTabelaInternos.getValueAt(i, 2));
+                        controle.incluirPavilhaoInternos(objPavInt);
+                    }
+                    // PEGAR O ID DA TABELA PAVILHAO_INTERNOS_KIT_LOTE
+                    buscarCodigoRegistroPavilhaoInterno();
+                    // GRAVAR NA TABELA INTERNOS_SELECIONADOS_KIT_LOTE
+                    for (int i = 0; i < jTabelaInternosSelecionados.getRowCount(); i++) {
+                        objPavInt.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
+                        objPavInt.setIdRegPavInt(idRegPavInt);
+                        objPavInt.setIdPav(codigoPavilhao);
+                        objPavInt.setDescricaoPavilhao((String) jComboBoxPavilhoes.getSelectedItem());
+                        objPavInt.setIdInternoCrc((int) jTabelaInternos.getValueAt(i, 0));
+                        objPavInt.setNomeInternoCrc((String) jTabelaInternos.getValueAt(i, 2));
+                        controle.incluirInternosSelecionados(objPavInt);
+                    }
+                    // GRAVA SOMENTE O CODIGO DO PAVILHÃO E DO REGISTRO PRINCIPAL
+                    // TABELA PAVILHAO_INTERNOS_KIT_LOTE
+                } else if (row == 0) {
+                    for (int i = 0; i < jTabelaInternos.getRowCount(); i++) {
+                        objPavInt.setUsuarioInsert(nameUser);
+                        objPavInt.setDataInsert(dataModFinal);
+                        objPavInt.setHorarioInsert(horaMov);
+                        objPavInt.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
+                        objPavInt.setIdPav(codigoPavilhao);
+                        objPavInt.setDescricaoPavilhao((String) jComboBoxPavilhoes.getSelectedItem());                        
+                        controle.incluirPavilhaoInternos(objPavInt);
+                    }
+                }
+                bloquearBotoes();
+                bloquearCampos();
+                SalvarPavilhaoInterno();
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "Não foi possível gravar o registro. !!!");
+            }
+        }
     }//GEN-LAST:event_jBtSalvarPavInternosActionPerformed
 
     private void jBtCancelarPavilhaoInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarPavilhaoInternoActionPerformed
@@ -1864,6 +1941,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
             try {
                 for (PavilhaoInternoMontaKit dd : controle.read()) {
+                    codigoPavilhao = dd.getIdPav();
                     jtotalInternosPavilhao.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
                     dadosOrigem.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
                     // BARRA DE ROLAGEM HORIZONTAL
@@ -1891,11 +1969,19 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         }
     }//GEN-LAST:event_jTabelaInternosMouseClicked
 
+    private void jBtSaldoEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSaldoEstoqueActionPerformed
+        // TODO add your handling code here:
+        if (jIdRegistroComp.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessario pesquisar o registro de montagem do kit para consultar o saldo de estoque.");
+        } else {
+            mostraEstoque();
+        }
+    }//GEN-LAST:event_jBtSaldoEstoqueActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup grupoBotoes;
     public static javax.swing.JButton jBtAlterar;
-    public static javax.swing.JButton jBtAlterarPavilhaoInterno;
     public static javax.swing.JButton jBtAuditoria;
     public static javax.swing.JButton jBtAuditoriaPavInternos;
     public static javax.swing.JButton jBtCancelar;
@@ -1912,6 +1998,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     private javax.swing.JButton jBtPesquisarInternosPavilhao;
     private javax.swing.JButton jBtPesquisarKit;
     private javax.swing.JButton jBtSair;
+    private javax.swing.JButton jBtSaldoEstoque;
     public static javax.swing.JButton jBtSalvar;
     public static javax.swing.JButton jBtSalvarPavInternos;
     public static javax.swing.JButton jBtSelecionarTodosInternos;
@@ -1920,10 +2007,11 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     private javax.swing.JButton jButton21;
     private javax.swing.JButton jButton22;
     private javax.swing.JButton jButton23;
+    private javax.swing.JTextField jCodigoProd;
     public static javax.swing.JComboBox<String> jComboBoxPavilhoes;
     public static com.toedter.calendar.JDateChooser jDataComp;
     public static javax.swing.JTextField jDepartamentoColaborador;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JTextField jDescricaoProd;
     public static javax.swing.JLabel jFotoColaborador;
     public static javax.swing.JTextField jIdFunc;
     public static javax.swing.JTextField jIdRegistroComp;
@@ -1973,6 +2061,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JFormattedTextField jQuantidadeProd;
     public static javax.swing.JRadioButton jRBtKitAnual;
     public static javax.swing.JRadioButton jRBtKitDecendial;
     public static javax.swing.JRadioButton jRBtKitInicial;
@@ -1989,14 +2078,12 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public static javax.swing.JTable jTabelaGeralProdutosKit;
     private javax.swing.JTable jTabelaInternos;
     private javax.swing.JTable jTabelaInternosSelecionados;
-    private javax.swing.JTable jTable4;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
+    private javax.swing.JTable jTabelaProduto;
+    private javax.swing.JTextField jUnidadeProd;
     public static javax.swing.JLabel jtotalInternosPavilhao;
     private javax.swing.JLabel jtotalInternosSelecionados;
     public static javax.swing.JLabel jtotalProdutosKit;
-    private javax.swing.JLabel jtotalProdutosKit1;
+    private javax.swing.JLabel jtotalProdutosKitInternos;
     // End of variables declaration//GEN-END:variables
 
     public void formatarCampos() {
@@ -2029,6 +2116,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jRBtKitSemestral.setEnabled(!true);
         jRBtKitAnual.setEnabled(!true);
         jObservacao.setEnabled(!true);
+        // ABA PAVILHÃO/INTERNOS
+        jComboBoxPavilhoes.setEnabled(!true);
     }
 
     public void bloquearBotoes() {
@@ -2044,14 +2133,19 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jBtPesquisarColaborador.setEnabled(!true);
         // ABA PAVILHÃO/INTERNOS
         jBtNovoPavInternos.setEnabled(!true);
-        jBtAlterarPavilhaoInterno.setEnabled(!true);
         jBtExcluirPavInternos.setEnabled(!true);
         jBtSalvarPavInternos.setEnabled(!true);
         jBtCancelarPavilhaoInterno.setEnabled(!true);
+        //
         jBtSelecionarUmInterno.setEnabled(!true);
         jBtSelecionarTodosInternos.setEnabled(!true);
+        jBtExcluirUmInterno.setEnabled(!true);
+        jBtExcluirTodosInternos.setEnabled(!true);
+        //
         jBtPesquisarInternosPavilhao.setEnabled(!true);
         jBtAuditoriaPavInternos.setEnabled(!true);
+        // ABA COMPOSIÇÃO KIT
+
     }
 
     public void limparCampos() {
@@ -2066,6 +2160,21 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jObservacao.setText("");
         // ABA PAVILHÕES/INTERNOS
         jComboBoxPavilhoes.setSelectedItem("Selecione...");
+    }
+
+    public void limparTabelasAbaPavIntComp() {
+        // APAGAR DADOS DA TABELA PAVILHÃO/INTERNOS
+        while (jTabelaInternos.getModel().getRowCount() > 0) {
+            ((DefaultTableModel) jTabelaInternos.getModel()).removeRow(0);
+        }
+        // LIMPAR O TOTALIZADOR DA TABELA PAVILHÃO/INTERNOS
+        jtotalInternosPavilhao.setText("");
+        // APAGAR DADOS DA TABELA INTERNOS SELECIONADOS
+        while (jTabelaInternosSelecionados.getModel().getRowCount() > 0) {
+            ((DefaultTableModel) jTabelaInternosSelecionados.getModel()).removeRow(0);
+        }
+        // LIMPAR O TOTALIZADOR DA TABELA INTERNOS SELECIONADOS
+        jtotalInternosSelecionados.setText("");
     }
 
     public void Novo() {
@@ -2155,6 +2264,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 bloquearCampos();
                 limparCampos();
                 limparTabelaItensKit();
+                limparTabelasAbaPavIntComp();
                 Excluir();
             }
 //        }
@@ -2168,12 +2278,20 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jBtPesquisarInternosPavilhao.setEnabled(true);
         jBtSalvarPavInternos.setEnabled(true);
         jBtCancelarPavilhaoInterno.setEnabled(true);
+        //
         jBtSelecionarUmInterno.setEnabled(true);
         jBtSelecionarTodosInternos.setEnabled(true);
+        jBtExcluirUmInterno.setEnabled(true);
+        jBtExcluirTodosInternos.setEnabled(true);
     }
 
     public void AlterarPavilhaoInterno() {
-
+        jBtSalvarPavInternos.setEnabled(true);
+        jBtCancelarPavilhaoInterno.setEnabled(true);
+        jBtSelecionarUmInterno.setEnabled(true);
+        jBtSelecionarTodosInternos.setEnabled(true);
+        jBtExcluirUmInterno.setEnabled(true);
+        jBtExcluirTodosInternos.setEnabled(true);
     }
 
     public void ExcluirPavilhaoInterno() {
@@ -2181,7 +2299,15 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     }
 
     public void SalvarPavilhaoInterno() {
-
+        // ABA PAVILHÃO/INTERNOS
+        jBtExcluirPavInternos.setEnabled(true);
+        jBtAuditoriaPavInternos.setEnabled(true);
+        // ABA GERAL E DADOS INICIAIS
+        jBtNovo.setEnabled(true);
+        jBtAlterar.setEnabled(true);
+        jBtExcluir.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
+        jBtFinalizar.setEnabled(true);
     }
 
     public void CancelarPavilhaoInterno() {
@@ -2199,6 +2325,17 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 codigoPavilhao = conecta.rs.getInt("IdPav");
             } while (conecta.rs.next());
         } catch (SQLException ex) {
+        }
+        conecta.desconecta();
+    }
+
+    public void buscarCodigoRegistroPavilhaoInterno() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM PAVILHAO_INTERNOS_KIT_LOTE");
+            conecta.rs.last();
+            idRegPavInt = conecta.rs.getInt("IdRegPavInt");
+        } catch (Exception e) {
         }
         conecta.desconecta();
     }
