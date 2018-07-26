@@ -14,14 +14,18 @@ public class PavilhaoInternoMontaKit {
     private int idInternoCrc;
     private String nomeInternoCrc;
     private String cncInternoCrc;
+    private int idPav;
+    private String descricaoPav;
 
     public PavilhaoInternoMontaKit() {
     }
 
-    public PavilhaoInternoMontaKit(int idInternoCrc, String nomeInternoCrc, String cncInternoCrc) {
+    public PavilhaoInternoMontaKit(int idInternoCrc, String nomeInternoCrc, String cncInternoCrc, int idPav, String descricaoPav) {
         this.idInternoCrc = idInternoCrc;
         this.nomeInternoCrc = nomeInternoCrc;
         this.cncInternoCrc = cncInternoCrc;
+        this.idPav = idPav;
+        this.descricaoPav = descricaoPav;
     }
 
     /**
@@ -64,6 +68,34 @@ public class PavilhaoInternoMontaKit {
      */
     public void setCncInternoCrc(String cncInternoCrc) {
         this.cncInternoCrc = cncInternoCrc;
+    }
+
+    /**
+     * @return the idPav
+     */
+    public int getIdPav() {
+        return idPav;
+    }
+
+    /**
+     * @param idPav the idPav to set
+     */
+    public void setIdPav(int idPav) {
+        this.idPav = idPav;
+    }
+
+    /**
+     * @return the descricaoPav
+     */
+    public String getDescricaoPav() {
+        return descricaoPav;
+    }
+
+    /**
+     * @param descricaoPav the descricaoPav to set
+     */
+    public void setDescricaoPav(String descricaoPav) {
+        this.descricaoPav = descricaoPav;
     }
     
 }
