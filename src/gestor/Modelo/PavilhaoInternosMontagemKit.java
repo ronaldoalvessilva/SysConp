@@ -13,6 +13,7 @@ public class PavilhaoInternosMontagemKit {
 
     private int IdRegPavInt;
     private int IdRegistroComp;
+    private int idPavIntSelec;
     private int IdInternoCrc;
     private String nomeInternoCrc;
     private int IdPav;
@@ -28,9 +29,10 @@ public class PavilhaoInternosMontagemKit {
     public PavilhaoInternosMontagemKit() {
     }
 
-    public PavilhaoInternosMontagemKit(int IdRegPavInt, int IdRegistroComp, int IdInternoCrc, String nomeInternoCrc, int IdPav, String descricaoPavilhao, int IdRegIntSel, String UsuarioInsert, String UsuarioUp, String DataInsert, String DataUp, String HorarioInsert, String HorarioUp) {
+    public PavilhaoInternosMontagemKit(int IdRegPavInt, int IdRegistroComp, int idPavIntSelec, int IdInternoCrc, String nomeInternoCrc, int IdPav, String descricaoPavilhao, int IdRegIntSel, String UsuarioInsert, String UsuarioUp, String DataInsert, String DataUp, String HorarioInsert, String HorarioUp) {
         this.IdRegPavInt = IdRegPavInt;
         this.IdRegistroComp = IdRegistroComp;
+        this.idPavIntSelec = idPavIntSelec;
         this.IdInternoCrc = IdInternoCrc;
         this.nomeInternoCrc = nomeInternoCrc;
         this.IdPav = IdPav;
@@ -70,6 +72,20 @@ public class PavilhaoInternosMontagemKit {
      */
     public void setIdRegistroComp(int IdRegistroComp) {
         this.IdRegistroComp = IdRegistroComp;
+    }
+
+    /**
+     * @return the idPavIntSelec
+     */
+    public int getIdPavIntSelec() {
+        return idPavIntSelec;
+    }
+
+    /**
+     * @param idPavIntSelec the idPavIntSelec to set
+     */
+    public void setIdPavIntSelec(int idPavIntSelec) {
+        this.idPavIntSelec = idPavIntSelec;
     }
 
     /**
