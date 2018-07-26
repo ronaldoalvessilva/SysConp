@@ -30,6 +30,7 @@ public class TelaConsultaEstoqueMontagemKit extends javax.swing.JDialog {
     String statusProd = "Ativo";
     double qtdEstoque = 0;
     String modulo = "A";
+    String compoeKit = "Sim";
 
     /**
      * Creates new form TelaConsultaEstoqueMontagemKit
@@ -297,7 +298,8 @@ public class TelaConsultaEstoqueMontagemKit extends javax.swing.JDialog {
                     + "WHERE PRODUTOS_AC.IdProd='" + jCodigoProdPesquisa.getText() + "' "
                     + "AND LOTE_PRODUTOS_AC.Qtd!='" + qtdEstoque + "' "
                     + "AND PRODUTOS_AC.StatusProd='" + statusProd + "' "
-                    + "AND LOTE_PRODUTOS_AC.Modulo='" + modulo + "'");
+                    + "AND LOTE_PRODUTOS_AC.Modulo='" + modulo + "' "
+                    + "AND PRODUTOS_AC.CompoeKit='" + compoeKit + "'");
         }
     }//GEN-LAST:event_jBtPesquisaCodigoProdActionPerformed
 
@@ -313,7 +315,8 @@ public class TelaConsultaEstoqueMontagemKit extends javax.swing.JDialog {
                 + "WHERE LOTE_PRODUTOS_AC.Qtd!='" + qtdEstoque + "' "
                 + "AND PRODUTOS_AC.StatusProd='" + statusProd + "' "
                 + "AND LOTE_PRODUTOS_AC.Modulo='" + modulo + "' "
-                + "AND PRODUTOS_AC.CodigoBarra='" + jCodigoBarraPesquisa + "'");
+                + "AND PRODUTOS_AC.CodigoBarra='" + jCodigoBarraPesquisa + "' "
+                + "AND PRODUTOS_AC.CompoeKit='" + compoeKit + "'");
     }//GEN-LAST:event_jCodigoBarraPesquisaActionPerformed
 
     private void jCheckBoxTodosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxTodosItemStateChanged
@@ -328,7 +331,8 @@ public class TelaConsultaEstoqueMontagemKit extends javax.swing.JDialog {
                     + "ON PRODUTOS_AC.IdProd=LOTE_PRODUTOS_AC.IdProd "
                     + "WHERE LOTE_PRODUTOS_AC.Qtd!='" + qtdEstoque + "' "
                     + "AND PRODUTOS_AC.StatusProd='" + statusProd + "' "
-                    + "AND LOTE_PRODUTOS_AC.Modulo='" + modulo + "'");
+                    + "AND LOTE_PRODUTOS_AC.Modulo='" + modulo + "' "
+                    + "AND PRODUTOS_AC.CompoeKit='" + compoeKit + "'");
         } else {
             jtotalProdutos.setText("");
             limparTabelaProdutos();
@@ -347,10 +351,11 @@ public class TelaConsultaEstoqueMontagemKit extends javax.swing.JDialog {
                     + "ON PRODUTOS_AC.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
                     + "INNER JOIN LOTE_PRODUTOS_AC "
                     + "ON PRODUTOS_AC.IdProd=LOTE_PRODUTOS_AC.IdProd "
-                    + "WHERE PRODUTOS_AC.IdProd LIKE'%" + jDescricapProdPesquisa.getText() + "%' "
+                    + "WHERE PRODUTOS_AC.DescricaoProd LIKE'%" + jDescricapProdPesquisa.getText() + "%' "
                     + "AND LOTE_PRODUTOS_AC.Qtd!='" + qtdEstoque + "' "
                     + "AND PRODUTOS_AC.StatusProd='" + statusProd + "' "
-                    + "AND LOTE_PRODUTOS_AC.Modulo='" + modulo + "'");
+                    + "AND LOTE_PRODUTOS_AC.Modulo='" + modulo + "' "
+                    + "AND PRODUTOS_AC.CompoeKit='" + compoeKit + "'");
         }
     }//GEN-LAST:event_jBtPesquisaNomeProdActionPerformed
 
