@@ -38,8 +38,8 @@ public class ControlePavilhaoInternosMontaKit {
         buscarInternoPavilhao(objPavInt.getNomeInternoCrc(), objPavInt.getIdInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO PAVILHAO_INTERNOS_KIT_LOTE (IdRegistroComp,IdInternoCrc,IdPav,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?)");
-            pst.setInt(1, objPavInt.getIdRegistroComp());
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO INTERNOS_PAVILHAO_KIT_LOTE (IdRegistroComp,IdInternoCrc,IdPav,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?)");
+            pst.setInt(1, objPavInt.getIdRegistroComp());           
             pst.setInt(2, codInterno);
             pst.setInt(3, codPavilhao);
             pst.setString(4, objPavInt.getUsuarioInsert());
@@ -57,7 +57,7 @@ public class ControlePavilhaoInternosMontaKit {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM PAVILHAO_INTERNOS_KIT_LOTE WHERE IdRegPavInt='" + objPavInt.getIdRegPavInt() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM INTERNOS_PAVILHAO_KIT_LOTE WHERE IdRegIntSel='" + objPavInt.getIdRegIntSel() + "'");
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados (PAVILHÃO/INTERNOS).\nERRO: " + ex);
@@ -65,37 +65,7 @@ public class ControlePavilhaoInternosMontaKit {
         conecta.desconecta();
         return objPavInt;
     }
-
-    public PavilhaoInternosMontagemKit incluirInternosSelecionados(PavilhaoInternosMontagemKit objPavInt) {
-        buscarPavilhao(objPavInt.getDescricaoPavilhao(), objPavInt.getIdPav());
-        buscarInternoPavilhao(objPavInt.getNomeInternoCrc(), objPavInt.getIdInternoCrc());
-        conecta.abrirConexao();
-        try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO INTERNOS_SELECIONADOS_KIT_LOTE (IdRegPavInt,IdRegistroComp,IdInternoCrc,IdPav) VALUES(?,?,?,?)");
-            pst.setInt(1, objPavInt.getIdRegPavInt());
-            pst.setInt(2, objPavInt.getIdRegistroComp());
-            pst.setInt(3, codInterno);
-            pst.setInt(4, codPavilhao);
-            pst.execute();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados (INTERNOS SELECIONADOS).\nERRO: " + ex);
-        }
-        conecta.desconecta();
-        return objPavInt;
-    }
-
-    public PavilhaoInternosMontagemKit excluirInternosSelecionados(PavilhaoInternosMontagemKit objPavInt) {
-
-        conecta.abrirConexao();
-        try {
-            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM INTERNOS_SELECIONADOS_KIT_LOTE WHERE IdRegIntSel='" + objPavInt.getIdRegIntSel() + "'");
-            pst.executeUpdate();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados (INTERNOS SELECIONADOS).\nERRO: " + ex);
-        }
-        conecta.desconecta();
-        return objPavInt;
-    }
+    
 
     public List<PavilhaoInternoMontaKit> read() throws Exception {
         conecta.abrirConexao();
@@ -147,7 +117,7 @@ public class ControlePavilhaoInternosMontaKit {
     public void buscarPavilhao(String nome, int codigo) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM PAVILHAO WHERE NomeModulo='" + nome + "'");
+            conecta.executaSQL("SELECT * FROM PAVILHAO WHERE DescricaoPav='" + nome + "'");
             conecta.rs.first();
             codPavilhao = conecta.rs.getInt("IdPav");
         } catch (SQLException ex) {
