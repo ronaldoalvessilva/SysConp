@@ -7,8 +7,15 @@ package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.ComposicaoKit;
+import gestor.Modelo.PavilhaoInternosSelecionados;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jIdRegistroComp;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdInternosSelec;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -93,5 +100,32 @@ public class ControleComposicaoKit {
         } catch (Exception e) {
         }
         conecta.desconecta();
+    }
+
+    public List<PavilhaoInternosSelecionados> read() throws Exception {
+        conecta.abrirConexao();
+        List<PavilhaoInternosSelecionados> listaInternosPavilhaoSelecionados = new ArrayList<PavilhaoInternosSelecionados>();
+        try {
+            conecta.executaSQL("SELECT * FROM INTERNOS_PAVILHAO_KIT_LOTE "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON INTERNOS_PAVILHAO_KIT_LOTE.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "INNER JOIN COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
+                    + "ON INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp=INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp "
+                    + "WHERE INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp='" + jIdRegistroComp.getText() + "'");
+            while (conecta.rs.next()) {
+                PavilhaoInternosSelecionados pDigiSelec = new PavilhaoInternosSelecionados();
+                pDigiSelec.setIdInternoCrc(conecta.rs.getInt("IdInternoCrc"));
+                pDigiSelec.setCncInternoCrc(conecta.rs.getString("Cnc"));
+                pDigiSelec.setNomeInternoCrc(conecta.rs.getString("NomeInternoCrc"));
+                listaInternosPavilhaoSelecionados.add(pDigiSelec);
+                qtdInternosSelec = qtdInternosSelec + 1;
+            }
+            return listaInternosPavilhaoSelecionados;
+        } catch (SQLException ex) {
+            Logger.getLogger(ControlePavilhaoInternosMontaKit.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            conecta.desconecta();
+        }
+        return null;
     }
 }
