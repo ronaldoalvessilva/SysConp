@@ -6,9 +6,9 @@
 package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Modelo.Acessos;
 import gestor.Modelo.PavilhaoInternoMontaKit;
 import gestor.Modelo.PavilhaoInternosMontagemKit;
+import gestor.Modelo.PavilhaoInternosSelecionados;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jComboBoxPavilhoes;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdInternos;
 import java.sql.PreparedStatement;
@@ -27,6 +27,7 @@ public class ControlePavilhaoInternosMontaKit {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     PavilhaoInternosMontagemKit objPavInt = new PavilhaoInternosMontagemKit();
+    PavilhaoInternosSelecionados objPavIntSelec = new PavilhaoInternosSelecionados();
     //
     String situacaoEntrada = "ENTRADA NA UNIDADE";
     String situacaoRetorno = "RETORNO A UNIDADE";
@@ -39,7 +40,7 @@ public class ControlePavilhaoInternosMontaKit {
         conecta.abrirConexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO INTERNOS_PAVILHAO_KIT_LOTE (IdRegistroComp,IdInternoCrc,IdPav,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?)");
-            pst.setInt(1, objPavInt.getIdRegistroComp());           
+            pst.setInt(1, objPavInt.getIdRegistroComp());
             pst.setInt(2, codInterno);
             pst.setInt(3, codPavilhao);
             pst.setString(4, objPavInt.getUsuarioInsert());
@@ -57,7 +58,7 @@ public class ControlePavilhaoInternosMontaKit {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM INTERNOS_PAVILHAO_KIT_LOTE WHERE IdRegIntSel='" + objPavInt.getIdRegIntSel() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM INTERNOS_PAVILHAO_KIT_LOTE WHERE IdRegistroComp='" + objPavInt.getIdRegistroComp() + "'");
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados (PAVILHÃO/INTERNOS).\nERRO: " + ex);
@@ -65,7 +66,6 @@ public class ControlePavilhaoInternosMontaKit {
         conecta.desconecta();
         return objPavInt;
     }
-    
 
     public List<PavilhaoInternoMontaKit> read() throws Exception {
         conecta.abrirConexao();
