@@ -19,6 +19,8 @@ import static gestor.Visao.TelaMontagemPagamentoKitInterno.jIdRegistroComp;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jTabelaInternos;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jTabelaInternosSelecionados;
 import java.awt.Rectangle;
+import javax.swing.JDialog;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -52,6 +54,7 @@ public class TelaThreadInternosSelecionados extends javax.swing.JDialog {
         this.setModal(modal);
         setLocationRelativeTo(threadIntSelect);
         initComponents();       
+        setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE); //Impedir que a janela seja fechada pelo X  
     }
 
     /**
