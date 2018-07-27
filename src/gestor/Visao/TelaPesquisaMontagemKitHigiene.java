@@ -5,8 +5,10 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleComposicaoKit;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
+import gestor.Modelo.PavilhaoInternosSelecionados;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jRBtKitAnual;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jRBtKitDecendial;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jRBtKitInicial;
@@ -21,6 +23,7 @@ import static gestor.Visao.TelaMontagemPagamentoKitInterno.jBtSalvar;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jBtCancelar;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jBtAuditoria;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jBtNovoPavInternos;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jBtExcluirPavInternos;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jDataComp;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jDepartamentoColaborador;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jFotoColaborador;
@@ -30,15 +33,22 @@ import static gestor.Visao.TelaMontagemPagamentoKitInterno.jNomeColaborador;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jObservacao;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jRBtKitSemestral;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jStatusComp;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jTabelaInternosSelecionados;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jtotalInternosSelecionados;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdInternosSelec;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -47,9 +57,11 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
-
+    ControleComposicaoKit controle = new ControleComposicaoKit();
+    //
     int flag;
     int count = 0;
+    int count1 = 0;
     String dataInicial;
     String dataFinal;
     //
@@ -460,6 +472,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
     private void jCheckBoxTodosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxTodosItemStateChanged
         // TODO add your handling code here:
         count = 0;
+        count1 = 0;
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
             this.preencherTabelaRegistrosMontagemKits("SELECT * FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
@@ -480,7 +493,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
     }//GEN-LAST:event_jCheckBoxTodosItemStateChanged
 
     private void TabelaRegistrosMontagemKitsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaRegistrosMontagemKitsMouseClicked
-        // TODO add your handling code here:
+        // TODO add your handling code here: 
         flag = 1;
         if (flag == 1) {
             idLanc = "" + TabelaRegistrosMontagemKits.getValueAt(TabelaRegistrosMontagemKits.getSelectedRow(), 0);
@@ -538,9 +551,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
             jBtExcluir.setEnabled(true);
             jBtSalvar.setEnabled(!true);
             jBtCancelar.setEnabled(true);
-            jBtAuditoria.setEnabled(true);
-            // ABA PAVIHÃO/INTERNOS
-            jBtNovoPavInternos.setEnabled(true);
+            jBtAuditoria.setEnabled(true);            
             //
             if (kitInicial == 1) {
                 conecta.abrirConexao();
@@ -590,6 +601,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                 } catch (SQLException e) {
                     JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa..." + e);
                 }
+                mostrarInternosSelecionados();
                 conecta.desconecta();
                 dispose();
             } else if (kitQuinzenal == 1) {
@@ -640,6 +652,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                     jObservacao.setText(conecta.rs.getString("Observacao"));
                 } catch (Exception e) {
                 }
+                mostrarInternosSelecionados();
                 conecta.desconecta();
                 dispose();
             } else if (kitMensal == 1) {
@@ -690,6 +703,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                     jObservacao.setText(conecta.rs.getString("Observacao"));
                 } catch (Exception e) {
                 }
+                mostrarInternosSelecionados();
                 conecta.desconecta();
                 dispose();
             } else if (kitDecendial == 1) {
@@ -740,6 +754,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                     jObservacao.setText(conecta.rs.getString("Observacao"));
                 } catch (Exception e) {
                 }
+                mostrarInternosSelecionados();
                 conecta.desconecta();
                 dispose();
             } else if (kitSemestral == 1) {
@@ -790,6 +805,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                     jObservacao.setText(conecta.rs.getString("Observacao"));
                 } catch (Exception e) {
                 }
+                mostrarInternosSelecionados();
                 conecta.desconecta();
                 dispose();
             } else if (kitAnual == 1) {
@@ -840,6 +856,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                     jObservacao.setText(conecta.rs.getString("Observacao"));
                 } catch (Exception e) {
                 }
+                mostrarInternosSelecionados();
                 conecta.desconecta();
                 dispose();
             }
@@ -1025,5 +1042,26 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
         TabelaRegistrosMontagemKits.getColumnModel().getColumn(1).setCellRenderer(centralizado);
         TabelaRegistrosMontagemKits.getColumnModel().getColumn(2).setCellRenderer(centralizado);
         TabelaRegistrosMontagemKits.getColumnModel().getColumn(4).setCellRenderer(centralizado);
+    }
+
+    public void mostrarInternosSelecionados() {
+        DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaInternosSelecionados.getModel();
+        PavilhaoInternosSelecionados d = new PavilhaoInternosSelecionados();
+        try {
+            for (PavilhaoInternosSelecionados dd : controle.read()) {
+                jtotalInternosSelecionados.setText(Integer.toString(qtdInternosSelec)); // Converter inteiro em string para exibir na tela 
+                dadosDestino.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
+                // BARRA DE ROLAGEM HORIZONTAL
+                jTabelaInternosSelecionados.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                //
+                jTabelaInternosSelecionados.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaInternosSelecionados.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaMontagemPagamentoKitInterno.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
