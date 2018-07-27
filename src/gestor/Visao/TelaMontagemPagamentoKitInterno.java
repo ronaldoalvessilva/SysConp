@@ -69,7 +69,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     String dataModFinal = "";
     String statusKit = "Ativo";
     public static int count = 0;
-    int count1 = 0;
+    int count1 = 0; // PARA TABELA DE INTERNOS SELECIONADOS
     int count2 = 0;
     int count3 = 0;
     //
@@ -104,6 +104,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public static TelaPesquisaColaboradorMontagemKitAL pesqCola;
     public static TelaPesquisaMontagemKitHigiene pesqMontaReg;
     public static TelaConsultaEstoqueMontagemKit pesqSaldoEstoque;
+    public static TelaThreadInternosSelecionados montaThread;
 
     public TelaMontagemPagamentoKitInterno() {
         super();
@@ -131,6 +132,11 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public void mostraEstoque() {
         pesqSaldoEstoque = new TelaConsultaEstoqueMontagemKit(this, true);
         pesqSaldoEstoque.setVisible(true);
+    }
+
+    public void mostrarThread() {
+        montaThread = new TelaThreadInternosSelecionados(this, true);
+        montaThread.setVisible(true);
     }
 
     /**
@@ -1744,60 +1750,16 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     }//GEN-LAST:event_jBtExcluirPavInternosActionPerformed
 
     private void jBtSalvarPavInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarPavInternosActionPerformed
-        // TODO add your handling code here:
-        Integer row = jTabelaInternos.getRowCount();
-        Integer row2 = jTabelaInternosSelecionados.getRowCount();
-        if (row2 == 0) {
-            JOptionPane.showMessageDialog(rootPane, "Não existe internos selecionados para pagamento dos kits.");
-        } else {
-            if (acao == 3) {
-                // SE A TABELA NÃO FOR VAZIA, GRAVA TAMBÉM OS ID´S DOS INTERNOS
-                // TABELA PAVILHAO_INTERNOS_KIT_LOTE
-                if (row != 0) {
-                    for (int i = 0; i < jTabelaInternos.getRowCount(); i++) {
-                        objPavInt.setUsuarioInsert(nameUser);
-                        objPavInt.setDataInsert(dataModFinal);
-                        objPavInt.setHorarioInsert(horaMov);
-                        objPavInt.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
-                        objPavInt.setIdPav(codigoPavilhao);
-                        objPavInt.setDescricaoPavilhao((String) jComboBoxPavilhoes.getSelectedItem());
-                        objPavInt.setIdInternoCrc((int) jTabelaInternos.getValueAt(i, 0));
-                        objPavInt.setNomeInternoCrc((String) jTabelaInternos.getValueAt(i, 2));
-                        controle.incluirPavilhaoInternos(objPavInt);
-                    }
-                    // PEGAR O ID DA TABELA PAVILHAO_INTERNOS_KIT_LOTE
-                    buscarCodigoRegistroPavilhaoInterno();
-                    // GRAVAR NA TABELA INTERNOS_SELECIONADOS_KIT_LOTE
-                    for (int i = 0; i < jTabelaInternosSelecionados.getRowCount(); i++) {
-                        objPavInt.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
-                        objPavInt.setIdRegPavInt(idRegPavInt);
-                        objPavInt.setIdPav(codigoPavilhao);
-                        objPavInt.setDescricaoPavilhao((String) jComboBoxPavilhoes.getSelectedItem());
-                        objPavInt.setIdInternoCrc((int) jTabelaInternos.getValueAt(i, 0));
-                        objPavInt.setNomeInternoCrc((String) jTabelaInternos.getValueAt(i, 2));
-                        controle.incluirInternosSelecionados(objPavInt);
-                    }
-                    // GRAVA SOMENTE O CODIGO DO PAVILHÃO E DO REGISTRO PRINCIPAL
-                    // TABELA PAVILHAO_INTERNOS_KIT_LOTE
-                } else if (row == 0) {
-                    for (int i = 0; i < jTabelaInternos.getRowCount(); i++) {
-                        objPavInt.setUsuarioInsert(nameUser);
-                        objPavInt.setDataInsert(dataModFinal);
-                        objPavInt.setHorarioInsert(horaMov);
-                        objPavInt.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
-                        objPavInt.setIdPav(codigoPavilhao);
-                        objPavInt.setDescricaoPavilhao((String) jComboBoxPavilhoes.getSelectedItem());                        
-                        controle.incluirPavilhaoInternos(objPavInt);
-                    }
-                }
-                bloquearBotoes();
-                bloquearCampos();
-                SalvarPavilhaoInterno();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }else{
-                JOptionPane.showMessageDialog(rootPane, "Não foi possível gravar o registro. !!!");
-            }
-        }
+        // TODO add your handling code here:  
+//        Integer row = jTabelaInternos.getRowCount();        
+//        if (row == 0) {
+//            JOptionPane.showMessageDialog(rootPane, "Não existe internos selecionados para pagamento dos kits.");
+//        } else {
+            mostrarThread();
+            bloquearBotoes();
+            bloquearCampos();
+            SalvarPavilhaoInterno();
+//        }
     }//GEN-LAST:event_jBtSalvarPavInternosActionPerformed
 
     private void jBtCancelarPavilhaoInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarPavilhaoInternoActionPerformed
@@ -1808,7 +1770,11 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         // TODO add your handling code here:
         Integer rows = jTabelaInternos.getModel().getRowCount();
         if (rows != 0) {
+            count2 = count2 + 1;
+            qtdInternos = qtdInternos  - 1;
             if (flag == 1) {
+                jtotalInternosSelecionados.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela 
+                jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
                 if (jTabelaInternos.getSelectedRowCount() != 0) { //Verifica se existe linha selecionada para não dar erro na hora de pegar os valores
                     //Pega os models das listas, para fazer as inserções e remoções
                     DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaInternos.getModel();
@@ -1825,13 +1791,13 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                     jTabelaInternosSelecionados.getColumnModel().getColumn(1).setCellRenderer(centralizado);
                     //Adiciona no destino e remove da origem
                     modelDestino.addRow(obj);
-                    modelOrigem.removeRow(jTabelaInternos.getSelectedRow());
-                } else {
+                    modelOrigem.removeRow(jTabelaInternos.getSelectedRow());                    
+                } else {                    
                     JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos uma linha para transferir todos registros da tabela.");
-                    //Não tem nenhuma linha selecionada na tabela de origem, faça um aviso para o usuário ou algo do tipo.
-                }
-            }
-        }
+                    //Não tem nenhuma linha selecionada na tabela de origem, faça um aviso para o usuário ou algo do tipo.                    
+                }                
+            }            
+        }        
     }//GEN-LAST:event_jBtSelecionarUmInternoActionPerformed
 
     private void jBtSelecionarTodosInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSelecionarTodosInternosActionPerformed
@@ -2076,8 +2042,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public static javax.swing.JTextField jStatusComp;
     private javax.swing.JTabbedPane jTabbedPane1;
     public static javax.swing.JTable jTabelaGeralProdutosKit;
-    private javax.swing.JTable jTabelaInternos;
-    private javax.swing.JTable jTabelaInternosSelecionados;
+    public static javax.swing.JTable jTabelaInternos;
+    public static javax.swing.JTable jTabelaInternosSelecionados;
     private javax.swing.JTable jTabelaProduto;
     private javax.swing.JTextField jUnidadeProd;
     public static javax.swing.JLabel jtotalInternosPavilhao;
@@ -2335,7 +2301,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             conecta.executaSQL("SELECT * FROM PAVILHAO_INTERNOS_KIT_LOTE");
             conecta.rs.last();
             idRegPavInt = conecta.rs.getInt("IdRegPavInt");
-        } catch (Exception e) {
+        } catch (Exception ERROR) {
         }
         conecta.desconecta();
     }
@@ -2517,6 +2483,15 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
         objLogSys.setNomeModuloTela(nomeModuloTela2);
+        objLogSys.setIdLancMov(Integer.valueOf(jIdRegistroComp.getText()));
+        objLogSys.setNomeUsuarioLogado(nameUser);
+        objLogSys.setStatusMov(statusMov);
+    }
+
+    public void objLog3() {
+        objLogSys.setDataMov(dataModFinal);
+        objLogSys.setHorarioMov(horaMov);
+        objLogSys.setNomeModuloTela(nomeModuloTela3);
         objLogSys.setIdLancMov(Integer.valueOf(jIdRegistroComp.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
