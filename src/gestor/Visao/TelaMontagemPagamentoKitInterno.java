@@ -14,16 +14,27 @@ import gestor.Modelo.ComposicaoKit;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.PavilhaoInternoMontaKit;
 import gestor.Modelo.PavilhaoInternosMontagemKit;
+import gestor.Modelo.ProdutoInternosKitLote;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloAlmoxarifado.codAbrirAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.codAlterarAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.codConsultarAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.codExcluirAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.codGravarAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.codIncluirAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.codigoUserGroupAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.codigoGrupoAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.codExcluirAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.codGravarAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.codIncluirAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.codUserAcessoAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.codigoGrupoAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.codigoUserAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.codigoUserGroupAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.nomeGrupoAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.nomeTelaAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.telaMontagemPagamentoKitAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.telaMontagemPagamentoKitPavIntAL;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -54,6 +65,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     PavilhaoInternosMontagemKit objPavInt = new PavilhaoInternosMontagemKit();
     ControlePavilhaoInternosMontaKit controle = new ControlePavilhaoInternosMontaKit();
     //   
+    ProdutoInternosKitLote objProdKit = new ProdutoInternosKitLote();
+    //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
@@ -73,6 +86,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     int count2 = 0;
     int count3 = 0;
     //
+    String codRequisicao = "";
+
     String caminho;
     int Inicial = 0;
     int kitQuinzenal = 0;
@@ -80,8 +95,12 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     int kitDecimal = 0;
     int kitAnual = 0;
     int kitSemetral = 0;
+    //
     public static double qtdItem = 0;
     public static String qtdItemTab;
+    public static double qtdItemAnterior = 0; // SALDO ANTERIOR A SER CALCULADO SE FOR ALTERADO PELO USUARIO
+    public static double novoSaldoAtual = 0; //SALDO CALCULADO APOS ALTERAR A QUANTIDADE DO ITEM
+    //
     int codigoKit = 0;
     // CÓDIGO DO REGISTRO DE MONTAGEM DO KIT (codigoPesquisaKit) 
     // E DOS PRODUTOS DOS KITS (codigoPesquisaKitItem)
@@ -95,6 +114,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     String cncInterno;
     String nomeInterno;
     public static int qtdInternos = 0;
+    public static int qtdInternosSelec = 0;
     int idRegPavInt = 0;
 
     /**
@@ -105,6 +125,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public static TelaPesquisaMontagemKitHigiene pesqMontaReg;
     public static TelaConsultaEstoqueMontagemKit pesqSaldoEstoque;
     public static TelaThreadInternosSelecionados montaThread;
+    public static TelaEstoqueProdutosKit estoqueProdkit;
 
     public TelaMontagemPagamentoKitInterno() {
         super();
@@ -137,6 +158,11 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public void mostrarThread() {
         montaThread = new TelaThreadInternosSelecionados(this, true);
         montaThread.setVisible(true);
+    }
+
+    public void mostrarEstoqueProdutosKit() {
+        estoqueProdkit = new TelaEstoqueProdutosKit(this, true);
+        estoqueProdkit.setVisible(true);
     }
 
     /**
@@ -230,18 +256,35 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jCodigoProd = new javax.swing.JTextField();
         jUnidadeProd = new javax.swing.JTextField();
         jDescricaoProd = new javax.swing.JTextField();
-        jQuantidadeProd = new javax.swing.JFormattedTextField();
+        jQuantidadeProdKit = new javax.swing.JFormattedTextField();
+        jQuantidadeAtendida = new javax.swing.JFormattedTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jCodigoBarra = new javax.swing.JTextField();
         jPanel39 = new javax.swing.JPanel();
         jPanel40 = new javax.swing.JPanel();
         jLabel70 = new javax.swing.JLabel();
         jPanel41 = new javax.swing.JPanel();
         jtotalProdutosKitInternos = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
-        jButton21 = new javax.swing.JButton();
-        jButton22 = new javax.swing.JButton();
-        jButton23 = new javax.swing.JButton();
-        jButton20 = new javax.swing.JButton();
+        jBtAlterarProduto = new javax.swing.JButton();
+        jBtNovoProduto = new javax.swing.JButton();
+        jBtExcluirProduto = new javax.swing.JButton();
+        jBtSalvarProduto = new javax.swing.JButton();
+        jBtCancelarProduto = new javax.swing.JButton();
+        jBtAuditoriaProduto = new javax.swing.JButton();
+        jBtConsultarEstoque = new javax.swing.JButton();
+        jBtSelecionarProdutos = new javax.swing.JButton();
         jPanel19 = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        jPanel20 = new javax.swing.JPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jPanel21 = new javax.swing.JPanel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        jPanel22 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -545,7 +588,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel5)
                                     .addComponent(jLabel6))
-                                .addGap(0, 221, Short.MAX_VALUE)))
+                                .addGap(0, 216, Short.MAX_VALUE)))
                         .addGap(10, 10, 10))
                     .addGroup(jPanel13Layout.createSequentialGroup()
                         .addComponent(jIdFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -706,7 +749,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Geral", new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/40_16x16.png")), jPanel1); // NOI18N
+        jTabbedPane1.addTab("FASE - 1", new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/40_16x16.png")), jPanel1, "Tipo de Kit de Higiêne e Colaborador Resonsável por Entregar os Produtos na Base do Pavilhão."); // NOI18N
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Pavilhão e Internos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(204, 0, 0))); // NOI18N
 
@@ -1049,7 +1092,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jPanel33.setLayout(jPanel33Layout);
         jPanel33Layout.setHorizontalGroup(
             jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 113, Short.MAX_VALUE)
+            .addGap(0, 108, Short.MAX_VALUE)
         );
         jPanel33Layout.setVerticalGroup(
             jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1136,7 +1179,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Pavilhão/Internos", new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/user-group-forum-icone-3716-16.png")), jPanel2); // NOI18N
+        jTabbedPane1.addTab("FASE - 2", new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/user-group-forum-icone-3716-16.png")), jPanel2, "Pavilhão e Internos para Entrega do Kit de Higiêne"); // NOI18N
 
         jPanel17.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Produtos do Kit", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(102, 0, 0))); // NOI18N
 
@@ -1172,7 +1215,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jLabel9.setText("Un.");
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel10.setText("Quant.");
+        jLabel10.setText("Quant. Kit");
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel11.setText("Descrição");
@@ -1187,9 +1230,31 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jDescricaoProd.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jDescricaoProd.setEnabled(false);
 
-        jQuantidadeProd.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jQuantidadeProd.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jQuantidadeProd.setEnabled(false);
+        jQuantidadeProdKit.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jQuantidadeProdKit.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jQuantidadeProdKit.setEnabled(false);
+
+        jQuantidadeAtendida.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jQuantidadeAtendida.setForeground(new java.awt.Color(204, 0, 0));
+        jQuantidadeAtendida.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jQuantidadeAtendida.setDisabledTextColor(new java.awt.Color(204, 0, 0));
+        jQuantidadeAtendida.setEnabled(false);
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel7.setText("Qtd .Atendida");
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel12.setText("Código Barra");
+
+        jCodigoBarra.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jCodigoBarra.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jCodigoBarra.setEnabled(false);
+        jCodigoBarra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCodigoBarraActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
         jPanel18.setLayout(jPanel18Layout);
@@ -1200,21 +1265,30 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jDescricaoProd)
                     .addGroup(jPanel18Layout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel18Layout.createSequentialGroup()
                         .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel11)
                             .addGroup(jPanel18Layout.createSequentialGroup()
-                                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jCodigoProd, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel8)
+                                .addGap(32, 32, 32)
+                                .addComponent(jLabel12))
+                            .addGroup(jPanel18Layout.createSequentialGroup()
+                                .addComponent(jCodigoProd, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jUnidadeProd, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel10)
-                                    .addComponent(jQuantidadeProd, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(jCodigoBarra, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9)
+                            .addComponent(jUnidadeProd, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jQuantidadeProdKit)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(jQuantidadeAtendida, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         jPanel18Layout.setVerticalGroup(
@@ -1224,12 +1298,16 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(jLabel9)
-                    .addComponent(jLabel10))
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel12))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jQuantidadeProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCodigoProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCodigoBarra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jUnidadeProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCodigoProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jQuantidadeProdKit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jQuantidadeAtendida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1243,7 +1321,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jPanel39.setLayout(jPanel39Layout);
         jPanel39Layout.setHorizontalGroup(
             jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 256, Short.MAX_VALUE)
+            .addGap(0, 264, Short.MAX_VALUE)
         );
         jPanel39Layout.setVerticalGroup(
             jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1313,74 +1391,148 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 .addGap(6, 6, 6))
         );
 
-        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Confirmação", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(204, 0, 0))); // NOI18N
+        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Ações", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(204, 0, 0))); // NOI18N
 
-        jButton21.setForeground(new java.awt.Color(102, 0, 102));
-        jButton21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/overlays.png"))); // NOI18N
-        jButton21.setText("Consultar Estoque");
-        jButton21.setEnabled(false);
-        jButton21.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBtAlterarProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/refresh-reload-icone-6258-16.png"))); // NOI18N
+        jBtAlterarProduto.setText("Alterar");
+        jBtAlterarProduto.setEnabled(false);
+        jBtAlterarProduto.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBtAlterarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAlterarProdutoActionPerformed(evt);
+            }
+        });
 
-        jButton22.setForeground(new java.awt.Color(0, 102, 102));
-        jButton22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/document-file-search-zoom-preview-icone-3750-16.png"))); // NOI18N
-        jButton22.setText("Consultar Kit");
-        jButton22.setEnabled(false);
-        jButton22.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBtNovoProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
+        jBtNovoProduto.setText("Novo");
+        jBtNovoProduto.setToolTipText("");
+        jBtNovoProduto.setEnabled(false);
+        jBtNovoProduto.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBtNovoProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtNovoProdutoActionPerformed(evt);
+            }
+        });
 
-        jButton23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/refresh-reload-icone-6258-16.png"))); // NOI18N
-        jButton23.setText("Alterar Qtd. kit");
-        jButton23.setEnabled(false);
-        jButton23.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBtExcluirProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
+        jBtExcluirProduto.setText("Excluir");
+        jBtExcluirProduto.setEnabled(false);
+        jBtExcluirProduto.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBtExcluirProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtExcluirProdutoActionPerformed(evt);
+            }
+        });
 
-        jButton20.setForeground(new java.awt.Color(204, 0, 0));
-        jButton20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/overlays.png"))); // NOI18N
-        jButton20.setText("Selecionar Produtos");
-        jButton20.setEnabled(false);
-        jButton20.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBtSalvarProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
+        jBtSalvarProduto.setText("Gravar");
+        jBtSalvarProduto.setEnabled(false);
+        jBtSalvarProduto.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBtSalvarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtSalvarProdutoActionPerformed(evt);
+            }
+        });
+
+        jBtCancelarProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Close_Icon_16.png"))); // NOI18N
+        jBtCancelarProduto.setText("Cancelar");
+        jBtCancelarProduto.setEnabled(false);
+        jBtCancelarProduto.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBtCancelarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtCancelarProdutoActionPerformed(evt);
+            }
+        });
+
+        jBtAuditoriaProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
+        jBtAuditoriaProduto.setContentAreaFilled(false);
+        jBtAuditoriaProduto.setEnabled(false);
+        jBtAuditoriaProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAuditoriaProdutoActionPerformed(evt);
+            }
+        });
+
+        jBtConsultarEstoque.setForeground(new java.awt.Color(102, 0, 102));
+        jBtConsultarEstoque.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/overlays.png"))); // NOI18N
+        jBtConsultarEstoque.setText("C. Estoque");
+        jBtConsultarEstoque.setToolTipText("Consultar Produtos de Estoque do Kit de Higiêne");
+        jBtConsultarEstoque.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBtConsultarEstoque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtConsultarEstoqueActionPerformed(evt);
+            }
+        });
+
+        jBtSelecionarProdutos.setForeground(new java.awt.Color(204, 0, 0));
+        jBtSelecionarProdutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/overlays.png"))); // NOI18N
+        jBtSelecionarProdutos.setText("S. Produtos");
+        jBtSelecionarProdutos.setToolTipText("Selecionar produtos para saída");
+        jBtSelecionarProdutos.setEnabled(false);
+        jBtSelecionarProdutos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBtSelecionarProdutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtSelecionarProdutosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton22, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton23, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton21)
-                            .addComponent(jButton20))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                            .addComponent(jBtNovoProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jBtAlterarProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
+                            .addComponent(jBtExcluirProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBtSalvarProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jBtCancelarProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jBtConsultarEstoque))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jBtSelecionarProdutos))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(jBtAuditoriaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel10Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton20, jButton21, jButton22, jButton23});
+        jPanel10Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarProduto, jBtCancelarProduto, jBtConsultarEstoque, jBtExcluirProduto, jBtNovoProduto, jBtSalvarProduto, jBtSelecionarProdutos});
 
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(jButton20)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jBtSelecionarProdutos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addComponent(jBtNovoProduto)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton21)
-                .addGap(66, 66, 66)
-                .addComponent(jButton22)
+                .addComponent(jBtAlterarProduto)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton23)
-                .addContainerGap(177, Short.MAX_VALUE))
+                .addComponent(jBtExcluirProduto)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtSalvarProduto)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtCancelarProduto)
+                .addGap(85, 85, 85)
+                .addComponent(jBtConsultarEstoque)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jBtAuditoriaProduto)
+                .addContainerGap())
         );
 
-        jPanel19.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Totais de Produtos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 204))); // NOI18N
+        jPanel19.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 204))); // NOI18N
 
         javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
         jPanel19.setLayout(jPanel19Layout);
         jPanel19Layout.setHorizontalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 172, Short.MAX_VALUE)
+            .addGap(0, 215, Short.MAX_VALUE)
         );
         jPanel19Layout.setVerticalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1397,20 +1549,136 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
-                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel17, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel19, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addContainerGap()
+                .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Composição do Kit", new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Full_shopping_cart_Icon_16.png")), jPanel16); // NOI18N
+        jTabbedPane1.addTab("FASE - 3", new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Full_shopping_cart_Icon_16.png")), jPanel16, "Saida dos Produtos de Estoque para atender o Kit de Higiêne"); // NOI18N
+
+        jPanel20.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Internos com Kits Incompeltos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(204, 0, 0))); // NOI18N
+
+        jTable1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "CNC", "Nome do Interno"
+            }
+        ));
+        jScrollPane6.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setMinWidth(70);
+            jTable1.getColumnModel().getColumn(0).setMaxWidth(70);
+            jTable1.getColumnModel().getColumn(1).setMinWidth(70);
+            jTable1.getColumnModel().getColumn(1).setMaxWidth(70);
+            jTable1.getColumnModel().getColumn(2).setMinWidth(300);
+            jTable1.getColumnModel().getColumn(2).setMaxWidth(200);
+        }
+
+        javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
+        jPanel20.setLayout(jPanel20Layout);
+        jPanel20Layout.setHorizontalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel20Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel20Layout.setVerticalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+        );
+
+        jPanel21.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Produtos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 204))); // NOI18N
+
+        jTable2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Descrição do Produto", "Un.", "Qtd."
+            }
+        ));
+        jScrollPane7.setViewportView(jTable2);
+        if (jTable2.getColumnModel().getColumnCount() > 0) {
+            jTable2.getColumnModel().getColumn(0).setMinWidth(70);
+            jTable2.getColumnModel().getColumn(0).setMaxWidth(70);
+            jTable2.getColumnModel().getColumn(1).setMinWidth(250);
+            jTable2.getColumnModel().getColumn(1).setMaxWidth(250);
+            jTable2.getColumnModel().getColumn(2).setMinWidth(50);
+            jTable2.getColumnModel().getColumn(2).setMaxWidth(50);
+            jTable2.getColumnModel().getColumn(3).setMinWidth(50);
+            jTable2.getColumnModel().getColumn(3).setMaxWidth(50);
+        }
+
+        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
+        jPanel21.setLayout(jPanel21Layout);
+        jPanel21Layout.setHorizontalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel21Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel21Layout.setVerticalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+        );
+
+        jPanel22.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Ações", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(102, 0, 0))); // NOI18N
+
+        jButton1.setText("jButton1");
+
+        javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
+        jPanel22.setLayout(jPanel22Layout);
+        jPanel22Layout.setHorizontalGroup(
+            jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel22Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel22Layout.setVerticalGroup(
+            jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel22Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(jButton1)
+                .addContainerGap(344, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel22, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+
+        jTabbedPane1.addTab("FASE - 4", jPanel9);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Dados Iniciais", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
@@ -1511,9 +1779,9 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTabbedPane1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 862, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -1525,7 +1793,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 .addContainerGap())
         );
 
-        setBounds(200, 30, 903, 557);
+        setBounds(200, 30, 895, 557);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
@@ -1549,13 +1817,26 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitAL) && codAlterarAL == 1) {
-            acao = 2;
-            bloquearBotoes();
-            bloquearCampos();
-            Alterar();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            Integer rows = jTabelaInternosSelecionados.getRowCount();
+            if (rows == 0) {
+                acao = 2;
+                bloquearBotoes();
+                bloquearCampos();
+                Alterar();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            } else {
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                acao = 2;
+                bloquearBotoes();
+                bloquearCampos();
+                jBtPesquisarColaborador.setEnabled(true);
+                jObservacao.setEnabled(true);
+            }
+
         } else {
             JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
         }
@@ -1571,8 +1852,27 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 statusMov = "Excluiu";
                 horaMov = jHoraSistema.getText();
                 dataModFinal = jDataSistema.getText();
-                // AINDA NÃO FOI CRIADO
                 verificarDadosIniciais();
+                //
+                if (jIdRegistroComp.getText().equals(codRequisicao)) {
+                    JOptionPane.showMessageDialog(rootPane, "Antes de excluir esse Lançamento, será necessário\nexcluir primeiro os itens relacionados a esse registro.");
+                } else {
+                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta == JOptionPane.YES_OPTION) {
+                        objComp.setIdRegistroComp(Integer.parseInt(jIdRegistroComp.getText()));
+                        control.excluirComposicaoKitlInternos(objComp);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                        bloquearBotoes();
+                        bloquearCampos();
+                        limparCampos();
+                        limparTabelaItensKit();
+                        limparTabelasAbaPavIntComp();
+                        Excluir();
+                    }
+                }
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
@@ -1630,13 +1930,26 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
         // TODO add your handling code here:
-        bloquearBotoes();
-        bloquearCampos();
-        Cancelar();
+        Integer rows = jTabelaInternosSelecionados.getRowCount();
+        if (rows == 0) {
+            bloquearBotoes();
+            bloquearCampos();
+            Cancelar();
+        } else {
+            bloquearBotoes();
+            bloquearCampos();
+            Cancelar();
+            jBtNovoPavInternos.setEnabled(!true);
+            jBtExcluirPavInternos.setEnabled(true);
+        }
     }//GEN-LAST:event_jBtCancelarActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
         // TODO add your handling code here:
+        count = 0;
+        count1 = 0;
+        count2 = 0;
+        qtdInternos = 0;
         dispose();
     }//GEN-LAST:event_jBtSairActionPerformed
 
@@ -1726,78 +2039,115 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     private void jBtPesquisaCompActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaCompActionPerformed
         // TODO add your handling code here:
+        bloquearBotoes();
+        bloquearCampos();
         mostrarPesquisas();
+        Integer rows = jTabelaInternosSelecionados.getRowCount();
+        if (rows != 0) {
+            jBtNovoPavInternos.setEnabled(!true);
+            jBtExcluirPavInternos.setEnabled(true);
+            //
+            jBtNovoProduto.setEnabled(true);
+        } else {
+            jBtNovoPavInternos.setEnabled(true);
+        }
     }//GEN-LAST:event_jBtPesquisaCompActionPerformed
 
     private void jBtNovoPavInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoPavInternosActionPerformed
         // TODO add your handling code here:
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        acao = 3;
-        bloquearBotoes();
-        bloquearCampos();
-        NovoPavilhaoInterno();
-        pesquisarPavilhao();
+        buscarAcessoUsuario(telaMontagemPagamentoKitPavIntAL);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitPavIntAL) && codIncluirAL == 1) {
+            Integer rows = jTabelaInternosSelecionados.getRowCount();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            if (rows == 0) {
+                bloquearBotoes();
+                bloquearCampos();
+                NovoPavilhaoInterno();
+                pesquisarPavilhao();
+            } else {
+                bloquearBotoes();
+                bloquearCampos();
+                jBtExcluirPavInternos.setEnabled(!true);
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
+        }
     }//GEN-LAST:event_jBtNovoPavInternosActionPerformed
 
     private void jBtExcluirPavInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirPavInternosActionPerformed
         // TODO add your handling code here:
-        bloquearBotoes();
-        bloquearCampos();
-        limparTabelasAbaPavIntComp();
-        ExcluirPavilhaoInterno();
+        buscarAcessoUsuario(telaMontagemPagamentoKitPavIntAL);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitPavIntAL) && codExcluirAL == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objPavInt.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
+                controle.excluirPavilhaoInternos(objPavInt);
+                objLog2();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                bloquearBotoes();
+                bloquearCampos();
+                limparTabelasAbaPavIntComp();
+                ExcluirPavilhaoInterno();
+                JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
+        }
     }//GEN-LAST:event_jBtExcluirPavInternosActionPerformed
 
     private void jBtSalvarPavInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarPavInternosActionPerformed
-        // TODO add your handling code here:  
-//        Integer row = jTabelaInternos.getRowCount();        
-//        if (row == 0) {
-//            JOptionPane.showMessageDialog(rootPane, "Não existe internos selecionados para pagamento dos kits.");
-//        } else {
+        // TODO add your handling code here: 
+        buscarAcessoUsuario(telaMontagemPagamentoKitPavIntAL);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitPavIntAL) && codGravarAL == 1) {
             mostrarThread();
             bloquearBotoes();
             bloquearCampos();
             SalvarPavilhaoInterno();
-//        }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
+        }
     }//GEN-LAST:event_jBtSalvarPavInternosActionPerformed
 
     private void jBtCancelarPavilhaoInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarPavilhaoInternoActionPerformed
         // TODO add your handling code here:
+        bloquearBotoes();
+        bloquearCampos();
+        CancelarPavilhaoInterno();
     }//GEN-LAST:event_jBtCancelarPavilhaoInternoActionPerformed
 
     private void jBtSelecionarUmInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSelecionarUmInternoActionPerformed
-        // TODO add your handling code here:
-        Integer rows = jTabelaInternos.getModel().getRowCount();
-        if (rows != 0) {
+        // TODO add your handling code here:       
+        if (jTabelaInternos.getSelectedRowCount() != 0) { //Verifica se existe linha selecionada para não dar erro na hora de pegar os valores
             count2 = count2 + 1;
-            qtdInternos = qtdInternos  - 1;
-            if (flag == 1) {
-                jtotalInternosSelecionados.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela 
-                jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
-                if (jTabelaInternos.getSelectedRowCount() != 0) { //Verifica se existe linha selecionada para não dar erro na hora de pegar os valores
-                    //Pega os models das listas, para fazer as inserções e remoções
-                    DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaInternos.getModel();
-                    DefaultTableModel modelDestino = (DefaultTableModel) jTabelaInternosSelecionados.getModel();
-                    //Cria uma linha para ser incluida na tabela de destino, no meu caso tem duas colunas, adapte para as suas tabelas
-                    Object[] obj = {jTabelaInternos.getValueAt(jTabelaInternos.getSelectedRow(), 0), jTabelaInternos.getValueAt(jTabelaInternos.getSelectedRow(), 1), jTabelaInternos.getValueAt(jTabelaInternos.getSelectedRow(), 2)};
-                    // BARRA DE ROLAGEM HORIZONTAL
-                    jTabelaInternosSelecionados.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-                    // ALINHAR TEXTO DA TABELA CENTRALIZADO
-                    DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
-                    centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-                    //
-                    jTabelaInternosSelecionados.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-                    jTabelaInternosSelecionados.getColumnModel().getColumn(1).setCellRenderer(centralizado);
-                    //Adiciona no destino e remove da origem
-                    modelDestino.addRow(obj);
-                    modelOrigem.removeRow(jTabelaInternos.getSelectedRow());                    
-                } else {                    
-                    JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos uma linha para transferir todos registros da tabela.");
-                    //Não tem nenhuma linha selecionada na tabela de origem, faça um aviso para o usuário ou algo do tipo.                    
-                }                
-            }            
-        }        
+            qtdInternos = qtdInternos - 1;
+            jtotalInternosSelecionados.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela 
+            jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
+            //Pega os models das listas, para fazer as inserções e remoções
+            DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaInternos.getModel();
+            DefaultTableModel modelDestino = (DefaultTableModel) jTabelaInternosSelecionados.getModel();
+            //Cria uma linha para ser incluida na tabela de destino, no meu caso tem duas colunas, adapte para as suas tabelas
+            Object[] obj = {jTabelaInternos.getValueAt(jTabelaInternos.getSelectedRow(), 0), jTabelaInternos.getValueAt(jTabelaInternos.getSelectedRow(), 1), jTabelaInternos.getValueAt(jTabelaInternos.getSelectedRow(), 2)};
+            // BARRA DE ROLAGEM HORIZONTAL
+            jTabelaInternosSelecionados.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            // ALINHAR TEXTO DA TABELA CENTRALIZADO
+            DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+            centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+            //
+            jTabelaInternosSelecionados.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+            jTabelaInternosSelecionados.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+            //Adiciona no destino e remove da origem
+            modelDestino.addRow(obj);
+            modelOrigem.removeRow(jTabelaInternos.getSelectedRow());
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos uma linha para transferir todos registros da tabela.");
+            //Não tem nenhuma linha selecionada na tabela de origem, faça um aviso para o usuário ou algo do tipo.                    
+        }
     }//GEN-LAST:event_jBtSelecionarUmInternoActionPerformed
 
     private void jBtSelecionarTodosInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSelecionarTodosInternosActionPerformed
@@ -1819,9 +2169,11 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                     //
                     jTabelaInternosSelecionados.getColumnModel().getColumn(0).setCellRenderer(centralizado);
                     jTabelaInternosSelecionados.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+
                 }
             } catch (Exception ex) {
-                Logger.getLogger(TelaMontagemPagamentoKitInterno.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(TelaMontagemPagamentoKitInterno.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
             // APAGAR TODOS OS REGISTROS DA TABELA COPIADA
             DefaultTableModel tblRemove = (DefaultTableModel) jTabelaInternos.getModel();
@@ -1837,31 +2189,42 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             }
             // LIMPAR O TOTALIZADOR DA TABELA
             jtotalInternosPavilhao.setText("");
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "A tabela com os internos a serem selecionados, não contém itens.");
         }
     }//GEN-LAST:event_jBtSelecionarTodosInternosActionPerformed
 
     private void jBtExcluirUmInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirUmInternoActionPerformed
         // TODO add your handling code here:
-        if (jTabelaInternosSelecionados.getSelectedRowCount() != 0) { //Verifica se existe linha selecionada para não dar erro na hora de pegar os valores
-            //Pega os models das listas, para fazer as inserções e remoções
-            DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaInternosSelecionados.getModel();
-            DefaultTableModel modelDestino = (DefaultTableModel) jTabelaInternos.getModel();
-            //Cria uma linha para ser incluida na tabela de destino, no meu caso tem duas colunas, adapte para as suas tabelas
-            Object[] obj = {jTabelaInternosSelecionados.getValueAt(jTabelaInternosSelecionados.getSelectedRow(), 0), jTabelaInternosSelecionados.getValueAt(jTabelaInternosSelecionados.getSelectedRow(), 1), jTabelaInternosSelecionados.getValueAt(jTabelaInternosSelecionados.getSelectedRow(), 2)};
-            // BARRA DE ROLAGEM HORIZONTAL
-            jTabelaInternos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-            // ALINHAR TEXTO DA TABELA CENTRALIZADO
-            DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
-            centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-            //
-            jTabelaInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-            jTabelaInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
-            //Adiciona no destino e remove da origem
-            modelDestino.addRow(obj);
-            modelOrigem.removeRow(jTabelaInternosSelecionados.getSelectedRow());
+        Integer rows = jTabelaInternosSelecionados.getModel().getRowCount();
+        if (rows != 0) {
+            if (jTabelaInternosSelecionados.getSelectedRowCount() != 0) { //Verifica se existe linha selecionada para não dar erro na hora de pegar os valores
+                count2 = count2 - 1;
+                qtdInternos = qtdInternos + 1;
+                jtotalInternosSelecionados.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela 
+                jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
+                //Pega os models das listas, para fazer as inserções e remoções
+                DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaInternosSelecionados.getModel();
+                DefaultTableModel modelDestino = (DefaultTableModel) jTabelaInternos.getModel();
+                //Cria uma linha para ser incluida na tabela de destino, no meu caso tem duas colunas, adapte para as suas tabelas
+                Object[] obj = {jTabelaInternosSelecionados.getValueAt(jTabelaInternosSelecionados.getSelectedRow(), 0), jTabelaInternosSelecionados.getValueAt(jTabelaInternosSelecionados.getSelectedRow(), 1), jTabelaInternosSelecionados.getValueAt(jTabelaInternosSelecionados.getSelectedRow(), 2)};
+                // BARRA DE ROLAGEM HORIZONTAL
+                jTabelaInternos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                //
+                jTabelaInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                //Adiciona no destino e remove da origem
+                modelDestino.addRow(obj);
+                modelOrigem.removeRow(jTabelaInternosSelecionados.getSelectedRow());
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos uma linha para transferir todos registros da tabela.");
+                //Não tem nenhuma linha selecionada na tabela de origem, faça um aviso para o usuário ou algo do tipo.            
+            }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos uma linha para transferir todos registros da tabela.");
-            //Não tem nenhuma linha selecionada na tabela de origem, faça um aviso para o usuário ou algo do tipo.
+            JOptionPane.showMessageDialog(rootPane, "Não existe dados a ser excluído.");
         }
     }//GEN-LAST:event_jBtExcluirUmInternoActionPerformed
 
@@ -1884,9 +2247,11 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                     //
                     jTabelaInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
                     jTabelaInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+
                 }
             } catch (Exception ex) {
-                Logger.getLogger(TelaMontagemPagamentoKitInterno.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(TelaMontagemPagamentoKitInterno.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
         }
         // APAGAR DADOS DA TABELA
@@ -1918,9 +2283,11 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                     //
                     jTabelaInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
                     jTabelaInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+
                 }
             } catch (Exception ex) {
-                Logger.getLogger(TelaMontagemPagamentoKitInterno.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(TelaMontagemPagamentoKitInterno.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_jBtPesquisarInternosPavilhaoActionPerformed
@@ -1937,28 +2304,148 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     private void jBtSaldoEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSaldoEstoqueActionPerformed
         // TODO add your handling code here:
-        if (jIdRegistroComp.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "É necessario pesquisar o registro de montagem do kit para consultar o saldo de estoque.");
+        buscarAcessoUsuario(telaMontagemPagamentoKitPavIntAL);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitPavIntAL) && codConsultarAL == 1) {
+            if (jIdRegistroComp.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessario pesquisar o registro de montagem do kit para consultar o saldo de estoque.");
+            } else {
+                mostraEstoque();
+            }
         } else {
-            mostraEstoque();
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
         }
     }//GEN-LAST:event_jBtSaldoEstoqueActionPerformed
+
+    private void jBtSelecionarProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSelecionarProdutosActionPerformed
+        // TODO add your handling code here:
+        Integer rows = jTabelaInternosSelecionados.getRowCount();
+        if (rows != 0) {
+            mostrarEstoqueProdutosKit();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Não existe internos para seleção de produtos.");
+        }
+    }//GEN-LAST:event_jBtSelecionarProdutosActionPerformed
+
+    private void jBtNovoProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoProdutoActionPerformed
+        // TODO add your handling code here:
+        Integer rows = jTabelaInternosSelecionados.getRowCount();
+        if (rows != 0) {
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            acao = 3;
+            bloquearCampos();
+            bloquearBotoes();
+            NovoProduto();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Não existe internos selecionados para incluir produtos.");
+        }
+    }//GEN-LAST:event_jBtNovoProdutoActionPerformed
+
+    private void jBtAlterarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarProdutoActionPerformed
+        // TODO add your handling code here:
+        acao = 4;
+        statusMov = "Alterou";
+        horaMov = jHoraSistema.getText();
+        dataModFinal = jDataSistema.getText();
+        bloquearCampos();
+        bloquearBotoes();
+        AlterarProduto();
+    }//GEN-LAST:event_jBtAlterarProdutoActionPerformed
+
+    private void jBtExcluirProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirProdutoActionPerformed
+        // TODO add your handling code here:
+        statusMov = "Excluiu";
+        horaMov = jHoraSistema.getText();
+        dataModFinal = jDataSistema.getText();
+        bloquearCampos();
+        bloquearBotoes();
+        ExcluirProduto();
+    }//GEN-LAST:event_jBtExcluirProdutoActionPerformed
+
+    private void jBtSalvarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarProdutoActionPerformed
+        // TODO add your handling code here:
+        bloquearCampos();
+        bloquearBotoes();
+        SalvarProduto();
+    }//GEN-LAST:event_jBtSalvarProdutoActionPerformed
+
+    private void jBtCancelarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarProdutoActionPerformed
+        // TODO add your handling code here:
+        bloquearCampos();
+        bloquearBotoes();
+        CancelarProduto();
+    }//GEN-LAST:event_jBtCancelarProdutoActionPerformed
+
+    private void jBtConsultarEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConsultarEstoqueActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaMontagemPagamentoKitPavIntAL);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitPavIntAL) && codConsultarAL == 1) {
+            if (jIdRegistroComp.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessario pesquisar o registro de montagem do kit para consultar o saldo de estoque.");
+            } else {
+                mostraEstoque();
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
+        }
+    }//GEN-LAST:event_jBtConsultarEstoqueActionPerformed
+
+    private void jBtAuditoriaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaProdutoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtAuditoriaProdutoActionPerformed
+
+    private void jCodigoBarraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCodigoBarraActionPerformed
+        // TODO add your handling code here:
+//         pQuantidade = 1;
+//        if (jIdRequiscaoUsuario.getText().equals("")) {
+//            conecta.abrirConexao();
+//            conecta.executaSQL("SELECT * FROM PRODUTOS_AC "
+//                    + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
+//                    + "ON PRODUTOS_AC.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
+//                    + "INNER JOIN LOTE_PRODUTOS_AC "
+//                    + "ON PRODUTOS_AC.IdProd=LOTE_PRODUTOS_AC.IdProd "
+//                    + "WHERE PRODUTOS_AC.CodigoBarra='" + jCodigoBarras.getText() + "'AND PRODUTOS_AC.StatusProd='" + statusProd + "'AND Modulo='" + modulo + "'");
+//            try {
+//                if (conecta.rs.first()) {
+//                    jCodProduto.setText(String.valueOf(conecta.rs.getInt("IdProd")));
+//                    jDescricaoProduto.setText(conecta.rs.getString("DescricaoProd"));
+//                    jCodigoBarras.setText(conecta.rs.getString("CodigoBarra"));
+//                    jLote.setText(conecta.rs.getString("Lote"));
+//                    jDataVctoLote.setDate(conecta.rs.getDate("DataVenc"));
+//                    jValorUnitarioItem.setText(conecta.rs.getString("ValorCompra"));
+//                    jComboBoxUnidade.setSelectedItem(conecta.rs.getString("UnidadeProd"));
+//                    jQtdItem.setText(String.valueOf(pQuantidade));
+//                } else {
+//                    JOptionPane.showMessageDialog(rootPane, "Produto não cadastro.");
+//                }
+//            } catch (SQLException ex) {
+//            }
+//            conecta.desconecta();
+//        }
+    }//GEN-LAST:event_jCodigoBarraActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup grupoBotoes;
     public static javax.swing.JButton jBtAlterar;
+    private javax.swing.JButton jBtAlterarProduto;
     public static javax.swing.JButton jBtAuditoria;
     public static javax.swing.JButton jBtAuditoriaPavInternos;
+    private javax.swing.JButton jBtAuditoriaProduto;
     public static javax.swing.JButton jBtCancelar;
     public static javax.swing.JButton jBtCancelarPavilhaoInterno;
+    private javax.swing.JButton jBtCancelarProduto;
+    private javax.swing.JButton jBtConsultarEstoque;
     public static javax.swing.JButton jBtExcluir;
     public static javax.swing.JButton jBtExcluirPavInternos;
+    private javax.swing.JButton jBtExcluirProduto;
     private javax.swing.JButton jBtExcluirTodosInternos;
     private javax.swing.JButton jBtExcluirUmInterno;
     private javax.swing.JButton jBtFinalizar;
     public static javax.swing.JButton jBtNovo;
     public static javax.swing.JButton jBtNovoPavInternos;
+    private javax.swing.JButton jBtNovoProduto;
     private javax.swing.JButton jBtPesquisaComp;
     private javax.swing.JButton jBtPesquisarColaborador;
     private javax.swing.JButton jBtPesquisarInternosPavilhao;
@@ -1967,23 +2454,24 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     private javax.swing.JButton jBtSaldoEstoque;
     public static javax.swing.JButton jBtSalvar;
     public static javax.swing.JButton jBtSalvarPavInternos;
+    private javax.swing.JButton jBtSalvarProduto;
+    private javax.swing.JButton jBtSelecionarProdutos;
     public static javax.swing.JButton jBtSelecionarTodosInternos;
     public static javax.swing.JButton jBtSelecionarUmInterno;
-    private javax.swing.JButton jButton20;
-    private javax.swing.JButton jButton21;
-    private javax.swing.JButton jButton22;
-    private javax.swing.JButton jButton23;
-    private javax.swing.JTextField jCodigoProd;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JTextField jCodigoBarra;
+    public static javax.swing.JTextField jCodigoProd;
     public static javax.swing.JComboBox<String> jComboBoxPavilhoes;
     public static com.toedter.calendar.JDateChooser jDataComp;
     public static javax.swing.JTextField jDepartamentoColaborador;
-    private javax.swing.JTextField jDescricaoProd;
+    public static javax.swing.JTextField jDescricaoProd;
     public static javax.swing.JLabel jFotoColaborador;
     public static javax.swing.JTextField jIdFunc;
     public static javax.swing.JTextField jIdRegistroComp;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1992,6 +2480,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     private javax.swing.JLabel jLabel67;
     private javax.swing.JLabel jLabel68;
     private javax.swing.JLabel jLabel69;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel70;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -2009,6 +2498,9 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel20;
+    private javax.swing.JPanel jPanel21;
+    private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel30;
     private javax.swing.JPanel jPanel31;
@@ -2027,7 +2519,9 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JFormattedTextField jQuantidadeProd;
+    private javax.swing.JPanel jPanel9;
+    public static javax.swing.JFormattedTextField jQuantidadeAtendida;
+    public static javax.swing.JFormattedTextField jQuantidadeProdKit;
     public static javax.swing.JRadioButton jRBtKitAnual;
     public static javax.swing.JRadioButton jRBtKitDecendial;
     public static javax.swing.JRadioButton jRBtKitInicial;
@@ -2039,15 +2533,19 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     public static javax.swing.JTextField jStatusComp;
     private javax.swing.JTabbedPane jTabbedPane1;
     public static javax.swing.JTable jTabelaGeralProdutosKit;
     public static javax.swing.JTable jTabelaInternos;
     public static javax.swing.JTable jTabelaInternosSelecionados;
-    private javax.swing.JTable jTabelaProduto;
-    private javax.swing.JTextField jUnidadeProd;
+    public static javax.swing.JTable jTabelaProduto;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
+    public static javax.swing.JTextField jUnidadeProd;
     public static javax.swing.JLabel jtotalInternosPavilhao;
-    private javax.swing.JLabel jtotalInternosSelecionados;
+    public static javax.swing.JLabel jtotalInternosSelecionados;
     public static javax.swing.JLabel jtotalProdutosKit;
     private javax.swing.JLabel jtotalProdutosKitInternos;
     // End of variables declaration//GEN-END:variables
@@ -2066,10 +2564,17 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jNomeColaborador.setBackground(Color.white);
         jDepartamentoColaborador.setBackground(Color.white);
         jObservacao.setBackground(Color.white);
+        // ABA FASE - 3
+        jCodigoProd.setBackground(Color.white);
+        jCodigoBarra.setBackground(Color.white);
+        jUnidadeProd.setBackground(Color.white);
+        jQuantidadeProdKit.setBackground(Color.white);
+        jQuantidadeAtendida.setBackground(Color.white);
+        jDescricaoProd.setBackground(Color.white);
     }
 
     public void bloquearCampos() {
-        // ABA DADOS INICIAIS
+        // FASE - 1
         jIdRegistroComp.setEnabled(!true);
         jStatusComp.setEnabled(!true);
         jDataComp.setEnabled(!true);
@@ -2082,12 +2587,19 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jRBtKitSemestral.setEnabled(!true);
         jRBtKitAnual.setEnabled(!true);
         jObservacao.setEnabled(!true);
-        // ABA PAVILHÃO/INTERNOS
+        // FASE - 2
         jComboBoxPavilhoes.setEnabled(!true);
+        // FASE - 3
+        jCodigoProd.setEnabled(!true);
+        jCodigoBarra.setEnabled(!true);
+        jUnidadeProd.setEnabled(!true);
+        jQuantidadeProdKit.setEnabled(!true);
+        jQuantidadeAtendida.setEnabled(!true);
+        jDescricaoProd.setEnabled(!true);
     }
 
     public void bloquearBotoes() {
-        // ABA DADOS INICIAIS  
+        // FASE - 1 
         jBtFinalizar.setEnabled(!true);
         jBtNovo.setEnabled(!true);
         jBtAlterar.setEnabled(!true);
@@ -2097,7 +2609,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jBtAuditoria.setEnabled(!true);
         jBtPesquisarKit.setEnabled(!true);
         jBtPesquisarColaborador.setEnabled(!true);
-        // ABA PAVILHÃO/INTERNOS
+        // FASE - 2
         jBtNovoPavInternos.setEnabled(!true);
         jBtExcluirPavInternos.setEnabled(!true);
         jBtSalvarPavInternos.setEnabled(!true);
@@ -2110,12 +2622,18 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         //
         jBtPesquisarInternosPavilhao.setEnabled(!true);
         jBtAuditoriaPavInternos.setEnabled(!true);
-        // ABA COMPOSIÇÃO KIT
-
+        // FASE - 3
+        jBtNovoProduto.setEnabled(!true);
+        jBtAlterarProduto.setEnabled(!true);
+        jBtExcluirProduto.setEnabled(!true);
+        jBtSalvarProduto.setEnabled(!true);
+        jBtCancelarProduto.setEnabled(!true);
+        jBtAuditoriaProduto.setEnabled(!true);
+        jBtSelecionarProdutos.setEnabled(!true);
     }
 
     public void limparCampos() {
-        // ABA DADOS INICIAIS
+        // FASE - 1
         jIdRegistroComp.setText("");
         jStatusComp.setText("");
         jDataComp.setDate(null);
@@ -2124,8 +2642,15 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jDepartamentoColaborador.setText("");
         jFotoColaborador.setIcon(null);
         jObservacao.setText("");
-        // ABA PAVILHÕES/INTERNOS
+        // FASE - 2
         jComboBoxPavilhoes.setSelectedItem("Selecione...");
+        // FASE - 3
+        jCodigoProd.setText("");
+        jCodigoBarra.setText("");
+        jUnidadeProd.setText("");
+        jQuantidadeProdKit.setText("");
+        jQuantidadeAtendida.setText("");
+        jDescricaoProd.setText("");
     }
 
     public void limparTabelasAbaPavIntComp() {
@@ -2143,8 +2668,9 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jtotalInternosSelecionados.setText("");
     }
 
+    // FASE - 1
     public void Novo() {
-        // ABA DADOS INICIAIS       
+        // FASE - 1     
         jStatusComp.setText("ABERTO");
         jDataComp.setCalendar(Calendar.getInstance());
         //  
@@ -2175,7 +2701,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jBtExcluir.setEnabled(true);
         jBtAuditoria.setEnabled(true);
         jBtFinalizar.setEnabled(true);
-        // ABA PAVILHÕES/INTERNOS
+        // FASE - 2
         jBtNovoPavInternos.setEnabled(true);
         jBtPesquisarInternosPavilhao.setEnabled(true);
     }
@@ -2207,37 +2733,19 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     }
 
     public void verificarDadosIniciais() {
-        Integer rows = jTabelaInternos.getModel().getRowCount();
-        if (rows != 0) {
-            conecta.abrirConexao();
-//        try {
-//            conecta.executaSQL("SELECT * FROM ITENS_REQUISICAO_PRODUTOS_INTERNOS WHERE IdReq='" + objReqMatInter.getIdReq() + "'");
-//            conecta.rs.first();
-//            codRequisicao = conecta.rs.getString("IdReq");
-//            if (jCodReq.getText().equals(codRequisicao)) {
-//                JOptionPane.showMessageDialog(rootPane, "Antes de excluir esse Lançamento, será necessário\nexcluir primeiro os itens relacionados a esse registro.");
-//            }
-//        } catch (SQLException ex) {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objComp.setIdRegistroComp(Integer.parseInt(jIdRegistroComp.getText()));
-                control.excluirComposicaoKitlInternos(objComp);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                bloquearBotoes();
-                bloquearCampos();
-                limparCampos();
-                limparTabelaItensKit();
-                limparTabelasAbaPavIntComp();
-                Excluir();
-            }
-//        }
-            conecta.desconecta();
+
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM INTERNOS_PAVILHAO_KIT_LOTE "
+                    + "WHERE IdRegistroComp='" + jIdRegistroComp.getText() + "'");
+            conecta.rs.first();
+            codRequisicao = conecta.rs.getString("IdRegistroComp");
+        } catch (SQLException ex) {
         }
+        conecta.desconecta();
     }
 
+    // FASE - 2
     public void NovoPavilhaoInterno() {
         jComboBoxPavilhoes.setEnabled(true);
         //
@@ -2261,14 +2769,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     }
 
     public void ExcluirPavilhaoInterno() {
-
-    }
-
-    public void SalvarPavilhaoInterno() {
-        // ABA PAVILHÃO/INTERNOS
-        jBtExcluirPavInternos.setEnabled(true);
-        jBtAuditoriaPavInternos.setEnabled(true);
-        // ABA GERAL E DADOS INICIAIS
+        // FASE - 1
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(true);
         jBtExcluir.setEnabled(true);
@@ -2276,8 +2777,27 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jBtFinalizar.setEnabled(true);
     }
 
-    public void CancelarPavilhaoInterno() {
+    public void SalvarPavilhaoInterno() {
+        // FASE - 1
+        jBtExcluirPavInternos.setEnabled(true);
+        jBtAuditoriaPavInternos.setEnabled(true);
+        // FASE - 2
+        jBtNovo.setEnabled(true);
+        jBtAlterar.setEnabled(true);
+        jBtExcluir.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
+        jBtFinalizar.setEnabled(true);
+        // FASE - 3
+        jBtNovoProduto.setEnabled(true);
+    }
 
+    public void CancelarPavilhaoInterno() {
+        // FASE - 1
+        jBtNovo.setEnabled(true);
+        jBtAlterar.setEnabled(true);
+        jBtExcluir.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
+        jBtFinalizar.setEnabled(true);
     }
 
     public void pesquisarPavilhao() {
@@ -2304,6 +2824,36 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         } catch (Exception ERROR) {
         }
         conecta.desconecta();
+    }
+
+    // FASE - 3
+    public void NovoProduto() {
+
+        jQuantidadeAtendida.setEnabled(true);
+        //
+        jBtSelecionarProdutos.setEnabled(true);
+        jBtSalvarProduto.setEnabled(true);
+        jBtCancelarProduto.setEnabled(true);
+    }
+
+    public void AlterarProduto() {
+
+    }
+
+    public void ExcluirProduto() {
+
+    }
+
+    public void SalvarProduto() {
+
+    }
+
+    public void CancelarProduto() {
+
+    }
+
+    public void buscarProduto() {
+
     }
 
     public void preencherTabelaItensKit(String sql) {
@@ -2495,5 +3045,43 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         objLogSys.setIdLancMov(Integer.valueOf(jIdRegistroComp.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserAL = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserAL + "'");
+            conecta.rs.first();
+            codigoUserGroupAL = conecta.rs.getInt("IdUsuario");
+            codigoGrupoAL = conecta.rs.getInt("IdGrupo");
+            nomeGrupoAL = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserAL + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoAL = conecta.rs.getInt("IdUsuario");
+            codAbrirAL = conecta.rs.getInt("Abrir");
+            codIncluirAL = conecta.rs.getInt("Incluir");
+            codAlterarAL = conecta.rs.getInt("Alterar");
+            codExcluirAL = conecta.rs.getInt("Excluir");
+            codGravarAL = conecta.rs.getInt("Gravar");
+            codConsultarAL = conecta.rs.getInt("Consultar");
+            nomeTelaAL = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }
