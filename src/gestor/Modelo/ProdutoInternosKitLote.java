@@ -13,6 +13,7 @@ public class ProdutoInternosKitLote {
 
     private int idRegProdKit;
     private int idRegistroComp;
+    private int idKit;
     private int idPav;
     private String descricaoPavilhao;
     private int idInternoCrc;
@@ -31,9 +32,10 @@ public class ProdutoInternosKitLote {
     public ProdutoInternosKitLote() {
     }
 
-    public ProdutoInternosKitLote(int idRegProdKit, int idRegistroComp, int idPav, String descricaoPavilhao, int idInternoCrc, String nomeInternoCrc, int idProd, String descricaoProduto, String unidadeProd, float quantidadeProd, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
+    public ProdutoInternosKitLote(int idRegProdKit, int idRegistroComp, int idKit, int idPav, String descricaoPavilhao, int idInternoCrc, String nomeInternoCrc, int idProd, String descricaoProduto, String unidadeProd, float quantidadeProd, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
         this.idRegProdKit = idRegProdKit;
         this.idRegistroComp = idRegistroComp;
+        this.idKit = idKit;
         this.idPav = idPav;
         this.descricaoPavilhao = descricaoPavilhao;
         this.idInternoCrc = idInternoCrc;
@@ -76,6 +78,20 @@ public class ProdutoInternosKitLote {
      */
     public void setIdRegistroComp(int idRegistroComp) {
         this.idRegistroComp = idRegistroComp;
+    }
+
+    /**
+     * @return the idKit
+     */
+    public int getIdKit() {
+        return idKit;
+    }
+
+    /**
+     * @param idKit the idKit to set
+     */
+    public void setIdKit(int idKit) {
+        this.idKit = idKit;
     }
 
     /**
@@ -273,5 +289,5 @@ public class ProdutoInternosKitLote {
     public void setHorarioUp(String horarioUp) {
         this.horarioUp = horarioUp;
     }
-
+    
 }
