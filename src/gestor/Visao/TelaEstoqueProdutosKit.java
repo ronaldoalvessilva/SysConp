@@ -7,9 +7,19 @@ package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.idKit;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jCodigoProd;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jUnidadeProd;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jQuantidadeProdEstoque;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jQuantidadeKit;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jDescricaoProd;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jQuantidadeInternos;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jtotalInternosSelecionados;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Currency;
+import java.util.Locale;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -28,9 +38,12 @@ public class TelaEstoqueProdutosKit extends javax.swing.JDialog {
     int count = 0;
     int flag = 0;
     String statusProd = "Ativo";
-    double qtdEstoque = 0;
+    float qtdEstoque = 0;
     String modulo = "A";
     String compoeKit = "Sim";
+    String idProd;
+    float qdtKit = 0;
+    String nomeProduto = "";
 
     /**
      * Creates new form TelaConsultaEstoqueMontagemKit
@@ -389,7 +402,7 @@ public class TelaEstoqueProdutosKit extends javax.swing.JDialog {
                     + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
                     + "ON PRODUTOS_AC.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
                     + "INNER JOIN LOTE_PRODUTOS_AC "
-                    + "ON PRODUTOS_AC.IdProd=LOTE_PRODUTOS_AC.IdProd "                    
+                    + "ON PRODUTOS_AC.IdProd=LOTE_PRODUTOS_AC.IdProd "
                     + "WHERE PRODUTOS_AC.DescricaoProd LIKE'%" + jDescricapProdPesquisa.getText() + "%' "
                     + "AND LOTE_PRODUTOS_AC.Qtd!='" + qtdEstoque + "' "
                     + "AND PRODUTOS_AC.StatusProd='" + statusProd + "' "
@@ -400,10 +413,56 @@ public class TelaEstoqueProdutosKit extends javax.swing.JDialog {
 
     private void jTabelalProdutosEstoqueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelalProdutosEstoqueMouseClicked
         // TODO add your handling code here:
+        flag = 1;
+        if (flag == 1) {
+            nomeProduto = "" + jTabelalProdutosEstoque.getValueAt(jTabelalProdutosEstoque.getSelectedRow(), 2);
+            jDescricapProdPesquisa.setText(nomeProduto);
+            idProd = "" + jTabelalProdutosEstoque.getValueAt(jTabelalProdutosEstoque.getSelectedRow(), 0);
+            jCodigoProdPesquisa.setText(idProd);
+        }
     }//GEN-LAST:event_jTabelalProdutosEstoqueMouseClicked
 
     private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
         // TODO add your handling code here:
+        flag = 1;
+        DecimalFormat qtdReal = new DecimalFormat("###,##00.0");
+        qtdReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
+        flag = 1;
+        if (jDescricapProdPesquisa.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "Selecione o nome do interno e clique no botão CONFIRMAR");
+        } else {
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM PRODUTOS_AC "
+                        + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
+                        + "ON PRODUTOS_AC.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
+                        + "INNER JOIN LOTE_PRODUTOS_AC "
+                        + "ON PRODUTOS_AC.IdProd=LOTE_PRODUTOS_AC.IdProd "
+                        + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
+                        + "ON PRODUTOS_AC.IdProd=PRODUTOS_KITS_HIGIENE_INTERNO.IdProd "
+                        + "WHERE PRODUTOS_AC.IdProd='" + idProd + "'");
+                conecta.rs.first();
+                jCodigoProd.setText(String.valueOf(conecta.rs.getInt("IdProd")));
+                jDescricaoProd.setText(conecta.rs.getString("DescricaoProd"));
+                jUnidadeProd.setText(conecta.rs.getString("UnidadeProd"));
+                idKit = conecta.rs.getInt("IdKit");
+                // Formata o valor para ser exibido na tela no formato BR                                                   
+                qtdEstoque = conecta.rs.getFloat("Qtd");
+                DecimalFormat vu = new DecimalFormat(",###0.00");
+                String qEstoque = vu.format(qtdEstoque);
+                jQuantidadeProdEstoque.setText(qEstoque);
+                //
+                qdtKit = conecta.rs.getFloat("QuantItem");
+                DecimalFormat qk = new DecimalFormat("###,###0.00");
+                String qKit = qk.format(qdtKit);
+                jQuantidadeKit.setText(qKit);
+                jQuantidadeInternos.setText(jtotalInternosSelecionados.getText());
+                conecta.desconecta();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa do produto" + e);
+            }
+            dispose();
+        }
     }//GEN-LAST:event_jBtConfirmarActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
