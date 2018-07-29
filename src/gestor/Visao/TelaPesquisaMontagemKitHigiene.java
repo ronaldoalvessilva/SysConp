@@ -6,9 +6,11 @@
 package gestor.Visao;
 
 import gestor.Controle.ControleComposicaoKit;
+import gestor.Controle.ControleProdutosKitLote;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.PavilhaoInternosSelecionados;
+import gestor.Modelo.ProdutoInternosKitLote;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jRBtKitAnual;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jRBtKitDecendial;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jRBtKitInicial;
@@ -22,8 +24,6 @@ import static gestor.Visao.TelaMontagemPagamentoKitInterno.jBtExcluir;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jBtSalvar;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jBtCancelar;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jBtAuditoria;
-import static gestor.Visao.TelaMontagemPagamentoKitInterno.jBtNovoPavInternos;
-import static gestor.Visao.TelaMontagemPagamentoKitInterno.jBtExcluirPavInternos;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jDataComp;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jDepartamentoColaborador;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jFotoColaborador;
@@ -34,8 +34,11 @@ import static gestor.Visao.TelaMontagemPagamentoKitInterno.jObservacao;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jRBtKitSemestral;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jStatusComp;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jTabelaInternosSelecionados;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jTabelaProdutos;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jtotalInternosSelecionados;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdInternosSelec;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdProd;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jtotalProdutosKitInternos;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -57,7 +60,8 @@ import javax.swing.table.DefaultTableModel;
 public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
-    ControleComposicaoKit controle = new ControleComposicaoKit();
+    ControleComposicaoKit controle = new ControleComposicaoKit(); 
+    ControleProdutosKitLote control = new ControleProdutosKitLote();
     //
     int flag;
     int count = 0;
@@ -551,7 +555,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
             jBtExcluir.setEnabled(true);
             jBtSalvar.setEnabled(!true);
             jBtCancelar.setEnabled(true);
-            jBtAuditoria.setEnabled(true);            
+            jBtAuditoria.setEnabled(true);
             //
             if (kitInicial == 1) {
                 conecta.abrirConexao();
@@ -602,6 +606,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                     JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa..." + e);
                 }
                 mostrarInternosSelecionados();
+                mostrarProdutosSelecionados();
                 conecta.desconecta();
                 dispose();
             } else if (kitQuinzenal == 1) {
@@ -653,6 +658,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                 } catch (Exception e) {
                 }
                 mostrarInternosSelecionados();
+                mostrarProdutosSelecionados();
                 conecta.desconecta();
                 dispose();
             } else if (kitMensal == 1) {
@@ -704,6 +710,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                 } catch (Exception e) {
                 }
                 mostrarInternosSelecionados();
+                mostrarProdutosSelecionados();
                 conecta.desconecta();
                 dispose();
             } else if (kitDecendial == 1) {
@@ -755,6 +762,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                 } catch (Exception e) {
                 }
                 mostrarInternosSelecionados();
+                mostrarProdutosSelecionados();
                 conecta.desconecta();
                 dispose();
             } else if (kitSemestral == 1) {
@@ -806,6 +814,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                 } catch (Exception e) {
                 }
                 mostrarInternosSelecionados();
+                mostrarProdutosSelecionados();
                 conecta.desconecta();
                 dispose();
             } else if (kitAnual == 1) {
@@ -857,6 +866,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                 } catch (Exception e) {
                 }
                 mostrarInternosSelecionados();
+                mostrarProdutosSelecionados();
                 conecta.desconecta();
                 dispose();
             }
@@ -1059,6 +1069,29 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                 //
                 jTabelaInternosSelecionados.getColumnModel().getColumn(0).setCellRenderer(centralizado);
                 jTabelaInternosSelecionados.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaMontagemPagamentoKitInterno.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void mostrarProdutosSelecionados() {
+        DefaultTableModel dadosProduto = (DefaultTableModel) jTabelaProdutos.getModel();
+        ProdutoInternosKitLote p = new ProdutoInternosKitLote();
+        try {
+            for (ProdutoInternosKitLote pp : control.read()) {
+                jtotalProdutosKitInternos.setText(Integer.toString(qtdProd)); // Converter inteiro em string para exibir na tela 
+                dadosProduto.addRow(new Object[]{pp.getIdRegProdKit(), pp.getIdProd(), pp.getDescricaoProduto(), pp.getUnidadeProd(), pp.getQuantidadeProd()});
+                // BARRA DE ROLAGEM HORIZONTAL
+                jTabelaProdutos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                centralizado.setHorizontalAlignment(SwingConstants.CENTER);                
+                //
+                jTabelaProdutos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaProdutos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                jTabelaProdutos.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+                jTabelaProdutos.getColumnModel().getColumn(4).setCellRenderer(centralizado);
             }
         } catch (Exception ex) {
             Logger.getLogger(TelaMontagemPagamentoKitInterno.class.getName()).log(Level.SEVERE, null, ex);
