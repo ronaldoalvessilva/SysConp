@@ -52,14 +52,12 @@ public class ControleProdutosKitLote {
         buscarProduto(objProdKit.getDescricaoProduto(), objProdKit.getIdProd());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE SET IdRegistroComp=?,IdKit=?,IdProd=?,QuantProd=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdProd='" + objProdKit.getIdProd() + "' AND IdRegistroComp='" + objProdKit.getIdRegistroComp() + "'");
-            pst.setInt(1, objProdKit.getIdRegistroComp());
-            pst.setInt(2, objProdKit.getIdKit());
-            pst.setInt(3, codProd);
-            pst.setFloat(4, objProdKit.getQuantidadeProd());
-            pst.setString(5, objProdKit.getUsuarioUp());
-            pst.setString(6, objProdKit.getDataUp());
-            pst.setString(7, objProdKit.getHorarioUp());
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE SET IdProd=?,QuantProd=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdProd='" + objProdKit.getIdProd() + "' AND IdRegistroComp='" + objProdKit.getIdRegistroComp() + "'");
+            pst.setInt(1, codProd);
+            pst.setFloat(2, objProdKit.getQuantidadeProd());
+            pst.setString(3, objProdKit.getUsuarioUp());
+            pst.setString(4, objProdKit.getDataUp());
+            pst.setString(5, objProdKit.getHorarioUp());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR itens da requisição.\nERRO: " + ex);
