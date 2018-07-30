@@ -16,16 +16,18 @@ public class PavilhaoInternoMontaKit {
     private String cncInternoCrc;
     private int idPav;
     private String descricaoPav;
+    private boolean opcao;
 
     public PavilhaoInternoMontaKit() {
     }
 
-    public PavilhaoInternoMontaKit(int idInternoCrc, String nomeInternoCrc, String cncInternoCrc, int idPav, String descricaoPav) {
+    public PavilhaoInternoMontaKit(int idInternoCrc, String nomeInternoCrc, String cncInternoCrc, int idPav, String descricaoPav, boolean opcao) {
         this.idInternoCrc = idInternoCrc;
         this.nomeInternoCrc = nomeInternoCrc;
         this.cncInternoCrc = cncInternoCrc;
         this.idPav = idPav;
         this.descricaoPav = descricaoPav;
+        this.opcao = opcao;
     }
 
     /**
@@ -96,6 +98,20 @@ public class PavilhaoInternoMontaKit {
      */
     public void setDescricaoPav(String descricaoPav) {
         this.descricaoPav = descricaoPav;
+    }
+
+    /**
+     * @return the opcao
+     */
+    public boolean isOpcao() {
+        return opcao;
+    }
+
+    /**
+     * @param opcao the opcao to set
+     */
+    public void setOpcao(boolean opcao) {
+        this.opcao = opcao;
     }
     
 }
