@@ -1846,6 +1846,8 @@ public class TelaRequisicaoMateriaisInternosAC extends javax.swing.JInternalFram
             if (jStatusReq.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
             } else {
+                DecimalFormat qtdReal = new DecimalFormat("###,##00.0");
+                qtdReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
                 statusMov = "Excluiu";
                 horaMov = jHoraSistema.getText();
                 dataModFinal = jDataSistema.getText();
@@ -1853,6 +1855,10 @@ public class TelaRequisicaoMateriaisInternosAC extends javax.swing.JInternalFram
                         JOptionPane.YES_NO_OPTION);
                 if (resposta == JOptionPane.YES_OPTION) {
                     pegarSaldoEstoque(Integer.valueOf(jCodProduto.getText()));
+                    try {
+                        objItensReqMatInter.setQtdItem(qtdReal.parse(jQtdItem.getText()).floatValue());
+                    } catch (ParseException ex) {
+                    }
                     // CALCULA O NOVO SALDO DE ESTOQUE
                     estoqueAtual = saldoEstoque + objItensReqMatInter.getQtdItem();
                     //
