@@ -17,7 +17,7 @@ public class GravarInternosKitCompleto {
     private int idInternoCrc;
     private String nomeInternoCrc;
     private String agrupado;
-    private String gravado;
+    private int gravado;
     private String usuarioInsert;
     private String usuarioUp;
     private String dataInsert;
@@ -28,7 +28,7 @@ public class GravarInternosKitCompleto {
     public GravarInternosKitCompleto() {
     }
 
-    public GravarInternosKitCompleto(int idRegIntAgrupComp, int idRegistroComp, int idKit, int idInternoCrc, String nomeInternoCrc, String agrupado, String gravado, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
+    public GravarInternosKitCompleto(int idRegIntAgrupComp, int idRegistroComp, int idKit, int idInternoCrc, String nomeInternoCrc, String agrupado, int gravado, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
         this.idRegIntAgrupComp = idRegIntAgrupComp;
         this.idRegistroComp = idRegistroComp;
         this.idKit = idKit;
@@ -131,14 +131,14 @@ public class GravarInternosKitCompleto {
     /**
      * @return the gravado
      */
-    public String getGravado() {
+    public int getGravado() {
         return gravado;
     }
 
     /**
      * @param gravado the gravado to set
      */
-    public void setGravado(String gravado) {
+    public void setGravado(int gravado) {
         this.gravado = gravado;
     }
 
