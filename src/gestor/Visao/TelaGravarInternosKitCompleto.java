@@ -41,6 +41,8 @@ public class TelaGravarInternosKitCompleto extends javax.swing.JDialog {
     String dataModFinal = "";
     int pGravado = 1;
     String pUtili = "Sim";
+    int codigoInterno = 0;
+    int codigoRegistro = 0;
 
     /**
      * Creates new form TelaGravarInternosKitCompleto
@@ -198,14 +200,49 @@ public class TelaGravarInternosKitCompleto extends javax.swing.JDialog {
                         objGravaIntComp.setIdInternoCrc((int) jTabelaInternosKitCompleto.getValueAt(i, 0));
                         objGravaIntComp.setNomeInternoCrc((String) jTabelaInternosKitCompleto.getValueAt(i, 1));
                         objGravaIntComp.setGravado(pGravado);
-                        controle.incluirInternosKitCompleto(objGravaIntComp);
-                        buscarCodigoRegistroInternoKitCompleto();
-                        // FAZ UM UPDATE NA TABELA INTERNOS_PAVILHAO_KIT_LOTE INFORMANDO A UTILIZAÇÃO DOS INTERNOS PARA 
-                        // O KIT COMPLETO
-                        objGravaIntComp.setUtili(pUtili);
-                        controle.atualizarInternosPavilhao(objGravaIntComp);
-                        objLog2();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                                 
+                        // VERIFICAR SE O INTERNO JÁ SE ENCONTRA GRAVADO NA TABELA PARA PARA O MESMO REGISTRO
+                        verificarInternoBancoDados(objGravaIntComp.getIdRegistroComp(), objGravaIntComp.getIdInternoCrc());
+                        // SE O REGISTRO FOR IGUAL E O INTERNO DIFERENTE, GRAVA
+                        if (objGravaIntComp.getIdRegistroComp() == codigoRegistro && objGravaIntComp.getIdInternoCrc() != codigoInterno) {
+                            controle.incluirInternosKitCompleto(objGravaIntComp);
+                            buscarCodigoRegistroInternoKitCompleto();
+                            // FAZ UM UPDATE NA TABELA INTERNOS_PAVILHAO_KIT_LOTE INFORMANDO A UTILIZAÇÃO DOS INTERNOS PARA 
+                            // O KIT COMPLETO
+                            objGravaIntComp.setUtili(pUtili);
+                            controle.atualizarInternosPavilhao(objGravaIntComp);
+                            objLog2();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
+                            // SE O REGISTRO FOR DIFERENTE GRAVA OS NOVOS INTERNOS
+                        } else if (objGravaIntComp.getIdRegistroComp() != codigoRegistro) {
+                            controle.incluirInternosKitCompleto(objGravaIntComp);
+                            buscarCodigoRegistroInternoKitCompleto();
+                            // FAZ UM UPDATE NA TABELA INTERNOS_PAVILHAO_KIT_LOTE INFORMANDO A UTILIZAÇÃO DOS INTERNOS PARA 
+                            // O KIT COMPLETO
+                            objGravaIntComp.setUtili(pUtili);
+                            controle.atualizarInternosPavilhao(objGravaIntComp);
+                            objLog2();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
+                            // SE O CODIGO DO INTERNO FOR ZERO
+                        } else if (codigoRegistro == 0) {
+                            controle.incluirInternosKitCompleto(objGravaIntComp);
+                            buscarCodigoRegistroInternoKitCompleto();
+                            // FAZ UM UPDATE NA TABELA INTERNOS_PAVILHAO_KIT_LOTE INFORMANDO A UTILIZAÇÃO DOS INTERNOS PARA 
+                            // O KIT COMPLETO
+                            objGravaIntComp.setUtili(pUtili);
+                            controle.atualizarInternosPavilhao(objGravaIntComp);
+                            objLog2();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
+                            // SE O CODIGO DO REGISTRO FOR DIFERENTE E O CÓDIGO DO INTERNO FOR DIFERENTE GRAVA
+                        } else if (objGravaIntComp.getIdRegistroComp() != codigoRegistro && objGravaIntComp.getIdInternoCrc() != codigoInterno) {
+                            controle.incluirInternosKitCompleto(objGravaIntComp);
+                            buscarCodigoRegistroInternoKitCompleto();
+                            // FAZ UM UPDATE NA TABELA INTERNOS_PAVILHAO_KIT_LOTE INFORMANDO A UTILIZAÇÃO DOS INTERNOS PARA 
+                            // O KIT COMPLETO
+                            objGravaIntComp.setUtili(pUtili);
+                            controle.atualizarInternosPavilhao(objGravaIntComp);
+                            objLog2();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
+                        }
                     }
                     try {
                         Thread.sleep(10);
@@ -255,6 +292,22 @@ public class TelaGravarInternosKitCompleto extends javax.swing.JDialog {
             conecta.executaSQL("SELECT * FROM ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO");
             conecta.rs.last();
             idRegPavInt = conecta.rs.getInt("IdRegIntAgrupComp");
+        } catch (Exception ERROR) {
+        }
+        conecta.desconecta();
+    }
+
+    // VERIFICAR SE O INTERNO JÁ FOI INCLUÍDO NO BANCO DE DADOS
+    // PARA NÃO SER GRAVADO MAIS DE UMA VEZ NO MESMO KIT
+    public void verificarInternoBancoDados(int codigoReg, int codInternoCrc) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO "
+                    + "WHERE IdRegistroComp='" + codigoReg + "' "
+                    + "AND IdInternoCrc='" + codInternoCrc + "'");
+            conecta.rs.last();
+            codigoInterno = conecta.rs.getInt("IdInternoCrc");
+            codigoRegistro = conecta.rs.getInt("IdRegistroComp");
         } catch (Exception ERROR) {
         }
         conecta.desconecta();
