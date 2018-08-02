@@ -25,11 +25,12 @@ public class PavilhaoInternosMontagemKit {
     private String DataUp;
     private String HorarioInsert;
     private String HorarioUp;
+    private String pUtili;
 
     public PavilhaoInternosMontagemKit() {
     }
 
-    public PavilhaoInternosMontagemKit(int IdRegPavInt, int IdRegistroComp, int idPavIntSelec, int IdInternoCrc, String nomeInternoCrc, int IdPav, String descricaoPavilhao, int IdRegIntSel, String UsuarioInsert, String UsuarioUp, String DataInsert, String DataUp, String HorarioInsert, String HorarioUp) {
+    public PavilhaoInternosMontagemKit(int IdRegPavInt, int IdRegistroComp, int idPavIntSelec, int IdInternoCrc, String nomeInternoCrc, int IdPav, String descricaoPavilhao, int IdRegIntSel, String UsuarioInsert, String UsuarioUp, String DataInsert, String DataUp, String HorarioInsert, String HorarioUp, String pUtili) {
         this.IdRegPavInt = IdRegPavInt;
         this.IdRegistroComp = IdRegistroComp;
         this.idPavIntSelec = idPavIntSelec;
@@ -44,6 +45,7 @@ public class PavilhaoInternosMontagemKit {
         this.DataUp = DataUp;
         this.HorarioInsert = HorarioInsert;
         this.HorarioUp = HorarioUp;
+        this.pUtili = pUtili;
     }
 
     /**
@@ -242,4 +244,18 @@ public class PavilhaoInternosMontagemKit {
         this.HorarioUp = HorarioUp;
     }
 
+    /**
+     * @return the pUtili
+     */
+    public String getpUtili() {
+        return pUtili;
+    }
+
+    /**
+     * @param pUtili the pUtili to set
+     */
+    public void setpUtili(String pUtili) {
+        this.pUtili = pUtili;
+    }
+   
 }
