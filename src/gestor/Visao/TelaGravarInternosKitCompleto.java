@@ -40,6 +40,7 @@ public class TelaGravarInternosKitCompleto extends javax.swing.JDialog {
     String horaMov = "";
     String dataModFinal = "";
     int pGravado = 1;
+    String pUtili = "Sim";
 
     /**
      * Creates new form TelaGravarInternosKitCompleto
@@ -196,9 +197,13 @@ public class TelaGravarInternosKitCompleto extends javax.swing.JDialog {
                         objGravaIntComp.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));// TABELA PRINCIPAL (COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE)                                                        
                         objGravaIntComp.setIdInternoCrc((int) jTabelaInternosKitCompleto.getValueAt(i, 0));
                         objGravaIntComp.setNomeInternoCrc((String) jTabelaInternosKitCompleto.getValueAt(i, 1));
-                        objGravaIntComp.setGravado(Integer.valueOf(pGravado));
+                        objGravaIntComp.setGravado(pGravado);
                         controle.incluirInternosKitCompleto(objGravaIntComp);
                         buscarCodigoRegistroInternoKitCompleto();
+                        // FAZ UM UPDATE NA TABELA INTERNOS_PAVILHAO_KIT_LOTE INFORMANDO A UTILIZAÇÃO DOS INTERNOS PARA 
+                        // O KIT COMPLETO
+                        objGravaIntComp.setUtili(pUtili);
+                        controle.atualizarInternosPavilhao(objGravaIntComp);
                         objLog2();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                                 
                     }
