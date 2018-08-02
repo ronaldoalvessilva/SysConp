@@ -3114,12 +3114,13 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     private void jBtAdicionarTodosInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAdicionarTodosInternosActionPerformed
         // TODO add your handling code here:
+        acao = 5;
         mostrarSelecaoInternos();
     }//GEN-LAST:event_jBtAdicionarTodosInternosActionPerformed
 
     private void jBtExccluirTodosInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExccluirTodosInternosActionPerformed
-        // TODO add your handling code here:
-        if (pGravadoDB == 0) {
+        // TODO add your handling code here:       
+        if (pGravadoDB == 0 && acao == 5) {
             Integer rows = jTabelaInternosKitCompleto.getRowCount();
             if (rows != 0) {
                 // APAGAR DADOS DA TABELA
@@ -3135,14 +3136,18 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             if (resposta == JOptionPane.YES_OPTION) {
                 objGravaIntComp.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
                 controleIntSelec.excluirTodosInternosKitCompleto(objGravaIntComp);
+                // APAGAR DADOS DA TABELA
+                while (jTabelaInternosKitCompleto.getModel().getRowCount() > 0) {
+                    ((DefaultTableModel) jTabelaInternosKitCompleto.getModel()).removeRow(0);
+                }
                 JOptionPane.showMessageDialog(null, "Registros excluídos com sucesso.");
             }
         }
     }//GEN-LAST:event_jBtExccluirTodosInternosActionPerformed
 
     private void jBtExcluirUmInternoAgrupadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirUmInternoAgrupadoActionPerformed
-        // TODO add your handling code here:
-        if (pGravadoDB == 0) {
+        // TODO add your handling code here:        
+        if (pGravadoDB == 0 && acao == 5) {
             if (jTabelaInternosKitCompleto.getSelectedRowCount() != 0) {
                 qtdInternos = qtdInternos - 1;
                 DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaInternosKitCompleto.getModel();
@@ -3156,9 +3161,14 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registros selecioado?", "Confirmação",
                     JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
+                qtdInternosKitComp = qtdInternosKitComp - 1;
                 objGravaIntComp.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
                 objGravaIntComp.setIdInternoCrc(idInternoComp);
                 controleIntSelec.excluirInternosKitCompleto(objGravaIntComp);
+                //
+                DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaInternosKitCompleto.getModel();
+                modelOrigem.removeRow(jTabelaInternosKitCompleto.getSelectedRow());
+                jtotalInternosKitCompleto.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
                 JOptionPane.showMessageDialog(null, "Registros excluídos com sucesso.");
             }
         }
@@ -3166,43 +3176,49 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     private void jBtSalvarInternosSelecionadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarInternosSelecionadosActionPerformed
         // TODO add your handling code here:
-        Integer rows = jTabelaInternosKitCompleto.getRowCount();
-        if (rows != 0) {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente confirmar essa operação?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                mostarTelaGrava();
+        int qtdIt = Integer.valueOf(jtotalInternosKitCompleto.getText());
+        if (acao == 5 &&  qtdIt > qtdInternos || acao == 5 && qtdIt > qtdInternosKitComp) {
+            Integer rows = jTabelaInternosKitCompleto.getRowCount();
+            if (rows != 0) {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente confirmar essa operação?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    mostarTelaGrava();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Não existem registros de internos a ser gravado no banco de dados.");
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Não existem registros de internos a ser gravado no banco de dados.");
+            JOptionPane.showMessageDialog(null, "Não existem dados a serem gravados.");
         }
     }//GEN-LAST:event_jBtSalvarInternosSelecionadosActionPerformed
 
     private void jTabelaInternosKitCompletoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaInternosKitCompletoMouseClicked
         // TODO add your handling code here:
-        Integer rows = jTabelaInternosKitCompleto.getRowCount();
-        flag = 1;
-        if (rows != 0) {
-            if (flag == 1) {
-                String codigoInternoCrc = "" + jTabelaInternosKitCompleto.getValueAt(jTabelaInternosKitCompleto.getSelectedRow(), 0);                
-                conecta.abrirConexao();
-                try {
-                    conecta.executaSQL("SELECT * FROM ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO "
-                            + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                            + "WHERE ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO.IdRegistroComp='" + jIdRegistroComp.getText() + "' "
-                            + "AND ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO.IdInternoCrc='" + codigoInternoCrc + "'");
-                    conecta.rs.first();
-                    idInternoComp = conecta.rs.getInt("IdInternoCrc");
-                    pGravadoDB = conecta.rs.getInt("Gravado");                                        
-                } catch (SQLException e) {
-                    JOptionPane.showMessageDialog(rootPane, "Não foi possível selecionar o registro.\nERRO: " + e);
-                }
-                conecta.desconecta();
-            }
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Selecione um registro para excluir.");
-        }
+//        acao = 0;
+//        Integer rows = jTabelaInternosKitCompleto.getRowCount();
+//        flag = 1;
+//        if (rows != 0) {
+//            if (flag == 1) {
+//                String codigoInternoCrc = "" + jTabelaInternosKitCompleto.getValueAt(jTabelaInternosKitCompleto.getSelectedRow(), 0);
+//                conecta.abrirConexao();
+//                try {
+//                    conecta.executaSQL("SELECT * FROM ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO "
+//                            + "INNER JOIN PRONTUARIOSCRC "
+//                            + "ON ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+//                            + "WHERE ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO.IdRegistroComp='" + jIdRegistroComp.getText() + "' "
+//                            + "AND ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO.IdInternoCrc='" + codigoInternoCrc + "'");
+//                    conecta.rs.first();
+//                    idInternoComp = conecta.rs.getInt("IdInternoCrc");
+//                    pGravadoDB = conecta.rs.getInt("Gravado");
+//                } catch (SQLException e) {
+//                    JOptionPane.showMessageDialog(rootPane, "Não foi possível selecionar o registro.\nERRO: " + e);
+//                }
+//                conecta.desconecta();
+//            }
+//        } else {
+//            JOptionPane.showMessageDialog(rootPane, "Selecione um registro para excluir.");
+//        }
     }//GEN-LAST:event_jTabelaInternosKitCompletoMouseClicked
 
 
