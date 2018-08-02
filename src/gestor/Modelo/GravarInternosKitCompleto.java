@@ -24,11 +24,12 @@ public class GravarInternosKitCompleto {
     private String dataUp;
     private String horarioInsert;
     private String horarioUp;
+    private String utili;
 
     public GravarInternosKitCompleto() {
     }
 
-    public GravarInternosKitCompleto(int idRegIntAgrupComp, int idRegistroComp, int idKit, int idInternoCrc, String nomeInternoCrc, String agrupado, int gravado, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
+    public GravarInternosKitCompleto(int idRegIntAgrupComp, int idRegistroComp, int idKit, int idInternoCrc, String nomeInternoCrc, String agrupado, int gravado, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, String utili) {
         this.idRegIntAgrupComp = idRegIntAgrupComp;
         this.idRegistroComp = idRegistroComp;
         this.idKit = idKit;
@@ -42,6 +43,7 @@ public class GravarInternosKitCompleto {
         this.dataUp = dataUp;
         this.horarioInsert = horarioInsert;
         this.horarioUp = horarioUp;
+        this.utili = utili;
     }
 
     /**
@@ -224,6 +226,20 @@ public class GravarInternosKitCompleto {
      */
     public void setHorarioUp(String horarioUp) {
         this.horarioUp = horarioUp;
+    }
+
+    /**
+     * @return the utili
+     */
+    public String getUtili() {
+        return utili;
+    }
+
+    /**
+     * @param utili the utili to set
+     */
+    public void setUtili(String utili) {
+        this.utili = utili;
     }
     
 }
