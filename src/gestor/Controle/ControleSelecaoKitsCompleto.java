@@ -33,8 +33,8 @@ public class ControleSelecaoKitsCompleto {
         conecta.abrirConexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO (IdRegistroComp,IdInternoCrc,Gravado,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?)");
-            pst.setInt(1, objGravaIntComp.getIdRegistroComp());            
-            pst.setInt(2, codInterno);            
+            pst.setInt(1, objGravaIntComp.getIdRegistroComp());
+            pst.setInt(2, codInterno);
             pst.setInt(3, objGravaIntComp.getGravado());
             pst.setString(4, objGravaIntComp.getUsuarioInsert());
             pst.setString(5, objGravaIntComp.getDataInsert());
@@ -42,6 +42,21 @@ public class ControleSelecaoKitsCompleto {
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR internos com kit completo.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objGravaIntComp;
+    }
+
+    //INSERT INTO INTERNOS_PAVILHAO_KIT_LOTE
+    public GravarInternosKitCompleto atualizarInternosPavilhao(GravarInternosKitCompleto objGravaIntComp) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE INTERNOS_PAVILHAO_KIT_LOTE SET Utili=? WHERE IdRegistroComp='" + objGravaIntComp.getIdRegistroComp() + "' AND IdInternoCrc='" + objGravaIntComp.getIdInternoCrc() + "'");
+            pst.setString(1, objGravaIntComp.getUtili());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR interno.\nERRO: " + ex);
         }
         conecta.desconecta();
         return objGravaIntComp;
