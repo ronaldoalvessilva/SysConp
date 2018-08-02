@@ -16,11 +16,9 @@ import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 //import static gestor.Visao.TelaMontagemPagamentoKitInterno.codigoPavilhao;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jComboBoxPavilhoes;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jIdRegistroComp;
-import static gestor.Visao.TelaMontagemPagamentoKitInterno.jTabelaInternos;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jTabelaInternosSelecionados;
 import java.awt.Rectangle;
 import javax.swing.JDialog;
-import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -43,6 +41,7 @@ public class TelaThreadInternosSelecionados extends javax.swing.JDialog {
     String statusMov = "";
     String horaMov = "";
     String dataModFinal = "";
+    String pUtili = "Não";
 
     /**
      * Creates new form TelaThreadInternosSelecionados
@@ -195,6 +194,7 @@ public class TelaThreadInternosSelecionados extends javax.swing.JDialog {
                                 objPavInt.setDataInsert(dataModFinal);
                                 objPavInt.setHorarioInsert(horaMov);
                                 //
+                                objPavInt.setpUtili(pUtili);
                                 objPavInt.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));// TABELA PRINCIPAL (COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE)                        
                                 objPavInt.setIdPav(codigoPavilhao); // CÓDIGO DO PAVILHÃO
                                 objPavInt.setDescricaoPavilhao((String) jComboBoxPavilhoes.getSelectedItem());
