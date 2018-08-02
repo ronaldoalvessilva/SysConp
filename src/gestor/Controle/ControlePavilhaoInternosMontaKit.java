@@ -39,13 +39,14 @@ public class ControlePavilhaoInternosMontaKit {
         buscarInternoPavilhao(objPavInt.getNomeInternoCrc(), objPavInt.getIdInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO INTERNOS_PAVILHAO_KIT_LOTE (IdRegistroComp,IdInternoCrc,IdPav,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO INTERNOS_PAVILHAO_KIT_LOTE (IdRegistroComp,IdInternoCrc,IdPav,Utili,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?)");
             pst.setInt(1, objPavInt.getIdRegistroComp());
             pst.setInt(2, codInterno);
             pst.setInt(3, codPavilhao);
-            pst.setString(4, objPavInt.getUsuarioInsert());
-            pst.setString(5, objPavInt.getDataInsert());
-            pst.setString(6, objPavInt.getHorarioInsert());
+            pst.setString(4, objPavInt.getpUtili());
+            pst.setString(5, objPavInt.getUsuarioInsert());
+            pst.setString(6, objPavInt.getDataInsert());
+            pst.setString(7, objPavInt.getHorarioInsert());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados (PAVILHÃO/INTERNOS).\nERRO: " + ex);
