@@ -2780,24 +2780,14 @@
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jBtAdicionarTodosInternos" linkSize="11" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jBtSalvarInternosSelecionados" linkSize="11" alignment="1" min="-2" pref="119" max="-2" attributes="0"/>
-                                              <Group type="103" alignment="1" groupAlignment="1" max="-2" attributes="0">
-                                                  <Component id="jBtExcluirUmInternoAgrupado" linkSize="11" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="jBtExccluirTodosInternos" linkSize="11" alignment="0" max="32767" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                      </Group>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="2" attributes="0">
+                                      <Component id="jBtSalvarInternosSelecionados" linkSize="11" alignment="2" min="-2" pref="119" max="-2" attributes="0"/>
+                                      <Component id="jBtExcluirUmInternoAgrupado" linkSize="11" alignment="2" max="32767" attributes="0"/>
+                                      <Component id="jBtExccluirTodosInternos" linkSize="11" alignment="2" max="32767" attributes="0"/>
+                                      <Component id="jBtAdicionarTodosInternos" linkSize="11" alignment="2" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -2806,13 +2796,13 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jBtAdicionarTodosInternos" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="25" max="32767" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jBtExccluirTodosInternos" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jBtExcluirUmInternoAgrupado" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="jBtSalvarInternosSelecionados" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jBtSalvarInternosSelecionados" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace pref="42" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -2827,7 +2817,7 @@
                               <Image iconType="3" name="/gestor/Imagens/overlays.png"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Add. Internos"/>
-                            <Property name="toolTipText" type="java.lang.String" value=""/>
+                            <Property name="toolTipText" type="java.lang.String" value="Adicionar os internos que ter&#xe3;o o kit de higi&#xea;ne completo"/>
                             <Property name="horizontalAlignment" type="int" value="2"/>
                           </Properties>
                           <Events>
@@ -2859,6 +2849,7 @@
                               <Image iconType="3" name="/gestor/Imagens/3630_16x16.png"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Excluir Todos"/>
+                            <Property name="toolTipText" type="java.lang.String" value="Excluir todos internos adicionados para o kit de higi&#xea;ne completo"/>
                             <Property name="horizontalAlignment" type="int" value="2"/>
                           </Properties>
                           <Events>
@@ -2936,7 +2927,7 @@
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                           <SubComponents>
-                            <Component class="javax.swing.JTable" name="jTable2">
+                            <Component class="javax.swing.JTable" name="jTabelaProdutosKitCompleto">
                               <Properties>
                                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                                   <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
@@ -3142,9 +3133,11 @@
                               <Image iconType="3" name="/gestor/Imagens/7183_16x16.png"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Add. Produtos"/>
-                            <Property name="enabled" type="boolean" value="false"/>
                             <Property name="horizontalAlignment" type="int" value="2"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtAdicionarProdutosKitCompletoActionPerformed"/>
+                          </Events>
                         </Component>
                         <Component class="javax.swing.JButton" name="jButton1">
                           <Properties>
@@ -3152,7 +3145,6 @@
                               <Image iconType="3" name="/gestor/Imagens/191216104428_16.png"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Excluir Todos"/>
-                            <Property name="enabled" type="boolean" value="false"/>
                             <Property name="horizontalAlignment" type="int" value="2"/>
                           </Properties>
                         </Component>
@@ -3162,7 +3154,6 @@
                               <Image iconType="3" name="/gestor/Imagens/6127_16x16.png"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Excluir Um"/>
-                            <Property name="enabled" type="boolean" value="false"/>
                             <Property name="horizontalAlignment" type="int" value="2"/>
                           </Properties>
                         </Component>
@@ -3172,7 +3163,6 @@
                               <Image iconType="3" name="/gestor/Imagens/310718101618_16.png"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Gravar no DB"/>
-                            <Property name="enabled" type="boolean" value="false"/>
                             <Property name="horizontalAlignment" type="int" value="2"/>
                           </Properties>
                         </Component>
