@@ -206,6 +206,8 @@ public class TelaSelecaoInternosKitCompleto extends javax.swing.JDialog {
             }
         });
 
+        jBtBuscarInternosSelecionados.setForeground(new java.awt.Color(0, 0, 204));
+        jBtBuscarInternosSelecionados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtBuscarInternosSelecionados.setText("Buscar Internos");
         jBtBuscarInternosSelecionados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -218,24 +220,26 @@ public class TelaSelecaoInternosKitCompleto extends javax.swing.JDialog {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addComponent(jBtExportarTodosInternos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtExportarSelecionados, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtExportarSelecionados)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtBuscarInternosSelecionados, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtBuscarInternosSelecionados, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtSair)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
+
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtExportarSelecionados, jBtExportarTodosInternos});
+
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jBtSair)
-                        .addComponent(jBtBuscarInternosSelecionados))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jBtSair)
+                    .addComponent(jBtBuscarInternosSelecionados)
                     .addComponent(jBtExportarSelecionados)
                     .addComponent(jBtExportarTodosInternos))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -344,29 +348,24 @@ public class TelaSelecaoInternosKitCompleto extends javax.swing.JDialog {
             modelDestino.addRow(obj);
             modelOrigem.removeRow(jTabelaSelecaoInternosKit.getSelectedRow());
         } else if (jTabelaSelecaoInternosKit.getSelectedRowCount() != 0 && row != 0) {
-            // TABELA DE DESTINO
-            DefaultTableModel dadosProduto = (DefaultTableModel) jTabelaInternosKitCompleto.getModel();
-            GravarInternosKitCompleto b = new GravarInternosKitCompleto();
-            try {
-                for (GravarInternosKitCompleto bb : controlKitComp.read()) {
-                    jtotalInternosKitCompleto.setText(Integer.toString(qtdInternosKitComp)); // Converter inteiro em string para exibir na tela 
-                    if (idInterno.equals(bb.getIdInternoCrc())) {
-                        JOptionPane.showMessageDialog(rootPane, "Esse interno já está na lista de kit completo");
-                    } else {
-                        dadosProduto.addRow(new Object[]{bb.getIdInternoCrc(), bb.getNomeInternoCrc()});
-                        // BARRA DE ROLAGEM HORIZONTAL
-                        jTabelaInternosKitCompleto.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-                        // ALINHAR TEXTO DA TABELA CENTRALIZADO
-                        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
-                        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-                        //
-                        jTabelaInternosKitCompleto.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-                        
-                    }
-                }
-            } catch (Exception ex) {
-                Logger.getLogger(TelaMontagemPagamentoKitInterno.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            qtdInternosKitComp = qtdInternosKitComp + 1;
+            qtdInternos = qtdInternos -1;
+            DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaSelecaoInternosKit.getModel();
+            DefaultTableModel modelDestino = (DefaultTableModel) jTabelaInternosKitCompleto.getModel();
+            jtotalInternosKitCompleto.setText(Integer.toString(qtdInternosKitComp)); // Converter inteiro em string para exibir na tela 
+            jtotalInternosSelecionados.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
+            //Cria uma linha para ser incluida na tabela de destino, no meu caso tem duas colunas, adapte para as suas tabelas
+            Object[] obj = {jTabelaSelecaoInternosKit.getValueAt(jTabelaSelecaoInternosKit.getSelectedRow(), 0), jTabelaSelecaoInternosKit.getValueAt(jTabelaSelecaoInternosKit.getSelectedRow(), 1)};
+            // BARRA DE ROLAGEM HORIZONTAL
+            jTabelaInternosKitCompleto.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            // ALINHAR TEXTO DA TABELA CENTRALIZADO
+            DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+            centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+            //
+            jTabelaInternosKitCompleto.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+            //Adiciona no destino e remove da origem
+            modelDestino.addRow(obj);
+            modelOrigem.removeRow(jTabelaSelecaoInternosKit.getSelectedRow());
         } else {
             JOptionPane.showMessageDialog(rootPane, "Selecione um registro.");
         }
@@ -384,7 +383,6 @@ public class TelaSelecaoInternosKitCompleto extends javax.swing.JDialog {
     private void jBtBuscarInternosSelecionadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtBuscarInternosSelecionadosActionPerformed
         // TODO add your handling code here:
         Integer rows = jTabelaInternosKitCompleto.getRowCount();
-//        Integer row = jTabelaSelecaoInternosKit.getRowCount();
         if (rows != 0) {
             listarInternosNaoSelecionados();
         } else if (rows == 0) {

@@ -260,15 +260,15 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      <Component id="jBtExportarTodosInternos" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jBtExportarSelecionados" min="-2" pref="59" max="-2" attributes="0"/>
+                      <Component id="jBtExportarTodosInternos" linkSize="1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jBtBuscarInternosSelecionados" min="-2" pref="124" max="-2" attributes="0"/>
+                      <Component id="jBtExportarSelecionados" linkSize="1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jBtSair" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="28" max="32767" attributes="0"/>
+                      <Component id="jBtBuscarInternosSelecionados" pref="130" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jBtSair" min="-2" pref="101" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -276,13 +276,11 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jBtSair" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jBtBuscarInternosSelecionados" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="jBtExportarSelecionados" min="-2" max="-2" attributes="0"/>
-                          <Component id="jBtExportarTodosInternos" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="2" attributes="0">
+                          <Component id="jBtSair" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtBuscarInternosSelecionados" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtExportarSelecionados" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtExportarTodosInternos" alignment="2" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -331,6 +329,12 @@
             </Component>
             <Component class="javax.swing.JButton" name="jBtBuscarInternosSelecionados">
               <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="cc" green="0" red="0" type="rgb"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/gestor/Imagens/Lupas_1338_05.gif"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Buscar Internos"/>
               </Properties>
               <Events>
