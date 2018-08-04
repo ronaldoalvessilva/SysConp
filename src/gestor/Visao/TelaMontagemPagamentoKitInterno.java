@@ -140,6 +140,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     int IdRegProdKit = 0;
     int pGravadoDB = 0;
     int idInternoComp;
+    String pUtili = "Não";
 
     /**
      * Creates new form TelaMontagemPagamentoKitInterno
@@ -152,6 +153,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public static TelaEstoqueProdutosKit estoqueProdkit;
     public static TelaSelecaoInternosKitCompleto kitCompleto;
     public static TelaGravarInternosKitCompleto gravarIntComp;
+    public static TelaSelecaoProdutosKitsCompletoIncompleto selecaoProdutosKit;
 
     public TelaMontagemPagamentoKitInterno() {
         super();
@@ -199,6 +201,11 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public void mostarTelaGrava() {
         gravarIntComp = new TelaGravarInternosKitCompleto(this, true);
         gravarIntComp.setVisible(true);
+    }
+
+    public void listarProdutosKit() {
+        selecaoProdutosKit = new TelaSelecaoProdutosKitsCompletoIncompleto(this, true);
+        selecaoProdutosKit.setVisible(true);
     }
 
     /**
@@ -2862,6 +2869,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     private void jBtAlterarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarProdutoActionPerformed
         // TODO add your handling code here:
+        //CRIAR METODO PARA IMPEDIR DE ALTERAR, CASO O PRODUTO TENHA SIDO UTILIZADO NA ASSOCIAÇÃO DO KIT
         buscarAcessoUsuario(telaMontagemPagamentoKitProdutosAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitProdutosAL) && codAlterarAL == 1) {
             if (jStatusComp.getText().equals("FINALIZADO")) {
@@ -2882,6 +2890,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     private void jBtExcluirProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirProdutoActionPerformed
         // TODO add your handling code here:  
+        //CRIAR METODO PARA IMPEDIR DE EXCLUIR, CASO O PRODUTO TENHA SIDO UTILIZADO NA ASSOCIAÇÃO DO KIT
         buscarAcessoUsuario(telaMontagemPagamentoKitProdutosAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitProdutosAL) && codExcluirAL == 1) {
             objComp.setStatusComp(jStatusComp.getText());
@@ -2943,6 +2952,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 objProdKit.setIdProd(Integer.valueOf(jCodigoProd.getText()));
                 objProdKit.setDescricaoProduto(jDescricaoProd.getText());
                 objProdKit.setIdKit(idKit);
+                objProdKit.setpUtili(pUtili);
                 try {
                     objProdKit.setQuantidadeProd(qtdReal.parse(jQtdAtendida.getText()).floatValue());
                 } catch (ParseException ex) {
@@ -3161,7 +3171,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 qtdInternosKitComp = qtdInternosKitComp - 1;
                 objGravaIntComp.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
                 objGravaIntComp.setIdInternoCrc(idInternoComp);
-                controleIntSelec.excluirInternosKitCompleto(objGravaIntComp);                
+                controleIntSelec.excluirInternosKitCompleto(objGravaIntComp);
                 // FAZ UM UPDATE NA TABELA INTERNOS_PAVILHAO_KIT_LOTE INFORMANDO A UTILIZAÇÃO DOS INTERNOS PARA 
                 // O KIT COMPLETO - NO CASO DA EXCLUSÃO, O INTERNO RETORNA A LISTA DE NÃO UTILIZADOS NO IT COMPLETO
                 objGravaIntComp.setUtili(pUtili);
@@ -3224,6 +3234,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     private void jBtAdicionarProdutosKitCompletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAdicionarProdutosKitCompletoActionPerformed
         // TODO add your handling code here:
+        listarProdutosKit();
     }//GEN-LAST:event_jBtAdicionarProdutosKitCompletoActionPerformed
 
 
@@ -3371,7 +3382,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public static javax.swing.JTable jTabelaInternosKitCompleto;
     public static javax.swing.JTable jTabelaInternosSelecionados;
     public static javax.swing.JTable jTabelaProdutos;
-    private javax.swing.JTable jTabelaProdutosKitCompleto;
+    public static javax.swing.JTable jTabelaProdutosKitCompleto;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
     public static javax.swing.JTextField jUnidadeProd;
