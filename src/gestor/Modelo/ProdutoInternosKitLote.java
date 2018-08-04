@@ -22,6 +22,7 @@ public class ProdutoInternosKitLote {
     private String descricaoProduto;
     private String unidadeProd;
     private float quantidadeProd;
+    private String pUtili;
     private String usuarioInsert;
     private String usuarioUp;
     private String dataInsert;
@@ -32,7 +33,7 @@ public class ProdutoInternosKitLote {
     public ProdutoInternosKitLote() {
     }
 
-    public ProdutoInternosKitLote(int idRegProdKit, int idRegistroComp, int idKit, int idPav, String descricaoPavilhao, int idInternoCrc, String nomeInternoCrc, int idProd, String descricaoProduto, String unidadeProd, float quantidadeProd, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
+    public ProdutoInternosKitLote(int idRegProdKit, int idRegistroComp, int idKit, int idPav, String descricaoPavilhao, int idInternoCrc, String nomeInternoCrc, int idProd, String descricaoProduto, String unidadeProd, float quantidadeProd, String pUtili, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
         this.idRegProdKit = idRegProdKit;
         this.idRegistroComp = idRegistroComp;
         this.idKit = idKit;
@@ -44,6 +45,7 @@ public class ProdutoInternosKitLote {
         this.descricaoProduto = descricaoProduto;
         this.unidadeProd = unidadeProd;
         this.quantidadeProd = quantidadeProd;
+        this.pUtili = pUtili;
         this.usuarioInsert = usuarioInsert;
         this.usuarioUp = usuarioUp;
         this.dataInsert = dataInsert;
@@ -207,6 +209,20 @@ public class ProdutoInternosKitLote {
     }
 
     /**
+     * @return the pUtili
+     */
+    public String getpUtili() {
+        return pUtili;
+    }
+
+    /**
+     * @param pUtili the pUtili to set
+     */
+    public void setpUtili(String pUtili) {
+        this.pUtili = pUtili;
+    }
+
+    /**
      * @return the usuarioInsert
      */
     public String getUsuarioInsert() {
@@ -289,5 +305,5 @@ public class ProdutoInternosKitLote {
     public void setHorarioUp(String horarioUp) {
         this.horarioUp = horarioUp;
     }
-    
+   
 }
