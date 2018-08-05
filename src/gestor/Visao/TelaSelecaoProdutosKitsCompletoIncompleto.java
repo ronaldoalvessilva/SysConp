@@ -27,11 +27,11 @@ import javax.swing.table.DefaultTableModel;
 public class TelaSelecaoProdutosKitsCompletoIncompleto extends javax.swing.JDialog {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
-    ControleProdutosKitLote control = new ControleProdutosKitLote(); 
+    ControleProdutosKitLote control = new ControleProdutosKitLote();
     ControleListarGravarProdutosKitCompleto listar = new ControleListarGravarProdutosKitCompleto();
     //
-    
-
+    String codigoProduto;
+    int qtdProdList = 0;
     /**
      * Creates new form TelaSelecaoProdutosKitsCompletoIncompleto
      */
@@ -151,6 +151,11 @@ public class TelaSelecaoProdutosKitsCompletoIncompleto extends javax.swing.JDial
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTabelaSelecaoProdutosKit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabelaSelecaoProdutosKitMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(jTabelaSelecaoProdutosKit);
@@ -289,6 +294,7 @@ public class TelaSelecaoProdutosKitsCompletoIncompleto extends javax.swing.JDial
 
     private void jBtExportarSelecaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExportarSelecaoActionPerformed
         // TODO add your handling code here:
+        boolean encontrou = !true;
         Integer row = jTabelaProdutosKitCompleto.getRowCount();
         if (jTabelaSelecaoProdutosKit.getSelectedRowCount() != 0 && row == 0) {
             DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaSelecaoProdutosKit.getModel();
@@ -308,14 +314,30 @@ public class TelaSelecaoProdutosKitsCompletoIncompleto extends javax.swing.JDial
             modelDestino.addRow(obj);
             modelOrigem.removeRow(jTabelaSelecaoProdutosKit.getSelectedRow());
         } else if (jTabelaSelecaoProdutosKit.getSelectedRowCount() != 0 && row != 0) {
-//            qtdInternosKitComp = qtdInternosKitComp + 1;
-//            qtdInternos = qtdInternos - 1;
             DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaSelecaoProdutosKit.getModel();
             DefaultTableModel modelDestino = (DefaultTableModel) jTabelaProdutosKitCompleto.getModel();
-//            jtotalInternosKitCompleto.setText(Integer.toString(qtdInternosKitComp)); // Converter inteiro em string para exibir na tela 
-//            jtotalInternosSelecionados.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
-            //Cria uma linha para ser incluida na tabela de destino, no meu caso tem duas colunas, adapte para as suas tabelas
-            Object[] obj = {jTabelaSelecaoProdutosKit.getValueAt(jTabelaSelecaoProdutosKit.getSelectedRow(), 0), jTabelaSelecaoProdutosKit.getValueAt(jTabelaSelecaoProdutosKit.getSelectedRow(), 1), jTabelaSelecaoProdutosKit.getValueAt(jTabelaSelecaoProdutosKit.getSelectedRow(), 2), jTabelaSelecaoProdutosKit.getValueAt(jTabelaSelecaoProdutosKit.getSelectedRow(), 3)};
+            // VERIFICAR SE O PRODUTO JÁ EXISTE NA TABELA, SE EXITIR AVISA.
+            for (int i = 0; i < jTabelaProdutosKitCompleto.getRowCount(); i++) {
+                String codiPro = "" + jTabelaProdutosKitCompleto.getValueAt(i, 0).toString();
+                if (codigoProduto.equals(codiPro)) {
+                    encontrou = true;
+                    break;
+                } else {
+                    encontrou = !true;
+                }
+            }
+            if (encontrou == true) {
+                JOptionPane.showMessageDialog(rootPane, "Produto já foi selecionado, escolha outro produto.");
+            } else if (encontrou == !true) {
+                qtdProd = qtdProd + 1;
+                qtdProdList = qtdProd - 1;
+                //Adiciona no destino e remove da origem
+                Object[] obj = {jTabelaSelecaoProdutosKit.getValueAt(jTabelaSelecaoProdutosKit.getSelectedRow(), 0), jTabelaSelecaoProdutosKit.getValueAt(jTabelaSelecaoProdutosKit.getSelectedRow(), 1), jTabelaSelecaoProdutosKit.getValueAt(jTabelaSelecaoProdutosKit.getSelectedRow(), 2), jTabelaSelecaoProdutosKit.getValueAt(jTabelaSelecaoProdutosKit.getSelectedRow(), 3)};
+                modelDestino.addRow(obj);
+                modelOrigem.removeRow(jTabelaSelecaoProdutosKit.getSelectedRow());
+            }
+            jtotaProdutosListados.setText(Integer.toString(qtdProdList)); // Converter inteiro em string para exibir na tela 
+            jtotalProdutosKitCompleto.setText(Integer.toString(qtdProd)); // Converter inteiro em string para exibir na tela 
             // BARRA DE ROLAGEM HORIZONTAL
             jTabelaProdutosKitCompleto.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
             // ALINHAR TEXTO DA TABELA CENTRALIZADO
@@ -325,9 +347,8 @@ public class TelaSelecaoProdutosKitsCompletoIncompleto extends javax.swing.JDial
             jTabelaProdutosKitCompleto.getColumnModel().getColumn(0).setCellRenderer(centralizado);
             jTabelaProdutosKitCompleto.getColumnModel().getColumn(2).setCellRenderer(centralizado);
             jTabelaProdutosKitCompleto.getColumnModel().getColumn(3).setCellRenderer(centralizado);
-            //Adiciona no destino e remove da origem
-            modelDestino.addRow(obj);
-            modelOrigem.removeRow(jTabelaSelecaoProdutosKit.getSelectedRow());
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Selecione um registro.");
         }
     }//GEN-LAST:event_jBtExportarSelecaoActionPerformed
 
@@ -337,7 +358,7 @@ public class TelaSelecaoProdutosKitsCompletoIncompleto extends javax.swing.JDial
         Integer rows = jTabelaProdutosKitCompleto.getRowCount();
         if (row == 0) {
             listarTodosProdutosKit();
-        }else if(rows !=0){
+        } else if (rows != 0) {
             listarProdutosNaoAtendido();
         }
     }//GEN-LAST:event_jBtListarProdutosActionPerformed
@@ -346,6 +367,11 @@ public class TelaSelecaoProdutosKitsCompletoIncompleto extends javax.swing.JDial
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_jBtSairActionPerformed
+
+    private void jTabelaSelecaoProdutosKitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaSelecaoProdutosKitMouseClicked
+        // TODO add your handling code here:
+        codigoProduto = "" + jTabelaSelecaoProdutosKit.getValueAt(jTabelaSelecaoProdutosKit.getSelectedRow(), 0).toString();
+    }//GEN-LAST:event_jTabelaSelecaoProdutosKitMouseClicked
 
     /**
      * @param args the command line arguments
@@ -427,7 +453,7 @@ public class TelaSelecaoProdutosKitsCompletoIncompleto extends javax.swing.JDial
         }
     }
 
-    public void listarProdutosNaoAtendido(){
+    public void listarProdutosNaoAtendido() {
         DefaultTableModel produtosSelecionados = (DefaultTableModel) jTabelaSelecaoProdutosKit.getModel();
         ProdutoInternosKitLote p = new ProdutoInternosKitLote();
         try {
@@ -448,6 +474,7 @@ public class TelaSelecaoProdutosKitsCompletoIncompleto extends javax.swing.JDial
             Logger.getLogger(TelaSelecaoProdutosKitsCompletoIncompleto.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     public void exportarTodosProdutos() {
         DefaultTableModel dadosProduto = (DefaultTableModel) jTabelaProdutosKitCompleto.getModel();
         ProdutoInternosKitLote p = new ProdutoInternosKitLote();
