@@ -32,13 +32,14 @@ public class ControleSelecaoKitsCompleto {
         buscarInterno(objGravaIntComp.getNomeInternoCrc(), objGravaIntComp.getIdInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO (IdRegistroComp,IdInternoCrc,Gravado,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO (IdRegistroComp,IdInternoCrc,TipoKitCI,Gravado,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?)");
             pst.setInt(1, objGravaIntComp.getIdRegistroComp());
             pst.setInt(2, codInterno);
             pst.setInt(3, objGravaIntComp.getGravado());
-            pst.setString(4, objGravaIntComp.getUsuarioInsert());
-            pst.setString(5, objGravaIntComp.getDataInsert());
-            pst.setString(6, objGravaIntComp.getHorarioInsert());
+            pst.setInt(4, objGravaIntComp.getTipoKitCI());
+            pst.setString(5, objGravaIntComp.getUsuarioInsert());
+            pst.setString(7, objGravaIntComp.getDataInsert());
+            pst.setString(8, objGravaIntComp.getHorarioInsert());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR internos com kit completo.\nERRO: " + ex);
