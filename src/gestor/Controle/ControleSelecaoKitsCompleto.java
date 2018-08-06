@@ -32,7 +32,7 @@ public class ControleSelecaoKitsCompleto {
         buscarInterno(objGravaIntComp.getNomeInternoCrc(), objGravaIntComp.getIdInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO (IdRegistroComp,IdInternoCrc,Gravado,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO (IdRegistroComp,IdInternoCrc,Gravado,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?)");
             pst.setInt(1, objGravaIntComp.getIdRegistroComp());
             pst.setInt(2, codInterno);
             pst.setInt(3, objGravaIntComp.getGravado());
@@ -66,7 +66,7 @@ public class ControleSelecaoKitsCompleto {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO WHERE IdRegistroComp='" + objGravaIntComp.getIdRegistroComp() + "' AND IdInternoCrc='" + objGravaIntComp.getIdInternoCrc() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO WHERE IdRegistroComp='" + objGravaIntComp.getIdRegistroComp() + "' AND IdInternoCrc='" + objGravaIntComp.getIdInternoCrc() + "'");
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR internos com kit completo.\nERRO: " + ex);
@@ -79,7 +79,7 @@ public class ControleSelecaoKitsCompleto {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO WHERE IdRegistroComp='" + objGravaIntComp.getIdRegistroComp() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO WHERE IdRegistroComp='" + objGravaIntComp.getIdRegistroComp() + "'");
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR internos com kit completo.\nERRO: " + ex);
@@ -119,7 +119,7 @@ public class ControleSelecaoKitsCompleto {
             conecta.rs.first();
             codInterno = conecta.rs.getInt("IdInternoCrc");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Existe dados do PRODUTO a ser exibido !!!");
+            JOptionPane.showMessageDialog(null, "Não Existe dados do INTERNO a ser exibido !!!");
         }
         conecta.desconecta();
     }
