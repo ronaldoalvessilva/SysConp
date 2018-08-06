@@ -43,6 +43,7 @@ public class TelaGravarInternosKitCompleto extends javax.swing.JDialog {
     String pUtili = "Sim";
     int codigoInterno = 0;
     int codigoRegistro = 0;
+    int tipoKit = 0; // 0 - COMPLETO E 1 INCOMPLETO
 
     /**
      * Creates new form TelaGravarInternosKitCompleto
@@ -200,6 +201,7 @@ public class TelaGravarInternosKitCompleto extends javax.swing.JDialog {
                         objGravaIntComp.setIdInternoCrc((int) jTabelaInternosKitCompleto.getValueAt(i, 0));
                         objGravaIntComp.setNomeInternoCrc((String) jTabelaInternosKitCompleto.getValueAt(i, 1));
                         objGravaIntComp.setGravado(pGravado);
+                        objGravaIntComp.setTipoKitCI(tipoKit);
                         // VERIFICAR SE O INTERNO JÁ SE ENCONTRA GRAVADO NA TABELA PARA PARA O MESMO REGISTRO
                         verificarInternoBancoDados(objGravaIntComp.getIdRegistroComp(), objGravaIntComp.getIdInternoCrc());
                         // SE O REGISTRO FOR IGUAL E O INTERNO DIFERENTE, GRAVA
@@ -289,7 +291,7 @@ public class TelaGravarInternosKitCompleto extends javax.swing.JDialog {
     public void buscarCodigoRegistroInternoKitCompleto() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO");
+            conecta.executaSQL("SELECT * FROM ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO");
             conecta.rs.last();
             idRegPavInt = conecta.rs.getInt("IdRegIntAgrupComp");
         } catch (Exception ERROR) {
@@ -302,7 +304,7 @@ public class TelaGravarInternosKitCompleto extends javax.swing.JDialog {
     public void verificarInternoBancoDados(int codigoReg, int codInternoCrc) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO "
+            conecta.executaSQL("SELECT * FROM ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO "
                     + "WHERE IdRegistroComp='" + codigoReg + "' "
                     + "AND IdInternoCrc='" + codInternoCrc + "'");
             conecta.rs.last();
