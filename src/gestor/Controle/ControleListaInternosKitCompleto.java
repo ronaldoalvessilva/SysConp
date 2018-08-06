@@ -29,9 +29,9 @@ public class ControleListaInternosKitCompleto {
         List<GravarInternosKitCompleto> listaInternosKitComp = new ArrayList<GravarInternosKitCompleto>();
         try {
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
-                    + "INNER JOIN ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO.IdInternoCrc "
-                    + "WHERE ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO.IdRegistroComp='" + jIdRegistroComp.getText() + "' "
+                    + "INNER JOIN ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdInternoCrc "
+                    + "WHERE ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdRegistroComp='" + jIdRegistroComp.getText() + "' "
                     + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
             while (conecta.rs.next()) {
                 GravarInternosKitCompleto pDigi = new GravarInternosKitCompleto();
