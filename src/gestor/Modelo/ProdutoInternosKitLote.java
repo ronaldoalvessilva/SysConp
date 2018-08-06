@@ -22,6 +22,10 @@ public class ProdutoInternosKitLote {
     private String descricaoProduto;
     private String unidadeProd;
     private float quantidadeProd;
+    private int tipoKitCI;
+    private String agrupado;
+    private String gravado;
+    private String liberado;
     private String pUtili;
     private String usuarioInsert;
     private String usuarioUp;
@@ -33,7 +37,7 @@ public class ProdutoInternosKitLote {
     public ProdutoInternosKitLote() {
     }
 
-    public ProdutoInternosKitLote(int idRegProdKit, int idRegistroComp, int idKit, int idPav, String descricaoPavilhao, int idInternoCrc, String nomeInternoCrc, int idProd, String descricaoProduto, String unidadeProd, float quantidadeProd, String pUtili, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
+    public ProdutoInternosKitLote(int idRegProdKit, int idRegistroComp, int idKit, int idPav, String descricaoPavilhao, int idInternoCrc, String nomeInternoCrc, int idProd, String descricaoProduto, String unidadeProd, float quantidadeProd, int tipoKitCI, String agrupado, String gravado, String liberado, String pUtili, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
         this.idRegProdKit = idRegProdKit;
         this.idRegistroComp = idRegistroComp;
         this.idKit = idKit;
@@ -45,6 +49,10 @@ public class ProdutoInternosKitLote {
         this.descricaoProduto = descricaoProduto;
         this.unidadeProd = unidadeProd;
         this.quantidadeProd = quantidadeProd;
+        this.tipoKitCI = tipoKitCI;
+        this.agrupado = agrupado;
+        this.gravado = gravado;
+        this.liberado = liberado;
         this.pUtili = pUtili;
         this.usuarioInsert = usuarioInsert;
         this.usuarioUp = usuarioUp;
@@ -209,6 +217,62 @@ public class ProdutoInternosKitLote {
     }
 
     /**
+     * @return the tipoKitCI
+     */
+    public int getTipoKitCI() {
+        return tipoKitCI;
+    }
+
+    /**
+     * @param tipoKitCI the tipoKitCI to set
+     */
+    public void setTipoKitCI(int tipoKitCI) {
+        this.tipoKitCI = tipoKitCI;
+    }
+
+    /**
+     * @return the agrupado
+     */
+    public String getAgrupado() {
+        return agrupado;
+    }
+
+    /**
+     * @param agrupado the agrupado to set
+     */
+    public void setAgrupado(String agrupado) {
+        this.agrupado = agrupado;
+    }
+
+    /**
+     * @return the gravado
+     */
+    public String getGravado() {
+        return gravado;
+    }
+
+    /**
+     * @param gravado the gravado to set
+     */
+    public void setGravado(String gravado) {
+        this.gravado = gravado;
+    }
+
+    /**
+     * @return the liberado
+     */
+    public String getLiberado() {
+        return liberado;
+    }
+
+    /**
+     * @param liberado the liberado to set
+     */
+    public void setLiberado(String liberado) {
+        this.liberado = liberado;
+    }
+
+    /**
      * @return the pUtili
      */
     public String getpUtili() {
@@ -305,5 +369,5 @@ public class ProdutoInternosKitLote {
     public void setHorarioUp(String horarioUp) {
         this.horarioUp = horarioUp;
     }
-   
+
 }
