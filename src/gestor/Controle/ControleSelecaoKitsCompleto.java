@@ -7,7 +7,6 @@ package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.GravarInternosKitCompleto;
-import gestor.Modelo.ItensRequisicaoMateriaisInternos;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdInternos;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -90,12 +89,14 @@ public class ControleSelecaoKitsCompleto {
     }
 
     public List<GravarInternosKitCompleto> read() throws Exception {
+        String pUtili = "Não"; 
         conecta.abrirConexao();
         List<GravarInternosKitCompleto> listaInternosKitComp = new ArrayList<GravarInternosKitCompleto>();
         try {
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN INTERNOS_PAVILHAO_KIT_LOTE "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=INTERNOS_PAVILHAO_KIT_LOTE.IdInternoCrc "
+                    + "WHERE Utili='" + pUtili + "' "
                     + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
             while (conecta.rs.next()) {
                 GravarInternosKitCompleto pDigi = new GravarInternosKitCompleto();
