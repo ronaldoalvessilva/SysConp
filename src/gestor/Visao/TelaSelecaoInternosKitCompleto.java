@@ -14,9 +14,11 @@ import gestor.Modelo.GravarInternosKitCompleto;
 import gestor.Modelo.ListarInternosNaoSelecionados;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jTabelaInternosKitCompleto;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jTabelaKitIncompleto;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jtotalInternosKitCompleto;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdInternos;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdInternosKitComp;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.tipoKitCI;
 import static gestor.Visao.TelaSelecaoInternosKitCompleto.jTabelaSelecaoInternosKit;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -40,7 +42,7 @@ public class TelaSelecaoInternosKitCompleto extends javax.swing.JDialog {
     GravarInternosKitCompleto objGravaIntComp = new GravarInternosKitCompleto();
     //
     ControleListaInternosKitCompleto controlKitComp = new ControleListaInternosKitCompleto();
-    //
+    // USADO PARA O TIPO DE KIT INCOMPLETO
     ControleListarInternosNaoSelecionados control = new ControleListarInternosNaoSelecionados();
     ListarInternosNaoSelecionados objListaNaoSelec = new ListarInternosNaoSelecionados();
     //
@@ -348,7 +350,7 @@ public class TelaSelecaoInternosKitCompleto extends javax.swing.JDialog {
             modelOrigem.removeRow(jTabelaSelecaoInternosKit.getSelectedRow());
         } else if (jTabelaSelecaoInternosKit.getSelectedRowCount() != 0 && row != 0) {
             qtdInternosKitComp = qtdInternosKitComp + 1;
-            qtdInternos = qtdInternos -1;
+            qtdInternos = qtdInternos - 1;
             DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaSelecaoInternosKit.getModel();
             DefaultTableModel modelDestino = (DefaultTableModel) jTabelaInternosKitCompleto.getModel();
             jtotalInternosKitCompleto.setText(Integer.toString(qtdInternosKitComp)); // Converter inteiro em string para exibir na tela 
@@ -381,10 +383,18 @@ public class TelaSelecaoInternosKitCompleto extends javax.swing.JDialog {
 
     private void jBtBuscarInternosSelecionadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtBuscarInternosSelecionadosActionPerformed
         // TODO add your handling code here:
-        Integer rows = jTabelaInternosKitCompleto.getRowCount();
-        if (rows != 0) {
-            listarInternosNaoSelecionados();
-        } else if (rows == 0) {
+        if (tipoKitCI == 0) {
+            // QUANDO FOR J=KIT INCOMPLETO CHAMAR ESSE METODO
+            while (jTabelaKitIncompleto.getModel().getRowCount() > 0) {
+                ((DefaultTableModel) jTabelaSelecaoInternosKit.getModel()).removeRow(0);
+            }
+            qtdInternos = 0;
+            listarInternosKitIncompleto();
+        } else if (tipoKitCI == 1) {
+            while (jTabelaSelecaoInternosKit.getModel().getRowCount() > 0) {
+                ((DefaultTableModel) jTabelaSelecaoInternosKit.getModel()).removeRow(0);
+            }
+            qtdInternos = 0;
             mostraSelecaoInternos();
         }
 
@@ -491,21 +501,21 @@ public class TelaSelecaoInternosKitCompleto extends javax.swing.JDialog {
         }
     }
 
-    // LISTAS DOS INTERNOS NÃO SELECIONADOS PARA O KIT COMPLETO
-    public void listarInternosNaoSelecionados() {
-        DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaSelecaoInternosKit.getModel();
+    // LISTAS DOS INTERNOS NÃO SELECIONADOS PARA O KIT COMPLETO (KIT INCOMPLETO)
+    public void listarInternosKitIncompleto() {
+        DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaKitIncompleto.getModel();
         ListarInternosNaoSelecionados p = new ListarInternosNaoSelecionados();
         try {
             for (ListarInternosNaoSelecionados pp : control.read()) {
                 jtotalInternosSelecionados.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
                 dadosOrigem.addRow(new Object[]{pp.getIdInternoCrc(), pp.getNomeInternoCrc()});
                 // BARRA DE ROLAGEM HORIZONTAL
-                jTabelaSelecaoInternosKit.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                jTabelaKitIncompleto.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                 // ALINHAR TEXTO DA TABELA CENTRALIZADO
                 DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
                 centralizado.setHorizontalAlignment(SwingConstants.CENTER);
                 //
-                jTabelaSelecaoInternosKit.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaKitIncompleto.getColumnModel().getColumn(0).setCellRenderer(centralizado);
             }
         } catch (Exception ex) {
             Logger.getLogger(TelaMontagemPagamentoKitInterno.class.getName()).log(Level.SEVERE, null, ex);
