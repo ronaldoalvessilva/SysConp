@@ -18,6 +18,7 @@ public class GravarInternosKitCompleto {
     private String nomeInternoCrc;
     private String agrupado;
     private int gravado;
+    private int tipoKitCI;
     private String usuarioInsert;
     private String usuarioUp;
     private String dataInsert;
@@ -29,7 +30,7 @@ public class GravarInternosKitCompleto {
     public GravarInternosKitCompleto() {
     }
 
-    public GravarInternosKitCompleto(int idRegIntAgrupComp, int idRegistroComp, int idKit, int idInternoCrc, String nomeInternoCrc, String agrupado, int gravado, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, String utili) {
+    public GravarInternosKitCompleto(int idRegIntAgrupComp, int idRegistroComp, int idKit, int idInternoCrc, String nomeInternoCrc, String agrupado, int gravado, int tipoKitCI, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, String utili) {
         this.idRegIntAgrupComp = idRegIntAgrupComp;
         this.idRegistroComp = idRegistroComp;
         this.idKit = idKit;
@@ -37,6 +38,7 @@ public class GravarInternosKitCompleto {
         this.nomeInternoCrc = nomeInternoCrc;
         this.agrupado = agrupado;
         this.gravado = gravado;
+        this.tipoKitCI = tipoKitCI;
         this.usuarioInsert = usuarioInsert;
         this.usuarioUp = usuarioUp;
         this.dataInsert = dataInsert;
@@ -145,6 +147,20 @@ public class GravarInternosKitCompleto {
     }
 
     /**
+     * @return the tipoKitCI
+     */
+    public int getTipoKitCI() {
+        return tipoKitCI;
+    }
+
+    /**
+     * @param tipoKitCI the tipoKitCI to set
+     */
+    public void setTipoKitCI(int tipoKitCI) {
+        this.tipoKitCI = tipoKitCI;
+    }
+
+    /**
      * @return the usuarioInsert
      */
     public String getUsuarioInsert() {
@@ -241,5 +257,5 @@ public class GravarInternosKitCompleto {
     public void setUtili(String utili) {
         this.utili = utili;
     }
-    
+   
 }
