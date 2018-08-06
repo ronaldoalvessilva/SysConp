@@ -6,15 +6,18 @@
 package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
+import gestor.Modelo.GravarInternosKitCompleto;
 import gestor.Modelo.ProdutoInternosKitLote;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jIdRegistroComp;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jTabelaProdutosKitCompleto;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdProd;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -26,6 +29,25 @@ public class ControleListarGravarProdutosKitCompleto {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     ProdutoInternosKitLote objProdKit = new ProdutoInternosKitLote();
     int codProd;
+
+    public ProdutoInternosKitLote incluirInternosKitCompleto(ProdutoInternosKitLote objProdKit) {
+        buscarProduto(objProdKit.getDescricaoProduto(), objProdKit.getIdProd());
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO (IdRegistroComp,IdInternoCrc,Gravado,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?)");
+            pst.setInt(1, objProdKit.getIdRegistroComp());
+            pst.setInt(2, codProd);
+            pst.setString(3, objProdKit.getGravado());
+            pst.setString(4, objProdKit.getUsuarioInsert());
+            pst.setString(5, objProdKit.getDataInsert());
+            pst.setString(6, objProdKit.getHorarioInsert());
+            pst.execute();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR internos com kit completo.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objProdKit;
+    }
 
     public List<ProdutoInternosKitLote> read() throws Exception {
         conecta.abrirConexao();
@@ -56,4 +78,15 @@ public class ControleListarGravarProdutosKitCompleto {
         return null;
     }
 
+    public void buscarProduto(String nome, int codigo) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM PRODUTOS_AC WHERE DescricaoProd='" + nome + "' AND IdProd='" + codigo + "'");
+            conecta.rs.first();
+            codProd = conecta.rs.getInt("IdProd");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Existe dados do PRODUTO a ser exibido !!!");
+        }
+        conecta.desconecta();
+    }
 }
