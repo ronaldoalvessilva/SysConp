@@ -18,12 +18,13 @@ import java.util.logging.Logger;
  *
  * @author ronal
  */
-// METODO QUE LISTA TODOS OS INTERNOS QUE NÃO FORAM SELECIONADOS PARA O KIT COMPLETO
+// METODO QUE LISTA TODOS OS INTERNOS QUE NÃO FORAM SELECIONADOS PARA O KIT COMPLETO 
+// SERÁ UTILIZADO PARA O KIT INCOMPLETO.
 public class ControleListarInternosNaoSelecionados {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     
     public List<ListarInternosNaoSelecionados> read() throws Exception {
-        String pUtili = "Não";       
+        String pUtili = "Não";            
         conecta.abrirConexao();
         List<ListarInternosNaoSelecionados> listaInternosNaoSelec = new ArrayList<ListarInternosNaoSelecionados>();
         try {
