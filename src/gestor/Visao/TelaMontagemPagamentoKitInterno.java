@@ -7,6 +7,7 @@ package gestor.Visao;
 
 import gestor.Controle.ControleComposicaoKit;
 import gestor.Controle.ControleItensRequisicaoMateriaisInternos;
+import gestor.Controle.ControleListarGravarProdutosKitCompleto;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControlePavilhaoInternosMontaKit;
 import gestor.Controle.ControleProdutosKitLote;
@@ -63,19 +64,24 @@ import javax.swing.table.DefaultTableModel;
 public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
+    // FASE - 1
     ComposicaoKit objComp = new ComposicaoKit();
     ControleComposicaoKit control = new ControleComposicaoKit();
-    //
+    // FASE - 2
     PavilhaoInternosMontagemKit objPavInt = new PavilhaoInternosMontagemKit();
     ControlePavilhaoInternosMontaKit controle = new ControlePavilhaoInternosMontaKit();
-    //   
+    // FASE - 3  
     ProdutoInternosKitLote objProdKit = new ProdutoInternosKitLote();
-    ItensRequisicaoMateriaisInternos objItensReqMatInter = new ItensRequisicaoMateriaisInternos(); // LOTE_PRODUTOS_AC
-    ControleItensRequisicaoMateriaisInternos controleLote = new ControleItensRequisicaoMateriaisInternos(); // DAR BAIXA ESTOQUE (LOTE_PRODUTOS_AC)
+    // LOTE_PRODUTOS_AC
+    ItensRequisicaoMateriaisInternos objItensReqMatInter = new ItensRequisicaoMateriaisInternos();
+    // DAR BAIXA ESTOQUE (LOTE_PRODUTOS_AC)
+    ControleItensRequisicaoMateriaisInternos controleLote = new ControleItensRequisicaoMateriaisInternos();
     ControleProdutosKitLote controleProd = new ControleProdutosKitLote();
-    //
+    // FASE - 4
     GravarInternosKitCompleto objGravaIntComp = new GravarInternosKitCompleto();
     ControleSelecaoKitsCompleto controleIntSelec = new ControleSelecaoKitsCompleto();
+    //
+    ControleListarGravarProdutosKitCompleto controleProdKit = new ControleListarGravarProdutosKitCompleto();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -141,6 +147,12 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     int pGravadoDB = 0;
     int idInternoComp;
     String pUtili = "Não";
+    public static int tipoKitCI = 0; // INFORMA A PESQUISA SE O TIPO DE KIT É COMPLETO OU INCOMPLETO
+    String codigoRegExcluir = ""; // CÓDIGO PARA SABER SE PODE EXCLUIR O REGISTRO DA TABELA INTERNOS KIT COMPLETO
+    String codigoInternoCrc = ""; // CÓDIGO DO INTERNO PARA EXCLUSÃO DO KIT
+    //
+    String codigoProdExclui = ""; // CÓDIGO DO PRODUTO PARA PESQUISA A SER EXCLUIDO DEPOIS DE SELECIONADO
+    int codigoProdutoExclui = 0; // CÓDIGO DO PRODUTO A SER EXCLUIDO DEPOIS DE SELECIONADO
 
     /**
      * Creates new form TelaMontagemPagamentoKitInterno
@@ -335,7 +347,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jPanel22 = new javax.swing.JPanel();
         jBtAdicionarTodosInternos = new javax.swing.JButton();
         jBtSalvarInternosSelecionados = new javax.swing.JButton();
-        jBtExccluirTodosInternos = new javax.swing.JButton();
+        jBtExcluirTodosInternosSelecionados = new javax.swing.JButton();
         jBtExcluirUmInternoAgrupado = new javax.swing.JButton();
         jPanel21 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
@@ -353,7 +365,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jPanel24 = new javax.swing.JPanel();
         jPanel25 = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        jTabelaKitIncompleto = new javax.swing.JTable();
         jPanel26 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -1825,14 +1837,14 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             }
         });
 
-        jBtExccluirTodosInternos.setForeground(new java.awt.Color(204, 0, 0));
-        jBtExccluirTodosInternos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
-        jBtExccluirTodosInternos.setText("Excluir Todos");
-        jBtExccluirTodosInternos.setToolTipText("Excluir todos internos adicionados para o kit de higiêne completo");
-        jBtExccluirTodosInternos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jBtExccluirTodosInternos.addActionListener(new java.awt.event.ActionListener() {
+        jBtExcluirTodosInternosSelecionados.setForeground(new java.awt.Color(204, 0, 0));
+        jBtExcluirTodosInternosSelecionados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
+        jBtExcluirTodosInternosSelecionados.setText("Excluir Todos");
+        jBtExcluirTodosInternosSelecionados.setToolTipText("Excluir todos internos adicionados para o kit de higiêne completo");
+        jBtExcluirTodosInternosSelecionados.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBtExcluirTodosInternosSelecionados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtExccluirTodosInternosActionPerformed(evt);
+                jBtExcluirTodosInternosSelecionadosActionPerformed(evt);
             }
         });
 
@@ -1854,12 +1866,12 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jBtSalvarInternosSelecionados, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtExcluirUmInternoAgrupado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jBtExccluirTodosInternos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jBtExcluirTodosInternosSelecionados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jBtAdicionarTodosInternos))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel22Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAdicionarTodosInternos, jBtExccluirTodosInternos, jBtExcluirUmInternoAgrupado, jBtSalvarInternosSelecionados});
+        jPanel22Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAdicionarTodosInternos, jBtExcluirTodosInternosSelecionados, jBtExcluirUmInternoAgrupado, jBtSalvarInternosSelecionados});
 
         jPanel22Layout.setVerticalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1867,7 +1879,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 .addContainerGap()
                 .addComponent(jBtAdicionarTodosInternos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtExccluirTodosInternos)
+                .addComponent(jBtExcluirTodosInternosSelecionados)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtExcluirUmInternoAgrupado)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1892,6 +1904,11 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTabelaProdutosKitCompleto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabelaProdutosKitCompletoMouseClicked(evt);
             }
         });
         jScrollPane7.setViewportView(jTabelaProdutosKitCompleto);
@@ -2080,8 +2097,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
         jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Internos com Kits Incompletos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(204, 0, 0))); // NOI18N
 
-        jTable3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        jTabelaKitIncompleto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTabelaKitIncompleto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -2089,14 +2106,14 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 "Código", "CNC", "Nome do Interno"
             }
         ));
-        jScrollPane8.setViewportView(jTable3);
-        if (jTable3.getColumnModel().getColumnCount() > 0) {
-            jTable3.getColumnModel().getColumn(0).setMinWidth(70);
-            jTable3.getColumnModel().getColumn(0).setMaxWidth(70);
-            jTable3.getColumnModel().getColumn(1).setMinWidth(70);
-            jTable3.getColumnModel().getColumn(1).setMaxWidth(70);
-            jTable3.getColumnModel().getColumn(2).setMinWidth(300);
-            jTable3.getColumnModel().getColumn(2).setMaxWidth(200);
+        jScrollPane8.setViewportView(jTabelaKitIncompleto);
+        if (jTabelaKitIncompleto.getColumnModel().getColumnCount() > 0) {
+            jTabelaKitIncompleto.getColumnModel().getColumn(0).setMinWidth(70);
+            jTabelaKitIncompleto.getColumnModel().getColumn(0).setMaxWidth(70);
+            jTabelaKitIncompleto.getColumnModel().getColumn(1).setMinWidth(70);
+            jTabelaKitIncompleto.getColumnModel().getColumn(1).setMaxWidth(70);
+            jTabelaKitIncompleto.getColumnModel().getColumn(2).setMinWidth(300);
+            jTabelaKitIncompleto.getColumnModel().getColumn(2).setMaxWidth(200);
         }
 
         javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
@@ -3136,22 +3153,14 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     private void jBtAdicionarTodosInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAdicionarTodosInternosActionPerformed
         // TODO add your handling code here:
         acao = 5;
+        tipoKitCI = 1;
         mostrarSelecaoInternos();
     }//GEN-LAST:event_jBtAdicionarTodosInternosActionPerformed
 
-    private void jBtExccluirTodosInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExccluirTodosInternosActionPerformed
-        // TODO add your handling code here:       
-        if (pGravadoDB == 0 && acao == 5) {
-            Integer rows = jTabelaInternosKitCompleto.getRowCount();
-            if (rows != 0) {
-                // APAGAR DADOS DA TABELA
-                while (jTabelaInternosKitCompleto.getModel().getRowCount() > 0) {
-                    ((DefaultTableModel) jTabelaInternosKitCompleto.getModel()).removeRow(0);
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Não existe registros a serem excluído.");
-            }
-        } else if (pGravadoDB == 1) {
+    private void jBtExcluirTodosInternosSelecionadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirTodosInternosSelecionadosActionPerformed
+        // TODO add your handling code here: 
+        verificarInternosDB();//
+        if (jIdRegistroComp.getText().equals(codigoRegExcluir)) {
             int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir todos registros do banco de dados?", "Confirmação",
                     JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
@@ -3163,12 +3172,47 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 }
                 JOptionPane.showMessageDialog(null, "Registros excluídos com sucesso.");
             }
+        } else {
+            Integer rows = jTabelaInternosKitCompleto.getRowCount();
+            if (rows != 0) {
+                // APAGAR DADOS DA TABELA
+                while (jTabelaInternosKitCompleto.getModel().getRowCount() > 0) {
+                    ((DefaultTableModel) jTabelaInternosKitCompleto.getModel()).removeRow(0);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Não existe registros a serem excluído.");
+            }
         }
-    }//GEN-LAST:event_jBtExccluirTodosInternosActionPerformed
+    }//GEN-LAST:event_jBtExcluirTodosInternosSelecionadosActionPerformed
 
     private void jBtExcluirUmInternoAgrupadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirUmInternoAgrupadoActionPerformed
-        // TODO add your handling code here:        
-        if (pGravadoDB == 0 && acao == 5) {
+        // TODO add your handling code here:   
+        verificarInternoDBUm();
+        if (jIdRegistroComp.getText().equals(codigoRegExcluir) && Integer.valueOf(codigoInternoCrc).equals(idInternoComp)) {
+            if (jTabelaInternosKitCompleto.getSelectedRowCount() != 0) {
+                String pUtili = "Não";
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registros selecioado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    qtdInternosKitComp = qtdInternosKitComp - 1;
+                    objGravaIntComp.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
+                    objGravaIntComp.setIdInternoCrc(idInternoComp);
+                    controleIntSelec.excluirInternosKitCompleto(objGravaIntComp);
+                    // FAZ UM UPDATE NA TABELA INTERNOS_PAVILHAO_KIT_LOTE INFORMANDO A UTILIZAÇÃO DOS INTERNOS PARA 
+                    // O KIT COMPLETO - NO CASO DA EXCLUSÃO, O INTERNO RETORNA A LISTA DE NÃO UTILIZADOS NO IT COMPLETO
+                    objGravaIntComp.setUtili(pUtili);
+                    controleIntSelec.atualizarInternosPavilhao(objGravaIntComp);
+                    //
+                    DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaInternosKitCompleto.getModel();
+                    modelOrigem.removeRow(jTabelaInternosKitCompleto.getSelectedRow());
+                    jtotalInternosKitCompleto.setText(Integer.toString(qtdInternosKitComp)); // Converter inteiro em string para exibir na tela 
+                    JOptionPane.showMessageDialog(null, "Registros excluídos com sucesso.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos uma linha para transferir todos registros da tabela.");
+                //Não tem nenhuma linha selecionada na tabela de origem, faça um aviso para o usuário ou algo do tipo.                        
+            }
+        } else {
             if (jTabelaInternosKitCompleto.getSelectedRowCount() != 0) {
                 qtdInternos = qtdInternos - 1;
                 DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaInternosKitCompleto.getModel();
@@ -3178,44 +3222,20 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos uma linha para transferir todos registros da tabela.");
                 //Não tem nenhuma linha selecionada na tabela de origem, faça um aviso para o usuário ou algo do tipo.                        
             }
-        } else if (pGravadoDB == 1) {
-            String pUtili = "Não";
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registros selecioado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                qtdInternosKitComp = qtdInternosKitComp - 1;
-                objGravaIntComp.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
-                objGravaIntComp.setIdInternoCrc(idInternoComp);
-                controleIntSelec.excluirInternosKitCompleto(objGravaIntComp);
-                // FAZ UM UPDATE NA TABELA INTERNOS_PAVILHAO_KIT_LOTE INFORMANDO A UTILIZAÇÃO DOS INTERNOS PARA 
-                // O KIT COMPLETO - NO CASO DA EXCLUSÃO, O INTERNO RETORNA A LISTA DE NÃO UTILIZADOS NO IT COMPLETO
-                objGravaIntComp.setUtili(pUtili);
-                controleIntSelec.atualizarInternosPavilhao(objGravaIntComp);
-                //
-                DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaInternosKitCompleto.getModel();
-                modelOrigem.removeRow(jTabelaInternosKitCompleto.getSelectedRow());
-                jtotalInternosKitCompleto.setText(Integer.toString(qtdInternosKitComp)); // Converter inteiro em string para exibir na tela 
-                JOptionPane.showMessageDialog(null, "Registros excluídos com sucesso.");
-            }
         }
     }//GEN-LAST:event_jBtExcluirUmInternoAgrupadoActionPerformed
 
     private void jBtSalvarInternosSelecionadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarInternosSelecionadosActionPerformed
         // TODO add your handling code here:
-        int qtdIt = Integer.valueOf(jtotalInternosKitCompleto.getText());
-        if (acao == 5 && qtdIt > qtdInternos || acao == 5 && qtdIt > qtdInternosKitComp) {
-            Integer rows = jTabelaInternosKitCompleto.getRowCount();
-            if (rows != 0) {
-                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente confirmar essa operação?", "Confirmação",
-                        JOptionPane.YES_NO_OPTION);
-                if (resposta == JOptionPane.YES_OPTION) {
-                    mostarTelaGrava();
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Não existem registros de internos a ser gravado no banco de dados.");
+        Integer rows = jTabelaInternosKitCompleto.getRowCount();
+        if (rows != 0) {
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente confirmar essa operação?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                mostarTelaGrava();
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Não existem dados a serem gravados.");
+            JOptionPane.showMessageDialog(null, "Não existem registros de internos a ser gravado no banco de dados.");
         }
     }//GEN-LAST:event_jBtSalvarInternosSelecionadosActionPerformed
 
@@ -3226,14 +3246,14 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         flag = 1;
         if (rows != 0) {
             if (flag == 1) {
-                String codigoInternoCrc = "" + jTabelaInternosKitCompleto.getValueAt(jTabelaInternosKitCompleto.getSelectedRow(), 0);
+                codigoInternoCrc = "" + jTabelaInternosKitCompleto.getValueAt(jTabelaInternosKitCompleto.getSelectedRow(), 0);
                 conecta.abrirConexao();
                 try {
-                    conecta.executaSQL("SELECT * FROM ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO "
+                    conecta.executaSQL("SELECT * FROM ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO "
                             + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                            + "WHERE ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO.IdRegistroComp='" + jIdRegistroComp.getText() + "' "
-                            + "AND ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO.IdInternoCrc='" + codigoInternoCrc + "'");
+                            + "ON ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "WHERE ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdRegistroComp='" + jIdRegistroComp.getText() + "' "
+                            + "AND ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdInternoCrc='" + codigoInternoCrc + "'");
                     conecta.rs.first();
                     idInternoComp = conecta.rs.getInt("IdInternoCrc");
                     pGravadoDB = conecta.rs.getInt("Gravado");
@@ -3254,17 +3274,9 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     private void jBtExcluirTodosProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirTodosProdutosActionPerformed
         // TODO add your handling code here:
-         if (pGravadoDB == 0 && acao == 5) {
-            Integer rows = jTabelaProdutosKitCompleto.getRowCount();
-            if (rows != 0) {
-                // APAGAR DADOS DA TABELA
-                while (jTabelaProdutosKitCompleto.getModel().getRowCount() > 0) {
-                    ((DefaultTableModel) jTabelaInternosKitCompleto.getModel()).removeRow(0);
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Não existe registros a serem excluído.");
-            }
-        } else if (pGravadoDB == 1) {
+        verificarTodosProdutosDB();
+        Integer rows = jTabelaProdutosKitCompleto.getRowCount();
+        if (jIdRegistroComp.getText().equals(codigoRegExcluir)) {
             int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir todos registros do banco de dados?", "Confirmação",
                     JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
@@ -3276,46 +3288,83 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 }
                 JOptionPane.showMessageDialog(null, "Registros excluídos com sucesso.");
             }
+        } else {
+            if (rows != 0) {
+                // APAGAR DADOS DA TABELA
+                while (jTabelaProdutosKitCompleto.getModel().getRowCount() > 0) {
+                    ((DefaultTableModel) jTabelaInternosKitCompleto.getModel()).removeRow(0);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Não existe registros a serem excluído.");
+            }
         }
     }//GEN-LAST:event_jBtExcluirTodosProdutosActionPerformed
 
     private void jBtExcluirProdutoSelecionadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirProdutoSelecionadoActionPerformed
         // TODO add your handling code here:
-        if (pGravadoDB == 0 && acao == 5) {
+        verificarUmProdutoDB();
+        if (jIdRegistroComp.getText().equals(codigoRegExcluir) && Integer.valueOf(codigoProdExclui).equals(codigoProdutoExclui)) {
             if (jTabelaProdutosKitCompleto.getSelectedRowCount() != 0) {
-                qtdInternos = qtdInternos - 1;
-                DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaProdutosKitCompleto.getModel();
-                modelOrigem.removeRow(jTabelaProdutosKitCompleto.getSelectedRow());
-                jtotalProdutosKitCompleto.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
+                String pUtili = "Não";
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registros selecioado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+//                    qtdInternosKitComp = qtdInternosKitComp - 1;
+                    objGravaIntComp.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
+//                    objGravaIntComp.setIdProd(codigoProdutoExclui);
+//                    controleIntSelec.excluirInternosKitCompleto(objGravaIntComp);
+                    // FAZ UM UPDATE NA TABELA INTERNOS_PAVILHAO_KIT_LOTE INFORMANDO A UTILIZAÇÃO DOS INTERNOS PARA 
+                    // O KIT COMPLETO - NO CASO DA EXCLUSÃO, O INTERNO RETORNA A LISTA DE NÃO UTILIZADOS NO IT COMPLETO
+                    objGravaIntComp.setUtili(pUtili);
+//                    controleIntSelec.atualizarInternosPavilhao(objGravaIntComp);
+                    //
+                    DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaProdutosKitCompleto.getModel();
+                    modelOrigem.removeRow(jTabelaProdutosKitCompleto.getSelectedRow());
+//                    jtotalInternosKitCompleto.setText(Integer.toString(qtdInternosKitComp)); // Converter inteiro em string para exibir na tela 
+                    JOptionPane.showMessageDialog(null, "Registros excluídos com sucesso.");
+                }
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos uma linha para transferir todos registros da tabela.");
+                JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos uma linha para excluir o registro da tabela.");
                 //Não tem nenhuma linha selecionada na tabela de origem, faça um aviso para o usuário ou algo do tipo.                        
             }
-        } else if (pGravadoDB == 1) {
-            String pUtili = "Não";
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registros selecioado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                qtdInternosKitComp = qtdInternosKitComp - 1;
-                objGravaIntComp.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
-                objGravaIntComp.setIdInternoCrc(idInternoComp);
-                controleIntSelec.excluirInternosKitCompleto(objGravaIntComp);
-                // FAZ UM UPDATE NA TABELA INTERNOS_PAVILHAO_KIT_LOTE INFORMANDO A UTILIZAÇÃO DOS INTERNOS PARA 
-                // O KIT COMPLETO - NO CASO DA EXCLUSÃO, O INTERNO RETORNA A LISTA DE NÃO UTILIZADOS NO IT COMPLETO
-                objGravaIntComp.setUtili(pUtili);
-//                controleIntSelec.atualizarInternosPavilhao(objGravaIntComp);
-                //
+        } else {
+            if (jTabelaProdutosKitCompleto.getSelectedRowCount() != 0) {
+//                qtdInternos = qtdInternos - 1;
                 DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaProdutosKitCompleto.getModel();
                 modelOrigem.removeRow(jTabelaProdutosKitCompleto.getSelectedRow());
-                jtotalProdutosKitCompleto.setText(Integer.toString(qtdInternosKitComp)); // Converter inteiro em string para exibir na tela 
-                JOptionPane.showMessageDialog(null, "Registros excluídos com sucesso.");
+//                jtotalInternosKitCompleto.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos uma linha para excluir o registro da tabela.");
+                //Não tem nenhuma linha selecionada na tabela de origem, faça um aviso para o usuário ou algo do tipo.                        
             }
         }
     }//GEN-LAST:event_jBtExcluirProdutoSelecionadoActionPerformed
 
     private void jBtSalvarProdutoBancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarProdutoBancoActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_jBtSalvarProdutoBancoActionPerformed
+
+    private void jTabelaProdutosKitCompletoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaProdutosKitCompletoMouseClicked
+        // TODO add your handling code here:
+        flag = 1;
+        codigoProdExclui = "" + jTabelaProdutosKitCompleto.getValueAt(jTabelaProdutosKitCompleto.getSelectedRow(), 0);
+        if (flag == 1) {
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO "
+                        + "INNER JOIN PRODUTOS_AC "
+                        + "ON ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdProd=PRODUTOS_AC.IdProd "
+                        + "WHERE ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdRegistroComp='" + jIdRegistroComp.getText() + "' "
+                        + "AND ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdProd='" + codigoProdExclui + "'");
+                conecta.rs.first();
+                codigoProdutoExclui = conecta.rs.getInt("IdProd");
+                pGravadoDB = conecta.rs.getInt("Gravado");
+            } catch (Exception e) {
+            }
+            conecta.desconecta();
+        }
+    }//GEN-LAST:event_jTabelaProdutosKitCompletoMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -3331,12 +3380,12 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public static javax.swing.JButton jBtCancelarPavilhaoInterno;
     private javax.swing.JButton jBtCancelarProduto;
     private javax.swing.JButton jBtConsultarEstoque;
-    private javax.swing.JButton jBtExccluirTodosInternos;
     public static javax.swing.JButton jBtExcluir;
     public static javax.swing.JButton jBtExcluirPavInternos;
     private javax.swing.JButton jBtExcluirProduto;
     private javax.swing.JButton jBtExcluirProdutoSelecionado;
     private javax.swing.JButton jBtExcluirTodosInternos;
+    private javax.swing.JButton jBtExcluirTodosInternosSelecionados;
     private javax.swing.JButton jBtExcluirTodosProdutos;
     private javax.swing.JButton jBtExcluirUmInterno;
     private javax.swing.JButton jBtExcluirUmInternoAgrupado;
@@ -3461,9 +3510,9 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public static javax.swing.JTable jTabelaInternos;
     public static javax.swing.JTable jTabelaInternosKitCompleto;
     public static javax.swing.JTable jTabelaInternosSelecionados;
+    public static javax.swing.JTable jTabelaKitIncompleto;
     public static javax.swing.JTable jTabelaProdutos;
     public static javax.swing.JTable jTabelaProdutosKitCompleto;
-    private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
     public static javax.swing.JTextField jUnidadeProd;
     public static javax.swing.JLabel jtotalInternosKitCompleto;
@@ -3820,6 +3869,58 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     public void NovoInternoKitComp() {
 
+    }
+
+    //VERIFICAR SE NA TABELA TEM REGISTRO CORRESPONDENTE AO LANÇAMENTO, PARA PODER EXCLUIR TODOS.
+    public void verificarInternosDB() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO "
+                    + "WHERE IdRegistroComp='" + jIdRegistroComp.getText() + "'");
+            conecta.rs.first();
+            codigoRegExcluir = conecta.rs.getString("IdRegistroComp");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void verificarInternoDBUm() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO "
+                    + "WHERE IdRegistroComp='" + jIdRegistroComp.getText() + "' "
+                    + "AND IdInternoCrc='" + codigoInternoCrc + "'");
+            conecta.rs.first();
+            codigoRegExcluir = conecta.rs.getString("IdRegistroComp");
+            codigoInternoCrc = conecta.rs.getString("IdInternoCrc");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    // METODO PARA BUSCAR O PRODUTO E EXCLUIR TODOS DA TABELA ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO
+    public void verificarTodosProdutosDB() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO "
+                    + "WHERE IdRegistroComp='" + jIdRegistroComp.getText() + "'");
+            conecta.rs.first();
+            codigoRegExcluir = conecta.rs.getString("IdRegistroComp");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void verificarUmProdutoDB() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO "
+                    + "WHERE IdRegistroComp='" + jIdRegistroComp.getText() + "'");
+            conecta.rs.first();
+            codigoRegExcluir = conecta.rs.getString("IdRegistroComp");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 
     public void preencherTabelaItensKit(String sql) {
