@@ -27,6 +27,7 @@ public class ProdutoInternosKitLote {
     private int gravado;
     private String liberado;
     private String pUtili;
+    private String pago;
     private String usuarioInsert;
     private String usuarioUp;
     private String dataInsert;
@@ -37,7 +38,7 @@ public class ProdutoInternosKitLote {
     public ProdutoInternosKitLote() {
     }
 
-    public ProdutoInternosKitLote(int idRegProdKit, int idRegistroComp, int idKit, int idPav, String descricaoPavilhao, int idInternoCrc, String nomeInternoCrc, int idProd, String descricaoProduto, String unidadeProd, float quantidadeProd, int tipoKitCI, String agrupado, int gravado, String liberado, String pUtili, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
+    public ProdutoInternosKitLote(int idRegProdKit, int idRegistroComp, int idKit, int idPav, String descricaoPavilhao, int idInternoCrc, String nomeInternoCrc, int idProd, String descricaoProduto, String unidadeProd, float quantidadeProd, int tipoKitCI, String agrupado, int gravado, String liberado, String pUtili, String pago, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
         this.idRegProdKit = idRegProdKit;
         this.idRegistroComp = idRegistroComp;
         this.idKit = idKit;
@@ -54,6 +55,7 @@ public class ProdutoInternosKitLote {
         this.gravado = gravado;
         this.liberado = liberado;
         this.pUtili = pUtili;
+        this.pago = pago;
         this.usuarioInsert = usuarioInsert;
         this.usuarioUp = usuarioUp;
         this.dataInsert = dataInsert;
@@ -287,6 +289,20 @@ public class ProdutoInternosKitLote {
     }
 
     /**
+     * @return the pago
+     */
+    public String getPago() {
+        return pago;
+    }
+
+    /**
+     * @param pago the pago to set
+     */
+    public void setPago(String pago) {
+        this.pago = pago;
+    }
+
+    /**
      * @return the usuarioInsert
      */
     public String getUsuarioInsert() {
@@ -369,5 +385,5 @@ public class ProdutoInternosKitLote {
     public void setHorarioUp(String horarioUp) {
         this.horarioUp = horarioUp;
     }
-    
+
 }
