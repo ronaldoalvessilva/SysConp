@@ -1716,7 +1716,7 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
                             + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdKit=KITS_HIGIENE_INTERNO.IdKit "
                             + "INNER JOIN PRODUTOS_AC "
                             + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                            + "WHERE PRODUTOS_KITS_HIGIENE_INTERNO.IdReq='" + jIdKit.getText() + "'");
+                            + "WHERE PRODUTOS_KITS_HIGIENE_INTERNO.IdKit='" + jIdKit.getText() + "'");
                     bloquearCampos();
                     bloquearBotoes();
                     SalvarProduto();
