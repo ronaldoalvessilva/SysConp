@@ -166,6 +166,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public static TelaSelecaoInternosKitCompleto kitCompleto;
     public static TelaGravarInternosKitCompleto gravarIntComp;
     public static TelaSelecaoProdutosKitsCompletoIncompleto selecaoProdutosKit;
+    public static TelaGravarProdutosKitCompleto gravarProdutosKitComp;
 
     public TelaMontagemPagamentoKitInterno() {
         super();
@@ -218,6 +219,11 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public void listarProdutosKit() {
         selecaoProdutosKit = new TelaSelecaoProdutosKitsCompletoIncompleto(this, true);
         selecaoProdutosKit.setVisible(true);
+    }
+
+    public void mostrarTelaGravacaoProdutoKitCompleto() {
+        gravarProdutosKitComp = new TelaGravarProdutosKitCompleto(this, true);
+        gravarProdutosKitComp.setVisible(true);
     }
 
     /**
@@ -3342,7 +3348,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     private void jBtSalvarProdutoBancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarProdutoBancoActionPerformed
         // TODO add your handling code here:
-        
+        mostrarTelaGravacaoProdutoKitCompleto();
     }//GEN-LAST:event_jBtSalvarProdutoBancoActionPerformed
 
     private void jTabelaProdutosKitCompletoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaProdutosKitCompletoMouseClicked
