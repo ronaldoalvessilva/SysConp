@@ -24,7 +24,7 @@ public class ProdutoInternosKitLote {
     private float quantidadeProd;
     private int tipoKitCI;
     private String agrupado;
-    private String gravado;
+    private int gravado;
     private String liberado;
     private String pUtili;
     private String usuarioInsert;
@@ -37,7 +37,7 @@ public class ProdutoInternosKitLote {
     public ProdutoInternosKitLote() {
     }
 
-    public ProdutoInternosKitLote(int idRegProdKit, int idRegistroComp, int idKit, int idPav, String descricaoPavilhao, int idInternoCrc, String nomeInternoCrc, int idProd, String descricaoProduto, String unidadeProd, float quantidadeProd, int tipoKitCI, String agrupado, String gravado, String liberado, String pUtili, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
+    public ProdutoInternosKitLote(int idRegProdKit, int idRegistroComp, int idKit, int idPav, String descricaoPavilhao, int idInternoCrc, String nomeInternoCrc, int idProd, String descricaoProduto, String unidadeProd, float quantidadeProd, int tipoKitCI, String agrupado, int gravado, String liberado, String pUtili, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
         this.idRegProdKit = idRegProdKit;
         this.idRegistroComp = idRegistroComp;
         this.idKit = idKit;
@@ -247,14 +247,14 @@ public class ProdutoInternosKitLote {
     /**
      * @return the gravado
      */
-    public String getGravado() {
+    public int getGravado() {
         return gravado;
     }
 
     /**
      * @param gravado the gravado to set
      */
-    public void setGravado(String gravado) {
+    public void setGravado(int gravado) {
         this.gravado = gravado;
     }
 
@@ -369,5 +369,5 @@ public class ProdutoInternosKitLote {
     public void setHorarioUp(String horarioUp) {
         this.horarioUp = horarioUp;
     }
-
+    
 }
