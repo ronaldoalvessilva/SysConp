@@ -9,8 +9,11 @@ import gestor.Controle.ControleListarGravarProdutosKitCompleto;
 import gestor.Controle.ControleProdutosKitLote;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.ProdutoInternosKitLote;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jIdRegistroComp;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jTabelaProdutosKitCompleto;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jtotalProdutosKitCompleto;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdInternos;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdInternosKitComp;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdProd;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,6 +35,8 @@ public class TelaSelecaoProdutosKitsCompletoIncompleto extends javax.swing.JDial
     //
     String codigoProduto;
     int qtdProdList = 0;
+    int qtdUniProd = 0;
+    int totalRegInterno = 0;
     /**
      * Creates new form TelaSelecaoProdutosKitsCompletoIncompleto
      */
@@ -283,7 +288,8 @@ public class TelaSelecaoProdutosKitsCompletoIncompleto extends javax.swing.JDial
                     while (jTabelaSelecaoProdutosKit.getModel().getRowCount() > 0) {
                         ((DefaultTableModel) jTabelaSelecaoProdutosKit.getModel()).removeRow(0);
                     }
-                    exportarTodosProdutos();
+                    calcularTotalInternosKitCompleto();
+                    exportarTodosProdutosKitCompleto();
                     dispose();
                 }
             } else {
@@ -357,7 +363,7 @@ public class TelaSelecaoProdutosKitsCompletoIncompleto extends javax.swing.JDial
         Integer row = jTabelaSelecaoProdutosKit.getRowCount();
         Integer rows = jTabelaProdutosKitCompleto.getRowCount();
         if (row == 0) {
-            listarTodosProdutosKit();
+            listarTodosProdutosKitCompleto();
         } else if (rows != 0) {
             listarProdutosNaoAtendido();
         }
@@ -431,7 +437,7 @@ public class TelaSelecaoProdutosKitsCompletoIncompleto extends javax.swing.JDial
     public static javax.swing.JLabel jtotaProdutosListados;
     // End of variables declaration//GEN-END:variables
 
-    public void listarTodosProdutosKit() {
+    public void listarTodosProdutosKitCompleto() {
         DefaultTableModel produtosSelecionados = (DefaultTableModel) jTabelaSelecaoProdutosKit.getModel();
         ProdutoInternosKitLote p = new ProdutoInternosKitLote();
         try {
@@ -475,13 +481,15 @@ public class TelaSelecaoProdutosKitsCompletoIncompleto extends javax.swing.JDial
         }
     }
 
-    public void exportarTodosProdutos() {
+    public void exportarTodosProdutosKitCompleto() {
         DefaultTableModel dadosProduto = (DefaultTableModel) jTabelaProdutosKitCompleto.getModel();
         ProdutoInternosKitLote p = new ProdutoInternosKitLote();
         try {
             for (ProdutoInternosKitLote pp : control.read()) {
                 jtotalProdutosKitCompleto.setText(Integer.toString(qtdProd)); // Converter inteiro em string para exibir na tela 
-                dadosProduto.addRow(new Object[]{pp.getIdProd(), pp.getDescricaoProduto(), pp.getUnidadeProd(), pp.getQuantidadeProd()});
+                // DIVIDE A QUANTIDADE TOTAL DOS PRODUTOS SOLICTADO PELA QUANTIDADE TOTAL DE INTERNOS SELECIONADOS.
+                totalRegInterno = (int) (qtdUniProd / pp.getQuantidadeProd());
+                dadosProduto.addRow(new Object[]{pp.getIdProd(), pp.getDescricaoProduto(), pp.getUnidadeProd(), totalRegInterno});
                 // BARRA DE ROLAGEM HORIZONTAL
                 jTabelaProdutosKitCompleto.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                 // ALINHAR TEXTO DA TABELA CENTRALIZADO
@@ -497,7 +505,19 @@ public class TelaSelecaoProdutosKitsCompletoIncompleto extends javax.swing.JDial
         }
     }
 
-    public void exportarProdutoSelecionado() {
-
+    // LISTA E CALCULA TODOS OS INTERNOS QUE TERÃO O KIT COMPLETO - (AINDA NÃO DEFINIDO)
+    public void calcularTotalInternosKitCompleto() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO "
+                    + "WHERE IdRegistroComp='" + jIdRegistroComp.getText() + "'");
+            conecta.rs.first();
+            do {
+                qtdUniProd = qtdUniProd + 1;
+            } while (conecta.rs.next());
+        } catch (Exception e) {
+        }
+        JOptionPane.showMessageDialog(rootPane, "Total de internos no DB: " +qtdUniProd );
+        conecta.desconecta();
     }
 }
