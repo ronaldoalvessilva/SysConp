@@ -32,9 +32,9 @@ public class TelaGravarInternosKitCompleto extends javax.swing.JDialog {
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log   
-    String nomeModuloTela2 = "Almoxarifado:Montagem de Pagamento do Kit de Interno:Gravar Internos Kir Completo";
+    String nomeModuloTela2 = "Almoxarifado:Montagem de Pagamento do Kit de Interno:Gravar Internos Kit Completo";
     //    
-    int idRegPavInt = 0;
+    int IdRegInternosKC = 0;
     int codigoPavilhao = 0;
     String statusMov = "";
     String horaMov = "";
@@ -292,7 +292,7 @@ public class TelaGravarInternosKitCompleto extends javax.swing.JDialog {
         try {
             conecta.executaSQL("SELECT * FROM ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO");
             conecta.rs.last();
-            idRegPavInt = conecta.rs.getInt("IdRegIntAgrupComp");
+            IdRegInternosKC = conecta.rs.getInt("IdRegInternosKC");
         } catch (Exception ERROR) {
         }
         conecta.desconecta();
