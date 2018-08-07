@@ -30,20 +30,40 @@ public class ControleListarGravarProdutosKitCompleto {
     ProdutoInternosKitLote objProdKit = new ProdutoInternosKitLote();
     int codProd;
 
-    public ProdutoInternosKitLote incluirInternosKitCompleto(ProdutoInternosKitLote objProdKit) {
+    public ProdutoInternosKitLote incluirProdutosKitCompletoIncompleto(ProdutoInternosKitLote objProdKit) {
         buscarProduto(objProdKit.getDescricaoProduto(), objProdKit.getIdProd());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO (IdRegistroComp,IdInternoCrc,Gravado,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO (IdRegistroComp,IdKit,IdProd,QuantProd,Agrupado,TipoKitCI,Gravado,Liberado,Pago,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setInt(1, objProdKit.getIdRegistroComp());
-            pst.setInt(2, codProd);
-            pst.setString(3, objProdKit.getGravado());
-            pst.setString(4, objProdKit.getUsuarioInsert());
-            pst.setString(5, objProdKit.getDataInsert());
-            pst.setString(6, objProdKit.getHorarioInsert());
+            pst.setInt(2, objProdKit.getIdKit());
+            pst.setInt(3, codProd);
+            pst.setFloat(4, objProdKit.getQuantidadeProd());
+            pst.setString(5, objProdKit.getAgrupado());
+            pst.setInt(6, objProdKit.getTipoKitCI());           
+            pst.setInt(7, objProdKit.getGravado());
+            pst.setString(8, objProdKit.getLiberado());
+            pst.setString(9, objProdKit.getPago());
+            pst.setString(10, objProdKit.getUsuarioInsert());
+            pst.setString(11, objProdKit.getDataInsert());
+            pst.setString(12, objProdKit.getHorarioInsert());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR internos com kit completo.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objProdKit;
+    }
+
+    public ProdutoInternosKitLote atualizarProdutoUtilizadoKit(ProdutoInternosKitLote objProdKit) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE SET Utili=? WHERE IdRegistroComp='" + objProdKit.getIdRegistroComp() + "' AND IdProd='" + objProdKit.getIdProd() + "'");
+            pst.setString(1, objProdKit.getpUtili());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR produto.\nERRO: " + ex);
         }
         conecta.desconecta();
         return objProdKit;
