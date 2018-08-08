@@ -85,7 +85,7 @@ public class ControleListarGravarProdutosKitCompleto {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE SET Utili=? WHERE IdRegistroComp='" + objProdKit.getIdRegistroComp() + "' AND IdProd='" + objProdKit.getIdProd() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE SET Utili=? WHERE IdRegistroComp='" + objProdKit.getIdRegistroComp() + "' AND IdProd='" + objProdKit.getIdProd() + "'AND TipoKitCI='" + objProdKit.getTipoKitCI() + "'");
             pst.setString(1, objProdKit.getpUtili());
             pst.executeUpdate();
         } catch (SQLException ex) {
