@@ -35,6 +35,8 @@ import static gestor.Visao.TelaModuloAlmoxarifado.codigoUserGroupAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.nomeGrupoAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.nomeTelaAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.telaMontagemPagamentoKitAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.telaMontagemPagamentoKitCompletoIntAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.telaMontagemPagamentoKitCompletoProdAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.telaMontagemPagamentoKitPavIntAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.telaMontagemPagamentoKitProdutosAL;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
@@ -78,9 +80,10 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     ControleItensRequisicaoMateriaisInternos controleLote = new ControleItensRequisicaoMateriaisInternos();
     ControleProdutosKitLote controleProd = new ControleProdutosKitLote();
     // FASE - 4
+    // GRAVAR OU EXXCLUIR REGISTRO DOS INTERNOS NO KIT COMPLETO
     GravarInternosKitCompleto objGravaIntComp = new GravarInternosKitCompleto();
     ControleSelecaoKitsCompleto controleIntSelec = new ControleSelecaoKitsCompleto();
-    //
+    // GRAVAR OU EXCCLUIR OS PRODUTOS DOS INTERNOS COM KIT COMPLETO
     ControleListarGravarProdutosKitCompleto controleProdKit = new ControleListarGravarProdutosKitCompleto();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
@@ -153,6 +156,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     //
     String codigoProdExclui = ""; // CÓDIGO DO PRODUTO PARA PESQUISA A SER EXCLUIDO DEPOIS DE SELECIONADO
     int codigoProdutoExclui = 0; // CÓDIGO DO PRODUTO A SER EXCLUIDO DEPOIS DE SELECIONADO
+    int pTipoKitCI = 0; // TIPO DE KIT PARA AUXILIAR A EXCLUIR UM OU TODOS OS REGISTROS (PRODUTOS) DA TABELA
 
     /**
      * Creates new form TelaMontagemPagamentoKitInterno
@@ -355,6 +359,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jBtSalvarInternosSelecionados = new javax.swing.JButton();
         jBtExcluirTodosInternosSelecionados = new javax.swing.JButton();
         jBtExcluirUmInternoAgrupado = new javax.swing.JButton();
+        jBtAuditoriaKitCompleto = new javax.swing.JButton();
         jPanel21 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         jTabelaProdutosKitCompleto = new javax.swing.JTable();
@@ -368,16 +373,38 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jBtExcluirTodosProdutos = new javax.swing.JButton();
         jBtExcluirProdutoSelecionado = new javax.swing.JButton();
         jBtSalvarProdutoBanco = new javax.swing.JButton();
+        jBtAuditoriaKitProdutoCompleto = new javax.swing.JButton();
+        jLabel14 = new javax.swing.JLabel();
         jPanel24 = new javax.swing.JPanel();
         jPanel25 = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
         jTabelaKitIncompleto = new javax.swing.JTable();
+        jPanel48 = new javax.swing.JPanel();
+        jLabel73 = new javax.swing.JLabel();
+        jPanel49 = new javax.swing.JPanel();
+        jtotalInternosKitCompleto1 = new javax.swing.JLabel();
+        jPanel50 = new javax.swing.JPanel();
         jPanel26 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
         jPanel27 = new javax.swing.JPanel();
         jScrollPane9 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        jTabelaProdutosKitIncompleto = new javax.swing.JTable();
+        jPanel51 = new javax.swing.JPanel();
+        jLabel74 = new javax.swing.JLabel();
+        jPanel52 = new javax.swing.JPanel();
+        jtotalProdutosKitCompleto1 = new javax.swing.JLabel();
+        jPanel53 = new javax.swing.JPanel();
+        jPanel29 = new javax.swing.JPanel();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
+        jButton12 = new javax.swing.JButton();
+        jLabel15 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -1158,7 +1185,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 .addComponent(jBtExcluirUmInterno)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtExcluirTodosInternos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addComponent(jBtSaldoEstoque)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtAuditoriaPavInternos, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1658,7 +1685,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jBtSelecionarProdutos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                 .addComponent(jBtNovoProduto)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtAlterarProduto)
@@ -1743,7 +1770,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             jTabelaInternosKitCompleto.getColumnModel().getColumn(0).setMinWidth(70);
             jTabelaInternosKitCompleto.getColumnModel().getColumn(0).setMaxWidth(70);
             jTabelaInternosKitCompleto.getColumnModel().getColumn(1).setMinWidth(300);
-            jTabelaInternosKitCompleto.getColumnModel().getColumn(1).setMaxWidth(200);
+            jTabelaInternosKitCompleto.getColumnModel().getColumn(1).setMaxWidth(300);
         }
 
         jPanel42.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
@@ -1784,7 +1811,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jPanel44.setLayout(jPanel44Layout);
         jPanel44Layout.setHorizontalGroup(
             jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 132, Short.MAX_VALUE)
+            .addGap(0, 128, Short.MAX_VALUE)
         );
         jPanel44Layout.setVerticalGroup(
             jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1810,13 +1837,13 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jPanel20Layout.setVerticalGroup(
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel20Layout.createSequentialGroup()
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel42, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel43, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel44, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel22.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Add/Excluir Internos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 204))); // NOI18N
@@ -1863,17 +1890,22 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             }
         });
 
+        jBtAuditoriaKitCompleto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
+        jBtAuditoriaKitCompleto.setToolTipText("Auditoria");
+        jBtAuditoriaKitCompleto.setContentAreaFilled(false);
+
         javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
         jPanel22.setLayout(jPanel22Layout);
         jPanel22Layout.setHorizontalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel22Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jBtSalvarInternosSelecionados, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtExcluirUmInternoAgrupado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jBtExcluirTodosInternosSelecionados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jBtAdicionarTodosInternos))
+                    .addComponent(jBtAdicionarTodosInternos)
+                    .addComponent(jBtAuditoriaKitCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1882,7 +1914,6 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jPanel22Layout.setVerticalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel22Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jBtAdicionarTodosInternos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtExcluirTodosInternosSelecionados)
@@ -1890,7 +1921,9 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 .addComponent(jBtExcluirUmInternoAgrupado)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtSalvarInternosSelecionados)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtAuditoriaKitCompleto)
+                .addGap(0, 11, Short.MAX_VALUE))
         );
 
         jPanel21.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Produtos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(204, 0, 0))); // NOI18N
@@ -2041,20 +2074,22 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             }
         });
 
+        jBtAuditoriaKitProdutoCompleto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
+        jBtAuditoriaKitProdutoCompleto.setToolTipText("Auditoria");
+        jBtAuditoriaKitProdutoCompleto.setContentAreaFilled(false);
+
         javax.swing.GroupLayout jPanel28Layout = new javax.swing.GroupLayout(jPanel28);
         jPanel28.setLayout(jPanel28Layout);
         jPanel28Layout.setHorizontalGroup(
             jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel28Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jBtAdicionarProdutosKitCompleto)
-                .addContainerGap())
             .addGroup(jPanel28Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jBtAdicionarProdutosKitCompleto)
                     .addComponent(jBtExcluirTodosProdutos)
                     .addComponent(jBtExcluirProdutoSelecionado)
-                    .addComponent(jBtSalvarProdutoBanco))
+                    .addComponent(jBtSalvarProdutoBanco)
+                    .addComponent(jBtAuditoriaKitProdutoCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -2063,7 +2098,6 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jPanel28Layout.setVerticalGroup(
             jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel28Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jBtAdicionarProdutosKitCompleto)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtExcluirTodosProdutos)
@@ -2071,8 +2105,15 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 .addComponent(jBtExcluirProdutoSelecionado)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtSalvarProdutoBanco)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtAuditoriaKitProdutoCompleto)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(0, 102, 0));
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel14.setText("Kit Higiene Completo");
 
         javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
         jPanel23.setLayout(jPanel23Layout);
@@ -2084,24 +2125,29 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel23Layout.setVerticalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, 396, Short.MAX_VALUE)
             .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel23Layout.createSequentialGroup()
                 .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addComponent(jPanel28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
         jTabbedPane2.addTab("Kits Completos", new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Full_shopping_cart_Icon_16.png")), jPanel23); // NOI18N
 
         jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Internos com Kits Incompletos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(204, 0, 0))); // NOI18N
+        jPanel25.setVerifyInputWhenFocusTarget(false);
 
         jTabelaKitIncompleto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaKitIncompleto.setModel(new javax.swing.table.DefaultTableModel(
@@ -2109,18 +2155,61 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
             },
             new String [] {
-                "Código", "CNC", "Nome do Interno"
+                "Código", "Nome do Interno"
             }
         ));
         jScrollPane8.setViewportView(jTabelaKitIncompleto);
         if (jTabelaKitIncompleto.getColumnModel().getColumnCount() > 0) {
             jTabelaKitIncompleto.getColumnModel().getColumn(0).setMinWidth(70);
             jTabelaKitIncompleto.getColumnModel().getColumn(0).setMaxWidth(70);
-            jTabelaKitIncompleto.getColumnModel().getColumn(1).setMinWidth(70);
-            jTabelaKitIncompleto.getColumnModel().getColumn(1).setMaxWidth(70);
-            jTabelaKitIncompleto.getColumnModel().getColumn(2).setMinWidth(300);
-            jTabelaKitIncompleto.getColumnModel().getColumn(2).setMaxWidth(200);
+            jTabelaKitIncompleto.getColumnModel().getColumn(1).setMinWidth(300);
+            jTabelaKitIncompleto.getColumnModel().getColumn(1).setMaxWidth(300);
         }
+
+        jPanel48.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+
+        jLabel73.setText("Total de Registros:");
+
+        javax.swing.GroupLayout jPanel48Layout = new javax.swing.GroupLayout(jPanel48);
+        jPanel48.setLayout(jPanel48Layout);
+        jPanel48Layout.setHorizontalGroup(
+            jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel48Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel73))
+        );
+        jPanel48Layout.setVerticalGroup(
+            jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel73)
+        );
+
+        jPanel49.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+
+        jtotalInternosKitCompleto1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+
+        javax.swing.GroupLayout jPanel49Layout = new javax.swing.GroupLayout(jPanel49);
+        jPanel49.setLayout(jPanel49Layout);
+        jPanel49Layout.setHorizontalGroup(
+            jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jtotalInternosKitCompleto1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+        );
+        jPanel49Layout.setVerticalGroup(
+            jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jtotalInternosKitCompleto1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE)
+        );
+
+        jPanel50.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+
+        javax.swing.GroupLayout jPanel50Layout = new javax.swing.GroupLayout(jPanel50);
+        jPanel50.setLayout(jPanel50Layout);
+        jPanel50Layout.setHorizontalGroup(
+            jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 126, Short.MAX_VALUE)
+        );
+        jPanel50Layout.setVerticalGroup(
+            jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 14, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
         jPanel25.setLayout(jPanel25Layout);
@@ -2128,21 +2217,52 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel25Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(jPanel25Layout.createSequentialGroup()
+                        .addComponent(jPanel48, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel49, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel50, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel25Layout.setVerticalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
+            .addGroup(jPanel25Layout.createSequentialGroup()
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jPanel48, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel49, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel50, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6))
         );
 
-        jPanel26.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Ações", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(204, 0, 0))); // NOI18N
+        jPanel26.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Add/Excluir Internos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(204, 0, 0))); // NOI18N
 
-        jButton3.setText("Selecionar");
+        jButton3.setForeground(new java.awt.Color(0, 102, 0));
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/overlays.png"))); // NOI18N
+        jButton3.setText("Add. Internos");
         jButton3.setToolTipText("Efetivar Kits Higiêne Completos");
+        jButton3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
-        jButton4.setText("Confirmar");
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/191216104515_16.png"))); // NOI18N
+        jButton4.setText("Excluir Todos");
         jButton4.setToolTipText("");
+        jButton4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/191216104428_16.png"))); // NOI18N
+        jButton1.setText("Excluir Um");
+        jButton1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+
+        jButton2.setForeground(new java.awt.Color(0, 0, 204));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
+        jButton2.setText("Gravar no DB");
+        jButton2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+
+        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
+        jButton11.setContentAreaFilled(false);
 
         javax.swing.GroupLayout jPanel26Layout = new javax.swing.GroupLayout(jPanel26);
         jPanel26.setLayout(jPanel26Layout);
@@ -2150,25 +2270,36 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel26Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jButton3)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jPanel26Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, jButton2, jButton3, jButton4});
+
         jPanel26Layout.setVerticalGroup(
             jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel26Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
                 .addComponent(jButton3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton4)
-                .addContainerGap(296, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton11)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel27.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Produtos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(204, 0, 0))); // NOI18N
+        jPanel27.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Produtos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 204))); // NOI18N
 
-        jTable4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        jTabelaProdutosKitIncompleto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTabelaProdutosKitIncompleto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -2176,17 +2307,62 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 "Código", "Descrição do Produto", "Un.", "Qtd."
             }
         ));
-        jScrollPane9.setViewportView(jTable4);
-        if (jTable4.getColumnModel().getColumnCount() > 0) {
-            jTable4.getColumnModel().getColumn(0).setMinWidth(70);
-            jTable4.getColumnModel().getColumn(0).setMaxWidth(70);
-            jTable4.getColumnModel().getColumn(1).setMinWidth(250);
-            jTable4.getColumnModel().getColumn(1).setMaxWidth(250);
-            jTable4.getColumnModel().getColumn(2).setMinWidth(50);
-            jTable4.getColumnModel().getColumn(2).setMaxWidth(50);
-            jTable4.getColumnModel().getColumn(3).setMinWidth(50);
-            jTable4.getColumnModel().getColumn(3).setMaxWidth(50);
+        jScrollPane9.setViewportView(jTabelaProdutosKitIncompleto);
+        if (jTabelaProdutosKitIncompleto.getColumnModel().getColumnCount() > 0) {
+            jTabelaProdutosKitIncompleto.getColumnModel().getColumn(0).setMinWidth(70);
+            jTabelaProdutosKitIncompleto.getColumnModel().getColumn(0).setMaxWidth(70);
+            jTabelaProdutosKitIncompleto.getColumnModel().getColumn(1).setMinWidth(250);
+            jTabelaProdutosKitIncompleto.getColumnModel().getColumn(1).setMaxWidth(250);
+            jTabelaProdutosKitIncompleto.getColumnModel().getColumn(2).setMinWidth(50);
+            jTabelaProdutosKitIncompleto.getColumnModel().getColumn(2).setMaxWidth(50);
+            jTabelaProdutosKitIncompleto.getColumnModel().getColumn(3).setMinWidth(50);
+            jTabelaProdutosKitIncompleto.getColumnModel().getColumn(3).setMaxWidth(50);
         }
+
+        jPanel51.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+
+        jLabel74.setText("Total de Registros:");
+
+        javax.swing.GroupLayout jPanel51Layout = new javax.swing.GroupLayout(jPanel51);
+        jPanel51.setLayout(jPanel51Layout);
+        jPanel51Layout.setHorizontalGroup(
+            jPanel51Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel51Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel74))
+        );
+        jPanel51Layout.setVerticalGroup(
+            jPanel51Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel74)
+        );
+
+        jPanel52.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+
+        jtotalProdutosKitCompleto1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+
+        javax.swing.GroupLayout jPanel52Layout = new javax.swing.GroupLayout(jPanel52);
+        jPanel52.setLayout(jPanel52Layout);
+        jPanel52Layout.setHorizontalGroup(
+            jPanel52Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jtotalProdutosKitCompleto1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+        );
+        jPanel52Layout.setVerticalGroup(
+            jPanel52Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jtotalProdutosKitCompleto1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE)
+        );
+
+        jPanel53.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+
+        javax.swing.GroupLayout jPanel53Layout = new javax.swing.GroupLayout(jPanel53);
+        jPanel53.setLayout(jPanel53Layout);
+        jPanel53Layout.setHorizontalGroup(
+            jPanel53Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 95, Short.MAX_VALUE)
+        );
+        jPanel53Layout.setVerticalGroup(
+            jPanel53Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 14, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout jPanel27Layout = new javax.swing.GroupLayout(jPanel27);
         jPanel27.setLayout(jPanel27Layout);
@@ -2194,13 +2370,89 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel27Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(jPanel27Layout.createSequentialGroup()
+                        .addComponent(jPanel51, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel52, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel53, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel27Layout.setVerticalGroup(
             jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addGroup(jPanel27Layout.createSequentialGroup()
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jPanel51, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel52, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6))
         );
+
+        jPanel29.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Add/Excluir Produtos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 204))); // NOI18N
+
+        jButton5.setForeground(new java.awt.Color(0, 102, 0));
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7183_16x16.png"))); // NOI18N
+        jButton5.setText("Add. Produtos");
+        jButton5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+
+        jButton6.setForeground(new java.awt.Color(204, 0, 0));
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
+        jButton6.setText("Excluir Todos");
+        jButton6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3720_16x16.png"))); // NOI18N
+        jButton7.setText("Excluir Um");
+        jButton7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+
+        jButton8.setForeground(new java.awt.Color(0, 0, 102));
+        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/save-document-icone-9010-16.png"))); // NOI18N
+        jButton8.setText("Gravar no DB");
+        jButton8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+
+        jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
+        jButton12.setToolTipText("Auditoria");
+        jButton12.setContentAreaFilled(false);
+
+        javax.swing.GroupLayout jPanel29Layout = new javax.swing.GroupLayout(jPanel29);
+        jPanel29.setLayout(jPanel29Layout);
+        jPanel29Layout.setHorizontalGroup(
+            jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel29Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jButton5)
+                    .addComponent(jButton6)
+                    .addComponent(jButton7)
+                    .addComponent(jButton8)
+                    .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel29Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton5, jButton6, jButton7, jButton8});
+
+        jPanel29Layout.setVerticalGroup(
+            jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel29Layout.createSequentialGroup()
+                .addComponent(jButton5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton12)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(102, 0, 0));
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel15.setText("Kit Higiene Incompleto");
 
         javax.swing.GroupLayout jPanel24Layout = new javax.swing.GroupLayout(jPanel24);
         jPanel24.setLayout(jPanel24Layout);
@@ -2210,16 +2462,26 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 .addContainerGap()
                 .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel29, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel24Layout.setVerticalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel27, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel24Layout.createSequentialGroup()
+                .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jPanel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel24Layout.createSequentialGroup()
+                        .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel29, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Kits Incompletos", new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Shopping_cart_Icon_16.png")), jPanel24); // NOI18N
@@ -2230,12 +2492,14 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 839, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jTabbedPane2)
+                .addContainerGap())
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane2)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addComponent(jTabbedPane2)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("FASE - 4", new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/40_16x16.png")), jPanel9, "Agrupar os Produtos do Kit de Higiene aos Internos"); // NOI18N
@@ -2349,11 +2613,11 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 456, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        setBounds(200, 30, 895, 557);
+        setBounds(200, 30, 895, 559);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
@@ -3158,90 +3422,110 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     private void jBtAdicionarTodosInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAdicionarTodosInternosActionPerformed
         // TODO add your handling code here:
-        acao = 5;
-        tipoKitCI = 1;
-        mostrarSelecaoInternos();
+        buscarAcessoUsuario(telaMontagemPagamentoKitCompletoIntAL);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitCompletoIntAL) && codIncluirAL == 1) {
+            acao = 5;
+            tipoKitCI = 1;
+            mostrarSelecaoInternos();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
+        }
     }//GEN-LAST:event_jBtAdicionarTodosInternosActionPerformed
 
     private void jBtExcluirTodosInternosSelecionadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirTodosInternosSelecionadosActionPerformed
-        // TODO add your handling code here: 
-        verificarInternosDB();//
-        if (jIdRegistroComp.getText().equals(codigoRegExcluir)) {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir todos registros do banco de dados?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objGravaIntComp.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
-                controleIntSelec.excluirTodosInternosKitCompleto(objGravaIntComp);
-                // APAGAR DADOS DA TABELA
-                while (jTabelaInternosKitCompleto.getModel().getRowCount() > 0) {
-                    ((DefaultTableModel) jTabelaInternosKitCompleto.getModel()).removeRow(0);
-                }
-                JOptionPane.showMessageDialog(null, "Registros excluídos com sucesso.");
-            }
-        } else {
-            Integer rows = jTabelaInternosKitCompleto.getRowCount();
-            if (rows != 0) {
-                // APAGAR DADOS DA TABELA
-                while (jTabelaInternosKitCompleto.getModel().getRowCount() > 0) {
-                    ((DefaultTableModel) jTabelaInternosKitCompleto.getModel()).removeRow(0);
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaMontagemPagamentoKitCompletoIntAL);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitCompletoIntAL) && codExcluirAL == 1) {
+            verificarInternosDB();//
+            if (jIdRegistroComp.getText().equals(codigoRegExcluir)) {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir todos registros do banco de dados?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objGravaIntComp.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
+                    controleIntSelec.excluirTodosInternosKitCompleto(objGravaIntComp);
+                    // APAGAR DADOS DA TABELA
+                    while (jTabelaInternosKitCompleto.getModel().getRowCount() > 0) {
+                        ((DefaultTableModel) jTabelaInternosKitCompleto.getModel()).removeRow(0);
+                    }
+                    JOptionPane.showMessageDialog(null, "Registros excluídos com sucesso.");
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Não existe registros a serem excluído.");
+                Integer rows = jTabelaInternosKitCompleto.getRowCount();
+                if (rows != 0) {
+                    // APAGAR DADOS DA TABELA
+                    while (jTabelaInternosKitCompleto.getModel().getRowCount() > 0) {
+                        ((DefaultTableModel) jTabelaInternosKitCompleto.getModel()).removeRow(0);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Não existe registros a serem excluído.");
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
         }
     }//GEN-LAST:event_jBtExcluirTodosInternosSelecionadosActionPerformed
 
     private void jBtExcluirUmInternoAgrupadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirUmInternoAgrupadoActionPerformed
         // TODO add your handling code here:   
-        verificarInternoDBUm();
-        if (jIdRegistroComp.getText().equals(codigoRegExcluir) && Integer.valueOf(codigoInternoCrc).equals(idInternoComp)) {
-            if (jTabelaInternosKitCompleto.getSelectedRowCount() != 0) {
-                String pUtili = "Não";
-                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registros selecioado?", "Confirmação",
-                        JOptionPane.YES_NO_OPTION);
-                if (resposta == JOptionPane.YES_OPTION) {
-                    qtdInternosKitComp = qtdInternosKitComp - 1;
-                    objGravaIntComp.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
-                    objGravaIntComp.setIdInternoCrc(idInternoComp);
-                    controleIntSelec.excluirInternosKitCompleto(objGravaIntComp);
-                    // FAZ UM UPDATE NA TABELA INTERNOS_PAVILHAO_KIT_LOTE INFORMANDO A UTILIZAÇÃO DOS INTERNOS PARA 
-                    // O KIT COMPLETO - NO CASO DA EXCLUSÃO, O INTERNO RETORNA A LISTA DE NÃO UTILIZADOS NO IT COMPLETO
-                    objGravaIntComp.setUtili(pUtili);
-                    controleIntSelec.atualizarInternosPavilhao(objGravaIntComp);
-                    //
-                    DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaInternosKitCompleto.getModel();
-                    modelOrigem.removeRow(jTabelaInternosKitCompleto.getSelectedRow());
-                    jtotalInternosKitCompleto.setText(Integer.toString(qtdInternosKitComp)); // Converter inteiro em string para exibir na tela 
-                    JOptionPane.showMessageDialog(null, "Registros excluídos com sucesso.");
+        buscarAcessoUsuario(telaMontagemPagamentoKitCompletoIntAL);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitCompletoIntAL) && codExcluirAL == 1) {
+            verificarInternoDBUm();
+            if (jIdRegistroComp.getText().equals(codigoRegExcluir) && Integer.valueOf(codigoInternoCrc).equals(idInternoComp)) {
+                if (jTabelaInternosKitCompleto.getSelectedRowCount() != 0) {
+                    String pUtili = "Não";
+                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registros selecioado?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta == JOptionPane.YES_OPTION) {
+                        qtdInternosKitComp = qtdInternosKitComp - 1;
+                        objGravaIntComp.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
+                        objGravaIntComp.setIdInternoCrc(idInternoComp);
+                        controleIntSelec.excluirInternosKitCompleto(objGravaIntComp);
+                        // FAZ UM UPDATE NA TABELA INTERNOS_PAVILHAO_KIT_LOTE INFORMANDO A UTILIZAÇÃO DOS INTERNOS PARA 
+                        // O KIT COMPLETO - NO CASO DA EXCLUSÃO, O INTERNO RETORNA A LISTA DE NÃO UTILIZADOS NO IT COMPLETO
+                        objGravaIntComp.setUtili(pUtili);
+                        controleIntSelec.atualizarInternosPavilhao(objGravaIntComp);
+                        //
+                        DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaInternosKitCompleto.getModel();
+                        modelOrigem.removeRow(jTabelaInternosKitCompleto.getSelectedRow());
+                        jtotalInternosKitCompleto.setText(Integer.toString(qtdInternosKitComp)); // Converter inteiro em string para exibir na tela 
+                        JOptionPane.showMessageDialog(null, "Registros excluídos com sucesso.");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos uma linha para transferir todos registros da tabela.");
+                    //Não tem nenhuma linha selecionada na tabela de origem, faça um aviso para o usuário ou algo do tipo.                        
                 }
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos uma linha para transferir todos registros da tabela.");
-                //Não tem nenhuma linha selecionada na tabela de origem, faça um aviso para o usuário ou algo do tipo.                        
+                if (jTabelaInternosKitCompleto.getSelectedRowCount() != 0) {
+                    qtdInternos = qtdInternos - 1;
+                    DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaInternosKitCompleto.getModel();
+                    modelOrigem.removeRow(jTabelaInternosKitCompleto.getSelectedRow());
+                    jtotalInternosKitCompleto.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos uma linha para transferir todos registros da tabela.");
+                    //Não tem nenhuma linha selecionada na tabela de origem, faça um aviso para o usuário ou algo do tipo.                        
+                }
             }
         } else {
-            if (jTabelaInternosKitCompleto.getSelectedRowCount() != 0) {
-                qtdInternos = qtdInternos - 1;
-                DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaInternosKitCompleto.getModel();
-                modelOrigem.removeRow(jTabelaInternosKitCompleto.getSelectedRow());
-                jtotalInternosKitCompleto.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos uma linha para transferir todos registros da tabela.");
-                //Não tem nenhuma linha selecionada na tabela de origem, faça um aviso para o usuário ou algo do tipo.                        
-            }
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
         }
     }//GEN-LAST:event_jBtExcluirUmInternoAgrupadoActionPerformed
 
     private void jBtSalvarInternosSelecionadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarInternosSelecionadosActionPerformed
         // TODO add your handling code here:
-        Integer rows = jTabelaInternosKitCompleto.getRowCount();
-        if (rows != 0) {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente confirmar essa operação?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                mostarTelaGrava();
+        buscarAcessoUsuario(telaMontagemPagamentoKitCompletoIntAL);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitCompletoIntAL) && codGravarAL == 1) {
+            Integer rows = jTabelaInternosKitCompleto.getRowCount();
+            if (rows != 0) {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente confirmar essa operação?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    mostarTelaGrava();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Não existem registros de internos a ser gravado no banco de dados.");
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Não existem registros de internos a ser gravado no banco de dados.");
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
         }
     }//GEN-LAST:event_jBtSalvarInternosSelecionadosActionPerformed
 
@@ -3275,80 +3559,117 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     private void jBtAdicionarProdutosKitCompletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAdicionarProdutosKitCompletoActionPerformed
         // TODO add your handling code here:
-        listarProdutosKit();
+        buscarAcessoUsuario(telaMontagemPagamentoKitCompletoProdAL);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitCompletoProdAL) && codIncluirAL == 1) {
+            listarProdutosKit();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
+        }
     }//GEN-LAST:event_jBtAdicionarProdutosKitCompletoActionPerformed
 
     private void jBtExcluirTodosProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirTodosProdutosActionPerformed
         // TODO add your handling code here:
-        verificarTodosProdutosDB();
-        Integer rows = jTabelaProdutosKitCompleto.getRowCount();
-        if (jIdRegistroComp.getText().equals(codigoRegExcluir)) {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir todos registros do banco de dados?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objGravaIntComp.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
-//                controleIntSelec.excluirTodosInternosKitCompleto(objGravaIntComp);
-                // APAGAR DADOS DA TABELA
-                while (jTabelaProdutosKitCompleto.getModel().getRowCount() > 0) {
-                    ((DefaultTableModel) jTabelaProdutosKitCompleto.getModel()).removeRow(0);
-                }
-                JOptionPane.showMessageDialog(null, "Registros excluídos com sucesso.");
-            }
-        } else {
-            if (rows != 0) {
-                // APAGAR DADOS DA TABELA
-                while (jTabelaProdutosKitCompleto.getModel().getRowCount() > 0) {
-                    ((DefaultTableModel) jTabelaInternosKitCompleto.getModel()).removeRow(0);
+        buscarAcessoUsuario(telaMontagemPagamentoKitCompletoProdAL);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitCompletoProdAL) && codExcluirAL == 1) {
+            verificarTodosProdutosDB();
+            Integer rows = jTabelaProdutosKitCompleto.getRowCount();
+            if (jIdRegistroComp.getText().equals(codigoRegExcluir)) {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir todos registros do banco de dados?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {                    
+                    // FAZ UM UPDATE NA TABELA ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE INFORMANDO A UTILIZAÇÃO DOS PRODUTO PARA 
+                    // O KIT COMPLETO - NO CASO DA EXCLUSÃO, O PRODUTO RETORNA A LISTA DE NÃO UTILIZADOS NO KIT COMPLETO
+                    // FAZ UM UPDATE ANTES DE EXCLUIR
+                    for (int i = 0; i < jTabelaProdutosKitCompleto.getRowCount(); i++) {
+                        objProdKit.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
+                        objProdKit.setTipoKitCI(pTipoKitCI);
+                        objProdKit.setpUtili(pUtili);
+                        objProdKit.setIdProd((int) jTabelaProdutosKitCompleto.getValueAt(i, 0));
+                        controleProdKit.atualizarProdutoUtilizadoKit(objProdKit);
+                    }
+                    // DELETA TODOS OS REGISTROS DA TABELA (ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO)
+                    objProdKit.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
+                    objProdKit.setTipoKitCI(pTipoKitCI);
+                    controleProdKit.excluirTodosProdutosKitCompletoIncompleto(objProdKit);
+                    // APAGAR DADOS DA TABELA
+                    while (jTabelaProdutosKitCompleto.getModel().getRowCount() > 0) {
+                        ((DefaultTableModel) jTabelaProdutosKitCompleto.getModel()).removeRow(0);
+                    }
+                    jtotalProdutosKitCompleto.setText(Integer.toString(qtdInternosKitComp)); // Converter inteiro em string para exibir na tela 
+                    JOptionPane.showMessageDialog(null, "Registros excluídos com sucesso.");
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Não existe registros a serem excluído.");
+                if (rows != 0) {
+                    // APAGAR DADOS DA TABELA
+                    while (jTabelaProdutosKitCompleto.getModel().getRowCount() > 0) {
+                        ((DefaultTableModel) jTabelaInternosKitCompleto.getModel()).removeRow(0);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Não existe registros a serem excluído.");
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
         }
     }//GEN-LAST:event_jBtExcluirTodosProdutosActionPerformed
 
     private void jBtExcluirProdutoSelecionadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirProdutoSelecionadoActionPerformed
         // TODO add your handling code here:
-        verificarUmProdutoDB();
-        if (jIdRegistroComp.getText().equals(codigoRegExcluir) && Integer.valueOf(codigoProdExclui).equals(codigoProdutoExclui)) {
-            if (jTabelaProdutosKitCompleto.getSelectedRowCount() != 0) {
-                String pUtili = "Não";
-                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registros selecioado?", "Confirmação",
-                        JOptionPane.YES_NO_OPTION);
-                if (resposta == JOptionPane.YES_OPTION) {
+        buscarAcessoUsuario(telaMontagemPagamentoKitCompletoProdAL);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitCompletoProdAL) && codExcluirAL == 1) {
+            verificarUmProdutoDB();
+            if (jIdRegistroComp.getText().equals(codigoRegExcluir) && Integer.valueOf(codigoProdExclui).equals(codigoProdutoExclui)) {
+                if (jTabelaProdutosKitCompleto.getSelectedRowCount() != 0) {
+                    String pUtili = "Não";
+                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registros selecioado?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta == JOptionPane.YES_OPTION) {
 //                    qtdInternosKitComp = qtdInternosKitComp - 1;
-                    objGravaIntComp.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
-//                    objGravaIntComp.setIdProd(codigoProdutoExclui);
-//                    controleIntSelec.excluirInternosKitCompleto(objGravaIntComp);
-                    // FAZ UM UPDATE NA TABELA INTERNOS_PAVILHAO_KIT_LOTE INFORMANDO A UTILIZAÇÃO DOS INTERNOS PARA 
-                    // O KIT COMPLETO - NO CASO DA EXCLUSÃO, O INTERNO RETORNA A LISTA DE NÃO UTILIZADOS NO IT COMPLETO
-                    objGravaIntComp.setUtili(pUtili);
-//                    controleIntSelec.atualizarInternosPavilhao(objGravaIntComp);
-                    //
-                    DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaProdutosKitCompleto.getModel();
-                    modelOrigem.removeRow(jTabelaProdutosKitCompleto.getSelectedRow());
+                        objProdKit.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
+                        objProdKit.setIdProd(codigoProdutoExclui);
+                        objProdKit.setTipoKitCI(pTipoKitCI);
+                        controleProdKit.excluirTodosProdutosKitCompletoIncompleto(objProdKit);
+                        // FAZ UM UPDATE NA TABELA ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE INFORMANDO A UTILIZAÇÃO DOS PRODUTO PARA 
+                        // O KIT COMPLETO - NO CASO DA EXCLUSÃO, O PRODUTO RETORNA A LISTA DE NÃO UTILIZADOS NO KIT COMPLETO
+                        objProdKit.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
+                        objProdKit.setTipoKitCI(pTipoKitCI);
+                        objProdKit.setpUtili(pUtili);
+                        objProdKit.setIdProd(Integer.valueOf(codigoProdExclui));
+                        controleProdKit.atualizarProdutoUtilizadoKit(objProdKit);
+                        //
+                        DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaProdutosKitCompleto.getModel();
+                        modelOrigem.removeRow(jTabelaProdutosKitCompleto.getSelectedRow());
 //                    jtotalInternosKitCompleto.setText(Integer.toString(qtdInternosKitComp)); // Converter inteiro em string para exibir na tela 
-                    JOptionPane.showMessageDialog(null, "Registros excluídos com sucesso.");
+                        JOptionPane.showMessageDialog(null, "Registros excluídos com sucesso.");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos uma linha para excluir o registro da tabela.");
+                    //Não tem nenhuma linha selecionada na tabela de origem, faça um aviso para o usuário ou algo do tipo.                        
                 }
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos uma linha para excluir o registro da tabela.");
-                //Não tem nenhuma linha selecionada na tabela de origem, faça um aviso para o usuário ou algo do tipo.                        
+                if (jTabelaProdutosKitCompleto.getSelectedRowCount() != 0) {
+//                qtdInternos = qtdInternos - 1;
+                    DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaProdutosKitCompleto.getModel();
+                    modelOrigem.removeRow(jTabelaProdutosKitCompleto.getSelectedRow());
+//                jtotalInternosKitCompleto.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos uma linha para excluir o registro da tabela.");
+                    //Não tem nenhuma linha selecionada na tabela de origem, faça um aviso para o usuário ou algo do tipo.                        
+                }
             }
         } else {
-            if (jTabelaProdutosKitCompleto.getSelectedRowCount() != 0) {
-//                qtdInternos = qtdInternos - 1;
-                DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaProdutosKitCompleto.getModel();
-                modelOrigem.removeRow(jTabelaProdutosKitCompleto.getSelectedRow());
-//                jtotalInternosKitCompleto.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos uma linha para excluir o registro da tabela.");
-                //Não tem nenhuma linha selecionada na tabela de origem, faça um aviso para o usuário ou algo do tipo.                        
-            }
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
         }
     }//GEN-LAST:event_jBtExcluirProdutoSelecionadoActionPerformed
 
     private void jBtSalvarProdutoBancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarProdutoBancoActionPerformed
         // TODO add your handling code here:
-        mostrarTelaGravacaoProdutoKitCompleto();
+        buscarAcessoUsuario(telaMontagemPagamentoKitCompletoProdAL);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitCompletoProdAL) && codGravarAL == 1) {
+            mostrarTelaGravacaoProdutoKitCompleto();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
+        }
     }//GEN-LAST:event_jBtSalvarProdutoBancoActionPerformed
 
     private void jTabelaProdutosKitCompletoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaProdutosKitCompletoMouseClicked
@@ -3365,6 +3686,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                         + "AND ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdProd='" + codigoProdExclui + "'");
                 conecta.rs.first();
                 codigoProdutoExclui = conecta.rs.getInt("IdProd");
+                pTipoKitCI = conecta.rs.getInt("TipoKitCI");
                 pGravadoDB = conecta.rs.getInt("Gravado");
             } catch (Exception e) {
             }
@@ -3380,6 +3702,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public static javax.swing.JButton jBtAlterar;
     private javax.swing.JButton jBtAlterarProduto;
     public static javax.swing.JButton jBtAuditoria;
+    private javax.swing.JButton jBtAuditoriaKitCompleto;
+    private javax.swing.JButton jBtAuditoriaKitProdutoCompleto;
     public static javax.swing.JButton jBtAuditoriaPavInternos;
     private javax.swing.JButton jBtAuditoriaProduto;
     public static javax.swing.JButton jBtCancelar;
@@ -3413,8 +3737,16 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     private javax.swing.JButton jBtSelecionarProdutos;
     public static javax.swing.JButton jBtSelecionarTodosInternos;
     public static javax.swing.JButton jBtSelecionarUmInterno;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     public static javax.swing.JTextField jCodigoProd;
     public static javax.swing.JComboBox<String> jComboBoxPavilhoes;
     public static com.toedter.calendar.JDateChooser jDataComp;
@@ -3428,6 +3760,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -3440,6 +3774,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     private javax.swing.JLabel jLabel70;
     private javax.swing.JLabel jLabel71;
     private javax.swing.JLabel jLabel72;
+    private javax.swing.JLabel jLabel73;
+    private javax.swing.JLabel jLabel74;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     public static javax.swing.JTextField jNomeColaborador;
@@ -3465,6 +3801,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     private javax.swing.JPanel jPanel26;
     private javax.swing.JPanel jPanel27;
     private javax.swing.JPanel jPanel28;
+    private javax.swing.JPanel jPanel29;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel30;
     private javax.swing.JPanel jPanel31;
@@ -3485,7 +3822,13 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     private javax.swing.JPanel jPanel45;
     private javax.swing.JPanel jPanel46;
     private javax.swing.JPanel jPanel47;
+    private javax.swing.JPanel jPanel48;
+    private javax.swing.JPanel jPanel49;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel50;
+    private javax.swing.JPanel jPanel51;
+    private javax.swing.JPanel jPanel52;
+    private javax.swing.JPanel jPanel53;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
@@ -3519,13 +3862,15 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public static javax.swing.JTable jTabelaKitIncompleto;
     public static javax.swing.JTable jTabelaProdutos;
     public static javax.swing.JTable jTabelaProdutosKitCompleto;
-    private javax.swing.JTable jTable4;
+    private javax.swing.JTable jTabelaProdutosKitIncompleto;
     public static javax.swing.JTextField jUnidadeProd;
     public static javax.swing.JLabel jtotalInternosKitCompleto;
+    public static javax.swing.JLabel jtotalInternosKitCompleto1;
     public static javax.swing.JLabel jtotalInternosPavilhao;
     public static javax.swing.JLabel jtotalInternosSelecionados;
     public static javax.swing.JLabel jtotalProdutosKit;
     public static javax.swing.JLabel jtotalProdutosKitCompleto;
+    public static javax.swing.JLabel jtotalProdutosKitCompleto1;
     public static javax.swing.JLabel jtotalProdutosKitInternos;
     // End of variables declaration//GEN-END:variables
 
