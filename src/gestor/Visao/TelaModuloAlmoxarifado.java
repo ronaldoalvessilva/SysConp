@@ -143,6 +143,8 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     public static String telaMontagemPagamentoKitAL = "Movimentação:Montagem de Kit de Higiene de Internos:FASE - 1";
     public static String telaMontagemPagamentoKitPavIntAL = "Movimentação:Montagem de Kit de Higiene de Internos:FASE - 2";
     public static String telaMontagemPagamentoKitProdutosAL = "Movimentação:Montagem de Kit de Higiene de Internos:FASE - 3";
+    public static String telaMontagemPagamentoKitCompletoIntAL = "Movimentação:Montagem de Kit de Higiene de Internos:FASE - 4/IKC";
+    public static String telaMontagemPagamentoKitCompletoProdAL = "Movimentação:Montagem de Kit de Higiene de Internos:FASE - 4/PKC";
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
     // MENU CADASTRO
     String pNomeCF = "";
@@ -169,9 +171,13 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     String pNomeMPKI = "";
     String pNomeMPKPI = "";
     String pNomeMPKP = "";
+    String pNomeMPKCI = "";
+    String pNomeMPKCP = "";
 
-    //pNomeMPKP
-//   telaMontagemPagamentoKitProdutosAL
+    //pNomeMPKCI
+    //pNomeMPKCP
+//   telaMontagemPagamentoKitCompletoIntAL
+    //telaMontagemPagamentoKitCompletoProdAL
     //
     public static int codigoUserAL = 0;
     public static int codUserAcessoAL = 0;
@@ -1715,6 +1721,20 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
             pNomeMPKP = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaMontagemPagamentoKitCompletoIntAL + "'");
+            conecta.rs.first();
+            pNomeMPKCI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaMontagemPagamentoKitCompletoProdAL + "'");
+            conecta.rs.first();
+            pNomeMPKCP = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // CADASTRO
         if (!pNomeCF.equals(telaCadastroFornecedoresAL) || pNomeCF == null || pNomeCF.equals("")) {
             buscarCodigoModulo();
@@ -1847,6 +1867,18 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaMontagemPagamentoKitProdutosAL);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeMPKCI.equals(telaMontagemPagamentoKitCompletoIntAL) || pNomeMPKCI == null || pNomeMPKCI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaMontagemPagamentoKitCompletoIntAL);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeMPKCP.equals(telaMontagemPagamentoKitCompletoProdAL) || pNomeMPKCP == null || pNomeMPKCP.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaMontagemPagamentoKitCompletoProdAL);
             controle.incluirTelaAcesso(objCadastroTela);
         }
     }
