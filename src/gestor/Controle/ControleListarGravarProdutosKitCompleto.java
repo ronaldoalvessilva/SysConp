@@ -40,7 +40,7 @@ public class ControleListarGravarProdutosKitCompleto {
             pst.setInt(3, codProd);
             pst.setFloat(4, objProdKit.getQuantidadeProd());
             pst.setString(5, objProdKit.getAgrupado());
-            pst.setInt(6, objProdKit.getTipoKitCI());           
+            pst.setInt(6, objProdKit.getTipoKitCI());
             pst.setInt(7, objProdKit.getGravado());
             pst.setString(8, objProdKit.getLiberado());
             pst.setString(9, objProdKit.getPago());
@@ -50,6 +50,32 @@ public class ControleListarGravarProdutosKitCompleto {
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR internos com kit completo.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objProdKit;
+    }
+
+    public ProdutoInternosKitLote excluirUmProdutoKitCompletoIncompleto(ProdutoInternosKitLote objProdKit) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO WHERE IdRegistroComp='" + objProdKit.getIdRegistroComp() + "'AND IdProd='" + objProdKit.getIdProd() + "'AND TipoKitCI='" + objProdKit.getTipoKitCI() + "'");
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR produto do kit.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objProdKit;
+    }
+    // DELETE TODOS OS REGISTROS DA TABELA QUE CONTIVER OS ID PRINCIPAL NA TABELA ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO
+    public ProdutoInternosKitLote excluirTodosProdutosKitCompletoIncompleto(ProdutoInternosKitLote objProdKit) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO WHERE IdRegistroComp='" + objProdKit.getIdRegistroComp() + "'AND TipoKitCI='" + objProdKit.getTipoKitCI() + "'");
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR produto do kit.\nERRO: " + ex);
         }
         conecta.desconecta();
         return objProdKit;
