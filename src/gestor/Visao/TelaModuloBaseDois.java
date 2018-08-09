@@ -98,6 +98,7 @@ public class TelaModuloBaseDois extends javax.swing.JInternalFrame {
     private TelaConsultaOficialJusticaBGP objConsultaOFJUS = null;
     private TelaPagamentoKitInterno objKitBase = null;
     private TelaAlertaPreLocacaoTriagem objAlertaPreLocacaoB2 = null;
+    private TelaAlertaBasesPavilhoesBaseDois objAlertaVPIB2 = null;
     //
     String pathFoto;
     String dataLanc;
@@ -147,6 +148,8 @@ public class TelaModuloBaseDois extends javax.swing.JInternalFrame {
     public static String telaEntregaMaterialUsoInternosBioB2 = "Movimentação:Entrega de Material Uso Pessoal:Biometria";
     public static String telaInicializarLeitorB2 = "Movimentação:Entrega de Material Uso Pessoal:Inicializar leitor";
     //
+    public static String telaAlertaVisitantesPortariaB2 = "Consulta:Alerta Visitas Internos/Advogados/Oficial de Justiça";
+    //
     // MENU CADASTRO
     String pNomePA = "";
     String pNomeCE = "";
@@ -161,8 +164,21 @@ public class TelaModuloBaseDois extends javax.swing.JInternalFrame {
     String pNomeEMUIB = "";
     String pNomeIL = "";
     //
+    String pNomeCAVP = "";
+    //
     String preLocacao = "";
     String confirmaLocacao = "Não";
+    // VARIAVEIS PARA CRIAR ALERTA NAS BASES DOS PAVILHÕES
+    public static int codigoPavilhao = 0;
+    public static String descricaoPavilhao = "";
+    String nivelPavilhao = "";
+    public static String nomePavilhao1 = "PAVILHAO II";
+    public static String nomePavilhao2 = "PAVILHAO B";
+    String confirmarVisitas = "Não";
+    int pBuscaPavilhao1 = 0;
+    String pBuscaConfirmacao = "";
+    String alertaPavilhao = "";
+    String pHabilitado = "Habilitado";
 
     /**
      * Creates new form TelaSeguranca
@@ -211,6 +227,8 @@ public class TelaModuloBaseDois extends javax.swing.JInternalFrame {
         HistoricosInternos = new javax.swing.JMenu();
         HistoricoCrc = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jSeparator13 = new javax.swing.JPopupMenu.Separator();
+        jAlertaVisitantesPavilhao = new javax.swing.JMenuItem();
         Movimentacao = new javax.swing.JMenu();
         LocacaoInternosBpa = new javax.swing.JMenuItem();
         TransferenciaPavilhaoCelasBpa = new javax.swing.JMenuItem();
@@ -383,6 +401,16 @@ public class TelaModuloBaseDois extends javax.swing.JInternalFrame {
         HistoricosInternos.add(jMenuItem3);
 
         Consultas.add(HistoricosInternos);
+        Consultas.add(jSeparator13);
+
+        jAlertaVisitantesPavilhao.setForeground(new java.awt.Color(204, 0, 0));
+        jAlertaVisitantesPavilhao.setText("Alerta de Visitantes na Portaria Interna");
+        jAlertaVisitantesPavilhao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAlertaVisitantesPavilhaoActionPerformed(evt);
+            }
+        });
+        Consultas.add(jAlertaVisitantesPavilhao);
 
         jMenuBar1.add(Consultas);
 
@@ -1125,6 +1153,39 @@ public class TelaModuloBaseDois extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_RelatorioPreLocacaoInternoTriagemActionPerformed
 
+    private void jAlertaVisitantesPavilhaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAlertaVisitantesPavilhaoActionPerformed
+        // TODO add your handling code here:
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB2.equals("ADMINISTRADORES") || codigoUserB2 == codUserAcessoB2 && nomeTelaB2.equals(telaAlertaVisitantesPortariaB2) && codAbrirB2 == 1) {
+            if (objAlertaVPIB2 == null || objAlertaVPIB2.isClosed()) {
+                objAlertaVPIB2 = new TelaAlertaBasesPavilhoesBaseDois();
+                jPainelBasePavilhaoAuxiliar.add(objAlertaVPIB2);
+                objAlertaVPIB2.setVisible(true);
+            } else {
+                if (objAlertaVPIB2.isVisible()) {
+                    if (objAlertaVPIB2.isIcon()) { // Se esta minimizado
+                        try {
+                            objAlertaVPIB2.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objAlertaVPIB2.toFront(); // traz para frente
+                        objAlertaVPIB2.pack();//volta frame
+                    }
+                } else {
+                    objAlertaVPIB2 = new TelaAlertaBasesPavilhoesBaseDois();
+                    TelaModuloBaseUm.jPainelBaseSegurancaPavilhao.add(objAlertaVPIB2);//adicona frame ao JDesktopPane
+                    objAlertaVPIB2.setVisible(true);
+                }
+            }
+            try {
+                objAlertaVPIB2.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jAlertaVisitantesPavilhaoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromisso;
@@ -1154,6 +1215,7 @@ public class TelaModuloBaseDois extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem RolVisitas;
     private javax.swing.JMenuItem SairTelaSeguranca;
     public static javax.swing.JMenuItem TransferenciaPavilhaoCelasBpa;
+    private javax.swing.JMenuItem jAlertaVisitantesPavilhao;
     private javax.swing.JMenuItem jConsultaAdvogados;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu7;
@@ -1166,6 +1228,7 @@ public class TelaModuloBaseDois extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator10;
     private javax.swing.JPopupMenu.Separator jSeparator11;
     private javax.swing.JPopupMenu.Separator jSeparator12;
+    private javax.swing.JPopupMenu.Separator jSeparator13;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
@@ -1236,6 +1299,7 @@ public class TelaModuloBaseDois extends javax.swing.JInternalFrame {
                 verificarRecado(); // Verificar recados a cada 5 minutos   
                 verificarAgendaCompromisso();
                 verificarAlertaTriagem();
+                alertaVisitantes();
             }
         }, periodo, tempo);
     }
@@ -1380,6 +1444,86 @@ public class TelaModuloBaseDois extends javax.swing.JInternalFrame {
         jTabelaTodosRecados.getTableHeader().setReorderingAllowed(false);
         jTabelaTodosRecados.setAutoResizeMode(jTabelaTodosRecados.AUTO_RESIZE_OFF);
         jTabelaTodosRecados.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        conecta.desconecta();
+    }
+
+    public void alertaVisitantes() {
+
+        buscarParamentroVisitas();
+        if (!alertaPavilhao.equals("") && alertaPavilhao.equals(pHabilitado)) {
+            buscarPavilhao(nomePavilhao1, nomePavilhao2);
+            conecta.abrirConexao();
+            try {
+                conecta.abrirConexao();
+                conecta.executaSQL("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
+                        + "INNER JOIN PAVILHAO "
+                        + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
+                        + "WHERE ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
+                        + "AND Confirmacao='" + confirmarVisitas + "'");
+                conecta.rs.first();
+                pBuscaPavilhao1 = conecta.rs.getInt("IdPav");
+                pBuscaConfirmacao = conecta.rs.getString("Confirmacao");
+            } catch (Exception e) {
+            }
+            if (codigoPavilhao == pBuscaPavilhao1 && pBuscaConfirmacao.equals("Não")) {
+                if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB2.equals("ADMINISTRADORES") || codigoUserB2 == codUserAcessoB2 && nomeTelaB2.equals(telaAlertaVisitantesPortariaB2) && codAbrirB2 == 1) {
+                    if (objAlertaVPIB2 == null || objAlertaVPIB2.isClosed()) {
+                        objAlertaVPIB2 = new TelaAlertaBasesPavilhoesBaseDois();
+                        jPainelBasePavilhaoAuxiliar.add(objAlertaVPIB2);
+                        objAlertaVPIB2.setVisible(true);
+                    } else {
+                        if (objAlertaVPIB2.isVisible()) {
+                            if (objAlertaVPIB2.isIcon()) { // Se esta minimizado
+                                try {
+                                    objAlertaVPIB2.setIcon(false); // maximiniza
+                                } catch (PropertyVetoException ex) {
+                                }
+                            } else {
+                                objAlertaVPIB2.toFront(); // traz para frente
+                                objAlertaVPIB2.pack();//volta frame
+                            }
+                        } else {
+                            objAlertaVPIB2 = new TelaAlertaBasesPavilhoesBaseDois();
+                            TelaModuloBaseUm.jPainelBaseSegurancaPavilhao.add(objAlertaVPIB2);//adicona frame ao JDesktopPane
+                            objAlertaVPIB2.setVisible(true);
+                        }
+                    }
+                    try {
+                        objAlertaVPIB2.setSelected(true);
+                    } catch (java.beans.PropertyVetoException e) {
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Existe visitantes chegando no pavilhão, porém você não tem acesso, solicite liberação ao administrador.");
+                }
+            }
+        }
+    }
+
+    public void buscarPavilhao(String descricao, String descricao2) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM PAVILHAO "
+                    + "WHERE DescricaoPav='" + descricao + "' "
+                    + "OR DescricaoPav='" + descricao2 + "'");
+            conecta.rs.first();
+            codigoPavilhao = conecta.rs.getInt("IdPav");
+            descricaoPavilhao = conecta.rs.getString("DescricaoPav");
+        } catch (SQLException ex) {
+
+        }
+        conecta.desconecta();
+    }
+
+    // BUSCAR PARAMETRO PARA ALERTA DOS VISITANTES
+    public void buscarParamentroVisitas() {
+
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM PARAMETROSCRC ");
+            conecta.rs.first();
+            alertaPavilhao = conecta.rs.getString("HabilitarAlertaVisitasBaseI");
+        } catch (SQLException ex) {
+        }
         conecta.desconecta();
     }
 
@@ -1582,6 +1726,14 @@ public class TelaModuloBaseDois extends javax.swing.JInternalFrame {
             pNomeIL = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        // CONSULTA
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaAlertaVisitantesPortariaB2 + "'");
+            conecta.rs.first();
+            pNomeCAVP = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // MENU CADASTRO
         if (!pNomePA.equals(telaPavilhaoB2) || pNomePA == null || pNomePA.equals("")) {
             buscarCodigoModulo();
@@ -1648,6 +1800,13 @@ public class TelaModuloBaseDois extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaInicializarLeitorB2);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        // CONSULTA
+        if (!pNomeCAVP.equals(telaAlertaVisitantesPortariaB2) || pNomeCAVP == null || pNomeCAVP.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaAlertaVisitantesPortariaB2);
             controle.incluirTelaAcesso(objCadastroTela);
         }
     }
