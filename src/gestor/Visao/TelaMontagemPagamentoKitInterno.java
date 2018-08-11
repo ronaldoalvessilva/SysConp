@@ -1938,7 +1938,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
