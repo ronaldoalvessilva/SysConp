@@ -219,7 +219,8 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     //
     public static String telaConsultaProntuarioInternosDocENF = "Consulta:Prontuario:Documentos";
     //
-    public static String telaRegistroAtenImpENF = "Cadastro:Registro de Atencimento de Internos Impresso";
+    public static String telaRegistroAtenImpENF = "Cadastro:Registro de Atendimento de Internos Impresso";
+    public static String telaRegistroLibAtenImpENF = "Cadastro:Registro de Atendimento de Internos Impresso:Liberação";
     //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
@@ -298,6 +299,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     //
     String pNomeRAII = "";
     //    
+    String pNomeRLAI = "";
 
     /**
      * Creates new form TelaMedico
@@ -2501,14 +2503,21 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
             conecta.rs.first();
             pNomeTTM = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
-        }               
+        }
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaRegistroAtenImpENF + "'");
             conecta.rs.first();
             pNomeRAII = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
-        }   
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRegistroLibAtenImpENF + "'");
+            conecta.rs.first();
+            pNomeRLAI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // CONTROLE DE MEDICAMENTOS
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
@@ -2874,7 +2883,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
             conecta.rs.first();
             pNomeODM = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
-        }        
+        }
         // CONSULTA
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
@@ -2882,7 +2891,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
             conecta.rs.first();
             pNomeCPID = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
-        } 
+        }
         // CADASTRO
         if (!pNomeACD.equals(telaAcessoCadastroDoencasENF) || pNomeACD == null || pNomeACD.equals("")) {
             buscarCodigoModulo();
@@ -2931,7 +2940,13 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaRegistroAtenImpENF);
             controle.incluirTelaAcesso(objCadastroTela);
-        }    
+        }
+        if (!pNomeRLAI.equals(telaRegistroLibAtenImpENF) || pNomeRLAI == null || pNomeRLAI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRegistroLibAtenImpENF);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
         // CONTROLE DE MEDICAMENTOS
         if (!pNomeSMM.equals(telaSolicitacaoMateriaisManuENF) || pNomeSMM == null || pNomeSMM.equals("")) {
             buscarCodigoModulo();
@@ -3251,14 +3266,14 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaTipoTratamentoManu);
             controle.incluirTelaAcesso(objCadastroTela);
-        }                    
+        }
         // CONSULTA
         if (!pNomeCPID.equals(telaConsultaProntuarioInternosDocENF) || pNomeCPID == null || pNomeCPID.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaConsultaProntuarioInternosDocENF);
             controle.incluirTelaAcesso(objCadastroTela);
-        }    
+        }
     }
 
     // MÉTODO PARA BUSCAR O CÓDIGO DO MÓDULO, CASO NÃO TENHA SIDO CADASTRADO.
