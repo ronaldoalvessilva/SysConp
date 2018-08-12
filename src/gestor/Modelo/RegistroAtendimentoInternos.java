@@ -34,11 +34,16 @@ public class RegistroAtendimentoInternos {
     private int IdEvol;  
     private String atendeEvol;
     private String impressaoAuto;
+    private int codigoFunc;
+    private String nomeFunc;
+    private String dataAssinatura;
+    private String horaAssinatura;
+    private String motivoImpressao;
 
     public RegistroAtendimentoInternos() {
     }
 
-    public RegistroAtendimentoInternos(int idRegistro, Date dataReg, String horario, int idInternoCrc, String nomeInternoCrc, String tipoAtemdimento, int idDepartamento, String nomeDepartamento, byte[] assinaturaDigital, String atendido, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, Date dataAtendimento, int IdAtend, int IdEvol, String atendeEvol, String impressaoAuto) {
+    public RegistroAtendimentoInternos(int idRegistro, Date dataReg, String horario, int idInternoCrc, String nomeInternoCrc, String tipoAtemdimento, int idDepartamento, String nomeDepartamento, byte[] assinaturaDigital, String atendido, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, Date dataAtendimento, int IdAtend, int IdEvol, String atendeEvol, String impressaoAuto, int codigoFunc, String nomeFunc, String dataAssinatura, String horaAssinatura, String motivoImpressao) {
         this.idRegistro = idRegistro;
         this.dataReg = dataReg;
         this.horario = horario;
@@ -60,6 +65,11 @@ public class RegistroAtendimentoInternos {
         this.IdEvol = IdEvol;
         this.atendeEvol = atendeEvol;
         this.impressaoAuto = impressaoAuto;
+        this.codigoFunc = codigoFunc;
+        this.nomeFunc = nomeFunc;
+        this.dataAssinatura = dataAssinatura;
+        this.horaAssinatura = horaAssinatura;
+        this.motivoImpressao = motivoImpressao;
     }
 
     /**
@@ -354,6 +364,76 @@ public class RegistroAtendimentoInternos {
      */
     public void setImpressaoAuto(String impressaoAuto) {
         this.impressaoAuto = impressaoAuto;
+    }
+
+    /**
+     * @return the codigoFunc
+     */
+    public int getCodigoFunc() {
+        return codigoFunc;
+    }
+
+    /**
+     * @param codigoFunc the codigoFunc to set
+     */
+    public void setCodigoFunc(int codigoFunc) {
+        this.codigoFunc = codigoFunc;
+    }
+
+    /**
+     * @return the nomeFunc
+     */
+    public String getNomeFunc() {
+        return nomeFunc;
+    }
+
+    /**
+     * @param nomeFunc the nomeFunc to set
+     */
+    public void setNomeFunc(String nomeFunc) {
+        this.nomeFunc = nomeFunc;
+    }
+
+    /**
+     * @return the dataAssinatura
+     */
+    public String getDataAssinatura() {
+        return dataAssinatura;
+    }
+
+    /**
+     * @param dataAssinatura the dataAssinatura to set
+     */
+    public void setDataAssinatura(String dataAssinatura) {
+        this.dataAssinatura = dataAssinatura;
+    }
+
+    /**
+     * @return the horaAssinatura
+     */
+    public String getHoraAssinatura() {
+        return horaAssinatura;
+    }
+
+    /**
+     * @param horaAssinatura the horaAssinatura to set
+     */
+    public void setHoraAssinatura(String horaAssinatura) {
+        this.horaAssinatura = horaAssinatura;
+    }
+
+    /**
+     * @return the motivoImpressao
+     */
+    public String getMotivoImpressao() {
+        return motivoImpressao;
+    }
+
+    /**
+     * @param motivoImpressao the motivoImpressao to set
+     */
+    public void setMotivoImpressao(String motivoImpressao) {
+        this.motivoImpressao = motivoImpressao;
     }
 
 }
