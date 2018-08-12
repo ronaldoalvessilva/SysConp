@@ -26,6 +26,7 @@ public class ControleRegistroAtendimentoInternoBio {
 
     int codInt;
     int codDpto;
+    int codigoColaborador;
     String pBio = null;
     String situacaoEnt = "ENTRADA NA UNIDADE";
     String situacaoRet = "RETORNO A UNIDADE";
@@ -36,20 +37,25 @@ public class ControleRegistroAtendimentoInternoBio {
 
         buscarInternoCrc(objRegAtend.getNomeInternoCrc(), objRegAtend.getIdInternoCrc());
         buscarDepartamento(objRegAtend.getNomeDepartamento());
+        buscarColaborador(objRegAtend.getNomeFunc(), objRegAtend.getCodigoFunc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO REGISTRO_ATENDIMENTO_INTERNO_PSP (DataReg,Horario,IdInternoCrc,TipoAtendimento,IdDepartamento,AssinaturaDigital,Atendido,UsuarioInsert,DataInsert,HorarioInsert,Impresso) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO REGISTRO_ATENDIMENTO_INTERNO_PSP (DataReg,Horario,IdInternoCrc,TipoAtendimento,IdDepartamento,IdFunc,AssinaturaDigital,DataAssinarua,HoraAssinatura,Atendido,Motivo,UsuarioInsert,DataInsert,HorarioInsert,Impresso) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setTimestamp(1, new java.sql.Timestamp(objRegAtend.getDataReg().getTime()));
             pst.setString(2, objRegAtend.getHorario());
             pst.setInt(3, codInt);
             pst.setString(4, objRegAtend.getTipoAtemdimento());
             pst.setInt(5, codDpto);
-            pst.setBytes(6, objRegAtend.getAssinaturaDigital());
-            pst.setString(7, objRegAtend.getAtendido());
-            pst.setString(8, objRegAtend.getUsuarioInsert());
-            pst.setString(9, objRegAtend.getDataInsert());
-            pst.setString(10, objRegAtend.getHorarioInsert());
-            pst.setString(11, objRegAtend.getImpressaoAuto());
+            pst.setInt(6, codigoColaborador);
+            pst.setBytes(7, objRegAtend.getAssinaturaDigital());
+            pst.setString(8, objRegAtend.getDataAssinatura());
+            pst.setString(9, objRegAtend.getHoraAssinatura());
+            pst.setString(10, objRegAtend.getAtendido());
+            pst.setString(11, objRegAtend.getMotivoImpressao());
+            pst.setString(12, objRegAtend.getUsuarioInsert());
+            pst.setString(13, objRegAtend.getDataInsert());
+            pst.setString(14, objRegAtend.getHorarioInsert());
+            pst.setString(15, objRegAtend.getImpressaoAuto());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\nERRO: " + ex);
@@ -66,8 +72,8 @@ public class ControleRegistroAtendimentoInternoBio {
             PreparedStatement pst = conecta.con.prepareStatement("UPDATE REGISTRO_ATENDIMENTO_INTERNO_PSP SET Atendido=?,DataAtendimento=?,IdAtend=?,AtendeEvol=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdInternoCrc='" + objRegAtend.getIdInternoCrc() + "'AND Atendido='" + atendido + "'");
             pst.setString(1, objRegAtend.getAtendido());
             pst.setTimestamp(2, new java.sql.Timestamp(objRegAtend.getDataAtendimento().getTime()));
-            pst.setInt(3, objRegAtend.getIdAtend());            
-            pst.setString(4, objRegAtend.getAtendeEvol());  
+            pst.setInt(3, objRegAtend.getIdAtend());
+            pst.setString(4, objRegAtend.getAtendeEvol());
             pst.setString(5, objRegAtend.getUsuarioUp());
             pst.setString(6, objRegAtend.getDataUp());
             pst.setString(7, objRegAtend.getHorarioUp());
@@ -78,6 +84,7 @@ public class ControleRegistroAtendimentoInternoBio {
         conecta.desconecta();
         return objRegAtend;
     }
+
     public RegistroAtendimentoInternos alterarRegEvol(RegistroAtendimentoInternos objRegAtend) {
 
         buscarInternoCrc(objRegAtend.getNomeInternoCrc(), objRegAtend.getIdInternoCrc());
@@ -123,6 +130,20 @@ public class ControleRegistroAtendimentoInternoBio {
             codDpto = conecta.rs.getInt("IdDepartamento");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Não existe dados (DEPARTAMENTOS) a ser exibido !!!" + e);
+        }
+        conecta.desconecta();
+    }
+
+    public void buscarColaborador(String nomeFunc, int idFunc) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM COLABORADOR "
+                    + "WHERE NomeFunc='" + nomeFunc + "' "
+                    + "AND idFunc=" + idFunc + "'");
+            conecta.rs.first();
+            codigoColaborador = conecta.rs.getInt("IdFunc");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Não existe dados (COLABORADOR) a ser exibido !!!" + e);
         }
         conecta.desconecta();
     }
