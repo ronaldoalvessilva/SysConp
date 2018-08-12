@@ -69,11 +69,13 @@ public class ParametrosCrc {
     private String preLocacaoB2;
     private String pHabilitaBaseI;
     private String pHabilitaBaseII;
+    private String nomeColaboradorPRI;
+    private String nomeColaboradorSEG;
 
     public ParametrosCrc() {
     }
 
-    public ParametrosCrc(int idPar, int qtdDias, String qtdHoras, String usuarioAutorizado, String regRetornoPortaria, String regEntradaPortaria, String docAudiencia, String docTrans, String docSaidaTmp, String docLivraPro, String valAudiencia, String valTrans, String valSaidaTmp, String valLivraPro, String docPro, String docAlvara, String valPro, String valAlvara, String usuarioInsert, String usuariosUp, String dataInsert, String dataUp, String horarioUp, String populacaoBgp, String locacaoBgp, String transferenciaBgp, String pavilhaoCelas, String populacaoBpa, String locacaoBpa, String transferenciaBpa, String pavilhaoCelasBpa, String caminhoImagemCrc, String caminhoImagemSS, String caminhoImagemFunc, String localFotoAdvogado, String localFotoVisitasDiversas, String localFotoOficial, String localFotoVisitasInternos, String localFotoColaboradores, String localFotoInternos, String biometriaMedicos, String biometriaEnfermerios, String biometriaTecnicos, String carcereFem, String localPDF_PI, String localPDF_PE, String localPDF_B1, String localPDF_B2, String caminhoAtualizaSis, Date dataVersao, Double numeroVersao, String caminhoExecAntigo, String preLocacaoB1, String preLocacaoB2, String pHabilitaBaseI, String pHabilitaBaseII) {
+    public ParametrosCrc(int idPar, int qtdDias, String qtdHoras, String usuarioAutorizado, String regRetornoPortaria, String regEntradaPortaria, String docAudiencia, String docTrans, String docSaidaTmp, String docLivraPro, String valAudiencia, String valTrans, String valSaidaTmp, String valLivraPro, String docPro, String docAlvara, String valPro, String valAlvara, String usuarioInsert, String usuariosUp, String dataInsert, String dataUp, String horarioUp, String populacaoBgp, String locacaoBgp, String transferenciaBgp, String pavilhaoCelas, String populacaoBpa, String locacaoBpa, String transferenciaBpa, String pavilhaoCelasBpa, String caminhoImagemCrc, String caminhoImagemSS, String caminhoImagemFunc, String localFotoAdvogado, String localFotoVisitasDiversas, String localFotoOficial, String localFotoVisitasInternos, String localFotoColaboradores, String localFotoInternos, String biometriaMedicos, String biometriaEnfermerios, String biometriaTecnicos, String carcereFem, String localPDF_PI, String localPDF_PE, String localPDF_B1, String localPDF_B2, String caminhoAtualizaSis, Date dataVersao, Double numeroVersao, String caminhoExecAntigo, String preLocacaoB1, String preLocacaoB2, String pHabilitaBaseI, String pHabilitaBaseII, String nomeColaboradorPRI, String nomeColaboradorSEG) {
         this.idPar = idPar;
         this.qtdDias = qtdDias;
         this.qtdHoras = qtdHoras;
@@ -130,6 +132,8 @@ public class ParametrosCrc {
         this.preLocacaoB2 = preLocacaoB2;
         this.pHabilitaBaseI = pHabilitaBaseI;
         this.pHabilitaBaseII = pHabilitaBaseII;
+        this.nomeColaboradorPRI = nomeColaboradorPRI;
+        this.nomeColaboradorSEG = nomeColaboradorSEG;
     }
 
     /**
@@ -915,5 +919,33 @@ public class ParametrosCrc {
     public void setpHabilitaBaseII(String pHabilitaBaseII) {
         this.pHabilitaBaseII = pHabilitaBaseII;
     }
-    
+
+    /**
+     * @return the nomeColaboradorPRI
+     */
+    public String getNomeColaboradorPRI() {
+        return nomeColaboradorPRI;
+    }
+
+    /**
+     * @param nomeColaboradorPRI the nomeColaboradorPRI to set
+     */
+    public void setNomeColaboradorPRI(String nomeColaboradorPRI) {
+        this.nomeColaboradorPRI = nomeColaboradorPRI;
+    }
+
+    /**
+     * @return the nomeColaboradorSEG
+     */
+    public String getNomeColaboradorSEG() {
+        return nomeColaboradorSEG;
+    }
+
+    /**
+     * @param nomeColaboradorSEG the nomeColaboradorSEG to set
+     */
+    public void setNomeColaboradorSEG(String nomeColaboradorSEG) {
+        this.nomeColaboradorSEG = nomeColaboradorSEG;
+    }
+   
 }
