@@ -21,7 +21,11 @@ import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaEntradaSaidaColaborador.jIDlanc;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaRegistroInternosAtendimentoImpresso.codigoLiberador;
+import static gestor.Visao.TelaRegistroInternosAtendimentoImpresso.dataAssinatura;
+import static gestor.Visao.TelaRegistroInternosAtendimentoImpresso.horaAssinatura;
 import static gestor.Visao.TelaRegistroInternosAtendimentoImpresso.jBtSalvar;
+import static gestor.Visao.TelaRegistroInternosAtendimentoImpresso.nomeLiberador;
 import static gestor.Visao.TelaRegistroInternosAtendimentoImpresso.pDigitalCapturadaColaborador;
 import static gestor.Visao.TelaRegistroInternosAtendimentoImpresso.pLiberacaoImpressa;
 import java.awt.Color;
@@ -409,8 +413,12 @@ public class TelaAssinaturaoBiometriaColaboradoresPSP extends javax.swing.JDialo
         if (nomeColaboradorPRI.equals("") || nomeColaboradorSEG.equals("") || nomeColaboradorPRI == null || nomeColaboradorSEG == null) {
             JOptionPane.showMessageDialog(rootPane, "Não existe colaborador definido no parametro para realizar a liberação, solicite ao Administrador do Sistema para cadastrar.");
         } else if (nomeColaboradorPRI.equals(jNomeColaborador.getText()) || nomeColaboradorSEG.equals(jNomeColaborador.getText())) {
-            Arrays.equals(pDigitalCapturadaColaborador, pDigitalCapturada);
             pLiberacaoImpressa = "Sim";
+            codigoLiberador.equals(jIdColaborador.getText());
+            nomeLiberador.equals(jNomeColaborador.getText());
+            Arrays.equals(pDigitalCapturadaColaborador, pDigitalCapturada);
+            dataAssinatura.equals(jDataLiberacao.getDate());
+            horaAssinatura.equals(jHorarioLiberacao.getText());
             jBtSalvar.setEnabled(true);
             dispose();
         } else {
