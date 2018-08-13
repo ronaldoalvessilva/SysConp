@@ -30,6 +30,7 @@ import static gestor.Visao.TelaRegistroInternosAtendimentoImpresso.pDigitalCaptu
 import static gestor.Visao.TelaRegistroInternosAtendimentoImpresso.pLiberacaoImpressa;
 import java.awt.Color;
 import java.awt.Image;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import javax.swing.ImageIcon;
@@ -69,7 +70,9 @@ public class TelaAssinaturaoBiometriaColaboradoresPSP extends javax.swing.JDialo
     int codigoItem = 0;
     String nomeColaboradorPRI = "";
     String nomeColaboradorSEG = "";
-
+    //
+    String dataInicial;
+    
     // CÓDIGO DA BIOMETRIA CIS FS-80H
     public interface CIS_SDK extends StdCallLibrary {
 
@@ -414,12 +417,20 @@ public class TelaAssinaturaoBiometriaColaboradoresPSP extends javax.swing.JDialo
             JOptionPane.showMessageDialog(rootPane, "Não existe colaborador definido no parametro para realizar a liberação, solicite ao Administrador do Sistema para cadastrar.");
         } else if (nomeColaboradorPRI.equals(jNomeColaborador.getText()) || nomeColaboradorSEG.equals(jNomeColaborador.getText())) {
             pLiberacaoImpressa = "Sim";
-            codigoLiberador.equals(jIdColaborador.getText());
-            nomeLiberador.equals(jNomeColaborador.getText());
-            Arrays.equals(pDigitalCapturadaColaborador, pDigitalCapturada);
-            dataAssinatura.equals(jDataLiberacao.getDate());
-            horaAssinatura.equals(jHorarioLiberacao.getText());
+            objItensFunc.setIdFunc(Integer.valueOf(jIdColaborador.getText()));
+            objItensFunc.setNomeColaborador(jNomeColaborador.getText());
+            objItensFunc.setDataEntrada(jDataLiberacao.getDate());
+            objItensFunc.setHorarioEntrada(jHorarioLiberacao.getText());
+            
+            codigoLiberador = objItensFunc.getIdFunc();            
+            nomeLiberador = objItensFunc.getNomeColaborador();            
+            pDigitalCapturadaColaborador = pDigitalCapturada;
+            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+            dataInicial = formatoAmerica.format(jDataLiberacao.getDate().getTime());
+            dataAssinatura = dataInicial;
+            horaAssinatura = objItensFunc.getHorarioEntrada();
             jBtSalvar.setEnabled(true);
+            JOptionPane.showMessageDialog(rootPane, "Código Colaborador: " + codigoLiberador);
             dispose();
         } else {
             JOptionPane.showMessageDialog(rootPane, "Esse colaborador não tem permissão para liberar autorização impressa.");
