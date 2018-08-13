@@ -2957,7 +2957,7 @@
                                     <Column editable="false" title="C&#xf3;digo" type="java.lang.Object"/>
                                     <Column editable="false" title="Descri&#xe7;&#xe3;o do Produto" type="java.lang.Object"/>
                                     <Column editable="false" title="Un." type="java.lang.Object"/>
-                                    <Column editable="true" title="Qtd." type="java.lang.Object"/>
+                                    <Column editable="false" title="Qtd." type="java.lang.Object"/>
                                   </Table>
                                 </Property>
                                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
