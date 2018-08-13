@@ -22,6 +22,7 @@ public class RegistroAtendimentoInternos {
     private int idDepartamento;
     private String nomeDepartamento;
     private byte[] assinaturaDigital; 
+    private byte[] assinaturaLiberador; 
     private String atendido;
     private String usuarioInsert;
     private String usuarioUp;
@@ -43,7 +44,7 @@ public class RegistroAtendimentoInternos {
     public RegistroAtendimentoInternos() {
     }
 
-    public RegistroAtendimentoInternos(int idRegistro, Date dataReg, String horario, int idInternoCrc, String nomeInternoCrc, String tipoAtemdimento, int idDepartamento, String nomeDepartamento, byte[] assinaturaDigital, String atendido, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, Date dataAtendimento, int IdAtend, int IdEvol, String atendeEvol, String impressaoAuto, int codigoFunc, String nomeFunc, String dataAssinatura, String horaAssinatura, String motivoImpressao) {
+    public RegistroAtendimentoInternos(int idRegistro, Date dataReg, String horario, int idInternoCrc, String nomeInternoCrc, String tipoAtemdimento, int idDepartamento, String nomeDepartamento, byte[] assinaturaDigital, byte[] assinaturaLiberador, String atendido, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, Date dataAtendimento, int IdAtend, int IdEvol, String atendeEvol, String impressaoAuto, int codigoFunc, String nomeFunc, String dataAssinatura, String horaAssinatura, String motivoImpressao) {
         this.idRegistro = idRegistro;
         this.dataReg = dataReg;
         this.horario = horario;
@@ -53,6 +54,7 @@ public class RegistroAtendimentoInternos {
         this.idDepartamento = idDepartamento;
         this.nomeDepartamento = nomeDepartamento;
         this.assinaturaDigital = assinaturaDigital;
+        this.assinaturaLiberador = assinaturaLiberador;
         this.atendido = atendido;
         this.usuarioInsert = usuarioInsert;
         this.usuarioUp = usuarioUp;
@@ -196,6 +198,20 @@ public class RegistroAtendimentoInternos {
      */
     public void setAssinaturaDigital(byte[] assinaturaDigital) {
         this.assinaturaDigital = assinaturaDigital;
+    }
+
+    /**
+     * @return the assinaturaLiberador
+     */
+    public byte[] getAssinaturaLiberador() {
+        return assinaturaLiberador;
+    }
+
+    /**
+     * @param assinaturaLiberador the assinaturaLiberador to set
+     */
+    public void setAssinaturaLiberador(byte[] assinaturaLiberador) {
+        this.assinaturaLiberador = assinaturaLiberador;
     }
 
     /**
@@ -435,5 +451,5 @@ public class RegistroAtendimentoInternos {
     public void setMotivoImpressao(String motivoImpressao) {
         this.motivoImpressao = motivoImpressao;
     }
-
+   
 }
