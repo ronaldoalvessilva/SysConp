@@ -40,7 +40,7 @@ public class ControleRegistroAtendimentoInternoBio {
         buscarColaborador(objRegAtend.getNomeFunc(), objRegAtend.getCodigoFunc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO REGISTRO_ATENDIMENTO_INTERNO_PSP (DataReg,Horario,IdInternoCrc,TipoAtendimento,IdDepartamento,IdFunc,AssinaturaDigital,DataAssinarua,HoraAssinatura,Atendido,Motivo,UsuarioInsert,DataInsert,HorarioInsert,Impresso) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO REGISTRO_ATENDIMENTO_INTERNO_PSP (DataReg,Horario,IdInternoCrc,TipoAtendimento,IdDepartamento,IdFunc,AssinaturaDigital,AssinaturaLiberador,DataAssinatura,HoraAssinatura,Atendido,Motivo,UsuarioInsert,DataInsert,HorarioInsert,Impresso) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setTimestamp(1, new java.sql.Timestamp(objRegAtend.getDataReg().getTime()));
             pst.setString(2, objRegAtend.getHorario());
             pst.setInt(3, codInt);
@@ -48,14 +48,15 @@ public class ControleRegistroAtendimentoInternoBio {
             pst.setInt(5, codDpto);
             pst.setInt(6, codigoColaborador);
             pst.setBytes(7, objRegAtend.getAssinaturaDigital());
-            pst.setString(8, objRegAtend.getDataAssinatura());
-            pst.setString(9, objRegAtend.getHoraAssinatura());
-            pst.setString(10, objRegAtend.getAtendido());
-            pst.setString(11, objRegAtend.getMotivoImpressao());
-            pst.setString(12, objRegAtend.getUsuarioInsert());
-            pst.setString(13, objRegAtend.getDataInsert());
-            pst.setString(14, objRegAtend.getHorarioInsert());
-            pst.setString(15, objRegAtend.getImpressaoAuto());
+            pst.setBytes(8, objRegAtend.getAssinaturaLiberador());
+            pst.setString(9, objRegAtend.getDataAssinatura());
+            pst.setString(10, objRegAtend.getHoraAssinatura());
+            pst.setString(11, objRegAtend.getAtendido());
+            pst.setString(12, objRegAtend.getMotivoImpressao());
+            pst.setString(13, objRegAtend.getUsuarioInsert());
+            pst.setString(14, objRegAtend.getDataInsert());
+            pst.setString(15, objRegAtend.getHorarioInsert());
+            pst.setString(16, objRegAtend.getImpressaoAuto());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\nERRO: " + ex);
@@ -139,7 +140,7 @@ public class ControleRegistroAtendimentoInternoBio {
         try {
             conecta.executaSQL("SELECT * FROM COLABORADOR "
                     + "WHERE NomeFunc='" + nomeFunc + "' "
-                    + "AND idFunc=" + idFunc + "'");
+                    + "AND IdFunc='" + idFunc + "'");
             conecta.rs.first();
             codigoColaborador = conecta.rs.getInt("IdFunc");
         } catch (SQLException e) {
