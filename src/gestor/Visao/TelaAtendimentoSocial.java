@@ -85,6 +85,8 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
     int count = 0;
     int idItemEvol;
     String codEvolucao;
+    //
+    String pHabilitaSSocial = "";
 
     /**
      * Creates new form AtendimentoSocial
@@ -2400,9 +2402,16 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
 
     private void jBtPesqInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqInternoActionPerformed
         // TODO add your handling code here:
-        TelaPesqInternoAtendSocial objAtendS = new TelaPesqInternoAtendSocial();
-        TelaModuloServicoSocial.jPainelServicoSocial.add(objAtendS);
-        objAtendS.show();
+        verificarRegistroBiometria();
+        if (pHabilitaSSocial.equals("Não")) {
+            TelaPesqInternoAtendSocial objAtendS = new TelaPesqInternoAtendSocial();
+            TelaModuloServicoSocial.jPainelServicoSocial.add(objAtendS);
+            objAtendS.show();
+        } else {
+            TelaPesqInternoAtendSocialBio objAtendSBio = new TelaPesqInternoAtendSocialBio();
+            TelaModuloServicoSocial.jPainelServicoSocial.add(objAtendSBio);
+            objAtendSBio.show();
+        }
     }//GEN-LAST:event_jBtPesqInternoActionPerformed
 
     private void jBtPesqNomeInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqNomeInternoActionPerformed
@@ -4280,5 +4289,16 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jIDAtend.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void verificarRegistroBiometria() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM PARAMETROSCRC");
+            conecta.rs.first();
+            pHabilitaSSocial = conecta.rs.getString("AtendInterSocial");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }
