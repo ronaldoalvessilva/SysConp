@@ -71,11 +71,13 @@ public class ParametrosCrc {
     private String pHabilitaBaseII;
     private String nomeColaboradorPRI;
     private String nomeColaboradorSEG;
+    private String pHabilitaAtendSS;
+    private String pHabilitaTele;
 
     public ParametrosCrc() {
     }
 
-    public ParametrosCrc(int idPar, int qtdDias, String qtdHoras, String usuarioAutorizado, String regRetornoPortaria, String regEntradaPortaria, String docAudiencia, String docTrans, String docSaidaTmp, String docLivraPro, String valAudiencia, String valTrans, String valSaidaTmp, String valLivraPro, String docPro, String docAlvara, String valPro, String valAlvara, String usuarioInsert, String usuariosUp, String dataInsert, String dataUp, String horarioUp, String populacaoBgp, String locacaoBgp, String transferenciaBgp, String pavilhaoCelas, String populacaoBpa, String locacaoBpa, String transferenciaBpa, String pavilhaoCelasBpa, String caminhoImagemCrc, String caminhoImagemSS, String caminhoImagemFunc, String localFotoAdvogado, String localFotoVisitasDiversas, String localFotoOficial, String localFotoVisitasInternos, String localFotoColaboradores, String localFotoInternos, String biometriaMedicos, String biometriaEnfermerios, String biometriaTecnicos, String carcereFem, String localPDF_PI, String localPDF_PE, String localPDF_B1, String localPDF_B2, String caminhoAtualizaSis, Date dataVersao, Double numeroVersao, String caminhoExecAntigo, String preLocacaoB1, String preLocacaoB2, String pHabilitaBaseI, String pHabilitaBaseII, String nomeColaboradorPRI, String nomeColaboradorSEG) {
+    public ParametrosCrc(int idPar, int qtdDias, String qtdHoras, String usuarioAutorizado, String regRetornoPortaria, String regEntradaPortaria, String docAudiencia, String docTrans, String docSaidaTmp, String docLivraPro, String valAudiencia, String valTrans, String valSaidaTmp, String valLivraPro, String docPro, String docAlvara, String valPro, String valAlvara, String usuarioInsert, String usuariosUp, String dataInsert, String dataUp, String horarioUp, String populacaoBgp, String locacaoBgp, String transferenciaBgp, String pavilhaoCelas, String populacaoBpa, String locacaoBpa, String transferenciaBpa, String pavilhaoCelasBpa, String caminhoImagemCrc, String caminhoImagemSS, String caminhoImagemFunc, String localFotoAdvogado, String localFotoVisitasDiversas, String localFotoOficial, String localFotoVisitasInternos, String localFotoColaboradores, String localFotoInternos, String biometriaMedicos, String biometriaEnfermerios, String biometriaTecnicos, String carcereFem, String localPDF_PI, String localPDF_PE, String localPDF_B1, String localPDF_B2, String caminhoAtualizaSis, Date dataVersao, Double numeroVersao, String caminhoExecAntigo, String preLocacaoB1, String preLocacaoB2, String pHabilitaBaseI, String pHabilitaBaseII, String nomeColaboradorPRI, String nomeColaboradorSEG, String pHabilitaAtendSS, String pHabilitaTele) {
         this.idPar = idPar;
         this.qtdDias = qtdDias;
         this.qtdHoras = qtdHoras;
@@ -134,6 +136,8 @@ public class ParametrosCrc {
         this.pHabilitaBaseII = pHabilitaBaseII;
         this.nomeColaboradorPRI = nomeColaboradorPRI;
         this.nomeColaboradorSEG = nomeColaboradorSEG;
+        this.pHabilitaAtendSS = pHabilitaAtendSS;
+        this.pHabilitaTele = pHabilitaTele;
     }
 
     /**
@@ -946,6 +950,34 @@ public class ParametrosCrc {
      */
     public void setNomeColaboradorSEG(String nomeColaboradorSEG) {
         this.nomeColaboradorSEG = nomeColaboradorSEG;
+    }
+
+    /**
+     * @return the pHabilitaAtendSS
+     */
+    public String getpHabilitaAtendSS() {
+        return pHabilitaAtendSS;
+    }
+
+    /**
+     * @param pHabilitaAtendSS the pHabilitaAtendSS to set
+     */
+    public void setpHabilitaAtendSS(String pHabilitaAtendSS) {
+        this.pHabilitaAtendSS = pHabilitaAtendSS;
+    }
+
+    /**
+     * @return the pHabilitaTele
+     */
+    public String getpHabilitaTele() {
+        return pHabilitaTele;
+    }
+
+    /**
+     * @param pHabilitaTele the pHabilitaTele to set
+     */
+    public void setpHabilitaTele(String pHabilitaTele) {
+        this.pHabilitaTele = pHabilitaTele;
     }
    
 }
