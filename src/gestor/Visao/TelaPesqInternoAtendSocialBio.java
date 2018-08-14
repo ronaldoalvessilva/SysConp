@@ -19,6 +19,7 @@ import static gestor.Visao.TelaAtendimentoSocial.jNaturalidade;
 import static gestor.Visao.TelaAtendimentoSocial.jNomeInterno;
 import static gestor.Visao.TelaAtendimentoSocial.jPaiInterno;
 import static gestor.Visao.TelaAtendimentoSocial.jProfissao;
+import static gestor.Visao.TelaModuloServicoSocial.nomeModuloSS;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -46,12 +47,14 @@ public class TelaPesqInternoAtendSocialBio extends javax.swing.JInternalFrame {
     String sitRetorno = "RETORNO A UNIDADE";
     String idInt;
     String atendido = "Não";
+    int codigoDepartamento = 0;
 
     /**
      * Creates new form TelaPesquisaEntradaInternos
      */
     public TelaPesqInternoAtendSocialBio() {
         initComponents();
+        procurarDepartamento();
     }
 
     /**
@@ -279,9 +282,11 @@ public class TelaPesqInternoAtendSocialBio extends javax.swing.JInternalFrame {
                     + "WHERE NomeInternoCrc LIKE'%" + jPesqNome.getText() + "%' "
                     + "AND SituacaoCrc='" + situacao + "' "
                     + "AND Atendido='" + atendido + "' "
+                    + "AND IdDepartamento='" + codigoDepartamento + "' "
                     + "OR NomeInternoCrc LIKE'%" + jPesqNome.getText() + "%' "
                     + "AND SituacaoCrc='" + sitRetorno + "' "
-                    + "AND Atendido='" + atendido + "'");
+                    + "AND Atendido='" + atendido + "' "
+                    + "AND IdDepartamento='" + codigoDepartamento + "'");
         }
     }//GEN-LAST:event_jBtNomeActionPerformed
 
@@ -307,9 +312,11 @@ public class TelaPesqInternoAtendSocialBio extends javax.swing.JInternalFrame {
                     + "WHERE MatriculaCrc LIKE'" + jPesqMatricula.getText() + "%' "
                     + "AND SituacaoCrc='" + situacao + "' "
                     + "AND Atendido='" + atendido + "' "
+                    + "AND IdDepartamento='" + codigoDepartamento + "' "
                     + "OR MatriculaCrc LIKE'" + jPesqMatricula.getText() + "%' "
                     + "AND SituacaoCrc='" + sitRetorno + "' "
-                    + "AND Atendido='" + atendido + "'");
+                    + "AND Atendido='" + atendido + "' "
+                    + "AND IdDepartamento='" + codigoDepartamento + "'");
         }
     }//GEN-LAST:event_jBtMatriculaActionPerformed
 
@@ -383,9 +390,11 @@ public class TelaPesqInternoAtendSocialBio extends javax.swing.JInternalFrame {
                     + "INNER JOIN UNIDADE "
                     + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
                     + "WHERE SituacaoCrc='" + situacao + "' "
-                    + "AND Atendido='" + atendido + "'"
+                    + "AND Atendido='" + atendido + "' "
+                    + "AND IdDepartamento='" + codigoDepartamento + "' "
                     + "OR SituacaoCrc='" + sitRetorno + "' "
-                    + "AND Atendido='" + atendido + "'");
+                    + "AND Atendido='" + atendido + "' "
+                    + "AND IdDepartamento='" + codigoDepartamento + "'");
         } else {
             limparTabela();
         }
@@ -577,5 +586,16 @@ public class TelaPesqInternoAtendSocialBio extends javax.swing.JInternalFrame {
         jTabelaInterno.getColumnModel().getColumn(2).setCellRenderer(centralizado);
         jTabelaInterno.getColumnModel().getColumn(3).setCellRenderer(centralizado);
         jTabelaInterno.getColumnModel().getColumn(4).setCellRenderer(centralizado);
+    }
+    public void procurarDepartamento() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM DEPARTAMENTOS "
+                    + "WHERE NomeDepartamento='" + nomeModuloSS + "'");
+            conecta.rs.first();
+            codigoDepartamento = conecta.rs.getInt("IdDepartamento");            
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }
