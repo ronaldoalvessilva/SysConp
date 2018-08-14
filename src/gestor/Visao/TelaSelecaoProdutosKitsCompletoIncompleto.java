@@ -35,7 +35,7 @@ public class TelaSelecaoProdutosKitsCompletoIncompleto extends javax.swing.JDial
     //
     String codigoProduto;
     int qtdProdList = 0;
-    int qtdUniProd = 0;
+    int qtdInternosKC = 0;
     int totalRegInterno = 0;
     /**
      * Creates new form TelaSelecaoProdutosKitsCompletoIncompleto
@@ -363,8 +363,10 @@ public class TelaSelecaoProdutosKitsCompletoIncompleto extends javax.swing.JDial
         Integer row = jTabelaSelecaoProdutosKit.getRowCount();
         Integer rows = jTabelaProdutosKitCompleto.getRowCount();
         if (row == 0) {
+            qtdProd = 0;
             listarTodosProdutosKitCompleto();
         } else if (rows != 0) {
+            qtdProd = 0;
             listarProdutosNaoAtendido();
         }
     }//GEN-LAST:event_jBtListarProdutosActionPerformed
@@ -488,7 +490,7 @@ public class TelaSelecaoProdutosKitsCompletoIncompleto extends javax.swing.JDial
             for (ProdutoInternosKitLote pp : control.read()) {
                 jtotalProdutosKitCompleto.setText(Integer.toString(qtdProd)); // Converter inteiro em string para exibir na tela 
                 // DIVIDE A QUANTIDADE TOTAL DOS PRODUTOS SOLICTADO PELA QUANTIDADE TOTAL DE INTERNOS SELECIONADOS.
-                totalRegInterno = (int) (qtdUniProd / pp.getQuantidadeProd());
+                totalRegInterno = (int) (qtdInternosKC / pp.getQuantidadeProd());
                 dadosProduto.addRow(new Object[]{pp.getIdProd(), pp.getDescricaoProduto(), pp.getUnidadeProd(), totalRegInterno});
                 // BARRA DE ROLAGEM HORIZONTAL
                 jTabelaProdutosKitCompleto.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -513,11 +515,10 @@ public class TelaSelecaoProdutosKitsCompletoIncompleto extends javax.swing.JDial
                     + "WHERE IdRegistroComp='" + jIdRegistroComp.getText() + "'");
             conecta.rs.first();
             do {
-                qtdUniProd = qtdUniProd + 1;
+                qtdInternosKC = qtdInternosKC + 1;
             } while (conecta.rs.next());
         } catch (Exception e) {
-        }
-        JOptionPane.showMessageDialog(rootPane, "Total de internos no DB: " +qtdUniProd );
+        }        
         conecta.desconecta();
     }
 }
