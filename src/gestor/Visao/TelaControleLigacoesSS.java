@@ -67,6 +67,8 @@ public class TelaControleLigacoesSS extends javax.swing.JInternalFrame {
     int hora = 0;
     int hilo = 0;
     int count = 0;
+    //
+    String pHabilitado = "Não";
 
     /**
      * Creates new form TelaControleLigacoesSS
@@ -887,9 +889,16 @@ public class TelaControleLigacoesSS extends javax.swing.JInternalFrame {
 
     private void jBtPesqInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqInternoActionPerformed
         // TODO add your handling code here:
-        TelaPesqInternoContLigacao objIntLiga = new TelaPesqInternoContLigacao();
-        TelaModuloServicoSocial.jPainelServicoSocial.add(objIntLiga);
-        objIntLiga.show();
+        verificarRegistroBiometria();
+        if (pHabilitado.equals("Não")) {
+            TelaPesqInternoContLigacao objIntLiga = new TelaPesqInternoContLigacao();
+            TelaModuloServicoSocial.jPainelServicoSocial.add(objIntLiga);
+            objIntLiga.show();
+        } else {
+            TelaPesqInternoContLigacaoBio objIntLigaBio = new TelaPesqInternoContLigacaoBio();
+            TelaModuloServicoSocial.jPainelServicoSocial.add(objIntLigaBio);
+            objIntLigaBio.show();
+        }
     }//GEN-LAST:event_jBtPesqInternoActionPerformed
 
     private void jBtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIDActionPerformed
@@ -1087,6 +1096,16 @@ public class TelaControleLigacoesSS extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
+    public void verificarRegistroBiometria() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM PARAMETROSCRC");
+            conecta.rs.first();
+            pHabilitado = conecta.rs.getString("LigacaoTelSocial");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
     public void formatarCampos() {
         try {
 //            MaskFormatter telefone = new MaskFormatter("(###)-#####-####");
