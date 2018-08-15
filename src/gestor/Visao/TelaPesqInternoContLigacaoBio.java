@@ -12,6 +12,7 @@ import static gestor.Visao.TelaControleLigacoesSS.FotoInterno;
 import static gestor.Visao.TelaControleLigacoesSS.jIDInterno;
 import static gestor.Visao.TelaControleLigacoesSS.jNomeInterno;
 import static gestor.Visao.TelaModuloServicoSocial.nomeModuloSS;
+import static gestor.Visao.TelaControleLigacoesSS.codigoDepartamentoSSLIG;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -577,7 +578,8 @@ public class TelaPesqInternoContLigacaoBio extends javax.swing.JInternalFrame {
             conecta.executaSQL("SELECT * FROM DEPARTAMENTOS "
                     + "WHERE NomeDepartamento='" + nomeModuloSS + "'");
             conecta.rs.first();
-            codigoDepartamento = conecta.rs.getInt("IdDepartamento");            
+            codigoDepartamento = conecta.rs.getInt("IdDepartamento");   
+            codigoDepartamentoSSLIG = conecta.rs.getInt("IdDepartamento");
         } catch (Exception e) {
         }
         conecta.desconecta();
