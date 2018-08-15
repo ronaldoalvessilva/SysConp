@@ -428,8 +428,7 @@ public class TelaAssinaturaoBiometriaColaboradoresPSP_SS extends javax.swing.JDi
             dataInicial = formatoAmerica.format(jDataLiberacao.getDate().getTime());
             dataAssinatura = dataInicial;
             horaAssinatura = objItensFunc.getHorarioEntrada();
-            jBtSalvar.setEnabled(true);
-            JOptionPane.showMessageDialog(rootPane, "Código Colaborador: " + codigoLiberador);
+            jBtSalvar.setEnabled(true);            
             dispose();
         } else {
             JOptionPane.showMessageDialog(rootPane, "Esse colaborador não tem permissão para liberar autorização impressa.");
