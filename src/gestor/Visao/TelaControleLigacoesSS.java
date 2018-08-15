@@ -7,11 +7,15 @@ package gestor.Visao;
 
 import gestor.Controle.ControleLigacoesSSocial;
 import gestor.Controle.ControleLogSistema;
+import gestor.Controle.ControleRegistroAtendimentoInternoBio;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.LimiteDigitosAlfa;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.ControleLigacoes;
 import gestor.Modelo.LogSistema;
+import gestor.Modelo.RegistroAtendimentoInternos;
+import static gestor.Visao.TelaAtendimentoSocial.codigoDepartamentoSS;
+import static gestor.Visao.TelaAtendimentoSocial.jIDAtend;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
@@ -24,7 +28,6 @@ import static gestor.Visao.TelaModuloServicoSocial.codigoUser;
 import static gestor.Visao.TelaModuloServicoSocial.nomeGrupo;
 import static gestor.Visao.TelaModuloServicoSocial.nomeTela;
 import static gestor.Visao.TelaModuloServicoSocial.telaControleLigacoesTelSS;
-import static gestor.Visao.TelaModuloServicoSocial.telaRolVisitasSS;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -48,6 +51,10 @@ public class TelaControleLigacoesSS extends javax.swing.JInternalFrame {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     ControleLigacoes objConLiga = new ControleLigacoes();
     ControleLigacoesSSocial control = new ControleLigacoesSSocial();
+    // INFORMAR QUE O INTERNO FOI ATENDIDO NA ADMISSÃO E NA EVOLUÇÃO
+    RegistroAtendimentoInternos objRegAtend = new RegistroAtendimentoInternos();
+    ControleRegistroAtendimentoInternoBio controlRegAtend = new ControleRegistroAtendimentoInternoBio();
+    //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
@@ -67,6 +74,11 @@ public class TelaControleLigacoesSS extends javax.swing.JInternalFrame {
     int hora = 0;
     int hilo = 0;
     int count = 0;
+    //
+    String atendido = "Sim";
+    String opcao = "Não";
+    public static int codigoDepartamentoSSLIG = 0;
+    String tipoAtendimentoAdm = "Ligações Telefonicas";
     //
     String pHabilitado = "Não";
 
@@ -850,6 +862,19 @@ public class TelaControleLigacoesSS extends javax.swing.JInternalFrame {
                             objConLiga.setNomeInterno(jNomeInterno.getText());
                             control.incluirLigacoes(objConLiga);
                             buscarCodLiga();
+                            // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
+                            objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                            objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
+                            objRegAtend.setIdDepartamento(codigoDepartamentoSSLIG);
+                            objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                            objRegAtend.setAtendido(atendido);
+                            objRegAtend.setDataAtendimento(jDataControle.getDate());
+                            objRegAtend.setIdAtend(Integer.valueOf(jIDAtend.getText()));
+                            //
+                            objRegAtend.setUsuarioUp(nameUser);
+                            objRegAtend.setDataUp(dataModFinal);
+                            objRegAtend.setHorarioUp(horaMov);
+                            controlRegAtend.alterarRegAtend(objRegAtend);
                             objLog();
                             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                             JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
@@ -1106,6 +1131,7 @@ public class TelaControleLigacoesSS extends javax.swing.JInternalFrame {
         }
         conecta.desconecta();
     }
+
     public void formatarCampos() {
         try {
 //            MaskFormatter telefone = new MaskFormatter("(###)-#####-####");
