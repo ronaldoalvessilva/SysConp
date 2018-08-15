@@ -15,6 +15,8 @@ import static gestor.Visao.TelaAdmissaoMedica.jMatriculaPenal;
 import static gestor.Visao.TelaAdmissaoMedica.jNomeInternoAdm;
 import static gestor.Visao.TelaAdmissaoMedica.jNomeMaeInterno;
 import static gestor.Visao.TelaAdmissaoMedica.jSexo;
+import static gestor.Visao.TelaModuloEnfermaria.nomeModuloENFER;
+import static gestor.Visao.TelaAdmissaoMedica.codigoDepartamentoENF;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -42,6 +44,7 @@ public class TelaPesqInternoAdmMedico extends javax.swing.JInternalFrame {
     String sitRetorno = "RETORNO A UNIDADE";
     String idInt;
     String atendido = "Não";
+    int codigoDepartamento = 0;
 
     /**
      * Creates new form TelaPesquisaEntradaInternos
@@ -258,7 +261,7 @@ public class TelaPesqInternoAdmMedico extends javax.swing.JInternalFrame {
         if (jPesqNome.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe NOME para pesquisa!!!");
             jPesqNome.requestFocus();
-        } else {            
+        } else {
             preencherTabelaNome("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -275,9 +278,11 @@ public class TelaPesqInternoAdmMedico extends javax.swing.JInternalFrame {
                     + "WHERE NomeInternoCrc LIKE'%" + jPesqNome.getText() + "%' "
                     + "AND SituacaoCrc='" + situacao + "' "
                     + "AND Atendido='" + atendido + "' "
+                    + "AND IdDepartamento='" + codigoDepartamento + "' "
                     + "OR NomeInternoCrc LIKE'%" + jPesqNome.getText() + "%' "
                     + "AND SituacaoCrc='" + sitRetorno + "' "
-                    + "AND Atendido='" + atendido + "'");
+                    + "AND Atendido='" + atendido + "' "
+                    + "AND IdDepartamento='" + codigoDepartamento + "'");
         }
     }//GEN-LAST:event_jBtNomeActionPerformed
 
@@ -287,7 +292,7 @@ public class TelaPesqInternoAdmMedico extends javax.swing.JInternalFrame {
         if (jPesqMatricula.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe MATRICULA para pesquisa!!!");
             jPesqMatricula.requestFocus();
-        } else {            
+        } else {
             buscarInternosMatricula("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -303,9 +308,11 @@ public class TelaPesqInternoAdmMedico extends javax.swing.JInternalFrame {
                     + "WHERE MatriculaCrc LIKE'" + jPesqMatricula.getText() + "%' "
                     + "AND SituacaoCrc='" + situacao + "' "
                     + "AND Atendido='" + atendido + "' "
+                    + "AND IdDepartamento='" + codigoDepartamento + "' "
                     + "OR MatriculaCrc LIKE'" + jPesqMatricula.getText() + "%' "
                     + "AND SituacaoCrc='" + sitRetorno + "' "
-                    + "AND Atendido='" + atendido + "'");
+                    + "AND Atendido='" + atendido + "' "
+                    + "AND IdDepartamento='" + codigoDepartamento + "'");
         }
     }//GEN-LAST:event_jBtMatriculaActionPerformed
 
@@ -358,7 +365,7 @@ public class TelaPesqInternoAdmMedico extends javax.swing.JInternalFrame {
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
         flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {            
+        if (evt.getStateChange() == evt.SELECTED) {
             this.preencherTodosInternos("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -373,9 +380,11 @@ public class TelaPesqInternoAdmMedico extends javax.swing.JInternalFrame {
                     + "INNER JOIN UNIDADE "
                     + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
                     + "WHERE SituacaoCrc='" + situacao + "' "
-                    + "AND Atendido='" + atendido + "'"
+                    + "AND Atendido='" + atendido + "' "
+                    + "AND IdDepartamento='" + codigoDepartamento + "' "
                     + "OR SituacaoCrc='" + sitRetorno + "' "
-                    + "AND Atendido='" + atendido + "'");
+                    + "AND Atendido='" + atendido + "' "
+                    + "AND IdDepartamento='" + codigoDepartamento + "'");
         } else {
             limparTabela();
         }
@@ -565,5 +574,18 @@ public class TelaPesqInternoAdmMedico extends javax.swing.JInternalFrame {
         jTabelaInterno.getColumnModel().getColumn(2).setCellRenderer(centralizado);
         jTabelaInterno.getColumnModel().getColumn(3).setCellRenderer(centralizado);
         jTabelaInterno.getColumnModel().getColumn(4).setCellRenderer(centralizado);
+    }
+
+    public void procurarDepartamento() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM DEPARTAMENTOS "
+                    + "WHERE NomeDepartamento='" + nomeModuloENFER + "'");
+            conecta.rs.first();
+            codigoDepartamento = conecta.rs.getInt("IdDepartamento");
+            codigoDepartamentoENF = conecta.rs.getInt("IdDepartamento");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }
