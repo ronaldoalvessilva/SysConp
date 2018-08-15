@@ -1034,7 +1034,7 @@ public class TelaRegistroInternosAtendimentoImpressoSS extends javax.swing.JInte
                 jDataRegistro.setDate(conecta.rs.getDate("DataReg"));
                 jComboBoxTipoMovimentacao.setSelectedItem(conecta.rs.getString("TipoAtendimento"));
                 jHorarioSaidaEntrada.setText(conecta.rs.getString("Horario"));
-                jNomeDepartamento.setText(nomeModuloENFER);
+                jNomeDepartamento.setText(nomeModuloSS);
                 jIdInternoKitImp.setText(conecta.rs.getString("IdInternoCrc"));
                 jCNC.setText(conecta.rs.getString("Cnc"));
                 jRegimeKitImp.setText(conecta.rs.getString("Regime"));
@@ -1091,7 +1091,7 @@ public class TelaRegistroInternosAtendimentoImpressoSS extends javax.swing.JInte
         // TODO add your handling code here:
         buscarAcessoUsuario(telaRegistroAtendimentoImpBioSS);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaRegistroAtendimentoImpBioSS) && codAbrirENF == 1) {
-            if (jIdInternoKitImp.getText().equals("") || jNomeInternoKitImp.getText().equals("")) {
+            if (jIdInternoKitImp.getText().equals("") || jNomeInternoKitImp.getText().equals("") && jIdRegistro.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "E necessário selecionar primeiro o interno para liberação.");
             } else {
                 mostraLiberador();
@@ -1459,7 +1459,7 @@ public class TelaRegistroInternosAtendimentoImpressoSS extends javax.swing.JInte
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM DEPARTAMENTOS "
-                    + "WHERE NomeDepartamento='" + nomeModuloENFER + "'");
+                    + "WHERE NomeDepartamento='" + nomeModuloSS + "'");
             conecta.rs.first();
             codigoDepto = conecta.rs.getInt("IdDepartamento");
         } catch (Exception e) {
