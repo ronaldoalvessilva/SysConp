@@ -15,6 +15,8 @@ import static gestor.Visao.TelaEvolucaoTecEnfermagem.jIdInternoEM;
 import static gestor.Visao.TelaEvolucaoTecEnfermagem.jMatriculaPenal;
 import static gestor.Visao.TelaEvolucaoTecEnfermagem.jNomeInternoEM;
 import static gestor.Visao.TelaEvolucaoTecEnfermagem.jPaiInterno;
+import static gestor.Visao.TelaEvolucaoTecEnfermagem.codigoDepartamentoENFenfTEC;
+import static gestor.Visao.TelaModuloEnfermaria.nomeModuloENFER;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -40,12 +42,14 @@ public class TelaPesqInternoEvolucaoTecEnfermagem extends javax.swing.JInternalF
     String sitRetorno = "RETORNO A UNIDADE";
     String idInt;
     String atendido = "Não";
+    int codigoDepartamento = 0;
 
     /**
      * Creates new form TelaPesquisaEntradaInternos
      */
     public TelaPesqInternoEvolucaoTecEnfermagem() {
         initComponents();
+        procurarDepartamento();
     }
 
     /**
@@ -543,5 +547,17 @@ public class TelaPesqInternoEvolucaoTecEnfermagem extends javax.swing.JInternalF
         jTabelaInterno.getTableHeader().setReorderingAllowed(false);
         jTabelaInterno.setAutoResizeMode(jTabelaInterno.AUTO_RESIZE_OFF);
         jTabelaInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    }
+    public void procurarDepartamento() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM DEPARTAMENTOS "
+                    + "WHERE NomeDepartamento='" + nomeModuloENFER + "'");
+            conecta.rs.first();
+            codigoDepartamento = conecta.rs.getInt("IdDepartamento");
+            codigoDepartamentoENFenfTEC = conecta.rs.getInt("IdDepartamento");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }
