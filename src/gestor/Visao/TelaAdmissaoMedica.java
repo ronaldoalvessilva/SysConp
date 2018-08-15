@@ -151,6 +151,12 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
     String codigoEvol = "";
     String codigoInternoAtend = "";
     String atendeEvol = "Não";
+    String opcao = "Não";
+    //
+    public static int codigoDepartamentoENF = 0;
+    String tipoAtendimentoAdm = "Admissão Médica/Psiquiatrica";
+    String tipoAtendimentoEvolME = "Evolução Médica";
+    String tipoAtendimentoEvolPS = "Evolução Psiquiatrica";
     //
     String pHabilitaMedico = "";
 
@@ -3783,9 +3789,12 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                             objAdmMedico.setNomeInterno(jNomeInternoAdm.getText());
                             objAdmMedico.setDeptoMedico(deptoTecnico);
                             controle.incluirMovTec(objAdmMedico);
-                            // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                                                      
+                            // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO  
+                            atendido = "Sim";
                             objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
                             objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
+                            objRegAtend.setIdDepartamento(codigoDepartamentoENF);
+                            objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
                             objRegAtend.setAtendido(atendido);
                             objRegAtend.setDataAtendimento(jDataAdm.getDate());
                             objRegAtend.setIdAtend(Integer.valueOf(jIdAdm.getText()));
@@ -4086,9 +4095,13 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         verificarInternoRegistradoAdm();
         buscarAcessoUsuarioPsiquiatra();
         if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(nomeModuloTela2) && codIncluirENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
-            if (atendido.equals("Sim") && jIdAdm.getText().equals(codigoAtend) && jIdInternoAdm.getText().equals(codigoInternoAtend)) {
+            if (atendido == null) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
-            } else {
+            } else if (atendido.equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
+            } else if (atendido.equals("Sim")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
+            } else if (atendido.equals("Não")) {
                 acao = 3;
                 NovaEvolPsiquiatrica();
                 statusMov = "Incluiu";
@@ -4210,6 +4223,8 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                     atendido = "Sim";
                     objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
                     objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
+                    objRegAtend.setIdDepartamento(codigoDepartamentoENF);
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
                     objRegAtend.setAtendido(atendido);
                     objRegAtend.setDataAtendimento(jDataAdm.getDate());
                     objRegAtend.setIdAtend(Integer.valueOf(jIdAdm.getText()));
@@ -4309,9 +4324,13 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         verificarInternoRegistradoAdm();
         buscarAcessoUsuarioMedicoClinico();
         if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(nomeModuloTela3) && codIncluirENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
-            if (atendido.equals("Sim") && jIdAdm.getText().equals(codigoAtend) && jIdInternoAdm.getText().equals(codigoInternoAtend)) {
+            if (atendido == null) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
-            } else {
+            } else if (atendido.equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
+            } else if (atendido.equals("Sim")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
+            } else if (atendido.equals("Não")) {
                 acao = 5;
                 NovaEvolucao();
                 statusMov = "Incluiu";
@@ -4431,13 +4450,18 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                     atendido = "Sim";
                     objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
                     objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
+                    objRegAtend.setIdDepartamento(codigoDepartamentoENF);
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
                     objRegAtend.setAtendido(atendido);
                     objRegAtend.setDataAtendimento(jDataAdm.getDate());
+                    objRegAtend.setIdAtend(Integer.valueOf(jIdAdm.getText()));
+                    objRegAtend.setIdEvol(Integer.valueOf(jIdEvolucaoPsiquiatrica.getText()));
+                    objRegAtend.setAtendeEvol(atendido);
                     //
                     objRegAtend.setUsuarioUp(nameUser);
                     objRegAtend.setDataUp(dataModFinal);
                     objRegAtend.setHorarioUp(horaMov);
-                    controlRegAtend.alterarRegAtend(objRegAtend);
+                    controlRegAtend.alterarRegEvol(objRegAtend);
                     //
                     preencherTabelaEvolucaoMedica("SELECT * FROM EVOLUCAOMEDICA "
                             + "WHERE IdLanc='" + jIdAdm.getText() + "'");
@@ -9836,11 +9860,10 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         try {
             conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
                     + "WHERE IdInternoCrc='" + jIdInternoAdm.getText() + "' "
-                    + "AND IdAtend='" + jIdAdm.getText() + "'");
+                    + "AND Atendido='" + opcao + "'");
             conecta.rs.first();
-            codigoAtend = conecta.rs.getString("IdAtend");
-            codigoEvol = conecta.rs.getString("IdEvol");
             codigoInternoAtend = conecta.rs.getString("IdInternoCrc");
+            codigoDepartamentoENF = conecta.rs.getInt("IdDepartamento");
             atendido = conecta.rs.getString("Atendido");
         } catch (Exception e) {
         }
