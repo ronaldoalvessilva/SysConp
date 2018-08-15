@@ -88,6 +88,9 @@ public class TelaEvolucaoTecEnfermagem extends javax.swing.JInternalFrame {
     String codigoEvol = "";
     String codigoInternoAtend = "";
     String atendeEvol = "Não";
+    public static int codigoDepartamentoENFenfTEC = 0;
+    String tipoAtendimentoAdm = "Atendimento Técnico Enfermagem";
+    String tipoAtendimentoEvolTEC = "Evolução Técnico Enfermagem";       
     //
     String phabilitaTecnico = "";
 
@@ -1103,9 +1106,12 @@ public class TelaEvolucaoTecEnfermagem extends javax.swing.JInternalFrame {
                     objAtendTecEnferma.setNomeInterno(jNomeInternoEM.getText());
                     control.incluirAtendTecEnfermagem(objAtendTecEnferma);
                     buscarID();
-                    // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                                                      
+                    // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO  
+                    atendido = "Sim";
                     objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoEM.getText()));
                     objRegAtend.setNomeInternoCrc(jNomeInternoEM.getText());
+                    objRegAtend.setIdDepartamento(codigoDepartamentoENFenfTEC);
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoEvolTEC);
                     objRegAtend.setAtendido(atendido);
                     objRegAtend.setDataAtendimento(jDataLanc.getDate());
                     objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
@@ -1363,8 +1369,10 @@ public class TelaEvolucaoTecEnfermagem extends javax.swing.JInternalFrame {
                     atendido = "Sim";
                     objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoEM.getText()));
                     objRegAtend.setNomeInternoCrc(jNomeInternoEM.getText());
+                    objRegAtend.setIdDepartamento(codigoDepartamentoENFenfTEC);
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoEvolTEC);
                     objRegAtend.setAtendido(atendido);
-                    objRegAtend.setDataAtendimento(jDataEvolucao.getDate());
+                    objRegAtend.setDataAtendimento(jDataLanc.getDate());
                     objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
                     objRegAtend.setIdEvol(Integer.valueOf(jIdEvolu.getText()));
                     objRegAtend.setAtendeEvol(atendido);
