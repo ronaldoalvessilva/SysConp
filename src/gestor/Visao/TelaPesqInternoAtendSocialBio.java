@@ -19,6 +19,7 @@ import static gestor.Visao.TelaAtendimentoSocial.jNaturalidade;
 import static gestor.Visao.TelaAtendimentoSocial.jNomeInterno;
 import static gestor.Visao.TelaAtendimentoSocial.jPaiInterno;
 import static gestor.Visao.TelaAtendimentoSocial.jProfissao;
+import static gestor.Visao.TelaAtendimentoSocial.codigoDepartamentoSS;
 import static gestor.Visao.TelaModuloServicoSocial.nomeModuloSS;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -351,7 +352,7 @@ public class TelaPesqInternoAtendSocialBio extends javax.swing.JInternalFrame {
                         + "AND PRONTUARIOSCRC.IdInternoCrc='" + idInt + "'");
                 conecta.rs.first();
                 jIDInterno.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
-                jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));
+                jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));                
                 caminho = conecta.rs.getString("FotoInternoCrc");
                 javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
                 FotoInterno.setIcon(i);
@@ -593,7 +594,8 @@ public class TelaPesqInternoAtendSocialBio extends javax.swing.JInternalFrame {
             conecta.executaSQL("SELECT * FROM DEPARTAMENTOS "
                     + "WHERE NomeDepartamento='" + nomeModuloSS + "'");
             conecta.rs.first();
-            codigoDepartamento = conecta.rs.getInt("IdDepartamento");            
+            codigoDepartamento = conecta.rs.getInt("IdDepartamento");   
+            codigoDepartamentoSS = conecta.rs.getInt("IdDepartamento");
         } catch (Exception e) {
         }
         conecta.desconecta();
