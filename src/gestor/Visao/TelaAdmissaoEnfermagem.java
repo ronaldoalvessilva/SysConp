@@ -188,6 +188,9 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     String codigoEvol = "";
     String codigoInternoAtend = "";
     String atendeEvol = "Não";
+    public static int codigoDepartamentoENFenf = 0;
+    String tipoAtendimentoAdm = "Admissão Enfermagem";
+    String tipoAtendimentoEvolENF = "Evolução Enfermagem";    
     //    
     String phabilitaEnferemeiro = "";
 
@@ -4947,9 +4950,12 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                     objAdmEnfermagem.setNomeInterno(jNomeInternoMedico.getText());
                     objAdmEnfermagem.setDeptoMedico(deptoTecnico);
                     controle.incluirMovTec(objAdmEnfermagem);
-                    // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                                                      
+                    // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO  
+                    atendido = "Sim";
                     objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
                     objRegAtend.setNomeInternoCrc(jNomeInternoMedico.getText());
+                    objRegAtend.setIdDepartamento(codigoDepartamentoENFenf);
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
                     objRegAtend.setAtendido(atendido);
                     objRegAtend.setDataAtendimento(jDataLanc.getDate());
                     objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
@@ -5657,8 +5663,25 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                     objEvolEnferma.setIdLanc(Integer.valueOf(jIdLanc.getText()));
                     objEvolEnferma.setNomeInterno(jNomeInternoMedico.getText());
                     controlMovEvolEnfa.incluirMovTecEnf(objEvolEnferma); // Histórico de Movimento Técnico
+                    // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO     
+                    atendido = "Sim";
+                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
+                    objRegAtend.setNomeInternoCrc(jNomeInternoMedico.getText());
+                    objRegAtend.setIdDepartamento(codigoDepartamentoENFenf);
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoEvolENF);
+                    objRegAtend.setAtendido(atendido);
+                    objRegAtend.setDataAtendimento(jDataLanc.getDate());
+                    objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
+                    objRegAtend.setIdEvol(Integer.valueOf(jIdEvolucao.getText()));
+                    objRegAtend.setAtendeEvol(atendido);
+                    //
+                    objRegAtend.setUsuarioUp(nameUser);
+                    objRegAtend.setDataUp(dataModFinal);
+                    objRegAtend.setHorarioUp(horaMov);
+                    controlRegAtend.alterarRegEvol(objRegAtend);
                     SalvarEvolucao();
-                    preencherTabelaEvolucaoEnfermagem("SELECT * FROM EVOLUCAOENFERMAGEM WHERE IdLanc='" + jIdLanc.getText() + "'");
+                    preencherTabelaEvolucaoEnfermagem("SELECT * FROM EVOLUCAOENFERMAGEM "
+                            + "WHERE IdLanc='" + jIdLanc.getText() + "'");
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
                 if (acao == 6) {
