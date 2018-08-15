@@ -4485,10 +4485,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
             conecta.rs.first();
             codigoInternoAtend = conecta.rs.getString("IdInternoCrc");
             codigoDepartamentoSS = conecta.rs.getInt("IdDepartamento");
-            atendido = conecta.rs.getString("Atendido");   
-            JOptionPane.showMessageDialog(rootPane, "Código do Interno: " + codigoInternoAtend);
-            JOptionPane.showMessageDialog(rootPane, "Código do Departamento: " + codigoInternoAtend);
-            JOptionPane.showMessageDialog(rootPane, "Atendido: " + atendido);
+            atendido = conecta.rs.getString("Atendido");               
         } catch (Exception e) {
         }
         conecta.desconecta();
