@@ -101,6 +101,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private TelaHistoricoAvaliacaoEmprego objAvaEmp = null;
     private TelaPAI_NOVO objPaiNovo = null;
     private TelaRegistroInternosAtendimentoSS objRegBio = null;
+    private TelaRegistroInternosAtendimentoImpressoSS objAutoImp = null;
     //
     public static String nomeModuloSERV = "SERVICO";
     String dataLanc;
@@ -139,7 +140,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     public static int codigoGrupo = 0;
     public static String nomeGrupo = "";
     public static String nomeTela = "";
-    // TELAS DE ACESSOS AO MÓDULO ENFERMARIA
+    // TELAS DE ACESSOS AO MÓDULO SERVIÇO SOCIAL
     public static String nomeModuloSS = "SERVICO SOCIAL";
     // MENU CADASTRO    
     public static String telaCadastroVisitasSS = "Cadastro:Visitantes:Manutenção";
@@ -153,6 +154,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     public static String telaRolVisitantesRelVisitaSS = "Cadastro:Rol de Visitas Religiosa:Visitas";
     public static String telaAprovadoresOcrSS = "Cadastro:Aprovadores de Ocorrências Indisciplinas Visitas:Manutenção";
     public static String telaRegistroAtendimentoBioSS = "Cadastro:Registro de Atendimento Internos Biometria:Manutenção";
+    public static String telaRegistroAtendimentoImpBioSS = "Cadastro:Registro de Autorização Impressa:Liberação";
     // MOVIMENTAÇÃO
     public static String telaAdmEvolucaoInternosSS = "Movimentação:Admissão de Internos:Admissão";
     public static String telaAdmEvolucaoInternosEvoSS = "Movimentação:Admissão de Internos:Evolução";
@@ -196,6 +198,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     String pNomeRVRV = "";
     String pNomeAO = "";
     String pNomeRAB = "";
+    String pNomeRAIB = "";
     // MOVIMENTAÇÃO
     String pNomeAEI = "";
     String pNomeAEIE = "";
@@ -227,6 +230,8 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     String pNomeHAE = "";
     //
 
+    //pNomeRAIB
+    //telaRegistroAtendimentoImpBioSS
     /**
      * Creates new form TelaServioSocial
      */
@@ -260,7 +265,9 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         AprovadoresOcorrenciasVisitasPortaria = new javax.swing.JMenuItem();
         jSeparator10 = new javax.swing.JPopupMenu.Separator();
+        jMenu9 = new javax.swing.JMenu();
         jRegistroAtendeInternoBio = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jSeparator14 = new javax.swing.JPopupMenu.Separator();
         AgendaCompromissos = new javax.swing.JMenuItem();
         AgendaRecados = new javax.swing.JMenuItem();
@@ -415,14 +422,28 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
         jMenu1.add(AprovadoresOcorrenciasVisitasPortaria);
         jMenu1.add(jSeparator10);
 
+        jMenu9.setForeground(new java.awt.Color(0, 102, 0));
+        jMenu9.setText("Registro de Atendimento de Internos - (Biometria ou Impressão)");
+
         jRegistroAtendeInternoBio.setForeground(new java.awt.Color(0, 153, 0));
-        jRegistroAtendeInternoBio.setText("Registro de Atendimento de Interno com Biometria");
+        jRegistroAtendeInternoBio.setText("Registra Atendimento por Biometria");
         jRegistroAtendeInternoBio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRegistroAtendeInternoBioActionPerformed(evt);
             }
         });
-        jMenu1.add(jRegistroAtendeInternoBio);
+        jMenu9.add(jRegistroAtendeInternoBio);
+
+        jMenuItem2.setForeground(new java.awt.Color(0, 0, 204));
+        jMenuItem2.setText("Registro Atendimento por Impressão");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu9.add(jMenuItem2);
+
+        jMenu1.add(jMenu9);
         jMenu1.add(jSeparator14);
 
         AgendaCompromissos.setText("Agenda de Compromissos Pessoal");
@@ -1995,6 +2016,40 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jRegistroAtendeInternoBioActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaRegistroAtendimentoImpBioSS);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaRegistroAtendimentoImpBioSS) && codAbrir == 1) {
+            if (objAutoImp == null || objAutoImp.isClosed()) {
+                objAutoImp = new TelaRegistroInternosAtendimentoImpressoSS();
+                jPainelServicoSocial.add(objAutoImp);
+                objAutoImp.setVisible(true);
+            } else {
+                if (objAutoImp.isVisible()) {
+                    if (objAutoImp.isIcon()) { // Se esta minimizado
+                        try {
+                            objAutoImp.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objAutoImp.toFront(); // traz para frente
+                        objAutoImp.pack();//volta frame 
+                    }
+                } else {
+                    objAutoImp = new TelaRegistroInternosAtendimentoImpressoSS();
+                    TelaModuloEnfermaria.jPainelMedico.add(objAutoImp);//adicona frame ao JDesktopPane  
+                    objAutoImp.setVisible(true);
+                }
+            }
+            try {
+                objAutoImp.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AdmissaoInternos;
@@ -2046,12 +2101,14 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
+    private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem16;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jOcorrenciasServicoSocial;
     private javax.swing.JMenuItem jPaiNOVO;
