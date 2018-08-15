@@ -10,6 +10,7 @@ import gestor.Controle.ControleEvolucaoServicoSocial;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleMovEvolucaoServicoSocial;
 import gestor.Controle.ControleMovServicoSocial;
+import gestor.Controle.ControleRegistroAtendimentoInternoBio;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.LimiteDigitosAlfa;
 import gestor.Dao.LimiteDigitosNum;
@@ -17,6 +18,7 @@ import gestor.Dao.ModeloTabela;
 import gestor.Modelo.AtendimentoServicoSocial;
 import gestor.Modelo.EvolucaoServicoSocial;
 import gestor.Modelo.LogSistema;
+import gestor.Modelo.RegistroAtendimentoInternos;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
@@ -34,7 +36,6 @@ import static gestor.Visao.TelaModuloServicoSocial.nomeGrupo;
 import static gestor.Visao.TelaModuloServicoSocial.nomeTela;
 import static gestor.Visao.TelaModuloServicoSocial.telaAdmEvolucaoInternosEvoSS;
 import static gestor.Visao.TelaModuloServicoSocial.telaAdmEvolucaoInternosSS;
-import static gestor.Visao.TelaModuloServicoSocial.telaRolVisitasSS;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -42,6 +43,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
@@ -63,6 +65,9 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
     EvolucaoServicoSocial objEvol = new EvolucaoServicoSocial();
     ControleMovEvolucaoServicoSocial controlMovEvolSSocial = new ControleMovEvolucaoServicoSocial();
     ControleEvolucaoServicoSocial controleEvol = new ControleEvolucaoServicoSocial();
+    // INFORMAR QUE O INTERNO FOI ATENDIDO NA ADMISSÃO E NA EVOLUÇÃO
+    RegistroAtendimentoInternos objRegAtend = new RegistroAtendimentoInternos();
+    ControleRegistroAtendimentoInternoBio controlRegAtend = new ControleRegistroAtendimentoInternoBio();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -85,6 +90,15 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
     int count = 0;
     int idItemEvol;
     String codEvolucao;
+    // VARIVAEIS PARA SABER SE O INTERNO FOI REGISTRADO COM BIOMETRIA      
+    String dataReg = "";
+    Date dataRegistro = null;
+    String codigoInternoAtend = "";
+    String atendido = "Sim";
+    String opcao = "Não";
+    public static int codigoDepartamentoSS = 0;
+    String tipoAtendimentoAdm = "Admissão Serviço Social";
+    String tipoAtendimentoEvol = "Evolução Serviço Social";
     //
     String pHabilitaSSocial = "";
 
@@ -341,7 +355,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 51, 255)));
+        jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 51, 255))); // NOI18N
 
         jLabel47.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel47.setText("Código:");
@@ -645,58 +659,52 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel5Layout.createSequentialGroup()
+                            .addGap(2, 2, 2)
+                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)))
+                        .addComponent(jIDInterno))
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)))
-                            .addComponent(jIDInterno))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(jMaeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel5Layout.createSequentialGroup()
-                                        .addComponent(jDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel10)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jEscolaridade, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel5Layout.createSequentialGroup()
-                                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                                .addComponent(jNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jBtPesqInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(jPaiInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jProfissao)
-                                            .addComponent(jNaturalidade))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel46, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jReligiao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jEstadoCivil, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addContainerGap())))
+                        .addComponent(jMaeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGap(83, 83, 83)
-                                .addComponent(jLabel2)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(jDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jEscolaridade, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jProfissao)
+                                    .addComponent(jNaturalidade))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel46, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jReligiao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jEstadoCivil, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addComponent(jNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jBtPesqInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jPaiInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
 
         jPanel5Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jEscolaridade, jEstadoCivil, jReligiao});
@@ -2353,6 +2361,19 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
                             objAtendSocial.setNomeInterno(jNomeInterno.getText());
                             objAtendSocial.setDeptoSocial(deptoTecnico);
                             controle.incluirMovTec(objAtendSocial);
+                            // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
+                            objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                            objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
+                            objRegAtend.setIdDepartamento(codigoDepartamentoSS);
+                            objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                            objRegAtend.setAtendido(atendido);
+                            objRegAtend.setDataAtendimento(jDataAtendimento.getDate());
+                            objRegAtend.setIdAtend(Integer.valueOf(jIDAtend.getText()));
+                            //
+                            objRegAtend.setUsuarioUp(nameUser);
+                            objRegAtend.setDataUp(dataModFinal);
+                            objRegAtend.setHorarioUp(horaMov);
+                            controlRegAtend.alterarRegAtend(objRegAtend);
                             objLog();
                             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                             JOptionPane.showMessageDialog(rootPane, "Atendimento gravado com sucesso.\nCaso já tenha concluido o atendimento,\nclique no botão finalizar para evitar que\n o mesmo seja alterado ou excluido.");
@@ -2642,11 +2663,20 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
         // TODO add your handling code here: 
         buscarAcessoUsuario(telaAdmEvolucaoInternosEvoSS);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaAdmEvolucaoInternosSS) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
-            acao = 3;
-            NovaEvolucao();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            verificarInternoRegistradoAdm();
+            if (atendido == null) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
+            } else if (atendido.equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
+            } else if (atendido.equals("Sim")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
+            } else if (atendido.equals("Não")) {
+                acao = 3;
+                NovaEvolucao();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
@@ -2700,6 +2730,8 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data da evolução do interno.");
                 jDataEvolu.requestFocus();
                 jDataEvolu.setBackground(Color.red);
+            } else if (jTextoEvolucao.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Não existe texto para evolução.");
             } else {
                 objEvol.setDataEvol(jDataEvolu.getDate());
                 objEvol.setTextoEvolucao(jTextoEvolucao.getText());
@@ -2719,9 +2751,26 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
                     objEvol.setIdAtend(Integer.valueOf(jIDAtend.getText()));
                     objEvol.setNomeInterno(jNomeInternoEvolServicoSocial.getText());
                     controlMovEvolSSocial.incluirMovServicoSocial(objEvol); // Histórico de Movimento Técnico
+                    // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO     
+                    atendido = "Sim";
+                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                    objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
+                    objRegAtend.setIdDepartamento(codigoDepartamentoSS);
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoEvol);
+                    objRegAtend.setAtendido(atendido);
+                    objRegAtend.setDataAtendimento(jDataEvolu.getDate());
+                    objRegAtend.setIdAtend(Integer.valueOf(jIDAtend.getText()));
+                    objRegAtend.setIdEvol(Integer.valueOf(jIdEvolucao.getText()));
+                    objRegAtend.setAtendeEvol(atendido);
+                    //
+                    objRegAtend.setUsuarioUp(nameUser);
+                    objRegAtend.setDataUp(dataModFinal);
+                    objRegAtend.setHorarioUp(horaMov);
+                    controlRegAtend.alterarRegEvol(objRegAtend);
                     objLog1();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    preencherTabelaEvolucaoServicoSocial("SELECT * FROM EVOLUCAO_ATENDIMENTO_SOCIAL WHERE IdAtend='" + jIDAtend.getText() + "'");
+                    preencherTabelaEvolucaoServicoSocial("SELECT * FROM EVOLUCAO_ATENDIMENTO_SOCIAL "
+                            + "WHERE IdAtend='" + jIDAtend.getText() + "'");
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                     SalvarEvolucao();
                 }
@@ -3363,7 +3412,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
         jComboBoxTitulo2.setSelectedItem("Não");
         jComboBoxReservista1.setSelectedItem("Não");
         jComboBoxReservista2.setSelectedItem("Não");
-        jCartorioRegistro.setEnabled(true);
+        jCartorioRegistro.setText("");
         jComboBoxCondicaoSegurado.setSelectedItem("Não");
         jComboBoxAuxilioDoenca.setSelectedItem("Não");
         jComboBoxEsposaCompanheira.setSelectedItem("Não");
@@ -3375,9 +3424,9 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
         jComboBoxCancelVisita.setSelectedItem("Não");
         jMotivo.setText("");
         jComboBoxTirarDoc.setSelectedItem("Não");
-        jDataDoc.setEnabled(true);
+        jDataDoc.setDate(null);
         jComboBoxRecPater.setSelectedItem("Não");
-        jDataPater.setEnabled(true);
+        jDataPater.setDate(null);
         jComboBoxRecebeVisita.setSelectedItem("Não");
     }
 
@@ -3592,7 +3641,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
         jComboBoxTitulo2.setSelectedItem("Não");
         jComboBoxReservista1.setSelectedItem("Não");
         jComboBoxReservista2.setSelectedItem("Não");
-        jCartorioRegistro.setEnabled(true);
+        jCartorioRegistro.setText("");
         jComboBoxCondicaoSegurado.setSelectedItem("Não");
         jComboBoxAuxilioDoenca.setSelectedItem("Não");
         jComboBoxEsposaCompanheira.setSelectedItem("Não");
@@ -3604,9 +3653,9 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
         jComboBoxCancelVisita.setSelectedItem("Não");
         jMotivo.setText("");
         jComboBoxTirarDoc.setSelectedItem("Não");
-        jDataDoc.setEnabled(true);
+        jDataDoc.setDate(null);
         jComboBoxRecPater.setSelectedItem("Não");
-        jDataPater.setEnabled(true);
+        jDataPater.setDate(null);
         jComboBoxRecebeVisita.setSelectedItem("Não");
     }
 
@@ -3687,80 +3736,213 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
 
     public void Cancelar() {
 
-        // Habilitar/Desabilitar botões
-        jBtPesqInterno.setEnabled(!true);
-        jBtNovo.setEnabled(true);
-        jBtAlterar.setEnabled(!true);
-        jBtExcluir.setEnabled(!true);
-        jBtSalvar.setEnabled(!true);
-        jBtCancelar.setEnabled(!true);
-        jBtFinalizar.setEnabled(!true);
-        jBtAuditoria.setEnabled(!true);
-        //
-        jDataAtendimento.setEnabled(!true);
-        JContato.setEnabled(!true);
-        jTelefone.setEnabled(!true);
-        jTelefone1.setEnabled(!true);
-        jCelular.setEnabled(!true);
-        jEnderecoContato.setEnabled(!true);
-        jBairroContato.setEnabled(!true);
-        jCidadeContato.setEnabled(!true);
-        jEstadoContato.setEnabled(!true);
-        jComboBoxTrabalho.setEnabled(!true);
-        jPeriodo.setEnabled(!true);
-        jComboBoxAuxReclusao.setEnabled(!true);
-        jComboBoxDireitoReclusao.setEnabled(!true);
-        jComboBoxPessoasCasa.setEnabled(!true);
-        jQtsTrabalham.setEnabled(!true);
-        //
-        jComboBoxCN1.setEnabled(!true);
-        jComboBoxCN2.setEnabled(!true);
-        jComboBoxRG1.setEnabled(!true);
-        jComboBoxRG2.setEnabled(!true);
-        jComboBoxCPF1.setEnabled(!true);
-        jComboBoxCPF2.setEnabled(!true);
-        jComboBoxCTPS1.setEnabled(!true);
-        jComboBoxCTPS2.setEnabled(!true);
-        //
-        jComboBoxPossuiFilhos.setEnabled(!true);
-        jQtdFilhos.setEnabled(!true);
-        jTotalFilhos.setEnabled(!true);
-        jComboBoxOutrosFilhos.setEnabled(!true);
-        jQtdFilhosRela.setEnabled(!true);
-        jPaternidade.setEnabled(!true);
-        jComboBoxDefensor.setEnabled(!true);
-        //    jComboBoxPartFamilia.setEnabled(!true);
-        //
-        jConsideracoes.setEnabled(!true);
-        //
         if (jIDAtend.getText().equals("")) {
+            //Limpar campos
+            jIDPesqAtend.setText("");
+            jDataAtendimento.setDate(null);
+            jStatusAtend.setText("");
+            jIDInterno.setText("");
+            jNomeInterno.setText("");
+            jMaeInterno.setText("");
+            jPaiInterno.setText("");
+            jEstadoCivil.setText("");
+            jDataNascimento.setDate(null);
+            jReligiao.setText("");
+            jProfissao.setText("");
+            FotoInterno.setIcon(null);
+            jNaturalidade.setText("");
+            jEscolaridade.setText("");
+            //
+            JContato.setText("");
+            jTelefone.setText("");
+            jTelefone1.setText("");
+            jCelular.setText("");
+            jEnderecoContato.setText("");
+            jBairroContato.setText("");
+            jCidadeContato.setText("");
+            jEstadoContato.setText("");
+            jComboBoxTrabalho.setSelectedItem(null);
+            jPeriodo.setText("");
+            jComboBoxAuxReclusao.setSelectedItem(null);
+            jComboBoxDireitoReclusao.setSelectedItem(null);
+            jComboBoxPessoasCasa.setSelectedItem("Não");
+            jQtsTrabalham.setText("");
+            //
+            jComboBoxCN1.setSelectedItem(null);
+            jComboBoxCN2.setSelectedItem(null);
+            jComboBoxRG1.setSelectedItem(null);
+            jComboBoxRG2.setSelectedItem(null);
+            jComboBoxCPF1.setSelectedItem(null);
+            jComboBoxCPF2.setSelectedItem(null);
+            jComboBoxCTPS1.setSelectedItem(null);
+            jComboBoxCTPS2.setSelectedItem(null);
+            //
+            jComboBoxPossuiFilhos.setSelectedItem(null);
+            jQtdFilhos.setText("");
+            jTotalFilhos.setText("");
+            jComboBoxOutrosFilhos.setSelectedItem(null);
+            jQtdFilhosRela.setText("");
+            jPaternidade.setText("");
+            jComboBoxDefensor.setSelectedItem(null);
+            //
+            jConsideracoes.setText("");
+            // IMPLEMENTAÇÃO EM 07/07/2016
+            jMunicipioNascimento.setText("");
+            jComboBoxTitulo1.setSelectedItem("Não");
+            jComboBoxTitulo2.setSelectedItem("Não");
+            jComboBoxReservista1.setSelectedItem("Não");
+            jComboBoxReservista2.setSelectedItem("Não");
+            jCartorioRegistro.setText("");
+            jComboBoxCondicaoSegurado.setSelectedItem("Não");
+            jComboBoxAuxilioDoenca.setSelectedItem("Não");
+            jComboBoxEsposaCompanheira.setSelectedItem("Não");
+            jTipoConvivencia.setText("");
+            jNomeCompanheira.setText("");
+            jQtdPessoasResideCasa.setText("");
+            jComboBoxOutrosSetores.setSelectedItem("Não");
+            jQualSetor.setText("");
+            jComboBoxCancelVisita.setSelectedItem("Não");
+            jMotivo.setText("");
+            jComboBoxTirarDoc.setSelectedItem("Não");
+            jDataDoc.setDate(null);
+            jComboBoxRecPater.setSelectedItem("Não");
+            jDataPater.setDate(null);
+            jComboBoxRecebeVisita.setSelectedItem("Não");
+            // Habilitar/Desabilitar botões
+            jBtPesqInterno.setEnabled(!true);
+            jBtNovo.setEnabled(true);
+            jBtAlterar.setEnabled(!true);
+            jBtExcluir.setEnabled(!true);
+            jBtSalvar.setEnabled(!true);
+            jBtCancelar.setEnabled(!true);
+            jBtFinalizar.setEnabled(!true);
+            jBtAuditoria.setEnabled(!true);
+            //
+            jDataAtendimento.setEnabled(!true);
+            JContato.setEnabled(!true);
+            jTelefone.setEnabled(!true);
+            jTelefone1.setEnabled(!true);
+            jCelular.setEnabled(!true);
+            jEnderecoContato.setEnabled(!true);
+            jBairroContato.setEnabled(!true);
+            jCidadeContato.setEnabled(!true);
+            jEstadoContato.setEnabled(!true);
+            jComboBoxTrabalho.setEnabled(!true);
+            jPeriodo.setEnabled(!true);
+            jComboBoxAuxReclusao.setEnabled(!true);
+            jComboBoxDireitoReclusao.setEnabled(!true);
+            jComboBoxPessoasCasa.setEnabled(!true);
+            jQtsTrabalham.setEnabled(!true);
+            //
+            jComboBoxCN1.setEnabled(!true);
+            jComboBoxCN2.setEnabled(!true);
+            jComboBoxRG1.setEnabled(!true);
+            jComboBoxRG2.setEnabled(!true);
+            jComboBoxCPF1.setEnabled(!true);
+            jComboBoxCPF2.setEnabled(!true);
+            jComboBoxCTPS1.setEnabled(!true);
+            jComboBoxCTPS2.setEnabled(!true);
+            //
+            jComboBoxPossuiFilhos.setEnabled(!true);
+            jQtdFilhos.setEnabled(!true);
+            jTotalFilhos.setEnabled(!true);
+            jComboBoxOutrosFilhos.setEnabled(!true);
+            jQtdFilhosRela.setEnabled(!true);
+            jPaternidade.setEnabled(!true);
+            jComboBoxDefensor.setEnabled(!true);
+            jConsideracoes.setEnabled(!true);
+            // IMPLEMENTAÇÃO EM 07/07/2016
+            jMunicipioNascimento.setEnabled(!true);
+            jComboBoxTitulo1.setEnabled(!true);
+            jComboBoxTitulo2.setEnabled(!true);
+            jComboBoxReservista1.setEnabled(!true);
+            jComboBoxReservista2.setEnabled(!true);
+            jCartorioRegistro.setEnabled(!true);
+            jComboBoxCondicaoSegurado.setEnabled(!true);
+            jComboBoxAuxilioDoenca.setEnabled(!true);
+            jComboBoxEsposaCompanheira.setEnabled(!true);
+            jTipoConvivencia.setEnabled(!true);
+            jNomeCompanheira.setEnabled(!true);
+            jQtdPessoasResideCasa.setEnabled(!true);
+            jComboBoxOutrosSetores.setEnabled(!true);
+            jQualSetor.setEnabled(!true);
+            jComboBoxCancelVisita.setEnabled(!true);
+            jMotivo.setEnabled(!true);
+            jComboBoxTirarDoc.setEnabled(!true);
+            jDataDoc.setEnabled(!true);
+            jComboBoxRecPater.setEnabled(!true);
+            jDataPater.setEnabled(!true);
+            jComboBoxRecebeVisita.setEnabled(!true);
+            jBtPesqDepartamento.setEnabled(!true);
+            //
             jBtNovaEvolucao.setEnabled(!true);
         } else {
-            jBtNovaEvolucao.setEnabled(!true);
+            jBtNovo.setEnabled(true);
+            jBtAlterar.setEnabled(true);
+            jBtExcluir.setEnabled(true);
+            jBtSalvar.setEnabled(!true);
+            jBtCancelar.setEnabled(!true);
+            jBtFinalizar.setEnabled(true);
+            jBtAuditoria.setEnabled(true);
+            jBtNovaEvolucao.setEnabled(true);
+            //
+            jDataAtendimento.setEnabled(!true);
+            JContato.setEnabled(!true);
+            jTelefone.setEnabled(!true);
+            jTelefone1.setEnabled(!true);
+            jCelular.setEnabled(!true);
+            jEnderecoContato.setEnabled(!true);
+            jBairroContato.setEnabled(!true);
+            jCidadeContato.setEnabled(!true);
+            jEstadoContato.setEnabled(!true);
+            jComboBoxTrabalho.setEnabled(!true);
+            jPeriodo.setEnabled(!true);
+            jComboBoxAuxReclusao.setEnabled(!true);
+            jComboBoxDireitoReclusao.setEnabled(!true);
+            jComboBoxPessoasCasa.setEnabled(!true);
+            jQtsTrabalham.setEnabled(!true);
+            //
+            jComboBoxCN1.setEnabled(!true);
+            jComboBoxCN2.setEnabled(!true);
+            jComboBoxRG1.setEnabled(!true);
+            jComboBoxRG2.setEnabled(!true);
+            jComboBoxCPF1.setEnabled(!true);
+            jComboBoxCPF2.setEnabled(!true);
+            jComboBoxCTPS1.setEnabled(!true);
+            jComboBoxCTPS2.setEnabled(!true);
+            //
+            jComboBoxPossuiFilhos.setEnabled(!true);
+            jQtdFilhos.setEnabled(!true);
+            jTotalFilhos.setEnabled(!true);
+            jComboBoxOutrosFilhos.setEnabled(!true);
+            jQtdFilhosRela.setEnabled(!true);
+            jPaternidade.setEnabled(!true);
+            jComboBoxDefensor.setEnabled(!true);
+            jConsideracoes.setEnabled(!true);
+            // IMPLEMENTAÇÃO EM 07/07/2016
+            jMunicipioNascimento.setEnabled(!true);
+            jComboBoxTitulo1.setEnabled(!true);
+            jComboBoxTitulo2.setEnabled(!true);
+            jComboBoxReservista1.setEnabled(!true);
+            jComboBoxReservista2.setEnabled(!true);
+            jCartorioRegistro.setEnabled(!true);
+            jComboBoxCondicaoSegurado.setEnabled(!true);
+            jComboBoxAuxilioDoenca.setEnabled(!true);
+            jComboBoxEsposaCompanheira.setEnabled(!true);
+            jTipoConvivencia.setEnabled(!true);
+            jNomeCompanheira.setEnabled(!true);
+            jQtdPessoasResideCasa.setEnabled(!true);
+            jComboBoxOutrosSetores.setEnabled(!true);
+            jQualSetor.setEnabled(!true);
+            jComboBoxCancelVisita.setEnabled(!true);
+            jMotivo.setEnabled(!true);
+            jComboBoxTirarDoc.setEnabled(!true);
+            jDataDoc.setEnabled(!true);
+            jComboBoxRecPater.setEnabled(!true);
+            jDataPater.setEnabled(!true);
+            jComboBoxRecebeVisita.setEnabled(!true);
+            jBtPesqDepartamento.setEnabled(!true);
         }
-        // IMPLEMENTAÇÃO EM 07/07/2016
-        jMunicipioNascimento.setEnabled(!true);
-        jComboBoxTitulo1.setEnabled(!true);
-        jComboBoxTitulo2.setEnabled(!true);
-        jComboBoxReservista1.setEnabled(!true);
-        jComboBoxReservista2.setEnabled(!true);
-        jCartorioRegistro.setEnabled(!true);
-        jComboBoxCondicaoSegurado.setEnabled(!true);
-        jComboBoxAuxilioDoenca.setEnabled(!true);
-        jComboBoxEsposaCompanheira.setEnabled(!true);
-        jTipoConvivencia.setEnabled(!true);
-        jNomeCompanheira.setEnabled(!true);
-        jQtdPessoasResideCasa.setEnabled(!true);
-        jComboBoxOutrosSetores.setEnabled(!true);
-        jQualSetor.setEnabled(!true);
-        jComboBoxCancelVisita.setEnabled(!true);
-        jMotivo.setEnabled(!true);
-        jComboBoxTirarDoc.setEnabled(!true);
-        jDataDoc.setEnabled(!true);
-        jComboBoxRecPater.setEnabled(!true);
-        jDataPater.setEnabled(!true);
-        jComboBoxRecebeVisita.setEnabled(!true);
-        jBtPesqDepartamento.setEnabled(!true);
     }
 
     public void Relatorio() {
@@ -4289,6 +4471,27 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jIDAtend.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void verificarInternoRegistradoAdm() {
+        
+        conecta.abrirConexao();
+        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+        dataReg = formatoAmerica.format(jDataAtendimento.getDate().getTime());
+        try {
+            conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
+                    + "WHERE IdInternoCrc='" + jIDInterno.getText() + "' "
+                    + "AND Atendido='" + opcao + "'");
+            conecta.rs.first();
+            codigoInternoAtend = conecta.rs.getString("IdInternoCrc");
+            codigoDepartamentoSS = conecta.rs.getInt("IdDepartamento");
+            atendido = conecta.rs.getString("Atendido");   
+            JOptionPane.showMessageDialog(rootPane, "Código do Interno: " + codigoInternoAtend);
+            JOptionPane.showMessageDialog(rootPane, "Código do Departamento: " + codigoInternoAtend);
+            JOptionPane.showMessageDialog(rootPane, "Atendido: " + atendido);
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 
     public void verificarRegistroBiometria() {
