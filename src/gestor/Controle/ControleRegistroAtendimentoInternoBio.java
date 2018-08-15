@@ -70,14 +70,15 @@ public class ControleRegistroAtendimentoInternoBio {
         buscarInternoCrc(objRegAtend.getNomeInternoCrc(), objRegAtend.getIdInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE REGISTRO_ATENDIMENTO_INTERNO_PSP SET Atendido=?,DataAtendimento=?,IdAtend=?,AtendeEvol=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdInternoCrc='" + objRegAtend.getIdInternoCrc() + "'AND Atendido='" + atendido + "'");
-            pst.setString(1, objRegAtend.getAtendido());
-            pst.setTimestamp(2, new java.sql.Timestamp(objRegAtend.getDataAtendimento().getTime()));
-            pst.setInt(3, objRegAtend.getIdAtend());
-            pst.setString(4, objRegAtend.getAtendeEvol());
-            pst.setString(5, objRegAtend.getUsuarioUp());
-            pst.setString(6, objRegAtend.getDataUp());
-            pst.setString(7, objRegAtend.getHorarioUp());
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE REGISTRO_ATENDIMENTO_INTERNO_PSP SET TipoAtendimento=?,Atendido=?,DataAtendimento=?,IdAtend=?,AtendeEvol=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdInternoCrc='" + objRegAtend.getIdInternoCrc() + "'AND Atendido='" + atendido + "'");
+            pst.setString(1, objRegAtend.getTipoAtemdimento());
+            pst.setString(2, objRegAtend.getAtendido());
+            pst.setTimestamp(3, new java.sql.Timestamp(objRegAtend.getDataAtendimento().getTime()));
+            pst.setInt(4, objRegAtend.getIdAtend());
+            pst.setString(5, objRegAtend.getAtendeEvol());
+            pst.setString(6, objRegAtend.getUsuarioUp());
+            pst.setString(7, objRegAtend.getDataUp());
+            pst.setString(8, objRegAtend.getHorarioUp());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO: " + ex);
