@@ -51,6 +51,7 @@ public class TelaPesqInternoAdmMedico extends javax.swing.JInternalFrame {
      */
     public TelaPesqInternoAdmMedico() {
         initComponents();
+        procurarDepartamento();
     }
 
     /**
