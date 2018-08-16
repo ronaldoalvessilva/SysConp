@@ -38,6 +38,29 @@ import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloPsicologia.codAbrirPSI;
+import static gestor.Visao.TelaModuloPsicologia.codAlterarPSI;
+import static gestor.Visao.TelaModuloPsicologia.codExcluirPSI;
+import static gestor.Visao.TelaModuloPsicologia.codGravarPSI;
+import static gestor.Visao.TelaModuloPsicologia.codIncluirPSI;
+import static gestor.Visao.TelaModuloPsicologia.codUserAcessoPSI;
+import static gestor.Visao.TelaModuloPsicologia.codigoUserPSI;
+import static gestor.Visao.TelaModuloPsicologia.nomeGrupoPSI;
+import static gestor.Visao.TelaModuloPsicologia.nomeTelaPSI;
+import static gestor.Visao.TelaModuloPsicologia.codConsultarPSI;
+import static gestor.Visao.TelaModuloPsicologia.codigoUserGroupPSI;
+import static gestor.Visao.TelaModuloPsicologia.codigoGrupoPSI;
+import static gestor.Visao.TelaModuloPsicologia.telaPAIS_PSI;
+import static gestor.Visao.TelaModuloPsicologia.telaPaiCCGFFam_PSI;
+import static gestor.Visao.TelaModuloPsicologia.telaPaiCCGFVisInt_PSI;
+import static gestor.Visao.TelaModuloPsicologia.telaPaiCCGFVis_PSI;
+import static gestor.Visao.TelaModuloPsicologia.telaPaiDEME_PSI;
+import static gestor.Visao.TelaModuloPsicologia.telaPaiDJ_PSI;
+import static gestor.Visao.TelaModuloPsicologia.telaPaiDPTL_PSI;
+import static gestor.Visao.TelaModuloPsicologia.telaPaiDS_PSI;
+import static gestor.Visao.TelaModuloPsicologia.telaPaiEAPI1_PSI;
+import static gestor.Visao.TelaModuloPsicologia.telaPaiEAPI2_PSI;
+import static gestor.Visao.TelaModuloPsicologia.telaPaiEPAI_PSI;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -7184,114 +7207,140 @@ public class TelaPAI_NOVO_Psicologia extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        limparCamposNovo();
-        bloquearCampos();
-        bloquearBotoes();
-        limparTabelaFamiliar();
-        limparTabelaVisitas();
-        limparTabelaVisitasIntimas();
-        Novo();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPAIS_PSI) && codIncluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            acao = 1;
+            limparCamposNovo();
+            bloquearCampos();
+            bloquearBotoes();
+            limparTabelaFamiliar();
+            limparTabelaVisitas();
+            limparTabelaVisitasIntimas();
+            Novo();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        acao = 2;
-        bloquearCampos();
-        bloquearBotoes();
-        Alterar();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPAIS_PSI) && codAlterarPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            acao = 2;
+            bloquearCampos();
+            bloquearBotoes();
+            Alterar();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        verificarCodigoPAI();
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        objPaiPsico.setIdPai(Integer.valueOf(jCodigoPAI.getText()));
-        if (objPaiPsico.getIdPai() == idPaiCCGF
-                || objPaiPsico.getIdPai() == idPaiVF
-                || objPaiPsico.getIdPai() == idPaiVF1
-                || objPaiPsico.getIdPai() == idPaiVF2) {
-            JOptionPane.showMessageDialog(null, "Esse registro não poderá ser excluído, existem outros registros relacionados.");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objPaiPsico.setIdPai(Integer.parseInt(jCodigoPAI.getText()));
-                control.excluirPAI(objPaiPsico);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                bloquearCampos();
-                Excluir();
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPAIS_PSI) && codExcluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            verificarCodigoPAI();
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objPaiPsico.setIdPai(Integer.valueOf(jCodigoPAI.getText()));
+            if (objPaiPsico.getIdPai() == idPaiCCGF
+                    || objPaiPsico.getIdPai() == idPaiVF
+                    || objPaiPsico.getIdPai() == idPaiVF1
+                    || objPaiPsico.getIdPai() == idPaiVF2) {
+                JOptionPane.showMessageDialog(null, "Esse registro não poderá ser excluído, existem outros registros relacionados.");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objPaiPsico.setIdPai(Integer.parseInt(jCodigoPAI.getText()));
+                    control.excluirPAI(objPaiPsico);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearCampos();
+                    Excluir();
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a excluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        verificarExistenciaInternoPAI();
-        if (jDataPAI.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data de Cadastro do P.A.I.");
-        } else if (jIdInternoPAI.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
-        } else if (jNomeInternoPAI.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
-        } else if (jIdadeInterno.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Informe a idade do interno.");
-        } else {
-            objPaiPsico.setIdInternoCrc(Integer.valueOf(jIdInternoPAI.getText()));
-            objPaiPsico.setNomeInternoCrc(jNomeInternoPAI.getText());
-            objPaiPsico.setStatusPai((String) jComboBoxStatusPAI.getSelectedItem());
-            objPaiPsico.setDataPai(jDataPAI.getDate());
-            objPaiPsico.setIdadeInterno(Integer.valueOf(jIdadeInterno.getText()));
-            objPaiPsico.setNaturalidade(jNaturalidadeInternoPAI.getText());
-            objPaiPsico.setMunicipioRegistrado(jMunicipioRegistrado.getText());
-            objPaiPsico.setOrientacaoSexual((String) jComboBoxOrientacaoSexual.getSelectedItem());
-            objPaiPsico.setTipoOrientacaoSexual(jTipoOrientacaoSexual.getText());
-            objPaiPsico.setDocumentoDelega((String) jComboBoxDocumentoDelega.getSelectedItem());
-            objPaiPsico.setQualDocumento(jQualDocumento.getText());
-            objPaiPsico.setQualDelegacia(jQualDelegacia.getText());
-            objPaiPsico.setRegularizarDocumento((String) jComboBoxRegularizarDocumento.getSelectedItem());
-            objPaiPsico.setTipoDocumento((String) jComboBoxTipoDocumento.getSelectedItem());
-            objPaiPsico.setrGInternoPAI(jRGInternoPAI.getText());
-            objPaiPsico.setEmissor(jEmissor.getText());
-            objPaiPsico.setDataExpedicao(jDataExpedicao.getDate());
-            objPaiPsico.setcPFInternoPAI(jCPFInternoPAI.getText());
-            objPaiPsico.setCartaoSUSPAI(jCartaoSUSPAI.getText());
-            objPaiPsico.setTituloEleitor(jTituloEleitor.getText());
-            objPaiPsico.setZona(jZona.getText());
-            objPaiPsico.setSessao(jSessao.getText());
-            objPaiPsico.setnIS(jNIS.getText());
-            objPaiPsico.setcTPS(jCTPS.getText());
-            objPaiPsico.setSerie(jSerie.getText());
-            objPaiPsico.setReligiao((String) jComboBoxReligiao.getSelectedItem());
-            objPaiPsico.setEstadoCivil((String) jComboBoxEstadoCivil.getSelectedItem());
-            objPaiPsico.setEndereco(jEndereco.getText());
-            objPaiPsico.setComplemento(jComplemento.getText());
-            objPaiPsico.setReferencia(jReferencia.getText());
-            objPaiPsico.setBairro(jBairro.getText());
-            objPaiPsico.setCidade(jCidade.getText());
-            objPaiPsico.setEstado((String) jComboBoxEstadoNaturalidade.getSelectedItem());
-            objPaiPsico.setTelefone(jTelefone.getText());
-            objPaiPsico.setTelefone1(jTelefone1.getText());
-            objPaiPsico.setCelular(jCelular.getText());
-            if (acao == 1) {
-                if (jIdInternoPAI.getText().equals(codigoInternoPAI) && jNomeMaeInternoPAI.getText().equals(nomeMaeInterno)) {
-                    JOptionPane.showMessageDialog(rootPane, "Esse interno já foi incluído no P.A.I.");
-                } else {
-                    objPaiPsico.setUsuarioInsert(nameUser);
-                    objPaiPsico.setDataInsert(dataModFinal);
-                    objPaiPsico.setHorarioInsert(horaMov);
-                    control.incluirPAI(objPaiPsico);
-                    buscarCodigo();
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPAIS_PSI) && codGravarPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            verificarExistenciaInternoPAI();
+            if (jDataPAI.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de Cadastro do P.A.I.");
+            } else if (jIdInternoPAI.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
+            } else if (jNomeInternoPAI.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
+            } else if (jIdadeInterno.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe a idade do interno.");
+            } else {
+                objPaiPsico.setIdInternoCrc(Integer.valueOf(jIdInternoPAI.getText()));
+                objPaiPsico.setNomeInternoCrc(jNomeInternoPAI.getText());
+                objPaiPsico.setStatusPai((String) jComboBoxStatusPAI.getSelectedItem());
+                objPaiPsico.setDataPai(jDataPAI.getDate());
+                objPaiPsico.setIdadeInterno(Integer.valueOf(jIdadeInterno.getText()));
+                objPaiPsico.setNaturalidade(jNaturalidadeInternoPAI.getText());
+                objPaiPsico.setMunicipioRegistrado(jMunicipioRegistrado.getText());
+                objPaiPsico.setOrientacaoSexual((String) jComboBoxOrientacaoSexual.getSelectedItem());
+                objPaiPsico.setTipoOrientacaoSexual(jTipoOrientacaoSexual.getText());
+                objPaiPsico.setDocumentoDelega((String) jComboBoxDocumentoDelega.getSelectedItem());
+                objPaiPsico.setQualDocumento(jQualDocumento.getText());
+                objPaiPsico.setQualDelegacia(jQualDelegacia.getText());
+                objPaiPsico.setRegularizarDocumento((String) jComboBoxRegularizarDocumento.getSelectedItem());
+                objPaiPsico.setTipoDocumento((String) jComboBoxTipoDocumento.getSelectedItem());
+                objPaiPsico.setrGInternoPAI(jRGInternoPAI.getText());
+                objPaiPsico.setEmissor(jEmissor.getText());
+                objPaiPsico.setDataExpedicao(jDataExpedicao.getDate());
+                objPaiPsico.setcPFInternoPAI(jCPFInternoPAI.getText());
+                objPaiPsico.setCartaoSUSPAI(jCartaoSUSPAI.getText());
+                objPaiPsico.setTituloEleitor(jTituloEleitor.getText());
+                objPaiPsico.setZona(jZona.getText());
+                objPaiPsico.setSessao(jSessao.getText());
+                objPaiPsico.setnIS(jNIS.getText());
+                objPaiPsico.setcTPS(jCTPS.getText());
+                objPaiPsico.setSerie(jSerie.getText());
+                objPaiPsico.setReligiao((String) jComboBoxReligiao.getSelectedItem());
+                objPaiPsico.setEstadoCivil((String) jComboBoxEstadoCivil.getSelectedItem());
+                objPaiPsico.setEndereco(jEndereco.getText());
+                objPaiPsico.setComplemento(jComplemento.getText());
+                objPaiPsico.setReferencia(jReferencia.getText());
+                objPaiPsico.setBairro(jBairro.getText());
+                objPaiPsico.setCidade(jCidade.getText());
+                objPaiPsico.setEstado((String) jComboBoxEstadoNaturalidade.getSelectedItem());
+                objPaiPsico.setTelefone(jTelefone.getText());
+                objPaiPsico.setTelefone1(jTelefone1.getText());
+                objPaiPsico.setCelular(jCelular.getText());
+                if (acao == 1) {
+                    if (jIdInternoPAI.getText().equals(codigoInternoPAI) && jNomeMaeInternoPAI.getText().equals(nomeMaeInterno)) {
+                        JOptionPane.showMessageDialog(rootPane, "Esse interno já foi incluído no P.A.I.");
+                    } else {
+                        objPaiPsico.setUsuarioInsert(nameUser);
+                        objPaiPsico.setDataInsert(dataModFinal);
+                        objPaiPsico.setHorarioInsert(horaMov);
+                        control.incluirPAI(objPaiPsico);
+                        buscarCodigo();
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        Salvar();
+                        verificarRegistrosTodasAbas();
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    }
+                }
+                if (acao == 2) {
+                    objPaiPsico.setUsuarioUp(nameUser);
+                    objPaiPsico.setDataUp(dataModFinal);
+                    objPaiPsico.setHorarioUp(horaMov);
+                    objPaiPsico.setIdPai(Integer.valueOf(jCodigoPAI.getText()));
+                    control.alterarPAI(objPaiPsico);
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     Salvar();
@@ -7299,18 +7348,8 @@ public class TelaPAI_NOVO_Psicologia extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
             }
-            if (acao == 2) {
-                objPaiPsico.setUsuarioUp(nameUser);
-                objPaiPsico.setDataUp(dataModFinal);
-                objPaiPsico.setHorarioUp(horaMov);
-                objPaiPsico.setIdPai(Integer.valueOf(jCodigoPAI.getText()));
-                control.alterarPAI(objPaiPsico);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                Salvar();
-                verificarRegistrosTodasAbas();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -7333,48 +7372,53 @@ public class TelaPAI_NOVO_Psicologia extends javax.swing.JInternalFrame {
 
     private void jBtSalvarFamiliarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarFamiliarActionPerformed
         // TODO add your handling code here:
-        if (jNomeFamiliarPAI.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do familiar para cadastrar.");
+        buscarAcessoUsuario(telaPaiCCGFFam_PSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiCCGFFam_PSI) && codGravarPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            if (jNomeFamiliarPAI.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do familiar para cadastrar.");
+            } else {
+                objSocial2Pai.setNomeFamiliar(jNomeFamiliarPAI.getText());
+                objSocial2Pai.setIdade(Integer.valueOf(jIdadeFamiliarPAI.getText()));
+                objSocial2Pai.setVinculo((String) jComboBoxVinculoPAI.getSelectedItem());
+                objSocial2Pai.setOcupacao(jOcupacaoFamiliarPAI.getText());
+                objSocial2Pai.setEnderecoTelefonePAI(jEnderecoTelefonePAI.getText());
+                objSocial2Pai.setIdPai(Integer.valueOf(jCodigoPAI.getText()));
+                objSocial2Pai.setNomeInternoCrc(jNomeInternoPAI.getText());
+                if (acao == 5) {
+                    objSocial2Pai.setUsuarioInsert(nameUser);
+                    objSocial2Pai.setDataInsert(dataModFinal);
+                    objSocial2Pai.setHorarioInsert(horaMov);
+                    //
+                    controle2.incluirSocial2PsicoSocial(objSocial2Pai);
+                    buscarCodigoFamiliar();
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    preencherTabelaFamiliar("SELECT * FROM FICHA_CADASTRO_PAI_CCGF_VF "
+                            + "INNER JOIN FICHA_CADASTRO_PAI_PSICOSOCIAL "
+                            + "ON FICHA_CADASTRO_PAI_CCGF_VF.IdPai=FICHA_CADASTRO_PAI_PSICOSOCIAL.IdPai "
+                            + "WHERE FICHA_CADASTRO_PAI_CCGF_VF.IdPai='" + jCodigoPAI.getText() + "'");
+                    SalvarFamiliar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 6) {
+                    objSocial2Pai.setUsuarioUp(nameUser);
+                    objSocial2Pai.setDataUp(dataModFinal);
+                    objSocial2Pai.setHorarioUp(horaMov);
+                    //
+                    objSocial2Pai.setIdFamiliar(Integer.valueOf(jIdFamiliarPAI.getText()));
+                    controle2.alterarSocial2PsicoSocial(objSocial2Pai);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    preencherTabelaFamiliar("SELECT * FROM FICHA_CADASTRO_PAI_CCGF_VF "
+                            + "INNER JOIN FICHA_CADASTRO_PAI_PSICOSOCIAL "
+                            + "ON FICHA_CADASTRO_PAI_CCGF_VF.IdPai=FICHA_CADASTRO_PAI_PSICOSOCIAL.IdPai "
+                            + "WHERE FICHA_CADASTRO_PAI_CCGF_VF.IdPai='" + jCodigoPAI.getText() + "'");
+                    SalvarFamiliar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
         } else {
-            objSocial2Pai.setNomeFamiliar(jNomeFamiliarPAI.getText());
-            objSocial2Pai.setIdade(Integer.valueOf(jIdadeFamiliarPAI.getText()));
-            objSocial2Pai.setVinculo((String) jComboBoxVinculoPAI.getSelectedItem());
-            objSocial2Pai.setOcupacao(jOcupacaoFamiliarPAI.getText());
-            objSocial2Pai.setEnderecoTelefonePAI(jEnderecoTelefonePAI.getText());
-            objSocial2Pai.setIdPai(Integer.valueOf(jCodigoPAI.getText()));
-            objSocial2Pai.setNomeInternoCrc(jNomeInternoPAI.getText());
-            if (acao == 5) {
-                objSocial2Pai.setUsuarioInsert(nameUser);
-                objSocial2Pai.setDataInsert(dataModFinal);
-                objSocial2Pai.setHorarioInsert(horaMov);
-                //
-                controle2.incluirSocial2PsicoSocial(objSocial2Pai);
-                buscarCodigoFamiliar();
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                preencherTabelaFamiliar("SELECT * FROM FICHA_CADASTRO_PAI_CCGF_VF "
-                        + "INNER JOIN FICHA_CADASTRO_PAI_PSICOSOCIAL "
-                        + "ON FICHA_CADASTRO_PAI_CCGF_VF.IdPai=FICHA_CADASTRO_PAI_PSICOSOCIAL.IdPai "
-                        + "WHERE FICHA_CADASTRO_PAI_CCGF_VF.IdPai='" + jCodigoPAI.getText() + "'");
-                SalvarFamiliar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
-            if (acao == 6) {
-                objSocial2Pai.setUsuarioUp(nameUser);
-                objSocial2Pai.setDataUp(dataModFinal);
-                objSocial2Pai.setHorarioUp(horaMov);
-                //
-                objSocial2Pai.setIdFamiliar(Integer.valueOf(jIdFamiliarPAI.getText()));
-                controle2.alterarSocial2PsicoSocial(objSocial2Pai);
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                preencherTabelaFamiliar("SELECT * FROM FICHA_CADASTRO_PAI_CCGF_VF "
-                        + "INNER JOIN FICHA_CADASTRO_PAI_PSICOSOCIAL "
-                        + "ON FICHA_CADASTRO_PAI_CCGF_VF.IdPai=FICHA_CADASTRO_PAI_PSICOSOCIAL.IdPai "
-                        + "WHERE FICHA_CADASTRO_PAI_CCGF_VF.IdPai='" + jCodigoPAI.getText() + "'");
-                SalvarFamiliar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar registro.");
         }
     }//GEN-LAST:event_jBtSalvarFamiliarActionPerformed
 
@@ -7385,24 +7429,29 @@ public class TelaPAI_NOVO_Psicologia extends javax.swing.JInternalFrame {
 
     private void jBtExcluirFamiliarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirFamiliarActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        bloquearCampos();
-        bloquearBotoes();
-        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                JOptionPane.YES_NO_OPTION);
-        if (resposta == JOptionPane.YES_OPTION) {
-            objSocial2Pai.setIdFamiliar(Integer.parseInt(jIdFamiliarPAI.getText()));
-            controle2.excluirSocial2PsicoSocial(objSocial2Pai);
-            objLog2();
-            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-            preencherTabelaFamiliar("SELECT * FROM FICHA_CADASTRO_PAI_CCGF_VF "
-                    + "INNER JOIN FICHA_CADASTRO_PAI_PSICOSOCIAL "
-                    + "ON FICHA_CADASTRO_PAI_CCGF_VF.IdPai=FICHA_CADASTRO_PAI_PSICOSOCIAL.IdPai "
-                    + "WHERE FICHA_CADASTRO_PAI_CCGF_VF.IdPai='" + jCodigoPAI.getText() + "'");
-            ExcluirFamiliar();
-            JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+        buscarAcessoUsuario(telaPaiCCGFFam_PSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiCCGFFam_PSI) && codExcluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            bloquearCampos();
+            bloquearBotoes();
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objSocial2Pai.setIdFamiliar(Integer.parseInt(jIdFamiliarPAI.getText()));
+                controle2.excluirSocial2PsicoSocial(objSocial2Pai);
+                objLog2();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                preencherTabelaFamiliar("SELECT * FROM FICHA_CADASTRO_PAI_CCGF_VF "
+                        + "INNER JOIN FICHA_CADASTRO_PAI_PSICOSOCIAL "
+                        + "ON FICHA_CADASTRO_PAI_CCGF_VF.IdPai=FICHA_CADASTRO_PAI_PSICOSOCIAL.IdPai "
+                        + "WHERE FICHA_CADASTRO_PAI_CCGF_VF.IdPai='" + jCodigoPAI.getText() + "'");
+                ExcluirFamiliar();
+                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a excluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirFamiliarActionPerformed
 
@@ -7453,24 +7502,34 @@ public class TelaPAI_NOVO_Psicologia extends javax.swing.JInternalFrame {
 
     private void jBtAlterarFamiliarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarFamiliarActionPerformed
         // TODO add your handling code here:
-        acao = 6;
-        bloquearCampos();
-        bloquearBotoes();
-        AlterarFamiliar();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaPaiCCGFFam_PSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiCCGFFam_PSI) && codAlterarPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            acao = 6;
+            bloquearCampos();
+            bloquearBotoes();
+            AlterarFamiliar();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
+        }
     }//GEN-LAST:event_jBtAlterarFamiliarActionPerformed
 
     private void jBtNovoFamiliarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoFamiliarActionPerformed
         // TODO add your handling code here:
-        acao = 5;
-        bloquearCampos();
-        bloquearBotoes();
-        NovoFamiliar();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaPaiCCGFFam_PSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiCCGFFam_PSI) && codIncluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            acao = 5;
+            bloquearCampos();
+            bloquearBotoes();
+            NovoFamiliar();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtNovoFamiliarActionPerformed
 
     private void jBtAuditoriaSSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaSSActionPerformed
@@ -7653,103 +7712,123 @@ public class TelaPAI_NOVO_Psicologia extends javax.swing.JInternalFrame {
 
     private void jBtExcluirVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirVisitaActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        bloquearCampos();
-        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                JOptionPane.YES_NO_OPTION);
-        if (resposta == JOptionPane.YES_OPTION) {
-            objSocial2Vista.setIdSol2Visita(idSol2Visita);
-            controlVisita.excluirVisitaPsicoSocial(objSocial2Vista);
-            objLog3();
-            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-            preencherTabelaVisitas("SELECT * FROM FICHA_CADASTRO_PAI_CCGF_VF1 "
-                    + "INNER JOIN FICHA_CADASTRO_PAI_PSICOSOCIAL "
-                    + "ON FICHA_CADASTRO_PAI_CCGF_VF1.IdPai=FICHA_CADASTRO_PAI_PSICOSOCIAL.IdPai "
-                    + "INNER JOIN VISITASINTERNO "
-                    + "ON FICHA_CADASTRO_PAI_CCGF_VF1.IdVisita=VISITASINTERNO.IdVisita "
-                    + "WHERE FICHA_CADASTRO_PAI_CCGF_VF1.IdPai='" + jCodigoPAI.getText() + "'");
-            ExcluirVisita();
-            JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+        buscarAcessoUsuario(telaPaiCCGFVis_PSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiCCGFVis_PSI) && codExcluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            bloquearCampos();
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objSocial2Vista.setIdSol2Visita(idSol2Visita);
+                controlVisita.excluirVisitaPsicoSocial(objSocial2Vista);
+                objLog3();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                preencherTabelaVisitas("SELECT * FROM FICHA_CADASTRO_PAI_CCGF_VF1 "
+                        + "INNER JOIN FICHA_CADASTRO_PAI_PSICOSOCIAL "
+                        + "ON FICHA_CADASTRO_PAI_CCGF_VF1.IdPai=FICHA_CADASTRO_PAI_PSICOSOCIAL.IdPai "
+                        + "INNER JOIN VISITASINTERNO "
+                        + "ON FICHA_CADASTRO_PAI_CCGF_VF1.IdVisita=VISITASINTERNO.IdVisita "
+                        + "WHERE FICHA_CADASTRO_PAI_CCGF_VF1.IdPai='" + jCodigoPAI.getText() + "'");
+                ExcluirVisita();
+                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a excluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirVisitaActionPerformed
 
     private void jBtSalvarVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarVisitaActionPerformed
         // TODO add your handling code here:
-        if (jIdVisitaPAI.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome da visita.");
-        } else if (jNomeVisitaPAI.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome da Visita");
-        } else if (jIdadeVisita.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Informe a idade da visita.");
+        buscarAcessoUsuario(telaPaiCCGFVis_PSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiCCGFVis_PSI) && codGravarPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            if (jIdVisitaPAI.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome da visita.");
+            } else if (jNomeVisitaPAI.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome da Visita");
+            } else if (jIdadeVisita.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe a idade da visita.");
+            } else {
+                objSocial2Vista.setOcupacao(jOcupacaoVisita.getText());
+                objSocial2Vista.setIdade(Integer.valueOf(jIdadeVisita.getText()));
+                objSocial2Vista.setIdPai(Integer.valueOf(jCodigoPAI.getText()));
+                objSocial2Vista.setIdVisita(Integer.valueOf(jIdVisitaPAI.getText()));
+                objSocial2Vista.setNomeVisita(jNomeVisitaPAI.getText());
+                objSocial2Vista.setIdInternoCrc(Integer.valueOf(jIdInternoPAI.getText()));
+                objSocial2Vista.setNomeInternoCrc(jNomeInternoPAI.getText());
+                if (acao == 7) {
+                    objSocial2Vista.setUsuarioInsert(nameUser);
+                    objSocial2Vista.setDataInsert(dataModFinal);
+                    objSocial2Vista.setHorarioInsert(horaMov);
+                    controlVisita.incluirVisitaPsicoSocial(objSocial2Vista);
+                    //
+                    objLog3();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    SalvarVisita();
+                    preencherTabelaVisitas("SELECT * FROM FICHA_CADASTRO_PAI_CCGF_VF1 "
+                            + "INNER JOIN FICHA_CADASTRO_PAI_PSICOSOCIAL "
+                            + "ON FICHA_CADASTRO_PAI_CCGF_VF1.IdPai=FICHA_CADASTRO_PAI_PSICOSOCIAL.IdPai "
+                            + "INNER JOIN VISITASINTERNO "
+                            + "ON FICHA_CADASTRO_PAI_CCGF_VF1.IdVisita=VISITASINTERNO.IdVisita "
+                            + "WHERE FICHA_CADASTRO_PAI_CCGF_VF1.IdPai='" + jCodigoPAI.getText() + "'");
+                    JOptionPane.showMessageDialog(null, "Registro gravado com sucesso.");
+                }
+                if (acao == 8) {
+                    objSocial2Vista.setUsuarioUp(nameUser);
+                    objSocial2Vista.setDataUp(dataModFinal);
+                    objSocial2Vista.setHorarioUp(horaMov);
+                    //
+                    objSocial2Vista.setIdSol2Visita(idSol2Visita);
+                    controlVisita.alterarVisitaPsicoSocial(objSocial2Vista);
+                    //
+                    objLog3();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    SalvarVisita();
+                    preencherTabelaVisitas("SELECT * FROM FICHA_CADASTRO_PAI_CCGF_VF1 "
+                            + "INNER JOIN FICHA_CADASTRO_PAI_PSICOSOCIAL "
+                            + "ON FICHA_CADASTRO_PAI_CCGF_VF1.IdPai=FICHA_CADASTRO_PAI_PSICOSOCIAL.IdPai "
+                            + "INNER JOIN VISITASINTERNO "
+                            + "ON FICHA_CADASTRO_PAI_CCGF_VF1.IdVisita=VISITASINTERNO.IdVisita "
+                            + "WHERE FICHA_CADASTRO_PAI_CCGF_VF1.IdPai='" + jCodigoPAI.getText() + "'");
+                    JOptionPane.showMessageDialog(null, "Registro gravado com sucesso.");
+                }
+            }
         } else {
-            objSocial2Vista.setOcupacao(jOcupacaoVisita.getText());
-            objSocial2Vista.setIdade(Integer.valueOf(jIdadeVisita.getText()));
-            objSocial2Vista.setIdPai(Integer.valueOf(jCodigoPAI.getText()));
-            objSocial2Vista.setIdVisita(Integer.valueOf(jIdVisitaPAI.getText()));
-            objSocial2Vista.setNomeVisita(jNomeVisitaPAI.getText());
-            objSocial2Vista.setIdInternoCrc(Integer.valueOf(jIdInternoPAI.getText()));
-            objSocial2Vista.setNomeInternoCrc(jNomeInternoPAI.getText());
-            if (acao == 7) {
-                objSocial2Vista.setUsuarioInsert(nameUser);
-                objSocial2Vista.setDataInsert(dataModFinal);
-                objSocial2Vista.setHorarioInsert(horaMov);
-                controlVisita.incluirVisitaPsicoSocial(objSocial2Vista);
-                //
-                objLog3();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                SalvarVisita();
-                preencherTabelaVisitas("SELECT * FROM FICHA_CADASTRO_PAI_CCGF_VF1 "
-                        + "INNER JOIN FICHA_CADASTRO_PAI_PSICOSOCIAL "
-                        + "ON FICHA_CADASTRO_PAI_CCGF_VF1.IdPai=FICHA_CADASTRO_PAI_PSICOSOCIAL.IdPai "
-                        + "INNER JOIN VISITASINTERNO "
-                        + "ON FICHA_CADASTRO_PAI_CCGF_VF1.IdVisita=VISITASINTERNO.IdVisita "
-                        + "WHERE FICHA_CADASTRO_PAI_CCGF_VF1.IdPai='" + jCodigoPAI.getText() + "'");
-                JOptionPane.showMessageDialog(null, "Registro gravado com sucesso.");
-            }
-            if (acao == 8) {
-                objSocial2Vista.setUsuarioUp(nameUser);
-                objSocial2Vista.setDataUp(dataModFinal);
-                objSocial2Vista.setHorarioUp(horaMov);
-                //
-                objSocial2Vista.setIdSol2Visita(idSol2Visita);
-                controlVisita.alterarVisitaPsicoSocial(objSocial2Vista);
-                //
-                objLog3();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                SalvarVisita();
-                preencherTabelaVisitas("SELECT * FROM FICHA_CADASTRO_PAI_CCGF_VF1 "
-                        + "INNER JOIN FICHA_CADASTRO_PAI_PSICOSOCIAL "
-                        + "ON FICHA_CADASTRO_PAI_CCGF_VF1.IdPai=FICHA_CADASTRO_PAI_PSICOSOCIAL.IdPai "
-                        + "INNER JOIN VISITASINTERNO "
-                        + "ON FICHA_CADASTRO_PAI_CCGF_VF1.IdVisita=VISITASINTERNO.IdVisita "
-                        + "WHERE FICHA_CADASTRO_PAI_CCGF_VF1.IdPai='" + jCodigoPAI.getText() + "'");
-                JOptionPane.showMessageDialog(null, "Registro gravado com sucesso.");
-            }
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar registro.");
         }
     }//GEN-LAST:event_jBtSalvarVisitaActionPerformed
 
     private void jBtNovaVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaVisitaActionPerformed
         // TODO add your handling code here:
-        acao = 7;
-        bloquearCampos();
-        bloquearBotoes();
-        NovaVisita();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaPaiCCGFVis_PSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiCCGFVis_PSI) && codIncluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            acao = 7;
+            bloquearCampos();
+            bloquearBotoes();
+            NovaVisita();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtNovaVisitaActionPerformed
 
     private void jBtAlterarVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarVisitaActionPerformed
         // TODO add your handling code here:
-        acao = 8;
-        bloquearCampos();
-        bloquearBotoes();
-        AlterarVisita();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaPaiCCGFVis_PSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiCCGFVis_PSI) && codAlterarPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            acao = 8;
+            bloquearCampos();
+            bloquearBotoes();
+            AlterarVisita();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
+        }
     }//GEN-LAST:event_jBtAlterarVisitaActionPerformed
 
     private void jBtAuditoriaVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaVisitaActionPerformed
@@ -7808,56 +7887,61 @@ public class TelaPAI_NOVO_Psicologia extends javax.swing.JInternalFrame {
 
     private void jBtSalvarVisitaIntimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarVisitaIntimaActionPerformed
         // TODO add your handling code here:
-        if (jIdVisitaIntima.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome da visita.");
-        } else if (jNomeVisitaIntima.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome da Visita");
-        } else if (jIdadeVisitaIntima.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Informe a idade da visita.");
+        buscarAcessoUsuario(telaPaiCCGFVisInt_PSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiCCGFVisInt_PSI) && codExcluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            if (jIdVisitaIntima.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome da visita.");
+            } else if (jNomeVisitaIntima.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome da Visita");
+            } else if (jIdadeVisitaIntima.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe a idade da visita.");
+            } else {
+                objSocial2Vista.setOcupacao(jOcupacaoVisitaIntima.getText());
+                objSocial2Vista.setIdade(Integer.valueOf(jIdadeVisitaIntima.getText()));
+                objSocial2Vista.setIdPai(Integer.valueOf(jCodigoPAI.getText()));
+                objSocial2Vista.setIdVisita(Integer.valueOf(jIdVisitaIntima.getText()));
+                objSocial2Vista.setNomeVisita(jNomeVisitaIntima.getText());
+                objSocial2Vista.setIdInternoCrc(Integer.valueOf(jIdInternoPAI.getText()));
+                objSocial2Vista.setNomeInternoCrc(jNomeInternoPAI.getText());
+                if (acao == 9) {
+                    objSocial2Vista.setUsuarioInsert(nameUser);
+                    objSocial2Vista.setDataInsert(dataModFinal);
+                    objSocial2Vista.setHorarioInsert(horaMov);
+                    controlVisitaIntima.incluirVisitaIntimaPsicoSocial(objSocial2Vista);
+                    //
+                    objLog4();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    SalvarVisitaIntima();
+                    preencherTabelaVisitasIntimas("SELECT * FROM FICHA_CADASTRO_PAI_CCGF_VF2 "
+                            + "INNER JOIN FICHA_CADASTRO_PAI_PSICOSOCIAL "
+                            + "ON FICHA_CADASTRO_PAI_CCGF_VF2.IdPai=FICHA_CADASTRO_PAI_PSICOSOCIAL.IdPai "
+                            + "INNER JOIN VISITASINTERNO "
+                            + "ON FICHA_CADASTRO_PAI_CCGF_VF2.IdVisita=VISITASINTERNO.IdVisita "
+                            + "WHERE FICHA_CADASTRO_PAI_CCGF_VF2.IdPai='" + jCodigoPAI.getText() + "'");
+                    JOptionPane.showMessageDialog(null, "Registro gravado com sucesso.");
+                }
+                if (acao == 10) {
+                    objSocial2Vista.setUsuarioUp(nameUser);
+                    objSocial2Vista.setDataUp(dataModFinal);
+                    objSocial2Vista.setHorarioUp(horaMov);
+                    //
+                    objSocial2Vista.setIdSol2Visita(idSol2VisitaIntima);
+                    controlVisitaIntima.alterarVisitaIntimaPsicoSocial(objSocial2Vista);
+                    //
+                    objLog4();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    SalvarVisitaIntima();
+                    preencherTabelaVisitasIntimas("SELECT * FROM FICHA_CADASTRO_PAI_CCGF_VF2 "
+                            + "INNER JOIN FICHA_CADASTRO_PAI_PSICOSOCIAL "
+                            + "ON FICHA_CADASTRO_PAI_CCGF_VF2.IdPai=FICHA_CADASTRO_PAI_PSICOSOCIAL.IdPai "
+                            + "INNER JOIN VISITASINTERNO "
+                            + "ON FICHA_CADASTRO_PAI_CCGF_VF2.IdVisita=VISITASINTERNO.IdVisita "
+                            + "WHERE FICHA_CADASTRO_PAI_CCGF_VF2.IdPai='" + jCodigoPAI.getText() + "'");
+                    JOptionPane.showMessageDialog(null, "Registro gravado com sucesso.");
+                }
+            }
         } else {
-            objSocial2Vista.setOcupacao(jOcupacaoVisitaIntima.getText());
-            objSocial2Vista.setIdade(Integer.valueOf(jIdadeVisitaIntima.getText()));
-            objSocial2Vista.setIdPai(Integer.valueOf(jCodigoPAI.getText()));
-            objSocial2Vista.setIdVisita(Integer.valueOf(jIdVisitaIntima.getText()));
-            objSocial2Vista.setNomeVisita(jNomeVisitaIntima.getText());
-            objSocial2Vista.setIdInternoCrc(Integer.valueOf(jIdInternoPAI.getText()));
-            objSocial2Vista.setNomeInternoCrc(jNomeInternoPAI.getText());
-            if (acao == 9) {
-                objSocial2Vista.setUsuarioInsert(nameUser);
-                objSocial2Vista.setDataInsert(dataModFinal);
-                objSocial2Vista.setHorarioInsert(horaMov);
-                controlVisitaIntima.incluirVisitaIntimaPsicoSocial(objSocial2Vista);
-                //
-                objLog4();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                SalvarVisitaIntima();
-                preencherTabelaVisitasIntimas("SELECT * FROM FICHA_CADASTRO_PAI_CCGF_VF2 "
-                        + "INNER JOIN FICHA_CADASTRO_PAI_PSICOSOCIAL "
-                        + "ON FICHA_CADASTRO_PAI_CCGF_VF2.IdPai=FICHA_CADASTRO_PAI_PSICOSOCIAL.IdPai "
-                        + "INNER JOIN VISITASINTERNO "
-                        + "ON FICHA_CADASTRO_PAI_CCGF_VF2.IdVisita=VISITASINTERNO.IdVisita "
-                        + "WHERE FICHA_CADASTRO_PAI_CCGF_VF2.IdPai='" + jCodigoPAI.getText() + "'");
-                JOptionPane.showMessageDialog(null, "Registro gravado com sucesso.");
-            }
-            if (acao == 10) {
-                objSocial2Vista.setUsuarioUp(nameUser);
-                objSocial2Vista.setDataUp(dataModFinal);
-                objSocial2Vista.setHorarioUp(horaMov);
-                //
-                objSocial2Vista.setIdSol2Visita(idSol2VisitaIntima);
-                controlVisitaIntima.alterarVisitaIntimaPsicoSocial(objSocial2Vista);
-                //
-                objLog4();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                SalvarVisitaIntima();
-                preencherTabelaVisitasIntimas("SELECT * FROM FICHA_CADASTRO_PAI_CCGF_VF2 "
-                        + "INNER JOIN FICHA_CADASTRO_PAI_PSICOSOCIAL "
-                        + "ON FICHA_CADASTRO_PAI_CCGF_VF2.IdPai=FICHA_CADASTRO_PAI_PSICOSOCIAL.IdPai "
-                        + "INNER JOIN VISITASINTERNO "
-                        + "ON FICHA_CADASTRO_PAI_CCGF_VF2.IdVisita=VISITASINTERNO.IdVisita "
-                        + "WHERE FICHA_CADASTRO_PAI_CCGF_VF2.IdPai='" + jCodigoPAI.getText() + "'");
-                JOptionPane.showMessageDialog(null, "Registro gravado com sucesso.");
-            }
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar registro.");
         }
     }//GEN-LAST:event_jBtSalvarVisitaIntimaActionPerformed
 
@@ -7868,36 +7952,46 @@ public class TelaPAI_NOVO_Psicologia extends javax.swing.JInternalFrame {
 
     private void jBtAlterarVisitaIntimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarVisitaIntimaActionPerformed
         // TODO add your handling code here:
-        acao = 10;
-        bloquearCampos();
-        AlterarVisitaIntima();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaPaiCCGFVisInt_PSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiCCGFVisInt_PSI) && codAlterarPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            acao = 10;
+            bloquearCampos();
+            AlterarVisitaIntima();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
+        }
     }//GEN-LAST:event_jBtAlterarVisitaIntimaActionPerformed
 
     private void jBtExcluirVisitaIntimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirVisitaIntimaActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        bloquearCampos();
-        bloquearBotoes();
-        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                JOptionPane.YES_NO_OPTION);
-        if (resposta == JOptionPane.YES_OPTION) {
-            objSocial2Vista.setIdSol2Visita(idSol2VisitaIntima);
-            controlVisitaIntima.excluirVisitaIntimaPsicoSocial(objSocial2Vista);
-            objLog4();
-            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-            preencherTabelaVisitasIntimas("SELECT * FROM FICHA_CADASTRO_PAI_CCGF_VF2 "
-                    + "INNER JOIN FICHA_CADASTRO_PAI_PSICOSOCIAL "
-                    + "ON FICHA_CADASTRO_PAI_CCGF_VF2.IdPai=FICHA_CADASTRO_PAI_PSICOSOCIAL.IdPai "
-                    + "INNER JOIN VISITASINTERNO "
-                    + "ON FICHA_CADASTRO_PAI_CCGF_VF2.IdVisita=VISITASINTERNO.IdVisita "
-                    + "WHERE FICHA_CADASTRO_PAI_CCGF_VF2.IdPai='" + jCodigoPAI.getText() + "'");
-            ExcluirVisitaIntima();
-            JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+        buscarAcessoUsuario(telaPaiCCGFVisInt_PSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiCCGFVisInt_PSI) && codExcluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            bloquearCampos();
+            bloquearBotoes();
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objSocial2Vista.setIdSol2Visita(idSol2VisitaIntima);
+                controlVisitaIntima.excluirVisitaIntimaPsicoSocial(objSocial2Vista);
+                objLog4();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                preencherTabelaVisitasIntimas("SELECT * FROM FICHA_CADASTRO_PAI_CCGF_VF2 "
+                        + "INNER JOIN FICHA_CADASTRO_PAI_PSICOSOCIAL "
+                        + "ON FICHA_CADASTRO_PAI_CCGF_VF2.IdPai=FICHA_CADASTRO_PAI_PSICOSOCIAL.IdPai "
+                        + "INNER JOIN VISITASINTERNO "
+                        + "ON FICHA_CADASTRO_PAI_CCGF_VF2.IdVisita=VISITASINTERNO.IdVisita "
+                        + "WHERE FICHA_CADASTRO_PAI_CCGF_VF2.IdPai='" + jCodigoPAI.getText() + "'");
+                ExcluirVisitaIntima();
+                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a excluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirVisitaIntimaActionPerformed
 
@@ -7910,12 +8004,17 @@ public class TelaPAI_NOVO_Psicologia extends javax.swing.JInternalFrame {
 
     private void jBtNovaVisitaIntimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaVisitaIntimaActionPerformed
         // TODO add your handling code here:
-        acao = 9;
-        bloquearCampos();
-        NovaVisitaIntima();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaPaiCCGFVisInt_PSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiCCGFVisInt_PSI) && codIncluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            acao = 9;
+            bloquearCampos();
+            NovaVisitaIntima();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtNovaVisitaIntimaActionPerformed
 
     private void jBtAuditoriaTOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaTOActionPerformed
@@ -7927,95 +8026,115 @@ public class TelaPAI_NOVO_Psicologia extends javax.swing.JInternalFrame {
 
     private void jBtNovoTOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoTOActionPerformed
         // TODO add your handling code here:
-        acao = 11;
-        bloquearCampos();
-        NovoTOPed();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaPaiDEME_PSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiDEME_PSI) && codIncluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            acao = 11;
+            bloquearCampos();
+            NovoTOPed();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtNovoTOActionPerformed
 
     private void jBtAlterarTOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarTOActionPerformed
         // TODO add your handling code here:
-        acao = 12;
-        bloquearCampos();
-        AlterarTOPed();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaPaiDEME_PSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiDEME_PSI) && codAlterarPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            acao = 12;
+            bloquearCampos();
+            AlterarTOPed();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtAlterarTOActionPerformed
 
     private void jBtExcluirTOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirTOActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                JOptionPane.YES_NO_OPTION);
-        if (resposta == JOptionPane.YES_OPTION) {
-            objFichaDeme.setIdPai(Integer.parseInt(jCodigoPAI.getText()));
-            controle3.excluirPAI_DEME(objFichaDeme);
-            objLog5();
-            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-            bloquearCampos();
-            ExcluirTOPed();
-            JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+        buscarAcessoUsuario(telaPaiDEME_PSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiDEME_PSI) && codExcluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objFichaDeme.setIdPai(Integer.parseInt(jCodigoPAI.getText()));
+                controle3.excluirPAI_DEME(objFichaDeme);
+                objLog5();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                bloquearCampos();
+                ExcluirTOPed();
+                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirTOActionPerformed
 
     private void jBtSalvarTOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarTOActionPerformed
         // TODO add your handling code here:
-        verificarTOPED();
-        objFichaDeme.setIdPai(Integer.valueOf(jCodigoPAI.getText()));
-        objFichaDeme.setIdInternoCrc(Integer.valueOf(jIdInternoPAI.getText()));
-        objFichaDeme.setNomeInternoCrc(jNomeInternoPAI.getText());
-        objFichaDeme.setNecessitaFamilia((String) jComboBoxNecessitaFamilia.getSelectedItem());
-        objFichaDeme.setParaQuemFamilia(jParaQuemFamilia.getText());
-        objFichaDeme.setEstaGravida((String) jComboBoxEstaGravida.getSelectedItem());
-        objFichaDeme.setComprovacao((String) jComboBoxComprovacao.getSelectedItem());
-        objFichaDeme.setPreNatal((String) jComboBoxPreNatal.getSelectedItem());
-        objFichaDeme.setOndePreNatal(jOndePreNatal.getText());
-        objFichaDeme.setDestinoBebe((String) jComboBoxDestinoBebe.getSelectedItem());
-        objFichaDeme.setSuspeitaGravidez((String) jComboBoxSuspeitaGravidez.getSelectedItem());
-        objFichaDeme.setQuantosPartos(Integer.valueOf(jQuantosPartos.getText()));
-        objFichaDeme.setQuantosAbortos(Integer.valueOf(jQuantosAbortos.getText()));
-        objFichaDeme.setQuantosPartosNornais(Integer.valueOf(jQuantosPartosNornais.getText()));
-        objFichaDeme.setQuantasCesarianas(Integer.valueOf(jQuantasCesarianas.getText()));
-        objFichaDeme.setContraceptivos((String) jComboBoxContraceptivos.getSelectedItem());
-        objFichaDeme.setQualContraceptivos(jQualContraceptivos.getText());
-        objFichaDeme.setDemanda((String) jComboBoxDemanda.getSelectedItem());
-        objFichaDeme.setQualDemanda(jQualDemanda.getText());
-        objFichaDeme.setInstrucao((String) jComboBoxInstrucao.getSelectedItem());
-        objFichaDeme.setEstudandoPreso((String) jComboBoxEstudandoPreso.getSelectedItem());
-        objFichaDeme.setParticipouPrisional((String) jComboBoxParticipouPrisional.getSelectedItem());
-        objFichaDeme.setGostariaPrisional((String) jComboBoxGostariaPrisional.getSelectedItem());
-        if (acao == 11) {
-            if (objFichaDeme.getIdPai() == codigoPaiTOPED && objFichaDeme.getIdInternoCrc() == codigoInternoTOPED) {
-                JOptionPane.showMessageDialog(rootPane, "Já foi realizado um registro para esse interno.");
-            } else {
-                objFichaDeme.setUsuarioInsert(nameUser);
-                objFichaDeme.setDataInsert(dataModFinal);
-                objFichaDeme.setHorarioInsert(horaMov);
-                controle3.incluirPAI_DEME(objFichaDeme);
-                buscarCodTOPED();
+        buscarAcessoUsuario(telaPaiDEME_PSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiDEME_PSI) && codGravarPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            verificarTOPED();
+            objFichaDeme.setIdPai(Integer.valueOf(jCodigoPAI.getText()));
+            objFichaDeme.setIdInternoCrc(Integer.valueOf(jIdInternoPAI.getText()));
+            objFichaDeme.setNomeInternoCrc(jNomeInternoPAI.getText());
+            objFichaDeme.setNecessitaFamilia((String) jComboBoxNecessitaFamilia.getSelectedItem());
+            objFichaDeme.setParaQuemFamilia(jParaQuemFamilia.getText());
+            objFichaDeme.setEstaGravida((String) jComboBoxEstaGravida.getSelectedItem());
+            objFichaDeme.setComprovacao((String) jComboBoxComprovacao.getSelectedItem());
+            objFichaDeme.setPreNatal((String) jComboBoxPreNatal.getSelectedItem());
+            objFichaDeme.setOndePreNatal(jOndePreNatal.getText());
+            objFichaDeme.setDestinoBebe((String) jComboBoxDestinoBebe.getSelectedItem());
+            objFichaDeme.setSuspeitaGravidez((String) jComboBoxSuspeitaGravidez.getSelectedItem());
+            objFichaDeme.setQuantosPartos(Integer.valueOf(jQuantosPartos.getText()));
+            objFichaDeme.setQuantosAbortos(Integer.valueOf(jQuantosAbortos.getText()));
+            objFichaDeme.setQuantosPartosNornais(Integer.valueOf(jQuantosPartosNornais.getText()));
+            objFichaDeme.setQuantasCesarianas(Integer.valueOf(jQuantasCesarianas.getText()));
+            objFichaDeme.setContraceptivos((String) jComboBoxContraceptivos.getSelectedItem());
+            objFichaDeme.setQualContraceptivos(jQualContraceptivos.getText());
+            objFichaDeme.setDemanda((String) jComboBoxDemanda.getSelectedItem());
+            objFichaDeme.setQualDemanda(jQualDemanda.getText());
+            objFichaDeme.setInstrucao((String) jComboBoxInstrucao.getSelectedItem());
+            objFichaDeme.setEstudandoPreso((String) jComboBoxEstudandoPreso.getSelectedItem());
+            objFichaDeme.setParticipouPrisional((String) jComboBoxParticipouPrisional.getSelectedItem());
+            objFichaDeme.setGostariaPrisional((String) jComboBoxGostariaPrisional.getSelectedItem());
+            if (acao == 11) {
+                if (objFichaDeme.getIdPai() == codigoPaiTOPED && objFichaDeme.getIdInternoCrc() == codigoInternoTOPED) {
+                    JOptionPane.showMessageDialog(rootPane, "Já foi realizado um registro para esse interno.");
+                } else {
+                    objFichaDeme.setUsuarioInsert(nameUser);
+                    objFichaDeme.setDataInsert(dataModFinal);
+                    objFichaDeme.setHorarioInsert(horaMov);
+                    controle3.incluirPAI_DEME(objFichaDeme);
+                    buscarCodTOPED();
+                    objLog5();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    SalvarTOPed();
+                    verificarRegistrosTodasAbas();
+                    JOptionPane.showMessageDialog(null, "Registro gravado com sucesso.");
+                }
+            }
+            if (acao == 12) {
+                objFichaDeme.setUsuarioUp(nameUser);
+                objFichaDeme.setDataUp(dataModFinal);
+                objFichaDeme.setHorarioUp(horaMov);
+                objFichaDeme.setIdDEME(codTeraPed);
+                controle3.alterarPAI_DEME(objFichaDeme);
                 objLog5();
                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                 SalvarTOPed();
                 verificarRegistrosTodasAbas();
                 JOptionPane.showMessageDialog(null, "Registro gravado com sucesso.");
             }
-        }
-        if (acao == 12) {
-            objFichaDeme.setUsuarioUp(nameUser);
-            objFichaDeme.setDataUp(dataModFinal);
-            objFichaDeme.setHorarioUp(horaMov);
-            objFichaDeme.setIdDEME(codTeraPed);
-            controle3.alterarPAI_DEME(objFichaDeme);
-            objLog5();
-            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-            SalvarTOPed();
-            verificarRegistrosTodasAbas();
-            JOptionPane.showMessageDialog(null, "Registro gravado com sucesso.");
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
     }//GEN-LAST:event_jBtSalvarTOActionPerformed
 
@@ -8038,86 +8157,118 @@ public class TelaPAI_NOVO_Psicologia extends javax.swing.JInternalFrame {
 
     private void jBtNovoPSIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoPSIActionPerformed
         // TODO add your handling code here:
-        acao = 13;
-        bloquearCampos();
-        NovoPSI();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaPaiDPTL_PSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiDPTL_PSI) && codIncluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            acao = 13;
+            bloquearCampos();
+            NovoPSI();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtNovoPSIActionPerformed
 
     private void jBtAlterarPSIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarPSIActionPerformed
         // TODO add your handling code here:
-        acao = 14;
-        bloquearCampos();
-        AlterarPSI();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaPaiDPTL_PSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiDPTL_PSI) && codAlterarPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            acao = 14;
+            bloquearCampos();
+            AlterarPSI();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
+        }
     }//GEN-LAST:event_jBtAlterarPSIActionPerformed
 
     private void jBtExcluirPSIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirPSIActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                JOptionPane.YES_NO_OPTION);
-        if (resposta == JOptionPane.YES_OPTION) {
-            objFichaDPTL.setIdPai(Integer.parseInt(jCodigoPAI.getText()));
-            controle4.excluirPAI_DPTL(objFichaDPTL);
-            objLog6();
-            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-            bloquearCampos();
-            ExcluirPSI();
-            JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+        buscarAcessoUsuario(telaPaiDPTL_PSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiDPTL_PSI) && codExcluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objFichaDPTL.setIdPai(Integer.parseInt(jCodigoPAI.getText()));
+                controle4.excluirPAI_DPTL(objFichaDPTL);
+                objLog6();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                bloquearCampos();
+                ExcluirPSI();
+                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a excluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirPSIActionPerformed
 
     private void jBtSalvarPSIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarPSIActionPerformed
         // TODO add your handling code here:
-        DecimalFormat valorReal = new DecimalFormat("#,###.00");
-        valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
-        verificarCodigoPSI();
-        objFichaDPTL.setProfissaoOcupacao(jProfissaoOcupacao.getText());
-        objFichaDPTL.setTrabalhaDetido((String) jComboBoxTrabalhaDetido.getSelectedItem());
-        objFichaDPTL.setDesempregado((String) jComboBoxDesempregado.getSelectedItem());
-        objFichaDPTL.setCarteiraAssinada((String) jComboBoxCarteiraAssinada.getSelectedItem());
-        objFichaDPTL.setQuantoTempoCarteira(Integer.valueOf(jQuantoTempoCarteira.getText()));
-        try {
-            objFichaDPTL.setFaixaSalarial(valorReal.parse(jFaixaSalarial.getText()).doubleValue());
-        } catch (ParseException ex) {
-            Logger.getLogger(TelaInventarioProdutosAC.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        objFichaDPTL.setTemBeneficios((String) jComboBoxTemBeneficios.getSelectedItem());
-        objFichaDPTL.setQuemTemBeneficios(jQuemTemBeneficios.getText());
-        objFichaDPTL.setDemandaReclusao((String) jComboBoxDemanda.getSelectedItem());
-        objFichaDPTL.setDemandaDesemprego((String) jComboBoxDemandaDesemprego.getSelectedItem());
-        objFichaDPTL.setPossuiRedimento((String) jComboBoxPossuiRedimento.getSelectedItem());
-        objFichaDPTL.setQualRendimento(jQualRendimento.getText());
-        objFichaDPTL.setExerceAtividade((String) jComboBoxExerceAtividade.getSelectedItem());
-        objFichaDPTL.setQualAtividadeExerce(jQualAtividadeExerce.getText());
-        objFichaDPTL.setGeracaoRenda((String) jComboBoxGeracaoRenda.getSelectedItem());
-        objFichaDPTL.setAptidaoProfissional((String) jComboBoxAptidaoProfissional.getSelectedItem());
-        objFichaDPTL.setQualAptidao(jQualAptidao.getText());
-        objFichaDPTL.setDemandaProfissional((String) jComboBoxDemandaProfissional.getSelectedItem());
-        objFichaDPTL.setQualDemandaProfissional(jQualDemandaProfissional.getText());
-        objFichaDPTL.setAptidaoArt((String) jComboBoxAptidaoArt.getSelectedItem());
-        objFichaDPTL.setQualAptidaoArt(jQualAptidaoArt.getText());
-        objFichaDPTL.setDemandaLazer((String) jComboBoxDemandaLazer.getSelectedItem());
-        objFichaDPTL.setQualDemandaLazer(jQualDemandaLazer.getText());
-        objFichaDPTL.setIdPai(Integer.valueOf(jCodigoPAI.getText()));
-        objFichaDPTL.setIdInternoCrc(Integer.valueOf(jIdInternoPAI.getText()));
-        objFichaDPTL.setNomeInternoCrc(jNomeInternoPAI.getText());
-        if (acao == 13) {
-            if (objFichaDPTL.getIdPai() == codigoPaiPSI && objFichaDPTL.getIdInternoCrc() == codigoInternoPSI) {
-                JOptionPane.showMessageDialog(rootPane, "Já foi realizado um registro para esse interno.");
-            } else {
-                objFichaDPTL.setUsuarioInsert(nameUser);
-                objFichaDPTL.setDataInsert(dataModFinal);
-                objFichaDPTL.setHorarioInsert(horaMov);
-                controle4.incluirPAI_DPTL(objFichaDPTL);
-                buscarCodigoPSI();
+        buscarAcessoUsuario(telaPaiDPTL_PSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiDPTL_PSI) && codGravarPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            DecimalFormat valorReal = new DecimalFormat("#,###.00");
+            valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
+            verificarCodigoPSI();
+            objFichaDPTL.setProfissaoOcupacao(jProfissaoOcupacao.getText());
+            objFichaDPTL.setTrabalhaDetido((String) jComboBoxTrabalhaDetido.getSelectedItem());
+            objFichaDPTL.setDesempregado((String) jComboBoxDesempregado.getSelectedItem());
+            objFichaDPTL.setCarteiraAssinada((String) jComboBoxCarteiraAssinada.getSelectedItem());
+            objFichaDPTL.setQuantoTempoCarteira(Integer.valueOf(jQuantoTempoCarteira.getText()));
+            try {
+                objFichaDPTL.setFaixaSalarial(valorReal.parse(jFaixaSalarial.getText()).doubleValue());
+            } catch (ParseException ex) {
+                Logger.getLogger(TelaInventarioProdutosAC.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            objFichaDPTL.setTemBeneficios((String) jComboBoxTemBeneficios.getSelectedItem());
+            objFichaDPTL.setQuemTemBeneficios(jQuemTemBeneficios.getText());
+            objFichaDPTL.setDemandaReclusao((String) jComboBoxDemanda.getSelectedItem());
+            objFichaDPTL.setDemandaDesemprego((String) jComboBoxDemandaDesemprego.getSelectedItem());
+            objFichaDPTL.setPossuiRedimento((String) jComboBoxPossuiRedimento.getSelectedItem());
+            objFichaDPTL.setQualRendimento(jQualRendimento.getText());
+            objFichaDPTL.setExerceAtividade((String) jComboBoxExerceAtividade.getSelectedItem());
+            objFichaDPTL.setQualAtividadeExerce(jQualAtividadeExerce.getText());
+            objFichaDPTL.setGeracaoRenda((String) jComboBoxGeracaoRenda.getSelectedItem());
+            objFichaDPTL.setAptidaoProfissional((String) jComboBoxAptidaoProfissional.getSelectedItem());
+            objFichaDPTL.setQualAptidao(jQualAptidao.getText());
+            objFichaDPTL.setDemandaProfissional((String) jComboBoxDemandaProfissional.getSelectedItem());
+            objFichaDPTL.setQualDemandaProfissional(jQualDemandaProfissional.getText());
+            objFichaDPTL.setAptidaoArt((String) jComboBoxAptidaoArt.getSelectedItem());
+            objFichaDPTL.setQualAptidaoArt(jQualAptidaoArt.getText());
+            objFichaDPTL.setDemandaLazer((String) jComboBoxDemandaLazer.getSelectedItem());
+            objFichaDPTL.setQualDemandaLazer(jQualDemandaLazer.getText());
+            objFichaDPTL.setIdPai(Integer.valueOf(jCodigoPAI.getText()));
+            objFichaDPTL.setIdInternoCrc(Integer.valueOf(jIdInternoPAI.getText()));
+            objFichaDPTL.setNomeInternoCrc(jNomeInternoPAI.getText());
+            if (acao == 13) {
+                if (objFichaDPTL.getIdPai() == codigoPaiPSI && objFichaDPTL.getIdInternoCrc() == codigoInternoPSI) {
+                    JOptionPane.showMessageDialog(rootPane, "Já foi realizado um registro para esse interno.");
+                } else {
+                    objFichaDPTL.setUsuarioInsert(nameUser);
+                    objFichaDPTL.setDataInsert(dataModFinal);
+                    objFichaDPTL.setHorarioInsert(horaMov);
+                    controle4.incluirPAI_DPTL(objFichaDPTL);
+                    buscarCodigoPSI();
+                    //
+                    objLog6();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    SalvarPSI();
+                    verificarRegistrosTodasAbas();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
+                }
+            }
+            if (acao == 14) {
+                objFichaDPTL.setUsuarioUp(nameUser);
+                objFichaDPTL.setDataUp(dataModFinal);
+                objFichaDPTL.setHorarioUp(horaMov);
+                //
+                objFichaDPTL.setIdPai(Integer.valueOf(jCodigoPAI.getText()));
+                controle4.alterarPAI_DPTL(objFichaDPTL);
                 //
                 objLog6();
                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -8125,20 +8276,8 @@ public class TelaPAI_NOVO_Psicologia extends javax.swing.JInternalFrame {
                 verificarRegistrosTodasAbas();
                 JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
             }
-        }
-        if (acao == 14) {
-            objFichaDPTL.setUsuarioUp(nameUser);
-            objFichaDPTL.setDataUp(dataModFinal);
-            objFichaDPTL.setHorarioUp(horaMov);
-            //
-            objFichaDPTL.setIdPai(Integer.valueOf(jCodigoPAI.getText()));
-            controle4.alterarPAI_DPTL(objFichaDPTL);
-            //
-            objLog6();
-            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-            SalvarPSI();
-            verificarRegistrosTodasAbas();
-            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar registro.");
         }
     }//GEN-LAST:event_jBtSalvarPSIActionPerformed
 
@@ -8161,104 +8300,123 @@ public class TelaPAI_NOVO_Psicologia extends javax.swing.JInternalFrame {
 
     private void jBtNovoDJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoDJActionPerformed
         // TODO add your handling code here:
-        acao = 17;
-        bloquearCampos();
-        bloquearBotoes();
-        NovoDJ();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaPaiDJ_PSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiDJ_PSI) && codIncluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            acao = 17;
+            bloquearCampos();
+            bloquearBotoes();
+            NovoDJ();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtNovoDJActionPerformed
 
     private void jBtAlterarDJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarDJActionPerformed
         // TODO add your handling code here:
-        acao = 18;
-        bloquearCampos();
-        bloquearBotoes();
-        AlterarDJ();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaPaiDJ_PSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiDJ_PSI) && codAlterarPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            acao = 18;
+            bloquearCampos();
+            bloquearBotoes();
+            AlterarDJ();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
+        }
     }//GEN-LAST:event_jBtAlterarDJActionPerformed
 
     private void jBtExcluirDJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirDJActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                JOptionPane.YES_NO_OPTION);
-        if (resposta == JOptionPane.YES_OPTION) {
-            objFichaDJ.setIdPai(Integer.parseInt(jCodigoPAI.getText()));
-            controle5.excluirPAI_DJ(objFichaDJ);
-            objLog7();
-            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-            bloquearCampos();
-            ExcluirDJ();
-            JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+        buscarAcessoUsuario(telaPaiDJ_PSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiDJ_PSI) && codExcluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objFichaDJ.setIdPai(Integer.parseInt(jCodigoPAI.getText()));
+                controle5.excluirPAI_DJ(objFichaDJ);
+                objLog7();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                bloquearCampos();
+                ExcluirDJ();
+                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a excluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirDJActionPerformed
 
     private void jBtSalvarDJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarDJActionPerformed
         // TODO add your handling code here:
-        verificarCodigoDJ();
-        objFichaDJ.setIdPai(Integer.valueOf(jCodigoPAI.getText()));
-        objFichaDJ.setIdInternoCrc(Integer.valueOf(jIdInternoPAI.getText()));
-        objFichaDJ.setNomeInternoCrc(jNomeInternoPAI.getText());
-        //
-        objFichaDJ.setRegimeAprisionamento((String) jComboBoxRegimeAprisionamento.getSelectedItem());
-        objFichaDJ.setArtigo(Integer.valueOf(jArtigo.getText()));
-        objFichaDJ.setDelito(jDelito.getText());
-        objFichaDJ.setReincidente((String) jComboBoxReincidente.getSelectedItem());
-        objFichaDJ.setPossuiPena((String) jComboBoxPossuiPena.getSelectedItem());
-        objFichaDJ.setQualPena((String) jComboBoxQualPena.getSelectedItem());
-        objFichaDJ.setPossuiJuridica((String) jComboBoxPossuiJuridica.getSelectedItem());
-        objFichaDJ.setQualAssistenciaJuridica((String) jComboBoxQualAssistenciaJuridica.getSelectedItem());
-        objFichaDJ.setpROMAE((String) jComboBoxPROMAE.getSelectedItem());
-        objFichaDJ.setAssistenciaJuridica((String) jComboBoxAssistenciaJuridica.getSelectedItem());
-        objFichaDJ.setTrabalhaempresa((String) jComboBoxTrabalhaempresa.getSelectedItem());
-        objFichaDJ.setTelefoneContatoEmpresa(jTelefoneContatoEmpresa.getText());
-        objFichaDJ.setQualEmpresa(jQualEmpresa.getText());
-        objFichaDJ.setQualFuncaoExerce(jQualFuncaoExerce.getText());
-        objFichaDJ.setCartaInformal((String) jComboBoxCartaInformal.getSelectedItem());
-        objFichaDJ.setParaOnde(jParaOnde.getText());
-        objFichaDJ.setTelefoneContato(jTelefoneContato.getText());
-        objFichaDJ.setEstudaUP((String) jComboBoxEstudaUP.getSelectedItem());
-        objFichaDJ.setOndeEstuda(jOndeEstuda.getText());
-        objFichaDJ.setNecessitaTrabalho((String) jComboBoxNecessitaTrabalho.getSelectedItem());
-        objFichaDJ.setQualNecessitaTrabalho(jQualNecessitaTrabalho.getText());
-        objFichaDJ.setNecessitaEstudaFUP((String) jComboBoxNecessitaEstudaFUP.getSelectedItem());
-        objFichaDJ.setQualNecessidadeEstudaFUP(jQualNecessidadeEstudaFUP.getText());
-        //
-        if (acao == 17) {
-            if (objFichaDJ.getIdPai() == codigoPaiDJ && objFichaDJ.getIdInternoCrc() == codigoInternoDJ) {
-                JOptionPane.showMessageDialog(rootPane, "Já foi realizado um registro para esse interno.");
-            } else {
-                objFichaDJ.setUsuarioInsert(nameUser);
-                objFichaDJ.setDataInsert(dataModFinal);
-                objFichaDJ.setHorarioInsert(horaMov);
-                controle5.incluirPAI_DJ(objFichaDJ);
-                buscarCodigoDJ();
+        buscarAcessoUsuario(telaPaiDJ_PSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiDJ_PSI) && codGravarPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            verificarCodigoDJ();
+            objFichaDJ.setIdPai(Integer.valueOf(jCodigoPAI.getText()));
+            objFichaDJ.setIdInternoCrc(Integer.valueOf(jIdInternoPAI.getText()));
+            objFichaDJ.setNomeInternoCrc(jNomeInternoPAI.getText());
+            //
+            objFichaDJ.setRegimeAprisionamento((String) jComboBoxRegimeAprisionamento.getSelectedItem());
+            objFichaDJ.setArtigo(Integer.valueOf(jArtigo.getText()));
+            objFichaDJ.setDelito(jDelito.getText());
+            objFichaDJ.setReincidente((String) jComboBoxReincidente.getSelectedItem());
+            objFichaDJ.setPossuiPena((String) jComboBoxPossuiPena.getSelectedItem());
+            objFichaDJ.setQualPena((String) jComboBoxQualPena.getSelectedItem());
+            objFichaDJ.setPossuiJuridica((String) jComboBoxPossuiJuridica.getSelectedItem());
+            objFichaDJ.setQualAssistenciaJuridica((String) jComboBoxQualAssistenciaJuridica.getSelectedItem());
+            objFichaDJ.setpROMAE((String) jComboBoxPROMAE.getSelectedItem());
+            objFichaDJ.setAssistenciaJuridica((String) jComboBoxAssistenciaJuridica.getSelectedItem());
+            objFichaDJ.setTrabalhaempresa((String) jComboBoxTrabalhaempresa.getSelectedItem());
+            objFichaDJ.setTelefoneContatoEmpresa(jTelefoneContatoEmpresa.getText());
+            objFichaDJ.setQualEmpresa(jQualEmpresa.getText());
+            objFichaDJ.setQualFuncaoExerce(jQualFuncaoExerce.getText());
+            objFichaDJ.setCartaInformal((String) jComboBoxCartaInformal.getSelectedItem());
+            objFichaDJ.setParaOnde(jParaOnde.getText());
+            objFichaDJ.setTelefoneContato(jTelefoneContato.getText());
+            objFichaDJ.setEstudaUP((String) jComboBoxEstudaUP.getSelectedItem());
+            objFichaDJ.setOndeEstuda(jOndeEstuda.getText());
+            objFichaDJ.setNecessitaTrabalho((String) jComboBoxNecessitaTrabalho.getSelectedItem());
+            objFichaDJ.setQualNecessitaTrabalho(jQualNecessitaTrabalho.getText());
+            objFichaDJ.setNecessitaEstudaFUP((String) jComboBoxNecessitaEstudaFUP.getSelectedItem());
+            objFichaDJ.setQualNecessidadeEstudaFUP(jQualNecessidadeEstudaFUP.getText());
+            //
+            if (acao == 17) {
+                if (objFichaDJ.getIdPai() == codigoPaiDJ && objFichaDJ.getIdInternoCrc() == codigoInternoDJ) {
+                    JOptionPane.showMessageDialog(rootPane, "Já foi realizado um registro para esse interno.");
+                } else {
+                    objFichaDJ.setUsuarioInsert(nameUser);
+                    objFichaDJ.setDataInsert(dataModFinal);
+                    objFichaDJ.setHorarioInsert(horaMov);
+                    controle5.incluirPAI_DJ(objFichaDJ);
+                    buscarCodigoDJ();
+                    objLog7();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    SalvarDJ();
+                    verificarRegistrosTodasAbas();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
+                }
+            }
+            if (acao == 18) {
+                objFichaDJ.setUsuarioUp(nameUser);
+                objFichaDJ.setDataUp(dataModFinal);
+                objFichaDJ.setHorarioUp(horaMov);
+                objFichaDJ.setIdPai(Integer.valueOf(jCodigoPAI.getText()));
+                controle5.alterarPAI_DJ(objFichaDJ);
                 objLog7();
                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                 SalvarDJ();
                 verificarRegistrosTodasAbas();
                 JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar registro.");
         }
-        if (acao == 18) {
-            objFichaDJ.setUsuarioUp(nameUser);
-            objFichaDJ.setDataUp(dataModFinal);
-            objFichaDJ.setHorarioUp(horaMov);
-            objFichaDJ.setIdPai(Integer.valueOf(jCodigoPAI.getText()));
-            controle5.alterarPAI_DJ(objFichaDJ);
-            objLog7();
-            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-            SalvarDJ();
-            verificarRegistrosTodasAbas();
-            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
-        }
-
     }//GEN-LAST:event_jBtSalvarDJActionPerformed
 
     private void jBtCancelarDJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarDJActionPerformed
@@ -8280,311 +8438,331 @@ public class TelaPAI_NOVO_Psicologia extends javax.swing.JInternalFrame {
 
     private void jBtNovoSS3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoSS3ActionPerformed
         // TODO add your handling code here:
-        acao = 19;
-        bloquearCampos();
-        bloquearBotoes();
-        NovoSS3();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaPaiDS_PSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiDS_PSI) && codIncluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            acao = 19;
+            bloquearCampos();
+            bloquearBotoes();
+            NovoSS3();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtNovoSS3ActionPerformed
 
     private void jBtAlterarSS3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarSS3ActionPerformed
         // TODO add your handling code here:
-        acao = 20;
-        bloquearCampos();
-        bloquearBotoes();
-        AlterarSS3();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaPaiDS_PSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiDS_PSI) && codAlterarPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            acao = 20;
+            bloquearCampos();
+            bloquearBotoes();
+            AlterarSS3();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
+        }
     }//GEN-LAST:event_jBtAlterarSS3ActionPerformed
 
     private void jBtExcluirSS3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirSS3ActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                JOptionPane.YES_NO_OPTION);
-        if (resposta == JOptionPane.YES_OPTION) {
-            objFichaDS.setIdPai(Integer.parseInt(jCodigoPAI.getText()));
-            controle6.excluirPAI_DS(objFichaDS);
-            objLog8();
-            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-            bloquearCampos();
-            bloquearBotoes();
-            ExcluirSS3();
-            JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+        buscarAcessoUsuario(telaPaiDS_PSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiDS_PSI) && codExcluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objFichaDS.setIdPai(Integer.parseInt(jCodigoPAI.getText()));
+                controle6.excluirPAI_DS(objFichaDS);
+                objLog8();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                bloquearCampos();
+                bloquearBotoes();
+                ExcluirSS3();
+                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a excluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirSS3ActionPerformed
 
     private void jBtSalvarSS3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarSS3ActionPerformed
         // TODO add your handling code here:
-        verificarCodigoSS3();
-        objFichaDS.setIdPai(Integer.valueOf(jCodigoPAI.getText()));
-        objFichaDS.setIdInternoCrc(Integer.valueOf(jIdInternoPAI.getText()));
-        objFichaDS.setNomeInternoCrc(jNomeInternoPAI.getText());
-        objFichaDS.setRefereSaude((String) jComboBoxRefereSaude.getSelectedItem());
-        if (jRBHanseniase.isSelected()) {
-            tipoHanseniase = 1;
-        } else if (!jRBHanseniase.isSelected()) {
-            tipoHanseniase = 0;
-        }
-        objFichaDS.setHanseniase(tipoHanseniase);
-        if (jRBDiabetes.isSelected()) {
-            tipoDiabetes = 1;
-        } else if (!jRBDiabetes.isSelected()) {
-            tipoDiabetes = 0;
-        }
-        objFichaDS.setDiabetes(tipoDiabetes);
-        if (jRBTuberculose.isSelected()) {
-            tipoTuberculose = 1;
-        } else if (!jRBTuberculose.isSelected()) {
-            tipoTuberculose = 0;
-        }
-        objFichaDS.setTuberculose(tipoTuberculose);
-        if (jRBHipertensao.isSelected()) {
-            tipoHipertensao = 1;
-        } else if (!jRBHipertensao.isSelected()) {
-            tipoHipertensao = 0;
-        }
-        objFichaDS.setHipertensao(tipoHipertensao);
-        if (jRBHepatites.isSelected()) {
-            tipoHepatites = 1;
-        } else if (!jRBHepatites.isSelected()) {
-            tipoHepatites = 0;
-        }
-        objFichaDS.setHepatites(tipoHepatites);
-        if (jRBSifilis.isSelected()) {
-            tipoSifilis = 1;
-        } else if (!jRBSifilis.isSelected()) {
-            tipoSifilis = 0;
-        }
-        objFichaDS.setSifilis(tipoSifilis);
-        if (jRBEscabiose.isSelected()) {
-            tipoEscabiose = 1;
-        } else if (!jRBEscabiose.isSelected()) {
-            tipoEscabiose = 0;
-        }
-        objFichaDS.setEscabiose(tipoEscabiose);
-        if (jRBHIV.isSelected()) {
-            tipoHiv = 1;
-        } else if (!jRBHIV.isSelected()) {
-            tipoHiv = 0;
-        }
-        objFichaDS.sethIV(tipoHiv);
-        objFichaDS.setOutrasDoencas(jOutrasDoencas.getText());
-        objFichaDS.setFazendoTratamento((String) jComboBoxFazendoTratamento.getSelectedItem());
-        objFichaDS.setPsiquiatrico((String) jComboBoxPsiquiatrico.getSelectedItem());
-        objFichaDS.setOndePsiquiatrico(jOndePsiquiatrico.getText());
-        objFichaDS.setPsicotropico((String) jComboBoxPsicotropico.getSelectedItem());
-        objFichaDS.setQualPsicotropico(jQualPsicotropico.getText());
-        objFichaDS.setMental((String) jComboBoxMental.getSelectedItem());
-        if (jRBDesanimo.isSelected()) {
-            tipoDesanimo = 1;
-        } else if (!jRBDesanimo.isSelected()) {
-            tipoDesanimo = 0;
-        }
-        objFichaDS.setDesanimo(tipoDesanimo);
-        if (jRBInsonia.isSelected()) {
-            tipoInsonia = 1;
-        } else if (!jRBInsonia.isSelected()) {
-            tipoInsonia = 0;
-        }
-        objFichaDS.setInsonia(tipoInsonia);
-        if (jRBFaltaApetite.isSelected()) {
-            tipoFaltaApetite = 1;
-        } else if (!jRBFaltaApetite.isSelected()) {
-            tipoFaltaApetite = 0;
-        }
-        objFichaDS.setFaltaApetite(tipoFaltaApetite);
-        if (jRBIsomantoSocial.isSelected()) {
-            tipoIsolamentoSocial = 1;
-        } else if (!jRBIsomantoSocial.isSelected()) {
-            tipoIsolamentoSocial = 0;
-        }
-        objFichaDS.setIsolamentoSocial(tipoIsolamentoSocial);
-        if (jRBPensamentosSuicida.isSelected()) {
-            tipoPensamentosSuicida = 1;
-        } else if (!jRBPensamentosSuicida.isSelected()) {
-            tipoPensamentosSuicida = 0;
-        }
-        objFichaDS.setPensamentosSuicidas(tipoPensamentosSuicida);
-        if (jRBAgressividade.isSelected()) {
-            tipoAgressividade = 1;
-        } else if (!jRBAgressividade.isSelected()) {
-            tipoAgressividade = 0;
-        }
-        objFichaDS.setAgressividade(tipoAgressividade);
-        if (jRBInquientacao.isSelected()) {
-            tipoInquietacaoMotora = 1;
-        } else if (!jRBInquientacao.isSelected()) {
-            tipoInquietacaoMotora = 0;
-        }
-        objFichaDS.setInquietacao(tipoInquietacaoMotora);
-        if (jRBOutrosDoencas.isSelected()) {
-            tipoOutrasDoencas = 1;
-        } else if (!jRBOutrosDoencas.isSelected()) {
-            tipoOutrasDoencas = 0;
-        }
-        objFichaDS.setOutroDoencas(tipoOutrasDoencas);
-        objFichaDS.setQualOutrosDoencas(jQualOutrosDoencas.getText());
-        objFichaDS.setInternadoPSI((String) jComboBoxInternadoPSI.getSelectedItem());
-        objFichaDS.setDataInternaPSI(jDataInternaPSI.getDate());
-        objFichaDS.setAcompanhaCAPS((String) jComboBoxAcompanhaCAPS.getSelectedItem());
-        objFichaDS.setDataCAPS(jDataCAPS.getDate());
-        objFichaDS.setUsoPsicoativos((String) jComboBoxUsoPsicoativos.getSelectedItem());
-        if (jRBAlcool.isSelected()) {
-            tipoAlcool = 1;
-        } else if (!jRBAlcool.isSelected()) {
-            tipoAlcool = 0;
-        }
-        if (jRBMaconha.isSelected()) {
-            tipoMaconha = 1;
-        } else if (!jRBMaconha.isSelected()) {
-            tipoMaconha = 0;
-        }
-        objFichaDS.setMaconha(tipoMaconha);
-        if (jRBCocaina.isSelected()) {
-            tipoCocaina = 1;
-        } else if (!jRBCocaina.isSelected()) {
-            tipoCocaina = 0;
-        }
-        objFichaDS.setCocaina(tipoCocaina);
-        if (jRBCola.isSelected()) {
-            tipoCola = 1;
-        } else if (!jRBCola.isSelected()) {
-            tipoCola = 0;
-        }
-        objFichaDS.setCola(tipoCola);
-        if (jRBCrack.isSelected()) {
-            tipoCrack = 1;
-        } else if (!jRBCrack.isSelected()) {
-            tipoCrack = 0;
-        }
-        objFichaDS.setCrack(tipoCrack);
-        if (jRBInjetaveis.isSelected()) {
-            tipoInjetaveis = 1;
-        } else if (!jRBInjetaveis.isSelected()) {
-            tipoInjetaveis = 0;
-        }
-        objFichaDS.setInjetaveis(tipoInjetaveis);
-        if (jRBOutrasSub.isSelected()) {
-            tipoOutrasDoencas = 1;
-        } else if (!jRBOutrasSub.isSelected()) {
-            tipoOutrasDoencas = 0;
-        }
-        objFichaDS.setOutrasSub(tipoOutrasDoencas);
-        objFichaDS.setQualOutrasSub(jQualOutrasSub.getText());
-        objFichaDS.setCompartilhaCrack((String) jComboBoxCompartilhaCrack.getSelectedItem());
-        if (jRBSudorese.isSelected()) {
-            tipoSudorese = 1;
-        } else if (!jRBSudorese.isSelected()) {
-            tipoSudorese = 0;
-        }
-        objFichaDS.setSudorese(tipoSudorese);
-        if (jRBTremores.isSelected()) {
-            tipoTremores = 1;
-        } else if (!jRBTremores.isSelected()) {
-            tipoTremores = 0;
-        }
-        objFichaDS.setTremores(tipoTremores);
-        if (jRBFissura.isSelected()) {
-            tipoFissura = 1;
-        } else if (!jRBFissura.isSelected()) {
-            tipoFissura = 0;
-        }
-        objFichaDS.setFissura(tipoFissura);
-        if (jRBBoca.isSelected()) {
-            tipoBocaSeca = 1;
-        } else if (!jRBBoca.isSelected()) {
-            tipoBocaSeca = 0;
-        }
-        objFichaDS.setBocaSeca(tipoBocaSeca);
-        if (jRBNausea.isSelected()) {
-            tipoNauseas = 1;
-        } else if (!jRBNausea.isSelected()) {
-            tipoNauseas = 0;
-        }
-        objFichaDS.setNausea(tipoNauseas);
-        if (jRBDesejo.isSelected()) {
-            tipoDesejo = 1;
-        } else if (!jRBDesejo.isSelected()) {
-            tipoDesejo = 0;
-        }
-        objFichaDS.setDesejo(tipoDesejo);
-        if (jRBNaoPara.isSelected()) {
-            tipoNaoconseguir = 1;
-        } else if (!jRBNaoPara.isSelected()) {
-            tipoNaoconseguir = 0;
-        }
-        objFichaDS.setNaoPara(tipoNaoconseguir);
-        if (jRBAumentoTolerancia.isSelected()) {
-            tipoAumentoTolerancia = 1;
-        } else if (!jRBAumentoTolerancia.isSelected()) {
-            tipoAumentoTolerancia = 0;
-        }
-        objFichaDS.setAumentoTolerancia(tipoAumentoTolerancia);
-        objFichaDS.setcAPSAD((String) jComboBoxCAPSAD.getSelectedItem());
-        objFichaDS.setDataCAPSAD(jDataCAPSAD.getDate());
-        objFichaDS.setEsteveInternado((String) jComboBoxEsteveInternado.getSelectedItem());
-        objFichaDS.setQuantoTempoInternado(Integer.valueOf(jQuantoTempoInternado.getText()));
-        objFichaDS.setAceitaDanos((String) jComboBoxAceitaDanos.getSelectedItem());
-        objFichaDS.setSaudeBucal((String) jComboBoxSaudeBucal.getSelectedItem());
-        objFichaDS.setNecessitaAtende((String) jComboBoxNecessitaAtende.getSelectedItem());
-        if (jRBEnfermagem.isSelected()) {
-            tipoEnfermagem = 1;
-        } else if (!jRBEnfermagem.isSelected()) {
-            tipoEnfermagem = 0;
-        }
-        objFichaDS.setEnfermagem(tipoEnfermagem);
-        if (jRBMedico.isSelected()) {
-            tipoMedico = 1;
-        } else if (!jRBMedico.isSelected()) {
-            tipoMedico = 0;
-        }
-        objFichaDS.setMedico(tipoMedico);
-        if (jRBPsiquiatrico.isSelected()) {
-            tipoPsiquiatrico = 1;
-        } else if (!jRBPsiquiatrico.isSelected()) {
-            tipoPsiquiatrico = 0;
-        }
-        objFichaDS.setPsiquiatricoN(tipoPsiquiatrico);
-        if (jRBPsicologico.isSelected()) {
-            tipoPsicologico = 1;
-        } else if (!jRBPsicologico.isSelected()) {
-            tipoPsicologico = 0;
-        }
-        objFichaDS.setPsiquiatricoN(tipoPsiquiatrico);
-        objFichaDS.setPessoasQuimica((String) jComboBoxPessoasQuimica.getSelectedItem());
-        objFichaDS.setQuemNecessita(jQuemNecessita.getText());
-        if (acao == 19) {
-            if (objFichaDS.getIdPai() == codigoPaiSS3 && objFichaDS.getIdInternoCrc() == codigoInternoSS3) {
-                JOptionPane.showMessageDialog(rootPane, "Já foi realizado um registro para esse interno.");
-            } else {
-                objFichaDS.setUsuarioInsert(nameUser);
-                objFichaDS.setDataInsert(dataModFinal);
-                objFichaDS.setHorarioInsert(horaMov);
-                controle6.incluirPAI_DS(objFichaDS);
+        buscarAcessoUsuario(telaPaiDS_PSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiDS_PSI) && codGravarPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            verificarCodigoSS3();
+            objFichaDS.setIdPai(Integer.valueOf(jCodigoPAI.getText()));
+            objFichaDS.setIdInternoCrc(Integer.valueOf(jIdInternoPAI.getText()));
+            objFichaDS.setNomeInternoCrc(jNomeInternoPAI.getText());
+            objFichaDS.setRefereSaude((String) jComboBoxRefereSaude.getSelectedItem());
+            if (jRBHanseniase.isSelected()) {
+                tipoHanseniase = 1;
+            } else if (!jRBHanseniase.isSelected()) {
+                tipoHanseniase = 0;
+            }
+            objFichaDS.setHanseniase(tipoHanseniase);
+            if (jRBDiabetes.isSelected()) {
+                tipoDiabetes = 1;
+            } else if (!jRBDiabetes.isSelected()) {
+                tipoDiabetes = 0;
+            }
+            objFichaDS.setDiabetes(tipoDiabetes);
+            if (jRBTuberculose.isSelected()) {
+                tipoTuberculose = 1;
+            } else if (!jRBTuberculose.isSelected()) {
+                tipoTuberculose = 0;
+            }
+            objFichaDS.setTuberculose(tipoTuberculose);
+            if (jRBHipertensao.isSelected()) {
+                tipoHipertensao = 1;
+            } else if (!jRBHipertensao.isSelected()) {
+                tipoHipertensao = 0;
+            }
+            objFichaDS.setHipertensao(tipoHipertensao);
+            if (jRBHepatites.isSelected()) {
+                tipoHepatites = 1;
+            } else if (!jRBHepatites.isSelected()) {
+                tipoHepatites = 0;
+            }
+            objFichaDS.setHepatites(tipoHepatites);
+            if (jRBSifilis.isSelected()) {
+                tipoSifilis = 1;
+            } else if (!jRBSifilis.isSelected()) {
+                tipoSifilis = 0;
+            }
+            objFichaDS.setSifilis(tipoSifilis);
+            if (jRBEscabiose.isSelected()) {
+                tipoEscabiose = 1;
+            } else if (!jRBEscabiose.isSelected()) {
+                tipoEscabiose = 0;
+            }
+            objFichaDS.setEscabiose(tipoEscabiose);
+            if (jRBHIV.isSelected()) {
+                tipoHiv = 1;
+            } else if (!jRBHIV.isSelected()) {
+                tipoHiv = 0;
+            }
+            objFichaDS.sethIV(tipoHiv);
+            objFichaDS.setOutrasDoencas(jOutrasDoencas.getText());
+            objFichaDS.setFazendoTratamento((String) jComboBoxFazendoTratamento.getSelectedItem());
+            objFichaDS.setPsiquiatrico((String) jComboBoxPsiquiatrico.getSelectedItem());
+            objFichaDS.setOndePsiquiatrico(jOndePsiquiatrico.getText());
+            objFichaDS.setPsicotropico((String) jComboBoxPsicotropico.getSelectedItem());
+            objFichaDS.setQualPsicotropico(jQualPsicotropico.getText());
+            objFichaDS.setMental((String) jComboBoxMental.getSelectedItem());
+            if (jRBDesanimo.isSelected()) {
+                tipoDesanimo = 1;
+            } else if (!jRBDesanimo.isSelected()) {
+                tipoDesanimo = 0;
+            }
+            objFichaDS.setDesanimo(tipoDesanimo);
+            if (jRBInsonia.isSelected()) {
+                tipoInsonia = 1;
+            } else if (!jRBInsonia.isSelected()) {
+                tipoInsonia = 0;
+            }
+            objFichaDS.setInsonia(tipoInsonia);
+            if (jRBFaltaApetite.isSelected()) {
+                tipoFaltaApetite = 1;
+            } else if (!jRBFaltaApetite.isSelected()) {
+                tipoFaltaApetite = 0;
+            }
+            objFichaDS.setFaltaApetite(tipoFaltaApetite);
+            if (jRBIsomantoSocial.isSelected()) {
+                tipoIsolamentoSocial = 1;
+            } else if (!jRBIsomantoSocial.isSelected()) {
+                tipoIsolamentoSocial = 0;
+            }
+            objFichaDS.setIsolamentoSocial(tipoIsolamentoSocial);
+            if (jRBPensamentosSuicida.isSelected()) {
+                tipoPensamentosSuicida = 1;
+            } else if (!jRBPensamentosSuicida.isSelected()) {
+                tipoPensamentosSuicida = 0;
+            }
+            objFichaDS.setPensamentosSuicidas(tipoPensamentosSuicida);
+            if (jRBAgressividade.isSelected()) {
+                tipoAgressividade = 1;
+            } else if (!jRBAgressividade.isSelected()) {
+                tipoAgressividade = 0;
+            }
+            objFichaDS.setAgressividade(tipoAgressividade);
+            if (jRBInquientacao.isSelected()) {
+                tipoInquietacaoMotora = 1;
+            } else if (!jRBInquientacao.isSelected()) {
+                tipoInquietacaoMotora = 0;
+            }
+            objFichaDS.setInquietacao(tipoInquietacaoMotora);
+            if (jRBOutrosDoencas.isSelected()) {
+                tipoOutrasDoencas = 1;
+            } else if (!jRBOutrosDoencas.isSelected()) {
+                tipoOutrasDoencas = 0;
+            }
+            objFichaDS.setOutroDoencas(tipoOutrasDoencas);
+            objFichaDS.setQualOutrosDoencas(jQualOutrosDoencas.getText());
+            objFichaDS.setInternadoPSI((String) jComboBoxInternadoPSI.getSelectedItem());
+            objFichaDS.setDataInternaPSI(jDataInternaPSI.getDate());
+            objFichaDS.setAcompanhaCAPS((String) jComboBoxAcompanhaCAPS.getSelectedItem());
+            objFichaDS.setDataCAPS(jDataCAPS.getDate());
+            objFichaDS.setUsoPsicoativos((String) jComboBoxUsoPsicoativos.getSelectedItem());
+            if (jRBAlcool.isSelected()) {
+                tipoAlcool = 1;
+            } else if (!jRBAlcool.isSelected()) {
+                tipoAlcool = 0;
+            }
+            if (jRBMaconha.isSelected()) {
+                tipoMaconha = 1;
+            } else if (!jRBMaconha.isSelected()) {
+                tipoMaconha = 0;
+            }
+            objFichaDS.setMaconha(tipoMaconha);
+            if (jRBCocaina.isSelected()) {
+                tipoCocaina = 1;
+            } else if (!jRBCocaina.isSelected()) {
+                tipoCocaina = 0;
+            }
+            objFichaDS.setCocaina(tipoCocaina);
+            if (jRBCola.isSelected()) {
+                tipoCola = 1;
+            } else if (!jRBCola.isSelected()) {
+                tipoCola = 0;
+            }
+            objFichaDS.setCola(tipoCola);
+            if (jRBCrack.isSelected()) {
+                tipoCrack = 1;
+            } else if (!jRBCrack.isSelected()) {
+                tipoCrack = 0;
+            }
+            objFichaDS.setCrack(tipoCrack);
+            if (jRBInjetaveis.isSelected()) {
+                tipoInjetaveis = 1;
+            } else if (!jRBInjetaveis.isSelected()) {
+                tipoInjetaveis = 0;
+            }
+            objFichaDS.setInjetaveis(tipoInjetaveis);
+            if (jRBOutrasSub.isSelected()) {
+                tipoOutrasDoencas = 1;
+            } else if (!jRBOutrasSub.isSelected()) {
+                tipoOutrasDoencas = 0;
+            }
+            objFichaDS.setOutrasSub(tipoOutrasDoencas);
+            objFichaDS.setQualOutrasSub(jQualOutrasSub.getText());
+            objFichaDS.setCompartilhaCrack((String) jComboBoxCompartilhaCrack.getSelectedItem());
+            if (jRBSudorese.isSelected()) {
+                tipoSudorese = 1;
+            } else if (!jRBSudorese.isSelected()) {
+                tipoSudorese = 0;
+            }
+            objFichaDS.setSudorese(tipoSudorese);
+            if (jRBTremores.isSelected()) {
+                tipoTremores = 1;
+            } else if (!jRBTremores.isSelected()) {
+                tipoTremores = 0;
+            }
+            objFichaDS.setTremores(tipoTremores);
+            if (jRBFissura.isSelected()) {
+                tipoFissura = 1;
+            } else if (!jRBFissura.isSelected()) {
+                tipoFissura = 0;
+            }
+            objFichaDS.setFissura(tipoFissura);
+            if (jRBBoca.isSelected()) {
+                tipoBocaSeca = 1;
+            } else if (!jRBBoca.isSelected()) {
+                tipoBocaSeca = 0;
+            }
+            objFichaDS.setBocaSeca(tipoBocaSeca);
+            if (jRBNausea.isSelected()) {
+                tipoNauseas = 1;
+            } else if (!jRBNausea.isSelected()) {
+                tipoNauseas = 0;
+            }
+            objFichaDS.setNausea(tipoNauseas);
+            if (jRBDesejo.isSelected()) {
+                tipoDesejo = 1;
+            } else if (!jRBDesejo.isSelected()) {
+                tipoDesejo = 0;
+            }
+            objFichaDS.setDesejo(tipoDesejo);
+            if (jRBNaoPara.isSelected()) {
+                tipoNaoconseguir = 1;
+            } else if (!jRBNaoPara.isSelected()) {
+                tipoNaoconseguir = 0;
+            }
+            objFichaDS.setNaoPara(tipoNaoconseguir);
+            if (jRBAumentoTolerancia.isSelected()) {
+                tipoAumentoTolerancia = 1;
+            } else if (!jRBAumentoTolerancia.isSelected()) {
+                tipoAumentoTolerancia = 0;
+            }
+            objFichaDS.setAumentoTolerancia(tipoAumentoTolerancia);
+            objFichaDS.setcAPSAD((String) jComboBoxCAPSAD.getSelectedItem());
+            objFichaDS.setDataCAPSAD(jDataCAPSAD.getDate());
+            objFichaDS.setEsteveInternado((String) jComboBoxEsteveInternado.getSelectedItem());
+            objFichaDS.setQuantoTempoInternado(Integer.valueOf(jQuantoTempoInternado.getText()));
+            objFichaDS.setAceitaDanos((String) jComboBoxAceitaDanos.getSelectedItem());
+            objFichaDS.setSaudeBucal((String) jComboBoxSaudeBucal.getSelectedItem());
+            objFichaDS.setNecessitaAtende((String) jComboBoxNecessitaAtende.getSelectedItem());
+            if (jRBEnfermagem.isSelected()) {
+                tipoEnfermagem = 1;
+            } else if (!jRBEnfermagem.isSelected()) {
+                tipoEnfermagem = 0;
+            }
+            objFichaDS.setEnfermagem(tipoEnfermagem);
+            if (jRBMedico.isSelected()) {
+                tipoMedico = 1;
+            } else if (!jRBMedico.isSelected()) {
+                tipoMedico = 0;
+            }
+            objFichaDS.setMedico(tipoMedico);
+            if (jRBPsiquiatrico.isSelected()) {
+                tipoPsiquiatrico = 1;
+            } else if (!jRBPsiquiatrico.isSelected()) {
+                tipoPsiquiatrico = 0;
+            }
+            objFichaDS.setPsiquiatricoN(tipoPsiquiatrico);
+            if (jRBPsicologico.isSelected()) {
+                tipoPsicologico = 1;
+            } else if (!jRBPsicologico.isSelected()) {
+                tipoPsicologico = 0;
+            }
+            objFichaDS.setPsiquiatricoN(tipoPsiquiatrico);
+            objFichaDS.setPessoasQuimica((String) jComboBoxPessoasQuimica.getSelectedItem());
+            objFichaDS.setQuemNecessita(jQuemNecessita.getText());
+            if (acao == 19) {
+                if (objFichaDS.getIdPai() == codigoPaiSS3 && objFichaDS.getIdInternoCrc() == codigoInternoSS3) {
+                    JOptionPane.showMessageDialog(rootPane, "Já foi realizado um registro para esse interno.");
+                } else {
+                    objFichaDS.setUsuarioInsert(nameUser);
+                    objFichaDS.setDataInsert(dataModFinal);
+                    objFichaDS.setHorarioInsert(horaMov);
+                    controle6.incluirPAI_DS(objFichaDS);
+                    objLog8();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    SalvarSS3();
+                    verificarRegistrosTodasAbas();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
+                }
+            }
+            if (acao == 20) {
+                objFichaDS.setUsuarioUp(nameUser);
+                objFichaDS.setDataUp(dataModFinal);
+                objFichaDS.setHorarioUp(horaMov);
+                objFichaDS.setIdPai(Integer.valueOf(jCodigoPAI.getText()));
+                controle6.alterarPAI_DS(objFichaDS);
                 objLog8();
                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                 SalvarSS3();
                 verificarRegistrosTodasAbas();
                 JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
             }
-        }
-        if (acao == 20) {
-            objFichaDS.setUsuarioUp(nameUser);
-            objFichaDS.setDataUp(dataModFinal);
-            objFichaDS.setHorarioUp(horaMov);
-            objFichaDS.setIdPai(Integer.valueOf(jCodigoPAI.getText()));
-            controle6.alterarPAI_DS(objFichaDS);
-            objLog8();
-            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-            SalvarSS3();
-            verificarRegistrosTodasAbas();
-            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar registro.");
         }
     }//GEN-LAST:event_jBtSalvarSS3ActionPerformed
 
@@ -8607,81 +8785,101 @@ public class TelaPAI_NOVO_Psicologia extends javax.swing.JInternalFrame {
 
     private void jBtNovoEAPI1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoEAPI1ActionPerformed
         // TODO add your handling code here:
-        acao = 17;
-        bloquearCampos();
-        bloquearBotoes();
-        NovoEAPI1();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaPaiEAPI1_PSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiEAPI1_PSI) && codIncluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            acao = 21;
+            bloquearCampos();
+            bloquearBotoes();
+            NovoEAPI1();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtNovoEAPI1ActionPerformed
 
     private void jBtAlterarEAPI1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarEAPI1ActionPerformed
         // TODO add your handling code here:
-        acao = 18;
-        bloquearCampos();
-        bloquearBotoes();
-        AlterarEAPI1();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaPaiEAPI1_PSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiEAPI1_PSI) && codAlterarPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            acao = 22;
+            bloquearCampos();
+            bloquearBotoes();
+            AlterarEAPI1();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
+        }
     }//GEN-LAST:event_jBtAlterarEAPI1ActionPerformed
 
     private void jBtExcluirEAPI1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirEAPI1ActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                JOptionPane.YES_NO_OPTION);
-        if (resposta == JOptionPane.YES_OPTION) {
-            objEapi1.setIdPai(Integer.parseInt(jCodigoPAI.getText()));
-            controle7.excluirPaiEAPI(objEapi1);
-            objLog9();
-            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-            bloquearCampos();
-            bloquearBotoes();
-            ExcluirEAPI1();
-            JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+        buscarAcessoUsuario(telaPaiEAPI1_PSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiEAPI1_PSI) && codExcluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objEapi1.setIdPai(Integer.parseInt(jCodigoPAI.getText()));
+                controle7.excluirPaiEAPI(objEapi1);
+                objLog9();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                bloquearCampos();
+                bloquearBotoes();
+                ExcluirEAPI1();
+                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a excluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirEAPI1ActionPerformed
 
     private void jBtSalvarEAPI1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarEAPI1ActionPerformed
         // TODO add your handling code here:
-        verificarCodigoEAPI1();
-        objEapi1.setIdPai(Integer.parseInt(jCodigoPAI.getText()));
-        objEapi1.setIdInternoCrc(Integer.valueOf(jIdInternoPAI.getText()));
-        objEapi1.setNomeInternoCrc(jNomeInternoPAI.getText());
-        objEapi1.setpSP(jTextoPSP.getText());
-        objEapi1.setcEDEGEP(jTextoCEDEGEP.getText());
-        objEapi1.setcRASCREAS(jTextoCRASCREAS.getText());
-        if (acao == 17) {
-            if (objEapi1.getIdPai() == codigoPaiEAPI && objEapi1.getIdInternoCrc() == codigoInternoDJ) {
-                JOptionPane.showMessageDialog(rootPane, "Já foi realizado um registro para esse interno.");
-            } else {
-                objEapi1.setUsuarioInsert(nameUser);
-                objEapi1.setDataInsert(dataModFinal);
-                objEapi1.setHorarioInsert(horaMov);
-                controle7.incluirPaiEAPI(objEapi1);
-                buscarCodigoEAPI1();
+        buscarAcessoUsuario(telaPaiEAPI1_PSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiEAPI1_PSI) && codGravarPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            verificarCodigoEAPI1();
+            objEapi1.setIdPai(Integer.parseInt(jCodigoPAI.getText()));
+            objEapi1.setIdInternoCrc(Integer.valueOf(jIdInternoPAI.getText()));
+            objEapi1.setNomeInternoCrc(jNomeInternoPAI.getText());
+            objEapi1.setpSP(jTextoPSP.getText());
+            objEapi1.setcEDEGEP(jTextoCEDEGEP.getText());
+            objEapi1.setcRASCREAS(jTextoCRASCREAS.getText());
+            if (acao == 21) {
+                if (objEapi1.getIdPai() == codigoPaiEAPI && objEapi1.getIdInternoCrc() == codigoInternoDJ) {
+                    JOptionPane.showMessageDialog(rootPane, "Já foi realizado um registro para esse interno.");
+                } else {
+                    objEapi1.setUsuarioInsert(nameUser);
+                    objEapi1.setDataInsert(dataModFinal);
+                    objEapi1.setHorarioInsert(horaMov);
+                    controle7.incluirPaiEAPI(objEapi1);
+                    buscarCodigoEAPI1();
+                    objLog9();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    SalvarEAPI1();
+                    verificarRegistrosTodasAbas();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
+                }
+            }
+            if (acao == 22) {
+                objEapi1.setUsuarioUp(nameUser);
+                objEapi1.setDataUp(dataModFinal);
+                objEapi1.setHorarioUp(horaMov);
+                objEapi1.setIdPai(Integer.parseInt(jCodigoPAI.getText()));
+                controle7.alterarPaiEAPI(objEapi1);
                 objLog9();
                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                 SalvarEAPI1();
                 verificarRegistrosTodasAbas();
                 JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
             }
-        }
-        if (acao == 18) {
-            objEapi1.setUsuarioUp(nameUser);
-            objEapi1.setDataUp(dataModFinal);
-            objEapi1.setHorarioUp(horaMov);
-            objEapi1.setIdPai(Integer.parseInt(jCodigoPAI.getText()));
-            controle7.alterarPaiEAPI(objEapi1);
-            objLog9();
-            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-            SalvarEAPI1();
-            verificarRegistrosTodasAbas();
-            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar registro.");
         }
     }//GEN-LAST:event_jBtSalvarEAPI1ActionPerformed
 
@@ -8704,84 +8902,104 @@ public class TelaPAI_NOVO_Psicologia extends javax.swing.JInternalFrame {
 
     private void jBtNovoEAPI2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoEAPI2ActionPerformed
         // TODO add your handling code here:
-        acao = 19;
-        bloquearCampos();
-        bloquearBotoes();
-        NovoEAPI2();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+         buscarAcessoUsuario(telaPaiEAPI2_PSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiEAPI2_PSI) && codIncluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            acao = 23;
+            bloquearCampos();
+            bloquearBotoes();
+            NovoEAPI2();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtNovoEAPI2ActionPerformed
 
     private void jBtAlterarEAPI2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarEAPI2ActionPerformed
         // TODO add your handling code here:
-        acao = 20;
-        bloquearCampos();
-        bloquearBotoes();
-        AlterarEAPI2();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaPaiEAPI2_PSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiEAPI2_PSI) && codAlterarPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            acao = 24;
+            bloquearCampos();
+            bloquearBotoes();
+            AlterarEAPI2();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
+        }
     }//GEN-LAST:event_jBtAlterarEAPI2ActionPerformed
 
     private void jBtExcluirEAPI2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirEAPI2ActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                JOptionPane.YES_NO_OPTION);
-        if (resposta == JOptionPane.YES_OPTION) {
-            objEapi2.setIdPai(Integer.parseInt(jCodigoPAI.getText()));
-            controle8.excluirPaiEAPI2(objEapi2);
-            objLog10();
-            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-            bloquearCampos();
-            ExcluirEAPI2();
-            JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+        buscarAcessoUsuario(telaPaiEAPI2_PSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiEAPI2_PSI) && codExcluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objEapi2.setIdPai(Integer.parseInt(jCodigoPAI.getText()));
+                controle8.excluirPaiEAPI2(objEapi2);
+                objLog10();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                bloquearCampos();
+                ExcluirEAPI2();
+                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a excluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirEAPI2ActionPerformed
 
     private void jBtSalvarEAPI2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarEAPI2ActionPerformed
         // TODO add your handling code here:
-        verificarCodigoEAPI2();
-        objEapi2.setIdPai(Integer.valueOf(jCodigoPAI.getText()));
-        objEapi2.setIdInternoCrc(Integer.valueOf(jIdInternoPAI.getText()));
-        objEapi2.setNomeInternoCrc(jNomeInternoPAI.getText());
-        objEapi2.setaSSISTENCIA(jTextoASSISTENCIA.getText());
-        objEapi2.setdOCUMENTOCIVIL(jTextoDOCUMENTOCIVIL.getText());
-        objEapi2.seteAPI2PAI(jTextEAPI2PAI.getText());
-        objEapi2.setTecnicoServicoSocial(jTecnicoServicoSocial.getText());
-        objEapi2.setTecnicoPsicologico(jTecnicoPsicologico.getText());
-        if (acao == 19) {
-            if (objEapi2.getIdPai() == codigoPaiEAPI && objEapi2.getIdInternoCrc() == codigoInternoEAPI) {
-                JOptionPane.showMessageDialog(rootPane, "Já foi realizado um registro para esse interno.");
-            } else {
-                objEapi2.setUsuarioInsert(nameUser);
-                objEapi2.setDataInsert(dataModFinal);
-                objEapi2.setHorarioInsert(horaMov);
+        buscarAcessoUsuario(telaPaiEAPI2_PSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiEAPI2_PSI) && codGravarPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            verificarCodigoEAPI2();
+            objEapi2.setIdPai(Integer.valueOf(jCodigoPAI.getText()));
+            objEapi2.setIdInternoCrc(Integer.valueOf(jIdInternoPAI.getText()));
+            objEapi2.setNomeInternoCrc(jNomeInternoPAI.getText());
+            objEapi2.setaSSISTENCIA(jTextoASSISTENCIA.getText());
+            objEapi2.setdOCUMENTOCIVIL(jTextoDOCUMENTOCIVIL.getText());
+            objEapi2.seteAPI2PAI(jTextEAPI2PAI.getText());
+            objEapi2.setTecnicoServicoSocial(jTecnicoServicoSocial.getText());
+            objEapi2.setTecnicoPsicologico(jTecnicoPsicologico.getText());
+            if (acao == 23) {
+                if (objEapi2.getIdPai() == codigoPaiEAPI && objEapi2.getIdInternoCrc() == codigoInternoEAPI) {
+                    JOptionPane.showMessageDialog(rootPane, "Já foi realizado um registro para esse interno.");
+                } else {
+                    objEapi2.setUsuarioInsert(nameUser);
+                    objEapi2.setDataInsert(dataModFinal);
+                    objEapi2.setHorarioInsert(horaMov);
+                    //
+                    controle8.incluirPaiEAPI2(objEapi2);
+                    buscarCodigoEAPI2();
+                    objLog10();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    SalvarEAPI2();
+                    verificarRegistrosTodasAbas();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
+                }
+            }
+            if (acao == 24) {
+                objEapi2.setUsuarioUp(nameUser);
+                objEapi2.setDataUp(dataModFinal);
+                objEapi2.setHorarioUp(horaMov);
                 //
-                controle8.incluirPaiEAPI2(objEapi2);
-                buscarCodigoEAPI2();
+                objEapi2.setIdPai(Integer.valueOf(jCodigoPAI.getText()));
+                controle8.excluirPaiEAPI2(objEapi2);
                 objLog10();
                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                 SalvarEAPI2();
                 verificarRegistrosTodasAbas();
                 JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
             }
-        }
-        if (acao == 20) {
-            objEapi2.setUsuarioUp(nameUser);
-            objEapi2.setDataUp(dataModFinal);
-            objEapi2.setHorarioUp(horaMov);
-            //
-            objEapi2.setIdPai(Integer.valueOf(jCodigoPAI.getText()));
-            controle8.excluirPaiEAPI2(objEapi2);
-            objLog10();
-            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-            SalvarEAPI2();
-            verificarRegistrosTodasAbas();
-            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar registro.");
         }
     }//GEN-LAST:event_jBtSalvarEAPI2ActionPerformed
 
@@ -8848,127 +9066,148 @@ public class TelaPAI_NOVO_Psicologia extends javax.swing.JInternalFrame {
 
     private void jBtSalvarEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarEvolucaoActionPerformed
         // TODO add your handling code here:
-        if (jNomeInternoEvolucaoPAI.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Informe o nome do interno para evolução.");
-        } else if (jDataEvolucao.getDate() == null) {
-            JOptionPane.showMessageDialog(null, "Informe a data da evolução.");
-        } else {
-            objEvolucaoPAI.setDataEvolucaoPAI(jDataEvolucao.getDate());
-            objEvolucaoPAI.setIdInternoCrc(Integer.valueOf(jIdInternoPAI.getText()));
-            objEvolucaoPAI.setNomeInternoCrc(jNomeInternoEvolucaoPAI.getText());
-            objEvolucaoPAI.setTextoEvolucaoPAI(jTextoEvolucao.getText());
-            objEvolucaoPAI.setIdPai(Integer.valueOf(jCodigoPAI.getText()));
-            if (acao == 20) {
-                objEvolucaoPAI.setUsuarioInsert(nameUser);
-                objEvolucaoPAI.setDataInsert(dataModFinal);
-                objEvolucaoPAI.setHorarioInsert(horaMov);
-                //
-                controleEvo.incluirEvolucaoPAI(objEvolucaoPAI);
-                buscarCodigoEvolucao();
-                //
-                objLog11();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                
-                preencherTabelaEvolucao("SELECT * FROM EVOLUCAO_PAI_NOVO "
-                        + "INNER JOIN FICHA_CADASTRO_PAI_PSICOSOCIAL "
-                        + "ON EVOLUCAO_PAI_NOVO.IdPai=FICHA_CADASTRO_PAI_PSICOSOCIAL.IdPai "
-                        + "WHERE EVOLUCAO_PAI_NOVO.IdPai='" + jCodigoPAI.getText() + "'");
-                SalvarEvolucao();
-                verificarRegistrosTodasAbas();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
-            }
-            if (acao == 21) {
-                objEvolucaoPAI.setUsuarioUp(nameUser);
-                objEvolucaoPAI.setDataUp(dataModFinal);
-                objEvolucaoPAI.setHorarioUp(horaMov);
-                //
-                objEvolucaoPAI.setIdEvolucaoPAI(Integer.valueOf(jIdEvolucao.getText()));
+        buscarAcessoUsuario(telaPaiEPAI_PSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiEPAI_PSI) && codGravarPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            if (jNomeInternoEvolucaoPAI.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe o nome do interno para evolução.");
+            } else if (jDataEvolucao.getDate() == null) {
+                JOptionPane.showMessageDialog(null, "Informe a data da evolução.");
+            } else {
+                objEvolucaoPAI.setDataEvolucaoPAI(jDataEvolucao.getDate());
                 objEvolucaoPAI.setIdInternoCrc(Integer.valueOf(jIdInternoPAI.getText()));
                 objEvolucaoPAI.setNomeInternoCrc(jNomeInternoEvolucaoPAI.getText());
-                controleEvo.alterarEvolucaoPAI(objEvolucaoPAI);
-                //
-                objLog11();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                
-                preencherTabelaEvolucao("SELECT * FROM EVOLUCAO_PAI_NOVO "
-                        + "INNER JOIN FICHA_CADASTRO_PAI_PSICOSOCIAL "
-                        + "ON EVOLUCAO_PAI_NOVO.IdPai=FICHA_CADASTRO_PAI_PSICOSOCIAL.IdPai "
-                        + "WHERE EVOLUCAO_PAI_NOVO.IdPai='" + jCodigoPAI.getText() + "'");
-                SalvarEvolucao();
-                verificarRegistrosTodasAbas();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
+                objEvolucaoPAI.setTextoEvolucaoPAI(jTextoEvolucao.getText());
+                objEvolucaoPAI.setIdPai(Integer.valueOf(jCodigoPAI.getText()));
+                if (acao == 25) {
+                    objEvolucaoPAI.setUsuarioInsert(nameUser);
+                    objEvolucaoPAI.setDataInsert(dataModFinal);
+                    objEvolucaoPAI.setHorarioInsert(horaMov);
+                    //
+                    controleEvo.incluirEvolucaoPAI(objEvolucaoPAI);
+                    buscarCodigoEvolucao();
+                    //
+                    objLog11();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                
+                    preencherTabelaEvolucao("SELECT * FROM EVOLUCAO_PAI_NOVO "
+                            + "INNER JOIN FICHA_CADASTRO_PAI_PSICOSOCIAL "
+                            + "ON EVOLUCAO_PAI_NOVO.IdPai=FICHA_CADASTRO_PAI_PSICOSOCIAL.IdPai "
+                            + "WHERE EVOLUCAO_PAI_NOVO.IdPai='" + jCodigoPAI.getText() + "'");
+                    SalvarEvolucao();
+                    verificarRegistrosTodasAbas();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
+                }
+                if (acao == 26) {
+                    objEvolucaoPAI.setUsuarioUp(nameUser);
+                    objEvolucaoPAI.setDataUp(dataModFinal);
+                    objEvolucaoPAI.setHorarioUp(horaMov);
+                    //
+                    objEvolucaoPAI.setIdEvolucaoPAI(Integer.valueOf(jIdEvolucao.getText()));
+                    objEvolucaoPAI.setIdInternoCrc(Integer.valueOf(jIdInternoPAI.getText()));
+                    objEvolucaoPAI.setNomeInternoCrc(jNomeInternoEvolucaoPAI.getText());
+                    controleEvo.alterarEvolucaoPAI(objEvolucaoPAI);
+                    //
+                    objLog11();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                
+                    preencherTabelaEvolucao("SELECT * FROM EVOLUCAO_PAI_NOVO "
+                            + "INNER JOIN FICHA_CADASTRO_PAI_PSICOSOCIAL "
+                            + "ON EVOLUCAO_PAI_NOVO.IdPai=FICHA_CADASTRO_PAI_PSICOSOCIAL.IdPai "
+                            + "WHERE EVOLUCAO_PAI_NOVO.IdPai='" + jCodigoPAI.getText() + "'");
+                    SalvarEvolucao();
+                    verificarRegistrosTodasAbas();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
         }
     }//GEN-LAST:event_jBtSalvarEvolucaoActionPerformed
 
     private void jBtExcluirEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirEvolucaoActionPerformed
         // TODO add your handling code here:
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM EVOLUCAO_PAI_NOVO WHERE IdEvolucao='" + jIdEvolucao.getText() + "'");
-            conecta.rs.first();
-            nomeUserRegistro = conecta.rs.getString("UsuarioInsert");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Não foi possível encontrar o usuário.");
-        }
-        if (nomeUserRegistro == null ? nameUser == null : nomeUserRegistro.equals(nameUser)) {
-            bloquearCampos();
-            statusMov = "Excluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
-            bloquearCampos();
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objEvolucaoPAI.setIdPai(Integer.valueOf(jCodigoPAI.getText()));
-                objEvolucaoPAI.setIdEvolucaoPAI(Integer.valueOf(jIdEvolucao.getText()));
-                objEvolucaoPAI.setIdInternoCrc(Integer.valueOf(jIdInternoPAI.getText()));
-                controleEvo.excluirEvolucaoPAI(objEvolucaoPAI);
-                //
-                objLog11();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                preencherTabelaEvolucao("SELECT * FROM EVOLUCAO_PAI_NOVO "
-                        + "INNER JOIN FICHA_CADASTRO_PAI_PSICOSOCIAL "
-                        + "ON EVOLUCAO_PAI_NOVO.IdPai=FICHA_CADASTRO_PAI_PSICOSOCIAL.IdPai "
-                        + "WHERE EVOLUCAO_PAI_NOVO.IdPai='" + jCodigoPAI.getText() + "'");
-                ExcluirEvolucao();
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+         buscarAcessoUsuario(telaPaiEPAI_PSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiEPAI_PSI) && codExcluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM EVOLUCAO_PAI_NOVO "
+                        + "WHERE IdEvolucao='" + jIdEvolucao.getText() + "'");
+                conecta.rs.first();
+                nomeUserRegistro = conecta.rs.getString("UsuarioInsert");
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(rootPane, "Não foi possível encontrar o usuário.");
+            }
+            if (nomeUserRegistro == null ? nameUser == null : nomeUserRegistro.equals(nameUser)) {
+                bloquearCampos();
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                bloquearCampos();
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objEvolucaoPAI.setIdPai(Integer.valueOf(jCodigoPAI.getText()));
+                    objEvolucaoPAI.setIdEvolucaoPAI(Integer.valueOf(jIdEvolucao.getText()));
+                    objEvolucaoPAI.setIdInternoCrc(Integer.valueOf(jIdInternoPAI.getText()));
+                    controleEvo.excluirEvolucaoPAI(objEvolucaoPAI);
+                    //
+                    objLog11();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    preencherTabelaEvolucao("SELECT * FROM EVOLUCAO_PAI_NOVO "
+                            + "INNER JOIN FICHA_CADASTRO_PAI_PSICOSOCIAL "
+                            + "ON EVOLUCAO_PAI_NOVO.IdPai=FICHA_CADASTRO_PAI_PSICOSOCIAL.IdPai "
+                            + "WHERE EVOLUCAO_PAI_NOVO.IdPai='" + jCodigoPAI.getText() + "'");
+                    ExcluirEvolucao();
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserRegistro + " só esse usuário poderá modificar.");
+                conecta.desconecta();
             }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserRegistro + " só esse usuário poderá modificar.");
-            conecta.desconecta();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a excluir registro.");
         }
     }//GEN-LAST:event_jBtExcluirEvolucaoActionPerformed
 
     private void jBtAlterarEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarEvolucaoActionPerformed
         // TODO add your handling code here:
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM EVOLUCAO_PAI_NOVO WHERE IdEvolucao='" + jIdEvolucao.getText() + "'");
-            conecta.rs.first();
-            nomeUserRegistro = conecta.rs.getString("UsuarioInsert");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Não foi possível encontrar o usuário.");
-        }
-        if (nomeUserRegistro == null ? nameUser == null : nomeUserRegistro.equals(nameUser)) {
-            acao = 21;
-            bloquearCampos();
-            AlterarEvolucao();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaPaiEPAI_PSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiEPAI_PSI) && codAlterarPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM EVOLUCAO_PAI_NOVO WHERE IdEvolucao='" + jIdEvolucao.getText() + "'");
+                conecta.rs.first();
+                nomeUserRegistro = conecta.rs.getString("UsuarioInsert");
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(rootPane, "Não foi possível encontrar o usuário.");
+            }
+            if (nomeUserRegistro == null ? nameUser == null : nomeUserRegistro.equals(nameUser)) {
+                acao = 26;
+                bloquearCampos();
+                AlterarEvolucao();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserRegistro + " só esse usuário poderá modificar.");
+                conecta.desconecta();
+            }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserRegistro + " só esse usuário poderá modificar.");
-            conecta.desconecta();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a gravar registro.");
         }
     }//GEN-LAST:event_jBtAlterarEvolucaoActionPerformed
 
     private void jBtNovaEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaEvolucaoActionPerformed
         // TODO add your handling code here:
-        acao = 20;
-        bloquearCampos();
-        NovaEvolucao();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+       buscarAcessoUsuario(telaPaiEPAI_PSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiEPAI_PSI) && codIncluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            acao = 25;
+            bloquearCampos();
+            NovaEvolucao();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
+        }
     }//GEN-LAST:event_jBtNovaEvolucaoActionPerformed
 
     private void jRBHepatitesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBHepatitesActionPerformed
@@ -9574,6 +9813,44 @@ public class TelaPAI_NOVO_Psicologia extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jZona;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
+
+    public void buscarAcessoUsuario(String nomeTela) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserPSI = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserPSI + "'");
+            conecta.rs.first();
+            codigoUserGroupPSI = conecta.rs.getInt("IdUsuario");
+            codigoGrupoPSI = conecta.rs.getInt("IdGrupo");
+            nomeGrupoPSI = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserPSI + "' "
+                    + "AND NomeTela='" + nomeTela + "'");
+            conecta.rs.first();
+            codUserAcessoPSI = conecta.rs.getInt("IdUsuario");
+            codAbrirPSI = conecta.rs.getInt("Abrir");
+            codIncluirPSI = conecta.rs.getInt("Incluir");
+            codAlterarPSI = conecta.rs.getInt("Alterar");
+            codExcluirPSI = conecta.rs.getInt("Excluir");
+            codGravarPSI = conecta.rs.getInt("Gravar");
+            codConsultarPSI = conecta.rs.getInt("Consultar");
+            nomeTela = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
 
     public void formatarCampos() {
         jIdadeInterno.setDocument(new LimiteDigitosNum(3));
@@ -14274,6 +14551,7 @@ public class TelaPAI_NOVO_Psicologia extends javax.swing.JInternalFrame {
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
     }
+
     public void objLog11() {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
