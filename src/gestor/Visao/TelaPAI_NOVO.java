@@ -8034,7 +8034,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtSalvarVisitaIntimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarVisitaIntimaActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiCCGFVisInt_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiCCGFVisInt_SS) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiCCGFVisInt_SS) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             if (jIdVisitaIntima.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o nome da visita.");
             } else if (jNomeVisitaIntima.getText().equals("")) {
@@ -8933,7 +8933,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiEAPI1_SS);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiEAPI1_SS) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
-            acao = 17;
+            acao = 21;
             bloquearCampos();
             bloquearBotoes();
             NovoEAPI1();
@@ -8949,7 +8949,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiEAPI1_SS);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiEAPI1_SS) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
-            acao = 18;
+            acao = 22;
             bloquearCampos();
             bloquearBotoes();
             AlterarEAPI1();
@@ -8996,7 +8996,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
             objEapi1.setpSP(jTextoPSP.getText());
             objEapi1.setcEDEGEP(jTextoCEDEGEP.getText());
             objEapi1.setcRASCREAS(jTextoCRASCREAS.getText());
-            if (acao == 17) {
+            if (acao == 21) {
                 if (objEapi1.getIdPai() == codigoPaiEAPI && objEapi1.getIdInternoCrc() == codigoInternoDJ) {
                     JOptionPane.showMessageDialog(rootPane, "Já foi realizado um registro para esse interno.");
                 } else {
@@ -9012,7 +9012,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
                 }
             }
-            if (acao == 18) {
+            if (acao == 22) {
                 objEapi1.setUsuarioUp(nameUser);
                 objEapi1.setDataUp(dataModFinal);
                 objEapi1.setHorarioUp(horaMov);
@@ -9050,7 +9050,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiEAPI2_SS);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiEAPI2_SS) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
-            acao = 19;
+            acao = 23;
             bloquearCampos();
             bloquearBotoes();
             NovoEAPI2();
@@ -9066,7 +9066,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiEAPI2_SS);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiEAPI2_SS) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
-            acao = 20;
+            acao = 24;
             bloquearCampos();
             bloquearBotoes();
             AlterarEAPI2();
@@ -9114,7 +9114,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
             objEapi2.seteAPI2PAI(jTextEAPI2PAI.getText());
             objEapi2.setTecnicoServicoSocial(jTecnicoServicoSocial.getText());
             objEapi2.setTecnicoPsicologico(jTecnicoPsicologico.getText());
-            if (acao == 19) {
+            if (acao == 23) {
                 if (objEapi2.getIdPai() == codigoPaiEAPI && objEapi2.getIdInternoCrc() == codigoInternoEAPI) {
                     JOptionPane.showMessageDialog(rootPane, "Já foi realizado um registro para esse interno.");
                 } else {
@@ -9131,7 +9131,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
                 }
             }
-            if (acao == 20) {
+            if (acao == 24) {
                 objEapi2.setUsuarioUp(nameUser);
                 objEapi2.setDataUp(dataModFinal);
                 objEapi2.setHorarioUp(horaMov);
@@ -9224,7 +9224,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
                 objEvolucaoPAI.setNomeInternoCrc(jNomeInternoEvolucaoPAI.getText());
                 objEvolucaoPAI.setTextoEvolucaoPAI(jTextoEvolucao.getText());
                 objEvolucaoPAI.setIdPai(Integer.valueOf(jCodigoPAI.getText()));
-                if (acao == 20) {
+                if (acao == 25) {
                     objEvolucaoPAI.setUsuarioInsert(nameUser);
                     objEvolucaoPAI.setDataInsert(dataModFinal);
                     objEvolucaoPAI.setHorarioInsert(horaMov);
@@ -9242,7 +9242,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
                     verificarRegistrosTodasAbas();
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
                 }
-                if (acao == 21) {
+                if (acao == 26) {
                     objEvolucaoPAI.setUsuarioUp(nameUser);
                     objEvolucaoPAI.setDataUp(dataModFinal);
                     objEvolucaoPAI.setHorarioUp(horaMov);
@@ -9326,7 +9326,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Não foi possível encontrar o usuário.");
             }
             if (nomeUserRegistro == null ? nameUser == null : nomeUserRegistro.equals(nameUser)) {
-                acao = 21;
+                acao = 26;
                 bloquearCampos();
                 AlterarEvolucao();
                 statusMov = "Alterou";
@@ -9345,7 +9345,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiEPAI_SS);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiEPAI_SS) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
-            acao = 20;
+            acao = 25;
             bloquearCampos();
             NovaEvolucao();
             statusMov = "Incluiu";
