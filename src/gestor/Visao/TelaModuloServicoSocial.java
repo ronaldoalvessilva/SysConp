@@ -165,6 +165,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     public static String telaCancelaVisitaSS = "Movimentação:Cancelamento de Visitantes:Manutenção";
     public static String telaCancelaVisitaVistasExtSS = "Movimentação:Cancelamento de Visitantes:Visitas Externas";
     public static String telaCancelaVisitaVistasIntSS = "Movimentação:Cancelamento de Visitantes:Visitas Internas";
+    //P.A.I.
     public static String telaPAISS = "Movimentação:P.A.I.:Manutenção";
     public static String telaPaiCCGF_SS = "Movimentação:P.A.I.:C.C.G.F.";
     public static String telaPaiCCGFFam_SS = "Movimentação:P.A.I.:C.C.G.F.:Familia";
@@ -177,6 +178,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     public static String telaPaiEAPI1_SS = "Movimentação:P.A.I.:E.A.P.I.-1";
     public static String telaPaiEAPI2_SS = "Movimentação:P.A.I.:E.A.P.I.-2";
     public static String telaPaiEPAI_SS = "Movimentação:P.A.I.:E-PAI";
+    //
     public static String telaBloqueioLiberacaoVisitasSS = "Movimentação:Bloqueio/Desbloqueio de Ocorrência Portaria:Manutenção";
     public static String telaBloqueioLiberacaoOcorrenciaSS = "Movimentação:Bloqueio/Desbloqueio de Ocorrência Portaria:Ocorrência";
     public static String telaControleLigacoesTelSS = "Movimentação:Controle de Ligações:Manutenção";
@@ -222,6 +224,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     String pNomePEADPI1 = "";
     String pNomePEADPI2 = "";
     String pNomePEPAI = "";
+    //
     String pNomeBLV = "";
     String pNomeBLO = "";
     String pNomeCLT = "";
@@ -2552,6 +2555,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
             pNomeCVVI = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        //P.A.I.
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaPAISS + "'");
@@ -2643,6 +2647,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
             pNomePEPAI = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        //
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaBloqueioLiberacaoVisitasSS + "'");
@@ -2807,6 +2812,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
             objCadastroTela.setNomeTela(telaCancelaVisitaVistasIntSS);
             controle.incluirTelaAcesso(objCadastroTela);
         }
+        //P.A.I.
         if (!pNomePPM.equals(telaPAISS) || pNomePPM == null || pNomePPM.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
