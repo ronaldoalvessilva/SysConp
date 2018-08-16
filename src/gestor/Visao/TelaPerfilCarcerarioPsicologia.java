@@ -17,6 +17,20 @@ import gestor.Modelo.PerfilCarcerarioInterno;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloPsicologia.codAbrirPSI;
+import static gestor.Visao.TelaModuloPsicologia.codAlterarPSI;
+import static gestor.Visao.TelaModuloPsicologia.codConsultarPSI;
+import static gestor.Visao.TelaModuloPsicologia.codExcluirPSI;
+import static gestor.Visao.TelaModuloPsicologia.codGravarPSI;
+import static gestor.Visao.TelaModuloPsicologia.codIncluirPSI;
+import static gestor.Visao.TelaModuloPsicologia.codUserAcessoPSI;
+import static gestor.Visao.TelaModuloPsicologia.codigoGrupoPSI;
+import static gestor.Visao.TelaModuloPsicologia.codigoUserGroupPSI;
+import static gestor.Visao.TelaModuloPsicologia.codigoUserPSI;
+import static gestor.Visao.TelaModuloPsicologia.nomeGrupoPSI;
+import static gestor.Visao.TelaModuloPsicologia.nomeTelaPSI;
+import static gestor.Visao.TelaModuloPsicologia.telaPerfilSocialManuPSI;
+import static gestor.Visao.TelaModuloPsicologia.telaPerfilSocialPerfCarPSI;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -68,8 +82,6 @@ public class TelaPerfilCarcerarioPsicologia extends javax.swing.JInternalFrame {
     /**
      * Creates new form TelaPerfilCarcerario
      */
-    
-
     public TelaPerfilCarcerarioPsicologia() {
         super();
         initComponents();
@@ -77,8 +89,6 @@ public class TelaPerfilCarcerarioPsicologia extends javax.swing.JInternalFrame {
         formatarCampos();
         corCampos();
     }
-
-  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -1633,7 +1643,7 @@ public class TelaPerfilCarcerarioPsicologia extends javax.swing.JInternalFrame {
             jBtAuditoria.setEnabled(true);
             jBtFinalizar.setEnabled(true);
             //
-            jBtNovoPerfil.setEnabled(true);                      
+            jBtNovoPerfil.setEnabled(true);
             //
             conecta.abrirConexao();
             try {
@@ -1734,97 +1744,113 @@ public class TelaPerfilCarcerarioPsicologia extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        bloquearCampos();
-        limparCamposNovo();
-        Novo();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPerfilSocialManuPSI) && codIncluirPSI == 1) {
+            acao = 1;
+            bloquearCampos();
+            limparCamposNovo();
+            Novo();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
-        if (jStatusPerfil.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPerfilSocialManuPSI) && codAlterarPSI == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                Alterar();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 2;
-            Alterar();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        verificarInternoPerfil();
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        if (jIdInternoPerfil.getText().equals(codInterno)) {
-            JOptionPane.showMessageDialog(rootPane, "Não é possível excluir esse registro, o interno tem perfil carcerário cadastrado.");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objPerfilInter.setIdPerfil(Integer.valueOf(jIdPerfil.getText()));
-                control.excluirPerfilCarcerarioInterno(objPerfilInter);
-                Excluir();
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPerfilSocialManuPSI) && codExcluirPSI == 1) {
+            verificarInternoPerfil();
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            if (jIdInternoPerfil.getText().equals(codInterno)) {
+                JOptionPane.showMessageDialog(rootPane, "Não é possível excluir esse registro, o interno tem perfil carcerário cadastrado.");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objPerfilInter.setIdPerfil(Integer.valueOf(jIdPerfil.getText()));
+                    control.excluirPerfilCarcerarioInterno(objPerfilInter);
+                    Excluir();
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        verificarExistenciaInternoPerfil();
-        if (jDataPerfil.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data de cadastro do perfil carcerário");
-        } else if (jIdInternoPerfil.getText().equals("") || jNomeInternoPerfil.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno do perfil carcerário.");
-        } else if(jAnoNascimento.getValue() == 0 || jAnoNascimento.getValue()< 0){
-            JOptionPane.showMessageDialog(rootPane, "Informe o ano de nascimento do interno corretamente.");
-        }else if(jOpcaoSexual.getText().equals("")){
-            JOptionPane.showMessageDialog(rootPane, "Informe a opção sexual do interno.");
-        }else{
-            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
-            objPerfilInter.setDataPerfil(jDataPerfil.getDate());
-            objPerfilInter.setAnoReferencia(jAnoReferencia.getValue());
-            objPerfilInter.setOpcaoSexual(jOpcaoSexual.getText());
-            objPerfilInter.setAnoNascimento(jAnoNascimento.getValue());
-            objPerfilInter.setObservacaoPerfil(jObservacaoInternoPerfil.getText());
-            objPerfilInter.setNomeInternoPerfil(jNomeInternoPerfil.getText());
-            if (acao == 1) {
-                if (jIdInternoPerfil.getText().equals(codInterno) && objPerfilInter.getAnoReferencia() == anoReferencia) {
-                    JOptionPane.showMessageDialog(rootPane, "Esse interno já fez o cadastro do perfil carcerário.");
-                } else {
-                    objPerfilInter.setUsuarioInsert(nameUser);
-                    objPerfilInter.setDataInsert(dataModFinal);
-                    objPerfilInter.setHorarioInsert(horaMov);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPerfilSocialManuPSI) && codGravarPSI == 1) {
+            verificarExistenciaInternoPerfil();
+            if (jDataPerfil.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de cadastro do perfil carcerário");
+            } else if (jIdInternoPerfil.getText().equals("") || jNomeInternoPerfil.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno do perfil carcerário.");
+            } else if (jAnoNascimento.getValue() == 0 || jAnoNascimento.getValue() < 0) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o ano de nascimento do interno corretamente.");
+            } else if (jOpcaoSexual.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a opção sexual do interno.");
+            } else {
+                objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+                objPerfilInter.setDataPerfil(jDataPerfil.getDate());
+                objPerfilInter.setAnoReferencia(jAnoReferencia.getValue());
+                objPerfilInter.setOpcaoSexual(jOpcaoSexual.getText());
+                objPerfilInter.setAnoNascimento(jAnoNascimento.getValue());
+                objPerfilInter.setObservacaoPerfil(jObservacaoInternoPerfil.getText());
+                objPerfilInter.setNomeInternoPerfil(jNomeInternoPerfil.getText());
+                if (acao == 1) {
+                    if (jIdInternoPerfil.getText().equals(codInterno) && objPerfilInter.getAnoReferencia() == anoReferencia) {
+                        JOptionPane.showMessageDialog(rootPane, "Esse interno já fez o cadastro do perfil carcerário.");
+                    } else {
+                        objPerfilInter.setUsuarioInsert(nameUser);
+                        objPerfilInter.setDataInsert(dataModFinal);
+                        objPerfilInter.setHorarioInsert(horaMov);
+                        //
+                        control.incluirPerfilCarcerarioInterno(objPerfilInter);
+                        buscarCodigo();
+                        //
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        Salvar();
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    }
+                }
+                if (acao == 2) {
+                    objPerfilInter.setUsuarioUp(nameUser);
+                    objPerfilInter.setDataUp(dataModFinal);
+                    objPerfilInter.setHorarioUp(horaMov);
                     //
-                    control.incluirPerfilCarcerarioInterno(objPerfilInter);
-                    buscarCodigo();
-                    //
+                    objPerfilInter.setIdPerfil(Integer.valueOf(jIdPerfil.getText()));
+                    control.alterarPerfilCarcerarioInterno(objPerfilInter);
+
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     Salvar();
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
             }
-            if (acao == 2) {
-                objPerfilInter.setUsuarioUp(nameUser);
-                objPerfilInter.setDataUp(dataModFinal);
-                objPerfilInter.setHorarioUp(horaMov);
-                //
-                objPerfilInter.setIdPerfil(Integer.valueOf(jIdPerfil.getText()));
-                control.alterarPerfilCarcerarioInterno(objPerfilInter);
-
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -1869,113 +1895,133 @@ public class TelaPerfilCarcerarioPsicologia extends javax.swing.JInternalFrame {
 
     private void jBtNovoPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoPerfilActionPerformed
         // TODO add your handling code here:
-        objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
-        if (jStatusPerfil.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaPerfilSocialPerfCarPSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPerfilSocialPerfCarPSI) && codIncluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 3;
+                NovoPerfil();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 3;
-            NovoPerfil();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso aO registro.");
         }
     }//GEN-LAST:event_jBtNovoPerfilActionPerformed
 
     private void jBtAlterarPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarPerfilActionPerformed
         // TODO add your handling code here:
-        objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
-        if (jStatusPerfil.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaPerfilSocialPerfCarPSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPerfilSocialPerfCarPSI) && codAlterarPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 4;
+                AlterarPerfil();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 4;
-            AlterarPerfil();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso aO registro.");
         }
     }//GEN-LAST:event_jBtAlterarPerfilActionPerformed
 
     private void jBtExcluirPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirPerfilActionPerformed
         // TODO add your handling code here:
-        objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
-        if (jStatusPerfil.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
-        } else {
-            statusMov = "Excluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objPerfil.setIdPerfil(Integer.valueOf(jIdPerfil.getText()));
-                controle.excluirPerfilCarcerario(objPerfil);
-                ExcluirPerfil();
+        buscarAcessoUsuario(telaPerfilSocialPerfCarPSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPerfilSocialPerfCarPSI) && codExcluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objPerfil.setIdPerfil(Integer.valueOf(jIdPerfil.getText()));
+                    controle.excluirPerfilCarcerario(objPerfil);
+                    ExcluirPerfil();
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso aO registro.");
         }
     }//GEN-LAST:event_jBtExcluirPerfilActionPerformed
 
     private void jBtSalvarPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarPerfilActionPerformed
         // TODO add your handling code here:
-        verificarPerfilCarcerario();
-        objPerfil.setResidenciaFixa((String) jComboBoxResidenciaFixa.getSelectedItem());
-        objPerfil.setFilhosRecPaternidade(Integer.valueOf(jFilhosRecPaternidade.getText()));
-        objPerfil.setFilhosMaior21(Integer.valueOf(jFilhosMaior21.getText()));
-        objPerfil.setComposicaoFamiliar(jComposicaoFamiliar.getText());
-        objPerfil.setrG((String) jComboBoxRG.getSelectedItem());
-        objPerfil.setFilhosMenor21(Integer.valueOf(jFilhosMenor21.getText()));
-        objPerfil.setcPF((String) jComboBoxCPF.getSelectedItem());
-        objPerfil.setFamiliaRecBeneGov((String) jComboBoxFamiliaRecBeneGov.getSelectedItem());
-        objPerfil.setTemVisita((String) jComboBoxTemVisita.getSelectedItem());
-        objPerfil.setEscolaridade((String) jComboBoxEscolaridade.getSelectedItem());
-        objPerfil.setFrequentaEscolaUnid((String) jComboBoxFrequentaEscolaUnid.getSelectedItem());
-        objPerfil.setFezENEN((String) jComboBoxFezENEN.getSelectedItem());
-        objPerfil.setAtividadeLabor((String) jComboBoxAtividadeLabor.getSelectedItem());
-        objPerfil.setCarteiraAssinada((String) jComboBoxCarteiraAssinada.getSelectedItem());
-        objPerfil.setTranstornoMental((String) jComboBoxTranstornoMental.getSelectedItem());
-        objPerfil.setUsouDrogas((String) jComboBoxUsouDrogas.getSelectedItem());
-        objPerfil.setUsaDrogas((String) jComboBoxUsaDrogas.getSelectedItem());
-        objPerfil.setDiabetes((String) jComboBoxDiabetes.getSelectedItem());
-        objPerfil.setHipertensao((String) jComboBoxHipertensao.getSelectedItem());
-        objPerfil.setSifilis((String) jComboBoxSifilis.getSelectedItem());
-        objPerfil.setTuberculose((String) jComboBoxTuberculose.getSelectedItem());
-        objPerfil.setHepatite((String) jComboBoxHepatite.getSelectedItem());
-        objPerfil.sethIV((String) jComboBoxHIV.getSelectedItem());
-        objPerfil.setHanseniase((String) jComboBoxHanseniase.getSelectedItem());
-        objPerfil.setReu((String) jComboBoxReu.getSelectedItem());
-        objPerfil.setArtigo(Integer.valueOf(jArtigo.getText()));
-        objPerfil.setIdPerfil(Integer.valueOf(jIdPerfil.getText()));
-        objPerfil.setNomeInternoPerfil(jNomeInternoPerfil.getText());
-        objPerfil.setInteresseTrabalhar((String) jComboBoxInteresseTrabalhar.getSelectedItem());
-        objPerfil.setAnemiaFalsiforme((String) jComboBoxAnemiaFalsiforme.getSelectedItem());
-        if (acao == 3) {
-            if (jIdPerfil.getText().equals(codigoPerfil) && jIdInternoPerfil.getText().equals(codigoInternoPerfil)) {
-                JOptionPane.showMessageDialog(rootPane, "Já foi realizado um registro para esse interno.");
-            } else {
-                objPerfil.setUsuarioInsert(nameUser);
-                objPerfil.setDataInsert(dataModFinal);
-                objPerfil.setHorarioInsert(horaMov);
+        buscarAcessoUsuario(telaPerfilSocialPerfCarPSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPerfilSocialPerfCarPSI) && codGravarPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            verificarPerfilCarcerario();
+            objPerfil.setResidenciaFixa((String) jComboBoxResidenciaFixa.getSelectedItem());
+            objPerfil.setFilhosRecPaternidade(Integer.valueOf(jFilhosRecPaternidade.getText()));
+            objPerfil.setFilhosMaior21(Integer.valueOf(jFilhosMaior21.getText()));
+            objPerfil.setComposicaoFamiliar(jComposicaoFamiliar.getText());
+            objPerfil.setrG((String) jComboBoxRG.getSelectedItem());
+            objPerfil.setFilhosMenor21(Integer.valueOf(jFilhosMenor21.getText()));
+            objPerfil.setcPF((String) jComboBoxCPF.getSelectedItem());
+            objPerfil.setFamiliaRecBeneGov((String) jComboBoxFamiliaRecBeneGov.getSelectedItem());
+            objPerfil.setTemVisita((String) jComboBoxTemVisita.getSelectedItem());
+            objPerfil.setEscolaridade((String) jComboBoxEscolaridade.getSelectedItem());
+            objPerfil.setFrequentaEscolaUnid((String) jComboBoxFrequentaEscolaUnid.getSelectedItem());
+            objPerfil.setFezENEN((String) jComboBoxFezENEN.getSelectedItem());
+            objPerfil.setAtividadeLabor((String) jComboBoxAtividadeLabor.getSelectedItem());
+            objPerfil.setCarteiraAssinada((String) jComboBoxCarteiraAssinada.getSelectedItem());
+            objPerfil.setTranstornoMental((String) jComboBoxTranstornoMental.getSelectedItem());
+            objPerfil.setUsouDrogas((String) jComboBoxUsouDrogas.getSelectedItem());
+            objPerfil.setUsaDrogas((String) jComboBoxUsaDrogas.getSelectedItem());
+            objPerfil.setDiabetes((String) jComboBoxDiabetes.getSelectedItem());
+            objPerfil.setHipertensao((String) jComboBoxHipertensao.getSelectedItem());
+            objPerfil.setSifilis((String) jComboBoxSifilis.getSelectedItem());
+            objPerfil.setTuberculose((String) jComboBoxTuberculose.getSelectedItem());
+            objPerfil.setHepatite((String) jComboBoxHepatite.getSelectedItem());
+            objPerfil.sethIV((String) jComboBoxHIV.getSelectedItem());
+            objPerfil.setHanseniase((String) jComboBoxHanseniase.getSelectedItem());
+            objPerfil.setReu((String) jComboBoxReu.getSelectedItem());
+            objPerfil.setArtigo(Integer.valueOf(jArtigo.getText()));
+            objPerfil.setIdPerfil(Integer.valueOf(jIdPerfil.getText()));
+            objPerfil.setNomeInternoPerfil(jNomeInternoPerfil.getText());
+            objPerfil.setInteresseTrabalhar((String) jComboBoxInteresseTrabalhar.getSelectedItem());
+            objPerfil.setAnemiaFalsiforme((String) jComboBoxAnemiaFalsiforme.getSelectedItem());
+            if (acao == 3) {
+                if (jIdPerfil.getText().equals(codigoPerfil) && jIdInternoPerfil.getText().equals(codigoInternoPerfil)) {
+                    JOptionPane.showMessageDialog(rootPane, "Já foi realizado um registro para esse interno.");
+                } else {
+                    objPerfil.setUsuarioInsert(nameUser);
+                    objPerfil.setDataInsert(dataModFinal);
+                    objPerfil.setHorarioInsert(horaMov);
+                    //
+                    controle.incluirPerfilCarcerario(objPerfil);
+                    buscarCodigoPerfil();
+                    //
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    SalvarPerfil();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
+            if (acao == 4) {
+                objPerfil.setUsuarioUp(nameUser);
+                objPerfil.setDataUp(dataModFinal);
+                objPerfil.setHorarioUp(horaMov);
                 //
-                controle.incluirPerfilCarcerario(objPerfil);
-                buscarCodigoPerfil();
+                objPerfil.setIdPerfilCar(codigoPerfilCarcerario);
+                controle.alterarPerfilCarcerario(objPerfil);
                 //
                 objLog2();
                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                 SalvarPerfil();
                 JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
             }
-        }
-        if (acao == 4) {
-            objPerfil.setUsuarioUp(nameUser);
-            objPerfil.setDataUp(dataModFinal);
-            objPerfil.setHorarioUp(horaMov);
-            //
-            objPerfil.setIdPerfilCar(codigoPerfilCarcerario);
-            controle.alterarPerfilCarcerario(objPerfil);
-            //
-            objLog2();
-            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-            SalvarPerfil();
-            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso aO registro.");
         }
     }//GEN-LAST:event_jBtSalvarPerfilActionPerformed
 
@@ -2136,6 +2182,44 @@ public class TelaPerfilCarcerarioPsicologia extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
+    public void buscarAcessoUsuario(String nomeTela) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserPSI = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserPSI + "'");
+            conecta.rs.first();
+            codigoUserGroupPSI = conecta.rs.getInt("IdUsuario");
+            codigoGrupoPSI = conecta.rs.getInt("IdGrupo");
+            nomeGrupoPSI = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserPSI + "' "
+                    + "AND NomeTela='" + nomeTela + "'");
+            conecta.rs.first();
+            codUserAcessoPSI = conecta.rs.getInt("IdUsuario");
+            codAbrirPSI = conecta.rs.getInt("Abrir");
+            codIncluirPSI = conecta.rs.getInt("Incluir");
+            codAlterarPSI = conecta.rs.getInt("Alterar");
+            codExcluirPSI = conecta.rs.getInt("Excluir");
+            codGravarPSI = conecta.rs.getInt("Gravar");
+            codConsultarPSI = conecta.rs.getInt("Consultar");
+            nomeTelaPSI = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
     public void formatarCampos() {
         // MANUTENÇÃO
         jObservacaoInternoPerfil.setLineWrap(true);
@@ -2195,7 +2279,7 @@ public class TelaPerfilCarcerarioPsicologia extends javax.swing.JInternalFrame {
     public void Novo() {
         jIdPerfil.setText("");
         jStatusPerfil.setText("ABERTO");
-        Calendar cal = GregorianCalendar.getInstance();		
+        Calendar cal = GregorianCalendar.getInstance();
         jAnoReferencia.setValue(cal.get(Calendar.YEAR));
         jDataPerfil.setCalendar(Calendar.getInstance());
         jIdInternoPerfil.setText("");
