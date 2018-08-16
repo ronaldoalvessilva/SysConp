@@ -16,6 +16,15 @@ import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloPsicologia.codAlterarPSI;
+import static gestor.Visao.TelaModuloPsicologia.codExcluirPSI;
+import static gestor.Visao.TelaModuloPsicologia.codGravarPSI;
+import static gestor.Visao.TelaModuloPsicologia.codIncluirPSI;
+import static gestor.Visao.TelaModuloPsicologia.codUserAcessoPSI;
+import static gestor.Visao.TelaModuloPsicologia.codigoUserPSI;
+import static gestor.Visao.TelaModuloPsicologia.nomeGrupoPSI;
+import static gestor.Visao.TelaModuloPsicologia.nomeTelaPSI;
+import static gestor.Visao.TelaModuloPsicologia.telaCadastroAgendaAtendimentoInternoManuPSI;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -697,125 +706,142 @@ public class TelaAgendamentoAtendimentoInternos extends javax.swing.JInternalFra
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        jComboBoxDepartamento.removeAllItems();
-        Novo();
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaCadastroAgendaAtendimentoInternoManuPSI) && codIncluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            acao = 1;
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            jComboBoxDepartamento.removeAllItems();
+            Novo();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM AGENDA_ATENDIMENTO_INTERNOS WHERE IdReg='" + jIdRegistro.getText() + "'");
-            conecta.rs.first();
-            nomeUserRegistro = conecta.rs.getString("UsuarioInsert");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Não foi possivel encontrar o usuário.");
-        }
-        if (nomeUserRegistro == null ? nameUser == null : nomeUserRegistro.equals(nameUser)) {
-            objAgendaAtend.setStatusReg((String) jComboBoxStatusRegistro.getSelectedItem());
-            if (jComboBoxStatusRegistro.getSelectedItem().equals("Realizado")) {
-                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se REALIZADO");
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaCadastroAgendaAtendimentoInternoManuPSI) && codAlterarPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM AGENDA_ATENDIMENTO_INTERNOS WHERE IdReg='" + jIdRegistro.getText() + "'");
+                conecta.rs.first();
+                nomeUserRegistro = conecta.rs.getString("UsuarioInsert");
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(rootPane, "Não foi possivel encontrar o usuário.");
+            }
+            if (nomeUserRegistro == null ? nameUser == null : nomeUserRegistro.equals(nameUser)) {
+                objAgendaAtend.setStatusReg((String) jComboBoxStatusRegistro.getSelectedItem());
+                if (jComboBoxStatusRegistro.getSelectedItem().equals("Realizado")) {
+                    JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se REALIZADO");
+                } else {
+                    acao = 2;
+                    Alterar();
+                    statusMov = "Alterou";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                }
             } else {
-                acao = 2;
-                Alterar();
-                statusMov = "Alterou";
-                horaMov = jHoraSistema.getText();
-                dataModFinal = jDataSistema.getText();
+                JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserRegistro + " só esse usuário poderá modificar.");
+                conecta.desconecta();
             }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserRegistro + " só esse usuário poderá modificar.");
-            conecta.desconecta();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM AGENDA_ATENDIMENTO_INTERNOS WHERE IdReg='" + jIdRegistro.getText() + "'");
-            conecta.rs.first();
-            nomeUserRegistro = conecta.rs.getString("UsuarioInsert");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Não foi possivel encontrar o usuário.");
-        }
-        if (nomeUserRegistro == null ? nameUser == null : nomeUserRegistro.equals(nameUser)) {
-            if (jComboBoxStatusRegistro.getSelectedItem().equals("Realizado")) {
-                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se REALIZADO");
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaCadastroAgendaAtendimentoInternoManuPSI) && codExcluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM AGENDA_ATENDIMENTO_INTERNOS "
+                        + "WHERE IdReg='" + jIdRegistro.getText() + "'");
+                conecta.rs.first();
+                nomeUserRegistro = conecta.rs.getString("UsuarioInsert");
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(rootPane, "Não foi possivel encontrar o usuário.");
+            }
+            if (nomeUserRegistro == null ? nameUser == null : nomeUserRegistro.equals(nameUser)) {
+                if (jComboBoxStatusRegistro.getSelectedItem().equals("Realizado")) {
+                    JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se REALIZADO");
+                } else {
+                    objItens.setIdReg(Integer.valueOf(jIdRegistro.getText()));
+                    control.excluirAgendaAtendimento(objAgendaAtend);
+                    controleItens.excluirItensAgendaInterno(objItens);
+                    //
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    Excluir();
+                    JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
+                }
             } else {
-                objItens.setIdReg(Integer.valueOf(jIdRegistro.getText()));
-                control.excluirAgendaAtendimento(objAgendaAtend);
-                controleItens.excluirItensAgendaInterno(objItens);
-                //
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                Excluir();
-                JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
+                JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserRegistro + " só esse usuário poderá modificar.");
+                conecta.desconecta();
             }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserRegistro + " só esse usuário poderá modificar.");
-            conecta.desconecta();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataAgendamento.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data do Agendamento.");
-        } else if (jDataRegistro.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data do Registro.");
-        } else if (jNomeInternoCrcAgenda.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para o agendamento.");
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaCadastroAgendaAtendimentoInternoManuPSI) && codGravarPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            if (jDataAgendamento.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data do Agendamento.");
+            } else if (jDataRegistro.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data do Registro.");
+            } else if (jNomeInternoCrcAgenda.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para o agendamento.");
+            } else {
+                objAgendaAtend.setStatusReg((String) jComboBoxStatusRegistro.getSelectedItem());
+                objAgendaAtend.setDataReg(jDataRegistro.getDate());
+                objItens.setIdInternoCrc(Integer.valueOf(jIdInternoCrcAg.getText()));
+                objItens.setNomeInternoAgenda(jNomeInternoCrcAgenda.getText());
+                objAgendaAtend.setDepartamentoAgendamento((String) jComboBoxDepartamento.getSelectedItem());
+                objAgendaAtend.setDataAg(jDataAgendamento.getDate());
+                objAgendaAtend.setObservacao(jObservacao.getText());
+                if (acao == 1) {
+                    objAgendaAtend.setUsuarioInsert(nameUser);
+                    objAgendaAtend.setDataInsert(dataModFinal);
+                    objAgendaAtend.setHorarioInsert(horaMov);
+                    // AGENDA_ATENDIMENTO_INTERNOS
+                    control.incluirAgendaAtendimento(objAgendaAtend);
+                    buscarCodigo();
+                    objItens.setIdReg(Integer.valueOf(jIdRegistro.getText()));
+                    // TABLEA ITENS_AGENDA_ATENDIMENTO_INTERNOS
+                    objItens.setUsuarioInsert(nameUser);
+                    objItens.setDataInsert(dataModFinal);
+                    objItens.setHorarioInsert(horaMov);
+                    controleItens.incluirItensAgendaInterno(objItens);
+                    //
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 2) {
+                    objAgendaAtend.setUsuarioUp(nameUser);
+                    objAgendaAtend.setDataUp(dataModFinal);
+                    objAgendaAtend.setHorarioUp(horaMov);
+                    //
+                    objAgendaAtend.setIdReg(Integer.valueOf(jIdRegistro.getText()));
+                    control.alterarAgendaAtendimento(objAgendaAtend);
+                    //
+                    objItens.setUsuarioUp(nameUser);
+                    objItens.setDataUp(dataModFinal);
+                    objItens.setHorarioUp(horaMov);
+                    //
+                    objItens.setIdReg(Integer.valueOf(jIdRegistro.getText()));
+                    controleItens.alterarItensAgendaInterno(objItens);
+                    //
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
         } else {
-            objAgendaAtend.setStatusReg((String) jComboBoxStatusRegistro.getSelectedItem());
-            objAgendaAtend.setDataReg(jDataRegistro.getDate());
-            objItens.setIdInternoCrc(Integer.valueOf(jIdInternoCrcAg.getText()));
-            objItens.setNomeInternoAgenda(jNomeInternoCrcAgenda.getText());
-            objAgendaAtend.setDepartamentoAgendamento((String) jComboBoxDepartamento.getSelectedItem());
-            objAgendaAtend.setDataAg(jDataAgendamento.getDate());
-            objAgendaAtend.setObservacao(jObservacao.getText());
-            if (acao == 1) {
-                objAgendaAtend.setUsuarioInsert(nameUser);
-                objAgendaAtend.setDataInsert(dataModFinal);
-                objAgendaAtend.setHorarioInsert(horaMov);
-                // AGENDA_ATENDIMENTO_INTERNOS
-                control.incluirAgendaAtendimento(objAgendaAtend);
-                buscarCodigo();
-                objItens.setIdReg(Integer.valueOf(jIdRegistro.getText()));
-                // TABLEA ITENS_AGENDA_ATENDIMENTO_INTERNOS
-                objItens.setUsuarioInsert(nameUser);
-                objItens.setDataInsert(dataModFinal);
-                objItens.setHorarioInsert(horaMov);
-                controleItens.incluirItensAgendaInterno(objItens);
-                //
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
-            if (acao == 2) {
-                objAgendaAtend.setUsuarioUp(nameUser);
-                objAgendaAtend.setDataUp(dataModFinal);
-                objAgendaAtend.setHorarioUp(horaMov);
-                //
-                objAgendaAtend.setIdReg(Integer.valueOf(jIdRegistro.getText()));
-                control.alterarAgendaAtendimento(objAgendaAtend);
-                //
-                objItens.setUsuarioUp(nameUser);
-                objItens.setDataUp(dataModFinal);
-                objItens.setHorarioUp(horaMov);
-                //
-                objItens.setIdReg(Integer.valueOf(jIdRegistro.getText()));
-                controleItens.alterarItensAgendaInterno(objItens);
-                //
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
