@@ -270,7 +270,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
         jSeparator10 = new javax.swing.JPopupMenu.Separator();
         jMenu9 = new javax.swing.JMenu();
         jRegistroAtendeInternoBio = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        RegistroAtendimentoImpresso = new javax.swing.JMenuItem();
         jSeparator14 = new javax.swing.JPopupMenu.Separator();
         AgendaCompromissos = new javax.swing.JMenuItem();
         AgendaRecados = new javax.swing.JMenuItem();
@@ -437,14 +437,14 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
         });
         jMenu9.add(jRegistroAtendeInternoBio);
 
-        jMenuItem2.setForeground(new java.awt.Color(0, 0, 204));
-        jMenuItem2.setText("Registro Atendimento por Impressão");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        RegistroAtendimentoImpresso.setForeground(new java.awt.Color(0, 0, 204));
+        RegistroAtendimentoImpresso.setText("Registro Atendimento por Impressão");
+        RegistroAtendimentoImpresso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                RegistroAtendimentoImpressoActionPerformed(evt);
             }
         });
-        jMenu9.add(jMenuItem2);
+        jMenu9.add(RegistroAtendimentoImpresso);
 
         jMenu1.add(jMenu9);
         jMenu1.add(jSeparator14);
@@ -2019,7 +2019,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jRegistroAtendeInternoBioActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void RegistroAtendimentoImpressoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistroAtendimentoImpressoActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaRegistroAtendimentoImpBioSS);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaRegistroAtendimentoImpBioSS) && codAbrir == 1) {
@@ -2051,7 +2051,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_RegistroAtendimentoImpressoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -2078,6 +2078,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem PerfilPopulacaoCarceraria;
     private javax.swing.JMenuItem ProntuariosInternos;
     private javax.swing.JMenuItem RG;
+    private javax.swing.JMenuItem RegistroAtendimentoImpresso;
     private javax.swing.JMenuItem RelatorioCadastroVisitas;
     private javax.swing.JMenuItem RelatorioConfere;
     private javax.swing.JMenuItem RelatorioDocumentosInternosServicoSocial;
@@ -2111,7 +2112,6 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem16;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jOcorrenciasServicoSocial;
     private javax.swing.JMenuItem jPaiNOVO;
