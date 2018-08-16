@@ -37,14 +37,6 @@
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator3">
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="LivroOcorrencias">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Livro de Ocorr&#xea;ncias"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="LivroOcorrenciasActionPerformed"/>
-              </Events>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="Sair">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Sair"/>
@@ -141,6 +133,16 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jPerfilCarcerarioActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator9">
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="LivroOcorrencias">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Livro de Ocorr&#xea;ncias"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="LivroOcorrenciasActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

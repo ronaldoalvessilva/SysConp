@@ -109,15 +109,6 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     String usuarioAgenda;
     String codigoAgendaComp;
     //
-    public static String nomeModuloPSICOLOGIA = "PSICOLOGIA";
-    // MENU CADASTRO    
-    public static String telaConsultaProntuarioInternosDocPSI = "Consulta:Prontuario:Documentos";
-    //
-    int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
-    // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
-    // MENU CADASTRO
-    String pNomeCPID = "";
-    //
     public static int codigoUserPSI = 0;
     public static int codUserAcessoPSI = 0;
     public static int codigoUserGroupPSI = 0;
@@ -130,7 +121,63 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     public static int codigoGrupoPSI = 0;
     public static String nomeGrupoPSI = "";
     public static String nomeTelaPSI = "";
+    //
+    public static String nomeModuloPSICOLOGIA = "PSICOLOGIA";
+    // CADASTRO
+    public static String telaCadastroAgendaAtendimentoInternoManuPSI = "Cadastro:Agenda Atendimento a Internos:Manutenção";
+    // MENU CONSULTA    
+    public static String telaConsultaProntuarioInternosDocPSI = "Consulta:Prontuario:Documentos";
+    // MOVIMENTAÇÃO
+    public static String telaMovimentacaoAdmIntManuPSI = "Movimentação:Admissão de Internos:Manutenção";
+    public static String telaMovimentacaoEvolIntPSI = "Movimentação:Evolução Psicológica de Internos";
+    public static String telaMovimentacaoPareIntPSI = "Movimentação:Parecer Psicológico de Internos";
+    //
+    public static String telaMovimentacaoAvalPsiIntPSI = "Movimentação:Avaliação Psicologica:Manutenção";
+    //P.A.I.
+    public static String telaPAIS_PSI = "Movimentação:P.A.I.:Manutenção";
+    public static String telaPaiCCGF_PSI = "Movimentação:P.A.I.:C.C.G.F.";
+    public static String telaPaiCCGFFam_PSI = "Movimentação:P.A.I.:C.C.G.F.:Familia";
+    public static String telaPaiCCGFVis_PSI = "Movimentação:P.A.I.:C.C.G.F.:Visita";
+    public static String telaPaiCCGFVisInt_PSI = "Movimentação:P.A.I.:C.C.G.F.:Visita Intima";
+    public static String telaPaiDEME_PSI = "Movimentação:P.A.I.:D.E.M.E.";
+    public static String telaPaiDPTL_PSI = "Movimentação:P.A.I.:D.P.T.L.";
+    public static String telaPaiDJ_PSI = "Movimentação:P.A.I.:D.J.";
+    public static String telaPaiDS_PSI = "Movimentação:P.A.I.:D.S.";
+    public static String telaPaiEAPI1_PSI = "Movimentação:P.A.I.:E.A.P.I.-1";
+    public static String telaPaiEAPI2_PSI = "Movimentação:P.A.I.:E.A.P.I.-2";
+    public static String telaPaiEPAI_PSI = "Movimentação:P.A.I.:E-PAI";
+    //
+    public static String telaMovimetacaoOcrPSI = "Movimetação:Movimentação:Ocorrências Diárias:Manutenção";
+    // 
+    int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
+    // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
+    // MENU CADASTRO
+    String pNomeCAAI = "";
+    // MENU CONSULTA
+    String pNomeCPID = "";
+    // MOVIMENTAÇÃO
+    String pNomeMAIM = "";
+    String pNomeMEP = "";
+    String pNomeMPI = "";
+    String pNomeMAP = "";
+    //P.A.I.
+    String pNomePPM = "";
+    String pNomePCCGF = "";
+    String pNomePCCGFa = "";
+    String pNomePCCGFVis = "";
+    String pNomePCCGFVisInt = "";
+    String pNomePDEME = "";
+    String pNomePDPTL = "";
+    String pNomePDJ = "";
+    String pNomePDS = "";
+    String pNomePEADPI1 = "";
+    String pNomePEADPI2 = "";
+    String pNomePEPAI = "";
+    //
+    String pNomeMO = "";
 
+    //pNomeMO    
+    //telaMovimetacaoOcrPSI
     /**
      * Creates new form TelaPsicologia
      */
@@ -159,7 +206,6 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
         AgendaCompromissos = new javax.swing.JMenuItem();
         AgendaRecados = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
-        LivroOcorrencias = new javax.swing.JMenuItem();
         Sair = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         ConsultaProntuarioInternos = new javax.swing.JMenuItem();
@@ -174,6 +220,8 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
         jPaiNovo = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         jPerfilCarcerario = new javax.swing.JMenuItem();
+        jSeparator9 = new javax.swing.JPopupMenu.Separator();
+        LivroOcorrencias = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         RelatoriosConfere = new javax.swing.JMenu();
         RelatorioGeralConfere = new javax.swing.JMenuItem();
@@ -200,6 +248,8 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/SISCONP 2.gif"))); // NOI18N
 
+        jPainelPsicologia.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout jPainelPsicologiaLayout = new javax.swing.GroupLayout(jPainelPsicologia);
         jPainelPsicologia.setLayout(jPainelPsicologiaLayout);
         jPainelPsicologiaLayout.setHorizontalGroup(
@@ -212,7 +262,6 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 539, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 59, Short.MAX_VALUE))
         );
-        jPainelPsicologia.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jMenu1.setText("Cadastro");
 
@@ -241,14 +290,6 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
         });
         jMenu1.add(AgendaRecados);
         jMenu1.add(jSeparator3);
-
-        LivroOcorrencias.setText("Livro de Ocorrências");
-        LivroOcorrencias.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LivroOcorrenciasActionPerformed(evt);
-            }
-        });
-        jMenu1.add(LivroOcorrencias);
 
         Sair.setText("Sair");
         Sair.addActionListener(new java.awt.event.ActionListener() {
@@ -334,6 +375,15 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
             }
         });
         jMenu2.add(jPerfilCarcerario);
+        jMenu2.add(jSeparator9);
+
+        LivroOcorrencias.setText("Livro de Ocorrências");
+        LivroOcorrencias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LivroOcorrenciasActionPerformed(evt);
+            }
+        });
+        jMenu2.add(LivroOcorrencias);
 
         jMenuBar1.add(jMenu2);
 
@@ -497,59 +547,67 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
 
     private void AdmissaoPsicologicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdmissaoPsicologicaActionPerformed
         // TODO add your handling code here:
-        if (objAdmPsi == null || objAdmPsi.isClosed()) {
-            objAdmPsi = new TelaAdmissaoPsicologica();
-            jPainelPsicologia.add(objAdmPsi);
-            objAdmPsi.setVisible(true);
-        } else {
-            if (objAdmPsi.isVisible()) {
-                if (objAdmPsi.isIcon()) { // Se esta minimizado
-                    try {
-                        objAdmPsi.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaMovimentacaoAdmIntManuPSI) && codAbrirPSI == 1) {
+            if (objAdmPsi == null || objAdmPsi.isClosed()) {
+                objAdmPsi = new TelaAdmissaoPsicologica();
+                jPainelPsicologia.add(objAdmPsi);
+                objAdmPsi.setVisible(true);
+            } else {
+                if (objAdmPsi.isVisible()) {
+                    if (objAdmPsi.isIcon()) { // Se esta minimizado
+                        try {
+                            objAdmPsi.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objAdmPsi.toFront(); // traz para frente
+                        objAdmPsi.pack();//volta frame 
                     }
                 } else {
-                    objAdmPsi.toFront(); // traz para frente
-                    objAdmPsi.pack();//volta frame 
+                    objAdmPsi = new TelaAdmissaoPsicologica();
+                    TelaModuloPsicologia.jPainelPsicologia.add(objAdmPsi);//adicona frame ao JDesktopPane  
+                    objAdmPsi.setVisible(true);
                 }
-            } else {
-                objAdmPsi = new TelaAdmissaoPsicologica();
-                TelaModuloPsicologia.jPainelPsicologia.add(objAdmPsi);//adicona frame ao JDesktopPane  
-                objAdmPsi.setVisible(true);
             }
-        }
-        try {
-            objAdmPsi.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objAdmPsi.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_AdmissaoPsicologicaActionPerformed
 
     private void AvaliacaoPsicologicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AvaliacaoPsicologicaActionPerformed
         // TODO add your handling code here:
-        if (objAvaPsi == null || objAvaPsi.isClosed()) {
-            objAvaPsi = new TelaAvaliacaoPsicologica();
-            jPainelPsicologia.add(objAvaPsi);
-            objAvaPsi.setVisible(true);
-        } else {
-            if (objAvaPsi.isVisible()) {
-                if (objAvaPsi.isIcon()) { // Se esta minimizado
-                    try {
-                        objAvaPsi.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaMovimentacaoAvalPsiIntPSI) && codAbrirPSI == 1) {
+            if (objAvaPsi == null || objAvaPsi.isClosed()) {
+                objAvaPsi = new TelaAvaliacaoPsicologica();
+                jPainelPsicologia.add(objAvaPsi);
+                objAvaPsi.setVisible(true);
+            } else {
+                if (objAvaPsi.isVisible()) {
+                    if (objAvaPsi.isIcon()) { // Se esta minimizado
+                        try {
+                            objAvaPsi.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objAvaPsi.toFront(); // traz para frente
+                        objAvaPsi.pack();//volta frame 
                     }
                 } else {
-                    objAvaPsi.toFront(); // traz para frente
-                    objAvaPsi.pack();//volta frame 
+                    objAvaPsi = new TelaAvaliacaoPsicologica();
+                    TelaModuloPsicologia.jPainelPsicologia.add(objAvaPsi);//adicona frame ao JDesktopPane  
+                    objAvaPsi.setVisible(true);
                 }
-            } else {
-                objAvaPsi = new TelaAvaliacaoPsicologica();
-                TelaModuloPsicologia.jPainelPsicologia.add(objAvaPsi);//adicona frame ao JDesktopPane  
-                objAvaPsi.setVisible(true);
             }
-        }
-        try {
-            objAvaPsi.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objAvaPsi.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_AvaliacaoPsicologicaActionPerformed
 
@@ -613,30 +671,34 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
 
     private void LivroOcorrenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LivroOcorrenciasActionPerformed
         // TODO add your handling code here:
-        if (objOcorrPsi == null || objOcorrPsi.isClosed()) {
-            objOcorrPsi = new TelaOcorrenciaPsicologia();
-            jPainelPsicologia.add(objOcorrPsi);
-            objOcorrPsi.setVisible(true);
-        } else {
-            if (objOcorrPsi.isVisible()) {
-                if (objOcorrPsi.isIcon()) { // Se esta minimizado
-                    try {
-                        objOcorrPsi.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaMovimetacaoOcrPSI) && codAbrirPSI == 1) {
+            if (objOcorrPsi == null || objOcorrPsi.isClosed()) {
+                objOcorrPsi = new TelaOcorrenciaPsicologia();
+                jPainelPsicologia.add(objOcorrPsi);
+                objOcorrPsi.setVisible(true);
+            } else {
+                if (objOcorrPsi.isVisible()) {
+                    if (objOcorrPsi.isIcon()) { // Se esta minimizado
+                        try {
+                            objOcorrPsi.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objOcorrPsi.toFront(); // traz para frente
+                        objOcorrPsi.pack();//volta frame 
                     }
                 } else {
-                    objOcorrPsi.toFront(); // traz para frente
-                    objOcorrPsi.pack();//volta frame 
+                    objOcorrPsi = new TelaOcorrenciaPsicologia();
+                    TelaModuloPsicologia.jPainelPsicologia.add(objOcorrPsi);//adicona frame ao JDesktopPane  
+                    objOcorrPsi.setVisible(true);
                 }
-            } else {
-                objOcorrPsi = new TelaOcorrenciaPsicologia();
-                TelaModuloPsicologia.jPainelPsicologia.add(objOcorrPsi);//adicona frame ao JDesktopPane  
-                objOcorrPsi.setVisible(true);
             }
-        }
-        try {
-            objOcorrPsi.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objOcorrPsi.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_LivroOcorrenciasActionPerformed
 
@@ -836,31 +898,35 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jPerfilCarcerarioActionPerformed
 
     private void AgendaAtendimentoInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgendaAtendimentoInternosActionPerformed
-        // TODO add your handling code here:
-        if (objAgendaAtendInt == null || objAgendaAtendInt.isClosed()) {
-            objAgendaAtendInt = new TelaAgendamentoAtendimentoInternos();
-            jPainelPsicologia.add(objAgendaAtendInt);
-            objAgendaAtendInt.setVisible(true);
-        } else {
-            if (objAgendaAtendInt.isVisible()) {
-                if (objAgendaAtendInt.isIcon()) { // Se esta minimizado
-                    try {
-                        objAgendaAtendInt.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        // TODO add your handling code here:buscarAcessoUsuario(telaCadastroVisitasSS);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaCadastroAgendaAtendimentoInternoManuPSI) && codAbrirPSI == 1) {
+            if (objAgendaAtendInt == null || objAgendaAtendInt.isClosed()) {
+                objAgendaAtendInt = new TelaAgendamentoAtendimentoInternos();
+                jPainelPsicologia.add(objAgendaAtendInt);
+                objAgendaAtendInt.setVisible(true);
+            } else {
+                if (objAgendaAtendInt.isVisible()) {
+                    if (objAgendaAtendInt.isIcon()) { // Se esta minimizado
+                        try {
+                            objAgendaAtendInt.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objAgendaAtendInt.toFront(); // traz para frente
+                        objAgendaAtendInt.pack();//volta frame 
                     }
                 } else {
-                    objAgendaAtendInt.toFront(); // traz para frente
-                    objAgendaAtendInt.pack();//volta frame 
+                    objAgendaAtendInt = new TelaAgendamentoAtendimentoInternos();
+                    TelaModuloPsicologia.jPainelPsicologia.add(objAgendaAtendInt);//adicona frame ao JDesktopPane  
+                    objAgendaAtendInt.setVisible(true);
                 }
-            } else {
-                objAgendaAtendInt = new TelaAgendamentoAtendimentoInternos();
-                TelaModuloPsicologia.jPainelPsicologia.add(objAgendaAtendInt);//adicona frame ao JDesktopPane  
-                objAgendaAtendInt.setVisible(true);
             }
-        }
-        try {
-            objAgendaAtendInt.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objAgendaAtendInt.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_AgendaAtendimentoInternosActionPerformed
 
@@ -902,30 +968,34 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
 
     private void jPaiNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPaiNovoActionPerformed
         // TODO add your handling code here:
-        if (objPAI_NOVO == null || objPAI_NOVO.isClosed()) {
-            objPAI_NOVO = new TelaPAI_NOVO_Psicologia();
-            jPainelPsicologia.add(objPAI_NOVO);
-            objPAI_NOVO.setVisible(true);
-        } else {
-            if (objPAI_NOVO.isVisible()) {
-                if (objPAI_NOVO.isIcon()) { // Se esta minimizado
-                    try {
-                        objPAI_NOVO.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPAIS_PSI) && codAbrirPSI == 1) {
+            if (objPAI_NOVO == null || objPAI_NOVO.isClosed()) {
+                objPAI_NOVO = new TelaPAI_NOVO_Psicologia();
+                jPainelPsicologia.add(objPAI_NOVO);
+                objPAI_NOVO.setVisible(true);
+            } else {
+                if (objPAI_NOVO.isVisible()) {
+                    if (objPAI_NOVO.isIcon()) { // Se esta minimizado
+                        try {
+                            objPAI_NOVO.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objPAI_NOVO.toFront(); // traz para frente
+                        objPAI_NOVO.pack();//volta frame 
                     }
                 } else {
-                    objPAI_NOVO.toFront(); // traz para frente
-                    objPAI_NOVO.pack();//volta frame 
+                    objPAI_NOVO = new TelaPAI_NOVO_Psicologia();
+                    TelaModuloPsicologia.jPainelPsicologia.add(objPAI_NOVO);//adicona frame ao JDesktopPane  
+                    objPAI_NOVO.setVisible(true);
                 }
-            } else {
-                objPAI_NOVO = new TelaPAI_NOVO_Psicologia();
-                TelaModuloPsicologia.jPainelPsicologia.add(objPAI_NOVO);//adicona frame ao JDesktopPane  
-                objPAI_NOVO.setVisible(true);
             }
-        }
-        try {
-            objPAI_NOVO.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objPAI_NOVO.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jPaiNovoActionPerformed
 
@@ -969,6 +1039,7 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator6;
     private javax.swing.JPopupMenu.Separator jSeparator7;
     private javax.swing.JPopupMenu.Separator jSeparator8;
+    private javax.swing.JPopupMenu.Separator jSeparator9;
     // End of variables declaration//GEN-END:variables
 
     // Verificar a cada 5 minutos se o recado foi lido (10/01/2015)
@@ -1199,6 +1270,7 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
 
     public void pesquisarTelasAcessos() {
         conecta.abrirConexao();
+        //CONSULTA
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaConsultaProntuarioInternosDocPSI + "'");
@@ -1206,12 +1278,258 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
             pNomeCPID = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
-
+        //CADASTRO
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaCadastroAgendaAtendimentoInternoManuPSI + "'");
+            conecta.rs.first();
+            pNomeCAAI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        // MOVIMENTAÇÃO
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaMovimentacaoAdmIntManuPSI + "'");
+            conecta.rs.first();
+            pNomeMAIM = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaMovimentacaoEvolIntPSI + "'");
+            conecta.rs.first();
+            pNomeMEP = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaMovimentacaoPareIntPSI + "'");
+            conecta.rs.first();
+            pNomeMPI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaMovimentacaoAvalPsiIntPSI + "'");
+            conecta.rs.first();
+            pNomeMAP = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        //P.A.I.
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPAIS_PSI + "'");
+            conecta.rs.first();
+            pNomePPM = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPaiCCGF_PSI + "'");
+            conecta.rs.first();
+            pNomePCCGF = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPaiCCGFFam_PSI + "'");
+            conecta.rs.first();
+            pNomePCCGFa = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPaiCCGFVis_PSI + "'");
+            conecta.rs.first();
+            pNomePCCGFVis = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPaiCCGFVis_PSI + "'");
+            conecta.rs.first();
+            pNomePCCGFVis = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPaiCCGFVisInt_PSI + "'");
+            conecta.rs.first();
+            pNomePCCGFVisInt = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPaiDEME_PSI + "'");
+            conecta.rs.first();
+            pNomePDEME = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPaiDPTL_PSI + "'");
+            conecta.rs.first();
+            pNomePDPTL = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPaiDJ_PSI + "'");
+            conecta.rs.first();
+            pNomePDJ = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPaiDS_PSI + "'");
+            conecta.rs.first();
+            pNomePDS = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPaiEAPI1_PSI + "'");
+            conecta.rs.first();
+            pNomePEADPI1 = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPaiEAPI2_PSI + "'");
+            conecta.rs.first();
+            pNomePEADPI2 = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPaiEPAI_PSI + "'");
+            conecta.rs.first();
+            pNomePEPAI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaMovimetacaoOcrPSI + "'");
+            conecta.rs.first();
+            pNomeMO = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        //  CADASTRO
+        if (!pNomeCAAI.equals(telaCadastroAgendaAtendimentoInternoManuPSI) || pNomeCAAI == null || pNomeCAAI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaCadastroAgendaAtendimentoInternoManuPSI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
         // MENU CONSULTA
         if (!pNomeCPID.equals(telaConsultaProntuarioInternosDocPSI) || pNomeCPID == null || pNomeCPID.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaConsultaProntuarioInternosDocPSI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        // MOVIMENTAÇÃO
+        if (!pNomeMAIM.equals(telaMovimentacaoAdmIntManuPSI) || pNomeMAIM == null || pNomeMAIM.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaMovimentacaoAdmIntManuPSI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeMEP.equals(telaMovimentacaoEvolIntPSI) || pNomeMEP == null || pNomeMEP.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaMovimentacaoEvolIntPSI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeMPI.equals(telaMovimentacaoPareIntPSI) || pNomeMPI == null || pNomeMPI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaMovimentacaoPareIntPSI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeMAP.equals(telaMovimentacaoAvalPsiIntPSI) || pNomeMAP == null || pNomeMAP.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaMovimentacaoAvalPsiIntPSI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //P.A.I.
+        if (!pNomePPM.equals(telaPAIS_PSI) || pNomePPM == null || pNomePPM.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaPAIS_PSI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomePCCGF.equals(telaPaiCCGF_PSI) || pNomePCCGF == null || pNomePCCGF.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaPaiCCGF_PSI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomePCCGFa.equals(telaPaiCCGFFam_PSI) || pNomePCCGFa == null || pNomePCCGFa.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaPaiCCGFFam_PSI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomePCCGFVis.equals(telaPaiCCGFVis_PSI) || pNomePCCGFVis == null || pNomePCCGFVis.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaPaiCCGFVis_PSI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomePCCGFVisInt.equals(telaPaiCCGFVisInt_PSI) || pNomePCCGFVisInt == null || pNomePCCGFVisInt.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaPaiCCGFVisInt_PSI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomePDEME.equals(telaPaiDEME_PSI) || pNomePDEME == null || pNomePDEME.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaPaiDEME_PSI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomePDPTL.equals(telaPaiDPTL_PSI) || pNomePDPTL == null || pNomePDPTL.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaPaiDPTL_PSI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomePDJ.equals(telaPaiDJ_PSI) || pNomePDJ == null || pNomePDJ.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaPaiDJ_PSI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomePDS.equals(telaPaiDS_PSI) || pNomePDS == null || pNomePDS.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaPaiDS_PSI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomePEADPI1.equals(telaPaiEAPI1_PSI) || pNomePEADPI1 == null || pNomePEADPI1.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaPaiEAPI1_PSI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomePEADPI2.equals(telaPaiEAPI2_PSI) || pNomePEADPI2 == null || pNomePEADPI2.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaPaiEAPI2_PSI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomePEPAI.equals(telaPaiEPAI_PSI) || pNomePEPAI == null || pNomePEPAI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaPaiEPAI_PSI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeMO.equals(telaMovimetacaoOcrPSI) || pNomeMO == null || pNomeMO.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaMovimetacaoOcrPSI);
             controle.incluirTelaAcesso(objCadastroTela);
         }
 
