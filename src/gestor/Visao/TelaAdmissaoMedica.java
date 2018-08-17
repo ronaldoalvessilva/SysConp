@@ -3775,41 +3775,43 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                     objAdmMedico.setDiagnostico(jDiagnosticoInicial.getText());
                     if (acao == 1) {
                         if (jIdInternoAdm.getText().equals(codInternoCrc)) {
-                            JOptionPane.showMessageDialog(rootPane, "Esse Interno já fez admissão, para consultar, faça uma consulta na aba listagem.");
-                        } else {
-                            // log de usuario
-                            objAdmMedico.setUsuarioInsert(nameUser);
-                            objAdmMedico.setDataInsert(dataModFinal);
-                            objAdmMedico.setHoraInsert(horaMov);
-                            objAdmMedico.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
-                            objAdmMedico.setNomeInterno(jNomeInternoAdm.getText());
-                            control.incluirAdmissaoMedica(objAdmMedico);
-                            buscarID();
-                            objAdmMedico.setIdLanc(Integer.valueOf(jIdAdm.getText()));
-                            objAdmMedico.setNomeInterno(jNomeInternoAdm.getText());
-                            objAdmMedico.setDeptoMedico(deptoTecnico);
-                            controle.incluirMovTec(objAdmMedico);
-                            // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO  
-                            atendido = "Sim";
-                            objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
-                            objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
-                            objRegAtend.setIdDepartamento(codigoDepartamentoENF);
-                            objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
-                            objRegAtend.setAtendido(atendido);
-                            objRegAtend.setDataAtendimento(jDataAdm.getDate());
-                            objRegAtend.setIdAtend(Integer.valueOf(jIdAdm.getText()));
-                            //
-                            objRegAtend.setUsuarioUp(nameUser);
-                            objRegAtend.setDataUp(dataModFinal);
-                            objRegAtend.setHorarioUp(horaMov);
-                            controlRegAtend.alterarRegAtend(objRegAtend);
-                            //
-                            objLog();
-                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                    
-                            incluirItensDoencas();
-                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                            Salvar();
-                            acao = 0;
+                            int resposta = JOptionPane.showConfirmDialog(this, "Esse Interno já fez admissão, deseja fazer outra admissão assim mesmo.?", "Confirmação",
+                                    JOptionPane.YES_NO_OPTION);
+                            if (resposta == JOptionPane.YES_OPTION) {
+                                // log de usuario
+                                objAdmMedico.setUsuarioInsert(nameUser);
+                                objAdmMedico.setDataInsert(dataModFinal);
+                                objAdmMedico.setHoraInsert(horaMov);
+                                objAdmMedico.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                                objAdmMedico.setNomeInterno(jNomeInternoAdm.getText());
+                                control.incluirAdmissaoMedica(objAdmMedico);
+                                buscarID();
+                                objAdmMedico.setIdLanc(Integer.valueOf(jIdAdm.getText()));
+                                objAdmMedico.setNomeInterno(jNomeInternoAdm.getText());
+                                objAdmMedico.setDeptoMedico(deptoTecnico);
+                                controle.incluirMovTec(objAdmMedico);
+                                // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO  
+                                atendido = "Sim";
+                                objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                                objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
+                                objRegAtend.setIdDepartamento(codigoDepartamentoENF);
+                                objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                                objRegAtend.setAtendido(atendido);
+                                objRegAtend.setDataAtendimento(jDataAdm.getDate());
+                                objRegAtend.setIdAtend(Integer.valueOf(jIdAdm.getText()));
+                                //
+                                objRegAtend.setUsuarioUp(nameUser);
+                                objRegAtend.setDataUp(dataModFinal);
+                                objRegAtend.setHorarioUp(horaMov);
+                                controlRegAtend.alterarRegAtend(objRegAtend);
+                                //
+                                objLog();
+                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                    
+                                incluirItensDoencas();
+                                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                Salvar();
+                                acao = 0;
+                            }
                         }
                     }
                     if (acao == 2) {
