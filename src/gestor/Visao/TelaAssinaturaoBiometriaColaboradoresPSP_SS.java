@@ -48,7 +48,7 @@ public class TelaAssinaturaoBiometriaColaboradoresPSP_SS extends javax.swing.JDi
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
-    String nomeModuloTela2 = "Enfermaria:Liberação de Impressão de Atendimento:Biometria";
+    String nomeModuloTela2 = "Serviço Social:Liberação de Impressão de Atendimento:Biometria";
     String statusMov;
     String horaMov;
     String dataModFinal;
