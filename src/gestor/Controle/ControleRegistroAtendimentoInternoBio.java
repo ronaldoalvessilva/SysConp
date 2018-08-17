@@ -36,6 +36,31 @@ public class ControleRegistroAtendimentoInternoBio {
     public RegistroAtendimentoInternos incluirRegAtend(RegistroAtendimentoInternos objRegAtend) {
 
         buscarInternoCrc(objRegAtend.getNomeInternoCrc(), objRegAtend.getIdInternoCrc());
+        buscarDepartamento(objRegAtend.getNomeDepartamento());       
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO REGISTRO_ATENDIMENTO_INTERNO_PSP (DataReg,Horario,IdInternoCrc,TipoAtendimento,IdDepartamento,AssinaturaDigital,Atendido,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?)");
+            pst.setTimestamp(1, new java.sql.Timestamp(objRegAtend.getDataReg().getTime()));
+            pst.setString(2, objRegAtend.getHorario());
+            pst.setInt(3, codInt);
+            pst.setString(4, objRegAtend.getTipoAtemdimento());
+            pst.setInt(5, codDpto);           
+            pst.setBytes(6, objRegAtend.getAssinaturaDigital());            
+            pst.setString(7, objRegAtend.getAtendido());            
+            pst.setString(8, objRegAtend.getUsuarioInsert());
+            pst.setString(9, objRegAtend.getDataInsert());
+            pst.setString(10, objRegAtend.getHorarioInsert());           
+            pst.execute();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objRegAtend;
+    }
+
+    public RegistroAtendimentoInternos incluirRegAtendColaborador(RegistroAtendimentoInternos objRegAtend) {
+
+        buscarInternoCrc(objRegAtend.getNomeInternoCrc(), objRegAtend.getIdInternoCrc());
         buscarDepartamento(objRegAtend.getNomeDepartamento());
         buscarColaborador(objRegAtend.getNomeFunc(), objRegAtend.getCodigoFunc());
         conecta.abrirConexao();
