@@ -111,8 +111,8 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
     String atendido = "Sim";
     String opcao = "Não";
     public static int codigoDepartamentoPSI = 0;
-    String tipoAtendimentoAdm = "Admissão Serviço Social";
-    String tipoAtendimentoEvol = "Evolução Serviço Social";
+    String tipoAtendimentoAdm = "Admissão Psicologica";
+    String tipoAtendimentoEvol = "Evolução Psicologica";
     //
     String pHabilitaPsicologia = "";
 
