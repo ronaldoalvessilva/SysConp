@@ -1318,20 +1318,7 @@ public class TelaRegistroInternosAtendimentoSS extends javax.swing.JInternalFram
         jBtCancelarLeitura.setEnabled(!true);
     }
 
-    public void Salvar() {
-        jIdRegistro.setText("");
-        jDataRegistro.setDate(null);
-        jComboBoxTipoMovimentacao.setSelectedItem("Selecione...");
-        jHorarioSaidaEntrada.setText("");
-        jNomeDepartamento.setText("");
-        jIdInternoKitBio.setText("");
-        jCNC.setText("");
-        jRegimeKitBio.setText("");
-        jNomeInternoKitBio.setText("");
-        jPavilhaoKitBio.setText("");
-        jCelaKitBio.setText("");
-        jFotoInternoKitBio.setIcon(null);
-        //
+    public void Salvar() {                
         jComboBoxTipoMovimentacao.setEnabled(!true);
         //
         jBtSalvar.setEnabled(!true);
