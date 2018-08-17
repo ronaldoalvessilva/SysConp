@@ -8,11 +8,13 @@ package gestor.Visao;
 import gestor.Controle.ControleAvaliacaoPsicologica;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleMovPsicologiaAvaliacao;
+import gestor.Controle.ControleRegistroAtendimentoInternoBio;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.LimiteDigitos;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.AvaliacaoPsicologica;
 import gestor.Modelo.LogSistema;
+import gestor.Modelo.RegistroAtendimentoInternos;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
@@ -48,6 +50,10 @@ public class TelaAvaliacaoPsicologica extends javax.swing.JInternalFrame {
     ControleAvaliacaoPsicologica control = new ControleAvaliacaoPsicologica();
     ControleMovPsicologiaAvaliacao controle = new ControleMovPsicologiaAvaliacao();
     ControleLogSistema controlLog = new ControleLogSistema();
+    // INFORMAR QUE O INTERNO FOI ATENDIDO NA ADMISSÃO E NA EVOLUÇÃO
+    RegistroAtendimentoInternos objRegAtend = new RegistroAtendimentoInternos();
+    ControleRegistroAtendimentoInternoBio controlRegAtend = new ControleRegistroAtendimentoInternoBio();
+    //
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
     String nomeModuloTela = "Psicologia:Avaliação Psicologica:Manutenção";
@@ -62,6 +68,16 @@ public class TelaAvaliacaoPsicologica extends javax.swing.JInternalFrame {
     String caminho;
     int count = 0;
     String nomeUserRegistro;
+    //
+    String dataReg = "";
+    String codigoInternoAtend = "";
+    String atendido = "Sim";
+    String opcao = "Não";
+    public static int codigoDepartamentoPSI = 0;
+    String tipoAtendimentoAdm = "Avaliação Psicologica";
+    String tipoAtendimentoEvol = "Evolução Psicologica";
+    //
+    String pHabilitaPsicologia = "";
 
     /**
      * Creates new form TelaAvaliacaoPsicologica
@@ -2011,6 +2027,19 @@ public class TelaAvaliacaoPsicologica extends javax.swing.JInternalFrame {
                         objAvaPsi.setNomeInterno(jNomeInterno.getText());
                         objAvaPsi.setDeptoPsicologico(deptoTecnico);
                         controle.incluirMovTec(objAvaPsi);
+                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
+                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                        objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
+                        objRegAtend.setIdDepartamento(codigoDepartamentoPSI);
+                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                        objRegAtend.setAtendido(atendido);
+                        objRegAtend.setDataAtendimento(jDataLanc.getDate());
+                        objRegAtend.setIdAtend(Integer.valueOf(jIDLanc.getText()));
+                        //
+                        objRegAtend.setUsuarioUp(nameUser);
+                        objRegAtend.setDataUp(dataModFinal);
+                        objRegAtend.setHorarioUp(horaMov);
+                        controlRegAtend.alterarRegAtend(objRegAtend);
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
@@ -2194,9 +2223,15 @@ public class TelaAvaliacaoPsicologica extends javax.swing.JInternalFrame {
 
     private void jBtPesqInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqInternosActionPerformed
         // TODO add your handling code here:
-        TelaPesqInternoAdmPsicologiaAvaliacao objPesqIntAvaPsi = new TelaPesqInternoAdmPsicologiaAvaliacao();
-        TelaModuloPsicologia.jPainelPsicologia.add(objPesqIntAvaPsi);
-        objPesqIntAvaPsi.show();
+        if (pHabilitaPsicologia.equals("Não")) {
+            TelaPesqInternoAdmPsicologiaAvaliacao objPesqIntAvaPsi = new TelaPesqInternoAdmPsicologiaAvaliacao();
+            TelaModuloPsicologia.jPainelPsicologia.add(objPesqIntAvaPsi);
+            objPesqIntAvaPsi.show();
+        } else {
+            TelaPesqInternoAvaliacaoPsiBio objPesqAvaBio = new TelaPesqInternoAvaliacaoPsiBio();
+            TelaModuloPsicologia.jPainelPsicologia.add(objPesqAvaBio);
+            objPesqAvaBio.show();
+        }
     }//GEN-LAST:event_jBtPesqInternosActionPerformed
 
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
@@ -2346,6 +2381,19 @@ public class TelaAvaliacaoPsicologica extends javax.swing.JInternalFrame {
                         objAvaPsi.setNomeInterno(jNomeInterno.getText());
                         objAvaPsi.setDeptoPsicologico(deptoTecnico);
                         controle.incluirMovTec(objAvaPsi);
+                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
+                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                        objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
+                        objRegAtend.setIdDepartamento(codigoDepartamentoPSI);
+                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                        objRegAtend.setAtendido(atendido);
+                        objRegAtend.setDataAtendimento(jDataLanc.getDate());
+                        objRegAtend.setIdAtend(Integer.valueOf(jIDLanc.getText()));
+                        //
+                        objRegAtend.setUsuarioUp(nameUser);
+                        objRegAtend.setDataUp(dataModFinal);
+                        objRegAtend.setHorarioUp(horaMov);
+                        controlRegAtend.alterarRegAtend(objRegAtend);
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
@@ -2536,6 +2584,19 @@ public class TelaAvaliacaoPsicologica extends javax.swing.JInternalFrame {
                         objAvaPsi.setNomeInterno(jNomeInterno.getText());
                         objAvaPsi.setDeptoPsicologico(deptoTecnico);
                         controle.incluirMovTec(objAvaPsi);
+                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
+                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                        objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
+                        objRegAtend.setIdDepartamento(codigoDepartamentoPSI);
+                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                        objRegAtend.setAtendido(atendido);
+                        objRegAtend.setDataAtendimento(jDataLanc.getDate());
+                        objRegAtend.setIdAtend(Integer.valueOf(jIDLanc.getText()));
+                        //
+                        objRegAtend.setUsuarioUp(nameUser);
+                        objRegAtend.setDataUp(dataModFinal);
+                        objRegAtend.setHorarioUp(horaMov);
+                        controlRegAtend.alterarRegAtend(objRegAtend);
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
