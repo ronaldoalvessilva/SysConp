@@ -88,6 +88,8 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     private TelaAgendamentoAtendimentoInternos objAgendaAtendInt = null;
     private TelaMovimentacaoCrcPsicologia objMoviCrc = null;
     private TelaPAI_NOVO_Psicologia objPAI_NOVO = null;
+    private TelaRegistroInternosAtendimentoPSI objRegBioPSI = null;
+    private TelaRegistroInternosAtendimentoImpressoPSI objAutoImp = null;
     //
     String dataLanc;
     int codUsuario;
@@ -125,6 +127,8 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     public static String nomeModuloPSICOLOGIA = "PSICOLOGIA";
     // CADASTRO
     public static String telaCadastroAgendaAtendimentoInternoManuPSI = "Cadastro:Agenda Atendimento a Internos:Manutenção";
+    public static String telaRegistroAtendimentoBioPSI = "Cadastro:Registro de Atendimento Internos Biometria:Manutenção";
+    public static String telaRegistroAtendimentoImpBioPSI = "Cadastro:Registro de Autorização Impressa:Liberação";
     // MENU CONSULTA    
     public static String telaConsultaProntuarioInternosDocPSI = "Consulta:Prontuario:Documentos";
     // MOVIMENTAÇÃO
@@ -156,6 +160,8 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
     // MENU CADASTRO
     String pNomeCAAI = "";
+    String pNomeRABP = "";
+    String pNomeRAIB = "";
     // MENU CONSULTA
     String pNomeCPID = "";
     // MOVIMENTAÇÃO
@@ -181,19 +187,15 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     String pNomePSPC = "";
     //
     String pNomeMO = "";
-
-    //pNomePSM
-    //pNomePSPC
-    //telaPerfilSocialManuPSI
-    //telaPerfilSocialPerfCarPSI
+   
     /**
      * Creates new form TelaPsicologia
      */
     public TelaModuloPsicologia() {
         initComponents();
         this.setSize(840, 640); // Tamanho da tela 
-        threadMensagem(); // A cada 5 minutos verifica mensagem 
         pesquisarTelasAcessos();
+        threadMensagem(); // A cada 5 minutos verifica mensagem         
     }
 
     /**
@@ -1041,10 +1043,69 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
 
     private void jRegistroAtendeInternoBioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRegistroAtendeInternoBioActionPerformed
         // TODO add your handling code here:
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaRegistroAtendimentoBioPSI) && codAbrirPSI == 1) {
+            if (objRegBioPSI == null || objRegBioPSI.isClosed()) {
+                objRegBioPSI = new TelaRegistroInternosAtendimentoPSI();
+                jPainelPsicologia.add(objRegBioPSI);
+                objRegBioPSI.setVisible(true);
+            } else {
+                if (objRegBioPSI.isVisible()) {
+                    if (objRegBioPSI.isIcon()) { // Se esta minimizado
+                        try {
+                            objRegBioPSI.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objRegBioPSI.toFront(); // traz para frente
+                        objRegBioPSI.pack();//volta frame 
+                    }
+                } else {
+                    objRegBioPSI = new TelaRegistroInternosAtendimentoPSI();
+                    TelaModuloPsicologia.jPainelPsicologia.add(objRegBioPSI);//adicona frame ao JDesktopPane  
+                    objRegBioPSI.setVisible(true);
+                }
+            }
+            try {
+                objRegBioPSI.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jRegistroAtendeInternoBioActionPerformed
 
     private void RegistroAtendimentoImpressoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistroAtendimentoImpressoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaRegistroAtendimentoImpBioPSI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaRegistroAtendimentoImpBioPSI) && codAbrirPSI == 1) {
+            if (objAutoImp == null || objAutoImp.isClosed()) {
+                objAutoImp = new TelaRegistroInternosAtendimentoImpressoPSI();
+                jPainelPsicologia.add(objAutoImp);
+                objAutoImp.setVisible(true);
+            } else {
+                if (objAutoImp.isVisible()) {
+                    if (objAutoImp.isIcon()) { // Se esta minimizado
+                        try {
+                            objAutoImp.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objAutoImp.toFront(); // traz para frente
+                        objAutoImp.pack();//volta frame 
+                    }
+                } else {
+                    objAutoImp = new TelaRegistroInternosAtendimentoImpressoPSI();
+                    TelaModuloPsicologia.jPainelPsicologia.add(objAutoImp);//adicona frame ao JDesktopPane  
+                    objAutoImp.setVisible(true);
+                }
+            }
+            try {
+                objAutoImp.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_RegistroAtendimentoImpressoActionPerformed
 
 
@@ -1338,6 +1399,20 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
             pNomeCAAI = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRegistroAtendimentoBioPSI + "'");
+            conecta.rs.first();
+            pNomeRABP = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRegistroAtendimentoImpBioPSI + "'");
+            conecta.rs.first();
+            pNomeRAIB = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // MOVIMENTAÇÃO
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
@@ -1485,6 +1560,18 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaCadastroAgendaAtendimentoInternoManuPSI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeRABP.equals(telaRegistroAtendimentoBioPSI) || pNomeRABP == null || pNomeRABP.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRegistroAtendimentoBioPSI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeRAIB.equals(telaRegistroAtendimentoImpBioPSI) || pNomeRAIB == null || pNomeRAIB.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRegistroAtendimentoImpBioPSI);
             controle.incluirTelaAcesso(objCadastroTela);
         }
         // MENU CONSULTA
