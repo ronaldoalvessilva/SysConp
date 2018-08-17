@@ -855,8 +855,7 @@ public class TelaRegistroInternosAtendimento extends javax.swing.JInternalFrame 
                 + "INNER JOIN PRONTUARIOSCRC "
                 + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                 + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInternoOdonto.getText() + "%' "
-                + "AND IdDepartamento='" + codigoDepto + "'"
-                + "AND Impresso='" + pImpressao + "'");
+                + "AND IdDepartamento='" + codigoDepto + "'");
     }//GEN-LAST:event_jBtPesqNomeInternoActionPerformed
 
     private void jBtIdPesqAtendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIdPesqAtendActionPerformed
@@ -866,8 +865,7 @@ public class TelaRegistroInternosAtendimento extends javax.swing.JInternalFrame 
                 + "INNER JOIN PRONTUARIOSCRC "
                 + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                 + "WHERE REGISTRO_ATENDIMENTO_INTERNO_PSP.IdReg='" + jIDPesqAtend.getText() + "' "
-                + "AND IdDepartamento='" + codigoDepto + "'"
-                + "AND Impresso='" + pImpressao + "'");
+                + "AND IdDepartamento='" + codigoDepto + "'");
     }//GEN-LAST:event_jBtIdPesqAtendActionPerformed
 
     private void jBtPesqDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDataActionPerformed
@@ -892,8 +890,7 @@ public class TelaRegistroInternosAtendimento extends javax.swing.JInternalFrame 
                             + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                             + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
                             + "AND '" + dataFinal + "' "
-                            + "AND IdDepartamento='" + codigoDepto + "'"
-                            + "AND Impresso='" + pImpressao + "'");
+                            + "AND IdDepartamento='" + codigoDepto + "'");
                 }
             }
         }
@@ -906,8 +903,7 @@ public class TelaRegistroInternosAtendimento extends javax.swing.JInternalFrame 
             this.preencherTabelaRegistros("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "AND IdDepartamento='" + codigoDepto + "' "
-                    + "AND Impresso='" + pImpressao + "'");
+                    + "AND IdDepartamento='" + codigoDepto + "'");
         } else {
             count = 0;
             jtotalRegistros.setText("");
@@ -1327,18 +1323,18 @@ public class TelaRegistroInternosAtendimento extends javax.swing.JInternalFrame 
     }
 
     public void Salvar() {
-        jIdRegistro.setText("");
-        jDataRegistro.setDate(null);
-        jComboBoxTipoMovimentacao.setSelectedItem("Selecione...");
-        jHorarioSaidaEntrada.setText("");
-        jNomeDepartamento.setText("");
-        jIdInternoKitBio.setText("");
-        jCNC.setText("");
-        jRegimeKitBio.setText("");
-        jNomeInternoKitBio.setText("");
-        jPavilhaoKitBio.setText("");
-        jCelaKitBio.setText("");
-        jFotoInternoKitBio.setIcon(null);
+//        jIdRegistro.setText("");
+//        jDataRegistro.setDate(null);
+//        jComboBoxTipoMovimentacao.setSelectedItem("Selecione...");
+//        jHorarioSaidaEntrada.setText("");
+//        jNomeDepartamento.setText("");
+//        jIdInternoKitBio.setText("");
+//        jCNC.setText("");
+//        jRegimeKitBio.setText("");
+//        jNomeInternoKitBio.setText("");
+//        jPavilhaoKitBio.setText("");
+//        jCelaKitBio.setText("");
+//        jFotoInternoKitBio.setIcon(null);
         //
         jComboBoxTipoMovimentacao.setEnabled(!true);
         //
