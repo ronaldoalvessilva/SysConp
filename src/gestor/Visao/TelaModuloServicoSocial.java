@@ -2040,7 +2040,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
                     }
                 } else {
                     objAutoImp = new TelaRegistroInternosAtendimentoImpressoSS();
-                    TelaModuloEnfermaria.jPainelMedico.add(objAutoImp);//adicona frame ao JDesktopPane  
+                    TelaModuloServicoSocial.jPainelServicoSocial.add(objAutoImp);//adicona frame ao JDesktopPane  
                     objAutoImp.setVisible(true);
                 }
             }
