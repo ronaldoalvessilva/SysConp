@@ -866,7 +866,7 @@ public class TelaRegistroInternosAtendimentoImpressoSS extends javax.swing.JInte
                         objRegAtend.setAtendido(atendido);
                         objRegAtend.setMotivoImpressao(jMotivo.getText());
                         objRegAtend.setImpressaoAuto(pImpressao);
-                        control.incluirRegAtend(objRegAtend);
+                        control.incluirRegAtendColaborador(objRegAtend);
                         buscarRegistro();
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
