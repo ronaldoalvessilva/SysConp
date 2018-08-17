@@ -250,7 +250,21 @@ public class TelaPesqInternoAdmPsicologiaAvaliacao extends javax.swing.JInternal
             jPesqNome.requestFocus();
         } else {
             jTabelaInterno.setVisible(true);
-            preencherTabelaNome("SELECT * FROM PRONTUARIOSCRC INNER JOIN DADOSFISICOSINTERNOS ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc INNER JOIN PAISES ON PRONTUARIOSCRC.IdPais=PAISES.IdPais INNER JOIN CIDADES ON PRONTUARIOSCRC.IdCidade = CIDADES.IdCidade INNER JOIN DADOSPENAISINTERNOS ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc INNER JOIN UNIDADE ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid WHERE NomeInternoCrc LIKE'" + jPesqNome.getText() + "%' AND SituacaoCrc='" + situacao + "' OR NomeInternoCrc LIKE'" + jPesqNome.getText() +"%' AND SituacaoCrc='" + situacaoRet + "'");
+            preencherTabelaNome("SELECT * FROM PRONTUARIOSCRC "
+                    + "INNER JOIN DADOSFISICOSINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
+                    + "INNER JOIN PAISES "
+                    + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
+                    + "INNER JOIN CIDADES "
+                    + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "INNER JOIN UNIDADE "
+                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                    + "WHERE NomeInternoCrc LIKE'" + jPesqNome.getText() + "%' "
+                    + "AND SituacaoCrc='" + situacao + "' "
+                    + "OR NomeInternoCrc LIKE'" + jPesqNome.getText() + "%' "
+                    + "AND SituacaoCrc='" + situacaoRet + "'");
         }
     }//GEN-LAST:event_jBtNomeActionPerformed
 
@@ -262,7 +276,21 @@ public class TelaPesqInternoAdmPsicologiaAvaliacao extends javax.swing.JInternal
             jPesqMatricula.requestFocus();
         } else {
             jTabelaInterno.setVisible(true);
-            buscarInternosMatricula("SELECT * FROM PRONTUARIOSCRC INNER JOIN DADOSFISICOSINTERNOS ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc INNER JOIN PAISES ON PRONTUARIOSCRC.IdPais=PAISES.IdPais INNER JOIN CIDADES ON PRONTUARIOSCRC.IdCidade = CIDADES.IdCidade INNER JOIN DADOSPENAISINTERNOS ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc INNER JOIN UNIDADE ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid WHERE MatriculaCrc LIKE'" + jPesqMatricula.getText() + "%' AND SituacaoCrc='" + situacao + "'OR MatriculaCrc LIKE'" + jPesqMatricula.getText() + "' AND SituacaoCrc='" + situacaoRet + "'");
+            buscarInternosMatricula("SELECT * FROM PRONTUARIOSCRC "
+                    + "INNER JOIN DADOSFISICOSINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
+                    + "INNER JOIN PAISES "
+                    + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
+                    + "INNER JOIN CIDADES "
+                    + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "INNER JOIN UNIDADE "
+                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                    + "WHERE MatriculaCrc LIKE'" + jPesqMatricula.getText() + "%' "
+                    + "AND SituacaoCrc='" + situacao + "' "
+                    + "OR MatriculaCrc LIKE'" + jPesqMatricula.getText() + "' "
+                    + "AND SituacaoCrc='" + situacaoRet + "'");
         }
     }//GEN-LAST:event_jBtMatriculaActionPerformed
 
@@ -290,8 +318,11 @@ public class TelaPesqInternoAdmPsicologiaAvaliacao extends javax.swing.JInternal
             try {
                 conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                         + "INNER JOIN DADOSPENAISINTERNOS "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc = DADOSPENAISINTERNOS.IdInternoCrc INNER JOIN CIDADES ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
-                        + "WHERE PRONTUARIOSCRC.NomeInternoCrc LIKE'" + nomeInterno + "%'AND PRONTUARIOSCRC.IdInternoCrc='" + idInt  + "'");
+                        + "ON PRONTUARIOSCRC.IdInternoCrc = DADOSPENAISINTERNOS.IdInternoCrc "
+                        + "INNER JOIN CIDADES "
+                        + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
+                        + "WHERE PRONTUARIOSCRC.NomeInternoCrc='" + nomeInterno + "' "
+                        + "AND PRONTUARIOSCRC.IdInternoCrc='" + idInt + "'");
                 conecta.rs.first();
                 jIDInterno.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
                 jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));
