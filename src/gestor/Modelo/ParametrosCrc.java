@@ -73,11 +73,13 @@ public class ParametrosCrc {
     private String nomeColaboradorSEG;
     private String pHabilitaAtendSS;
     private String pHabilitaTele;
+    private String atendimentoBioPSI;
+    private String avaliacaoBioPSI;
 
     public ParametrosCrc() {
     }
 
-    public ParametrosCrc(int idPar, int qtdDias, String qtdHoras, String usuarioAutorizado, String regRetornoPortaria, String regEntradaPortaria, String docAudiencia, String docTrans, String docSaidaTmp, String docLivraPro, String valAudiencia, String valTrans, String valSaidaTmp, String valLivraPro, String docPro, String docAlvara, String valPro, String valAlvara, String usuarioInsert, String usuariosUp, String dataInsert, String dataUp, String horarioUp, String populacaoBgp, String locacaoBgp, String transferenciaBgp, String pavilhaoCelas, String populacaoBpa, String locacaoBpa, String transferenciaBpa, String pavilhaoCelasBpa, String caminhoImagemCrc, String caminhoImagemSS, String caminhoImagemFunc, String localFotoAdvogado, String localFotoVisitasDiversas, String localFotoOficial, String localFotoVisitasInternos, String localFotoColaboradores, String localFotoInternos, String biometriaMedicos, String biometriaEnfermerios, String biometriaTecnicos, String carcereFem, String localPDF_PI, String localPDF_PE, String localPDF_B1, String localPDF_B2, String caminhoAtualizaSis, Date dataVersao, Double numeroVersao, String caminhoExecAntigo, String preLocacaoB1, String preLocacaoB2, String pHabilitaBaseI, String pHabilitaBaseII, String nomeColaboradorPRI, String nomeColaboradorSEG, String pHabilitaAtendSS, String pHabilitaTele) {
+    public ParametrosCrc(int idPar, int qtdDias, String qtdHoras, String usuarioAutorizado, String regRetornoPortaria, String regEntradaPortaria, String docAudiencia, String docTrans, String docSaidaTmp, String docLivraPro, String valAudiencia, String valTrans, String valSaidaTmp, String valLivraPro, String docPro, String docAlvara, String valPro, String valAlvara, String usuarioInsert, String usuariosUp, String dataInsert, String dataUp, String horarioUp, String populacaoBgp, String locacaoBgp, String transferenciaBgp, String pavilhaoCelas, String populacaoBpa, String locacaoBpa, String transferenciaBpa, String pavilhaoCelasBpa, String caminhoImagemCrc, String caminhoImagemSS, String caminhoImagemFunc, String localFotoAdvogado, String localFotoVisitasDiversas, String localFotoOficial, String localFotoVisitasInternos, String localFotoColaboradores, String localFotoInternos, String biometriaMedicos, String biometriaEnfermerios, String biometriaTecnicos, String carcereFem, String localPDF_PI, String localPDF_PE, String localPDF_B1, String localPDF_B2, String caminhoAtualizaSis, Date dataVersao, Double numeroVersao, String caminhoExecAntigo, String preLocacaoB1, String preLocacaoB2, String pHabilitaBaseI, String pHabilitaBaseII, String nomeColaboradorPRI, String nomeColaboradorSEG, String pHabilitaAtendSS, String pHabilitaTele, String atendimentoBioPSI, String avaliacaoBioPSI) {
         this.idPar = idPar;
         this.qtdDias = qtdDias;
         this.qtdHoras = qtdHoras;
@@ -138,6 +140,8 @@ public class ParametrosCrc {
         this.nomeColaboradorSEG = nomeColaboradorSEG;
         this.pHabilitaAtendSS = pHabilitaAtendSS;
         this.pHabilitaTele = pHabilitaTele;
+        this.atendimentoBioPSI = atendimentoBioPSI;
+        this.avaliacaoBioPSI = avaliacaoBioPSI;
     }
 
     /**
@@ -978,6 +982,34 @@ public class ParametrosCrc {
      */
     public void setpHabilitaTele(String pHabilitaTele) {
         this.pHabilitaTele = pHabilitaTele;
+    }
+
+    /**
+     * @return the atendimentoBioPSI
+     */
+    public String getAtendimentoBioPSI() {
+        return atendimentoBioPSI;
+    }
+
+    /**
+     * @param atendimentoBioPSI the atendimentoBioPSI to set
+     */
+    public void setAtendimentoBioPSI(String atendimentoBioPSI) {
+        this.atendimentoBioPSI = atendimentoBioPSI;
+    }
+
+    /**
+     * @return the avaliacaoBioPSI
+     */
+    public String getAvaliacaoBioPSI() {
+        return avaliacaoBioPSI;
+    }
+
+    /**
+     * @param avaliacaoBioPSI the avaliacaoBioPSI to set
+     */
+    public void setAvaliacaoBioPSI(String avaliacaoBioPSI) {
+        this.avaliacaoBioPSI = avaliacaoBioPSI;
     }
    
 }
