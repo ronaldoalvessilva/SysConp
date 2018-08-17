@@ -4224,9 +4224,9 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                     objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
                     objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
                     objRegAtend.setIdDepartamento(codigoDepartamentoENF);
-                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoEvolPS);
                     objRegAtend.setAtendido(atendido);
-                    objRegAtend.setDataAtendimento(jDataAdm.getDate());
+                    objRegAtend.setDataAtendimento(jDataEvolPsiquiatrica.getDate());
                     objRegAtend.setIdAtend(Integer.valueOf(jIdAdm.getText()));
                     objRegAtend.setIdEvol(Integer.valueOf(jIdEvolucaoPsiquiatrica.getText()));
                     objRegAtend.setAtendeEvol(atendido);
@@ -4238,7 +4238,8 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                     // Log
                     objLog2();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação   
-                    preencherTabelaEvolucaoPsiquiatrica("SELECT * FROM EVOLUCAO_PSIQUIATRICA WHERE IdLanc='" + jIdAdm.getText() + "'");
+                    preencherTabelaEvolucaoPsiquiatrica("SELECT * FROM EVOLUCAO_PSIQUIATRICA "
+                            + "WHERE IdLanc='" + jIdAdm.getText() + "'");
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                     SalvarEvolPsiquiatrica();
                 }
@@ -4451,11 +4452,11 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                     objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
                     objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
                     objRegAtend.setIdDepartamento(codigoDepartamentoENF);
-                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoEvolME);
                     objRegAtend.setAtendido(atendido);
-                    objRegAtend.setDataAtendimento(jDataAdm.getDate());
+                    objRegAtend.setDataAtendimento(jDataEvolucao.getDate());
                     objRegAtend.setIdAtend(Integer.valueOf(jIdAdm.getText()));
-                    objRegAtend.setIdEvol(Integer.valueOf(jIdEvolucaoPsiquiatrica.getText()));
+                    objRegAtend.setIdEvol(Integer.valueOf(jIdEvolucaoMedica.getText()));
                     objRegAtend.setAtendeEvol(atendido);
                     //
                     objRegAtend.setUsuarioUp(nameUser);
