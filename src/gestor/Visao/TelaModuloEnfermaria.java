@@ -2062,8 +2062,8 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
 
     private void RegistroAtendimentoImpressoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistroAtendimentoImpressoActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaTipoTratamentoManu);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaTipoTratamentoManu) && codAbrirENF == 1) {
+        buscarAcessoUsuario(telaRegistroAtenImpENF);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaRegistroAtenImpENF) && codAbrirENF == 1) {
             if (objAutoImp == null || objAutoImp.isClosed()) {
                 objAutoImp = new TelaRegistroInternosAtendimentoImpresso();
                 jPainelMedico.add(objAutoImp);
