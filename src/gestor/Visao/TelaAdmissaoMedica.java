@@ -141,7 +141,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
     int tipoPrescricao;
     int tipoPM = 0;
     int tipoPP = 1;
-    String codInternoCrc; // CÓDIGO DO INTERNO PARA BLOQUEAR DUPLICIDADE
+    String codInternoCrc = ""; // CÓDIGO DO INTERNO PARA BLOQUEAR DUPLICIDADE
     String atendido = "Sim";
     String nomeInternoAnterior = "";
     //    
@@ -3615,7 +3615,6 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         telaAcessoProntuarioMedicoENF = "Movimentação:Admissão Médica de Internos:Manutenção";
         buscarAcessoUsuario();
         if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAcessoProntuarioMedicoENF) && codIncluirENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
-            acao = 1;
             Novo();
             corCampos();
             statusMov = "Incluiu";
@@ -3627,6 +3626,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
             limparTabelaPrescricaoMedica();
             limparTabelaAtestadoMedica();
             limparTabelaDietaMedica();
+            acao = 1;
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir prontuário médico.");
         }
@@ -3715,12 +3715,6 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:  
         if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAcessoProntuarioMedicoENF) && codGravarENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
-            verificarEvolucaoPsiquiatrica(); // VERIFICAR SE EXISTE EVOLUÇÃO PSICOLOGICA ANTES DE EXCLUIR
-            verificarEvolucaoMedica(); // VERIFICAR SE EXISTE EVOLUÇÃO MÉDICA ANTES DE EXCLUIR
-            verificarPrescricaoMedica(); // VERIFICAR SE EXISTE PRESCRIÇÃO MÉDICA/PSICOLOGICA ANTES DE EXCLUIR
-            verificarAtestadoMedico(); // VERIFICAR SE EXISTE ATESTADO
-            verificarDietaMedica(); // VERIFICAR SE EXISTE DIETA MÉDICA
-            verificarInterno();
             Integer rows = jTabelaPatologia.getModel().getRowCount();
             verificarDoencas();
             if (jDataAdm.getDate() == null) {
@@ -3774,45 +3768,38 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                     objAdmMedico.setQuaisOutrasAlergias(jQuaisOutrasAlergias.getText());
                     objAdmMedico.setDiagnostico(jDiagnosticoInicial.getText());
                     if (acao == 1) {
-                        if (jIdInternoAdm.getText().equals(codInternoCrc)) {
-                            int resposta = JOptionPane.showConfirmDialog(this, "Esse Interno já fez admissão, deseja fazer outra admissão assim mesmo.?", "Confirmação",
-                                    JOptionPane.YES_NO_OPTION);
-                            if (resposta == JOptionPane.YES_OPTION) {
-                                // log de usuario
-                                objAdmMedico.setUsuarioInsert(nameUser);
-                                objAdmMedico.setDataInsert(dataModFinal);
-                                objAdmMedico.setHoraInsert(horaMov);
-                                objAdmMedico.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
-                                objAdmMedico.setNomeInterno(jNomeInternoAdm.getText());
-                                control.incluirAdmissaoMedica(objAdmMedico);
-                                buscarID();
-                                objAdmMedico.setIdLanc(Integer.valueOf(jIdAdm.getText()));
-                                objAdmMedico.setNomeInterno(jNomeInternoAdm.getText());
-                                objAdmMedico.setDeptoMedico(deptoTecnico);
-                                controle.incluirMovTec(objAdmMedico);
-                                // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO  
-                                atendido = "Sim";
-                                objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
-                                objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
-                                objRegAtend.setIdDepartamento(codigoDepartamentoENF);
-                                objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
-                                objRegAtend.setAtendido(atendido);
-                                objRegAtend.setDataAtendimento(jDataAdm.getDate());
-                                objRegAtend.setIdAtend(Integer.valueOf(jIdAdm.getText()));
-                                //
-                                objRegAtend.setUsuarioUp(nameUser);
-                                objRegAtend.setDataUp(dataModFinal);
-                                objRegAtend.setHorarioUp(horaMov);
-                                controlRegAtend.alterarRegAtend(objRegAtend);
-                                //
-                                objLog();
-                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                    
-                                incluirItensDoencas();
-                                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                                Salvar();
-                                acao = 0;
-                            }
-                        }
+                        // log de usuario
+                        objAdmMedico.setUsuarioInsert(nameUser);
+                        objAdmMedico.setDataInsert(dataModFinal);
+                        objAdmMedico.setHoraInsert(horaMov);
+                        objAdmMedico.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                        objAdmMedico.setNomeInterno(jNomeInternoAdm.getText());
+                        control.incluirAdmissaoMedica(objAdmMedico);
+                        buscarID();
+                        objAdmMedico.setIdLanc(Integer.valueOf(jIdAdm.getText()));
+                        objAdmMedico.setNomeInterno(jNomeInternoAdm.getText());
+                        objAdmMedico.setDeptoMedico(deptoTecnico);
+                        controle.incluirMovTec(objAdmMedico);
+                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO  
+                        atendido = "Sim";
+                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                        objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
+                        objRegAtend.setIdDepartamento(codigoDepartamentoENF);
+                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                        objRegAtend.setAtendido(atendido);
+                        objRegAtend.setDataAtendimento(jDataAdm.getDate());
+                        objRegAtend.setIdAtend(Integer.valueOf(jIdAdm.getText()));
+                        //
+                        objRegAtend.setUsuarioUp(nameUser);
+                        objRegAtend.setDataUp(dataModFinal);
+                        objRegAtend.setHorarioUp(horaMov);
+                        controlRegAtend.alterarRegAtend(objRegAtend);
+                        //
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                    
+                        incluirItensDoencas();
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        Salvar();
                     }
                     if (acao == 2) {
                         // log de usuario
