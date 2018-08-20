@@ -1169,7 +1169,8 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_ConsultaPopulacaoCarcerariaActionPerformed
 
     private void CadastroAdvogadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastroAdvogadosActionPerformed
-        // TODO add your handling code here:   
+        // TODO add your handling code here: 
+        buscarAcessoUsuario(telaCadastroAdvogadosManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaCadastroAdvogadosManuP1) && codAbrirP1 == 1) {
             if (objAd == null || objAd.isClosed()) {
                 objAd = new TelaAdvogados();
@@ -1203,6 +1204,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
 
     private void CadastroPertencesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastroPertencesActionPerformed
         // TODO add your handling code here:      
+        buscarAcessoUsuario(telaCadastroPertenccesManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaCadastroPertenccesManuP1) && codAbrirP1 == 1) {
             if (objPert == null || objPert.isClosed()) {
                 objPert = new TelaPertences();
@@ -1235,7 +1237,8 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_CadastroPertencesActionPerformed
 
     private void CadastroVeiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastroVeiculosActionPerformed
-        // TODO add your handling code here:      
+        // TODO add your handling code here:   
+        buscarAcessoUsuario(telaCadastroVeiculosManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaCadastroVeiculosManuP1) && codAbrirP1 == 1) {
             if (objVeic == null || objVeic.isClosed()) {
                 objVeic = new TelaVeiculos();
@@ -1269,6 +1272,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
 
     private void VisitantesDiversosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VisitantesDiversosActionPerformed
         // TODO add your handling code here:     
+        buscarAcessoUsuario(telaCadastroVisitasDiversasManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaCadastroVisitasDiversasManuP1) && codAbrirP1 == 1) {
             if (objVisDi == null || objVisDi.isClosed()) {
                 objVisDi = new TelaVisitasDiversas();
@@ -1422,6 +1426,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
 
     private void EntSaidColaboradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EntSaidColaboradorActionPerformed
         // TODO add your handling code here:      
+        buscarAcessoUsuario(telaEntradaSaidaCOLManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaCOLManuP1) && codAbrirP1 == 1) {
             if (objEntSaiCola == null || objEntSaiCola.isClosed()) {
                 objEntSaiCola = new TelaEntradaSaidaColaborador();
@@ -1454,7 +1459,8 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_EntSaidColaboradorActionPerformed
 
     private void EnSaiVisitasDiversasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnSaiVisitasDiversasActionPerformed
-        // TODO add your handling code here: telaEntradaSaidaVDManuP1       
+        // TODO add your handling code here:  
+        buscarAcessoUsuario(telaEntradaSaidaVDManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaVDManuP1) && codAbrirP1 == 1) {
             if (objEntSaiVisiDiv == null || objEntSaiVisiDiv.isClosed()) {
                 objEntSaiVisiDiv = new TelaEntradaSaidaVisitasDiversas();
@@ -1488,6 +1494,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
 
     private void EntSaiAdvDepartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EntSaiAdvDepartamentoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntradaSaidaAdDEPManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaAdDEPManuP1) && codAbrirP1 == 1) {
             if (objEntSaiAd == null || objEntSaiAd.isClosed()) {
                 objEntSaiAd = new TelaEntradaSaidaAdvogados();
@@ -1521,6 +1528,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
 
     private void EntSaiVisitasInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EntSaiVisitasInternosActionPerformed
         // TODO add your handling code here:    
+        buscarAcessoUsuario(telaEntradaSaidaVisitasInternosManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaVisitasInternosManuP1) && codAbrirP1 == 1) {
             if (objEntSaiViInt == null || objEntSaiViInt.isClosed()) {
                 objEntSaiViInt = new TelaEntradaSaidaVisitasInternos();
@@ -1554,7 +1562,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
 
     private void EntSaiAdvogadosInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EntSaiAdvogadosInternosActionPerformed
         // TODO add your handling code here:
-        // Abrir uma única tela, funcionando
+        buscarAcessoUsuario(telaEntradaSaidaAdIntManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaAdIntManuP1) && codAbrirP1 == 1) {
             if (objEntSaiAdvInternos == null || objEntSaiAdvInternos.isClosed()) {
                 objEntSaiAdvInternos = new TelaEntradaSaidaAdvogadosInternos();
@@ -1588,6 +1596,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
 
     private void ControlePertencesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ControlePertencesActionPerformed
         // TODO add your handling code here:  
+        buscarAcessoUsuario(telaEntradaPertencesInternosManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaPertencesInternosManuP1) && codAbrirP1 == 1) {
             if (objEntradaSaidaPertences == null || objEntradaSaidaPertences.isClosed()) {
                 objEntradaSaidaPertences = new TelaEntradaSaidaPertences();
@@ -1620,7 +1629,8 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_ControlePertencesActionPerformed
 
     private void ControleVeiculoTerceirosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ControleVeiculoTerceirosActionPerformed
-        // TODO add your handling code here:telaEntradaSaidaESVTManuP1
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntradaSaidaESVTManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaESVTManuP1) && codAbrirP1 == 1) {
             if (objEntSaiVeiTer == null || objEntSaiVeiTer.isClosed()) {
                 objEntSaiVeiTer = new TelaEntradaSaidaVeiculosTerceiros();
@@ -1654,6 +1664,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
 
     private void ControleVeiculosUnidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ControleVeiculosUnidActionPerformed
         // TODO add your handling code here:   
+        buscarAcessoUsuario(telaEntradaSaidaVUManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaVUManuP1) && codAbrirP1 == 1) {
             if (objEntSaiVeiUni == null || objEntSaiVeiUni.isClosed()) {
                 objEntSaiVeiUni = new TelaEntradaSaidaVeiculosUnidade();
@@ -1687,6 +1698,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
 
     private void ControleVeiculosCargasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ControleVeiculosCargasActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntradaSaidaESVCManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaESVCManuP1) && codAbrirP1 == 1) {
             if (objEntSaiVeiCarga == null || objEntSaiVeiCarga.isClosed()) {
                 objEntSaiVeiCarga = new TelaEntradaSaidaVeiculosCargas();
@@ -1720,6 +1732,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
 
     private void ControleDepositoInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ControleDepositoInternosActionPerformed
         // TODO add your handling code here:   
+        buscarAcessoUsuario(telaDepositoInternosManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaDepositoInternosManuP1) && codAbrirP1 == 1) {
             if (objDepoPort == null || objDepoPort.isClosed()) {
                 objDepoPort = new TelaControleDepositoPortaria();
@@ -1753,6 +1766,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
 
     private void EntSaiAtividadeLaborativaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EntSaiAtividadeLaborativaActionPerformed
         // TODO add your handling code here:   
+         buscarAcessoUsuario(telaEntradaSaidaLABManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaLABManuP1) && codAbrirP1 == 1) {
             if (objEntSaiLaborInt == null || objEntSaiLaborInt.isClosed()) {
                 objEntSaiLaborInt = new TelaEntradaSaidaInternosPortaria();
@@ -1786,6 +1800,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
 
     private void RetornoInternosUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RetornoInternosUnidadeActionPerformed
         // TODO add your handling code here:   
+        buscarAcessoUsuario(telaRegistroRetornoRIManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaRegistroRetornoRIManuP1) && codAbrirP1 == 1) {
             if (objRetorno == null || objRetorno.isClosed()) {
                 objRetorno = new TelaRegistroRetornoInternoPortaria();
@@ -1849,6 +1864,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
 
     private void LivroOcorrenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LivroOcorrenciasActionPerformed
         // TODO add your handling code here:   
+        buscarAcessoUsuario(telaOcorrenciaManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaOcorrenciaManuP1) && codAbrirP1 == 1) {
             if (objTexto == null || objTexto.isClosed()) {
                 objTexto = new TelaOcorrenciaPortaria();
@@ -1911,6 +1927,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
 
     private void RegistrosSaidasInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrosSaidasInternosActionPerformed
         // TODO add your handling code here:  
+        buscarAcessoUsuario(telaRegistroSaidaInternoManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaRegistroSaidaInternoManuP1) && codAbrirP1 == 1) {
             if (objRegSaidaIntPort == null || objRegSaidaIntPort.isClosed()) {
                 objRegSaidaIntPort = new TelaRegistroSaidaInternosPortaria();
@@ -1944,6 +1961,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
 
     private void EntradasUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EntradasUnidadeActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntradaInternoUniPRIManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaInternoUniPRIManuP1) && codAbrirP1 == 1) {
             if (objEntradaUndInterPort == null || objEntradaUndInterPort.isClosed()) {
                 objEntradaUndInterPort = new TelaEntradaUnidadeInternoPortaria();
@@ -2190,6 +2208,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
 
     private void RegistroNovaEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistroNovaEntradaActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaNovaEntradaManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaNovaEntradaManuP1) && codAbrirP1 == 1) {
             if (objNovaEntrada == null || objNovaEntrada.isClosed()) {
                 objNovaEntrada = new TelaNovaEntradaPortariaCrc();
@@ -2223,6 +2242,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
 
     private void ControleAssistenciaEducacionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ControleAssistenciaEducacionalActionPerformed
         // TODO add your handling code here:telaEntradaSaidaESIEEManuP1
+        buscarAcessoUsuario(telaEntradaSaidaESIEEManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaESIEEManuP1) && codAbrirP1 == 1) {
             if (objRegEntSaiEdu == null || objRegEntSaiEdu.isClosed()) {
                 objRegEntSaiEdu = new TelaRegistroEntradaSaidaEducacional();
@@ -2256,6 +2276,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
 
     private void jEntradaSaidaInternasInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEntradaSaidaInternasInternosActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntradaSaidaVisitasInternasRIManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaVisitasInternasRIManuP1) && codAbrirP1 == 1) {
             if (objInternasVisitas == null || objInternasVisitas.isClosed()) {
                 objInternasVisitas = new TelaEntradaSaidaVisitasInternasInternos();
@@ -2332,6 +2353,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
 
     private void OcorrenciaVisitasInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OcorrenciaVisitasInternosActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaOcorrenciaDisciplinaVisitasManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaOcorrenciaDisciplinaVisitasManuP1) && codAbrirP1 == 1) {
             if (objOcorreciaVisita == null || objOcorreciaVisita.isClosed()) {
                 objOcorreciaVisita = new TelaOcorrenciaPortariaServicoSocial();
@@ -2397,6 +2419,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntradaSaidaAManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaAManuP1) && codAbrirP1 == 1) {
             if (objEntSaiAlbergue == null || objEntSaiAlbergue.isClosed()) {
                 objEntSaiAlbergue = new TelaEntradaSaidaInternosAlbergadosPortaria();
@@ -2430,6 +2453,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
 
     private void jRegistroAcessosTransientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRegistroAcessosTransientesActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaAcessosPortariaManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaAcessosPortariaManuP1) && codAbrirP1 == 1) {
             if (objAcessTrans == null || objAcessTrans.isClosed()) {
                 objAcessTrans = new TelaAcessosPortariaInterna();
@@ -2463,6 +2487,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
 
     private void jOficialJusticaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jOficialJusticaActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaCadastroOficialManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaCadastroOficialManuP1) && codAbrirP1 == 1) {
             if (objOfficeJustica == null || objOfficeJustica.isClosed()) {
                 objOfficeJustica = new TelaOficialJustica();
@@ -2496,6 +2521,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
 
     private void EntradaSaidaOficialJusticaInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EntradaSaidaOficialJusticaInternosActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntradaSaidaOFJManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaOFJManuP1) && codAbrirP1 == 1) {
             if (objEntSaiOfficeJusInt == null || objEntSaiOfficeJusInt.isClosed()) {
                 objEntSaiOfficeJusInt = new TelaEntradaSaidaOficialJusticaInternos();
@@ -2529,6 +2555,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
 
     private void EntradaSaidaOficialJusticaDepartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EntradaSaidaOficialJusticaDepartamentoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntradaSaidaOJManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaOJManuP1) && codAbrirP1 == 1) {
             if (objEntSaiOffice == null || objEntSaiOffice.isClosed()) {
                 objEntSaiOffice = new TelaEntradaSaidaOficialJustica();
@@ -2620,6 +2647,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
 
     private void EntradaSaidaVisitasReligiosasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EntradaSaidaVisitasReligiosasActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntradaSaidaVisitasReligiosasManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaVisitasReligiosasManuP1) && codAbrirP1 == 1) {
             if (objEntSaiVisitaRel == null || objEntSaiVisitaRel.isClosed()) {
                 objEntSaiVisitaRel = new TelaEntradaSaidaVisitasReligiosas();
