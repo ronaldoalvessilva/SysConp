@@ -13,6 +13,15 @@ import gestor.Dao.ModeloTabela;
 import gestor.Modelo.AtividadesJuridicas;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloJuridico.codAlterarJURI;
+import static gestor.Visao.TelaModuloJuridico.codExcluirJURI;
+import static gestor.Visao.TelaModuloJuridico.codGravarJURI;
+import static gestor.Visao.TelaModuloJuridico.codIncluirJURI;
+import static gestor.Visao.TelaModuloJuridico.codUserAcessoJURI;
+import static gestor.Visao.TelaModuloJuridico.codigoUserJURI;
+import static gestor.Visao.TelaModuloJuridico.nomeGrupoJURI;
+import static gestor.Visao.TelaModuloJuridico.nomeTelaJURI;
+import static gestor.Visao.TelaModuloJuridico.telaAtividadesJuridicasJURI;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -21,6 +30,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -80,13 +91,13 @@ public class TelaAtividadeRealizadas extends javax.swing.JInternalFrame {
         jDescricaoAtividade = new javax.swing.JTextField();
         jComboBoxStatus = new javax.swing.JComboBox();
         jDataCadastro = new com.toedter.calendar.JDateChooser();
-        jBtAuditoria = new javax.swing.JButton();
         jBtNovo = new javax.swing.JButton();
         jBtAlterar = new javax.swing.JButton();
         jBtExcluir = new javax.swing.JButton();
         jBtSalvar = new javax.swing.JButton();
         jBtCancelar = new javax.swing.JButton();
         jBtSair = new javax.swing.JButton();
+        jBtAuditoria = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -101,6 +112,7 @@ public class TelaAtividadeRealizadas extends javax.swing.JInternalFrame {
         jLabel5.setText("Descrição:");
 
         jBtDescricao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
+        jBtDescricao.setContentAreaFilled(false);
         jBtDescricao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtDescricaoActionPerformed(evt);
@@ -144,15 +156,13 @@ public class TelaAtividadeRealizadas extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jTabelaAtividades.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaAtividades.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+                {null, null, null, null}
             },
             new String [] {
-
+                "Código", "Status", "Data", "Descrição"
             }
         ));
         jTabelaAtividades.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -161,6 +171,16 @@ public class TelaAtividadeRealizadas extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(jTabelaAtividades);
+        if (jTabelaAtividades.getColumnModel().getColumnCount() > 0) {
+            jTabelaAtividades.getColumnModel().getColumn(0).setMinWidth(50);
+            jTabelaAtividades.getColumnModel().getColumn(0).setMaxWidth(50);
+            jTabelaAtividades.getColumnModel().getColumn(1).setMinWidth(60);
+            jTabelaAtividades.getColumnModel().getColumn(1).setMaxWidth(60);
+            jTabelaAtividades.getColumnModel().getColumn(2).setMinWidth(70);
+            jTabelaAtividades.getColumnModel().getColumn(2).setMaxWidth(70);
+            jTabelaAtividades.getColumnModel().getColumn(3).setMinWidth(280);
+            jTabelaAtividades.getColumnModel().getColumn(3).setMaxWidth(280);
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -170,9 +190,7 @@ public class TelaAtividadeRealizadas extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 5, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -201,6 +219,7 @@ public class TelaAtividadeRealizadas extends javax.swing.JInternalFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Descrição da Atividade");
 
+        jIdAtividade.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jIdAtividade.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jIdAtividade.setEnabled(false);
 
@@ -215,19 +234,6 @@ public class TelaAtividadeRealizadas extends javax.swing.JInternalFrame {
         jDataCadastro.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jDataCadastro.setEnabled(false);
 
-        jBtAuditoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
-        jBtAuditoria.setToolTipText("Auditoria");
-        jBtAuditoria.setContentAreaFilled(false);
-        jBtAuditoria.setEnabled(false);
-        jBtAuditoria.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtAuditoria.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jBtAuditoria.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jBtAuditoria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtAuditoriaActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -235,45 +241,41 @@ public class TelaAtividadeRealizadas extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jDescricaoAtividade, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(66, 66, 66)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2)))
-                            .addComponent(jLabel4)
-                            .addComponent(jIdAtividade, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jIdAtividade, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel1))
+                            .addGap(8, 8, 8)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(jComboBoxStatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel3)
-                                .addGap(79, 79, 79))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jBtAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())))))
+                                .addComponent(jDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addComponent(jLabel4)
+                            .addGap(45, 45, 45)))
+                    .addComponent(jDescricaoAtividade, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel3)))
-                .addGap(5, 5, 5)
+                        .addComponent(jLabel1)
+                        .addComponent(jLabel2))
+                    .addComponent(jLabel3))
+                .addGap(8, 8, 8)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jIdAtividade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtAuditoria))
+                    .addComponent(jDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jIdAtividade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
                 .addGap(6, 6, 6)
@@ -281,8 +283,7 @@ public class TelaAtividadeRealizadas extends javax.swing.JInternalFrame {
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
-        jBtNovo.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7183_16x16.png"))); // NOI18N
+        jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
         jBtNovo.setText("Novo");
         jBtNovo.setContentAreaFilled(false);
         jBtNovo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -294,7 +295,6 @@ public class TelaAtividadeRealizadas extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtAlterar.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jBtAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
         jBtAlterar.setText("Alterar");
         jBtAlterar.setContentAreaFilled(false);
@@ -308,7 +308,6 @@ public class TelaAtividadeRealizadas extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtExcluir.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jBtExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
         jBtExcluir.setText("Excluir");
         jBtExcluir.setContentAreaFilled(false);
@@ -322,7 +321,6 @@ public class TelaAtividadeRealizadas extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtSalvar.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jBtSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
         jBtSalvar.setText("Gravar");
         jBtSalvar.setContentAreaFilled(false);
@@ -336,7 +334,6 @@ public class TelaAtividadeRealizadas extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtCancelar.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jBtCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Close_Icon_16.png"))); // NOI18N
         jBtCancelar.setText("Cancelar");
         jBtCancelar.setContentAreaFilled(false);
@@ -350,7 +347,6 @@ public class TelaAtividadeRealizadas extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtSair.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jBtSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Log_Out_Icon_16.png"))); // NOI18N
         jBtSair.setText("Sair");
         jBtSair.setContentAreaFilled(false);
@@ -363,14 +359,27 @@ public class TelaAtividadeRealizadas extends javax.swing.JInternalFrame {
             }
         });
 
+        jBtAuditoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
+        jBtAuditoria.setToolTipText("Auditoria");
+        jBtAuditoria.setContentAreaFilled(false);
+        jBtAuditoria.setEnabled(false);
+        jBtAuditoria.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBtAuditoria.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jBtAuditoria.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jBtAuditoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAuditoriaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jBtNovo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -378,25 +387,28 @@ public class TelaAtividadeRealizadas extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtExcluir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtSalvar)
+                        .addGap(4, 4, 4)
                         .addComponent(jBtCancelar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtSair)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jBtSair)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtAlterar)
-                    .addComponent(jBtExcluir)
-                    .addComponent(jBtSalvar)
-                    .addComponent(jBtNovo)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jBtAuditoria)
+                    .addComponent(jBtSair)
                     .addComponent(jBtCancelar)
-                    .addComponent(jBtSair))
+                    .addComponent(jBtSalvar)
+                    .addComponent(jBtExcluir)
+                    .addComponent(jBtAlterar)
+                    .addComponent(jBtNovo))
                 .addContainerGap())
         );
 
@@ -406,7 +418,7 @@ public class TelaAtividadeRealizadas extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -415,93 +427,108 @@ public class TelaAtividadeRealizadas extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        setBounds(300, 30, 437, 246);
+        setBounds(300, 30, 493, 246);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtividadesJuridicasJURI) && codIncluirJURI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES")) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        acao = 2;
-        Alterar();
-        corCampos();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtividadesJuridicasJURI) && codAlterarJURI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES")) {
+            acao = 2;
+            Alterar();
+            corCampos();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        verificarAtividade();
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        if (jIdAtividade.getText().equals(codAtividade)) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não pode ser excluído, existem relacionamento com o mesmo.");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o Atividade selecionada?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objAtivJu.setIdAtiv(Integer.parseInt(jIdAtividade.getText()));
-                control.excluirAgendaEscolta(objAtivJu);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                Excluir();
+        if (codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtividadesJuridicasJURI) && codExcluirJURI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES")) {
+            verificarAtividade();
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            if (jIdAtividade.getText().equals(codAtividade)) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não pode ser excluído, existem relacionamento com o mesmo.");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o Atividade selecionada?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objAtivJu.setIdAtiv(Integer.parseInt(jIdAtividade.getText()));
+                    control.excluirAgendaEscolta(objAtivJu);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    Excluir();
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataCadastro.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data de cadastro.");
-            jDataCadastro.requestFocus();
-            jDataCadastro.setBackground(Color.red);
-        } else {
-            if (jDescricaoAtividade.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a descrição da atividades.");
-                jDescricaoAtividade.requestFocus();
-                jDescricaoAtividade.setBackground(Color.red);
+        if (codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtividadesJuridicasJURI) && codGravarJURI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES")) {
+            if (jDataCadastro.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de cadastro.");
+                jDataCadastro.requestFocus();
+                jDataCadastro.setBackground(Color.red);
             } else {
-                objAtivJu.setStatusAtiv((String) jComboBoxStatus.getSelectedItem());
-                objAtivJu.setDataAtiv(jDataCadastro.getDate());
-                objAtivJu.setDescricaoAtiv(jDescricaoAtividade.getText());
-                if (acao == 1) {
-                    objAtivJu.setUsuarioInsert(nameUser);
-                    objAtivJu.setDataInsert(jDataSistema.getText());
-                    objAtivJu.setHorarioInsert(jHoraSistema.getText());
-                    //
-                    control.incluirAgendaEscolta(objAtivJu);
-                    buscarCod();
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    Salvar();
-                }
-                if (acao == 2) {
-                    objAtivJu.setUsuarioUp(nameUser);
-                    objAtivJu.setDataUp(jDataSistema.getText());
-                    objAtivJu.setHorarioUp(jHoraSistema.getText());
-                    //
-                    objAtivJu.setIdAtiv(Integer.valueOf(jIdAtividade.getText()));
-                    control.alterarAgendaEscolta(objAtivJu);
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    Salvar();
+                if (jDescricaoAtividade.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a descrição da atividades.");
+                    jDescricaoAtividade.requestFocus();
+                    jDescricaoAtividade.setBackground(Color.red);
+                } else {
+                    objAtivJu.setStatusAtiv((String) jComboBoxStatus.getSelectedItem());
+                    objAtivJu.setDataAtiv(jDataCadastro.getDate());
+                    objAtivJu.setDescricaoAtiv(jDescricaoAtividade.getText());
+                    if (acao == 1) {
+                        objAtivJu.setUsuarioInsert(nameUser);
+                        objAtivJu.setDataInsert(jDataSistema.getText());
+                        objAtivJu.setHorarioInsert(jHoraSistema.getText());
+                        //
+                        control.incluirAgendaEscolta(objAtivJu);
+                        buscarCod();
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        Salvar();
+                    }
+                    if (acao == 2) {
+                        objAtivJu.setUsuarioUp(nameUser);
+                        objAtivJu.setDataUp(jDataSistema.getText());
+                        objAtivJu.setHorarioUp(jHoraSistema.getText());
+                        //
+                        objAtivJu.setIdAtiv(Integer.valueOf(jIdAtividade.getText()));
+                        control.alterarAgendaEscolta(objAtivJu);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        Salvar();
+                    }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
-
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
@@ -517,11 +544,10 @@ public class TelaAtividadeRealizadas extends javax.swing.JInternalFrame {
     private void jCheckBoxTodosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxTodosItemStateChanged
         // TODO add your handling code here:
         flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {
-            jTabelaAtividades.setVisible(true);
+        if (evt.getStateChange() == evt.SELECTED) {            
             this.pesquisarEntradaInterno("SELECT * FROM ATIVIDADESJURIDICOS");
         } else {
-            jTabelaAtividades.setVisible(!true);
+            limparTabela();
         }
     }//GEN-LAST:event_jCheckBoxTodosItemStateChanged
 
@@ -529,9 +555,9 @@ public class TelaAtividadeRealizadas extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if (jPesqDescricao.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe a descrição para pesquisa.");
-        } else {
-            jTabelaAtividades.setVisible(true);
-            pesquisarEntradaInterno("SELECT * FROM ATIVIDADESJURIDICOS WHERE DescricaoAtiv LIKE'" + jPesqDescricao.getText() + "%'");
+        } else {            
+            pesquisarEntradaInterno("SELECT * FROM ATIVIDADESJURIDICOS "
+                    + "WHERE DescricaoAtiv LIKE'%" + jPesqDescricao.getText() + "%'");
         }
     }//GEN-LAST:event_jBtDescricaoActionPerformed
 
@@ -551,7 +577,8 @@ public class TelaAtividadeRealizadas extends javax.swing.JInternalFrame {
             jBtAuditoria.setEnabled(true);
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM ATIVIDADESJURIDICOS WHERE DescricaoAtiv='" + DescicaoAtiv + "'");
+                conecta.executaSQL("SELECT * FROM ATIVIDADESJURIDICOS "
+                        + "WHERE DescricaoAtiv='" + DescicaoAtiv + "'");
                 conecta.rs.first();
                 jIdAtividade.setText(String.valueOf(conecta.rs.getInt("IdAtiv")));
                 jComboBoxStatus.setSelectedItem(conecta.rs.getString("StatusAtiv"));
@@ -723,7 +750,8 @@ public class TelaAtividadeRealizadas extends javax.swing.JInternalFrame {
     public void verificarAtividade() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ATIVIDADEJURIDICOS WHERE IdLanc='" + jIdAtividade.getText() + "'");
+            conecta.executaSQL("SELECT * FROM ATIVIDADEJURIDICOS "
+                    + "WHERE IdLanc='" + jIdAtividade.getText() + "'");
             conecta.rs.first();
             codAtividade = conecta.rs.getString("IdLanc");
         } catch (Exception e) {
@@ -732,7 +760,7 @@ public class TelaAtividadeRealizadas extends javax.swing.JInternalFrame {
 
     public void pesquisarEntradaInterno(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{" Código ", "Descrição", "  Data", "  Status"};
+        String[] Colunas = new String[]{"Código", "Status", "Data", "Descrição"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
@@ -744,7 +772,7 @@ public class TelaAtividadeRealizadas extends javax.swing.JInternalFrame {
                 String mes = dataAtiv.substring(5, 7);
                 String ano = dataAtiv.substring(0, 4);
                 dataAtiv = dia + "/" + mes + "/" + ano;
-                dados.add(new Object[]{conecta.rs.getInt("IdAtiv"), conecta.rs.getString("DescricaoAtiv"), dataAtiv, conecta.rs.getString("StatusAtiv")});
+                dados.add(new Object[]{conecta.rs.getInt("IdAtiv"), conecta.rs.getString("StatusAtiv"), dataAtiv, conecta.rs.getString("DescricaoAtiv")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");
@@ -752,19 +780,51 @@ public class TelaAtividadeRealizadas extends javax.swing.JInternalFrame {
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaAtividades.setModel(modelo);
         jTabelaAtividades.getColumnModel().getColumn(0).setPreferredWidth(50);
-        jTabelaAtividades.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaAtividades.getColumnModel().getColumn(1).setPreferredWidth(280);
+        jTabelaAtividades.getColumnModel().getColumn(0).setResizable(false);        
+        jTabelaAtividades.getColumnModel().getColumn(1).setPreferredWidth(70);
         jTabelaAtividades.getColumnModel().getColumn(1).setResizable(false);
         jTabelaAtividades.getColumnModel().getColumn(2).setPreferredWidth(70);
         jTabelaAtividades.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaAtividades.getColumnModel().getColumn(3).setPreferredWidth(70);
+        jTabelaAtividades.getColumnModel().getColumn(3).setPreferredWidth(280);
         jTabelaAtividades.getColumnModel().getColumn(3).setResizable(false);
         jTabelaAtividades.getTableHeader().setReorderingAllowed(false);
         jTabelaAtividades.setAutoResizeMode(jTabelaAtividades.AUTO_RESIZE_OFF);
         jTabelaAtividades.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alimharCamposTabela();
         conecta.desconecta();
     }
 
+    public void limparTabela(){
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Status", "Data", "Descrição"};        
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaAtividades.setModel(modelo);
+        jTabelaAtividades.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaAtividades.getColumnModel().getColumn(0).setResizable(false);        
+        jTabelaAtividades.getColumnModel().getColumn(1).setPreferredWidth(70);
+        jTabelaAtividades.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaAtividades.getColumnModel().getColumn(2).setPreferredWidth(70);
+        jTabelaAtividades.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaAtividades.getColumnModel().getColumn(3).setPreferredWidth(280);
+        jTabelaAtividades.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaAtividades.getTableHeader().setReorderingAllowed(false);
+        jTabelaAtividades.setAutoResizeMode(jTabelaAtividades.AUTO_RESIZE_OFF);
+        jTabelaAtividades.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
+    }
+
+    public void alimharCamposTabela() {
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        //
+        jTabelaAtividades.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaAtividades.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+        jTabelaAtividades.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+    }
     public void objLog() {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
