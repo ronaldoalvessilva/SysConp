@@ -680,7 +680,8 @@ public class TelaModuloPortariaExterna extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_SairActionPerformed
 
     private void CadastroVeiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastroVeiculosActionPerformed
-        // TODO add your handling code here:      
+        // TODO add your handling code here:    
+        buscarAcessoUsuario(telaCadastroVeiculosManuP1E);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaCadastroVeiculosManuP1E) && codAbrirP1E == 1) {
             if (objVeic == null || objVeic.isClosed()) {
                 objVeic = new TelaVeiculosExterna();
@@ -713,7 +714,8 @@ public class TelaModuloPortariaExterna extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_CadastroVeiculosActionPerformed
 
     private void VisitantesDiversosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VisitantesDiversosActionPerformed
-        // TODO add your handling code here:       
+        // TODO add your handling code here:  
+        buscarAcessoUsuario(telaCadastroVisitasDiversasManuP1E);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaCadastroVisitasDiversasManuP1E) && codAbrirP1E == 1) {
             if (objVisDi == null || objVisDi.isClosed()) {
                 objVisDi = new TelaVisitasDiversasExterna();
@@ -836,7 +838,8 @@ public class TelaModuloPortariaExterna extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_ConsultaRolVisitasActionPerformed
 
     private void EnSaiVisitasDiversasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnSaiVisitasDiversasActionPerformed
-        // TODO add your handling code here:        
+        // TODO add your handling code here: 
+        buscarAcessoUsuario(telaEntradaSaidaVDManuP1E);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaEntradaSaidaVDManuP1E) && codAbrirP1E == 1) {
             if (objEntSaiVisiDiv == null || objEntSaiVisiDiv.isClosed()) {
                 objEntSaiVisiDiv = new TelaEntradaSaidaVisitasDiversasExterna();
@@ -900,6 +903,7 @@ public class TelaModuloPortariaExterna extends javax.swing.JInternalFrame {
 
     private void LivroOcorrenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LivroOcorrenciasActionPerformed
         // TODO add your handling code here:     
+        buscarAcessoUsuario(telaOcorrenciaManuP1E);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaOcorrenciaManuP1E) && codAbrirP1E == 1) {
             if (objTexto == null || objTexto.isClosed()) {
                 objTexto = new TelaOcorrenciaPortariaExterna();
@@ -1088,6 +1092,7 @@ public class TelaModuloPortariaExterna extends javax.swing.JInternalFrame {
 
     private void VeiculosUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VeiculosUnidadeActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntradaSaidaVUManuP1E);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaEntradaSaidaVUManuP1E) && codAbrirP1E == 1) {
             if (objEntSaiVeiUni == null || objEntSaiVeiUni.isClosed()) {
                 objEntSaiVeiUni = new TelaEntradaSaidaVeiculosUnidadeExterna();
@@ -1121,6 +1126,7 @@ public class TelaModuloPortariaExterna extends javax.swing.JInternalFrame {
 
     private void VeiculosTerceirosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VeiculosTerceirosActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntradaSaidaESVTManuP1E);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaEntradaSaidaESVTManuP1E) && codAbrirP1E == 1) {
             if (objEntSaiVeiTer == null || objEntSaiVeiTer.isClosed()) {
                 objEntSaiVeiTer = new TelaEntradaSaidaVeiculosTerceirosExterna();
@@ -1154,6 +1160,7 @@ public class TelaModuloPortariaExterna extends javax.swing.JInternalFrame {
 
     private void VeiculosCargasDescargasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VeiculosCargasDescargasActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntradaSaidaESVCManuP1E);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaEntradaSaidaESVCManuP1E) && codAbrirP1E == 1) {
             if (objEntSaiVeiCarga == null || objEntSaiVeiCarga.isClosed()) {
                 objEntSaiVeiCarga = new TelaEntradaSaidaVeiculosCargasExterna();
@@ -1187,6 +1194,7 @@ public class TelaModuloPortariaExterna extends javax.swing.JInternalFrame {
 
     private void jColaboradoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jColaboradoresActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntradaSaidaCOLManuP1E);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaEntradaSaidaCOLManuP1E) && codAbrirP1E == 1) {
             if (objEntSaiCola == null || objEntSaiCola.isClosed()) {
                 objEntSaiCola = new TelaEntradaSaidaColaboradorExterna();
@@ -1220,6 +1228,7 @@ public class TelaModuloPortariaExterna extends javax.swing.JInternalFrame {
 
     private void jAdvogadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAdvogadosActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntradaSaidaAdDEPManuP1E);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaEntradaSaidaAdDEPManuP1E) && codAbrirP1E == 1) {
             if (objEntSaiAd == null || objEntSaiAd.isClosed()) {
                 objEntSaiAd = new TelaEntradaSaidaAdvogadosExterna();
@@ -1253,6 +1262,7 @@ public class TelaModuloPortariaExterna extends javax.swing.JInternalFrame {
 
     private void jCadastroAdvogadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCadastroAdvogadosActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaCadastroAdvogadosManuP1E);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaCadastroAdvogadosManuP1E) && codAbrirP1E == 1) {
             if (objAd == null || objAd.isClosed()) {
                 objAd = new TelaAdvogadosExterna();
@@ -1286,6 +1296,7 @@ public class TelaModuloPortariaExterna extends javax.swing.JInternalFrame {
 
     private void jOficialJusticaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jOficialJusticaActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaCadastroOficialManuP1E);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaCadastroOficialManuP1E) && codAbrirP1E == 1) {
             if (objOficialExt == null || objOficialExt.isClosed()) {
                 objOficialExt = new TelaOficialJusticaExterna();
@@ -1319,6 +1330,7 @@ public class TelaModuloPortariaExterna extends javax.swing.JInternalFrame {
 
     private void OficialJusticaDepartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OficialJusticaDepartamentoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntradaSaidaOJManuP1E);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaEntradaSaidaOJManuP1E) && codAbrirP1E == 1) {
             if (objEntraSaiOficialExt == null || objEntraSaiOficialExt.isClosed()) {
                 objEntraSaiOficialExt = new TelaEntradaSaidaOficialJusticaExterna();
@@ -1439,6 +1451,7 @@ public class TelaModuloPortariaExterna extends javax.swing.JInternalFrame {
 
     private void RegistroChegadaVisitasInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistroChegadaVisitasInternoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaRegistroChegadaPortExtManuP1E);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaRegistroChegadaPortExtManuP1E) && codAbrirP1E == 1) {
             if (objRegChega == null || objRegChega.isClosed()) {
                 objRegChega = new TelaRegistroChegadaVisitasInternosPortariaExterna();
