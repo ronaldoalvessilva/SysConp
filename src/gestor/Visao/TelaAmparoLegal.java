@@ -13,6 +13,15 @@ import gestor.Dao.ModeloTabela;
 import gestor.Modelo.AmparoLegal;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloJuridico.codAlterarJURI;
+import static gestor.Visao.TelaModuloJuridico.codExcluirJURI;
+import static gestor.Visao.TelaModuloJuridico.codGravarJURI;
+import static gestor.Visao.TelaModuloJuridico.codIncluirJURI;
+import static gestor.Visao.TelaModuloJuridico.codUserAcessoJURI;
+import static gestor.Visao.TelaModuloJuridico.codigoUserJURI;
+import static gestor.Visao.TelaModuloJuridico.nomeGrupoJURI;
+import static gestor.Visao.TelaModuloJuridico.nomeTelaJURI;
+import static gestor.Visao.TelaModuloJuridico.telaAmparaoLegalJURI;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -665,98 +674,114 @@ public class TelaAmparoLegal extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAmparaoLegalJURI) && codIncluirJURI == 1) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        acao = 2;
-        Alterar();
-        corCampos();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAmparaoLegalJURI) && codAlterarJURI == 1) {
+            acao = 2;
+            Alterar();
+            corCampos();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
         // AINDA NÃO ESTÁ PRONTO, FALAT TESTAR JUNTO A FICHA JURIDICA.
-        Excluir();
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                JOptionPane.YES_NO_OPTION);
-        if (resposta == JOptionPane.YES_OPTION) {
-            objAmparo.setIdLanc(Integer.valueOf(jCodigoAmparo.getText()));
-            control.excluirAmparoLegal(objAmparo);
-            objLog();
-            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-            JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAmparaoLegalJURI) && codExcluirJURI == 1) {
             Excluir();
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objAmparo.setIdLanc(Integer.valueOf(jCodigoAmparo.getText()));
+                control.excluirAmparoLegal(objAmparo);
+                objLog();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                Excluir();
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataAmparoLegal.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data de cadastro.");
-        } else if (jDescricaoAmparoLegal.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a descrição do amparo legal.");
-        } else if (jArtigo.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o artigo.");
-        } else if (jParagrafo.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o parágrafo");
-        } else if (jInciso.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o inciso");
-        } else if (jAlinea.getText().equals(evt)) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a alínea");
-        } else {
-            objAmparo.setStatusLanc((String) jComboBoxStatus.getSelectedItem());
-            objAmparo.setDataLanc(jDataAmparoLegal.getDate());
-            objAmparo.setDescricaoAmparoLegal(jDescricaoAmparoLegal.getText());
-            objAmparo.setArtigo(jArtigo.getText());
-            objAmparo.setParagrafo(jParagrafo.getText());
-            objAmparo.setInciso(jInciso.getText());
-            objAmparo.setAlinea(jAlinea.getText());
-            objAmparo.setTexto(jTextoObservacao.getText());
-            if (acao == 1) {
-                verificarAmparo();
-                objAmparo.setUsuarioInsert(nameUser);
-                objAmparo.setDataInsert(dataModFinal);
-                objAmparo.setHorarioInsert(horaMov);
-                if (jDescricaoAmparoLegal.getText().trim().equals(descAmparo)
-                        && jArtigo.getText().trim().equals(codArtigo)
-                        && jParagrafo.getText().trim().equals(codParagrafo)
-                        && jInciso.getText().trim().equals(codInciso)
-                        && jAlinea.getText().trim().equals(codAlinea)) {
-                    JOptionPane.showMessageDialog(rootPane, "Não é possível gravar esse registro, a lei já foi cadastrada.");
-                } else {
-                    control.incluirAmparoLegal(objAmparo);
-                    buscarCodigo();
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAmparaoLegalJURI) && codGravarJURI == 1) {
+            if (jDataAmparoLegal.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de cadastro.");
+            } else if (jDescricaoAmparoLegal.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a descrição do amparo legal.");
+            } else if (jArtigo.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o artigo.");
+            } else if (jParagrafo.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o parágrafo");
+            } else if (jInciso.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o inciso");
+            } else if (jAlinea.getText().equals(evt)) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a alínea");
+            } else {
+                objAmparo.setStatusLanc((String) jComboBoxStatus.getSelectedItem());
+                objAmparo.setDataLanc(jDataAmparoLegal.getDate());
+                objAmparo.setDescricaoAmparoLegal(jDescricaoAmparoLegal.getText());
+                objAmparo.setArtigo(jArtigo.getText());
+                objAmparo.setParagrafo(jParagrafo.getText());
+                objAmparo.setInciso(jInciso.getText());
+                objAmparo.setAlinea(jAlinea.getText());
+                objAmparo.setTexto(jTextoObservacao.getText());
+                if (acao == 1) {
+                    verificarAmparo();
+                    objAmparo.setUsuarioInsert(nameUser);
+                    objAmparo.setDataInsert(dataModFinal);
+                    objAmparo.setHorarioInsert(horaMov);
+                    if (jDescricaoAmparoLegal.getText().trim().equals(descAmparo)
+                            && jArtigo.getText().trim().equals(codArtigo)
+                            && jParagrafo.getText().trim().equals(codParagrafo)
+                            && jInciso.getText().trim().equals(codInciso)
+                            && jAlinea.getText().trim().equals(codAlinea)) {
+                        JOptionPane.showMessageDialog(rootPane, "Não é possível gravar esse registro, a lei já foi cadastrada.");
+                    } else {
+                        control.incluirAmparoLegal(objAmparo);
+                        buscarCodigo();
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação     
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        Salvar();
+                    }
+                }
+                if (acao == 2) {
+                    verificarAmparo();
+                    objAmparo.setUsuarioUp(nameUser);
+                    objAmparo.setDataUp(dataModFinal);
+                    objAmparo.setHorarioUp(horaMov);
+                    objAmparo.setIdLanc(Integer.valueOf(jCodigoAmparo.getText()));
+                    control.alterarAmparoLegal(objAmparo);
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação     
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                     Salvar();
                 }
             }
-            if (acao == 2) {
-                verificarAmparo();
-                objAmparo.setUsuarioUp(nameUser);
-                objAmparo.setDataUp(dataModFinal);
-                objAmparo.setHorarioUp(horaMov);
-                objAmparo.setIdLanc(Integer.valueOf(jCodigoAmparo.getText()));
-                control.alterarAmparoLegal(objAmparo);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação     
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                Salvar();
-            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
