@@ -12,6 +12,15 @@ import gestor.Dao.ModeloTabela;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.NaturezaPrisao;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloJuridico.codAlterarJURI;
+import static gestor.Visao.TelaModuloJuridico.codExcluirJURI;
+import static gestor.Visao.TelaModuloJuridico.codGravarJURI;
+import static gestor.Visao.TelaModuloJuridico.codIncluirJURI;
+import static gestor.Visao.TelaModuloJuridico.codUserAcessoJURI;
+import static gestor.Visao.TelaModuloJuridico.codigoUserJURI;
+import static gestor.Visao.TelaModuloJuridico.nomeGrupoJURI;
+import static gestor.Visao.TelaModuloJuridico.nomeTelaJURI;
+import static gestor.Visao.TelaModuloJuridico.telaAtividadesJuridicasJURI;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -535,10 +544,11 @@ public class TelaNaturezaPrisao extends javax.swing.JInternalFrame {
     private void jBtPesqDescricaoNatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDescricaoNatActionPerformed
         // TODO add your handling code here:
         count = 0;
-        if(jPesqDescricaoNat.getText().equals("")){
+        if (jPesqDescricaoNat.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome ou parte do nome para pesquisa.");
-        }else{
-            preencherTabelaNatureza("SELECT * FROM NATUREZA_PRISAO WHERE DescricaoNatureza LIKE'%" + jPesqDescricaoNat.getText() + "%'");
+        } else {
+            preencherTabelaNatureza("SELECT * FROM NATUREZA_PRISAO "
+                    + "WHERE DescricaoNatureza LIKE'%" + jPesqDescricaoNat.getText() + "%'");
         }
     }//GEN-LAST:event_jBtPesqDescricaoNatActionPerformed
 
@@ -587,74 +597,90 @@ public class TelaNaturezaPrisao extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtividadesJuridicasJURI) && codIncluirJURI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES")) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        acao = 2;
-        Alterar();
-        corCampos();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtividadesJuridicasJURI) && codAlterarJURI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES")) {
+            acao = 2;
+            Alterar();
+            corCampos();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
-        // TODO add your handling code here:        
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                JOptionPane.YES_NO_OPTION);
-        if (resposta == JOptionPane.YES_OPTION) {
-            objNatPri.setIdNatp(Integer.valueOf(jCodigoNat.getText()));
-            control.excluirNaturezaPrisao(objNatPri);
-            objLog();
-            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-            JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-            Excluir();
+        // TODO add your handling code here: 
+        if (codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtividadesJuridicasJURI) && codExcluirJURI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES")) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objNatPri.setIdNatp(Integer.valueOf(jCodigoNat.getText()));
+                control.excluirNaturezaPrisao(objNatPri);
+                objLog();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                Excluir();
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataNat.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data do cadastro.");
-        } else if (jTituloNatureza.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe uma descrição para natureza.");
+        if (codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtividadesJuridicasJURI) && codGravarJURI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES")) {
+            if (jDataNat.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data do cadastro.");
+            } else if (jTituloNatureza.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe uma descrição para natureza.");
+            } else {
+                objNatPri.setStatusNatp((String) jComboBoxStatusNat.getSelectedItem());
+                objNatPri.setDataNatp(jDataNat.getDate());
+                objNatPri.setDescricaoNatureza(jTituloNatureza.getText());
+                objNatPri.setTextoNatureza(jTextoNatureza.getText());
+                if (acao == 1) {
+                    objNatPri.setUsuarioInsert(nameUser);
+                    objNatPri.setDataInsert(dataModFinal);
+                    objNatPri.setHorarioInsert(horaMov);
+                    control.incluirNaturezaPrisao(objNatPri);
+                    buscarCodigo();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação     
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 2) {
+                    objNatPri.setUsuarioUp(nameUser);
+                    objNatPri.setDataUp(dataModFinal);
+                    objNatPri.setHorarioUp(horaMov);
+                    objNatPri.setIdNatp(Integer.valueOf(jCodigoNat.getText()));
+                    control.alterarNaturezaPrisao(objNatPri);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação     
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
         } else {
-            objNatPri.setStatusNatp((String) jComboBoxStatusNat.getSelectedItem());
-            objNatPri.setDataNatp(jDataNat.getDate());
-            objNatPri.setDescricaoNatureza(jTituloNatureza.getText());
-            objNatPri.setTextoNatureza(jTextoNatureza.getText());
-            if (acao == 1) {
-                objNatPri.setUsuarioInsert(nameUser);
-                objNatPri.setDataInsert(dataModFinal);
-                objNatPri.setHorarioInsert(horaMov);
-                control.incluirNaturezaPrisao(objNatPri);
-                buscarCodigo();
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação     
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
-            if (acao == 2) {
-                objNatPri.setUsuarioUp(nameUser);
-                objNatPri.setDataUp(dataModFinal);
-                objNatPri.setHorarioUp(horaMov);
-                objNatPri.setIdNatp(Integer.valueOf(jCodigoNat.getText()));
-                control.alterarNaturezaPrisao(objNatPri);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação     
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
