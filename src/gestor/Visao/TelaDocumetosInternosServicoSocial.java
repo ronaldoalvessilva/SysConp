@@ -14,14 +14,14 @@ import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
-import static gestor.Visao.TelaModuloServicoSocial.codAlterar;
-import static gestor.Visao.TelaModuloServicoSocial.codExcluir;
-import static gestor.Visao.TelaModuloServicoSocial.codGravar;
-import static gestor.Visao.TelaModuloServicoSocial.codIncluir;
-import static gestor.Visao.TelaModuloServicoSocial.codUserAcesso;
-import static gestor.Visao.TelaModuloServicoSocial.codigoUser;
-import static gestor.Visao.TelaModuloServicoSocial.nomeGrupo;
-import static gestor.Visao.TelaModuloServicoSocial.nomeTela;
+import static gestor.Visao.TelaModuloServicoSocial.codAlterarSS;
+import static gestor.Visao.TelaModuloServicoSocial.codExcluirSS;
+import static gestor.Visao.TelaModuloServicoSocial.codGravarSS;
+import static gestor.Visao.TelaModuloServicoSocial.codIncluirSS;
+import static gestor.Visao.TelaModuloServicoSocial.codUserAcessoSS;
+import static gestor.Visao.TelaModuloServicoSocial.codigoUserSS;
+import static gestor.Visao.TelaModuloServicoSocial.nomeGrupoSS;
+import static gestor.Visao.TelaModuloServicoSocial.nomeTelaSS;
 import static gestor.Visao.TelaModuloServicoSocial.telaListaDocumentosSS;
 import static gestor.Visao.TelaModuloServicoSocial.telaRolVisitasSS;
 import java.awt.Color;
@@ -1150,7 +1150,7 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaListaDocumentosSS) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaListaDocumentosSS) && codIncluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             acao = 1;
             Novo();
             corCampos();
@@ -1164,7 +1164,7 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaListaDocumentosSS) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaListaDocumentosSS) && codAlterarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             acao = 2;
             Alterar();
             corCampos();
@@ -1178,7 +1178,7 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaListaDocumentosSS) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaListaDocumentosSS) && codExcluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             verificarDevolucaoDoc();
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
@@ -1204,7 +1204,7 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaListaDocumentosSS) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaListaDocumentosSS) && codGravarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             if (jDataLanc.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data de cadastro do documento.");
                 jDataLanc.requestFocus();
