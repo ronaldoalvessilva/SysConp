@@ -271,14 +271,6 @@
             <Property name="text" type="java.lang.String" value="Movimenta&#xe7;&#xe3;o"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="AdmissaoMedicaPsiquiatrica">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Prontuario e Evolu&#xe7;&#xe3;o M&#xe9;dica/Psiqui&#xe1;trica - Admiss&#xe3;o"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AdmissaoMedicaPsiquiatricaActionPerformed"/>
-              </Events>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="AvaliacaoSaudeMedicaPsiquiatrica">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Avalia&#xe7;&#xe3;o de Sa&#xfa;de M&#xe9;dica/Psiqui&#xe1;trica"/>
@@ -311,6 +303,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AdmissoaEnfermagemActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="AdmissaoMedicaPsiquiatrica">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Prontuario e Evolu&#xe7;&#xe3;o M&#xe9;dica/Psiqui&#xe1;trica - Admiss&#xe3;o"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AdmissaoMedicaPsiquiatricaActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jCalendarioVacinas">
