@@ -16,16 +16,14 @@ import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
-import static gestor.Visao.TelaModuloServicoSocial.codAlterar;
-import static gestor.Visao.TelaModuloServicoSocial.codExcluir;
-import static gestor.Visao.TelaModuloServicoSocial.codGravar;
-import static gestor.Visao.TelaModuloServicoSocial.codIncluir;
-import static gestor.Visao.TelaModuloServicoSocial.codUserAcesso;
-import static gestor.Visao.TelaModuloServicoSocial.codigoUser;
-import static gestor.Visao.TelaModuloServicoSocial.nomeGrupo;
-import static gestor.Visao.TelaModuloServicoSocial.nomeTela;
-import static gestor.Visao.TelaModuloServicoSocial.telaHistAvaEmprego;
-import static gestor.Visao.TelaModuloServicoSocial.telaHistAvaSocial;
+import static gestor.Visao.TelaModuloServicoSocial.codAlterarSS;
+import static gestor.Visao.TelaModuloServicoSocial.codExcluirSS;
+import static gestor.Visao.TelaModuloServicoSocial.codGravarSS;
+import static gestor.Visao.TelaModuloServicoSocial.codIncluirSS;
+import static gestor.Visao.TelaModuloServicoSocial.codUserAcessoSS;
+import static gestor.Visao.TelaModuloServicoSocial.codigoUserSS;
+import static gestor.Visao.TelaModuloServicoSocial.nomeGrupoSS;
+import static gestor.Visao.TelaModuloServicoSocial.nomeTelaSS;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -41,6 +39,8 @@ import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
+import static gestor.Visao.TelaModuloServicoSocial.telaHistAvaSocial_SS;
+import static gestor.Visao.TelaModuloServicoSocial.telaHistAvaEmprego_SS;
 
 /**
  *
@@ -751,7 +751,7 @@ public class TelaHistoricoAvaliacaoEmprego extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaHistAvaEmprego) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaHistAvaEmprego_SS) && codIncluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             acao = 1;
             Novo();
             corCampos();
@@ -765,7 +765,7 @@ public class TelaHistoricoAvaliacaoEmprego extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaHistAvaEmprego) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaHistAvaEmprego_SS) && codAlterarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             objHistAva.setStatusLanc(jStatusOcorrencia.getText());
             if (jStatusOcorrencia.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Essa hitórico não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -784,7 +784,7 @@ public class TelaHistoricoAvaliacaoEmprego extends javax.swing.JInternalFrame {
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaHistAvaEmprego) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaHistAvaEmprego_SS) && codExcluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -810,7 +810,7 @@ public class TelaHistoricoAvaliacaoEmprego extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaHistAvaEmprego) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaHistAvaEmprego_SS) && codGravarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
         if (jDataOcorrencia.getDate() == null) {
             jDataOcorrencia.requestFocus();
             jDataOcorrencia.setBackground(Color.red);
