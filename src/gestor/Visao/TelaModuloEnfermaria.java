@@ -154,6 +154,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     public static String telaAprovadorSolicitacaoENF = "Cadastro:Aprovador Solicitação de Medicamentos:Manutenção";
     public static String telaMotivoSaidaProdutoENF = "Cadastro:Motivo de Saída de Produtos:Manutenção";
     public static String telaRegistroIntAtendENF = "Cadastro:Registro Interno para Atendimento:Manutenção";
+    public static String telaRegistroIntAtendInciarLeitorENF = "Cadastro:Registro Interno para Atendimento:Iniciar Leitor";
     // MENU CONTROLE DE MEDICAMENTOS
     public static String telaSolicitacaoMateriaisManuENF = "Controle Medicamentos:Solicitação de Materiais:Manutenção";
     public static String telaSolicitacaoMateriaisProdENF = "Controle Medicamentos:Solicitação de Materiais:Produtos";
@@ -218,7 +219,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     public static String telaTipoTratamentoManu = "Cadastro:Tipo de Tratamentos:Manutenção";
     //
     public static String telaConsultaProntuarioInternosDocENF = "Consulta:Prontuario:Documentos";
-    //
+    // REGISTRO DE INTERNO IMPRESSO
     public static String telaRegistroAtenImpENF = "Cadastro:Registro de Atendimento de Internos Impresso";
     public static String telaRegistroLibAtenImpENF = "Cadastro:Registro de Atendimento de Internos Impresso:Liberação";
     //
@@ -233,6 +234,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     String pNomeAS = "";
     String pNomeMSP = "";
     String pNomeRIA = "";
+    String pNomeRIAIL = "";
     // MENU CONTROLE DE MEDICAMENTOS
     String pNomeSMM = "";
     String pNomeSMP = "";
@@ -2518,6 +2520,13 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
             pNomeRLAI = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRegistroIntAtendInciarLeitorENF + "'");
+            conecta.rs.first();
+            pNomeRIAIL = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // CONTROLE DE MEDICAMENTOS
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
@@ -2945,6 +2954,12 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaRegistroLibAtenImpENF);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeRIAIL.equals(telaRegistroIntAtendInciarLeitorENF) || pNomeRIAIL == null || pNomeRIAIL.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRegistroIntAtendInciarLeitorENF);
             controle.incluirTelaAcesso(objCadastroTela);
         }
         // CONTROLE DE MEDICAMENTOS
