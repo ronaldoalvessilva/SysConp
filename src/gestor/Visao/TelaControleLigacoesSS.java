@@ -19,14 +19,14 @@ import static gestor.Visao.TelaAtendimentoSocial.jIDAtend;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
-import static gestor.Visao.TelaModuloServicoSocial.codAlterar;
-import static gestor.Visao.TelaModuloServicoSocial.codExcluir;
-import static gestor.Visao.TelaModuloServicoSocial.codGravar;
-import static gestor.Visao.TelaModuloServicoSocial.codIncluir;
-import static gestor.Visao.TelaModuloServicoSocial.codUserAcesso;
-import static gestor.Visao.TelaModuloServicoSocial.codigoUser;
-import static gestor.Visao.TelaModuloServicoSocial.nomeGrupo;
-import static gestor.Visao.TelaModuloServicoSocial.nomeTela;
+import static gestor.Visao.TelaModuloServicoSocial.codAlterarSS;
+import static gestor.Visao.TelaModuloServicoSocial.codExcluirSS;
+import static gestor.Visao.TelaModuloServicoSocial.codGravarSS;
+import static gestor.Visao.TelaModuloServicoSocial.codIncluirSS;
+import static gestor.Visao.TelaModuloServicoSocial.codUserAcessoSS;
+import static gestor.Visao.TelaModuloServicoSocial.codigoUserSS;
+import static gestor.Visao.TelaModuloServicoSocial.nomeGrupoSS;
+import static gestor.Visao.TelaModuloServicoSocial.nomeTelaSS;
 import static gestor.Visao.TelaModuloServicoSocial.telaControleLigacoesTelSS;
 import java.awt.Color;
 import java.awt.Image;
@@ -771,7 +771,7 @@ public class TelaControleLigacoesSS extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaControleLigacoesTelSS) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaControleLigacoesTelSS) && codIncluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             acao = 1;
             Novo();
             corCampo();
@@ -785,7 +785,7 @@ public class TelaControleLigacoesSS extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:    
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaControleLigacoesTelSS) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaControleLigacoesTelSS) && codAlterarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             objConLiga.setStatusLigacao(jStatusLigacao.getText());
             if (jStatusLigacao.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse controle de ligações não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -804,7 +804,7 @@ public class TelaControleLigacoesSS extends javax.swing.JInternalFrame {
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here: 
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaControleLigacoesTelSS) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaControleLigacoesTelSS) && codExcluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -832,7 +832,7 @@ public class TelaControleLigacoesSS extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaControleLigacoesTelSS) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaControleLigacoesTelSS) && codGravarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             if (jDataControle.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data de controle.");
                 jDataControle.requestFocus();
@@ -958,7 +958,10 @@ public class TelaControleLigacoesSS extends javax.swing.JInternalFrame {
             jBtAuditoria.setEnabled(true);
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM CONTROLIGA INNER JOIN PRONTUARIOSCRC ON CONTROLIGA.IdInternoCrc = PRONTUARIOSCRC.IdInternoCrc WHERE IdControl='" + idControl + "'");
+                conecta.executaSQL("SELECT * FROM CONTROLIGA "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON CONTROLIGA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "WHERE IdControl='" + idControl + "'");
                 conecta.rs.first();
                 jIDControle.setText(String.valueOf(conecta.rs.getInt("IdControl")));
                 jStatusLigacao.setText(conecta.rs.getString("StatusControl"));
