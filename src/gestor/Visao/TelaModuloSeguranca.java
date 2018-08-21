@@ -185,7 +185,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     public static String telaRetirarPenalidade = "Movimentação:Retirar Penalidade:Manutenção";
     public static String telaRetirarPenalidadeInternos = "Movimentação:Retirar Penalidade:Internos";
     public static String telaLivroOcorrencias = "Movimentação:Livro Ocorrencias:Manutenção";
-    public static String telaBloqueioLiberacaoVisitasPortaria = "Movimentação:Bloqueio Liberacao Visitas Portaria:Manutenção";
+    public static String telaBloqueioLiberacaoVisitasPortaria = "Movimentação:Bloqueio Liberação Visitas Portaria:Manutenção";
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
     // MENU CADASTRO
     String pNomePA = "";
