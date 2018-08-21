@@ -40,19 +40,19 @@ import static gestor.Visao.TelaModuloEnfermaria.nomeModuloENFER;
 import static gestor.Visao.TelaModuloJuridico.nomeModuloJURI;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
-import static gestor.Visao.TelaModuloServicoSocial.codAbrir;
-import static gestor.Visao.TelaModuloServicoSocial.codAlterar;
-import static gestor.Visao.TelaModuloServicoSocial.codConsultar;
-import static gestor.Visao.TelaModuloServicoSocial.codExcluir;
-import static gestor.Visao.TelaModuloServicoSocial.codGravar;
-import static gestor.Visao.TelaModuloServicoSocial.codIncluir;
-import static gestor.Visao.TelaModuloServicoSocial.codUserAcesso;
-import static gestor.Visao.TelaModuloServicoSocial.codigoGrupo;
-import static gestor.Visao.TelaModuloServicoSocial.codigoUser;
-import static gestor.Visao.TelaModuloServicoSocial.codigoUserGroup;
-import static gestor.Visao.TelaModuloServicoSocial.nomeGrupo;
+import static gestor.Visao.TelaModuloServicoSocial.codAbrirSS;
+import static gestor.Visao.TelaModuloServicoSocial.codAlterarSS;
+import static gestor.Visao.TelaModuloServicoSocial.codConsultarSS;
+import static gestor.Visao.TelaModuloServicoSocial.codExcluirSS;
+import static gestor.Visao.TelaModuloServicoSocial.codGravarSS;
+import static gestor.Visao.TelaModuloServicoSocial.codIncluirSS;
+import static gestor.Visao.TelaModuloServicoSocial.codUserAcessoSS;
+import static gestor.Visao.TelaModuloServicoSocial.codigoGrupoSS;
+import static gestor.Visao.TelaModuloServicoSocial.codigoUserSS;
+import static gestor.Visao.TelaModuloServicoSocial.codigoUserGroupSS;
+import static gestor.Visao.TelaModuloServicoSocial.nomeGrupoSS;
 import static gestor.Visao.TelaModuloServicoSocial.nomeModuloSERV;
-import static gestor.Visao.TelaModuloServicoSocial.nomeTela;
+import static gestor.Visao.TelaModuloServicoSocial.nomeTelaSS;
 import static gestor.Visao.TelaModuloServicoSocial.telaPAISS;
 import static gestor.Visao.TelaModuloServicoSocial.telaPaiCCGFFam_SS;
 import static gestor.Visao.TelaModuloServicoSocial.telaPaiCCGFVisInt_SS;
@@ -7281,7 +7281,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPAISS) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPAISS) && codIncluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             acao = 1;
             limparCamposNovo();
             bloquearCampos();
@@ -7300,7 +7300,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPAISS) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPAISS) && codAlterarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             acao = 2;
             bloquearCampos();
             bloquearBotoes();
@@ -7315,7 +7315,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPAISS) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPAISS) && codExcluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             verificarCodigoPAI();
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
@@ -7346,7 +7346,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPAISS) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPAISS) && codGravarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             verificarExistenciaInternoPAI();
             if (jDataPAI.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data de Cadastro do P.A.I.");
@@ -7464,7 +7464,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtSalvarFamiliarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarFamiliarActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiCCGFFam_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiCCGFFam_SS) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiCCGFFam_SS) && codGravarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             if (jNomeFamiliarPAI.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o nome do familiar para cadastrar.");
             } else {
@@ -7521,7 +7521,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtExcluirFamiliarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirFamiliarActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiCCGFFam_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiCCGFFam_SS) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiCCGFFam_SS) && codExcluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -7594,7 +7594,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtAlterarFamiliarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarFamiliarActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiCCGFFam_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiCCGFFam_SS) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiCCGFFam_SS) && codAlterarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             acao = 6;
             bloquearCampos();
             bloquearBotoes();
@@ -7610,7 +7610,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtNovoFamiliarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoFamiliarActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiCCGFFam_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiCCGFFam_SS) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiCCGFFam_SS) && codIncluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             acao = 5;
             bloquearCampos();
             bloquearBotoes();
@@ -7633,7 +7633,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtNovoSSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoSSActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiCCGF_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiCCGF_SS) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiCCGF_SS) && codIncluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             acao = 3;
             bloquearBotoes();
             bloquearCampos();
@@ -7649,7 +7649,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtAlterarSSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarSSActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiCCGF_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiCCGF_SS) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiCCGF_SS) && codAlterarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             acao = 4;
             bloquearBotoes();
             bloquearCampos();
@@ -7665,7 +7665,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtExcluirSSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirSSActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiCCGF_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiCCGF_SS) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiCCGF_SS) && codExcluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             objSocial2Pai.setIdPai(Integer.valueOf(jCodigoPAI.getText()));
             verificarVisitasFamiliarIntima();
             if (objSocial2Pai.getIdPai() == codigoVF || objSocial2Pai.getIdPai() == codigoVF1 || objSocial2Pai.getIdPai() == codigoVF2) {
@@ -7695,7 +7695,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtSalvarSSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarSSActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiCCGF_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiCCGF_SS) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiCCGF_SS) && codGravarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             verificarCCGF(); // VERIFICAR SE JÁ EXISTE UM REGISTRO CADASTRADO PARA O INTERNO.(SOMENTE PODERÁ EXISTIR UM POR INTERNO)
             objCcgf.setTemFilhos((String) jComboBoxTemFilhos.getSelectedItem());
             objCcgf.setQuantosFilhos(Integer.valueOf(jQuantosFilhos.getText()));
@@ -7841,7 +7841,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtExcluirVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirVisitaActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiCCGFVis_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiCCGFVis_SS) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiCCGFVis_SS) && codExcluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -7870,7 +7870,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtSalvarVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarVisitaActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiCCGFVis_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiCCGFVis_SS) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiCCGFVis_SS) && codGravarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             if (jIdVisitaPAI.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o nome da visita.");
             } else if (jNomeVisitaPAI.getText().equals("")) {
@@ -7930,7 +7930,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtNovaVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaVisitaActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiCCGFVis_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiCCGFVis_SS) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiCCGFVis_SS) && codIncluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             acao = 7;
             bloquearCampos();
             bloquearBotoes();
@@ -7946,7 +7946,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtAlterarVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarVisitaActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiCCGFVis_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiCCGFVis_SS) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiCCGFVis_SS) && codAlterarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             acao = 8;
             bloquearCampos();
             bloquearBotoes();
@@ -8034,7 +8034,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtSalvarVisitaIntimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarVisitaIntimaActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiCCGFVisInt_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiCCGFVisInt_SS) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiCCGFVisInt_SS) && codGravarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             if (jIdVisitaIntima.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o nome da visita.");
             } else if (jNomeVisitaIntima.getText().equals("")) {
@@ -8099,7 +8099,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtAlterarVisitaIntimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarVisitaIntimaActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiCCGFVisInt_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiCCGFVisInt_SS) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiCCGFVisInt_SS) && codAlterarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             acao = 10;
             bloquearCampos();
             AlterarVisitaIntima();
@@ -8114,7 +8114,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtExcluirVisitaIntimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirVisitaIntimaActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiCCGFVisInt_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiCCGFVisInt_SS) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiCCGFVisInt_SS) && codExcluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -8151,7 +8151,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtNovaVisitaIntimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaVisitaIntimaActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiCCGFVisInt_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiCCGFVisInt_SS) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiCCGFVisInt_SS) && codIncluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             acao = 9;
             bloquearCampos();
             NovaVisitaIntima();
@@ -8173,7 +8173,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtNovoTOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoTOActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiDEME_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiDEME_SS) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiDEME_SS) && codIncluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             acao = 11;
             bloquearCampos();
             NovoTOPed();
@@ -8188,7 +8188,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtAlterarTOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarTOActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiDEME_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiDEME_SS) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiDEME_SS) && codAlterarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             acao = 12;
             bloquearCampos();
             AlterarTOPed();
@@ -8203,7 +8203,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtExcluirTOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirTOActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiDEME_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiDEME_SS) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiDEME_SS) && codExcluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -8226,7 +8226,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtSalvarTOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarTOActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiDEME_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiDEME_SS) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiDEME_SS) && codGravarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             verificarTOPED();
             objFichaDeme.setIdPai(Integer.valueOf(jCodigoPAI.getText()));
             objFichaDeme.setIdInternoCrc(Integer.valueOf(jIdInternoPAI.getText()));
@@ -8304,7 +8304,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtNovoPSIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoPSIActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiDPTL_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiDPTL_SS) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiDPTL_SS) && codIncluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             acao = 13;
             bloquearCampos();
             NovoPSI();
@@ -8319,7 +8319,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtAlterarPSIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarPSIActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiDPTL_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiDPTL_SS) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiDPTL_SS) && codAlterarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             acao = 14;
             bloquearCampos();
             AlterarPSI();
@@ -8334,7 +8334,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtExcluirPSIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirPSIActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiDPTL_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiDPTL_SS) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiDPTL_SS) && codExcluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -8357,7 +8357,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtSalvarPSIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarPSIActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiDPTL_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiDPTL_SS) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiDPTL_SS) && codGravarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             DecimalFormat valorReal = new DecimalFormat("#,###.00");
             valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
             verificarCodigoPSI();
@@ -8447,7 +8447,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtNovoDJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoDJActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiDJ_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiDJ_SS) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiDJ_SS) && codIncluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             acao = 17;
             bloquearCampos();
             bloquearBotoes();
@@ -8463,7 +8463,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtAlterarDJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarDJActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiDJ_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiDJ_SS) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiDJ_SS) && codAlterarSS== 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             acao = 18;
             bloquearCampos();
             bloquearBotoes();
@@ -8479,7 +8479,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtExcluirDJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirDJActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiDJ_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiDJ_SS) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiDJ_SS) && codExcluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -8502,7 +8502,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtSalvarDJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarDJActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiDJ_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiDJ_SS) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiDJ_SS) && codGravarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             verificarCodigoDJ();
             objFichaDJ.setIdPai(Integer.valueOf(jCodigoPAI.getText()));
             objFichaDJ.setIdInternoCrc(Integer.valueOf(jIdInternoPAI.getText()));
@@ -8585,7 +8585,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtNovoSS3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoSS3ActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiDS_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiDS_SS) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiDS_SS) && codIncluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             acao = 19;
             bloquearCampos();
             bloquearBotoes();
@@ -8601,7 +8601,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtAlterarSS3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarSS3ActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiDS_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiDS_SS) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiDS_SS) && codAlterarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             acao = 20;
             bloquearCampos();
             bloquearBotoes();
@@ -8617,7 +8617,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtExcluirSS3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirSS3ActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiDS_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiDS_SS) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiDS_SS) && codExcluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -8641,7 +8641,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtSalvarSS3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarSS3ActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiDS_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiDS_SS) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiDS_SS) && codGravarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             verificarCodigoSS3();
             objFichaDS.setIdPai(Integer.valueOf(jCodigoPAI.getText()));
             objFichaDS.setIdInternoCrc(Integer.valueOf(jIdInternoPAI.getText()));
@@ -8932,7 +8932,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtNovoEAPI1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoEAPI1ActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiEAPI1_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiEAPI1_SS) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiEAPI1_SS) && codIncluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             acao = 21;
             bloquearCampos();
             bloquearBotoes();
@@ -8948,7 +8948,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtAlterarEAPI1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarEAPI1ActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiEAPI1_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiEAPI1_SS) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiEAPI1_SS) && codAlterarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             acao = 22;
             bloquearCampos();
             bloquearBotoes();
@@ -8964,7 +8964,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtExcluirEAPI1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirEAPI1ActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiEAPI1_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiEAPI1_SS) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiEAPI1_SS) && codExcluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -8988,7 +8988,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtSalvarEAPI1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarEAPI1ActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiEAPI1_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiEAPI1_SS) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiEAPI1_SS) && codGravarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             verificarCodigoEAPI1();
             objEapi1.setIdPai(Integer.parseInt(jCodigoPAI.getText()));
             objEapi1.setIdInternoCrc(Integer.valueOf(jIdInternoPAI.getText()));
@@ -9049,7 +9049,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtNovoEAPI2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoEAPI2ActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiEAPI2_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiEAPI2_SS) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiEAPI2_SS) && codIncluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             acao = 23;
             bloquearCampos();
             bloquearBotoes();
@@ -9065,7 +9065,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtAlterarEAPI2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarEAPI2ActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiEAPI2_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiEAPI2_SS) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiEAPI2_SS) && codAlterarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             acao = 24;
             bloquearCampos();
             bloquearBotoes();
@@ -9081,7 +9081,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtExcluirEAPI2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirEAPI2ActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiEAPI2_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiEAPI2_SS) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiEAPI2_SS) && codExcluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -9104,7 +9104,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtSalvarEAPI2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarEAPI2ActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiEAPI2_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiEAPI2_SS) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiEAPI2_SS) && codGravarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             verificarCodigoEAPI2();
             objEapi2.setIdPai(Integer.valueOf(jCodigoPAI.getText()));
             objEapi2.setIdInternoCrc(Integer.valueOf(jIdInternoPAI.getText()));
@@ -9213,7 +9213,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtSalvarEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarEvolucaoActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiEPAI_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiEPAI_SS) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiEPAI_SS) && codGravarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             if (jNomeInternoEvolucaoPAI.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Informe o nome do interno para evolução.");
             } else if (jDataEvolucao.getDate() == null) {
@@ -9271,7 +9271,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtExcluirEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirEvolucaoActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiEPAI_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiEPAI_SS) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiEPAI_SS) && codExcluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM EVOLUCAO_PAI_NOVO "
@@ -9316,7 +9316,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtAlterarEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarEvolucaoActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiEPAI_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiEPAI_SS) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiEPAI_SS) && codAlterarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM EVOLUCAO_PAI_NOVO WHERE IdEvolucao='" + jIdEvolucao.getText() + "'");
@@ -9344,7 +9344,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtNovaEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaEvolucaoActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiEPAI_SS);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaPaiEPAI_SS) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiEPAI_SS) && codIncluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             acao = 25;
             bloquearCampos();
             NovaEvolucao();
@@ -10089,33 +10089,33 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
             conecta.executaSQL("SELECT * FROM USUARIOS "
                     + "WHERE NomeUsuario='" + nameUser + "'");
             conecta.rs.first();
-            codigoUser = conecta.rs.getInt("IdUsuario");
+            codigoUserSS = conecta.rs.getInt("IdUsuario");
         } catch (Exception e) {
         }
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
                     + "INNER JOIN GRUPOUSUARIOS "
                     + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                    + "WHERE IdUsuario='" + codigoUser + "'");
+                    + "WHERE IdUsuario='" + codigoUserSS + "'");
             conecta.rs.first();
-            codigoUserGroup = conecta.rs.getInt("IdUsuario");
-            codigoGrupo = conecta.rs.getInt("IdGrupo");
-            nomeGrupo = conecta.rs.getString("NomeGrupo");
+            codigoUserGroupSS = conecta.rs.getInt("IdUsuario");
+            codigoGrupoSS = conecta.rs.getInt("IdGrupo");
+            nomeGrupoSS = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
         }
         try {
             conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
-                    + "WHERE IdUsuario='" + codigoUser + "' "
+                    + "WHERE IdUsuario='" + codigoUserSS + "' "
                     + "AND NomeTela='" + nomeTela + "'");
             conecta.rs.first();
-            codUserAcesso = conecta.rs.getInt("IdUsuario");
-            codAbrir = conecta.rs.getInt("Abrir");
-            codIncluir = conecta.rs.getInt("Incluir");
-            codAlterar = conecta.rs.getInt("Alterar");
-            codExcluir = conecta.rs.getInt("Excluir");
-            codGravar = conecta.rs.getInt("Gravar");
-            codConsultar = conecta.rs.getInt("Consultar");
-            nomeTela = conecta.rs.getString("NomeTela");
+            codUserAcessoSS = conecta.rs.getInt("IdUsuario");
+            codAbrirSS = conecta.rs.getInt("Abrir");
+            codIncluirSS = conecta.rs.getInt("Incluir");
+            codAlterarSS = conecta.rs.getInt("Alterar");
+            codExcluirSS = conecta.rs.getInt("Excluir");
+            codGravarSS = conecta.rs.getInt("Gravar");
+            codConsultarSS = conecta.rs.getInt("Consultar");
+            nomeTelaSS = conecta.rs.getString("NomeTela");
         } catch (Exception e) {
         }
         conecta.desconecta();
