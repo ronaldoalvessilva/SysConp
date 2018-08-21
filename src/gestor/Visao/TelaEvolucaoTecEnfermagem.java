@@ -88,9 +88,11 @@ public class TelaEvolucaoTecEnfermagem extends javax.swing.JInternalFrame {
     String codigoEvol = "";
     String codigoInternoAtend = "";
     String atendeEvol = "Não";
+    String opcao = "Não";
+    //    
     public static int codigoDepartamentoENFenfTEC = 0;
     String tipoAtendimentoAdm = "Atendimento Técnico Enfermagem";
-    String tipoAtendimentoEvolTEC = "Evolução Técnico Enfermagem";       
+    String tipoAtendimentoEvolTEC = "Evolução Técnico Enfermagem";
     //
     String phabilitaTecnico = "";
 
@@ -1284,9 +1286,13 @@ public class TelaEvolucaoTecEnfermagem extends javax.swing.JInternalFrame {
         verificarInternoRegistradoAdm();
         buscarAcessoUsuario(telaAtendTecEnfIntEvolENF);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAtendTecEnfIntEvolENF) && codIncluirENF == 1) {
-            if (atendido.equals("Sim") && jIdLanc.getText().equals(codigoAtend) && jIdInternoEM.getText().equals(codigoInternoAtend)) {
+            if (atendido == null) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
-            } else {
+            } else if (atendido.equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
+            } else if (atendido.equals("Sim")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
+            } else if (atendido.equals("Não")) {
                 acao = 3;
                 NovaEvolucao();
                 statusMov = "Incluiu";
@@ -2101,11 +2107,10 @@ public class TelaEvolucaoTecEnfermagem extends javax.swing.JInternalFrame {
         try {
             conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
                     + "WHERE IdInternoCrc='" + jIdInternoEM.getText() + "' "
-                    + "AND IdAtend='" + jIdLanc.getText() + "'");
+                    + "AND Atendido='" + opcao + "'");
             conecta.rs.first();
-            codigoAtend = conecta.rs.getString("IdAtend");
-            codigoEvol = conecta.rs.getString("IdEvol");
             codigoInternoAtend = conecta.rs.getString("IdInternoCrc");
+            codigoDepartamentoENFenfTEC = conecta.rs.getInt("IdDepartamento");
             atendido = conecta.rs.getString("Atendido");
         } catch (Exception e) {
         }
