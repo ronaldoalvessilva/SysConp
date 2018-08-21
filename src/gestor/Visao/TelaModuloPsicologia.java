@@ -585,6 +585,7 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
 
     private void AdmissaoPsicologicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdmissaoPsicologicaActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaMovimentacaoAdmIntManuPSI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaMovimentacaoAdmIntManuPSI) && codAbrirPSI == 1) {
             if (objAdmPsi == null || objAdmPsi.isClosed()) {
                 objAdmPsi = new TelaAdmissaoPsicologica();
@@ -618,6 +619,7 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
 
     private void AvaliacaoPsicologicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AvaliacaoPsicologicaActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaMovimentacaoAvalPsiIntPSI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaMovimentacaoAvalPsiIntPSI) && codAbrirPSI == 1) {
             if (objAvaPsi == null || objAvaPsi.isClosed()) {
                 objAvaPsi = new TelaAvaliacaoPsicologica();
@@ -709,6 +711,7 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
 
     private void LivroOcorrenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LivroOcorrenciasActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaMovimetacaoOcrPSI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaMovimetacaoOcrPSI) && codAbrirPSI == 1) {
             if (objOcorrPsi == null || objOcorrPsi.isClosed()) {
                 objOcorrPsi = new TelaOcorrenciaPsicologia();
@@ -908,6 +911,7 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
 
     private void jPerfilCarcerarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPerfilCarcerarioActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaPerfilSocialManuPSI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPerfilSocialManuPSI) && codAbrirPSI == 1) {
             if (objPerfilPSI == null || objPerfilPSI.isClosed()) {
                 objPerfilPSI = new TelaPerfilCarcerarioPsicologia();
@@ -940,7 +944,8 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jPerfilCarcerarioActionPerformed
 
     private void AgendaAtendimentoInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgendaAtendimentoInternosActionPerformed
-        // TODO add your handling code here:buscarAcessoUsuario(telaCadastroVisitasSS);
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaCadastroAgendaAtendimentoInternoManuPSI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaCadastroAgendaAtendimentoInternoManuPSI) && codAbrirPSI == 1) {
             if (objAgendaAtendInt == null || objAgendaAtendInt.isClosed()) {
                 objAgendaAtendInt = new TelaAgendamentoAtendimentoInternos();
@@ -1010,6 +1015,7 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
 
     private void jPaiNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPaiNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaPAIS_PSI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPAIS_PSI) && codAbrirPSI == 1) {
             if (objPAI_NOVO == null || objPAI_NOVO.isClosed()) {
                 objPAI_NOVO = new TelaPAI_NOVO_Psicologia();
@@ -1043,6 +1049,7 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
 
     private void jRegistroAtendeInternoBioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRegistroAtendeInternoBioActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaRegistroAtendimentoBioPSI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaRegistroAtendimentoBioPSI) && codAbrirPSI == 1) {
             if (objRegBioPSI == null || objRegBioPSI.isClosed()) {
                 objRegBioPSI = new TelaRegistroInternosAtendimentoPSI();
