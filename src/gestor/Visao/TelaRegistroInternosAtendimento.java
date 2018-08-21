@@ -47,6 +47,7 @@ import static gestor.Visao.TelaModuloEnfermaria.codUserAcessoENF;
 import static gestor.Visao.TelaModuloEnfermaria.codigoUserGroupENF;
 import static gestor.Visao.TelaModuloEnfermaria.codAbrirENF;
 import static gestor.Visao.TelaModuloEnfermaria.codIncluirENF;
+import static gestor.Visao.TelaModuloEnfermaria.telaRegistroIntAtendInciarLeitorENF;
 
 /**
  *
@@ -758,8 +759,8 @@ public class TelaRegistroInternosAtendimento extends javax.swing.JInternalFrame 
 
     private void jBtIniciarLeitorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIniciarLeitorActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaAcessoCadastroDoencasENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAcessoCadastroDoencasENF) && codIncluirENF == 1) {
+        buscarAcessoUsuario(telaRegistroIntAtendInciarLeitorENF);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaRegistroIntAtendInciarLeitorENF) && codIncluirENF == 1) {
             Novo();
             // Instanciar a DLL
             CIS_SDK dll = CIS_SDK.INSTANCE;
