@@ -28,7 +28,6 @@ import static gestor.Visao.TelaModuloEnfermaria.codigoGrupoENF;
 import static gestor.Visao.TelaModuloEnfermaria.nomeGrupoENF;
 import static gestor.Visao.TelaModuloEnfermaria.nomeTelaENF;
 import static gestor.Visao.TelaModuloEnfermaria.nomeModuloENFER;
-import static gestor.Visao.TelaModuloEnfermaria.telaAcessoCadastroDoencasENF;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
 import java.awt.Image;
@@ -47,6 +46,7 @@ import static gestor.Visao.TelaModuloEnfermaria.codUserAcessoENF;
 import static gestor.Visao.TelaModuloEnfermaria.codigoUserGroupENF;
 import static gestor.Visao.TelaModuloEnfermaria.codAbrirENF;
 import static gestor.Visao.TelaModuloEnfermaria.codIncluirENF;
+import static gestor.Visao.TelaModuloEnfermaria.telaRegistroIntAtendENF;
 import static gestor.Visao.TelaModuloEnfermaria.telaRegistroIntAtendInciarLeitorENF;
 
 /**
@@ -713,8 +713,8 @@ public class TelaRegistroInternosAtendimento extends javax.swing.JInternalFrame 
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:           
-        buscarAcessoUsuario(telaAcessoCadastroDoencasENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAcessoCadastroDoencasENF) && codGravarENF == 1) {
+        buscarAcessoUsuario(telaRegistroIntAtendENF);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaRegistroIntAtendENF) && codGravarENF == 1) {
             verificarInternos();
             if (jIdInternoKitBio.getText().equals("") || jNomeInternoKitBio.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Informe o nome do interno.");
