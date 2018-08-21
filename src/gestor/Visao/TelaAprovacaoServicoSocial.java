@@ -17,13 +17,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import gestor.Dao.ModeloTabela;
 import static gestor.Visao.TelaLoginSenha.nameUser;
-import static gestor.Visao.TelaModuloServicoSocial.codAlterar;
-import static gestor.Visao.TelaModuloServicoSocial.codExcluir;
-import static gestor.Visao.TelaModuloServicoSocial.codIncluir;
-import static gestor.Visao.TelaModuloServicoSocial.codUserAcesso;
-import static gestor.Visao.TelaModuloServicoSocial.codigoUser;
-import static gestor.Visao.TelaModuloServicoSocial.nomeGrupo;
-import static gestor.Visao.TelaModuloServicoSocial.nomeTela;
+import static gestor.Visao.TelaModuloServicoSocial.codAlterarSS;
+import static gestor.Visao.TelaModuloServicoSocial.codExcluirSS;
+import static gestor.Visao.TelaModuloServicoSocial.codIncluirSS;
+import static gestor.Visao.TelaModuloServicoSocial.codUserAcessoSS;
+import static gestor.Visao.TelaModuloServicoSocial.codigoUserSS;
+import static gestor.Visao.TelaModuloServicoSocial.nomeGrupoSS;
+import static gestor.Visao.TelaModuloServicoSocial.nomeTelaSS;
 import static gestor.Visao.TelaModuloServicoSocial.telaBloqueioLiberacaoVisitasSS;
 import static gestor.Visao.TelaModuloServicoSocial.telaRolVisitasSS;
 import java.util.Calendar;
@@ -823,7 +823,7 @@ public class TelaAprovacaoServicoSocial extends javax.swing.JInternalFrame {
 
     private void jBtAutorizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAutorizarActionPerformed
         // TODO add your handling code here:telaBloqueioLiberacaoVisitasSS
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaBloqueioLiberacaoVisitasSS) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaBloqueioLiberacaoVisitasSS) && codIncluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             acao = 1;
             buscarUsuario();
             verificarUsuarioAutorizados();
@@ -883,7 +883,7 @@ public class TelaAprovacaoServicoSocial extends javax.swing.JInternalFrame {
 
     private void jBtBloquearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtBloquearActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaBloqueioLiberacaoVisitasSS) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaBloqueioLiberacaoVisitasSS) && codAlterarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             if (concluirRegistro.equals("Sim")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, já foi concluído.");
             } else {
@@ -896,7 +896,7 @@ public class TelaAprovacaoServicoSocial extends javax.swing.JInternalFrame {
 
     private void jBtLiberarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtLiberarActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaBloqueioLiberacaoVisitasSS) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaBloqueioLiberacaoVisitasSS) && codExcluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
         acao = 2;
         liberarVisita();
         } else {
