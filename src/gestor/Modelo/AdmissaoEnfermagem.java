@@ -74,8 +74,14 @@ public class AdmissaoEnfermagem {
     private String horaUp;
     private String dataFechamento;
     private String horaFechamento;  
+    private String sifilis;
+    private String diabetes;
+    private String hipertensao;
 
-    public AdmissaoEnfermagem(int idLanc, String statusLanc, Date dataLanc, int idInternoCrc, String nomeInterno, int estadoEmocional, int sonoRepouso, int nivelConciencia, String pressaoArterial, String hemograma, String temperatura, String frequenciaRespitatoria, String peso, String frequenciaCardiaca, String usaMedicamentos, String qualMedicacao, int locomocao, int acuidadeVisual, int acuidadeAuditiva, int funcaoMotora, String qualFuncaoMotora, int falaLinguagem, String qualFala, int pele, int mucosa, String tipoPele, String localizacao, int cabelos, int boca, int funcaoRespiratoria, int torax, int funcaoIntestinal, String diasConstipado, int abdome, int funcaoVesical, int genitalia, String qualGenitalia, String vacinado, String quaisVacinas, String vdrl, String hepatiteC, String hepatiteB, String hiv, String cirurgias, String quaisCirurgias, String usuarioDrogas, String quaisDrogas, String portadorDoenca, String quaisDoencas, String Alergias, String quaisAlergias, String observacao, String deptoMedico, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento) {
+    public AdmissaoEnfermagem() {
+    }
+
+    public AdmissaoEnfermagem(int idLanc, String statusLanc, Date dataLanc, int idInternoCrc, String nomeInterno, int estadoEmocional, int sonoRepouso, int nivelConciencia, String pressaoArterial, String hemograma, String temperatura, String frequenciaRespitatoria, String peso, String frequenciaCardiaca, String usaMedicamentos, String qualMedicacao, int locomocao, int acuidadeVisual, int acuidadeAuditiva, int funcaoMotora, String qualFuncaoMotora, int falaLinguagem, String qualFala, int pele, int mucosa, String tipoPele, String localizacao, int cabelos, int boca, int funcaoRespiratoria, int torax, int funcaoIntestinal, String diasConstipado, int abdome, int funcaoVesical, int genitalia, String qualGenitalia, String vacinado, String quaisVacinas, String vdrl, String hepatiteC, String hepatiteB, String hiv, String cirurgias, String quaisCirurgias, String usuarioDrogas, String quaisDrogas, String portadorDoenca, String quaisDoencas, String Alergias, String quaisAlergias, String observacao, String deptoMedico, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento, String sifilis, String diabetes, String hipertensao) {
         this.idLanc = idLanc;
         this.statusLanc = statusLanc;
         this.dataLanc = dataLanc;
@@ -137,9 +143,9 @@ public class AdmissaoEnfermagem {
         this.horaUp = horaUp;
         this.dataFechamento = dataFechamento;
         this.horaFechamento = horaFechamento;
-    }
-
-    public AdmissaoEnfermagem() {
+        this.sifilis = sifilis;
+        this.diabetes = diabetes;
+        this.hipertensao = hipertensao;
     }
 
     /**
@@ -995,4 +1001,47 @@ public class AdmissaoEnfermagem {
     public void setHoraFechamento(String horaFechamento) {
         this.horaFechamento = horaFechamento;
     }
+
+    /**
+     * @return the sifilis
+     */
+    public String getSifilis() {
+        return sifilis;
+    }
+
+    /**
+     * @param sifilis the sifilis to set
+     */
+    public void setSifilis(String sifilis) {
+        this.sifilis = sifilis;
+    }
+
+    /**
+     * @return the diabetes
+     */
+    public String getDiabetes() {
+        return diabetes;
+    }
+
+    /**
+     * @param diabetes the diabetes to set
+     */
+    public void setDiabetes(String diabetes) {
+        this.diabetes = diabetes;
+    }
+
+    /**
+     * @return the hipertensao
+     */
+    public String getHipertensao() {
+        return hipertensao;
+    }
+
+    /**
+     * @param hipertensao the hipertensao to set
+     */
+    public void setHipertensao(String hipertensao) {
+        this.hipertensao = hipertensao;
+    }
+   
 }
