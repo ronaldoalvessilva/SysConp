@@ -29,8 +29,8 @@ public class ControleAdmissaoEnfermagem {
                     + "Peso,FrequenciaCardiaca,UsaMedicamentos,QualMedicacao,Locomocao,AcuidadeVisual,AcuidadeAuditiva,FuncaoMotora,QualFuncaoMotora,FalaLinguagem,"
                     + "QualFala,Pele,Mucosa,TipoPele,Localizacao,Cabelos,Boca,FuncaoRespiratoria,Torax,FuncaoIntestinal,DiasConstipado,Abdome,"
                     + "FuncaoVesical,Genitalia,QualGenitalia,Vacinado,QuaisVacinas,Vdrl,HepatiteC,HepatiteB,Hiv,Cirurgias,QuaisCirurgias,UsuarioDrogas,QuaisDrogas,"
-                    + "PortadorDoenca,QuaisDoencas,Alergias,QuaisAlergias,Observacao,UsuarioInsert,DataInsert,HorarioInsert) "
-                    + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                    + "PortadorDoenca,QuaisDoencas,Alergias,QuaisAlergias,Observacao,UsuarioInsert,DataInsert,HorarioInsert,Sifilis,Diabetes,Hipertensao) "
+                    + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setString(1, objAdmEnfermagem.getStatusLanc());
             pst.setTimestamp(2, new java.sql.Timestamp(objAdmEnfermagem.getDataLanc().getTime()));
             pst.setInt(3, codInterno);
@@ -84,9 +84,12 @@ public class ControleAdmissaoEnfermagem {
             pst.setString(51, objAdmEnfermagem.getUsuarioInsert());
             pst.setString(52, objAdmEnfermagem.getDataInsert());
             pst.setString(53, objAdmEnfermagem.getHoraInsert());
+            pst.setString(54, objAdmEnfermagem.getSifilis());
+            pst.setString(55, objAdmEnfermagem.getDiabetes());
+            pst.setString(56, objAdmEnfermagem.getHipertensao());
             pst.execute();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados\n\nERRO" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\n\nERRO: " + ex);
         }
         conecta.desconecta();
         return objAdmEnfermagem;
@@ -100,7 +103,7 @@ public class ControleAdmissaoEnfermagem {
                     + "Peso=?,FrequenciaCardiaca=?,UsaMedicamentos=?,QualMedicacao=?,Locomocao=?,AcuidadeVisual=?,AcuidadeAuditiva=?,FuncaoMotora=?,QualFuncaoMotora=?,FalaLinguagem=?,"
                     + "QualFala=?,Pele=?,Mucosa=?,TipoPele=?,Localizacao=?,Cabelos=?,Boca=?,FuncaoRespiratoria=?,Torax=?,FuncaoIntestinal=?,DiasConstipado=?,Abdome=?,"
                     + "FuncaoVesical=?,Genitalia=?,QualGenitalia=?,Vacinado=?,QuaisVacinas=?,Vdrl=?,HepatiteC=?,HepatiteB=?,Hiv=?,Cirurgias=?,QuaisCirurgias=?,UsuarioDrogas=?,QuaisDrogas=?,"
-                    + "PortadorDoenca=?,QuaisDoencas=?,Alergias=?,QuaisAlergias=?,Observacao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdLanc='" + objAdmEnfermagem.getIdLanc() + "'");
+                    + "PortadorDoenca=?,QuaisDoencas=?,Alergias=?,QuaisAlergias=?,Observacao=?,UsuarioUp=?,DataUp=?,HorarioUp=?,Sifilis=?,Diabetes=?,Hipertensao=? WHERE IdLanc='" + objAdmEnfermagem.getIdLanc() + "'");
             pst.setString(1, objAdmEnfermagem.getStatusLanc());
             pst.setTimestamp(2, new java.sql.Timestamp(objAdmEnfermagem.getDataLanc().getTime()));
             pst.setInt(3, codInterno);
@@ -154,9 +157,12 @@ public class ControleAdmissaoEnfermagem {
             pst.setString(51, objAdmEnfermagem.getUsuarioUp());
             pst.setString(52, objAdmEnfermagem.getDataUp());
             pst.setString(53, objAdmEnfermagem.getHoraUp());
+            pst.setString(54, objAdmEnfermagem.getSifilis());
+            pst.setString(55, objAdmEnfermagem.getDiabetes());
+            pst.setString(56, objAdmEnfermagem.getHipertensao());
             pst.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados\n\nERRO" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
         }
         conecta.desconecta();
         return objAdmEnfermagem;
