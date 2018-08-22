@@ -886,8 +886,8 @@ public class TelaRegistroInternosAtendimentoImpressoPSI extends javax.swing.JInt
 
     private void jBtPesquisaInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaInternoActionPerformed
         // TODO add your handling code here:        
-        TelaPesqInternoRegistroImpressoSS objPesqIntImp = new TelaPesqInternoRegistroImpressoSS();
-        TelaModuloServicoSocial.jPainelServicoSocial.add(objPesqIntImp);
+        TelaPesqInternoRegistroImpressoPSI objPesqIntImp = new TelaPesqInternoRegistroImpressoPSI();
+        TelaModuloPsicologia.jPainelPsicologia.add(objPesqIntImp);
         objPesqIntImp.show();
     }//GEN-LAST:event_jBtPesquisaInternoActionPerformed
 
