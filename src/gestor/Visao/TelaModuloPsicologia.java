@@ -128,7 +128,11 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     // CADASTRO
     public static String telaCadastroAgendaAtendimentoInternoManuPSI = "Cadastro:Agenda Atendimento a Internos:Manutenção";
     public static String telaRegistroAtendimentoBioPSI = "Cadastro:Registro de Atendimento Internos Biometria:Manutenção";
+    public static String telaRegistroAtendimentoInciarLeitorPSI = "Cadastro:Registro de Atendimento Internos Biometria:Iniciar Leitor";
     public static String telaRegistroAtendimentoImpBioPSI = "Cadastro:Registro de Autorização Impressa:Liberação";
+    public static String telaRegistroAtendimentoColLiberadorPSI = "Cadastro:Registro de Autorização Impressa:Colaborador Liberador";
+    //
+
     // MENU CONSULTA    
     public static String telaConsultaProntuarioInternosDocPSI = "Consulta:Prontuario:Documentos";
     // MOVIMENTAÇÃO
@@ -138,18 +142,18 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     //
     public static String telaMovimentacaoAvalPsiIntPSI = "Movimentação:Avaliação Psicologica:Manutenção";
     //P.A.I.
-    public static String telaPAIS_PSI = "Movimentação:P.A.I.:Manutenção";
-    public static String telaPaiCCGF_PSI = "Movimentação:P.A.I.:C.C.G.F.";
-    public static String telaPaiCCGFFam_PSI = "Movimentação:P.A.I.:C.C.G.F.:Familia";
-    public static String telaPaiCCGFVis_PSI = "Movimentação:P.A.I.:C.C.G.F.:Visita";
-    public static String telaPaiCCGFVisInt_PSI = "Movimentação:P.A.I.:C.C.G.F.:Visita Intima";
-    public static String telaPaiDEME_PSI = "Movimentação:P.A.I.:D.E.M.E.";
-    public static String telaPaiDPTL_PSI = "Movimentação:P.A.I.:D.P.T.L.";
-    public static String telaPaiDJ_PSI = "Movimentação:P.A.I.:D.J.";
-    public static String telaPaiDS_PSI = "Movimentação:P.A.I.:D.S.";
-    public static String telaPaiEAPI1_PSI = "Movimentação:P.A.I.:E.A.P.I.-1";
-    public static String telaPaiEAPI2_PSI = "Movimentação:P.A.I.:E.A.P.I.-2";
-    public static String telaPaiEPAI_PSI = "Movimentação:P.A.I.:E-PAI";
+    public static String telaPAIS_PSI = "Movimentação:P.A.I. - Psicologia:Manutenção";
+    public static String telaPaiCCGF_PSI = "Movimentação:P.A.I.:C.C.G.F. - Psicologia";
+    public static String telaPaiCCGFFam_PSI = "Movimentação:P.A.I.:C.C.G.F. - Psicologia:Familia";
+    public static String telaPaiCCGFVis_PSI = "Movimentação:P.A.I.:C.C.G.F. - Psicologia:Visita";
+    public static String telaPaiCCGFVisInt_PSI = "Movimentação:P.A.I.:C.C.G.F. - Psicologia:Visita Intima";
+    public static String telaPaiDEME_PSI = "Movimentação:P.A.I.:D.E.M.E. - Psicologia";
+    public static String telaPaiDPTL_PSI = "Movimentação:P.A.I.:D.P.T.L. - Psicologia";
+    public static String telaPaiDJ_PSI = "Movimentação:P.A.I.:D.J. - Psicologia";
+    public static String telaPaiDS_PSI = "Movimentação:P.A.I.:D.S. - Psicologia";
+    public static String telaPaiEAPI1_PSI = "Movimentação:P.A.I.:E.A.P.I.-1 - Psicologia";
+    public static String telaPaiEAPI2_PSI = "Movimentação:P.A.I.:E.A.P.I.-2 - Psicologia";
+    public static String telaPaiEPAI_PSI = "Movimentação:P.A.I.:E-PAI - Psicologia";
     //
     public static String telaPerfilSocialManuPSI = "Movimentação:Perfil Carcerário:Manutenção";
     public static String telaPerfilSocialPerfCarPSI = "Movimentação:Perfil Carcerário:Perfil Carcerário";
@@ -162,6 +166,10 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     String pNomeCAAI = "";
     String pNomeRABP = "";
     String pNomeRAIB = "";
+    String pNomeRAIL = "";
+    String pNomeRACL = "";
+    //pNomeRACL 
+    //telaRegistroAtendimentoColLiberadorPSI
     // MENU CONSULTA
     String pNomeCPID = "";
     // MOVIMENTAÇÃO
@@ -187,7 +195,7 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     String pNomePSPC = "";
     //
     String pNomeMO = "";
-   
+
     /**
      * Creates new form TelaPsicologia
      */
@@ -1390,14 +1398,6 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
 
     public void pesquisarTelasAcessos() {
         conecta.abrirConexao();
-        //CONSULTA
-        try {
-            conecta.executaSQL("SELECT * FROM TELAS "
-                    + "WHERE NomeTela='" + telaConsultaProntuarioInternosDocPSI + "'");
-            conecta.rs.first();
-            pNomeCPID = conecta.rs.getString("NomeTela");
-        } catch (SQLException ex) {
-        }
         //CADASTRO
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
@@ -1418,6 +1418,28 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
                     + "WHERE NomeTela='" + telaRegistroAtendimentoImpBioPSI + "'");
             conecta.rs.first();
             pNomeRAIB = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRegistroAtendimentoInciarLeitorPSI + "'");
+            conecta.rs.first();
+            pNomeRAIL = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRegistroAtendimentoColLiberadorPSI + "'");
+            conecta.rs.first();
+            pNomeRACL = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        //CONSULTA
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaConsultaProntuarioInternosDocPSI + "'");
+            conecta.rs.first();
+            pNomeCPID = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         // MOVIMENTAÇÃO
@@ -1562,13 +1584,7 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
             pNomePSPC = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
-        //  CADASTRO
-        if (!pNomeCAAI.equals(telaCadastroAgendaAtendimentoInternoManuPSI) || pNomeCAAI == null || pNomeCAAI.equals("")) {
-            buscarCodigoModulo();
-            objCadastroTela.setIdModulo(pCodModulo);
-            objCadastroTela.setNomeTela(telaCadastroAgendaAtendimentoInternoManuPSI);
-            controle.incluirTelaAcesso(objCadastroTela);
-        }
+        //  CADASTRO        
         if (!pNomeRABP.equals(telaRegistroAtendimentoBioPSI) || pNomeRABP == null || pNomeRABP.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
@@ -1579,6 +1595,25 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaRegistroAtendimentoImpBioPSI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeRAIL.equals(telaRegistroAtendimentoInciarLeitorPSI) || pNomeRAIL == null || pNomeRAIL.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRegistroAtendimentoInciarLeitorPSI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeRACL.equals(telaRegistroAtendimentoColLiberadorPSI) || pNomeRACL == null || pNomeRACL.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRegistroAtendimentoColLiberadorPSI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //CONSULTA
+        if (!pNomeCAAI.equals(telaCadastroAgendaAtendimentoInternoManuPSI) || pNomeCAAI == null || pNomeCAAI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaCadastroAgendaAtendimentoInternoManuPSI);
             controle.incluirTelaAcesso(objCadastroTela);
         }
         // MENU CONSULTA
