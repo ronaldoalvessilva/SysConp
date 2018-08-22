@@ -10,13 +10,30 @@ import gestor.Controle.ControleItensAtividadeJuridico;
 import gestor.Controle.ControleJuridico;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleMovJuridico;
+import gestor.Controle.ControleRegistroAtendimentoInternoBio;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.AtendimentoJuridico;
 import gestor.Modelo.EvolucaoJuridico;
 import gestor.Modelo.ItensAtividadeJuridico;
 import gestor.Modelo.LogSistema;
+import gestor.Modelo.RegistroAtendimentoInternos;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloJuridico.codAlterarJURI;
+import static gestor.Visao.TelaModuloJuridico.codExcluirJURI;
+import static gestor.Visao.TelaModuloJuridico.codGravarJURI;
+import static gestor.Visao.TelaModuloJuridico.codIncluirJURI;
+import static gestor.Visao.TelaModuloJuridico.codConsultarJURI;
+import static gestor.Visao.TelaModuloJuridico.codAbrirJURI;
+import static gestor.Visao.TelaModuloJuridico.codigoGrupoJURI;
+import static gestor.Visao.TelaModuloJuridico.codigoUserGroupJURI;
+import static gestor.Visao.TelaModuloJuridico.codUserAcessoJURI;
+import static gestor.Visao.TelaModuloJuridico.codigoUserJURI;
+import static gestor.Visao.TelaModuloJuridico.nomeGrupoJURI;
+import static gestor.Visao.TelaModuloJuridico.nomeTelaJURI;
+import static gestor.Visao.TelaModuloJuridico.telaAtendimentoJuridicoEvolucaoJURI;
+import static gestor.Visao.TelaModuloJuridico.telaAtendimentoJuridicoManuJURI;
+import static gestor.Visao.TelaModuloJuridico.telaAtendimentoJuridicoaAtividadesJURI;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -25,6 +42,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
@@ -45,6 +63,10 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
     ControleEvolucaoJuridico controleJuri = new ControleEvolucaoJuridico();
     ItensAtividadeJuridico objAtivi = new ItensAtividadeJuridico();
     ControleItensAtividadeJuridico controleItens = new ControleItensAtividadeJuridico();
+    // INFORMAR QUE O INTERNO FOI ATENDIDO NA ADMISSÃO E NA EVOLUÇÃO
+    RegistroAtendimentoInternos objRegAtend = new RegistroAtendimentoInternos();
+    ControleRegistroAtendimentoInternoBio controlRegAtend = new ControleRegistroAtendimentoInternoBio();
+    //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
@@ -71,6 +93,17 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
     String codigoTipoBeneficio;
     String codigoStatusReg;
     String codigoInterno;
+    // VARIVAEIS PARA SABER SE O INTERNO FOI REGISTRADO COM BIOMETRIA      
+    String dataReg = "";
+    Date dataRegistro = null;
+    String codigoInternoAtend = "";
+    String atendido = "Sim";
+    String opcao = "Não";
+    public static int codigoDepartamentoJURI = 0;
+    String tipoAtendimentoAdm = "Admissão Juridico";
+    String tipoAtendimentoEvol = "Evolução Juridico";
+    //
+    String pHabilitaJuridico = "";
 
     /**
      * Creates new form TelaAtendimentoJuridico
@@ -732,7 +765,6 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(6, 6, 6)
                 .addComponent(jBtNovo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtAlterar)
@@ -746,7 +778,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                 .addComponent(jBtFinalizar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtSair)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                 .addComponent(jBtAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -756,7 +788,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
             .addComponent(jBtAlterar)
             .addComponent(jBtExcluir)
             .addComponent(jBtSalvar)
-            .addComponent(jBtCancelar)
+            .addComponent(jBtCancelar, javax.swing.GroupLayout.Alignment.TRAILING)
             .addComponent(jBtFinalizar)
             .addComponent(jBtSair)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
@@ -767,7 +799,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
 
         jPanel5Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterar, jBtCancelar, jBtExcluir, jBtFinalizar, jBtNovo, jBtSair, jBtSalvar});
 
-        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Observação", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
+        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Evolução da Admissão", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
 
         jObservacao.setColumns(20);
         jObservacao.setRows(5);
@@ -1038,8 +1070,13 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         jBtNovaAtividade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
+        jBtNovaAtividade.setText("Novo");
         jBtNovaAtividade.setToolTipText("Novo");
+        jBtNovaAtividade.setContentAreaFilled(false);
         jBtNovaAtividade.setEnabled(false);
+        jBtNovaAtividade.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBtNovaAtividade.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jBtNovaAtividade.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jBtNovaAtividade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtNovaAtividadeActionPerformed(evt);
@@ -1047,8 +1084,13 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         });
 
         jBtAlterarAtividade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
+        jBtAlterarAtividade.setText("Alterar");
         jBtAlterarAtividade.setToolTipText("Alterar");
+        jBtAlterarAtividade.setContentAreaFilled(false);
         jBtAlterarAtividade.setEnabled(false);
+        jBtAlterarAtividade.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBtAlterarAtividade.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jBtAlterarAtividade.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jBtAlterarAtividade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtAlterarAtividadeActionPerformed(evt);
@@ -1056,8 +1098,13 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         });
 
         jBtExcluirAtividade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
+        jBtExcluirAtividade.setText("Excluir");
         jBtExcluirAtividade.setToolTipText("Excluir");
+        jBtExcluirAtividade.setContentAreaFilled(false);
         jBtExcluirAtividade.setEnabled(false);
+        jBtExcluirAtividade.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBtExcluirAtividade.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jBtExcluirAtividade.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jBtExcluirAtividade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtExcluirAtividadeActionPerformed(evt);
@@ -1065,8 +1112,13 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         });
 
         jBtSalvarAtividade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
+        jBtSalvarAtividade.setText("Gravar");
         jBtSalvarAtividade.setToolTipText("Gravar");
+        jBtSalvarAtividade.setContentAreaFilled(false);
         jBtSalvarAtividade.setEnabled(false);
+        jBtSalvarAtividade.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBtSalvarAtividade.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jBtSalvarAtividade.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jBtSalvarAtividade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtSalvarAtividadeActionPerformed(evt);
@@ -1074,8 +1126,13 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         });
 
         jBtCancelarAtividade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Close_Icon_16.png"))); // NOI18N
+        jBtCancelarAtividade.setText("Cancelar");
         jBtCancelarAtividade.setToolTipText("Cancelar");
+        jBtCancelarAtividade.setContentAreaFilled(false);
         jBtCancelarAtividade.setEnabled(false);
+        jBtCancelarAtividade.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBtCancelarAtividade.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jBtCancelarAtividade.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jBtCancelarAtividade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCancelarAtividadeActionPerformed(evt);
@@ -1097,35 +1154,27 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jBtNovaAtividade, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtNovaAtividade)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtAlterarAtividade, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtAlterarAtividade)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtExcluirAtividade, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtExcluirAtividade)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtSalvarAtividade, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtSalvarAtividade)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtCancelarAtividade, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtCancelarAtividade)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jBtAuditoriaAtividade, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jBtAuditoriaAtividade, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-
-        jPanel10Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarAtividade, jBtCancelarAtividade, jBtExcluirAtividade, jBtNovaAtividade, jBtSalvarAtividade});
-
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jBtNovaAtividade)
-                    .addComponent(jBtAlterarAtividade)
-                    .addComponent(jBtExcluirAtividade)
-                    .addComponent(jBtSalvarAtividade)
-                    .addComponent(jBtCancelarAtividade)
-                    .addComponent(jBtAuditoriaAtividade))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                .addComponent(jBtNovaAtividade)
+                .addComponent(jBtAlterarAtividade)
+                .addComponent(jBtExcluirAtividade)
+                .addComponent(jBtSalvarAtividade)
+                .addComponent(jBtCancelarAtividade)
+                .addComponent(jBtAuditoriaAtividade))
         );
 
         jPanel10Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterarAtividade, jBtCancelarAtividade, jBtExcluirAtividade, jBtNovaAtividade, jBtSalvarAtividade});
@@ -1172,9 +1221,9 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
-                .addGap(12, 12, 12)
-                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jTabbedPane1.addTab("Atividades Realizadas", jPanel7);
@@ -1589,113 +1638,142 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtendimentoJuridicoManuJURI) && codIncluirJURI == 1) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        objAtendJuri.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse antedimento não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtendimentoJuridicoManuJURI) && codAlterarJURI == 1) {
+            objAtendJuri.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse antedimento não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                Alterar();
+                preencherComboBoxDepartamento();
+                corCampos();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 2;
-            Alterar();
-            preencherComboBoxDepartamento();
-            corCampos();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        objAtendJuri.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse antedimento não poderá ser excluída, o mesmo encontra-se FINALIZADO");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o atendimento selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objAtendJuri.setIdLanc(Integer.valueOf(jIDLanc.getText()));
-                control.excluirAtendJuridico(objAtendJuri);
-                objAtendJuri.setNomeInterno(jNomeInternoJuridico.getText());;
-                objAtendJuri.setIdLanc(Integer.valueOf(jIDLanc.getText()));
-                controle.excluirMovTec(objAtendJuri);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                Excluir();
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtendimentoJuridicoManuJURI) && codExcluirJURI == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objAtendJuri.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse antedimento não poderá ser excluída, o mesmo encontra-se FINALIZADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o atendimento selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objAtendJuri.setIdLanc(Integer.valueOf(jIDLanc.getText()));
+                    control.excluirAtendJuridico(objAtendJuri);
+                    objAtendJuri.setNomeInterno(jNomeInternoJuridico.getText());;
+                    objAtendJuri.setIdLanc(Integer.valueOf(jIDLanc.getText()));
+                    controle.excluirMovTec(objAtendJuri);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    Excluir();
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataLanc.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data de atendimento.");
-            jDataLanc.requestFocus();
-            jDataLanc.setBackground(Color.red);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtendimentoJuridicoManuJURI) && codGravarJURI == 1) {
+            if (jDataLanc.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de atendimento.");
+                jDataLanc.requestFocus();
+                jDataLanc.setBackground(Color.red);
+            } else {
+                objAtendJuri.setStatusLanc(jStatusLanc.getText());
+                objAtendJuri.setDataLanc(jDataLanc.getDate());
+                objAtendJuri.setObservacao(jObservacao.getText());
+                objAtendJuri.setDataEnca(jDataEncaminhamento.getDate());
+                objAtendJuri.setSetorEncaminhameto((String) jComboBoxEncaminharSetor.getSelectedItem());
+                objAtendJuri.setTipoAdvogado((String) jComboBoxTipoAdvogado.getSelectedItem());
+                objAtendJuri.setHoraEnvio(jHoraEnvio.getText());
+                objAtendJuri.setResposta((String) jComboBoxResposta.getSelectedItem());
+                if (acao == 1) {
+                    // log de usuario
+                    objAtendJuri.setUsuarioInsert(nameUser);
+                    objAtendJuri.setDataInsert(dataModFinal);
+                    objAtendJuri.setHoraInsert(horaMov);
+                    objAtendJuri.setNomeInterno(jNomeInternoJuridico.getText());
+                    control.incluirAtendJuridico(objAtendJuri);
+                    buscarID();
+                    objAtendJuri.setIdLanc(Integer.valueOf(jIDLanc.getText()));
+                    objAtendJuri.setNomeInterno(jNomeInternoJuridico.getText());
+                    objAtendJuri.setDeptoJuridico(deptoTecnico);
+                    controle.incluirMovTec(objAtendJuri);
+                    // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
+                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
+                    objRegAtend.setNomeInternoCrc(jNomeInternoJuridico.getText());
+                    objRegAtend.setIdDepartamento(codigoDepartamentoJURI);
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                    objRegAtend.setAtendido(atendido);
+                    objRegAtend.setDataAtendimento(jDataLanc.getDate());
+                    objRegAtend.setIdAtend(Integer.valueOf(jIDLanc.getText()));
+                    //
+                    objRegAtend.setUsuarioUp(nameUser);
+                    objRegAtend.setDataUp(dataModFinal);
+                    objRegAtend.setHorarioUp(horaMov);
+                    controlRegAtend.alterarRegAtend(objRegAtend);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    Salvar();
+                }
+                if (acao == 2) {
+                    // log de usuario
+                    objAtendJuri.setUsuarioUp(nameUser);
+                    objAtendJuri.setDataUp(dataModFinal);
+                    objAtendJuri.setHoraUp(horaMov);
+                    objAtendJuri.setNomeInterno(jNomeInternoJuridico.getText());
+                    objAtendJuri.setIdLanc(Integer.valueOf(jIDLanc.getText()));
+                    control.alterarAtendJuridico(objAtendJuri);
+                    objAtendJuri.setIdLanc(Integer.valueOf(jIDLanc.getText()));
+                    objAtendJuri.setNomeInterno(jNomeInternoJuridico.getText());
+                    objAtendJuri.setDeptoJuridico(deptoTecnico);
+                    controle.alterarMovTec(objAtendJuri);
+                    // Se o interno for modificado, altera também na tabela de ITENSATENDIMENTOJURI.
+                    objAtendJuri.setIdLanc(Integer.valueOf(jIDLanc.getText()));
+                    objAtivi.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
+                    objAtivi.setNomeInternoCrc(jNomeInternoJuridico.getText());
+                    controleItens.alterarInternoAtividade(objAtivi);
+                    // Modifica o código do interno na tabela EVOLUCAOJURIDICO
+                    objEvolu.setIdLanc(Integer.valueOf(jIDLanc.getText()));
+                    objEvolu.setNomeInternoCrc(jNomeInternoJuridico.getText());
+                    controleJuri.alterarInternoEvolucaoJuridico(objEvolu);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    Salvar();
+                }
+            }
         } else {
-            objAtendJuri.setStatusLanc(jStatusLanc.getText());
-            objAtendJuri.setDataLanc(jDataLanc.getDate());
-            objAtendJuri.setObservacao(jObservacao.getText());
-            objAtendJuri.setDataEnca(jDataEncaminhamento.getDate());
-            objAtendJuri.setSetorEncaminhameto((String) jComboBoxEncaminharSetor.getSelectedItem());
-            objAtendJuri.setTipoAdvogado((String) jComboBoxTipoAdvogado.getSelectedItem());
-            objAtendJuri.setHoraEnvio(jHoraEnvio.getText());
-            objAtendJuri.setResposta((String) jComboBoxResposta.getSelectedItem());
-            if (acao == 1) {
-                // log de usuario
-                objAtendJuri.setUsuarioInsert(nameUser);
-                objAtendJuri.setDataInsert(dataModFinal);
-                objAtendJuri.setHoraInsert(horaMov);
-                objAtendJuri.setNomeInterno(jNomeInternoJuridico.getText());
-                control.incluirAtendJuridico(objAtendJuri);
-                buscarID();
-                objAtendJuri.setIdLanc(Integer.valueOf(jIDLanc.getText()));
-                objAtendJuri.setNomeInterno(jNomeInternoJuridico.getText());
-                objAtendJuri.setDeptoJuridico(deptoTecnico);
-                controle.incluirMovTec(objAtendJuri);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                Salvar();
-            }
-            if (acao == 2) {
-                // log de usuario
-                objAtendJuri.setUsuarioUp(nameUser);
-                objAtendJuri.setDataUp(dataModFinal);
-                objAtendJuri.setHoraUp(horaMov);
-                objAtendJuri.setNomeInterno(jNomeInternoJuridico.getText());
-                objAtendJuri.setIdLanc(Integer.valueOf(jIDLanc.getText()));
-                control.alterarAtendJuridico(objAtendJuri);
-                objAtendJuri.setIdLanc(Integer.valueOf(jIDLanc.getText()));
-                objAtendJuri.setNomeInterno(jNomeInternoJuridico.getText());
-                objAtendJuri.setDeptoJuridico(deptoTecnico);
-                controle.alterarMovTec(objAtendJuri);
-                // Se o interno for modificado, altera também na tabela de ITENSATENDIMENTOJURI.
-                objAtendJuri.setIdLanc(Integer.valueOf(jIDLanc.getText()));
-                objAtivi.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
-                objAtivi.setNomeInternoCrc(jNomeInternoJuridico.getText());
-                controleItens.alterarInternoAtividade(objAtivi);
-                // Modifica o código do interno na tabela EVOLUCAOJURIDICO
-                objEvolu.setIdLanc(Integer.valueOf(jIDLanc.getText()));
-                objEvolu.setNomeInternoCrc(jNomeInternoJuridico.getText());
-                controleJuri.alterarInternoEvolucaoJuridico(objEvolu);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                Salvar();
-            }
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -1822,9 +1900,16 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
 
     private void jBtPesqInternoJuridicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqInternoJuridicoActionPerformed
         // TODO add your handling code here:
-        TelaPesqInternoAtendJuridico objPesqInterJuridico = new TelaPesqInternoAtendJuridico();
-        TelaModuloJuridico.jPainelJuridico.add(objPesqInterJuridico);
-        objPesqInterJuridico.show();
+        verificarRegistroBiometria();
+        if (pHabilitaJuridico.equals("Não")) {
+            TelaPesqInternoAtendJuridico objPesqInterJuridico = new TelaPesqInternoAtendJuridico();
+            TelaModuloJuridico.jPainelJuridico.add(objPesqInterJuridico);
+            objPesqInterJuridico.show();
+        } else {
+            TelaPesqInternoAtendJuridicoBio objPesqInterJuridico = new TelaPesqInternoAtendJuridicoBio();
+            TelaModuloJuridico.jPainelJuridico.add(objPesqInterJuridico);
+            objPesqInterJuridico.show();
+        }
     }//GEN-LAST:event_jBtPesqInternoJuridicoActionPerformed
 
     private void jCheckBoxTodosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxTodosItemStateChanged
@@ -1850,105 +1935,155 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
 
     private void jBtNovaEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaEvolucaoActionPerformed
         // TODO add your handling code here:
-        acao = 3;
-        NovaEvolucao();
+        buscarAcessoUsuario(telaAtendimentoJuridicoEvolucaoJURI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtendimentoJuridicoEvolucaoJURI) && codIncluirJURI == 1) {
+            verificarInternoRegistradoAdm();
+            if (atendido == null) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
+            } else if (atendido.equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
+            } else if (atendido.equals("Sim")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
+            } else if (atendido.equals("Não")) {
+                acao = 3;
+                NovaEvolucao();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovaEvolucaoActionPerformed
 
     private void jBtAlterarEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarEvolucaoActionPerformed
         // TODO add your handling code here:
-        acao = 4;
-        AlterarEvolucao();
-        preencherComboBoxDepartamento();
+        buscarAcessoUsuario(telaAtendimentoJuridicoEvolucaoJURI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtendimentoJuridicoEvolucaoJURI) && codAlterarJURI == 1) {
+            acao = 4;
+            AlterarEvolucao();
+            preencherComboBoxDepartamento();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtAlterarEvolucaoActionPerformed
 
     private void jBtExcluirEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirEvolucaoActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir a evolução selecionada?", "Confirmação",
-                JOptionPane.YES_NO_OPTION);
-        if (resposta == JOptionPane.YES_OPTION) {
-            objEvolu.setIdEvo(Integer.valueOf(jIdEvolucao.getText()));
-            objEvolu.setIdLanc(Integer.valueOf(jIDLanc.getText()));
-            objEvolu.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
-            controleJuri.excluirEvolucaoJuridico(objEvolu);
-            objLog3();
-            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-            ExcluirEvolucao();
-            preencherEvolucaoPsicologia("SELECT * FROM EVOLUCAOJURIDICO WHERE IdLanc='" + jIDLanc.getText() + "'");
-            JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+        buscarAcessoUsuario(telaAtendimentoJuridicoEvolucaoJURI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtendimentoJuridicoEvolucaoJURI) && codExcluirJURI == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir a evolução selecionada?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objEvolu.setIdEvo(Integer.valueOf(jIdEvolucao.getText()));
+                objEvolu.setIdLanc(Integer.valueOf(jIDLanc.getText()));
+                objEvolu.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
+                controleJuri.excluirEvolucaoJuridico(objEvolu);
+                objLog3();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                ExcluirEvolucao();
+                preencherEvolucaoPsicologia("SELECT * FROM EVOLUCAOJURIDICO WHERE IdLanc='" + jIDLanc.getText() + "'");
+                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
 
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
-
     }//GEN-LAST:event_jBtExcluirEvolucaoActionPerformed
 
     private void jBtSalvarEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarEvolucaoActionPerformed
         // TODO add your handling code here:
-        verificarSituacaoInternoCrc();
-        deptoTecnico = "EVOLUÇÃO NO JURIDICO";
-        if (jDataEvolucao.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data de evolução.");
-            jDataEvolucao.requestFocus();
+        buscarAcessoUsuario(telaAtendimentoJuridicoEvolucaoJURI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtendimentoJuridicoEvolucaoJURI) && codGravarJURI == 1) {
+            verificarSituacaoInternoCrc();
+            deptoTecnico = "EVOLUÇÃO NO JURIDICO";
+            if (jDataEvolucao.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de evolução.");
+                jDataEvolucao.requestFocus();
+            } else {
+                objEvolu.setDataEvo(jDataEvolucao.getDate());
+                objEvolu.setDataEnca(jDataEncaminhamentoEvo.getDate());
+                objEvolu.setTipoAdvogado((String) jComboBoxTipoAdvogadoEvo.getSelectedItem());
+                objEvolu.setResposta((String) jComboBoxRespostaEvo.getSelectedItem());
+                objEvolu.setHoraEnvio(jHoraEnvioEvo.getText());
+                objEvolu.setSetorEncaminhamento((String) jComboBoxEncaminharSetorEvo.getSelectedItem());
+                objEvolu.setEvolucao(jEvolucao.getText());
+                if (acao == 3) {
+                    if (situacaoInternoCrc.equals("ENTRADA NA UNIDADE") || situacaoInternoCrc.equals("RETORNO A UNIDADE")) {
+                        // log de usuario
+                        objEvolu.setUsuarioInsert(nameUser);
+                        objEvolu.setDataInsert(jDataSistema.getText());
+                        objEvolu.setHorarioInsert(jHoraSistema.getText());
+                        //
+                        objEvolu.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
+                        objEvolu.setIdLanc(Integer.valueOf(jIDLanc.getText()));
+                        controleJuri.incluirEvolucaoJuridico(objEvolu);
+                        //
+                        buscarIdEvolucao();
+                        //
+                        objAtendJuri.setIdLanc(Integer.valueOf(jIdEvolucao.getText()));
+                        objAtendJuri.setStatusLanc(statusEvolucao);
+                        objAtendJuri.setNomeInterno(jNomeInternoJuridico.getText());
+                        objAtendJuri.setDeptoJuridico(deptoTecnico);
+                        objAtendJuri.setDataLanc(jDataEvolucao.getDate());
+                        controle.incluirMovTec(objAtendJuri);
+                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO     
+                        atendido = "Sim";
+                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
+                        objRegAtend.setNomeInternoCrc(jNomeInternoJuridico.getText());
+                        objRegAtend.setIdDepartamento(codigoDepartamentoJURI);
+                        objRegAtend.setTipoAtemdimento(tipoAtendimentoEvol);
+                        objRegAtend.setAtendido(atendido);
+                        objRegAtend.setDataAtendimento(jDataEvolucao.getDate());
+                        objRegAtend.setIdAtend(Integer.valueOf(jIDLanc.getText()));
+                        objRegAtend.setIdEvol(Integer.valueOf(jIdEvolucao.getText()));
+                        objRegAtend.setAtendeEvol(atendido);
+                        //
+                        objRegAtend.setUsuarioUp(nameUser);
+                        objRegAtend.setDataUp(dataModFinal);
+                        objRegAtend.setHorarioUp(horaMov);
+                        controlRegAtend.alterarRegEvol(objRegAtend);
+                        objLog3();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        preencherEvolucaoPsicologia("SELECT * FROM EVOLUCAOJURIDICO "
+                                + "WHERE IdLanc='" + jIDLanc.getText() + "'");
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        SalvarEvolucao();
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Esse interno não se encontra mais na unidade.");
+                    }
+                }
+                if (acao == 4) {
+                    if (situacaoInternoCrc.equals("ENTRADA NA UNIDADE") || situacaoInternoCrc.equals("RETORNO A UNIDADE")) {
+                        // log de usuario
+                        objEvolu.setUsuarioUp(nameUser);
+                        objEvolu.setDataUp(jDataSistema.getText());
+                        objEvolu.setHorarioUp(jHoraSistema.getText());
+                        //
+                        objEvolu.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
+                        objEvolu.setIdLanc(Integer.valueOf(jIDLanc.getText()));
+                        objEvolu.setIdEvo(Integer.valueOf(jIdEvolucao.getText()));
+                        controleJuri.alterarEvolucaoJuridico(objEvolu);
+                        //
+                        objAtendJuri.setIdLanc(Integer.valueOf(jIdEvolucao.getText()));
+                        objAtendJuri.setStatusLanc(statusEvolucao);
+                        objAtendJuri.setNomeInterno(jNomeInternoJuridico.getText());
+                        objAtendJuri.setDeptoJuridico(deptoTecnico);
+                        objAtendJuri.setDataLanc(jDataEvolucao.getDate());
+                        controle.alterarMovTec(objAtendJuri);
+                        objLog3();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        preencherEvolucaoPsicologia("SELECT * FROM EVOLUCAOJURIDICO "
+                                + "WHERE IdLanc='" + jIDLanc.getText() + "'");
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        SalvarEvolucao();
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Esse interno não se encontra mais na unidade.");
+                    }
+                }
+            }
         } else {
-            objEvolu.setDataEvo(jDataEvolucao.getDate());
-            objEvolu.setDataEnca(jDataEncaminhamentoEvo.getDate());
-            objEvolu.setTipoAdvogado((String) jComboBoxTipoAdvogadoEvo.getSelectedItem());
-            objEvolu.setResposta((String) jComboBoxRespostaEvo.getSelectedItem());
-            objEvolu.setHoraEnvio(jHoraEnvioEvo.getText());
-            objEvolu.setSetorEncaminhamento((String) jComboBoxEncaminharSetorEvo.getSelectedItem());
-            objEvolu.setEvolucao(jEvolucao.getText());
-            if (acao == 3) {
-                if (situacaoInternoCrc.equals("ENTRADA NA UNIDADE") || situacaoInternoCrc.equals("RETORNO A UNIDADE")) {
-                    // log de usuario
-                    objEvolu.setUsuarioInsert(nameUser);
-                    objEvolu.setDataInsert(jDataSistema.getText());
-                    objEvolu.setHorarioInsert(jHoraSistema.getText());
-                    //
-                    objEvolu.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
-                    objEvolu.setIdLanc(Integer.valueOf(jIDLanc.getText()));
-                    controleJuri.incluirEvolucaoJuridico(objEvolu);
-                    //
-                    buscarIdEvolucao();
-                    //
-                    objAtendJuri.setIdLanc(Integer.valueOf(jIdEvolucao.getText()));
-                    objAtendJuri.setStatusLanc(statusEvolucao);
-                    objAtendJuri.setNomeInterno(jNomeInternoJuridico.getText());
-                    objAtendJuri.setDeptoJuridico(deptoTecnico);
-                    objAtendJuri.setDataLanc(jDataEvolucao.getDate());
-                    controle.incluirMovTec(objAtendJuri);
-                    preencherEvolucaoPsicologia("SELECT * FROM EVOLUCAOJURIDICO WHERE IdLanc='" + jIDLanc.getText() + "'");
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    SalvarEvolucao();
-                } else {
-                    JOptionPane.showMessageDialog(rootPane, "Esse interno não se encontra mais na unidade.");
-                }
-            }
-            if (acao == 4) {
-                if (situacaoInternoCrc.equals("ENTRADA NA UNIDADE") || situacaoInternoCrc.equals("RETORNO A UNIDADE")) {
-                    // log de usuario
-                    objEvolu.setUsuarioUp(nameUser);
-                    objEvolu.setDataUp(jDataSistema.getText());
-                    objEvolu.setHorarioUp(jHoraSistema.getText());
-                    //
-                    objEvolu.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
-                    objEvolu.setIdLanc(Integer.valueOf(jIDLanc.getText()));
-                    objEvolu.setIdEvo(Integer.valueOf(jIdEvolucao.getText()));
-                    controleJuri.alterarEvolucaoJuridico(objEvolu);
-                    //
-                    objAtendJuri.setIdLanc(Integer.valueOf(jIdEvolucao.getText()));
-                    objAtendJuri.setStatusLanc(statusEvolucao);
-                    objAtendJuri.setNomeInterno(jNomeInternoJuridico.getText());
-                    objAtendJuri.setDeptoJuridico(deptoTecnico);
-                    objAtendJuri.setDataLanc(jDataEvolucao.getDate());
-                    controle.alterarMovTec(objAtendJuri);
-                    preencherEvolucaoPsicologia("SELECT * FROM EVOLUCAOJURIDICO WHERE IdLanc='" + jIDLanc.getText() + "'");
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    SalvarEvolucao();
-                } else {
-                    JOptionPane.showMessageDialog(rootPane, "Esse interno não se encontra mais na unidade.");
-                }
-            }
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarEvolucaoActionPerformed
 
@@ -1998,107 +2133,127 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
 
     private void jBtNovaAtividadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaAtividadeActionPerformed
         // TODO add your handling code here:
-        acao = 5;
-        NovaAtividade();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaAtendimentoJuridicoaAtividadesJURI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtendimentoJuridicoaAtividadesJURI) && codIncluirJURI == 1) {
+            acao = 5;
+            NovaAtividade();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovaAtividadeActionPerformed
 
     private void jBtAlterarAtividadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarAtividadeActionPerformed
         // TODO add your handling code here:
-        acao = 6;
-        AlterarAtividade();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaAtendimentoJuridicoaAtividadesJURI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtendimentoJuridicoaAtividadesJURI) && codAlterarJURI == 1) {
+            acao = 6;
+            AlterarAtividade();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtAlterarAtividadeActionPerformed
 
     private void jBtExcluirAtividadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirAtividadeActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        objAtendJuri.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse  registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir  a atividade selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objAtivi.setIdItem(Integer.valueOf(idItem));
-                controleItens.excluirAtividade(objAtivi);
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                ExcluirAtividade();
-                preencherAtividadeJuri("SELECT * FROM ITENSATENDIMENTOJURI INNER JOIN ATIVIDADESJURIDICOS ON ITENSATENDIMENTOJURI.IdAtiv=ATIVIDADESJURIDICOS.IdAtiv INNER JOIN ATENDIMENTOJURIDICO ON ITENSATENDIMENTOJURI.IdLanc=ATENDIMENTOJURIDICO.IdLanc WHERE ITENSATENDIMENTOJURI.IdLanc='" + jIDLanc.getText() + "'");
+        buscarAcessoUsuario(telaAtendimentoJuridicoaAtividadesJURI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtendimentoJuridicoaAtividadesJURI) && codExcluirJURI == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objAtendJuri.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse  registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir  a atividade selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objAtivi.setIdItem(Integer.valueOf(idItem));
+                    controleItens.excluirAtividade(objAtivi);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    ExcluirAtividade();
+                    preencherAtividadeJuri("SELECT * FROM ITENSATENDIMENTOJURI INNER JOIN ATIVIDADESJURIDICOS ON ITENSATENDIMENTOJURI.IdAtiv=ATIVIDADESJURIDICOS.IdAtiv INNER JOIN ATENDIMENTOJURIDICO ON ITENSATENDIMENTOJURI.IdLanc=ATENDIMENTOJURIDICO.IdLanc WHERE ITENSATENDIMENTOJURI.IdLanc='" + jIDLanc.getText() + "'");
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirAtividadeActionPerformed
 
     private void jBtSalvarAtividadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarAtividadeActionPerformed
         // TODO add your handling code here:
-        verificarSituacaoInternoCrc();
-        if (jDataAtividade.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data da atividade.");
-        } else {
-            if (jAtividadeRealizada.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe qual é a atividade.");
+        buscarAcessoUsuario(telaAtendimentoJuridicoaAtividadesJURI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtendimentoJuridicoaAtividadesJURI) && codGravarJURI == 1) {
+            verificarSituacaoInternoCrc();
+            if (jDataAtividade.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data da atividade.");
             } else {
-                objAtivi.setDataItem(jDataAtividade.getDate());
-                objAtivi.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
-                if (acao == 5) {
-                    if (situacaoInternoCrc.equals("ENTRADA NA UNIDADE") || situacaoInternoCrc.equals("RETORNO A UNIDADE")) {
-                        // log de usuario
-                        objAtivi.setUsuarioInsert(nameUser);
-                        objAtivi.setDataInsert(dataModFinal);
-                        objAtivi.setHorarioInsert(horaMov);
-                        objAtivi.setIdLanc(Integer.valueOf(jIDLanc.getText()));
-                        objAtivi.setDescricaoAtividade(jAtividadeRealizada.getText());
-                        controleItens.incluirAtividade(objAtivi);
-                        buscarCodAtividade();
-                        objLog2();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        preencherAtividadeJuri("SELECT * FROM ITENSATENDIMENTOJURI "
-                                + "INNER JOIN ATIVIDADESJURIDICOS "
-                                + "ON ITENSATENDIMENTOJURI.IdAtiv=ATIVIDADESJURIDICOS.IdAtiv "
-                                + "INNER JOIN ATENDIMENTOJURIDICO "
-                                + "ON ITENSATENDIMENTOJURI.IdLanc=ATENDIMENTOJURIDICO.IdLanc "
-                                + "WHERE ITENSATENDIMENTOJURI.IdLanc='" + jIDLanc.getText() + "'AND ITENSATENDIMENTOJURI.IdInternoCrc='" + jIDInternoJuridico.getText() + "'");
-                        SalvarAtividade();
-                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                if (jAtividadeRealizada.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe qual é a atividade.");
+                } else {
+                    objAtivi.setDataItem(jDataAtividade.getDate());
+                    objAtivi.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
+                    if (acao == 5) {
+                        if (situacaoInternoCrc.equals("ENTRADA NA UNIDADE") || situacaoInternoCrc.equals("RETORNO A UNIDADE")) {
+                            // log de usuario
+                            objAtivi.setUsuarioInsert(nameUser);
+                            objAtivi.setDataInsert(dataModFinal);
+                            objAtivi.setHorarioInsert(horaMov);
+                            objAtivi.setIdLanc(Integer.valueOf(jIDLanc.getText()));
+                            objAtivi.setDescricaoAtividade(jAtividadeRealizada.getText());
+                            controleItens.incluirAtividade(objAtivi);
+                            buscarCodAtividade();
+                            objLog2();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            preencherAtividadeJuri("SELECT * FROM ITENSATENDIMENTOJURI "
+                                    + "INNER JOIN ATIVIDADESJURIDICOS "
+                                    + "ON ITENSATENDIMENTOJURI.IdAtiv=ATIVIDADESJURIDICOS.IdAtiv "
+                                    + "INNER JOIN ATENDIMENTOJURIDICO "
+                                    + "ON ITENSATENDIMENTOJURI.IdLanc=ATENDIMENTOJURIDICO.IdLanc "
+                                    + "WHERE ITENSATENDIMENTOJURI.IdLanc='" + jIDLanc.getText() + "'AND ITENSATENDIMENTOJURI.IdInternoCrc='" + jIDInternoJuridico.getText() + "'");
+                            SalvarAtividade();
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
 
-                    } else {
-                        JOptionPane.showMessageDialog(rootPane, "Esse interno não se encontra mais na unidade.");
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Esse interno não se encontra mais na unidade.");
+                        }
                     }
-                }
-                if (acao == 6) {
-                    if (situacaoInternoCrc.equals("ENTRADA NA UNIDADE") || situacaoInternoCrc.equals("RETORNO A UNIDADE")) {
-                        // log de usuario
-                        objAtivi.setUsuarioUp(nameUser);
-                        objAtivi.setDataUp(dataModFinal);
-                        objAtivi.setHorarioUp(horaMov);
-                        objAtivi.setIdLanc(Integer.valueOf(jIDLanc.getText()));
-                        objAtivi.setDescricaoAtividade(jAtividadeRealizada.getText());
-                        objAtivi.setIdAtiv(Integer.valueOf(jIdAtiv.getText()));
-                        objAtivi.setIdItem(Integer.valueOf(idItem));
-                        controleItens.alterarAtividade(objAtivi);
-                        objLog2();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
-                        preencherAtividadeJuri("SELECT * FROM ITENSATENDIMENTOJURI "
-                                + "INNER JOIN ATIVIDADESJURIDICOS "
-                                + "ON ITENSATENDIMENTOJURI.IdAtiv=ATIVIDADESJURIDICOS.IdAtiv "
-                                + "INNER JOIN ATENDIMENTOJURIDICO "
-                                + "ON ITENSATENDIMENTOJURI.IdLanc=ATENDIMENTOJURIDICO.IdLanc "
-                                + "WHERE ITENSATENDIMENTOJURI.IdLanc='" + jIDLanc.getText() + "'AND ITENSATENDIMENTOJURI.IdInternoCrc='" + jIDInternoJuridico.getText() + "'");
-                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                        SalvarAtividade();
-                    } else {
-                        JOptionPane.showMessageDialog(rootPane, "Esse interno não se encontra mais na unidade.");
+                    if (acao == 6) {
+                        if (situacaoInternoCrc.equals("ENTRADA NA UNIDADE") || situacaoInternoCrc.equals("RETORNO A UNIDADE")) {
+                            // log de usuario
+                            objAtivi.setUsuarioUp(nameUser);
+                            objAtivi.setDataUp(dataModFinal);
+                            objAtivi.setHorarioUp(horaMov);
+                            objAtivi.setIdLanc(Integer.valueOf(jIDLanc.getText()));
+                            objAtivi.setDescricaoAtividade(jAtividadeRealizada.getText());
+                            objAtivi.setIdAtiv(Integer.valueOf(jIdAtiv.getText()));
+                            objAtivi.setIdItem(Integer.valueOf(idItem));
+                            controleItens.alterarAtividade(objAtivi);
+                            objLog2();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                            preencherAtividadeJuri("SELECT * FROM ITENSATENDIMENTOJURI "
+                                    + "INNER JOIN ATIVIDADESJURIDICOS "
+                                    + "ON ITENSATENDIMENTOJURI.IdAtiv=ATIVIDADESJURIDICOS.IdAtiv "
+                                    + "INNER JOIN ATENDIMENTOJURIDICO "
+                                    + "ON ITENSATENDIMENTOJURI.IdLanc=ATENDIMENTOJURIDICO.IdLanc "
+                                    + "WHERE ITENSATENDIMENTOJURI.IdLanc='" + jIDLanc.getText() + "'AND ITENSATENDIMENTOJURI.IdInternoCrc='" + jIDInternoJuridico.getText() + "'");
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                            SalvarAtividade();
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Esse interno não se encontra mais na unidade.");
+                        }
                     }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarAtividadeActionPerformed
 
@@ -3447,5 +3602,72 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jIdEvolucao.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserJURI = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserJURI + "'");
+            conecta.rs.first();
+            codigoUserGroupJURI = conecta.rs.getInt("IdUsuario");
+            codigoGrupoJURI = conecta.rs.getInt("IdGrupo");
+            nomeGrupoJURI = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserJURI + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoJURI = conecta.rs.getInt("IdUsuario");
+            codAbrirJURI = conecta.rs.getInt("Abrir");
+            codIncluirJURI = conecta.rs.getInt("Incluir");
+            codAlterarJURI = conecta.rs.getInt("Alterar");
+            codExcluirJURI = conecta.rs.getInt("Excluir");
+            codGravarJURI = conecta.rs.getInt("Gravar");
+            codConsultarJURI = conecta.rs.getInt("Consultar");
+            nomeTelaJURI = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void verificarInternoRegistradoAdm() {
+
+        conecta.abrirConexao();
+        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+        dataReg = formatoAmerica.format(jDataLanc.getDate().getTime());
+        try {
+            conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
+                    + "WHERE IdInternoCrc='" + jIDInternoJuridico.getText() + "' "
+                    + "AND Atendido='" + opcao + "'");
+            conecta.rs.first();
+            codigoInternoAtend = conecta.rs.getString("IdInternoCrc");
+            codigoDepartamentoJURI = conecta.rs.getInt("IdDepartamento");
+            atendido = conecta.rs.getString("Atendido");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void verificarRegistroBiometria() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM PARAMETROSCRC");
+            conecta.rs.first();
+            pHabilitaJuridico = conecta.rs.getString("AdmissaoJuridico");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }
