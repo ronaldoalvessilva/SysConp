@@ -7281,6 +7281,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaPAISS);
         if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPAISS) && codIncluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             acao = 1;
             limparCamposNovo();
@@ -7300,6 +7301,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaPAISS);
         if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPAISS) && codAlterarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             acao = 2;
             bloquearCampos();
@@ -7315,6 +7317,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaPAISS);
         if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPAISS) && codExcluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             verificarCodigoPAI();
             statusMov = "Excluiu";
@@ -7346,6 +7349,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaPAISS);
         if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPAISS) && codGravarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             verificarExistenciaInternoPAI();
             if (jDataPAI.getDate() == null) {
