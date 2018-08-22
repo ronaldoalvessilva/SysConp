@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -122,7 +124,7 @@ public class TelaPesqInternoAtendJuridico extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jPesqNome, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+                        .addComponent(jPesqNome, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -152,13 +154,10 @@ public class TelaPesqInternoAtendJuridico extends javax.swing.JInternalFrame {
         jTabelaInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+                {null, null, null, null, null}
             },
             new String [] {
-
+                "Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"
             }
         ));
         jTabelaInterno.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -167,6 +166,18 @@ public class TelaPesqInternoAtendJuridico extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(jTabelaInterno);
+        if (jTabelaInterno.getColumnModel().getColumnCount() > 0) {
+            jTabelaInterno.getColumnModel().getColumn(0).setMinWidth(50);
+            jTabelaInterno.getColumnModel().getColumn(0).setMaxWidth(50);
+            jTabelaInterno.getColumnModel().getColumn(1).setMinWidth(250);
+            jTabelaInterno.getColumnModel().getColumn(1).setMaxWidth(250);
+            jTabelaInterno.getColumnModel().getColumn(2).setMinWidth(100);
+            jTabelaInterno.getColumnModel().getColumn(2).setMaxWidth(100);
+            jTabelaInterno.getColumnModel().getColumn(3).setMinWidth(80);
+            jTabelaInterno.getColumnModel().getColumn(3).setMaxWidth(80);
+            jTabelaInterno.getColumnModel().getColumn(4).setMinWidth(80);
+            jTabelaInterno.getColumnModel().getColumn(4).setMaxWidth(80);
+        }
 
         jBtSair.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtSair.setForeground(new java.awt.Color(255, 0, 0));
@@ -236,7 +247,7 @@ public class TelaPesqInternoAtendJuridico extends javax.swing.JInternalFrame {
                 .addGap(0, 0, 0))
         );
 
-        setBounds(200, 10, 476, 314);
+        setBounds(200, 10, 597, 314);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNomeActionPerformed
@@ -247,7 +258,13 @@ public class TelaPesqInternoAtendJuridico extends javax.swing.JInternalFrame {
             jPesqNome.requestFocus();
         } else {
             jTabelaInterno.setVisible(true);
-            preencherTabelaNome("SELECT * FROM PRONTUARIOSCRC INNER JOIN DADOSPENAISINTERNOS ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc WHERE NomeInternoCrc LIKE'" + jPesqNome.getText() + "%' AND SituacaoCrc='" + situacao + "' OR NomeInternoCrc LIKE'" + jPesqNome.getText() + "%'AND SituacaoCrc='" + situacaoRet + "'");
+            preencherTabelaNome("SELECT * FROM PRONTUARIOSCRC "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "WHERE NomeInternoCrc LIKE'" + jPesqNome.getText() + "%' "
+                    + "AND SituacaoCrc='" + situacao + "' "
+                    + "OR NomeInternoCrc LIKE'" + jPesqNome.getText() + "%' "
+                    + "AND SituacaoCrc='" + situacaoRet + "'");
         }
     }//GEN-LAST:event_jBtNomeActionPerformed
 
@@ -258,8 +275,13 @@ public class TelaPesqInternoAtendJuridico extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe MATRICULA para pesquisa!!!");
             jPesqMatricula.requestFocus();
         } else {
-            jTabelaInterno.setVisible(true);
-            buscarInternosMatricula("SELECT * FROM PRONTUARIOSCRC INNER JOIN DADOSPENAISINTERNOS ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc WHERE MatriculaCrc LIKE'" + jPesqMatricula.getText() + "%' AND SituacaoCrc='" + situacao + "' OR NomeInternoCrc LIKE'" + jPesqNome.getText() + "' AND SituacaoCrc='" + situacaoRet + "'");
+            buscarInternosMatricula("SELECT * FROM PRONTUARIOSCRC "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "WHERE MatriculaCrc LIKE'" + jPesqMatricula.getText() + "%' "
+                    + "AND SituacaoCrc='" + situacao + "' "
+                    + "OR NomeInternoCrc LIKE'" + jPesqNome.getText() + "' "
+                    + "AND SituacaoCrc='" + situacaoRet + "'");
         }
     }//GEN-LAST:event_jBtMatriculaActionPerformed
 
@@ -288,7 +310,8 @@ public class TelaPesqInternoAtendJuridico extends javax.swing.JInternalFrame {
                 conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                         + "INNER JOIN DADOSPENAISINTERNOS "
                         + "ON PRONTUARIOSCRC.IdInternoCrc = DADOSPENAISINTERNOS.IdInternoCrc "
-                        + "WHERE PRONTUARIOSCRC.NomeInternoCrc LIKE'" + nomeInterno + "%'AND PRONTUARIOSCRC.IdInternoCrc='" + idInt  + "'");
+                        + "WHERE PRONTUARIOSCRC.NomeInternoCrc='" + nomeInterno + "' "
+                        + "AND PRONTUARIOSCRC.IdInternoCrc='" + idInt + "'");
                 conecta.rs.first();
                 jIDInternoJuridico.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
                 jNomeInternoJuridico.setText(conecta.rs.getString("NomeInternoCrc"));
@@ -311,10 +334,21 @@ public class TelaPesqInternoAtendJuridico extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            jTabelaInterno.setVisible(true);
-            this.preencherTodosInternos();
+            this.preencherTodosInternos("SELECT * FROM PRONTUARIOSCRC "
+                    + "INNER JOIN DADOSFISICOSINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
+                    + "INNER JOIN PAISES "
+                    + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
+                    + "INNER JOIN CIDADES "
+                    + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "INNER JOIN UNIDADE "
+                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                    + "WHERE SituacaoCrc='" + situacao + "' "
+                    + "ORDER BY NomeInternoCrc");
         } else {
-            jTabelaInterno.setVisible(!true);
+            limparTabela();
         }
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
@@ -338,7 +372,7 @@ public class TelaPesqInternoAtendJuridico extends javax.swing.JInternalFrame {
 
     public void preencherTabelaNome(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"ID", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"};
+        String[] Colunas = new String[]{"Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"};
         conecta.abrirConexao();
         conecta.executaSQL(sql);
         try {
@@ -376,16 +410,17 @@ public class TelaPesqInternoAtendJuridico extends javax.swing.JInternalFrame {
         jTabelaInterno.getTableHeader().setReorderingAllowed(false);
         jTabelaInterno.setAutoResizeMode(jTabelaInterno.AUTO_RESIZE_OFF);
         jTabelaInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharColunasTabelaInternos();
         conecta.desconecta();
     }
 
     //Preencher tabela com todos os INTERNOS
-    public void preencherTodosInternos() {
+    public void preencherTodosInternos(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"ID", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"};
+        String[] Colunas = new String[]{"Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"};
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC INNER JOIN DADOSFISICOSINTERNOS ON PRONTUARIOSCRC.IdInternoCrc = DADOSFISICOSINTERNOS.IdInternoCrc INNER JOIN PAISES ON PRONTUARIOSCRC.IdPais = PAISES.IdPais INNER JOIN CIDADES ON PRONTUARIOSCRC.IdCidade = CIDADES.IdCidade INNER JOIN DADOSPENAISINTERNOS ON PRONTUARIOSCRC.IdInternoCrc = DADOSPENAISINTERNOS.IdInternoCrc INNER JOIN UNIDADE ON DADOSPENAISINTERNOS.IdUnid = UNIDADE.IdUnid WHERE SituacaoCrc='" + situacao + "'ORDER BY NomeInternoCrc");
+            conecta.executaSQL(sql);
             conecta.rs.first();
             do {
                 // Formatar a data no formato Brasil
@@ -421,13 +456,14 @@ public class TelaPesqInternoAtendJuridico extends javax.swing.JInternalFrame {
         jTabelaInterno.getTableHeader().setReorderingAllowed(false);
         jTabelaInterno.setAutoResizeMode(jTabelaInterno.AUTO_RESIZE_OFF);
         jTabelaInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharColunasTabelaInternos();
         conecta.desconecta();
     }
 
     // Método de pesquisa pela Matricula
     public void buscarInternosMatricula(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"ID", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"};
+        String[] Colunas = new String[]{"Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"};
         conecta.abrirConexao();
         conecta.executaSQL(sql);
         try {
@@ -465,6 +501,43 @@ public class TelaPesqInternoAtendJuridico extends javax.swing.JInternalFrame {
         jTabelaInterno.getTableHeader().setReorderingAllowed(false);
         jTabelaInterno.setAutoResizeMode(jTabelaInterno.AUTO_RESIZE_OFF);
         jTabelaInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharColunasTabelaInternos();
         conecta.desconecta();
+    }
+
+    public void limparTabela() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaInterno.setModel(modelo);
+        jTabelaInterno.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaInterno.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(1).setPreferredWidth(250);
+        jTabelaInterno.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTabelaInterno.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(3).setPreferredWidth(80);
+        jTabelaInterno.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(4).setPreferredWidth(80);
+        jTabelaInterno.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaInterno.getTableHeader().setReorderingAllowed(false);
+        jTabelaInterno.setAutoResizeMode(jTabelaInterno.AUTO_RESIZE_OFF);
+        jTabelaInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
+    }
+
+    public void alinharColunasTabelaInternos() {
+        //
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        //
+        jTabelaInterno.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaInterno.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+        jTabelaInterno.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+        jTabelaInterno.getColumnModel().getColumn(4).setCellRenderer(centralizado);
     }
 }
