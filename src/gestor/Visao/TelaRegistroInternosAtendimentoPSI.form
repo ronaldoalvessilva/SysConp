@@ -821,16 +821,13 @@
                       <Font name="Tahoma" size="11" style="1"/>
                     </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="9">
+                      <StringArray count="6">
                         <StringItem index="0" value="Selecione..."/>
-                        <StringItem index="1" value="Atendimento Familia"/>
-                        <StringItem index="2" value="Adimiss&#xe3;o Servi&#xe7;o Social"/>
-                        <StringItem index="3" value="Evolu&#xe7;&#xe3;o Servi&#xe7;o Social"/>
-                        <StringItem index="4" value="Liga&#xe7;&#xf5;es Telefonicas"/>
-                        <StringItem index="5" value="Documenta&#xe7;&#xe3;o"/>
-                        <StringItem index="6" value=" "/>
-                        <StringItem index="7" value=" "/>
-                        <StringItem index="8" value=" "/>
+                        <StringItem index="1" value="Admiss&#xe3;o Psicologica"/>
+                        <StringItem index="2" value="Evolu&#xe7;&#xe3;o Psicologica"/>
+                        <StringItem index="3" value="Avalia&#xe7;&#xe3;o Psicologica"/>
+                        <StringItem index="4" value=" "/>
+                        <StringItem index="5" value=" "/>
                       </StringArray>
                     </Property>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">

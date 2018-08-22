@@ -37,6 +37,7 @@ import static gestor.Visao.TelaModuloPsicologia.codAlterarPSI;
 import static gestor.Visao.TelaModuloPsicologia.codExcluirPSI;
 import static gestor.Visao.TelaModuloPsicologia.codConsultarPSI;
 import static gestor.Visao.TelaModuloPsicologia.telaRegistroAtendimentoImpBioPSI;
+import static gestor.Visao.TelaModuloPsicologia.telaRegistroAtendimentoInciarLeitorPSI;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -367,7 +368,7 @@ public class TelaRegistroInternosAtendimentoPSI extends javax.swing.JInternalFra
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE))
+                            .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, 442, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -446,7 +447,7 @@ public class TelaRegistroInternosAtendimentoPSI extends javax.swing.JInternalFra
         jLabel9.setText("Tipo de Atendimento");
 
         jComboBoxTipoMovimentacao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxTipoMovimentacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Atendimento Familia", "Adimissão Serviço Social", "Evolução Serviço Social", "Ligações Telefonicas", "Documentação", " ", " ", " " }));
+        jComboBoxTipoMovimentacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Admissão Psicologica", "Evolução Psicologica", "Avaliação Psicologica", " ", " " }));
         jComboBoxTipoMovimentacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTipoMovimentacao.setEnabled(false);
 
@@ -754,9 +755,9 @@ public class TelaRegistroInternosAtendimentoPSI extends javax.swing.JInternalFra
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
     private void jBtIniciarLeitorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIniciarLeitorActionPerformed
-        // TODO add your handling code here:
-        buscarAcessoUsuario(telaRegistroAtendimentoImpBioPSI);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaRegistroAtendimentoImpBioPSI) && codIncluirPSI == 1) {
+        // TODO add your handling code here:telaRegistroAtendimentoBioPSI
+        buscarAcessoUsuario(telaRegistroAtendimentoInciarLeitorPSI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaRegistroAtendimentoInciarLeitorPSI) && codIncluirPSI == 1) {
             Novo();
             // Instanciar a DLL
             CIS_SDK dll = CIS_SDK.INSTANCE;
