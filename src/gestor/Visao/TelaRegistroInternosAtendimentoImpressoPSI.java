@@ -15,13 +15,12 @@ import gestor.Modelo.RegistroAtendimentoInternos;
 import static gestor.Visao.TelaBiometriaEntradaSaidaPortaria.caminhoFotoInterno;
 import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
-import static gestor.Visao.TelaModuloEnfermaria.codAlterarENF;
-import static gestor.Visao.TelaModuloEnfermaria.codExcluirENF;
-import static gestor.Visao.TelaModuloEnfermaria.codGravarENF;
-import static gestor.Visao.TelaModuloEnfermaria.codigoGrupoENF;
-import static gestor.Visao.TelaModuloEnfermaria.nomeGrupoENF;
-import static gestor.Visao.TelaModuloEnfermaria.nomeTelaENF;
-import static gestor.Visao.TelaModuloEnfermaria.nomeModuloENFER;
+import static gestor.Visao.TelaModuloPsicologia.codAlterarPSI;
+import static gestor.Visao.TelaModuloPsicologia.codExcluirPSI;
+import static gestor.Visao.TelaModuloPsicologia.codGravarPSI;
+import static gestor.Visao.TelaModuloPsicologia.codigoGrupoPSI;
+import static gestor.Visao.TelaModuloPsicologia.nomeGrupoPSI;
+import static gestor.Visao.TelaModuloPsicologia.nomeTelaPSI;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
 import java.awt.Image;
@@ -34,16 +33,16 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
-import static gestor.Visao.TelaModuloEnfermaria.codConsultarENF;
-import static gestor.Visao.TelaModuloEnfermaria.codigoUserENF;
-import static gestor.Visao.TelaModuloEnfermaria.codUserAcessoENF;
-import static gestor.Visao.TelaModuloEnfermaria.codigoUserGroupENF;
-import static gestor.Visao.TelaModuloEnfermaria.codAbrirENF;
-import static gestor.Visao.TelaModuloEnfermaria.codIncluirENF;
+import static gestor.Visao.TelaModuloPsicologia.codConsultarPSI;
+import static gestor.Visao.TelaModuloPsicologia.codigoUserPSI;
+import static gestor.Visao.TelaModuloPsicologia.codUserAcessoPSI;
+import static gestor.Visao.TelaModuloPsicologia.codigoUserGroupPSI;
+import static gestor.Visao.TelaModuloPsicologia.codAbrirPSI;
+import static gestor.Visao.TelaModuloPsicologia.codIncluirPSI;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPsicologia.nomeModuloPSICOLOGIA;
-import static gestor.Visao.TelaModuloServicoSocial.nomeModuloSS;
-import static gestor.Visao.TelaModuloServicoSocial.telaRegistroAtendimentoImpBioSS;
+import static gestor.Visao.TelaModuloPsicologia.telaRegistroAtendimentoImpBioPSI;
+import static gestor.Visao.TelaModuloPsicologia.telaRegistroAtendimentoColLiberadorPSI;
 import java.util.HashMap;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
@@ -831,8 +830,8 @@ public class TelaRegistroInternosAtendimentoImpressoPSI extends javax.swing.JInt
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:           
-        buscarAcessoUsuario(telaRegistroAtendimentoImpBioSS);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaRegistroAtendimentoImpBioSS) && codGravarENF == 1) {
+        buscarAcessoUsuario(telaRegistroAtendimentoImpBioPSI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaRegistroAtendimentoImpBioPSI) && codGravarPSI == 1) {
             verificarInternos();
             if (jIdInternoKitImp.getText().equals("") || jNomeInternoKitImp.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Informe o nome do interno.");
@@ -1035,7 +1034,7 @@ public class TelaRegistroInternosAtendimentoImpressoPSI extends javax.swing.JInt
                 jDataRegistro.setDate(conecta.rs.getDate("DataReg"));
                 jComboBoxTipoMovimentacao.setSelectedItem(conecta.rs.getString("TipoAtendimento"));
                 jHorarioSaidaEntrada.setText(conecta.rs.getString("Horario"));
-                jNomeDepartamento.setText(nomeModuloSS);
+                jNomeDepartamento.setText(nomeModuloPSICOLOGIA);
                 jIdInternoKitImp.setText(conecta.rs.getString("IdInternoCrc"));
                 jCNC.setText(conecta.rs.getString("Cnc"));
                 jRegimeKitImp.setText(conecta.rs.getString("Regime"));
@@ -1072,8 +1071,8 @@ public class TelaRegistroInternosAtendimentoImpressoPSI extends javax.swing.JInt
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaRegistroAtendimentoImpBioSS);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaRegistroAtendimentoImpBioSS) && codIncluirENF == 1) {
+        buscarAcessoUsuario(telaRegistroAtendimentoImpBioPSI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaRegistroAtendimentoImpBioPSI) && codIncluirPSI == 1) {
             int resposta = JOptionPane.showConfirmDialog(this, "Esse documento só é permitido caso o interno não consiga assinar através da biometria, deseja continuar?", "Confirmação",
                     JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
@@ -1090,8 +1089,8 @@ public class TelaRegistroInternosAtendimentoImpressoPSI extends javax.swing.JInt
 
     private void jBtLiberarAutorizacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtLiberarAutorizacaoActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaRegistroAtendimentoImpBioSS);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaRegistroAtendimentoImpBioSS) && codAbrirENF == 1) {
+        buscarAcessoUsuario(telaRegistroAtendimentoColLiberadorPSI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaRegistroAtendimentoColLiberadorPSI) && codAbrirPSI == 1) {
             if (jIdInternoKitImp.getText().equals("") || jNomeInternoKitImp.getText().equals("") && jIdRegistro.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "E necessário selecionar primeiro o interno para liberação.");
             } else {
@@ -1424,33 +1423,33 @@ public class TelaRegistroInternosAtendimentoImpressoPSI extends javax.swing.JInt
             conecta.executaSQL("SELECT * FROM USUARIOS "
                     + "WHERE NomeUsuario='" + nameUser + "'");
             conecta.rs.first();
-            codigoUserENF = conecta.rs.getInt("IdUsuario");
+            codigoUserPSI = conecta.rs.getInt("IdUsuario");
         } catch (Exception e) {
         }
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
                     + "INNER JOIN GRUPOUSUARIOS "
                     + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                    + "WHERE IdUsuario='" + codigoUserENF + "'");
+                    + "WHERE IdUsuario='" + codigoUserPSI + "'");
             conecta.rs.first();
-            codigoUserGroupENF = conecta.rs.getInt("IdUsuario");
-            codigoGrupoENF = conecta.rs.getInt("IdGrupo");
-            nomeGrupoENF = conecta.rs.getString("NomeGrupo");
+            codigoUserGroupPSI = conecta.rs.getInt("IdUsuario");
+            codigoGrupoPSI = conecta.rs.getInt("IdGrupo");
+            nomeGrupoPSI = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
         }
         try {
             conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
-                    + "WHERE IdUsuario='" + codigoUserENF + "' "
+                    + "WHERE IdUsuario='" + codigoUserPSI + "' "
                     + "AND NomeTela='" + nomeTelaAcesso + "'");
             conecta.rs.first();
-            codUserAcessoENF = conecta.rs.getInt("IdUsuario");
-            codAbrirENF = conecta.rs.getInt("Abrir");
-            codIncluirENF = conecta.rs.getInt("Incluir");
-            codAlterarENF = conecta.rs.getInt("Alterar");
-            codExcluirENF = conecta.rs.getInt("Excluir");
-            codGravarENF = conecta.rs.getInt("Gravar");
-            codConsultarENF = conecta.rs.getInt("Consultar");
-            nomeTelaENF = conecta.rs.getString("NomeTela");
+            codUserAcessoPSI = conecta.rs.getInt("IdUsuario");
+            codAbrirPSI = conecta.rs.getInt("Abrir");
+            codIncluirPSI = conecta.rs.getInt("Incluir");
+            codAlterarPSI = conecta.rs.getInt("Alterar");
+            codExcluirPSI = conecta.rs.getInt("Excluir");
+            codGravarPSI = conecta.rs.getInt("Gravar");
+            codConsultarPSI = conecta.rs.getInt("Consultar");
+            nomeTelaPSI = conecta.rs.getString("NomeTela");
         } catch (Exception e) {
         }
         conecta.desconecta();
