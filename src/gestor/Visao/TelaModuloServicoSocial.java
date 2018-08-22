@@ -128,18 +128,18 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     String cartaoRG = "";
     String cartaoCPF = "";
     //
-    public static int codigoUser = 0;
-    public static int codUserAcesso = 0;
-    public static int codigoUserGroup = 0;
-    public static int codAbrir = 0;
-    public static int codIncluir = 0;
-    public static int codAlterar = 0;
-    public static int codExcluir = 0;
-    public static int codGravar = 0;
-    public static int codConsultar = 0;
-    public static int codigoGrupo = 0;
-    public static String nomeGrupo = "";
-    public static String nomeTela = "";
+    public static int codigoUserSS = 0;
+    public static int codUserAcessoSS = 0;
+    public static int codigoUserGroupSS = 0;
+    public static int codAbrirSS = 0;
+    public static int codIncluirSS = 0;
+    public static int codAlterarSS = 0;
+    public static int codExcluirSS = 0;
+    public static int codGravarSS = 0;
+    public static int codConsultarSS = 0;
+    public static int codigoGrupoSS = 0;
+    public static String nomeGrupoSS = "";
+    public static String nomeTelaSS = "";
     // TELAS DE ACESSOS AO MÓDULO SERVIÇO SOCIAL
     public static String nomeModuloSS = "SERVICO SOCIAL";
     // MENU CADASTRO    
@@ -147,14 +147,14 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     public static String telaRolVisitasSS = "Cadastro:Rol de Visitas:Manutenção";
     public static String telaRolVisitasVisitantesSS = "Cadastro:Rol de Visitas:Visitas";
     public static String telaRolVisitasInternosSS = "Cadastro:Rol de Visitas:Internos";
-    public static String telaListaDocumentosSS = "Cadastro:Lista de Docunmentos de Internos:Manutenção";
+    public static String telaListaDocumentosSS = "Cadastro:Lista de Documentos de Internos:Manutenção";
     public static String telaInstituicaoRelSS = "Cadastro:Instituição Religiosa:Manutenção";
     public static String telaVisitantesRelSS = "Cadastro:Visistantes Religiosos:Manutenção";
     public static String telaRolVisitantesRelSS = "Cadastro:Rol de Visitas Religiosa:Manutenção";
     public static String telaRolVisitantesRelVisitaSS = "Cadastro:Rol de Visitas Religiosa:Visitas";
     public static String telaAprovadoresOcrSS = "Cadastro:Aprovadores de Ocorrências Indisciplinas Visitas:Manutenção";
-    public static String telaRegistroAtendimentoBioSS = "Cadastro:Registro de Atendimento Internos Biometria:Manutenção";
-    public static String telaRegistroAtendimentoImpBioSS = "Cadastro:Registro de Autorização Impressa:Liberação";
+    public static String telaRegistroAtendimentoBioSS = "Cadastro:Registro de Atendimento Internos Biometria Serviços Social:Manutenção";
+    public static String telaRegistroAtendimentoImpressaoBioSSocial = "Cadastro:Registro de Autorização Impressa Serviços Social:Liberação";
     // MOVIMENTAÇÃO
     public static String telaAdmEvolucaoInternosSS = "Movimentação:Admissão de Internos:Admissão";
     public static String telaAdmEvolucaoInternosEvoSS = "Movimentação:Admissão de Internos:Evolução";
@@ -166,25 +166,26 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     public static String telaCancelaVisitaVistasExtSS = "Movimentação:Cancelamento de Visitantes:Visitas Externas";
     public static String telaCancelaVisitaVistasIntSS = "Movimentação:Cancelamento de Visitantes:Visitas Internas";
     //P.A.I.
-    public static String telaPAISS = "Movimentação:P.A.I.:Manutenção";
-    public static String telaPaiCCGF_SS = "Movimentação:P.A.I.:C.C.G.F.";
-    public static String telaPaiCCGFFam_SS = "Movimentação:P.A.I.:C.C.G.F.:Familia";
-    public static String telaPaiCCGFVis_SS = "Movimentação:P.A.I.:C.C.G.F.:Visita";
-    public static String telaPaiCCGFVisInt_SS = "Movimentação:P.A.I.:C.C.G.F.:Visita Intima";
-    public static String telaPaiDEME_SS = "Movimentação:P.A.I.:D.E.M.E.";
-    public static String telaPaiDPTL_SS = "Movimentação:P.A.I.:D.P.T.L.";
-    public static String telaPaiDJ_SS = "Movimentação:P.A.I.:D.J.";
-    public static String telaPaiDS_SS = "Movimentação:P.A.I.:D.S.";
-    public static String telaPaiEAPI1_SS = "Movimentação:P.A.I.:E.A.P.I.-1";
-    public static String telaPaiEAPI2_SS = "Movimentação:P.A.I.:E.A.P.I.-2";
-    public static String telaPaiEPAI_SS = "Movimentação:P.A.I.:E-PAI";
+    public static String telaPAISS = "Movimentação:P.A.I. - Serviços Social:Manutenção";
+    public static String telaPaiCCGF_SS = "Movimentação:P.A.I.:C.C.G.F. - Serviços Social";
+    public static String telaPaiCCGFFam_SS = "Movimentação:P.A.I.:C.C.G.F. - Serviços Social:Familia";
+    public static String telaPaiCCGFVis_SS = "Movimentação:P.A.I.:C.C.G.F. - Serviços Social:Visita";
+    public static String telaPaiCCGFVisInt_SS = "Movimentação:P.A.I.:C.C.G.F. - Serviços Social:Visita Intima";
+    public static String telaPaiDEME_SS = "Movimentação:P.A.I.:D.E.M.E. - Serviços Social";
+    public static String telaPaiDPTL_SS = "Movimentação:P.A.I.:D.P.T.L. - Serviços Social";
+    public static String telaPaiDJ_SS = "Movimentação:P.A.I.:D.J. - Serviços Social";
+    public static String telaPaiDS_SS = "Movimentação:P.A.I.:D.S. - Serviços Social";
+    public static String telaPaiEAPI1_SS = "Movimentação:P.A.I.:E.A.P.I.-1 - Serviços Social";
+    public static String telaPaiEAPI2_SS = "Movimentação:P.A.I.:E.A.P.I.-2 - Serviços Social";
+    public static String telaPaiEPAI_SS = "Movimentação:P.A.I.:E-PAI - Serviços Social";
     //
-    public static String telaBloqueioLiberacaoVisitasSS = "Movimentação:Bloqueio/Desbloqueio de Ocorrência Portaria:Manutenção";
-    public static String telaBloqueioLiberacaoOcorrenciaSS = "Movimentação:Bloqueio/Desbloqueio de Ocorrência Portaria:Ocorrência";
+    public static String telaBloqueioLiberacaoVisitasSS = "Movimentação:Bloqueio/Desbloqueio de Ocorrência Portaria - Serviços Social:Manutenção";
+    public static String telaBloqueioLiberacaoOcorrenciaSS = "Movimentação:Bloqueio/Desbloqueio de Ocorrência Portaria - Serviços Social:Ocorrência";
     public static String telaControleLigacoesTelSS = "Movimentação:Controle de Ligações:Manutenção";
     public static String telaOcorrenciasSS = "Movimentação:Ocorrências do Serviço Social:Manutenção";
-    public static String telaHistAvaSocial = "Movimentação:Histórico de Avaliação Social:Manutenção";
-    public static String telaHistAvaEmprego = "Movimentação:Histórico de Avaliação de Emprego:Manutenção";
+    //
+    public static String telaHistAvaSocial_SS = "Movimentação:Historico de Avaliação Social - I:Manutenção";
+    public static String telaHistAvaEmprego_SS = "Movimentação:Historico de Avaliação de Emprego - II:Manutenção";
     //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
@@ -199,8 +200,8 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     String pNomeRVR = "";
     String pNomeRVRV = "";
     String pNomeAO = "";
-    String pNomeRAB = "";
-    String pNomeRAIB = "";
+    String pNomeRAB_SS = "";
+    String pNomeRAIB_SS = "";
     // MOVIMENTAÇÃO
     String pNomeAEI = "";
     String pNomeAEIE = "";
@@ -229,12 +230,10 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     String pNomeBLO = "";
     String pNomeCLT = "";
     String pNomeOCO = "";
-    String pNomeHAS = "";
-    String pNomeHAE = "";
-    //
+    String pNomeHAS_I = "";
+    String pNomeHAE_II = "";
 
-    //pNomeRAIB
-    //telaRegistroAtendimentoImpBioSS
+    //  
     /**
      * Creates new form TelaServioSocial
      */
@@ -849,7 +848,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private void VistantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VistantesActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaCadastroVisitasSS);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaCadastroVisitasSS) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaCadastroVisitasSS) && codAbrirSS == 1) {
             if (objVsocial == null || objVsocial.isClosed()) {
                 objVsocial = new TelaVisitaSocial();
                 jPainelServicoSocial.add(objVsocial);
@@ -883,7 +882,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private void RolVisitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RolVisitasActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaRolVisitasSS);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaRolVisitasSS) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaRolVisitasSS) && codAbrirSS == 1) {
             if (objRolVis == null || objRolVis.isClosed()) {
                 objRolVis = new TelaRolVisitas();
                 jPainelServicoSocial.add(objRolVis);
@@ -917,7 +916,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private void ControleLigacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ControleLigacoesActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaControleLigacoesTelSS);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaControleLigacoesTelSS) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaControleLigacoesTelSS) && codAbrirSS == 1) {
             if (objContLiga == null || objContLiga.isClosed()) {
                 objContLiga = new TelaControleLigacoesSS();
                 jPainelServicoSocial.add(objContLiga);
@@ -951,7 +950,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private void AdmissaoInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdmissaoInternosActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAdmEvolucaoInternosSS);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaAdmEvolucaoInternosSS) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaAdmEvolucaoInternosSS) && codAbrirSS == 1) {
             if (objAtenSocial == null || objAtenSocial.isClosed()) {
                 objAtenSocial = new TelaAtendimentoSocial();
                 jPainelServicoSocial.add(objAtenSocial);
@@ -1014,7 +1013,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private void AtendimentoFamiliarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtendimentoFamiliarActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAtendimentoFamiliaSS);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaAtendimentoFamiliaSS) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaAtendimentoFamiliaSS) && codAbrirSS == 1) {
             if (objAtendFam == null || objAtendFam.isClosed()) {
                 objAtendFam = new TelaAtendimentoFamiliar();
                 jPainelServicoSocial.add(objAtendFam);
@@ -1164,7 +1163,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private void ListaDocumentosInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListaDocumentosInternosActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaListaDocumentosSS);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaListaDocumentosSS) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaListaDocumentosSS) && codAbrirSS == 1) {
             if (objListaDocInternos == null || objListaDocInternos.isClosed()) {
                 objListaDocInternos = new TelaDocumetosInternosServicoSocial();
                 jPainelServicoSocial.add(objListaDocInternos);
@@ -1322,7 +1321,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private void AprovadoresOcorrenciasVisitasPortariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AprovadoresOcorrenciasVisitasPortariaActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAprovadoresOcrSS);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaAprovadoresOcrSS) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaAprovadoresOcrSS) && codAbrirSS == 1) {
             if (objAprovaOcr == null || objAprovaOcr.isClosed()) {
                 objAprovaOcr = new TelaAprovadoresOcorrenciaVisitasInternosServicoSocial();
                 jPainelServicoSocial.add(objAprovaOcr);
@@ -1356,7 +1355,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private void BloqueioLiberacaoVisitasInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BloqueioLiberacaoVisitasInternosActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaBloqueioLiberacaoVisitasSS);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaBloqueioLiberacaoVisitasSS) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaBloqueioLiberacaoVisitasSS) && codAbrirSS == 1) {
             if (objBloqLibOcr == null || objBloqLibOcr.isClosed()) {
                 objBloqLibOcr = new TelaAprovacaoServicoSocial();
                 jPainelServicoSocial.add(objBloqLibOcr);
@@ -1390,7 +1389,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private void jOcorrenciasServicoSocialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jOcorrenciasServicoSocialActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaOcorrenciasSS);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaOcorrenciasSS) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaOcorrenciasSS) && codAbrirSS == 1) {
             if (objOcrSSocial == null || objOcrSSocial.isClosed()) {
                 objOcrSSocial = new TelaOcorrenciaServicoSocial();
                 jPainelServicoSocial.add(objOcrSSocial);
@@ -1424,7 +1423,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private void PerfilPopulacaoCarcerariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PerfilPopulacaoCarcerariaActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPerfilPopCarcerariaSS);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaPerfilPopCarcerariaSS) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPerfilPopCarcerariaSS) && codAbrirSS == 1) {
             if (objPerfilCar == null || objPerfilCar.isClosed()) {
                 objPerfilCar = new TelaPerfilCarcerario();
                 jPainelServicoSocial.add(objPerfilCar);
@@ -1545,7 +1544,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private void VisitantesReligiososActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VisitantesReligiososActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaVisitantesRelSS);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaVisitantesRelSS) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaVisitantesRelSS) && codAbrirSS == 1) {
             if (objVisitaRel == null || objVisitaRel.isClosed()) {
                 objVisitaRel = new TelaVisitaSocialReligiosa();
                 jPainelServicoSocial.add(objVisitaRel);
@@ -1579,7 +1578,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private void InstituicaoReligiosaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InstituicaoReligiosaActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaInstituicaoRelSS);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaInstituicaoRelSS) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaInstituicaoRelSS) && codAbrirSS == 1) {
             if (objInstRel == null || objInstRel.isClosed()) {
                 objInstRel = new TelaInstituicaoReligiosa();
                 jPainelServicoSocial.add(objInstRel);
@@ -1613,7 +1612,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private void RolVisitasReligiosasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RolVisitasReligiosasActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaRolVisitantesRelSS);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaRolVisitantesRelSS) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaRolVisitantesRelSS) && codAbrirSS == 1) {
             if (objRolVisitaRel == null || objRolVisitaRel.isClosed()) {
                 objRolVisitaRel = new TelaRolVisitasReligiosas();
                 jPainelServicoSocial.add(objRolVisitaRel);
@@ -1654,7 +1653,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private void AtualizacaoDocumentosInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtualizacaoDocumentosInternosActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAtualizacaoDocSS);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaAtualizacaoDocSS) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaAtualizacaoDocSS) && codAbrirSS == 1) {
             if (objAtuaDoc == null || objAtuaDoc.isClosed()) {
                 objAtuaDoc = new TelaAtualizacaoDocumentosServicoSocial();
                 jPainelServicoSocial.add(objAtuaDoc);
@@ -1688,7 +1687,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private void CancelarVisitaInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarVisitaInternoActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaCancelaVisitaSS);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaCancelaVisitaSS) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaCancelaVisitaSS) && codAbrirSS == 1) {
             if (objCancelaVis == null || objCancelaVis.isClosed()) {
                 objCancelaVis = new TelaCancelamentoVisitasInterno();
                 jPainelServicoSocial.add(objCancelaVis);
@@ -1721,8 +1720,8 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
 
     private void HistoricoAvaliacaoSocialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HistoricoAvaliacaoSocialActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaHistAvaSocial);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaHistAvaSocial) && codAbrir == 1) {
+        buscarAcessoUsuario(telaHistAvaSocial_SS);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaHistAvaSocial_SS) && codAbrirSS == 1) {
             if (objHistAvaSocial == null || objHistAvaSocial.isClosed()) {
                 objHistAvaSocial = new TelaHistoricoAvaliacaoSocial();
                 jPainelServicoSocial.add(objHistAvaSocial);
@@ -1755,8 +1754,8 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
 
     private void HistoricoAvaliacaoEmpregoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HistoricoAvaliacaoEmpregoActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaHistAvaEmprego);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaHistAvaEmprego) && codAbrir == 1) {
+        buscarAcessoUsuario(telaHistAvaEmprego_SS);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaHistAvaEmprego_SS) && codAbrirSS == 1) {
             if (objAvaEmp == null || objAvaEmp.isClosed()) {
                 objAvaEmp = new TelaHistoricoAvaliacaoEmprego();
                 jPainelServicoSocial.add(objAvaEmp);
@@ -1942,7 +1941,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private void jPaiNOVOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPaiNOVOActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPAISS);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaPAISS) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPAISS) && codAbrirSS == 1) {
             if (objPaiNovo == null || objPaiNovo.isClosed()) {
                 objPaiNovo = new TelaPAI_NOVO();
                 jPainelServicoSocial.add(objPaiNovo);
@@ -1988,7 +1987,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private void jRegistroAtendeInternoBioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRegistroAtendeInternoBioActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaRegistroAtendimentoBioSS);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaRegistroAtendimentoBioSS) && codAbrir == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaRegistroAtendimentoBioSS) && codAbrirSS == 1) {
             if (objRegBio == null || objRegBio.isClosed()) {
                 objRegBio = new TelaRegistroInternosAtendimentoSS();
                 jPainelServicoSocial.add(objRegBio);
@@ -2021,8 +2020,8 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
 
     private void RegistroAtendimentoImpressoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistroAtendimentoImpressoActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaRegistroAtendimentoImpBioSS);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaRegistroAtendimentoImpBioSS) && codAbrir == 1) {
+        buscarAcessoUsuario(telaRegistroAtendimentoImpressaoBioSSocial);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaRegistroAtendimentoImpressaoBioSSocial) && codAbrirSS == 1) {
             if (objAutoImp == null || objAutoImp.isClosed()) {
                 objAutoImp = new TelaRegistroInternosAtendimentoImpressoSS();
                 jPainelServicoSocial.add(objAutoImp);
@@ -2139,44 +2138,6 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator8;
     private javax.swing.JPopupMenu.Separator jSeparator9;
     // End of variables declaration//GEN-END:variables
-
-    public void buscarAcessoUsuario(String nomeTelaAcesso) {
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM USUARIOS "
-                    + "WHERE NomeUsuario='" + nameUser + "'");
-            conecta.rs.first();
-            codigoUser = conecta.rs.getInt("IdUsuario");
-        } catch (Exception e) {
-        }
-        try {
-            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                    + "INNER JOIN GRUPOUSUARIOS "
-                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                    + "WHERE IdUsuario='" + codigoUser + "'");
-            conecta.rs.first();
-            codigoUserGroup = conecta.rs.getInt("IdUsuario");
-            codigoGrupo = conecta.rs.getInt("IdGrupo");
-            nomeGrupo = conecta.rs.getString("NomeGrupo");
-        } catch (Exception e) {
-        }
-        try {
-            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
-                    + "WHERE IdUsuario='" + codigoUser + "' "
-                    + "AND NomeTela='" + nomeTelaAcesso + "'");
-            conecta.rs.first();
-            codUserAcesso = conecta.rs.getInt("IdUsuario");
-            codAbrir = conecta.rs.getInt("Abrir");
-            codIncluir = conecta.rs.getInt("Incluir");
-            codAlterar = conecta.rs.getInt("Alterar");
-            codExcluir = conecta.rs.getInt("Excluir");
-            codGravar = conecta.rs.getInt("Gravar");
-            codConsultar = conecta.rs.getInt("Consultar");
-            nomeTela = conecta.rs.getString("NomeTela");
-        } catch (Exception e) {
-        }
-        conecta.desconecta();
-    }
 
     // Verificar a cada 5 minutos se o recado foi lido (10/01/2015)
     public void threadMensagem() {
@@ -2487,7 +2448,14 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
             conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaRegistroAtendimentoBioSS + "'");
             conecta.rs.first();
-            pNomeRAB = conecta.rs.getString("NomeTela");
+            pNomeRAB_SS = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRegistroAtendimentoImpressaoBioSSocial + "'");
+            conecta.rs.first();
+            pNomeRAIB_SS = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         // MANUTENÇÃO
@@ -2498,7 +2466,6 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
             pNomeAEI = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
-        //
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaAdmEvolucaoInternosEvoSS + "'");
@@ -2678,16 +2645,16 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
         }
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
-                    + "WHERE NomeTela='" + telaHistAvaSocial + "'");
+                    + "WHERE NomeTela='" + telaHistAvaSocial_SS + "'");
             conecta.rs.first();
-            pNomeHAS = conecta.rs.getString("NomeTela");
+            pNomeHAS_I = conecta.rs.getString("NomeTela");            
         } catch (SQLException ex) {
         }
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
-                    + "WHERE NomeTela='" + telaHistAvaEmprego + "'");
+                    + "WHERE NomeTela='" + telaHistAvaEmprego_SS + "'");
             conecta.rs.first();
-            pNomeHAS = conecta.rs.getString("NomeTela");
+            pNomeHAS_I = conecta.rs.getString("NomeTela");            
         } catch (SQLException ex) {
         }
         // INICIO DA COMPARAÇÃO
@@ -2751,10 +2718,16 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
             objCadastroTela.setNomeTela(telaAprovadoresOcrSS);
             controle.incluirTelaAcesso(objCadastroTela);
         }
-        if (!pNomeRAB.equals(telaRegistroAtendimentoBioSS) || pNomeRAB == null || pNomeRAB.equals("")) {
+        if (!pNomeRAB_SS.equals(telaRegistroAtendimentoBioSS) || pNomeRAB_SS == null || pNomeRAB_SS.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaRegistroAtendimentoBioSS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeRAIB_SS.equals(telaRegistroAtendimentoImpressaoBioSSocial) || pNomeRAIB_SS == null || pNomeRAIB_SS.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRegistroAtendimentoImpressaoBioSSocial);
             controle.incluirTelaAcesso(objCadastroTela);
         }
         // MOVIMENTAÇÃO
@@ -2909,18 +2882,19 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
             objCadastroTela.setNomeTela(telaOcorrenciasSS);
             controle.incluirTelaAcesso(objCadastroTela);
         }
-        if (!pNomeHAS.equals(telaHistAvaSocial) || pNomeHAS == null || pNomeHAS.equals("")) {
+        if (pNomeHAS_I.equals(telaHistAvaSocial_SS)|| pNomeHAS_I == null || pNomeHAS_I.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
-            objCadastroTela.setNomeTela(telaHistAvaSocial);
+            objCadastroTela.setNomeTela(telaHistAvaSocial_SS);
             controle.incluirTelaAcesso(objCadastroTela);
         }
-        if (!pNomeHAE.equals(telaHistAvaEmprego) || pNomeHAE == null || pNomeHAE.equals("")) {
+        if (!pNomeHAE_II.equals(telaHistAvaEmprego_SS) || pNomeHAE_II == null || pNomeHAE_II.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
-            objCadastroTela.setNomeTela(telaHistAvaEmprego);
+            objCadastroTela.setNomeTela(telaHistAvaEmprego_SS);
             controle.incluirTelaAcesso(objCadastroTela);
         }
+        conecta.desconecta();
     }
 
     // MÉTODO PARA BUSCAR O CÓDIGO DO MÓDULO, CASO NÃO TENHA SIDO CADASTRADO.
@@ -2933,5 +2907,43 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
             pCodModulo = conecta.rs.getInt("IdModulo");
         } catch (SQLException ex) {
         }
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserSS = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserSS + "'");
+            conecta.rs.first();
+            codigoUserGroupSS = conecta.rs.getInt("IdUsuario");
+            codigoGrupoSS = conecta.rs.getInt("IdGrupo");
+            nomeGrupoSS = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserSS + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoSS = conecta.rs.getInt("IdUsuario");
+            codAbrirSS = conecta.rs.getInt("Abrir");
+            codIncluirSS = conecta.rs.getInt("Incluir");
+            codAlterarSS = conecta.rs.getInt("Alterar");
+            codExcluirSS = conecta.rs.getInt("Excluir");
+            codGravarSS = conecta.rs.getInt("Gravar");
+            codConsultarSS = conecta.rs.getInt("Consultar");
+            nomeTelaSS = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }
