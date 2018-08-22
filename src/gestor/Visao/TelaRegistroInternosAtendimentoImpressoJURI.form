@@ -852,19 +852,14 @@
                       <Font name="Tahoma" size="11" style="1"/>
                     </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="12">
+                      <StringArray count="7">
                         <StringItem index="0" value="Selecione..."/>
-                        <StringItem index="1" value="Admiss&#xe3;o M&#xe9;dica"/>
-                        <StringItem index="2" value="Adimiss&#xe3;o Psiquiatrica"/>
-                        <StringItem index="3" value="Admiss&#xe3;o Enfermagem"/>
-                        <StringItem index="4" value="Atendim. T&#xe9;c. Enfermagem"/>
-                        <StringItem index="5" value="Evolu&#xe7;&#xe3;o M&#xe9;dica"/>
-                        <StringItem index="6" value="Evolu&#xe7;&#xe3;o Psiquiatrica"/>
-                        <StringItem index="7" value="Evolu&#xe7;&#xe3;o Enfermagem"/>
-                        <StringItem index="8" value="Evolu&#xe7;&#xe3;o T&#xe9;c. Enfermagem"/>
-                        <StringItem index="9" value=" "/>
-                        <StringItem index="10" value=" "/>
-                        <StringItem index="11" value=" "/>
+                        <StringItem index="1" value="Admiss&#xe3;o Jur&#xed;dica"/>
+                        <StringItem index="2" value="Evolu&#xe7;&#xe3;o Juridica"/>
+                        <StringItem index="3" value=" "/>
+                        <StringItem index="4" value=" "/>
+                        <StringItem index="5" value=" "/>
+                        <StringItem index="6" value=" "/>
                       </StringArray>
                     </Property>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">

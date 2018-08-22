@@ -392,7 +392,7 @@ public class TelaRegistroInternosAtendimentoImpressoJURI extends javax.swing.JIn
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE))
+                            .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, 442, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -471,7 +471,7 @@ public class TelaRegistroInternosAtendimentoImpressoJURI extends javax.swing.JIn
         jLabel9.setText("Tipo de Atendimento");
 
         jComboBoxTipoMovimentacao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxTipoMovimentacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Admissão Médica", "Adimissão Psiquiatrica", "Admissão Enfermagem", "Atendim. Téc. Enfermagem", "Evolução Médica", "Evolução Psiquiatrica", "Evolução Enfermagem", "Evolução Téc. Enfermagem", " ", " ", " " }));
+        jComboBoxTipoMovimentacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Admissão Jurídica", "Evolução Juridica", " ", " ", " ", " " }));
         jComboBoxTipoMovimentacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTipoMovimentacao.setEnabled(false);
 
@@ -886,8 +886,8 @@ public class TelaRegistroInternosAtendimentoImpressoJURI extends javax.swing.JIn
 
     private void jBtPesquisaInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaInternoActionPerformed
         // TODO add your handling code here:        
-        TelaPesqInternoRegistroImpresso objPesqIntImp = new TelaPesqInternoRegistroImpresso();
-        TelaModuloEnfermaria.jPainelMedico.add(objPesqIntImp);
+        TelaPesqInternoRegistroImpressoJURI objPesqIntImp = new TelaPesqInternoRegistroImpressoJURI();
+        TelaModuloJuridico.jPainelJuridico.add(objPesqIntImp);
         objPesqIntImp.show();
     }//GEN-LAST:event_jBtPesquisaInternoActionPerformed
 
