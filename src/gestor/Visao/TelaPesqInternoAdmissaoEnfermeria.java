@@ -91,7 +91,15 @@ public class TelaPesqInternoAdmissaoEnfermeria extends javax.swing.JInternalFram
             new String [] {
                 "Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Registro"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTabelaInternosEnfermaria.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTabelaInternosEnfermariaMouseClicked(evt);
@@ -131,7 +139,7 @@ public class TelaPesqInternoAdmissaoEnfermeria extends javax.swing.JInternalFram
             }
         });
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar Pronturários de Internos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 255)));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar Pronturários de Internos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jPesqNome.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
@@ -262,7 +270,7 @@ public class TelaPesqInternoAdmissaoEnfermeria extends javax.swing.JInternalFram
         } else {
             preencherTabelaInternosEnfermaria("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
                     + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInteroCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "INNER JOIN DADOSFISICOSINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
                     + "INNER JOIN PAISES "
