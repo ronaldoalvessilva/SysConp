@@ -1123,6 +1123,7 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
 
     private void jBtNovolancActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovolancActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaRegistroRetornoRIManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaRegistroRetornoRIManuP1) && codIncluirP1 == 1) {
             acao = 1;
             Novo();
@@ -1137,6 +1138,7 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
 
     private void jBtAlterarlancActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarlancActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaRegistroRetornoRIManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaRegistroRetornoRIManuP1) && codAlterarP1 == 1) {
             objRetorno.setStatusRetorno(jStatusRetorno.getText());
             if (jStatusRetorno.getText().equals("FINALIZADO")) {
@@ -1155,7 +1157,8 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
     }//GEN-LAST:event_jBtAlterarlancActionPerformed
 
     private void jBtExcluirlancActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirlancActionPerformed
-
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaRegistroRetornoRIManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaRegistroRetornoRIManuP1) && codExcluirP1 == 1) {
             objRetorno.setStatusRetorno(jStatusRetorno.getText());
             if (jStatusRetorno.getText().equals("FINALIZADO")) {
@@ -1170,6 +1173,7 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
 
     private void jBtSalvarlancActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarlancActionPerformed
         // TODO add your handling code here:
+         buscarAcessoUsuario(telaRegistroRetornoRIManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaRegistroRetornoRIManuP1) && codGravarP1 == 1) {
             if (jDescricaoOpe.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a descrição da operação de retorno");
