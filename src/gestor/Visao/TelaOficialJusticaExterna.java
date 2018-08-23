@@ -14,11 +14,15 @@ import gestor.Dao.ModeloTabela;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.OficialJustica;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPortariaExterna.codAbrirP1E;
 import static gestor.Visao.TelaModuloPortariaExterna.codAlterarP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.codConsultarP1E;
 import static gestor.Visao.TelaModuloPortariaExterna.codExcluirP1E;
 import static gestor.Visao.TelaModuloPortariaExterna.codGravarP1E;
 import static gestor.Visao.TelaModuloPortariaExterna.codIncluirP1E;
 import static gestor.Visao.TelaModuloPortariaExterna.codUserAcessoP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.codigoGrupoP1E;
+import static gestor.Visao.TelaModuloPortariaExterna.codigoUserGroupP1E;
 import static gestor.Visao.TelaModuloPortariaExterna.codigoUserP1E;
 import static gestor.Visao.TelaModuloPortariaExterna.nomeGrupoP1E;
 import static gestor.Visao.TelaModuloPortariaExterna.nomeTelaP1E;
@@ -769,6 +773,7 @@ public class TelaOficialJusticaExterna extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaCadastroOficialManuP1E);
         if (codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaCadastroOficialManuP1E) && codIncluirP1E == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES")) {
             acao = 1;
             Novo();
@@ -783,6 +788,7 @@ public class TelaOficialJusticaExterna extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaCadastroOficialManuP1E);
         if (codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaCadastroOficialManuP1E) && codAlterarP1E == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES")) {
             acao = 2;
             Alterar();
@@ -797,6 +803,7 @@ public class TelaOficialJusticaExterna extends javax.swing.JInternalFrame {
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaCadastroOficialManuP1E);
         if (codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaCadastroOficialManuP1E) && codExcluirP1E == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES")) {
             verificarEntAdvogados();
         } else {
@@ -806,6 +813,7 @@ public class TelaOficialJusticaExterna extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaCadastroOficialManuP1E);
         if (codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaCadastroOficialManuP1E) && codGravarP1E == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES")) {
             if (jDataCadastro.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data de cadastro.");
@@ -1486,6 +1494,44 @@ public class TelaOficialJusticaExterna extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jIdOficial.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserP1E = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserP1E + "'");
+            conecta.rs.first();
+            codigoUserGroupP1E = conecta.rs.getInt("IdUsuario");
+            codigoGrupoP1E = conecta.rs.getInt("IdGrupo");
+            nomeGrupoP1E = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserP1E + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoP1E = conecta.rs.getInt("IdUsuario");
+            codAbrirP1E = conecta.rs.getInt("Abrir");
+            codIncluirP1E = conecta.rs.getInt("Incluir");
+            codAlterarP1E = conecta.rs.getInt("Alterar");
+            codExcluirP1E = conecta.rs.getInt("Excluir");
+            codGravarP1E = conecta.rs.getInt("Gravar");
+            codConsultarP1E = conecta.rs.getInt("Consultar");
+            nomeTelaP1E = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 
     // Executar programa externo da webcam
