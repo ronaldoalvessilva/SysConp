@@ -1262,6 +1262,7 @@ public class TelaEntradaSaidaVisitasInternasInternos extends javax.swing.JIntern
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntradaSaidaVisitasInternasRIManuP1);
         if (codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaVisitasInternasRIManuP1) && codIncluirP1 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES")) {
             acao = 1;
             Novo();
@@ -1277,6 +1278,7 @@ public class TelaEntradaSaidaVisitasInternasInternos extends javax.swing.JIntern
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntradaSaidaVisitasInternasRIManuP1);
         if (codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaVisitasInternasRIManuP1) && codAlterarP1 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES")) {
             objEntSaiVisitasInterno.setStatusLanc(jStatusEntCola.getText());
             if (jStatusEntCola.getText().equals("FINALIZADO")) {
@@ -1296,6 +1298,7 @@ public class TelaEntradaSaidaVisitasInternasInternos extends javax.swing.JIntern
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntradaSaidaVisitasInternasRIManuP1);
         if (codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaVisitasInternasRIManuP1) && codExcluirP1 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES")) {
             objEntSaiVisitasInterno.setStatusLanc(jStatusEntCola.getText());
             if (jStatusEntCola.getText().equals("FINALIZADO")) {
@@ -1310,6 +1313,7 @@ public class TelaEntradaSaidaVisitasInternasInternos extends javax.swing.JIntern
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntradaSaidaVisitasInternasRIManuP1);
         if (codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaVisitasInternasRIManuP1) && codGravarP1 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES")) {
             if (jDatalancamento.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data do lancamento.");
