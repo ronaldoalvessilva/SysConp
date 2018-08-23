@@ -2900,7 +2900,6 @@
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                   <Font name="Tahoma" size="11" style="1"/>
                                 </Property>
-                                <Property name="selected" type="boolean" value="true"/>
                                 <Property name="text" type="java.lang.String" value="Globoso"/>
                                 <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
@@ -2913,6 +2912,7 @@
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                   <Font name="Tahoma" size="11" style="1"/>
                                 </Property>
+                                <Property name="selected" type="boolean" value="true"/>
                                 <Property name="text" type="java.lang.String" value="Fl&#xe1;cido"/>
                                 <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
@@ -2958,13 +2958,11 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jPanel37" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="jPanel38" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jPanel37" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                                   <EmptySpace max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="jPanel38" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -3095,7 +3093,7 @@
                                           <Component id="jQualGenitalia" alignment="2" min="-2" max="-2" attributes="0"/>
                                           <Component id="jRBGenitaliaComAlteracao" alignment="2" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace max="32767" attributes="0"/>
+                                      <EmptySpace pref="19" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -3606,10 +3604,9 @@
                                   <Font name="Tahoma" size="11" style="1"/>
                                 </Property>
                                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                                  <StringArray count="3">
-                                    <StringItem index="0" value="N&#xe3;o reagente"/>
-                                    <StringItem index="1" value="Reagente"/>
-                                    <StringItem index="2" value="N&#xe3;o realizado"/>
+                                  <StringArray count="2">
+                                    <StringItem index="0" value="N&#xe3;o"/>
+                                    <StringItem index="1" value="Sim"/>
                                   </StringArray>
                                 </Property>
                                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -3634,10 +3631,9 @@
                                   <Font name="Tahoma" size="11" style="1"/>
                                 </Property>
                                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                                  <StringArray count="3">
-                                    <StringItem index="0" value="N&#xe3;o reagente"/>
-                                    <StringItem index="1" value="Reagente"/>
-                                    <StringItem index="2" value="N&#xe3;o realizado"/>
+                                  <StringArray count="2">
+                                    <StringItem index="0" value="N&#xe3;o"/>
+                                    <StringItem index="1" value="Sim"/>
                                   </StringArray>
                                 </Property>
                                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -3891,7 +3887,7 @@
                                   <Component id="jRBAcuiVisualPreservado" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jRBAcuiVisulaDiminuido" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="18" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -3955,7 +3951,7 @@
                                   <Component id="jRBAcuAudiPreservado" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jRBAcuidAudDiminuido" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="18" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
