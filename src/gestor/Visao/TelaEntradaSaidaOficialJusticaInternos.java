@@ -1242,6 +1242,7 @@ public class TelaEntradaSaidaOficialJusticaInternos extends javax.swing.JInterna
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntradaSaidaOFJManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaOFJManuP1) && codIncluirP1 == 1) {
             acao = 1;
             Novo();
@@ -1256,6 +1257,7 @@ public class TelaEntradaSaidaOficialJusticaInternos extends javax.swing.JInterna
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntradaSaidaOFJManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaOFJManuP1) && codAlterarP1 == 1) {
             objEntSaiOFInternos.setStatusLanc(jStatusEntCola.getText());
             if (jStatusEntCola.getText().equals("FINALIZADO")) {
@@ -1275,6 +1277,7 @@ public class TelaEntradaSaidaOficialJusticaInternos extends javax.swing.JInterna
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntradaSaidaOFJManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaOFJManuP1) && codExcluirP1 == 1) {
             objEntSaiOFInternos.setStatusLanc(jStatusEntCola.getText());
             if (jStatusEntCola.getText().equals("FINALIZADO")) {
@@ -1289,6 +1292,7 @@ public class TelaEntradaSaidaOficialJusticaInternos extends javax.swing.JInterna
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntradaSaidaOFJManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaOFJManuP1) && codGravarP1 == 1) {
             horaEntradaEncontrada = "";
             horaSaidaEncontrado = "";
