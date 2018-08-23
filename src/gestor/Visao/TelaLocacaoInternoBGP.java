@@ -2156,7 +2156,8 @@ public class TelaLocacaoInternoBGP extends javax.swing.JInternalFrame {
         }
         conecta.abrirConexao();
     }
-     public void buscarAcessoUsuario(String nomeTelaAcesso) {
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS "
