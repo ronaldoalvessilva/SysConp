@@ -245,7 +245,9 @@ public class TelaRelatorioEntradaSaidaVeiculosUnidadePenal extends javax.swing.J
                                     + "ON ITENSVEICULOSUNIDADE.IdFunc=COLABORADOR.IdFunc "
                                     + "INNER JOIN VEICULOS "
                                     + "ON ITENSVEICULOSUNIDADE.IdVeiculo=VEICULOS.IdVeiculo "
-                                    + "WHERE DataSaida BETWEEN'" + dataInicial + "'AND'" + dataFinal + "'ORDER BY PlacaVeiculo,DataSaida");
+                                    + "WHERE DataSaida BETWEEN'" + dataInicial + "' "
+                                    + "AND'" + dataFinal + "' "
+                                    + "ORDER BY PlacaVeiculo,DataSaida,HorarioSaida");
                             HashMap parametros = new HashMap();
                             parametros.put("dataInicial", dataInicial);
                             parametros.put("dataFinal", dataFinal);
@@ -305,7 +307,7 @@ public class TelaRelatorioEntradaSaidaVeiculosUnidadePenal extends javax.swing.J
                         + "ON ITENSVEICULOSUNIDADE.IdFunc=COLABORADOR.IdFunc "
                         + "INNER JOIN VEICULOS "
                         + "ON ITENSVEICULOSUNIDADE.IdVeiculo=VEICULOS.IdVeiculo "
-                        + "WHERE DataSaida BETWEEN'" + dataInicial + "'AND'" + dataFinal + "'AND PlacaVeiculo='" + jPlacaVeiculo.getText()  + "'ORDER BY DataSaida");
+                        + "WHERE DataSaida BETWEEN'" + dataInicial + "'AND'" + dataFinal + "'AND PlacaVeiculo='" + jPlacaVeiculo.getText() + "'ORDER BY DataSaida");
                 HashMap parametros = new HashMap();
                 parametros.put("dataInicial", dataInicial);
                 parametros.put("dataFinal", dataFinal);
