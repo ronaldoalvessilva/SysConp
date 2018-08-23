@@ -57,11 +57,14 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 import org.opencv.core.Core;
+import static gestor.Visao.TelaModuloTriagem.codigoGrupoTRI;
+import static gestor.Visao.TelaModuloTriagem.codigoUserGroupTRI;
 import static gestor.Visao.TelaModuloTriagem.codAbrirTRI;
 import static gestor.Visao.TelaModuloTriagem.codIncluirTRI;
 import static gestor.Visao.TelaModuloTriagem.codAlterarTRI;
 import static gestor.Visao.TelaModuloTriagem.codExcluirTRI;
 import static gestor.Visao.TelaModuloTriagem.codGravarTRI;
+import static gestor.Visao.TelaModuloTriagem.codConcultarTRI;
 import static gestor.Visao.TelaModuloTriagem.codigoUserTRI;
 import static gestor.Visao.TelaModuloTriagem.codUserAcessoTRI;
 import static gestor.Visao.TelaModuloTriagem.nomeGrupoTRI;
@@ -3632,6 +3635,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaCadastroProntuarioManuTRI);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioManuTRI) && codIncluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             verificarParamentrosCrc();
             acao = 1;
@@ -3647,6 +3651,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:  
+        buscarAcessoUsuario(telaCadastroProntuarioManuTRI);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioManuTRI) && codAlterarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             conecta.abrirConexao();
             try {
@@ -3673,6 +3678,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
+        buscarAcessoUsuario(telaCadastroProntuarioManuTRI);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioManuTRI) && codExcluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             verificarEntradaInterno();
         } else {
@@ -3682,6 +3688,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:  
+        buscarAcessoUsuario(telaCadastroProntuarioManuTRI);
         validaCpf(jCPFInterno.getText());
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioManuTRI) && codGravarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             if (jNomeInterno.getText().isEmpty() || jNomeInterno.getText().equals("")) {
@@ -4469,6 +4476,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     private void jBtNovo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovo1ActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaCadastroProntuarioManuTRI);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioManuTRI) && codIncluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             verificarParamentrosCrc();
             acao = 1;
@@ -4484,6 +4492,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     private void jBtAlterar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterar1ActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaCadastroProntuarioManuTRI);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioManuTRI) && codAlterarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             conecta.abrirConexao();
             try {
@@ -4510,6 +4519,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     private void jBtExcluir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluir1ActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaCadastroProntuarioManuTRI);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioManuTRI) && codExcluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             verificarEntradaInterno();
         } else {
@@ -4519,6 +4529,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     private void jBtSalvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvar1ActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaCadastroProntuarioManuTRI);
         validaCpf(jCPFInterno.getText());
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioManuTRI) && codGravarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             if (jNomeInterno.getText().isEmpty() || jNomeInterno.getText().equals("")) {
@@ -7094,6 +7105,43 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             jFotoMinimoEsquerdo.setIcon(new ImageIcon(j.getImage().getScaledInstance(jFotoMinimoEsquerdo.getWidth(), jFotoMinimoEsquerdo.getHeight(), Image.SCALE_DEFAULT)));
         } catch (Exception e) {
         }
+    }
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserTRI = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserTRI + "'");
+            conecta.rs.first();
+            codigoUserGroupTRI = conecta.rs.getInt("IdUsuario");
+            codigoGrupoTRI = conecta.rs.getInt("IdGrupo");
+            nomeGrupoTRI = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserTRI + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoTRI = conecta.rs.getInt("IdUsuario");
+            codAbrirTRI = conecta.rs.getInt("Abrir");
+            codIncluirTRI = conecta.rs.getInt("Incluir");
+            codAlterarTRI = conecta.rs.getInt("Alterar");
+            codExcluirTRI = conecta.rs.getInt("Excluir");
+            codGravarTRI = conecta.rs.getInt("Gravar");
+            codConcultarTRI = conecta.rs.getInt("Consultar");
+            nomeTelaTRI = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 
     /**
