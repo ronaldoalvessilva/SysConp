@@ -1766,7 +1766,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
 
     private void EntSaiAtividadeLaborativaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EntSaiAtividadeLaborativaActionPerformed
         // TODO add your handling code here:   
-         buscarAcessoUsuario(telaEntradaSaidaLABManuP1);
+        buscarAcessoUsuario(telaEntradaSaidaLABManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaLABManuP1) && codAbrirP1 == 1) {
             if (objEntSaiLaborInt == null || objEntSaiLaborInt.isClosed()) {
                 objEntSaiLaborInt = new TelaEntradaSaidaInternosPortaria();
@@ -2770,7 +2770,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
         try {
             objConRegVisita.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {
-        }       
+        }
     }//GEN-LAST:event_ConsultaRegistroVisitasPortariaExtActionPerformed
 
 
