@@ -1142,6 +1142,7 @@ public class TelaEntradaSaidaVisitasReligiosas extends javax.swing.JInternalFram
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntradaSaidaVisitasReligiosasManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaVisitasReligiosasManuP1) && codIncluirP1 == 1) {
             acao = 1;
             bloquearCamposPesquisa();
@@ -1158,6 +1159,7 @@ public class TelaEntradaSaidaVisitasReligiosas extends javax.swing.JInternalFram
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntradaSaidaVisitasReligiosasManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaVisitasReligiosasManuP1) && codAlterarP1 == 1) {
             verificarInstituicao();
             objEntSaiVisitasRel.setStatusLanc(jStatusEntCola.getText());
@@ -1180,6 +1182,7 @@ public class TelaEntradaSaidaVisitasReligiosas extends javax.swing.JInternalFram
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntradaSaidaVisitasReligiosasManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaVisitasReligiosasManuP1) && codExcluirP1 == 1) {
             objEntSaiVisitasRel.setStatusLanc(jStatusEntCola.getText());
             if (jStatusEntCola.getText().equals("FINALIZADO")) {
@@ -1194,6 +1197,7 @@ public class TelaEntradaSaidaVisitasReligiosas extends javax.swing.JInternalFram
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here: 
+        buscarAcessoUsuario(telaEntradaSaidaVisitasReligiosasManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaVisitasReligiosasManuP1) && codGravarP1 == 1) {
             if (jDatalancamento.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data do lancamento.");
