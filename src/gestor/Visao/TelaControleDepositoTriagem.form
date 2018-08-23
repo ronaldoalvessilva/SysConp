@@ -498,7 +498,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jPanel6" max="32767" attributes="0"/>
-                          <Component id="jPanel7" pref="0" max="32767" attributes="0"/>
+                          <Component id="jPanel7" pref="423" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -997,7 +997,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="jPanel9" max="32767" attributes="0"/>
-                          <Component id="jPanel10" pref="0" max="32767" attributes="0"/>
+                          <Component id="jPanel10" pref="423" max="32767" attributes="0"/>
                           <Component id="jScrollPane2" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -1510,8 +1510,8 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace pref="16" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jBtBuscarInterno" linkSize="4" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jBtAuditoriaInternos" linkSize="4" min="-2" max="-2" attributes="0"/>
+                      <Component id="jBtBuscarInterno" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jBtAuditoriaInternos" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>

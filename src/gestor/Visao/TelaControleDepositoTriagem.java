@@ -18,19 +18,18 @@ import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
-import static gestor.Visao.TelaModuloSeguranca.codIncluir;
-import static gestor.Visao.TelaModuloSeguranca.codUserAcesso;
-import static gestor.Visao.TelaModuloSeguranca.codigoUser;
-import static gestor.Visao.TelaModuloSeguranca.nomeGrupo;
-import static gestor.Visao.TelaModuloSeguranca.nomeTela;
-import static gestor.Visao.TelaModuloTriagem.codigoUserGroupTRI;
 import static gestor.Visao.TelaModuloTriagem.codigoGrupoTRI;
+import static gestor.Visao.TelaModuloTriagem.codigoUserGroupTRI;
 import static gestor.Visao.TelaModuloTriagem.codAbrirTRI;
-import static gestor.Visao.TelaModuloTriagem.codConcultarTRI;
+import static gestor.Visao.TelaModuloTriagem.codIncluirTRI;
 import static gestor.Visao.TelaModuloTriagem.codAlterarTRI;
 import static gestor.Visao.TelaModuloTriagem.codExcluirTRI;
 import static gestor.Visao.TelaModuloTriagem.codGravarTRI;
-import static gestor.Visao.TelaModuloTriagem.codIncluirTRI;
+import static gestor.Visao.TelaModuloTriagem.codConcultarTRI;
+import static gestor.Visao.TelaModuloTriagem.codigoUserTRI;
+import static gestor.Visao.TelaModuloTriagem.codUserAcessoTRI;
+import static gestor.Visao.TelaModuloTriagem.nomeGrupoTRI;
+import static gestor.Visao.TelaModuloTriagem.nomeTelaTRI;
 import static gestor.Visao.TelaModuloTriagem.telaControleDepositoInternosTRI;
 import static gestor.Visao.TelaModuloTriagem.telaControleDepositoTRI;
 import java.awt.Color;
@@ -1139,7 +1138,8 @@ public class TelaControleDepositoTriagem extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaControleDepositoTRI) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        buscarAcessoUsuario(telaControleDepositoTRI);
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaControleDepositoTRI) && codIncluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             acao = 1;
             Novo();
             corCampos();
@@ -1153,7 +1153,8 @@ public class TelaControleDepositoTriagem extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaControleDepositoTRI) && codAlterarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        buscarAcessoUsuario(telaControleDepositoTRI);
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaControleDepositoTRI) && codAlterarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             objDepoPort.setStatusLanc(jStatusLanc.getText());
             if (jStatusLanc.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse Lançamento não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -1172,7 +1173,8 @@ public class TelaControleDepositoTriagem extends javax.swing.JInternalFrame {
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaControleDepositoTRI) && codExcluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        buscarAcessoUsuario(telaControleDepositoTRI);
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaControleDepositoTRI) && codExcluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             objDepoPort.setStatusLanc(jStatusLanc.getText());
             if (jStatusLanc.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse Lançamento não poderá ser excluído, o mesmo encontra-se FINALIZADO");
@@ -1186,7 +1188,8 @@ public class TelaControleDepositoTriagem extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaControleDepositoTRI) && codGravarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        buscarAcessoUsuario(telaControleDepositoTRI);
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaControleDepositoTRI) && codGravarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             if (jDataLancamento.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data de lançamento.");
                 jDataLancamento.requestFocus();
@@ -1260,7 +1263,7 @@ public class TelaControleDepositoTriagem extends javax.swing.JInternalFrame {
     private void jBtNovoInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoInternoActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaControleDepositoInternosTRI);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaControleDepositoInternosTRI) && codIncluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaControleDepositoInternosTRI) && codIncluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             objDepoPort.setStatusLanc(jStatusLanc.getText());
             if (jStatusLanc.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse interno não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -1279,7 +1282,7 @@ public class TelaControleDepositoTriagem extends javax.swing.JInternalFrame {
     private void jBtAlterarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarInternoActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaControleDepositoInternosTRI);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaControleDepositoInternosTRI) && codAlterarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaControleDepositoInternosTRI) && codAlterarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             objDepoPort.setStatusLanc(jStatusLanc.getText());
             if (jStatusLanc.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse interno não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -1302,7 +1305,7 @@ public class TelaControleDepositoTriagem extends javax.swing.JInternalFrame {
     private void jBtExcluirInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirInternoActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaControleDepositoInternosTRI);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaControleDepositoInternosTRI) && codExcluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaControleDepositoInternosTRI) && codExcluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -1337,7 +1340,7 @@ public class TelaControleDepositoTriagem extends javax.swing.JInternalFrame {
     private void jBtSalvarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarInternoActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaControleDepositoInternosTRI);
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaControleDepositoInternosTRI) && codExcluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaControleDepositoInternosTRI) && codExcluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             DecimalFormat valorReal = new DecimalFormat("###,##00.0");
             valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
             if (jNomeInterno.getText().equals("")) {
@@ -2140,33 +2143,33 @@ public class TelaControleDepositoTriagem extends javax.swing.JInternalFrame {
             conecta.executaSQL("SELECT * FROM USUARIOS "
                     + "WHERE NomeUsuario='" + nameUser + "'");
             conecta.rs.first();
-            codigoUser = conecta.rs.getInt("IdUsuario");
+            codigoUserTRI = conecta.rs.getInt("IdUsuario");
         } catch (Exception e) {
         }
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
                     + "INNER JOIN GRUPOUSUARIOS "
                     + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                    + "WHERE IdUsuario='" + codigoUser + "'");
+                    + "WHERE IdUsuario='" + codigoUserTRI + "'");
             conecta.rs.first();
             codigoUserGroupTRI = conecta.rs.getInt("IdUsuario");
             codigoGrupoTRI = conecta.rs.getInt("IdGrupo");
-            nomeGrupo = conecta.rs.getString("NomeGrupo");
+            nomeGrupoTRI = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
         }
         try {
             conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
-                    + "WHERE IdUsuario='" + codigoUser + "' "
+                    + "WHERE IdUsuario='" + codigoUserTRI + "' "
                     + "AND NomeTela='" + pTela + "'");
             conecta.rs.first();
-            codUserAcesso = conecta.rs.getInt("IdUsuario");
+            codUserAcessoTRI = conecta.rs.getInt("IdUsuario");
             codAbrirTRI = conecta.rs.getInt("Abrir");
             codIncluirTRI = conecta.rs.getInt("Incluir");
             codAlterarTRI = conecta.rs.getInt("Alterar");
             codExcluirTRI = conecta.rs.getInt("Excluir");
             codGravarTRI = conecta.rs.getInt("Gravar");
             codConcultarTRI = conecta.rs.getInt("Consultar");
-            nomeTela = conecta.rs.getString("NomeTela");
+            nomeTelaTRI = conecta.rs.getString("NomeTela");
         } catch (Exception e) {
         }
         conecta.desconecta();
