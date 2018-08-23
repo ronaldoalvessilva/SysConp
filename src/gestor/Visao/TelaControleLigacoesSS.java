@@ -869,7 +869,7 @@ public class TelaControleLigacoesSS extends javax.swing.JInternalFrame {
                             objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
                             objRegAtend.setAtendido(atendido);
                             objRegAtend.setDataAtendimento(jDataControle.getDate());
-                            objRegAtend.setIdAtend(Integer.valueOf(jIDAtend.getText()));
+                            objRegAtend.setIdAtend(Integer.valueOf(jIDControle.getText()));
                             //
                             objRegAtend.setUsuarioUp(nameUser);
                             objRegAtend.setDataUp(dataModFinal);
