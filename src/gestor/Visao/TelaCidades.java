@@ -17,17 +17,20 @@ import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloTriagem.telaCadastroCidadesTRI;
-import static gestor.Visao.TelaModuloTriagem.telaCadastroPaisesTRI;
 import java.awt.Color;
 import java.sql.*;
 import javax.swing.text.MaskFormatter;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import static gestor.Visao.TelaModuloTriagem.codigoGrupoTRI;
+import static gestor.Visao.TelaModuloTriagem.codigoUserGroupTRI;
+import static gestor.Visao.TelaModuloTriagem.codAbrirTRI;
 import static gestor.Visao.TelaModuloTriagem.codIncluirTRI;
 import static gestor.Visao.TelaModuloTriagem.codAlterarTRI;
 import static gestor.Visao.TelaModuloTriagem.codExcluirTRI;
 import static gestor.Visao.TelaModuloTriagem.codGravarTRI;
+import static gestor.Visao.TelaModuloTriagem.codConcultarTRI;
 import static gestor.Visao.TelaModuloTriagem.codigoUserTRI;
 import static gestor.Visao.TelaModuloTriagem.codUserAcessoTRI;
 import static gestor.Visao.TelaModuloTriagem.nomeGrupoTRI;
@@ -526,6 +529,7 @@ public class TelaCidades extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaCadastroCidadesTRI);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroCidadesTRI) && codIncluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             acao = 1;
             Novo();
@@ -539,7 +543,8 @@ public class TelaCidades extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
-        // TODO add your handling code here: 
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaCadastroCidadesTRI);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroCidadesTRI) && codAlterarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             conecta.abrirConexao();
             try {
@@ -566,6 +571,7 @@ public class TelaCidades extends javax.swing.JInternalFrame {
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here   
+        buscarAcessoUsuario(telaCadastroCidadesTRI);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroCidadesTRI) && codExcluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             conecta.abrirConexao();
             try {
@@ -587,6 +593,7 @@ public class TelaCidades extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaCadastroCidadesTRI);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroCidadesTRI) && codGravarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             if (jNomeCidade.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Nome da Cidade não podem ser em branco");
@@ -1139,5 +1146,43 @@ public class TelaCidades extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jIdCidade.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserTRI = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserTRI + "'");
+            conecta.rs.first();
+            codigoUserGroupTRI = conecta.rs.getInt("IdUsuario");
+            codigoGrupoTRI = conecta.rs.getInt("IdGrupo");
+            nomeGrupoTRI = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserTRI + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoTRI = conecta.rs.getInt("IdUsuario");
+            codAbrirTRI = conecta.rs.getInt("Abrir");
+            codIncluirTRI = conecta.rs.getInt("Incluir");
+            codAlterarTRI = conecta.rs.getInt("Alterar");
+            codExcluirTRI = conecta.rs.getInt("Excluir");
+            codGravarTRI = conecta.rs.getInt("Gravar");
+            codConcultarTRI = conecta.rs.getInt("Consultar");
+            nomeTelaTRI = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }
