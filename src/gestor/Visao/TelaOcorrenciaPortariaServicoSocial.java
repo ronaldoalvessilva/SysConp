@@ -1788,6 +1788,7 @@ public class TelaOcorrenciaPortariaServicoSocial extends javax.swing.JInternalFr
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaOcorrenciaDisciplinaVisitasManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaOcorrenciaDisciplinaVisitasManuP1) && codIncluirP1 == 1) {
             acao = 1;
             Novo();
@@ -1805,6 +1806,7 @@ public class TelaOcorrenciaPortariaServicoSocial extends javax.swing.JInternalFr
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaOcorrenciaDisciplinaVisitasManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaOcorrenciaDisciplinaVisitasManuP1) && codAlterarP1 == 1) {
             objRegInd.setStatusReg(jStatusOcorrencia.getText());
             if (jStatusOcorrencia.getText().equals("FINALIZADO")) {
@@ -1823,6 +1825,7 @@ public class TelaOcorrenciaPortariaServicoSocial extends javax.swing.JInternalFr
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaOcorrenciaDisciplinaVisitasManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaOcorrenciaDisciplinaVisitasManuP1) && codExcluirP1 == 1) {
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
@@ -1855,6 +1858,7 @@ public class TelaOcorrenciaPortariaServicoSocial extends javax.swing.JInternalFr
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaOcorrenciaDisciplinaVisitasManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaOcorrenciaDisciplinaVisitasManuP1) && codGravarP1 == 1) {
             if (jDataRegistro.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data do registro.");
