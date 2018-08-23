@@ -975,6 +975,7 @@ public class TelaPreLocaoInternos extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaPreLocacaoInternosManuTRI);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaPreLocacaoInternosManuTRI) && codIncluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
@@ -992,6 +993,7 @@ public class TelaPreLocaoInternos extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaPreLocacaoInternosManuTRI);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaPreLocacaoInternosManuTRI) && codAlterarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             objPreLocacao.setStatusReg(jStatusReg.getText());
             if (jStatusReg.getText().equals("FINALIZADO")) {
@@ -1012,6 +1014,7 @@ public class TelaPreLocaoInternos extends javax.swing.JInternalFrame {
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaPreLocacaoInternosManuTRI);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaPreLocacaoInternosManuTRI) && codExcluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             objPreLocacao.setStatusReg(jStatusReg.getText());
             if (jStatusReg.getText().equals("FINALIZADO")) {
@@ -1026,6 +1029,7 @@ public class TelaPreLocaoInternos extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaPreLocacaoInternosManuTRI);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaPreLocacaoInternosManuTRI) && codExcluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             if (jDataReg.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data do Registro.");
