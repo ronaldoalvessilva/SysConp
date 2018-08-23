@@ -26,7 +26,7 @@ import static gestor.Visao.TelaModuloBaseUm.codUserAcessoB1;
 import static gestor.Visao.TelaModuloBaseUm.codigoUserB1;
 import static gestor.Visao.TelaModuloBaseUm.nomeGrupoB1;
 import static gestor.Visao.TelaModuloBaseUm.nomeTelaB1;
-import static gestor.Visao.TelaModuloBaseUm.telaPavilhaoB1;
+import static gestor.Visao.TelaModuloBaseUm.telaCelasB1;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
