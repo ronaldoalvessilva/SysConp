@@ -1433,6 +1433,7 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
 
     private void jBtSalvarlancActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarlancActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntredaInternosManuTRI);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaEntredaInternosManuTRI) && codGravarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             if (jDescricaoOp.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o nome da operação de entrada");
@@ -1482,6 +1483,8 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtSalvarlancActionPerformed
 
     private void jBtExcluirlancActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirlancActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntredaInternosManuTRI);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaEntredaInternosManuTRI) && codExcluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             objEntLote.setStatusEntrada(jStatusEntrada.getText());
             if (jStatusEntrada.getText().equals("FINALIZADO")) {
@@ -1496,6 +1499,7 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
 
     private void jBtAlterarlancActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarlancActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntredaInternosManuTRI);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaEntredaInternosManuTRI) && codAlterarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             objEntLote.setStatusEntrada(jStatusEntrada.getText());
             if (jStatusEntrada.getText().equals("FINALIZADO")) {
@@ -1515,6 +1519,7 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
 
     private void jBtNovolancActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovolancActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntredaInternosManuTRI);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaEntredaInternosManuTRI) && codIncluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             acao = 1;
             Novo();
