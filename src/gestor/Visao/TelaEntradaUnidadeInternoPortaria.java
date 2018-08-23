@@ -924,6 +924,7 @@ public class TelaEntradaUnidadeInternoPortaria extends javax.swing.JInternalFram
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntradaInternoUniPRIManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaInternoUniPRIManuP1) && codIncluirP1 == 1) {
             JOptionPane.showMessageDialog(rootPane, "ATENÇÃO: Antes de realizar a entrada dos internos que chegaram pela primeira vez na unidade, faça uma pesquisa\npara ter certeza que esses mesmos internos não sejam evadidos da unidade penal. Utilize o botão LOCALIZAR logo\n abaixo para realizar a pesquisa.");
             acao = 1;
@@ -939,6 +940,7 @@ public class TelaEntradaUnidadeInternoPortaria extends javax.swing.JInternalFram
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntradaInternoUniPRIManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaInternoUniPRIManuP1) && codAlterarP1 == 1) {
             objEntIntPort.setStatusLanc(jStatusLanc.getText());
             if (jStatusLanc.getText().equals("FINALIZADO")) {
@@ -958,6 +960,7 @@ public class TelaEntradaUnidadeInternoPortaria extends javax.swing.JInternalFram
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntradaInternoUniPRIManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaInternoUniPRIManuP1) && codExcluirP1 == 1) {
             objEntIntPort.setStatusLanc(jStatusLanc.getText());
             if (jStatusLanc.getText().equals("FINALIZADO")) {
@@ -972,6 +975,7 @@ public class TelaEntradaUnidadeInternoPortaria extends javax.swing.JInternalFram
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntradaInternoUniPRIManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaInternoUniPRIManuP1) && codGravarP1 == 1) {
             if (jDataLanc.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data do lançamento.");
