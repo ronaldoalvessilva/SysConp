@@ -565,7 +565,7 @@ public class TelaAtividadeRealizadas extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (flag == 1) {
-            String DescicaoAtiv = "" + jTabelaAtividades.getValueAt(jTabelaAtividades.getSelectedRow(), 1);
+            String DescicaoAtiv = "" + jTabelaAtividades.getValueAt(jTabelaAtividades.getSelectedRow(), 3);
             jPesqDescricao.setText(DescicaoAtiv);
             jDataCadastro.setDate(jDataCadastro.getDate());
             jBtNovo.setEnabled(!true);
