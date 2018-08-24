@@ -7,18 +7,24 @@ package gestor.Visao;
 
 import gestor.Controle.ControleAtendimentoFamiliar;
 import gestor.Controle.ControleLogSistema;
+import gestor.Controle.ControleRegistroAtendimentoInternoBio;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.AtendimentoFamiliar;
 import gestor.Modelo.LogSistema;
+import gestor.Modelo.RegistroAtendimentoInternos;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloServicoSocial.codAbrirSS;
 import static gestor.Visao.TelaModuloServicoSocial.codAlterarSS;
+import static gestor.Visao.TelaModuloServicoSocial.codConsultarSS;
 import static gestor.Visao.TelaModuloServicoSocial.codExcluirSS;
 import static gestor.Visao.TelaModuloServicoSocial.codGravarSS;
 import static gestor.Visao.TelaModuloServicoSocial.codIncluirSS;
 import static gestor.Visao.TelaModuloServicoSocial.codUserAcessoSS;
+import static gestor.Visao.TelaModuloServicoSocial.codigoGrupoSS;
+import static gestor.Visao.TelaModuloServicoSocial.codigoUserGroupSS;
 import static gestor.Visao.TelaModuloServicoSocial.codigoUserSS;
 import static gestor.Visao.TelaModuloServicoSocial.nomeGrupoSS;
 import static gestor.Visao.TelaModuloServicoSocial.nomeTelaSS;
@@ -29,6 +35,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
@@ -44,6 +51,10 @@ public class TelaAtendimentoFamiliar extends javax.swing.JInternalFrame {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     AtendimentoFamiliar objAtendf = new AtendimentoFamiliar();
     ControleAtendimentoFamiliar control = new ControleAtendimentoFamiliar();
+    // INFORMAR QUE O INTERNO FOI ATENDIDO NA ADMISSÃO E NA EVOLUÇÃO
+    RegistroAtendimentoInternos objRegAtend = new RegistroAtendimentoInternos();
+    ControleRegistroAtendimentoInternoBio controlRegAtend = new ControleRegistroAtendimentoInternoBio();
+
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
@@ -61,6 +72,14 @@ public class TelaAtendimentoFamiliar extends javax.swing.JInternalFrame {
     String caminhoVisita;
     String statusAtend = "ABERTO";
     int count = 0;
+    // VARIVAEIS PARA SABER SE O INTERNO FOI REGISTRADO COM BIOMETRIA      
+    String dataReg = "";
+    Date dataRegistro = null;
+    String codigoInternoAtend = "";
+    String atendido = "Sim";
+    String opcao = "Não";
+    public static int codigoDepartamentoSS = 0;
+    String tipoAtendimentoAdm = "Atendimento Fafmiliar";
 
     /**
      * Creates new form TelaAtendimentoFamiliar
@@ -1134,7 +1153,8 @@ public class TelaAtendimentoFamiliar extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaAtendimentoFamiliaSS) && codIncluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
+        buscarAcessoUsuario(telaAtendimentoFamiliaSS);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaAtendimentoFamiliaSS) && codIncluirSS == 1) {
             acao = 1;
             Novo();
             corCampo();
@@ -1148,7 +1168,8 @@ public class TelaAtendimentoFamiliar extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaAtendimentoFamiliaSS) && codAlterarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
+        buscarAcessoUsuario(telaAtendimentoFamiliaSS);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaAtendimentoFamiliaSS) && codAlterarSS == 1) {
             acao = 2;
             objAtendf.setStatusAtend(jStatusAtendf.getText());
             if (jStatusAtendf.getText().equals("FINALIZADO")) {
@@ -1167,7 +1188,8 @@ public class TelaAtendimentoFamiliar extends javax.swing.JInternalFrame {
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaAtendimentoFamiliaSS) && codExcluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
+        buscarAcessoUsuario(telaAtendimentoFamiliaSS);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaAtendimentoFamiliaSS) && codExcluirSS == 1) {
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -1193,7 +1215,8 @@ public class TelaAtendimentoFamiliar extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaAtendimentoFamiliaSS) && codGravarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
+        buscarAcessoUsuario(telaAtendimentoFamiliaSS);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaAtendimentoFamiliaSS) && codGravarSS == 1) {
             if (jDataAtendf.getDate() == null) {
                 JOptionPane.showMessageDialog(null, "Informe a data do atendimento familiar.");
                 jDataAtendf.requestFocus();
@@ -1226,6 +1249,19 @@ public class TelaAtendimentoFamiliar extends javax.swing.JInternalFrame {
                             objAtendf.setNomeInterno(jNomeInterno.getText());
                             control.incluirAtendFamiliar(objAtendf);
                             buscarCodAtendf();
+                            // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
+                            objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                            objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
+                            objRegAtend.setIdDepartamento(codigoDepartamentoSS);
+                            objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                            objRegAtend.setAtendido(atendido);
+                            objRegAtend.setDataAtendimento(jDataAtendf.getDate());
+                            objRegAtend.setIdAtend(Integer.valueOf(jIDAtendf.getText()));
+                            //
+                            objRegAtend.setUsuarioUp(nameUser);
+                            objRegAtend.setDataUp(dataModFinal);
+                            objRegAtend.setHorarioUp(horaMov);
+                            controlRegAtend.alterarRegAtend(objRegAtend);
                             objLog();
                             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                             JOptionPane.showMessageDialog(rootPane, "Atendimento gravado com sucesso.\nCaso já tenha concluido o atendimento,\nclique no botão finalizar para evitar que\n o mesmo seja alterado ou excluido.");
@@ -1933,4 +1969,43 @@ public class TelaAtendimentoFamiliar extends javax.swing.JInternalFrame {
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
     }
+
+    public void buscarAcessoUsuario(String nomeTela) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserSS = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserSS + "'");
+            conecta.rs.first();
+            codigoUserGroupSS = conecta.rs.getInt("IdUsuario");
+            codigoGrupoSS = conecta.rs.getInt("IdGrupo");
+            nomeGrupoSS = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserSS + "' "
+                    + "AND NomeTela='" + nomeTela + "'");
+            conecta.rs.first();
+            codUserAcessoSS = conecta.rs.getInt("IdUsuario");
+            codAbrirSS = conecta.rs.getInt("Abrir");
+            codIncluirSS = conecta.rs.getInt("Incluir");
+            codAlterarSS = conecta.rs.getInt("Alterar");
+            codExcluirSS = conecta.rs.getInt("Excluir");
+            codGravarSS = conecta.rs.getInt("Gravar");
+            codConsultarSS = conecta.rs.getInt("Consultar");
+            nomeTelaSS = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
 }
