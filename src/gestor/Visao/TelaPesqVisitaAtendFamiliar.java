@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -27,15 +29,14 @@ import javax.swing.ListSelectionModel;
 public class TelaPesqVisitaAtendFamiliar extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
-    
+
     int flag;
     String caminho;
     String nomeVisita;
     String dataCadastro;
-    String dataEntrada;   
+    String dataEntrada;
     String statusVisita = "Ativo";
     String idInt;
-    
 
     /**
      * Creates new form TelaPesquisaEntradaInternos
@@ -67,15 +68,16 @@ public class TelaPesqVisitaAtendFamiliar extends javax.swing.JInternalFrame {
         setClosable(true);
         setTitle("...::: Pesquisa de Internos");
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar Visitas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 255)));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar Visitas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jPesqNome.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Pesquisa Por Nome");
 
-        jBtNome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/pesq_atv.png"))); // NOI18N
+        jBtNome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtNome.setToolTipText("Pesquisa Por Nome");
+        jBtNome.setContentAreaFilled(false);
         jBtNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtNomeActionPerformed(evt);
@@ -98,38 +100,35 @@ public class TelaPesqVisitaAtendFamiliar extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jCheckBox1))
+                        .addComponent(jPesqNome)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPesqNome, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jCheckBox1)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jCheckBox1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jBtNome)
                     .addComponent(jPesqNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCheckBox1)
-                .addContainerGap(10, Short.MAX_VALUE))
+                    .addComponent(jBtNome))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabelaVisitas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaVisitas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+                {null, null, null, null}
             },
             new String [] {
-
+                "Código", "Nome da Visita", "Parentesco", "Data Cadastro"
             }
         ));
         jTabelaVisitas.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -138,6 +137,16 @@ public class TelaPesqVisitaAtendFamiliar extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(jTabelaVisitas);
+        if (jTabelaVisitas.getColumnModel().getColumnCount() > 0) {
+            jTabelaVisitas.getColumnModel().getColumn(0).setMinWidth(50);
+            jTabelaVisitas.getColumnModel().getColumn(0).setMaxWidth(50);
+            jTabelaVisitas.getColumnModel().getColumn(1).setMinWidth(250);
+            jTabelaVisitas.getColumnModel().getColumn(1).setMaxWidth(250);
+            jTabelaVisitas.getColumnModel().getColumn(2).setMinWidth(100);
+            jTabelaVisitas.getColumnModel().getColumn(2).setMaxWidth(100);
+            jTabelaVisitas.getColumnModel().getColumn(3).setMinWidth(80);
+            jTabelaVisitas.getColumnModel().getColumn(3).setMaxWidth(80);
+        }
 
         jBtSair.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtSair.setForeground(new java.awt.Color(255, 0, 0));
@@ -166,15 +175,14 @@ public class TelaPesqVisitaAtendFamiliar extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jBtEnviar)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jBtEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtSair)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(jBtSair))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtEnviar, jBtSair});
@@ -184,7 +192,7 @@ public class TelaPesqVisitaAtendFamiliar extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtSair)
@@ -203,11 +211,11 @@ public class TelaPesqVisitaAtendFamiliar extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
 
-        setBounds(200, 10, 440, 346);
+        setBounds(300, 30, 513, 309);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNomeActionPerformed
@@ -218,7 +226,9 @@ public class TelaPesqVisitaAtendFamiliar extends javax.swing.JInternalFrame {
             jPesqNome.requestFocus();
         } else {
             jTabelaVisitas.setVisible(true);
-            preencherTabelaNome("SELECT * FROM VISITASINTERNO WHERE NomeVisita LIKE'%" + jPesqNome.getText() + "%'AND StatusVisita='" + statusVisita + "'");
+            preencherTabelaNome("SELECT * FROM VISITASINTERNO "
+                    + "WHERE NomeVisita LIKE'%" + jPesqNome.getText() + "%' "
+                    + "AND StatusVisita='" + statusVisita + "'");
         }
     }//GEN-LAST:event_jBtNomeActionPerformed
 
@@ -244,18 +254,20 @@ public class TelaPesqVisitaAtendFamiliar extends javax.swing.JInternalFrame {
         } else {
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM VISITASINTERNO WHERE VISITASINTERNO.NomeVisita LIKE'" + nomeVisita + "%'AND VISITASINTERNO.IdVisita='" + idInt + "'");
+                conecta.executaSQL("SELECT * FROM VISITASINTERNO "
+                        + "WHERE VISITASINTERNO.NomeVisita LIKE'" + nomeVisita + "%' "
+                        + "AND VISITASINTERNO.IdVisita='" + idInt + "'");
                 conecta.rs.first();
-                jIDVisita.setText(String.valueOf(conecta.rs.getInt("IdVisita"))); 
+                jIDVisita.setText(String.valueOf(conecta.rs.getInt("IdVisita")));
                 jNomeVisita.setText(conecta.rs.getString("NomeVisita"));
                 caminho = conecta.rs.getString("ImagemVisita");
                 javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
                 FotoVisita.setIcon(i);
-                FotoVisita.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoVisita.getWidth(), FotoVisita.getHeight(), Image.SCALE_DEFAULT)));                
+                FotoVisita.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoVisita.getWidth(), FotoVisita.getHeight(), Image.SCALE_DEFAULT)));
                 jParentesco.setText(conecta.rs.getString("ParentescoVisita"));
-                jRGVisita.setText(conecta.rs.getString("RgVisita"));               
-                jDataCadastro.setDate(conecta.rs.getDate("DataCadVisita"));                                                
-                jDataValidadeAntec.setDate(conecta.rs.getDate("DataValiAnte"));                                
+                jRGVisita.setText(conecta.rs.getString("RgVisita"));
+                jDataCadastro.setDate(conecta.rs.getDate("DataCadVisita"));
+                jDataValidadeAntec.setDate(conecta.rs.getDate("DataValiAnte"));
                 conecta.desconecta();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa FAMILIAR" + e);
@@ -268,10 +280,10 @@ public class TelaPesqVisitaAtendFamiliar extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            jTabelaVisitas.setVisible(true);
-            this.preencherTodosInternos();
+            this.preencherTodosInternos("SELECT * FROM VISITASINTERNO "
+                    + "WHERE StatusVisita='" + statusVisita + "'");
         } else {
-            jTabelaVisitas.setVisible(!true);
+            limparTabela();
         }
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
@@ -292,18 +304,18 @@ public class TelaPesqVisitaAtendFamiliar extends javax.swing.JInternalFrame {
 
     public void preencherTabelaNome(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"ID", "Nome da Visita", "Parentesco", "Data Cadastro"};
+        String[] Colunas = new String[]{"Código", "Nome da Visita", "Parentesco", "Data Cadastro"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
             conecta.rs.first();
-            do {                               
+            do {
                 // Formatar a data no formato Brasil
                 dataCadastro = conecta.rs.getString("DataCadVisita");
                 String diac = dataCadastro.substring(8, 10);
                 String mesc = dataCadastro.substring(5, 7);
                 String anoc = dataCadastro.substring(0, 4);
-                dataCadastro = diac + "/" + mesc + "/" + anoc;                
+                dataCadastro = diac + "/" + mesc + "/" + anoc;
                 dados.add(new Object[]{conecta.rs.getInt("IdVisita"), conecta.rs.getString("NomeVisita"), conecta.rs.getString("ParentescoVisita"), dataCadastro});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
@@ -322,24 +334,25 @@ public class TelaPesqVisitaAtendFamiliar extends javax.swing.JInternalFrame {
         jTabelaVisitas.getTableHeader().setReorderingAllowed(false);
         jTabelaVisitas.setAutoResizeMode(jTabelaVisitas.AUTO_RESIZE_OFF);
         jTabelaVisitas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCamposTabela();
         conecta.desconecta();
     }
 
     //Preencher tabela com todos os INTERNOS
-    public void preencherTodosInternos() {
+    public void preencherTodosInternos(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"ID", "Nome da Visita", "Parentesco", "Data Cadastro"};
+        String[] Colunas = new String[]{"Código", "Nome da Visita", "Parentesco", "Data Cadastro"};
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM VISITASINTERNO WHERE StatusVisita='" + statusVisita + "'");
+            conecta.executaSQL(sql);
             conecta.rs.first();
-            do {                               
+            do {
                 // Formatar a data no formato Brasil
                 dataCadastro = conecta.rs.getString("DataCadVisita");
                 String diac = dataCadastro.substring(8, 10);
                 String mesc = dataCadastro.substring(5, 7);
                 String anoc = dataCadastro.substring(0, 4);
-                dataCadastro = diac + "/" + mesc + "/" + anoc;                
+                dataCadastro = diac + "/" + mesc + "/" + anoc;
                 dados.add(new Object[]{conecta.rs.getInt("IdVisita"), conecta.rs.getString("NomeVisita"), conecta.rs.getString("ParentescoVisita"), dataCadastro});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
@@ -358,6 +371,39 @@ public class TelaPesqVisitaAtendFamiliar extends javax.swing.JInternalFrame {
         jTabelaVisitas.getTableHeader().setReorderingAllowed(false);
         jTabelaVisitas.setAutoResizeMode(jTabelaVisitas.AUTO_RESIZE_OFF);
         jTabelaVisitas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCamposTabela();
         conecta.desconecta();
-    }   
+    }
+
+    public void limparTabela() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Nome da Visita", "Parentesco", "Data Cadastro"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaVisitas.setModel(modelo);
+        jTabelaVisitas.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaVisitas.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaVisitas.getColumnModel().getColumn(1).setPreferredWidth(250);
+        jTabelaVisitas.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaVisitas.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTabelaVisitas.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaVisitas.getColumnModel().getColumn(3).setPreferredWidth(80);
+        jTabelaVisitas.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaVisitas.getTableHeader().setReorderingAllowed(false);
+        jTabelaVisitas.setAutoResizeMode(jTabelaVisitas.AUTO_RESIZE_OFF);
+        jTabelaVisitas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
+    }
+
+    public void alinharCamposTabela() {
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        //
+        jTabelaVisitas.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaVisitas.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+
+    }
 }
