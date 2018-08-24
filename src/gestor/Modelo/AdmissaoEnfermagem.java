@@ -77,11 +77,12 @@ public class AdmissaoEnfermagem {
     private String sifilis;
     private String diabetes;
     private String hipertensao;
+    private String tuberculose;
 
     public AdmissaoEnfermagem() {
     }
 
-    public AdmissaoEnfermagem(int idLanc, String statusLanc, Date dataLanc, int idInternoCrc, String nomeInterno, int estadoEmocional, int sonoRepouso, int nivelConciencia, String pressaoArterial, String hemograma, String temperatura, String frequenciaRespitatoria, String peso, String frequenciaCardiaca, String usaMedicamentos, String qualMedicacao, int locomocao, int acuidadeVisual, int acuidadeAuditiva, int funcaoMotora, String qualFuncaoMotora, int falaLinguagem, String qualFala, int pele, int mucosa, String tipoPele, String localizacao, int cabelos, int boca, int funcaoRespiratoria, int torax, int funcaoIntestinal, String diasConstipado, int abdome, int funcaoVesical, int genitalia, String qualGenitalia, String vacinado, String quaisVacinas, String vdrl, String hepatiteC, String hepatiteB, String hiv, String cirurgias, String quaisCirurgias, String usuarioDrogas, String quaisDrogas, String portadorDoenca, String quaisDoencas, String Alergias, String quaisAlergias, String observacao, String deptoMedico, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento, String sifilis, String diabetes, String hipertensao) {
+    public AdmissaoEnfermagem(int idLanc, String statusLanc, Date dataLanc, int idInternoCrc, String nomeInterno, int estadoEmocional, int sonoRepouso, int nivelConciencia, String pressaoArterial, String hemograma, String temperatura, String frequenciaRespitatoria, String peso, String frequenciaCardiaca, String usaMedicamentos, String qualMedicacao, int locomocao, int acuidadeVisual, int acuidadeAuditiva, int funcaoMotora, String qualFuncaoMotora, int falaLinguagem, String qualFala, int pele, int mucosa, String tipoPele, String localizacao, int cabelos, int boca, int funcaoRespiratoria, int torax, int funcaoIntestinal, String diasConstipado, int abdome, int funcaoVesical, int genitalia, String qualGenitalia, String vacinado, String quaisVacinas, String vdrl, String hepatiteC, String hepatiteB, String hiv, String cirurgias, String quaisCirurgias, String usuarioDrogas, String quaisDrogas, String portadorDoenca, String quaisDoencas, String Alergias, String quaisAlergias, String observacao, String deptoMedico, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento, String sifilis, String diabetes, String hipertensao, String tuberculose) {
         this.idLanc = idLanc;
         this.statusLanc = statusLanc;
         this.dataLanc = dataLanc;
@@ -146,6 +147,7 @@ public class AdmissaoEnfermagem {
         this.sifilis = sifilis;
         this.diabetes = diabetes;
         this.hipertensao = hipertensao;
+        this.tuberculose = tuberculose;
     }
 
     /**
@@ -1043,5 +1045,19 @@ public class AdmissaoEnfermagem {
     public void setHipertensao(String hipertensao) {
         this.hipertensao = hipertensao;
     }
-   
+
+    /**
+     * @return the tuberculose
+     */
+    public String getTuberculose() {
+        return tuberculose;
+    }
+
+    /**
+     * @param tuberculose the tuberculose to set
+     */
+    public void setTuberculose(String tuberculose) {
+        this.tuberculose = tuberculose;
+    }
+    
 }
