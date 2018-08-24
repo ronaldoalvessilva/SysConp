@@ -1790,6 +1790,7 @@ public class TelaPerfilCarcerario extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+         buscarAcessoUsuario(telaPerfilPopCarcerariaSS);
         if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPerfilPopCarcerariaSS) && codIncluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             acao = 1;
             bloquearCampos();
@@ -1804,7 +1805,8 @@ public class TelaPerfilCarcerario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
-        // TODO add your handling code here:       
+        // TODO add your handling code here:  
+         buscarAcessoUsuario(telaPerfilPopCarcerariaSS);
         if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPerfilPopCarcerariaSS) && codAlterarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
             if (jStatusPerfil.getText().equals("FINALIZADO")) {
@@ -1822,7 +1824,8 @@ public class TelaPerfilCarcerario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
-        // TODO add your handling code here:        
+        // TODO add your handling code here:   
+         buscarAcessoUsuario(telaPerfilPopCarcerariaSS);
         if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPerfilPopCarcerariaSS) && codExcluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             verificarInternoPerfil();
             statusMov = "Excluiu";
@@ -1846,6 +1849,7 @@ public class TelaPerfilCarcerario extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
+         buscarAcessoUsuario(telaPerfilPopCarcerariaSS);
         if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPerfilPopCarcerariaSS) && codGravarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             verificarExistenciaInternoPerfil();
             if (jDataPerfil.getDate() == null) {
