@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -24,6 +26,7 @@ public class TelaPesqAtiviadadesJuridicas extends javax.swing.JInternalFrame {
     int flag;
     String statusAtiv = "Ativo";
     String dataAtiv;
+    String descricaoAtiv;
 
     /**
      * Creates new form TelaPesqAtiviadadesJuridicas
@@ -62,16 +65,28 @@ public class TelaPesqAtiviadadesJuridicas extends javax.swing.JInternalFrame {
         jTabelaAtividades.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaAtividades.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+                {null, null, null, null}
             },
             new String [] {
-
+                "Código", "Data", "Status", "Descrição"
             }
         ));
+        jTabelaAtividades.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabelaAtividadesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTabelaAtividades);
+        if (jTabelaAtividades.getColumnModel().getColumnCount() > 0) {
+            jTabelaAtividades.getColumnModel().getColumn(0).setMinWidth(50);
+            jTabelaAtividades.getColumnModel().getColumn(0).setMaxWidth(50);
+            jTabelaAtividades.getColumnModel().getColumn(1).setMinWidth(70);
+            jTabelaAtividades.getColumnModel().getColumn(1).setMaxWidth(70);
+            jTabelaAtividades.getColumnModel().getColumn(2).setMinWidth(70);
+            jTabelaAtividades.getColumnModel().getColumn(2).setMaxWidth(70);
+            jTabelaAtividades.getColumnModel().getColumn(3).setMinWidth(280);
+            jTabelaAtividades.getColumnModel().getColumn(3).setMaxWidth(280);
+        }
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -82,6 +97,7 @@ public class TelaPesqAtiviadadesJuridicas extends javax.swing.JInternalFrame {
         jPesqDescricao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jBtPesqDescricao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
+        jBtPesqDescricao.setContentAreaFilled(false);
         jBtPesqDescricao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesqDescricaoActionPerformed(evt);
@@ -151,7 +167,7 @@ public class TelaPesqAtiviadadesJuridicas extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jBtConfirmar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -165,7 +181,6 @@ public class TelaPesqAtiviadadesJuridicas extends javax.swing.JInternalFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -188,20 +203,21 @@ public class TelaPesqAtiviadadesJuridicas extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        setBounds(300, 150, 477, 300);
+        setBounds(300, 40, 512, 290);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
         // TODO add your handling code here:
         if (flag == 1) {
-            String descricaoAtiv = "" + jTabelaAtividades.getValueAt(jTabelaAtividades.getSelectedRow(), 1);
-            jPesqDescricao.setText(descricaoAtiv);
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM ATIVIDADESJURIDICOS WHERE DescricaoAtiv='" + descricaoAtiv + "'");
+                conecta.executaSQL("SELECT * FROM ATIVIDADESJURIDICOS "
+                        + "WHERE DescricaoAtiv='" + descricaoAtiv + "'");
                 conecta.rs.first();
                 jIdAtiv.setText(conecta.rs.getString("IdAtiv"));
                 jAtividadeRealizada.setText(conecta.rs.getString("DescricaoAtiv"));
@@ -209,6 +225,7 @@ public class TelaPesqAtiviadadesJuridicas extends javax.swing.JInternalFrame {
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa dos dados...\nERRO: " + e);
             }
+            conecta.desconecta();
             dispose();
         }
     }//GEN-LAST:event_jBtConfirmarActionPerformed
@@ -223,9 +240,10 @@ public class TelaPesqAtiviadadesJuridicas extends javax.swing.JInternalFrame {
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
             jTabelaAtividades.setVisible(true);
-            this.preencherAtividadeJuri("SELECT * FROM ATIVIDADESJURIDICOS WHERE StatusAtiv='" + statusAtiv + "'");
+            this.preencherAtividadeJuri("SELECT * FROM ATIVIDADESJURIDICOS "
+                    + "WHERE StatusAtiv='" + statusAtiv + "'");
         } else {
-            jTabelaAtividades.setVisible(!true);
+            limparCamposTabela();
         }
     }//GEN-LAST:event_jCheckBoxTodosItemStateChanged
 
@@ -235,10 +253,20 @@ public class TelaPesqAtiviadadesJuridicas extends javax.swing.JInternalFrame {
         if (jPesqDescricao.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe a descrição para pesquisa.");
         } else {
-            jTabelaAtividades.setVisible(true);
-            preencherAtividadeJuri("SELECT * FROM ATIVIDADESJURIDICOS WHERE DescricaoAtiv LIKE'" + jPesqDescricao.getText() + "%'AND StatusAtiv='" + statusAtiv + "'");
+            preencherAtividadeJuri("SELECT * FROM ATIVIDADESJURIDICOS "
+                    + "WHERE DescricaoAtiv LIKE'" + jPesqDescricao.getText() + "%' "
+                    + "AND StatusAtiv='" + statusAtiv + "'");
         }
     }//GEN-LAST:event_jBtPesqDescricaoActionPerformed
+
+    private void jTabelaAtividadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaAtividadesMouseClicked
+        // TODO add your handling code here:
+        flag = 1;
+        if (flag == 1) {
+            descricaoAtiv = "" + jTabelaAtividades.getValueAt(jTabelaAtividades.getSelectedRow(), 3);
+            jPesqDescricao.setText(descricaoAtiv);
+        }
+    }//GEN-LAST:event_jTabelaAtividadesMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -257,7 +285,7 @@ public class TelaPesqAtiviadadesJuridicas extends javax.swing.JInternalFrame {
 
     public void preencherAtividadeJuri(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{" Código ", "Descrição", "  Data", "  Status"};
+        String[] Colunas = new String[]{"Código", "Data", "Status", "Descrição"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
@@ -269,7 +297,7 @@ public class TelaPesqAtiviadadesJuridicas extends javax.swing.JInternalFrame {
                 String mes = dataAtiv.substring(5, 7);
                 String ano = dataAtiv.substring(0, 4);
                 dataAtiv = dia + "/" + mes + "/" + ano;
-                dados.add(new Object[]{conecta.rs.getInt("IdAtiv"), conecta.rs.getString("DescricaoAtiv"), dataAtiv, conecta.rs.getString("StatusAtiv")});
+                dados.add(new Object[]{conecta.rs.getInt("IdAtiv"), dataAtiv, conecta.rs.getString("StatusAtiv"), conecta.rs.getString("DescricaoAtiv")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");
@@ -278,15 +306,48 @@ public class TelaPesqAtiviadadesJuridicas extends javax.swing.JInternalFrame {
         jTabelaAtividades.setModel(modelo);
         jTabelaAtividades.getColumnModel().getColumn(0).setPreferredWidth(50);
         jTabelaAtividades.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaAtividades.getColumnModel().getColumn(1).setPreferredWidth(280);
+        jTabelaAtividades.getColumnModel().getColumn(1).setPreferredWidth(70);
         jTabelaAtividades.getColumnModel().getColumn(1).setResizable(false);
         jTabelaAtividades.getColumnModel().getColumn(2).setPreferredWidth(70);
         jTabelaAtividades.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaAtividades.getColumnModel().getColumn(3).setPreferredWidth(70);
+        jTabelaAtividades.getColumnModel().getColumn(3).setPreferredWidth(280);
         jTabelaAtividades.getColumnModel().getColumn(3).setResizable(false);
         jTabelaAtividades.getTableHeader().setReorderingAllowed(false);
         jTabelaAtividades.setAutoResizeMode(jTabelaAtividades.AUTO_RESIZE_OFF);
         jTabelaAtividades.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCamposTabela();
         conecta.desconecta();
+    }
+
+    public void limparCamposTabela() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Data", "Status", "Descrição"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaAtividades.setModel(modelo);
+        jTabelaAtividades.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaAtividades.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaAtividades.getColumnModel().getColumn(1).setPreferredWidth(70);
+        jTabelaAtividades.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaAtividades.getColumnModel().getColumn(2).setPreferredWidth(70);
+        jTabelaAtividades.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaAtividades.getColumnModel().getColumn(3).setPreferredWidth(280);
+        jTabelaAtividades.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaAtividades.getTableHeader().setReorderingAllowed(false);
+        jTabelaAtividades.setAutoResizeMode(jTabelaAtividades.AUTO_RESIZE_OFF);
+        jTabelaAtividades.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
+    }
+
+    public void alinharCamposTabela() {
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        //
+        jTabelaAtividades.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaAtividades.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+        jTabelaAtividades.getColumnModel().getColumn(2).setCellRenderer(centralizado);
     }
 }
