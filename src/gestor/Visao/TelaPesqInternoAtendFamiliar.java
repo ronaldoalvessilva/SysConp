@@ -16,12 +16,16 @@ import static gestor.Visao.TelaAtendimentoFamiliar.jMaeInterno;
 import static gestor.Visao.TelaAtendimentoFamiliar.jNomeInterno;
 import static gestor.Visao.TelaAtendimentoFamiliar.jPainInterno;
 import static gestor.Visao.TelaAtendimentoFamiliar.jSituacao;
+import static gestor.Visao.TelaAtendimentoFamiliar.codigoDepartamentoSS;
+import static gestor.Visao.TelaModuloServicoSocial.nomeModuloSS;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -38,8 +42,10 @@ public class TelaPesqInternoAtendFamiliar extends javax.swing.JInternalFrame {
     String dataCadastro;
     String dataEntrada;
     String situacao = "ENTRADA NA UNIDADE";
-    String situacaoRet = "RETORNO A UNIDADE";
+    String sitRetorno = "RETORNO A UNIDADE";
     String idInt;
+    String atendido = "Não";
+    int codigoDepartamento = 0;
 
     /**
      * Creates new form TelaPesquisaEntradaInternos
@@ -74,7 +80,7 @@ public class TelaPesqInternoAtendFamiliar extends javax.swing.JInternalFrame {
         setClosable(true);
         setTitle("...::: Pesquisa de Internos");
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar Pronturários de Internos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 255)));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar Pronturários de Internos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jPesqNome.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
@@ -86,8 +92,9 @@ public class TelaPesqInternoAtendFamiliar extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Pesquisa por Matricula:");
 
-        jBtNome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/pesq_atv.png"))); // NOI18N
+        jBtNome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtNome.setToolTipText("Pesquisa Por Nome");
+        jBtNome.setContentAreaFilled(false);
         jBtNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtNomeActionPerformed(evt);
@@ -96,6 +103,7 @@ public class TelaPesqInternoAtendFamiliar extends javax.swing.JInternalFrame {
 
         jBtMatricula.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtMatricula.setToolTipText("Pesquisa Por Matricula");
+        jBtMatricula.setContentAreaFilled(false);
         jBtMatricula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtMatriculaActionPerformed(evt);
@@ -124,15 +132,14 @@ public class TelaPesqInternoAtendFamiliar extends javax.swing.JInternalFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jPesqNome)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(15, 15, 15))
+                        .addComponent(jBtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jPesqMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jBtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                        .addComponent(jCheckBox1)
-                        .addContainerGap(12, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jCheckBox1)))
+                .addGap(15, 15, 15))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,20 +153,16 @@ public class TelaPesqInternoAtendFamiliar extends javax.swing.JInternalFrame {
                     .addComponent(jLabel2)
                     .addComponent(jPesqMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtMatricula)
-                    .addComponent(jCheckBox1))
-                .addContainerGap(12, Short.MAX_VALUE))
+                    .addComponent(jCheckBox1)))
         );
 
         jTabelaInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+                {null, null, null, null, null}
             },
             new String [] {
-
+                "Código", "Nome do Interno", "Matricula", "Data Entrada", "Data Cadastro"
             }
         ));
         jTabelaInterno.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -168,6 +171,18 @@ public class TelaPesqInternoAtendFamiliar extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(jTabelaInterno);
+        if (jTabelaInterno.getColumnModel().getColumnCount() > 0) {
+            jTabelaInterno.getColumnModel().getColumn(0).setMinWidth(50);
+            jTabelaInterno.getColumnModel().getColumn(0).setMaxWidth(50);
+            jTabelaInterno.getColumnModel().getColumn(1).setMinWidth(250);
+            jTabelaInterno.getColumnModel().getColumn(1).setMaxWidth(250);
+            jTabelaInterno.getColumnModel().getColumn(2).setMinWidth(100);
+            jTabelaInterno.getColumnModel().getColumn(2).setMaxWidth(100);
+            jTabelaInterno.getColumnModel().getColumn(3).setMinWidth(80);
+            jTabelaInterno.getColumnModel().getColumn(3).setMaxWidth(80);
+            jTabelaInterno.getColumnModel().getColumn(4).setMinWidth(80);
+            jTabelaInterno.getColumnModel().getColumn(4).setMaxWidth(80);
+        }
 
         jBtSair.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtSair.setForeground(new java.awt.Color(255, 0, 0));
@@ -198,7 +213,7 @@ public class TelaPesqInternoAtendFamiliar extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jBtEnviar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -214,7 +229,7 @@ public class TelaPesqInternoAtendFamiliar extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtSair)
@@ -235,7 +250,7 @@ public class TelaPesqInternoAtendFamiliar extends javax.swing.JInternalFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(200, 10, 440, 314);
+        setBounds(300, 30, 598, 305);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNomeActionPerformed
@@ -246,18 +261,27 @@ public class TelaPesqInternoAtendFamiliar extends javax.swing.JInternalFrame {
             jPesqNome.requestFocus();
         } else {
             jTabelaInterno.setVisible(true);
-            preencherTabelaNome("SELECT * FROM PRONTUARIOSCRC "
+            preencherTabelaNome("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "INNER JOIN DADOSFISICOSINTERNOS "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc = DADOSFISICOSINTERNOS.IdInternoCrc "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
                     + "INNER JOIN PAISES "
-                    + "ON PRONTUARIOSCRC.IdPais = PAISES.IdPais "
+                    + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
                     + "INNER JOIN CIDADES "
-                    + "ON PRONTUARIOSCRC.IdCidade = CIDADES.IdCidade "
+                    + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
                     + "INNER JOIN DADOSPENAISINTERNOS "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc = DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
-                    + "ON DADOSPENAISINTERNOS.IdUnid = UNIDADE.IdUnid "
-                    + "WHERE NomeInternoCrc LIKE'%" + jPesqNome.getText() + "%' AND SituacaoCrc='" + situacao + "' OR NomeInternoCrc LIKE'%" + jPesqNome.getText() + "%'AND SituacaoCrc='" + situacaoRet  + "'");
+                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                    + "WHERE NomeInternoCrc LIKE'%" + jPesqNome.getText() + "%' "
+                    + "AND SituacaoCrc='" + situacao + "' "
+                    + "AND Atendido='" + atendido + "' "
+                    + "AND IdDepartamento='" + codigoDepartamento + "' "
+                    + "OR NomeInternoCrc LIKE'%" + jPesqNome.getText() + "%' "
+                    + "AND SituacaoCrc='" + sitRetorno + "' "
+                    + "AND Atendido='" + atendido + "' "
+                    + "AND IdDepartamento='" + codigoDepartamento + "'");
         }
     }//GEN-LAST:event_jBtNomeActionPerformed
 
@@ -269,18 +293,26 @@ public class TelaPesqInternoAtendFamiliar extends javax.swing.JInternalFrame {
             jPesqMatricula.requestFocus();
         } else {
             jTabelaInterno.setVisible(true);
-            buscarInternosMatricula("SELECT * FROM PRONTUARIOSCRC "
+            buscarInternosMatricula("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "INNER JOIN DADOSFISICOSINTERNOS "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc = DADOSFISICOSINTERNOS.IdInternoCrc "
-                    + "INNER JOIN PAISES "
-                    + "ON PRONTUARIOSCRC.IdPais = PAISES.IdPais "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
+                    + "INNER JOIN PAISES ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
                     + "INNER JOIN CIDADES "
-                    + "ON PRONTUARIOSCRC.IdCidade = CIDADES.IdCidade "
+                    + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
                     + "INNER JOIN DADOSPENAISINTERNOS "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc = DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
-                    + "ON DADOSPENAISINTERNOS.IdUnid = UNIDADE.IdUnid "
-                    + "WHERE MatriculaCrc LIKE'" + jPesqMatricula.getText() + "%' AND SituacaoCrc='" + situacao + "' OR MatriculaCrc LIKE'" + jPesqMatricula.getText() + "' AND SituacaoCrc='" + situacaoRet  + "'");
+                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                    + "WHERE MatriculaCrc LIKE'" + jPesqMatricula.getText() + "%' "
+                    + "AND SituacaoCrc='" + situacao + "' "
+                    + "AND Atendido='" + atendido + "' "
+                    + "AND IdDepartamento='" + codigoDepartamento + "' "
+                    + "OR MatriculaCrc LIKE'" + jPesqMatricula.getText() + "%' "
+                    + "AND SituacaoCrc='" + sitRetorno + "' "
+                    + "AND Atendido='" + atendido + "' "
+                    + "AND IdDepartamento='" + codigoDepartamento + "'");
         }
     }//GEN-LAST:event_jBtMatriculaActionPerformed
 
@@ -309,19 +341,20 @@ public class TelaPesqInternoAtendFamiliar extends javax.swing.JInternalFrame {
                 conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                         + "INNER JOIN DADOSPENAISINTERNOS "
                         + "ON PRONTUARIOSCRC.IdInternoCrc = DADOSPENAISINTERNOS.IdInternoCrc "
-                        + "WHERE PRONTUARIOSCRC.NomeInternoCrc LIKE'" + nomeInterno + "%'AND PRONTUARIOSCRC.IdInternoCRC='" + idInt  + "'");
+                        + "WHERE PRONTUARIOSCRC.NomeInternoCrc LIKE'" + nomeInterno + "%' "
+                        + "AND PRONTUARIOSCRC.IdInternoCRC='" + idInt + "'");
                 conecta.rs.first();
-                jIDInterno.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc"))); 
+                jIDInterno.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
                 jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));
                 caminho = conecta.rs.getString("FotoInternoCrc");
                 javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
                 FotoInterno.setIcon(i);
-                FotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInterno.getWidth(), FotoInterno.getHeight(), Image.SCALE_DEFAULT)));                
+                FotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInterno.getWidth(), FotoInterno.getHeight(), Image.SCALE_DEFAULT)));
                 jMaeInterno.setText(conecta.rs.getString("MaeInternoCrc"));
-                jPainInterno.setText(conecta.rs.getString("PaiInternoCrc"));               
-                jDataNascimento.setDate(conecta.rs.getDate("DataNasciCrc"));                
-                jSituacao.setText(conecta.rs.getString("SituacaoCrc"));                
-                jDataEntrada.setDate(conecta.rs.getDate("DataEntrada"));                                
+                jPainInterno.setText(conecta.rs.getString("PaiInternoCrc"));
+                jDataNascimento.setDate(conecta.rs.getDate("DataNasciCrc"));
+                jSituacao.setText(conecta.rs.getString("SituacaoCrc"));
+                jDataEntrada.setDate(conecta.rs.getDate("DataEntrada"));
                 conecta.desconecta();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa INTERNO" + e);
@@ -335,7 +368,25 @@ public class TelaPesqInternoAtendFamiliar extends javax.swing.JInternalFrame {
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
             jTabelaInterno.setVisible(true);
-            this.preencherTodosInternos();
+            this.preencherTodosInternos("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "INNER JOIN DADOSFISICOSINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
+                    + "INNER JOIN PAISES "
+                    + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
+                    + "INNER JOIN CIDADES "
+                    + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "INNER JOIN UNIDADE "
+                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                    + "WHERE SituacaoCrc='" + situacao + "' "
+                    + "AND Atendido='" + atendido + "' "
+                    + "AND IdDepartamento='" + codigoDepartamento + "' "
+                    + "OR SituacaoCrc='" + sitRetorno + "' "
+                    + "AND Atendido='" + atendido + "' "
+                    + "AND IdDepartamento='" + codigoDepartamento + "'");
         } else {
             jTabelaInterno.setVisible(!true);
         }
@@ -361,7 +412,7 @@ public class TelaPesqInternoAtendFamiliar extends javax.swing.JInternalFrame {
 
     public void preencherTabelaNome(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"ID", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"};
+        String[] Colunas = new String[]{"Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"};
         conecta.abrirConexao();
         conecta.executaSQL(sql);
         try {
@@ -403,14 +454,14 @@ public class TelaPesqInternoAtendFamiliar extends javax.swing.JInternalFrame {
     }
 
     //Preencher tabela com todos os INTERNOS
-    public void preencherTodosInternos() {
+    public void preencherTodosInternos(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"ID", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"};
+        String[] Colunas = new String[]{"Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"};
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC INNER JOIN DADOSFISICOSINTERNOS ON PRONTUARIOSCRC.IdInternoCrc = DADOSFISICOSINTERNOS.IdInternoCrc INNER JOIN PAISES ON PRONTUARIOSCRC.IdPais = PAISES.IdPais INNER JOIN CIDADES ON PRONTUARIOSCRC.IdCidade = CIDADES.IdCidade INNER JOIN DADOSPENAISINTERNOS ON PRONTUARIOSCRC.IdInternoCrc = DADOSPENAISINTERNOS.IdInternoCrc INNER JOIN UNIDADE ON DADOSPENAISINTERNOS.IdUnid = UNIDADE.IdUnid WHERE SituacaoCrc='" + situacao + "' OR SituacaoCrc='" + situacaoRet + "'");
+            conecta.executaSQL(sql);
             conecta.rs.first();
-            do {                
+            do {
                 // Formatar a data no formato Brasil
                 dataEntrada = conecta.rs.getString("DataEntrada");
                 String dia = dataEntrada.substring(8, 10);
@@ -423,7 +474,7 @@ public class TelaPesqInternoAtendFamiliar extends javax.swing.JInternalFrame {
                 String mesc = dataCadastro.substring(5, 7);
                 String anoc = dataCadastro.substring(0, 4);
                 dataCadastro = diac + "/" + mesc + "/" + anoc;
-                
+
                 dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("MatriculaCrc"), dataEntrada, dataCadastro});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
@@ -444,13 +495,14 @@ public class TelaPesqInternoAtendFamiliar extends javax.swing.JInternalFrame {
         jTabelaInterno.getTableHeader().setReorderingAllowed(false);
         jTabelaInterno.setAutoResizeMode(jTabelaInterno.AUTO_RESIZE_OFF);
         jTabelaInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharColunasTabelaInternos();
         conecta.desconecta();
     }
 
     // Método de pesquisa pela Matricula
     public void buscarInternosMatricula(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"ID", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"};
+        String[] Colunas = new String[]{"Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"};
         conecta.abrirConexao();
         conecta.executaSQL(sql);
         try {
@@ -488,6 +540,56 @@ public class TelaPesqInternoAtendFamiliar extends javax.swing.JInternalFrame {
         jTabelaInterno.getTableHeader().setReorderingAllowed(false);
         jTabelaInterno.setAutoResizeMode(jTabelaInterno.AUTO_RESIZE_OFF);
         jTabelaInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharColunasTabelaInternos();
+        conecta.desconecta();
+    }
+
+    public void limparTabela() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaInterno.setModel(modelo);
+        jTabelaInterno.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaInterno.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(1).setPreferredWidth(250);
+        jTabelaInterno.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTabelaInterno.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(3).setPreferredWidth(80);
+        jTabelaInterno.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(4).setPreferredWidth(80);
+        jTabelaInterno.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaInterno.getTableHeader().setReorderingAllowed(false);
+        jTabelaInterno.setAutoResizeMode(jTabelaInterno.AUTO_RESIZE_OFF);
+        jTabelaInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
+    }
+
+    public void alinharColunasTabelaInternos() {
+        //
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        //
+        jTabelaInterno.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaInterno.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+        jTabelaInterno.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+        jTabelaInterno.getColumnModel().getColumn(4).setCellRenderer(centralizado);
+    }
+
+    public void procurarDepartamento() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM DEPARTAMENTOS "
+                    + "WHERE NomeDepartamento='" + nomeModuloSS + "'");
+            conecta.rs.first();
+            codigoDepartamento = conecta.rs.getInt("IdDepartamento");
+            codigoDepartamentoSS = conecta.rs.getInt("IdDepartamento");
+        } catch (Exception e) {
+        }
         conecta.desconecta();
     }
 }
