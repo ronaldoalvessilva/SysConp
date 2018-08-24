@@ -3028,6 +3028,7 @@
                                   <Font name="Tahoma" size="11" style="1"/>
                                 </Property>
                                 <Property name="text" type="java.lang.String" value="CV"/>
+                                <Property name="toolTipText" type="java.lang.String" value=""/>
                                 <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                             </Component>
@@ -3325,42 +3326,50 @@
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                           <Component id="jComboBoxVDRL" linkSize="32" alignment="0" max="32767" attributes="0"/>
                                           <Component id="jComboBoxHIV" linkSize="32" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jComboBoxSifilis" max="32767" attributes="0"/>
+                                          <Component id="jComboBoxSifilis" alignment="0" max="32767" attributes="0"/>
                                       </Group>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel84" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel91" alignment="1" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel11" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jComboBoxHepatiteC" linkSize="32" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jComboBoxHipertensaoMasc" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace pref="16" max="32767" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel91" alignment="1" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel106" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel12" alignment="1" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jComboBoxHepatiteB" linkSize="32" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jComboBoxDiabetesMasc" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                          <Group type="102" attributes="0">
+                                              <Component id="jComboBoxHepatiteC" linkSize="32" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="32767" attributes="0"/>
+                                              <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="jComboBoxHepatiteB" linkSize="32" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="jComboBoxDiabetesMasc" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="jLabel84" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="jComboBoxCirurgia" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="jLabel92" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jQualCirurgia" max="32767" attributes="0"/>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="jComboBoxHipertensaoMasc" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="jLabel109" max="32767" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="jComboBoxTuberculose" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
                                           </Group>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace min="238" pref="238" max="-2" attributes="0"/>
-                                      <Component id="jComboBoxCirurgia" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jLabel92" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jQualCirurgia" max="32767" attributes="0"/>
-                                      <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -3380,21 +3389,21 @@
                                       <Group type="103" groupAlignment="2" attributes="0">
                                           <Component id="jLabel13" alignment="2" min="-2" max="-2" attributes="0"/>
                                           <Component id="jComboBoxHIV" alignment="2" min="-2" pref="19" max="-2" attributes="0"/>
-                                          <Group type="103" alignment="2" groupAlignment="3" attributes="0">
-                                              <Component id="jLabel92" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jQualCirurgia" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel91" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jComboBoxCirurgia" alignment="3" min="-2" pref="19" max="-2" attributes="0"/>
-                                          </Group>
+                                          <Component id="jLabel91" alignment="2" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jComboBoxCirurgia" alignment="2" min="-2" pref="19" max="-2" attributes="0"/>
+                                          <Component id="jLabel92" alignment="2" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jQualCirurgia" alignment="2" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jLabel36" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jComboBoxSifilis" alignment="3" min="-2" pref="18" max="-2" attributes="0"/>
-                                          <Component id="jLabel84" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jComboBoxHipertensaoMasc" alignment="3" min="-2" pref="19" max="-2" attributes="0"/>
-                                          <Component id="jLabel106" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jComboBoxDiabetesMasc" alignment="3" min="-2" pref="19" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="2" attributes="0">
+                                          <Component id="jLabel36" alignment="2" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jComboBoxSifilis" alignment="2" min="-2" pref="18" max="-2" attributes="0"/>
+                                          <Component id="jLabel106" alignment="2" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jComboBoxDiabetesMasc" alignment="2" min="-2" pref="19" max="-2" attributes="0"/>
+                                          <Component id="jLabel84" alignment="2" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jComboBoxHipertensaoMasc" alignment="2" min="-2" pref="19" max="-2" attributes="0"/>
+                                          <Component id="jLabel109" alignment="2" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jComboBoxTuberculose" alignment="2" min="-2" pref="19" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="32767" attributes="0"/>
                                   </Group>
@@ -3590,15 +3599,15 @@
                                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                               </AuxValues>
                             </Component>
-                            <Component class="javax.swing.JLabel" name="jLabel84">
+                            <Component class="javax.swing.JLabel" name="jLabel106">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                   <Font name="Tahoma" size="11" style="1"/>
                                 </Property>
-                                <Property name="text" type="java.lang.String" value="Hipertens&#xe3;o:"/>
+                                <Property name="text" type="java.lang.String" value="Diabetes:"/>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JComboBox" name="jComboBoxHipertensaoMasc">
+                            <Component class="javax.swing.JComboBox" name="jComboBoxDiabetesMasc">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                   <Font name="Tahoma" size="11" style="1"/>
@@ -3617,15 +3626,47 @@
                                 <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JLabel" name="jLabel106">
+                            <Component class="javax.swing.JLabel" name="jLabel109">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                   <Font name="Tahoma" size="11" style="1"/>
                                 </Property>
-                                <Property name="text" type="java.lang.String" value="Diabetes:"/>
+                                <Property name="text" type="java.lang.String" value="Tuberculose:"/>
+                                <Property name="toolTipText" type="java.lang.String" value="Tuberculose"/>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JComboBox" name="jComboBoxDiabetesMasc">
+                            <Component class="javax.swing.JComboBox" name="jComboBoxTuberculose">
+                              <Properties>
+                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                  <Font name="Tahoma" size="11" style="1"/>
+                                </Property>
+                                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                                  <StringArray count="2">
+                                    <StringItem index="0" value="Negativo"/>
+                                    <StringItem index="1" value="Positivo"/>
+                                  </StringArray>
+                                </Property>
+                                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                                  <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                                    <BevelBorder bevelType="1"/>
+                                  </Border>
+                                </Property>
+                                <Property name="enabled" type="boolean" value="false"/>
+                              </Properties>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                              </AuxValues>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel84">
+                              <Properties>
+                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                  <Font name="Tahoma" size="11" style="1"/>
+                                </Property>
+                                <Property name="text" type="java.lang.String" value="Hiper:"/>
+                                <Property name="toolTipText" type="java.lang.String" value="Hipertens&#xe3;o"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JComboBox" name="jComboBoxHipertensaoMasc">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                   <Font name="Tahoma" size="11" style="1"/>
@@ -4082,7 +4123,7 @@
                                   <Component id="jLabel19" alignment="2" min="-2" max="-2" attributes="0"/>
                                   <Component id="jQuaisAlergias" linkSize="3" alignment="2" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="21" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>

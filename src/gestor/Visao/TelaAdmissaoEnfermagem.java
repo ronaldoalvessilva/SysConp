@@ -413,10 +413,12 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jQualCirurgia = new javax.swing.JTextField();
         jLabel36 = new javax.swing.JLabel();
         jComboBoxSifilis = new javax.swing.JComboBox<>();
-        jLabel84 = new javax.swing.JLabel();
-        jComboBoxHipertensaoMasc = new javax.swing.JComboBox();
         jLabel106 = new javax.swing.JLabel();
         jComboBoxDiabetesMasc = new javax.swing.JComboBox();
+        jLabel109 = new javax.swing.JLabel();
+        jComboBoxTuberculose = new javax.swing.JComboBox<>();
+        jLabel84 = new javax.swing.JLabel();
+        jComboBoxHipertensaoMasc = new javax.swing.JComboBox();
         jPanel7 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jRBFuncaoComAlteracao = new javax.swing.JRadioButton();
@@ -2201,6 +2203,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         FuncaoVesical.add(jRBFuncaoVesicalCV);
         jRBFuncaoVesicalCV.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jRBFuncaoVesicalCV.setText("CV");
+        jRBFuncaoVesicalCV.setToolTipText("");
         jRBFuncaoVesicalCV.setEnabled(false);
 
         FuncaoVesical.add(jRBFuncaVeisicalEspontanea);
@@ -2427,14 +2430,6 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jComboBoxSifilis.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxSifilis.setEnabled(false);
 
-        jLabel84.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel84.setText("Hipertensão:");
-
-        jComboBoxHipertensaoMasc.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxHipertensaoMasc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
-        jComboBoxHipertensaoMasc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jComboBoxHipertensaoMasc.setEnabled(false);
-
         jLabel106.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel106.setText("Diabetes:");
 
@@ -2442,6 +2437,24 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jComboBoxDiabetesMasc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
         jComboBoxDiabetesMasc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxDiabetesMasc.setEnabled(false);
+
+        jLabel109.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel109.setText("Tuberculose:");
+        jLabel109.setToolTipText("Tuberculose");
+
+        jComboBoxTuberculose.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxTuberculose.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Negativo", "Positivo" }));
+        jComboBoxTuberculose.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxTuberculose.setEnabled(false);
+
+        jLabel84.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel84.setText("Hiper:");
+        jLabel84.setToolTipText("Hipertensão");
+
+        jComboBoxHipertensaoMasc.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxHipertensaoMasc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
+        jComboBoxHipertensaoMasc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxHipertensaoMasc.setEnabled(false);
 
         javax.swing.GroupLayout jPanel41Layout = new javax.swing.GroupLayout(jPanel41);
         jPanel41.setLayout(jPanel41Layout);
@@ -2458,34 +2471,39 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                     .addComponent(jComboBoxVDRL, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jComboBoxHIV, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jComboBoxSifilis, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel84, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel91, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jLabel106, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBoxHepatiteC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxHipertensaoMasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel106, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBoxHepatiteB, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel41Layout.createSequentialGroup()
-                        .addComponent(jComboBoxDiabetesMasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jComboBoxHepatiteC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxHepatiteB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel41Layout.createSequentialGroup()
+                        .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel41Layout.createSequentialGroup()
+                                .addComponent(jComboBoxDiabetesMasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel84))
+                            .addGroup(jPanel41Layout.createSequentialGroup()
+                                .addComponent(jComboBoxCirurgia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel92)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jQualCirurgia)
+                            .addGroup(jPanel41Layout.createSequentialGroup()
+                                .addComponent(jComboBoxHipertensaoMasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel109, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBoxTuberculose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
-            .addGroup(jPanel41Layout.createSequentialGroup()
-                .addGap(238, 238, 238)
-                .addComponent(jComboBoxCirurgia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel92)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jQualCirurgia)
-                .addGap(10, 10, 10))
         );
 
         jPanel41Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jComboBoxHIV, jComboBoxHepatiteB, jComboBoxHepatiteC, jComboBoxVDRL});
@@ -2505,19 +2523,20 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                 .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel13)
                     .addComponent(jComboBoxHIV, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel92)
-                        .addComponent(jQualCirurgia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel91)
-                        .addComponent(jComboBoxCirurgia, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel91)
+                    .addComponent(jComboBoxCirurgia, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel92)
+                    .addComponent(jQualCirurgia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel36)
                     .addComponent(jComboBoxSifilis, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel106)
+                    .addComponent(jComboBoxDiabetesMasc, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel84)
                     .addComponent(jComboBoxHipertensaoMasc, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel106)
-                    .addComponent(jComboBoxDiabetesMasc, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel109)
+                    .addComponent(jComboBoxTuberculose, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -2829,7 +2848,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                     .addComponent(jComboBoxAlergias, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel19)
                     .addComponent(jQuaisAlergias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel60Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jQuaisAlergias, jQuaisDoencas, jQuaisDrogas});
@@ -4983,9 +5002,10 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                 objAdmEnfermagem.setHiv((String) jComboBoxHIV.getSelectedItem());
                 objAdmEnfermagem.setCirurgias((String) jComboBoxCirurgia.getSelectedItem());
                 objAdmEnfermagem.setQuaisCirurgias(jQualCirurgia.getText());
-                objAdmEnfermagem.setSifilis((String)jComboBoxSifilis.getSelectedItem());
-                objAdmEnfermagem.setHipertensao((String)jComboBoxHipertensaoMasc.getSelectedItem());
-                objAdmEnfermagem.setDiabetes((String)jComboBoxDiabetesMasc.getSelectedItem());
+                objAdmEnfermagem.setSifilis((String) jComboBoxSifilis.getSelectedItem());
+                objAdmEnfermagem.setHipertensao((String) jComboBoxHipertensaoMasc.getSelectedItem());
+                objAdmEnfermagem.setDiabetes((String) jComboBoxDiabetesMasc.getSelectedItem());
+                objAdmEnfermagem.setTuberculose((String) jComboBoxTuberculose.getSelectedItem());
                 objAdmEnfermagem.setUsuarioDrogas((String) jComboBoxUsuarioDrogas.getSelectedItem());
                 objAdmEnfermagem.setQuaisDrogas(jQuaisDrogas.getText());
                 objAdmEnfermagem.setPortadorDoenca((String) jComboBoxPortadorDoencas.getSelectedItem());
@@ -5358,6 +5378,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                 jComboBoxSifilis.setSelectedItem(conecta.rs.getString("Sifilis"));
                 jComboBoxHipertensaoMasc.setSelectedItem(conecta.rs.getString("Hipertensao"));
                 jComboBoxDiabetesMasc.setSelectedItem(conecta.rs.getString("Diabetes"));
+                jComboBoxTuberculose.setSelectedItem(conecta.rs.getString("Tuberculose"));
                 //
                 jComboBoxUsuarioDrogas.setSelectedItem(conecta.rs.getString("UsuarioDrogas"));
                 jQuaisDrogas.setText(conecta.rs.getString("QuaisDrogas"));
@@ -6601,6 +6622,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox jComboBoxRetroviarias;
     private javax.swing.JComboBox<String> jComboBoxSifilis;
     private javax.swing.JComboBox jComboBoxTransfusao;
+    private javax.swing.JComboBox<String> jComboBoxTuberculose;
     private javax.swing.JComboBox jComboBoxUsaMedica;
     private javax.swing.JComboBox jComboBoxUsuarioDrogas;
     private javax.swing.JComboBox jComboBoxVDRL;
@@ -6644,6 +6666,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel106;
     private javax.swing.JLabel jLabel107;
     private javax.swing.JLabel jLabel108;
+    private javax.swing.JLabel jLabel109;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel110;
     private javax.swing.JLabel jLabel112;
@@ -7436,6 +7459,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jComboBoxSifilis.setEnabled(true);
         jComboBoxHipertensaoMasc.setEnabled(true);
         jComboBoxDiabetesMasc.setEnabled(true);
+        jComboBoxTuberculose.setEnabled(true);
         //
         jComboBoxUsuarioDrogas.setEnabled(true);
         jComboBoxPortadorDoencas.setEnabled(true);
@@ -7592,6 +7616,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jComboBoxSifilis.setEnabled(true);
         jComboBoxHipertensaoMasc.setEnabled(true);
         jComboBoxDiabetesMasc.setEnabled(true);
+        jComboBoxTuberculose.setEnabled(true);
         //
         jComboBoxUsuarioDrogas.setEnabled(true);
         jComboBoxPortadorDoencas.setEnabled(true);
@@ -7715,6 +7740,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jComboBoxSifilis.setSelectedItem("Não reagente");
         jComboBoxHipertensaoMasc.setSelectedItem("Não reagente");
         jComboBoxDiabetesMasc.setSelectedItem("Não reagente");
+        jComboBoxTuberculose.setSelectedItem("Negativo");
         // Observação
         jObservacao.setText("");
         //Habilitar/Desabilitar Campos   
@@ -7815,6 +7841,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jComboBoxSifilis.setEnabled(!true);
         jComboBoxHipertensaoMasc.setEnabled(!true);
         jComboBoxDiabetesMasc.setEnabled(!true);
+        jComboBoxTuberculose.setEnabled(!true);
         //
         jComboBoxUsuarioDrogas.setEnabled(!true);
         jComboBoxPortadorDoencas.setEnabled(!true);
@@ -7968,6 +7995,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jComboBoxSifilis.setEnabled(!true);
         jComboBoxHipertensaoMasc.setEnabled(!true);
         jComboBoxDiabetesMasc.setEnabled(!true);
+        jComboBoxTuberculose.setEnabled(!true);
         //
         jComboBoxUsuarioDrogas.setEnabled(!true);
         jComboBoxPortadorDoencas.setEnabled(!true);
@@ -8090,6 +8118,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             jComboBoxSifilis.setSelectedItem("Não");
             jComboBoxHipertensaoMasc.setSelectedItem("Não");
             jComboBoxDiabetesMasc.setSelectedItem("Não");
+            jComboBoxTuberculose.setSelectedItem("Negativo");
             // Observação
             jObservacao.setText("");
             //Habilitar/Desabilitar Campos        
@@ -8190,6 +8219,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             jComboBoxSifilis.setEnabled(!true);
             jComboBoxHipertensaoMasc.setEnabled(!true);
             jComboBoxDiabetesMasc.setEnabled(!true);
+            jComboBoxTuberculose.setEnabled(!true);
             //
             jComboBoxUsuarioDrogas.setEnabled(!true);
             jComboBoxPortadorDoencas.setEnabled(!true);
@@ -8338,6 +8368,10 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             jComboBoxHIV.setEnabled(!true);
             jComboBoxCirurgia.setEnabled(!true);
             jQualCirurgia.setEnabled(!true);
+            jComboBoxSifilis.setEnabled(!true);
+            jComboBoxHipertensaoMasc.setEnabled(!true);
+            jComboBoxDiabetesMasc.setEnabled(!true);
+            jComboBoxTuberculose.setEnabled(!true);
             //
             jComboBoxUsuarioDrogas.setEnabled(!true);
             jComboBoxPortadorDoencas.setEnabled(!true);
