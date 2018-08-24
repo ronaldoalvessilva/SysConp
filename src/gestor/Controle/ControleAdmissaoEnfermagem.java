@@ -29,8 +29,8 @@ public class ControleAdmissaoEnfermagem {
                     + "Peso,FrequenciaCardiaca,UsaMedicamentos,QualMedicacao,Locomocao,AcuidadeVisual,AcuidadeAuditiva,FuncaoMotora,QualFuncaoMotora,FalaLinguagem,"
                     + "QualFala,Pele,Mucosa,TipoPele,Localizacao,Cabelos,Boca,FuncaoRespiratoria,Torax,FuncaoIntestinal,DiasConstipado,Abdome,"
                     + "FuncaoVesical,Genitalia,QualGenitalia,Vacinado,QuaisVacinas,Vdrl,HepatiteC,HepatiteB,Hiv,Cirurgias,QuaisCirurgias,UsuarioDrogas,QuaisDrogas,"
-                    + "PortadorDoenca,QuaisDoencas,Alergias,QuaisAlergias,Observacao,UsuarioInsert,DataInsert,HorarioInsert,Sifilis,Diabetes,Hipertensao) "
-                    + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                    + "PortadorDoenca,QuaisDoencas,Alergias,QuaisAlergias,Observacao,UsuarioInsert,DataInsert,HorarioInsert,Sifilis,Diabetes,Hipertensao,Tuberculose) "
+                    + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setString(1, objAdmEnfermagem.getStatusLanc());
             pst.setTimestamp(2, new java.sql.Timestamp(objAdmEnfermagem.getDataLanc().getTime()));
             pst.setInt(3, codInterno);
@@ -87,6 +87,7 @@ public class ControleAdmissaoEnfermagem {
             pst.setString(54, objAdmEnfermagem.getSifilis());
             pst.setString(55, objAdmEnfermagem.getDiabetes());
             pst.setString(56, objAdmEnfermagem.getHipertensao());
+            pst.setString(57, objAdmEnfermagem.getTuberculose());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\n\nERRO: " + ex);
@@ -103,7 +104,7 @@ public class ControleAdmissaoEnfermagem {
                     + "Peso=?,FrequenciaCardiaca=?,UsaMedicamentos=?,QualMedicacao=?,Locomocao=?,AcuidadeVisual=?,AcuidadeAuditiva=?,FuncaoMotora=?,QualFuncaoMotora=?,FalaLinguagem=?,"
                     + "QualFala=?,Pele=?,Mucosa=?,TipoPele=?,Localizacao=?,Cabelos=?,Boca=?,FuncaoRespiratoria=?,Torax=?,FuncaoIntestinal=?,DiasConstipado=?,Abdome=?,"
                     + "FuncaoVesical=?,Genitalia=?,QualGenitalia=?,Vacinado=?,QuaisVacinas=?,Vdrl=?,HepatiteC=?,HepatiteB=?,Hiv=?,Cirurgias=?,QuaisCirurgias=?,UsuarioDrogas=?,QuaisDrogas=?,"
-                    + "PortadorDoenca=?,QuaisDoencas=?,Alergias=?,QuaisAlergias=?,Observacao=?,UsuarioUp=?,DataUp=?,HorarioUp=?,Sifilis=?,Diabetes=?,Hipertensao=? WHERE IdLanc='" + objAdmEnfermagem.getIdLanc() + "'");
+                    + "PortadorDoenca=?,QuaisDoencas=?,Alergias=?,QuaisAlergias=?,Observacao=?,UsuarioUp=?,DataUp=?,HorarioUp=?,Sifilis=?,Diabetes=?,Hipertensao=?,Tuberculose=? WHERE IdLanc='" + objAdmEnfermagem.getIdLanc() + "'");
             pst.setString(1, objAdmEnfermagem.getStatusLanc());
             pst.setTimestamp(2, new java.sql.Timestamp(objAdmEnfermagem.getDataLanc().getTime()));
             pst.setInt(3, codInterno);
@@ -160,6 +161,7 @@ public class ControleAdmissaoEnfermagem {
             pst.setString(54, objAdmEnfermagem.getSifilis());
             pst.setString(55, objAdmEnfermagem.getDiabetes());
             pst.setString(56, objAdmEnfermagem.getHipertensao());
+            pst.setString(57, objAdmEnfermagem.getTuberculose());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
