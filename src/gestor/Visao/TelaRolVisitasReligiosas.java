@@ -1340,6 +1340,7 @@ public class TelaRolVisitasReligiosas extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaRolVisitantesRelSS);
         if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaRolVisitantesRelSS) && codIncluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             acao = 1;
             Novo();
@@ -1354,6 +1355,7 @@ public class TelaRolVisitasReligiosas extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaRolVisitantesRelSS);
         if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaRolVisitantesRelSS) && codAlterarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             verificarVisitaReligiosa();
             objRol.setStatusRol(jStatusRol.getText());
@@ -1374,6 +1376,7 @@ public class TelaRolVisitasReligiosas extends javax.swing.JInternalFrame {
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaRolVisitantesRelSS);
         if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaRolVisitantesRelSS) && codExcluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
@@ -1405,6 +1408,7 @@ public class TelaRolVisitasReligiosas extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here: 
+        buscarAcessoUsuario(telaRolVisitantesRelSS);
         if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaRolVisitantesRelSS) && codGravarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             if (jDataRol.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data do Rol.");

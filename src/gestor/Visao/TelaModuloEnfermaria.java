@@ -365,12 +365,12 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
         HistoricoMovInternos = new javax.swing.JMenuItem();
         jMovimentacaoExternaInterno = new javax.swing.JMenuItem();
         Movimentacao = new javax.swing.JMenu();
+        AdmissaoMedicaPsiquiatrica = new javax.swing.JMenuItem();
         AvaliacaoSaudeMedicaPsiquiatrica = new javax.swing.JMenuItem();
         SolicitacaoExameMedico = new javax.swing.JMenuItem();
         jEncaminhamentosCirurgiasEspecialistas = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         AdmissoaEnfermagem = new javax.swing.JMenuItem();
-        AdmissaoMedicaPsiquiatrica = new javax.swing.JMenuItem();
         jCalendarioVacinas = new javax.swing.JMenuItem();
         JHistoricoDoencaFamilia = new javax.swing.JMenuItem();
         jSeparator13 = new javax.swing.JPopupMenu.Separator();
@@ -649,6 +649,14 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
 
         Movimentacao.setText("Movimentação");
 
+        AdmissaoMedicaPsiquiatrica.setText("Prontuario e Evolução Médica/Psiquiátrica - Admissão");
+        AdmissaoMedicaPsiquiatrica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AdmissaoMedicaPsiquiatricaActionPerformed(evt);
+            }
+        });
+        Movimentacao.add(AdmissaoMedicaPsiquiatrica);
+
         AvaliacaoSaudeMedicaPsiquiatrica.setText("Avaliação de Saúde Médica/Psiquiátrica");
         AvaliacaoSaudeMedicaPsiquiatrica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -681,14 +689,6 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
             }
         });
         Movimentacao.add(AdmissoaEnfermagem);
-
-        AdmissaoMedicaPsiquiatrica.setText("Prontuario e Evolução Médica/Psiquiátrica - Admissão");
-        AdmissaoMedicaPsiquiatrica.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AdmissaoMedicaPsiquiatricaActionPerformed(evt);
-            }
-        });
-        Movimentacao.add(AdmissaoMedicaPsiquiatrica);
 
         jCalendarioVacinas.setText("Calendário de Vacinas");
         jCalendarioVacinas.addActionListener(new java.awt.event.ActionListener() {

@@ -156,8 +156,8 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     public static String telaRegistroAtendimentoBioSS = "Cadastro:Registro de Atendimento Internos Biometria Serviços Social:Manutenção";
     public static String telaRegistroAtendimentoImpressaoBioSSocial = "Cadastro:Registro de Autorização Impressa Serviços Social:Liberação";
     // MOVIMENTAÇÃO
-    public static String telaAdmEvolucaoInternosSS = "Movimentação:Admissão de Internos:Admissão";
-    public static String telaAdmEvolucaoInternosEvoSS = "Movimentação:Admissão de Internos:Evolução";
+    public static String telaAdmissaoInternosServicoSocial = "Movimentação:Admissão de Internos:Admissão";
+    public static String telaEvolucaoServicoSocial = "Movimentação:Admissão de Internos:Evolução";
     public static String telaPerfilPopCarcerariaSS = "Movimentação:Pérfil Carcerário:Manutenção";
     public static String telaPerfilPopCarcerariaPerfilSS = "Movimentação:Pérfil Carcerário:Pérfil Carcerário";
     public static String telaAtualizacaoDocSS = "Movimentação:Atualização de Documentos Internos:Manutenção";
@@ -949,8 +949,8 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
 
     private void AdmissaoInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdmissaoInternosActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaAdmEvolucaoInternosSS);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaAdmEvolucaoInternosSS) && codAbrirSS == 1) {
+        buscarAcessoUsuario(telaAdmissaoInternosServicoSocial);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaAdmissaoInternosServicoSocial) && codAbrirSS == 1) {
             if (objAtenSocial == null || objAtenSocial.isClosed()) {
                 objAtenSocial = new TelaAtendimentoSocial();
                 jPainelServicoSocial.add(objAtenSocial);
@@ -2461,14 +2461,14 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
         // MANUTENÇÃO
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
-                    + "WHERE NomeTela='" + telaAdmEvolucaoInternosSS + "'");
+                    + "WHERE NomeTela='" + telaAdmissaoInternosServicoSocial + "'");
             conecta.rs.first();
             pNomeAEI = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
-                    + "WHERE NomeTela='" + telaAdmEvolucaoInternosEvoSS + "'");
+                    + "WHERE NomeTela='" + telaEvolucaoServicoSocial + "'");
             conecta.rs.first();
             pNomeAEIE = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
@@ -2731,16 +2731,16 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
             controle.incluirTelaAcesso(objCadastroTela);
         }
         // MOVIMENTAÇÃO
-        if (!pNomeAEI.equals(telaAdmEvolucaoInternosSS) || pNomeAEI == null || pNomeAEI.equals("")) {
+        if (!pNomeAEI.equals(telaAdmissaoInternosServicoSocial) || pNomeAEI == null || pNomeAEI.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
-            objCadastroTela.setNomeTela(telaAdmEvolucaoInternosSS);
+            objCadastroTela.setNomeTela(telaAdmissaoInternosServicoSocial);
             controle.incluirTelaAcesso(objCadastroTela);
         }
-        if (!pNomeAEIE.equals(telaAdmEvolucaoInternosEvoSS) || pNomeAEIE == null || pNomeAEIE.equals("")) {
+        if (!pNomeAEIE.equals(telaEvolucaoServicoSocial) || pNomeAEIE == null || pNomeAEIE.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
-            objCadastroTela.setNomeTela(telaAdmEvolucaoInternosEvoSS);
+            objCadastroTela.setNomeTela(telaEvolucaoServicoSocial);
             controle.incluirTelaAcesso(objCadastroTela);
         }
         if (!pNomePPC.equals(telaPerfilPopCarcerariaSS) || pNomePPC == null || pNomePPC.equals("")) {

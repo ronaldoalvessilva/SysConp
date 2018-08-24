@@ -1603,6 +1603,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaRolVisitasSS);
         if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaRolVisitasSS) && codIncluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             acao = 1;
             Novo();
@@ -1617,6 +1618,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaRolVisitasSS);
         if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaRolVisitasSS) && codAlterarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             verificarVisitaRol();
             objRol.setStatusRol(jStatusRol.getText());
@@ -1637,6 +1639,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaRolVisitasSS);
         if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaRolVisitasSS) && codExcluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             objRol.setStatusRol(jStatusRol.getText());
             if (jStatusRol.getText().equals("FINALIZADO")) {
@@ -1653,6 +1656,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         // VERIFICAR INTERNO NO ATENDIMENTO SOCIAL PARA ESTATISTICA DO RELATÓRIO
         // DOS INTERNOS QUE NÃO RECEBE VISITAS.
+        buscarAcessoUsuario(telaRolVisitasSS);
         if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaRolVisitasSS) && codGravarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             verificarInternoAtendimentoSS();
             if (jDataRol.getDate() == null) {

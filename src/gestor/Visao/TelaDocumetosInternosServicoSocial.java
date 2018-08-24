@@ -14,16 +14,19 @@ import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloServicoSocial.codAbrirSS;
 import static gestor.Visao.TelaModuloServicoSocial.codAlterarSS;
+import static gestor.Visao.TelaModuloServicoSocial.codConsultarSS;
 import static gestor.Visao.TelaModuloServicoSocial.codExcluirSS;
 import static gestor.Visao.TelaModuloServicoSocial.codGravarSS;
 import static gestor.Visao.TelaModuloServicoSocial.codIncluirSS;
 import static gestor.Visao.TelaModuloServicoSocial.codUserAcessoSS;
+import static gestor.Visao.TelaModuloServicoSocial.codigoGrupoSS;
+import static gestor.Visao.TelaModuloServicoSocial.codigoUserGroupSS;
 import static gestor.Visao.TelaModuloServicoSocial.codigoUserSS;
 import static gestor.Visao.TelaModuloServicoSocial.nomeGrupoSS;
 import static gestor.Visao.TelaModuloServicoSocial.nomeTelaSS;
 import static gestor.Visao.TelaModuloServicoSocial.telaListaDocumentosSS;
-import static gestor.Visao.TelaModuloServicoSocial.telaRolVisitasSS;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -1150,6 +1153,7 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaListaDocumentosSS);
         if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaListaDocumentosSS) && codIncluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             acao = 1;
             Novo();
@@ -1164,6 +1168,7 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaListaDocumentosSS);
         if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaListaDocumentosSS) && codAlterarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             acao = 2;
             Alterar();
@@ -1178,6 +1183,7 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaListaDocumentosSS);
         if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaListaDocumentosSS) && codExcluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             verificarDevolucaoDoc();
             statusMov = "Excluiu";
@@ -1204,6 +1210,7 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaListaDocumentosSS);
         if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaListaDocumentosSS) && codGravarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             if (jDataLanc.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data de cadastro do documento.");
@@ -1964,5 +1971,43 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
         objLogSys.setIdLancMov(Integer.valueOf(jIdLanc.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTela) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserSS = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserSS + "'");
+            conecta.rs.first();
+            codigoUserGroupSS = conecta.rs.getInt("IdUsuario");
+            codigoGrupoSS = conecta.rs.getInt("IdGrupo");
+            nomeGrupoSS = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserSS + "' "
+                    + "AND NomeTela='" + nomeTela + "'");
+            conecta.rs.first();
+            codUserAcessoSS = conecta.rs.getInt("IdUsuario");
+            codAbrirSS = conecta.rs.getInt("Abrir");
+            codIncluirSS = conecta.rs.getInt("Incluir");
+            codAlterarSS = conecta.rs.getInt("Alterar");
+            codExcluirSS = conecta.rs.getInt("Excluir");
+            codGravarSS = conecta.rs.getInt("Gravar");
+            codConsultarSS = conecta.rs.getInt("Consultar");
+            nomeTela = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

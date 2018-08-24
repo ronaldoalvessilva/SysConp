@@ -15,11 +15,15 @@ import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloServicoSocial.codAbrirSS;
 import static gestor.Visao.TelaModuloServicoSocial.codAlterarSS;
+import static gestor.Visao.TelaModuloServicoSocial.codConsultarSS;
 import static gestor.Visao.TelaModuloServicoSocial.codExcluirSS;
 import static gestor.Visao.TelaModuloServicoSocial.codGravarSS;
 import static gestor.Visao.TelaModuloServicoSocial.codIncluirSS;
 import static gestor.Visao.TelaModuloServicoSocial.codUserAcessoSS;
+import static gestor.Visao.TelaModuloServicoSocial.codigoGrupoSS;
+import static gestor.Visao.TelaModuloServicoSocial.codigoUserGroupSS;
 import static gestor.Visao.TelaModuloServicoSocial.codigoUserSS;
 import static gestor.Visao.TelaModuloServicoSocial.nomeGrupoSS;
 import static gestor.Visao.TelaModuloServicoSocial.nomeTelaSS;
@@ -747,6 +751,7 @@ public class TelaHistoricoAvaliacaoSocial extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaHistAvaSocial_SS);
         if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaHistAvaSocial_SS) && codIncluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             acao = 1;
             Novo();
@@ -761,6 +766,7 @@ public class TelaHistoricoAvaliacaoSocial extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaHistAvaSocial_SS);
         if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaHistAvaSocial_SS) && codAlterarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             objHistAva.setStatusLanc(jStatusOcorrencia.getText());
             if (jStatusOcorrencia.getText().equals("FINALIZADO")) {
@@ -780,6 +786,7 @@ public class TelaHistoricoAvaliacaoSocial extends javax.swing.JInternalFrame {
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaHistAvaSocial_SS);
         if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaHistAvaSocial_SS) && codExcluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
@@ -806,6 +813,7 @@ public class TelaHistoricoAvaliacaoSocial extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaHistAvaSocial_SS);
         if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaHistAvaSocial_SS) && codGravarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             if (jDataOcorrencia.getDate() == null) {
                 jDataOcorrencia.requestFocus();
@@ -1375,5 +1383,43 @@ public class TelaHistoricoAvaliacaoSocial extends javax.swing.JInternalFrame {
         jTabelaHistoricoAvaliacao.getColumnModel().getColumn(0).setCellRenderer(centralizado);
         jTabelaHistoricoAvaliacao.getColumnModel().getColumn(1).setCellRenderer(centralizado);
         jTabelaHistoricoAvaliacao.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+    }
+
+    public void buscarAcessoUsuario(String nomeTela) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserSS = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserSS + "'");
+            conecta.rs.first();
+            codigoUserGroupSS = conecta.rs.getInt("IdUsuario");
+            codigoGrupoSS = conecta.rs.getInt("IdGrupo");
+            nomeGrupoSS = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserSS + "' "
+                    + "AND NomeTela='" + nomeTela + "'");
+            conecta.rs.first();
+            codUserAcessoSS = conecta.rs.getInt("IdUsuario");
+            codAbrirSS = conecta.rs.getInt("Abrir");
+            codIncluirSS = conecta.rs.getInt("Incluir");
+            codAlterarSS = conecta.rs.getInt("Alterar");
+            codExcluirSS = conecta.rs.getInt("Excluir");
+            codGravarSS = conecta.rs.getInt("Gravar");
+            codConsultarSS = conecta.rs.getInt("Consultar");
+            nomeTelaSS = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }
