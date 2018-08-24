@@ -34,8 +34,8 @@ import static gestor.Visao.TelaModuloServicoSocial.codigoUserSS;
 import static gestor.Visao.TelaModuloServicoSocial.codigoUserGroupSS;
 import static gestor.Visao.TelaModuloServicoSocial.nomeGrupoSS;
 import static gestor.Visao.TelaModuloServicoSocial.nomeTelaSS;
-import static gestor.Visao.TelaModuloServicoSocial.telaAdmEvolucaoInternosEvoSS;
-import static gestor.Visao.TelaModuloServicoSocial.telaAdmEvolucaoInternosSS;
+import static gestor.Visao.TelaModuloServicoSocial.telaAdmissaoInternosServicoSocial;
+import static gestor.Visao.TelaModuloServicoSocial.telaEvolucaoServicoSocial;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -2207,7 +2207,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaAdmEvolucaoInternosSS) && codIncluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaAdmissaoInternosServicoSocial) && codIncluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             acao = 1;
             Novo();
             corCampo();
@@ -2221,7 +2221,8 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaAdmEvolucaoInternosSS) && codAlterarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
+        buscarAcessoUsuario(telaAdmissaoInternosServicoSocial);
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaAdmissaoInternosServicoSocial) && codAlterarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             objAtendSocial.setStatusAtend(jStatusAtend.getText());
             if (jStatusAtend.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse atendimento não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -2240,7 +2241,8 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaAdmEvolucaoInternosSS) && codExcluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
+        buscarAcessoUsuario(telaAdmissaoInternosServicoSocial);
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaAdmissaoInternosServicoSocial) && codExcluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -2268,7 +2270,8 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaAdmEvolucaoInternosSS) && codGravarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
+        buscarAcessoUsuario(telaAdmissaoInternosServicoSocial);
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaAdmissaoInternosServicoSocial) && codGravarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             if (jDataAtendimento.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data do atendimento.");
                 jDataAtendimento.requestFocus();
@@ -2660,9 +2663,9 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
 
     private void jBtNovaEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaEvolucaoActionPerformed
-        // TODO add your handling code here: 
-        buscarAcessoUsuario(telaAdmEvolucaoInternosEvoSS);
-        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaAdmEvolucaoInternosSS) && codIncluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
+        // TODO add your handling code here: telaEvolucaoServicoSocial
+        buscarAcessoUsuario(telaEvolucaoServicoSocial);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaEvolucaoServicoSocial) && codIncluirSS == 1) {
             verificarInternoRegistradoAdm();
             if (atendido == null) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
@@ -2684,8 +2687,8 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
 
     private void jBtAlterarEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarEvolucaoActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaAdmEvolucaoInternosEvoSS);
-        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaAdmEvolucaoInternosSS) && codAlterarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
+        buscarAcessoUsuario(telaEvolucaoServicoSocial);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaEvolucaoServicoSocial) && codAlterarSS == 1) {
             acao = 4;
             AlterarEvolucao();
             statusMov = "Alterou";
@@ -2698,8 +2701,8 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
 
     private void jBtExcluirEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirEvolucaoActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaAdmEvolucaoInternosEvoSS);
-        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaAdmEvolucaoInternosSS) && codExcluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
+        buscarAcessoUsuario(telaEvolucaoServicoSocial);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaEvolucaoServicoSocial) && codExcluirSS == 1) {
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -2724,8 +2727,8 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
 
     private void jBtSalvarEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarEvolucaoActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaAdmEvolucaoInternosEvoSS);
-        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaAdmEvolucaoInternosSS) && codGravarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
+        buscarAcessoUsuario(telaEvolucaoServicoSocial);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaEvolucaoServicoSocial) && codGravarSS == 1) {
             if (jDataEvolu.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data da evolução do interno.");
                 jDataEvolu.requestFocus();
@@ -3065,44 +3068,6 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTotalFilhos;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
-
-    public void buscarAcessoUsuario(String nomeTela) {
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM USUARIOS "
-                    + "WHERE NomeUsuario='" + nameUser + "'");
-            conecta.rs.first();
-            codigoUserSS = conecta.rs.getInt("IdUsuario");
-        } catch (Exception e) {
-        }
-        try {
-            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                    + "INNER JOIN GRUPOUSUARIOS "
-                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                    + "WHERE IdUsuario='" + codigoUserSS + "'");
-            conecta.rs.first();
-            codigoUserGroupSS = conecta.rs.getInt("IdUsuario");
-            codigoGrupoSS = conecta.rs.getInt("IdGrupo");
-            nomeGrupoSS = conecta.rs.getString("NomeGrupo");
-        } catch (Exception e) {
-        }
-        try {
-            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
-                    + "WHERE IdUsuario='" + codigoUserSS + "' "
-                    + "AND NomeTela='" + nomeTela + "'");
-            conecta.rs.first();
-            codUserAcessoSS = conecta.rs.getInt("IdUsuario");
-            codAbrirSS = conecta.rs.getInt("Abrir");
-            codIncluirSS = conecta.rs.getInt("Incluir");
-            codAlterarSS = conecta.rs.getInt("Alterar");
-            codExcluirSS = conecta.rs.getInt("Excluir");
-            codGravarSS = conecta.rs.getInt("Gravar");
-            codConsultarSS = conecta.rs.getInt("Consultar");
-            nomeTelaSS = conecta.rs.getString("NomeTela");
-        } catch (Exception e) {
-        }
-        conecta.desconecta();
-    }
 
     public void bloquearCamposPesquisa() {
         //
@@ -4473,8 +4438,46 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
         objLogSys.setStatusMov(statusMov);
     }
 
+    public void buscarAcessoUsuario(String nomeTela) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserSS = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserSS + "'");
+            conecta.rs.first();
+            codigoUserGroupSS = conecta.rs.getInt("IdUsuario");
+            codigoGrupoSS = conecta.rs.getInt("IdGrupo");
+            nomeGrupoSS = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserSS + "' "
+                    + "AND NomeTela='" + nomeTela + "'");
+            conecta.rs.first();
+            codUserAcessoSS = conecta.rs.getInt("IdUsuario");
+            codAbrirSS = conecta.rs.getInt("Abrir");
+            codIncluirSS = conecta.rs.getInt("Incluir");
+            codAlterarSS = conecta.rs.getInt("Alterar");
+            codExcluirSS = conecta.rs.getInt("Excluir");
+            codGravarSS = conecta.rs.getInt("Gravar");
+            codConsultarSS = conecta.rs.getInt("Consultar");
+            nomeTelaSS = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
     public void verificarInternoRegistradoAdm() {
-        
+
         conecta.abrirConexao();
         SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
         dataReg = formatoAmerica.format(jDataAtendimento.getDate().getTime());
@@ -4485,7 +4488,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
             conecta.rs.first();
             codigoInternoAtend = conecta.rs.getString("IdInternoCrc");
             codigoDepartamentoSS = conecta.rs.getInt("IdDepartamento");
-            atendido = conecta.rs.getString("Atendido");               
+            atendido = conecta.rs.getString("Atendido");
         } catch (Exception e) {
         }
         conecta.desconecta();
