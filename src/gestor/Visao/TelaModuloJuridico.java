@@ -37,6 +37,12 @@ import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloServicoSocial.codAbrirSS;
+import static gestor.Visao.TelaModuloServicoSocial.codUserAcessoSS;
+import static gestor.Visao.TelaModuloServicoSocial.codigoUserSS;
+import static gestor.Visao.TelaModuloServicoSocial.nomeGrupoSS;
+import static gestor.Visao.TelaModuloServicoSocial.nomeTelaSS;
+import static gestor.Visao.TelaModuloServicoSocial.telaPAISS;
 import static gestor.Visao.TelaRecadosCrc.jBtAlterar;
 import static gestor.Visao.TelaRecadosCrc.jBtCancelar;
 import static gestor.Visao.TelaRecadosCrc.jBtConfirmar;
@@ -1119,30 +1125,37 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
 
     private void jPaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPaiActionPerformed
         // TODO add your handling code here:
-        if (objPaiNovo == null || objPaiNovo.isClosed()) {
-            objPaiNovo = new TelaPAI_NOVO();
-            jPainelJuridico.add(objPaiNovo);
-            objPaiNovo.setVisible(true);
-        } else {
-            if (objPaiNovo.isVisible()) {
-                if (objPaiNovo.isIcon()) { // Se esta minimizado
-                    try {
-                        objPaiNovo.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        //ACCESSO DIFERENCIADO, A ORIGEM É O SERVIÇO SOCIAL, CADASTRAR O MÓDULO PARA O JURIDICO COM PERMISSÃO DE NÃO
+        // E LIBERAR SOMENTE A TELA PRINCIPAL E A ABA DJ, QUE PERTENCE AO JURIDICO
+        buscarAcessoUsuario(telaPAISS);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPAISS) && codAbrirSS == 1) {
+            if (objPaiNovo == null || objPaiNovo.isClosed()) {
+                objPaiNovo = new TelaPAI_NOVO();
+                jPainelJuridico.add(objPaiNovo);
+                objPaiNovo.setVisible(true);
+            } else {
+                if (objPaiNovo.isVisible()) {
+                    if (objPaiNovo.isIcon()) { // Se esta minimizado
+                        try {
+                            objPaiNovo.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objPaiNovo.toFront(); // traz para frente
+                        objPaiNovo.pack();//volta frame 
                     }
                 } else {
-                    objPaiNovo.toFront(); // traz para frente
-                    objPaiNovo.pack();//volta frame 
+                    objPaiNovo = new TelaPAI_NOVO();
+                    TelaModuloJuridico.jPainelJuridico.add(objPaiNovo);//adicona frame ao JDesktopPane  
+                    objPaiNovo.setVisible(true);
                 }
-            } else {
-                objPaiNovo = new TelaPAI_NOVO();
-                TelaModuloJuridico.jPainelJuridico.add(objPaiNovo);//adicona frame ao JDesktopPane  
-                objPaiNovo.setVisible(true);
             }
-        }
-        try {
-            objPaiNovo.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objPaiNovo.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jPaiActionPerformed
 
