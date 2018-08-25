@@ -32,11 +32,16 @@ import static gestor.Visao.TelaModuloSeguranca.nomeGrupo;
 import static gestor.Visao.TelaModuloSeguranca.nomeTela;
 import static gestor.Visao.TelaModuloSeguranca.telaSaidaPertencesInternos;
 import static gestor.Visao.TelaModuloSeguranca.telaSaidaPertencesPertences;
+//
+import static gestor.Visao.TelaModuloTriagem.codAbrirTRI;
 import static gestor.Visao.TelaModuloTriagem.codAlterarTRI;
+import static gestor.Visao.TelaModuloTriagem.codConcultarTRI;
 import static gestor.Visao.TelaModuloTriagem.codExcluirTRI;
 import static gestor.Visao.TelaModuloTriagem.codGravarTRI;
 import static gestor.Visao.TelaModuloTriagem.codIncluirTRI;
 import static gestor.Visao.TelaModuloTriagem.codUserAcessoTRI;
+import static gestor.Visao.TelaModuloTriagem.codigoGrupoTRI;
+import static gestor.Visao.TelaModuloTriagem.codigoUserGroupTRI;
 import static gestor.Visao.TelaModuloTriagem.codigoUserTRI;
 import static gestor.Visao.TelaModuloTriagem.nomeGrupoTRI;
 import static gestor.Visao.TelaModuloTriagem.nomeTelaTRI;
@@ -1124,6 +1129,8 @@ public class TelaSaidaObjetosPertences extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaSaidaPertencesInternos);
+        buscarAcessoUsuarioTRI(telaSaidaPertencesInternosTRI);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaSaidaPertencesInternos) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             acao = 1;
             Novo();
@@ -1145,6 +1152,8 @@ public class TelaSaidaObjetosPertences extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaSaidaPertencesInternos);
+        buscarAcessoUsuarioTRI(telaSaidaPertencesInternosTRI);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaSaidaPertencesInternos) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             verificarPertences(); // Verificar se existe pertences para o interno em questão.
             objSaidaObj.setStatusLanc(jStatusLanc.getText());
@@ -1178,6 +1187,8 @@ public class TelaSaidaObjetosPertences extends javax.swing.JInternalFrame {
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:  
+        buscarAcessoUsuario(telaSaidaPertencesInternos);
+        buscarAcessoUsuarioTRI(telaSaidaPertencesInternosTRI);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaSaidaPertencesInternos) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             objSaidaObj.setStatusLanc(jStatusLanc.getText());
             if (jStatusLanc.getText().equals("FINALIZADO")) {
@@ -1199,6 +1210,8 @@ public class TelaSaidaObjetosPertences extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:  
+        buscarAcessoUsuario(telaSaidaPertencesInternos);
+        buscarAcessoUsuarioTRI(telaSaidaPertencesInternosTRI);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaSaidaPertencesInternos) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             if (jDataLanc.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data do registro.");
@@ -1326,7 +1339,7 @@ public class TelaSaidaObjetosPertences extends javax.swing.JInternalFrame {
     private void jBtNovoObjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoObjetoActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaSaidaPertencesPertences);
-        buscarAcessoUsuario1(telaSaidaPertencesPertencesTRI);
+        buscarAcessoUsuarioTRI(telaSaidaPertencesPertencesTRI);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaSaidaPertencesPertences) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             objSaidaObj.setStatusLanc(jStatusLanc.getText());
             if (jStatusLanc.getText().equals("FINALIZADO")) {
@@ -1359,7 +1372,7 @@ public class TelaSaidaObjetosPertences extends javax.swing.JInternalFrame {
     private void jBtAlterarObjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarObjetoActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaSaidaPertencesPertences);
-        buscarAcessoUsuario1(telaSaidaPertencesPertencesTRI);
+        buscarAcessoUsuarioTRI(telaSaidaPertencesPertencesTRI);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaSaidaPertencesPertences) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             objSaidaObj.setStatusLanc(jStatusLanc.getText());
             if (jStatusLanc.getText().equals("FINALIZADO")) {
@@ -1390,7 +1403,7 @@ public class TelaSaidaObjetosPertences extends javax.swing.JInternalFrame {
     private void jBtExcluirObjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirObjetoActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaSaidaPertencesPertences);
-        buscarAcessoUsuario1(telaSaidaPertencesPertencesTRI);
+        buscarAcessoUsuarioTRI(telaSaidaPertencesPertencesTRI);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaSaidaPertencesPertences) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             verificarSaldoPertences();
             statusMov = "Excluiu";
@@ -1467,7 +1480,7 @@ public class TelaSaidaObjetosPertences extends javax.swing.JInternalFrame {
     private void jBtSalvarObjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarObjetoActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaSaidaPertencesPertences);
-        buscarAcessoUsuario1(telaSaidaPertencesPertencesTRI);
+        buscarAcessoUsuarioTRI(telaSaidaPertencesPertencesTRI);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaSaidaPertencesPertences) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             verificarSaldoPertences(); // Verificar se a quantidade solicitada é compativel.
             if (jDescricaoPertenceObjeto.getText().equals("")) {
@@ -2442,7 +2455,7 @@ public class TelaSaidaObjetosPertences extends javax.swing.JInternalFrame {
         objLogSys.setStatusMov(statusMov);
     }
 
-    public void buscarAcessoUsuario(String pTela) {
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS "
@@ -2465,7 +2478,7 @@ public class TelaSaidaObjetosPertences extends javax.swing.JInternalFrame {
         try {
             conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
                     + "WHERE IdUsuario='" + codigoUser + "' "
-                    + "AND NomeTela='" + pTela + "'");
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
             conecta.rs.first();
             codUserAcesso = conecta.rs.getInt("IdUsuario");
             codAbrir = conecta.rs.getInt("Abrir");
@@ -2479,39 +2492,40 @@ public class TelaSaidaObjetosPertences extends javax.swing.JInternalFrame {
         }
         conecta.desconecta();
     }
-    public void buscarAcessoUsuario1(String pTela) {
+
+    public void buscarAcessoUsuarioTRI(String nomeTelaAcesso) {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS "
                     + "WHERE NomeUsuario='" + nameUser + "'");
             conecta.rs.first();
-            codigoUser = conecta.rs.getInt("IdUsuario");
+            codigoUserTRI = conecta.rs.getInt("IdUsuario");
         } catch (Exception e) {
         }
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
                     + "INNER JOIN GRUPOUSUARIOS "
                     + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                    + "WHERE IdUsuario='" + codigoUser + "'");
+                    + "WHERE IdUsuario='" + codigoUserTRI + "'");
             conecta.rs.first();
-            codigoUserGroup = conecta.rs.getInt("IdUsuario");
-            codigoGrupo = conecta.rs.getInt("IdGrupo");
-            nomeGrupo = conecta.rs.getString("NomeGrupo");
+            codigoUserGroupTRI = conecta.rs.getInt("IdUsuario");
+            codigoGrupoTRI = conecta.rs.getInt("IdGrupo");
+            nomeGrupoTRI = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
         }
         try {
             conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
-                    + "WHERE IdUsuario='" + codigoUser + "' "
-                    + "AND NomeTela='" + pTela + "'");
+                    + "WHERE IdUsuario='" + codigoUserTRI + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
             conecta.rs.first();
-            codUserAcesso = conecta.rs.getInt("IdUsuario");
-            codAbrir = conecta.rs.getInt("Abrir");
-            codIncluir = conecta.rs.getInt("Incluir");
-            codAlterar = conecta.rs.getInt("Alterar");
-            codExcluir = conecta.rs.getInt("Excluir");
-            codGravar = conecta.rs.getInt("Gravar");
-            codConsultar = conecta.rs.getInt("Consultar");
-            nomeTela = conecta.rs.getString("NomeTela");
+            codUserAcessoTRI = conecta.rs.getInt("IdUsuario");
+            codAbrirTRI = conecta.rs.getInt("Abrir");
+            codIncluirTRI = conecta.rs.getInt("Incluir");
+            codAlterarTRI = conecta.rs.getInt("Alterar");
+            codExcluirTRI = conecta.rs.getInt("Excluir");
+            codGravarTRI = conecta.rs.getInt("Gravar");
+            codConcultarTRI = conecta.rs.getInt("Consultar");
+            nomeTelaTRI = conecta.rs.getString("NomeTela");
         } catch (Exception e) {
         }
         conecta.desconecta();

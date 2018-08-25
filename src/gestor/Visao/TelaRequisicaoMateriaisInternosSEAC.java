@@ -1542,6 +1542,7 @@ public class TelaRequisicaoMateriaisInternosSEAC extends javax.swing.JInternalFr
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaRequisicaoMateriaisInternos);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaRequisicaoMateriaisInternos) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             acao = 1;
             Novo();
@@ -1563,6 +1564,7 @@ public class TelaRequisicaoMateriaisInternosSEAC extends javax.swing.JInternalFr
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaRequisicaoMateriaisInternos);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaRequisicaoMateriaisInternos) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             objReqMatInterSEAC.setStatusReq(jStatusReq.getText());
             if (jStatusReq.getText().equals("FINALIZADO")) {
@@ -1592,6 +1594,7 @@ public class TelaRequisicaoMateriaisInternosSEAC extends javax.swing.JInternalFr
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaRequisicaoMateriaisInternos);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaRequisicaoMateriaisInternos) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             objReqMatInterSEAC.setStatusReq(jStatusReq.getText());
             if (jStatusReq.getText().equals("FINALIZADO")) {
@@ -1619,6 +1622,7 @@ public class TelaRequisicaoMateriaisInternosSEAC extends javax.swing.JInternalFr
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaRequisicaoMateriaisInternos);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaRequisicaoMateriaisInternos) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             if (jDataReq.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data da requisição.");

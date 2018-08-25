@@ -1056,6 +1056,7 @@ public class TelaControleDepositoSeguranca extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaControleValores);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaControleValores) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             acao = 1;
             Novo();
@@ -1070,6 +1071,7 @@ public class TelaControleDepositoSeguranca extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaControleValores);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaControleValores) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             objDepoPort.setStatusLanc(jStatusLanc.getText());
             if (jStatusLanc.getText().equals("FINALIZADO")) {
@@ -1089,6 +1091,7 @@ public class TelaControleDepositoSeguranca extends javax.swing.JInternalFrame {
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaControleValores);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaControleValores) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             objDepoPort.setStatusLanc(jStatusLanc.getText());
             if (jStatusLanc.getText().equals("FINALIZADO")) {
@@ -1103,6 +1106,7 @@ public class TelaControleDepositoSeguranca extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaControleValores);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaControleValores) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             if (jDataLancamento.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data de lançamento.");
@@ -1175,7 +1179,7 @@ public class TelaControleDepositoSeguranca extends javax.swing.JInternalFrame {
 
     private void jBtNovoInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoInternoActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario();
+        buscarAcessoUsuario(telaControleValoresInterno);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaControleValoresInterno) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             objDepoPort.setStatusLanc(jStatusLanc.getText());
             if (jStatusLanc.getText().equals("FINALIZADO")) {
@@ -1194,7 +1198,7 @@ public class TelaControleDepositoSeguranca extends javax.swing.JInternalFrame {
 
     private void jBtAlterarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarInternoActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario();
+        buscarAcessoUsuario(telaControleValoresInterno);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaControleValoresInterno) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             objDepoPort.setStatusLanc(jStatusLanc.getText());
             if (jStatusLanc.getText().equals("FINALIZADO")) {
@@ -1217,7 +1221,7 @@ public class TelaControleDepositoSeguranca extends javax.swing.JInternalFrame {
 
     private void jBtExcluirInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirInternoActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario();
+        buscarAcessoUsuario(telaControleValoresInterno);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaControleValoresInterno) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
@@ -1252,7 +1256,7 @@ public class TelaControleDepositoSeguranca extends javax.swing.JInternalFrame {
 
     private void jBtSalvarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarInternoActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario();
+        buscarAcessoUsuario(telaControleValoresInterno);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaControleValoresInterno) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             DecimalFormat valorReal = new DecimalFormat("###,##00.0");
             valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
@@ -2037,7 +2041,7 @@ public class TelaControleDepositoSeguranca extends javax.swing.JInternalFrame {
         objLogSys.setStatusMov(statusMov);
     }
 
-    public void buscarAcessoUsuario() {
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS "
@@ -2060,7 +2064,7 @@ public class TelaControleDepositoSeguranca extends javax.swing.JInternalFrame {
         try {
             conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
                     + "WHERE IdUsuario='" + codigoUser + "' "
-                    + "AND NomeTela='" + telaControleValoresInterno + "'");
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
             conecta.rs.first();
             codUserAcesso = conecta.rs.getInt("IdUsuario");
             codAbrir = conecta.rs.getInt("Abrir");

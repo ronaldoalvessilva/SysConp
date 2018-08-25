@@ -69,8 +69,7 @@ public class TelaCadastroDoencas extends javax.swing.JInternalFrame {
     public TelaCadastroDoencas() {
         initComponents();
         corCampos();
-        formatarCampos();
-        buscarAcessoUsuario();
+        formatarCampos();      
     }
 
     /**
@@ -575,6 +574,7 @@ public class TelaCadastroDoencas extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaAcessoCadastroDoencasENF);
         if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAcessoCadastroDoencasENF) && codIncluirENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
             acao = 1;
             Novo();
@@ -589,6 +589,7 @@ public class TelaCadastroDoencas extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaAcessoCadastroDoencasENF);
         if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAcessoCadastroDoencasENF) && codAlterarENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
             acao = 2;
             Alterar();
@@ -602,6 +603,7 @@ public class TelaCadastroDoencas extends javax.swing.JInternalFrame {
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaAcessoCadastroDoencasENF);
         if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAcessoCadastroDoencasENF) && codExcluirENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
@@ -616,6 +618,7 @@ public class TelaCadastroDoencas extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaAcessoCadastroDoencasENF);
         if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAcessoCadastroDoencasENF) && codGravarENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
             if (jDataLanc.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data de cadastro");
@@ -977,7 +980,7 @@ public class TelaCadastroDoencas extends javax.swing.JInternalFrame {
         conecta.desconecta();
     }
 
-    public void buscarAcessoUsuario() {
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS "
@@ -1000,7 +1003,7 @@ public class TelaCadastroDoencas extends javax.swing.JInternalFrame {
         try {
             conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
                     + "WHERE IdUsuario='" + codigoUserENF + "' "
-                    + "AND NomeTela='" + telaAcessoCadastroDoencasENF + "'");
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
             conecta.rs.first();
             codUserAcessoENF = conecta.rs.getInt("IdUsuario");
             codAbrirENF = conecta.rs.getInt("Abrir");

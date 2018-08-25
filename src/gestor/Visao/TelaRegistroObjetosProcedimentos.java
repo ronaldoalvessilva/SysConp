@@ -1869,6 +1869,7 @@ public class TelaRegistroObjetosProcedimentos extends javax.swing.JInternalFrame
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaRegistroObjetoProcedimento);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaRegistroObjetoProcedimento) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             acao = 1;
             Novo();
@@ -1887,6 +1888,7 @@ public class TelaRegistroObjetosProcedimentos extends javax.swing.JInternalFrame
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaRegistroObjetoProcedimento);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaRegistroObjetoProcedimento) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             objRegProc.setStatusLanc(jStatusLanc.getText());
             if (jStatusLanc.getText().equals("FINALIZADO")) {
@@ -1906,6 +1908,7 @@ public class TelaRegistroObjetosProcedimentos extends javax.swing.JInternalFrame
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaRegistroObjetoProcedimento);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaRegistroObjetoProcedimento) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             verificarRegistros(); // Verificar se existe registro de celas
             verificarAgente(); // Verificar se existe registro na aba Apoio.
@@ -1940,6 +1943,7 @@ public class TelaRegistroObjetosProcedimentos extends javax.swing.JInternalFrame
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaRegistroObjetoProcedimento);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaRegistroObjetoProcedimento) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             if (jDataLanc.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data do registro.");

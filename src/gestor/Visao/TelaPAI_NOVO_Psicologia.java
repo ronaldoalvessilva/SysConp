@@ -7208,6 +7208,7 @@ public class TelaPAI_NOVO_Psicologia extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaPAIS_PSI);
         if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPAIS_PSI) && codIncluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
             acao = 1;
             limparCamposNovo();
@@ -7227,6 +7228,7 @@ public class TelaPAI_NOVO_Psicologia extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaPAIS_PSI);
         if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPAIS_PSI) && codAlterarPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
             acao = 2;
             bloquearCampos();
@@ -7242,6 +7244,7 @@ public class TelaPAI_NOVO_Psicologia extends javax.swing.JInternalFrame {
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaPAIS_PSI);
         if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPAIS_PSI) && codExcluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
             verificarCodigoPAI();
             statusMov = "Excluiu";
@@ -7273,6 +7276,7 @@ public class TelaPAI_NOVO_Psicologia extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaPAIS_PSI);
         if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPAIS_PSI) && codGravarPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
             verificarExistenciaInternoPAI();
             if (jDataPAI.getDate() == null) {

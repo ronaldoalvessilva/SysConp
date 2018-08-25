@@ -75,7 +75,6 @@ public class TelaAprovadorSolicitacaoMedicamentosENFA extends javax.swing.JInter
         initComponents();
         formatarCampos();
         corCampos();
-        buscarAcessoUsuario();
     }
 
     /**
@@ -801,6 +800,7 @@ public class TelaAprovadorSolicitacaoMedicamentosENFA extends javax.swing.JInter
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaAprovadorSolicitacaoENF);
         if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAprovadorSolicitacaoENF) && codIncluirENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
             acao = 1;
             Novo();
@@ -815,6 +815,7 @@ public class TelaAprovadorSolicitacaoMedicamentosENFA extends javax.swing.JInter
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaAprovadorSolicitacaoENF);
         if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAprovadorSolicitacaoENF) && codAlterarENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
             acao = 2;
             Alterar();
@@ -828,6 +829,7 @@ public class TelaAprovadorSolicitacaoMedicamentosENFA extends javax.swing.JInter
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here: 
+        buscarAcessoUsuario(telaAprovadorSolicitacaoENF);
         if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAprovadorSolicitacaoENF) && codExcluirENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
@@ -840,6 +842,7 @@ public class TelaAprovadorSolicitacaoMedicamentosENFA extends javax.swing.JInter
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaAprovadorSolicitacaoENF);
         if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAprovadorSolicitacaoENF) && codExcluirENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
             DecimalFormat qtdReal = new DecimalFormat("###,##00.0");
             qtdReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
@@ -1200,7 +1203,7 @@ public class TelaAprovadorSolicitacaoMedicamentosENFA extends javax.swing.JInter
         objLogSys.setStatusMov(statusMov);
     }
 
-    public void buscarAcessoUsuario() {
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS "
@@ -1223,7 +1226,7 @@ public class TelaAprovadorSolicitacaoMedicamentosENFA extends javax.swing.JInter
         try {
             conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
                     + "WHERE IdUsuario='" + codigoUserENF + "' "
-                    + "AND NomeTela='" + telaAprovadorSolicitacaoENF + "'");
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
             conecta.rs.first();
             codUserAcessoENF = conecta.rs.getInt("IdUsuario");
             codAbrirENF = conecta.rs.getInt("Abrir");

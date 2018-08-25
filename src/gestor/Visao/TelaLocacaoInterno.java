@@ -17,7 +17,9 @@ import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloSeguranca.codAbrir;
 import static gestor.Visao.TelaModuloSeguranca.codAlterar;
+import static gestor.Visao.TelaModuloSeguranca.codConsultar;
 import static gestor.Visao.TelaModuloSeguranca.codExcluir;
 import static gestor.Visao.TelaModuloSeguranca.codGravar;
 import static gestor.Visao.TelaModuloSeguranca.codIncluir;
@@ -28,8 +30,15 @@ import static gestor.Visao.TelaModuloSeguranca.nomeTela;
 import static gestor.Visao.TelaModuloSeguranca.codigoUserGroup;
 import static gestor.Visao.TelaModuloSeguranca.codigoGrupo;
 import static gestor.Visao.TelaModuloSeguranca.telaLocacaoInternos;
-import static gestor.Visao.TelaModuloSeguranca.codAbrir;
-import static gestor.Visao.TelaModuloSeguranca.codConsultar;
+import static gestor.Visao.TelaModuloSeguranca.codExcluir;
+import static gestor.Visao.TelaModuloSeguranca.codGravar;
+import static gestor.Visao.TelaModuloSeguranca.codIncluir;
+import static gestor.Visao.TelaModuloSeguranca.codUserAcesso;
+import static gestor.Visao.TelaModuloSeguranca.codigoGrupo;
+import static gestor.Visao.TelaModuloSeguranca.codigoUser;
+import static gestor.Visao.TelaModuloSeguranca.codigoUserGroup;
+import static gestor.Visao.TelaModuloSeguranca.nomeGrupo;
+import static gestor.Visao.TelaModuloSeguranca.nomeTela;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -1018,6 +1027,7 @@ public class TelaLocacaoInterno extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaLocacaoInternosManutencao);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaLocacaoInternosManutencao) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             acao = 1;
             Novo();
@@ -1032,6 +1042,7 @@ public class TelaLocacaoInterno extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaLocacaoInternosManutencao);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaLocacaoInternosManutencao) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             objLocaInt.setStatusLoca(jStatusLanc.getText());
             if (jStatusLanc.getText().equals("FINALIZADO")) {
@@ -1051,6 +1062,7 @@ public class TelaLocacaoInterno extends javax.swing.JInternalFrame {
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaLocacaoInternosManutencao);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaLocacaoInternosManutencao) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             objLocaInt.setStatusLoca(jStatusLanc.getText());
             if (jStatusLanc.getText().equals("FINALIZADO")) {
@@ -1065,6 +1077,7 @@ public class TelaLocacaoInterno extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaLocacaoInternosManutencao);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaLocacaoInternosManutencao) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             if (jDataLocacao.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data de lançamento.");
@@ -1124,7 +1137,7 @@ public class TelaLocacaoInterno extends javax.swing.JInternalFrame {
 
     private void jBtNovoInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoInternoActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario();
+        buscarAcessoUsuario(telaLocacaoInternos);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaLocacaoInternos) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             objLocaInt.setStatusLoca(jStatusLanc.getText());
             if (jStatusLanc.getText().equals("FINALIZADO")) {
@@ -1143,7 +1156,7 @@ public class TelaLocacaoInterno extends javax.swing.JInternalFrame {
 
     private void jBtAlterarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarInternoActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario();
+        buscarAcessoUsuario(telaLocacaoInternos);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaLocacaoInternos) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             objLocaInt.setStatusLoca(jStatusLanc.getText());
             objLocaInt.setIdCela(Integer.valueOf(jIdCela.getText()));
@@ -1163,7 +1176,7 @@ public class TelaLocacaoInterno extends javax.swing.JInternalFrame {
 
     private void jBtExcluirInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirInternoActionPerformed
         // TODO add your handling code here: 
-        buscarAcessoUsuario();
+        buscarAcessoUsuario(telaLocacaoInternos);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaLocacaoInternos) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
@@ -1200,7 +1213,7 @@ public class TelaLocacaoInterno extends javax.swing.JInternalFrame {
 
     private void jBtSalvarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarInternoActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario();
+        buscarAcessoUsuario(telaLocacaoInternos);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaLocacaoInternos) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             if (jNomeInterno.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
@@ -2121,7 +2134,7 @@ public class TelaLocacaoInterno extends javax.swing.JInternalFrame {
         }
     }
 
-    public void buscarAcessoUsuario() {
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS "
@@ -2144,7 +2157,7 @@ public class TelaLocacaoInterno extends javax.swing.JInternalFrame {
         try {
             conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
                     + "WHERE IdUsuario='" + codigoUser + "' "
-                    + "AND NomeTela='" + telaLocacaoInternos + "'");
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
             conecta.rs.first();
             codUserAcesso = conecta.rs.getInt("IdUsuario");
             codAbrir = conecta.rs.getInt("Abrir");

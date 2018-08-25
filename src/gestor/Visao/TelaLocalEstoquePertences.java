@@ -15,20 +15,28 @@ import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloSeguranca.codAbrir;
 import static gestor.Visao.TelaModuloSeguranca.codAlterar;
+import static gestor.Visao.TelaModuloSeguranca.codConsultar;
 import static gestor.Visao.TelaModuloSeguranca.codExcluir;
 import static gestor.Visao.TelaModuloSeguranca.codGravar;
 import static gestor.Visao.TelaModuloSeguranca.codIncluir;
 import static gestor.Visao.TelaModuloSeguranca.codUserAcesso;
+import static gestor.Visao.TelaModuloSeguranca.codigoGrupo;
 import static gestor.Visao.TelaModuloSeguranca.codigoUser;
+import static gestor.Visao.TelaModuloSeguranca.codigoUserGroup;
 import static gestor.Visao.TelaModuloSeguranca.nomeGrupo;
 import static gestor.Visao.TelaModuloSeguranca.nomeTela;
 import static gestor.Visao.TelaModuloSeguranca.telaLocalPertencesInternos;
+import static gestor.Visao.TelaModuloTriagem.codAbrirTRI;
 import static gestor.Visao.TelaModuloTriagem.codAlterarTRI;
+import static gestor.Visao.TelaModuloTriagem.codConcultarTRI;
 import static gestor.Visao.TelaModuloTriagem.codExcluirTRI;
 import static gestor.Visao.TelaModuloTriagem.codGravarTRI;
 import static gestor.Visao.TelaModuloTriagem.codIncluirTRI;
 import static gestor.Visao.TelaModuloTriagem.codUserAcessoTRI;
+import static gestor.Visao.TelaModuloTriagem.codigoGrupoTRI;
+import static gestor.Visao.TelaModuloTriagem.codigoUserGroupTRI;
 import static gestor.Visao.TelaModuloTriagem.codigoUserTRI;
 import static gestor.Visao.TelaModuloTriagem.nomeGrupoTRI;
 import static gestor.Visao.TelaModuloTriagem.nomeTelaTRI;
@@ -565,6 +573,8 @@ public class TelaLocalEstoquePertences extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaLocalPertencesInternos);
+        buscarAcessoUsuarioTRI(telaLocalPertencesInternosTRI);        
         if (codigoUser == codUserAcesso && nomeTela.equals(telaLocalPertencesInternos) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
@@ -586,6 +596,8 @@ public class TelaLocalEstoquePertences extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaLocalPertencesInternos);
+        buscarAcessoUsuarioTRI(telaLocalPertencesInternosTRI);        
         if (codigoUser == codUserAcesso && nomeTela.equals(telaLocalPertencesInternos) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             statusMov = "Alterou";
             horaMov = jHoraSistema.getText();
@@ -607,6 +619,8 @@ public class TelaLocalEstoquePertences extends javax.swing.JInternalFrame {
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaLocalPertencesInternos);
+        buscarAcessoUsuarioTRI(telaLocalPertencesInternosTRI);       
         if (codigoUser == codUserAcesso && nomeTela.equals(telaLocalPertencesInternos) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             verificarLocal();
             statusMov = "Excluiu";
@@ -652,6 +666,8 @@ public class TelaLocalEstoquePertences extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaLocalPertencesInternos);
+        buscarAcessoUsuarioTRI(telaLocalPertencesInternosTRI);       
         if (codigoUser == codUserAcesso && nomeTela.equals(telaLocalPertencesInternos) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             if (jDescricaoLocal.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a descrição do local de armazenamento.");
@@ -960,4 +976,80 @@ public class TelaLocalEstoquePertences extends javax.swing.JInternalFrame {
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
     }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUser = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUser + "'");
+            conecta.rs.first();
+            codigoUserGroup = conecta.rs.getInt("IdUsuario");
+            codigoGrupo = conecta.rs.getInt("IdGrupo");
+            nomeGrupo = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUser + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcesso = conecta.rs.getInt("IdUsuario");
+            codAbrir = conecta.rs.getInt("Abrir");
+            codIncluir = conecta.rs.getInt("Incluir");
+            codAlterar = conecta.rs.getInt("Alterar");
+            codExcluir = conecta.rs.getInt("Excluir");
+            codGravar = conecta.rs.getInt("Gravar");
+            codConsultar = conecta.rs.getInt("Consultar");
+            nomeTela = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void buscarAcessoUsuarioTRI(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserTRI = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserTRI + "'");
+            conecta.rs.first();
+            codigoUserGroupTRI = conecta.rs.getInt("IdUsuario");
+            codigoGrupoTRI = conecta.rs.getInt("IdGrupo");
+            nomeGrupoTRI = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserTRI + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoTRI = conecta.rs.getInt("IdUsuario");
+            codAbrirTRI = conecta.rs.getInt("Abrir");
+            codIncluirTRI = conecta.rs.getInt("Incluir");
+            codAlterarTRI = conecta.rs.getInt("Alterar");
+            codExcluirTRI = conecta.rs.getInt("Excluir");
+            codGravarTRI = conecta.rs.getInt("Gravar");
+            codConcultarTRI = conecta.rs.getInt("Consultar");
+            nomeTelaTRI = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }    
 }

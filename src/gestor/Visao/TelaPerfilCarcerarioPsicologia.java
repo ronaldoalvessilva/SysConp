@@ -1744,6 +1744,7 @@ public class TelaPerfilCarcerarioPsicologia extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaPerfilSocialManuPSI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPerfilSocialManuPSI) && codIncluirPSI == 1) {
             acao = 1;
             bloquearCampos();
@@ -1759,6 +1760,7 @@ public class TelaPerfilCarcerarioPsicologia extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaPerfilSocialManuPSI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPerfilSocialManuPSI) && codAlterarPSI == 1) {
             objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
             if (jStatusPerfil.getText().equals("FINALIZADO")) {
@@ -1777,6 +1779,7 @@ public class TelaPerfilCarcerarioPsicologia extends javax.swing.JInternalFrame {
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaPerfilSocialManuPSI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPerfilSocialManuPSI) && codExcluirPSI == 1) {
             verificarInternoPerfil();
             statusMov = "Excluiu";
@@ -1800,6 +1803,7 @@ public class TelaPerfilCarcerarioPsicologia extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaPerfilSocialManuPSI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPerfilSocialManuPSI) && codGravarPSI == 1) {
             verificarExistenciaInternoPerfil();
             if (jDataPerfil.getDate() == null) {
@@ -2182,7 +2186,7 @@ public class TelaPerfilCarcerarioPsicologia extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
-    public void buscarAcessoUsuario(String nomeTela) {
+   public void buscarAcessoUsuario(String nomeTela) {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS "
@@ -2192,7 +2196,7 @@ public class TelaPerfilCarcerarioPsicologia extends javax.swing.JInternalFrame {
         } catch (Exception e) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+             conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
                     + "INNER JOIN GRUPOUSUARIOS "
                     + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
                     + "WHERE IdUsuario='" + codigoUserPSI + "'");

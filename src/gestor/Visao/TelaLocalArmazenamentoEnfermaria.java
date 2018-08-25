@@ -68,7 +68,6 @@ public class TelaLocalArmazenamentoEnfermaria extends javax.swing.JInternalFrame
         initComponents();
         formatarCampos();
         corCampos();
-        buscarAcessoUsuario();
     }
 
     /**
@@ -481,6 +480,7 @@ public class TelaLocalArmazenamentoEnfermaria extends javax.swing.JInternalFrame
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaLocalArmazenaENF);
         if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaLocalArmazenaENF) && codIncluirENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
             acao = 1;
             Novo();
@@ -495,6 +495,7 @@ public class TelaLocalArmazenamentoEnfermaria extends javax.swing.JInternalFrame
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaLocalArmazenaENF);
         if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaLocalArmazenaENF) && codAlterarENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
             acao = 2;
             Alterar();
@@ -508,6 +509,7 @@ public class TelaLocalArmazenamentoEnfermaria extends javax.swing.JInternalFrame
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaLocalArmazenaENF);
         if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaLocalArmazenaENF) && codExcluirENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
             verificarProduto();
         } else {
@@ -517,6 +519,7 @@ public class TelaLocalArmazenamentoEnfermaria extends javax.swing.JInternalFrame
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaLocalArmazenaENF);
         if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaLocalArmazenaENF) && codGravarENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
             if (jComboBoxStatusLocal.getSelectedItem() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe se o local está ativo ou inativo.");
@@ -832,7 +835,7 @@ public class TelaLocalArmazenamentoEnfermaria extends javax.swing.JInternalFrame
         objLogSys.setStatusMov(statusMov);
     }
 
-    public void buscarAcessoUsuario() {
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS "
@@ -855,7 +858,7 @@ public class TelaLocalArmazenamentoEnfermaria extends javax.swing.JInternalFrame
         try {
             conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
                     + "WHERE IdUsuario='" + codigoUserENF + "' "
-                    + "AND NomeTela='" + telaLocalArmazenaENF + "'");
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
             conecta.rs.first();
             codUserAcessoENF = conecta.rs.getInt("IdUsuario");
             codAbrirENF = conecta.rs.getInt("Abrir");

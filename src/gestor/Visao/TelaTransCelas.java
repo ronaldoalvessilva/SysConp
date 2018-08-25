@@ -15,14 +15,20 @@ import gestor.Modelo.TransferenciaLocalInternos;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloSeguranca.codAbrir;
 import static gestor.Visao.TelaModuloSeguranca.codAlterar;
+import static gestor.Visao.TelaModuloSeguranca.codConsultar;
+import static gestor.Visao.TelaModuloSeguranca.codExcluir;
 import static gestor.Visao.TelaModuloSeguranca.codGravar;
 import static gestor.Visao.TelaModuloSeguranca.codIncluir;
 import static gestor.Visao.TelaModuloSeguranca.codUserAcesso;
+import static gestor.Visao.TelaModuloSeguranca.codigoGrupo;
 import static gestor.Visao.TelaModuloSeguranca.codigoUser;
+import static gestor.Visao.TelaModuloSeguranca.codigoUserGroup;
 import static gestor.Visao.TelaModuloSeguranca.nomeGrupo;
 import static gestor.Visao.TelaModuloSeguranca.nomeTela;
 import static gestor.Visao.TelaModuloSeguranca.telaLocacaoInternosManutencao;
+import static gestor.Visao.TelaModuloSeguranca.telaTransferenciaPavilhaoCela;
 import static gestor.Visao.TelaPesqInternoTransfLocacao.idLoca;
 import java.awt.Color;
 import java.awt.Image;
@@ -759,7 +765,8 @@ public class TelaTransCelas extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaLocacaoInternosManutencao) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        buscarAcessoUsuario(telaTransferenciaPavilhaoCela);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaTransferenciaPavilhaoCela) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             acao = 1;
             Novo();
             corCampos();
@@ -773,7 +780,8 @@ public class TelaTransCelas extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaLocacaoInternosManutencao) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        buscarAcessoUsuario(telaTransferenciaPavilhaoCela);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaTransferenciaPavilhaoCela) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             objTranLocalInt.setStatusLanc(jStatusLanc.getText());
             if (jStatusLanc.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Essa transferência não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -791,13 +799,19 @@ public class TelaTransCelas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
-        // TODO add your handling code here:        
-        JOptionPane.showMessageDialog(rootPane, "Esse registro não pode ser excluído,\nfaça outra transferência se necessário.");
+        // TODO add your handling code here:     
+        buscarAcessoUsuario(telaTransferenciaPavilhaoCela);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaTransferenciaPavilhaoCela) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            JOptionPane.showMessageDialog(rootPane, "Esse registro não pode ser excluído,\nfaça outra transferência se necessário.");
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (codigoUser == codUserAcesso && nomeTela.equals(telaLocacaoInternosManutencao) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+        buscarAcessoUsuario(telaTransferenciaPavilhaoCela);
+        if (codigoUser == codUserAcesso && nomeTela.equals(telaTransferenciaPavilhaoCela) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             if (jDataLanc.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data de lançamento!!!");
                 jDataLanc.requestFocus();
@@ -1254,5 +1268,43 @@ public class TelaTransCelas extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jIDTran.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUser = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUser + "'");
+            conecta.rs.first();
+            codigoUserGroup = conecta.rs.getInt("IdUsuario");
+            codigoGrupo = conecta.rs.getInt("IdGrupo");
+            nomeGrupo = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUser + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcesso = conecta.rs.getInt("IdUsuario");
+            codAbrir = conecta.rs.getInt("Abrir");
+            codIncluir = conecta.rs.getInt("Incluir");
+            codAlterar = conecta.rs.getInt("Alterar");
+            codExcluir = conecta.rs.getInt("Excluir");
+            codGravar = conecta.rs.getInt("Gravar");
+            codConsultar = conecta.rs.getInt("Consultar");
+            nomeTela = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

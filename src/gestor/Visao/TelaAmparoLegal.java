@@ -17,6 +17,10 @@ import static gestor.Visao.TelaModuloJuridico.codAlterarJURI;
 import static gestor.Visao.TelaModuloJuridico.codExcluirJURI;
 import static gestor.Visao.TelaModuloJuridico.codGravarJURI;
 import static gestor.Visao.TelaModuloJuridico.codIncluirJURI;
+import static gestor.Visao.TelaModuloJuridico.codConsultarJURI;
+import static gestor.Visao.TelaModuloJuridico.codAbrirJURI;
+import static gestor.Visao.TelaModuloJuridico.codigoGrupoJURI;
+import static gestor.Visao.TelaModuloJuridico.codigoUserGroupJURI;
 import static gestor.Visao.TelaModuloJuridico.codUserAcessoJURI;
 import static gestor.Visao.TelaModuloJuridico.codigoUserJURI;
 import static gestor.Visao.TelaModuloJuridico.nomeGrupoJURI;
@@ -674,6 +678,7 @@ public class TelaAmparoLegal extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaAmparaoLegalJURI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAmparaoLegalJURI) && codIncluirJURI == 1) {
             acao = 1;
             Novo();
@@ -688,6 +693,7 @@ public class TelaAmparoLegal extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaAmparaoLegalJURI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAmparaoLegalJURI) && codAlterarJURI == 1) {
             acao = 2;
             Alterar();
@@ -703,6 +709,7 @@ public class TelaAmparoLegal extends javax.swing.JInternalFrame {
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
         // AINDA NÃO ESTÁ PRONTO, FALAT TESTAR JUNTO A FICHA JURIDICA.
+        buscarAcessoUsuario(telaAmparaoLegalJURI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAmparaoLegalJURI) && codExcluirJURI == 1) {
             Excluir();
             statusMov = "Excluiu";
@@ -725,6 +732,7 @@ public class TelaAmparoLegal extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaAmparaoLegalJURI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAmparaoLegalJURI) && codGravarJURI == 1) {
             if (jDataAmparoLegal.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data de cadastro.");
@@ -1127,5 +1135,43 @@ public class TelaAmparoLegal extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jCodigoAmparo.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserJURI = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserJURI + "'");
+            conecta.rs.first();
+            codigoUserGroupJURI = conecta.rs.getInt("IdUsuario");
+            codigoGrupoJURI = conecta.rs.getInt("IdGrupo");
+            nomeGrupoJURI = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserJURI + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoJURI = conecta.rs.getInt("IdUsuario");
+            codAbrirJURI = conecta.rs.getInt("Abrir");
+            codIncluirJURI = conecta.rs.getInt("Incluir");
+            codAlterarJURI = conecta.rs.getInt("Alterar");
+            codExcluirJURI = conecta.rs.getInt("Excluir");
+            codGravarJURI = conecta.rs.getInt("Gravar");
+            codConsultarJURI = conecta.rs.getInt("Consultar");
+            nomeTelaJURI = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

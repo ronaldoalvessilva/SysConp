@@ -18,6 +18,22 @@ import gestor.Modelo.IncidenciaPenal;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.ProcessoJuridico;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloJuridico.codAlterarJURI;
+import static gestor.Visao.TelaModuloJuridico.codExcluirJURI;
+import static gestor.Visao.TelaModuloJuridico.codGravarJURI;
+import static gestor.Visao.TelaModuloJuridico.codIncluirJURI;
+import static gestor.Visao.TelaModuloJuridico.codConsultarJURI;
+import static gestor.Visao.TelaModuloJuridico.codAbrirJURI;
+import static gestor.Visao.TelaModuloJuridico.codigoGrupoJURI;
+import static gestor.Visao.TelaModuloJuridico.codigoUserGroupJURI;
+import static gestor.Visao.TelaModuloJuridico.codUserAcessoJURI;
+import static gestor.Visao.TelaModuloJuridico.codigoUserJURI;
+import static gestor.Visao.TelaModuloJuridico.nomeGrupoJURI;
+import static gestor.Visao.TelaModuloJuridico.nomeTelaJURI;
+import static gestor.Visao.TelaModuloJuridico.telaCadastroFichaJuridicaDocumentosProcessoJURI;
+import static gestor.Visao.TelaModuloJuridico.telaCadastroFichaJuridicaIncidênciaPenalJURI;
+import static gestor.Visao.TelaModuloJuridico.telaCadastroFichaJuridicaManutencaoJURI;
+import static gestor.Visao.TelaModuloJuridico.telaCadastroFichaJuridicaProcessoJURI;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -1907,91 +1923,111 @@ public class TelaFichaJuridica extends javax.swing.JInternalFrame {
 
     private void jBtNovaFichaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaFichaActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        NovaFicha();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-    }//GEN-LAST:event_jBtNovaFichaActionPerformed
-
-    private void jBtAlterarFichaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarFichaActionPerformed
-        // TODO add your handling code here:
-        objFicha.setStatusFicha(jStatusFicha.getText());
-        if (jStatusFicha.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
-        } else {
-            acao = 2;
-            AlterarFicha();
+        buscarAcessoUsuario(telaCadastroFichaJuridicaManutencaoJURI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaCadastroFichaJuridicaManutencaoJURI) && codIncluirJURI == 1) {
+            acao = 1;
+            NovaFicha();
             corCampos();
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jBtNovaFichaActionPerformed
+
+    private void jBtAlterarFichaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarFichaActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaCadastroFichaJuridicaManutencaoJURI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaCadastroFichaJuridicaManutencaoJURI) && codAlterarJURI == 1) {
+            objFicha.setStatusFicha(jStatusFicha.getText());
+            if (jStatusFicha.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                AlterarFicha();
+                corCampos();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarFichaActionPerformed
 
     private void jBtExcluirFichaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirFichaActionPerformed
         // TODO add your handling code here:
-        objFicha.setStatusFicha(jStatusFicha.getText());
-        if (jStatusFicha.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
-        } else {
-            //VERIFICAR A EXISTENCIA DE REGISTROS NAS TABELAS PROCESSOS_JURIDICO, INCIDENCIA_PENAL E DOCUMENTOS_PROCESSO
-            verificarRegistros();
-            statusMov = "Excluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
-            if (jIdFicha.getText().equals(codFichaProc)
-                    || jIdFicha.getText().equals(codFichaAmp)
-                    || jIdFicha.getText().equals(codFichaDoc)) {
-                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, existem outros registros relacionados a ficha jurídica.");
+        buscarAcessoUsuario(telaCadastroFichaJuridicaManutencaoJURI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaCadastroFichaJuridicaManutencaoJURI) && codExcluirJURI == 1) {
+            objFicha.setStatusFicha(jStatusFicha.getText());
+            if (jStatusFicha.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
             } else {
-                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                        JOptionPane.YES_NO_OPTION);
-                if (resposta == JOptionPane.YES_OPTION) {
-                    objFicha.setIdFicha(Integer.valueOf(jIdFicha.getText()));
-                    control.excluirFichaJuridica(objFicha);
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                    ExcluirFicha();
+                //VERIFICAR A EXISTENCIA DE REGISTROS NAS TABELAS PROCESSOS_JURIDICO, INCIDENCIA_PENAL E DOCUMENTOS_PROCESSO
+                verificarRegistros();
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                if (jIdFicha.getText().equals(codFichaProc)
+                        || jIdFicha.getText().equals(codFichaAmp)
+                        || jIdFicha.getText().equals(codFichaDoc)) {
+                    JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, existem outros registros relacionados a ficha jurídica.");
+                } else {
+                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta == JOptionPane.YES_OPTION) {
+                        objFicha.setIdFicha(Integer.valueOf(jIdFicha.getText()));
+                        control.excluirFichaJuridica(objFicha);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                        ExcluirFicha();
+                    }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirFichaActionPerformed
 
     private void jBtSalvarFichaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarFichaActionPerformed
         // TODO add your handling code here:
-        if (jDataFicha.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data da ficha.");
-        } else if (jIdInternoFicha.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para ficha jurídica.");
+        buscarAcessoUsuario(telaCadastroFichaJuridicaManutencaoJURI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaCadastroFichaJuridicaManutencaoJURI) && codGravarJURI == 1) {
+            if (jDataFicha.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data da ficha.");
+            } else if (jIdInternoFicha.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para ficha jurídica.");
+            } else {
+                objFicha.setStatusFicha(jStatusFicha.getText());
+                objFicha.setDataFicha(jDataFicha.getDate());
+                objFicha.setNomeInterno(jNomeInterno.getText());
+                if (acao == 1) {
+                    objFicha.setUsuarioInsert(nameUser);
+                    objFicha.setDataInsert(dataModFinal);
+                    objFicha.setHorarioInsert(horaMov);
+                    control.incluirFichaJuridica(objFicha);
+                    buscarCodigo();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    SalvarFicha();
+                }
+                if (acao == 2) {
+                    objFicha.setUsuarioUp(nameUser);
+                    objFicha.setDataUp(dataModFinal);
+                    objFicha.setHorarioUp(horaMov);
+                    objFicha.setIdFicha(Integer.valueOf(jIdFicha.getText()));
+                    control.alterarFichaJuridica(objFicha);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    SalvarFicha();
+                }
+            }
         } else {
-            objFicha.setStatusFicha(jStatusFicha.getText());
-            objFicha.setDataFicha(jDataFicha.getDate());
-            objFicha.setNomeInterno(jNomeInterno.getText());
-            if (acao == 1) {
-                objFicha.setUsuarioInsert(nameUser);
-                objFicha.setDataInsert(dataModFinal);
-                objFicha.setHorarioInsert(horaMov);
-                control.incluirFichaJuridica(objFicha);
-                buscarCodigo();
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                SalvarFicha();
-            }
-            if (acao == 2) {
-                objFicha.setUsuarioUp(nameUser);
-                objFicha.setDataUp(dataModFinal);
-                objFicha.setHorarioUp(horaMov);
-                objFicha.setIdFicha(Integer.valueOf(jIdFicha.getText()));
-                control.alterarFichaJuridica(objFicha);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                SalvarFicha();
-            }
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarFichaActionPerformed
 
@@ -2032,112 +2068,132 @@ public class TelaFichaJuridica extends javax.swing.JInternalFrame {
 
     private void jBtNovoProcessoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoProcessoActionPerformed
         // TODO add your handling code here:
-        objFicha.setStatusFicha(jStatusFicha.getText());
-        if (jStatusFicha.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaCadastroFichaJuridicaProcessoJURI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaCadastroFichaJuridicaProcessoJURI) && codIncluirJURI == 1) {
+            objFicha.setStatusFicha(jStatusFicha.getText());
+            if (jStatusFicha.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 3;
+                NovoProcesso();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 3;
-            NovoProcesso();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtNovoProcessoActionPerformed
 
     private void jBtAlterarProcessoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarProcessoActionPerformed
         // TODO add your handling code here:
-        objFicha.setStatusFicha(jStatusFicha.getText());
-        if (jStatusFicha.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaCadastroFichaJuridicaProcessoJURI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaCadastroFichaJuridicaProcessoJURI) && codAlterarJURI == 1) {
+            objFicha.setStatusFicha(jStatusFicha.getText());
+            if (jStatusFicha.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 4;
+                AlterarProcesso();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 4;
-            AlterarProcesso();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarProcessoActionPerformed
 
     private void jBtExcluirProcessoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirProcessoActionPerformed
         // TODO add your handling code here:
-        objFicha.setStatusFicha(jStatusFicha.getText());
-        if (jStatusFicha.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
-        } else {
-            statusMov = "Excluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objProcJuri.setIdProc(Integer.valueOf(codProc));
-                controle.excluirProcessoJuridico(objProcJuri);
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                preencherTabelaProcessos("SELECT * FROM PROCESSOS_JURIDICOS "
-                        + "INNER JOIN FICHA_JURIDICA "
-                        + "ON PROCESSOS_JURIDICOS.IdFicha=FICHA_JURIDICA.IdFicha "
-                        + "WHERE PROCESSOS_JURIDICOS.IdFicha='" + jIdFicha.getText() + "'");
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                ExcluirProcesso();
+        buscarAcessoUsuario(telaCadastroFichaJuridicaProcessoJURI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaCadastroFichaJuridicaProcessoJURI) && codExcluirJURI == 1) {
+            objFicha.setStatusFicha(jStatusFicha.getText());
+            if (jStatusFicha.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objProcJuri.setIdProc(Integer.valueOf(codProc));
+                    controle.excluirProcessoJuridico(objProcJuri);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    preencherTabelaProcessos("SELECT * FROM PROCESSOS_JURIDICOS "
+                            + "INNER JOIN FICHA_JURIDICA "
+                            + "ON PROCESSOS_JURIDICOS.IdFicha=FICHA_JURIDICA.IdFicha "
+                            + "WHERE PROCESSOS_JURIDICOS.IdFicha='" + jIdFicha.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    ExcluirProcesso();
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirProcessoActionPerformed
 
     private void jBtSalvarProcessoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarProcessoActionPerformed
         // TODO add your handling code here:
-        if (jComboBoxRegimeProcesso.getSelectedItem().equals("Selecione")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o regime do interno no processo.");
-        } else if (jComboBoxSentenca.getSelectedItem().equals("Selecione")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a sentença do processo.");
-        } else if (jComboBoxSituacaoPresoProcesso.getSelectedItem().equals("Selecione")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a situação do Preso no Processo.");
-        } else if (!jComboBoxSentenca.getSelectedItem().equals("Selecione") && jComboBoxTipoSentencaCondenatoria.getSelectedItem().equals("Selecione")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o Tipo de Sentença Condenatória.");
+        buscarAcessoUsuario(telaCadastroFichaJuridicaProcessoJURI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaCadastroFichaJuridicaProcessoJURI) && codGravarJURI == 1) {
+            if (jComboBoxRegimeProcesso.getSelectedItem().equals("Selecione")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o regime do interno no processo.");
+            } else if (jComboBoxSentenca.getSelectedItem().equals("Selecione")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a sentença do processo.");
+            } else if (jComboBoxSituacaoPresoProcesso.getSelectedItem().equals("Selecione")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a situação do Preso no Processo.");
+            } else if (!jComboBoxSentenca.getSelectedItem().equals("Selecione") && jComboBoxTipoSentencaCondenatoria.getSelectedItem().equals("Selecione")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o Tipo de Sentença Condenatória.");
+            } else {
+                objProcJuri.setIdFicha(Integer.valueOf(jIdFicha.getText()));
+                objProcJuri.setNrProcesso(jNumeroProcesso.getText());
+                objProcJuri.setInquerito(jNumeroInquerito.getText());
+                objProcJuri.setRegime((String) jComboBoxRegimeProcesso.getSelectedItem());
+                objProcJuri.setSentenca((String) jComboBoxSentenca.getSelectedItem());
+                objProcJuri.setTipoSentenca((String) jComboBoxTipoSentencaCondenatoria.getSelectedItem());
+                objProcJuri.setSituacaoPresoProcesso((String) jComboBoxSituacaoPresoProcesso.getSelectedItem());
+                objProcJuri.setAnos(Integer.valueOf(jAnos.getText()));
+                objProcJuri.setMeses(Integer.valueOf(jMeses.getText()));
+                objProcJuri.setDias(Integer.valueOf(jDias.getText()));
+                objProcJuri.setDataInicio(jDataInicioProcesso.getDate());
+                objProcJuri.setDataTermino(jDataTerminoProcesso.getDate());
+                objProcJuri.setTotalDias(Integer.valueOf(jTotalDias.getText()));
+                objProcJuri.setObservacao(jObservacaoProcesso.getText());
+                if (acao == 3) {
+                    objProcJuri.setUsuarioInsert(nameUser);
+                    objProcJuri.setDataInsert(dataModFinal);
+                    objProcJuri.setHorarioInsert(horaMov);
+                    controle.incluirProcessoJuridico(objProcJuri);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    SalvarProcesso();
+                    preencherTabelaProcessos("SELECT * FROM PROCESSOS_JURIDICOS "
+                            + "INNER JOIN FICHA_JURIDICA "
+                            + "ON PROCESSOS_JURIDICOS.IdFicha=FICHA_JURIDICA.IdFicha "
+                            + "WHERE PROCESSOS_JURIDICOS.IdFicha='" + jIdFicha.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 4) {
+                    objProcJuri.setUsuarioUp(nameUser);
+                    objProcJuri.setDataUp(dataModFinal);
+                    objProcJuri.setHorarioUp(horaMov);
+                    objProcJuri.setIdProc(Integer.valueOf(codProc));
+                    controle.alterarProcessoJuridico(objProcJuri);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                
+                    SalvarProcesso();
+                    preencherTabelaProcessos("SELECT * FROM PROCESSOS_JURIDICOS "
+                            + "INNER JOIN FICHA_JURIDICA "
+                            + "ON PROCESSOS_JURIDICOS.IdFicha=FICHA_JURIDICA.IdFicha "
+                            + "WHERE PROCESSOS_JURIDICOS.IdFicha='" + jIdFicha.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
         } else {
-            objProcJuri.setIdFicha(Integer.valueOf(jIdFicha.getText()));
-            objProcJuri.setNrProcesso(jNumeroProcesso.getText());
-            objProcJuri.setInquerito(jNumeroInquerito.getText());
-            objProcJuri.setRegime((String) jComboBoxRegimeProcesso.getSelectedItem());
-            objProcJuri.setSentenca((String) jComboBoxSentenca.getSelectedItem());
-            objProcJuri.setTipoSentenca((String) jComboBoxTipoSentencaCondenatoria.getSelectedItem());
-            objProcJuri.setSituacaoPresoProcesso((String) jComboBoxSituacaoPresoProcesso.getSelectedItem());
-            objProcJuri.setAnos(Integer.valueOf(jAnos.getText()));
-            objProcJuri.setMeses(Integer.valueOf(jMeses.getText()));
-            objProcJuri.setDias(Integer.valueOf(jDias.getText()));
-            objProcJuri.setDataInicio(jDataInicioProcesso.getDate());
-            objProcJuri.setDataTermino(jDataTerminoProcesso.getDate());
-            objProcJuri.setTotalDias(Integer.valueOf(jTotalDias.getText()));
-            objProcJuri.setObservacao(jObservacaoProcesso.getText());
-            if (acao == 3) {
-                objProcJuri.setUsuarioInsert(nameUser);
-                objProcJuri.setDataInsert(dataModFinal);
-                objProcJuri.setHorarioInsert(horaMov);
-                controle.incluirProcessoJuridico(objProcJuri);
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                SalvarProcesso();
-                preencherTabelaProcessos("SELECT * FROM PROCESSOS_JURIDICOS "
-                        + "INNER JOIN FICHA_JURIDICA "
-                        + "ON PROCESSOS_JURIDICOS.IdFicha=FICHA_JURIDICA.IdFicha "
-                        + "WHERE PROCESSOS_JURIDICOS.IdFicha='" + jIdFicha.getText() + "'");
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
-            if (acao == 4) {
-                objProcJuri.setUsuarioUp(nameUser);
-                objProcJuri.setDataUp(dataModFinal);
-                objProcJuri.setHorarioUp(horaMov);
-                objProcJuri.setIdProc(Integer.valueOf(codProc));
-                controle.alterarProcessoJuridico(objProcJuri);
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                
-                SalvarProcesso();
-                preencherTabelaProcessos("SELECT * FROM PROCESSOS_JURIDICOS "
-                        + "INNER JOIN FICHA_JURIDICA "
-                        + "ON PROCESSOS_JURIDICOS.IdFicha=FICHA_JURIDICA.IdFicha "
-                        + "WHERE PROCESSOS_JURIDICOS.IdFicha='" + jIdFicha.getText() + "'");
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarProcessoActionPerformed
 
@@ -2195,102 +2251,122 @@ public class TelaFichaJuridica extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTabelaProcessoMouseClicked
 
     private void jBtNovoAmparoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoAmparoActionPerformed
-        // TODO add your handling code here:        
-        objFicha.setStatusFicha(jStatusFicha.getText());
-        if (jStatusFicha.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        // TODO add your handling code here:   
+        buscarAcessoUsuario(telaCadastroFichaJuridicaIncidênciaPenalJURI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaCadastroFichaJuridicaIncidênciaPenalJURI) && codIncluirJURI == 1) {
+            objFicha.setStatusFicha(jStatusFicha.getText());
+            if (jStatusFicha.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 5;
+                NovoAmparo();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 5;
-            NovoAmparo();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtNovoAmparoActionPerformed
 
     private void jBtAlterarAmparoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarAmparoActionPerformed
         // TODO add your handling code here:
-        objFicha.setStatusFicha(jStatusFicha.getText());
-        if (jStatusFicha.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaCadastroFichaJuridicaIncidênciaPenalJURI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaCadastroFichaJuridicaIncidênciaPenalJURI) && codAlterarJURI == 1) {
+            objFicha.setStatusFicha(jStatusFicha.getText());
+            if (jStatusFicha.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 6;
+                AlterarAmparo();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 6;
-            AlterarAmparo();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarAmparoActionPerformed
 
     private void jBtExcluirAmparoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirAmparoActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        objFicha.setStatusFicha(jStatusFicha.getText());
-        if (jStatusFicha.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objIncid.setIdInc(Integer.valueOf(codIncPen));
-                controleInc.excluirIncidenciaPenal(objIncid);
-                objLog3();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                preencherTabelaIncidenciaPenal("SELECT * FROM INCIDENCIA_PENAL "
-                        + "INNER JOIN FICHA_JURIDICA "
-                        + "ON INCIDENCIA_PENAL.IdFicha=FICHA_JURIDICA.IdFicha "
-                        + "INNER JOIN AMPARO_LEGAL "
-                        + "ON INCIDENCIA_PENAL.IdLanc=AMPARO_LEGAL.IdLanc "
-                        + "WHERE INCIDENCIA_PENAL.IdFicha='" + jIdFicha.getText() + "'");
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                ExcluirAmparo();
+        buscarAcessoUsuario(telaCadastroFichaJuridicaIncidênciaPenalJURI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaCadastroFichaJuridicaIncidênciaPenalJURI) && codExcluirJURI == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objFicha.setStatusFicha(jStatusFicha.getText());
+            if (jStatusFicha.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objIncid.setIdInc(Integer.valueOf(codIncPen));
+                    controleInc.excluirIncidenciaPenal(objIncid);
+                    objLog3();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    preencherTabelaIncidenciaPenal("SELECT * FROM INCIDENCIA_PENAL "
+                            + "INNER JOIN FICHA_JURIDICA "
+                            + "ON INCIDENCIA_PENAL.IdFicha=FICHA_JURIDICA.IdFicha "
+                            + "INNER JOIN AMPARO_LEGAL "
+                            + "ON INCIDENCIA_PENAL.IdLanc=AMPARO_LEGAL.IdLanc "
+                            + "WHERE INCIDENCIA_PENAL.IdFicha='" + jIdFicha.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    ExcluirAmparo();
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirAmparoActionPerformed
 
     private void jBtSalvarAmparoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarAmparoActionPerformed
         // TODO add your handling code here:
-        if (jIdAmparo.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o Amparo Legal do interno.");
+        buscarAcessoUsuario(telaCadastroFichaJuridicaIncidênciaPenalJURI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaCadastroFichaJuridicaIncidênciaPenalJURI) && codGravarJURI == 1) {
+            if (jIdAmparo.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o Amparo Legal do interno.");
+            } else {
+                objIncid.setIdAmparo(Integer.valueOf(jIdAmparo.getText()));
+                objIncid.setIdFicha(Integer.valueOf(jIdFicha.getText()));
+                objIncid.setDescricaoAmparo(jDescricaoAmparoLegal.getText());
+                if (acao == 5) {
+                    objIncid.setUsuarioInsert(nameUser);
+                    objIncid.setDataInsert(dataModFinal);
+                    objIncid.setHorarioInsert(horaMov);
+                    controleInc.incluirIncidenciaPenal(objIncid);
+                    objLog3();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação   
+                    SalvarAmparo();
+                    preencherTabelaIncidenciaPenal("SELECT * FROM INCIDENCIA_PENAL "
+                            + "INNER JOIN FICHA_JURIDICA "
+                            + "ON INCIDENCIA_PENAL.IdFicha=FICHA_JURIDICA.IdFicha "
+                            + "INNER JOIN AMPARO_LEGAL "
+                            + "ON INCIDENCIA_PENAL.IdLanc=AMPARO_LEGAL.IdLanc "
+                            + "WHERE INCIDENCIA_PENAL.IdFicha='" + jIdFicha.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 6) {
+                    objIncid.setUsuarioInsert(nameUser);
+                    objIncid.setDataInsert(dataModFinal);
+                    objIncid.setHorarioInsert(horaMov);
+                    objIncid.setIdInc(Integer.valueOf(codIncPen));
+                    controleInc.alterarIncidenciaPenal(objIncid);
+                    objLog3();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação   
+                    SalvarAmparo();
+                    preencherTabelaIncidenciaPenal("SELECT * FROM INCIDENCIA_PENAL "
+                            + "INNER JOIN FICHA_JURIDICA "
+                            + "ON INCIDENCIA_PENAL.IdFicha=FICHA_JURIDICA.IdFicha "
+                            + "INNER JOIN AMPARO_LEGAL "
+                            + "ON INCIDENCIA_PENAL.IdLanc=AMPARO_LEGAL.IdLanc "
+                            + "WHERE INCIDENCIA_PENAL.IdFicha='" + jIdFicha.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
         } else {
-            objIncid.setIdAmparo(Integer.valueOf(jIdAmparo.getText()));
-            objIncid.setIdFicha(Integer.valueOf(jIdFicha.getText()));
-            objIncid.setDescricaoAmparo(jDescricaoAmparoLegal.getText());
-            if (acao == 5) {
-                objIncid.setUsuarioInsert(nameUser);
-                objIncid.setDataInsert(dataModFinal);
-                objIncid.setHorarioInsert(horaMov);
-                controleInc.incluirIncidenciaPenal(objIncid);
-                objLog3();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação   
-                SalvarAmparo();
-                preencherTabelaIncidenciaPenal("SELECT * FROM INCIDENCIA_PENAL "
-                        + "INNER JOIN FICHA_JURIDICA "
-                        + "ON INCIDENCIA_PENAL.IdFicha=FICHA_JURIDICA.IdFicha "
-                        + "INNER JOIN AMPARO_LEGAL "
-                        + "ON INCIDENCIA_PENAL.IdLanc=AMPARO_LEGAL.IdLanc "
-                        + "WHERE INCIDENCIA_PENAL.IdFicha='" + jIdFicha.getText() + "'");
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
-            if (acao == 6) {
-                objIncid.setUsuarioInsert(nameUser);
-                objIncid.setDataInsert(dataModFinal);
-                objIncid.setHorarioInsert(horaMov);
-                objIncid.setIdInc(Integer.valueOf(codIncPen));
-                controleInc.alterarIncidenciaPenal(objIncid);
-                objLog3();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação   
-                SalvarAmparo();
-                preencherTabelaIncidenciaPenal("SELECT * FROM INCIDENCIA_PENAL "
-                        + "INNER JOIN FICHA_JURIDICA "
-                        + "ON INCIDENCIA_PENAL.IdFicha=FICHA_JURIDICA.IdFicha "
-                        + "INNER JOIN AMPARO_LEGAL "
-                        + "ON INCIDENCIA_PENAL.IdLanc=AMPARO_LEGAL.IdLanc "
-                        + "WHERE INCIDENCIA_PENAL.IdFicha='" + jIdFicha.getText() + "'");
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarAmparoActionPerformed
 
@@ -2363,114 +2439,133 @@ public class TelaFichaJuridica extends javax.swing.JInternalFrame {
 
     private void jBtNovoDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoDocumentoActionPerformed
         // TODO add your handling code here:
-        objFicha.setStatusFicha(jStatusFicha.getText());
-        if (jStatusFicha.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaCadastroFichaJuridicaDocumentosProcessoJURI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaCadastroFichaJuridicaDocumentosProcessoJURI) && codIncluirJURI == 1) {
+            objFicha.setStatusFicha(jStatusFicha.getText());
+            if (jStatusFicha.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 7;
+                NovoDocumento();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 7;
-            NovoDocumento();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtNovoDocumentoActionPerformed
 
     private void jBtAlterarDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarDocumentoActionPerformed
         // TODO add your handling code here:
-        objFicha.setStatusFicha(jStatusFicha.getText());
-        if (jStatusFicha.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaCadastroFichaJuridicaDocumentosProcessoJURI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaCadastroFichaJuridicaDocumentosProcessoJURI) && codAlterarJURI == 1) {
+            objFicha.setStatusFicha(jStatusFicha.getText());
+            if (jStatusFicha.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 8;
+                AlterarDocumento();
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 8;
-            AlterarDocumento();
-            statusMov = "Excluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarDocumentoActionPerformed
 
     private void jBtExcluirDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirDocumentoActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        objFicha.setStatusFicha(jStatusFicha.getText());
-        if (jStatusFicha.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objDocProcesso.setIdDocPro(Integer.valueOf(codProdDoc));
-                controleDoc.excluirDocumentosProcesso(objDocProcesso);
-                objLog4();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                ExcluirDocumento();
-                preencherTabelaDocumentosProcessos("SELECT * FROM DOCUMENTOS_PROCESSO "
-                        + "INNER JOIN FICHA_JURIDICA "
-                        + "ON DOCUMENTOS_PROCESSO.IdFicha=FICHA_JURIDICA.IdFicha "
-                        + "INNER JOIN NATUREZA_PRISAO "
-                        + "ON DOCUMENTOS_PROCESSO.IdNatp=NATUREZA_PRISAO.IdNatp "
-                        + "WHERE DOCUMENTOS_PROCESSO.IdFicha='" + jIdFicha.getText() + "'");
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+        buscarAcessoUsuario(telaCadastroFichaJuridicaDocumentosProcessoJURI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaCadastroFichaJuridicaDocumentosProcessoJURI) && codExcluirJURI == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objFicha.setStatusFicha(jStatusFicha.getText());
+            if (jStatusFicha.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objDocProcesso.setIdDocPro(Integer.valueOf(codProdDoc));
+                    controleDoc.excluirDocumentosProcesso(objDocProcesso);
+                    objLog4();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    ExcluirDocumento();
+                    preencherTabelaDocumentosProcessos("SELECT * FROM DOCUMENTOS_PROCESSO "
+                            + "INNER JOIN FICHA_JURIDICA "
+                            + "ON DOCUMENTOS_PROCESSO.IdFicha=FICHA_JURIDICA.IdFicha "
+                            + "INNER JOIN NATUREZA_PRISAO "
+                            + "ON DOCUMENTOS_PROCESSO.IdNatp=NATUREZA_PRISAO.IdNatp "
+                            + "WHERE DOCUMENTOS_PROCESSO.IdFicha='" + jIdFicha.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirDocumentoActionPerformed
 
     private void jBtSalvarDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarDocumentoActionPerformed
         // TODO add your handling code here:
-        if (jIdNatp.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a natureza da prisão.");
-        } else if (jDocumentoPrisao.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o documento da natureza da prisão.");
-        } else if (jOrigemDocumentoPrisao.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a origem do documento.");
-        } else if (jDataDocumentoPrisao.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data da natureza da prisão.");
+        buscarAcessoUsuario(telaCadastroFichaJuridicaDocumentosProcessoJURI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaCadastroFichaJuridicaDocumentosProcessoJURI) && codGravarJURI == 1) {
+            if (jIdNatp.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a natureza da prisão.");
+            } else if (jDocumentoPrisao.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o documento da natureza da prisão.");
+            } else if (jOrigemDocumentoPrisao.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a origem do documento.");
+            } else if (jDataDocumentoPrisao.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data da natureza da prisão.");
+            } else {
+                objDocProcesso.setIdFicha(Integer.valueOf(jIdFicha.getText()));
+                objDocProcesso.setIdNatp(Integer.valueOf(jIdNatp.getText()));
+                objDocProcesso.setDescricaoNatureza(jDescricaoNaturezaPrisao.getText());
+                objDocProcesso.setDocumento(jDocumentoPrisao.getText());
+                objDocProcesso.setOrigemDoc(jOrigemDocumentoPrisao.getText());
+                objDocProcesso.setDataDoc(jDataDocumentoPrisao.getDate());
+                objDocProcesso.setHoraDoc(jHoraDocumento.getText());
+                objDocProcesso.setObservacao(jObservacaoDocumento.getText());
+                if (acao == 7) {
+                    objDocProcesso.setUsuarioInsert(nameUser);
+                    objDocProcesso.setDataInsert(dataModFinal);
+                    objDocProcesso.setHorarioInsert(horaMov);
+                    controleDoc.incluirDocumentosProcesso(objDocProcesso);
+                    objLog4();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação   
+                    SalvarDocumento();
+                    preencherTabelaDocumentosProcessos("SELECT * FROM DOCUMENTOS_PROCESSO "
+                            + "INNER JOIN FICHA_JURIDICA "
+                            + "ON DOCUMENTOS_PROCESSO.IdFicha=FICHA_JURIDICA.IdFicha "
+                            + "INNER JOIN NATUREZA_PRISAO "
+                            + "ON DOCUMENTOS_PROCESSO.IdNatp=NATUREZA_PRISAO.IdNatp "
+                            + "WHERE DOCUMENTOS_PROCESSO.IdFicha='" + jIdFicha.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 8) {
+                    objDocProcesso.setUsuarioUp(nameUser);
+                    objDocProcesso.setDataUp(dataModFinal);
+                    objDocProcesso.setHorarioUp(horaMov);
+                    objDocProcesso.setIdDocPro(Integer.valueOf(codProdDoc));
+                    controleDoc.alterarDocumentosProcesso(objDocProcesso);
+                    objLog4();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação   
+                    SalvarDocumento();
+                    preencherTabelaDocumentosProcessos("SELECT * FROM DOCUMENTOS_PROCESSO "
+                            + "INNER JOIN FICHA_JURIDICA "
+                            + "ON DOCUMENTOS_PROCESSO.IdFicha=FICHA_JURIDICA.IdFicha "
+                            + "INNER JOIN NATUREZA_PRISAO "
+                            + "ON DOCUMENTOS_PROCESSO.IdNatp=NATUREZA_PRISAO.IdNatp "
+                            + "WHERE DOCUMENTOS_PROCESSO.IdFicha='" + jIdFicha.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
         } else {
-            objDocProcesso.setIdFicha(Integer.valueOf(jIdFicha.getText()));
-            objDocProcesso.setIdNatp(Integer.valueOf(jIdNatp.getText()));
-            objDocProcesso.setDescricaoNatureza(jDescricaoNaturezaPrisao.getText());
-            objDocProcesso.setDocumento(jDocumentoPrisao.getText());
-            objDocProcesso.setOrigemDoc(jOrigemDocumentoPrisao.getText());
-            objDocProcesso.setDataDoc(jDataDocumentoPrisao.getDate());
-            objDocProcesso.setHoraDoc(jHoraDocumento.getText());
-            objDocProcesso.setObservacao(jObservacaoDocumento.getText());
-            if (acao == 7) {
-                objDocProcesso.setUsuarioInsert(nameUser);
-                objDocProcesso.setDataInsert(dataModFinal);
-                objDocProcesso.setHorarioInsert(horaMov);
-                controleDoc.incluirDocumentosProcesso(objDocProcesso);
-                objLog4();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação   
-                SalvarDocumento();
-                preencherTabelaDocumentosProcessos("SELECT * FROM DOCUMENTOS_PROCESSO "
-                        + "INNER JOIN FICHA_JURIDICA "
-                        + "ON DOCUMENTOS_PROCESSO.IdFicha=FICHA_JURIDICA.IdFicha "
-                        + "INNER JOIN NATUREZA_PRISAO "
-                        + "ON DOCUMENTOS_PROCESSO.IdNatp=NATUREZA_PRISAO.IdNatp "
-                        + "WHERE DOCUMENTOS_PROCESSO.IdFicha='" + jIdFicha.getText() + "'");
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
-            if (acao == 8) {
-                objDocProcesso.setUsuarioUp(nameUser);
-                objDocProcesso.setDataUp(dataModFinal);
-                objDocProcesso.setHorarioUp(horaMov);
-                objDocProcesso.setIdDocPro(Integer.valueOf(codProdDoc));
-                controleDoc.alterarDocumentosProcesso(objDocProcesso);
-                objLog4();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação   
-                SalvarDocumento();
-                preencherTabelaDocumentosProcessos("SELECT * FROM DOCUMENTOS_PROCESSO "
-                        + "INNER JOIN FICHA_JURIDICA "
-                        + "ON DOCUMENTOS_PROCESSO.IdFicha=FICHA_JURIDICA.IdFicha "
-                        + "INNER JOIN NATUREZA_PRISAO "
-                        + "ON DOCUMENTOS_PROCESSO.IdNatp=NATUREZA_PRISAO.IdNatp "
-                        + "WHERE DOCUMENTOS_PROCESSO.IdFicha='" + jIdFicha.getText() + "'");
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
-
     }//GEN-LAST:event_jBtSalvarDocumentoActionPerformed
 
     private void jBtCancelarDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarDocumentoActionPerformed
@@ -4324,5 +4419,43 @@ public class TelaFichaJuridica extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jIdFicha.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserJURI = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserJURI + "'");
+            conecta.rs.first();
+            codigoUserGroupJURI = conecta.rs.getInt("IdUsuario");
+            codigoGrupoJURI = conecta.rs.getInt("IdGrupo");
+            nomeGrupoJURI = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserJURI + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoJURI = conecta.rs.getInt("IdUsuario");
+            codAbrirJURI = conecta.rs.getInt("Abrir");
+            codIncluirJURI = conecta.rs.getInt("Incluir");
+            codAlterarJURI = conecta.rs.getInt("Alterar");
+            codExcluirJURI = conecta.rs.getInt("Excluir");
+            codGravarJURI = conecta.rs.getInt("Gravar");
+            codConsultarJURI = conecta.rs.getInt("Consultar");
+            nomeTelaJURI = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

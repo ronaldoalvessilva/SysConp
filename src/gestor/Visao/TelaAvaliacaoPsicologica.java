@@ -18,6 +18,7 @@ import gestor.Modelo.RegistroAtendimentoInternos;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloPsicologia.codAbrirPSI;
 import static gestor.Visao.TelaModuloPsicologia.codAlterarPSI;
 import static gestor.Visao.TelaModuloPsicologia.codExcluirPSI;
 import static gestor.Visao.TelaModuloPsicologia.codGravarPSI;
@@ -26,6 +27,9 @@ import static gestor.Visao.TelaModuloPsicologia.codUserAcessoPSI;
 import static gestor.Visao.TelaModuloPsicologia.codigoUserPSI;
 import static gestor.Visao.TelaModuloPsicologia.nomeGrupoPSI;
 import static gestor.Visao.TelaModuloPsicologia.nomeTelaPSI;
+import static gestor.Visao.TelaModuloPsicologia.codConsultarPSI;
+import static gestor.Visao.TelaModuloPsicologia.codigoUserGroupPSI;
+import static gestor.Visao.TelaModuloPsicologia.codigoGrupoPSI;
 import static gestor.Visao.TelaModuloPsicologia.telaMovimentacaoAvalPsiIntPSI;
 import java.awt.Color;
 import java.awt.Image;
@@ -1903,6 +1907,7 @@ public class TelaAvaliacaoPsicologica extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaMovimentacaoAvalPsiIntPSI);
         if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaMovimentacaoAvalPsiIntPSI) && codIncluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
             acao = 1;
             Novo();
@@ -1917,6 +1922,7 @@ public class TelaAvaliacaoPsicologica extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaMovimentacaoAvalPsiIntPSI);
         if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaMovimentacaoAvalPsiIntPSI) && codAlterarPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
             try {
                 conecta.executaSQL("SELECT * FROM AVALIACAOPSI WHERE IdLanc='" + jIDLanc.getText() + "'");
@@ -1948,6 +1954,7 @@ public class TelaAvaliacaoPsicologica extends javax.swing.JInternalFrame {
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaMovimentacaoAvalPsiIntPSI);
         if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaMovimentacaoAvalPsiIntPSI) && codExcluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
             try {
                 conecta.executaSQL("SELECT * FROM AVALIACAOPSI WHERE IdLanc='" + jIDLanc.getText() + "'");
@@ -1989,6 +1996,7 @@ public class TelaAvaliacaoPsicologica extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaMovimentacaoAvalPsiIntPSI);
         if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaMovimentacaoAvalPsiIntPSI) && codGravarPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
             if (jDataLanc.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data da avaliação");
@@ -2257,6 +2265,7 @@ public class TelaAvaliacaoPsicologica extends javax.swing.JInternalFrame {
 
     private void jBtNovo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovo1ActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaMovimentacaoAvalPsiIntPSI);
         if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaMovimentacaoAvalPsiIntPSI) && codIncluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
             acao = 1;
             Novo();
@@ -2271,6 +2280,7 @@ public class TelaAvaliacaoPsicologica extends javax.swing.JInternalFrame {
 
     private void jBtAlterar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterar1ActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaMovimentacaoAvalPsiIntPSI);
         if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaMovimentacaoAvalPsiIntPSI) && codAlterarPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
             try {
                 conecta.executaSQL("SELECT * FROM AVALIACAOPSI WHERE IdLanc='" + jIDLanc.getText() + "'");
@@ -2302,6 +2312,7 @@ public class TelaAvaliacaoPsicologica extends javax.swing.JInternalFrame {
 
     private void jBtExcluir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluir1ActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaMovimentacaoAvalPsiIntPSI);
         if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaMovimentacaoAvalPsiIntPSI) && codExcluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
             try {
                 conecta.executaSQL("SELECT * FROM AVALIACAOPSI WHERE IdLanc='" + jIDLanc.getText() + "'");
@@ -2343,6 +2354,7 @@ public class TelaAvaliacaoPsicologica extends javax.swing.JInternalFrame {
 
     private void jBtSalvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvar1ActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaMovimentacaoAvalPsiIntPSI);
         if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaMovimentacaoAvalPsiIntPSI) && codGravarPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
             if (jDataLanc.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data da avaliação");
@@ -2460,6 +2472,7 @@ public class TelaAvaliacaoPsicologica extends javax.swing.JInternalFrame {
 
     private void jBtNovo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovo2ActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaMovimentacaoAvalPsiIntPSI);
         if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaMovimentacaoAvalPsiIntPSI) && codIncluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
             acao = 1;
             Novo();
@@ -2474,6 +2487,7 @@ public class TelaAvaliacaoPsicologica extends javax.swing.JInternalFrame {
 
     private void jBtAlterar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterar2ActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaMovimentacaoAvalPsiIntPSI);
         if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaMovimentacaoAvalPsiIntPSI) && codAlterarPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
             try {
                 conecta.executaSQL("SELECT * FROM AVALIACAOPSI WHERE IdLanc='" + jIDLanc.getText() + "'");
@@ -2505,6 +2519,7 @@ public class TelaAvaliacaoPsicologica extends javax.swing.JInternalFrame {
 
     private void jBtExcluir2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluir2ActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaMovimentacaoAvalPsiIntPSI);
         if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaMovimentacaoAvalPsiIntPSI) && codExcluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
             try {
                 conecta.executaSQL("SELECT * FROM AVALIACAOPSI WHERE IdLanc='" + jIDLanc.getText() + "'");
@@ -2546,6 +2561,7 @@ public class TelaAvaliacaoPsicologica extends javax.swing.JInternalFrame {
 
     private void jBtSalvar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvar2ActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaMovimentacaoAvalPsiIntPSI);
         if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaMovimentacaoAvalPsiIntPSI) && codGravarPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
             if (jDataLanc.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data da avaliação");
@@ -3438,5 +3454,42 @@ public class TelaAvaliacaoPsicologica extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jIDLanc.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserPSI = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserPSI + "'");
+            conecta.rs.first();
+            codigoUserGroupPSI = conecta.rs.getInt("IdUsuario");
+            codigoGrupoPSI = conecta.rs.getInt("IdGrupo");
+            nomeGrupoPSI = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserPSI + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoPSI = conecta.rs.getInt("IdUsuario");
+            codAbrirPSI = conecta.rs.getInt("Abrir");
+            codIncluirPSI = conecta.rs.getInt("Incluir");
+            codAlterarPSI = conecta.rs.getInt("Alterar");
+            codExcluirPSI = conecta.rs.getInt("Excluir");
+            codGravarPSI = conecta.rs.getInt("Gravar");
+            codConsultarPSI = conecta.rs.getInt("Consultar");
+            nomeTelaPSI = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

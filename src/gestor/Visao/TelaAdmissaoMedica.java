@@ -3612,8 +3612,8 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        telaAcessoProntuarioMedicoENF = "Movimentação:Admissão Médica de Internos:Manutenção";
-        buscarAcessoUsuario();
+        //telaAcessoProntuarioMedicoENF = "Movimentação:Admissão Médica de Internos:Manutenção";        
+        buscarAcessoUsuario(telaAcessoProntuarioMedicoENF);
         if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAcessoProntuarioMedicoENF) && codIncluirENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
             Novo();
             corCampos();
@@ -3634,6 +3634,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaAcessoProntuarioMedicoENF);
         if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAcessoProntuarioMedicoENF) && codAlterarENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
             objAdmMedico.setStatusLanc(jStatusLanc.getText());
             if (jStatusLanc.getText().equals("FINALIZADO")) {
@@ -3653,6 +3654,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaAcessoProntuarioMedicoENF);
         if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAcessoProntuarioMedicoENF) && codExcluirENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
             atendido = "Não";
             verificarEvolucaoPsiquiatrica(); // VERIFICAR SE EXISTE EVOLUÇÃO PSICOLOGICA ANTES DE EXCLUIR
@@ -3714,6 +3716,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:  
+        buscarAcessoUsuario(telaAcessoProntuarioMedicoENF);
         if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAcessoProntuarioMedicoENF) && codGravarENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
             Integer rows = jTabelaPatologia.getModel().getRowCount();
             verificarDoencas();
@@ -4080,10 +4083,10 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
 
     private void jBtNovaEvolPsiquiatricaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaEvolPsiquiatricaActionPerformed
-        // TODO add your handling code here:      
-        verificarInternoRegistradoAdm();
+        // TODO add your handling code here:              
         buscarAcessoUsuarioPsiquiatra();
         if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(nomeModuloTela2) && codIncluirENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
+            verificarInternoRegistradoAdm();
             if (atendido == null) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
             } else if (atendido.equals("")) {
@@ -9805,7 +9808,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         conecta.desconecta();
     }
 
-    public void buscarAcessoUsuario() {
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS "
@@ -9828,7 +9831,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         try {
             conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
                     + "WHERE IdUsuario='" + codigoUserENF + "' "
-                    + "AND NomeTela='" + telaAcessoProntuarioMedicoENF + "'");
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
             conecta.rs.first();
             codUserAcessoENF = conecta.rs.getInt("IdUsuario");
             codAbrirENF = conecta.rs.getInt("Abrir");

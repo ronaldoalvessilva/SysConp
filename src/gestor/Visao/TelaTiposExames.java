@@ -62,8 +62,7 @@ public class TelaTiposExames extends javax.swing.JInternalFrame {
      */
     public TelaTiposExames() {
         initComponents();
-        corCampos();
-        buscarAcessoUsuario();
+        corCampos();        
     }
 
     /**
@@ -527,6 +526,7 @@ public class TelaTiposExames extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaTipoExamesENF);
         if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaTipoExamesENF) && codIncluirENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
             acao = 1;
             Novo();
@@ -541,6 +541,7 @@ public class TelaTiposExames extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaTipoExamesENF);
         if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaTipoExamesENF) && codAlterarENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
             acao = 2;
             Alterar();
@@ -554,6 +555,7 @@ public class TelaTiposExames extends javax.swing.JInternalFrame {
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaTipoExamesENF);
         if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaTipoExamesENF) && codExcluirENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
             // VERIFICAR SE O TIPO DE EXAME JÁ ESTÁ ASSOCIADO A TABELA DE EXAMES. (AINDA NÃO FOI CRIADO.)
             verificarExames();
@@ -579,6 +581,7 @@ public class TelaTiposExames extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaTipoExamesENF);
         if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaTipoExamesENF) && codGravarENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
             if (jComboBoxCategoria.getSelectedItem().equals("Selecione...")) {
                 JOptionPane.showMessageDialog(rootPane, "Selecione o tipo de Categoria de Exame.");
@@ -916,7 +919,7 @@ public class TelaTiposExames extends javax.swing.JInternalFrame {
         objLogSys.setStatusMov(statusMov);
     }
 
-    public void buscarAcessoUsuario() {
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS "
@@ -939,7 +942,7 @@ public class TelaTiposExames extends javax.swing.JInternalFrame {
         try {
             conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
                     + "WHERE IdUsuario='" + codigoUserENF + "' "
-                    + "AND NomeTela='" + telaTipoExamesENF + "'");
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
             conecta.rs.first();
             codUserAcessoENF = conecta.rs.getInt("IdUsuario");
             codAbrirENF = conecta.rs.getInt("Abrir");

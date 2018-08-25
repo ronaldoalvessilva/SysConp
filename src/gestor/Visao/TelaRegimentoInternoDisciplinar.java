@@ -1660,6 +1660,7 @@ public class TelaRegimentoInternoDisciplinar extends javax.swing.JInternalFrame 
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaAplicarRegistroPenalidadeDisciplinas);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaAplicarRegistroPenalidadeDisciplinas) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             acao = 1;
             Novo();
@@ -1676,6 +1677,7 @@ public class TelaRegimentoInternoDisciplinar extends javax.swing.JInternalFrame 
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaAplicarRegistroPenalidadeDisciplinas);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaAplicarRegistroPenalidadeDisciplinas) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             objRegEvenDisciplinar.setStatusLanc(jStatusReg.getText());
             if (jStatusReg.getText().equals("FINALIZADO")) {
@@ -1695,6 +1697,7 @@ public class TelaRegimentoInternoDisciplinar extends javax.swing.JInternalFrame 
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaAplicarRegistroPenalidadeDisciplinas);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaAplicarRegistroPenalidadeDisciplinas) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             verificarRegistroInternos();
             statusMov = "Excluiu";
@@ -1723,6 +1726,7 @@ public class TelaRegimentoInternoDisciplinar extends javax.swing.JInternalFrame 
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaAplicarRegistroPenalidadeDisciplinas);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaAplicarRegistroPenalidadeDisciplinas) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             if (jDataReg.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a datado registro.");

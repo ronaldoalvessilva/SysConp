@@ -1180,6 +1180,7 @@ public class TelaRetirarPenalidadeInterno extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaRetirarPenalidade);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaRetirarPenalidade) && codIncluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             acao = 1;
             Novo();
@@ -1194,6 +1195,7 @@ public class TelaRetirarPenalidadeInterno extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaRetirarPenalidade);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaRetirarPenalidade) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             if (jStatusLanc.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
@@ -1212,6 +1214,7 @@ public class TelaRetirarPenalidadeInterno extends javax.swing.JInternalFrame {
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaRetirarPenalidade);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaRetirarPenalidade) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             if (jStatusLanc.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
@@ -1228,6 +1231,7 @@ public class TelaRetirarPenalidadeInterno extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaRetirarPenalidade);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaRetirarPenalidade) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
             if (jDataLanc.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data do registro.");

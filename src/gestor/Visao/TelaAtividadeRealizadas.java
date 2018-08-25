@@ -17,6 +17,10 @@ import static gestor.Visao.TelaModuloJuridico.codAlterarJURI;
 import static gestor.Visao.TelaModuloJuridico.codExcluirJURI;
 import static gestor.Visao.TelaModuloJuridico.codGravarJURI;
 import static gestor.Visao.TelaModuloJuridico.codIncluirJURI;
+import static gestor.Visao.TelaModuloJuridico.codConsultarJURI;
+import static gestor.Visao.TelaModuloJuridico.codAbrirJURI;
+import static gestor.Visao.TelaModuloJuridico.codigoGrupoJURI;
+import static gestor.Visao.TelaModuloJuridico.codigoUserGroupJURI;
 import static gestor.Visao.TelaModuloJuridico.codUserAcessoJURI;
 import static gestor.Visao.TelaModuloJuridico.codigoUserJURI;
 import static gestor.Visao.TelaModuloJuridico.nomeGrupoJURI;
@@ -432,6 +436,7 @@ public class TelaAtividadeRealizadas extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaAtividadesJuridicasJURI);
         if (codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtividadesJuridicasJURI) && codIncluirJURI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES")) {
             acao = 1;
             Novo();
@@ -446,6 +451,7 @@ public class TelaAtividadeRealizadas extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaAtividadesJuridicasJURI);
         if (codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtividadesJuridicasJURI) && codAlterarJURI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES")) {
             acao = 2;
             Alterar();
@@ -544,7 +550,7 @@ public class TelaAtividadeRealizadas extends javax.swing.JInternalFrame {
     private void jCheckBoxTodosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxTodosItemStateChanged
         // TODO add your handling code here:
         flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {            
+        if (evt.getStateChange() == evt.SELECTED) {
             this.pesquisarEntradaInterno("SELECT * FROM ATIVIDADESJURIDICOS");
         } else {
             limparTabela();
@@ -555,7 +561,7 @@ public class TelaAtividadeRealizadas extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if (jPesqDescricao.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe a descrição para pesquisa.");
-        } else {            
+        } else {
             pesquisarEntradaInterno("SELECT * FROM ATIVIDADESJURIDICOS "
                     + "WHERE DescricaoAtiv LIKE'%" + jPesqDescricao.getText() + "%'");
         }
@@ -780,7 +786,7 @@ public class TelaAtividadeRealizadas extends javax.swing.JInternalFrame {
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaAtividades.setModel(modelo);
         jTabelaAtividades.getColumnModel().getColumn(0).setPreferredWidth(50);
-        jTabelaAtividades.getColumnModel().getColumn(0).setResizable(false);        
+        jTabelaAtividades.getColumnModel().getColumn(0).setResizable(false);
         jTabelaAtividades.getColumnModel().getColumn(1).setPreferredWidth(70);
         jTabelaAtividades.getColumnModel().getColumn(1).setResizable(false);
         jTabelaAtividades.getColumnModel().getColumn(2).setPreferredWidth(70);
@@ -794,13 +800,13 @@ public class TelaAtividadeRealizadas extends javax.swing.JInternalFrame {
         conecta.desconecta();
     }
 
-    public void limparTabela(){
+    public void limparTabela() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Status", "Data", "Descrição"};        
+        String[] Colunas = new String[]{"Código", "Status", "Data", "Descrição"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaAtividades.setModel(modelo);
         jTabelaAtividades.getColumnModel().getColumn(0).setPreferredWidth(50);
-        jTabelaAtividades.getColumnModel().getColumn(0).setResizable(false);        
+        jTabelaAtividades.getColumnModel().getColumn(0).setResizable(false);
         jTabelaAtividades.getColumnModel().getColumn(1).setPreferredWidth(70);
         jTabelaAtividades.getColumnModel().getColumn(1).setResizable(false);
         jTabelaAtividades.getColumnModel().getColumn(2).setPreferredWidth(70);
@@ -825,6 +831,7 @@ public class TelaAtividadeRealizadas extends javax.swing.JInternalFrame {
         jTabelaAtividades.getColumnModel().getColumn(1).setCellRenderer(centralizado);
         jTabelaAtividades.getColumnModel().getColumn(2).setCellRenderer(centralizado);
     }
+
     public void objLog() {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
@@ -832,5 +839,43 @@ public class TelaAtividadeRealizadas extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jIdAtividade.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserJURI = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserJURI + "'");
+            conecta.rs.first();
+            codigoUserGroupJURI = conecta.rs.getInt("IdUsuario");
+            codigoGrupoJURI = conecta.rs.getInt("IdGrupo");
+            nomeGrupoJURI = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserJURI + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoJURI = conecta.rs.getInt("IdUsuario");
+            codAbrirJURI = conecta.rs.getInt("Abrir");
+            codIncluirJURI = conecta.rs.getInt("Incluir");
+            codAlterarJURI = conecta.rs.getInt("Alterar");
+            codExcluirJURI = conecta.rs.getInt("Excluir");
+            codGravarJURI = conecta.rs.getInt("Gravar");
+            codConsultarJURI = conecta.rs.getInt("Consultar");
+            nomeTelaJURI = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }
