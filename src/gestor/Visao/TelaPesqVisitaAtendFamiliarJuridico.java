@@ -102,12 +102,13 @@ public class TelaPesqVisitaAtendFamiliarJuridico extends javax.swing.JInternalFr
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jPesqNome, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jPesqNome)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBox1)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,13 +175,13 @@ public class TelaPesqVisitaAtendFamiliarJuridico extends javax.swing.JInternalFr
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jBtEnviar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtSair))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -191,11 +192,12 @@ public class TelaPesqVisitaAtendFamiliarJuridico extends javax.swing.JInternalFr
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtSair)
-                    .addComponent(jBtEnviar)))
+                    .addComponent(jBtEnviar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtEnviar, jBtSair});
@@ -204,16 +206,16 @@ public class TelaPesqVisitaAtendFamiliarJuridico extends javax.swing.JInternalFr
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 289, Short.MAX_VALUE)
+        );
 
-        setBounds(200, 10, 475, 310);
+        setBounds(200, 10, 517, 319);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNomeActionPerformed
@@ -278,13 +280,12 @@ public class TelaPesqVisitaAtendFamiliarJuridico extends javax.swing.JInternalFr
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            jTabelaVisitas.setVisible(true);
             this.preencherTodosInternos("SELECT * FROM VISITASINTERNO "
                     + "INNER JOIN ITENSROL "
                     + "ON VISITASINTERNO.IdVisita=ITENSROL.IdVisita "
                     + "WHERE VISITASINTERNO.StatusVisita='" + statusVisita + "'AND IdInternoCRC='" + jIDInterno.getText() + "'");
         } else {
-            jTabelaVisitas.setVisible(!true);
+            limparTabela();
         }
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
@@ -335,7 +336,7 @@ public class TelaPesqVisitaAtendFamiliarJuridico extends javax.swing.JInternalFr
         jTabelaVisitas.getTableHeader().setReorderingAllowed(false);
         jTabelaVisitas.setAutoResizeMode(jTabelaVisitas.AUTO_RESIZE_OFF);
         jTabelaVisitas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-         alinharCamposTabela();
+        alinharCamposTabela();
         conecta.desconecta();
     }
 
@@ -386,5 +387,23 @@ public class TelaPesqVisitaAtendFamiliarJuridico extends javax.swing.JInternalFr
         //       
         jTabelaVisitas.getColumnModel().getColumn(0).setCellRenderer(centralizado);
         jTabelaVisitas.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+    }
+
+    public void limparTabela() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Nome da Visita", "Parentesco", "Data Cadastro"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaVisitas.setModel(modelo);
+        jTabelaVisitas.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaVisitas.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaVisitas.getColumnModel().getColumn(1).setPreferredWidth(250);
+        jTabelaVisitas.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaVisitas.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTabelaVisitas.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaVisitas.getColumnModel().getColumn(3).setPreferredWidth(80);
+        jTabelaVisitas.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaVisitas.getTableHeader().setReorderingAllowed(false);
+        jTabelaVisitas.setAutoResizeMode(jTabelaVisitas.AUTO_RESIZE_OFF);
+        jTabelaVisitas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 }

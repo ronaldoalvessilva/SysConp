@@ -165,8 +165,16 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
     //
     public static String telaCadastroFichaJuridicaManutencaoJURI = "Movimentação:Cadastro de Ficha Juridica:Manutenção";
     public static String telaCadastroFichaJuridicaProcessoJURI = "Movimentação:Cadastro de Ficha Juridica:Processos";
-    public static String telaCadastroFichaJuridicaIncidênciaPenalJURI = "Movimentação:Cadastro de Ficha Juridica:Incidência Penal";   
+    public static String telaCadastroFichaJuridicaIncidênciaPenalJURI = "Movimentação:Cadastro de Ficha Juridica:Incidência Penal";
     public static String telaCadastroFichaJuridicaDocumentosProcessoJURI = "Movimentação:Cadastro de Ficha Juridica:Documentos Processo";
+    //
+    public static String telaAgendamentoBeneficioManuJURI = "Movimentação:Agendamento de Benefícios:Manutenção";
+    //
+    public static String telaAtendimentoFamiliarManuJURI = "Movimentação:AtendimentoFamiliar:Manutenção";
+    //
+    public static String telaAudienciaJustificativaManuJURI = "Movimentação:Audiência de Justificativa:Manutenção";
+    //
+    public static String telaOcorrenciaJURI = "Movimentação:Movimentação:Ocorrências Diárias:Manutenção";
     //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
@@ -186,9 +194,17 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
     String pNomeAJE_JURI = "";
     // FICHA JURIDICA
     String pNomeCFJM_JURI = "";
-    String pNomeCFJP_JURI = "" ;
+    String pNomeCFJP_JURI = "";
     String pNomeCFJI_JURI = "";
     String pNomeCFJD_JURI = "";
+    //
+    String pNomeABM_JURI = "";
+    //
+    String pNomeAFM_JURI = "";
+    //
+    String pNomeADJM_JURI = "";
+    //
+    String pNomeOcrJURI = "";
 
     /**
      * Creates new form TelaJuridico
@@ -798,59 +814,69 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
 
     private void AtendimentoFamiliarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtendimentoFamiliarActionPerformed
         // TODO add your handling code here:
-        if (objAtenFam == null || objAtenFam.isClosed()) {
-            objAtenFam = new TelaAtendimentoFamiliarJuridico();
-            jPainelJuridico.add(objAtenFam);
-            objAtenFam.setVisible(true);
-        } else {
-            if (objAtenFam.isVisible()) {
-                if (objAtenFam.isIcon()) { // Se esta minimizado
-                    try {
-                        objAtenFam.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaAtendimentoFamiliarManuJURI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtendimentoFamiliarManuJURI) && codAbrirJURI == 1) {
+            if (objAtenFam == null || objAtenFam.isClosed()) {
+                objAtenFam = new TelaAtendimentoFamiliarJuridico();
+                jPainelJuridico.add(objAtenFam);
+                objAtenFam.setVisible(true);
+            } else {
+                if (objAtenFam.isVisible()) {
+                    if (objAtenFam.isIcon()) { // Se esta minimizado
+                        try {
+                            objAtenFam.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objAtenFam.toFront(); // traz para frente
+                        objAtenFam.pack();//volta frame 
                     }
                 } else {
-                    objAtenFam.toFront(); // traz para frente
-                    objAtenFam.pack();//volta frame 
+                    objAtenFam = new TelaAtendimentoFamiliarJuridico();
+                    TelaModuloJuridico.jPainelJuridico.add(objAtenFam);//adicona frame ao JDesktopPane  
+                    objAtenFam.setVisible(true);
                 }
-            } else {
-                objAtenFam = new TelaAtendimentoFamiliarJuridico();
-                TelaModuloJuridico.jPainelJuridico.add(objAtenFam);//adicona frame ao JDesktopPane  
-                objAtenFam.setVisible(true);
             }
-        }
-        try {
-            objAtenFam.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objAtenFam.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_AtendimentoFamiliarActionPerformed
 
     private void LivroOcorrenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LivroOcorrenciaActionPerformed
         // TODO add your handling code here:
-        if (objOcorreJuridico == null || objOcorreJuridico.isClosed()) {
-            objOcorreJuridico = new TelaOcorrenciaJuridico();
-            jPainelJuridico.add(objOcorreJuridico);
-            objOcorreJuridico.setVisible(true);
-        } else {
-            if (objOcorreJuridico.isVisible()) {
-                if (objOcorreJuridico.isIcon()) { // Se esta minimizado
-                    try {
-                        objOcorreJuridico.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaOcorrenciaJURI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaOcorrenciaJURI) && codAbrirJURI == 1) {
+            if (objOcorreJuridico == null || objOcorreJuridico.isClosed()) {
+                objOcorreJuridico = new TelaOcorrenciaJuridico();
+                jPainelJuridico.add(objOcorreJuridico);
+                objOcorreJuridico.setVisible(true);
+            } else {
+                if (objOcorreJuridico.isVisible()) {
+                    if (objOcorreJuridico.isIcon()) { // Se esta minimizado
+                        try {
+                            objOcorreJuridico.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objOcorreJuridico.toFront(); // traz para frente
+                        objOcorreJuridico.pack();//volta frame 
                     }
                 } else {
-                    objOcorreJuridico.toFront(); // traz para frente
-                    objOcorreJuridico.pack();//volta frame 
+                    objOcorreJuridico = new TelaOcorrenciaJuridico();
+                    TelaModuloJuridico.jPainelJuridico.add(objOcorreJuridico);//adicona frame ao JDesktopPane  
+                    objOcorreJuridico.setVisible(true);
                 }
-            } else {
-                objOcorreJuridico = new TelaOcorrenciaJuridico();
-                TelaModuloJuridico.jPainelJuridico.add(objOcorreJuridico);//adicona frame ao JDesktopPane  
-                objOcorreJuridico.setVisible(true);
             }
-        }
-        try {
-            objOcorreJuridico.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objOcorreJuridico.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_LivroOcorrenciaActionPerformed
 
@@ -890,30 +916,35 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
 
     private void AtendimentoJudiciarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtendimentoJudiciarioActionPerformed
         // TODO add your handling code here:
-        if (objAudJus == null || objAudJus.isClosed()) {
-            objAudJus = new TelaAudienciaJustificativa();
-            jPainelJuridico.add(objAudJus);
-            objAudJus.setVisible(true);
-        } else {
-            if (objAudJus.isVisible()) {
-                if (objAudJus.isIcon()) { // Se esta minimizado
-                    try {
-                        objAudJus.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaAudienciaJustificativaManuJURI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAudienciaJustificativaManuJURI) && codAbrirJURI == 1) {
+            if (objAudJus == null || objAudJus.isClosed()) {
+                objAudJus = new TelaAudienciaJustificativa();
+                jPainelJuridico.add(objAudJus);
+                objAudJus.setVisible(true);
+            } else {
+                if (objAudJus.isVisible()) {
+                    if (objAudJus.isIcon()) { // Se esta minimizado
+                        try {
+                            objAudJus.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objAudJus.toFront(); // traz para frente
+                        objAudJus.pack();//volta frame 
                     }
                 } else {
-                    objAudJus.toFront(); // traz para frente
-                    objAudJus.pack();//volta frame 
+                    objAudJus = new TelaAudienciaJustificativa();
+                    TelaModuloJuridico.jPainelJuridico.add(objAudJus);//adicona frame ao JDesktopPane  
+                    objAudJus.setVisible(true);
                 }
-            } else {
-                objAudJus = new TelaAudienciaJustificativa();
-                TelaModuloJuridico.jPainelJuridico.add(objAudJus);//adicona frame ao JDesktopPane  
-                objAudJus.setVisible(true);
             }
-        }
-        try {
-            objAudJus.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objAudJus.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_AtendimentoJudiciarioActionPerformed
 
@@ -1050,30 +1081,35 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
 
     private void BeneficiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BeneficiosActionPerformed
         // TODO add your handling code here:
-        if (objAgendaBene == null || objAgendaBene.isClosed()) {
-            objAgendaBene = new TelaAgendamentoBeneficiosInterno();
-            jPainelJuridico.add(objAgendaBene);
-            objAgendaBene.setVisible(true);
-        } else {
-            if (objAgendaBene.isVisible()) {
-                if (objAgendaBene.isIcon()) { // Se esta minimizado
-                    try {
-                        objAgendaBene.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaAgendamentoBeneficioManuJURI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAgendamentoBeneficioManuJURI) && codAbrirJURI == 1) {
+            if (objAgendaBene == null || objAgendaBene.isClosed()) {
+                objAgendaBene = new TelaAgendamentoBeneficiosInterno();
+                jPainelJuridico.add(objAgendaBene);
+                objAgendaBene.setVisible(true);
+            } else {
+                if (objAgendaBene.isVisible()) {
+                    if (objAgendaBene.isIcon()) { // Se esta minimizado
+                        try {
+                            objAgendaBene.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objAgendaBene.toFront(); // traz para frente
+                        objAgendaBene.pack();//volta frame 
                     }
                 } else {
-                    objAgendaBene.toFront(); // traz para frente
-                    objAgendaBene.pack();//volta frame 
+                    objAgendaBene = new TelaAgendamentoBeneficiosInterno();
+                    TelaModuloJuridico.jPainelJuridico.add(objAgendaBene);//adicona frame ao JDesktopPane  
+                    objAgendaBene.setVisible(true);
                 }
-            } else {
-                objAgendaBene = new TelaAgendamentoBeneficiosInterno();
-                TelaModuloJuridico.jPainelJuridico.add(objAgendaBene);//adicona frame ao JDesktopPane  
-                objAgendaBene.setVisible(true);
             }
-        }
-        try {
-            objAgendaBene.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objAgendaBene.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_BeneficiosActionPerformed
 
@@ -1737,6 +1773,34 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
             pNomeAJE_JURI = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaAgendamentoBeneficioManuJURI + "'");
+            conecta.rs.first();
+            pNomeABM_JURI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaAtendimentoFamiliarManuJURI + "'");
+            conecta.rs.first();
+            pNomeAFM_JURI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaAudienciaJustificativaManuJURI + "'");
+            conecta.rs.first();
+            pNomeADJM_JURI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaOcorrenciaJURI + "'");
+            conecta.rs.first();
+            pNomeOcrJURI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // MENU CADASTRO
         if (!pNomeAJ.equals(telaAtividadesJuridicasJURI) || pNomeAJ == null || pNomeAJ.equals("")) {
             buscarCodigoModulo();
@@ -1804,6 +1868,30 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaAtendimentoJuridicoEvolucaoJURI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeABM_JURI.equals(telaAgendamentoBeneficioManuJURI) || pNomeABM_JURI == null || pNomeABM_JURI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaAgendamentoBeneficioManuJURI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeAFM_JURI.equals(telaAtendimentoFamiliarManuJURI) || pNomeAFM_JURI == null || pNomeAFM_JURI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaAtendimentoFamiliarManuJURI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeADJM_JURI.equals(telaAudienciaJustificativaManuJURI) || pNomeADJM_JURI == null || pNomeADJM_JURI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaAudienciaJustificativaManuJURI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeOcrJURI.equals(telaOcorrenciaJURI) || pNomeOcrJURI == null || pNomeOcrJURI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaOcorrenciaJURI);
             controle.incluirTelaAcesso(objCadastroTela);
         }
     }

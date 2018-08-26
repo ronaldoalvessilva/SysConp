@@ -14,6 +14,19 @@ import gestor.Modelo.AgendaBeneficioInternos;
 import gestor.Modelo.ItensAgendaBeneficioInternos;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloJuridico.codigoUserGroupJURI;
+import static gestor.Visao.TelaModuloJuridico.codigoGrupoJURI;
+import static gestor.Visao.TelaModuloJuridico.codIncluirJURI;
+import static gestor.Visao.TelaModuloJuridico.codAlterarJURI;
+import static gestor.Visao.TelaModuloJuridico.codExcluirJURI;
+import static gestor.Visao.TelaModuloJuridico.codGravarJURI;
+import static gestor.Visao.TelaModuloJuridico.codConsultarJURI;
+import static gestor.Visao.TelaModuloJuridico.codAbrirJURI;
+import static gestor.Visao.TelaModuloJuridico.codUserAcessoJURI;
+import static gestor.Visao.TelaModuloJuridico.codigoUserJURI;
+import static gestor.Visao.TelaModuloJuridico.nomeGrupoJURI;
+import static gestor.Visao.TelaModuloJuridico.nomeTelaJURI;
+import static gestor.Visao.TelaModuloJuridico.telaAgendamentoBeneficioManuJURI;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -745,10 +758,10 @@ public class TelaAgendamentoBeneficiosInterno extends javax.swing.JInternalFrame
                     dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
                     dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
                     preencherTabelaAgendaBeneficioInterno("SELECT * FROM AGENDA_BENEFICIO_INTERNOS "
-                    + "INNER JOIN ITENS_AGENDA_BENEFICIO_INTERNOS "
-                    + "ON AGENDA_BENEFICIO_INTERNOS.IdReg=ITENS_AGENDA_BENEFICIO_INTERNOS.IdReg "
-                    + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON ITENS_AGENDA_BENEFICIO_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN ITENS_AGENDA_BENEFICIO_INTERNOS "
+                            + "ON AGENDA_BENEFICIO_INTERNOS.IdReg=ITENS_AGENDA_BENEFICIO_INTERNOS.IdReg "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON ITENS_AGENDA_BENEFICIO_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                             + "WHERE DataReg BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
                 }
             }
@@ -767,7 +780,7 @@ public class TelaAgendamentoBeneficiosInterno extends javax.swing.JInternalFrame
                     + "ON AGENDA_BENEFICIO_INTERNOS.IdReg=ITENS_AGENDA_BENEFICIO_INTERNOS.IdReg "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ITENS_AGENDA_BENEFICIO_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE NomeInternoCrc LIKE'%" + jNomeInternoPesquisa.getText()  + "%'");
+                    + "WHERE NomeInternoCrc LIKE'%" + jNomeInternoPesquisa.getText() + "%'");
         }
     }//GEN-LAST:event_jBtPesqNomeInternoActionPerformed
 
@@ -812,86 +825,106 @@ public class TelaAgendamentoBeneficiosInterno extends javax.swing.JInternalFrame
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaAgendamentoBeneficioManuJURI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAgendamentoBeneficioManuJURI) && codIncluirJURI == 1) {
+            acao = 1;
+            Novo();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        if (jComboBoxStatusRegistro.getSelectedItem().equals("Realizado") || jComboBoxStatusRegistro.getSelectedItem().equals("Cancelado")) {
-            JOptionPane.showMessageDialog(rootPane, "Não é possível modificar esse registro.");
+        buscarAcessoUsuario(telaAgendamentoBeneficioManuJURI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAgendamentoBeneficioManuJURI) && codAlterarJURI == 1) {
+            if (jComboBoxStatusRegistro.getSelectedItem().equals("Realizado") || jComboBoxStatusRegistro.getSelectedItem().equals("Cancelado")) {
+                JOptionPane.showMessageDialog(rootPane, "Não é possível modificar esse registro.");
+            } else {
+                acao = 2;
+                Alterar();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 2;
-            Alterar();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        if (jComboBoxStatusRegistro.getSelectedItem().equals("Realizado") || jComboBoxStatusRegistro.getSelectedItem().equals("Cancelado")) {
-            JOptionPane.showMessageDialog(rootPane, "Não é possível excluir esse registro.");
-        } else {
-            verificarInternos();
-            if (jIdRegistro.getText().equals(codigoRegistro)) {
-                JOptionPane.showMessageDialog(rootPane, "Não é possível excluir o registro, existe outros registros relacionados.");
+        buscarAcessoUsuario(telaAgendamentoBeneficioManuJURI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAgendamentoBeneficioManuJURI) && codExcluirJURI == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            if (jComboBoxStatusRegistro.getSelectedItem().equals("Realizado") || jComboBoxStatusRegistro.getSelectedItem().equals("Cancelado")) {
+                JOptionPane.showMessageDialog(rootPane, "Não é possível excluir esse registro.");
             } else {
-                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                        JOptionPane.YES_NO_OPTION);
-                if (resposta == JOptionPane.YES_OPTION) {
-                    objAgendaBene.setIdReg(Integer.valueOf(jIdRegistro.getText()));
-                    control.excluirAgendaBeneicios(objAgendaBene);
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                    Excluir();
+                verificarInternos();
+                if (jIdRegistro.getText().equals(codigoRegistro)) {
+                    JOptionPane.showMessageDialog(rootPane, "Não é possível excluir o registro, existe outros registros relacionados.");
+                } else {
+                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta == JOptionPane.YES_OPTION) {
+                        objAgendaBene.setIdReg(Integer.valueOf(jIdRegistro.getText()));
+                        control.excluirAgendaBeneicios(objAgendaBene);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                        Excluir();
+                    }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataAgendamento.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data do Agendamento.");
-        } else if (jDataRegistro.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data do Registro.");
+        buscarAcessoUsuario(telaAgendamentoBeneficioManuJURI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAgendamentoBeneficioManuJURI) && codGravarJURI == 1) {
+            if (jDataAgendamento.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data do Agendamento.");
+            } else if (jDataRegistro.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data do Registro.");
+            } else {
+                objAgendaBene.setStatusReg((String) jComboBoxStatusRegistro.getSelectedItem());
+                objAgendaBene.setDataReg(jDataRegistro.getDate());
+                objAgendaBene.setTipoBeneficio((String) jComboBoxBeneficio.getSelectedItem());
+                objAgendaBene.setDataAg(jDataAgendamento.getDate());
+                objAgendaBene.setObservacao(jObservacao.getText());
+                if (acao == 1) {
+                    objAgendaBene.setUsuarioInsert(nameUser);
+                    objAgendaBene.setDataInsert(dataModFinal);
+                    objAgendaBene.setHorarioInsert(horaMov);
+                    control.incluirAgendaBeneicios(objAgendaBene);
+                    buscarCodigo();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
+                }
+                if (acao == 2) {
+                    objAgendaBene.setUsuarioInsert(nameUser);
+                    objAgendaBene.setDataInsert(dataModFinal);
+                    objAgendaBene.setHorarioInsert(horaMov);
+                    objAgendaBene.setIdReg(Integer.valueOf(jIdRegistro.getText()));
+                    control.alterarAgendaBeneicios(objAgendaBene);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
+                }
+            }
         } else {
-            objAgendaBene.setStatusReg((String) jComboBoxStatusRegistro.getSelectedItem());
-            objAgendaBene.setDataReg(jDataRegistro.getDate());
-            objAgendaBene.setTipoBeneficio((String) jComboBoxBeneficio.getSelectedItem());
-            objAgendaBene.setDataAg(jDataAgendamento.getDate());
-            objAgendaBene.setObservacao(jObservacao.getText());
-            if (acao == 1) {
-                objAgendaBene.setUsuarioInsert(nameUser);
-                objAgendaBene.setDataInsert(dataModFinal);
-                objAgendaBene.setHorarioInsert(horaMov);
-                control.incluirAgendaBeneicios(objAgendaBene);
-                buscarCodigo();
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
-            }
-            if (acao == 2) {
-                objAgendaBene.setUsuarioInsert(nameUser);
-                objAgendaBene.setDataInsert(dataModFinal);
-                objAgendaBene.setHorarioInsert(horaMov);
-                objAgendaBene.setIdReg(Integer.valueOf(jIdRegistro.getText()));
-                control.alterarAgendaBeneicios(objAgendaBene);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
-            }
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -1196,7 +1229,7 @@ public class TelaAgendamentoBeneficiosInterno extends javax.swing.JInternalFrame
 
     public void limparTabelaInternos() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Item","Código", "Nome do Interno", "Benefício", "Data Agenda"};
+        String[] Colunas = new String[]{"Item", "Código", "Nome do Interno", "Benefício", "Data Agenda"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaAgendaBeneficioInternos.setModel(modelo);
         jTabelaAgendaBeneficioInternos.getColumnModel().getColumn(0).setPreferredWidth(50);
@@ -1281,7 +1314,7 @@ public class TelaAgendamentoBeneficiosInterno extends javax.swing.JInternalFrame
                 String anoe = dataAgenda.substring(0, 4);
                 dataAgenda = diae + "/" + mese + "/" + anoe;
                 jtotalRegistros.setText(Integer.toString(count));
-                dados.add(new Object[]{conecta.rs.getInt("IdReg"), dataAgenda, conecta.rs.getString("NomeInternoCrc"),conecta.rs.getString("TipoBeneficio")});
+                dados.add(new Object[]{conecta.rs.getInt("IdReg"), dataAgenda, conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("TipoBeneficio")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }
@@ -1301,6 +1334,7 @@ public class TelaAgendamentoBeneficiosInterno extends javax.swing.JInternalFrame
         alinharTabelaAgendaBeneficio();
         conecta.desconecta();
     }
+
     public void alinharTabelaAgendaBeneficio() {
         DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
@@ -1339,5 +1373,43 @@ public class TelaAgendamentoBeneficiosInterno extends javax.swing.JInternalFrame
         objLogSys.setIdLancMov(Integer.valueOf(jIdRegistro.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserJURI = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserJURI + "'");
+            conecta.rs.first();
+            codigoUserGroupJURI = conecta.rs.getInt("IdUsuario");
+            codigoGrupoJURI = conecta.rs.getInt("IdGrupo");
+            nomeGrupoJURI = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserJURI + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoJURI = conecta.rs.getInt("IdUsuario");
+            codAbrirJURI = conecta.rs.getInt("Abrir");
+            codIncluirJURI = conecta.rs.getInt("Incluir");
+            codAlterarJURI = conecta.rs.getInt("Alterar");
+            codExcluirJURI = conecta.rs.getInt("Excluir");
+            codGravarJURI = conecta.rs.getInt("Gravar");
+            codConsultarJURI = conecta.rs.getInt("Consultar");
+            nomeTelaJURI = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }
