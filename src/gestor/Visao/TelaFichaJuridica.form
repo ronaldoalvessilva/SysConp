@@ -848,27 +848,32 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabel33" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="jLabel38" min="-2" max="-2" attributes="0"/>
-                                          </Group>
+                                          <Component id="jComboBoxRegimeProcesso" alignment="0" max="32767" attributes="0"/>
                                           <Group type="102" attributes="0">
-                                              <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="jLabel37" min="-2" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="jLabel33" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="jLabel38" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" attributes="0">
+                                                      <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="jLabel37" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                           </Group>
-                                          <Component id="jComboBoxRegimeProcesso" linkSize="19" min="-2" pref="181" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="22" max="32767" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="jComboBoxSituacaoPresoProcesso" linkSize="19" alignment="0" pref="182" max="32767" attributes="0"/>
-                                          <Component id="jLabel14" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jLabel14" alignment="0" pref="197" max="32767" attributes="0"/>
                                           <Component id="jTotalDias" max="32767" attributes="0"/>
+                                          <Component id="jComboBoxSituacaoPresoProcesso" alignment="0" max="32767" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="10" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>

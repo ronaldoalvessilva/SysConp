@@ -772,22 +772,25 @@ public class TelaFichaJuridica extends javax.swing.JInternalFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBoxRegimeProcesso, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel33)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel38))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel37))
-                            .addComponent(jComboBoxRegimeProcesso, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(22, Short.MAX_VALUE))
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addComponent(jLabel33)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel38))
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addComponent(jLabel8)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel37)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jComboBoxSituacaoPresoProcesso, javax.swing.GroupLayout.Alignment.LEADING, 0, 182, Short.MAX_VALUE)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTotalDias))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
+                            .addComponent(jTotalDias)
+                            .addComponent(jComboBoxSituacaoPresoProcesso, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 10, Short.MAX_VALUE))))
         );
 
         jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jAnos, jDias, jMeses});
@@ -795,8 +798,6 @@ public class TelaFichaJuridica extends javax.swing.JInternalFrame {
         jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jComboBoxTipoSentencaCondenatoria, jNumeroInquerito});
 
         jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jComboBoxSentenca, jNumeroProcesso});
-
-        jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jComboBoxRegimeProcesso, jComboBoxSituacaoPresoProcesso});
 
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2878,8 +2879,7 @@ public class TelaFichaJuridica extends javax.swing.JInternalFrame {
         jBtExcluirAmparo.setEnabled(!true);
         jBtSalvarAmparo.setEnabled(!true);
         jBtCancelarAmparo.setEnabled(!true);
-        jBtAuditoriaAmparo.setEnabled(!true);
-        limparTabelaAmparolegal();
+        jBtAuditoriaAmparo.setEnabled(!true);        
         // ABA DOCUMENTO DO PROCESSO
         jDescricaoNaturezaPrisao.setText("");
         jDocumentoPrisao.setText("");
@@ -2900,12 +2900,15 @@ public class TelaFichaJuridica extends javax.swing.JInternalFrame {
         jBtExcluirDocumento.setEnabled(!true);
         jBtSalvarDocumento.setEnabled(!true);
         jBtCancelarDocumento.setEnabled(!true);
-        jBtAuditoriaDocumento.setEnabled(!true);
-        limparTabelaDocumentos();
+        jBtAuditoriaDocumento.setEnabled(!true);        
         //
         jBtNovoProcesso.setEnabled(!true);
         //ABA AMPARA LEGAL
         jBtNovoAmparo.setEnabled(!true);
+        // LIMPAR TABELAS
+        limparTabelaAmparolegal();
+        limparTabelaDocumentos();
+        limparTabelaProcessos();
     }
 
     public void AlterarFicha() {
