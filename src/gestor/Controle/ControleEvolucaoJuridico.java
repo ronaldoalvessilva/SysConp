@@ -25,7 +25,7 @@ public class ControleEvolucaoJuridico {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO EVOLUCAOJURIDICO (DataEvo,IdInternoCrc,IdLanc,DataEnca,TipoAdvogado,Resposta,HoraEnvio,SetorEncaminhamento,Evolucao,UsuarioInsert,DataInsert,HorarioInsert) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO EVOLUCAOJURIDICO (DataEvo,IdInternoCrc,IdLanc,DataEnca,TipoAdvogado,Resposta,HoraEnvio,SetorEncaminhamento,Evolucao,UsuarioInsert,DataInsert,HorarioInsert,AdmEvo) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setTimestamp(1, new java.sql.Timestamp(objEvoluJuri.getDataEvo().getTime()));
             pst.setInt(2, objEvoluJuri.getIdInternoCrc());
             pst.setInt(3, objEvoluJuri.getIdLanc());
@@ -42,6 +42,7 @@ public class ControleEvolucaoJuridico {
             pst.setString(10, objEvoluJuri.getUsuarioInsert());
             pst.setString(11, objEvoluJuri.getDataInsert());
             pst.setString(12, objEvoluJuri.getHorarioInsert());
+            pst.setString(13, objEvoluJuri.getAdmEvo());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados\nERRO: " + ex);
