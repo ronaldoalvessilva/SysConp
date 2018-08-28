@@ -107,6 +107,8 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
     //
     String codigoEvolucao;
     String admEvolucao = "Sim";
+    // VETOR PARA GRAVAR CÓDIGO ATIVIDADE NA TELA ATIVIDADES.
+    public static int pAtividadeRela[];
 
     /**
      * Creates new form TelaAtendimentoJuridico
@@ -120,6 +122,8 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         setResizable(false);
         formatarCampos();
         corCampos();
+        //REMOVE A ABA DA TELA
+        jTabbedPane1.remove(AtividadesRealizadas);
     }
 
     public void mostrarTela() {
@@ -209,7 +213,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         jHoraEnvio = new javax.swing.JFormattedTextField();
         jPanel4 = new javax.swing.JPanel();
         jFotoInternoJuridico = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
+        AtividadesRealizadas = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jIdAtiv = new javax.swing.JTextField();
@@ -231,7 +235,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         jBtAuditoriaAtividade = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTabelaAtividades = new javax.swing.JTable();
-        jPanel8 = new javax.swing.JPanel();
+        Evolucao = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel29 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
@@ -754,6 +758,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
 
         jBtAdividadesRealizadasADM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/composer-preferences-icone-5121-16.png"))); // NOI18N
         jBtAdividadesRealizadasADM.setToolTipText("Atividades Realizadas");
+        jBtAdividadesRealizadasADM.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtAdividadesRealizadasADM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtAdividadesRealizadasADMActionPerformed(evt);
@@ -779,8 +784,8 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtSair)
                 .addGap(27, 27, 27)
-                .addComponent(jBtAdividadesRealizadasADM, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addComponent(jBtAdividadesRealizadasADM, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(jBtAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -788,20 +793,18 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jBtNovo)
-                        .addComponent(jBtAlterar)
-                        .addComponent(jBtExcluir)
-                        .addComponent(jBtSalvar)
-                        .addComponent(jBtFinalizar)
-                        .addComponent(jBtSair)
-                        .addComponent(jBtCancelar)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                            .addGap(18, 18, 18)
-                            .addComponent(jBtAuditoria)))
+                    .addComponent(jBtNovo)
+                    .addComponent(jBtAlterar)
+                    .addComponent(jBtExcluir)
+                    .addComponent(jBtSalvar)
+                    .addComponent(jBtFinalizar)
+                    .addComponent(jBtSair)
+                    .addComponent(jBtCancelar)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jBtAdividadesRealizadasADM)))
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jBtAuditoria)
+                            .addComponent(jBtAdividadesRealizadasADM))))
                 .addContainerGap())
         );
 
@@ -1224,21 +1227,21 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
             jTabelaAtividades.getColumnModel().getColumn(2).setMaxWidth(80);
         }
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
+        javax.swing.GroupLayout AtividadesRealizadasLayout = new javax.swing.GroupLayout(AtividadesRealizadas);
+        AtividadesRealizadas.setLayout(AtividadesRealizadasLayout);
+        AtividadesRealizadasLayout.setHorizontalGroup(
+            AtividadesRealizadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(AtividadesRealizadasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(AtividadesRealizadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
+        AtividadesRealizadasLayout.setVerticalGroup(
+            AtividadesRealizadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(AtividadesRealizadasLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1247,7 +1250,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jTabbedPane1.addTab("Atividades Realizadas", jPanel7);
+        jTabbedPane1.addTab("Atividades Realizadas", AtividadesRealizadas);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Evolução", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(204, 0, 0))); // NOI18N
 
@@ -1553,13 +1556,13 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                 .addGap(25, 25, 25))
         );
 
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
+        javax.swing.GroupLayout EvolucaoLayout = new javax.swing.GroupLayout(Evolucao);
+        Evolucao.setLayout(EvolucaoLayout);
+        EvolucaoLayout.setHorizontalGroup(
+            EvolucaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(EvolucaoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(EvolucaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane3)
@@ -1567,9 +1570,9 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
+        EvolucaoLayout.setVerticalGroup(
+            EvolucaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(EvolucaoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1582,7 +1585,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jTabbedPane1.addTab("Evolução", jPanel8);
+        jTabbedPane1.addTab("Evolução", Evolucao);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -2489,11 +2492,19 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
 
     private void jBtAdividadesRealizadasADMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAdividadesRealizadasADMActionPerformed
         // TODO add your handling code here:
-        mostrarAtividadesRealizadas();
+        if (jIDLanc.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário fazer primeiro a admissão, deppois registrar as atividades.");
+        } else if (jIDInternoJuridico.getText().equals("") && jNomeInternoJuridico.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário informar o nome do interno antes de cadastrar as atividades a serem realizadas.");
+        } else {
+            mostrarAtividadesRealizadas();
+        }
     }//GEN-LAST:event_jBtAdividadesRealizadasADMActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel AtividadesRealizadas;
+    private javax.swing.JPanel Evolucao;
     private javax.swing.JPanel Listagem;
     private javax.swing.JPanel Manutencao;
     public static javax.swing.JTextField jAtividadeRealizada;
@@ -2600,8 +2611,6 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JTextField jPesqNomeInterno;
     private javax.swing.JScrollPane jScrollPane1;
@@ -3400,7 +3409,8 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
     public void verificarSituacaoInternoCrc() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC WHERE IdInternoCrc='" + jIDInternoJuridico.getText() + "'");
+            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                    + "WHERE IdInternoCrc='" + jIDInternoJuridico.getText() + "'");
             conecta.rs.first();
             situacaoInternoCrc = conecta.rs.getString("SituacaoCrc");
         } catch (SQLException ex) {
