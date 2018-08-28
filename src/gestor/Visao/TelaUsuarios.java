@@ -1090,9 +1090,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
                                         .addComponent(jLabel24)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jBtPesqModulo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel5Layout.createSequentialGroup()
-                                        .addComponent(jLabel25)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(jLabel25)))
                             .addComponent(jDescricaoModulo, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel26)))
@@ -1283,10 +1281,20 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         jComboBoxModuloAcesso.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione..." }));
         jComboBoxModuloAcesso.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxModuloAcesso.setEnabled(false);
+        jComboBoxModuloAcesso.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jComboBoxModuloAcessoMouseEntered(evt);
+            }
+        });
 
         jComboBoxTelaAcesso.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione..." }));
         jComboBoxTelaAcesso.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTelaAcesso.setEnabled(false);
+        jComboBoxTelaAcesso.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jComboBoxTelaAcessoMouseEntered(evt);
+            }
+        });
 
         jBtPesquisarModulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtPesquisarModulo.setContentAreaFilled(false);
@@ -1638,7 +1646,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2146,8 +2154,6 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
             dataModFinal = jDataSistema.getText();
             NovoAcesso();
             pesquisarModuloUsuarios();
-            pesquisarModulo();
-            pesquisarTelaAcesso();
         }
     }//GEN-LAST:event_jBtNovoAcessoActionPerformed
 
@@ -2380,6 +2386,16 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
             mostrarUsuario();
         }
     }//GEN-LAST:event_jBtCopiarPerfilActionPerformed
+
+    private void jComboBoxModuloAcessoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxModuloAcessoMouseEntered
+        // TODO add your handling code here:
+        pesquisarModulo();
+    }//GEN-LAST:event_jComboBoxModuloAcessoMouseEntered
+
+    private void jComboBoxTelaAcessoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxTelaAcessoMouseEntered
+        // TODO add your handling code here:
+        pesquisarTelaAcesso();
+    }//GEN-LAST:event_jComboBoxTelaAcessoMouseEntered
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -3136,6 +3152,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
     }
 
     public void pesquisarTelaAcesso() {
+        jComboBoxTelaAcesso.removeAllItems();
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
@@ -3255,7 +3272,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaUsuarios.setRowSorter(new TableRowSorter(modelo)); //FAZER ORDENAMENTO NA TABLEA  
-        jTabelaUsuarios.setModel(modelo);        
+        jTabelaUsuarios.setModel(modelo);
         jTabelaUsuarios.getColumnModel().getColumn(0).setPreferredWidth(50);
         jTabelaUsuarios.getColumnModel().getColumn(0).setResizable(false);
         jTabelaUsuarios.getColumnModel().getColumn(1).setPreferredWidth(60);
