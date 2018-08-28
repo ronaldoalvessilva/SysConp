@@ -2153,7 +2153,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
             NovoAcesso();
-            pesquisarModuloUsuarios();
+//            pesquisarModuloUsuarios();
         }
     }//GEN-LAST:event_jBtNovoAcessoActionPerformed
 
@@ -2164,9 +2164,9 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         horaMov = jHoraSistema.getText();
         dataModFinal = jDataSistema.getText();
         AlterarAcesso();
-        pesquisarModuloUsuarios();
-        pesquisarModulo();
-        pesquisarTelaAcesso();
+//        pesquisarModuloUsuarios();
+//        pesquisarModulo();
+//        pesquisarTelaAcesso();
     }//GEN-LAST:event_jBtAlterarAcessoActionPerformed
 
     private void jBtExcluirAcessoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirAcessoActionPerformed
@@ -2389,6 +2389,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
 
     private void jComboBoxModuloAcessoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxModuloAcessoMouseEntered
         // TODO add your handling code here:
+        pesquisarModuloUsuarios();
         pesquisarModulo();
     }//GEN-LAST:event_jComboBoxModuloAcessoMouseEntered
 
@@ -3137,7 +3138,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
     }
 
     public void pesquisarModulo() {
-
+        jComboBoxModuloAcesso.removeAllItems();
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM MODULOS "
