@@ -7,8 +7,15 @@ package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.ItensAtividadeJuridico;
+import static gestor.Visao.TelaAtendimentoJuridico.jIDInternoJuridico;
+import static gestor.Visao.TelaAtendimentoJuridico.jIDLanc;
+import static gestor.Visao.TelaAtividadesRealizadasADM.qtdAtividades;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -30,7 +37,7 @@ public class ControleItensAtividadeJuridico {
             pst.setTimestamp(1, new java.sql.Timestamp(objAtivi.getDataItem().getTime()));
             pst.setInt(2, objAtivi.getIdLanc());
             pst.setInt(3, codAtividade);
-            pst.setInt(4,objAtivi.getIdInternoCrc());
+            pst.setInt(4, objAtivi.getIdInternoCrc());
             pst.setInt(5, qtd);
             pst.setString(6, objAtivi.getUsuarioInsert());
             pst.setString(7, objAtivi.getDataInsert());
@@ -47,11 +54,11 @@ public class ControleItensAtividadeJuridico {
         buscarAtividade(objAtivi.getDescricaoAtividade());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSATENDIMENTOJURI SET DataItem=?,IdLanc=?,IdAtiv=?,IdInternoCrc=?,QtdAtiv=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItem='" + objAtivi.getIdItem() + "'AND IdAtiv='" + objAtivi.getIdAtiv()+ "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSATENDIMENTOJURI SET DataItem=?,IdLanc=?,IdAtiv=?,IdInternoCrc=?,QtdAtiv=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItem='" + objAtivi.getIdItem() + "'AND IdAtiv='" + objAtivi.getIdAtiv() + "'");
             pst.setTimestamp(1, new java.sql.Timestamp(objAtivi.getDataItem().getTime()));
             pst.setInt(2, objAtivi.getIdLanc());
             pst.setInt(3, objAtivi.getIdAtiv());
-            pst.setInt(4,objAtivi.getIdInternoCrc());
+            pst.setInt(4, objAtivi.getIdInternoCrc());
             pst.setInt(5, qtd);
             pst.setString(6, objAtivi.getUsuarioUp());
             pst.setString(7, objAtivi.getDataUp());
@@ -78,12 +85,12 @@ public class ControleItensAtividadeJuridico {
     }
 
     // Alterar interno quando usuário modificar na capa do atendimento juridico interno.
-     public ItensAtividadeJuridico alterarInternoAtividade(ItensAtividadeJuridico objAtivi) {
-      
+    public ItensAtividadeJuridico alterarInternoAtividade(ItensAtividadeJuridico objAtivi) {
+
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSATENDIMENTOJURI SET IdInternoCrc=? WHERE IdLanc='" + objAtivi.getIdLanc() + "'");            
-            pst.setInt(1,objAtivi.getIdInternoCrc());            
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSATENDIMENTOJURI SET IdInternoCrc=? WHERE IdLanc='" + objAtivi.getIdLanc() + "'");
+            pst.setInt(1, objAtivi.getIdInternoCrc());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados\n\nERRO" + ex);
@@ -91,6 +98,7 @@ public class ControleItensAtividadeJuridico {
         conecta.desconecta();
         return objAtivi;
     }
+
     public void buscarAtividade(String desc) {
         conecta.abrirConexao();
         try {
@@ -100,5 +108,33 @@ public class ControleItensAtividadeJuridico {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possível pesquisar a atividade.\nERRO: " + ex);
         }
+    }
+
+    public List<ItensAtividadeJuridico> read() throws Exception {
+        conecta.abrirConexao();
+        List<ItensAtividadeJuridico> listaAtividadesRealizadas = new ArrayList<ItensAtividadeJuridico>();
+        try {
+            conecta.executaSQL("SELECT * FROM ITENSATENDIMENTOJURI "
+                    + "INNER JOIN ATIVIDADESJURIDICOS "
+                    + "ON ITENSATENDIMENTOJURI.IdAtiv=ATIVIDADESJURIDICOS.IdAtiv "
+                    + "INNER JOIN ATENDIMENTOJURIDICO "
+                    + "ON ITENSATENDIMENTOJURI.IdLanc=ATENDIMENTOJURIDICO.IdLanc "
+                    + "WHERE ITENSATENDIMENTOJURI.IdLanc='" + jIDLanc.getText() + "' "
+                    + "AND ITENSATENDIMENTOJURI.IdInternoCrc='" + jIDInternoJuridico.getText() + "'");
+            while (conecta.rs.next()) {
+                ItensAtividadeJuridico pDigital = new ItensAtividadeJuridico();
+                pDigital.setIdAtiv(conecta.rs.getInt("IdAtiv"));
+                pDigital.setDataItem(conecta.rs.getDate("DataItem"));
+                pDigital.setDescricaoAtividade(conecta.rs.getString("DescricaoAtiv"));
+                listaAtividadesRealizadas.add(pDigital);
+                qtdAtividades++;
+            }
+            return listaAtividadesRealizadas;
+        } catch (SQLException ex) {
+            Logger.getLogger(ControleVisitaInterno.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            conecta.desconecta();
+        }
+        return null;
     }
 }
