@@ -17,6 +17,19 @@ import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codAbrirTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codAlterarTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codConsultarTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codExcluirTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codGravarTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codIncluirTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codUserAcessoTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codigoGrupoTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codigoUserGroupTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codigoUserTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.nomeGrupoTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.nomeTelaTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.telaEmpresasLabManuTO;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -323,7 +336,7 @@ public class TelaEmpresasLaborativas extends javax.swing.JInternalFrame {
         jLabel4.setText("Classificação:");
 
         jComboBoxClass.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxClass.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Ativa", "Inativa" }));
+        jComboBoxClass.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ativa", "Inativa" }));
         jComboBoxClass.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxClass.setEnabled(false);
 
@@ -395,7 +408,7 @@ public class TelaEmpresasLaborativas extends javax.swing.JInternalFrame {
         jInsEstadual.setEnabled(false);
 
         jComboBoxTipoEmpresa.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxTipoEmpresa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Externa", "Interna" }));
+        jComboBoxTipoEmpresa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Externa", "Interna" }));
         jComboBoxTipoEmpresa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTipoEmpresa.setEnabled(false);
 
@@ -454,12 +467,12 @@ public class TelaEmpresasLaborativas extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxTipoEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxTipoEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jInsEstadual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Logradouro", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 255)));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Logradouro", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setText("Endereço");
@@ -900,89 +913,109 @@ public class TelaEmpresasLaborativas extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaEmpresasLabManuTO);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaEmpresasLabManuTO) && codAbrirTO == 1) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        acao = 2;
-        Alterar();
-        corCampos();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaEmpresasLabManuTO);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaEmpresasLabManuTO) && codAlterarTO == 1) {
+            acao = 2;
+            Alterar();
+            corCampos();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        Excluir();
+        buscarAcessoUsuario(telaEmpresasLabManuTO);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaEmpresasLabManuTO) && codExcluirTO == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            Excluir();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jComboBoxClass.getSelectedItem() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe se a empresa está ativa ou inativa");
-            jComboBoxClass.requestFocus();
-            jComboBoxClass.setBackground(Color.red);
-        } else {
-            if (jDataCadastro.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data de cadastro");
-                jDataCadastro.requestFocus();
-                jDataCadastro.setBackground(Color.red);
+        buscarAcessoUsuario(telaEmpresasLabManuTO);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaEmpresasLabManuTO) && codGravarTO == 1) {
+            if (jComboBoxClass.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe se a empresa está ativa ou inativa");
+                jComboBoxClass.requestFocus();
+                jComboBoxClass.setBackground(Color.red);
             } else {
-                if (jRazaoSocial.getText().equals("")) {
-                    JOptionPane.showMessageDialog(rootPane, "Informe a razão social da empresa");
-                    jRazaoSocial.requestFocus();
-                    jRazaoSocial.setBackground(Color.red);
+                if (jDataCadastro.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data de cadastro");
+                    jDataCadastro.requestFocus();
+                    jDataCadastro.setBackground(Color.red);
                 } else {
-                    objEmpLab.setStatusEmp((String) jComboBoxClass.getSelectedItem());
-                    objEmpLab.setDataCad(jDataCadastro.getDate());
-                    objEmpLab.setRazaosocial(jRazaoSocial.getText());
-                    objEmpLab.setNomeFantasia(jNomeFantasia.getText());
-                    objEmpLab.setCnpj(jCNPJ.getText());
-                    objEmpLab.setInsEsta(jInsEstadual.getText());
-                    objEmpLab.setTipoEmpresa((String) jComboBoxTipoEmpresa.getSelectedItem());
-                    objEmpLab.setEndereco(jEndereco.getText());
-                    objEmpLab.setCidade(jCidade.getText());
-                    objEmpLab.setEstado(jEstado.getText());
-                    objEmpLab.setCep(jCEP.getText());
-                    objEmpLab.setTelefone(jTelefone.getText());
-                    objEmpLab.setTelefone1(jTelefone1.getText());
-                    objEmpLab.setContato(jContato.getText());
-                    // log de usuario
-                    objEmpLab.setUsuarioInsert(nameUser);
-                    objEmpLab.setDataInsert(dataModFinal);
-                    objEmpLab.setHoraInsert(horaMov);
-                    if (acao == 1) {
-                        control.incluirEmpresa(objEmpLab);
-                        buscarID();
-                        objLog();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                        Salvar();
-                    }
-                    if (acao == 2) {
+                    if (jRazaoSocial.getText().equals("")) {
+                        JOptionPane.showMessageDialog(rootPane, "Informe a razão social da empresa");
+                        jRazaoSocial.requestFocus();
+                        jRazaoSocial.setBackground(Color.red);
+                    } else {
+                        objEmpLab.setStatusEmp((String) jComboBoxClass.getSelectedItem());
+                        objEmpLab.setDataCad(jDataCadastro.getDate());
+                        objEmpLab.setRazaosocial(jRazaoSocial.getText());
+                        objEmpLab.setNomeFantasia(jNomeFantasia.getText());
+                        objEmpLab.setCnpj(jCNPJ.getText());
+                        objEmpLab.setInsEsta(jInsEstadual.getText());
+                        objEmpLab.setTipoEmpresa((String) jComboBoxTipoEmpresa.getSelectedItem());
+                        objEmpLab.setEndereco(jEndereco.getText());
+                        objEmpLab.setCidade(jCidade.getText());
+                        objEmpLab.setEstado(jEstado.getText());
+                        objEmpLab.setCep(jCEP.getText());
+                        objEmpLab.setTelefone(jTelefone.getText());
+                        objEmpLab.setTelefone1(jTelefone1.getText());
+                        objEmpLab.setContato(jContato.getText());
                         // log de usuario
-                        objEmpLab.setUsuarioUp(nameUser);
-                        objEmpLab.setDataUp(dataModFinal);
-                        objEmpLab.setHoraUp(horaMov);
-                        objEmpLab.setIdEmp(Integer.valueOf(jIDEmp.getText()));
-                        control.alterarEmpresa(objEmpLab);
-                        objLog();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                        Salvar();
+                        objEmpLab.setUsuarioInsert(nameUser);
+                        objEmpLab.setDataInsert(dataModFinal);
+                        objEmpLab.setHoraInsert(horaMov);
+                        if (acao == 1) {
+                            control.incluirEmpresa(objEmpLab);
+                            buscarID();
+                            objLog();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                            Salvar();
+                        }
+                        if (acao == 2) {
+                            // log de usuario
+                            objEmpLab.setUsuarioUp(nameUser);
+                            objEmpLab.setDataUp(dataModFinal);
+                            objEmpLab.setHoraUp(horaMov);
+                            objEmpLab.setIdEmp(Integer.valueOf(jIDEmp.getText()));
+                            control.alterarEmpresa(objEmpLab);
+                            objLog();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                            Salvar();
+                        }
                     }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -1003,7 +1036,8 @@ public class TelaEmpresasLaborativas extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe uma descrição para pesquisa.");
         } else {
             jTabelaEmpresas.setVisible(true);
-            preencherTodosEmpresas("SELECT * FROM EMPRESALAB WHERE RazaoSocial LIKE'" + jPesqNomeEmpresa.getText() + "%'");
+            preencherTodosEmpresas("SELECT * FROM EMPRESALAB "
+                    + "WHERE RazaoSocial='" + jPesqNomeEmpresa.getText() + "'");
         }
     }//GEN-LAST:event_jBtPesqNomeEmpresaActionPerformed
 
@@ -1023,7 +1057,9 @@ public class TelaEmpresasLaborativas extends javax.swing.JInternalFrame {
             jBtAuditoria.setEnabled(true);
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM EMPRESALAB WHERE RazaoSocial='" + jPesqNomeEmpresa.getText() + "'AND IdEmp='" + jIDEmp.getText() + "'");
+                conecta.executaSQL("SELECT * FROM EMPRESALAB "
+                        + "WHERE RazaoSocial='" + jPesqNomeEmpresa.getText() + "' "
+                        + "AND IdEmp='" + jIDEmp.getText() + "'");
                 conecta.rs.first();
                 jIDEmp.setText(String.valueOf(conecta.rs.getInt("IdEmp")));
                 jComboBoxClass.setSelectedItem(conecta.rs.getString("StatusEmp"));
@@ -1061,7 +1097,7 @@ public class TelaEmpresasLaborativas extends javax.swing.JInternalFrame {
             HistoricoEmpresaInternos("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN HISTORICOLABORINTERNO "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=HISTORICOLABORINTERNO.IdInternoCrc "
-                    + "WHERE NomeInternoCrc LIKE'" + jPesqNomeInterno.getText() + "%'");
+                    + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%'");
         }
     }//GEN-LAST:event_jBtNomeInternoActionPerformed
 
@@ -1553,5 +1589,43 @@ public class TelaEmpresasLaborativas extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jIDEmp.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserTO = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserTO + "'");
+            conecta.rs.first();
+            codigoUserGroupTO = conecta.rs.getInt("IdUsuario");
+            codigoGrupoTO = conecta.rs.getInt("IdGrupo");
+            nomeGrupoTO = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserTO + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoTO = conecta.rs.getInt("IdUsuario");
+            codAbrirTO = conecta.rs.getInt("Abrir");
+            codIncluirTO = conecta.rs.getInt("Incluir");
+            codAlterarTO = conecta.rs.getInt("Alterar");
+            codExcluirTO = conecta.rs.getInt("Excluir");
+            codGravarTO = conecta.rs.getInt("Gravar");
+            codConsultarTO = conecta.rs.getInt("Consultar");
+            nomeTelaTO = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

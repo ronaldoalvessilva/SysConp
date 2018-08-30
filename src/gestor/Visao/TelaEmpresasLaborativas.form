@@ -478,10 +478,9 @@
                       <Font name="Tahoma" size="11" style="1"/>
                     </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="3">
-                        <StringItem index="0" value=""/>
-                        <StringItem index="1" value="Ativa"/>
-                        <StringItem index="2" value="Inativa"/>
+                      <StringArray count="2">
+                        <StringItem index="0" value="Ativa"/>
+                        <StringItem index="1" value="Inativa"/>
                       </StringArray>
                     </Property>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -582,7 +581,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
                               <Component id="jCNPJ" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jComboBoxTipoEmpresa" alignment="2" min="-2" pref="19" max="-2" attributes="0"/>
+                              <Component id="jComboBoxTipoEmpresa" alignment="2" min="-2" pref="18" max="-2" attributes="0"/>
                               <Component id="jInsEstadual" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
@@ -670,10 +669,9 @@
                       <Font name="Tahoma" size="11" style="1"/>
                     </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="3">
-                        <StringItem index="0" value=""/>
-                        <StringItem index="1" value="Externa"/>
-                        <StringItem index="2" value="Interna"/>
+                      <StringArray count="2">
+                        <StringItem index="0" value="Externa"/>
+                        <StringItem index="1" value="Interna"/>
                       </StringArray>
                     </Property>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
