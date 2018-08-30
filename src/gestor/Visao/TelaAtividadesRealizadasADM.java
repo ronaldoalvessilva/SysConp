@@ -52,6 +52,7 @@ public class TelaAtividadesRealizadasADM extends javax.swing.JDialog {
     int codigoInterno;
     int codigoRegistro;
     int codigoAtividade;
+    String codigoAtiva;
 
     /**
      * Creates new form TelaAtividadesRealizadasADM
@@ -202,6 +203,11 @@ public class TelaAtividadesRealizadasADM extends javax.swing.JDialog {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTabelaRegistrosAtividades.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabelaRegistrosAtividadesMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(jTabelaRegistrosAtividades);
@@ -410,6 +416,10 @@ public class TelaAtividadesRealizadasADM extends javax.swing.JDialog {
         if (jTabelaRegistrosAtividades.getSelectedRow() != -1) {
             DefaultTableModel dtm = (DefaultTableModel) jTabelaRegistrosAtividades.getModel();
             dtm.removeRow(jTabelaRegistrosAtividades.getSelectedRow());
+            objAtivi.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
+            objAtivi.setIdLanc(Integer.valueOf(jIDLanc.getText()));
+            objAtivi.setIdAtiv(Integer.valueOf(codigoAtiva));           
+            controleItens.excluirAtividadeRealizadas(objAtivi);
             qtdAtividades = qtdAtividades - 1;
             jtotalRegistros.setText(Integer.toString(qtdAtividades));
         } else {
@@ -446,7 +456,7 @@ public class TelaAtividadesRealizadasADM extends javax.swing.JDialog {
                     buscarCodAtividade();
                     objLog2();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
-                }else if(objAtivi.getIdLanc() != codigoRegistro && objAtivi.getIdAtiv() != codigoAtividade && objAtivi.getIdInternoCrc() != codigoInterno){
+                } else if (objAtivi.getIdLanc() != codigoRegistro && objAtivi.getIdAtiv() != codigoAtividade && objAtivi.getIdInternoCrc() != codigoInterno) {
                     objAtivi.setDataItem(jDataRegistro.getDate());
                     objAtivi.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
                     objAtivi.setIdLanc(Integer.valueOf(jIDLanc.getText()));
@@ -473,6 +483,11 @@ public class TelaAtividadesRealizadasADM extends javax.swing.JDialog {
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_jBtSairActionPerformed
+
+    private void jTabelaRegistrosAtividadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaRegistrosAtividadesMouseClicked
+        // TODO add your handling code here:
+        codigoAtiva = "" + jTabelaRegistrosAtividades.getValueAt(jTabelaRegistrosAtividades.getSelectedRow(), 0);                   
+    }//GEN-LAST:event_jTabelaRegistrosAtividadesMouseClicked
 
     /**
      * @param args the command line arguments
