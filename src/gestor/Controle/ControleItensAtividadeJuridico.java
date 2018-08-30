@@ -75,10 +75,27 @@ public class ControleItensAtividadeJuridico {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ITENSATENDIMENTOJURI WHERE IdItem='" + objAtivi.getIdItem() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ITENSATENDIMENTOJURI "
+                    + "WHERE IdItem='" + objAtivi.getIdItem() + "'");
             pst.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados\n\nERRO" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAtivi;
+    }
+
+    public ItensAtividadeJuridico excluirAtividadeRealizadas(ItensAtividadeJuridico objAtivi) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ITENSATENDIMENTOJURI "
+                    + "WHERE IdLanc='" + objAtivi.getIdLanc() + "' "
+                    + "AND IdAtiv='" + objAtivi.getIdAtiv() + "' "
+                    + "AND IdInternoCrc='" + objAtivi.getIdInternoCrc() + "'");
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados.\n\nERRO: " + ex);
         }
         conecta.desconecta();
         return objAtivi;
@@ -89,7 +106,8 @@ public class ControleItensAtividadeJuridico {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSATENDIMENTOJURI SET IdInternoCrc=? WHERE IdLanc='" + objAtivi.getIdLanc() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSATENDIMENTOJURI SET IdInternoCrc=? "
+                    + "WHERE IdLanc='" + objAtivi.getIdLanc() + "'");
             pst.setInt(1, objAtivi.getIdInternoCrc());
             pst.executeUpdate();
         } catch (SQLException ex) {
@@ -102,7 +120,8 @@ public class ControleItensAtividadeJuridico {
     public void buscarAtividade(String desc) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ATIVIDADESJURIDICOS WHERE DescricaoAtiv='" + desc + "'");
+            conecta.executaSQL("SELECT * FROM ATIVIDADESJURIDICOS "
+                    + "WHERE DescricaoAtiv='" + desc + "'");
             conecta.rs.first();
             codAtividade = conecta.rs.getInt("IdAtiv");
         } catch (SQLException ex) {
