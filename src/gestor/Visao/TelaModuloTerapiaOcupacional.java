@@ -5,8 +5,10 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleTelasSistema;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
+import gestor.Modelo.CadastroTelasSistema;
 import static gestor.Visao.TelaAgendaCompromissos.jAssunto;
 import static gestor.Visao.TelaAgendaCompromissos.jBtAlterarComp;
 import static gestor.Visao.TelaAgendaCompromissos.jBtCancelarComp;
@@ -34,6 +36,12 @@ import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloServicoSocial.codAbrirSS;
+import static gestor.Visao.TelaModuloServicoSocial.codUserAcessoSS;
+import static gestor.Visao.TelaModuloServicoSocial.codigoUserSS;
+import static gestor.Visao.TelaModuloServicoSocial.nomeGrupoSS;
+import static gestor.Visao.TelaModuloServicoSocial.nomeTelaSS;
+import static gestor.Visao.TelaModuloServicoSocial.telaPAISS;
 import static gestor.Visao.TelaRecadosCrc.jBtAlterar;
 import static gestor.Visao.TelaRecadosCrc.jBtCancelar;
 import static gestor.Visao.TelaRecadosCrc.jBtConfirmar;
@@ -72,6 +80,8 @@ import net.sf.jasperreports.view.JasperViewer;
 public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
+    CadastroTelasSistema objCadastroTela = new CadastroTelasSistema();
+    ControleTelasSistema controle = new ControleTelasSistema();
     //
     private TelaEmpresasLaborativas objEmpLab = null;
     private TelaListaEsperaTO objListaEsperaLab = null;
@@ -117,6 +127,82 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
     String pCnc = "";
     String statusEntrada = "ENTRADA NA UNIDADE";
     String statusRetorno = "RETORNO A UNIDADE";
+    //
+    public static int codigoUserTO = 0;
+    public static int codUserAcessoTO = 0;
+    public static int codigoUserGroupTO = 0;
+    public static int codAbrirTO = 0;
+    public static int codIncluirTO = 0;
+    public static int codAlterarTO = 0;
+    public static int codExcluirTO = 0;
+    public static int codGravarTO = 0;
+    public static int codConsultarTO = 0;
+    public static int codigoGrupoTO = 0;
+    public static String nomeGrupoTO = "";
+    public static String nomeTelaTO = "";
+    //
+    public static String nomeModuloTO = "TERAPIA OCUPACIONAL";
+    // MENU CADASTRO
+    public static String telaEmpresasLabManuTO = "Cadastro:Empresas Laborativas:Manutenção";
+    //
+    public static String telaFichaAtividadeLabManuTO = "Cadastro:Ficha Atividade Laborativa:Manutenção";
+    public static String telaFichaAtividadeLabIntTO = "Cadastro:Ficha Atividade Laborativa:Internos";
+    //
+    public static String telaProfissoesManuTO = "Cadastro:Profissões:Manutenção";
+    //
+    public static String telaOcupacoesManuTO = "Cadastro:Ocupações:Manutenção";
+    //
+    public static String telaCursosDiversosManuTO = "Cadastro:Cursos Diversos:Manutenção";
+    //
+    public static String telaListaEsperaManuTO = "Cadastro:Lista de Espera de Internos:Manutenção";
+    public static String telaListaEsperaIntTO = "Cadastro:Lista de Espera de Internos:Internos";
+    //
+    public static String telaListaPassagemManuTO = "Cadastro:Lista de Passagem:Manutenção";
+    public static String telaListaPassagemIntTO = "Cadastro:Lista de Passagem:Internos";
+    // MENU MOVIMENTAÇÃO
+    public static String telaTriagemOcupacionalManuTO = "Movimentação:Triagem Ocupacional Internos:Manutenção";
+    //
+
+    // FREQUENCIA EXTERNA
+    public static String telaFrequenciaMensalExternaManuTO = "Movimentação:Frequência Mensal Externa de Internos TO-I:Manutenção";
+    public static String telaFrequenciaMensalExternaIntTO = "Movimentação:Frequência Mensal Externa de Internos TO-II:Internos";
+    // PERFIL CARCERÁRIO
+    public static String telaPerfilCarcerarioManuTO = "Movimentação:Perfil Carcerário TO-I:Manutenção";
+    public static String telaPerfilCarcerarioPerfilTO = "Movimentação:Perfil Carcerário TO-II:Perfil Carcerário";
+    // OCORRENCIA
+    public static String telaOcorrenciaTO = "Movimentação:Ocorrências Diárias TO:Manutenção";
+    // MENU CADASTRO
+    String pNomeELB_TO = "";
+    //
+    String pNomeFALM_TO = "";
+    String pNomeFALI_TO = "";
+    //
+    String pNomePM_TO = "";
+    //
+    String pNomeOM_TO = "";
+    //
+    String pNomeCD_TO = "";
+    //
+    String pNomeLEM_TO = "";
+    String pNomeLEI_TO = "";
+    //
+    String pNomeLPM_TO = "";
+    String pNomeLPI_TO = "";
+    // MOVIMENTAÇÃO
+    // TRIAGEM
+    String pNomeTOM_TO = "";
+    // FREQUENCIA MENSAL
+    String pNomeFMEM_TO = "";
+    String pNomeFMEI_TO = "";
+    // PERFIL CARCERÁRIO
+    String pNomePCM_TO = "";
+    String pNomePCP_TO = "";
+    //
+    // PAI TEM ACESSO CONTROLADO A PARTIR DO MÓDULO DO SERVIÇO SOCIAL    
+    // OCORRENCIA
+    String pNomeO_TO = "";
+    //
+    int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
 
     /**
      * Creates new form TelaTerapia
@@ -124,6 +210,7 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
     public TelaModuloTerapiaOcupacional() {
         initComponents();
         this.setSize(840, 640); // Tamanho da tela 
+        pesquisarTelasAcessos();
         threadMensagem();
     }
 
@@ -140,20 +227,25 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem8 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
+        EmpresasLaborativas = new javax.swing.JMenuItem();
+        FichaAtividadeLaborativa = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenu8 = new javax.swing.JMenu();
         Profissoes = new javax.swing.JMenuItem();
         Ocupacoes = new javax.swing.JMenuItem();
         CursosProfissionalizantes = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem10 = new javax.swing.JMenuItem();
-        jMenuItem9 = new javax.swing.JMenuItem();
+        ListaEsperaTO = new javax.swing.JMenuItem();
+        ListaPassagemInternos = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        jMenu9 = new javax.swing.JMenu();
+        RegistroAtendimentoBiografia = new javax.swing.JMenuItem();
+        RegistroAtendimentoPorImpressao = new javax.swing.JMenuItem();
+        jSeparator11 = new javax.swing.JPopupMenu.Separator();
         AgendaCompromisso = new javax.swing.JMenuItem();
-        jMenuItem11 = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        AgendaRecados = new javax.swing.JMenuItem();
+        jSeparator10 = new javax.swing.JPopupMenu.Separator();
+        Sair = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -166,7 +258,7 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         ControleDiasTrabalhados = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
         jPerfilCarcerario = new javax.swing.JMenuItem();
-        jMenuItem12 = new javax.swing.JMenuItem();
+        PAI_NOVO = new javax.swing.JMenuItem();
         jSeparator6 = new javax.swing.JPopupMenu.Separator();
         OcorrenciasLaborativa = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
@@ -215,21 +307,21 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
 
         jMenu1.setText("Cadastro");
 
-        jMenuItem8.setText("Empresas Laborativas");
-        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+        EmpresasLaborativas.setText("Empresas Laborativas");
+        EmpresasLaborativas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem8ActionPerformed(evt);
+                EmpresasLaborativasActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem8);
+        jMenu1.add(EmpresasLaborativas);
 
-        jMenuItem7.setText("Ficha de Atividade Laborativa");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+        FichaAtividadeLaborativa.setText("Ficha de Atividade Laborativa");
+        FichaAtividadeLaborativa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
+                FichaAtividadeLaborativaActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem7);
+        jMenu1.add(FichaAtividadeLaborativa);
         jMenu1.add(jSeparator1);
 
         jMenu8.setText("Profissões/Ocupações");
@@ -261,22 +353,46 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         jMenu1.add(CursosProfissionalizantes);
         jMenu1.add(jSeparator4);
 
-        jMenuItem10.setText("Lista de Espera Laborativa");
-        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+        ListaEsperaTO.setText("Lista de Espera Laborativa");
+        ListaEsperaTO.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem10ActionPerformed(evt);
+                ListaEsperaTOActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem10);
+        jMenu1.add(ListaEsperaTO);
 
-        jMenuItem9.setText("Lista de Passagem de Internos");
-        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+        ListaPassagemInternos.setText("Lista de Passagem de Internos");
+        ListaPassagemInternos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem9ActionPerformed(evt);
+                ListaPassagemInternosActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem9);
+        jMenu1.add(ListaPassagemInternos);
         jMenu1.add(jSeparator2);
+
+        jMenu9.setForeground(new java.awt.Color(0, 102, 0));
+        jMenu9.setText("Registro de Atendimento de Internos - (Biometria ou Impressão)");
+
+        RegistroAtendimentoBiografia.setForeground(new java.awt.Color(204, 0, 0));
+        RegistroAtendimentoBiografia.setText("Registrar  Atendimento por Biometria");
+        RegistroAtendimentoBiografia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegistroAtendimentoBiografiaActionPerformed(evt);
+            }
+        });
+        jMenu9.add(RegistroAtendimentoBiografia);
+
+        RegistroAtendimentoPorImpressao.setForeground(new java.awt.Color(0, 0, 204));
+        RegistroAtendimentoPorImpressao.setText("Registro Atendimento por Impressão");
+        RegistroAtendimentoPorImpressao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegistroAtendimentoPorImpressaoActionPerformed(evt);
+            }
+        });
+        jMenu9.add(RegistroAtendimentoPorImpressao);
+
+        jMenu1.add(jMenu9);
+        jMenu1.add(jSeparator11);
 
         AgendaCompromisso.setText("Agenda de Compromissos Pessoal");
         AgendaCompromisso.addActionListener(new java.awt.event.ActionListener() {
@@ -286,21 +402,22 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         });
         jMenu1.add(AgendaCompromisso);
 
-        jMenuItem11.setText("Agenda de Recados");
-        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+        AgendaRecados.setText("Agenda de Recados");
+        AgendaRecados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem11ActionPerformed(evt);
+                AgendaRecadosActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem11);
+        jMenu1.add(AgendaRecados);
+        jMenu1.add(jSeparator10);
 
-        jMenuItem1.setText("Sair");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        Sair.setText("Sair");
+        Sair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                SairActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(Sair);
 
         jMenuBar1.add(jMenu1);
 
@@ -377,14 +494,14 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         });
         jMenu2.add(jPerfilCarcerario);
 
-        jMenuItem12.setForeground(new java.awt.Color(0, 0, 255));
-        jMenuItem12.setText("P.A.I. - Programa de Assitência Individual");
-        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+        PAI_NOVO.setForeground(new java.awt.Color(0, 0, 255));
+        PAI_NOVO.setText("P.A.I. - Programa de Assitência Individual");
+        PAI_NOVO.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem12ActionPerformed(evt);
+                PAI_NOVOActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem12);
+        jMenu2.add(PAI_NOVO);
         jMenu2.add(jSeparator6);
 
         OcorrenciasLaborativa.setText("Livro de Ocorrências");
@@ -513,68 +630,78 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void SairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SairActionPerformed
         // TODO add your handling code here:
         dispose();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_SairActionPerformed
 
-    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+    private void EmpresasLaborativasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmpresasLaborativasActionPerformed
         // TODO add your handling code here:
-        if (objEmpLab == null || objEmpLab.isClosed()) {
-            objEmpLab = new TelaEmpresasLaborativas();
-            jPainelTerapia.add(objEmpLab);
-            objEmpLab.setVisible(true);
-        } else {
-            if (objEmpLab.isVisible()) {
-                if (objEmpLab.isIcon()) { // Se esta minimizado
-                    try {
-                        objEmpLab.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
-                    }
-                } else {
-                    objEmpLab.toFront(); // traz para frente
-                    objEmpLab.pack();//volta frame 
-                }
-            } else {
+        buscarAcessoUsuario(telaEmpresasLabManuTO);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaEmpresasLabManuTO) && codAbrirTO == 1) {
+            if (objEmpLab == null || objEmpLab.isClosed()) {
                 objEmpLab = new TelaEmpresasLaborativas();
-                TelaModuloTerapiaOcupacional.jPainelTerapia.add(objEmpLab);//adicona frame ao JDesktopPane  
+                jPainelTerapia.add(objEmpLab);
                 objEmpLab.setVisible(true);
-            }
-        }
-        try {
-            objEmpLab.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
-        }
-    }//GEN-LAST:event_jMenuItem8ActionPerformed
-
-    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-        // TODO add your handling code here:
-        if (objAgendaLabor == null || objAgendaLabor.isClosed()) {
-            objAgendaLabor = new TelaListaPassagemInternos();
-            jPainelTerapia.add(objAgendaLabor);
-            objAgendaLabor.setVisible(true);
-        } else {
-            if (objAgendaLabor.isVisible()) {
-                if (objAgendaLabor.isIcon()) { // Se esta minimizado
-                    try {
-                        objAgendaLabor.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+            } else {
+                if (objEmpLab.isVisible()) {
+                    if (objEmpLab.isIcon()) { // Se esta minimizado
+                        try {
+                            objEmpLab.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objEmpLab.toFront(); // traz para frente
+                        objEmpLab.pack();//volta frame 
                     }
                 } else {
-                    objAgendaLabor.toFront(); // traz para frente
-                    objAgendaLabor.pack();//volta frame 
+                    objEmpLab = new TelaEmpresasLaborativas();
+                    TelaModuloTerapiaOcupacional.jPainelTerapia.add(objEmpLab);//adicona frame ao JDesktopPane  
+                    objEmpLab.setVisible(true);
                 }
-            } else {
-                objAgendaLabor = new TelaListaPassagemInternos();
-                TelaModuloTerapiaOcupacional.jPainelTerapia.add(objAgendaLabor);//adicona frame ao JDesktopPane  
-                objAgendaLabor.setVisible(true);
             }
+            try {
+                objEmpLab.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
-        try {
-            objAgendaLabor.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+    }//GEN-LAST:event_EmpresasLaborativasActionPerformed
+
+    private void ListaPassagemInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListaPassagemInternosActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaListaPassagemManuTO);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaListaPassagemManuTO) && codAbrirTO == 1) {
+            if (objAgendaLabor == null || objAgendaLabor.isClosed()) {
+                objAgendaLabor = new TelaListaPassagemInternos();
+                jPainelTerapia.add(objAgendaLabor);
+                objAgendaLabor.setVisible(true);
+            } else {
+                if (objAgendaLabor.isVisible()) {
+                    if (objAgendaLabor.isIcon()) { // Se esta minimizado
+                        try {
+                            objAgendaLabor.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objAgendaLabor.toFront(); // traz para frente
+                        objAgendaLabor.pack();//volta frame 
+                    }
+                } else {
+                    objAgendaLabor = new TelaListaPassagemInternos();
+                    TelaModuloTerapiaOcupacional.jPainelTerapia.add(objAgendaLabor);//adicona frame ao JDesktopPane  
+                    objAgendaLabor.setVisible(true);
+                }
+            }
+            try {
+                objAgendaLabor.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
-    }//GEN-LAST:event_jMenuItem9ActionPerformed
+    }//GEN-LAST:event_ListaPassagemInternosActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
@@ -634,34 +761,39 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
-    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+    private void ListaEsperaTOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListaEsperaTOActionPerformed
         // TODO add your handling code here:
-        if (objListaEsperaLab == null || objListaEsperaLab.isClosed()) {
-            objListaEsperaLab = new TelaListaEsperaTO();
-            jPainelTerapia.add(objListaEsperaLab);
-            objListaEsperaLab.setVisible(true);
-        } else {
-            if (objListaEsperaLab.isVisible()) {
-                if (objListaEsperaLab.isIcon()) { // Se esta minimizado
-                    try {
-                        objListaEsperaLab.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaListaEsperaManuTO);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaListaEsperaManuTO) && codAbrirTO == 1) {
+            if (objListaEsperaLab == null || objListaEsperaLab.isClosed()) {
+                objListaEsperaLab = new TelaListaEsperaTO();
+                jPainelTerapia.add(objListaEsperaLab);
+                objListaEsperaLab.setVisible(true);
+            } else {
+                if (objListaEsperaLab.isVisible()) {
+                    if (objListaEsperaLab.isIcon()) { // Se esta minimizado
+                        try {
+                            objListaEsperaLab.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objListaEsperaLab.toFront(); // traz para frente
+                        objListaEsperaLab.pack();//volta frame 
                     }
                 } else {
-                    objListaEsperaLab.toFront(); // traz para frente
-                    objListaEsperaLab.pack();//volta frame 
+                    objListaEsperaLab = new TelaListaEsperaTO();
+                    TelaModuloTerapiaOcupacional.jPainelTerapia.add(objListaEsperaLab);//adicona frame ao JDesktopPane  
+                    objListaEsperaLab.setVisible(true);
                 }
-            } else {
-                objListaEsperaLab = new TelaListaEsperaTO();
-                TelaModuloTerapiaOcupacional.jPainelTerapia.add(objListaEsperaLab);//adicona frame ao JDesktopPane  
-                objListaEsperaLab.setVisible(true);
             }
+            try {
+                objListaEsperaLab.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
-        try {
-            objListaEsperaLab.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
-        }
-    }//GEN-LAST:event_jMenuItem10ActionPerformed
+    }//GEN-LAST:event_ListaEsperaTOActionPerformed
 
     private void HistoricoMovimentacaoTecnicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HistoricoMovimentacaoTecnicaActionPerformed
         // TODO add your handling code here:
@@ -692,36 +824,41 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_HistoricoMovimentacaoTecnicaActionPerformed
 
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+    private void FichaAtividadeLaborativaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FichaAtividadeLaborativaActionPerformed
         // TODO add your handling code here:
-        if (objFichaAtvLabor == null || objFichaAtvLabor.isClosed()) {
-            objFichaAtvLabor = new TelaEntradaSaidaEmpresaLabor();
-            jPainelTerapia.add(objFichaAtvLabor);
-            objFichaAtvLabor.setVisible(true);
-        } else {
-            if (objFichaAtvLabor.isVisible()) {
-                if (objFichaAtvLabor.isIcon()) { // Se esta minimizado
-                    try {
-                        objFichaAtvLabor.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaFichaAtividadeLabManuTO);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaFichaAtividadeLabManuTO) && codAbrirTO == 1) {
+            if (objFichaAtvLabor == null || objFichaAtvLabor.isClosed()) {
+                objFichaAtvLabor = new TelaEntradaSaidaEmpresaLabor();
+                jPainelTerapia.add(objFichaAtvLabor);
+                objFichaAtvLabor.setVisible(true);
+            } else {
+                if (objFichaAtvLabor.isVisible()) {
+                    if (objFichaAtvLabor.isIcon()) { // Se esta minimizado
+                        try {
+                            objFichaAtvLabor.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objFichaAtvLabor.toFront(); // traz para frente
+                        objFichaAtvLabor.pack();//volta frame 
                     }
                 } else {
-                    objFichaAtvLabor.toFront(); // traz para frente
-                    objFichaAtvLabor.pack();//volta frame 
+                    objFichaAtvLabor = new TelaEntradaSaidaEmpresaLabor();
+                    TelaModuloTerapiaOcupacional.jPainelTerapia.add(objFichaAtvLabor);//adicona frame ao JDesktopPane  
+                    objFichaAtvLabor.setVisible(true);
                 }
-            } else {
-                objFichaAtvLabor = new TelaEntradaSaidaEmpresaLabor();
-                TelaModuloTerapiaOcupacional.jPainelTerapia.add(objFichaAtvLabor);//adicona frame ao JDesktopPane  
-                objFichaAtvLabor.setVisible(true);
             }
+            try {
+                objFichaAtvLabor.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
-        try {
-            objFichaAtvLabor.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
-        }
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
+    }//GEN-LAST:event_FichaAtividadeLaborativaActionPerformed
 
-    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+    private void AgendaRecadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgendaRecadosActionPerformed
         // TODO add your handling code here:
         if (objRecadoTeraOcu == null || objRecadoTeraOcu.isClosed()) {
             objRecadoTeraOcu = new TelaRecadosTerapiaOcupacional();
@@ -748,7 +885,7 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
             objRecadoTeraOcu.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {
         }
-    }//GEN-LAST:event_jMenuItem11ActionPerformed
+    }//GEN-LAST:event_AgendaRecadosActionPerformed
 
     private void AtendimentoLaborativoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtendimentoLaborativoActionPerformed
         // TODO add your handling code here:
@@ -781,30 +918,35 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
 
     private void OcorrenciasLaborativaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OcorrenciasLaborativaActionPerformed
         // TODO add your handling code here:
-        if (objOcorreTeraOcupa == null || objOcorreTeraOcupa.isClosed()) {
-            objOcorreTeraOcupa = new TelaOcorrenciaTerapiaOcupacional();
-            jPainelTerapia.add(objOcorreTeraOcupa);
-            objOcorreTeraOcupa.setVisible(true);
-        } else {
-            if (objOcorreTeraOcupa.isVisible()) {
-                if (objOcorreTeraOcupa.isIcon()) { // Se esta minimizado
-                    try {
-                        objOcorreTeraOcupa.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaOcorrenciaTO);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaOcorrenciaTO) && codAbrirTO == 1) {
+            if (objOcorreTeraOcupa == null || objOcorreTeraOcupa.isClosed()) {
+                objOcorreTeraOcupa = new TelaOcorrenciaTerapiaOcupacional();
+                jPainelTerapia.add(objOcorreTeraOcupa);
+                objOcorreTeraOcupa.setVisible(true);
+            } else {
+                if (objOcorreTeraOcupa.isVisible()) {
+                    if (objOcorreTeraOcupa.isIcon()) { // Se esta minimizado
+                        try {
+                            objOcorreTeraOcupa.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objOcorreTeraOcupa.toFront(); // traz para frente
+                        objOcorreTeraOcupa.pack();//volta frame 
                     }
                 } else {
-                    objOcorreTeraOcupa.toFront(); // traz para frente
-                    objOcorreTeraOcupa.pack();//volta frame 
+                    objOcorreTeraOcupa = new TelaOcorrenciaTerapiaOcupacional();
+                    TelaModuloTerapiaOcupacional.jPainelTerapia.add(objOcorreTeraOcupa);//adicona frame ao JDesktopPane  
+                    objOcorreTeraOcupa.setVisible(true);
                 }
-            } else {
-                objOcorreTeraOcupa = new TelaOcorrenciaTerapiaOcupacional();
-                TelaModuloTerapiaOcupacional.jPainelTerapia.add(objOcorreTeraOcupa);//adicona frame ao JDesktopPane  
-                objOcorreTeraOcupa.setVisible(true);
             }
-        }
-        try {
-            objOcorreTeraOcupa.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objOcorreTeraOcupa.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_OcorrenciasLaborativaActionPerformed
 
@@ -832,7 +974,9 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
                     + "ON ITENSAGENDALABORATIVA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "INNER JOIN EMPRESALAB "
                     + "ON ITENSAGENDALABORATIVA.IdEmp=EMPRESALAB.IdEmp "
-                    + "WHERE EMPRESALAB.TipoEmpresa='" + tipoEmpresa + "'AND ITENSAGENDALABORATIVA.StatusInterno='" + statusInterno + "'ORDER BY RazaoSocial,NomeInternoCrc");
+                    + "WHERE EMPRESALAB.TipoEmpresa='" + tipoEmpresa + "' "
+                    + "AND ITENSAGENDALABORATIVA.StatusInterno='" + statusInterno + "' "
+                    + "ORDER BY RazaoSocial,NomeInternoCrc");
             HashMap parametros = new HashMap();
             parametros.put("tipoEmpresa", tipoEmpresa);
             parametros.put("statusEmpresa", statusInterno);
@@ -864,7 +1008,9 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
                     + "ON ITENSAGENDALABORATIVA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "INNER JOIN EMPRESALAB "
                     + "ON ITENSAGENDALABORATIVA.IdEmp=EMPRESALAB.IdEmp "
-                    + "WHERE EMPRESALAB.TipoEmpresa='" + tipoEmpresaExt + "'AND ITENSAGENDALABORATIVA.StatusInterno='" + statusInterno + "'ORDER BY RazaoSocial,NomeInternoCrc");
+                    + "WHERE EMPRESALAB.TipoEmpresa='" + tipoEmpresaExt + "' "
+                    + "AND ITENSAGENDALABORATIVA.StatusInterno='" + statusInterno + "' "
+                    + "ORDER BY RazaoSocial,NomeInternoCrc");
             HashMap parametros = new HashMap();
             parametros.put("tipoEmpresa", tipoEmpresaExt);
             parametros.put("statusEmpresa", statusInterno);
@@ -900,7 +1046,8 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
                     + "INNER JOIN EMPRESALAB "
                     + "ON FICHALABORATIVA.IdEmp=EMPRESALAB.IdEmp "
                     + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON ITENSFICHALAB.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc ORDER BY NomeInternoCrc,DataInicio");
+                    + "ON ITENSFICHALAB.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "ORDER BY NomeInternoCrc,DataInicio");
             HashMap parametros = new HashMap();
             parametros.put("nomeUsuario", nameUser);
             JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
@@ -918,30 +1065,35 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
 
     private void ControleDiasTrabalhadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ControleDiasTrabalhadosActionPerformed
         // TODO add your handling code here:
-        if (objFreqMen == null || objFreqMen.isClosed()) {
-            objFreqMen = new TelaFrequenciaMensalInternosTO();
-            jPainelTerapia.add(objFreqMen);
-            objFreqMen.setVisible(true);
-        } else {
-            if (objFreqMen.isVisible()) {
-                if (objFreqMen.isIcon()) { // Se esta minimizado
-                    try {
-                        objFreqMen.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaFrequenciaMensalExternaManuTO);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaFrequenciaMensalExternaManuTO) && codAbrirTO == 1) {
+            if (objFreqMen == null || objFreqMen.isClosed()) {
+                objFreqMen = new TelaFrequenciaMensalInternosTO();
+                jPainelTerapia.add(objFreqMen);
+                objFreqMen.setVisible(true);
+            } else {
+                if (objFreqMen.isVisible()) {
+                    if (objFreqMen.isIcon()) { // Se esta minimizado
+                        try {
+                            objFreqMen.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objFreqMen.toFront(); // traz para frente
+                        objFreqMen.pack();//volta frame 
                     }
                 } else {
-                    objFreqMen.toFront(); // traz para frente
-                    objFreqMen.pack();//volta frame 
+                    objFreqMen = new TelaFrequenciaMensalInternosTO();
+                    TelaModuloTerapiaOcupacional.jPainelTerapia.add(objFreqMen);//adicona frame ao JDesktopPane  
+                    objFreqMen.setVisible(true);
                 }
-            } else {
-                objFreqMen = new TelaFrequenciaMensalInternosTO();
-                TelaModuloTerapiaOcupacional.jPainelTerapia.add(objFreqMen);//adicona frame ao JDesktopPane  
-                objFreqMen.setVisible(true);
             }
-        }
-        try {
-            objFreqMen.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objFreqMen.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_ControleDiasTrabalhadosActionPerformed
 
@@ -955,7 +1107,7 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
                     + "ON ITENS_FREQUENCIA_LABORATIVA_EXTERNA.IdFreqLab=FREQUENCIA_LABORATIVA_EXTERNA.IdFreqLab "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ITENS_FREQUENCIA_LABORATIVA_EXTERNA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "ORDER BY PRONTUARIOSCRC.IdInternoCrc, ITENS_FREQUENCIA_LABORATIVA_EXTERNA.IdItem, ITENS_FREQUENCIA_LABORATIVA_EXTERNA.AnoReferencia");
+                    + "ORDER BY PRONTUARIOSCRC.IdInternoCrc,ITENS_FREQUENCIA_LABORATIVA_EXTERNA.IdItem,ITENS_FREQUENCIA_LABORATIVA_EXTERNA.AnoReferencia");
             HashMap parametros = new HashMap();
             parametros.put("nomeUsuario", nameUser);
             JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
@@ -1002,175 +1154,207 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
 
     private void TriagemOcupacionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TriagemOcupacionalActionPerformed
         // TODO add your handling code here:
-        if (objTriagemOcupa == null || objTriagemOcupa.isClosed()) {
-            objTriagemOcupa = new TelaTriagemTerapiaOcupacional();
-            jPainelTerapia.add(objTriagemOcupa);
-            objTriagemOcupa.setVisible(true);
-        } else {
-            if (objTriagemOcupa.isVisible()) {
-                if (objTriagemOcupa.isIcon()) { // Se esta minimizado
-                    try {
-                        objTriagemOcupa.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaTriagemOcupacionalManuTO);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaTriagemOcupacionalManuTO) && codAbrirTO == 1) {
+            if (objTriagemOcupa == null || objTriagemOcupa.isClosed()) {
+                objTriagemOcupa = new TelaTriagemTerapiaOcupacional();
+                jPainelTerapia.add(objTriagemOcupa);
+                objTriagemOcupa.setVisible(true);
+            } else {
+                if (objTriagemOcupa.isVisible()) {
+                    if (objTriagemOcupa.isIcon()) { // Se esta minimizado
+                        try {
+                            objTriagemOcupa.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objTriagemOcupa.toFront(); // traz para frente
+                        objTriagemOcupa.pack();//volta frame 
                     }
                 } else {
-                    objTriagemOcupa.toFront(); // traz para frente
-                    objTriagemOcupa.pack();//volta frame 
+                    objTriagemOcupa = new TelaTriagemTerapiaOcupacional();
+                    TelaModuloTerapiaOcupacional.jPainelTerapia.add(objTriagemOcupa);//adicona frame ao JDesktopPane  
+                    objTriagemOcupa.setVisible(true);
                 }
-            } else {
-                objTriagemOcupa = new TelaTriagemTerapiaOcupacional();
-                TelaModuloTerapiaOcupacional.jPainelTerapia.add(objTriagemOcupa);//adicona frame ao JDesktopPane  
-                objTriagemOcupa.setVisible(true);
             }
-        }
-        try {
-            objTriagemOcupa.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objTriagemOcupa.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_TriagemOcupacionalActionPerformed
 
     private void jPerfilCarcerarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPerfilCarcerarioActionPerformed
         // TODO add your handling code here:
-        if (objPerfilCarrTO == null || objPerfilCarrTO.isClosed()) {
-            objPerfilCarrTO = new TelaPerfilCarcerarioTerapiaOcupacional();
-            jPainelTerapia.add(objPerfilCarrTO);
-            objPerfilCarrTO.setVisible(true);
-        } else {
-            if (objPerfilCarrTO.isVisible()) {
-                if (objPerfilCarrTO.isIcon()) { // Se esta minimizado
-                    try {
-                        objPerfilCarrTO.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaPerfilCarcerarioManuTO);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaPerfilCarcerarioManuTO) && codAbrirTO == 1) {
+            if (objPerfilCarrTO == null || objPerfilCarrTO.isClosed()) {
+                objPerfilCarrTO = new TelaPerfilCarcerarioTerapiaOcupacional();
+                jPainelTerapia.add(objPerfilCarrTO);
+                objPerfilCarrTO.setVisible(true);
+            } else {
+                if (objPerfilCarrTO.isVisible()) {
+                    if (objPerfilCarrTO.isIcon()) { // Se esta minimizado
+                        try {
+                            objPerfilCarrTO.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objPerfilCarrTO.toFront(); // traz para frente
+                        objPerfilCarrTO.pack();//volta frame 
                     }
                 } else {
-                    objPerfilCarrTO.toFront(); // traz para frente
-                    objPerfilCarrTO.pack();//volta frame 
+                    objPerfilCarrTO = new TelaPerfilCarcerarioTerapiaOcupacional();
+                    TelaModuloTerapiaOcupacional.jPainelTerapia.add(objPerfilCarrTO);//adicona frame ao JDesktopPane  
+                    objPerfilCarrTO.setVisible(true);
                 }
-            } else {
-                objPerfilCarrTO = new TelaPerfilCarcerarioTerapiaOcupacional();
-                TelaModuloTerapiaOcupacional.jPainelTerapia.add(objPerfilCarrTO);//adicona frame ao JDesktopPane  
-                objPerfilCarrTO.setVisible(true);
             }
-        }
-        try {
-            objPerfilCarrTO.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objPerfilCarrTO.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jPerfilCarcerarioActionPerformed
 
-    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+    private void PAI_NOVOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PAI_NOVOActionPerformed
         // TODO add your handling code here:
-        if (objPaiTO == null || objPaiTO.isClosed()) {
-            objPaiTO = new TelaPAI_NOVO();
-            jPainelTerapia.add(objPaiTO);
-            objPaiTO.setVisible(true);
-        } else {
-            if (objPaiTO.isVisible()) {
-                if (objPaiTO.isIcon()) { // Se esta minimizado
-                    try {
-                        objPaiTO.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        //ACCESSO DIFERENCIADO, A ORIGEM É O SERVIÇO SOCIAL, CADASTRAR O MÓDULO PARA A TERAPIA OCUPACIONAL COM PERMISSÃO DE NÃO
+        // E LIBERAR SOMENTE A TELA PRINCIPAL E A ABA DPTL, QUE PERTENCE A TO
+        buscarAcessoUsuario(telaPAISS);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPAISS) && codAbrirSS == 1) {
+            if (objPaiTO == null || objPaiTO.isClosed()) {
+                objPaiTO = new TelaPAI_NOVO();
+                jPainelTerapia.add(objPaiTO);
+                objPaiTO.setVisible(true);
+            } else {
+                if (objPaiTO.isVisible()) {
+                    if (objPaiTO.isIcon()) { // Se esta minimizado
+                        try {
+                            objPaiTO.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objPaiTO.toFront(); // traz para frente
+                        objPaiTO.pack();//volta frame 
                     }
                 } else {
-                    objPaiTO.toFront(); // traz para frente
-                    objPaiTO.pack();//volta frame 
+                    objPaiTO = new TelaPAI_NOVO();
+                    TelaModuloTerapiaOcupacional.jPainelTerapia.add(objPaiTO);//adicona frame ao JDesktopPane  
+                    objPaiTO.setVisible(true);
                 }
-            } else {
-                objPaiTO = new TelaPAI_NOVO();
-                TelaModuloTerapiaOcupacional.jPainelTerapia.add(objPaiTO);//adicona frame ao JDesktopPane  
-                objPaiTO.setVisible(true);
             }
+            try {
+                objPaiTO.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
-        try {
-            objPaiTO.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
-        }
-    }//GEN-LAST:event_jMenuItem12ActionPerformed
+    }//GEN-LAST:event_PAI_NOVOActionPerformed
 
     private void CursosProfissionalizantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CursosProfissionalizantesActionPerformed
         // TODO add your handling code here:
-        if (objCursosTO == null || objCursosTO.isClosed()) {
-            objCursosTO = new TelaCursosDiversosTerapiaOcupacional();
-            jPainelTerapia.add(objCursosTO);
-            objCursosTO.setVisible(true);
-        } else {
-            if (objCursosTO.isVisible()) {
-                if (objCursosTO.isIcon()) { // Se esta minimizado
-                    try {
-                        objCursosTO.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaCursosDiversosManuTO);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaCursosDiversosManuTO) && codAbrirTO == 1) {
+            if (objCursosTO == null || objCursosTO.isClosed()) {
+                objCursosTO = new TelaCursosDiversosTerapiaOcupacional();
+                jPainelTerapia.add(objCursosTO);
+                objCursosTO.setVisible(true);
+            } else {
+                if (objCursosTO.isVisible()) {
+                    if (objCursosTO.isIcon()) { // Se esta minimizado
+                        try {
+                            objCursosTO.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objCursosTO.toFront(); // traz para frente
+                        objCursosTO.pack();//volta frame 
                     }
                 } else {
-                    objCursosTO.toFront(); // traz para frente
-                    objCursosTO.pack();//volta frame 
+                    objCursosTO = new TelaCursosDiversosTerapiaOcupacional();
+                    TelaModuloTerapiaOcupacional.jPainelTerapia.add(objCursosTO);//adicona frame ao JDesktopPane  
+                    objCursosTO.setVisible(true);
                 }
-            } else {
-                objCursosTO = new TelaCursosDiversosTerapiaOcupacional();
-                TelaModuloTerapiaOcupacional.jPainelTerapia.add(objCursosTO);//adicona frame ao JDesktopPane  
-                objCursosTO.setVisible(true);
             }
-        }
-        try {
-            objCursosTO.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objCursosTO.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_CursosProfissionalizantesActionPerformed
 
     private void ProfissoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProfissoesActionPerformed
         // TODO add your handling code here:
-        if (objProf == null || objProf.isClosed()) {
-            objProf = new TelaProfissoes();
-            jPainelTerapia.add(objProf);
-            objProf.setVisible(true);
-        } else {
-            if (objProf.isVisible()) {
-                if (objProf.isIcon()) { // Se esta minimizado
-                    try {
-                        objProf.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaProfissoesManuTO);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaProfissoesManuTO) && codAbrirTO == 1) {
+            if (objProf == null || objProf.isClosed()) {
+                objProf = new TelaProfissoes();
+                jPainelTerapia.add(objProf);
+                objProf.setVisible(true);
+            } else {
+                if (objProf.isVisible()) {
+                    if (objProf.isIcon()) { // Se esta minimizado
+                        try {
+                            objProf.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objProf.toFront(); // traz para frente
+                        objProf.pack();//volta frame 
                     }
                 } else {
-                    objProf.toFront(); // traz para frente
-                    objProf.pack();//volta frame 
+                    objProf = new TelaProfissoes();
+                    TelaModuloTerapiaOcupacional.jPainelTerapia.add(objProf);//adicona frame ao JDesktopPane  
+                    objProf.setVisible(true);
                 }
-            } else {
-                objProf = new TelaProfissoes();
-                TelaModuloTerapiaOcupacional.jPainelTerapia.add(objProf);//adicona frame ao JDesktopPane  
-                objProf.setVisible(true);
             }
-        }
-        try {
-            objProf.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objProf.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_ProfissoesActionPerformed
 
     private void OcupacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OcupacoesActionPerformed
         // TODO add your handling code here:
-        if (objOcupa == null || objOcupa.isClosed()) {
-            objOcupa = new TelaOcupacoes();
-            jPainelTerapia.add(objOcupa);
-            objOcupa.setVisible(true);
-        } else {
-            if (objOcupa.isVisible()) {
-                if (objOcupa.isIcon()) { // Se esta minimizado
-                    try {
-                        objOcupa.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaOcupacoesManuTO);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaOcupacoesManuTO) && codAbrirTO == 1) {
+            if (objOcupa == null || objOcupa.isClosed()) {
+                objOcupa = new TelaOcupacoes();
+                jPainelTerapia.add(objOcupa);
+                objOcupa.setVisible(true);
+            } else {
+                if (objOcupa.isVisible()) {
+                    if (objOcupa.isIcon()) { // Se esta minimizado
+                        try {
+                            objOcupa.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objOcupa.toFront(); // traz para frente
+                        objOcupa.pack();//volta frame 
                     }
                 } else {
-                    objOcupa.toFront(); // traz para frente
-                    objOcupa.pack();//volta frame 
+                    objOcupa = new TelaOcupacoes();
+                    TelaModuloTerapiaOcupacional.jPainelTerapia.add(objOcupa);//adicona frame ao JDesktopPane  
+                    objOcupa.setVisible(true);
                 }
-            } else {
-                objOcupa = new TelaOcupacoes();
-                TelaModuloTerapiaOcupacional.jPainelTerapia.add(objOcupa);//adicona frame ao JDesktopPane  
-                objOcupa.setVisible(true);
             }
-        }
-        try {
-            objOcupa.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objOcupa.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_OcupacoesActionPerformed
 
@@ -1266,23 +1450,40 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_RelatorioInternosCNCActionPerformed
 
+    private void RegistroAtendimentoBiografiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistroAtendimentoBiografiaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RegistroAtendimentoBiografiaActionPerformed
+
+    private void RegistroAtendimentoPorImpressaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistroAtendimentoPorImpressaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RegistroAtendimentoPorImpressaoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromisso;
+    private javax.swing.JMenuItem AgendaRecados;
     private javax.swing.JMenuItem AtendimentoLaborativo;
     private javax.swing.JMenuItem AtivaLaborativaExterna;
     private javax.swing.JMenuItem ControleDiasTrabalhados;
     private javax.swing.JMenuItem CursosProfissionalizantes;
+    private javax.swing.JMenuItem EmpresasLaborativas;
+    private javax.swing.JMenuItem FichaAtividadeLaborativa;
     private javax.swing.JMenuItem HistoricoMovimentacaoTecnica;
+    private javax.swing.JMenuItem ListaEsperaTO;
+    private javax.swing.JMenuItem ListaPassagemInternos;
     private javax.swing.JMenuItem OcorrenciasLaborativa;
     private javax.swing.JMenuItem Ocupacoes;
+    private javax.swing.JMenuItem PAI_NOVO;
     private javax.swing.JMenuItem Profissoes;
+    private javax.swing.JMenuItem RegistroAtendimentoBiografia;
+    private javax.swing.JMenuItem RegistroAtendimentoPorImpressao;
     private javax.swing.JMenuItem RelatorioConfere;
     private javax.swing.JMenuItem RelatorioEntradaInternosUnidade;
     private javax.swing.JMenuItem RelatorioFichaLaborativa;
     private javax.swing.JMenuItem RelatorioInternosCNC;
     private javax.swing.JMenuItem RelatorioListaExterna;
     private javax.swing.JMenuItem RelatorioListaInterna;
+    private javax.swing.JMenuItem Sair;
     private javax.swing.JMenuItem TriagemOcupacional;
     private javax.swing.JMenuItem jHistoricoMovimentacaoExterna;
     private javax.swing.JLabel jLabel1;
@@ -1294,22 +1495,18 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
+    private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     public static javax.swing.JDesktopPane jPainelTerapia;
     private javax.swing.JMenuItem jPerfilCarcerario;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator10;
+    private javax.swing.JPopupMenu.Separator jSeparator11;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
@@ -1337,14 +1534,20 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         buscarUsuario(nameUser);
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM AGENDARECADOS WHERE IdUsuario='" + codUsuario + "'AND StatusAgenda='" + statusAgenda + "'");
+            conecta.executaSQL("SELECT * FROM AGENDARECADOS "
+                    + "WHERE IdUsuario='" + codUsuario + "' "
+                    + "AND StatusAgenda='" + statusAgenda + "'");
             conecta.rs.first();
             if (codUsuario == conecta.rs.getInt("IdUsuario")) {
                 TelaRecadosCrc objRecados = new TelaRecadosCrc();
                 TelaModuloTerapiaOcupacional.jPainelTerapia.add(objRecados);
                 objRecados.show();
                 flag = 1;
-                preencherTabelaTodosRecados("SELECT * FROM AGENDARECADOS INNER JOIN USUARIOS ON AGENDARECADOS.IdUsuario=USUARIOS.IdUsuario WHERE NomeUsuario='" + nameUser + "'AND StatusAgenda='" + statusAgenda + "'");
+                preencherTabelaTodosRecados("SELECT * FROM AGENDARECADOS "
+                        + "INNER JOIN USUARIOS "
+                        + "ON AGENDARECADOS.IdUsuario=USUARIOS.IdUsuario "
+                        + "WHERE NomeUsuario='" + nameUser + "' "
+                        + "AND StatusAgenda='" + statusAgenda + "'");
                 if (flag == 1) {
                     jBtNovo.setEnabled(true);
                     jBtAlterar.setEnabled(true);
@@ -1355,7 +1558,11 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
                     jBtConfirmar.setEnabled(true);
                     conecta.abrirConexao();
                     try {
-                        conecta.executaSQL("SELECT * FROM AGENDARECADOS INNER JOIN USUARIOS ON AGENDARECADOS.IdUsuario=USUARIOS.IdUsuario WHERE NomeUsuario='" + nameUser + "'AND StatusAgenda='" + statusAgenda + "'");
+                        conecta.executaSQL("SELECT * FROM AGENDARECADOS "
+                                + "INNER JOIN USUARIOS "
+                                + "ON AGENDARECADOS.IdUsuario=USUARIOS.IdUsuario "
+                                + "WHERE NomeUsuario='" + nameUser + "' "
+                                + "AND StatusAgenda='" + statusAgenda + "'");
                         conecta.rs.last();
                         jIDLanc.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
                         jDataLanc.setDate(conecta.rs.getDate("DataLanc"));
@@ -1457,7 +1664,10 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
                     conecta.abrirConexao();
                     try {
                         conecta.executaSQL("SELECT * FROM AGENDA_COMPROMISSOS "
-                                + "WHERE AGENDA_COMPROMISSOS.UsuarioAgenda='" + nomeUsuarioCompromisso + "'AND AGENDA_COMPROMISSOS.StatusAgenda='" + statusAgenda + "'AND HoraLembrete<='" + jHoraSistema.getText().toString() + "'AND IdAgenda='" + codigoAgendaComp + "'");
+                                + "WHERE AGENDA_COMPROMISSOS.UsuarioAgenda='" + nomeUsuarioCompromisso + "' "
+                                + "AND AGENDA_COMPROMISSOS.StatusAgenda='" + statusAgenda + "' "
+                                + "AND HoraLembrete<='" + jHoraSistema.getText().toString() + "' "
+                                + "AND IdAgenda='" + codigoAgendaComp + "'");
                         conecta.rs.first();
                         jCodigoAgendaComp.setText(String.valueOf(conecta.rs.getInt("IdAgenda")));
                         jComboBoxStatusComp.setSelectedItem(conecta.rs.getString("StatusAgenda"));
@@ -1535,5 +1745,287 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         jTabelaAgendaEventos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
         jTabelaAgendaEventos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
         jTabelaAgendaEventos.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+    }
+
+    public void pesquisarTelasAcessos() {
+        conecta.abrirConexao();
+        // MENU CADASTRO
+        // EMPRESA LABORATIVA
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaEmpresasLabManuTO + "'");
+            conecta.rs.first();
+            pNomeELB_TO = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        //FICHA ATIVIDADE LABORATIVA
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaFichaAtividadeLabManuTO + "'");
+            conecta.rs.first();
+            pNomeFALM_TO = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaFichaAtividadeLabIntTO + "'");
+            conecta.rs.first();
+            pNomeFALI_TO = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaProfissoesManuTO + "'");
+            conecta.rs.first();
+            pNomePM_TO = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaOcupacoesManuTO + "'");
+            conecta.rs.first();
+            pNomeOM_TO = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaCursosDiversosManuTO + "'");
+            conecta.rs.first();
+            pNomeCD_TO = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaListaEsperaManuTO + "'");
+            conecta.rs.first();
+            pNomeLEM_TO = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaListaEsperaIntTO + "'");
+            conecta.rs.first();
+            pNomeLEI_TO = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaListaPassagemManuTO + "'");
+            conecta.rs.first();
+            pNomeLPM_TO = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaListaPassagemIntTO + "'");
+            conecta.rs.first();
+            pNomeLPI_TO = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        // MOVIMENTAÇÃO
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaTriagemOcupacionalManuTO + "'");
+            conecta.rs.first();
+            pNomeTOM_TO = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        //
+        //       
+        //
+        //FREQUENCIA EXTERNA
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaFrequenciaMensalExternaManuTO + "'");
+            conecta.rs.first();
+            pNomeFMEM_TO = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaFrequenciaMensalExternaIntTO + "'");
+            conecta.rs.first();
+            pNomeFMEI_TO = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        // PERFIL CARCERARIO
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPerfilCarcerarioManuTO + "'");
+            conecta.rs.first();
+            pNomePCM_TO = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPerfilCarcerarioPerfilTO + "'");
+            conecta.rs.first();
+            pNomePCP_TO = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        //PAI_NOVO
+        //OCORRENCIA
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaOcorrenciaTO + "'");
+            conecta.rs.first();
+            pNomeO_TO = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        // MENU CADASTRO
+        if (!pNomeELB_TO.equals(telaEmpresasLabManuTO) || pNomeELB_TO == null || pNomeELB_TO.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaEmpresasLabManuTO);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeFALM_TO.equals(telaFichaAtividadeLabManuTO) || pNomeFALM_TO == null || pNomeFALM_TO.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaFichaAtividadeLabManuTO);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeFALI_TO.equals(telaFichaAtividadeLabIntTO) || pNomeFALI_TO == null || pNomeFALI_TO.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaFichaAtividadeLabIntTO);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomePM_TO.equals(telaProfissoesManuTO) || pNomePM_TO == null || pNomePM_TO.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaProfissoesManuTO);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeOM_TO.equals(telaOcupacoesManuTO) || pNomeOM_TO == null || pNomeOM_TO.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaOcupacoesManuTO);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeCD_TO.equals(telaCursosDiversosManuTO) || pNomeCD_TO == null || pNomeCD_TO.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaCursosDiversosManuTO);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeLEM_TO.equals(telaListaEsperaManuTO) || pNomeLEM_TO == null || pNomeLEM_TO.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaListaEsperaManuTO);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeLEI_TO.equals(telaListaEsperaIntTO) || pNomeLEI_TO == null || pNomeLEI_TO.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaListaEsperaIntTO);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeLPM_TO.equals(telaListaPassagemManuTO) || pNomeLPM_TO == null || pNomeLPM_TO.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaListaPassagemManuTO);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeLPI_TO.equals(telaListaPassagemIntTO) || pNomeLPI_TO == null || pNomeLPI_TO.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaListaPassagemIntTO);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //MOVIMENTAÇÃO
+        if (!pNomeTOM_TO.equals(telaTriagemOcupacionalManuTO) || pNomeTOM_TO == null || pNomeTOM_TO.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaTriagemOcupacionalManuTO);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //
+
+        // FREQUENCIA EXTERNA
+        if (!pNomeFMEM_TO.equals(telaFrequenciaMensalExternaManuTO) || pNomeFMEM_TO == null || pNomeFMEM_TO.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaFrequenciaMensalExternaManuTO);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeFMEI_TO.equals(telaFrequenciaMensalExternaIntTO) || pNomeFMEI_TO == null || pNomeFMEI_TO.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaFrequenciaMensalExternaIntTO);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        // PERFIL CARCERARIO
+        if (!pNomePCM_TO.equals(telaPerfilCarcerarioManuTO) || pNomePCM_TO == null || pNomePCM_TO.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaPerfilCarcerarioManuTO);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomePCP_TO.equals(telaPerfilCarcerarioPerfilTO) || pNomePCP_TO == null || pNomePCP_TO.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaPerfilCarcerarioPerfilTO);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //PAI_NOVO
+
+        //OCORRENCIA
+        if (!pNomeO_TO.equals(telaOcorrenciaTO) || pNomeO_TO == null || pNomeO_TO.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaOcorrenciaTO);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+    }
+    // MÉTODO PARA BUSCAR O CÓDIGO DO MÓDULO, CASO NÃO TENHA SIDO CADASTRADO.
+
+    public void buscarCodigoModulo() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM MODULOS "
+                    + "WHERE NomeModulo='" + nomeModuloTO + "'");
+            conecta.rs.first();
+            pCodModulo = conecta.rs.getInt("IdModulo");
+        } catch (SQLException ex) {
+        }
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserTO = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserTO + "'");
+            conecta.rs.first();
+            codigoUserGroupTO = conecta.rs.getInt("IdUsuario");
+            codigoGrupoTO = conecta.rs.getInt("IdGrupo");
+            nomeGrupoTO = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserTO + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoTO = conecta.rs.getInt("IdUsuario");
+            codAbrirTO = conecta.rs.getInt("Abrir");
+            codIncluirTO = conecta.rs.getInt("Incluir");
+            codAlterarTO = conecta.rs.getInt("Alterar");
+            codExcluirTO = conecta.rs.getInt("Excluir");
+            codGravarTO = conecta.rs.getInt("Gravar");
+            codConsultarTO = conecta.rs.getInt("Consultar");
+            nomeTelaTO = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }
