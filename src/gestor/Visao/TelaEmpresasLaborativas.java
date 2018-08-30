@@ -936,6 +936,7 @@ public class TelaEmpresasLaborativas extends javax.swing.JInternalFrame {
             statusMov = "Alterou";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(rootPane, "Em construção...");
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
