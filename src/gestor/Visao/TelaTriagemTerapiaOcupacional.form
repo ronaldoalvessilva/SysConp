@@ -559,8 +559,11 @@
                                                       </Group>
                                                       <Group type="102" attributes="0">
                                                           <Group type="103" groupAlignment="0" attributes="0">
-                                                              <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                              <Component id="jStatusLanc" alignment="0" min="-2" pref="201" max="-2" attributes="0"/>
+                                                              <Group type="102" attributes="0">
+                                                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                                              </Group>
+                                                              <Component id="jStatusLanc" max="32767" attributes="0"/>
                                                           </Group>
                                                           <EmptySpace max="-2" attributes="0"/>
                                                           <Group type="103" groupAlignment="0" attributes="0">
@@ -602,9 +605,9 @@
                                   </Group>
                                   <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="2" attributes="0">
-                                      <Component id="jIdTriagem" alignment="2" min="-2" max="-2" attributes="0"/>
                                       <Component id="jStatusLanc" alignment="2" min="-2" max="-2" attributes="0"/>
                                       <Component id="jDataCadastro" alignment="2" min="-2" pref="19" max="-2" attributes="0"/>
+                                      <Component id="jIdTriagem" alignment="2" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">

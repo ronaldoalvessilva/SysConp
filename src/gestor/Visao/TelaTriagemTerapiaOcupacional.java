@@ -15,6 +15,19 @@ import gestor.Modelo.TriagemOcupacional;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codAbrirTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codAlterarTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codConsultarTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codExcluirTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codGravarTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codIncluirTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codUserAcessoTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codigoGrupoTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codigoUserGroupTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codigoUserTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.nomeGrupoTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.nomeTelaTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.telaTriagemOcupacionalManuTO;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -545,8 +558,10 @@ public class TelaTriagemTerapiaOcupacional extends javax.swing.JInternalFrame {
                                                         .addGap(0, 0, Short.MAX_VALUE))))
                                             .addGroup(jPanel3Layout.createSequentialGroup()
                                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel2)
-                                                    .addComponent(jStatusLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                                        .addComponent(jLabel2)
+                                                        .addGap(0, 0, Short.MAX_VALUE))
+                                                    .addComponent(jStatusLanc))
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                     .addComponent(jDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -574,9 +589,9 @@ public class TelaTriagemTerapiaOcupacional extends javax.swing.JInternalFrame {
                             .addComponent(jLabel3))
                         .addGap(7, 7, 7)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jIdTriagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jStatusLanc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jIdTriagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
@@ -929,89 +944,109 @@ public class TelaTriagemTerapiaOcupacional extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaTriagemOcupacionalManuTO);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaTriagemOcupacionalManuTO) && codIncluirTO == 1) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        objTriaOcupa.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser excluida, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaTriagemOcupacionalManuTO);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaTriagemOcupacionalManuTO) && codAlterarTO == 1) {
+            objTriaOcupa.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser excluida, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                Alterar();
+                corCampos();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 2;
-            Alterar();
-            corCampos();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        objTriaOcupa.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluido, o mesmo encontra-se FINALIZADO");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objTriaOcupa.setIdTraigem(Integer.parseInt(jIdTriagem.getText()));
-                control.excluirTriagemOcupacional(objTriaOcupa);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                Excluir();
+        buscarAcessoUsuario(telaTriagemOcupacionalManuTO);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaTriagemOcupacionalManuTO) && codExcluirTO == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objTriaOcupa.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluido, o mesmo encontra-se FINALIZADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objTriaOcupa.setIdTraigem(Integer.parseInt(jIdTriagem.getText()));
+                    control.excluirTriagemOcupacional(objTriaOcupa);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    Excluir();
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jNomeInternoTriagemOcupacional.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para esse atendimento.");
+        buscarAcessoUsuario(telaTriagemOcupacionalManuTO);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaTriagemOcupacionalManuTO) && codGravarTO == 1) {
+            if (jNomeInternoTriagemOcupacional.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para esse atendimento.");
+            } else {
+                objTriaOcupa.setStatusLanc(jStatusLanc.getText());
+                objTriaOcupa.setDataLanc(jDataCadastro.getDate());
+                objTriaOcupa.setNomeInternoTriagem(jNomeInternoTriagemOcupacional.getText());
+                objTriaOcupa.setJaTrabalho((String) jComboBoxJaTrabalho.getSelectedItem());
+                objTriaOcupa.setOndeTrabalhou(jOndeTrabalhou.getText());
+                objTriaOcupa.setInteresseUnidade((String) jComboBoxInteresseUnidade.getSelectedItem());
+                objTriaOcupa.setQualTipoAtividade(jQualTipoAtividade.getText());
+                objTriaOcupa.setVisitasFinaisSemana((String) jComboBoxVisitasFinaisSemana.getSelectedItem());
+                objTriaOcupa.setObservacao(jObservacao.getText());
+                if (acao == 1) {
+                    objTriaOcupa.setUsuarioInsert(nameUser);
+                    objTriaOcupa.setDataInsert(dataModFinal);
+                    objTriaOcupa.setHorarioInsert(horaMov);
+                    control.incluirTriagemOcupacional(objTriaOcupa);
+                    buscarCodigo();
+                    //
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro Gravado com sucesso.");
+                    Salvar();
+                }
+                if (acao == 2) {
+                    objTriaOcupa.setUsuarioUp(nameUser);
+                    objTriaOcupa.setDataUp(dataModFinal);
+                    objTriaOcupa.setHorarioUp(horaMov);
+                    objTriaOcupa.setIdTraigem(Integer.valueOf(jIdTriagem.getText()));
+                    control.alterarTriagemOcupacional(objTriaOcupa);
+                    //
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro Gravado com sucesso.");
+                    Salvar();
+                }
+            }
         } else {
-            objTriaOcupa.setStatusLanc(jStatusLanc.getText());
-            objTriaOcupa.setDataLanc(jDataCadastro.getDate());
-            objTriaOcupa.setNomeInternoTriagem(jNomeInternoTriagemOcupacional.getText());
-            objTriaOcupa.setJaTrabalho((String) jComboBoxJaTrabalho.getSelectedItem());
-            objTriaOcupa.setOndeTrabalhou(jOndeTrabalhou.getText());
-            objTriaOcupa.setInteresseUnidade((String) jComboBoxInteresseUnidade.getSelectedItem());
-            objTriaOcupa.setQualTipoAtividade(jQualTipoAtividade.getText());
-            objTriaOcupa.setVisitasFinaisSemana((String) jComboBoxVisitasFinaisSemana.getSelectedItem());
-            objTriaOcupa.setObservacao(jObservacao.getText());
-            if (acao == 1) {
-                objTriaOcupa.setUsuarioInsert(nameUser);
-                objTriaOcupa.setDataInsert(dataModFinal);
-                objTriaOcupa.setHorarioInsert(horaMov);
-                control.incluirTriagemOcupacional(objTriaOcupa);
-                buscarCodigo();
-                //
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro Gravado com sucesso.");
-                Salvar();
-            }
-            if (acao == 2) {
-                objTriaOcupa.setUsuarioUp(nameUser);
-                objTriaOcupa.setDataUp(dataModFinal);
-                objTriaOcupa.setHorarioUp(horaMov);
-                objTriaOcupa.setIdTraigem(Integer.valueOf(jIdTriagem.getText()));
-                control.alterarTriagemOcupacional(objTriaOcupa);
-                //
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro Gravado com sucesso.");
-                Salvar();
-            }
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -1398,5 +1433,43 @@ public class TelaTriagemTerapiaOcupacional extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jIdTriagem.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserTO = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserTO + "'");
+            conecta.rs.first();
+            codigoUserGroupTO = conecta.rs.getInt("IdUsuario");
+            codigoGrupoTO = conecta.rs.getInt("IdGrupo");
+            nomeGrupoTO = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserTO + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoTO = conecta.rs.getInt("IdUsuario");
+            codAbrirTO = conecta.rs.getInt("Abrir");
+            codIncluirTO = conecta.rs.getInt("Incluir");
+            codAlterarTO = conecta.rs.getInt("Alterar");
+            codExcluirTO = conecta.rs.getInt("Excluir");
+            codGravarTO = conecta.rs.getInt("Gravar");
+            codConsultarTO = conecta.rs.getInt("Consultar");
+            nomeTelaTO = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }
