@@ -19,15 +19,15 @@ import gestor.Modelo.ItensAtividadeJuridico;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.RegistroAtendimentoInternos;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloJuridico.codAbrirJURI;
 import static gestor.Visao.TelaModuloJuridico.codAlterarJURI;
 import static gestor.Visao.TelaModuloJuridico.codExcluirJURI;
 import static gestor.Visao.TelaModuloJuridico.codGravarJURI;
 import static gestor.Visao.TelaModuloJuridico.codIncluirJURI;
 import static gestor.Visao.TelaModuloJuridico.codConsultarJURI;
-import static gestor.Visao.TelaModuloJuridico.codAbrirJURI;
+import static gestor.Visao.TelaModuloJuridico.codUserAcessoJURI;
 import static gestor.Visao.TelaModuloJuridico.codigoGrupoJURI;
 import static gestor.Visao.TelaModuloJuridico.codigoUserGroupJURI;
-import static gestor.Visao.TelaModuloJuridico.codUserAcessoJURI;
 import static gestor.Visao.TelaModuloJuridico.codigoUserJURI;
 import static gestor.Visao.TelaModuloJuridico.nomeGrupoJURI;
 import static gestor.Visao.TelaModuloJuridico.nomeTelaJURI;
@@ -254,6 +254,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         jBtSalvarEvolucao = new javax.swing.JButton();
         jBtCancelarEvolucao = new javax.swing.JButton();
         jBtAuditoriaEvolucao = new javax.swing.JButton();
+        jBtAtividadesRealizadasEvol = new javax.swing.JButton();
         jPanel13 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
         jComboBoxTipoAdvogadoEvo = new javax.swing.JComboBox();
@@ -1398,6 +1399,13 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
             }
         });
 
+        jBtAtividadesRealizadasEvol.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/overlays.png"))); // NOI18N
+        jBtAtividadesRealizadasEvol.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAtividadesRealizadasEvolActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -1413,6 +1421,8 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                 .addComponent(jBtSalvarEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtCancelarEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(77, 77, 77)
+                .addComponent(jBtAtividadesRealizadasEvol, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBtAuditoriaEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -1422,13 +1432,14 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
 
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                .addComponent(jBtNovaEvolucao)
                 .addComponent(jBtAlterarEvolucao)
-                .addComponent(jBtSalvarEvolucao, javax.swing.GroupLayout.Alignment.TRAILING)
                 .addComponent(jBtExcluirEvolucao)
+                .addComponent(jBtSalvarEvolucao)
                 .addComponent(jBtCancelarEvolucao)
-                .addComponent(jBtNovaEvolucao))
-            .addComponent(jBtAuditoriaEvolucao)
+                .addComponent(jBtAtividadesRealizadasEvol)
+                .addComponent(jBtAuditoriaEvolucao))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterarEvolucao, jBtAuditoriaEvolucao, jBtCancelarEvolucao, jBtExcluirEvolucao, jBtNovaEvolucao, jBtSalvarEvolucao});
@@ -2260,7 +2271,12 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
                     ExcluirAtividade();
-                    preencherAtividadeJuri("SELECT * FROM ITENSATENDIMENTOJURI INNER JOIN ATIVIDADESJURIDICOS ON ITENSATENDIMENTOJURI.IdAtiv=ATIVIDADESJURIDICOS.IdAtiv INNER JOIN ATENDIMENTOJURIDICO ON ITENSATENDIMENTOJURI.IdLanc=ATENDIMENTOJURIDICO.IdLanc WHERE ITENSATENDIMENTOJURI.IdLanc='" + jIDLanc.getText() + "'");
+                    preencherAtividadeJuri("SELECT * FROM ITENSATENDIMENTOJURI "
+                            + "INNER JOIN ATIVIDADESJURIDICOS "
+                            + "ON ITENSATENDIMENTOJURI.IdAtiv=ATIVIDADESJURIDICOS.IdAtiv "
+                            + "INNER JOIN ATENDIMENTOJURIDICO "
+                            + "ON ITENSATENDIMENTOJURI.IdLanc=ATENDIMENTOJURIDICO.IdLanc "
+                            + "WHERE ITENSATENDIMENTOJURI.IdLanc='" + jIDLanc.getText() + "'");
                 }
             }
         } else {
@@ -2492,14 +2508,38 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
 
     private void jBtAdividadesRealizadasADMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAdividadesRealizadasADMActionPerformed
         // TODO add your handling code here:
-        if (jIDLanc.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "É necessário fazer primeiro a admissão, deppois registrar as atividades.");
-        } else if (jIDInternoJuridico.getText().equals("") && jNomeInternoJuridico.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "É necessário informar o nome do interno antes de cadastrar as atividades a serem realizadas.");
+        buscarAcessoUsuario(telaAtendimentoJuridicoaAtividadesJURI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtendimentoJuridicoaAtividadesJURI) && codAbrirJURI == 1) {
+            objAtendJuri.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse antedimento não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else if (jIDLanc.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário fazer primeiro a admissão, deppois registrar as atividades.");
+            } else if (jIDInternoJuridico.getText().equals("") && jNomeInternoJuridico.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário informar o nome do interno antes de cadastrar as atividades a serem realizadas.");
+            } else {
+                mostrarAtividadesRealizadas();
+            }
         } else {
-            mostrarAtividadesRealizadas();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAdividadesRealizadasADMActionPerformed
+
+    private void jBtAtividadesRealizadasEvolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAtividadesRealizadasEvolActionPerformed
+        // TODO add your handling code here:telaAtendimentoJuridicoaAtividadesJURI
+        buscarAcessoUsuario(telaAtendimentoJuridicoaAtividadesJURI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtendimentoJuridicoaAtividadesJURI) && codAbrirJURI == 1) {
+            if (jIDLanc.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário fazer primeiro a admissão, deppois registrar as atividades.");
+            } else if (jIDInternoJuridico.getText().equals("") && jNomeInternoJuridico.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário informar o nome do interno antes de cadastrar as atividades a serem realizadas.");
+            } else {
+                mostrarAtividadesRealizadas();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jBtAtividadesRealizadasEvolActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -2513,6 +2553,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtAlterar;
     private javax.swing.JButton jBtAlterarAtividade;
     private javax.swing.JButton jBtAlterarEvolucao;
+    private javax.swing.JButton jBtAtividadesRealizadasEvol;
     private javax.swing.JButton jBtAuditoria;
     private javax.swing.JButton jBtAuditoriaAtividade;
     private javax.swing.JButton jBtAuditoriaEvolucao;
