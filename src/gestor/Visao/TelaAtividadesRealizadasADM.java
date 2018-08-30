@@ -14,6 +14,19 @@ import static gestor.Visao.TelaAtendimentoJuridico.jIDInternoJuridico;
 import static gestor.Visao.TelaAtendimentoJuridico.jIDLanc;
 import static gestor.Visao.TelaAtendimentoJuridico.jIdAtiv;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloJuridico.codAbrirJURI;
+import static gestor.Visao.TelaModuloJuridico.codAlterarJURI;
+import static gestor.Visao.TelaModuloJuridico.codConsultarJURI;
+import static gestor.Visao.TelaModuloJuridico.codExcluirJURI;
+import static gestor.Visao.TelaModuloJuridico.codGravarJURI;
+import static gestor.Visao.TelaModuloJuridico.codIncluirJURI;
+import static gestor.Visao.TelaModuloJuridico.codUserAcessoJURI;
+import static gestor.Visao.TelaModuloJuridico.codigoGrupoJURI;
+import static gestor.Visao.TelaModuloJuridico.codigoUserGroupJURI;
+import static gestor.Visao.TelaModuloJuridico.codigoUserJURI;
+import static gestor.Visao.TelaModuloJuridico.nomeGrupoJURI;
+import static gestor.Visao.TelaModuloJuridico.nomeTelaJURI;
+import static gestor.Visao.TelaModuloJuridico.telaAtendimentoJuridicoaAtividadesJURI;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -373,110 +386,124 @@ public class TelaAtividadesRealizadasADM extends javax.swing.JDialog {
 
     private void jBtAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAdicionarActionPerformed
         // TODO add your handling code here:
-        boolean encontrou = !true;
-        if (jComboBoxDescricaoAtividade.getSelectedItem().equals("Selecione...")) {
-            JOptionPane.showMessageDialog(rootPane, "É necessário selecionar uma atividade.");
-        } else {
-            // VERIFICAR SE O PRODUTO JÁ EXISTE NA TABELA, SE EXITIR AVISA.
-            for (int i = 0; i < jTabelaRegistrosAtividades.getRowCount(); i++) {
-                String codInter = "" + jTabelaRegistrosAtividades.getValueAt(i, 0).toString();
-                if (jIdAtividade.getText().equals(codInter)) {
-                    encontrou = true;
-                    break;
-                } else {
-                    encontrou = !true;
+        buscarAcessoUsuario(telaAtendimentoJuridicoaAtividadesJURI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtendimentoJuridicoaAtividadesJURI) && codIncluirJURI == 1) {
+            boolean encontrou = !true;
+            if (jComboBoxDescricaoAtividade.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário selecionar uma atividade.");
+            } else {
+                // VERIFICAR SE O PRODUTO JÁ EXISTE NA TABELA, SE EXITIR AVISA.
+                for (int i = 0; i < jTabelaRegistrosAtividades.getRowCount(); i++) {
+                    String codInter = "" + jTabelaRegistrosAtividades.getValueAt(i, 0).toString();
+                    if (jIdAtividade.getText().equals(codInter)) {
+                        encontrou = true;
+                        break;
+                    } else {
+                        encontrou = !true;
+                    }
+                }
+                if (encontrou == true) {
+                    JOptionPane.showMessageDialog(rootPane, "Registro já foi adicionado, escolha outro.");
+                } else if (encontrou == !true) {
+                    qtdAtividades = qtdAtividades + 1;
+                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                    dataRegistro = formatoAmerica.format(jDataRegistro.getDate().getTime());
+                    DefaultTableModel modelDestino = (DefaultTableModel) jTabelaRegistrosAtividades.getModel();
+                    objAtivi.setIdAtiv(Integer.valueOf(jIdAtividade.getText()));
+                    objAtivi.setDescricaoAtividade((String) jComboBoxDescricaoAtividade.getSelectedItem());
+                    Object[] obj = {objAtivi.getIdAtiv(), dataRegistro, objAtivi.getDescricaoAtividade()};
+                    // BARRA DE ROLAGEM HORIZONTAL
+                    jTabelaRegistrosAtividades.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                    // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                    DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                    centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                    //
+                    jTabelaRegistrosAtividades.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                    jTabelaRegistrosAtividades.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                    modelDestino.addRow(obj);
+                    jtotalRegistros.setText(Integer.toString(qtdAtividades));
                 }
             }
-            if (encontrou == true) {
-                JOptionPane.showMessageDialog(rootPane, "Registro já foi adicionado, escolha outro.");
-            } else if (encontrou == !true) {
-                qtdAtividades = qtdAtividades + 1;
-                SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                dataRegistro = formatoAmerica.format(jDataRegistro.getDate().getTime());
-                DefaultTableModel modelDestino = (DefaultTableModel) jTabelaRegistrosAtividades.getModel();
-                objAtivi.setIdAtiv(Integer.valueOf(jIdAtividade.getText()));
-                objAtivi.setDescricaoAtividade((String) jComboBoxDescricaoAtividade.getSelectedItem());
-                Object[] obj = {objAtivi.getIdAtiv(), dataRegistro, objAtivi.getDescricaoAtividade()};
-                // BARRA DE ROLAGEM HORIZONTAL
-                jTabelaRegistrosAtividades.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-                // ALINHAR TEXTO DA TABELA CENTRALIZADO
-                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
-                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-                //
-                jTabelaRegistrosAtividades.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-                jTabelaRegistrosAtividades.getColumnModel().getColumn(1).setCellRenderer(centralizado);
-                modelDestino.addRow(obj);
-                jtotalRegistros.setText(Integer.toString(qtdAtividades));
-            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAdicionarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        if (jTabelaRegistrosAtividades.getSelectedRow() != -1) {
-            DefaultTableModel dtm = (DefaultTableModel) jTabelaRegistrosAtividades.getModel();
-            dtm.removeRow(jTabelaRegistrosAtividades.getSelectedRow());
-            objAtivi.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
-            objAtivi.setIdLanc(Integer.valueOf(jIDLanc.getText()));
-            objAtivi.setIdAtiv(Integer.valueOf(codigoAtiva));           
-            controleItens.excluirAtividadeRealizadas(objAtivi);
-            qtdAtividades = qtdAtividades - 1;
-            jtotalRegistros.setText(Integer.toString(qtdAtividades));
+        buscarAcessoUsuario(telaAtendimentoJuridicoaAtividadesJURI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtendimentoJuridicoaAtividadesJURI) && codExcluirJURI == 1) {
+            if (jTabelaRegistrosAtividades.getSelectedRow() != -1) {
+                DefaultTableModel dtm = (DefaultTableModel) jTabelaRegistrosAtividades.getModel();
+                dtm.removeRow(jTabelaRegistrosAtividades.getSelectedRow());
+                objAtivi.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
+                objAtivi.setIdLanc(Integer.valueOf(jIDLanc.getText()));
+                objAtivi.setIdAtiv(Integer.valueOf(codigoAtiva));
+                controleItens.excluirAtividadeRealizadas(objAtivi);
+                qtdAtividades = qtdAtividades - 1;
+                jtotalRegistros.setText(Integer.toString(qtdAtividades));
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Selecione o registro que deseja excluir.");
+            }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Selecione o registro que deseja excluir.");
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
         // TODO add your handling code here:
-        verificarSituacaoInternoCrc();
-
-        Integer rows = jTabelaRegistrosAtividades.getRowCount();
-        if (rows == 0) {
-            JOptionPane.showMessageDialog(rootPane, "Não existe dados ba tabela a ser gravados.");
-        } else if (situacaoInternoCrc.equals("ENTRADA NA UNIDADE") || situacaoInternoCrc.equals("RETORNO A UNIDADE")) {
-            for (int i = 0; i < jTabelaRegistrosAtividades.getRowCount(); i++) {
-                objAtivi.setDataItem(jDataRegistro.getDate());
-                objAtivi.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
-                objAtivi.setIdLanc(Integer.valueOf(jIDLanc.getText()));
-                objAtivi.setIdAtiv((int) jTabelaRegistrosAtividades.getValueAt(i, 0));
-                verificarAtividadesInternos(objAtivi.getIdLanc(), objAtivi.getIdAtiv(), objAtivi.getIdInternoCrc());
-                // SE O REGISTRO FOR IGUAL E O INTERNO DIFERENTE, GRAVA
-                if (objAtivi.getIdLanc() == codigoRegistro && objAtivi.getIdAtiv() != codigoAtividade && objAtivi.getIdInternoCrc() == codigoInterno) {
+        buscarAcessoUsuario(telaAtendimentoJuridicoaAtividadesJURI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtendimentoJuridicoaAtividadesJURI) && codGravarJURI == 1) {
+            verificarSituacaoInternoCrc();
+            Integer rows = jTabelaRegistrosAtividades.getRowCount();
+            if (rows == 0) {
+                JOptionPane.showMessageDialog(rootPane, "Não existe dados ba tabela a ser gravados.");
+            } else if (situacaoInternoCrc.equals("ENTRADA NA UNIDADE") || situacaoInternoCrc.equals("RETORNO A UNIDADE")) {
+                for (int i = 0; i < jTabelaRegistrosAtividades.getRowCount(); i++) {
                     objAtivi.setDataItem(jDataRegistro.getDate());
                     objAtivi.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
                     objAtivi.setIdLanc(Integer.valueOf(jIDLanc.getText()));
                     objAtivi.setIdAtiv((int) jTabelaRegistrosAtividades.getValueAt(i, 0));
-                    objAtivi.setDescricaoAtividade((String) jTabelaRegistrosAtividades.getValueAt(i, 2));
-                    //
-                    objAtivi.setUsuarioInsert(nameUser);
-                    objAtivi.setDataInsert(dataModFinal);
-                    objAtivi.setHorarioInsert(horaMov);
-                    controleItens.incluirAtividade(objAtivi);
-                    buscarCodAtividade();
-                    objLog2();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
-                } else if (objAtivi.getIdLanc() != codigoRegistro && objAtivi.getIdAtiv() != codigoAtividade && objAtivi.getIdInternoCrc() != codigoInterno) {
-                    objAtivi.setDataItem(jDataRegistro.getDate());
-                    objAtivi.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
-                    objAtivi.setIdLanc(Integer.valueOf(jIDLanc.getText()));
-                    objAtivi.setIdAtiv((int) jTabelaRegistrosAtividades.getValueAt(i, 0));
-                    objAtivi.setDescricaoAtividade((String) jTabelaRegistrosAtividades.getValueAt(i, 2));
-                    //
-                    objAtivi.setUsuarioInsert(nameUser);
-                    objAtivi.setDataInsert(dataModFinal);
-                    objAtivi.setHorarioInsert(horaMov);
-                    controleItens.incluirAtividade(objAtivi);
-                    buscarCodAtividade();
-                    objLog2();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
+                    verificarAtividadesInternos(objAtivi.getIdLanc(), objAtivi.getIdAtiv(), objAtivi.getIdInternoCrc());
+                    // SE O REGISTRO FOR IGUAL E O INTERNO DIFERENTE, GRAVA
+                    if (objAtivi.getIdLanc() == codigoRegistro && objAtivi.getIdAtiv() != codigoAtividade && objAtivi.getIdInternoCrc() == codigoInterno) {
+                        objAtivi.setDataItem(jDataRegistro.getDate());
+                        objAtivi.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
+                        objAtivi.setIdLanc(Integer.valueOf(jIDLanc.getText()));
+                        objAtivi.setIdAtiv((int) jTabelaRegistrosAtividades.getValueAt(i, 0));
+                        objAtivi.setDescricaoAtividade((String) jTabelaRegistrosAtividades.getValueAt(i, 2));
+                        //
+                        objAtivi.setUsuarioInsert(nameUser);
+                        objAtivi.setDataInsert(dataModFinal);
+                        objAtivi.setHorarioInsert(horaMov);
+                        controleItens.incluirAtividade(objAtivi);
+                        buscarCodAtividade();
+                        objLog2();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
+                    } else if (objAtivi.getIdLanc() != codigoRegistro && objAtivi.getIdAtiv() != codigoAtividade && objAtivi.getIdInternoCrc() != codigoInterno) {
+                        objAtivi.setDataItem(jDataRegistro.getDate());
+                        objAtivi.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
+                        objAtivi.setIdLanc(Integer.valueOf(jIDLanc.getText()));
+                        objAtivi.setIdAtiv((int) jTabelaRegistrosAtividades.getValueAt(i, 0));
+                        objAtivi.setDescricaoAtividade((String) jTabelaRegistrosAtividades.getValueAt(i, 2));
+                        //
+                        objAtivi.setUsuarioInsert(nameUser);
+                        objAtivi.setDataInsert(dataModFinal);
+                        objAtivi.setHorarioInsert(horaMov);
+                        controleItens.incluirAtividade(objAtivi);
+                        buscarCodAtividade();
+                        objLog2();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
+                    }
                 }
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Esse interno não se encontra mais na unidade.");
             }
-            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+            dispose();
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Esse interno não se encontra mais na unidade.");
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
-        dispose();
     }//GEN-LAST:event_jBtConfirmarActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
@@ -486,7 +513,7 @@ public class TelaAtividadesRealizadasADM extends javax.swing.JDialog {
 
     private void jTabelaRegistrosAtividadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaRegistrosAtividadesMouseClicked
         // TODO add your handling code here:
-        codigoAtiva = "" + jTabelaRegistrosAtividades.getValueAt(jTabelaRegistrosAtividades.getSelectedRow(), 0);                   
+        codigoAtiva = "" + jTabelaRegistrosAtividades.getValueAt(jTabelaRegistrosAtividades.getSelectedRow(), 0);
     }//GEN-LAST:event_jTabelaRegistrosAtividadesMouseClicked
 
     /**
@@ -662,6 +689,44 @@ public class TelaAtividadesRealizadasADM extends javax.swing.JDialog {
             codigoRegistro = conecta.rs.getInt("IdLanc");
             codigoAtividade = conecta.rs.getInt("IdAtiv");
         } catch (Exception ERROR) {
+        }
+        conecta.desconecta();
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserJURI = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserJURI + "'");
+            conecta.rs.first();
+            codigoUserGroupJURI = conecta.rs.getInt("IdUsuario");
+            codigoGrupoJURI = conecta.rs.getInt("IdGrupo");
+            nomeGrupoJURI = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserJURI + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoJURI = conecta.rs.getInt("IdUsuario");
+            codAbrirJURI = conecta.rs.getInt("Abrir");
+            codIncluirJURI = conecta.rs.getInt("Incluir");
+            codAlterarJURI = conecta.rs.getInt("Alterar");
+            codExcluirJURI = conecta.rs.getInt("Excluir");
+            codGravarJURI = conecta.rs.getInt("Gravar");
+            codConsultarJURI = conecta.rs.getInt("Consultar");
+            nomeTelaJURI = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
         }
         conecta.desconecta();
     }
