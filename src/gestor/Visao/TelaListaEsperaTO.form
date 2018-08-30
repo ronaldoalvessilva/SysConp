@@ -492,10 +492,10 @@
                                       </Group>
                                       <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jComboBoxStautus" alignment="0" min="-2" pref="335" max="-2" attributes="0"/>
+                                              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jComboBoxStautus" min="-2" pref="350" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="1" attributes="0">
                                               <Component id="jLabel4" alignment="0" min="-2" pref="60" max="-2" attributes="0"/>
                                               <Component id="jDataLanc" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -536,7 +536,7 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
-                              <Component id="jComboBoxStautus" alignment="2" min="-2" pref="19" max="-2" attributes="0"/>
+                              <Component id="jComboBoxStautus" alignment="2" min="-2" pref="18" max="-2" attributes="0"/>
                               <Component id="jDataLanc" alignment="2" min="-2" pref="19" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>

@@ -18,6 +18,20 @@ import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codAbrirTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codAlterarTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codConsultarTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codExcluirTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codGravarTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codIncluirTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codUserAcessoTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codigoGrupoTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codigoUserGroupTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codigoUserTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.nomeGrupoTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.nomeTelaTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.telaListaEsperaIntTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.telaListaEsperaManuTO;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -457,8 +471,8 @@ public class TelaListaEsperaTO extends javax.swing.JInternalFrame {
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
-                                    .addComponent(jComboBoxStautus, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(21, 21, 21)
+                                    .addComponent(jComboBoxStautus, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jDataLanc, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -488,7 +502,7 @@ public class TelaListaEsperaTO extends javax.swing.JInternalFrame {
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jComboBoxStautus, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxStautus, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDataLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16))
         );
@@ -1330,39 +1344,72 @@ public class TelaListaEsperaTO extends javax.swing.JInternalFrame {
 
     private void jBtSalvarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarInternoActionPerformed
         // TODO add your handling code here:
-        Integer rows = jTabelaOcupacao.getModel().getRowCount();
-        Integer rows1 = jTabelaCursos.getModel().getRowCount();
-        verificarInterno();
-        if (rows == 0) {
-            JOptionPane.showMessageDialog(rootPane, "Informe pelo menos um tipo de Ocupação.");
-        } else if (rows1 == 0) {
-            JOptionPane.showMessageDialog(rootPane, "Informe pelo menos um tipo de Curso.");
-        } else {
-            if (jNomeInterno.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para lista de espera.");
+        buscarAcessoUsuario(telaListaEsperaIntTO);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaListaEsperaIntTO) && codGravarTO == 1) {
+            Integer rows = jTabelaOcupacao.getModel().getRowCount();
+            Integer rows1 = jTabelaCursos.getModel().getRowCount();
+            verificarInterno();
+            if (rows == 0) {
+                JOptionPane.showMessageDialog(rootPane, "Informe pelo menos um tipo de Ocupação.");
+            } else if (rows1 == 0) {
+                JOptionPane.showMessageDialog(rootPane, "Informe pelo menos um tipo de Curso.");
             } else {
-                objItensLista.setIdLanc(Integer.valueOf(jIDLanc.getText()));
-                objItensLista.setIdCela(Integer.valueOf(idCela));
-                objItensLista.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
-                objItensLista.setNomeInterno(jNomeInterno.getText());
-                objItensLista.setObsInt(jObservacaoInterno.getText());
-                objItensLista.setProfissaoInterno(jProfissaoInterno.getText());
-                if (acao == 3) {
-                    // IMPEDE QUE SEJA CADASTRADO O INTERNO MAIS DE UMA VEZ.
-                    if (jIdInterno.getText().equals(codigoInterno)) {
-                        JOptionPane.showMessageDialog(rootPane, "Esse interno já foi incluído em uma lista de espera.");
-                    } else {
-                        // log de usuario
-                        objItensLista.setUsuarioInsert(nameUser);
-                        objItensLista.setDataInsert(dataModFinal);
-                        objItensLista.setHoraInsert(horaMov);
-                        controle.incluirItensListaEspera(objItensLista);
+                if (jNomeInterno.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para lista de espera.");
+                } else {
+                    objItensLista.setIdLanc(Integer.valueOf(jIDLanc.getText()));
+                    objItensLista.setIdCela(Integer.valueOf(idCela));
+                    objItensLista.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                    objItensLista.setNomeInterno(jNomeInterno.getText());
+                    objItensLista.setObsInt(jObservacaoInterno.getText());
+                    objItensLista.setProfissaoInterno(jProfissaoInterno.getText());
+                    if (acao == 3) {
+                        // IMPEDE QUE SEJA CADASTRADO O INTERNO MAIS DE UMA VEZ.
+                        if (jIdInterno.getText().equals(codigoInterno)) {
+                            JOptionPane.showMessageDialog(rootPane, "Esse interno já foi incluído em uma lista de espera.");
+                        } else {
+                            // log de usuario
+                            objItensLista.setUsuarioInsert(nameUser);
+                            objItensLista.setDataInsert(dataModFinal);
+                            objItensLista.setHoraInsert(horaMov);
+                            controle.incluirItensListaEspera(objItensLista);
+                            //
+                            buscarCodigoItem();
+                            // OCUPAÇÃO DO INTERNO
+                            incluirOcupacao();
+                            // CURSOS
+                            incluirCursos();
+                            objLog2();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            SalvarInterno();
+                            limparTabelaOcupacao();
+                            limparTabelaCursos();
+                            preencherTabelaItens("SELECT * FROM ITENSLISTAESPERA "
+                                    + "INNER JOIN PRONTUARIOSCRC "
+                                    + "ON ITENSLISTAESPERA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                    + "INNER JOIN CELAS "
+                                    + "ON ITENSLISTAESPERA.IdCela=CELAS.IdCela "
+                                    + "INNER JOIN PAVILHAO "
+                                    + "ON CELAS.IdPav=PAVILHAO.IdPav WHERE IdLanc='" + jIDLanc.getText() + "'");
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        }
+                    }
+                    if (acao == 4) {
+                        objItensLista.setUsuarioUp(nameUser);
+                        objItensLista.setDataUp(dataModFinal);
+                        objItensLista.setHoraUp(horaMov);
                         //
-                        buscarCodigoItem();
-                        // OCUPAÇÃO DO INTERNO
+                        objItensLista.setIdItem(Integer.valueOf(idItem));
+                        controle.alterarItensListaEspera(objItensLista);
+                        //EXCLUIR TODOS OS ITENS TABELA PARA INCLUIR DEPOIS
+                        objItensLista.setIdItemOcupa(idItemOcupa);
+                        controleOcupaCursos.excluirListaEsperaOcupa(objItensLista);
+                        // GRAVAR AS OCUPAÇÕES DO INTERNOS INDIVIDUALMENTE.
                         incluirOcupacao();
-                        // CURSOS
+                        controleOcupaCursos.excluirListaEsperaCurso(objItensLista);
+                        // GRAVAR OS CURSOS DO INTERNOS INDIVIDUALMENTE.
                         incluirCursos();
+                        //
                         objLog2();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                         SalvarInterno();
@@ -1378,88 +1425,75 @@ public class TelaListaEsperaTO extends javax.swing.JInternalFrame {
                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                     }
                 }
-                if (acao == 4) {
-                    objItensLista.setUsuarioUp(nameUser);
-                    objItensLista.setDataUp(dataModFinal);
-                    objItensLista.setHoraUp(horaMov);
-                    //
-                    objItensLista.setIdItem(Integer.valueOf(idItem));
-                    controle.alterarItensListaEspera(objItensLista);
-                    //EXCLUIR TODOS OS ITENS TABELA PARA INCLUIR DEPOIS
-                    objItensLista.setIdItemOcupa(idItemOcupa);
-                    controleOcupaCursos.excluirListaEsperaOcupa(objItensLista);
-                    // GRAVAR AS OCUPAÇÕES DO INTERNOS INDIVIDUALMENTE.
-                    incluirOcupacao();
-                    controleOcupaCursos.excluirListaEsperaCurso(objItensLista);
-                    // GRAVAR OS CURSOS DO INTERNOS INDIVIDUALMENTE.
-                    incluirCursos();
-                    //
-                    objLog2();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    SalvarInterno();
-                    limparTabelaOcupacao();
-                    limparTabelaCursos();
-                    preencherTabelaItens("SELECT * FROM ITENSLISTAESPERA "
-                            + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON ITENSLISTAESPERA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                            + "INNER JOIN CELAS "
-                            + "ON ITENSLISTAESPERA.IdCela=CELAS.IdCela "
-                            + "INNER JOIN PAVILHAO "
-                            + "ON CELAS.IdPav=PAVILHAO.IdPav WHERE IdLanc='" + jIDLanc.getText() + "'");
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarInternoActionPerformed
 
     private void jBtExcluirInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirInternoActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o lancamento selecionado?", "Confirmação",
-                JOptionPane.YES_NO_OPTION);
-        if (resposta == JOptionPane.YES_OPTION) {
-            objItensLista.setIdItem(Integer.valueOf(idItem));
-            controle.excluirItensListaEspera(objItensLista);
-            objLog2();
-            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-            JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-            ExcluirInterno();
-            preencherTabelaItens("SELECT * FROM ITENSLISTAESPERA "
-                    + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON ITENSLISTAESPERA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "INNER JOIN CELAS "
-                    + "ON ITENSLISTAESPERA.IdCela=CELAS.IdCela "
-                    + "INNER JOIN PAVILHAO "
-                    + "ON CELAS.IdPav=PAVILHAO.IdPav WHERE IdLanc='" + jIDLanc.getText() + "'");
+        buscarAcessoUsuario(telaListaEsperaIntTO);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaListaEsperaIntTO) && codExcluirTO == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o lancamento selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objItensLista.setIdItem(Integer.valueOf(idItem));
+                controle.excluirItensListaEspera(objItensLista);
+                objLog2();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                ExcluirInterno();
+                preencherTabelaItens("SELECT * FROM ITENSLISTAESPERA "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON ITENSLISTAESPERA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "INNER JOIN CELAS "
+                        + "ON ITENSLISTAESPERA.IdCela=CELAS.IdCela "
+                        + "INNER JOIN PAVILHAO "
+                        + "ON CELAS.IdPav=PAVILHAO.IdPav WHERE IdLanc='" + jIDLanc.getText() + "'");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirInternoActionPerformed
 
     private void jBtAlterarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarInternoActionPerformed
         // TODO add your handling code here:
-        acao = 4;
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        bloquearCampos();
-        AlterarInterno();
-        preencherComboOcupacao();
-        preencherComboCurso();
+        buscarAcessoUsuario(telaListaEsperaIntTO);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaListaEsperaIntTO) && codAlterarTO == 1) {
+            acao = 4;
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            bloquearCampos();
+            AlterarInterno();
+            preencherComboOcupacao();
+            preencherComboCurso();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtAlterarInternoActionPerformed
 
     private void jBtNovoInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoInternoActionPerformed
         // TODO add your handling code here:
-        acao = 3;
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        bloquearCampos();
-        NovoInterno();
-        preencherComboOcupacao();
-        preencherComboCurso();
-        limparTabelaOcupacao();
-        limparTabelaCursos();
+        buscarAcessoUsuario(telaListaEsperaIntTO);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaListaEsperaIntTO) && codIncluirTO == 1) {
+            acao = 3;
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            bloquearCampos();
+            NovoInterno();
+            preencherComboOcupacao();
+            preencherComboCurso();
+            limparTabelaOcupacao();
+            limparTabelaCursos();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoInternoActionPerformed
 
     private void jTabelaInternosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaInternosMouseClicked
@@ -1564,96 +1598,115 @@ public class TelaListaEsperaTO extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jComboBoxStautus.getSelectedItem() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe se a lista está Ativa ou Inativa.");
-            jComboBoxStautus.requestFocus();
-            jComboBoxStautus.setBackground(Color.red);
-        } else if (jDataLanc.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data do lançamento.");
-            jDataLanc.requestFocus();
-            jDataLanc.setBackground(Color.red);
-        } else if (jComboBoxTipoListaEspera.getSelectedItem().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o tipo de Lista de Espera");
-        } else if (jComboBoxClassificacao.getSelectedItem().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a classificaçao de Lista de Espera");
+        buscarAcessoUsuario(telaListaEsperaManuTO);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaListaEsperaManuTO) && codGravarTO == 1) {
+            if (jComboBoxStautus.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe se a lista está Ativa ou Inativa.");
+                jComboBoxStautus.requestFocus();
+                jComboBoxStautus.setBackground(Color.red);
+            } else if (jDataLanc.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data do lançamento.");
+                jDataLanc.requestFocus();
+                jDataLanc.setBackground(Color.red);
+            } else if (jComboBoxTipoListaEspera.getSelectedItem().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o tipo de Lista de Espera");
+            } else if (jComboBoxClassificacao.getSelectedItem().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a classificaçao de Lista de Espera");
+            } else {
+                objLista.setStatusLanc((String) jComboBoxStautus.getSelectedItem());
+                objLista.setDataLanc(jDataLanc.getDate());
+                if (jComboBoxTipoListaEspera.getSelectedItem().equals("1 - Lista de Espera para Trabalho (Trabalho Interno e Externo)")) {
+                    tipoListaEspera = "Trabalho";
+                } else if (jComboBoxTipoListaEspera.getSelectedItem().equals("2 - Lista de Espera para Profissionalização (Profissionalização Interna e Externa)")) {
+                    tipoListaEspera = "Profissionalização";
+                } else if (jComboBoxTipoListaEspera.getSelectedItem().equals("3 - Lista de Espera para Cursos(Cursos Internos e Externos)")) {
+                    tipoListaEspera = "Cursos";
+                }
+                objLista.setTipoListaEspera(tipoListaEspera);
+                if (jComboBoxClassificacao.getSelectedItem().equals("1 - Lista de passagem (INTERNA)")) {
+                    classificacao = "Interna";
+                } else if (jComboBoxClassificacao.getSelectedItem().equals("2 - Lista de passagem (EXTERNA)")) {
+                    classificacao = "Externa";
+                }
+                objLista.setClassificacao(classificacao);
+                objLista.setObsLanc(jObservacao.getText());
+                if (acao == 1) {
+                    // log de usuario
+                    objLista.setUsuarioInsert(nameUser);
+                    objLista.setDataInsert(dataModFinal);
+                    objLista.setHoraInsert(horaMov);
+                    control.incluirListaEspera(objLista);
+                    buscarID();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 2) {
+                    // log de usuario
+                    objLista.setUsuarioUp(nameUser);
+                    objLista.setDataUp(dataModFinal);
+                    objLista.setHoraUp(horaMov);
+                    //
+                    objLista.setIdLanc(Integer.valueOf(jIDLanc.getText()));
+                    control.alterarListaEspera(objLista);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
         } else {
-            objLista.setStatusLanc((String) jComboBoxStautus.getSelectedItem());
-            objLista.setDataLanc(jDataLanc.getDate());
-            if (jComboBoxTipoListaEspera.getSelectedItem().equals("1 - Lista de Espera para Trabalho (Trabalho Interno e Externo)")) {
-                tipoListaEspera = "Trabalho";
-            } else if (jComboBoxTipoListaEspera.getSelectedItem().equals("2 - Lista de Espera para Profissionalização (Profissionalização Interna e Externa)")) {
-                tipoListaEspera = "Profissionalização";
-            } else if (jComboBoxTipoListaEspera.getSelectedItem().equals("3 - Lista de Espera para Cursos(Cursos Internos e Externos)")) {
-                tipoListaEspera = "Cursos";
-            }
-            objLista.setTipoListaEspera(tipoListaEspera);
-            if (jComboBoxClassificacao.getSelectedItem().equals("1 - Lista de passagem (INTERNA)")) {
-                classificacao = "Interna";
-            } else if (jComboBoxClassificacao.getSelectedItem().equals("2 - Lista de passagem (EXTERNA)")) {
-                classificacao = "Externa";
-            }
-            objLista.setClassificacao(classificacao);
-            objLista.setObsLanc(jObservacao.getText());
-            if (acao == 1) {
-                // log de usuario
-                objLista.setUsuarioInsert(nameUser);
-                objLista.setDataInsert(dataModFinal);
-                objLista.setHoraInsert(horaMov);
-                control.incluirListaEspera(objLista);
-                buscarID();
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
-            if (acao == 2) {
-                // log de usuario
-                objLista.setUsuarioUp(nameUser);
-                objLista.setDataUp(dataModFinal);
-                objLista.setHoraUp(horaMov);
-                //
-                objLista.setIdLanc(Integer.valueOf(jIDLanc.getText()));
-                control.alterarListaEspera(objLista);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        objLog();
-        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-        JOptionPane.showMessageDialog(rootPane, "Ainda não foi feito por causa dos lançamentos futuros.");
-        Excluir();
+        buscarAcessoUsuario(telaListaEsperaManuTO);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaListaEsperaManuTO) && codExcluirTO == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objLog();
+            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+            JOptionPane.showMessageDialog(rootPane, "Ainda não foi feito por causa dos lançamentos futuros.");
+            Excluir();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        acao = 2;
-        Alterar();
-        corCampos();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaListaEsperaManuTO) && codAlterarTO == 1) {
+            acao = 2;
+            Alterar();
+            corCampos();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        limparTabelaInternos();
-        limparTabelaOcupacao();
-        limparTabelaCursos();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaListaEsperaManuTO);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaListaEsperaManuTO) && codIncluirTO == 1) {
+            acao = 1;
+            Novo();
+            limparTabelaInternos();
+            limparTabelaOcupacao();
+            limparTabelaCursos();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAuditoriaManuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaManuActionPerformed
@@ -2676,6 +2729,43 @@ public class TelaListaEsperaTO extends javax.swing.JInternalFrame {
         objLogSys.setStatusMov(statusMov);
     }
 
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserTO = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserTO + "'");
+            conecta.rs.first();
+            codigoUserGroupTO = conecta.rs.getInt("IdUsuario");
+            codigoGrupoTO = conecta.rs.getInt("IdGrupo");
+            nomeGrupoTO = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserTO + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoTO = conecta.rs.getInt("IdUsuario");
+            codAbrirTO = conecta.rs.getInt("Abrir");
+            codIncluirTO = conecta.rs.getInt("Incluir");
+            codAlterarTO = conecta.rs.getInt("Alterar");
+            codExcluirTO = conecta.rs.getInt("Excluir");
+            codGravarTO = conecta.rs.getInt("Gravar");
+            codConsultarTO = conecta.rs.getInt("Consultar");
+            nomeTelaTO = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
 //    TelaPesqInternosListaEspera objPesqCelaLista = new TelaPesqInternosListaEspera();
 //        TelaModuloTerapiaOcupacional.jPainelTerapia.add(objPesqCelaLista);
 //        objPesqCelaLista.show();
