@@ -49,7 +49,7 @@ public class ControleItensRegSaidaInternos {
         buscarInternoCrc(objItemSaida.getNomeInterno(), objItemSaida.getIdInternoSaida());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENSREGSAIDA (IdInternoCrc,IdSaida,DataSaida,DestinoSaida,DocumentoSaida,ConfirmaSaida,IdSaidaTmp,HoraSaida,QtdSaida,UsuarioInsert,DataInsert,HorarioInsert,AssinaturaSaida) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENSREGSAIDA (IdInternoCrc,IdSaida,DataSaida,DestinoSaida,DocumentoSaida,ConfirmaSaida,IdSaidaTmp,HoraSaida,QtdSaida,UsuarioInsert,DataInsert,HorarioInsert,AssinaturaSaida,LocalSaida) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setInt(1, codInt);
             pst.setInt(2, objItemSaida.getIdSaida());
             pst.setTimestamp(3, new java.sql.Timestamp(objItemSaida.getDataSaida().getTime()));
@@ -63,6 +63,7 @@ public class ControleItensRegSaidaInternos {
             pst.setString(11, objItemSaida.getDataInsert());
             pst.setString(12, objItemSaida.getHoraInsert());
             pst.setBytes(13, objItemSaida.getAssinaturaDigital());
+            pst.setString(14, objItemSaida.getLocaSaida());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados\n\nERRO:" + ex);
@@ -76,7 +77,7 @@ public class ControleItensRegSaidaInternos {
         buscarInternoCrc(objItemSaida.getNomeInterno(), objItemSaida.getIdInternoSaida());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSREGSAIDA SET IdInternoCrc=?,IdSaida=?,DataSaida=?,DestinoSaida=?,DocumentoSaida=?,ConfirmaSaida=?,IdSaidaTmp=?,HoraSaida=?,QtdSaida=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItem='" + objItemSaida.getIdItemSaida() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSREGSAIDA SET IdInternoCrc=?,IdSaida=?,DataSaida=?,DestinoSaida=?,DocumentoSaida=?,ConfirmaSaida=?,IdSaidaTmp=?,HoraSaida=?,QtdSaida=?,UsuarioUp=?,DataUp=?,HorarioUp=?,LocalSaida=? WHERE IdItem='" + objItemSaida.getIdItemSaida() + "'");
             pst.setInt(1, codInt);
             pst.setInt(2, objItemSaida.getIdSaida());
             pst.setTimestamp(3, new java.sql.Timestamp(objItemSaida.getDataSaida().getTime()));
@@ -89,6 +90,7 @@ public class ControleItensRegSaidaInternos {
             pst.setString(10, objItemSaida.getUsuarioUp());
             pst.setString(11, objItemSaida.getDataUp());
             pst.setString(12, objItemSaida.getHoraUp());
+            pst.setString(13, objItemSaida.getLocaSaida());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados\n\nERRO: " + ex);
