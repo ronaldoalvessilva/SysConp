@@ -2194,6 +2194,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         flag = 1;
         if (flag == 1) {
             String IdEvolucao = "" + jTabelaEvolucaoJuridica.getValueAt(jTabelaEvolucaoJuridica.getSelectedRow(), 0);
+            //
             jIdEvolucao.setText(IdEvolucao);
             jBtNovaEvolucao.setEnabled(!true);
             jBtAlterarEvolucao.setEnabled(true);
@@ -2510,7 +2511,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         buscarAcessoUsuario(telaAtendimentoJuridicoaAtividadesJURI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtendimentoJuridicoaAtividadesJURI) && codAbrirJURI == 1) {
             if (jIDLanc.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "É necessário fazer primeiro a admissão, deppois registrar as atividades.");
+                JOptionPane.showMessageDialog(rootPane, "É necessário fazer primeiro a admissão, depois registrar as atividades.");
             } else if (jIDInternoJuridico.getText().equals("") && jNomeInternoJuridico.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário informar o nome do interno antes de cadastrar as atividades a serem realizadas.");
             } else {
@@ -3369,13 +3370,13 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         jDataEncaminhamentoEvo.setDate(null);
         jHoraEnvioEvo.setText("");
         //
-        jBtNovaEvolucao.setEnabled(true);
+        jBtNovaEvolucao.setEnabled(!true);
         jBtAlterarEvolucao.setEnabled(!true);
         jBtExcluirEvolucao.setEnabled(!true);
         jBtSalvarEvolucao.setEnabled(!true);
         jBtCancelarEvolucao.setEnabled(!true);
         jBtAuditoriaEvolucao.setEnabled(!true);
-        jBtAtividadesRealizadasEvol.setEnabled(!true);
+        jBtAtividadesRealizadasEvol.setEnabled(true);
         //
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(true);
