@@ -13,6 +13,19 @@ import gestor.Dao.ModeloTabela;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.TipoExameMedico;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloOdontologia.codAbrirODON;
+import static gestor.Visao.TelaModuloOdontologia.codAlterarODON;
+import static gestor.Visao.TelaModuloOdontologia.codConsultarODON;
+import static gestor.Visao.TelaModuloOdontologia.codExcluirODON;
+import static gestor.Visao.TelaModuloOdontologia.codGravarODON;
+import static gestor.Visao.TelaModuloOdontologia.codIncluirODON;
+import static gestor.Visao.TelaModuloOdontologia.codUserAcessoODON;
+import static gestor.Visao.TelaModuloOdontologia.codigoGrupoODON;
+import static gestor.Visao.TelaModuloOdontologia.codigoUserGroupODON;
+import static gestor.Visao.TelaModuloOdontologia.codigoUserODON;
+import static gestor.Visao.TelaModuloOdontologia.nomeGrupoODON;
+import static gestor.Visao.TelaModuloOdontologia.nomeTelaODON;
+import static gestor.Visao.TelaModuloOdontologia.telaTiposProcedimentoManu_ODON;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -323,13 +336,13 @@ public class TelaTiposProcedimentos extends javax.swing.JInternalFrame {
                                         .addComponent(jLabel1)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE))
                                     .addComponent(jCodigoExame))
-                                .addGap(18, 18, 18)
+                                .addGap(7, 7, 7)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
-                                    .addComponent(jComboBoxStatusExame, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jComboBoxStatusExame, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jLabel4)
                             .addComponent(jLabel3))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(69, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jComboBoxCategoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -350,8 +363,8 @@ public class TelaTiposProcedimentos extends javax.swing.JInternalFrame {
                             .addComponent(jLabel2))
                         .addGap(9, 9, 9)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jComboBoxStatusExame, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCodigoExame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jCodigoExame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxStatusExame, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(3, 3, 3)))
@@ -525,77 +538,97 @@ public class TelaTiposProcedimentos extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaTiposProcedimentoManu_ODON);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoODON.equals("ADMINISTRADORES") || codigoUserODON == codUserAcessoODON && nomeTelaODON.equals(telaTiposProcedimentoManu_ODON) && codIncluirODON == 1) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        acao = 2;
-        Alterar();
-        corCampos();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaTiposProcedimentoManu_ODON);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoODON.equals("ADMINISTRADORES") || codigoUserODON == codUserAcessoODON && nomeTelaODON.equals(telaTiposProcedimentoManu_ODON) && codAlterarODON == 1) {
+            acao = 2;
+            Alterar();
+            corCampos();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
         // VERIFICAR SE O TIPO DE EXAME JÁ ESTÁ ASSOCIADO A TABELA DE EXAMES. (AINDA NÃO FOI CRIADO.)
-        verificarExames();
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        if (jCodigoExame.getText().equals(codigoExame)) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo está sendo utilizado na tabela de solicitação de exames.");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objTipoEx.setIdExame(Integer.valueOf(jCodigoExame.getText()));
-                control.excluirTipoProcedimento(objTipoEx);
-                JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
-                Excluir();
+        buscarAcessoUsuario(telaTiposProcedimentoManu_ODON);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoODON.equals("ADMINISTRADORES") || codigoUserODON == codUserAcessoODON && nomeTelaODON.equals(telaTiposProcedimentoManu_ODON) && codExcluirODON == 1) {
+            verificarExames();
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            if (jCodigoExame.getText().equals(codigoExame)) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo está sendo utilizado na tabela de solicitação de exames.");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objTipoEx.setIdExame(Integer.valueOf(jCodigoExame.getText()));
+                    control.excluirTipoProcedimento(objTipoEx);
+                    JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
+                    Excluir();
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jComboBoxCategoria.getSelectedItem().equals("Selecione")) {
-            JOptionPane.showMessageDialog(rootPane, "Selecione o tipo de Categoria de Exame.");
-        } else if (jNomeProcedimento.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a descrição do exame.");
+        buscarAcessoUsuario(telaTiposProcedimentoManu_ODON);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoODON.equals("ADMINISTRADORES") || codigoUserODON == codUserAcessoODON && nomeTelaODON.equals(telaTiposProcedimentoManu_ODON) && codGravarODON == 1) {
+            if (jComboBoxCategoria.getSelectedItem().equals("Selecione")) {
+                JOptionPane.showMessageDialog(rootPane, "Selecione o tipo de Categoria de Exame.");
+            } else if (jNomeProcedimento.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a descrição do exame.");
+            } else {
+                objTipoEx.setStatusExame((String) jComboBoxStatusExame.getSelectedItem());
+                objTipoEx.setClassificacao((String) jComboBoxCategoria.getSelectedItem());
+                objTipoEx.setDescricaoExame(jNomeProcedimento.getText());
+                if (acao == 1) {
+                    objTipoEx.setUsuarioInsert(nameUser);
+                    objTipoEx.setDataInsert(dataModFinal);
+                    objTipoEx.setHorarioInsert(horaMov);
+                    control.incluirTipoProcedimento(objTipoEx);
+                    buscarCodigo();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação     
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 2) {
+                    objTipoEx.setUsuarioUp(nameUser);
+                    objTipoEx.setDataUp(dataModFinal);
+                    objTipoEx.setHorarioUp(horaMov);
+                    objTipoEx.setIdExame(Integer.valueOf(jCodigoExame.getText()));
+                    control.alterarTipoProcedimento(objTipoEx);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação     
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
         } else {
-            objTipoEx.setStatusExame((String) jComboBoxStatusExame.getSelectedItem());
-            objTipoEx.setClassificacao((String) jComboBoxCategoria.getSelectedItem());
-            objTipoEx.setDescricaoExame(jNomeProcedimento.getText());
-            if (acao == 1) {
-                objTipoEx.setUsuarioInsert(nameUser);
-                objTipoEx.setDataInsert(dataModFinal);
-                objTipoEx.setHorarioInsert(horaMov);
-                control.incluirTipoProcedimento(objTipoEx);
-                buscarCodigo();
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação     
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
-            if (acao == 2) {
-                objTipoEx.setUsuarioUp(nameUser);
-                objTipoEx.setDataUp(dataModFinal);
-                objTipoEx.setHorarioUp(horaMov);
-                objTipoEx.setIdExame(Integer.valueOf(jCodigoExame.getText()));
-                control.alterarTipoProcedimento(objTipoEx);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação     
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -707,10 +740,11 @@ public class TelaTiposProcedimentos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
-    public void formatarCampos(){
-       jNomeProcedimento.setDocument(new LimiteDigitosAlfa(67)); 
+    public void formatarCampos() {
+        jNomeProcedimento.setDocument(new LimiteDigitosAlfa(67));
         //67
     }
+
     public void corCampos() {
         jCodigoExame.setBackground(Color.white);
         jComboBoxStatusExame.setBackground(Color.white);
@@ -901,5 +935,43 @@ public class TelaTiposProcedimentos extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jCodigoExame.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserODON = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserODON + "'");
+            conecta.rs.first();
+            codigoUserGroupODON = conecta.rs.getInt("IdUsuario");
+            codigoGrupoODON = conecta.rs.getInt("IdGrupo");
+            nomeGrupoODON = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserODON + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoODON = conecta.rs.getInt("IdUsuario");
+            codAbrirODON = conecta.rs.getInt("Abrir");
+            codIncluirODON = conecta.rs.getInt("Incluir");
+            codAlterarODON = conecta.rs.getInt("Alterar");
+            codExcluirODON = conecta.rs.getInt("Excluir");
+            codGravarODON = conecta.rs.getInt("Gravar");
+            codConsultarODON = conecta.rs.getInt("Consultar");
+            nomeTelaODON = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }
