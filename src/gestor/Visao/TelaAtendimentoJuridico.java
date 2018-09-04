@@ -109,12 +109,15 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
     String admEvolucao = "Sim";
     // VETOR PARA GRAVAR CÓDIGO ATIVIDADE NA TELA ATIVIDADES.
     public static int pAtividadeRela[];
+    //
+    public static int opcaoAtividade = 0;
 
     /**
      * Creates new form TelaAtendimentoJuridico
      */
     public static AgendaBeneficiosInternos agendabeneficios;
     public static TelaAtividadesRealizadasADM atividadesADM;
+    public static TelaAtividadesRealizadasEvoluJURI ativiadadesEVOL;
 
     public TelaAtendimentoJuridico() {
         super();
@@ -134,6 +137,11 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
     public void mostrarAtividadesRealizadas() {
         atividadesADM = new TelaAtividadesRealizadasADM(this, true);
         atividadesADM.setVisible(true);
+    }
+
+    public void mostrarAtividadeRealizadaEvolucao() {
+        ativiadadesEVOL = new TelaAtividadesRealizadasEvoluJURI(this, true);
+        ativiadadesEVOL.setVisible(true);
     }
 
     /**
@@ -247,14 +255,6 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         jTabelaEvolucaoJuridica = new javax.swing.JTable();
         jScrollPane1 = new javax.swing.JScrollPane();
         jEvolucao = new javax.swing.JTextArea();
-        jPanel1 = new javax.swing.JPanel();
-        jBtNovaEvolucao = new javax.swing.JButton();
-        jBtAlterarEvolucao = new javax.swing.JButton();
-        jBtExcluirEvolucao = new javax.swing.JButton();
-        jBtSalvarEvolucao = new javax.swing.JButton();
-        jBtCancelarEvolucao = new javax.swing.JButton();
-        jBtAuditoriaEvolucao = new javax.swing.JButton();
-        jBtAtividadesRealizadasEvol = new javax.swing.JButton();
         jPanel13 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
         jComboBoxTipoAdvogadoEvo = new javax.swing.JComboBox();
@@ -267,6 +267,14 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         jLabel27 = new javax.swing.JLabel();
         jHoraEnvioEvo = new javax.swing.JFormattedTextField();
         jBtAgendarBeneficio = new javax.swing.JButton();
+        jBtAuditoriaEvolucao = new javax.swing.JButton();
+        jBtAtividadesRealizadasEvol = new javax.swing.JButton();
+        jBtNovaEvolucao = new javax.swing.JButton();
+        jBtAlterarEvolucao = new javax.swing.JButton();
+        jBtExcluirEvolucao = new javax.swing.JButton();
+        jBtSalvarEvolucao = new javax.swing.JButton();
+        jBtCancelarEvolucao = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
 
         jButton1.setText("jButton1");
 
@@ -1342,108 +1350,6 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         jEvolucao.setEnabled(false);
         jScrollPane1.setViewportView(jEvolucao);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-
-        jBtNovaEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
-        jBtNovaEvolucao.setToolTipText("Novo");
-        jBtNovaEvolucao.setEnabled(false);
-        jBtNovaEvolucao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtNovaEvolucaoActionPerformed(evt);
-            }
-        });
-
-        jBtAlterarEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
-        jBtAlterarEvolucao.setToolTipText("Alterar");
-        jBtAlterarEvolucao.setEnabled(false);
-        jBtAlterarEvolucao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtAlterarEvolucaoActionPerformed(evt);
-            }
-        });
-
-        jBtExcluirEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
-        jBtExcluirEvolucao.setToolTipText("Excluir");
-        jBtExcluirEvolucao.setEnabled(false);
-        jBtExcluirEvolucao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtExcluirEvolucaoActionPerformed(evt);
-            }
-        });
-
-        jBtSalvarEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
-        jBtSalvarEvolucao.setToolTipText("Gravar");
-        jBtSalvarEvolucao.setEnabled(false);
-        jBtSalvarEvolucao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtSalvarEvolucaoActionPerformed(evt);
-            }
-        });
-
-        jBtCancelarEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Close_Icon_16.png"))); // NOI18N
-        jBtCancelarEvolucao.setToolTipText("Cancelar");
-        jBtCancelarEvolucao.setEnabled(false);
-        jBtCancelarEvolucao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtCancelarEvolucaoActionPerformed(evt);
-            }
-        });
-
-        jBtAuditoriaEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
-        jBtAuditoriaEvolucao.setToolTipText("Auditoria");
-        jBtAuditoriaEvolucao.setContentAreaFilled(false);
-        jBtAuditoriaEvolucao.setEnabled(false);
-        jBtAuditoriaEvolucao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtAuditoriaEvolucaoActionPerformed(evt);
-            }
-        });
-
-        jBtAtividadesRealizadasEvol.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/overlays.png"))); // NOI18N
-        jBtAtividadesRealizadasEvol.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtAtividadesRealizadasEvolActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jBtNovaEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtAlterarEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtExcluirEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtSalvarEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtCancelarEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(77, 77, 77)
-                .addComponent(jBtAtividadesRealizadasEvol, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jBtAuditoriaEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarEvolucao, jBtCancelarEvolucao, jBtExcluirEvolucao, jBtNovaEvolucao, jBtSalvarEvolucao});
-
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                .addComponent(jBtNovaEvolucao)
-                .addComponent(jBtAlterarEvolucao)
-                .addComponent(jBtExcluirEvolucao)
-                .addComponent(jBtSalvarEvolucao)
-                .addComponent(jBtCancelarEvolucao)
-                .addComponent(jBtAtividadesRealizadasEvol)
-                .addComponent(jBtAuditoriaEvolucao))
-        );
-
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterarEvolucao, jBtAuditoriaEvolucao, jBtCancelarEvolucao, jBtExcluirEvolucao, jBtNovaEvolucao, jBtSalvarEvolucao});
-
         jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -1567,34 +1473,124 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                 .addGap(25, 25, 25))
         );
 
+        jBtAuditoriaEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
+        jBtAuditoriaEvolucao.setToolTipText("Auditoria");
+        jBtAuditoriaEvolucao.setContentAreaFilled(false);
+        jBtAuditoriaEvolucao.setEnabled(false);
+        jBtAuditoriaEvolucao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAuditoriaEvolucaoActionPerformed(evt);
+            }
+        });
+
+        jBtAtividadesRealizadasEvol.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/overlays.png"))); // NOI18N
+        jBtAtividadesRealizadasEvol.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAtividadesRealizadasEvolActionPerformed(evt);
+            }
+        });
+
+        jBtNovaEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
+        jBtNovaEvolucao.setToolTipText("Novo");
+        jBtNovaEvolucao.setEnabled(false);
+        jBtNovaEvolucao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtNovaEvolucaoActionPerformed(evt);
+            }
+        });
+
+        jBtAlterarEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
+        jBtAlterarEvolucao.setToolTipText("Alterar");
+        jBtAlterarEvolucao.setEnabled(false);
+        jBtAlterarEvolucao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAlterarEvolucaoActionPerformed(evt);
+            }
+        });
+
+        jBtExcluirEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
+        jBtExcluirEvolucao.setToolTipText("Excluir");
+        jBtExcluirEvolucao.setEnabled(false);
+        jBtExcluirEvolucao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtExcluirEvolucaoActionPerformed(evt);
+            }
+        });
+
+        jBtSalvarEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
+        jBtSalvarEvolucao.setToolTipText("Gravar");
+        jBtSalvarEvolucao.setEnabled(false);
+        jBtSalvarEvolucao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtSalvarEvolucaoActionPerformed(evt);
+            }
+        });
+
+        jBtCancelarEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Close_Icon_16.png"))); // NOI18N
+        jBtCancelarEvolucao.setToolTipText("Cancelar");
+        jBtCancelarEvolucao.setEnabled(false);
+        jBtCancelarEvolucao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtCancelarEvolucaoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout EvolucaoLayout = new javax.swing.GroupLayout(Evolucao);
         Evolucao.setLayout(EvolucaoLayout);
         EvolucaoLayout.setHorizontalGroup(
             EvolucaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(EvolucaoLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EvolucaoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(EvolucaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(EvolucaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jSeparator1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, EvolucaoLayout.createSequentialGroup()
+                        .addComponent(jBtNovaEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtAlterarEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtExcluirEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtSalvarEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtCancelarEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(83, 83, 83)
+                        .addComponent(jBtAtividadesRealizadasEvol, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBtAuditoriaEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
+
+        EvolucaoLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarEvolucao, jBtExcluirEvolucao, jBtNovaEvolucao, jBtSalvarEvolucao});
+
         EvolucaoLayout.setVerticalGroup(
             EvolucaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(EvolucaoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1)
+                .addGroup(EvolucaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jBtNovaEvolucao)
+                    .addComponent(jBtAlterarEvolucao)
+                    .addComponent(jBtExcluirEvolucao)
+                    .addComponent(jBtSalvarEvolucao)
+                    .addComponent(jBtCancelarEvolucao)
+                    .addComponent(jBtAtividadesRealizadasEvol)
+                    .addComponent(jBtAuditoriaEvolucao))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
+
+        EvolucaoLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterarEvolucao, jBtAuditoriaEvolucao, jBtCancelarEvolucao, jBtExcluirEvolucao, jBtNovaEvolucao, jBtSalvarEvolucao});
 
         jTabbedPane1.addTab("Evolução", Evolucao);
 
@@ -1896,7 +1892,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
             jBtCancelar.setEnabled(true);
             jBtFinalizar.setEnabled(true);
             jBtAuditoria.setEnabled(true);
-            jBtNovaEvolucao.setEnabled(true);
+            //jBtNovaEvolucao.setEnabled(true);
             jBtNovaAtividade.setEnabled(true);
             jBtAgendarBeneficio.setEnabled(true);
             //
@@ -2028,6 +2024,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
             } else if (atendido.equals("Não")) {
                 acao = 3;
+                opcaoAtividade = 1;
                 NovaEvolucao();
             }
         } else {
@@ -2042,10 +2039,12 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
             verificarEvolucaoAdmissao();
             if (admEvolucao == null) {
                 acao = 4;
+                opcaoAtividade = 2;
                 AlterarEvolucao();
                 preencherComboBoxDepartamento();
             } else if (admEvolucao.equals("")) {
                 acao = 4;
+                opcaoAtividade = 2;
                 AlterarEvolucao();
                 preencherComboBoxDepartamento();
             } else if (admEvolucao.equals("Sim")) {
@@ -2196,7 +2195,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         if (flag == 1) {
             String IdEvolucao = "" + jTabelaEvolucaoJuridica.getValueAt(jTabelaEvolucaoJuridica.getSelectedRow(), 0);
             jIdEvolucao.setText(IdEvolucao);
-            jBtNovaEvolucao.setEnabled(true);
+            jBtNovaEvolucao.setEnabled(!true);
             jBtAlterarEvolucao.setEnabled(true);
             jBtExcluirEvolucao.setEnabled(true);
             jBtCancelarEvolucao.setEnabled(true);
@@ -2510,10 +2509,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAtendimentoJuridicoaAtividadesJURI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtendimentoJuridicoaAtividadesJURI) && codAbrirJURI == 1) {
-            objAtendJuri.setStatusLanc(jStatusLanc.getText());
-            if (jStatusLanc.getText().equals("FINALIZADO")) {
-                JOptionPane.showMessageDialog(rootPane, "Esse antedimento não poderá ser alterado, o mesmo encontra-se FINALIZADO");
-            } else if (jIDLanc.getText().equals("")) {
+            if (jIDLanc.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário fazer primeiro a admissão, deppois registrar as atividades.");
             } else if (jIDInternoJuridico.getText().equals("") && jNomeInternoJuridico.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário informar o nome do interno antes de cadastrar as atividades a serem realizadas.");
@@ -2530,11 +2526,11 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         buscarAcessoUsuario(telaAtendimentoJuridicoaAtividadesJURI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtendimentoJuridicoaAtividadesJURI) && codAbrirJURI == 1) {
             if (jIDLanc.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "É necessário fazer primeiro a admissão, deppois registrar as atividades.");
+                JOptionPane.showMessageDialog(rootPane, "É necessário fazer primeiro a admissão, depois registrar as atividades.");
             } else if (jIDInternoJuridico.getText().equals("") && jNomeInternoJuridico.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário informar o nome do interno antes de cadastrar as atividades a serem realizadas.");
             } else {
-                mostrarAtividadesRealizadas();
+                mostrarAtividadeRealizadaEvolucao();
             }
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
@@ -2566,7 +2562,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtFinalizar;
     private javax.swing.JButton jBtIDPesq;
     private javax.swing.JButton jBtNovaAtividade;
-    private javax.swing.JButton jBtNovaEvolucao;
+    public static javax.swing.JButton jBtNovaEvolucao;
     private javax.swing.JButton jBtNovo;
     private javax.swing.JButton jBtPesqAtividade;
     private javax.swing.JButton jBtPesqDatas;
@@ -2639,7 +2635,6 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jNomeInternoAtividade;
     private javax.swing.JTextField jNomeInternoEvolucao;
     public static javax.swing.JTextField jNomeInternoJuridico;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
@@ -2659,7 +2654,8 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JTextField jStatusLanc;
+    private javax.swing.JSeparator jSeparator1;
+    public static javax.swing.JTextField jStatusLanc;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTabelaAtendimentoJuridico;
     private javax.swing.JTable jTabelaAtividades;
@@ -3229,6 +3225,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         jBtSalvarEvolucao.setEnabled(true);
         jBtCancelarEvolucao.setEnabled(true);
         jBtAuditoriaEvolucao.setEnabled(!true);
+        jBtAtividadesRealizadasEvol.setEnabled(true);
         //
         jBtNovo.setEnabled(!true);
         jBtAlterar.setEnabled(!true);
@@ -3269,6 +3266,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         jBtSalvarEvolucao.setEnabled(true);
         jBtCancelarEvolucao.setEnabled(true);
         jBtAuditoriaEvolucao.setEnabled(!true);
+        jBtAtividadesRealizadasEvol.setEnabled(true);
         //
         jBtNovo.setEnabled(!true);
         jBtAlterar.setEnabled(!true);
@@ -3293,7 +3291,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         jComboBoxEncaminharSetorEvo.setEnabled(!true);
         jDataEncaminhamentoEvo.setEnabled(!true);
         jHoraEnvioEvo.setEnabled(!true);
-        jBtAgendarBeneficio.setEnabled(true);
+        jBtAgendarBeneficio.setEnabled(!true);
         //
         jBtNovaEvolucao.setEnabled(true);
         jBtAlterarEvolucao.setEnabled(!true);
@@ -3301,6 +3299,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         jBtSalvarEvolucao.setEnabled(!true);
         jBtCancelarEvolucao.setEnabled(!true);
         jBtAuditoriaEvolucao.setEnabled(!true);
+        jBtAtividadesRealizadasEvol.setEnabled(!true);
         //
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(true);
@@ -3336,6 +3335,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         jBtSalvarEvolucao.setEnabled(!true);
         jBtCancelarEvolucao.setEnabled(!true);
         jBtAuditoriaEvolucao.setEnabled(!true);
+        jBtAtividadesRealizadasEvol.setEnabled(!true);
         //
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(true);
@@ -3375,6 +3375,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         jBtSalvarEvolucao.setEnabled(!true);
         jBtCancelarEvolucao.setEnabled(!true);
         jBtAuditoriaEvolucao.setEnabled(!true);
+        jBtAtividadesRealizadasEvol.setEnabled(!true);
         //
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(true);
