@@ -25,6 +25,21 @@ import gestor.Modelo.ProcedimentoOdontologico;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloOdontologia.codAbrirODON;
+import static gestor.Visao.TelaModuloOdontologia.codAlterarODON;
+import static gestor.Visao.TelaModuloOdontologia.codConsultarODON;
+import static gestor.Visao.TelaModuloOdontologia.codExcluirODON;
+import static gestor.Visao.TelaModuloOdontologia.codGravarODON;
+import static gestor.Visao.TelaModuloOdontologia.codIncluirODON;
+import static gestor.Visao.TelaModuloOdontologia.codUserAcessoODON;
+import static gestor.Visao.TelaModuloOdontologia.codigoGrupoODON;
+import static gestor.Visao.TelaModuloOdontologia.codigoUserGroupODON;
+import static gestor.Visao.TelaModuloOdontologia.codigoUserODON;
+import static gestor.Visao.TelaModuloOdontologia.nomeGrupoODON;
+import static gestor.Visao.TelaModuloOdontologia.nomeTelaODON;
+import static gestor.Visao.TelaModuloOdontologia.telaAtendimentoInternoEvolucao_ODON;
+import static gestor.Visao.TelaModuloOdontologia.telaAtendimentoInternoManu_ODON;
+import static gestor.Visao.TelaModuloOdontologia.telaAtendimentoInternosPrescricao_ODON;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -37,6 +52,7 @@ import java.util.Date;
 import java.util.HashMap;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -2674,161 +2690,181 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        bloquearCampos();
-        bloquearBotoes();
-        limparCampos();
-        limparTabelaProcedimentos();
-        limparTabelaPrescricao();
-        limparTabelaOdontograma();
-        preencherComboNovo();
-        Novo();
-        corCampo();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaAtendimentoInternoManu_ODON);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoODON.equals("ADMINISTRADORES") || codigoUserODON == codUserAcessoODON && nomeTelaODON.equals(telaAtendimentoInternoManu_ODON) && codIncluirODON == 1) {
+            acao = 1;
+            bloquearCampos();
+            bloquearBotoes();
+            limparCampos();
+            limparTabelaProcedimentos();
+            limparTabelaPrescricao();
+            limparTabelaOdontograma();
+            preencherComboNovo();
+            Novo();
+            corCampo();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        objAtendOdonto.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse atendimento não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaAtendimentoInternoManu_ODON);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoODON.equals("ADMINISTRADORES") || codigoUserODON == codUserAcessoODON && nomeTelaODON.equals(telaAtendimentoInternoManu_ODON) && codAlterarODON == 1) {
+            objAtendOdonto.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse atendimento não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                bloquearCampos();
+                bloquearBotoes();
+                limparCampos();
+                preencherComboNovo();
+                Alterar();
+                corCampo();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 2;
-            bloquearCampos();
-            bloquearBotoes();
-            limparCampos();
-            preencherComboNovo();
-            Alterar();
-            corCampo();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        bloquearCampos();
-        bloquearBotoes();
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        objAtendOdonto.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse atendimento não poderá ser excluido, o mesmo encontra-se FINALIZADO");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o ATENDIMENTO selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objAtendOdonto.setIdLanc(Integer.parseInt(jIDLanc.getText()));
-                control.excluirAtendOdonto(objAtendOdonto);
-                objAtendOdonto.setIdLanc(Integer.parseInt(jIDLanc.getText()));
-                controle.excluirMovTec(objAtendOdonto);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                Excluir();
+        buscarAcessoUsuario(telaAtendimentoInternoManu_ODON);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoODON.equals("ADMINISTRADORES") || codigoUserODON == codUserAcessoODON && nomeTelaODON.equals(telaAtendimentoInternoManu_ODON) && codExcluirODON == 1) {
+            bloquearCampos();
+            bloquearBotoes();
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objAtendOdonto.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse atendimento não poderá ser excluido, o mesmo encontra-se FINALIZADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o ATENDIMENTO selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objAtendOdonto.setIdLanc(Integer.parseInt(jIDLanc.getText()));
+                    control.excluirAtendOdonto(objAtendOdonto);
+                    objAtendOdonto.setIdLanc(Integer.parseInt(jIDLanc.getText()));
+                    controle.excluirMovTec(objAtendOdonto);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    Excluir();
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        Integer rows = jTabelaOdontograma.getModel().getRowCount();
-        if (jDataLanc.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data do Atendimento");
-            jDataLanc.requestFocus();
-            jDataLanc.setBackground(Color.red);
-        } else {
-            if (jNomeInterno.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para atendimento");
+        buscarAcessoUsuario(telaAtendimentoInternoManu_ODON);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoODON.equals("ADMINISTRADORES") || codigoUserODON == codUserAcessoODON && nomeTelaODON.equals(telaAtendimentoInternoManu_ODON) && codGravarODON == 1) {
+            Integer rows = jTabelaOdontograma.getModel().getRowCount();
+            if (jDataLanc.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data do Atendimento");
+                jDataLanc.requestFocus();
+                jDataLanc.setBackground(Color.red);
             } else {
-                objAtendOdonto.setStatusLanc(jStatusLanc.getText());
-                objAtendOdonto.setDataLanc(jDataLanc.getDate());
-                objAtendOdonto.setTipoAtendimento((String) jComboBoxTipoAtendimento.getSelectedItem());
-                objAtendOdonto.setFumante((String) jComboBoxFumante.getSelectedItem());
-                objAtendOdonto.setGestante((String) jComboBoxGestante.getSelectedItem());
-                objAtendOdonto.setTempoGestacao((int) jTempoGestacao.getValue());
-                objAtendOdonto.setTratamentoMedico((String) jComboBoxTratamentoMedico.getSelectedItem());
-                objAtendOdonto.setMedicacao((String) jComboBoxMedicacao.getSelectedItem());
-                objAtendOdonto.setAlegria((String) jComboBoxMedicacao.getSelectedItem());
-                objAtendOdonto.setQueixaPrincipal(jQueixaPrincipal.getText());
-                objAtendOdonto.setAfirmacao1(jAfirmacao1.getText());
-                objAtendOdonto.setAfirmacao2(jAfirmacao2.getText());
-                objAtendOdonto.setAfirmacao3(jAfirmacao3.getText());
-                objAtendOdonto.setObservacao(jObservacao.getText());
-                // PATOLOGIAS
-                objAtendOdonto.setHepatite((String) jComboBoxHepatite.getSelectedItem());
-                objAtendOdonto.setHiv((String) jComboBoxHiv.getSelectedItem());
-                objAtendOdonto.setAsma((String) jComboBoxAsma.getSelectedItem());
-                objAtendOdonto.setFebre((String) jComboBoxFebre.getSelectedItem());
-                objAtendOdonto.setDiabetes((String) jComboBoxDiabetes.getSelectedItem());
-                objAtendOdonto.setEpilepsia((String) jComboBoxEpilepsia.getSelectedItem());
-                objAtendOdonto.setCicatrizacao((String) jComboBoxCicatrizacao.getSelectedItem());
-                objAtendOdonto.setDisturbios((String) jComboBoxDisturbios.getSelectedItem());
-                objAtendOdonto.setEndocardite((String) jComboBoxEndocardite.getSelectedItem());
-                objAtendOdonto.setEpatico((String) jComboBoxHepatico.getSelectedItem());
-                objAtendOdonto.setRenal((String) jComboBoxRenal.getSelectedItem());
-                objAtendOdonto.setCardiaco((String) jComboBoxCardiaco.getSelectedItem());
-                objAtendOdonto.setTensao((String) jComboBoxTensao.getSelectedItem());
-                objAtendOdonto.setCirurgia((String) jComboBoxCirurgia.getSelectedItem());
-                objAtendOdonto.setInternacao((String) jComboBoxInternacao.getSelectedItem());
-                objAtendOdonto.setSifilis((String) jComboBoxSifilis.getSelectedItem());
-                objAtendOdonto.setTuberculose((String) jComboBoxTuberculose.getSelectedItem());
-                objAtendOdonto.setOutras((String) jComboBoxOutras.getSelectedItem());
-                objAtendOdonto.setQualOutraDoenca(jQualOutraDoenca.getText());
-                objAtendOdonto.setTextoDoenca(jTextoDoenca.getText());
-                if (acao == 1) {
-                    // log de usuario
-                    objAtendOdonto.setUsuarioInsert(nameUser);
-                    objAtendOdonto.setDataInsert(dataModFinal);
-                    objAtendOdonto.setHorarioInsert(horaMov);
-                    //
-                    objAtendOdonto.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
-                    objAtendOdonto.setNomeInterno(jNomeInterno.getText());
-                    control.incluirAtendOdonto(objAtendOdonto);
-                    buscarID();
-                    objAtendOdonto.setIdLanc(Integer.valueOf(jIDLanc.getText()));
-                    objAtendOdonto.setNomeInterno(jNomeInterno.getText());
-                    objAtendOdonto.setDeptoOdonto(deptoTecnico);
-                    controle.incluirMovTec(objAtendOdonto);
-                    if (rows != 0) {
-                        incluirOdontograma();
+                if (jNomeInterno.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para atendimento");
+                } else {
+                    objAtendOdonto.setStatusLanc(jStatusLanc.getText());
+                    objAtendOdonto.setDataLanc(jDataLanc.getDate());
+                    objAtendOdonto.setTipoAtendimento((String) jComboBoxTipoAtendimento.getSelectedItem());
+                    objAtendOdonto.setFumante((String) jComboBoxFumante.getSelectedItem());
+                    objAtendOdonto.setGestante((String) jComboBoxGestante.getSelectedItem());
+                    objAtendOdonto.setTempoGestacao((int) jTempoGestacao.getValue());
+                    objAtendOdonto.setTratamentoMedico((String) jComboBoxTratamentoMedico.getSelectedItem());
+                    objAtendOdonto.setMedicacao((String) jComboBoxMedicacao.getSelectedItem());
+                    objAtendOdonto.setAlegria((String) jComboBoxMedicacao.getSelectedItem());
+                    objAtendOdonto.setQueixaPrincipal(jQueixaPrincipal.getText());
+                    objAtendOdonto.setAfirmacao1(jAfirmacao1.getText());
+                    objAtendOdonto.setAfirmacao2(jAfirmacao2.getText());
+                    objAtendOdonto.setAfirmacao3(jAfirmacao3.getText());
+                    objAtendOdonto.setObservacao(jObservacao.getText());
+                    // PATOLOGIAS
+                    objAtendOdonto.setHepatite((String) jComboBoxHepatite.getSelectedItem());
+                    objAtendOdonto.setHiv((String) jComboBoxHiv.getSelectedItem());
+                    objAtendOdonto.setAsma((String) jComboBoxAsma.getSelectedItem());
+                    objAtendOdonto.setFebre((String) jComboBoxFebre.getSelectedItem());
+                    objAtendOdonto.setDiabetes((String) jComboBoxDiabetes.getSelectedItem());
+                    objAtendOdonto.setEpilepsia((String) jComboBoxEpilepsia.getSelectedItem());
+                    objAtendOdonto.setCicatrizacao((String) jComboBoxCicatrizacao.getSelectedItem());
+                    objAtendOdonto.setDisturbios((String) jComboBoxDisturbios.getSelectedItem());
+                    objAtendOdonto.setEndocardite((String) jComboBoxEndocardite.getSelectedItem());
+                    objAtendOdonto.setEpatico((String) jComboBoxHepatico.getSelectedItem());
+                    objAtendOdonto.setRenal((String) jComboBoxRenal.getSelectedItem());
+                    objAtendOdonto.setCardiaco((String) jComboBoxCardiaco.getSelectedItem());
+                    objAtendOdonto.setTensao((String) jComboBoxTensao.getSelectedItem());
+                    objAtendOdonto.setCirurgia((String) jComboBoxCirurgia.getSelectedItem());
+                    objAtendOdonto.setInternacao((String) jComboBoxInternacao.getSelectedItem());
+                    objAtendOdonto.setSifilis((String) jComboBoxSifilis.getSelectedItem());
+                    objAtendOdonto.setTuberculose((String) jComboBoxTuberculose.getSelectedItem());
+                    objAtendOdonto.setOutras((String) jComboBoxOutras.getSelectedItem());
+                    objAtendOdonto.setQualOutraDoenca(jQualOutraDoenca.getText());
+                    objAtendOdonto.setTextoDoenca(jTextoDoenca.getText());
+                    if (acao == 1) {
+                        // log de usuario
+                        objAtendOdonto.setUsuarioInsert(nameUser);
+                        objAtendOdonto.setDataInsert(dataModFinal);
+                        objAtendOdonto.setHorarioInsert(horaMov);
+                        //
+                        objAtendOdonto.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                        objAtendOdonto.setNomeInterno(jNomeInterno.getText());
+                        control.incluirAtendOdonto(objAtendOdonto);
+                        buscarID();
+                        objAtendOdonto.setIdLanc(Integer.valueOf(jIDLanc.getText()));
+                        objAtendOdonto.setNomeInterno(jNomeInterno.getText());
+                        objAtendOdonto.setDeptoOdonto(deptoTecnico);
+                        controle.incluirMovTec(objAtendOdonto);
+                        if (rows != 0) {
+                            incluirOdontograma();
+                        }
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        Salvar();
                     }
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    Salvar();
-                }
-                if (acao == 2) {
-                    // log de usuario
-                    objAtendOdonto.setUsuarioUp(nameUser);
-                    objAtendOdonto.setDataUp(dataModFinal);
-                    objAtendOdonto.setHorarioUp(horaMov);
-                    //
-                    objAtendOdonto.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
-                    objAtendOdonto.setNomeInterno(jNomeInterno.getText());
-                    objAtendOdonto.setIdLanc(Integer.valueOf(jIDLanc.getText()));
-                    control.alterarAtendOdonto(objAtendOdonto);
-                    objAtendOdonto.setIdLanc(Integer.valueOf(jIDLanc.getText()));
-                    objAtendOdonto.setNomeInterno(jNomeInterno.getText());
-                    objAtendOdonto.setDeptoOdonto(deptoTecnico);
-                    controle.alterarMovTec(objAtendOdonto);
-                    //
-                    objOdonto.setIdLanc(Integer.valueOf(jIDLanc.getText()));
-                    controlOdontograma.excluirOdontoGrama(objOdonto);
-                    //
-                    if (rows != 0) {
-                        incluirOdontograma();
+                    if (acao == 2) {
+                        // log de usuario
+                        objAtendOdonto.setUsuarioUp(nameUser);
+                        objAtendOdonto.setDataUp(dataModFinal);
+                        objAtendOdonto.setHorarioUp(horaMov);
+                        //
+                        objAtendOdonto.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                        objAtendOdonto.setNomeInterno(jNomeInterno.getText());
+                        objAtendOdonto.setIdLanc(Integer.valueOf(jIDLanc.getText()));
+                        control.alterarAtendOdonto(objAtendOdonto);
+                        objAtendOdonto.setIdLanc(Integer.valueOf(jIDLanc.getText()));
+                        objAtendOdonto.setNomeInterno(jNomeInterno.getText());
+                        objAtendOdonto.setDeptoOdonto(deptoTecnico);
+                        controle.alterarMovTec(objAtendOdonto);
+                        //
+                        objOdonto.setIdLanc(Integer.valueOf(jIDLanc.getText()));
+                        controlOdontograma.excluirOdontoGrama(objOdonto);
+                        //
+                        if (rows != 0) {
+                            incluirOdontograma();
+                        }
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        Salvar();
                     }
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    Salvar();
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -2998,79 +3034,99 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTabelaOdontologiaMouseClicked
 
     private void jBtNovoEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoEvolucaoActionPerformed
-        // TODO add your handling code here:
-        acao = 3;
-        bloquearBotoes();
-        bloquearCampos();
-        NovoProcedimento();
+        // TODO add your handling code here:tela
+        buscarAcessoUsuario(telaAtendimentoInternoEvolucao_ODON);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoODON.equals("ADMINISTRADORES") || codigoUserODON == codUserAcessoODON && nomeTelaODON.equals(telaAtendimentoInternoEvolucao_ODON) && codIncluirODON == 1) {
+            acao = 3;
+            bloquearBotoes();
+            bloquearCampos();
+            NovoProcedimento();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoEvolucaoActionPerformed
 
     private void jBtAlterarEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarEvolucaoActionPerformed
         // TODO add your handling code here:
-        acao = 4;
-        bloquearBotoes();
-        bloquearCampos();
-        AlterarProcedimento();
+        buscarAcessoUsuario(telaAtendimentoInternoEvolucao_ODON);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoODON.equals("ADMINISTRADORES") || codigoUserODON == codUserAcessoODON && nomeTelaODON.equals(telaAtendimentoInternoEvolucao_ODON) && codAlterarODON == 1) {
+            acao = 4;
+            bloquearBotoes();
+            bloquearCampos();
+            AlterarProcedimento();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtAlterarEvolucaoActionPerformed
 
     private void jBtExcluirEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirEvolucaoActionPerformed
-        // TODO add your handling code here:      
-        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o procedimento selecionado?", "Confirmação",
-                JOptionPane.YES_NO_OPTION);
-        if (resposta == JOptionPane.YES_OPTION) {
-            objProcedOdonto.setIdPro(Integer.parseInt(jIdEvolucao.getText()));
-            controlar.excluirProcedimentoOdonto(objProcedOdonto);
-            objLog2();
-            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-            preencherItensProcedimentos("SELECT * FROM ODONTOPROCEDIMENTO WHERE IdLanc='" + jIDLanc.getText() + "'");
-            JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-            ExcluirProcedimento();
+        // TODO add your handling code here:  
+        buscarAcessoUsuario(telaAtendimentoInternoEvolucao_ODON);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoODON.equals("ADMINISTRADORES") || codigoUserODON == codUserAcessoODON && nomeTelaODON.equals(telaAtendimentoInternoEvolucao_ODON) && codExcluirODON == 1) {
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o procedimento selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objProcedOdonto.setIdPro(Integer.parseInt(jIdEvolucao.getText()));
+                controlar.excluirProcedimentoOdonto(objProcedOdonto);
+                objLog2();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                preencherItensProcedimentos("SELECT * FROM ODONTOPROCEDIMENTO WHERE IdLanc='" + jIDLanc.getText() + "'");
+                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                ExcluirProcedimento();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirEvolucaoActionPerformed
 
     private void jBtSalvarEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarEvolucaoActionPerformed
         // TODO add your handling code here:
-        if (jDataEvolucao.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Data não pode ser em branco.");
-            jDataEvolucao.requestFocus();
-            jDataEvolucao.setBackground(Color.red);
+        buscarAcessoUsuario(telaAtendimentoInternoEvolucao_ODON);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoODON.equals("ADMINISTRADORES") || codigoUserODON == codUserAcessoODON && nomeTelaODON.equals(telaAtendimentoInternoEvolucao_ODON) && codGravarODON == 1) {
+            if (jDataEvolucao.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Data não pode ser em branco.");
+                jDataEvolucao.requestFocus();
+                jDataEvolucao.setBackground(Color.red);
+            } else {
+                objProcedOdonto.setDataProcedimento(jDataEvolucao.getDate());
+                objProcedOdonto.setProcedimento(jEvolucao.getText());
+                if (acao == 3) {
+                    // log de usuario
+                    objProcedOdonto.setUsuarioInsert(nameUser);
+                    objProcedOdonto.setDataInsert(jDataSistema.getText());
+                    objProcedOdonto.setHorarioInsert(jHoraSistema.getText());
+                    //
+                    objProcedOdonto.setIdLanc(Integer.valueOf(jIDLanc.getText()));
+                    objProcedOdonto.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                    controlar.incluirProcedimentoOdonto(objProcedOdonto);
+                    buscarrCodProd();
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    //
+                    SalvarProcedimento();
+                    preencherItensProcedimentos("SELECT * FROM ODONTOPROCEDIMENTO WHERE IdLanc='" + jIDLanc.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 4) {
+                    // log de usuario
+                    objProcedOdonto.setUsuarioUp(nameUser);
+                    objProcedOdonto.setDataUp(jDataSistema.getText());
+                    objProcedOdonto.setHorarioUp(jHoraSistema.getText());
+                    //
+                    objProcedOdonto.setIdLanc(Integer.valueOf(jIDLanc.getText()));
+                    objProcedOdonto.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                    objProcedOdonto.setIdPro(Integer.valueOf(jIdEvolucao.getText()));
+                    controlar.alterarProcedimentoOdonto(objProcedOdonto);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    //
+                    SalvarProcedimento();
+                    preencherItensProcedimentos("SELECT * FROM ODONTOPROCEDIMENTO WHERE IdLanc='" + jIDLanc.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
         } else {
-            objProcedOdonto.setDataProcedimento(jDataEvolucao.getDate());
-            objProcedOdonto.setProcedimento(jEvolucao.getText());
-            if (acao == 3) {
-                // log de usuario
-                objProcedOdonto.setUsuarioInsert(nameUser);
-                objProcedOdonto.setDataInsert(jDataSistema.getText());
-                objProcedOdonto.setHorarioInsert(jHoraSistema.getText());
-                //
-                objProcedOdonto.setIdLanc(Integer.valueOf(jIDLanc.getText()));
-                objProcedOdonto.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
-                controlar.incluirProcedimentoOdonto(objProcedOdonto);
-                buscarrCodProd();
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                //
-                SalvarProcedimento();
-                preencherItensProcedimentos("SELECT * FROM ODONTOPROCEDIMENTO WHERE IdLanc='" + jIDLanc.getText() + "'");
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
-            if (acao == 4) {
-                // log de usuario
-                objProcedOdonto.setUsuarioUp(nameUser);
-                objProcedOdonto.setDataUp(jDataSistema.getText());
-                objProcedOdonto.setHorarioUp(jHoraSistema.getText());
-                //
-                objProcedOdonto.setIdLanc(Integer.valueOf(jIDLanc.getText()));
-                objProcedOdonto.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
-                objProcedOdonto.setIdPro(Integer.valueOf(jIdEvolucao.getText()));
-                controlar.alterarProcedimentoOdonto(objProcedOdonto);
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                //
-                SalvarProcedimento();
-                preencherItensProcedimentos("SELECT * FROM ODONTOPROCEDIMENTO WHERE IdLanc='" + jIDLanc.getText() + "'");
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarEvolucaoActionPerformed
 
@@ -3190,107 +3246,127 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBtNovoPrescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoPrescricaoActionPerformed
         // TODO add your handling code here:
-        acao = 5;
-        bloquearBotoes();
-        bloquearCampos();
-        NovaPrescricao();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaAtendimentoInternosPrescricao_ODON);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoODON.equals("ADMINISTRADORES") || codigoUserODON == codUserAcessoODON && nomeTelaODON.equals(telaAtendimentoInternosPrescricao_ODON) && codIncluirODON == 1) {
+            acao = 5;
+            bloquearBotoes();
+            bloquearCampos();
+            NovaPrescricao();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoPrescricaoActionPerformed
 
     private void jBtAlterarPrescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarPrescricaoActionPerformed
         // TODO add your handling code here:
-        acao = 6;
-        bloquearBotoes();
-        bloquearCampos();
-        AlterarPrescricao();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaAtendimentoInternosPrescricao_ODON);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoODON.equals("ADMINISTRADORES") || codigoUserODON == codUserAcessoODON && nomeTelaODON.equals(telaAtendimentoInternosPrescricao_ODON) && codAlterarODON == 1) {
+            acao = 6;
+            bloquearBotoes();
+            bloquearCampos();
+            AlterarPrescricao();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtAlterarPrescricaoActionPerformed
 
     private void jBtExcluirPrescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirPrescricaoActionPerformed
         // TODO add your handling code here:
-        // VERIFICAR SE A PRESCRIÇÃO ODONTOLOGICA JÁ FOI UTILIZADA NA REQUISIÇÃO DE MEDICAMENTOS.
-        verificarPrescricaoMedica();
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        if (jPrescricaoOdontologia.getText().equals(idItemPresq)) {
-            JOptionPane.showMessageDialog(jTextoDoenca, "Essa receita odontologica não poderá ser excluida,\nestá sendo utilizada na requisição de medicamentos.");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o procedimento selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                // DELETAR PRESCRIÇÃO NA TABELA PRESCRICAO_MEDICA_PSIQUIATRICA
-                objPrescricao.setIdLanc(Integer.valueOf(jIdPrescricao.getText()));
-                controlePrescricao.excluirPrescricaoOdontologica(objPrescricao);
-                objPrescOdonto.setIdPre(Integer.parseInt(jIdPrescricao.getText()));
-                controlePres.excluirPrescricaoOdontologica(objPrescOdonto);
-                objLog3();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                preencherItensPrescricao("SELECT * FROM PRESCRICAO_ODONTOLOGIA WHERE IdLanc='" + jIDLanc.getText() + "'");
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                ExcluirPrescricao();
+        buscarAcessoUsuario(telaAtendimentoInternosPrescricao_ODON);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoODON.equals("ADMINISTRADORES") || codigoUserODON == codUserAcessoODON && nomeTelaODON.equals(telaAtendimentoInternosPrescricao_ODON) && codExcluirODON == 1) {
+            // VERIFICAR SE A PRESCRIÇÃO ODONTOLOGICA JÁ FOI UTILIZADA NA REQUISIÇÃO DE MEDICAMENTOS.
+            verificarPrescricaoMedica();
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            if (jPrescricaoOdontologia.getText().equals(idItemPresq)) {
+                JOptionPane.showMessageDialog(jTextoDoenca, "Essa receita odontologica não poderá ser excluida,\nestá sendo utilizada na requisição de medicamentos.");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o procedimento selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    // DELETAR PRESCRIÇÃO NA TABELA PRESCRICAO_MEDICA_PSIQUIATRICA
+                    objPrescricao.setIdLanc(Integer.valueOf(jIdPrescricao.getText()));
+                    controlePrescricao.excluirPrescricaoOdontologica(objPrescricao);
+                    objPrescOdonto.setIdPre(Integer.parseInt(jIdPrescricao.getText()));
+                    controlePres.excluirPrescricaoOdontologica(objPrescOdonto);
+                    objLog3();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    preencherItensPrescricao("SELECT * FROM PRESCRICAO_ODONTOLOGIA WHERE IdLanc='" + jIDLanc.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    ExcluirPrescricao();
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirPrescricaoActionPerformed
 
     private void jBtSalvarPrescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarPrescricaoActionPerformed
-        // TODO add your handling code here:        
-        if (jDataPrescricao.getDate() == null) {
-            JOptionPane.showMessageDialog(null, "Informe a data da prescrição da medicação.");
+        // TODO add your handling code here:      
+        buscarAcessoUsuario(telaAtendimentoInternosPrescricao_ODON);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoODON.equals("ADMINISTRADORES") || codigoUserODON == codUserAcessoODON && nomeTelaODON.equals(telaAtendimentoInternosPrescricao_ODON) && codGravarODON == 1) {
+            if (jDataPrescricao.getDate() == null) {
+                JOptionPane.showMessageDialog(null, "Informe a data da prescrição da medicação.");
+            } else {
+                objPrescOdonto.setDataPrescricao(jDataPrescricao.getDate());
+                objPrescOdonto.setIdLanc(Integer.valueOf(jIDLanc.getText()));
+                objPrescOdonto.setTextoPrescricao(jPrescricaoOdontologia.getText());
+                objPrescOdonto.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                if (acao == 5) {
+                    objPrescOdonto.setUsuarioInsert(nameUser);
+                    objPrescOdonto.setDataInsert(dataModFinal);
+                    objPrescOdonto.setHoraInsert(horaMov);
+                    controlePres.incluirPrescricaoOdontologica(objPrescOdonto);
+                    buscarCodigoPrescricao();
+                    // INCLUIR PRESCRIÇÃO PARA O DEPARTAMENTO DE ENFERMARIA
+                    objPrescricao.setIdLanc(Integer.valueOf(jIDLanc.getText()));
+                    objPrescricao.setDataPrescricao(jDataPrescricao.getDate());
+                    objPrescricao.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                    objPrescricao.setTipoPrescricaoMedica(tipoPres);
+                    objPrescricao.setTextoPrescricao(jPrescricaoOdontologia.getText());
+                    objPrescricao.setUsuarioInsert(nameUser);
+                    objPrescricao.setDataInsert(dataModFinal);
+                    objPrescricao.setHoraInsert(horaMov);
+                    controlePrescricao.incluirPrescricaoMedica(objPrescricao);
+                    //
+                    objLog3();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                
+                    SalvarPrescricao();
+                    preencherItensPrescricao("SELECT * FROM PRESCRICAO_ODONTOLOGIA WHERE IdLanc='" + jIDLanc.getText() + "'");
+                    JOptionPane.showMessageDialog(null, "Registro gravado com sucesso.");
+                }
+                if (acao == 6) {
+                    objPrescOdonto.setUsuarioUp(nameUser);
+                    objPrescOdonto.setDataUp(dataModFinal);
+                    objPrescOdonto.setHoraUp(horaMov);
+                    objPrescOdonto.setIdPre(Integer.valueOf(jIdPrescricao.getText()));
+                    controlePres.alterarPrescricaoOdontologica(objPrescOdonto);
+                    // ALTERAR PRESCRIÇÃO NA TABELA DE PRESCRICAO_MEDICA_PSIQUIATRICA
+                    objPrescricao.setIdLanc(Integer.valueOf(jIdPrescricao.getText()));
+                    objPrescricao.setDataPrescricao(jDataPrescricao.getDate());
+                    objPrescricao.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                    objPrescricao.setTipoPrescricaoMedica(tipoPres);
+                    objPrescricao.setTextoPrescricao(jPrescricaoOdontologia.getText());
+                    objPrescricao.setUsuarioUp(nameUser);
+                    objPrescricao.setDataUp(dataModFinal);
+                    objPrescricao.setHoraUp(horaMov);
+                    controlePrescricao.alterarPrescricaoOdontolica(objPrescricao);
+                    objLog3();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    SalvarPrescricao();
+                    preencherItensPrescricao("SELECT * FROM PRESCRICAO_ODONTOLOGIA WHERE IdLanc='" + jIDLanc.getText() + "'");
+                    JOptionPane.showMessageDialog(null, "Registro gravado com sucesso.");
+                }
+            }
         } else {
-            objPrescOdonto.setDataPrescricao(jDataPrescricao.getDate());
-            objPrescOdonto.setIdLanc(Integer.valueOf(jIDLanc.getText()));
-            objPrescOdonto.setTextoPrescricao(jPrescricaoOdontologia.getText());
-            objPrescOdonto.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
-            if (acao == 5) {
-                objPrescOdonto.setUsuarioInsert(nameUser);
-                objPrescOdonto.setDataInsert(dataModFinal);
-                objPrescOdonto.setHoraInsert(horaMov);
-                controlePres.incluirPrescricaoOdontologica(objPrescOdonto);
-                buscarCodigoPrescricao();
-                // INCLUIR PRESCRIÇÃO PARA O DEPARTAMENTO DE ENFERMARIA
-                objPrescricao.setIdLanc(Integer.valueOf(jIDLanc.getText()));
-                objPrescricao.setDataPrescricao(jDataPrescricao.getDate());
-                objPrescricao.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
-                objPrescricao.setTipoPrescricaoMedica(tipoPres);
-                objPrescricao.setTextoPrescricao(jPrescricaoOdontologia.getText());
-                objPrescricao.setUsuarioInsert(nameUser);
-                objPrescricao.setDataInsert(dataModFinal);
-                objPrescricao.setHoraInsert(horaMov);
-                controlePrescricao.incluirPrescricaoMedica(objPrescricao);
-                //
-                objLog3();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                
-                SalvarPrescricao();
-                preencherItensPrescricao("SELECT * FROM PRESCRICAO_ODONTOLOGIA WHERE IdLanc='" + jIDLanc.getText() + "'");
-                JOptionPane.showMessageDialog(null, "Registro gravado com sucesso.");
-            }
-            if (acao == 6) {
-                objPrescOdonto.setUsuarioUp(nameUser);
-                objPrescOdonto.setDataUp(dataModFinal);
-                objPrescOdonto.setHoraUp(horaMov);
-                objPrescOdonto.setIdPre(Integer.valueOf(jIdPrescricao.getText()));
-                controlePres.alterarPrescricaoOdontologica(objPrescOdonto);
-                // ALTERAR PRESCRIÇÃO NA TABELA DE PRESCRICAO_MEDICA_PSIQUIATRICA
-                objPrescricao.setIdLanc(Integer.valueOf(jIdPrescricao.getText()));
-                objPrescricao.setDataPrescricao(jDataPrescricao.getDate());
-                objPrescricao.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
-                objPrescricao.setTipoPrescricaoMedica(tipoPres);
-                objPrescricao.setTextoPrescricao(jPrescricaoOdontologia.getText());
-                objPrescricao.setUsuarioUp(nameUser);
-                objPrescricao.setDataUp(dataModFinal);
-                objPrescricao.setHoraUp(horaMov);
-                controlePrescricao.alterarPrescricaoOdontolica(objPrescricao);
-                objLog3();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                SalvarPrescricao();
-                preencherItensPrescricao("SELECT * FROM PRESCRICAO_ODONTOLOGIA WHERE IdLanc='" + jIDLanc.getText() + "'");
-                JOptionPane.showMessageDialog(null, "Registro gravado com sucesso.");
-            }
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarPrescricaoActionPerformed
 
@@ -3992,7 +4068,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
         jBtAuditoriaOdonto.setEnabled(!true);
         //
         jBtAdicionar.setEnabled(true);
-        jBtRemover.setEnabled(true);                
+        jBtRemover.setEnabled(true);
     }
 
     public void Alterar() {
@@ -5533,5 +5609,43 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jIDLanc.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserODON = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserODON + "'");
+            conecta.rs.first();
+            codigoUserGroupODON = conecta.rs.getInt("IdUsuario");
+            codigoGrupoODON = conecta.rs.getInt("IdGrupo");
+            nomeGrupoODON = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserODON + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoODON = conecta.rs.getInt("IdUsuario");
+            codAbrirODON = conecta.rs.getInt("Abrir");
+            codIncluirODON = conecta.rs.getInt("Incluir");
+            codAlterarODON = conecta.rs.getInt("Alterar");
+            codExcluirODON = conecta.rs.getInt("Excluir");
+            codGravarODON = conecta.rs.getInt("Gravar");
+            codConsultarODON = conecta.rs.getInt("Consultar");
+            nomeTelaODON = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }
