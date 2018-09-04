@@ -12,6 +12,19 @@ import gestor.Dao.ModeloTabela;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.OcorrenciaOdontologia;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloOdontologia.codAbrirODON;
+import static gestor.Visao.TelaModuloOdontologia.codAlterarODON;
+import static gestor.Visao.TelaModuloOdontologia.codConsultarODON;
+import static gestor.Visao.TelaModuloOdontologia.codExcluirODON;
+import static gestor.Visao.TelaModuloOdontologia.codGravarODON;
+import static gestor.Visao.TelaModuloOdontologia.codIncluirODON;
+import static gestor.Visao.TelaModuloOdontologia.codUserAcessoODON;
+import static gestor.Visao.TelaModuloOdontologia.codigoGrupoODON;
+import static gestor.Visao.TelaModuloOdontologia.codigoUserGroupODON;
+import static gestor.Visao.TelaModuloOdontologia.codigoUserODON;
+import static gestor.Visao.TelaModuloOdontologia.nomeGrupoODON;
+import static gestor.Visao.TelaModuloOdontologia.nomeTelaODON;
+import static gestor.Visao.TelaModuloOdontologia.telaOcorrenciaOdontoManu;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -133,6 +146,7 @@ public class TelaOcorrenciaOdontologia extends javax.swing.JInternalFrame {
         jCodigo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jBtPesqCodigo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
+        jBtPesqCodigo.setContentAreaFilled(false);
         jBtPesqCodigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesqCodigoActionPerformed(evt);
@@ -140,6 +154,7 @@ public class TelaOcorrenciaOdontologia extends javax.swing.JInternalFrame {
         });
 
         jBtPesqData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
+        jBtPesqData.setContentAreaFilled(false);
         jBtPesqData.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jBtPesqDataMouseClicked(evt);
@@ -160,6 +175,7 @@ public class TelaOcorrenciaOdontologia extends javax.swing.JInternalFrame {
         jPesqTituloOcorrencia.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jBtPesqTituloOcorrrencia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
+        jBtPesqTituloOcorrrencia.setContentAreaFilled(false);
         jBtPesqTituloOcorrrencia.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jBtPesqTituloOcorrrenciaMouseClicked(evt);
@@ -555,87 +571,107 @@ public class TelaOcorrenciaOdontologia extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaOcorrenciaOdontoManu);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoODON.equals("ADMINISTRADORES") || codigoUserODON == codUserAcessoODON && nomeTelaODON.equals(telaOcorrenciaOdontoManu) && codIncluirODON == 1) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        objOcorr.setStatusLanc(jStatusOcorrencia.getText());
-        if (jStatusOcorrencia.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa ocorrência não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaOcorrenciaOdontoManu);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoODON.equals("ADMINISTRADORES") || codigoUserODON == codUserAcessoODON && nomeTelaODON.equals(telaOcorrenciaOdontoManu) && codAlterarODON == 1) {
+            objOcorr.setStatusLanc(jStatusOcorrencia.getText());
+            if (jStatusOcorrencia.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa ocorrência não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                Alterar();
+                corCampos();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 2;
-            Alterar();
-            corCampos();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        objOcorr.setStatusLanc(jStatusOcorrencia.getText());
-        if (jStatusOcorrencia.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa ocorrência não poderá ser alterado, o mesmo encontra-se FINALIZADO");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objOcorr.setIdLanc(Integer.parseInt(jIdOcorrencia.getText()));
-                control.excluirOcorrenciaOdonto(objOcorr);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                Excluir();
+        buscarAcessoUsuario(telaOcorrenciaOdontoManu);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoODON.equals("ADMINISTRADORES") || codigoUserODON == codUserAcessoODON && nomeTelaODON.equals(telaOcorrenciaOdontoManu) && codExcluirODON == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objOcorr.setStatusLanc(jStatusOcorrencia.getText());
+            if (jStatusOcorrencia.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa ocorrência não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objOcorr.setIdLanc(Integer.parseInt(jIdOcorrencia.getText()));
+                    control.excluirOcorrenciaOdonto(objOcorr);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    Excluir();
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataOcorrencia.getDate() == null) {
-            jDataOcorrencia.requestFocus();
-            jDataOcorrencia.setBackground(Color.red);
-            JOptionPane.showMessageDialog(rootPane, "Informe a data da Ocorrência.");
-        } else {
-            if (jTituloOcorrencia.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe o titulo da Ocorrência.");
+        buscarAcessoUsuario(telaOcorrenciaOdontoManu);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoODON.equals("ADMINISTRADORES") || codigoUserODON == codUserAcessoODON && nomeTelaODON.equals(telaOcorrenciaOdontoManu) && codGravarODON == 1) {
+            if (jDataOcorrencia.getDate() == null) {
+                jDataOcorrencia.requestFocus();
+                jDataOcorrencia.setBackground(Color.red);
+                JOptionPane.showMessageDialog(rootPane, "Informe a data da Ocorrência.");
             } else {
-                objOcorr.setStatusLanc(statusEntrada);
-                objOcorr.setDataLanc(jDataOcorrencia.getDate());
-                objOcorr.setTitulo(jTituloOcorrencia.getText());
-                objOcorr.setTextoArea(jCorpoTextoOcorrencia.getText());
-                objOcorr.setUsuarioInsert(nameUser);
-                objOcorr.setDataInsert(jDataSistema.getText());
-                objOcorr.setHorarioInsert(jHoraSistema.getText());
-                if (acao == 1) {
-                    control.incluirOcorrenciaOdonto(objOcorr);
-                    buscarID();
-                    Salvar();
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                }
-                if (acao == 2) {
-                    objOcorr.setIdLanc(Integer.valueOf(jIdOcorrencia.getText()));
-                    control.alterarOcorrenciaOdonto(objOcorr);
-                    Salvar();
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                if (jTituloOcorrencia.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe o titulo da Ocorrência.");
+                } else {
+                    objOcorr.setStatusLanc(statusEntrada);
+                    objOcorr.setDataLanc(jDataOcorrencia.getDate());
+                    objOcorr.setTitulo(jTituloOcorrencia.getText());
+                    objOcorr.setTextoArea(jCorpoTextoOcorrencia.getText());
+                    objOcorr.setUsuarioInsert(nameUser);
+                    objOcorr.setDataInsert(jDataSistema.getText());
+                    objOcorr.setHorarioInsert(jHoraSistema.getText());
+                    if (acao == 1) {
+                        control.incluirOcorrenciaOdonto(objOcorr);
+                        buscarID();
+                        Salvar();
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    }
+                    if (acao == 2) {
+                        objOcorr.setIdLanc(Integer.valueOf(jIdOcorrencia.getText()));
+                        control.alterarOcorrenciaOdonto(objOcorr);
+                        Salvar();
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    }
                 }
             }
+            Salvar();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
-        Salvar();
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
@@ -995,6 +1031,44 @@ public class TelaOcorrenciaOdontologia extends javax.swing.JInternalFrame {
         jTabelaOcorrenciaPortaria.getTableHeader().setReorderingAllowed(false);
         jTabelaOcorrenciaPortaria.setAutoResizeMode(jTabelaOcorrenciaPortaria.AUTO_RESIZE_OFF);
         jTabelaOcorrenciaPortaria.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        conecta.desconecta();
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserODON = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserODON + "'");
+            conecta.rs.first();
+            codigoUserGroupODON = conecta.rs.getInt("IdUsuario");
+            codigoGrupoODON = conecta.rs.getInt("IdGrupo");
+            nomeGrupoODON = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserODON + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoODON = conecta.rs.getInt("IdUsuario");
+            codAbrirODON = conecta.rs.getInt("Abrir");
+            codIncluirODON = conecta.rs.getInt("Incluir");
+            codAlterarODON = conecta.rs.getInt("Alterar");
+            codExcluirODON = conecta.rs.getInt("Excluir");
+            codGravarODON = conecta.rs.getInt("Gravar");
+            codConsultarODON = conecta.rs.getInt("Consultar");
+            nomeTelaODON = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
         conecta.desconecta();
     }
 }
