@@ -380,22 +380,24 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="jBtAdmPessoal" linkSize="1" max="32767" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="jBtCoordenacaoSeguranca" linkSize="1" min="-2" pref="206" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jBtOdontologia2" linkSize="1" min="-2" pref="206" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jBtServicoSocial2" linkSize="1" max="32767" attributes="0"/>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  </Group>
                                   <Group type="102" alignment="1" attributes="0">
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       <Component id="jBtBasePavilhaoUm" min="-2" pref="206" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jBtBasePavilhaoDois" linkSize="1" min="-2" pref="206" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="jBtAdmPessoal" linkSize="1" max="32767" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jBtControleValores2" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jBtOdontologia2" linkSize="1" min="-2" pref="206" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jBtServicoSocial2" linkSize="1" max="32767" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      </Group>
                                   </Group>
                               </Group>
                           </Group>
@@ -408,17 +410,22 @@
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jBtControleValores2" linkSize="1" alignment="1" pref="205" max="32767" attributes="0"/>
-                                      <Component id="jBtConfiguracoes2" linkSize="1" alignment="0" max="32767" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jBtConfiguracoes2" linkSize="1" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jBtJuridico2" linkSize="1" alignment="0" pref="175" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jBtPortaria2" linkSize="1" max="32767" attributes="0"/>
+                                          <Component id="jBtPsicologia2" linkSize="1" max="32767" attributes="0"/>
+                                      </Group>
                                   </Group>
-                                  <Component id="jBtJuridico2" linkSize="1" alignment="0" pref="175" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jBtPortaria2" linkSize="1" max="32767" attributes="0"/>
-                                  <Component id="jBtPsicologia2" linkSize="1" max="32767" attributes="0"/>
-                                  <Component id="jBtFarmacia" linkSize="1" pref="206" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jBtFarmacia" linkSize="1" pref="206" max="32767" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jBtEducacaoFisica" max="32767" attributes="0"/>
+                                  </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -452,9 +459,11 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jBtAdmPessoal" linkSize="2" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jBtAdmPessoal" linkSize="2" alignment="3" max="32767" attributes="0"/>
+                              <Component id="jBtControleValores2" linkSize="2" alignment="3" min="-2" pref="57" max="-2" attributes="0"/>
+                          </Group>
                           <Component id="jBtDiretoria" max="32767" attributes="0"/>
-                          <Component id="jBtCoordenacaoSeguranca" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -479,8 +488,8 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jBtPedagogia2" linkSize="2" alignment="3" min="-2" pref="59" max="-2" attributes="0"/>
-                          <Component id="jBtControleValores2" linkSize="2" alignment="3" min="-2" pref="57" max="-2" attributes="0"/>
                           <Component id="jBtFarmacia" linkSize="2" alignment="3" max="32767" attributes="0"/>
+                          <Component id="jBtEducacaoFisica" alignment="3" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -807,7 +816,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtSindicanciaActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jBtCoordenacaoSeguranca">
+            <Component class="javax.swing.JButton" name="jBtEducacaoFisica">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="12" style="1"/>
@@ -815,12 +824,12 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/gestor/Imagens/magnatune-icone-7464-48.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="CS"/>
+                <Property name="text" type="java.lang.String" value="E.F."/>
                 <Property name="toolTipText" type="java.lang.String" value="Coordena&#xe7;&#xe3;o Seguran&#xe7;a"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtCoordenacaoSegurancaActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtEducacaoFisicaActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jBtBasePavilhaoDois">
