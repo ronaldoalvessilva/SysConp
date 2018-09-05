@@ -111,6 +111,17 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
     String codigoProcedimento;
     String dataOdonto;
     Date date = null;
+    // VARIVAEIS PARA SABER SE O INTERNO FOI REGISTRADO COM BIOMETRIA      
+    String dataReg = "";
+    Date dataRegistro = null;
+    String codigoInternoAtend = "";
+    String atendido = "Sim";
+    String opcao = "Não";
+    public static int codigoDepartamentoODON = 0;
+    String tipoAtendimentoAdm = "Admissão Juridico";
+    String tipoAtendimentoEvol = "Evolução Juridico";
+    //
+    String pHabilitaOdonto = "";
     // EM FASE DE TESTE INICIO (01/09/2017)
     String caminhoIcon1 = "C:\\Users\\ronaldo.silva7\\Documents\\ProjetosNetBeans\\GestorPrisional\\build\\classes\\gestor\\Imagens\\ModeloDente2.jpg";
     String caminhoIcon2 = "C:\\Users\\ronaldo.silva7\\Documents\\ProjetosNetBeans\\GestorPrisional\\build\\classes\\gestor\\Imagens\\ModeloDente10.jpg";
@@ -2918,9 +2929,16 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBtPesqInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqInternoActionPerformed
         // TODO add your handling code here:
-        TelaPesqInternoOdontologia objPesqIntOdont = new TelaPesqInternoOdontologia();
-        TelaModuloOdontologia.jPainelOdontologia.add(objPesqIntOdont);
-        objPesqIntOdont.show();
+        verificarRegistroBiometria();
+        if (pHabilitaOdonto.equals("Não")) {
+            TelaPesqInternoOdontologia objPesqIntOdont = new TelaPesqInternoOdontologia();
+            TelaModuloOdontologia.jPainelOdontologia.add(objPesqIntOdont);
+            objPesqIntOdont.show();
+        } else {
+            TelaPesqInternoAtendOdontologicoBio objPesqIntOdont = new TelaPesqInternoAtendOdontologicoBio();
+            TelaModuloOdontologia.jPainelOdontologia.add(objPesqIntOdont);
+            objPesqIntOdont.show();
+        }
     }//GEN-LAST:event_jBtPesqInternoActionPerformed
 
     private void jTabelaOdontologiaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaOdontologiaMouseClicked
@@ -5644,6 +5662,17 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
             codGravarODON = conecta.rs.getInt("Gravar");
             codConsultarODON = conecta.rs.getInt("Consultar");
             nomeTelaODON = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void verificarRegistroBiometria() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM PARAMETROSCRC");
+            conecta.rs.first();
+            pHabilitaOdonto = conecta.rs.getString("AdmissaoOdonto");
         } catch (Exception e) {
         }
         conecta.desconecta();
