@@ -5,8 +5,10 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleTelasSistema;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
+import gestor.Modelo.CadastroTelasSistema;
 import static gestor.Visao.TelaAgendaCompromissos.jAssunto;
 import static gestor.Visao.TelaAgendaCompromissos.jBtAlterarComp;
 import static gestor.Visao.TelaAgendaCompromissos.jBtCancelarComp;
@@ -71,17 +73,21 @@ import net.sf.jasperreports.view.JasperViewer;
 public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
-
+    CadastroTelasSistema objCadastroTela = new CadastroTelasSistema();
+    ControleTelasSistema controle = new ControleTelasSistema();
     //
     private TelaConsultaLocalInternoOdontologia objLocalIntOdonto = null;
     private TelaConsultaProntuarioInternoCrc objProntInt = null;
     private TelaMovHistoricoTecOdontologia objConHistMov = null;
     private TelaAtendimentoOdontologico objAtendOdon = null;
+//    private TelaAtendimentoOdontologicoTESTE objAtendOdon = null;
     private TelaRecadosOdontologia objRecOdontologia = null;
     private TelaOcorrenciaOdontologia objCorr = null;
     private TelaAgendaCompromissos objAgEventos = null;
     private TelaConsultaEstoqueOdontologia objConsEstoMedi = null;
     private TelaTiposProcedimentos objTipoProc = null;
+    private TelaRegistroInternosAtendimentoODONTO objRegiAtendBio = null;
+    private TelaRegistroInternosAtendimentoImpressoODON objRegAtendImp = null;
     //
     String dataLanc;
     int codUsuario;
@@ -99,6 +105,51 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
     String horaLembrete;
     String usuarioAgenda;
     String codigoAgendaComp;
+    //
+    public static int codigoUserODON = 0;
+    public static int codUserAcessoODON = 0;
+    public static int codigoUserGroupODON = 0;
+    public static int codAbrirODON = 0;
+    public static int codIncluirODON = 0;
+    public static int codAlterarODON = 0;
+    public static int codExcluirODON = 0;
+    public static int codGravarODON = 0;
+    public static int codConsultarODON = 0;
+    public static int codigoGrupoODON = 0;
+    public static String nomeGrupoODON = "";
+    public static String nomeTelaODON = "";
+    //
+    public static String nomeModuloODONTOLOGIA = "ODONTOLOGIA";
+    //
+    public static String telaTiposProcedimentoManu_ODON = "Cadastro:Tipos de Procedimento:Manutenção";
+    // ASSINATURA  INTERNO
+    public static String telaRegistroBiometriaODON = "Cadastro:Registro Interno para Atendimento - Juridico:Manutenção";
+    public static String telaRegistroBiometriaInciarLeitorODON = "Cadastro:Registro Interno para Atendimento - Juridico:Iniciar Leitor";
+    // REGISTRO DE INTERNO IMPRESSO
+    public static String telaRegistroAtenImpODON = "Cadastro:Registro de Atendimento de Internos Impresso - Juridico";
+    public static String telaRegistroLibAtenImpODON = "Cadastro:Registro de Atendimento de Internos Impresso - Juridico:Liberação";
+    //
+    public static String telaAtendimentoInternoManu_ODON = "Movimentação:Atendimento de Internos ODONTO:Manutenção";
+    public static String telaAtendimentoInternoEvolucao_ODON = "Movimentação:Evolução de Internos ODONTO:Internos";
+    public static String telaAtendimentoInternosPrescricao_ODON = "Movimentação:Prescrição de Medicamentos Internos ODONTO:Prescrição";
+    //
+    public static String telaOcorrenciaOdontoManu = "Movimentação:Ocorrências Diárias Odontologia:Manutenção";
+    //
+    String pNomeTPM_ODON = "";
+    // REGISTRO DE BIOMETRIA DO INTERNO - ASSINATURA DO INTERNO
+    String pNomeRB_ODON = "";
+    String pNomeRBIL_ODON = "";
+    // REGISTRO DE ATENDIMENTO BIOMETRIA DE LIBERAÇÃO DO COLABORADOR
+    String pNomeRAI_ODON = "";
+    String pNomeRLAI_ODON = "";
+    //
+    String pNomeAIM_ODON = "";
+    String pNomeAIE_ODON = "";
+    String pNomeAIP_ODON = "";
+    //
+    String pNomeOCR_ODON = "";
+    //
+    int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
 
     /**
      * Creates new form TelaOdontologia
@@ -106,6 +157,7 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
     public TelaModuloOdontologia() {
         initComponents();
         this.setSize(840, 640); // Tamanho da tela 
+        pesquisarTelasAcessos();
         threadMensagem(); // A cada 5 minutos verifica mensagem 
     }
 
@@ -124,20 +176,24 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
         jMenu1 = new javax.swing.JMenu();
         jTiposProcedimentos = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
+        jMenu5 = new javax.swing.JMenu();
+        RegistroAtendimentoBiometria = new javax.swing.JMenuItem();
+        RegistroAtendimentoImpresso = new javax.swing.JMenuItem();
+        jSeparator6 = new javax.swing.JPopupMenu.Separator();
         AgendaCompromissos = new javax.swing.JMenuItem();
         AgenaRecados = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        Ocorrencias = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        Sair = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         ConsultaInternos = new javax.swing.JMenuItem();
         LocailizacaoInternos = new javax.swing.JMenuItem();
+        HistoricoMovimentacao = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         ConsultaMedicamentos = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         AtendimentoOdontologico = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
-        HistoricoMovimentacao = new javax.swing.JMenuItem();
+        Ocorrencias = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         RelatorioConfere = new javax.swing.JMenu();
         RelatorioGeralConfere = new javax.swing.JMenuItem();
@@ -155,6 +211,8 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/SISCONP 2.gif"))); // NOI18N
 
+        jPainelOdontologia.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout jPainelOdontologiaLayout = new javax.swing.GroupLayout(jPainelOdontologia);
         jPainelOdontologia.setLayout(jPainelOdontologiaLayout);
         jPainelOdontologiaLayout.setHorizontalGroup(
@@ -167,7 +225,6 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 547, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 51, Short.MAX_VALUE))
         );
-        jPainelOdontologia.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jMenu1.setText("Cadastro");
 
@@ -179,6 +236,30 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
         });
         jMenu1.add(jTiposProcedimentos);
         jMenu1.add(jSeparator4);
+
+        jMenu5.setForeground(new java.awt.Color(0, 102, 0));
+        jMenu5.setText("Registro de Atendimento de Internos - (Biometria ou Impressão)");
+
+        RegistroAtendimentoBiometria.setForeground(new java.awt.Color(204, 0, 0));
+        RegistroAtendimentoBiometria.setText("Registrar  Atendimento por Biometria");
+        RegistroAtendimentoBiometria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegistroAtendimentoBiometriaActionPerformed(evt);
+            }
+        });
+        jMenu5.add(RegistroAtendimentoBiometria);
+
+        RegistroAtendimentoImpresso.setForeground(new java.awt.Color(0, 0, 204));
+        RegistroAtendimentoImpresso.setText("Registro Atendimento por Impressão");
+        RegistroAtendimentoImpresso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegistroAtendimentoImpressoActionPerformed(evt);
+            }
+        });
+        jMenu5.add(RegistroAtendimentoImpresso);
+
+        jMenu1.add(jMenu5);
+        jMenu1.add(jSeparator6);
 
         AgendaCompromissos.setText("Agenda de Compromissos Pessoal");
         AgendaCompromissos.addActionListener(new java.awt.event.ActionListener() {
@@ -197,21 +278,13 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
         jMenu1.add(AgenaRecados);
         jMenu1.add(jSeparator1);
 
-        Ocorrencias.setText("Livro de Ocorrências");
-        Ocorrencias.addActionListener(new java.awt.event.ActionListener() {
+        Sair.setText("Sair");
+        Sair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                OcorrenciasActionPerformed(evt);
+                SairActionPerformed(evt);
             }
         });
-        jMenu1.add(Ocorrencias);
-
-        jMenuItem1.setText("Sair");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(Sair);
 
         jMenuBar1.add(jMenu1);
 
@@ -232,6 +305,14 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
             }
         });
         jMenu4.add(LocailizacaoInternos);
+
+        HistoricoMovimentacao.setText("Histórico de Movimentação de Internos");
+        HistoricoMovimentacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HistoricoMovimentacaoActionPerformed(evt);
+            }
+        });
+        jMenu4.add(HistoricoMovimentacao);
         jMenu4.add(jSeparator2);
 
         ConsultaMedicamentos.setText("Consulta de Estoque de Medicamentos");
@@ -246,7 +327,7 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
 
         jMenu2.setText("Movimentação");
 
-        AtendimentoOdontologico.setText("Admissão/Evolução");
+        AtendimentoOdontologico.setText("Admissão/Evolução Odontologica");
         AtendimentoOdontologico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AtendimentoOdontologicoActionPerformed(evt);
@@ -255,13 +336,13 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
         jMenu2.add(AtendimentoOdontologico);
         jMenu2.add(jSeparator3);
 
-        HistoricoMovimentacao.setText("Histórico de Movimentação de Internos");
-        HistoricoMovimentacao.addActionListener(new java.awt.event.ActionListener() {
+        Ocorrencias.setText("Livro de Ocorrências");
+        Ocorrencias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                HistoricoMovimentacaoActionPerformed(evt);
+                OcorrenciasActionPerformed(evt);
             }
         });
-        jMenu2.add(HistoricoMovimentacao);
+        jMenu2.add(Ocorrencias);
 
         jMenuBar1.add(jMenu2);
 
@@ -313,10 +394,10 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void SairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SairActionPerformed
         // TODO add your handling code here:
         dispose();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_SairActionPerformed
 
     private void LocailizacaoInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LocailizacaoInternosActionPerformed
         // TODO add your handling code here:
@@ -407,31 +488,37 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
 
     private void AtendimentoOdontologicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtendimentoOdontologicoActionPerformed
         // TODO add your handling code here:
-        if (objAtendOdon == null || objAtendOdon.isClosed()) {
-            objAtendOdon = new TelaAtendimentoOdontologico();
+        buscarAcessoUsuario(telaAtendimentoInternoManu_ODON);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoODON.equals("ADMINISTRADORES") || codigoUserODON == codUserAcessoODON && nomeTelaODON.equals(telaAtendimentoInternoManu_ODON) && codAbrirODON == 1) {
+            if (objAtendOdon == null || objAtendOdon.isClosed()) {
+                objAtendOdon = new TelaAtendimentoOdontologico();
 //            objAtendOdon = new TelaAtendimentoOdontologicoTESTE(); // EM CONSTRUÇÃO, PARADO PARA IMPLANTAÇÃO SDR BAR (27/09/2017)
-            jPainelOdontologia.add(objAtendOdon);
-            objAtendOdon.setVisible(true);
-        } else {
-            if (objAtendOdon.isVisible()) {
-                if (objAtendOdon.isIcon()) { // Se esta minimizado
-                    try {
-                        objAtendOdon.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+                jPainelOdontologia.add(objAtendOdon);
+                objAtendOdon.setVisible(true);
+            } else {
+                if (objAtendOdon.isVisible()) {
+                    if (objAtendOdon.isIcon()) { // Se esta minimizado
+                        try {
+                            objAtendOdon.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objAtendOdon.toFront(); // traz para frente
+                        objAtendOdon.pack();//volta frame 
                     }
                 } else {
-                    objAtendOdon.toFront(); // traz para frente
-                    objAtendOdon.pack();//volta frame 
+                    objAtendOdon = new TelaAtendimentoOdontologico();
+//                objAtendOdon = new TelaAtendimentoOdontologicoTESTE();
+                    TelaModuloOdontologia.jPainelOdontologia.add(objAtendOdon);//adicona frame ao JDesktopPane  
+                    objAtendOdon.setVisible(true);
                 }
-            } else {
-                objAtendOdon = new TelaAtendimentoOdontologico();
-                TelaModuloOdontologia.jPainelOdontologia.add(objAtendOdon);//adicona frame ao JDesktopPane  
-                objAtendOdon.setVisible(true);
             }
-        }
-        try {
-            objAtendOdon.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objAtendOdon.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_AtendimentoOdontologicoActionPerformed
 
@@ -501,30 +588,35 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
 
     private void OcorrenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OcorrenciasActionPerformed
         // TODO add your handling code here:
-        if (objCorr == null || objCorr.isClosed()) {
-            objCorr = new TelaOcorrenciaOdontologia();
-            jPainelOdontologia.add(objCorr);
-            objCorr.setVisible(true);
-        } else {
-            if (objCorr.isVisible()) {
-                if (objCorr.isIcon()) { // Se esta minimizado
-                    try {
-                        objCorr.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaOcorrenciaOdontoManu);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoODON.equals("ADMINISTRADORES") || codigoUserODON == codUserAcessoODON && nomeTelaODON.equals(telaOcorrenciaOdontoManu) && codAbrirODON == 1) {
+            if (objCorr == null || objCorr.isClosed()) {
+                objCorr = new TelaOcorrenciaOdontologia();
+                jPainelOdontologia.add(objCorr);
+                objCorr.setVisible(true);
+            } else {
+                if (objCorr.isVisible()) {
+                    if (objCorr.isIcon()) { // Se esta minimizado
+                        try {
+                            objCorr.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objCorr.toFront(); // traz para frente
+                        objCorr.pack();//volta frame 
                     }
                 } else {
-                    objCorr.toFront(); // traz para frente
-                    objCorr.pack();//volta frame 
+                    objCorr = new TelaOcorrenciaOdontologia();
+                    TelaModuloOdontologia.jPainelOdontologia.add(objCorr);//adicona frame ao JDesktopPane  
+                    objCorr.setVisible(true);
                 }
-            } else {
-                objCorr = new TelaOcorrenciaOdontologia();
-                TelaModuloOdontologia.jPainelOdontologia.add(objCorr);//adicona frame ao JDesktopPane  
-                objCorr.setVisible(true);
             }
-        }
-        try {
-            objCorr.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objCorr.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_OcorrenciasActionPerformed
 
@@ -588,31 +680,36 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_ConsultaMedicamentosActionPerformed
 
     private void jTiposProcedimentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTiposProcedimentosActionPerformed
-        // TODO add your handling code here:
-        if (objTipoProc == null || objTipoProc.isClosed()) {
-            objTipoProc = new TelaTiposProcedimentos();
-            jPainelOdontologia.add(objTipoProc);
-            objTipoProc.setVisible(true);
-        } else {
-            if (objTipoProc.isVisible()) {
-                if (objTipoProc.isIcon()) { // Se esta minimizado
-                    try {
-                        objTipoProc.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        // TODO add your handling code here:telaTiposProcedimentoManu_ODON
+        buscarAcessoUsuario(telaTiposProcedimentoManu_ODON);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoODON.equals("ADMINISTRADORES") || codigoUserODON == codUserAcessoODON && nomeTelaODON.equals(telaTiposProcedimentoManu_ODON) && codAbrirODON == 1) {
+            if (objTipoProc == null || objTipoProc.isClosed()) {
+                objTipoProc = new TelaTiposProcedimentos();
+                jPainelOdontologia.add(objTipoProc);
+                objTipoProc.setVisible(true);
+            } else {
+                if (objTipoProc.isVisible()) {
+                    if (objTipoProc.isIcon()) { // Se esta minimizado
+                        try {
+                            objTipoProc.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objTipoProc.toFront(); // traz para frente
+                        objTipoProc.pack();//volta frame 
                     }
                 } else {
-                    objTipoProc.toFront(); // traz para frente
-                    objTipoProc.pack();//volta frame 
+                    objTipoProc = new TelaTiposProcedimentos();
+                    TelaModuloOdontologia.jPainelOdontologia.add(objTipoProc);//adicona frame ao JDesktopPane  
+                    objTipoProc.setVisible(true);
                 }
-            } else {
-                objTipoProc = new TelaTiposProcedimentos();
-                TelaModuloOdontologia.jPainelOdontologia.add(objTipoProc);//adicona frame ao JDesktopPane  
-                objTipoProc.setVisible(true);
             }
-        }
-        try {
-            objTipoProc.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objTipoProc.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jTiposProcedimentosActionPerformed
 
@@ -622,6 +719,74 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
         TelaModuloOdontologia.jPainelOdontologia.add(objRelEntradaInter);
         objRelEntradaInter.show();
     }//GEN-LAST:event_RelatorioEntradaInternosUnidadeActionPerformed
+
+    private void RegistroAtendimentoBiometriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistroAtendimentoBiometriaActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaRegistroBiometriaODON);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoODON.equals("ADMINISTRADORES") || codigoUserODON == codUserAcessoODON && nomeTelaODON.equals(telaRegistroBiometriaODON) && codAbrirODON == 1) {
+            if (objRegiAtendBio == null || objRegiAtendBio.isClosed()) {
+                objRegiAtendBio = new TelaRegistroInternosAtendimentoODONTO();
+                jPainelOdontologia.add(objRegiAtendBio);
+                objRegiAtendBio.setVisible(true);
+            } else {
+                if (objRegiAtendBio.isVisible()) {
+                    if (objRegiAtendBio.isIcon()) { // Se esta minimizado
+                        try {
+                            objRegiAtendBio.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objRegiAtendBio.toFront(); // traz para frente
+                        objRegiAtendBio.pack();//volta frame 
+                    }
+                } else {
+                    objRegiAtendBio = new TelaRegistroInternosAtendimentoODONTO();
+                    TelaModuloOdontologia.jPainelOdontologia.add(objRegiAtendBio);//adicona frame ao JDesktopPane  
+                    objRegiAtendBio.setVisible(true);
+                }
+            }
+            try {
+                objRegiAtendBio.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_RegistroAtendimentoBiometriaActionPerformed
+
+    private void RegistroAtendimentoImpressoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistroAtendimentoImpressoActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaRegistroAtenImpODON);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoODON.equals("ADMINISTRADORES") || codigoUserODON == codUserAcessoODON && nomeTelaODON.equals(telaRegistroAtenImpODON) && codAbrirODON == 1) {
+            if (objRegAtendImp == null || objRegAtendImp.isClosed()) {
+                objRegAtendImp = new TelaRegistroInternosAtendimentoImpressoODON();
+                jPainelOdontologia.add(objRegAtendImp);
+                objRegAtendImp.setVisible(true);
+            } else {
+                if (objRegAtendImp.isVisible()) {
+                    if (objRegAtendImp.isIcon()) { // Se esta minimizado
+                        try {
+                            objRegAtendImp.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objRegAtendImp.toFront(); // traz para frente
+                        objRegAtendImp.pack();//volta frame 
+                    }
+                } else {
+                    objRegAtendImp = new TelaRegistroInternosAtendimentoImpressoODON();
+                    TelaModuloOdontologia.jPainelOdontologia.add(objRegAtendImp);//adicona frame ao JDesktopPane  
+                    objRegAtendImp.setVisible(true);
+                }
+            }
+            try {
+                objRegAtendImp.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_RegistroAtendimentoImpressoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -634,21 +799,25 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem ListagemConfere;
     private javax.swing.JMenuItem LocailizacaoInternos;
     private javax.swing.JMenuItem Ocorrencias;
+    private javax.swing.JMenuItem RegistroAtendimentoBiometria;
+    private javax.swing.JMenuItem RegistroAtendimentoImpresso;
     private javax.swing.JMenu RelatorioConfere;
     private javax.swing.JMenuItem RelatorioEntradaInternosUnidade;
     private javax.swing.JMenuItem RelatorioGeralConfere;
+    private javax.swing.JMenuItem Sair;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     public static javax.swing.JDesktopPane jPainelOdontologia;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
+    private javax.swing.JPopupMenu.Separator jSeparator6;
     private javax.swing.JMenuItem jTiposProcedimentos;
     // End of variables declaration//GEN-END:variables
 
@@ -669,7 +838,8 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
         buscarUsuario(nameUser);
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM AGENDARECADOS WHERE IdUsuario='" + codUsuario + "'AND StatusAgenda='" + statusAgenda + "'");
+            conecta.executaSQL("SELECT * FROM AGENDARECADOS WHERE IdUsuario='" + codUsuario + "' "
+                    + "AND StatusAgenda='" + statusAgenda + "'");
             conecta.rs.first();
             if (codUsuario == conecta.rs.getInt("IdUsuario")) {
                 TelaRecadosCrc objRecados = new TelaRecadosCrc();
@@ -679,7 +849,8 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
                 preencherTabelaTodosRecados("SELECT * FROM AGENDARECADOS "
                         + "INNER JOIN USUARIOS "
                         + "ON AGENDARECADOS.IdUsuario=USUARIOS.IdUsuario "
-                        + "WHERE NomeUsuario='" + nameUser + "'AND StatusAgenda='" + statusAgenda + "'");
+                        + "WHERE NomeUsuario='" + nameUser + "' "
+                        + "AND StatusAgenda='" + statusAgenda + "'");
                 if (flag == 1) {
                     jBtNovo.setEnabled(true);
                     jBtAlterar.setEnabled(true);
@@ -693,7 +864,8 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
                         conecta.executaSQL("SELECT * FROM AGENDARECADOS "
                                 + "INNER JOIN USUARIOS "
                                 + "ON AGENDARECADOS.IdUsuario=USUARIOS.IdUsuario "
-                                + "WHERE NomeUsuario='" + nameUser + "'AND StatusAgenda='" + statusAgenda + "'");
+                                + "WHERE NomeUsuario='" + nameUser + "' "
+                                + "AND StatusAgenda='" + statusAgenda + "'");
                         conecta.rs.last();
                         jIDLanc.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
                         jDataLanc.setDate(conecta.rs.getDate("DataLanc"));
@@ -717,7 +889,8 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
     public void buscarUsuario(String nomeUser) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM USUARIOS WHERE NomeUsuario='" + nomeUser + "'");
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nomeUser + "'");
             conecta.rs.first();
             codUsuario = conecta.rs.getInt("IdUsuario");
             nomeUsuarioCompromisso = conecta.rs.getString("NomeUsuario");
@@ -765,7 +938,8 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
         buscarUsuario(nameUser);
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM AGENDA_COMPROMISSOS WHERE UsuarioAgenda='" + nameUser + "' "
+            conecta.executaSQL("SELECT * FROM AGENDA_COMPROMISSOS "
+                    + "WHERE UsuarioAgenda='" + nameUser + "' "
                     + "AND StatusAgenda='" + statusAgenda + "' "
                     + "AND DataLembrete='" + jDataSistema.getText() + "' "
                     + "AND HoraLembrete<='" + jHoraSistema.getText().toString() + "'");
@@ -795,7 +969,10 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
                     conecta.abrirConexao();
                     try {
                         conecta.executaSQL("SELECT * FROM AGENDA_COMPROMISSOS "
-                                + "WHERE AGENDA_COMPROMISSOS.UsuarioAgenda='" + nomeUsuarioCompromisso + "'AND AGENDA_COMPROMISSOS.StatusAgenda='" + statusAgenda + "'AND HoraLembrete<='" + jHoraSistema.getText().toString() + "'AND IdAgenda='" + codigoAgendaComp + "'");
+                                + "WHERE AGENDA_COMPROMISSOS.UsuarioAgenda='" + nomeUsuarioCompromisso + "' "
+                                + "AND AGENDA_COMPROMISSOS.StatusAgenda='" + statusAgenda + "' "
+                                + "AND HoraLembrete<='" + jHoraSistema.getText().toString() + "' "
+                                + "AND IdAgenda='" + codigoAgendaComp + "'");
                         conecta.rs.first();
                         jCodigoAgendaComp.setText(String.valueOf(conecta.rs.getInt("IdAgenda")));
                         jComboBoxStatusComp.setSelectedItem(conecta.rs.getString("StatusAgenda"));
@@ -873,5 +1050,180 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
         jTabelaAgendaEventos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
         jTabelaAgendaEventos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
         jTabelaAgendaEventos.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+    }
+
+    public void pesquisarTelasAcessos() {
+        conecta.abrirConexao();
+        // MENU CADASTRO
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaTiposProcedimentoManu_ODON + "'");
+            conecta.rs.first();
+            pNomeTPM_ODON = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRegistroBiometriaODON + "'");
+            conecta.rs.first();
+            pNomeRB_ODON = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRegistroBiometriaInciarLeitorODON + "'");
+            conecta.rs.first();
+            pNomeRBIL_ODON = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRegistroAtenImpODON + "'");
+            conecta.rs.first();
+            pNomeRAI_ODON = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRegistroLibAtenImpODON + "'");
+            conecta.rs.first();
+            pNomeRLAI_ODON = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        //MOVIMENTAÇÃO
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaAtendimentoInternoManu_ODON + "'");
+            conecta.rs.first();
+            pNomeAIM_ODON = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaAtendimentoInternoEvolucao_ODON + "'");
+            conecta.rs.first();
+            pNomeAIE_ODON = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaAtendimentoInternosPrescricao_ODON + "'");
+            conecta.rs.first();
+            pNomeAIP_ODON = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaOcorrenciaOdontoManu + "'");
+            conecta.rs.first();
+            pNomeOCR_ODON = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        // MENU CADASTRO
+        if (!pNomeTPM_ODON.equals(telaTiposProcedimentoManu_ODON) || pNomeTPM_ODON == null || pNomeTPM_ODON.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaTiposProcedimentoManu_ODON);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeRB_ODON.equals(telaRegistroBiometriaODON) || pNomeRB_ODON == null || pNomeRB_ODON.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRegistroBiometriaODON);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeRBIL_ODON.equals(telaRegistroBiometriaInciarLeitorODON) || pNomeRBIL_ODON == null || pNomeRBIL_ODON.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRegistroBiometriaInciarLeitorODON);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeRAI_ODON.equals(telaRegistroAtenImpODON) || pNomeRAI_ODON == null || pNomeRAI_ODON.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRegistroAtenImpODON);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeRLAI_ODON.equals(telaRegistroLibAtenImpODON) || pNomeRLAI_ODON == null || pNomeRLAI_ODON.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRegistroLibAtenImpODON);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //MOVIMENTAÇÃO
+        if (!pNomeAIM_ODON.equals(telaAtendimentoInternoManu_ODON) || pNomeAIM_ODON == null || pNomeAIM_ODON.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaAtendimentoInternoManu_ODON);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeAIE_ODON.equals(telaAtendimentoInternoEvolucao_ODON) || pNomeAIE_ODON == null || pNomeAIE_ODON.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaAtendimentoInternoEvolucao_ODON);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeAIP_ODON.equals(telaAtendimentoInternosPrescricao_ODON) || pNomeAIP_ODON == null || pNomeAIP_ODON.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaAtendimentoInternosPrescricao_ODON);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeOCR_ODON.equals(telaOcorrenciaOdontoManu) || pNomeOCR_ODON == null || pNomeOCR_ODON.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaOcorrenciaOdontoManu);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+    }
+
+    // MÉTODO PARA BUSCAR O CÓDIGO DO MÓDULO, CASO NÃO TENHA SIDO CADASTRADO.
+    public void buscarCodigoModulo() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM MODULOS "
+                    + "WHERE NomeModulo='" + nomeModuloODONTOLOGIA + "'");
+            conecta.rs.first();
+            pCodModulo = conecta.rs.getInt("IdModulo");
+        } catch (SQLException ex) {
+        }
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserODON = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserODON + "'");
+            conecta.rs.first();
+            codigoUserGroupODON = conecta.rs.getInt("IdUsuario");
+            codigoGrupoODON = conecta.rs.getInt("IdGrupo");
+            nomeGrupoODON = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserODON + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoODON = conecta.rs.getInt("IdUsuario");
+            codAbrirODON = conecta.rs.getInt("Abrir");
+            codIncluirODON = conecta.rs.getInt("Incluir");
+            codAlterarODON = conecta.rs.getInt("Alterar");
+            codExcluirODON = conecta.rs.getInt("Excluir");
+            codGravarODON = conecta.rs.getInt("Gravar");
+            codConsultarODON = conecta.rs.getInt("Consultar");
+            nomeTelaODON = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }
