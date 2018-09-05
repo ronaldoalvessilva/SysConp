@@ -1108,8 +1108,8 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
         if (jIdRegistro.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "É necessário selecionar primeiro um registro.");
         } else {
-            TelaAuditoriaRegistroAtendImpresso objAudLibera = new TelaAuditoriaRegistroAtendImpresso();
-            TelaModuloEnfermaria.jPainelMedico.add(objAudLibera);
+            TelaAuditoriaRegistroAtendImpressoODON objAudLibera = new TelaAuditoriaRegistroAtendImpressoODON();
+            TelaModuloOdontologia.jPainelOdontologia.add(objAudLibera);
             objAudLibera.show();
         }
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
@@ -1119,8 +1119,8 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
         if (jIdRegistro.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "É necessário selecionar primeiro um registro.");
         } else {
-            TelaLiberadorRegistroAtendImpresso objLibera = new TelaLiberadorRegistroAtendImpresso();
-            TelaModuloEnfermaria.jPainelMedico.add(objLibera);
+            TelaLiberadorRegistroAtendImpresso_ODON objLibera = new TelaLiberadorRegistroAtendImpresso_ODON();
+            TelaModuloOdontologia.jPainelOdontologia.add(objLibera);
             objLibera.show();
         }
     }//GEN-LAST:event_jBtLiberadorActionPerformed
