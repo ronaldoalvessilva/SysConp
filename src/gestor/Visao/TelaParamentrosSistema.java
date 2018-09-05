@@ -213,7 +213,11 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jLabel58 = new javax.swing.JLabel();
         jComboBoxJuridico = new javax.swing.JComboBox<>();
         jPanel37 = new javax.swing.JPanel();
+        jComboBoxTO = new javax.swing.JComboBox<>();
+        jLabel60 = new javax.swing.JLabel();
         jPanel38 = new javax.swing.JPanel();
+        jLabel59 = new javax.swing.JLabel();
+        jComboBoxODON = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jBtAlterar = new javax.swing.JButton();
         jBtSalvar = new javax.swing.JButton();
@@ -1671,7 +1675,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         );
         jPanel34Layout.setVerticalGroup(
             jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 60, Short.MAX_VALUE)
+            .addGap(0, 52, Short.MAX_VALUE)
         );
 
         jPanel35.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Atendimento Psicologia", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(153, 0, 102))); // NOI18N
@@ -1756,28 +1760,64 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
 
         jPanel37.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Terapia Ocupacional", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(204, 0, 0))); // NOI18N
 
+        jComboBoxTO.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxTO.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Não", "Sim" }));
+        jComboBoxTO.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxTO.setEnabled(false);
+
+        jLabel60.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel60.setText("Biometria na Admissão:");
+
         javax.swing.GroupLayout jPanel37Layout = new javax.swing.GroupLayout(jPanel37);
         jPanel37.setLayout(jPanel37Layout);
         jPanel37Layout.setHorizontalGroup(
             jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel37Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel60)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBoxTO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel37Layout.setVerticalGroup(
             jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel37Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jComboBoxTO, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel60))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         jPanel38.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Controle Biometria na Odontolgia", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 204))); // NOI18N
+
+        jLabel59.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel59.setText("Biometria na Admissão:");
+
+        jComboBoxODON.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxODON.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Não", "Sim" }));
+        jComboBoxODON.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxODON.setEnabled(false);
 
         javax.swing.GroupLayout jPanel38Layout = new javax.swing.GroupLayout(jPanel38);
         jPanel38.setLayout(jPanel38Layout);
         jPanel38Layout.setHorizontalGroup(
             jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel38Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel59)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBoxODON, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel38Layout.setVerticalGroup(
             jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 77, Short.MAX_VALUE)
+            .addGroup(jPanel38Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel59)
+                    .addComponent(jComboBoxODON, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel26Layout = new javax.swing.GroupLayout(jPanel26);
@@ -2005,9 +2045,11 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         objParCrc.setNomeColaboradorSEG(jNomeColaboradorSEG.getText());
         objParCrc.setpHabilitaAtendSS((String) jComboBoxAtendSocial.getSelectedItem());
         objParCrc.setpHabilitaTele((String) jComboBoxControleTel.getSelectedItem());
-        objParCrc.setAtendimentoBioPSI((String)jComboBoxSSAdm.getSelectedItem());
-        objParCrc.setAvaliacaoBioPSI((String)jComboBoxSSAva.getSelectedItem());
-        objParCrc.setAdimissaoJuridico((String)jComboBoxJuridico.getSelectedItem());
+        objParCrc.setAtendimentoBioPSI((String) jComboBoxSSAdm.getSelectedItem());
+        objParCrc.setAvaliacaoBioPSI((String) jComboBoxSSAva.getSelectedItem());
+        objParCrc.setAdimissaoJuridico((String) jComboBoxJuridico.getSelectedItem());
+        objParCrc.setAdmissaoTO((String) jComboBoxTO.getSelectedItem());
+        objParCrc.setAdmissaoOdonto((String) jComboBoxODON.getSelectedItem());        
         if (jNomeUsuarioParametros.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do Usuario Autorizado");
         } else {
@@ -2096,6 +2138,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox jComboBoxLocacao;
     private javax.swing.JComboBox jComboBoxLocacaoBpa;
     private javax.swing.JComboBox jComboBoxMedicos;
+    private javax.swing.JComboBox<String> jComboBoxODON;
     private javax.swing.JComboBox<String> jComboBoxPesquisaColaPRI;
     private javax.swing.JComboBox<String> jComboBoxPesquisaColaSEG;
     private javax.swing.JComboBox jComboBoxPopulacao;
@@ -2104,6 +2147,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox jComboBoxRegRetornoPortaria;
     private javax.swing.JComboBox<String> jComboBoxSSAdm;
     private javax.swing.JComboBox<String> jComboBoxSSAva;
+    private javax.swing.JComboBox<String> jComboBoxTO;
     private javax.swing.JComboBox jComboBoxTecnicos;
     private javax.swing.JComboBox jComboBoxTransferencia;
     private javax.swing.JComboBox jComboBoxTransferenciaBpa;
@@ -2174,7 +2218,9 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel56;
     private javax.swing.JLabel jLabel57;
     private javax.swing.JLabel jLabel58;
+    private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel60;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -2342,6 +2388,8 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
             jComboBoxSSAdm.setSelectedItem(conecta.rs.getString("AtendimentoBioPSI"));
             jComboBoxSSAva.setSelectedItem(conecta.rs.getString("AvaliacaoBioPSI"));
             jComboBoxJuridico.setSelectedItem(conecta.rs.getString("AdmissaoJuridico"));
+            jComboBoxTO.setSelectedItem(conecta.rs.getString("AdmissaoTO"));
+            jComboBoxODON.setSelectedItem(conecta.rs.getString("AdmissaoOdonto"));
         } catch (SQLException ex) {
         }
         conecta.desconecta();
@@ -2422,6 +2470,8 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jComboBoxSSAva.setEnabled(true);
         //
         jComboBoxJuridico.setEnabled(true);
+        jComboBoxTO.setEnabled(true);
+        jComboBoxODON.setEnabled(true);
         //
         jBtAlterar.setEnabled(!true);
         jBtSalvar.setEnabled(true);
@@ -2503,6 +2553,8 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jComboBoxSSAva.setEnabled(!true);
         //
         jComboBoxJuridico.setEnabled(!true);
+        jComboBoxTO.setEnabled(!true);
+        jComboBoxODON.setEnabled(!true);
         //
         jBtAlterar.setEnabled(true);
         jBtSalvar.setEnabled(!true);
@@ -2584,6 +2636,8 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jComboBoxSSAva.setEnabled(!true);
         //
         jComboBoxJuridico.setEnabled(!true);
+        jComboBoxTO.setEnabled(!true);
+        jComboBoxODON.setEnabled(!true);
         //
         jBtAlterar.setEnabled(true);
         jBtSalvar.setEnabled(!true);
