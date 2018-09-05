@@ -1724,6 +1724,13 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
         }
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRegistroBiometriaJURI + "'");
+            conecta.rs.first();
+            pNomeRB = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaRegistroBiometriaInciarLeitorJURI + "'");
             conecta.rs.first();
             pNomeRBIL = conecta.rs.getString("NomeTela");
