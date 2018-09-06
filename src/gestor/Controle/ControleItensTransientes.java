@@ -202,7 +202,7 @@ public class ControleItensTransientes {
                 pDigi.setBiometriaDedo2(conecta.rs.getBytes("BiometriaDedo2"));
                 pDigi.setBiometriaDedo3(conecta.rs.getBytes("BiometriaDedo3"));
                 pDigi.setBiometriaDedo4(conecta.rs.getBytes("BiometriaDedo4"));
-                pDigi.setImagemFrenteOF(conecta.rs.getBytes("ImagemFrenteOF"));
+                pDigi.setImagemFrenteOF(conecta.rs.getBytes("ImagemFrenteCO"));
                 listaColaboradores.add(pDigi);
                 qtdColaboradores++;
             }
