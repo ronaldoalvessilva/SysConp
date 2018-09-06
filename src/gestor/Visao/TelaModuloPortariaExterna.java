@@ -133,39 +133,39 @@ public class TelaModuloPortariaExterna extends javax.swing.JInternalFrame {
     // TELAS DE ACESSOS AO MÓDULO CRC
     public static String nomeModuloP1E = "PORTARIA EXTERNA";
     // MENU CADASTRO    
-    public static String telaCadastroVeiculosManuP1E = "Cadastro:Veiculos:Manutenção";
-    public static String telaCadastroAdvogadosManuP1E = "Cadastro:Advogados:Manutenção";
-    public static String telaCadastroVisitasDiversasManuP1E = "Cadastro:Advogados:Manutenção";
-    public static String telaCadastroOficialManuP1E = "Cadastro:Oficial Justiça:Manutenção";
+    public static String telaCadastroVeiculosManuP1E = "Cadastro:Veiculos - P1E:Manutenção";
+    public static String telaCadastroAdvogadosManuP1E = "Cadastro:Advogados - P1E:Manutenção";
+    public static String telaCadastroVisitasDiversasManuP1E = "Cadastro:Advogados - P1E:Manutenção";
+    public static String telaCadastroOficialManuP1E = "Cadastro:Oficial Justiça - P1E:Manutenção";
     // MOVIMENTAÇÃO
-    public static String telaEntradaSaidaAdDEPManuP1E = "Movimentação:Entrada e Saida de Advogados Departamento:Manutenção";
-    public static String telaEntradaSaidaAdDEPADVP1E = "Movimentação:Entrada e Saida de Advogados Departamento:Advogados";
+    public static String telaEntradaSaidaAdDEPManuP1E = "Movimentação:Entrada e Saida de Advogados Departamento - P1E:Manutenção";
+    public static String telaEntradaSaidaAdDEPADVP1E = "Movimentação:Entrada e Saida de Advogados Departamento - P1E:Advogados";
     //
-    public static String telaEntradaSaidaOJManuP1E = "Movimentação:Entrada e Saida de Oficial de Justiça Departamento:Manutenção";
-    public static String telaEntradaSaidaOJDepP1E = "Movimentação:Entrada e Saida de Oficial de Justiça Departamento:Oficial de Justiça";
+    public static String telaEntradaSaidaOJManuP1E = "Movimentação:Entrada e Saida de Oficial de Justiça Departamento - P1E:Manutenção";
+    public static String telaEntradaSaidaOJDepP1E = "Movimentação:Entrada e Saida de Oficial de Justiça Departamento - P1E:Oficial de Justiça";
     //
-    public static String telaEntradaSaidaVDManuP1E = "Movimentação:Entrada e Saida de Visitas Diversas:Manutenção";
-    public static String telaEntradaSaidaVDVDP1E = "Movimentação:Entrada e Saida de Visitas Diversas:Visitas Diversas";
+    public static String telaEntradaSaidaVDManuP1E = "Movimentação:Entrada e Saida de Visitas Diversas - P1E:Manutenção";
+    public static String telaEntradaSaidaVDVDP1E = "Movimentação:Entrada e Saida de Visitas Diversas - P1E:Visitas Diversas";
     //
-    public static String telaEntradaSaidaCOLManuP1E = "Movimentação:Entrada e Saida de Colaborador:Manutenção";
-    public static String telaEntradaSaidaCOLcolP1E = "Movimentação:Entrada e Saida de Colaborador:Colaborador";
-    public static String telaEntradaSaidaCOLBioP1E = "Movimentação:Entrada e Saida de Colaborador:Biometria";
+    public static String telaEntradaSaidaCOLManuP1E = "Movimentação:Entrada e Saida de Colaborador - P1E:Manutenção";
+    public static String telaEntradaSaidaCOLcolP1E = "Movimentação:Entrada e Saida de Colaborador - P1E:Colaborador";
+    public static String telaEntradaSaidaCOLBioP1E = "Movimentação:Entrada e Saida de Colaborador - P1E:Biometria";
     //
-    public static String telaEntradaSaidaVUManuP1E = "Movimentação:Entrada e Saida Veiculos Unidade:Manutenção";
-    public static String telaEntradaSaidaVUVP1E = "Movimentação:Entrada e Saida Veiculos Unidade:Veiculos";
+    public static String telaEntradaSaidaVUManuP1E = "Movimentação:Entrada e Saida Veiculos Unidade - P1E:Manutenção";
+    public static String telaEntradaSaidaVUVP1E = "Movimentação:Entrada e Saida Veiculos Unidade - P1E:Veiculos";
     //
-    public static String telaEntradaSaidaESVCManuP1E = "Movimentação:Entrada e Saida Veiculos Cargas:Manutenção";
-    public static String telaEntradaSaidaESVCVP1E = "Movimentação:Entrada e Saida Veiculos Cargas:Veiculos";
+    public static String telaEntradaSaidaESVCManuP1E = "Movimentação:Entrada e Saida Veiculos Cargas - P1E:Manutenção";
+    public static String telaEntradaSaidaESVCVP1E = "Movimentação:Entrada e Saida Veiculos Cargas - P1E:Veiculos";
     //
-    public static String telaEntradaSaidaESVTManuP1E = "Movimentação:Entrada e Saida de Veiculos de Terceiro:Manutenção";
-    public static String telaEntradaSaidaESVTVP1E = "Movimentação:Entrada e Saida de Veiculos de Terceiro:Veiculos e Visitantes";
+    public static String telaEntradaSaidaESVTManuP1E = "Movimentação:Entrada e Saida de Veiculos de Terceiro - P1E:Manutenção";
+    public static String telaEntradaSaidaESVTVP1E = "Movimentação:Entrada e Saida de Veiculos de Terceiro - P1E:Veiculos e Visitantes";
     //
-    public static String telaOcorrenciaManuP1E = "Movimentação:Ocorrências Diárias:Manutenção";
+    public static String telaOcorrenciaManuP1E = "Movimentação:Ocorrências Diárias - P1E:Manutenção";
     //
-    public static String telaRegistroChegadaPortExtManuP1E = "Movimentação:Registro Chegada Visita Portaria Externa:Manutenção";
-    public static String telaRegistroChegadaPortExtPesqP1E = "Movimentação:Registro Chegada Visita Portaria Externa:Pesquisar Visita";
-    public static String telaRegistroChegadaPortExtBioP1E = "Movimentação:Registro Chegada Visita Portaria Externa:Biometria";
-    public static String telaRegistroChegadaPortExtRelP1E = "Movimentação:Registro Chegada Visita Portaria Externa:Relatório";
+    public static String telaRegistroChegadaPortExtManuP1E = "Movimentação:Registro Chegada Visita Portaria Externa - P1E:Manutenção";
+    public static String telaRegistroChegadaPortExtPesqP1E = "Movimentação:Registro Chegada Visita Portaria Externa - P1E:Pesquisar Visita";
+    public static String telaRegistroChegadaPortExtBioP1E = "Movimentação:Registro Chegada Visita Portaria Externa - P1E:Biometria";
+    public static String telaRegistroChegadaPortExtRelP1E = "Movimentação:Registro Chegada Visita Portaria Externa - P1E:Relatório";
     //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
