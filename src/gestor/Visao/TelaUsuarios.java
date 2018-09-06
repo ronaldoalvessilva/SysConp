@@ -219,9 +219,11 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         jNomeUsuarioAcesso = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
-        jComboBoxModuloAcesso = new javax.swing.JComboBox();
         jComboBoxTelaAcesso = new javax.swing.JComboBox();
         jBtPesquisarModulo = new javax.swing.JButton();
+        jLabel23 = new javax.swing.JLabel();
+        jIdModulo = new javax.swing.JTextField();
+        jComboBoxModuloAcesso = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTabelaAcessos = new javax.swing.JTable();
         jPanel16 = new javax.swing.JPanel();
@@ -1094,7 +1096,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
                             .addComponent(jDescricaoModulo, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel26)))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1244,7 +1246,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         jPanel12Layout.setVerticalGroup(
@@ -1277,16 +1279,6 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         jLabel29.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel29.setText("Módulo");
 
-        jComboBoxModuloAcesso.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxModuloAcesso.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione..." }));
-        jComboBoxModuloAcesso.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jComboBoxModuloAcesso.setEnabled(false);
-        jComboBoxModuloAcesso.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jComboBoxModuloAcessoMouseEntered(evt);
-            }
-        });
-
         jComboBoxTelaAcesso.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione..." }));
         jComboBoxTelaAcesso.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTelaAcesso.setEnabled(false);
@@ -1305,6 +1297,20 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel23.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel23.setText("Código");
+
+        jIdModulo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jIdModulo.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jIdModulo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jIdModulo.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jIdModulo.setEnabled(false);
+
+        jComboBoxModuloAcesso.setEditable(false);
+        jComboBoxModuloAcesso.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxModuloAcesso.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxModuloAcesso.setEnabled(false);
+
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
         jPanel14Layout.setHorizontalGroup(
@@ -1317,18 +1323,24 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel14Layout.createSequentialGroup()
                         .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel14Layout.createSequentialGroup()
-                                .addComponent(jLabel29)
-                                .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jNomeUsuarioAcesso)
                             .addComponent(jComboBoxTelaAcesso, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel14Layout.createSequentialGroup()
                                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel14Layout.createSequentialGroup()
                                         .addComponent(jLabel22)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(jComboBoxModuloAcesso, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
+                                        .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel14Layout.createSequentialGroup()
+                                                .addComponent(jLabel23)
+                                                .addGap(0, 0, Short.MAX_VALUE))
+                                            .addComponent(jIdModulo))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel29)
+                                            .addComponent(jComboBoxModuloAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(8, 8, 8)))
                                 .addComponent(jBtPesquisarModulo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())))
         );
@@ -1340,11 +1352,14 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jNomeUsuarioAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel29)
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel29)
+                    .addComponent(jLabel23))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jComboBoxModuloAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtPesquisarModulo, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jBtPesquisarModulo, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jIdModulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxModuloAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel22)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2153,7 +2168,6 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
             NovoAcesso();
-//            pesquisarModuloUsuarios();
         }
     }//GEN-LAST:event_jBtNovoAcessoActionPerformed
 
@@ -2192,7 +2206,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
     private void jBtSalvarAcessoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarAcessoActionPerformed
         // TODO add your handling code here:
         verificarTelaAcesso();
-        if (jComboBoxModuloAcesso.getSelectedItem() == null || jComboBoxModuloAcesso.getSelectedItem().equals("Selecione...")) {
+        if (jComboBoxModuloAcesso.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o módulo de acesso.");
         } else if (jComboBoxTelaAcesso.getSelectedItem().equals("Selecione...") || jComboBoxTelaAcesso.getSelectedItem() == null) {
             JOptionPane.showMessageDialog(rootPane, "Informe a tela de acesso do usuário...");
@@ -2239,7 +2253,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
             }
             objTelaAcesso.setIdUsuario(Integer.valueOf(IdUsuario.getText()));
             objTelaAcesso.setNomeUsuario(jNomeUsuarioCompleto.getText());
-            objTelaAcesso.setNomeModulo((String) jComboBoxModuloAcesso.getSelectedItem());
+            objTelaAcesso.setNomeModulo(jComboBoxModuloAcesso.getText());
             objTelaAcesso.setNomeTela((String) jComboBoxTelaAcesso.getSelectedItem());
             objTelaAcesso.setIncluir(pIncluir);
             objTelaAcesso.setAbrir(pAbrir);
@@ -2300,8 +2314,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         jBtAlterarAcesso.setEnabled(true);
         jBtExcluirAcesso.setEnabled(true);
         jBtCancelarAcesso.setEnabled(true);
-        //
-        jComboBoxModuloAcesso.removeAllItems();
+        //        
         jComboBoxTelaAcesso.removeAllItems();
         //
         jComboBoxAbrir.removeItem(evt);
@@ -2323,7 +2336,8 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
             conecta.rs.first();
             codigoTelaAcesso = conecta.rs.getInt("IdTela");
             jNomeUsuarioAcesso.setText(jNomeUsuarioCompleto.getText());
-            jComboBoxModuloAcesso.addItem(conecta.rs.getString("NomeModulo"));
+            jIdModulo.setText(conecta.rs.getString("IdModulo"));
+            jComboBoxModuloAcesso.setText(conecta.rs.getString("NomeModulo"));
             jComboBoxTelaAcesso.addItem(conecta.rs.getString("NomeTela"));
             pAbrir = conecta.rs.getInt("Abrir");
             if (pAbrir == 0) {
@@ -2387,14 +2401,10 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jBtCopiarPerfilActionPerformed
 
-    private void jComboBoxModuloAcessoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxModuloAcessoMouseEntered
-        // TODO add your handling code here:
-        pesquisarModuloUsuarios();
-        pesquisarModulo();
-    }//GEN-LAST:event_jComboBoxModuloAcessoMouseEntered
-
     private void jComboBoxTelaAcessoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxTelaAcessoMouseEntered
         // TODO add your handling code here:
+//         pesquisarModuloUsuarios();
+//        pesquisarModulo();
         pesquisarTelaAcesso();
     }//GEN-LAST:event_jComboBoxTelaAcessoMouseEntered
 
@@ -2442,13 +2452,14 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox jComboBoxGravar;
     private javax.swing.JComboBox jComboBoxGrupoModulo;
     private javax.swing.JComboBox jComboBoxIncluir;
-    public static javax.swing.JComboBox jComboBoxModuloAcesso;
+    public static javax.swing.JTextField jComboBoxModuloAcesso;
     private javax.swing.JComboBox jComboBoxPermissaoModulo;
     private javax.swing.JComboBox jComboBoxStatus;
     public static javax.swing.JComboBox jComboBoxTelaAcesso;
     private com.toedter.calendar.JDateChooser jDataCadastro;
     public static javax.swing.JTextField jDescricaoGrupo;
     public static javax.swing.JTextField jDescricaoModulo;
+    public static javax.swing.JTextField jIdModulo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2464,6 +2475,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
@@ -2536,6 +2548,10 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         jlogin.setBackground(Color.white);
         jSenha.setBackground(Color.white);
         jSenhaConf.setBackground(Color.white);
+        //
+        jNomeUsuarioAcesso.setBackground(Color.white);
+        jIdModulo.setBackground(Color.white);
+        jComboBoxModuloAcesso.setBackground(Color.white);
     }
 
     public void Novo() {
@@ -3137,15 +3153,14 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         conecta.desconecta();
     }
 
-    public void pesquisarModulo() {
-        jComboBoxModuloAcesso.removeAllItems();
+    public void pesquisarModulo() {        
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM MODULOS "
                     + "WHERE IdModulo='" + codigoModulo + "'");
             conecta.rs.first();
             do {
-                jComboBoxModuloAcesso.addItem(conecta.rs.getString("NomeModulo"));
+                jComboBoxModuloAcesso.setText(conecta.rs.getString("NomeModulo"));
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }
@@ -3157,7 +3172,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
-                    + "WHERE IdModulo='" + codigoModulo + "' ");
+                    + "WHERE IdModulo='" + jIdModulo.getText() + "'");
             conecta.rs.first();
             do {
                 jComboBoxTelaAcesso.addItem(conecta.rs.getString("NomeTela"));
