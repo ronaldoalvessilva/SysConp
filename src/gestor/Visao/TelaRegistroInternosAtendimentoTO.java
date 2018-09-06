@@ -370,7 +370,7 @@ public class TelaRegistroInternosAtendimentoTO extends javax.swing.JInternalFram
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE))
+                            .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, 442, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -449,7 +449,7 @@ public class TelaRegistroInternosAtendimentoTO extends javax.swing.JInternalFram
         jLabel9.setText("Tipo de Atendimento");
 
         jComboBoxTipoMovimentacao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxTipoMovimentacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Admissão Médica", "Adimissão Psiquiatrica", "Admissão Enfermagem", "Atendim. Téc. Enfermagem", "Evolução Médica", "Evolução Psiquiatrica", "Evolução Enfermagem", "Evolução Téc. Enfermagem", " ", " ", " " }));
+        jComboBoxTipoMovimentacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Admissão Terpaia", "Evolução Terapia", "Triagem Terapia", " ", " ", " " }));
         jComboBoxTipoMovimentacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTipoMovimentacao.setEnabled(false);
 
