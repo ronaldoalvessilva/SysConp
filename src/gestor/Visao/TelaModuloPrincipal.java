@@ -578,10 +578,9 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         });
 
         jBtEducacaoFisica.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jBtEducacaoFisica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/magnatune-icone-7464-48.png"))); // NOI18N
+        jBtEducacaoFisica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/icone_EF48.jpg"))); // NOI18N
         jBtEducacaoFisica.setText("E.F.");
         jBtEducacaoFisica.setToolTipText("Coordenação Segurança");
-        jBtEducacaoFisica.setEnabled(false);
         jBtEducacaoFisica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtEducacaoFisicaActionPerformed(evt);
@@ -617,16 +616,15 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                                 .addComponent(jBtBasePavilhaoUm, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jBtBasePavilhaoDois, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel7Layout.createSequentialGroup()
-                                    .addComponent(jBtAdmPessoal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jBtControleValores2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(jPanel7Layout.createSequentialGroup()
-                                    .addComponent(jBtOdontologia2, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jBtServicoSocial2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGap(0, 0, Short.MAX_VALUE)))))
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addComponent(jBtAdmPessoal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jBtControleValores2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addComponent(jBtOdontologia2, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jBtServicoSocial2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jBtAlmoxarifado2, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -644,9 +642,9 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                                     .addComponent(jBtPortaria2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jBtPsicologia2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addComponent(jBtFarmacia, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
+                                .addComponent(jBtFarmacia, javax.swing.GroupLayout.PREFERRED_SIZE, 105, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtEducacaoFisica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(jBtEducacaoFisica, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jBtPortariaExterna, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
@@ -661,7 +659,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel7Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAdmPessoal, jBtAlmoxarifado2, jBtBasePavilhaoDois, jBtCRC2, jBtConfiguracoes2, jBtDiretoria, jBtFarmacia, jBtJuridico2, jBtNutricao, jBtOdontologia2, jBtPedagogia2, jBtPortaria2, jBtPortariaExterna, jBtPsicologia2, jBtSeguranca2, jBtServicoMedico2, jBtServicoSocial2, jBtTerapeuta2, jBtTriagem});
+        jPanel7Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAdmPessoal, jBtAlmoxarifado2, jBtBasePavilhaoDois, jBtCRC2, jBtConfiguracoes2, jBtDiretoria, jBtEducacaoFisica, jBtFarmacia, jBtJuridico2, jBtNutricao, jBtOdontologia2, jBtPedagogia2, jBtPortaria2, jBtPortariaExterna, jBtPsicologia2, jBtSeguranca2, jBtServicoMedico2, jBtServicoSocial2, jBtTerapeuta2, jBtTriagem});
 
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -698,7 +696,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtPedagogia2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtFarmacia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jBtEducacaoFisica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jBtEducacaoFisica))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtPortariaExterna, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -712,7 +710,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel7Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAdmPessoal, jBtAlmoxarifado2, jBtBasePavilhaoUm, jBtCRC2, jBtConfiguracoes2, jBtControleValores2, jBtFarmacia, jBtJuridico2, jBtNutricao, jBtOdontologia2, jBtPedagogia2, jBtPortaria2, jBtPortariaExterna, jBtPsicologia2, jBtSeguranca2, jBtServicoMedico2, jBtServicoSocial2, jBtTerapeuta2, jBtTriagem});
+        jPanel7Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAdmPessoal, jBtAlmoxarifado2, jBtBasePavilhaoUm, jBtCRC2, jBtConfiguracoes2, jBtControleValores2, jBtEducacaoFisica, jBtFarmacia, jBtJuridico2, jBtNutricao, jBtOdontologia2, jBtPedagogia2, jBtPortaria2, jBtPortariaExterna, jBtPsicologia2, jBtSeguranca2, jBtServicoMedico2, jBtServicoSocial2, jBtTerapeuta2, jBtTriagem});
 
         jPanielPrincipal.setLayer(jPanel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jPanielPrincipal.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
