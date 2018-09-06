@@ -9,6 +9,8 @@ import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
 import static gestor.Visao.TelaUsuarios.jComboBoxModuloAcesso;
 import static gestor.Visao.TelaUsuarios.jComboBoxTelaAcesso;
+import static gestor.Visao.TelaUsuarios.jIdModulo;
+import static gestor.Visao.TelaUsuarios.IdUsuario;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -82,7 +84,7 @@ public class TelaPesquisaModulos extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 121, Short.MAX_VALUE)
                         .addComponent(jCheckBoxTodos))
                     .addComponent(jPesqDescricaoModulo))
                 .addContainerGap())
@@ -102,10 +104,10 @@ public class TelaPesquisaModulos extends javax.swing.JDialog {
         jTabelaModulos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaModulos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+                {null, null}
             },
             new String [] {
-                "Código", "Descrição Módulo", "Permissão"
+                "Código", "Descrição Módulo"
             }
         ));
         jTabelaModulos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -117,10 +119,8 @@ public class TelaPesquisaModulos extends javax.swing.JDialog {
         if (jTabelaModulos.getColumnModel().getColumnCount() > 0) {
             jTabelaModulos.getColumnModel().getColumn(0).setMinWidth(50);
             jTabelaModulos.getColumnModel().getColumn(0).setMaxWidth(50);
-            jTabelaModulos.getColumnModel().getColumn(1).setMinWidth(200);
-            jTabelaModulos.getColumnModel().getColumn(1).setMaxWidth(200);
-            jTabelaModulos.getColumnModel().getColumn(2).setMinWidth(60);
-            jTabelaModulos.getColumnModel().getColumn(2).setMaxWidth(60);
+            jTabelaModulos.getColumnModel().getColumn(1).setMinWidth(250);
+            jTabelaModulos.getColumnModel().getColumn(1).setMaxWidth(250);
         }
 
         jBtEnviar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -150,15 +150,14 @@ public class TelaPesquisaModulos extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
                         .addComponent(jBtEnviar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtSair)
-                        .addGap(0, 11, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(jBtSair)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtEnviar, jBtSair});
@@ -169,7 +168,7 @@ public class TelaPesquisaModulos extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtEnviar)
@@ -186,7 +185,10 @@ public class TelaPesquisaModulos extends javax.swing.JDialog {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            this.preencherTabelaModulos("SELECT * FROM MODULOS ");
+            this.preencherTabelaModulos("SELECT * FROM MODULOS "
+                    + "INNER JOIN USUARIOS_MODULOS "
+                    + "ON MODULOS.IdModulo=USUARIOS_MODULOS.IdModulo "
+                    + "WHERE IdUsuario='" + IdUsuario.getText() + "'");
         } else {
             limparTabelaModulos();
         }
@@ -214,8 +216,7 @@ public class TelaPesquisaModulos extends javax.swing.JDialog {
         if (jPesqDescricaoModulo.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "É necessário selecionar o nome do módulo.");
         } else {
-            flag = 1;
-            jComboBoxModuloAcesso.removeAllItems();
+            flag = 1;            
             if (flag == 1) {
                 String nomeModulo = "" + jTabelaModulos.getValueAt(jTabelaModulos.getSelectedRow(), 1);
                 jPesqDescricaoModulo.setText(nomeModulo);
@@ -225,7 +226,8 @@ public class TelaPesquisaModulos extends javax.swing.JDialog {
                     conecta.executaSQL("SELECT * FROM  MODULOS "
                             + "WHERE IdModulo='" + idModulo + "'");
                     conecta.rs.first();
-                    jComboBoxModuloAcesso.addItem(conecta.rs.getString("NomeModulo"));
+                    jIdModulo.setText(conecta.rs.getString("IdModulo"));
+                    jComboBoxModuloAcesso.setText(conecta.rs.getString("NomeModulo"));
                     conecta.desconecta();
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa dos dados." + ex);
@@ -310,7 +312,7 @@ public class TelaPesquisaModulos extends javax.swing.JDialog {
         jTabelaModulos.setModel(modelo);
         jTabelaModulos.getColumnModel().getColumn(0).setPreferredWidth(50);
         jTabelaModulos.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaModulos.getColumnModel().getColumn(1).setPreferredWidth(200);
+        jTabelaModulos.getColumnModel().getColumn(1).setPreferredWidth(250);
         jTabelaModulos.getColumnModel().getColumn(1).setResizable(false);
         jTabelaModulos.getTableHeader().setReorderingAllowed(false);
         jTabelaModulos.setAutoResizeMode(jTabelaModulos.AUTO_RESIZE_OFF);
@@ -326,7 +328,7 @@ public class TelaPesquisaModulos extends javax.swing.JDialog {
         jTabelaModulos.setModel(modelo);
         jTabelaModulos.getColumnModel().getColumn(0).setPreferredWidth(50);
         jTabelaModulos.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaModulos.getColumnModel().getColumn(1).setPreferredWidth(200);
+        jTabelaModulos.getColumnModel().getColumn(1).setPreferredWidth(250);
         jTabelaModulos.getColumnModel().getColumn(1).setResizable(false);
         jTabelaModulos.getTableHeader().setReorderingAllowed(false);
         jTabelaModulos.setAutoResizeMode(jTabelaModulos.AUTO_RESIZE_OFF);
