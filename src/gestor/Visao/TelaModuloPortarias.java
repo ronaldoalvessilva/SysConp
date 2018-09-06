@@ -160,90 +160,90 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
     // TELAS DE ACESSOS AO MÓDULO CRC
     public static String nomeModuloP1 = "PORTARIA";
     // MENU CADASTRO    
-    public static String telaCadastroVeiculosManuP1 = "Cadastro:Veiculos:Manutenção";
-    public static String telaCadastroPertenccesManuP1 = "Cadastro:Pertences:Manutenção";
-    public static String telaCadastroAdvogadosManuP1 = "Cadastro:Advogados:Manutenção";
-    public static String telaCadastroVisitasDiversasManuP1 = "Cadastro:Advogados:Manutenção";
-    public static String telaCadastroOficialManuP1 = "Cadastro:Oficial Justiça:Manutenção";
+    public static String telaCadastroVeiculosManuP1 = "Cadastro:Veiculos - P1I:Manutenção";
+    public static String telaCadastroPertenccesManuP1 = "Cadastro:Pertences - P1I:Manutenção";
+    public static String telaCadastroAdvogadosManuP1 = "Cadastro:Advogados - P1I:Manutenção";
+    public static String telaCadastroVisitasDiversasManuP1 = "Cadastro:Advogados - P1I:Manutenção";
+    public static String telaCadastroOficialManuP1 = "Cadastro:Oficial Justiça - P1I:Manutenção";
     // MOVIMENTAÇÃO
-    public static String telaEntradaSaidaVisitasInternosManuP1 = "Movimentação:Entrada e Saida Visitas de Internos:Manutenção";
-    public static String telaEntradaSaidaVisitasInternosIntVisiP1 = "Movimentação:Entrada e Saida Visitas de Internos:Internos";
+    public static String telaEntradaSaidaVisitasInternosManuP1 = "Movimentação:Entrada e Saida Visitas de Internos - P1I:Manutenção";
+    public static String telaEntradaSaidaVisitasInternosIntVisiP1 = "Movimentação:Entrada e Saida Visitas de Internos - P1I:Internos";
     //
-    public static String telaEntradaSaidaVisitasInternasRIManuP1 = "Movimentação:Entrada e Saida (REGIME INTERNO) Visitas de Internos:Manutenção";
-    public static String telaEntradaSaidaVisitasInternasIntRIVisiP1 = "Movimentação:Entrada e Saida (REGIME INTERNO) Visitas de Internos(as):Internas";
+    public static String telaEntradaSaidaVisitasInternasRIManuP1 = "Movimentação:Entrada e Saida (REGIME INTERNO) Visitas de Internos - P1I:Manutenção";
+    public static String telaEntradaSaidaVisitasInternasIntRIVisiP1 = "Movimentação:Entrada e Saida (REGIME INTERNO) Visitas de Internos(as) - P1I:Internas";
     //
-    public static String telaEntradaSaidaVisitasReligiosasManuP1 = "Movimentação:Entrada e Saida de Visitas Religiosas:Manutenção";
-    public static String telaEntradaSaidaVisitasReligiosasVisiP1 = "Movimentação:Entrada e Saida de Visitas Religiosas:Visitantes";
+    public static String telaEntradaSaidaVisitasReligiosasManuP1 = "Movimentação:Entrada e Saida de Visitas Religiosas - P1I:Manutenção";
+    public static String telaEntradaSaidaVisitasReligiosasVisiP1 = "Movimentação:Entrada e Saida de Visitas Religiosas - P1I:Visitantes";
     //
-    public static String telaEntradaSaidaAdIntManuP1 = "Movimentação:Entrada de Saida de Advogados de Internos:Manutenção";
-    public static String telaEntradaSaidaAdIntInterP1 = "Movimentação:Entrada e Saida de Advogados de Internos:Internos";
+    public static String telaEntradaSaidaAdIntManuP1 = "Movimentação:Entrada de Saida de Advogados de Internos - P1I:Manutenção";
+    public static String telaEntradaSaidaAdIntInterP1 = "Movimentação:Entrada e Saida de Advogados de Internos - P1I:Internos";
     //   
-    public static String telaEntradaSaidaAdDEPManuP1 = "Movimentação:Entrada e Saida de Advogados Departamento:Manutenção";
-    public static String telaEntradaSaidaAdDEPADVP1 = "Movimentação:Entrada e Saida de Advogados Departamento:Advogados";
+    public static String telaEntradaSaidaAdDEPManuP1 = "Movimentação:Entrada e Saida de Advogados Departamento - P1I:Manutenção";
+    public static String telaEntradaSaidaAdDEPADVP1 = "Movimentação:Entrada e Saida de Advogados Departamento - P1I:Advogados";
     //
-    public static String telaEntradaSaidaOFJManuP1 = "Movimetação:Entrada e Saida de Oficial de Justiça:Manutenção";
-    public static String telaEntradaSaidaOFJInteP1 = "Movimentação:Entrada e Saida de Oficial de Justiça:Internos";
+    public static String telaEntradaSaidaOFJManuP1 = "Movimetação:Entrada e Saida de Oficial de Justiça - P1I:Manutenção";
+    public static String telaEntradaSaidaOFJInteP1 = "Movimentação:Entrada e Saida de Oficial de Justiça - P1I:Internos";
     //
-    public static String telaEntradaSaidaOJManuP1 = "Movimentação:Entrada e Saida de Oficial de Justiça Departamento:Manutenção";
-    public static String telaEntradaSaidaOJDepP1 = "Movimentação:Entrada e Saida de Oficial de Justiça Departamento:Oficial de Justiça";
+    public static String telaEntradaSaidaOJManuP1 = "Movimentação:Entrada e Saida de Oficial de Justiça Departamento - P1I:Manutenção";
+    public static String telaEntradaSaidaOJDepP1 = "Movimentação:Entrada e Saida de Oficial de Justiça Departamento - P1I:Oficial de Justiça";
     //
-    public static String telaEntradaSaidaVDManuP1 = "Movimentação:Entrada e Saida de Visitas Diversas:Manutenção";
-    public static String telaEntradaSaidaVDVDP1 = "Movimentação:Entrada e Saida de Visitas Diversas:Visitas Diversas";
+    public static String telaEntradaSaidaVDManuP1 = "Movimentação:Entrada e Saida de Visitas Diversas - P1I:Manutenção";
+    public static String telaEntradaSaidaVDVDP1 = "Movimentação:Entrada e Saida de Visitas Diversas - P1I:Visitas Diversas";
     //
-    public static String telaEntradaSaidaCOLManuP1 = "Movimentação:Entrada e Saida de Colaborador:Manutenção";
-    public static String telaEntradaSaidaCOLcolP1 = "Movimentação:Entrada e Saida de Colaborador:Colaborador";
-    public static String telaEntradaSaidaCOLBioP1 = "Movimentação:Entrada e Saida de Colaborador:Biometria";
+    public static String telaEntradaSaidaCOLManuP1 = "Movimentação:Entrada e Saida de Colaborador - P1I:Manutenção";
+    public static String telaEntradaSaidaCOLcolP1 = "Movimentação:Entrada e Saida de Colaborador - P1I:Colaborador";
+    public static String telaEntradaSaidaCOLBioP1 = "Movimentação:Entrada e Saida de Colaborador - P1I:Biometria";
     //
-    public static String telaAcessosPortariaManuP1 = "Movimentação:Acessos Portaria:Manutenção";
-    public static String telaAcessosPortariaTranP1 = "Movimentação:Acessos Portaria:Transientes";
+    public static String telaAcessosPortariaManuP1 = "Movimentação:Acessos Portaria - P1I:Manutenção";
+    public static String telaAcessosPortariaTranP1 = "Movimentação:Acessos Portaria - P1I:Transientes";
     //
-    public static String telaEntradaSaidaVUManuP1 = "Movimentação:Entrada e Saida Veiculos Unidade:Manutenção";
-    public static String telaEntradaSaidaVUVP1 = "Movimentação:Entrada e Saida Veiculos Unidade:Veiculos";
+    public static String telaEntradaSaidaVUManuP1 = "Movimentação:Entrada e Saida Veiculos Unidade - P1I:Manutenção";
+    public static String telaEntradaSaidaVUVP1 = "Movimentação:Entrada e Saida Veiculos Unidade - P1I:Veiculos";
     //
-    public static String telaEntradaSaidaESVCManuP1 = "Movimentação:Entrada e Saida Veiculos Cargas:Manutenção";
-    public static String telaEntradaSaidaESVCVP1 = "Movimentação:Entrada e Saida Veiculos Cargas:Veiculos";
+    public static String telaEntradaSaidaESVCManuP1 = "Movimentação:Entrada e Saida Veiculos Cargas - P1I:Manutenção";
+    public static String telaEntradaSaidaESVCVP1 = "Movimentação:Entrada e Saida Veiculos Cargas - P1I:Veiculos";
     //
-    public static String telaEntradaSaidaESVTManuP1 = "Movimentação:Entrada e Saida de Veiculos de Terceiro:Manutenção";
-    public static String telaEntradaSaidaESVTVP1 = "Movimentação:Entrada e Saida de Veiculos de Terceiro:Veiculos e Visitantes";
+    public static String telaEntradaSaidaESVTManuP1 = "Movimentação:Entrada e Saida de Veiculos de Terceiro - P1I:Manutenção";
+    public static String telaEntradaSaidaESVTVP1 = "Movimentação:Entrada e Saida de Veiculos de Terceiro - P1I:Veiculos e Visitantes";
     //
-    public static String telaEntradaSaidaLABManuP1 = "Movimentação:Entrada e Saida de Internos Laborativa:Manutenção";
+    public static String telaEntradaSaidaLABManuP1 = "Movimentação:Entrada e Saida de Internos Laborativa - P1I:Manutenção";
     public static String telaEntradaSaidaLABIntP1 = "Movimentação:Entrada e Saida de Internos Laborativa:Internos";
     //
-    public static String telaEntradaSaidaESIEEManuP1 = "Movimentação:Entrada e Saida de Internos Educação Externa:Manutenção";
-    public static String telaEntradaSaidaESIEEIP1 = "Movimentação:Entrada e Saida de Internos Educação Externa:Internos";
+    public static String telaEntradaSaidaESIEEManuP1 = "Movimentação:Entrada e Saida de Internos Educação Externa - P1I:Manutenção";
+    public static String telaEntradaSaidaESIEEIP1 = "Movimentação:Entrada e Saida de Internos Educação Externa - P1I:Internos";
     //
-    public static String telaRegistroRetornoRIManuP1 = "Movimentação:Registro Retorno de Internos:Manutenção";
-    public static String telaRegistroRetornoRIIntP1 = "Movimentação:Registro Retorno de Internos:Internos";
-    public static String telaRegistroRetornoRIBioP1 = "Movimentação:Registro Retorno de Internos:Biometria";
+    public static String telaRegistroRetornoRIManuP1 = "Movimentação:Registro Retorno de Internos - P1I:Manutenção";
+    public static String telaRegistroRetornoRIIntP1 = "Movimentação:Registro Retorno de Internos - P1I:Internos";
+    public static String telaRegistroRetornoRIBioP1 = "Movimentação:Registro Retorno de Internos - P1I:Biometria";
     //
-    public static String telaEntradaInternoUniPRIManuP1 = "Movimentação:Entrada de Internos Unidade Primeira Vez:Manutenção";
-    public static String telaEntradaInternoUniPRIIntP1 = "Movimentação:Entrada de Internos Unidade Primeira Vez:Internos";
+    public static String telaEntradaInternoUniPRIManuP1 = "Movimentação:Entrada de Internos Unidade Primeira Vez - P1I:Manutenção";
+    public static String telaEntradaInternoUniPRIIntP1 = "Movimentação:Entrada de Internos Unidade Primeira Vez - P1I:Internos";
     //
-    public static String telaNovaEntradaManuP1 = "Movimentação:Nova Entrada de Internos:Manutenção";
-    public static String telaNovaEntradaIntP1 = "Movimentação:Nova Entrada de Internos:Internos";
+    public static String telaNovaEntradaManuP1 = "Movimentação:Nova Entrada de Internos - P1I:Manutenção";
+    public static String telaNovaEntradaIntP1 = "Movimentação:Nova Entrada de Internos - P1I:Internos";
     //
-    public static String telaRegistroSaidaInternoManuP1 = "Movimentação:Registro Saida de Internos:Manutenção";
-    public static String telaRegistroSaidaInternoIntP1 = "Movimentação:Registro Saida de Internos:Internos";
+    public static String telaRegistroSaidaInternoManuP1 = "Movimentação:Registro Saida de Internos - P1I:Manutenção";
+    public static String telaRegistroSaidaInternoIntP1 = "Movimentação:Registro Saida de Internos - P1I:Internos";
     //
-    public static String telaRegistroSaidaInternoBioP1 = "Movimentação:Registro Saida de Internos:Biometria";
-    public static String telaRegistroSaidaInternoExpP1 = "Movimentação:Registro Saida de Internos:Exportar Registro";
+    public static String telaRegistroSaidaInternoBioP1 = "Movimentação:Registro Saida de Internos - P1I:Biometria";
+    public static String telaRegistroSaidaInternoExpP1 = "Movimentação:Registro Saida de Internos - P1I:Exportar Registro";
     //
-    public static String telaEntradaSaidaAManuP1 = "Movimentação:Entrada e Saida de Albergados:Manutenção";
-    public static String telaEntradaSaidaAIntP1 = "Movimentação:Entrada e Saida de Albergados:Internos";
+    public static String telaEntradaSaidaAManuP1 = "Movimentação:Entrada e Saida de Albergados - P1I:Manutenção";
+    public static String telaEntradaSaidaAIntP1 = "Movimentação:Entrada e Saida de Albergados - P1I:Internos";
     //
-    public static String telaEntradaPertencesInternosManuP1 = "Movimentação:Entrada de Pertences de Internos:Manutenção";
-    public static String telaEntradaPertencesInternosIntP1 = "Movimentação:Entrada de Pertences de Internos:Pertences";
+    public static String telaEntradaPertencesInternosManuP1 = "Movimentação:Entrada de Pertences de Internos - P1I:Manutenção";
+    public static String telaEntradaPertencesInternosIntP1 = "Movimentação:Entrada de Pertences de Internos - P1I:Pertences";
     //
-    public static String telaDepositoInternosManuP1 = "Movimentação:Deposito de Internos:Manutenção";
-    public static String telaDepositoInternosIntP1 = "Movimentação:Deposito de Internos:Internos";
+    public static String telaDepositoInternosManuP1 = "Movimentação:Deposito de Internos - P1I:Manutenção";
+    public static String telaDepositoInternosIntP1 = "Movimentação:Deposito de Internos - P1I:Internos";
     //
     public static String telaOcorrenciaManuP1 = "Movimentação:Movimentação:Ocorrências Diárias:Manutenção";
     //
-    public static String telaOcorrenciaDisciplinaVisitasManuP1 = "Movimentação:Ocorrência Disciplinar Visitas:Manutenção";
-    public static String telaOcorrenciaDisciplinaVisitasVisiP1 = "Movimentação:Ocorrência Disciplinar Visitas:Visitantes";
-    public static String telaOcorrenciaDisciplinaVisitasOcorP1 = "Movimentação:Ocorrência Disciplinar Visitas:Ocorrências";
+    public static String telaOcorrenciaDisciplinaVisitasManuP1 = "Movimentação:Ocorrência Disciplinar Visitas - P1I:Manutenção";
+    public static String telaOcorrenciaDisciplinaVisitasVisiP1 = "Movimentação:Ocorrência Disciplinar Visitas - P1I:Visitantes";
+    public static String telaOcorrenciaDisciplinaVisitasOcorP1 = "Movimentação:Ocorrência Disciplinar Visitas - P1I:Ocorrências";
     //
-    public static String telaRelatorioPrevisaoSaidaP1 = "Relatórios:Previsão de Saída de Internos";
+    public static String telaRelatorioPrevisaoSaidaP1 = "Relatórios - P1I:Previsão de Saída de Internos";
     //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
