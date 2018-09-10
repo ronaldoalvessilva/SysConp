@@ -224,7 +224,7 @@ public class TelaPesqVisitasDiversasExterna extends javax.swing.JInternalFrame {
                     FotoVisitasDiversas.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoVisitasDiversas.getWidth(), FotoVisitasDiversas.getHeight(), Image.SCALE_DEFAULT)));
                 }
                 // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
-                byte[] img2Bytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteVI"));
+                byte[] img2Bytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteVD"));
                 if (img2Bytes != null) {
                     ImageIcon pic2 = null;
                     pic2 = new ImageIcon(img2Bytes);
