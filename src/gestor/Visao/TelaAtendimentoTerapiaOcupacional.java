@@ -15,6 +15,7 @@ import gestor.Controle.ControleIncluirExperienciaProfissional;
 import gestor.Controle.ControleInclusaoCursosTO;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleMovTerapiaOcupacional;
+import gestor.Controle.ControleRegistroAtendimentoInternoBio;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.LimiteDigitosAlfa;
 import gestor.Dao.LimiteDigitosNum;
@@ -25,6 +26,7 @@ import gestor.Modelo.AvaliacaoII;
 import gestor.Modelo.EvolucaoTerapia;
 import gestor.Modelo.HistoricoEducacionalLaboral;
 import gestor.Modelo.LogSistema;
+import gestor.Modelo.RegistroAtendimentoInternos;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
@@ -52,6 +54,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
@@ -84,6 +87,9 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
     //
     ControleHistoricoLaborativo controleHistLab = new ControleHistoricoLaborativo();
     ControleIncluirExperienciaProfissional controleExpTO = new ControleIncluirExperienciaProfissional();
+    // INFORMAR QUE O INTERNO FOI ATENDIDO NA ADMISSÃO E NA EVOLUÇÃO
+    RegistroAtendimentoInternos objRegAtend = new RegistroAtendimentoInternos();
+    ControleRegistroAtendimentoInternoBio controlRegAtend = new ControleRegistroAtendimentoInternoBio();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -145,6 +151,17 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
     int IntSex;
     int IntSab;
     int IntDom;
+    // VARIVAEIS PARA SABER SE O INTERNO FOI REGISTRADO COM BIOMETRIA      
+    String dataReg = "";
+    Date dataRegistro = null;
+//    String codigoInternoAtend = "";
+    String atendido = "Sim";
+    String opcao = "Não";
+    public static int codigoDepartamentoTO = 0;
+    String tipoAtendimentoAdm = "Admissão Terapia";
+    String tipoAtendimentoEvol = "Evolução Terapia";
+    //
+    String pHabilitaTerapia = "";
 
     /**
      * Creates new form TelaAtemdimentoTerapiaOcupacional
@@ -541,13 +558,14 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jDataEvolucao = new com.toedter.calendar.JDateChooser();
         jScrollPane9 = new javax.swing.JScrollPane();
         jEvolucaoTerapia = new javax.swing.JTextArea();
-        jPanel17 = new javax.swing.JPanel();
+        jLabel123 = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
         jBtNovaEvolucao = new javax.swing.JButton();
-        jBtAlterarEvolucao = new javax.swing.JButton();
-        jBtExcluirEvolucao = new javax.swing.JButton();
-        jBtSalvarEvolucao = new javax.swing.JButton();
-        jBtCancelarEvolucao = new javax.swing.JButton();
         jBtAuditoriaEvolucao = new javax.swing.JButton();
+        jBtCancelarEvolucao = new javax.swing.JButton();
+        jBtSalvarEvolucao = new javax.swing.JButton();
+        jBtExcluirEvolucao = new javax.swing.JButton();
+        jBtAlterarEvolucao = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -987,6 +1005,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jScrollPane1.setViewportView(jObsDesempenhoOcupacional);
 
         jLabel96.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel96.setForeground(new java.awt.Color(0, 0, 204));
         jLabel96.setText("Dominância:");
 
         jComboBoxDominancia.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -1011,6 +1030,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jComboBoxDeficienciaOcupa.setEnabled(false);
 
         jLabel99.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel99.setForeground(new java.awt.Color(0, 102, 0));
         jLabel99.setText("Presença de Alteração:");
 
         jLabel100.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -1056,6 +1076,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jComboBoxReabilitacao.setEnabled(false);
 
         jLabel105.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel105.setForeground(new java.awt.Color(204, 0, 0));
         jLabel105.setText("Independente para:");
 
         jLabel106.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -4130,50 +4151,16 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jEvolucaoTerapia.setEnabled(false);
         jScrollPane9.setViewportView(jEvolucaoTerapia);
 
-        jPanel17.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jLabel123.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel123.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel123.setText("Texto da Evolução");
 
         jBtNovaEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
-        jBtNovaEvolucao.setText("Novo");
+        jBtNovaEvolucao.setToolTipText("Novo");
         jBtNovaEvolucao.setEnabled(false);
         jBtNovaEvolucao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtNovaEvolucaoActionPerformed(evt);
-            }
-        });
-
-        jBtAlterarEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
-        jBtAlterarEvolucao.setText("Alterar");
-        jBtAlterarEvolucao.setEnabled(false);
-        jBtAlterarEvolucao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtAlterarEvolucaoActionPerformed(evt);
-            }
-        });
-
-        jBtExcluirEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
-        jBtExcluirEvolucao.setText("Excluir");
-        jBtExcluirEvolucao.setEnabled(false);
-        jBtExcluirEvolucao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtExcluirEvolucaoActionPerformed(evt);
-            }
-        });
-
-        jBtSalvarEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
-        jBtSalvarEvolucao.setText("Gravar");
-        jBtSalvarEvolucao.setEnabled(false);
-        jBtSalvarEvolucao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtSalvarEvolucaoActionPerformed(evt);
-            }
-        });
-
-        jBtCancelarEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Close_Icon_16.png"))); // NOI18N
-        jBtCancelarEvolucao.setText("Cancelar");
-        jBtCancelarEvolucao.setEnabled(false);
-        jBtCancelarEvolucao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtCancelarEvolucaoActionPerformed(evt);
             }
         });
 
@@ -4188,70 +4175,98 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
             }
         });
 
-        javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
-        jPanel17.setLayout(jPanel17Layout);
-        jPanel17Layout.setHorizontalGroup(
-            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel17Layout.createSequentialGroup()
+        jBtCancelarEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Close_Icon_16.png"))); // NOI18N
+        jBtCancelarEvolucao.setToolTipText("Cancelar");
+        jBtCancelarEvolucao.setEnabled(false);
+        jBtCancelarEvolucao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtCancelarEvolucaoActionPerformed(evt);
+            }
+        });
+
+        jBtSalvarEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
+        jBtSalvarEvolucao.setToolTipText("Gravar");
+        jBtSalvarEvolucao.setEnabled(false);
+        jBtSalvarEvolucao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtSalvarEvolucaoActionPerformed(evt);
+            }
+        });
+
+        jBtExcluirEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
+        jBtExcluirEvolucao.setToolTipText("Excluir");
+        jBtExcluirEvolucao.setEnabled(false);
+        jBtExcluirEvolucao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtExcluirEvolucaoActionPerformed(evt);
+            }
+        });
+
+        jBtAlterarEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
+        jBtAlterarEvolucao.setToolTipText("Alterar");
+        jBtAlterarEvolucao.setEnabled(false);
+        jBtAlterarEvolucao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAlterarEvolucaoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
+        jPanel15.setLayout(jPanel15Layout);
+        jPanel15Layout.setHorizontalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel15Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jBtNovaEvolucao)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtAlterarEvolucao)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtExcluirEvolucao)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtSalvarEvolucao)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtCancelarEvolucao)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jBtAuditoriaEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane9, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
+                    .addGroup(jPanel15Layout.createSequentialGroup()
+                        .addComponent(jLabel123)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel15Layout.createSequentialGroup()
+                        .addComponent(jBtNovaEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtAlterarEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtExcluirEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtSalvarEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtCancelarEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBtAuditoriaEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
-        jPanel17Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarEvolucao, jBtCancelarEvolucao, jBtExcluirEvolucao, jBtNovaEvolucao, jBtSalvarEvolucao});
+        jPanel15Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarEvolucao, jBtCancelarEvolucao, jBtExcluirEvolucao, jBtNovaEvolucao, jBtSalvarEvolucao});
 
-        jPanel17Layout.setVerticalGroup(
-            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel17Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+        jPanel15Layout.setVerticalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jBtAuditoriaEvolucao)
                     .addComponent(jBtCancelarEvolucao)
                     .addComponent(jBtSalvarEvolucao)
                     .addComponent(jBtExcluirEvolucao)
                     .addComponent(jBtAlterarEvolucao)
                     .addComponent(jBtNovaEvolucao))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel17Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterarEvolucao, jBtAuditoriaEvolucao, jBtCancelarEvolucao, jBtExcluirEvolucao, jBtNovaEvolucao, jBtSalvarEvolucao});
-
-        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
-        jPanel15.setLayout(jPanel15Layout);
-        jPanel15Layout.setHorizontalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane9)
-                    .addComponent(jPanel17, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel16, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel123)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jPanel15Layout.setVerticalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel15Layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+
+        jPanel15Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterarEvolucao, jBtAuditoriaEvolucao, jBtCancelarEvolucao, jBtExcluirEvolucao, jBtNovaEvolucao, jBtSalvarEvolucao});
 
         jTabbedPane1.addTab("Evolução TO", jPanel15);
 
@@ -4517,6 +4532,19 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
                         objAtend.setNomeInternoCrc(jNomeInterno.getText());
                         objAtend.setDeptoTerapia(deptoTecnico);
                         controle.incluirMovTec(objAtend);
+                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
+                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                        objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
+                        objRegAtend.setIdDepartamento(codigoDepartamentoTO);
+                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                        objRegAtend.setAtendido(atendido);
+                        objRegAtend.setDataAtendimento(jDataLanc.getDate());
+                        objRegAtend.setIdAtend(Integer.valueOf(jIdAtend.getText()));
+                        //
+                        objRegAtend.setUsuarioUp(nameUser);
+                        objRegAtend.setDataUp(dataModFinal);
+                        objRegAtend.setHorarioUp(horaMov);
+                        controlRegAtend.alterarRegAtend(objRegAtend);
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                         JOptionPane.showMessageDialog(rootPane, "Registro Gravado com sucesso.");
@@ -4592,9 +4620,16 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
 
     private void jBtPesqInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqInternoActionPerformed
         // TODO add your handling code here:
-        TelaPesqInternoAtendTerapia objPesqIntTerapia = new TelaPesqInternoAtendTerapia();
-        TelaModuloTerapiaOcupacional.jPainelTerapia.add(objPesqIntTerapia);
-        objPesqIntTerapia.show();
+        verificarRegistroBiometria();
+        if (pHabilitaTerapia.equals("Não")) {
+            TelaPesqInternoAtendTerapia objPesqIntTerapia = new TelaPesqInternoAtendTerapia();
+            TelaModuloTerapiaOcupacional.jPainelTerapia.add(objPesqIntTerapia);
+            objPesqIntTerapia.show();
+        } else {
+            TelaPesqInternoAtendTerapiaBio objPesqIntTerapia = new TelaPesqInternoAtendTerapiaBio();
+            TelaModuloTerapiaOcupacional.jPainelTerapia.add(objPesqIntTerapia);
+            objPesqIntTerapia.show();
+        }
     }//GEN-LAST:event_jBtPesqInternoActionPerformed
 
     private void jBtTodos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtTodos1ActionPerformed
@@ -5046,11 +5081,20 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAtendimentoInternoEvolTO);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaAtendimentoInternoEvolTO) && codIncluirTO == 1) {
-            acao = 3;
-            NovaEvolucao();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            verificarInternoRegistradoAdm();
+            if (atendido == null) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
+            } else if (atendido.equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
+            } else if (atendido.equals("Sim")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
+            } else if (atendido.equals("Não")) {
+                acao = 3;
+                NovaEvolucao();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
@@ -5119,6 +5163,22 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
                     objEvolu.setIdLanc(Integer.valueOf(jIdAtend.getText()));
                     controleEvolucao.incluirEvolucaoTerapia(objEvolu);
                     buscarCodEvolucao();
+                    // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO     
+                    atendido = "Sim";
+                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                    objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
+                    objRegAtend.setIdDepartamento(codigoDepartamentoTO);
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoEvol);
+                    objRegAtend.setAtendido(atendido);
+                    objRegAtend.setDataAtendimento(jDataEvolucao.getDate());
+                    objRegAtend.setIdAtend(Integer.valueOf(jIdAtend.getText()));
+                    objRegAtend.setIdEvol(Integer.valueOf(jIdEvolucao.getText()));
+                    objRegAtend.setAtendeEvol(atendido);
+                    //
+                    objRegAtend.setUsuarioUp(nameUser);
+                    objRegAtend.setDataUp(dataModFinal);
+                    objRegAtend.setHorarioUp(horaMov);
+                    controlRegAtend.alterarRegEvol(objRegAtend);
                     objLog2();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
@@ -6102,6 +6162,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
     private javax.swing.JLabel jLabel120;
     private javax.swing.JLabel jLabel121;
     private javax.swing.JLabel jLabel122;
+    private javax.swing.JLabel jLabel123;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -6211,7 +6272,6 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
-    private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
@@ -6267,6 +6327,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField jStatusLanc;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
@@ -9686,6 +9747,35 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
             codGravarTO = conecta.rs.getInt("Gravar");
             codConsultarTO = conecta.rs.getInt("Consultar");
             nomeTelaTO = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void verificarInternoRegistradoAdm() {
+
+        conecta.abrirConexao();
+        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+        dataReg = formatoAmerica.format(jDataLanc.getDate().getTime());
+        try {
+            conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
+                    + "WHERE IdInternoCrc='" + jIdInterno.getText() + "' "
+                    + "AND Atendido='" + opcao + "'");
+            conecta.rs.first();
+            codigoInternoAtend = conecta.rs.getString("IdInternoCrc");
+            codigoDepartamentoTO = conecta.rs.getInt("IdDepartamento");
+            atendido = conecta.rs.getString("Atendido");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void verificarRegistroBiometria() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM PARAMETROSCRC");
+            conecta.rs.first();
+            pHabilitaTerapia = conecta.rs.getString("AdmissaoTO");
         } catch (Exception e) {
         }
         conecta.desconecta();
