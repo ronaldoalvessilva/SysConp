@@ -822,6 +822,8 @@ public class TelaVisitasDiversasExterna extends javax.swing.JInternalFrame {
                 jNomeVisita.setBackground(Color.red);
             } else if (caminhoFotoVisitaExt == null) {
                 JOptionPane.showMessageDialog(rootPane, "Coloque a foto da Visita");
+            } else if (FotoVisitaDiversas.getIcon() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Coloque a foto da Visita");
             } else if (jComboBoxTipoVisita.getSelectedItem() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o tipo de visita.");
             } else if (jComboBoxTipoVisita.getSelectedItem().equals("")) {
