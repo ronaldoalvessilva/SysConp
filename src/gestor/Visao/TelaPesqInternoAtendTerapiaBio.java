@@ -342,7 +342,7 @@ public class TelaPesqInternoAtendTerapiaBio extends javax.swing.JInternalFrame {
                 conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                         + "INNER JOIN DADOSPENAISINTERNOS "
                         + "ON PRONTUARIOSCRC.IdInternoCrc = DADOSPENAISINTERNOS.IdInternoCrc "
-                        + "WHERE PRONTUARIOSCRC.NomeInternoCrc LIKE'" + nomeInterno + "%' "
+                        + "WHERE PRONTUARIOSCRC.NomeInternoCrc='" + nomeInterno + "' "
                         + "AND PRONTUARIOSCRC.IdInternoCrc='" + idInt + "'");
                 conecta.rs.first();
                 jIdInterno.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));

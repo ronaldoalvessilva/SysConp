@@ -8,12 +8,14 @@ package gestor.Visao;
 import gestor.Dao.*;
 import gestor.Modelo.DadosPenaisCrc;
 import gestor.Modelo.ProntuarioCrc;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.nomeModuloTO;
 import static gestor.Visao.TelaTriagemTerapiaOcupacional.jFotoInternoTriagemOcupacional;
 import static gestor.Visao.TelaTriagemTerapiaOcupacional.jIdInternoCrc;
 import static gestor.Visao.TelaTriagemTerapiaOcupacional.jMatriculaPenal;
 import static gestor.Visao.TelaTriagemTerapiaOcupacional.jNomeInternoTriagemOcupacional;
 import static gestor.Visao.TelaTriagemTerapiaOcupacional.jProcedenciaInterno;
 import static gestor.Visao.TelaTriagemTerapiaOcupacional.jProfissao;
+import static gestor.Visao.TelaTriagemTerapiaOcupacional.codigoDepartamentoTO;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -38,14 +40,17 @@ public class TelaPesqInternoTriagemOcupacional extends javax.swing.JInternalFram
     String dataCadastro;
     String dataEntrada;
     String situacao = "ENTRADA NA UNIDADE";
-    String situacaoRet = "RETORNO A UNIDADE";
+    String sitRetorno = "RETORNO A UNIDADE";
     String idInt;
+    String atendido = "Não";
+    int codigoDepartamento = 0;
 
     /**
      * Creates new form TelaPesquisaEntradaInternos
      */
     public TelaPesqInternoTriagemOcupacional() {
         initComponents();
+        procurarDepartamento();
     }
 
     /**
@@ -255,7 +260,9 @@ public class TelaPesqInternoTriagemOcupacional extends javax.swing.JInternalFram
             JOptionPane.showMessageDialog(rootPane, "Informe NOME para pesquisa!!!");
             jPesqNome.requestFocus();
         } else {
-            preencherTabelaNome("SELECT * FROM PRONTUARIOSCRC "
+            preencherTabelaNome("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "INNER JOIN DADOSFISICOSINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
                     + "INNER JOIN PAISES "
@@ -268,8 +275,12 @@ public class TelaPesqInternoTriagemOcupacional extends javax.swing.JInternalFram
                     + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
                     + "WHERE NomeInternoCrc LIKE'%" + jPesqNome.getText() + "%' "
                     + "AND SituacaoCrc='" + situacao + "' "
+                    + "AND Atendido='" + atendido + "' "
+                    + "AND IdDepartamento='" + codigoDepartamento + "' "
                     + "OR NomeInternoCrc LIKE'%" + jPesqNome.getText() + "%' "
-                    + "AND SituacaoCrc='" + situacaoRet + "'");
+                    + "AND SituacaoCrc='" + sitRetorno + "' "
+                    + "AND Atendido='" + atendido + "' "
+                    + "AND IdDepartamento='" + codigoDepartamento + "'");
         }
     }//GEN-LAST:event_jBtNomeActionPerformed
 
@@ -280,11 +291,12 @@ public class TelaPesqInternoTriagemOcupacional extends javax.swing.JInternalFram
             JOptionPane.showMessageDialog(rootPane, "Informe MATRICULA para pesquisa!!!");
             jPesqMatricula.requestFocus();
         } else {
-            buscarInternosMatricula("SELECT * FROM PRONTUARIOSCRC "
+            buscarInternosMatricula("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "INNER JOIN DADOSFISICOSINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
-                    + "INNER JOIN PAISES "
-                    + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
+                    + "INNER JOIN PAISES ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
                     + "INNER JOIN CIDADES "
                     + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
                     + "INNER JOIN DADOSPENAISINTERNOS "
@@ -293,8 +305,12 @@ public class TelaPesqInternoTriagemOcupacional extends javax.swing.JInternalFram
                     + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
                     + "WHERE MatriculaCrc LIKE'" + jPesqMatricula.getText() + "%' "
                     + "AND SituacaoCrc='" + situacao + "' "
-                    + "OR MatriculaCrc LIKE'" + jPesqMatricula.getText() + "' "
-                    + "AND SituacaoCrc='" + situacaoRet + "'");
+                    + "AND Atendido='" + atendido + "' "
+                    + "AND IdDepartamento='" + codigoDepartamento + "' "
+                    + "OR MatriculaCrc LIKE'" + jPesqMatricula.getText() + "%' "
+                    + "AND SituacaoCrc='" + sitRetorno + "' "
+                    + "AND Atendido='" + atendido + "' "
+                    + "AND IdDepartamento='" + codigoDepartamento + "'");
         }
     }//GEN-LAST:event_jBtMatriculaActionPerformed
 
@@ -322,7 +338,9 @@ public class TelaPesqInternoTriagemOcupacional extends javax.swing.JInternalFram
             try {
                 conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                         + "INNER JOIN DADOSPENAISINTERNOS "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc INNER JOIN UNIDADE ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                        + "INNER JOIN UNIDADE "
+                        + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
                         + "WHERE PRONTUARIOSCRC.NomeInternoCrc='" + nomeInterno + "' "
                         + "AND PRONTUARIOSCRC.IdInternoCrc='" + idInt + "'");
                 conecta.rs.first();
@@ -334,7 +352,7 @@ public class TelaPesqInternoTriagemOcupacional extends javax.swing.JInternalFram
                 jFotoInternoTriagemOcupacional.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoTriagemOcupacional.getWidth(), jFotoInternoTriagemOcupacional.getHeight(), Image.SCALE_DEFAULT)));
                 //
                 jMatriculaPenal.setText(conecta.rs.getString("MatriculaCrc"));
-                jProcedenciaInterno.setText(conecta.rs.getString("DescricaoUnid"));              
+                jProcedenciaInterno.setText(conecta.rs.getString("DescricaoUnid"));
                 jProfissao.setText(conecta.rs.getString("ProfissaoCrc"));
                 conecta.desconecta();
             } catch (SQLException e) {
@@ -348,7 +366,9 @@ public class TelaPesqInternoTriagemOcupacional extends javax.swing.JInternalFram
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            this.preencherTodosInternos("SELECT * FROM PRONTUARIOSCRC "
+            this.preencherTodosInternos("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "INNER JOIN DADOSFISICOSINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
                     + "INNER JOIN PAISES "
@@ -360,7 +380,11 @@ public class TelaPesqInternoTriagemOcupacional extends javax.swing.JInternalFram
                     + "INNER JOIN UNIDADE "
                     + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
                     + "WHERE SituacaoCrc='" + situacao + "' "
-                    + "OR SituacaoCrc='" + situacaoRet + "'");
+                    + "AND Atendido='" + atendido + "' "
+                    + "AND IdDepartamento='" + codigoDepartamento + "' "
+                    + "OR SituacaoCrc='" + sitRetorno + "' "
+                    + "AND Atendido='" + atendido + "' "
+                    + "AND IdDepartamento='" + codigoDepartamento + "'");
         } else {
             limparTabela();
         }
@@ -553,5 +577,17 @@ public class TelaPesqInternoTriagemOcupacional extends javax.swing.JInternalFram
         jTabelaInterno.getColumnModel().getColumn(2).setCellRenderer(centralizado);
         jTabelaInterno.getColumnModel().getColumn(3).setCellRenderer(centralizado);
         jTabelaInterno.getColumnModel().getColumn(4).setCellRenderer(centralizado);
+    }
+     public void procurarDepartamento() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM DEPARTAMENTOS "
+                    + "WHERE NomeDepartamento='" + nomeModuloTO + "'");
+            conecta.rs.first();
+            codigoDepartamento = conecta.rs.getInt("IdDepartamento");
+            codigoDepartamentoTO = conecta.rs.getInt("IdDepartamento");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }
