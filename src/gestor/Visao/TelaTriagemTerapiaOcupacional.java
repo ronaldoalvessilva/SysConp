@@ -6,11 +6,13 @@
 package gestor.Visao;
 
 import gestor.Controle.ControleLogSistema;
+import gestor.Controle.ControleRegistroAtendimentoInternoBio;
 import gestor.Controle.ControleTriagemOcupacional;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.LimiteDigitosAlfa;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.LogSistema;
+import gestor.Modelo.RegistroAtendimentoInternos;
 import gestor.Modelo.TriagemOcupacional;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
@@ -34,6 +36,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
@@ -49,6 +52,9 @@ public class TelaTriagemTerapiaOcupacional extends javax.swing.JInternalFrame {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     TriagemOcupacional objTriaOcupa = new TriagemOcupacional();
     ControleTriagemOcupacional control = new ControleTriagemOcupacional();
+    // INFORMAR QUE O INTERNO FOI ATENDIDO NA ADMISSÃO E NA EVOLUÇÃO
+    RegistroAtendimentoInternos objRegAtend = new RegistroAtendimentoInternos();
+    ControleRegistroAtendimentoInternoBio controlRegAtend = new ControleRegistroAtendimentoInternoBio();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -64,6 +70,13 @@ public class TelaTriagemTerapiaOcupacional extends javax.swing.JInternalFrame {
     String dataEntrada, dataInicial, dataFinal, dataEvolucao;
     String caminho;
     int count = 0;
+    // VARIVAEIS PARA SABER SE O INTERNO FOI REGISTRADO COM BIOMETRIA      
+    String dataReg = "";
+    Date dataRegistro = null;
+    String atendido = "Sim";
+    String opcao = "Não";
+    public static int codigoDepartamentoTO = 0;
+    String tipoAtendimentoAdm = "Triagem";
 
     /**
      * Creates new form TelaTriagemTerapiaOcupacional
@@ -1026,6 +1039,19 @@ public class TelaTriagemTerapiaOcupacional extends javax.swing.JInternalFrame {
                     objTriaOcupa.setHorarioInsert(horaMov);
                     control.incluirTriagemOcupacional(objTriaOcupa);
                     buscarCodigo();
+                    // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
+                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoCrc.getText()));
+                    objRegAtend.setNomeInternoCrc(jNomeInternoTriagemOcupacional.getText());
+                    objRegAtend.setIdDepartamento(codigoDepartamentoTO);
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                    objRegAtend.setAtendido(atendido);
+                    objRegAtend.setDataAtendimento(jDataCadastro.getDate());
+                    objRegAtend.setIdAtend(Integer.valueOf(jIdTriagem.getText()));
+                    //
+                    objRegAtend.setUsuarioUp(nameUser);
+                    objRegAtend.setDataUp(dataModFinal);
+                    objRegAtend.setHorarioUp(horaMov);
+                    controlRegAtend.alterarRegAtend(objRegAtend);
                     //
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
