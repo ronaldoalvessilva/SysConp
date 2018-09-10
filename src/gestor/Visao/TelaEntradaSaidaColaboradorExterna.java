@@ -1544,6 +1544,7 @@ public class TelaEntradaSaidaColaboradorExterna extends javax.swing.JInternalFra
 
     private void jBtBiometriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtBiometriaActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntradaSaidaCOLManuP1E);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaEntradaSaidaCOLManuP1E) && codAbrirP1E == 1) {
             if (jStatusEntCola.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Não é possível acessar a biomeria com o regisro finalizado.");
