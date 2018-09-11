@@ -2403,8 +2403,6 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
 
     private void jComboBoxTelaAcessoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxTelaAcessoMouseEntered
         // TODO add your handling code here:
-//         pesquisarModuloUsuarios();
-//        pesquisarModulo();
         pesquisarTelaAcesso();
     }//GEN-LAST:event_jComboBoxTelaAcessoMouseEntered
 
