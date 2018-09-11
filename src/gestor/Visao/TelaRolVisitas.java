@@ -3727,7 +3727,7 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
             codExcluirSS = conecta.rs.getInt("Excluir");
             codGravarSS = conecta.rs.getInt("Gravar");
             codConsultarSS = conecta.rs.getInt("Consultar");
-            nomeTela = conecta.rs.getString("NomeTela");
+            nomeTelaSS = conecta.rs.getString("NomeTela");
         } catch (Exception e) {
         }
         conecta.desconecta();
