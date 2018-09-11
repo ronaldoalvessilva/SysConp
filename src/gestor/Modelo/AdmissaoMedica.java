@@ -64,8 +64,12 @@ public class AdmissaoMedica {
     private String dataFechamento;
     private String horaFechamento;  
     private String diagnosticooInicial;   
+    private int tipoDiagnostico;
 
-    public AdmissaoMedica(int idLanc, String statusLanc, Date dataLanc, int idInternoCrc, String nomeInterno, String ar, String acv, String agu, String cabPesc, String ext, String abd, String comboBoxAR, String comboBoxACV, String comboBoxAGU, String comboBoxCAB, String comboBoxEXT, String comboBoxABD, String tipoSanguineo, String fatorRH, String alergia, String quaisAlergias, String sexualidade, String numeroParceiros, String usoPreservativos, String drogasInjetavel, String qualTipoDrograInjet, String diagnostico, String cirurgiasPrevisas, String tratamentoCurso, String qualDrogas, String qualEtilismo, String quantoTempoTabagismo, String drogas, String etilismo, String tabagismo, String vacinas, String atualizadaIgnorada, String usaMedicamentos, String qualMedicacaoUsa, String outrasAlergias, String quaisOutrasAlergias, String deptoMedico, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento, String diagnosticooInicial) {
+    public AdmissaoMedica() {
+    }
+
+    public AdmissaoMedica(int idLanc, String statusLanc, Date dataLanc, int idInternoCrc, String nomeInterno, String ar, String acv, String agu, String cabPesc, String ext, String abd, String comboBoxAR, String comboBoxACV, String comboBoxAGU, String comboBoxCAB, String comboBoxEXT, String comboBoxABD, String tipoSanguineo, String fatorRH, String alergia, String quaisAlergias, String sexualidade, String numeroParceiros, String usoPreservativos, String drogasInjetavel, String qualTipoDrograInjet, String diagnostico, String cirurgiasPrevisas, String tratamentoCurso, String qualDrogas, String qualEtilismo, String quantoTempoTabagismo, String drogas, String etilismo, String tabagismo, String vacinas, String atualizadaIgnorada, String usaMedicamentos, String qualMedicacaoUsa, String outrasAlergias, String quaisOutrasAlergias, String deptoMedico, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento, String diagnosticooInicial, int tipoDiagnostico) {
         this.idLanc = idLanc;
         this.statusLanc = statusLanc;
         this.dataLanc = dataLanc;
@@ -117,9 +121,7 @@ public class AdmissaoMedica {
         this.dataFechamento = dataFechamento;
         this.horaFechamento = horaFechamento;
         this.diagnosticooInicial = diagnosticooInicial;
-    }
-
-    public AdmissaoMedica() {
+        this.tipoDiagnostico = tipoDiagnostico;
     }
 
     /**
@@ -835,4 +837,19 @@ public class AdmissaoMedica {
     public void setDiagnosticooInicial(String diagnosticooInicial) {
         this.diagnosticooInicial = diagnosticooInicial;
     }
+
+    /**
+     * @return the tipoDiagnostico
+     */
+    public int getTipoDiagnostico() {
+        return tipoDiagnostico;
+    }
+
+    /**
+     * @param tipoDiagnostico the tipoDiagnostico to set
+     */
+    public void setTipoDiagnostico(int tipoDiagnostico) {
+        this.tipoDiagnostico = tipoDiagnostico;
+    }
+    
 }
