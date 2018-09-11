@@ -196,6 +196,8 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     String tipoAtendimentoEvolENF = "Evolução Enfermagem";
     //    
     String phabilitaEnferemeiro = "";
+    //
+    String admEvolucao = "Sim";
 
     /**
      * Creates new form TelaAdmissaoEnfermagem
@@ -4702,15 +4704,15 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             .addGroup(jPanel40Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jIdEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel97))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel97)
+                    .addComponent(jIdEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel40Layout.createSequentialGroup()
                         .addComponent(jLabel98)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 202, Short.MAX_VALUE))
                     .addComponent(jNomeInternoEvolEnf))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel99)
                     .addComponent(jDataEvolu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -5040,6 +5042,19 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                     objRegAtend.setDataUp(dataModFinal);
                     objRegAtend.setHorarioUp(horaMov);
                     controlRegAtend.alterarRegAtend(objRegAtend);
+                    // ADICIONA EVOLUÇÃO APARTIR DA ADMISSÃO
+                    objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
+                    objEvolEnferma.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                    objEvolEnferma.setDataEvol(jDataLanc.getDate());
+                    objEvolEnferma.setTextoEvolucao(jObservacao.getText());
+                    // log de usuario
+                    objEvolEnferma.setUsuarioInsert(nameUser);
+                    objEvolEnferma.setDataInsert(dataModFinal);
+                    objEvolEnferma.setHoraInsert(horaMov);
+                    controleEnfa.incluirEvolucaoEnfermagem(objEvolEnferma);
+                    preencherTabelaEvolucaoEnfermagem("SELECT * FROM EVOLUCAOENFERMAGEM "
+                            + "WHERE IdLanc='" + jIdLanc.getText() + "'");
+                    buscarEvolucao();
                     //
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -5059,6 +5074,19 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                     objAdmEnfermagem.setNomeInterno(jNomeInternoMedico.getText());
                     objAdmEnfermagem.setDeptoMedico(deptoTecnico);
                     controle.alterarMovTec(objAdmEnfermagem);
+                    // EDITAR A EVOLUÇÃO APARTIR DA ADMISSÃO
+                    objEvolEnferma.setIdItem(Integer.valueOf(jIdEvolucao.getText()));
+                    objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
+                    objEvolEnferma.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                    objEvolEnferma.setDataEvol(jDataLanc.getDate());
+                    objEvolEnferma.setTextoEvolucao(jObservacao.getText());
+                    // log de usuario
+                    objEvolEnferma.setUsuarioInsert(nameUser);
+                    objEvolEnferma.setDataInsert(dataModFinal);
+                    objEvolEnferma.setHoraInsert(horaMov);
+                    controleEnfa.alterarEvolucaoEnfermagem(objEvolEnferma);
+                    preencherTabelaEvolucaoEnfermagem("SELECT * FROM EVOLUCAOENFERMAGEM "
+                            + "WHERE IdLanc='" + jIdLanc.getText() + "'");
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
@@ -5655,24 +5683,51 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private void jBtAlterarEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarEvolucaoActionPerformed
         buscarAcessoUsuario(telaAdmissaoEnfeIntEvolENF);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAdmissaoEnfeIntEvolENF) && codAlterarENF == 1) {
-            conecta.abrirConexao();
-            try {
-                conecta.executaSQL("SELECT * FROM EVOLUCAOENFERMAGEM WHERE IdItem='" + jIdEvolucao.getText() + "'");
-                conecta.rs.first();
-                nomeUserRegistro = conecta.rs.getString("UsuarioInsert");
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(rootPane, "Não foi possivel encontrar o usuário.");
-            }
-            if (nomeUserRegistro == null ? nameUser == null : nomeUserRegistro.equals(nameUser)) {
-                acao = 6;
-                bloquearCampos();
-                AlterarEvolucao();
-                statusMov = "Alterou";
-                horaMov = jHoraSistema.getText();
-                dataModFinal = jDataSistema.getText();
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserRegistro + " só esse usuário poderá modificar.");
-                conecta.desconecta();
+            verificarEvolucaoAdmissao();
+            if (admEvolucao == null) {
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM EVOLUCAOENFERMAGEM "
+                            + "WHERE IdItem='" + jIdEvolucao.getText() + "'");
+                    conecta.rs.first();
+                    nomeUserRegistro = conecta.rs.getString("UsuarioInsert");
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(rootPane, "Não foi possivel encontrar o usuário.");
+                }
+                if (nomeUserRegistro == null ? nameUser == null : nomeUserRegistro.equals(nameUser)) {
+                    acao = 6;
+                    bloquearCampos();
+                    AlterarEvolucao();
+                    statusMov = "Alterou";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserRegistro + " só esse usuário poderá modificar.");
+                    conecta.desconecta();
+                }
+            } else if (admEvolucao.equals("")) {
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM EVOLUCAOENFERMAGEM "
+                            + "WHERE IdItem='" + jIdEvolucao.getText() + "'");
+                    conecta.rs.first();
+                    nomeUserRegistro = conecta.rs.getString("UsuarioInsert");
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(rootPane, "Não foi possivel encontrar o usuário.");
+                }
+                if (nomeUserRegistro == null ? nameUser == null : nomeUserRegistro.equals(nameUser)) {
+                    acao = 6;
+                    bloquearCampos();
+                    AlterarEvolucao();
+                    statusMov = "Alterou";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserRegistro + " só esse usuário poderá modificar.");
+                    conecta.desconecta();
+                }
+            } else if (admEvolucao.equals("Sim")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa evolução não poderá ser alterada nessa tela, será necessário alterar na admissão.");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
@@ -10680,6 +10735,22 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             conecta.executaSQL("SELECT * FROM PARAMETROSCRC");
             conecta.rs.first();
             phabilitaEnferemeiro = conecta.rs.getString("BiometriaEnfermeiros");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    // VERIFICAR SE A EVOLUÇÃO FAZ PARTE DA ADMISSÃO, OU SEJA, QUANDO É FEITA A ADMISSÃO DO INTERNO
+    // É GRAVADO AUTOMÁTICAMETE UMA EVOLUÇÃO PARA O INTERNO.
+    public void verificarEvolucaoAdmissao() {
+
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM EVOLUCAOJURIDICO "
+                    + "WHERE IdLanc='" + jIdLanc.getText() + "' "
+                    + "AND IdEvo='" + jIdEvolucao.getText() + "'");
+            conecta.rs.first();
+            admEvolucao = conecta.rs.getString("AdmEvo");
         } catch (Exception e) {
         }
         conecta.desconecta();
