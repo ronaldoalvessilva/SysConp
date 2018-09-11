@@ -2139,8 +2139,8 @@ public class TelaEntradaSaidaVeiculosUnidadeExterna extends javax.swing.JInterna
         jIdVeiculo.setText("");
         jModeloVeiculo.setText("");
         jPlacaVeiculo.setText("");
-        jKmInicial.setText("00");
-        jKmFinal.setText("00");
+        jKmInicial.setText("0");
+        jKmFinal.setText("0");
         jDestino.setText("");
         jDataEntrada.setDate(null);
         jHorarioEntrada.setText(" :  ");
