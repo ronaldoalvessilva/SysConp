@@ -823,7 +823,7 @@
                   <Image iconType="3" name="/gestor/Imagens/icone_EF48.jpg"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="E.F."/>
-                <Property name="toolTipText" type="java.lang.String" value="Coordena&#xe7;&#xe3;o Seguran&#xe7;a"/>
+                <Property name="toolTipText" type="java.lang.String" value="Educa&#xe7;&#xe3;o Fis&#xed;ca"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtEducacaoFisicaActionPerformed"/>

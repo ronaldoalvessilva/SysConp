@@ -580,7 +580,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jBtEducacaoFisica.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jBtEducacaoFisica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/icone_EF48.jpg"))); // NOI18N
         jBtEducacaoFisica.setText("E.F.");
-        jBtEducacaoFisica.setToolTipText("Coordenação Segurança");
+        jBtEducacaoFisica.setToolTipText("Educação Fisíca");
         jBtEducacaoFisica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtEducacaoFisicaActionPerformed(evt);
