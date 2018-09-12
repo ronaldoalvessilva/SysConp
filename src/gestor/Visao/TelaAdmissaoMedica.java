@@ -159,6 +159,9 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
     String tipoAtendimentoEvolPS = "Evolução Psiquiatrica";
     //
     String pHabilitaMedico = "";
+    //
+    int tipoDiagnosticoMed;
+    String admEvolucao = "Sim";
 
     /**
      * Creates new form TelaAdmissaoMedica
@@ -346,6 +349,8 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane17 = new javax.swing.JScrollPane();
         jDiagnosticoInicial = new javax.swing.JTextArea();
+        jLabel78 = new javax.swing.JLabel();
+        jComboBoxTipoDiagnostico = new javax.swing.JComboBox<>();
         jPanel13 = new javax.swing.JPanel();
         jFotoInternoAdm = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
@@ -1639,20 +1644,38 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jDiagnosticoInicial.setEnabled(false);
         jScrollPane17.setViewportView(jDiagnosticoInicial);
 
+        jLabel78.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel78.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel78.setText("Tipo de Diagnóstico:");
+
+        jComboBoxTipoDiagnostico.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxTipoDiagnostico.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Diagnóstico Clínico", "Diagnóstico Psiquiatrico" }));
+        jComboBoxTipoDiagnostico.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxTipoDiagnostico.setEnabled(false);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane17, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane17, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel78)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxTipoDiagnostico, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane17, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel78)
+                    .addComponent(jComboBoxTipoDiagnostico, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane17, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -3724,136 +3747,203 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data para admissão.");
                 jDataAdm.requestFocus();
                 jDataAdm.setBackground(Color.red);
+            } else if (jNomeInternoAdm.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe qual é o interno para o atendimento.");
+            } else if (rows == 0) {
+                JOptionPane.showMessageDialog(rootPane, "Informe pelo menos um tipo de patologia.");
+            } else if (jComboBoxTipoDiagnostico.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Selecione um tipo de diagnóstico.");
             } else {
-                if (jNomeInternoAdm.getText().equals("")) {
-                    JOptionPane.showMessageDialog(rootPane, "Informe qual é o interno para o atendimento.");
-                } else if (rows == 0) {
-                    JOptionPane.showMessageDialog(rootPane, "Informe pelo menos um tipo de patologia.");
-                } else {
-                    objAdmMedico.setStatusLanc(jStatusLanc.getText());
-                    objAdmMedico.setDataLanc(jDataAdm.getDate());
-                    objAdmMedico.setAr(jAR.getText());
-                    objAdmMedico.setAcv(jACV.getText());
-                    objAdmMedico.setAgu(jAGU.getText());
-                    objAdmMedico.setCabPesc(jCABPESC.getText());
-                    objAdmMedico.setExt(jEXT.getText());
-                    objAdmMedico.setAbd(jABD.getText());
-                    objAdmMedico.setDiagnostico(jTextoEvolucaoPsiquiatrica.getText());
-                    objAdmMedico.setCirurgiasPrevisas(jCirurgiasPrevisas.getText());
-                    objAdmMedico.setTratamentoCurso(jTratamentoCurso.getText());
-                    objAdmMedico.setDrogas((String) jComboBoxDrogas.getSelectedItem());
-                    objAdmMedico.setQualDrogas(jQualDrogas.getText());
-                    objAdmMedico.setEtilismo((String) jComboBoxEtilismo.getSelectedItem());
-                    objAdmMedico.setQualEtilismo(jQualEtilismo.getText());
-                    objAdmMedico.setTabagismo((String) jComboBoxTabagismo.getSelectedItem());
-                    objAdmMedico.setQuantoTempoTabagismo(jQuantoTempoTabagismo.getText());
-                    objAdmMedico.setVacinas((String) jComboBoxVacinas.getSelectedItem());
-                    objAdmMedico.setAtualizadaIgnorada((String) jComboBoxIgnoradoAtualizado.getSelectedItem());
-                    // INCLUSÃO DE NOVOS CAMPOS NA ADMISSÃO EM 15/06/2016
-                    objAdmMedico.setComboBoxAR((String) jComboBoxAR.getSelectedItem());
-                    objAdmMedico.setComboBoxACV((String) jComboBoxACV.getSelectedItem());
-                    objAdmMedico.setComboBoxAGU((String) jComboBoxAGU.getSelectedItem());
-                    objAdmMedico.setComboBoxCAB((String) jComboBoxCAB.getSelectedItem());
-                    objAdmMedico.setComboBoxEXT((String) jComboBoxEXT.getSelectedItem());
-                    objAdmMedico.setComboBoxABD((String) jComboBoxABD.getSelectedItem());
-                    objAdmMedico.setAlergia((String) jComboBoxAlergias.getSelectedItem());
-                    objAdmMedico.setQuaisAlergias(jQuaisAlergias.getText());
-                    objAdmMedico.setDrogasInjetavel((String) jComboBoxDrogasInjetavel.getSelectedItem());
-                    objAdmMedico.setQualTipoDrograInjet(jQualTipoDrograInjet.getText());
-                    objAdmMedico.setSexualidade((String) jComboBoxSexualidade.getSelectedItem());
-                    objAdmMedico.setNumeroParceiros((String) jComboBoxNumeroParceiro.getSelectedItem());
-                    objAdmMedico.setUsoPreservativos((String) jComboBoxUsaPreserva.getSelectedItem());
-                    objAdmMedico.setTipoSanguineo((String) jComboBoxTipoSanguineo.getSelectedItem());
-                    objAdmMedico.setFatorRH((String) jComboBoxFatorRH.getSelectedItem());
-                    objAdmMedico.setUsaMedicamentos((String) jComboBoxUsaMedicamento.getSelectedItem());
-                    objAdmMedico.setQualMedicacaoUsa(jQualMedicacaoUsa.getText());
-                    objAdmMedico.setOutrasAlergias((String) jComboBoxOutrasAlergias.getSelectedItem());
-                    objAdmMedico.setQuaisOutrasAlergias(jQuaisOutrasAlergias.getText());
-                    objAdmMedico.setDiagnostico(jDiagnosticoInicial.getText());
-                    if (acao == 1) {
+                objAdmMedico.setStatusLanc(jStatusLanc.getText());
+                objAdmMedico.setDataLanc(jDataAdm.getDate());
+                objAdmMedico.setAr(jAR.getText());
+                objAdmMedico.setAcv(jACV.getText());
+                objAdmMedico.setAgu(jAGU.getText());
+                objAdmMedico.setCabPesc(jCABPESC.getText());
+                objAdmMedico.setExt(jEXT.getText());
+                objAdmMedico.setAbd(jABD.getText());
+                objAdmMedico.setDiagnostico(jTextoEvolucaoPsiquiatrica.getText());
+                objAdmMedico.setCirurgiasPrevisas(jCirurgiasPrevisas.getText());
+                objAdmMedico.setTratamentoCurso(jTratamentoCurso.getText());
+                objAdmMedico.setDrogas((String) jComboBoxDrogas.getSelectedItem());
+                objAdmMedico.setQualDrogas(jQualDrogas.getText());
+                objAdmMedico.setEtilismo((String) jComboBoxEtilismo.getSelectedItem());
+                objAdmMedico.setQualEtilismo(jQualEtilismo.getText());
+                objAdmMedico.setTabagismo((String) jComboBoxTabagismo.getSelectedItem());
+                objAdmMedico.setQuantoTempoTabagismo(jQuantoTempoTabagismo.getText());
+                objAdmMedico.setVacinas((String) jComboBoxVacinas.getSelectedItem());
+                objAdmMedico.setAtualizadaIgnorada((String) jComboBoxIgnoradoAtualizado.getSelectedItem());
+                // INCLUSÃO DE NOVOS CAMPOS NA ADMISSÃO EM 15/06/2016
+                objAdmMedico.setComboBoxAR((String) jComboBoxAR.getSelectedItem());
+                objAdmMedico.setComboBoxACV((String) jComboBoxACV.getSelectedItem());
+                objAdmMedico.setComboBoxAGU((String) jComboBoxAGU.getSelectedItem());
+                objAdmMedico.setComboBoxCAB((String) jComboBoxCAB.getSelectedItem());
+                objAdmMedico.setComboBoxEXT((String) jComboBoxEXT.getSelectedItem());
+                objAdmMedico.setComboBoxABD((String) jComboBoxABD.getSelectedItem());
+                objAdmMedico.setAlergia((String) jComboBoxAlergias.getSelectedItem());
+                objAdmMedico.setQuaisAlergias(jQuaisAlergias.getText());
+                objAdmMedico.setDrogasInjetavel((String) jComboBoxDrogasInjetavel.getSelectedItem());
+                objAdmMedico.setQualTipoDrograInjet(jQualTipoDrograInjet.getText());
+                objAdmMedico.setSexualidade((String) jComboBoxSexualidade.getSelectedItem());
+                objAdmMedico.setNumeroParceiros((String) jComboBoxNumeroParceiro.getSelectedItem());
+                objAdmMedico.setUsoPreservativos((String) jComboBoxUsaPreserva.getSelectedItem());
+                objAdmMedico.setTipoSanguineo((String) jComboBoxTipoSanguineo.getSelectedItem());
+                objAdmMedico.setFatorRH((String) jComboBoxFatorRH.getSelectedItem());
+                objAdmMedico.setUsaMedicamentos((String) jComboBoxUsaMedicamento.getSelectedItem());
+                objAdmMedico.setQualMedicacaoUsa(jQualMedicacaoUsa.getText());
+                objAdmMedico.setOutrasAlergias((String) jComboBoxOutrasAlergias.getSelectedItem());
+                objAdmMedico.setQuaisOutrasAlergias(jQuaisOutrasAlergias.getText());
+                objAdmMedico.setDiagnostico(jDiagnosticoInicial.getText());
+                objAdmMedico.setAdmEvo(admEvolucao);
+                if (jComboBoxTipoDiagnostico.getSelectedItem().equals("Diagnóstico Clínico")) {
+                    tipoDiagnosticoMed = 0;
+                } else if (jComboBoxTipoDiagnostico.getSelectedItem().equals("Diagnóstico Psiquiatrico")) {
+                    tipoDiagnosticoMed = 1;
+                }
+                objAdmMedico.setTipoDiagnostico(tipoDiagnosticoMed);
+                if (acao == 1) {
+                    // log de usuario
+                    objAdmMedico.setUsuarioInsert(nameUser);
+                    objAdmMedico.setDataInsert(dataModFinal);
+                    objAdmMedico.setHoraInsert(horaMov);
+                    objAdmMedico.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                    objAdmMedico.setNomeInterno(jNomeInternoAdm.getText());
+                    control.incluirAdmissaoMedica(objAdmMedico);
+                    buscarID();
+                    objAdmMedico.setIdLanc(Integer.valueOf(jIdAdm.getText()));
+                    objAdmMedico.setNomeInterno(jNomeInternoAdm.getText());
+                    objAdmMedico.setDeptoMedico(deptoTecnico);
+                    controle.incluirMovTec(objAdmMedico);
+                    // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO  
+                    atendido = "Sim";
+                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                    objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
+                    objRegAtend.setIdDepartamento(codigoDepartamentoENF);
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                    objRegAtend.setAtendido(atendido);
+                    objRegAtend.setDataAtendimento(jDataAdm.getDate());
+                    objRegAtend.setIdAtend(Integer.valueOf(jIdAdm.getText()));
+                    //
+                    objRegAtend.setUsuarioUp(nameUser);
+                    objRegAtend.setDataUp(dataModFinal);
+                    objRegAtend.setHorarioUp(horaMov);
+                    controlRegAtend.alterarRegAtend(objRegAtend);
+                    //
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                    
+                    incluirItensDoencas();
+                    if (jComboBoxTipoDiagnostico.getSelectedItem().equals("Diagnóstico Clínico")) {
+                        objEvolMedica.setIdLanc(Integer.valueOf(jIdAdm.getText()));
+                        objEvolMedica.setDataEvolu(jDataAdm.getDate());
+                        objEvolMedica.setTextoEvolucao(jDiagnosticoInicial.getText());
+                        objEvolMedica.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                        objEvolMedica.setNomeInternoEvoluMedica(jNomeInternoAdm.getText());
                         // log de usuario
-                        objAdmMedico.setUsuarioInsert(nameUser);
-                        objAdmMedico.setDataInsert(dataModFinal);
-                        objAdmMedico.setHoraInsert(horaMov);
-                        objAdmMedico.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
-                        objAdmMedico.setNomeInterno(jNomeInternoAdm.getText());
-                        control.incluirAdmissaoMedica(objAdmMedico);
-                        buscarID();
-                        objAdmMedico.setIdLanc(Integer.valueOf(jIdAdm.getText()));
-                        objAdmMedico.setNomeInterno(jNomeInternoAdm.getText());
-                        objAdmMedico.setDeptoMedico(deptoTecnico);
-                        controle.incluirMovTec(objAdmMedico);
-                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO  
-                        atendido = "Sim";
-                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
-                        objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
-                        objRegAtend.setIdDepartamento(codigoDepartamentoENF);
-                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                        objEvolMedica.setUsuarioInsert(nameUser);
+                        objEvolMedica.setDataInsert(dataModFinal);
+                        objEvolMedica.setHoraInsert(horaMov);
+                        objEvolMedica.setAdmEvo(admEvolucao);
+                        controleEvoluMed.incluirEvolucaoMedica(objEvolMedica);
+                        //
+                        buscarEvolucao();
+                        preencherTabelaEvolucaoMedica("SELECT * FROM EVOLUCAOMEDICA "
+                                + "WHERE IdLanc='" + jIdAdm.getText() + "'");
+                    } else if (jComboBoxTipoDiagnostico.getSelectedItem().equals("Diagnóstico Psiquiatrico")) {
+                        objEvolPsiquiatrica.setIdLanc(Integer.valueOf(jIdAdm.getText()));
+                        objEvolPsiquiatrica.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                        objEvolPsiquiatrica.setDataDiag(jDataAdm.getDate());
+                        objEvolPsiquiatrica.setEvolucaoPsiquiatrica(jDiagnosticoInicial.getText());
+                        //
+                        objEvolPsiquiatrica.setUsuarioInsert(nameUser);
+                        objEvolPsiquiatrica.setDataInsert(dataModFinal);
+                        objEvolPsiquiatrica.setHorarioInsert(horaMov);
+                        objEvolMedica.setAdmEvo(admEvolucao);
+                        controlEvolPsiquiatrica.incluirEvolucaoPsiquiatrica(objEvolPsiquiatrica);
+                        //
+                        buscarCodEvolPsiquiatrica();
+                        preencherTabelaEvolucaoPsiquiatrica("SELECT * FROM EVOLUCAO_PSIQUIATRICA "
+                                + "WHERE IdLanc='" + jIdAdm.getText() + "'");
+                    }
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    Salvar();
+                }
+                if (acao == 2) {
+                    // log de usuario
+                    objAdmMedico.setUsuarioUp(nameUser);
+                    objAdmMedico.setDataUp(dataModFinal);
+                    objAdmMedico.setHoraUp(horaMov);
+                    //
+                    objAdmMedico.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                    objAdmMedico.setNomeInterno(jNomeInternoAdm.getText());
+                    objAdmMedico.setIdLanc(Integer.valueOf(jIdAdm.getText()));
+                    control.alterarAdmissaoMedica(objAdmMedico);
+                    objAdmMedico.setIdLanc(Integer.valueOf(jIdAdm.getText()));
+                    objAdmMedico.setNomeInterno(jNomeInternoAdm.getText());
+                    objAdmMedico.setDeptoMedico(deptoTecnico);
+                    controle.alterarMovTec(objAdmMedico);
+                    //
+                    objItensDoenca.setIdLanc(Integer.valueOf(jIdAdm.getText()));
+                    controlePat.excluirDoencas(objItensDoenca);
+                    incluirItensDoencas();
+                    // SE O INTERNO FOR MODIFICADO
+                    if (!jIdInternoAdm.getText().equals(codInterno)) {
+                        atendido = "Não";
+                        objRegAtend.setIdInternoCrc(Integer.valueOf(codInterno));
+                        objRegAtend.setNomeInternoCrc(nomeInternoAnterior);
                         objRegAtend.setAtendido(atendido);
                         objRegAtend.setDataAtendimento(jDataAdm.getDate());
-                        objRegAtend.setIdAtend(Integer.valueOf(jIdAdm.getText()));
                         //
                         objRegAtend.setUsuarioUp(nameUser);
                         objRegAtend.setDataUp(dataModFinal);
                         objRegAtend.setHorarioUp(horaMov);
                         controlRegAtend.alterarRegAtend(objRegAtend);
-                        //
-                        objLog();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                    
-                        incluirItensDoencas();
-                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                        Salvar();
                     }
-                    if (acao == 2) {
+                    // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO   
+                    atendido = "Sim";
+                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                    objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
+                    objRegAtend.setAtendido(atendido);
+                    objRegAtend.setDataAtendimento(jDataAdm.getDate());
+                    //
+                    objRegAtend.setUsuarioUp(nameUser);
+                    objRegAtend.setDataUp(dataModFinal);
+                    objRegAtend.setHorarioUp(horaMov);
+                    controlRegAtend.alterarRegAtend(objRegAtend);
+                    if (jComboBoxTipoDiagnostico.getSelectedItem().equals("Diagnóstico Clínico")) {
+                        objEvolMedica.setIdLanc(Integer.valueOf(jIdAdm.getText()));
+                        objEvolMedica.setDataEvolu(jDataAdm.getDate());
+                        objEvolMedica.setTextoEvolucao(jDiagnosticoInicial.getText());
+                        objEvolMedica.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                        objEvolMedica.setNomeInternoEvoluMedica(jNomeInternoAdm.getText());
                         // log de usuario
-                        objAdmMedico.setUsuarioUp(nameUser);
-                        objAdmMedico.setDataUp(dataModFinal);
-                        objAdmMedico.setHoraUp(horaMov);
+                        objEvolMedica.setUsuarioInsert(nameUser);
+                        objEvolMedica.setDataInsert(dataModFinal);
+                        objEvolMedica.setHoraInsert(horaMov);
+                        objEvolMedica.setIdItem(idItemEvol);
+                        controleEvoluMed.alterarEvolucaoMedica(objEvolMedica);
+                        //                        
+                        preencherTabelaEvolucaoMedica("SELECT * FROM EVOLUCAOMEDICA "
+                                + "WHERE IdLanc='" + jIdAdm.getText() + "'");
+                    } else if (jComboBoxTipoDiagnostico.getSelectedItem().equals("Diagnóstico Psiquiatrico")) {
+                        objEvolPsiquiatrica.setIdLanc(Integer.valueOf(jIdAdm.getText()));
+                        objEvolPsiquiatrica.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                        objEvolPsiquiatrica.setDataDiag(jDataAdm.getDate());
+                        objEvolPsiquiatrica.setEvolucaoPsiquiatrica(jDiagnosticoInicial.getText());
                         //
-                        objAdmMedico.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
-                        objAdmMedico.setNomeInterno(jNomeInternoAdm.getText());
-                        objAdmMedico.setIdLanc(Integer.valueOf(jIdAdm.getText()));
-                        control.alterarAdmissaoMedica(objAdmMedico);
-                        objAdmMedico.setIdLanc(Integer.valueOf(jIdAdm.getText()));
-                        objAdmMedico.setNomeInterno(jNomeInternoAdm.getText());
-                        objAdmMedico.setDeptoMedico(deptoTecnico);
-                        controle.alterarMovTec(objAdmMedico);
-                        //
-                        objItensDoenca.setIdLanc(Integer.valueOf(jIdAdm.getText()));
-                        controlePat.excluirDoencas(objItensDoenca);
-                        incluirItensDoencas();
-                        // SE O INTERNO FOR MODIFICADO
-                        if (!jIdInternoAdm.getText().equals(codInterno)) {
-                            atendido = "Não";
-                            objRegAtend.setIdInternoCrc(Integer.valueOf(codInterno));
-                            objRegAtend.setNomeInternoCrc(nomeInternoAnterior);
-                            objRegAtend.setAtendido(atendido);
-                            objRegAtend.setDataAtendimento(jDataAdm.getDate());
-                            //
-                            objRegAtend.setUsuarioUp(nameUser);
-                            objRegAtend.setDataUp(dataModFinal);
-                            objRegAtend.setHorarioUp(horaMov);
-                            controlRegAtend.alterarRegAtend(objRegAtend);
-                        }
-                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO   
-                        atendido = "Sim";
-                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
-                        objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
-                        objRegAtend.setAtendido(atendido);
-                        objRegAtend.setDataAtendimento(jDataAdm.getDate());
-                        //
-                        objRegAtend.setUsuarioUp(nameUser);
-                        objRegAtend.setDataUp(dataModFinal);
-                        objRegAtend.setHorarioUp(horaMov);
-                        controlRegAtend.alterarRegAtend(objRegAtend);
-                        //
-                        //
-                        objLog();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                        Salvar();
-                        acao = 0;
+                        objEvolPsiquiatrica.setUsuarioInsert(nameUser);
+                        objEvolPsiquiatrica.setDataInsert(dataModFinal);
+                        objEvolPsiquiatrica.setHorarioInsert(horaMov);
+                        objEvolPsiquiatrica.setIdItem(idItemEvolPsiquiatrico);
+                        controlEvolPsiquiatrica.alterarEvolucaoPsiquiatrica(objEvolPsiquiatrica);
+                        //                        
+                        preencherTabelaEvolucaoPsiquiatrica("SELECT * FROM EVOLUCAO_PSIQUIATRICA "
+                                + "WHERE IdLanc='" + jIdAdm.getText() + "'");
                     }
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    Salvar();
+                    acao = 0;
                 }
             }
         } else {
@@ -4002,7 +4092,13 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                 jComboBoxOutrasAlergias.setSelectedItem(conecta.rs.getString("OutrasAlergias"));
                 jQuaisOutrasAlergias.setText(conecta.rs.getString("QuaisOutrasAlergias"));
                 jDiagnosticoInicial.setText(conecta.rs.getString("DiagnosticoInicial"));
-                //               
+                tipoDiagnosticoMed = conecta.rs.getInt("TipoDiag");
+                if (tipoDiagnosticoMed == 0) {
+                    jComboBoxTipoDiagnostico.setSelectedItem("Diagnóstico Clínico");
+                } else if (tipoDiagnosticoMed == 1) {
+                    jComboBoxTipoDiagnostico.setSelectedItem("Diagnóstico Psiquiatrico");
+                }
+                //           
                 conecta.desconecta();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa..." + e);
@@ -4241,7 +4337,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                     objEvolPsiquiatrica.setHorarioUp(horaMov);
                     objEvolPsiquiatrica.setIdLanc(Integer.valueOf(jIdAdm.getText()));
                     objEvolPsiquiatrica.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
-                    objEvolPsiquiatrica.setIdItem(Integer.valueOf(idItemEvolPsiquiatrico));
+                    objEvolPsiquiatrica.setIdItem(idItemEvolPsiquiatrico);
                     controlEvolPsiquiatrica.alterarEvolucaoPsiquiatrica(objEvolPsiquiatrica);
                     //                 
                     objEvolPsiquiatrica.setDeptoMedicoPsiq(deptoTecnico);
@@ -4313,10 +4409,10 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTabelaEvolPsiquiatricaMouseClicked
 
     private void jBtNovaEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaEvolucaoActionPerformed
-        // TODO add your handling code here:  
-        verificarInternoRegistradoAdm();
+        // TODO add your handling code here:          
         buscarAcessoUsuarioMedicoClinico();
         if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(nomeModuloTela3) && codIncluirENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
+            verificarInternoRegistradoAdm();
             if (atendido == null) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
             } else if (atendido.equals("")) {
@@ -4339,24 +4435,49 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuarioMedicoClinico();
         if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(nomeModuloTela3) && codAlterarENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
-            conecta.abrirConexao();
-            try {
-                conecta.executaSQL("SELECT * FROM EVOLUCAOMEDICA "
-                        + "WHERE IdItem='" + jIdEvolucaoMedica.getText() + "'");
-                conecta.rs.first();
-                nomeUserRegistro = conecta.rs.getString("UsuarioInsert");
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(rootPane, "Não foi possivel encontrar o usuário.");
-            }
-            if (nomeUserRegistro == null ? nameUser == null : nomeUserRegistro.equals(nameUser)) {
-                acao = 6;
-                AlterarEvolucao();
-                statusMov = "Alterou";
-                horaMov = jHoraSistema.getText();
-                dataModFinal = jDataSistema.getText();
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserRegistro + " só esse usuário poderá modificar.");
-                conecta.desconecta();
+            verificarEvolucaoAdmissao();
+            if (admEvolucao == null) {
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM EVOLUCAOMEDICA "
+                            + "WHERE IdItem='" + jIdEvolucaoMedica.getText() + "'");
+                    conecta.rs.first();
+                    nomeUserRegistro = conecta.rs.getString("UsuarioInsert");
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(rootPane, "Não foi possivel encontrar o usuário.");
+                }
+                if (nomeUserRegistro == null ? nameUser == null : nomeUserRegistro.equals(nameUser)) {
+                    acao = 6;
+                    AlterarEvolucao();
+                    statusMov = "Alterou";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserRegistro + " só esse usuário poderá modificar.");
+                    conecta.desconecta();
+                }
+            } else if (admEvolucao.equals("")) {
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM EVOLUCAOMEDICA "
+                            + "WHERE IdItem='" + jIdEvolucaoMedica.getText() + "'");
+                    conecta.rs.first();
+                    nomeUserRegistro = conecta.rs.getString("UsuarioInsert");
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(rootPane, "Não foi possivel encontrar o usuário.");
+                }
+                if (nomeUserRegistro == null ? nameUser == null : nomeUserRegistro.equals(nameUser)) {
+                    acao = 6;
+                    AlterarEvolucao();
+                    statusMov = "Alterou";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserRegistro + " só esse usuário poderá modificar.");
+                    conecta.desconecta();
+                }
+            } else if (admEvolucao.equals("Sim")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa evolução não poderá ser alterada nessa tela, será necessário alterar na admissão.");
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar prontuário médico.");
@@ -5599,6 +5720,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
     public static javax.swing.JComboBox jComboBoxPatologiaAdquiridaMedica;
     private javax.swing.JComboBox jComboBoxSexualidade;
     private javax.swing.JComboBox jComboBoxTabagismo;
+    private javax.swing.JComboBox<String> jComboBoxTipoDiagnostico;
     private javax.swing.JComboBox jComboBoxTipoSanguineo;
     private javax.swing.JComboBox jComboBoxUsaMedicamento;
     private javax.swing.JComboBox jComboBoxUsaPreserva;
@@ -5704,6 +5826,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel75;
     private javax.swing.JLabel jLabel76;
     private javax.swing.JLabel jLabel77;
+    private javax.swing.JLabel jLabel78;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     public static javax.swing.JTextField jMatriculaPenal;
@@ -6054,6 +6177,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jComboBoxOutrasAlergias.setSelectedItem("Não");
         jQuaisOutrasAlergias.setText("");
         jDiagnosticoInicial.setText("");
+        jComboBoxTipoDiagnostico.setSelectedItem("Selecione...");
         //
         jBtNovo.setEnabled(!true);
         jBtAlterar.setEnabled(!true);
@@ -6101,6 +6225,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jComboBoxOutrasAlergias.setEnabled(true);
         jQuaisOutrasAlergias.setEnabled(true);
         jDiagnosticoInicial.setEnabled(true);
+        jComboBoxTipoDiagnostico.setEnabled(true);
         //
         jIdItem.setText("");
         jDescricaoPatologia.setText("");
@@ -6223,6 +6348,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jComboBoxOutrasAlergias.setEnabled(true);
         jQuaisOutrasAlergias.setEnabled(true);
         jDiagnosticoInicial.setEnabled(true);
+        jComboBoxTipoDiagnostico.setEnabled(true);
         //
         jBtNovo.setEnabled(!true);
         jBtAlterar.setEnabled(!true);
@@ -6334,6 +6460,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jComboBoxOutrasAlergias.setSelectedItem("Não");
         jQuaisOutrasAlergias.setText("");
         jDiagnosticoInicial.setText("");
+        jComboBoxTipoDiagnostico.setSelectedItem("Selecione...");
         //Habilitar/Desabilitar Campos
         jDataAdm.setEnabled(!true);
         jBtPesqInternoAdm.setEnabled(!true);
@@ -6373,6 +6500,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jComboBoxOutrasAlergias.setEnabled(!true);
         jQuaisOutrasAlergias.setEnabled(!true);
         jDiagnosticoInicial.setEnabled(!true);
+        jComboBoxTipoDiagnostico.setEnabled(!true);
         //
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(!true);
@@ -6500,6 +6628,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jComboBoxOutrasAlergias.setEnabled(!true);
         jQuaisOutrasAlergias.setEnabled(!true);
         jDiagnosticoInicial.setEnabled(!true);
+        jComboBoxTipoDiagnostico.setEnabled(!true);
         //
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(true);
@@ -6608,6 +6737,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
             jComboBoxOutrasAlergias.setSelectedItem("Não");
             jQuaisOutrasAlergias.setText("");
             jDiagnosticoInicial.setText("");
+            jComboBoxTipoDiagnostico.setSelectedItem("Selecione...");
             //
             jDataAdm.setEnabled(!true);
             jBtPesqInternoAdm.setEnabled(!true);
@@ -6647,6 +6777,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
             jComboBoxOutrasAlergias.setEnabled(!true);
             jQuaisOutrasAlergias.setEnabled(!true);
             jDiagnosticoInicial.setEnabled(!true);
+            jComboBoxTipoDiagnostico.setEnabled(!true);
             //
             jBtNovo.setEnabled(true);
             jBtAlterar.setEnabled(!true);
@@ -6715,6 +6846,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
             jComboBoxOutrasAlergias.setEnabled(!true);
             jQuaisOutrasAlergias.setEnabled(!true);
             jDiagnosticoInicial.setEnabled(!true);
+            jComboBoxTipoDiagnostico.setEnabled(!true);
             //
             jBtNovo.setEnabled(true);
             jBtAlterar.setEnabled(true);
@@ -9050,6 +9182,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
             conecta.rs.first();
             countp = 0;
             do {
+                idItemEvolPsiquiatrico = conecta.rs.getInt("IdItem");
                 countp = countp + 1;
                 dataEvolPsiquiatrica = conecta.rs.getString("DataEvol");
                 String diag = dataEvolPsiquiatrica.substring(8, 10);
@@ -9087,6 +9220,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
             conecta.rs.first();
             countm = 0;
             do {
+                idItemEvol = conecta.rs.getInt("IdItem");
                 countm = countm + 1;
                 dataEvolu = conecta.rs.getString("DataEvolu");
                 String diav = dataEvolu.substring(8, 10);
@@ -9577,6 +9711,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
             conecta.executaSQL("SELECT * FROM EVOLUCAO_PSIQUIATRICA");
             conecta.rs.last();
             jIdEvolucaoPsiquiatrica.setText(conecta.rs.getString("IdItem"));
+            idItemEvolPsiquiatrico = conecta.rs.getInt("IdItem");
         } catch (Exception e) {
         }
         conecta.desconecta();
@@ -9588,6 +9723,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
             conecta.executaSQL("SELECT * FROM EVOLUCAOMEDICA");
             conecta.rs.last();
             jIdEvolucaoMedica.setText(conecta.rs.getString("IdItem"));
+            idItemEvol = conecta.rs.getInt("IdItem");
         } catch (Exception e) {
         }
         conecta.desconecta();
@@ -9869,6 +10005,22 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
             conecta.executaSQL("SELECT * FROM PARAMETROSCRC");
             conecta.rs.first();
             pHabilitaMedico = conecta.rs.getString("BiometriaMedicos");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    // VERIFICAR SE A EVOLUÇÃO FAZ PARTE DA ADMISSÃO, OU SEJA, QUANDO É FEITA A ADMISSÃO DO INTERNO
+    // É GRAVADO AUTOMÁTICAMETE UMA EVOLUÇÃO PARA O INTERNO.
+    public void verificarEvolucaoAdmissao() {
+
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM EVOLUCAOMEDICA "
+                    + "WHERE IdLanc='" + jIdAdm.getText() + "' "
+                    + "AND IdItem='" + jIdEvolucaoMedica.getText() + "'");
+            conecta.rs.first();
+            admEvolucao = conecta.rs.getString("AdmEvo");
         } catch (Exception e) {
         }
         conecta.desconecta();
