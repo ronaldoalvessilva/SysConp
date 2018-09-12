@@ -42,7 +42,7 @@ public class TelaPesqInternoAtendFamiliar extends javax.swing.JInternalFrame {
     String dataCadastro;
     String dataEntrada;
     String situacao = "ENTRADA NA UNIDADE";
-    String sitRetorno = "RETORNO A UNIDADE";
+    String situacaoRet = "RETORNO A UNIDADE";
     String idInt;
     String atendido = "Não";
     int codigoDepartamento = 0;
@@ -260,10 +260,7 @@ public class TelaPesqInternoAtendFamiliar extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe NOME para pesquisa!!!");
             jPesqNome.requestFocus();
         } else {
-            jTabelaInterno.setVisible(true);
-            preencherTabelaNome("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
-                    + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+           preencherTabelaNome("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSFISICOSINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
                     + "INNER JOIN PAISES "
@@ -276,12 +273,8 @@ public class TelaPesqInternoAtendFamiliar extends javax.swing.JInternalFrame {
                     + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
                     + "WHERE NomeInternoCrc LIKE'%" + jPesqNome.getText() + "%' "
                     + "AND SituacaoCrc='" + situacao + "' "
-                    + "AND Atendido='" + atendido + "' "
-                    + "AND IdDepartamento='" + codigoDepartamento + "' "
                     + "OR NomeInternoCrc LIKE'%" + jPesqNome.getText() + "%' "
-                    + "AND SituacaoCrc='" + sitRetorno + "' "
-                    + "AND Atendido='" + atendido + "' "
-                    + "AND IdDepartamento='" + codigoDepartamento + "'");
+                    + "AND SituacaoCrc='" + situacaoRet + "'");
         }
     }//GEN-LAST:event_jBtNomeActionPerformed
 
@@ -292,13 +285,11 @@ public class TelaPesqInternoAtendFamiliar extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe MATRICULA para pesquisa!!!");
             jPesqMatricula.requestFocus();
         } else {
-            jTabelaInterno.setVisible(true);
-            buscarInternosMatricula("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
-                    + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+            buscarInternosMatricula("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSFISICOSINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
-                    + "INNER JOIN PAISES ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
+                    + "INNER JOIN PAISES "
+                    + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
                     + "INNER JOIN CIDADES "
                     + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
                     + "INNER JOIN DADOSPENAISINTERNOS "
@@ -307,12 +298,8 @@ public class TelaPesqInternoAtendFamiliar extends javax.swing.JInternalFrame {
                     + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
                     + "WHERE MatriculaCrc LIKE'" + jPesqMatricula.getText() + "%' "
                     + "AND SituacaoCrc='" + situacao + "' "
-                    + "AND Atendido='" + atendido + "' "
-                    + "AND IdDepartamento='" + codigoDepartamento + "' "
-                    + "OR MatriculaCrc LIKE'" + jPesqMatricula.getText() + "%' "
-                    + "AND SituacaoCrc='" + sitRetorno + "' "
-                    + "AND Atendido='" + atendido + "' "
-                    + "AND IdDepartamento='" + codigoDepartamento + "'");
+                    + "OR MatriculaCrc LIKE'" + jPesqMatricula.getText() + "' "
+                    + "AND SituacaoCrc='" + situacaoRet + "'");
         }
     }//GEN-LAST:event_jBtMatriculaActionPerformed
 
@@ -368,9 +355,7 @@ public class TelaPesqInternoAtendFamiliar extends javax.swing.JInternalFrame {
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
             jTabelaInterno.setVisible(true);
-            this.preencherTodosInternos("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
-                    + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+            this.preencherTodosInternos("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSFISICOSINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
                     + "INNER JOIN PAISES "
@@ -382,13 +367,9 @@ public class TelaPesqInternoAtendFamiliar extends javax.swing.JInternalFrame {
                     + "INNER JOIN UNIDADE "
                     + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
                     + "WHERE SituacaoCrc='" + situacao + "' "
-                    + "AND Atendido='" + atendido + "' "
-                    + "AND IdDepartamento='" + codigoDepartamento + "' "
-                    + "OR SituacaoCrc='" + sitRetorno + "' "
-                    + "AND Atendido='" + atendido + "' "
-                    + "AND IdDepartamento='" + codigoDepartamento + "'");
+                    + "OR SituacaoCrc='" + situacaoRet + "'");
         } else {
-            jTabelaInterno.setVisible(!true);
+            limparTabela();
         }
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
