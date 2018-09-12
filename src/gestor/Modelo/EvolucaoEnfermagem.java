@@ -28,9 +28,13 @@ public class EvolucaoEnfermagem {
     private String horaInsert;
     private String horaUp;
     private String dataFechamento;
-    private String horaFechamento;   
+    private String horaFechamento; 
+    private String admEvo;
 
-    public EvolucaoEnfermagem(int idItem, String statusLanc, int IdInternoCrc, String nomeInterno, int idLanc, Date dataEvol, String textoEvolucao, String deptoMedico, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento) {
+    public EvolucaoEnfermagem() {
+    }
+
+    public EvolucaoEnfermagem(int idItem, String statusLanc, int IdInternoCrc, String nomeInterno, int idLanc, Date dataEvol, String textoEvolucao, String deptoMedico, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento, String admEvo) {
         this.idItem = idItem;
         this.statusLanc = statusLanc;
         this.IdInternoCrc = IdInternoCrc;
@@ -47,9 +51,7 @@ public class EvolucaoEnfermagem {
         this.horaUp = horaUp;
         this.dataFechamento = dataFechamento;
         this.horaFechamento = horaFechamento;
-    }
-
-    public EvolucaoEnfermagem() {
+        this.admEvo = admEvo;
     }
 
     /**
@@ -275,4 +277,19 @@ public class EvolucaoEnfermagem {
     public void setHoraFechamento(String horaFechamento) {
         this.horaFechamento = horaFechamento;
     }
+
+    /**
+     * @return the admEvo
+     */
+    public String getAdmEvo() {
+        return admEvo;
+    }
+
+    /**
+     * @param admEvo the admEvo to set
+     */
+    public void setAdmEvo(String admEvo) {
+        this.admEvo = admEvo;
+    }
+    
 }
