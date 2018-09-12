@@ -31,9 +31,13 @@ public class EvolucaoMedica {
     private String horaInsert;
     private String horaUp;
     private String dataFechamento;
-    private String horaFechamento;          
+    private String horaFechamento;       
+    private String admEvo;
 
-    public EvolucaoMedica(int idItem, String statusLanc, int idInternoCrc, String nomeInternoEvoluMedica, Date dataEvolu, int idLanc, String textoEvolucao, String hipoteseDiagnostica, String examesSolicitados, String patologiaAdquiridaMedica, String deptoMedico, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento) {
+    public EvolucaoMedica() {
+    }
+
+    public EvolucaoMedica(int idItem, String statusLanc, int idInternoCrc, String nomeInternoEvoluMedica, Date dataEvolu, int idLanc, String textoEvolucao, String hipoteseDiagnostica, String examesSolicitados, String patologiaAdquiridaMedica, String deptoMedico, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento, String admEvo) {
         this.idItem = idItem;
         this.statusLanc = statusLanc;
         this.idInternoCrc = idInternoCrc;
@@ -53,9 +57,7 @@ public class EvolucaoMedica {
         this.horaUp = horaUp;
         this.dataFechamento = dataFechamento;
         this.horaFechamento = horaFechamento;
-    }
-
-    public EvolucaoMedica() {
+        this.admEvo = admEvo;
     }
 
     /**
@@ -323,4 +325,19 @@ public class EvolucaoMedica {
     public void setHoraFechamento(String horaFechamento) {
         this.horaFechamento = horaFechamento;
     }
+
+    /**
+     * @return the admEvo
+     */
+    public String getAdmEvo() {
+        return admEvo;
+    }
+
+    /**
+     * @param admEvo the admEvo to set
+     */
+    public void setAdmEvo(String admEvo) {
+        this.admEvo = admEvo;
+    }
+   
 }
