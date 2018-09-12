@@ -5047,6 +5047,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                     objEvolEnferma.setIdLanc(Integer.valueOf(jIdLanc.getText()));
                     objEvolEnferma.setDataEvol(jDataLanc.getDate());
                     objEvolEnferma.setTextoEvolucao(jObservacao.getText());
+                    objEvolEnferma.setAdmEvo(admEvolucao);
                     // log de usuario
                     objEvolEnferma.setUsuarioInsert(nameUser);
                     objEvolEnferma.setDataInsert(dataModFinal);
@@ -10746,9 +10747,9 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
 
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM EVOLUCAOJURIDICO "
+            conecta.executaSQL("SELECT * FROM EVOLUCAOENFERMAGEM "
                     + "WHERE IdLanc='" + jIdLanc.getText() + "' "
-                    + "AND IdEvo='" + jIdEvolucao.getText() + "'");
+                    + "AND IdItem='" + jIdEvolucao.getText() + "'");
             conecta.rs.first();
             admEvolucao = conecta.rs.getString("AdmEvo");
         } catch (Exception e) {
