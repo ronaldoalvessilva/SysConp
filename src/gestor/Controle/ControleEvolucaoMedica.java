@@ -25,7 +25,7 @@ public class ControleEvolucaoMedica {
         buscarInterno(objEvolMedica.getNomeInternoEvoluMedica());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO EVOLUCAOMEDICA (DataEvolu,IdLanc,IdInternoCrc,TextoEvolucao,UsuarioInsert,DataInsert,HorarioInsert,HipoteseDiagnostica,ExamesSolicitados,Patologia) VALUES (?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO EVOLUCAOMEDICA (DataEvolu,IdLanc,IdInternoCrc,TextoEvolucao,UsuarioInsert,DataInsert,HorarioInsert,HipoteseDiagnostica,ExamesSolicitados,Patologia,AdmEvo) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
             pst.setTimestamp(1, new java.sql.Timestamp(objEvolMedica.getDataEvolu().getTime()));
             pst.setInt(2, objEvolMedica.getIdLanc());
             pst.setInt(3, codInterno);
@@ -36,6 +36,7 @@ public class ControleEvolucaoMedica {
             pst.setString(8, objEvolMedica.getHipoteseDiagnostica());
             pst.setString(9, objEvolMedica.getExamesSolicitados());
             pst.setString(10, objEvolMedica.getPatologiaAdquiridaMedica());
+            pst.setString(11, objEvolMedica.getAdmEvo());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados\n\nERRO" + ex);
