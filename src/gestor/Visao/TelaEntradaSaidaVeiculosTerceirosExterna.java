@@ -1188,6 +1188,7 @@ public class TelaEntradaSaidaVeiculosTerceirosExterna extends javax.swing.JInter
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntradaSaidaESVTManuP1E);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaEntradaSaidaESVTManuP1E) && codIncluirP1E == 1) {
             acao = 1;
             Novo();
@@ -1202,6 +1203,7 @@ public class TelaEntradaSaidaVeiculosTerceirosExterna extends javax.swing.JInter
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntradaSaidaESVTManuP1E);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaEntradaSaidaESVTManuP1E) && codAlterarP1E == 1) {
             objEntSaiVei.setStatusLanc(jStatusEnt.getText());
             if (jStatusEnt.getText().equals("FINALIZADO")) {
@@ -1221,6 +1223,7 @@ public class TelaEntradaSaidaVeiculosTerceirosExterna extends javax.swing.JInter
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntradaSaidaESVTManuP1E);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaEntradaSaidaESVTManuP1E) && codExcluirP1E == 1) {
             objEntSaiVei.setStatusLanc(jStatusEnt.getText());
             if (jStatusEnt.getText().equals("FINALIZADO")) {
@@ -1235,6 +1238,7 @@ public class TelaEntradaSaidaVeiculosTerceirosExterna extends javax.swing.JInter
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntradaSaidaESVTManuP1E);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1E.equals("ADMINISTRADORES") || codigoUserP1E == codUserAcessoP1E && nomeTelaP1E.equals(telaEntradaSaidaESVTManuP1E) && codGravarP1E == 1) {
             if (jDataLancamento.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data de lançamento");
