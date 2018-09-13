@@ -27,6 +27,7 @@ import gestor.Modelo.AtendimentoFemininoP4;
 import gestor.Modelo.EvolucaoEnfermagem;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.RegistroAtendimentoInternos;
+import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloEnfermaria.codAlterarENF;
 import static gestor.Visao.TelaModuloEnfermaria.codExcluirENF;
@@ -61,8 +62,6 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.text.DefaultFormatterFactory;
-import javax.swing.text.MaskFormatter;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -649,13 +648,14 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jDataEvolu = new com.toedter.calendar.JDateChooser();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTextoEvolucao = new javax.swing.JTextArea();
-        jPanel42 = new javax.swing.JPanel();
         jBtNovaEvolucao = new javax.swing.JButton();
         jBtAlterarEvolucao = new javax.swing.JButton();
         jBtExcluirEvolucao = new javax.swing.JButton();
         jBtSalvarEvolucao = new javax.swing.JButton();
         jBtCancelarEvolucao = new javax.swing.JButton();
         jBtAuditoriaEvolucao = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        jBtImpressao = new javax.swing.JButton();
 
         jLabel94.setText("jLabel94");
 
@@ -4740,10 +4740,8 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jTextoEvolucao.setEnabled(false);
         jScrollPane4.setViewportView(jTextoEvolucao);
 
-        jPanel42.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-
         jBtNovaEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
-        jBtNovaEvolucao.setText("Novo");
+        jBtNovaEvolucao.setToolTipText("Novo");
         jBtNovaEvolucao.setEnabled(false);
         jBtNovaEvolucao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -4752,7 +4750,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         });
 
         jBtAlterarEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
-        jBtAlterarEvolucao.setText("Alterar");
+        jBtAlterarEvolucao.setToolTipText("Alterar");
         jBtAlterarEvolucao.setEnabled(false);
         jBtAlterarEvolucao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -4761,7 +4759,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         });
 
         jBtExcluirEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
-        jBtExcluirEvolucao.setText("Excluir");
+        jBtExcluirEvolucao.setToolTipText("Excluir");
         jBtExcluirEvolucao.setEnabled(false);
         jBtExcluirEvolucao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -4770,7 +4768,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         });
 
         jBtSalvarEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
-        jBtSalvarEvolucao.setText("Gravar");
+        jBtSalvarEvolucao.setToolTipText("Gravar");
         jBtSalvarEvolucao.setEnabled(false);
         jBtSalvarEvolucao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -4779,7 +4777,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         });
 
         jBtCancelarEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Close_Icon_16.png"))); // NOI18N
-        jBtCancelarEvolucao.setText("Cancelar");
+        jBtCancelarEvolucao.setToolTipText("Cancelar");
         jBtCancelarEvolucao.setEnabled(false);
         jBtCancelarEvolucao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -4797,38 +4795,13 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel42Layout = new javax.swing.GroupLayout(jPanel42);
-        jPanel42.setLayout(jPanel42Layout);
-        jPanel42Layout.setHorizontalGroup(
-            jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel42Layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(jBtNovaEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtAlterarEvolucao)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtExcluirEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtSalvarEvolucao)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtCancelarEvolucao)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
-                .addComponent(jBtAuditoriaEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel42Layout.setVerticalGroup(
-            jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel42Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jBtAuditoriaEvolucao)
-                    .addComponent(jBtCancelarEvolucao)
-                    .addComponent(jBtSalvarEvolucao)
-                    .addComponent(jBtExcluirEvolucao)
-                    .addComponent(jBtAlterarEvolucao)
-                    .addComponent(jBtNovaEvolucao))
-                .addGap(65, 65, 65))
-        );
+        jBtImpressao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/gtklp-icone-3770-16.png"))); // NOI18N
+        jBtImpressao.setToolTipText("Imprimir Evolução");
+        jBtImpressao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtImpressaoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout EvolucaoLayout = new javax.swing.GroupLayout(Evolucao);
         Evolucao.setLayout(EvolucaoLayout);
@@ -4837,15 +4810,29 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             .addGroup(EvolucaoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(EvolucaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator1)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 569, Short.MAX_VALUE)
                     .addComponent(jPanel40, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(EvolucaoLayout.createSequentialGroup()
-                        .addGroup(EvolucaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jPanel42, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jBtNovaEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtAlterarEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtExcluirEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtSalvarEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtCancelarEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBtImpressao, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(125, 125, 125)
+                        .addComponent(jBtAuditoriaEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane4))
                 .addContainerGap())
         );
+
+        EvolucaoLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarEvolucao, jBtCancelarEvolucao, jBtExcluirEvolucao, jBtImpressao, jBtNovaEvolucao, jBtSalvarEvolucao});
+
         EvolucaoLayout.setVerticalGroup(
             EvolucaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(EvolucaoLayout.createSequentialGroup()
@@ -4854,11 +4841,22 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel42, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(EvolucaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jBtImpressao)
+                    .addComponent(jBtNovaEvolucao)
+                    .addComponent(jBtAlterarEvolucao)
+                    .addComponent(jBtExcluirEvolucao)
+                    .addComponent(jBtSalvarEvolucao)
+                    .addComponent(jBtCancelarEvolucao)
+                    .addComponent(jBtAuditoriaEvolucao))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        EvolucaoLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterarEvolucao, jBtCancelarEvolucao, jBtExcluirEvolucao, jBtImpressao, jBtNovaEvolucao, jBtSalvarEvolucao});
 
         jTabbedPane1.addTab("Evolução", Evolucao);
 
@@ -6561,6 +6559,38 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         objAudiAEFP4.show();
     }//GEN-LAST:event_jBtAuditoriaAFP4ActionPerformed
 
+    private void jBtImpressaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImpressaoActionPerformed
+        // TODO add your handling code here:
+        if (jIdEvolucao.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe a evolução a ser impressa.");
+        } else {
+            try {
+                conecta.abrirConexao();
+                String path = "reports/relatorioEvolucaoEnfermagem.jasper";
+                conecta.executaSQL("SELECT * FROM ADMISSAOENFERMEIRA "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON ADMISSAOENFERMEIRA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "INNER JOIN EVOLUCAOENFERMAGEM "
+                        + "ON ADMISSAOENFERMEIRA.IdLanc=EVOLUCAOENFERMAGEM.IdLanc "
+                        + "WHERE EVOLUCAOENFERMAGEM.IdItem='" + jIdEvolucao.getText() + "'");
+                HashMap parametros = new HashMap();
+                parametros.put("codigoEvolucao", jIdEvolucao.getText());
+                parametros.put("unidadePrisional", descricaoUnidade);
+                parametros.put("nameUser", nameUser);
+                JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                jv.setTitle("Relatório de Evolução de Interno.");
+                jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                jv.toFront(); // Traz o relatorio para frente da aplicação            
+                conecta.desconecta();
+            } catch (JRException e) {
+                JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório. \n\nERRO: " + e);
+            }
+        }
+    }//GEN-LAST:event_jBtImpressaoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel AEFP1;
@@ -6619,6 +6649,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtExcluirAFP4;
     private javax.swing.JButton jBtExcluirEvolucao;
     private javax.swing.JButton jBtFinalizar;
+    private javax.swing.JButton jBtImpressao;
     private javax.swing.JButton jBtImpressaoFicha;
     private javax.swing.JButton jBtNovaEvolucao;
     private javax.swing.JButton jBtNovo;
@@ -6880,7 +6911,6 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel40;
     private javax.swing.JPanel jPanel41;
-    private javax.swing.JPanel jPanel42;
     private javax.swing.JPanel jPanel43;
     private javax.swing.JPanel jPanel44;
     private javax.swing.JPanel jPanel45;
@@ -6988,6 +7018,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea jSinaisSintomas;
     private javax.swing.JTextField jStatusLanc;
     private javax.swing.JTabbedPane jTabbedPane1;
@@ -7006,27 +7037,27 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
 
     public void formatarCampos() {
 
-        try {
-            MaskFormatter PressaoArterial = new MaskFormatter("###,###");
-            jPressaoArterial.setFormatterFactory(new DefaultFormatterFactory(PressaoArterial));
-            //
-            MaskFormatter Hemograma = new MaskFormatter("###");
-            jHemograma.setFormatterFactory(new DefaultFormatterFactory(Hemograma));
-            //
-            MaskFormatter Temperatura = new MaskFormatter("##,##");
-            jTemperatura.setFormatterFactory(new DefaultFormatterFactory(Temperatura));
-            //
-            MaskFormatter FrequenciaCardiaca = new MaskFormatter("###,##");
-            jFrequenciaCardiaca.setFormatterFactory(new DefaultFormatterFactory(FrequenciaCardiaca));
-            //
-            MaskFormatter FrequenciaRespira = new MaskFormatter("##,##");
-            jFrequenciaRespira.setFormatterFactory(new DefaultFormatterFactory(FrequenciaRespira));
-            //
-            MaskFormatter Peso = new MaskFormatter("###,###");
-            jPeso.setFormatterFactory(new DefaultFormatterFactory(Peso));
-        } catch (ParseException ex) {
-            Logger.getLogger(TelaAdmissaoEnfermagem.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            MaskFormatter PressaoArterial = new MaskFormatter("###,###");
+//            jPressaoArterial.setFormatterFactory(new DefaultFormatterFactory(PressaoArterial));
+//            //
+//            MaskFormatter Hemograma = new MaskFormatter("###");
+//            jHemograma.setFormatterFactory(new DefaultFormatterFactory(Hemograma));
+//            //
+//            MaskFormatter Temperatura = new MaskFormatter("##,##");
+//            jTemperatura.setFormatterFactory(new DefaultFormatterFactory(Temperatura));
+//            //
+//            MaskFormatter FrequenciaCardiaca = new MaskFormatter("###,##");
+//            jFrequenciaCardiaca.setFormatterFactory(new DefaultFormatterFactory(FrequenciaCardiaca));
+//            //
+//            MaskFormatter FrequenciaRespira = new MaskFormatter("##,##");
+//            jFrequenciaRespira.setFormatterFactory(new DefaultFormatterFactory(FrequenciaRespira));
+//            //
+//            MaskFormatter Peso = new MaskFormatter("###,###");
+//            jPeso.setFormatterFactory(new DefaultFormatterFactory(Peso));
+//        } catch (ParseException ex) {
+//            Logger.getLogger(TelaAdmissaoEnfermagem.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         //
         jQualMedicamento.setDocument(new LimiteDigitosAlfa(37));
         jQualFuncaoMotora.setDocument(new LimiteDigitosAlfa(43));
@@ -7114,6 +7145,21 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jFotoInternoMedico.setBackground(Color.white);
         jEstadoCivilMedico.setBackground(Color.white);
         //
+        jPressaoArterial.setBackground(Color.white);
+        jHemograma.setBackground(Color.white);
+        jTemperatura.setBackground(Color.white);
+        jFrequenciaRespira.setBackground(Color.white);
+        jPeso.setBackground(Color.white);
+        jFrequenciaCardiaca.setBackground(Color.white);
+        jQualMedicamento.setBackground(Color.white);
+        jQualFuncaoMotora.setBackground(Color.white);
+        jQualAlteracaoFala.setBackground(Color.white);
+        jTipo.setBackground(Color.white);
+        jLocalizacao.setBackground(Color.white);
+        jCostipacaoDias.setBackground(Color.white);
+        jQualGenitalia.setBackground(Color.white);
+        jQuaisVacinas.setBackground(Color.white);
+        jQualCirurgia.setBackground(Color.white);
         jComboBoxUsuarioDrogas.setBackground(Color.white);
         jComboBoxPortadorDoencas.setBackground(Color.white);
         jComboBoxAlergias.setBackground(Color.white);
@@ -7382,12 +7428,12 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jFotoInternoMedico.setIcon(null);
         jEstadoCivilMedico.setText("");
         //
-        jPressaoArterial.setText("000,000");
-        jHemograma.setText("000");
-        jTemperatura.setText("00,00");
-        jFrequenciaRespira.setText("00,00");
-        jPeso.setText("000,000");
-        jFrequenciaCardiaca.setText("000,00");
+        jPressaoArterial.setText("0");
+        jHemograma.setText("0");
+        jTemperatura.setText("0");
+        jFrequenciaRespira.setText("0");
+        jPeso.setText("0");
+        jFrequenciaCardiaca.setText("0");
         //Uso de medicamento.
         jComboBoxUsaMedica.setSelectedItem("Não");
         jQualMedicamento.setText("");

@@ -7541,18 +7541,28 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jSeparator1" max="32767" attributes="0"/>
                           <Component id="jScrollPane3" pref="569" max="32767" attributes="0"/>
                           <Component id="jPanel40" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="jPanel42" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jScrollPane4" alignment="0" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Component id="jBtNovaEvolucao" linkSize="39" min="-2" pref="39" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jBtAlterarEvolucao" linkSize="39" min="-2" pref="38" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jBtExcluirEvolucao" linkSize="39" min="-2" pref="40" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jBtSalvarEvolucao" linkSize="39" min="-2" pref="32" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jBtCancelarEvolucao" linkSize="39" min="-2" pref="33" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="jBtImpressao" linkSize="39" min="-2" pref="36" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="125" max="-2" attributes="0"/>
+                              <Component id="jBtAuditoriaEvolucao" min="-2" pref="28" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="jScrollPane4" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -7566,9 +7576,19 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel40" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jPanel42" min="-2" pref="51" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="2" attributes="0">
+                          <Component id="jBtImpressao" linkSize="40" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtNovaEvolucao" linkSize="40" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtAlterarEvolucao" linkSize="40" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtExcluirEvolucao" linkSize="40" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtSalvarEvolucao" linkSize="40" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtCancelarEvolucao" linkSize="40" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtAuditoriaEvolucao" alignment="2" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane4" pref="162" max="32767" attributes="0"/>
+                      <Component id="jSeparator1" min="-2" pref="2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jScrollPane4" pref="180" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -7766,128 +7786,92 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="jPanel42">
+            <Component class="javax.swing.JButton" name="jBtNovaEvolucao">
               <Properties>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder/>
-                  </Border>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/gestor/Imagens/page_add.png"/>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Novo"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
-
-              <Layout>
-                <DimensionLayout dim="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                          <Component id="jBtNovaEvolucao" min="-2" pref="83" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jBtAlterarEvolucao" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jBtExcluirEvolucao" min="-2" pref="83" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jBtSalvarEvolucao" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jBtCancelarEvolucao" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="62" max="32767" attributes="0"/>
-                          <Component id="jBtAuditoriaEvolucao" min="-2" pref="28" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                </DimensionLayout>
-                <DimensionLayout dim="1">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="2" attributes="0">
-                              <Component id="jBtAuditoriaEvolucao" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jBtCancelarEvolucao" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jBtSalvarEvolucao" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jBtExcluirEvolucao" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jBtAlterarEvolucao" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jBtNovaEvolucao" alignment="2" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                </DimensionLayout>
-              </Layout>
-              <SubComponents>
-                <Component class="javax.swing.JButton" name="jBtNovaEvolucao">
-                  <Properties>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/gestor/Imagens/page_add.png"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Novo"/>
-                    <Property name="enabled" type="boolean" value="false"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtNovaEvolucaoActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JButton" name="jBtAlterarEvolucao">
-                  <Properties>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/gestor/Imagens/8437_16x16.png"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Alterar"/>
-                    <Property name="enabled" type="boolean" value="false"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtAlterarEvolucaoActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JButton" name="jBtExcluirEvolucao">
-                  <Properties>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/gestor/Imagens/3630_16x16.png"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Excluir"/>
-                    <Property name="enabled" type="boolean" value="false"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtExcluirEvolucaoActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JButton" name="jBtSalvarEvolucao">
-                  <Properties>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/gestor/Imagens/1294_16x16.png"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Gravar"/>
-                    <Property name="enabled" type="boolean" value="false"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtSalvarEvolucaoActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JButton" name="jBtCancelarEvolucao">
-                  <Properties>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/gestor/Imagens/Button_Close_Icon_16.png"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Cancelar"/>
-                    <Property name="enabled" type="boolean" value="false"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtCancelarEvolucaoActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JButton" name="jBtAuditoriaEvolucao">
-                  <Properties>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/gestor/Imagens/book_open.png"/>
-                    </Property>
-                    <Property name="toolTipText" type="java.lang.String" value="Auditoria"/>
-                    <Property name="contentAreaFilled" type="boolean" value="false"/>
-                    <Property name="enabled" type="boolean" value="false"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtAuditoriaEvolucaoActionPerformed"/>
-                  </Events>
-                </Component>
-              </SubComponents>
-            </Container>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtNovaEvolucaoActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="jBtAlterarEvolucao">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/gestor/Imagens/8437_16x16.png"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Alterar"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtAlterarEvolucaoActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="jBtExcluirEvolucao">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/gestor/Imagens/3630_16x16.png"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Excluir"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtExcluirEvolucaoActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="jBtSalvarEvolucao">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/gestor/Imagens/1294_16x16.png"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Gravar"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtSalvarEvolucaoActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="jBtCancelarEvolucao">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/gestor/Imagens/Button_Close_Icon_16.png"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Cancelar"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtCancelarEvolucaoActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="jBtAuditoriaEvolucao">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/gestor/Imagens/book_open.png"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Auditoria"/>
+                <Property name="contentAreaFilled" type="boolean" value="false"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtAuditoriaEvolucaoActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JSeparator" name="jSeparator1">
+            </Component>
+            <Component class="javax.swing.JButton" name="jBtImpressao">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/gestor/Imagens/gtklp-icone-3770-16.png"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Imprimir Evolu&#xe7;&#xe3;o"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtImpressaoActionPerformed"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
       </SubComponents>
