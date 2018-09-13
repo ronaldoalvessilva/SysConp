@@ -1309,6 +1309,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         jComboBoxModuloAcesso.setEditable(false);
         jComboBoxModuloAcesso.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxModuloAcesso.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxModuloAcesso.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jComboBoxModuloAcesso.setEnabled(false);
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
