@@ -184,6 +184,8 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
     public static TelaConsultaExamesMedicos telaConsultaExames;
     //
     public static PdfViewPSP consultaDocInternos;
+    //
+    public static TelaConsultaTestesRapidos consultaRapida;
 
     public TelaConsultaProntuarioInternoCrc() {
         super();
@@ -284,6 +286,10 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         consultaDocInternos.setVisible(true);
     }
 
+    public void mostrarTestesRapidos(){
+        consultaRapida = new TelaConsultaTestesRapidos(this, true);
+        consultaRapida.setVisible(true);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -366,6 +372,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         jBtImprimirProntuario = new javax.swing.JButton();
         jBtSair = new javax.swing.JButton();
         jBtObservacao = new javax.swing.JButton();
+        jBtTesteRapidos = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
         jEndereco = new javax.swing.JTextField();
@@ -1245,16 +1252,27 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
             }
         });
 
+        jBtTesteRapidos.setForeground(new java.awt.Color(0, 0, 204));
+        jBtTesteRapidos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_find.png"))); // NOI18N
+        jBtTesteRapidos.setText("Testes Rápidos");
+        jBtTesteRapidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtTesteRapidosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addContainerGap()
                 .addComponent(jBtImprimirProntuario)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtObservacao)
-                .addGap(96, 96, 96)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtTesteRapidos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
@@ -1268,7 +1286,8 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtImprimirProntuario)
                     .addComponent(jBtSair)
-                    .addComponent(jBtObservacao))
+                    .addComponent(jBtObservacao)
+                    .addComponent(jBtTesteRapidos))
                 .addContainerGap())
         );
 
@@ -3861,6 +3880,11 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         }
     }//GEN-LAST:event_jBtCNCPesquisaActionPerformed
 
+    private void jBtTesteRapidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtTesteRapidosActionPerformed
+        // TODO add your handling code here:TelaConsultaTestesRapidos
+        mostrarTestesRapidos();
+    }//GEN-LAST:event_jBtTesteRapidosActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField jAlcunha;
@@ -3892,6 +3916,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
     private javax.swing.JButton jBtPsiquiatrico;
     private javax.swing.JButton jBtSair;
     private javax.swing.JButton jBtTerapiaOcupacional;
+    private javax.swing.JButton jBtTesteRapidos;
     private javax.swing.JButton jBtZoonFoto;
     public static javax.swing.JTextField jCNC_PSP;
     private javax.swing.JFormattedTextField jCPFInterno;
