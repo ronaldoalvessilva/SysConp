@@ -105,6 +105,7 @@ public class TelaRegistroInternosAtendimentoImpressoPSI extends javax.swing.JInt
     public TelaRegistroInternosAtendimentoImpressoPSI() {
         initComponents();
         corCampos();
+        formatarCampos();
         pesquisarModulo();
     }
 
@@ -1106,8 +1107,8 @@ public class TelaRegistroInternosAtendimentoImpressoPSI extends javax.swing.JInt
         if (jIdRegistro.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "É necessário selecionar primeiro um registro.");
         } else {
-            TelaAuditoriaRegistroAtendImpressoSS objAudLibera = new TelaAuditoriaRegistroAtendImpressoSS();
-            TelaModuloServicoSocial.jPainelServicoSocial.add(objAudLibera);
+            TelaAuditoriaRegistroAtendImpressoPSI objAudLibera = new TelaAuditoriaRegistroAtendImpressoPSI();
+            TelaModuloPsicologia.jPainelPsicologia.add(objAudLibera);
             objAudLibera.show();
         }
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
@@ -1117,8 +1118,8 @@ public class TelaRegistroInternosAtendimentoImpressoPSI extends javax.swing.JInt
         if (jIdRegistro.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "É necessário selecionar primeiro um registro.");
         } else {
-            TelaLiberadorRegistroAtendImpressoSS objLibera = new TelaLiberadorRegistroAtendImpressoSS();
-            TelaModuloServicoSocial.jPainelServicoSocial.add(objLibera);
+            TelaLiberadorRegistroAtendImpressoPSI objLibera = new TelaLiberadorRegistroAtendImpressoPSI();
+            TelaModuloPsicologia.jPainelPsicologia.add(objLibera);
             objLibera.show();
         }
     }//GEN-LAST:event_jBtLiberadorActionPerformed
@@ -1223,6 +1224,11 @@ public class TelaRegistroInternosAtendimentoImpressoPSI extends javax.swing.JInt
         }
     }
 
+    public void formatarCampos() {
+        jMotivo.setLineWrap(true);
+        jMotivo.setWrapStyleWord(true);
+    }
+
     public void corCampos() {
         jIdRegistro.setBackground(Color.white);
         jDataRegistro.setBackground(Color.white);
@@ -1251,7 +1257,7 @@ public class TelaRegistroInternosAtendimentoImpressoPSI extends javax.swing.JInt
         jPavilhaoKitImp.setText("");
         jCelaKitBio.setText("");
         jFotoInternoKitImp.setIcon(null);
-        jMotivo.setText("");
+        jMotivo.setText("INTERNO NÃO CONSEGUIU ASSINAR ATRAVÉS DA SUA BIOMETRIA DEVIA A DIGITAL GASTA.");
         //
         jMotivo.setEnabled(true);
         jComboBoxTipoMovimentacao.setEnabled(true);
