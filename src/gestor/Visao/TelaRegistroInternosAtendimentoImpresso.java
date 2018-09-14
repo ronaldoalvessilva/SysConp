@@ -106,6 +106,7 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
     public TelaRegistroInternosAtendimentoImpresso() {
         initComponents();
         corCampos();
+        formatarCampos();
         pesquisarModulo();
     }
 
@@ -1224,6 +1225,11 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
         }
     }
 
+    public void formatarCampos() {
+        jMotivo.setLineWrap(true);
+        jMotivo.setWrapStyleWord(true);
+    }
+
     public void corCampos() {
         jIdRegistro.setBackground(Color.white);
         jDataRegistro.setBackground(Color.white);
@@ -1252,7 +1258,7 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
         jPavilhaoKitImp.setText("");
         jCelaKitBio.setText("");
         jFotoInternoKitImp.setIcon(null);
-        jMotivo.setText("");
+        jMotivo.setText("INTERNO NÃO CONSEGUIU ASSINAR ATRAVÉS DA SUA BIOMETRIA DEVIA A DIGITAL GASTA.");
         //
         jMotivo.setEnabled(true);
         jComboBoxTipoMovimentacao.setEnabled(true);
