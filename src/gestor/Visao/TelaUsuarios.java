@@ -1283,8 +1283,8 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         jComboBoxTelaAcesso.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTelaAcesso.setEnabled(false);
         jComboBoxTelaAcesso.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jComboBoxTelaAcessoMouseEntered(evt);
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBoxTelaAcessoMouseClicked(evt);
             }
         });
 
@@ -2402,10 +2402,10 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jBtCopiarPerfilActionPerformed
 
-    private void jComboBoxTelaAcessoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxTelaAcessoMouseEntered
+    private void jComboBoxTelaAcessoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxTelaAcessoMouseClicked
         // TODO add your handling code here:
         pesquisarTelaAcesso();
-    }//GEN-LAST:event_jComboBoxTelaAcessoMouseEntered
+    }//GEN-LAST:event_jComboBoxTelaAcessoMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
