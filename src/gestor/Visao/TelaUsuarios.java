@@ -3173,7 +3173,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
             conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE IdModulo='" + jIdModulo.getText() + "'");
             conecta.rs.first();
-            do {
+            do {                
                 jComboBoxTelaAcesso.addItem(conecta.rs.getString("NomeTela"));
             } while (conecta.rs.next());
         } catch (SQLException ex) {
