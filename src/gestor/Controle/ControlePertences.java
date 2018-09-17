@@ -23,7 +23,7 @@ public class ControlePertences {
     public Pertences incluirPertences(Pertences objPer) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO PERTENCES (StatusLanc,DataCadastro,DescricaoPertence,FotoPertence,Unidade,UsuarioInsert,DataInsert,HorarioInsert,ImagenFrentePER) VALUES(?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO PERTENCES (StatusLanc,DataCadastro,DescricaoPertence,FotoPertence,Unidade,UsuarioInsert,DataInsert,HorarioInsert,ImagemFrentePER) VALUES(?,?,?,?,?,?,?,?,?)");
             pst.setString(1, objPer.getStatusLanc());
             pst.setTimestamp(2, new java.sql.Timestamp(objPer.getDataCadastro().getTime()));
             pst.setString(3, objPer.getDescricaoPertence());
