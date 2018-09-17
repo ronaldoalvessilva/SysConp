@@ -1247,7 +1247,7 @@ public class TelaVisitaSocialReligiosa extends javax.swing.JInternalFrame {
                 jLabelFoto.setIcon(i);
                 jLabelFoto.setIcon(new ImageIcon(i.getImage().getScaledInstance(jLabelFoto.getWidth(), jLabelFoto.getHeight(), Image.SCALE_DEFAULT)));
                 // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
-                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteVI"));
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteVR"));
                 if (imgBytes != null) {
                     ImageIcon pic = null;
                     pic = new ImageIcon(imgBytes);
