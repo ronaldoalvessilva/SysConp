@@ -889,7 +889,7 @@ public class TelaRegistroInternosAtendimentoODONTO extends javax.swing.JInternal
                     preencherTabelaRegistros("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                            + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
+                            + "WHERE DataReg BETWEEN'" + dataInicial + "' "
                             + "AND '" + dataFinal + "' "
                             + "AND IdDepartamento='" + codigoDepto + "'");
                 }
