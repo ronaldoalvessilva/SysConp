@@ -1219,7 +1219,6 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
-        jBtImprimirProntuario.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtImprimirProntuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/gtklp-icone-3770-16.png"))); // NOI18N
         jBtImprimirProntuario.setText("Impressão");
         jBtImprimirProntuario.setToolTipText("Imprimir Prontuário");
@@ -1230,8 +1229,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
             }
         });
 
-        jBtSair.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtSair.setForeground(new java.awt.Color(255, 51, 0));
+        jBtSair.setForeground(new java.awt.Color(0, 0, 204));
         jBtSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Log_Out_Icon_16.png"))); // NOI18N
         jBtSair.setText("Sair");
         jBtSair.setToolTipText("Sair da Tela");
@@ -1241,7 +1239,6 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
             }
         });
 
-        jBtObservacao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtObservacao.setForeground(new java.awt.Color(0, 153, 0));
         jBtObservacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/accept.png"))); // NOI18N
         jBtObservacao.setText("Observação");
@@ -1252,9 +1249,10 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
             }
         });
 
-        jBtTesteRapidos.setForeground(new java.awt.Color(0, 0, 204));
+        jBtTesteRapidos.setForeground(new java.awt.Color(204, 0, 0));
         jBtTesteRapidos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_find.png"))); // NOI18N
-        jBtTesteRapidos.setText("Testes Rápidos");
+        jBtTesteRapidos.setText("Doenças Infecto");
+        jBtTesteRapidos.setToolTipText("Doenças Infectocontagiosas");
         jBtTesteRapidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtTesteRapidosActionPerformed(evt);
@@ -1274,10 +1272,10 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
                 .addComponent(jBtTesteRapidos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addContainerGap())
         );
 
-        jPanel7Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtImprimirProntuario, jBtSair});
+        jPanel7Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtImprimirProntuario, jBtObservacao, jBtSair, jBtTesteRapidos});
 
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

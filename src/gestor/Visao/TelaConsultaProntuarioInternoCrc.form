@@ -1249,12 +1249,12 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jBtImprimirProntuario" linkSize="43" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jBtObservacao" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtObservacao" linkSize="43" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jBtTesteRapidos" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtTesteRapidos" linkSize="43" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="jBtSair" linkSize="43" min="-2" pref="90" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1276,9 +1276,6 @@
               <SubComponents>
                 <Component class="javax.swing.JButton" name="jBtImprimirProntuario">
                   <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Tahoma" size="11" style="1"/>
-                    </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/gestor/Imagens/gtklp-icone-3770-16.png"/>
                     </Property>
@@ -1292,11 +1289,8 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="jBtSair">
                   <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Tahoma" size="11" style="1"/>
-                    </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="0" green="33" red="ff" type="rgb"/>
+                      <Color blue="cc" green="0" red="0" type="rgb"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/gestor/Imagens/Log_Out_Icon_16.png"/>
@@ -1310,9 +1304,6 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="jBtObservacao">
                   <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Tahoma" size="11" style="1"/>
-                    </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="99" red="0" type="rgb"/>
                     </Property>
@@ -1329,12 +1320,13 @@
                 <Component class="javax.swing.JButton" name="jBtTesteRapidos">
                   <Properties>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="cc" green="0" red="0" type="rgb"/>
+                      <Color blue="0" green="0" red="cc" type="rgb"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/gestor/Imagens/page_find.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Testes R&#xe1;pidos"/>
+                    <Property name="text" type="java.lang.String" value="Doen&#xe7;as Infecto"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Doen&#xe7;as Infectocontagiosas"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtTesteRapidosActionPerformed"/>
