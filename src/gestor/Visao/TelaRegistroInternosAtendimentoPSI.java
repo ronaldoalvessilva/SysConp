@@ -886,7 +886,7 @@ public class TelaRegistroInternosAtendimentoPSI extends javax.swing.JInternalFra
                     preencherTabelaRegistros("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                            + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
+                            + "WHERE DataReg BETWEEN'" + dataInicial + "' "
                             + "AND '" + dataFinal + "' "
                             + "AND IdDepartamento='" + codigoDepto + "'");
                 }
