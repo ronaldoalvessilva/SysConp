@@ -904,7 +904,8 @@ public class TelaRegistroInternosAtendimentoJURI extends javax.swing.JInternalFr
             this.preencherTabelaRegistros("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "AND IdDepartamento='" + codigoDepto + "'");
+                    + "AND IdDepartamento='" + codigoDepto + "' "
+                    + "ORDER BY IdRegistro");
         } else {
             count = 0;
             jtotalRegistros.setText("");
