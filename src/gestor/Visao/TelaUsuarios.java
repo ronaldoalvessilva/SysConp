@@ -3152,7 +3152,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         conecta.desconecta();
     }
 
-    public void pesquisarModulo() {        
+    public void pesquisarModulo() {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM MODULOS "
@@ -3173,9 +3173,10 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
             conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE IdModulo='" + jIdModulo.getText() + "'");
             conecta.rs.first();
-            do {                
+            do {
                 jComboBoxTelaAcesso.addItem(conecta.rs.getString("NomeTela"));
             } while (conecta.rs.next());
+            jComboBoxTelaAcesso.updateUI();
         } catch (SQLException ex) {
         }
         conecta.desconecta();
@@ -3189,6 +3190,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
             do {
                 jComboBoxDepartamento.addItem(conecta.rs.getString("NomeDepartamento"));
             } while (conecta.rs.next());
+            jComboBoxDepartamento.updateUI();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Existe dados a serem exibidos !!!");
         }
@@ -3203,6 +3205,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
             do {
                 jComboBoxCargo.addItem(conecta.rs.getString("NomeCargo"));
             } while (conecta.rs.next());
+            jComboBoxCargo.updateUI();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Existe dados a serem exibidos !!!");
         }
