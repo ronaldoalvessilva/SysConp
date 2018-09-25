@@ -2018,6 +2018,16 @@ public class TelaRolVisitas extends javax.swing.JInternalFrame {
                 javax.swing.ImageIcon i = new javax.swing.ImageIcon(camFotoVisita);
                 FotoVisita.setIcon(i);
                 FotoVisita.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoVisita.getWidth(), FotoVisita.getHeight(), Image.SCALE_DEFAULT)));
+                //
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteVI"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(FotoVisita.getWidth(), FotoVisita.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    FotoVisita.setIcon(icon);
+                }
                 jDataCadaVisita.setDate(conecta.rs.getDate("DataCadVisita"));
                 jDataInicio.setDate(conecta.rs.getDate("DataInicio"));
                 jDataValiAntecedente.setDate(conecta.rs.getDate("DataValiAnte"));
