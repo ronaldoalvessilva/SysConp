@@ -1156,6 +1156,7 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
 
     private void AlertaVisitantesPortariaInternaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlertaVisitantesPortariaInternaActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaAlertaVisitantesPortariaB1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB1.equals("ADMINISTRADORES") || codigoUserB1 == codUserAcessoB1 && nomeTelaB1.equals(telaAlertaVisitantesPortariaB1) && codAbrirB1 == 1) {
             if (objAlertaVPI == null || objAlertaVPI.isClosed()) {
                 objAlertaVPI = new TelaAlertaBasesPavilhoes();
