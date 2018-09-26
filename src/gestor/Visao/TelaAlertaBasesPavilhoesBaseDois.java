@@ -1523,8 +1523,8 @@ public class TelaAlertaBasesPavilhoesBaseDois extends javax.swing.JInternalFrame
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM PAVILHAO "
-                    + "WHERE DescricaoPav='" + descricao + "' "
-                    + "OR DescricaoPav='" + descricao2 + "'");
+                    + "WHERE DescricaoPav LIKE'%" + descricao + "%' "
+                    + "OR DescricaoPav LIKE'%" + descricao2 + "%'");
             conecta.rs.first();
             codigoPavilhao = conecta.rs.getInt("IdPav");
             descricaoPavilhao = conecta.rs.getString("DescricaoPav");
