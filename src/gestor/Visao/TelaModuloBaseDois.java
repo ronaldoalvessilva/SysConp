@@ -1155,6 +1155,7 @@ public class TelaModuloBaseDois extends javax.swing.JInternalFrame {
 
     private void jAlertaVisitantesPavilhaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAlertaVisitantesPavilhaoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaAlertaVisitantesPortariaB2);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB2.equals("ADMINISTRADORES") || codigoUserB2 == codUserAcessoB2 && nomeTelaB2.equals(telaAlertaVisitantesPortariaB2) && codAbrirB2 == 1) {
             if (objAlertaVPIB2 == null || objAlertaVPIB2.isClosed()) {
                 objAlertaVPIB2 = new TelaAlertaBasesPavilhoesBaseDois();
