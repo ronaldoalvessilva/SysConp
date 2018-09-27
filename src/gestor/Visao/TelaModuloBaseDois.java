@@ -174,6 +174,7 @@ public class TelaModuloBaseDois extends javax.swing.JInternalFrame {
     String nivelPavilhao = "";
     public static String nomePavilhao1 = "PAVILHAO II";
     public static String nomePavilhao2 = "PAVILHAO B";
+    public static String nomePavilhao3 = "TRIAGEM";
     String confirmarVisitas = "Não";
     int pBuscaPavilhao1 = 0;
     String pBuscaConfirmacao = "";
@@ -1452,7 +1453,7 @@ public class TelaModuloBaseDois extends javax.swing.JInternalFrame {
 
         buscarParamentroVisitas();
         if (!alertaPavilhao.equals("") && alertaPavilhao.equals(pHabilitado)) {
-            buscarPavilhao(nomePavilhao1, nomePavilhao2);
+            buscarPavilhao(nomePavilhao1, nomePavilhao2, nomePavilhao3);
             conecta.abrirConexao();
             try {
                 conecta.abrirConexao();
@@ -1467,6 +1468,7 @@ public class TelaModuloBaseDois extends javax.swing.JInternalFrame {
             } catch (Exception e) {
             }
             if (codigoPavilhao == pBuscaPavilhao1 && pBuscaConfirmacao.equals("Não")) {
+                buscarAcessoUsuario(telaAlertaVisitantesPortariaB2);
                 if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB2.equals("ADMINISTRADORES") || codigoUserB2 == codUserAcessoB2 && nomeTelaB2.equals(telaAlertaVisitantesPortariaB2) && codAbrirB2 == 1) {
                     if (objAlertaVPIB2 == null || objAlertaVPIB2.isClosed()) {
                         objAlertaVPIB2 = new TelaAlertaBasesPavilhoesBaseDois();
@@ -1500,12 +1502,13 @@ public class TelaModuloBaseDois extends javax.swing.JInternalFrame {
         }
     }
 
-    public void buscarPavilhao(String descricao, String descricao2) {
+    public void buscarPavilhao(String descricao, String descricao2, String descricao3) {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM PAVILHAO "
-                    + "WHERE DescricaoPav='" + descricao + "' "
-                    + "OR DescricaoPav='" + descricao2 + "'");
+                    + "WHERE DescricaoPav LIKE'%" + descricao + "%' "
+                    + "OR DescricaoPav LIKE'%" + descricao2 + "%' "
+                    + "OR DescricaoPav LIKE'%" + descricao3 + "%'");
             conecta.rs.first();
             codigoPavilhao = conecta.rs.getInt("IdPav");
             descricaoPavilhao = conecta.rs.getString("DescricaoPav");
