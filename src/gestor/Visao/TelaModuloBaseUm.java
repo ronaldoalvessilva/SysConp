@@ -174,6 +174,7 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
     String nivelPavilhao = "";
     public static String nomePavilhao1 = "PAVILHAO I";
     public static String nomePavilhao2 = "PAVILHAO A";
+    public static String nomePavilhao3 = "TRIAGEM";
     String confirmarVisitas = "Não";
     int pBuscaPavilhao1 = 0;
     String pBuscaConfirmacao = "";
@@ -1467,6 +1468,7 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
             } catch (Exception e) {
             }
             if (codigoPavilhao == pBuscaPavilhao1 && pBuscaConfirmacao.equals("Não")) {
+                buscarAcessoUsuario(telaAlertaVisitantesPortariaB1);
                 if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB1.equals("ADMINISTRADORES") || codigoUserB1 == codUserAcessoB1 && nomeTelaB1.equals(telaAlertaVisitantesPortariaB1) && codAbrirB1 == 1) {
                     if (objAlertaVPI == null || objAlertaVPI.isClosed()) {
                         objAlertaVPI = new TelaAlertaBasesPavilhoes();
@@ -1504,8 +1506,8 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM PAVILHAO "
-                    + "WHERE DescricaoPav='" + descricao + "' "
-                    + "OR DescricaoPav='" + descricao2 + "'");
+                    + "WHERE DescricaoPav LIKE'" + descricao + "%' "
+                    + "OR DescricaoPav LIKE'%" + descricao2 + "%'");
             conecta.rs.first();
             codigoPavilhao = conecta.rs.getInt("IdPav");
             descricaoPavilhao = conecta.rs.getString("DescricaoPav");
