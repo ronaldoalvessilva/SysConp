@@ -83,6 +83,7 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
     String nivelPavilhao = "";
     public static String nomePavilhao1 = "PAVILHAO I";
     public static String nomePavilhao2 = "PAVILHAO A";
+    public static String nomePavilhao3 = "TRIAGEM";
     int codigoInternoVI;
     int codigoInternoAD;
     int codigoInternoOF;
@@ -110,28 +111,28 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
 
     public TelaAlertaBasesPavilhoes() {
         initComponents();
-        buscarPavilhao(nomePavilhao1, nomePavilhao2);
+        buscarPavilhao(nomePavilhao1, nomePavilhao2, nomePavilhao3);
         popularTabelaNomeVisita("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
                 + "INNER JOIN VISITASINTERNO "
                 + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdVisita=VISITASINTERNO.IdVisita "
                 + "INNER JOIN PAVILHAO "
                 + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
-                + "WHERE Confirmacao='" + confirmacao + "' "
-                + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "'");
-        popularTabelaAdvogado("SELECT DataChegada,HoraChegada,ADVOGADOS.IdAdvogado,ADVOGADOS.NomeAdvogado FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
+                + "WHERE Confirmacao='" + confirmacao + "' ");
+//                + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "'");
+        popularTabelaAdvogado("SELECT DataChegada,HoraChegada,ADVOGADOS.IdAdvogado,ADVOGADOS.NomeAdvogado,PAVILHAO.DescricaoPav FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
                 + "INNER JOIN ADVOGADOS "
                 + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdAdvogado=ADVOGADOS.IdAdvogado "
                 + "INNER JOIN PAVILHAO "
                 + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
-                + "WHERE Confirmacao='" + confirmacao + "' "
-                + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' GROUP BY DataChegada,HoraChegada,ADVOGADOS.IdAdvogado,ADVOGADOS.NomeAdvogado ");
-        popularTabelaOficialJustica("SELECT DataChegada,HoraChegada, OFICIAL_JUSTICA.IdOficial, OFICIAL_JUSTICA.NomeOficial FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
+                + "WHERE Confirmacao='" + confirmacao + "' ");
+//                + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' GROUP BY DataChegada,HoraChegada,ADVOGADOS.IdAdvogado,ADVOGADOS.NomeAdvogado ");
+        popularTabelaOficialJustica("SELECT DataChegada,HoraChegada, OFICIAL_JUSTICA.IdOficial, OFICIAL_JUSTICA.NomeOficial,PAVILHAO.DescricaoPav FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
                 + "INNER JOIN OFICIAL_JUSTICA "
                 + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdOficial=OFICIAL_JUSTICA.IdOficial "
                 + "INNER JOIN PAVILHAO "
                 + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
-                + "WHERE Confirmacao='" + confirmacao + "' "
-                + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "'GROUP BY DataChegada,HoraChegada,OFICIAL_JUSTICA.IdOficial,OFICIAL_JUSTICA.NomeOficial");
+                + "WHERE Confirmacao='" + confirmacao + "' ");
+//                + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "'GROUP BY DataChegada,HoraChegada,OFICIAL_JUSTICA.IdOficial,OFICIAL_JUSTICA.NomeOficial");
     }
 
     public void mostrarTelaRela() {
@@ -458,10 +459,10 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
         jTabelaVisitasInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaVisitasInternos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Data Chegada", "Hora Chegada", "Código", "Nome da Visita", "Grau Parentesco"
+                "Data Chegada", "Hora Chegada", "Código", "Nome da Visita", "Grau Parentesco", "Pavilhão"
             }
         ));
         jTabelaVisitasInternos.setToolTipText("Clique para Selecionar Visita e mostrar a foto da Visita e do Interno");
@@ -482,6 +483,8 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
             jTabelaVisitasInternos.getColumnModel().getColumn(3).setMaxWidth(250);
             jTabelaVisitasInternos.getColumnModel().getColumn(4).setMinWidth(150);
             jTabelaVisitasInternos.getColumnModel().getColumn(4).setMaxWidth(150);
+            jTabelaVisitasInternos.getColumnModel().getColumn(5).setMinWidth(250);
+            jTabelaVisitasInternos.getColumnModel().getColumn(5).setMaxWidth(250);
         }
 
         jPanel30.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
@@ -565,10 +568,10 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
         jTabelaAdvogados.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaAdvogados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+                {null, null, null, null, null}
             },
             new String [] {
-                "Data Chegada", "Hora Chegada", "Código", "Nome do Advogado"
+                "Data Chegada", "Hora Chegada", "Código", "Nome do Advogado", "Pavilhão"
             }
         ));
         jTabelaAdvogados.setToolTipText("Clique para Selecionar Advogado e mostrar a foto");
@@ -587,6 +590,8 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
             jTabelaAdvogados.getColumnModel().getColumn(2).setMaxWidth(70);
             jTabelaAdvogados.getColumnModel().getColumn(3).setMinWidth(250);
             jTabelaAdvogados.getColumnModel().getColumn(3).setMaxWidth(250);
+            jTabelaAdvogados.getColumnModel().getColumn(4).setMinWidth(250);
+            jTabelaAdvogados.getColumnModel().getColumn(4).setMaxWidth(250);
         }
 
         jPanel33.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
@@ -670,10 +675,10 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
         jTabelaOficialJustica.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaOficialJustica.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+                {null, null, null, null, null}
             },
             new String [] {
-                "Data Chegada", "Hora Chegada", "Código", "Nome do Oficial de Justiça"
+                "Data Chegada", "Hora Chegada", "Código", "Nome do Oficial de Justiça", "Pavilhão"
             }
         ));
         jTabelaOficialJustica.setToolTipText("Clique para Selecionar Oficial Justiça e mostrar a foto");
@@ -692,6 +697,8 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
             jTabelaOficialJustica.getColumnModel().getColumn(2).setMaxWidth(70);
             jTabelaOficialJustica.getColumnModel().getColumn(3).setMinWidth(250);
             jTabelaOficialJustica.getColumnModel().getColumn(3).setMaxWidth(250);
+            jTabelaOficialJustica.getColumnModel().getColumn(4).setMinWidth(250);
+            jTabelaOficialJustica.getColumnModel().getColumn(4).setMaxWidth(250);
         }
 
         jPanel36.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
@@ -930,34 +937,34 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
         if (jCodigo.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o código do visitante para pesquisa.");
         } else if (!jCodigo.getText().equals("") && opcaoVisita == 1) {
-            buscarPavilhao(nomePavilhao1, nomePavilhao2);
+            buscarPavilhao(nomePavilhao1, nomePavilhao2, nomePavilhao3);
             popularTabelaNomeVisita("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
                     + "INNER JOIN VISITASINTERNO "
                     + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdVisita=VISITASINTERNO.IdVisita "
                     + "INNER JOIN PAVILHAO "
                     + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
                     + "WHERE Confirmacao='" + confirmacao + "' "
-                    + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
+//                    + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
                     + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdVisita='" + jCodigo.getText() + "'");
         } else if (!jCodigo.getText().equals("") && opcaoAdvogado == 1) {
-            buscarPavilhao(nomePavilhao1, nomePavilhao2);
+            buscarPavilhao(nomePavilhao1, nomePavilhao2, nomePavilhao3);
             popularTabelaAdvogado("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
                     + "INNER JOIN ADVOGADOS "
                     + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdAdvogado=ADVOGADOS.IdAdvogado "
                     + "INNER JOIN PAVILHAO "
                     + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
                     + "WHERE Confirmacao='" + confirmacao + "' "
-                    + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
+//                    + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
                     + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdAdvogado='" + jCodigo.getText() + "'");
         } else if (!jCodigo.getText().equals("") && opcaoOficial == 1) {
-            buscarPavilhao(nomePavilhao1, nomePavilhao2);
+            buscarPavilhao(nomePavilhao1, nomePavilhao2, nomePavilhao3);
             popularTabelaOficialJustica("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
                     + "INNER JOIN OFICIAL_JUSTICA "
                     + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdOficial=OFICIAL_JUSTICA.IdOficial "
                     + "INNER JOIN PAVILHAO "
                     + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
                     + "WHERE Confirmacao='" + confirmacao + "' "
-                    + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
+//                    + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
                     + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdOficial='" + jCodigo.getText() + "'");
         } else {
             JOptionPane.showMessageDialog(rootPane, "É necessário selecionar o tipo de pesquisa.");
@@ -993,34 +1000,34 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
             SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
             dataInicial = formatoAmerica.format(jDataPesqChegada.getDate().getTime());
             if (jDataPesqChegada.getDate() != null && opcaoVisita == 1) {
-                buscarPavilhao(nomePavilhao1, nomePavilhao2);
+                buscarPavilhao(nomePavilhao1, nomePavilhao2, nomePavilhao3);
                 popularTabelaNomeVisita("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
                         + "INNER JOIN VISITASINTERNO "
                         + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdVisita=VISITASINTERNO.IdVisita "
                         + "INNER JOIN PAVILHAO "
                         + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
                         + "WHERE Confirmacao='" + confirmacao + "' "
-                        + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
+//                        + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
                         + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.DataChegada='" + dataInicial + "'");
             } else if (jDataPesqChegada.getDate() != null && opcaoAdvogado == 1) {
-                buscarPavilhao(nomePavilhao1, nomePavilhao2);
+                buscarPavilhao(nomePavilhao1, nomePavilhao2, nomePavilhao3);
                 popularTabelaAdvogado("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
                         + "INNER JOIN ADVOGADOS "
                         + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdAdvogado=ADVOGADOS.IdAdvogado "
                         + "INNER JOIN PAVILHAO "
                         + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
                         + "WHERE Confirmacao='" + confirmacao + "' "
-                        + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
+//                        + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
                         + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.DataChegada='" + dataInicial + "'");
             } else if (jDataPesqChegada.getDate() != null && opcaoOficial == 1) {
-                buscarPavilhao(nomePavilhao1, nomePavilhao2);
+                buscarPavilhao(nomePavilhao1, nomePavilhao2, nomePavilhao3);
                 popularTabelaOficialJustica("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
                         + "INNER JOIN OFICIAL_JUSTICA "
                         + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdOficial=OFICIAL_JUSTICA.IdOficial "
                         + "INNER JOIN PAVILHAO "
                         + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
                         + "WHERE Confirmacao='" + confirmacao + "' "
-                        + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
+//                        + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
                         + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.DataChegada='" + dataInicial + "'");
             } else {
                 JOptionPane.showMessageDialog(rootPane, "É necessário selecionar o tipo de pesquisa.");
@@ -1051,34 +1058,34 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
         if (jNomeVisitante.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do visitante para pesquisa.");
         } else if (!jNomeVisitante.getText().equals("") && opcaoVisita == 1) {
-            buscarPavilhao(nomePavilhao1, nomePavilhao2);
+            buscarPavilhao(nomePavilhao1, nomePavilhao2, nomePavilhao3);
             popularTabelaNomeVisita("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
                     + "INNER JOIN VISITASINTERNO "
                     + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdVisita=VISITASINTERNO.IdVisita "
                     + "INNER JOIN PAVILHAO "
                     + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
                     + "WHERE Confirmacao='" + confirmacao + "' "
-                    + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
+//                    + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
                     + "AND NomeVisita LIKE'%" + jNomeVisitante.getText() + "%'");
         } else if (jNomeVisitante.getText().equals("") && opcaoAdvogado == 1) {
-            buscarPavilhao(nomePavilhao1, nomePavilhao2);
+            buscarPavilhao(nomePavilhao1, nomePavilhao2, nomePavilhao3);
             popularTabelaAdvogado("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
                     + "INNER JOIN ADVOGADOS "
                     + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdAdvogado=ADVOGADOS.IdAdvogado "
                     + "INNER JOIN PAVILHAO "
                     + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
                     + "WHERE Confirmacao='" + confirmacao + "' "
-                    + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
+//                    + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
                     + "AND NomeAdvogado LIKE'%" + jNomeVisitante.getText() + "%'");
         } else if (!jNomeVisitante.getText().equals("") && opcaoOficial == 1) {
-            buscarPavilhao(nomePavilhao1, nomePavilhao2);
+            buscarPavilhao(nomePavilhao1, nomePavilhao2, nomePavilhao3);
             popularTabelaOficialJustica("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
                     + "INNER JOIN OFICIAL_JUSTICA "
                     + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdOficial=OFICIAL_JUSTICA.IdOficial "
                     + "INNER JOIN PAVILHAO "
                     + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
                     + "WHERE Confirmacao='" + confirmacao + "' "
-                    + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
+//                    + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
                     + "AND NomeOficial LIKE'%" + jNomeVisitante.getText() + "%'");
         } else {
             JOptionPane.showMessageDialog(rootPane, "É necessário selecionar o tipo de pesquisa.");
@@ -1092,28 +1099,28 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
         count2 = 0;
         limparFotos();
         if (nomeModuloB1.equals("BASE PAVILHAO UM")) {
-            buscarPavilhao(nomePavilhao1, nomePavilhao2);
+            buscarPavilhao(nomePavilhao1, nomePavilhao2, nomePavilhao3);
             popularTabelaNomeVisita("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
                     + "INNER JOIN VISITASINTERNO "
                     + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdVisita=VISITASINTERNO.IdVisita "
                     + "INNER JOIN PAVILHAO "
                     + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
-                    + "WHERE Confirmacao='" + confirmacao + "' "
-                    + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "'");
+                    + "WHERE Confirmacao='" + confirmacao + "' ");
+            //  + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "'");
             popularTabelaAdvogado("SELECT DataChegada,HoraChegada,ADVOGADOS.IdAdvogado,ADVOGADOS.NomeAdvogado FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
                     + "INNER JOIN ADVOGADOS "
                     + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdAdvogado=ADVOGADOS.IdAdvogado "
                     + "INNER JOIN PAVILHAO "
                     + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
-                    + "WHERE Confirmacao='" + confirmacao + "' "
-                    + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' GROUP BY DataChegada,HoraChegada,ADVOGADOS.IdAdvogado,ADVOGADOS.NomeAdvogado ");
+                    + "WHERE Confirmacao='" + confirmacao + "' ");
+            //  + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' GROUP BY DataChegada,HoraChegada,ADVOGADOS.IdAdvogado,ADVOGADOS.NomeAdvogado ");
             popularTabelaOficialJustica("SELECT DataChegada,HoraChegada, OFICIAL_JUSTICA.IdOficial, OFICIAL_JUSTICA.NomeOficial FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
                     + "INNER JOIN OFICIAL_JUSTICA "
                     + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdOficial=OFICIAL_JUSTICA.IdOficial "
                     + "INNER JOIN PAVILHAO "
                     + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
-                    + "WHERE Confirmacao='" + confirmacao + "' "
-                    + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "'GROUP BY DataChegada,HoraChegada,OFICIAL_JUSTICA.IdOficial,OFICIAL_JUSTICA.NomeOficial");
+                    + "WHERE Confirmacao='" + confirmacao + "' ");
+//                    + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "'GROUP BY DataChegada,HoraChegada,OFICIAL_JUSTICA.IdOficial,OFICIAL_JUSTICA.NomeOficial");
         } else if (nomeModuloB2.equals("BASE PAVILHAO DOIS")) {
 
         }
@@ -1126,7 +1133,7 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
             objAlertaPortPav.setConfirmacao(respostaConf);
             objAlertaPortPav.setIdRegAlerta(codigoAlertaVI);
             controleOFPortPav.alterarConfirmaVisitaInternoPortariaPavilhoes(objAlertaPortPav);
-            buscarPavilhao(nomePavilhao1, nomePavilhao2);
+            buscarPavilhao(nomePavilhao1, nomePavilhao2, nomePavilhao3);
             popularTabelaNomeVisita("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
                     + "INNER JOIN VISITASINTERNO "
                     + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdVisita=VISITASINTERNO.IdVisita "
@@ -1154,7 +1161,7 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
             objAlertaPortPav.setConfirmacao(respostaConf);
             objAlertaPortPav.setIdRegAlerta(codigoAlertaAD);
             controleOFPortPav.alterarConfirmaVisitaInternoPortariaPavilhoes(objAlertaPortPav);
-            buscarPavilhao(nomePavilhao1, nomePavilhao2);
+            buscarPavilhao(nomePavilhao1, nomePavilhao2, nomePavilhao3);
             popularTabelaAdvogado("SELECT DataChegada,HoraChegada,ADVOGADOS.IdAdvogado,ADVOGADOS.NomeAdvogado FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
                     + "INNER JOIN ADVOGADOS "
                     + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdAdvogado=ADVOGADOS.IdAdvogado "
@@ -1182,7 +1189,7 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
             objAlertaPortPav.setConfirmacao(respostaConf);
             objAlertaPortPav.setIdRegAlerta(codigoAlertaOF);
             controleOFPortPav.alterarConfirmaVisitaInternoPortariaPavilhoes(objAlertaPortPav);
-            buscarPavilhao(nomePavilhao1, nomePavilhao2);
+            buscarPavilhao(nomePavilhao1, nomePavilhao2, nomePavilhao3);
             popularTabelaOficialJustica("SELECT DataChegada,HoraChegada, OFICIAL_JUSTICA.IdOficial, OFICIAL_JUSTICA.NomeOficial FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
                     + "INNER JOIN OFICIAL_JUSTICA "
                     + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdOficial=OFICIAL_JUSTICA.IdOficial "
@@ -1205,7 +1212,7 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
         // TODO add your handling code here:
-        buscarPavilhao(nomePavilhao1, nomePavilhao2);
+        buscarPavilhao(nomePavilhao1, nomePavilhao2, nomePavilhao3);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB1.equals("ADMINISTRADORES") || codigoUserB1 == codUserAcessoB1 && nomeTelaB1.equals(telaAlertaVisitantesPortariaB1) && codConsultarB1 == 1) {
             mostrarTelaRela();
         } else {
@@ -1236,7 +1243,8 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
                         + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdVisita=VISITASINTERNO.IdVisita "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "WHERE ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdVisita='" + idVisita + "' AND Confirmacao='" + confirmacao + "'");
+                        + "WHERE ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdVisita='" + idVisita + "' "
+                        + "AND Confirmacao='" + confirmacao + "'");
                 conecta.rs.first();
                 codigoInternoVI = conecta.rs.getInt("IdInternoCrc");
                 codigoRegistroVI = conecta.rs.getInt("IdRegistroVI");
@@ -1517,12 +1525,13 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
         jFotoInterno.setIcon(null);
     }
 
-    public void buscarPavilhao(String descricao, String descricao2) {
+    public void buscarPavilhao(String descricao, String descricao2, String descricao3) {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM PAVILHAO "
                     + "WHERE DescricaoPav LIKE'%" + descricao + "%' "
-                    + "OR DescricaoPav LIKE'%" + descricao2 + "%'");
+                    + "OR DescricaoPav LIKE'%" + descricao2 + "%' "
+                    + "OR DescricaoPav LIKE'%" + descricao3 + "%'");
             conecta.rs.first();
             codigoPavilhao = conecta.rs.getInt("IdPav");
             descricaoPavilhao = conecta.rs.getString("DescricaoPav");
@@ -1534,7 +1543,7 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
 
     public void popularTabelaNomeVisita(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Data Chegada", "Hora Chegada", "Código", "Nome da Visita", "Grau de Parentesco"};
+        String[] Colunas = new String[]{"Data Chegada", "Hora Chegada", "Código", "Nome da Visita", "Grau Parentesco", "Pavilhão"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
@@ -1548,7 +1557,7 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
                 String anoe = dataEntrada.substring(0, 4);
                 dataEntrada = diae + "/" + mese + "/" + anoe;
                 jtotalRegistros.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{dataEntrada, conecta.rs.getString("HoraChegada"), conecta.rs.getInt("IdVisita"), conecta.rs.getString("NomeVisita"), conecta.rs.getString("ParentescoVisita")});
+                dados.add(new Object[]{dataEntrada, conecta.rs.getString("HoraChegada"), conecta.rs.getInt("IdVisita"), conecta.rs.getString("NomeVisita"), conecta.rs.getString("ParentescoVisita"), conecta.rs.getString("DescricaoPav")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }
@@ -1559,10 +1568,14 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
         jTabelaVisitasInternos.getColumnModel().getColumn(0).setResizable(false);
         jTabelaVisitasInternos.getColumnModel().getColumn(1).setPreferredWidth(80);
         jTabelaVisitasInternos.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaVisitasInternos.getColumnModel().getColumn(2).setPreferredWidth(70);
+        jTabelaVisitasInternos.getColumnModel().getColumn(2).setPreferredWidth(60);
         jTabelaVisitasInternos.getColumnModel().getColumn(2).setResizable(false);
         jTabelaVisitasInternos.getColumnModel().getColumn(3).setPreferredWidth(250);
         jTabelaVisitasInternos.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaVisitasInternos.getColumnModel().getColumn(4).setPreferredWidth(100);
+        jTabelaVisitasInternos.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaVisitasInternos.getColumnModel().getColumn(5).setPreferredWidth(250);
+        jTabelaVisitasInternos.getColumnModel().getColumn(5).setResizable(false);
         jTabelaVisitasInternos.getTableHeader().setReorderingAllowed(false);
         jTabelaVisitasInternos.setAutoResizeMode(jTabelaVisitasInternos.AUTO_RESIZE_OFF);
         jTabelaVisitasInternos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -1572,7 +1585,7 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
 
     public void popularTabelaAdvogado(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Data Chegada", "Hora Chegada", "Código", "Nome do Advogado"};
+        String[] Colunas = new String[]{"Data Chegada", "Hora Chegada", "Código", "Nome do Advogado", "Pavilhão"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
@@ -1586,7 +1599,7 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
                 String anoe = dataEntradaAD.substring(0, 4);
                 dataEntradaAD = diae + "/" + mese + "/" + anoe;
                 jtotalRegistros1.setText(Integer.toString(count1)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{dataEntradaAD, conecta.rs.getString("HoraChegada"), conecta.rs.getInt("IdAdvogado"), conecta.rs.getString("NomeAdvogado")});
+                dados.add(new Object[]{dataEntradaAD, conecta.rs.getString("HoraChegada"), conecta.rs.getInt("IdAdvogado"), conecta.rs.getString("NomeAdvogado"), conecta.rs.getString("DescricaoPav")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }
@@ -1601,6 +1614,8 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
         jTabelaAdvogados.getColumnModel().getColumn(2).setResizable(false);
         jTabelaAdvogados.getColumnModel().getColumn(3).setPreferredWidth(250);
         jTabelaAdvogados.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaAdvogados.getColumnModel().getColumn(4).setPreferredWidth(250);
+        jTabelaAdvogados.getColumnModel().getColumn(4).setResizable(false);
         jTabelaAdvogados.getTableHeader().setReorderingAllowed(false);
         jTabelaAdvogados.setAutoResizeMode(jTabelaAdvogados.AUTO_RESIZE_OFF);
         jTabelaVisitasInternos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -1610,7 +1625,7 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
 
     public void popularTabelaOficialJustica(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Data Chegada", "Hora Chegada", "Código", "Nome do Oficial Justiça"};
+        String[] Colunas = new String[]{"Data Chegada", "Hora Chegada", "Código", "Nome do Oficial Justiça", "Pavilhão"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
@@ -1624,7 +1639,7 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
                 String anoe = dataEntradaOF.substring(0, 4);
                 dataEntradaOF = diae + "/" + mese + "/" + anoe;
                 jtotalRegistros2.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{dataEntradaOF, conecta.rs.getString("HoraChegada"), conecta.rs.getInt("IdOficial"), conecta.rs.getString("NomeOficial")});
+                dados.add(new Object[]{dataEntradaOF, conecta.rs.getString("HoraChegada"), conecta.rs.getInt("IdOficial"), conecta.rs.getString("NomeOficial"), conecta.rs.getString("DescricaoPav")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }
@@ -1639,6 +1654,8 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
         jTabelaOficialJustica.getColumnModel().getColumn(2).setResizable(false);
         jTabelaOficialJustica.getColumnModel().getColumn(3).setPreferredWidth(250);
         jTabelaOficialJustica.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaOficialJustica.getColumnModel().getColumn(4).setPreferredWidth(250);
+        jTabelaOficialJustica.getColumnModel().getColumn(4).setResizable(false);
         jTabelaOficialJustica.getTableHeader().setReorderingAllowed(false);
         jTabelaOficialJustica.setAutoResizeMode(jTabelaOficialJustica.AUTO_RESIZE_OFF);
         jTabelaOficialJustica.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -1732,7 +1749,7 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
 
     public void limparTabelaEntradaVisitas() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Data Chegada", "Hora Chegada", "Código", "Nome da Visita", "Grau de Parentesco"};
+        String[] Colunas = new String[]{"Data Chegada", "Hora Chegada", "Código", "Nome da Visita", "Grau Parentesco", "Pavilhão"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaVisitasInternos.setRowSorter(new TableRowSorter(modelo)); //FAZER ORDENAMENTO NA TABLEA 
         jTabelaVisitasInternos.setModel(modelo);
@@ -1740,10 +1757,14 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
         jTabelaVisitasInternos.getColumnModel().getColumn(0).setResizable(false);
         jTabelaVisitasInternos.getColumnModel().getColumn(1).setPreferredWidth(80);
         jTabelaVisitasInternos.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaVisitasInternos.getColumnModel().getColumn(2).setPreferredWidth(70);
+        jTabelaVisitasInternos.getColumnModel().getColumn(2).setPreferredWidth(60);
         jTabelaVisitasInternos.getColumnModel().getColumn(2).setResizable(false);
         jTabelaVisitasInternos.getColumnModel().getColumn(3).setPreferredWidth(250);
         jTabelaVisitasInternos.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaVisitasInternos.getColumnModel().getColumn(4).setPreferredWidth(100);
+        jTabelaVisitasInternos.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaVisitasInternos.getColumnModel().getColumn(5).setPreferredWidth(250);
+        jTabelaVisitasInternos.getColumnModel().getColumn(5).setResizable(false);
         jTabelaVisitasInternos.getTableHeader().setReorderingAllowed(false);
         jTabelaVisitasInternos.setAutoResizeMode(jTabelaVisitasInternos.AUTO_RESIZE_OFF);
         jTabelaVisitasInternos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -1752,7 +1773,7 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
 
     public void limparTabelaAdvogado() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Data Chegada", "Hora Chegada", "Código", "Nome do Advogado"};
+        String[] Colunas = new String[]{"Data Chegada", "Hora Chegada", "Código", "Nome do Advogado", "Pavilhão"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaAdvogados.setRowSorter(new TableRowSorter(modelo)); //FAZER ORDENAMENTO NA TABLEA  
         jTabelaAdvogados.setModel(modelo);
@@ -1764,6 +1785,8 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
         jTabelaAdvogados.getColumnModel().getColumn(2).setResizable(false);
         jTabelaAdvogados.getColumnModel().getColumn(3).setPreferredWidth(250);
         jTabelaAdvogados.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaAdvogados.getColumnModel().getColumn(4).setPreferredWidth(250);
+        jTabelaAdvogados.getColumnModel().getColumn(4).setResizable(false);
         jTabelaAdvogados.getTableHeader().setReorderingAllowed(false);
         jTabelaAdvogados.setAutoResizeMode(jTabelaAdvogados.AUTO_RESIZE_OFF);
         jTabelaVisitasInternos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -1772,7 +1795,7 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
 
     public void limparTabelaOficial() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Data Chegada", "Hora Chegada", "Código", "Nome do Oficial Justiça"};
+        String[] Colunas = new String[]{"Data Chegada", "Hora Chegada", "Código", "Nome do Oficial Justiça", "Pavilhão"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaOficialJustica.setRowSorter(new TableRowSorter(modelo)); //FAZER ORDENAMENTO NA TABLEA  
         jTabelaOficialJustica.setModel(modelo);

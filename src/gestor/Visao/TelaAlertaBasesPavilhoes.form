@@ -567,12 +567,13 @@
                       </Border>
                     </Property>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="5" rowCount="1">
+                      <Table columnCount="6" rowCount="1">
                         <Column editable="true" title="Data Chegada" type="java.lang.Object"/>
                         <Column editable="true" title="Hora Chegada" type="java.lang.Object"/>
                         <Column editable="true" title="C&#xf3;digo" type="java.lang.Object"/>
                         <Column editable="true" title="Nome da Visita" type="java.lang.Object"/>
                         <Column editable="true" title="Grau Parentesco" type="java.lang.Object"/>
+                        <Column editable="true" title="Pavilh&#xe3;o" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="toolTipText" type="java.lang.String" value="Clique para Selecionar Visita e mostrar a foto da Visita e do Interno"/>
@@ -599,6 +600,11 @@
                           <Renderer/>
                         </Column>
                         <Column maxWidth="150" minWidth="150" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="250" minWidth="250" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>
                           <Renderer/>
@@ -786,11 +792,12 @@
                       </Border>
                     </Property>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="4" rowCount="1">
+                      <Table columnCount="5" rowCount="1">
                         <Column editable="true" title="Data Chegada" type="java.lang.Object"/>
                         <Column editable="true" title="Hora Chegada" type="java.lang.Object"/>
                         <Column editable="true" title="C&#xf3;digo" type="java.lang.Object"/>
                         <Column editable="true" title="Nome do Advogado" type="java.lang.Object"/>
+                        <Column editable="true" title="Pavilh&#xe3;o" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="toolTipText" type="java.lang.String" value="Clique para Selecionar Advogado e mostrar a foto"/>
@@ -807,6 +814,11 @@
                           <Renderer/>
                         </Column>
                         <Column maxWidth="70" minWidth="70" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="250" minWidth="250" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>
                           <Renderer/>
@@ -1000,11 +1012,12 @@
                       </Border>
                     </Property>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="4" rowCount="1">
+                      <Table columnCount="5" rowCount="1">
                         <Column editable="true" title="Data Chegada" type="java.lang.Object"/>
                         <Column editable="true" title="Hora Chegada" type="java.lang.Object"/>
                         <Column editable="true" title="C&#xf3;digo" type="java.lang.Object"/>
                         <Column editable="true" title="Nome do Oficial de Justi&#xe7;a" type="java.lang.Object"/>
+                        <Column editable="true" title="Pavilh&#xe3;o" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="toolTipText" type="java.lang.String" value="Clique para Selecionar Oficial Justi&#xe7;a e mostrar a foto"/>
@@ -1021,6 +1034,11 @@
                           <Renderer/>
                         </Column>
                         <Column maxWidth="70" minWidth="70" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="250" minWidth="250" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>
                           <Renderer/>
