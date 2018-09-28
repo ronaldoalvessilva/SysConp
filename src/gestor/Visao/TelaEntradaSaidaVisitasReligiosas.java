@@ -1359,6 +1359,7 @@ public class TelaEntradaSaidaVisitasReligiosas extends javax.swing.JInternalFram
 
     private void jBtAlterarVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarVisitaActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntradaSaidaVisitasReligiosasVisiP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaVisitasReligiosasVisiP1) && codAlterarP1 == 1) {
             objEntSaiVisitasRel.setStatusLanc(jStatusEntCola.getText());
             if (jStatusEntCola.getText().equals("FINALIZADO")) {
@@ -1380,7 +1381,8 @@ public class TelaEntradaSaidaVisitasReligiosas extends javax.swing.JInternalFram
 
     private void jBtExcluirVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirVisitaActionPerformed
         // TODO add your handling code here:
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaVisitasReligiosasManuP1) && codExcluirP1 == 1) {
+        buscarAcessoUsuario(telaEntradaSaidaVisitasReligiosasVisiP1);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaVisitasReligiosasVisiP1) && codExcluirP1 == 1) {
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -1413,7 +1415,8 @@ public class TelaEntradaSaidaVisitasReligiosas extends javax.swing.JInternalFram
 
     private void jBtSalvarVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarVisitaActionPerformed
         // TODO add your handling code here:  
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaVisitasReligiosasManuP1) && codGravarP1 == 1) {
+        buscarAcessoUsuario(telaEntradaSaidaVisitasReligiosasVisiP1);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaVisitasReligiosasVisiP1) && codGravarP1 == 1) {
             if (jNomeVisitaReligiosa.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o nome da visita religiosa.");
                 jNomeVisitaReligiosa.requestFocus();
