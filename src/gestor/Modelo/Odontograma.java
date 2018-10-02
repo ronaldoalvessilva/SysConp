@@ -28,11 +28,12 @@ public class Odontograma {
     private String planoTratamento;
     private String corDente;
     private String parcialTotal;
+    private int nrFace;
 
     public Odontograma() {
     }
 
-    public Odontograma(int idOdonto, int idLanc, int idInternoCrc, String nomeInternoCrc, int idProcOdonto, String descricaoProcedimento, int numeroDente, Date dataOdontograma, String facesDente, int vermelho, int verde, int azul, String planoTratamento, String corDente, String parcialTotal) {
+    public Odontograma(int idOdonto, int idLanc, int idInternoCrc, String nomeInternoCrc, int idProcOdonto, String descricaoProcedimento, int numeroDente, Date dataOdontograma, String facesDente, int vermelho, int verde, int azul, String planoTratamento, String corDente, String parcialTotal, int nrFace) {
         this.idOdonto = idOdonto;
         this.idLanc = idLanc;
         this.idInternoCrc = idInternoCrc;
@@ -48,6 +49,7 @@ public class Odontograma {
         this.planoTratamento = planoTratamento;
         this.corDente = corDente;
         this.parcialTotal = parcialTotal;
+        this.nrFace = nrFace;
     }
 
     /**
@@ -259,4 +261,19 @@ public class Odontograma {
     public void setParcialTotal(String parcialTotal) {
         this.parcialTotal = parcialTotal;
     }
+
+    /**
+     * @return the nrFace
+     */
+    public int getNrFace() {
+        return nrFace;
+    }
+
+    /**
+     * @param nrFace the nrFace to set
+     */
+    public void setNrFace(int nrFace) {
+        this.nrFace = nrFace;
+    }
+    
 }
