@@ -28,7 +28,7 @@ public class ControleOdontograma {
         buscarProccedimento(objOdonto.getDescricaoProcedimento(), objOdonto.getIdProcOdonto());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ODONTOGRAMA (IdLanc,IdInternoCrc,IdProcOdonto,NumeroDente,DataOdontograma,FacesDente,ParcialTotal,PlanoTratamento) VALUES (?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ODONTOGRAMA_ADMISSAO (IdLanc,IdInternoCrc,IdProcOdonto,NumeroDente,DataOdontograma,FacesDente,ParcialTotal,PlanoTratamento,NrFace) VALUES (?,?,?,?,?,?,?,?,?)");
             pst.setInt(1, objOdonto.getIdLanc());
             pst.setInt(2, codigoInterno);
             pst.setInt(3, codigoProcedimento);
@@ -41,9 +41,10 @@ public class ControleOdontograma {
             pst.setString(6, objOdonto.getFacesDente());
             pst.setString(7, objOdonto.getParcialTotal());               
             pst.setString(8, objOdonto.getPlanoTratamento());
+            pst.setInt(9, objOdonto.getNrFace());
             pst.execute();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados\n\nERRO" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados\n\nERRO: " + ex);
         }
         conecta.desconecta();
         return objOdonto;
@@ -54,7 +55,7 @@ public class ControleOdontograma {
         buscarProccedimento(objOdonto.getDescricaoProcedimento(), objOdonto.getIdProcOdonto());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ODONTOGRAMA SET IdLanc=?,IdInternoCrc=?,IdProcOdonto=?,NumeroDente=?,DataOdontograma=?,FacesDente=?,ParcialTotal,PlanoTratamento=? WHERE IdOdonto='" + objOdonto.getIdOdonto() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ODONTOGRAMA_ADMISSAO SET IdLanc=?,IdInternoCrc=?,IdProcOdonto=?,NumeroDente=?,DataOdontograma=?,FacesDente=?,ParcialTotal,PlanoTratamento=?,,NrFace=? WHERE IdOdonto='" + objOdonto.getIdOdonto() + "'");
             pst.setInt(1, objOdonto.getIdLanc());
             pst.setInt(2, codigoInterno);
             pst.setInt(3, codigoProcedimento);
@@ -67,9 +68,10 @@ public class ControleOdontograma {
             pst.setString(6, objOdonto.getFacesDente());
             pst.setString(7, objOdonto.getParcialTotal());          
             pst.setString(8, objOdonto.getPlanoTratamento());
+            pst.setInt(9, objOdonto.getNrFace());
             pst.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados\n\nERRO" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados\n\nERRO: " + ex);
         }
         conecta.desconecta();
         return objOdonto;
@@ -79,10 +81,10 @@ public class ControleOdontograma {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ODONTOGRAMA WHERE IdLanc='" + objOdonto.getIdLanc() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ODONTOGRAMA_ADMISSAO WHERE IdLanc='" + objOdonto.getIdLanc() + "'");
             pst.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados\n\nERRO" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados\n\nERRO: " + ex);
         }
         conecta.desconecta();
         return objOdonto;
