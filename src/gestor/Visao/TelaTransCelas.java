@@ -824,8 +824,9 @@ public class TelaTransCelas extends javax.swing.JInternalFrame {
                         JOptionPane.showMessageDialog(rootPane, "Informe qual é o Pavilhão e Cela de destino do interno");
                     } else {
                         verificarLancamento();
+                        //                        
                         if (statusLanc == null ? statusTrans == null : statusLanc.equals(statusTrans)) {
-                            JOptionPane.showMessageDialog(rootPane, "Não é possível realizar a transferência desse interno,\npois o lançamento de origem ao qual ele pertence\nnão foi FINALIZADO. Finalize o lançamento e só\ndepois faça a transferência do interno.");
+                            JOptionPane.showMessageDialog(rootPane, "Não é possível realizar a transferência desse interno, pois, o lançamento de origem ao qual ele pertence\nnão foi FINALIZADO. Finalize o lançamento e só\ndepois faça a transferência do interno.");
                         } else {
                             objTranLocalInt.setDataLanc(jDataLanc.getDate());
                             if (acao == 1) {
@@ -1253,7 +1254,11 @@ public class TelaTransCelas extends javax.swing.JInternalFrame {
         jStatusLanc.setText("FINALIZADO");
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM LOCACAOINTERNO WHERE IdCela='" + codCelaAnt + "'");
+            conecta.executaSQL("SELECT * FROM LOCACAOINTERNO "
+                    + "INNER JOIN ITENSLOCACAOINTERNO "
+                    + "ON LOCACAOINTERNO.IdLoca=ITENSLOCACAOINTERNO.IdLoca "
+                    + "WHERE LOCACAOINTERNO.IdCela='" + codCelaAnt + "'"
+                    + "AND ITENSLOCACAOINTERNO.IdInternoCrc='" + jIdInterno.getText() + "'");
             conecta.rs.first();
             statusLanc = conecta.rs.getString("StatusLoca");
         } catch (SQLException ex) {
