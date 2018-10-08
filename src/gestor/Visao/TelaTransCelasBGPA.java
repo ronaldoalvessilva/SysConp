@@ -1248,7 +1248,11 @@ public class TelaTransCelasBGPA extends javax.swing.JInternalFrame {
         jStatusLanc.setText("FINALIZADO");
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM LOCACAOINTERNO WHERE IdCela='" + codCelaAnt + "'");
+            conecta.executaSQL("SELECT * FROM LOCACAOINTERNO "
+                    + "INNER JOIN ITENSLOCACAOINTERNO "
+                    + "ON LOCACAOINTERNO.IdLoca=ITENSLOCACAOINTERNO.IdLoca "
+                    + "WHERE LOCACAOINTERNO.IdCela='" + codCelaAnt + "'"
+                    + "AND ITENSLOCACAOINTERNO.IdInternoCrc='" + jIdInterno.getText() + "'");
             conecta.rs.first();
             statusLanc = conecta.rs.getString("StatusLoca");
         } catch (SQLException ex) {
