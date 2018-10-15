@@ -100,6 +100,10 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     int numeroFace = 0;
     //
     String codigoDente;
+    String procedimento;
+    String nrDente;
+    String faceDente;
+    int nrClik = 0;
 
     /**
      * Creates new form TelaAtendimentoOdontologico
@@ -122,6 +126,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jLabel31 = new javax.swing.JLabel();
         jLabel36 = new javax.swing.JLabel();
+        grupoBotoes = new javax.swing.ButtonGroup();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         Listagem = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
@@ -238,12 +243,18 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         jLabel32 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextoDoenca = new javax.swing.JTextArea();
+        jLabel37 = new javax.swing.JLabel();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        jEvolucaoAdmissao = new javax.swing.JTextArea();
         Odontograma = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
         jTabelaOdontograma = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        jBtAdicionar = new javax.swing.JButton();
-        jBtRemover = new javax.swing.JButton();
+        jRBFaceUm = new javax.swing.JRadioButton();
+        jRBFaceDois = new javax.swing.JRadioButton();
+        jRBFaceTres = new javax.swing.JRadioButton();
+        jRBFaceQuatro = new javax.swing.JRadioButton();
+        jRBFaceTodas = new javax.swing.JRadioButton();
         jPanel12 = new javax.swing.JPanel();
         jNumeroDente = new javax.swing.JFormattedTextField();
         jPanel13 = new javax.swing.JPanel();
@@ -327,7 +338,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         jComboBoxFacesDente = new javax.swing.JComboBox();
         jLabel87 = new javax.swing.JLabel();
         jPlanoTratamento = new javax.swing.JTextField();
-        jComboBoxParcialTotal = new javax.swing.JComboBox();
         Continuacao = new javax.swing.JPanel();
         jPanel16 = new javax.swing.JPanel();
         jLabel39 = new javax.swing.JLabel();
@@ -443,7 +453,21 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         jScrollPane7 = new javax.swing.JScrollPane();
         jTabelaPrescricao = new javax.swing.JTable();
         jPanel8 = new javax.swing.JPanel();
-        jToggleBtDente = new javax.swing.JToggleButton();
+        jToggleBtDenteModelo = new javax.swing.JToggleButton();
+        jComboBoxParcialTotal = new javax.swing.JComboBox();
+        jBtAdicionar = new javax.swing.JButton();
+        jBtRemover = new javax.swing.JButton();
+        jToggleButton5 = new javax.swing.JToggleButton();
+        jToggleButton2 = new javax.swing.JToggleButton();
+        jToggleButton3 = new javax.swing.JToggleButton();
+        jToggleButton4 = new javax.swing.JToggleButton();
+        jToggleButton1 = new javax.swing.JToggleButton();
+        jPanel17 = new javax.swing.JPanel();
+        jBtFaceSuperior2 = new javax.swing.JButton();
+        jBtFaceInferior2 = new javax.swing.JButton();
+        jBtFaceEsquerda2 = new javax.swing.JButton();
+        jBtFaceCentral2 = new javax.swing.JButton();
+        jBTFaceDireita2 = new javax.swing.JButton();
 
         jLabel31.setText("jLabel31");
 
@@ -525,7 +549,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
                         .addComponent(jIDPesqAtend, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtIdPesqAtend, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                         .addComponent(jLabel48)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -651,11 +675,8 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
                         .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(ListagemLayout.createSequentialGroup()
-                        .addGroup(ListagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jPanel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane2)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         ListagemLayout.setVerticalGroup(
@@ -664,7 +685,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
                 .addContainerGap()
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(ListagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1040,57 +1061,59 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         DadosConsultaLayout.setHorizontalGroup(
             DadosConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DadosConsultaLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(DadosConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(DadosConsultaLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel40)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, DadosConsultaLayout.createSequentialGroup()
-                        .addGroup(DadosConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addContainerGap()
                         .addGroup(DadosConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, DadosConsultaLayout.createSequentialGroup()
                                 .addGroup(DadosConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBoxAlegria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboBoxMedicacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboBoxTratamentoMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(10, 10, 10)
-                                .addGroup(DadosConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel13)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jLabel9))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(DadosConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jAfirmacao2, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
-                                    .addComponent(jAfirmacao1)
-                                    .addComponent(jAfirmacao3, javax.swing.GroupLayout.Alignment.TRAILING)))
-                            .addComponent(jQueixaPrincipal, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(DadosConsultaLayout.createSequentialGroup()
-                                .addComponent(jComboBoxTipoAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-                                .addComponent(jLabel18)
+                                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBoxFumante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(DadosConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, DadosConsultaLayout.createSequentialGroup()
+                                        .addGroup(DadosConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jComboBoxAlegria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jComboBoxMedicacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jComboBoxTratamentoMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(10, 10, 10)
+                                        .addGroup(DadosConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel13)
+                                            .addComponent(jLabel11)
+                                            .addComponent(jLabel9))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(DadosConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jAfirmacao2, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
+                                            .addComponent(jAfirmacao1)
+                                            .addComponent(jAfirmacao3, javax.swing.GroupLayout.Alignment.TRAILING)))
+                                    .addComponent(jQueixaPrincipal, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(DadosConsultaLayout.createSequentialGroup()
+                                        .addComponent(jComboBoxTipoAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                                        .addComponent(jLabel18)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jComboBoxFumante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel83)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jComboBoxGestante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel85)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jTempoGestacao, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(1, 1, 1))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, DadosConsultaLayout.createSequentialGroup()
+                                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel83)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBoxGestante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel85)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTempoGestacao, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(1, 1, 1))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, DadosConsultaLayout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(DadosConsultaLayout.createSequentialGroup()
+                        .addGap(146, 146, 146)
+                        .addComponent(jLabel40)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane5)))
                 .addGap(13, 13, 13))
         );
 
@@ -1144,7 +1167,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         DadosConsultaLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jAfirmacao1, jAfirmacao2, jAfirmacao3});
 
-        jTabbedPane3.addTab("DADOS DA CONSULTA", DadosConsulta);
+        jTabbedPane3.addTab("DADOS INICIAIS", DadosConsulta);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Patologias", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
 
@@ -1323,7 +1346,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
                                 .addComponent(jComboBoxHiv, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jComboBoxDiabetes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jComboBoxHepatite, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel22)
@@ -1434,21 +1457,34 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         jTextoDoenca.setEnabled(false);
         jScrollPane1.setViewportView(jTextoDoenca);
 
+        jLabel37.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel37.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel37.setText("Evolução da Admissão");
+
+        jEvolucaoAdmissao.setColumns(20);
+        jEvolucaoAdmissao.setRows(5);
+        jEvolucaoAdmissao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jEvolucaoAdmissao.setEnabled(false);
+        jScrollPane9.setViewportView(jEvolucaoAdmissao);
+
         javax.swing.GroupLayout PatologiasLayout = new javax.swing.GroupLayout(Patologias);
         Patologias.setLayout(PatologiasLayout);
         PatologiasLayout.setHorizontalGroup(
             PatologiasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PatologiasLayout.createSequentialGroup()
                 .addGroup(PatologiasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(PatologiasLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(PatologiasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1)
+                            .addGroup(PatologiasLayout.createSequentialGroup()
+                                .addGroup(PatologiasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel32)
+                                    .addComponent(jLabel37))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane9))))
                 .addContainerGap())
-            .addGroup(PatologiasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel32)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PatologiasLayout.setVerticalGroup(
             PatologiasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1457,8 +1493,12 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel32)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel37)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane3.addTab("PATOLOGIAS", Patologias);
@@ -1503,25 +1543,37 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
             jTabelaOdontograma.getColumnModel().getColumn(6).setMaxWidth(250);
         }
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Qtd. Faces", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(204, 0, 0))); // NOI18N
 
-        jBtAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
-        jBtAdicionar.setToolTipText("Adicionar");
-        jBtAdicionar.setEnabled(false);
-        jBtAdicionar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtAdicionarActionPerformed(evt);
-            }
-        });
+        grupoBotoes.add(jRBFaceUm);
+        jRBFaceUm.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRBFaceUm.setForeground(new java.awt.Color(204, 0, 0));
+        jRBFaceUm.setSelected(true);
+        jRBFaceUm.setText(" - 1 Face");
+        jRBFaceUm.setEnabled(false);
 
-        jBtRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
-        jBtRemover.setToolTipText("Excluir");
-        jBtRemover.setEnabled(false);
-        jBtRemover.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtRemoverActionPerformed(evt);
-            }
-        });
+        grupoBotoes.add(jRBFaceDois);
+        jRBFaceDois.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRBFaceDois.setForeground(new java.awt.Color(0, 102, 0));
+        jRBFaceDois.setText(" - 2 Faces");
+        jRBFaceDois.setEnabled(false);
+
+        grupoBotoes.add(jRBFaceTres);
+        jRBFaceTres.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRBFaceTres.setForeground(new java.awt.Color(0, 0, 204));
+        jRBFaceTres.setText(" - 3 Faces");
+        jRBFaceTres.setEnabled(false);
+
+        grupoBotoes.add(jRBFaceQuatro);
+        jRBFaceQuatro.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRBFaceQuatro.setForeground(new java.awt.Color(102, 0, 102));
+        jRBFaceQuatro.setText(" - 4 Faces");
+        jRBFaceQuatro.setEnabled(false);
+
+        grupoBotoes.add(jRBFaceTodas);
+        jRBFaceTodas.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRBFaceTodas.setText("- Todas");
+        jRBFaceTodas.setEnabled(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -1529,25 +1581,35 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jRBFaceTodas, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jRBFaceTres, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jRBFaceUm)
+                        .addComponent(jRBFaceQuatro, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jRBFaceDois)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jBtAdicionar)
+                .addComponent(jRBFaceUm)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtRemover)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jRBFaceDois)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRBFaceTres)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRBFaceQuatro)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jRBFaceTodas))
         );
 
-        jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Número Dente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 102, 0))); // NOI18N
+        jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Número Dente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 102, 0))); // NOI18N
 
         jNumeroDente.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNumeroDente.setForeground(new java.awt.Color(204, 0, 0));
         jNumeroDente.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jNumeroDente.setDisabledTextColor(new java.awt.Color(204, 0, 0));
         jNumeroDente.setEnabled(false);
         jNumeroDente.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
 
@@ -1555,17 +1617,18 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jNumeroDente, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+            .addComponent(jNumeroDente)
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jNumeroDente)
+            .addComponent(jNumeroDente, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
         );
 
-        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Seleção", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
+        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Seleção", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
         jPanel13.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jBtFaceSuperior1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/FaceSuperior.png"))); // NOI18N
+        jBtFaceSuperior1.setToolTipText("Lingual/Palatal");
         jBtFaceSuperior1.setContentAreaFilled(false);
         jBtFaceSuperior1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1575,6 +1638,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         jPanel13.add(jBtFaceSuperior1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 60, 20));
 
         jBtFaceInferior1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/FaceInferior.png"))); // NOI18N
+        jBtFaceInferior1.setToolTipText("Vestibular");
         jBtFaceInferior1.setContentAreaFilled(false);
         jBtFaceInferior1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1584,6 +1648,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         jPanel13.add(jBtFaceInferior1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 60, 40));
 
         jBtFaceEsquerda1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/FaceEsquerda.png"))); // NOI18N
+        jBtFaceEsquerda1.setToolTipText("Distal");
         jBtFaceEsquerda1.setContentAreaFilled(false);
         jBtFaceEsquerda1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1593,6 +1658,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         jPanel13.add(jBtFaceEsquerda1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 30, 80));
 
         jBtFaceCentral1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/FaceCentral.png"))); // NOI18N
+        jBtFaceCentral1.setToolTipText("Oclusal");
         jBtFaceCentral1.setContentAreaFilled(false);
         jBtFaceCentral1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1602,6 +1668,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         jPanel13.add(jBtFaceCentral1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 60, 60));
 
         jBTFaceDireita1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/FaceDireita.png"))); // NOI18N
+        jBTFaceDireita1.setToolTipText("Mesial");
         jBTFaceDireita1.setContentAreaFilled(false);
         jBTFaceDireita1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1614,7 +1681,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jBt26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt26.setContentAreaFilled(false);
-        jBt26.setEnabled(false);
         jBt26.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBt26.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1624,7 +1690,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jBt45.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt45.setContentAreaFilled(false);
-        jBt45.setEnabled(false);
         jBt45.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBt45.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1634,7 +1699,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt44.setContentAreaFilled(false);
-        jBt44.setEnabled(false);
         jBt44.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBt44.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1644,7 +1708,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jBt25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt25.setContentAreaFilled(false);
-        jBt25.setEnabled(false);
         jBt25.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBt25.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1654,7 +1717,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jBt24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt24.setContentAreaFilled(false);
-        jBt24.setEnabled(false);
         jBt24.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBt24.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1664,7 +1726,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jBt21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt21.setContentAreaFilled(false);
-        jBt21.setEnabled(false);
         jBt21.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBt21.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1674,7 +1735,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jBt23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt23.setContentAreaFilled(false);
-        jBt23.setEnabled(false);
         jBt23.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBt23.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1684,7 +1744,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jBt22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt22.setContentAreaFilled(false);
-        jBt22.setEnabled(false);
         jBt22.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBt22.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1694,7 +1753,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jBt27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt27.setContentAreaFilled(false);
-        jBt27.setEnabled(false);
         jBt27.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBt27.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1704,7 +1762,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jBt28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt28.setContentAreaFilled(false);
-        jBt28.setEnabled(false);
         jBt28.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBt28.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1714,7 +1771,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jBt38.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt38.setContentAreaFilled(false);
-        jBt38.setEnabled(false);
         jBt38.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBt38.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1724,7 +1780,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jBt34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt34.setContentAreaFilled(false);
-        jBt34.setEnabled(false);
         jBt34.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBt34.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1734,7 +1789,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jBt35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt35.setContentAreaFilled(false);
-        jBt35.setEnabled(false);
         jBt35.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBt35.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1748,7 +1802,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jBt36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt36.setContentAreaFilled(false);
-        jBt36.setEnabled(false);
         jBt36.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBt36.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1772,7 +1825,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jBt37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt37.setContentAreaFilled(false);
-        jBt37.setEnabled(false);
         jBt37.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBt37.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1782,7 +1834,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jBt33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt33.setContentAreaFilled(false);
-        jBt33.setEnabled(false);
         jBt33.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBt33.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1792,7 +1843,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jBt32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt32.setContentAreaFilled(false);
-        jBt32.setEnabled(false);
         jBt32.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBt32.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1806,7 +1856,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jBt31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt31.setContentAreaFilled(false);
-        jBt31.setEnabled(false);
         jBt31.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBt31.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1828,7 +1877,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jBt48.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt48.setContentAreaFilled(false);
-        jBt48.setEnabled(false);
         jBt48.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBt48.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1862,7 +1910,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt18.setContentAreaFilled(false);
-        jBt18.setEnabled(false);
         jBt18.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBt18.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1872,7 +1919,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jBt17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt17.setContentAreaFilled(false);
-        jBt17.setEnabled(false);
         jBt17.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBt17.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1906,7 +1952,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jBt13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt13.setContentAreaFilled(false);
-        jBt13.setEnabled(false);
         jBt13.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBt13.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1920,7 +1965,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jBt12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt12.setContentAreaFilled(false);
-        jBt12.setEnabled(false);
         jBt12.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBt12.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1930,7 +1974,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jBt11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt11.setContentAreaFilled(false);
-        jBt11.setEnabled(false);
         jBt11.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBt11.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1940,7 +1983,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jBt47.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt47.setContentAreaFilled(false);
-        jBt47.setEnabled(false);
         jBt47.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBt47.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1950,7 +1992,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt15.setContentAreaFilled(false);
-        jBt15.setEnabled(false);
         jBt15.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBt15.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1960,7 +2001,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jBt14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt14.setContentAreaFilled(false);
-        jBt14.setEnabled(false);
         jBt14.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBt14.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1970,7 +2010,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jBt16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt16.setContentAreaFilled(false);
-        jBt16.setEnabled(false);
         jBt16.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBt16.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1984,7 +2023,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jBt42.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt42.setContentAreaFilled(false);
-        jBt42.setEnabled(false);
         jBt42.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBt42.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1998,7 +2036,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jBt43.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt43.setContentAreaFilled(false);
-        jBt43.setEnabled(false);
         jBt43.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBt43.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -2012,7 +2049,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jBt46.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt46.setContentAreaFilled(false);
-        jBt46.setEnabled(false);
         jBt46.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBt46.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -2022,7 +2058,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jBt41.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt41.setContentAreaFilled(false);
-        jBt41.setEnabled(false);
         jBt41.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBt41.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -2088,12 +2123,12 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
                             .addComponent(jLabel53, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jBt18, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jBt48, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel54, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBt47, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBt17, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel44, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE))
+                    .addComponent(jLabel44, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
                 .addGap(4, 4, 4)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jBt46, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2102,7 +2137,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
                     .addComponent(jLabel55, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel56, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                    .addComponent(jLabel56, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
                     .addComponent(jBt45, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBt15, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel46, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -2117,7 +2152,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
                     .addComponent(jLabel58, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBt43, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBt13, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel50, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE))
+                    .addComponent(jLabel50, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel59, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2330,11 +2365,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         jPlanoTratamento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jPlanoTratamento.setEnabled(false);
 
-        jComboBoxParcialTotal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxParcialTotal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Parcial", "Total" }));
-        jComboBoxParcialTotal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jComboBoxParcialTotal.setEnabled(false);
-
         javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
         jPanel23.setLayout(jPanel23Layout);
         jPanel23Layout.setHorizontalGroup(
@@ -2347,15 +2377,13 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
                     .addComponent(jLabel33, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPlanoTratamento)
                     .addGroup(jPanel23Layout.createSequentialGroup()
-                        .addComponent(jComboBoxFacesDente, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBoxParcialTotal, 0, 164, Short.MAX_VALUE)
-                        .addGap(8, 8, 8)
+                        .addComponent(jComboBoxFacesDente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                         .addComponent(jLabel98)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jDataOdontograma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPlanoTratamento)
                     .addComponent(jComboBoxTipoProcedimento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -2370,14 +2398,13 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
                 .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel78)
                     .addComponent(jComboBoxFacesDente, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxParcialTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel98)
                     .addComponent(jDataOdontograma, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel87)
                     .addComponent(jPlanoTratamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout OdontogramaLayout = new javax.swing.GroupLayout(Odontograma);
@@ -2385,23 +2412,21 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         OdontogramaLayout.setHorizontalGroup(
             OdontogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(OdontogramaLayout.createSequentialGroup()
-                .addGroup(OdontogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(OdontogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(OdontogramaLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(OdontogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(OdontogramaLayout.createSequentialGroup()
+                                .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(OdontogramaLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(OdontogramaLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         OdontogramaLayout.setVerticalGroup(
             OdontogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2409,19 +2434,23 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
                 .addContainerGap()
                 .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
                 .addGroup(OdontogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(OdontogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jPanel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(OdontogramaLayout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addGroup(OdontogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(OdontogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(OdontogramaLayout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, OdontogramaLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(OdontogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jPanel13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        OdontogramaLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPanel12, jPanel13, jPanel2});
 
         jTabbedPane3.addTab("PLANO DE TRATAMENTO INCIAL", Odontograma);
 
@@ -2430,18 +2459,17 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         AdmissaoLayout.setHorizontalGroup(
             AdmissaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AdmissaoLayout.createSequentialGroup()
-                .addGroup(AdmissaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTabbedPane3, javax.swing.GroupLayout.Alignment.LEADING))
-                .addGap(0, 1, Short.MAX_VALUE))
+                .addGroup(AdmissaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTabbedPane3)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         AdmissaoLayout.setVerticalGroup(
             AdmissaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AdmissaoLayout.createSequentialGroup()
-                .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jTabbedPane1.addTab("Admissão", Admissao);
@@ -2666,57 +2694,44 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         Odontograma1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
 
         jBt75.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
-        jBt75.setEnabled(false);
         jBt75.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jBt76.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt76.setContentAreaFilled(false);
-        jBt76.setEnabled(false);
         jBt76.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jBt77.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt77.setContentAreaFilled(false);
-        jBt77.setEnabled(false);
         jBt77.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jBt78.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
-        jBt78.setEnabled(false);
         jBt78.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jBt79.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
-        jBt79.setEnabled(false);
         jBt79.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jBt80.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
-        jBt80.setEnabled(false);
         jBt80.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jBt81.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
-        jBt81.setEnabled(false);
         jBt81.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jBt82.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
-        jBt82.setEnabled(false);
         jBt82.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jBt83.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
-        jBt83.setEnabled(false);
         jBt83.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jBt84.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
-        jBt84.setEnabled(false);
         jBt84.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jBt85.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
-        jBt85.setEnabled(false);
         jBt85.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jBt86.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
-        jBt86.setEnabled(false);
         jBt86.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jBt87.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
-        jBt87.setEnabled(false);
         jBt87.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jLabel121.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -2724,7 +2739,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         jLabel121.setText("38");
 
         jBt88.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
-        jBt88.setEnabled(false);
         jBt88.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jPanel25.setBackground(new java.awt.Color(0, 0, 0));
@@ -2742,15 +2756,12 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         );
 
         jBt89.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
-        jBt89.setEnabled(false);
         jBt89.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jBt90.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
-        jBt90.setEnabled(false);
         jBt90.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jBt91.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
-        jBt91.setEnabled(false);
         jBt91.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jLabel122.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -2758,7 +2769,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         jLabel122.setText("35");
 
         jBt92.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
-        jBt92.setEnabled(false);
         jBt92.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jLabel123.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -2775,7 +2785,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jBt93.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt93.setContentAreaFilled(false);
-        jBt93.setEnabled(false);
         jBt93.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jLabel126.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -2804,12 +2813,10 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jBt94.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt94.setContentAreaFilled(false);
-        jBt94.setEnabled(false);
         jBt94.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jBt95.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt95.setContentAreaFilled(false);
-        jBt95.setEnabled(false);
         jBt95.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jLabel132.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -2838,7 +2845,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jBt96.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt96.setContentAreaFilled(false);
-        jBt96.setEnabled(false);
         jBt96.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jLabel138.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -2847,32 +2853,26 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jBt97.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt97.setContentAreaFilled(false);
-        jBt97.setEnabled(false);
         jBt97.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jBt98.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt98.setContentAreaFilled(false);
-        jBt98.setEnabled(false);
         jBt98.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jBt99.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt99.setContentAreaFilled(false);
-        jBt99.setEnabled(false);
         jBt99.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jBt100.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt100.setContentAreaFilled(false);
-        jBt100.setEnabled(false);
         jBt100.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jBt101.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt101.setContentAreaFilled(false);
-        jBt101.setEnabled(false);
         jBt101.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jBt102.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt102.setContentAreaFilled(false);
-        jBt102.setEnabled(false);
         jBt102.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jLabel139.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -2881,7 +2881,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jBt103.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt103.setContentAreaFilled(false);
-        jBt103.setEnabled(false);
         jBt103.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jLabel140.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -2890,7 +2889,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jBt104.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt104.setContentAreaFilled(false);
-        jBt104.setEnabled(false);
         jBt104.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jLabel141.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -2899,12 +2897,10 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jBt105.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt105.setContentAreaFilled(false);
-        jBt105.setEnabled(false);
         jBt105.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jBt106.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
         jBt106.setContentAreaFilled(false);
-        jBt106.setEnabled(false);
         jBt106.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jLabel142.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -3243,7 +3239,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
                     .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(0, 25, Short.MAX_VALUE))
+                .addGap(0, 49, Short.MAX_VALUE))
         );
 
         ContinuacaoLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPanel11, jPanel4});
@@ -3329,7 +3325,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         jPanel19Layout.setVerticalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel19Layout.createSequentialGroup()
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -3416,7 +3412,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
                 .addComponent(jBtSalvarPrescricao)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtCancelarPrescricao)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
                 .addComponent(jBtImpressaoPrescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50)
                 .addComponent(jBtAuditoriaPrescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -3491,29 +3487,120 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
         jTabbedPane1.addTab("Prescrição", jPanel7);
 
-        jToggleBtDente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
-        jToggleBtDente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jToggleBtDente.addItemListener(new java.awt.event.ItemListener() {
+        jToggleBtDenteModelo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg"))); // NOI18N
+        jToggleBtDenteModelo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jToggleBtDenteModelo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jToggleBtDenteItemStateChanged(evt);
+                jToggleBtDenteModeloItemStateChanged(evt);
             }
         });
+
+        jComboBoxParcialTotal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxParcialTotal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Parcial", "Total" }));
+        jComboBoxParcialTotal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxParcialTotal.setEnabled(false);
+
+        jBtAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
+        jBtAdicionar.setToolTipText("Adicionar");
+        jBtAdicionar.setEnabled(false);
+        jBtAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAdicionarActionPerformed(evt);
+            }
+        });
+
+        jBtRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
+        jBtRemover.setToolTipText("Excluir");
+        jBtRemover.setEnabled(false);
+        jBtRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtRemoverActionPerformed(evt);
+            }
+        });
+
+        jPanel17.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Seleção", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
+        jPanel17.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jBtFaceSuperior2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/FaceSuperior.png"))); // NOI18N
+        jBtFaceSuperior2.setContentAreaFilled(false);
+        jPanel17.add(jBtFaceSuperior2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 60, 20));
+
+        jBtFaceInferior2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/FaceInferior.png"))); // NOI18N
+        jBtFaceInferior2.setContentAreaFilled(false);
+        jPanel17.add(jBtFaceInferior2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 60, 40));
+
+        jBtFaceEsquerda2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/FaceEsquerda.png"))); // NOI18N
+        jBtFaceEsquerda2.setContentAreaFilled(false);
+        jPanel17.add(jBtFaceEsquerda2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 30, 80));
+
+        jBtFaceCentral2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/FaceCentral.png"))); // NOI18N
+        jBtFaceCentral2.setContentAreaFilled(false);
+        jPanel17.add(jBtFaceCentral2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 60, 60));
+
+        jBTFaceDireita2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/FaceDireita.png"))); // NOI18N
+        jBTFaceDireita2.setContentAreaFilled(false);
+        jPanel17.add(jBTFaceDireita2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 30, 60));
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addContainerGap(191, Short.MAX_VALUE)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jComboBoxParcialTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(85, 85, 85)
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jToggleButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jToggleButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGap(284, 284, 284)
+                        .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jToggleButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jToggleButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(151, 151, 151))
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(211, 211, 211)
-                .addComponent(jToggleBtDente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(447, Short.MAX_VALUE))
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGap(211, 211, 211)
+                        .addComponent(jToggleBtDenteModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(75, 75, 75)
+                        .addComponent(jBtAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGap(224, 224, 224)
+                        .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(126, 126, 126)
-                .addComponent(jToggleBtDente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(316, Short.MAX_VALUE))
+                .addGap(100, 100, 100)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jToggleBtDenteModelo)
+                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jBtRemover)
+                        .addComponent(jBtAdicionar)))
+                .addGap(19, 19, 19)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jToggleButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jToggleButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jToggleButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBoxParcialTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
+                .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+                .addGap(98, 98, 98))
         );
 
         jTabbedPane1.addTab("tab5", jPanel8);
@@ -3522,14 +3609,16 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 693, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 716, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        setBounds(300, 10, 709, 530);
+        setBounds(300, 10, 732, 540);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtPesqDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDataActionPerformed
@@ -3687,7 +3776,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    dentesOdontograma();
+                    // dentesOdontograma();
                     Salvar();
                 }
                 if (acao == 2) {
@@ -3714,7 +3803,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    dentesOdontograma();
+                    //  dentesOdontograma();
                     Salvar();
                 }
             }
@@ -3792,6 +3881,8 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
             jBtNovoEvolucao.setEnabled(true);
             jBtAuditoriaOdonto.setEnabled(true);
             //
+            dentesOdontograma();
+            //
             jBtNovoPrescricao.setEnabled(true);
             conecta.abrirConexao();
             try {
@@ -3847,7 +3938,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa..." + e);
             }
-            // ODONTOGRAMA    
+            // LIMPAR TABELA DO ODONTOGRAMA    
             limparTabelaOdontograma();
             try {
                 conecta.executaSQL("SELECT * FROM ODONTOGRAMA_ADMISSAO "
@@ -3856,7 +3947,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
                         + "WHERE ODONTOGRAMA_ADMISSAO.IdLanc='" + jIDLanc.getText() + "'");
                 conecta.rs.first();
                 DefaultTableModel dtmProcedimento = (DefaultTableModel) jTabelaOdontograma.getModel();
-                dtmProcedimento.getDataVector().clear(); // limpa a tabela 
+                dtmProcedimento.getDataVector().clear(); // limpa a tabela                 
                 do {
                     dataOdonto = conecta.rs.getString("DataOdontograma");
                     if (dataOdonto != null) {
@@ -3869,10 +3960,14 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
                 } while (conecta.rs.next());
             } catch (SQLException ex) {
             }
+            // MOSTRAR OS DENTES DO ODONTOGRAMA DA ADMISSÃO.
+            mostraOdontogramaAdm();
             // EVOLUÇÃO
-            preencherItensProcedimentos("SELECT * FROM ODONTOPROCEDIMENTO WHERE IdLanc='" + jIDLanc.getText() + "'");
+            preencherItensProcedimentos("SELECT * FROM ODONTOPROCEDIMENTO "
+                    + "WHERE IdLanc='" + jIDLanc.getText() + "'");
             // PRESCRIÇÃO          
-            preencherItensPrescricao("SELECT * FROM PRESCRICAO_ODONTOLOGIA WHERE IdLanc='" + jIDLanc.getText() + "'");
+            preencherItensPrescricao("SELECT * FROM PRESCRICAO_ODONTOLOGIA "
+                    + "WHERE IdLanc='" + jIDLanc.getText() + "'");
         }
     }//GEN-LAST:event_jTabelaOdontologiaMouseClicked
 
@@ -4208,38 +4303,40 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
     private void jBtAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAdicionarActionPerformed
         // TODO add your handling code here:
-        if (jComboBoxTipoProcedimento.getSelectedItem().equals("Selecione...") || jComboBoxTipoProcedimento.getSelectedItem().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Selecione um tipo de procedimento...");
-        } else if (jDataOdontograma.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data do procedimento.");
-        } else {
-            conecta.abrirConexao();
-            try {
-                conecta.executaSQL("SELECT * FROM PROCEDIMENTOS_ODONTOLOGICO "
-                        + "WHERE DescricaoProcedimento='" + jComboBoxTipoProcedimento.getSelectedItem() + "'");
-                conecta.rs.first();
-                codigoProcedimento = conecta.rs.getString("IdProcOdonto");
-                objOdonto.setIdProcOdonto(Integer.valueOf(codigoProcedimento));
-            } catch (Exception e) {
+        if (jComboBoxTipoProcedimento.getSelectedItem().equals("EXTRACAO")) {
+            if (jComboBoxTipoProcedimento.getSelectedItem().equals("Selecione...") || jComboBoxTipoProcedimento.getSelectedItem().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Selecione um tipo de procedimento...");
+            } else if (jDataOdontograma.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data do procedimento.");
+            } else {
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM PROCEDIMENTOS_ODONTOLOGICO "
+                            + "WHERE DescricaoProcedimento='" + jComboBoxTipoProcedimento.getSelectedItem() + "'");
+                    conecta.rs.first();
+                    codigoProcedimento = conecta.rs.getString("IdProcOdonto");
+                    objOdonto.setIdProcOdonto(Integer.valueOf(codigoProcedimento));
+                } catch (Exception e) {
+                }
+                DefaultTableModel tabOrto = (DefaultTableModel) jTabelaOdontograma.getModel();
+                objOdonto.setIdOdonto(Integer.valueOf(codigoProcedimento));
+                objOdonto.setDescricaoProcedimento((String) jComboBoxTipoProcedimento.getSelectedItem());
+                objOdonto.setNumeroDente(Integer.valueOf(jNumeroDente.getText()));
+                objOdonto.setFacesDente((String) jComboBoxFacesDente.getSelectedItem());
+                SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                dataOdonto = formatoAmerica.format(jDataOdontograma.getDate().getTime());
+                objOdonto.setParcialTotal((String) jComboBoxParcialTotal.getSelectedItem());
+                objOdonto.setPlanoTratamento(jPlanoTratamento.getText());
+                Object campos[] = {objOdonto.getIdOdonto(), objOdonto.getDescricaoProcedimento(), objOdonto.getNumeroDente(), objOdonto.getFacesDente(), dataOdonto, objOdonto.getParcialTotal(), objOdonto.getPlanoTratamento()};
+                tabOrto.addRow(campos);
+                //          
+                jComboBoxTipoProcedimento.setSelectedItem("Selecione...");
+                jNumeroDente.setText("");
+                jDataOdontograma.setDate(null);
+                jComboBoxFacesDente.setSelectedItem("Selecione...");
+                jPlanoTratamento.setText("");
+                conecta.desconecta();
             }
-            DefaultTableModel tabOrto = (DefaultTableModel) jTabelaOdontograma.getModel();
-            objOdonto.setIdOdonto(Integer.valueOf(codigoProcedimento));
-            objOdonto.setDescricaoProcedimento((String) jComboBoxTipoProcedimento.getSelectedItem());
-            objOdonto.setNumeroDente(Integer.valueOf(jNumeroDente.getText()));
-            objOdonto.setFacesDente((String) jComboBoxFacesDente.getSelectedItem());
-            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-            dataOdonto = formatoAmerica.format(jDataOdontograma.getDate().getTime());
-            objOdonto.setParcialTotal((String) jComboBoxParcialTotal.getSelectedItem());
-            objOdonto.setPlanoTratamento(jPlanoTratamento.getText());
-            Object campos[] = {objOdonto.getIdOdonto(), objOdonto.getDescricaoProcedimento(), objOdonto.getNumeroDente(), objOdonto.getFacesDente(), dataOdonto, objOdonto.getParcialTotal(), objOdonto.getPlanoTratamento()};
-            tabOrto.addRow(campos);
-            //          
-            jComboBoxTipoProcedimento.setSelectedItem("Selecione...");
-            jNumeroDente.setText("");
-            jDataOdontograma.setDate(null);
-            jComboBoxFacesDente.setSelectedItem("Selecione...");
-            jPlanoTratamento.setText("");
-            conecta.desconecta();
         }
     }//GEN-LAST:event_jBtAdicionarActionPerformed
 
@@ -4257,29 +4354,11 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         }
     }//GEN-LAST:event_jBtRemoverActionPerformed
 
-    private void jToggleBtDenteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jToggleBtDenteItemStateChanged
-        // TODO add your handling code here:
-        if (evt.getStateChange() == evt.SELECTED) {
-            jToggleBtDente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg")));
-//            javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoIcon2);
-//                jToggleBtDente.setIcon(i);
-//                jToggleBtDente.setIcon(new ImageIcon(i.getImage().getScaledInstance(jToggleBtDente.getWidth(), jToggleBtDente.getHeight(), Image.SCALE_DEFAULT)));
-        } else {
-            jToggleBtDente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente10.jpg")));
-//            javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoIcon1);
-//                jToggleBtDente.setIcon(i);
-//                jToggleBtDente.setIcon(new ImageIcon(i.getImage().getScaledInstance(jToggleBtDente.getWidth(), jToggleBtDente.getHeight(), Image.SCALE_DEFAULT)));
-        }
-    }//GEN-LAST:event_jToggleBtDenteItemStateChanged
-
     private void jBTFaceDireita1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBTFaceDireita1MouseClicked
-        // TODO add your handling code here:
-        boolean encontrou = !true;
-        if (jComboBoxTipoProcedimento.getSelectedItem().equals("Selecione...") || jComboBoxTipoProcedimento.getSelectedItem().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Selecione um tipo de procedimento...");
-        } else if (jDataOdontograma.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data do procedimento.");
-        } else {
+        // TODO add your handling code here:             
+        if (acao == 1 || acao == 2) {            
+            jComboBoxFacesDente.setSelectedItem("Mesial");
+            jComboBoxParcialTotal.setSelectedItem("Parcial");
             DefaultTableModel tabOrto = (DefaultTableModel) jTabelaOdontograma.getModel();
             objOdonto.setIdOdonto(Integer.valueOf(codigoProcedimento));
             objOdonto.setDescricaoProcedimento((String) jComboBoxTipoProcedimento.getSelectedItem());
@@ -4289,32 +4368,10 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
             dataOdonto = formatoAmerica.format(jDataOdontograma.getDate().getTime());
             objOdonto.setParcialTotal((String) jComboBoxParcialTotal.getSelectedItem());
             objOdonto.setPlanoTratamento(jPlanoTratamento.getText());
-            // VERIFICAR SE O PRODUTO JÁ EXISTE NA TABELA, SE EXITIR AVISA.
-            for (int i = 0; i < jTabelaOdontograma.getRowCount(); i++) {
-                String codInter = "" + jTabelaOdontograma.getValueAt(i, 0).toString();
-                if (codigoDente.equals(codInter)) {
-                    encontrou = true;
-                    break;
-                } else {
-                    encontrou = !true;
-                }
-            }
-            if (encontrou == true) {
-                JOptionPane.showMessageDialog(rootPane, "Dente já foi selecionado, escolha outro...");
-            } else if (encontrou == !true) {
-                //Adiciona no destino e remove da origem
-                Object campos[] = {objOdonto.getIdOdonto(), objOdonto.getDescricaoProcedimento(), objOdonto.getNumeroDente(), objOdonto.getFacesDente(), dataOdonto, objOdonto.getParcialTotal(), objOdonto.getPlanoTratamento()};
-                tabOrto.addRow(campos);
-            }
-
-            //          
-            jComboBoxTipoProcedimento.setSelectedItem("Selecione...");
-            jNumeroDente.setText("");
-            jDataOdontograma.setDate(null);
-            jComboBoxFacesDente.setSelectedItem("Selecione...");
-            jPlanoTratamento.setText("");
-            jComboBoxFacesDente.setSelectedItem("Mesial");
-            if (numeroDente == 18) {
+            Object campos[] = {objOdonto.getIdOdonto(), objOdonto.getDescricaoProcedimento(), objOdonto.getNumeroDente(), objOdonto.getFacesDente(), dataOdonto, objOdonto.getParcialTotal(), objOdonto.getPlanoTratamento()};
+            tabOrto.addRow(campos);
+            //       
+            if (numeroDente == 18) {                
                 if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
                     if (evt.getClickCount() == 1) {
                         jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
@@ -4344,7 +4401,6 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
                         jBt16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
                     }
                 }
-
             } else if (numeroDente == 15) {
                 if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
                     if (evt.getClickCount() == 1) {
@@ -4398,81 +4454,81 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
             } else if (numeroDente == 21) {
                 if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
                     if (evt.getClickCount() == 1) {
-                        jBt21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                        jBt21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
                     }
                 } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
                     if (evt.getClickCount() == 1) {
-                        jBt21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
+                        jBt21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
                     }
                 }
             } else if (numeroDente == 22) {
                 if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
                     if (evt.getClickCount() == 1) {
-                        jBt22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                        jBt22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
                     }
                 } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
                     if (evt.getClickCount() == 1) {
-                        jBt22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
+                        jBt22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
                     }
                 }
             } else if (numeroDente == 23) {
                 if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
                     if (evt.getClickCount() == 1) {
-                        jBt23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                        jBt23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
                     }
                 } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
                     if (evt.getClickCount() == 1) {
-                        jBt23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
+                        jBt23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
                     }
                 }
             } else if (numeroDente == 24) {
                 if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
                     if (evt.getClickCount() == 1) {
-                        jBt24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                        jBt24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
                     }
                 } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
                     if (evt.getClickCount() == 1) {
-                        jBt24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
+                        jBt24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
                     }
                 }
             } else if (numeroDente == 25) {
                 if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
                     if (evt.getClickCount() == 1) {
-                        jBt25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                        jBt25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
                     }
                 } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
                     if (evt.getClickCount() == 1) {
-                        jBt25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
+                        jBt25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
                     }
                 }
             } else if (numeroDente == 26) {
                 if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
                     if (evt.getClickCount() == 1) {
-                        jBt26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                        jBt26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
                     }
                 } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
                     if (evt.getClickCount() == 1) {
-                        jBt26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
+                        jBt26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
                     }
                 }
             } else if (numeroDente == 27) {
                 if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
                     if (evt.getClickCount() == 1) {
-                        jBt27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                        jBt27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
                     }
                 } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
                     if (evt.getClickCount() == 1) {
-                        jBt27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
+                        jBt27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
                     }
                 }
             } else if (numeroDente == 28) {
                 if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
                     if (evt.getClickCount() == 1) {
-                        jBt26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                        jBt26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
                     }
                 } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
                     if (evt.getClickCount() == 1) {
-                        jBt28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
+                        jBt28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
                     }
                 }
             } else if (numeroDente == 48) {
@@ -4558,6 +4614,689 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
             } else if (numeroDente == 38) {
                 if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
                     if (evt.getClickCount() == 1) {
+                        jBt38.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt38.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
+                    }
+                }
+            } else if (numeroDente == 37) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
+                    }
+                }
+            } else if (numeroDente == 36) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
+                    }
+                }
+            } else if (numeroDente == 35) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
+                    }
+                }
+            } else if (numeroDente == 34) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
+                    }
+                }
+            } else if (numeroDente == 33) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
+                    }
+                }
+            } else if (numeroDente == 32) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
+                    }
+                }
+            } else if (numeroDente == 31) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_jBTFaceDireita1MouseClicked
+
+    private void jBtFaceInferior1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtFaceInferior1MouseClicked
+        // TODO add your handling code here:   
+        if (acao == 1 || acao == 2) {
+            jComboBoxFacesDente.setSelectedItem("Vestibular");
+            jComboBoxParcialTotal.setSelectedItem("Parcial");
+            DefaultTableModel tabOrto = (DefaultTableModel) jTabelaOdontograma.getModel();
+            objOdonto.setIdOdonto(Integer.valueOf(codigoProcedimento));
+            objOdonto.setDescricaoProcedimento((String) jComboBoxTipoProcedimento.getSelectedItem());
+            objOdonto.setNumeroDente(Integer.valueOf(jNumeroDente.getText()));
+            objOdonto.setFacesDente((String) jComboBoxFacesDente.getSelectedItem());
+            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+            dataOdonto = formatoAmerica.format(jDataOdontograma.getDate().getTime());
+            objOdonto.setParcialTotal((String) jComboBoxParcialTotal.getSelectedItem());
+            objOdonto.setPlanoTratamento(jPlanoTratamento.getText());
+            Object campos[] = {objOdonto.getIdOdonto(), objOdonto.getDescricaoProcedimento(), objOdonto.getNumeroDente(), objOdonto.getFacesDente(), dataOdonto, objOdonto.getParcialTotal(), objOdonto.getPlanoTratamento()};
+            tabOrto.addRow(campos);
+            //
+            if (numeroDente == 18) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
+                    }
+                }
+            } else if (numeroDente == 17) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
+                    }
+                }
+            } //
+            else if (numeroDente == 16) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
+                    }
+                }
+            } else if (numeroDente == 15) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
+                    }
+                }
+            } else if (numeroDente == 14) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
+                    }
+                }
+            } else if (numeroDente == 13) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
+                    }
+                }
+            } else if (numeroDente == 12) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
+                    }
+                }
+            } else if (numeroDente == 11) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
+                    }
+                }
+            } else if (numeroDente == 21) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
+                    }
+                }
+            } else if (numeroDente == 22) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
+                    }
+                }
+            } else if (numeroDente == 23) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
+                    }
+                }
+            } else if (numeroDente == 24) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
+                    }
+                }
+            } else if (numeroDente == 25) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
+                    }
+                }
+            } else if (numeroDente == 26) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
+                    }
+                }
+            } else if (numeroDente == 27) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
+                    }
+                }
+            } else if (numeroDente == 28) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
+                    }
+                }
+            } else if (numeroDente == 48) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt48.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt48.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
+                    }
+                }
+            } else if (numeroDente == 47) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt47.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt47.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
+                    }
+                }
+            } else if (numeroDente == 46) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt46.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt46.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
+                    }
+                }
+            } else if (numeroDente == 45) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt45.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt45.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
+                    }
+                }
+            } else if (numeroDente == 44) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
+                    }
+                }
+            } else if (numeroDente == 43) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt43.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt43.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
+                    }
+                }
+            } else if (numeroDente == 42) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt42.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt42.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
+                    }
+                }
+            } else if (numeroDente == 41) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt41.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt41.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
+                    }
+                }
+            } else if (numeroDente == 38) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt38.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt38.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
+                    }
+                }
+            } else if (numeroDente == 37) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
+                    }
+                }
+            } else if (numeroDente == 36) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
+                    }
+                }
+            } else if (numeroDente == 35) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
+                    }
+                }
+            } else if (numeroDente == 34) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
+                    }
+                }
+            } else if (numeroDente == 33) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
+                    }
+                }
+            } else if (numeroDente == 32) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
+                    }
+                }
+            } else if (numeroDente == 31) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_jBtFaceInferior1MouseClicked
+
+    private void jBtFaceEsquerda1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtFaceEsquerda1MouseClicked
+        // TODO add your handling code here:
+        if (acao == 1 || acao == 2) {
+            jComboBoxFacesDente.setSelectedItem("Distal");
+            jComboBoxParcialTotal.setSelectedItem("Parcial");
+            DefaultTableModel tabOrto = (DefaultTableModel) jTabelaOdontograma.getModel();
+            objOdonto.setIdOdonto(Integer.valueOf(codigoProcedimento));
+            objOdonto.setDescricaoProcedimento((String) jComboBoxTipoProcedimento.getSelectedItem());
+            objOdonto.setNumeroDente(Integer.valueOf(jNumeroDente.getText()));
+            objOdonto.setFacesDente((String) jComboBoxFacesDente.getSelectedItem());
+            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+            dataOdonto = formatoAmerica.format(jDataOdontograma.getDate().getTime());
+            objOdonto.setParcialTotal((String) jComboBoxParcialTotal.getSelectedItem());
+            objOdonto.setPlanoTratamento(jPlanoTratamento.getText());
+            Object campos[] = {objOdonto.getIdOdonto(), objOdonto.getDescricaoProcedimento(), objOdonto.getNumeroDente(), objOdonto.getFacesDente(), dataOdonto, objOdonto.getParcialTotal(), objOdonto.getPlanoTratamento()};
+            tabOrto.addRow(campos);
+            //        
+            if (numeroDente == 18) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
+                    }
+                }
+            } else if (numeroDente == 17) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
+                    }
+                }
+            } else if (numeroDente == 16) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
+                    }
+                }
+            } else if (numeroDente == 15) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
+                    }
+                }
+            } else if (numeroDente == 14) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
+                    }
+                }
+            } else if (numeroDente == 13) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
+                    }
+                }
+            } else if (numeroDente == 12) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
+                    }
+                }
+            } else if (numeroDente == 11) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
+                    }
+                }
+            } else if (numeroDente == 21) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
+                    }
+                }
+            } else if (numeroDente == 22) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
+                    }
+                }
+            } else if (numeroDente == 23) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
+                    }
+                }
+            } else if (numeroDente == 24) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
+                    }
+                }
+            } else if (numeroDente == 25) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
+                    }
+                }
+            } else if (numeroDente == 26) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
+                    }
+                }
+            } else if (numeroDente == 27) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
+                    }
+                }
+            } else if (numeroDente == 28) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
+                    }
+                }
+            } else if (numeroDente == 48) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt48.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt48.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
+                    }
+                }
+            } else if (numeroDente == 47) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt47.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt47.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
+                    }
+                }
+            } else if (numeroDente == 46) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt46.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt46.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
+                    }
+                }
+            } else if (numeroDente == 45) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt45.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt45.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
+                    }
+                }
+            } else if (numeroDente == 44) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
+                    }
+                }
+            } else if (numeroDente == 43) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt43.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt43.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
+                    }
+                }
+            } else if (numeroDente == 42) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt42.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt42.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
+                    }
+                }
+            } else if (numeroDente == 41) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt41.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt41.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
+                    }
+                }
+            } else if (numeroDente == 38) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
                         jBt38.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
                     }
                 } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
@@ -4637,1015 +5376,344 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
                 }
             }
         }
-    }//GEN-LAST:event_jBTFaceDireita1MouseClicked
-
-    private void jBtFaceInferior1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtFaceInferior1MouseClicked
-        // TODO add your handling code here:        
-        DefaultTableModel tabOrto = (DefaultTableModel) jTabelaOdontograma.getModel();
-        objOdonto.setIdOdonto(Integer.valueOf(codigoProcedimento));
-        objOdonto.setDescricaoProcedimento((String) jComboBoxTipoProcedimento.getSelectedItem());
-        objOdonto.setNumeroDente(Integer.valueOf(jNumeroDente.getText()));
-        objOdonto.setFacesDente((String) jComboBoxFacesDente.getSelectedItem());
-        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-        dataOdonto = formatoAmerica.format(jDataOdontograma.getDate().getTime());
-        objOdonto.setParcialTotal((String) jComboBoxParcialTotal.getSelectedItem());
-        objOdonto.setPlanoTratamento(jPlanoTratamento.getText());
-        Object campos[] = {objOdonto.getIdOdonto(), objOdonto.getDescricaoProcedimento(), objOdonto.getNumeroDente(), objOdonto.getFacesDente(), dataOdonto, objOdonto.getParcialTotal(), objOdonto.getPlanoTratamento()};
-        tabOrto.addRow(campos);
-        jComboBoxFacesDente.setSelectedItem("Vestibular");
-        if (numeroDente == 18) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
-                }
-            }
-        } else if (numeroDente == 17) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
-                }
-            }
-        } //
-        else if (numeroDente == 16) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
-                }
-            }
-        } else if (numeroDente == 15) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
-                }
-            }
-        } else if (numeroDente == 14) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
-                }
-            }
-        } else if (numeroDente == 13) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
-                }
-            }
-        } else if (numeroDente == 12) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
-                }
-            }
-        } else if (numeroDente == 11) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
-                }
-            }
-        } else if (numeroDente == 21) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
-                }
-            }
-        } else if (numeroDente == 22) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
-                }
-            }
-        } else if (numeroDente == 23) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
-                }
-            }
-        } else if (numeroDente == 24) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
-                }
-            }
-        } else if (numeroDente == 25) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
-                }
-            }
-        } else if (numeroDente == 26) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
-                }
-            }
-        } else if (numeroDente == 27) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
-                }
-            }
-        } else if (numeroDente == 28) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
-                }
-            }
-        } else if (numeroDente == 48) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt48.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt48.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
-                }
-            }
-        } else if (numeroDente == 47) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt47.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt47.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
-                }
-            }
-        } else if (numeroDente == 46) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt46.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt46.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
-                }
-            }
-        } else if (numeroDente == 45) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt45.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt45.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
-                }
-            }
-        } else if (numeroDente == 44) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
-                }
-            }
-        } else if (numeroDente == 43) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt43.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt43.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
-                }
-            }
-        } else if (numeroDente == 42) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt42.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt42.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
-                }
-            }
-        } else if (numeroDente == 41) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt41.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt41.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
-                }
-            }
-        } else if (numeroDente == 38) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt38.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt38.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
-                }
-            }
-        } else if (numeroDente == 37) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
-                }
-            }
-        } else if (numeroDente == 36) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
-                }
-            }
-        } else if (numeroDente == 35) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
-                }
-            }
-        } else if (numeroDente == 34) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
-                }
-            }
-        } else if (numeroDente == 33) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
-                }
-            }
-        } else if (numeroDente == 32) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
-                }
-            }
-        } else if (numeroDente == 31) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente14.jpg")));
-                }
-            }
-        }
-    }//GEN-LAST:event_jBtFaceInferior1MouseClicked
-
-    private void jBtFaceEsquerda1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtFaceEsquerda1MouseClicked
-        // TODO add your handling code here:
-        DefaultTableModel tabOrto = (DefaultTableModel) jTabelaOdontograma.getModel();
-        objOdonto.setIdOdonto(Integer.valueOf(codigoProcedimento));
-        objOdonto.setDescricaoProcedimento((String) jComboBoxTipoProcedimento.getSelectedItem());
-        objOdonto.setNumeroDente(Integer.valueOf(jNumeroDente.getText()));
-        objOdonto.setFacesDente((String) jComboBoxFacesDente.getSelectedItem());
-        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-        dataOdonto = formatoAmerica.format(jDataOdontograma.getDate().getTime());
-        objOdonto.setParcialTotal((String) jComboBoxParcialTotal.getSelectedItem());
-        objOdonto.setPlanoTratamento(jPlanoTratamento.getText());
-        Object campos[] = {objOdonto.getIdOdonto(), objOdonto.getDescricaoProcedimento(), objOdonto.getNumeroDente(), objOdonto.getFacesDente(), dataOdonto, objOdonto.getParcialTotal(), objOdonto.getPlanoTratamento()};
-        tabOrto.addRow(campos);
-        jComboBoxFacesDente.setSelectedItem("Distal");
-        if (numeroDente == 18) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
-                }
-            }
-        } else if (numeroDente == 17) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
-                }
-            }
-        } else if (numeroDente == 16) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
-                }
-            }
-        } else if (numeroDente == 15) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
-                }
-            }
-        } else if (numeroDente == 14) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
-                }
-            }
-        } else if (numeroDente == 13) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
-                }
-            }
-        } else if (numeroDente == 12) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
-                }
-            }
-        } else if (numeroDente == 11) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
-                }
-            }
-        } else if (numeroDente == 21) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
-                }
-            }
-        } else if (numeroDente == 22) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
-                }
-            }
-        } else if (numeroDente == 23) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
-                }
-            }
-        } else if (numeroDente == 24) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
-                }
-            }
-        } else if (numeroDente == 25) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
-                }
-            }
-        } else if (numeroDente == 26) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
-                }
-            }
-        } else if (numeroDente == 27) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
-                }
-            }
-        } else if (numeroDente == 28) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
-                }
-            }
-        } else if (numeroDente == 48) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt48.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt48.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
-                }
-            }
-        } else if (numeroDente == 47) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt47.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt47.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
-                }
-            }
-        } else if (numeroDente == 46) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt46.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt46.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
-                }
-            }
-        } else if (numeroDente == 45) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt45.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt45.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
-                }
-            }
-        } else if (numeroDente == 44) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
-                }
-            }
-        } else if (numeroDente == 43) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt43.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt43.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
-                }
-            }
-        } else if (numeroDente == 42) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt42.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt42.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
-                }
-            }
-        } else if (numeroDente == 41) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt41.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt41.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
-                }
-            }
-        } else if (numeroDente == 38) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt38.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt38.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
-                }
-            }
-        } else if (numeroDente == 37) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
-                }
-            }
-        } else if (numeroDente == 36) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
-                }
-            }
-        } else if (numeroDente == 35) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
-                }
-            }
-        } else if (numeroDente == 34) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
-                }
-            }
-        } else if (numeroDente == 33) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
-                }
-            }
-        } else if (numeroDente == 32) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
-                }
-            }
-        } else if (numeroDente == 31) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
-                }
-            }
-        }
     }//GEN-LAST:event_jBtFaceEsquerda1MouseClicked
 
     private void jBtFaceSuperior1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtFaceSuperior1MouseClicked
         // TODO add your handling code here:
-        DefaultTableModel tabOrto = (DefaultTableModel) jTabelaOdontograma.getModel();
-        objOdonto.setIdOdonto(Integer.valueOf(codigoProcedimento));
-        objOdonto.setDescricaoProcedimento((String) jComboBoxTipoProcedimento.getSelectedItem());
-        objOdonto.setNumeroDente(Integer.valueOf(jNumeroDente.getText()));
-        objOdonto.setFacesDente((String) jComboBoxFacesDente.getSelectedItem());
-        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-        dataOdonto = formatoAmerica.format(jDataOdontograma.getDate().getTime());
-        objOdonto.setParcialTotal((String) jComboBoxParcialTotal.getSelectedItem());
-        objOdonto.setPlanoTratamento(jPlanoTratamento.getText());
-        Object campos[] = {objOdonto.getIdOdonto(), objOdonto.getDescricaoProcedimento(), objOdonto.getNumeroDente(), objOdonto.getFacesDente(), dataOdonto, objOdonto.getParcialTotal(), objOdonto.getPlanoTratamento()};
-        tabOrto.addRow(campos);
-        jComboBoxFacesDente.setSelectedItem("Lingual/Palatal");
-        if (numeroDente == 18) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+        if (acao == 1 || acao == 2) {
+            jComboBoxFacesDente.setSelectedItem("Lingual/Palatal");
+            jComboBoxParcialTotal.setSelectedItem("Parcial");
+            DefaultTableModel tabOrto = (DefaultTableModel) jTabelaOdontograma.getModel();
+            objOdonto.setIdOdonto(Integer.valueOf(codigoProcedimento));
+            objOdonto.setDescricaoProcedimento((String) jComboBoxTipoProcedimento.getSelectedItem());
+            objOdonto.setNumeroDente(Integer.valueOf(jNumeroDente.getText()));
+            objOdonto.setFacesDente((String) jComboBoxFacesDente.getSelectedItem());
+            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+            dataOdonto = formatoAmerica.format(jDataOdontograma.getDate().getTime());
+            objOdonto.setParcialTotal((String) jComboBoxParcialTotal.getSelectedItem());
+            objOdonto.setPlanoTratamento(jPlanoTratamento.getText());
+            Object campos[] = {objOdonto.getIdOdonto(), objOdonto.getDescricaoProcedimento(), objOdonto.getNumeroDente(), objOdonto.getFacesDente(), dataOdonto, objOdonto.getParcialTotal(), objOdonto.getPlanoTratamento()};
+            tabOrto.addRow(campos);
+            //        
+            if (numeroDente == 18) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+                    }
                 }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+            } else if (numeroDente == 17) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+                    }
                 }
-            }
-        } else if (numeroDente == 17) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+            } else if (numeroDente == 16) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+                    }
                 }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+            } else if (numeroDente == 15) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+                    }
                 }
-            }
-        } else if (numeroDente == 16) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+            } else if (numeroDente == 14) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+                    }
                 }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+            } else if (numeroDente == 13) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+                    }
                 }
-            }
-        } else if (numeroDente == 15) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+            } else if (numeroDente == 12) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+                    }
                 }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+            } else if (numeroDente == 11) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+                    }
                 }
-            }
-        } else if (numeroDente == 14) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+            } else if (numeroDente == 21) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+                    }
                 }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+            } else if (numeroDente == 22) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+                    }
                 }
-            }
-        } else if (numeroDente == 13) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+            } else if (numeroDente == 23) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+                    }
                 }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+            } else if (numeroDente == 24) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+                    }
                 }
-            }
-        } else if (numeroDente == 12) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+            } else if (numeroDente == 25) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+                    }
                 }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+            } else if (numeroDente == 26) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+                    }
                 }
-            }
-        } else if (numeroDente == 11) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+            } else if (numeroDente == 27) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+                    }
                 }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+            } else if (numeroDente == 28) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+                    }
                 }
-            }
-        } else if (numeroDente == 21) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+            } else if (numeroDente == 48) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt48.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt48.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+                    }
                 }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+            } else if (numeroDente == 47) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt47.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt47.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+                    }
                 }
-            }
-        } else if (numeroDente == 22) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+            } else if (numeroDente == 46) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt46.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt46.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+                    }
                 }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+            } else if (numeroDente == 45) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt45.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt45.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+                    }
                 }
-            }
-        } else if (numeroDente == 23) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+            } else if (numeroDente == 44) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+                    }
                 }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+            } else if (numeroDente == 43) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt43.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt43.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+                    }
                 }
-            }
-        } else if (numeroDente == 24) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+            } else if (numeroDente == 42) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt42.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt42.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+                    }
                 }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+            } else if (numeroDente == 41) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt41.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt41.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+                    }
                 }
-            }
-        } else if (numeroDente == 25) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+            } else if (numeroDente == 38) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt38.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt38.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+                    }
                 }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+            } else if (numeroDente == 37) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+                    }
                 }
-            }
-        } else if (numeroDente == 26) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+            } else if (numeroDente == 36) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+                    }
                 }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+            } else if (numeroDente == 35) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+                    }
                 }
-            }
-        } else if (numeroDente == 27) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+            } else if (numeroDente == 34) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+                    }
                 }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+            } else if (numeroDente == 33) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+                    }
                 }
-            }
-        } else if (numeroDente == 28) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+            } else if (numeroDente == 32) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+                    }
                 }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
-                }
-            }
-        } else if (numeroDente == 48) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt48.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt48.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
-                }
-            }
-        } else if (numeroDente == 47) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt47.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt47.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
-                }
-            }
-        } else if (numeroDente == 46) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt46.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt46.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
-                }
-            }
-        } else if (numeroDente == 45) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt45.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt45.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
-                }
-            }
-        } else if (numeroDente == 44) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
-                }
-            }
-        } else if (numeroDente == 43) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt43.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt43.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
-                }
-            }
-        } else if (numeroDente == 42) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt42.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt42.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
-                }
-            }
-        } else if (numeroDente == 41) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt41.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt41.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
-                }
-            }
-        } else if (numeroDente == 38) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt38.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt38.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
-                }
-            }
-        } else if (numeroDente == 37) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
-                }
-            }
-        } else if (numeroDente == 36) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
-                }
-            }
-        } else if (numeroDente == 35) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
-                }
-            }
-        } else if (numeroDente == 34) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
-                }
-            }
-        } else if (numeroDente == 33) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
-                }
-            }
-        } else if (numeroDente == 32) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
-                }
-            }
-        } else if (numeroDente == 31) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+            } else if (numeroDente == 31) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente12.jpg")));
+                    }
                 }
             }
         }
@@ -5653,523 +5721,533 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
     private void jBtFaceCentral1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtFaceCentral1MouseClicked
         // TODO add your handling code here:
-        DefaultTableModel tabOrto = (DefaultTableModel) jTabelaOdontograma.getModel();
-        objOdonto.setIdOdonto(Integer.valueOf(codigoProcedimento));
-        objOdonto.setDescricaoProcedimento((String) jComboBoxTipoProcedimento.getSelectedItem());
-        objOdonto.setNumeroDente(Integer.valueOf(jNumeroDente.getText()));
-        objOdonto.setFacesDente((String) jComboBoxFacesDente.getSelectedItem());
-        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-        dataOdonto = formatoAmerica.format(jDataOdontograma.getDate().getTime());
-        objOdonto.setParcialTotal((String) jComboBoxParcialTotal.getSelectedItem());
-        objOdonto.setPlanoTratamento(jPlanoTratamento.getText());
-        Object campos[] = {objOdonto.getIdOdonto(), objOdonto.getDescricaoProcedimento(), objOdonto.getNumeroDente(), objOdonto.getFacesDente(), dataOdonto, objOdonto.getParcialTotal(), objOdonto.getPlanoTratamento()};
-        tabOrto.addRow(campos);
-        jComboBoxFacesDente.setSelectedItem("Oclusal");
-        if (numeroDente == 18) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+        if (acao == 1 || acao == 2) {
+            jComboBoxFacesDente.setSelectedItem("Oclusal");
+            jComboBoxParcialTotal.setSelectedItem("Parcial");
+            DefaultTableModel tabOrto = (DefaultTableModel) jTabelaOdontograma.getModel();
+            objOdonto.setIdOdonto(Integer.valueOf(codigoProcedimento));
+            objOdonto.setDescricaoProcedimento((String) jComboBoxTipoProcedimento.getSelectedItem());
+            objOdonto.setNumeroDente(Integer.valueOf(jNumeroDente.getText()));
+            objOdonto.setFacesDente((String) jComboBoxFacesDente.getSelectedItem());
+            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+            dataOdonto = formatoAmerica.format(jDataOdontograma.getDate().getTime());
+            objOdonto.setParcialTotal((String) jComboBoxParcialTotal.getSelectedItem());
+            objOdonto.setPlanoTratamento(jPlanoTratamento.getText());
+            Object campos[] = {objOdonto.getIdOdonto(), objOdonto.getDescricaoProcedimento(), objOdonto.getNumeroDente(), objOdonto.getFacesDente(), dataOdonto, objOdonto.getParcialTotal(), objOdonto.getPlanoTratamento()};
+            tabOrto.addRow(campos);
+            //                
+            if (numeroDente == 18) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                        jComboBoxFacesDente.setSelectedItem("Todas");
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
+                    }
                 }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
-                if (evt.getClickCount() == 1) {
-                    jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+            } else if (numeroDente == 17) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                        jComboBoxFacesDente.setSelectedItem("Todas");
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
+                    }
+                }
+            } else if (numeroDente == 16) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                        jComboBoxFacesDente.setSelectedItem("Todas");
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
+                    }
+                }
+            } else if (numeroDente == 15) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                        jComboBoxFacesDente.setSelectedItem("Todas");
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
+                    }
+                }
+            } else if (numeroDente == 14) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
                     jComboBoxFacesDente.setSelectedItem("Todas");
+                    if (evt.getClickCount() == 1) {
+                        jBt14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
+                    }
                 }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
-                }
-            }
-        } else if (numeroDente == 17) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
-                if (evt.getClickCount() == 1) {
-                    jBt17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+            } else if (numeroDente == 13) {
+                jComboBoxFacesDente.setSelectedItem("Incisal");
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
                     jComboBoxFacesDente.setSelectedItem("Todas");
+                    if (evt.getClickCount() == 1) {
+                        jBt13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
+                    }
                 }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
-                }
-            }
-        } else if (numeroDente == 16) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
-                if (evt.getClickCount() == 1) {
-                    jBt16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+            } else if (numeroDente == 12) {
+                jComboBoxFacesDente.setSelectedItem("Incisal");
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
                     jComboBoxFacesDente.setSelectedItem("Todas");
+                    if (evt.getClickCount() == 1) {
+                        jBt12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
+                    }
                 }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
-                }
-            }
-        } else if (numeroDente == 15) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
-                if (evt.getClickCount() == 1) {
-                    jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+            } else if (numeroDente == 11) {
+                jComboBoxFacesDente.setSelectedItem("Incisal");
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
                     jComboBoxFacesDente.setSelectedItem("Todas");
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
-                if (evt.getClickCount() == 1) {
-                    jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
-                }
-            }
-        } else if (numeroDente == 14) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
-                jComboBoxFacesDente.setSelectedItem("Todas");
-                if (evt.getClickCount() == 1) {
-                    jBt14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
-                }
-            }
-        } else if (numeroDente == 13) {
-            jComboBoxFacesDente.setSelectedItem("Incisal");
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
-                jComboBoxFacesDente.setSelectedItem("Todas");
-                if (evt.getClickCount() == 1) {
-                    jBt13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
-                }
-            }
-        } else if (numeroDente == 12) {
-            jComboBoxFacesDente.setSelectedItem("Incisal");
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
-                jComboBoxFacesDente.setSelectedItem("Todas");
-                if (evt.getClickCount() == 1) {
-                    jBt12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
-                }
-            }
-        } else if (numeroDente == 11) {
-            jComboBoxFacesDente.setSelectedItem("Incisal");
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
-                jComboBoxFacesDente.setSelectedItem("Todas");
-                if (evt.getClickCount() == 1) {
-                    jBt11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
-                }
-            }
-        } else if (numeroDente == 21) {
-            jComboBoxFacesDente.setSelectedItem("Incisal");
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
-                jComboBoxFacesDente.setSelectedItem("Todas");
-                if (evt.getClickCount() == 1) {
-                    jBt21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
-                }
-            }
-        } else if (numeroDente == 22) {
-            jComboBoxFacesDente.setSelectedItem("Incisal");
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
-                jComboBoxFacesDente.setSelectedItem("Todas");
-                if (evt.getClickCount() == 1) {
-                    jBt22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
-                }
-            }
-        } else if (numeroDente == 23) {
-            jComboBoxFacesDente.setSelectedItem("Incisal");
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
-                jComboBoxFacesDente.setSelectedItem("Todas");
-                if (evt.getClickCount() == 1) {
-                    jBt23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
-                }
-            }
-        } else if (numeroDente == 24) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
-                jComboBoxFacesDente.setSelectedItem("Todas");
-                if (evt.getClickCount() == 1) {
-                    jBt24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
-                }
-            }
-        } else if (numeroDente == 25) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
-                jComboBoxFacesDente.setSelectedItem("Todas");
-                if (evt.getClickCount() == 1) {
-                    jBt25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
-                }
-            }
-        } else if (numeroDente == 26) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
-                jComboBoxFacesDente.setSelectedItem("Todas");
-                if (evt.getClickCount() == 1) {
-                    jBt26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
-                }
-            }
-        } else if (numeroDente == 27) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
-                jComboBoxFacesDente.setSelectedItem("Todas");
-                if (evt.getClickCount() == 1) {
-                    jBt27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
-                }
-            }
-        } else if (numeroDente == 28) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
-                jComboBoxFacesDente.setSelectedItem("Todas");
-                if (evt.getClickCount() == 1) {
-                    jBt28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
-                }
-            }
-        } else if (numeroDente == 48) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt48.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
-                jComboBoxFacesDente.setSelectedItem("Todas");
-                if (evt.getClickCount() == 1) {
-                    jBt48.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt48.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
-                }
-            }
-        } else if (numeroDente == 47) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt47.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
-                jComboBoxFacesDente.setSelectedItem("Todas");
-                if (evt.getClickCount() == 1) {
-                    jBt47.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt47.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
-                }
-            }
-        } else if (numeroDente == 46) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt46.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
-                jComboBoxFacesDente.setSelectedItem("Todas");
-                if (evt.getClickCount() == 1) {
-                    jBt46.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt46.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
-                }
-            }
-        } else if (numeroDente == 45) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt45.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
-                jComboBoxFacesDente.setSelectedItem("Todas");
-                if (evt.getClickCount() == 1) {
-                    jBt45.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt45.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
-                }
-            }
-        } else if (numeroDente == 44) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
-                jComboBoxFacesDente.setSelectedItem("Todas");
-                if (evt.getClickCount() == 1) {
-                    jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
-                }
-            }
-        } else if (numeroDente == 43) {
-            jComboBoxFacesDente.setSelectedItem("Incisal");
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt43.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
-                jComboBoxFacesDente.setSelectedItem("Todas");
-                if (evt.getClickCount() == 1) {
-                    jBt43.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt43.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
-                }
-            }
-        } else if (numeroDente == 42) {
-            jComboBoxFacesDente.setSelectedItem("Incisal");
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt42.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
-                jComboBoxFacesDente.setSelectedItem("Todas");
-                if (evt.getClickCount() == 1) {
-                    jBt42.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt42.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
-                }
-            }
-        } else if (numeroDente == 41) {
-            jComboBoxFacesDente.setSelectedItem("Incisal");
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt41.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
-                jComboBoxFacesDente.setSelectedItem("Todas");
-                if (evt.getClickCount() == 1) {
-                    jBt41.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt41.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
-                }
-            }
-        } else if (numeroDente == 38) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt38.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
-                jComboBoxFacesDente.setSelectedItem("Todas");
-                if (evt.getClickCount() == 1) {
-                    jBt38.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt38.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
-                }
-            }
-        } else if (numeroDente == 37) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
-                jComboBoxFacesDente.setSelectedItem("Todas");
-                if (evt.getClickCount() == 1) {
-                    jBt37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
-                }
-            }
-        } else if (numeroDente == 36) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
-                jComboBoxFacesDente.setSelectedItem("Todas");
-                if (evt.getClickCount() == 1) {
-                    jBt36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
-                }
-            }
-        } else if (numeroDente == 35) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
-                jComboBoxFacesDente.setSelectedItem("Todas");
-                if (evt.getClickCount() == 1) {
-                    jBt35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
-                }
-            }
-        } else if (numeroDente == 34) {
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
-                jComboBoxFacesDente.setSelectedItem("Todas");
-                if (evt.getClickCount() == 1) {
-                    jBt34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
-                }
-            }
-        } else if (numeroDente == 33) {
-            jComboBoxFacesDente.setSelectedItem("Incisal");
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
-                jComboBoxFacesDente.setSelectedItem("Todas");
-                if (evt.getClickCount() == 1) {
-                    jBt33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
-                }
-            }
-        } else if (numeroDente == 32) {
-            jComboBoxFacesDente.setSelectedItem("Incisal");
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
-                jComboBoxFacesDente.setSelectedItem("Todas");
-                if (evt.getClickCount() == 1) {
-                    jBt32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
-                }
-            }
-        } else if (numeroDente == 31) {
-            jComboBoxFacesDente.setSelectedItem("Incisal");
-            if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
-                jComboBoxFacesDente.setSelectedItem("Todas");
-                if (evt.getClickCount() == 1) {
-                    jBt31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
-                }
-            } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
-                if (evt.getClickCount() == 1) {
-                    jBt31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
+                    if (evt.getClickCount() == 1) {
+                        jBt11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
+                    }
+                }
+            } else if (numeroDente == 21) {
+                jComboBoxFacesDente.setSelectedItem("Incisal");
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
+                    jComboBoxFacesDente.setSelectedItem("Todas");
+                    if (evt.getClickCount() == 1) {
+                        jBt21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
+                    }
+                }
+            } else if (numeroDente == 22) {
+                jComboBoxFacesDente.setSelectedItem("Incisal");
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
+                    jComboBoxFacesDente.setSelectedItem("Todas");
+                    if (evt.getClickCount() == 1) {
+                        jBt22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
+                    }
+                }
+            } else if (numeroDente == 23) {
+                jComboBoxFacesDente.setSelectedItem("Incisal");
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
+                    jComboBoxFacesDente.setSelectedItem("Todas");
+                    if (evt.getClickCount() == 1) {
+                        jBt23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
+                    }
+                }
+            } else if (numeroDente == 24) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
+                    jComboBoxFacesDente.setSelectedItem("Todas");
+                    if (evt.getClickCount() == 1) {
+                        jBt24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
+                    }
+                }
+            } else if (numeroDente == 25) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
+                    jComboBoxFacesDente.setSelectedItem("Todas");
+                    if (evt.getClickCount() == 1) {
+                        jBt25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
+                    }
+                }
+            } else if (numeroDente == 26) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
+                    jComboBoxFacesDente.setSelectedItem("Todas");
+                    if (evt.getClickCount() == 1) {
+                        jBt26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
+                    }
+                }
+            } else if (numeroDente == 27) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
+                    jComboBoxFacesDente.setSelectedItem("Todas");
+                    if (evt.getClickCount() == 1) {
+                        jBt27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
+                    }
+                }
+            } else if (numeroDente == 28) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
+                    jComboBoxFacesDente.setSelectedItem("Todas");
+                    if (evt.getClickCount() == 1) {
+                        jBt28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
+                    }
+                }
+            } else if (numeroDente == 48) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt48.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
+                    jComboBoxFacesDente.setSelectedItem("Todas");
+                    if (evt.getClickCount() == 1) {
+                        jBt48.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt48.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
+                    }
+                }
+            } else if (numeroDente == 47) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt47.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
+                    jComboBoxFacesDente.setSelectedItem("Todas");
+                    if (evt.getClickCount() == 1) {
+                        jBt47.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt47.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
+                    }
+                }
+            } else if (numeroDente == 46) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt46.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
+                    jComboBoxFacesDente.setSelectedItem("Todas");
+                    if (evt.getClickCount() == 1) {
+                        jBt46.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt46.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
+                    }
+                }
+            } else if (numeroDente == 45) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt45.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
+                    jComboBoxFacesDente.setSelectedItem("Todas");
+                    if (evt.getClickCount() == 1) {
+                        jBt45.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt45.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
+                    }
+                }
+            } else if (numeroDente == 44) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
+                    jComboBoxFacesDente.setSelectedItem("Todas");
+                    if (evt.getClickCount() == 1) {
+                        jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
+                    }
+                }
+            } else if (numeroDente == 43) {
+                jComboBoxFacesDente.setSelectedItem("Incisal");
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt43.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
+                    jComboBoxFacesDente.setSelectedItem("Todas");
+                    if (evt.getClickCount() == 1) {
+                        jBt43.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt43.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
+                    }
+                }
+            } else if (numeroDente == 42) {
+                jComboBoxFacesDente.setSelectedItem("Incisal");
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt42.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
+                    jComboBoxFacesDente.setSelectedItem("Todas");
+                    if (evt.getClickCount() == 1) {
+                        jBt42.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt42.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
+                    }
+                }
+            } else if (numeroDente == 41) {
+                jComboBoxFacesDente.setSelectedItem("Incisal");
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt41.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
+                    jComboBoxFacesDente.setSelectedItem("Todas");
+                    if (evt.getClickCount() == 1) {
+                        jBt41.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt41.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
+                    }
+                }
+            } else if (numeroDente == 38) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt38.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
+                    jComboBoxFacesDente.setSelectedItem("Todas");
+                    if (evt.getClickCount() == 1) {
+                        jBt38.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt38.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
+                    }
+                }
+            } else if (numeroDente == 37) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
+                    jComboBoxFacesDente.setSelectedItem("Todas");
+                    if (evt.getClickCount() == 1) {
+                        jBt37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
+                    }
+                }
+            } else if (numeroDente == 36) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
+                    jComboBoxFacesDente.setSelectedItem("Todas");
+                    if (evt.getClickCount() == 1) {
+                        jBt36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
+                    }
+                }
+            } else if (numeroDente == 35) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
+                    jComboBoxFacesDente.setSelectedItem("Todas");
+                    if (evt.getClickCount() == 1) {
+                        jBt35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
+                    }
+                }
+            } else if (numeroDente == 34) {
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
+                    jComboBoxFacesDente.setSelectedItem("Todas");
+                    if (evt.getClickCount() == 1) {
+                        jBt34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
+                    }
+                }
+            } else if (numeroDente == 33) {
+                jComboBoxFacesDente.setSelectedItem("Incisal");
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
+                    jComboBoxFacesDente.setSelectedItem("Todas");
+                    if (evt.getClickCount() == 1) {
+                        jBt33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
+                    }
+                }
+            } else if (numeroDente == 32) {
+                jComboBoxFacesDente.setSelectedItem("Incisal");
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
+                    jComboBoxFacesDente.setSelectedItem("Todas");
+                    if (evt.getClickCount() == 1) {
+                        jBt32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
+                    }
+                }
+            } else if (numeroDente == 31) {
+                jComboBoxFacesDente.setSelectedItem("Incisal");
+                if (jComboBoxTipoProcedimento.getSelectedItem().equals("CURATIVO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO") && jComboBoxParcialTotal.getSelectedItem().equals("Total")) {
+                    jComboBoxFacesDente.setSelectedItem("Todas");
+                    if (evt.getClickCount() == 1) {
+                        jBt31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                    }
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                    if (evt.getClickCount() == 1) {
+                        jBt31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente15.jpg")));
+                    }
                 }
             }
         }
     }//GEN-LAST:event_jBtFaceCentral1MouseClicked
 
     private void jBt18MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt18MouseClicked
-        // TODO add your handling code here:        
-        numeroDente = 18;
-        jNumeroDente.setText(Integer.toString(numeroDente));
+        // TODO add your handling code here:       
+        if (acao == 1 || acao == 2) {
+            numeroDente = 18;
+            jNumeroDente.setText(Integer.toString(numeroDente));
+            jDataOdontograma.setCalendar(Calendar.getInstance());
+        }
     }//GEN-LAST:event_jBt18MouseClicked
 
     private void jBt17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt17MouseClicked
-        // TODO add your handling code here:        
-        numeroDente = 17;
-        jNumeroDente.setText(Integer.toString(numeroDente));
+        // TODO add your handling code here:   
+        if (acao == 1 || acao == 2) {
+            numeroDente = 17;
+            jNumeroDente.setText(Integer.toString(numeroDente));
+            jDataOdontograma.setCalendar(Calendar.getInstance());
+        }
     }//GEN-LAST:event_jBt17MouseClicked
 
     private void jComboBoxTipoProcedimentoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxTipoProcedimentoItemStateChanged
@@ -6312,68 +6390,101 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
     private void jBt16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt16MouseClicked
         // TODO add your handling code here:
-        numeroDente = 16;
-        jNumeroDente.setText(Integer.toString(numeroDente));
+        if (acao == 1 || acao == 2) {
+            numeroDente = 16;
+            jNumeroDente.setText(Integer.toString(numeroDente));
+            jDataOdontograma.setCalendar(Calendar.getInstance());
+        }
     }//GEN-LAST:event_jBt16MouseClicked
 
     private void jBt15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt15MouseClicked
         // TODO add your handling code here:
-        numeroDente = 15;
-        jNumeroDente.setText(Integer.toString(numeroDente));
+        if (acao == 1 || acao == 2) {
+            numeroDente = 15;
+            jNumeroDente.setText(Integer.toString(numeroDente));
+            jDataOdontograma.setCalendar(Calendar.getInstance());
+        }
     }//GEN-LAST:event_jBt15MouseClicked
 
     private void jBt14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt14MouseClicked
         // TODO add your handling code here:
-        numeroDente = 14;
-        jNumeroDente.setText(Integer.toString(numeroDente));
+        if (acao == 1 || acao == 2) {
+            numeroDente = 14;
+            jNumeroDente.setText(Integer.toString(numeroDente));
+            jDataOdontograma.setCalendar(Calendar.getInstance());
+        }
     }//GEN-LAST:event_jBt14MouseClicked
 
     private void jBt13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt13MouseClicked
         // TODO add your handling code here:
-        numeroDente = 13;
-        jNumeroDente.setText(Integer.toString(numeroDente));
+        if (acao == 1 || acao == 2) {
+            numeroDente = 13;
+            jNumeroDente.setText(Integer.toString(numeroDente));
+            jDataOdontograma.setCalendar(Calendar.getInstance());
+        }
     }//GEN-LAST:event_jBt13MouseClicked
 
     private void jBt12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt12MouseClicked
         // TODO add your handling code here:
-        numeroDente = 12;
-        jNumeroDente.setText(Integer.toString(numeroDente));
+        if (acao == 1 || acao == 2) {
+            numeroDente = 12;
+            jNumeroDente.setText(Integer.toString(numeroDente));
+            jDataOdontograma.setCalendar(Calendar.getInstance());
+        }
     }//GEN-LAST:event_jBt12MouseClicked
 
     private void jBt11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt11MouseClicked
         // TODO add your handling code here:
-        numeroDente = 11;
-        jNumeroDente.setText(Integer.toString(numeroDente));
+        if (acao == 1 || acao == 2) {
+            numeroDente = 11;
+            jNumeroDente.setText(Integer.toString(numeroDente));
+            jDataOdontograma.setCalendar(Calendar.getInstance());
+        }
     }//GEN-LAST:event_jBt11MouseClicked
 
     private void jBt48MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt48MouseClicked
         // TODO add your handling code here:
-        numeroDente = 48;
-        jNumeroDente.setText(Integer.toString(numeroDente));
+        if (acao == 1 || acao == 2) {
+            numeroDente = 48;
+            jNumeroDente.setText(Integer.toString(numeroDente));
+            jDataOdontograma.setCalendar(Calendar.getInstance());
+        }
     }//GEN-LAST:event_jBt48MouseClicked
 
     private void jBt47MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt47MouseClicked
         // TODO add your handling code here:
-        numeroDente = 47;
-        jNumeroDente.setText(Integer.toString(numeroDente));
+        if (acao == 1 || acao == 2) {
+            numeroDente = 47;
+            jNumeroDente.setText(Integer.toString(numeroDente));
+            jDataOdontograma.setCalendar(Calendar.getInstance());
+        }
     }//GEN-LAST:event_jBt47MouseClicked
 
     private void jBt46MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt46MouseClicked
         // TODO add your handling code here:
-        numeroDente = 46;
-        jNumeroDente.setText(Integer.toString(numeroDente));
+        if (acao == 1 || acao == 2) {
+            numeroDente = 46;
+            jNumeroDente.setText(Integer.toString(numeroDente));
+            jDataOdontograma.setCalendar(Calendar.getInstance());
+        }
     }//GEN-LAST:event_jBt46MouseClicked
 
     private void jBt45MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt45MouseClicked
         // TODO add your handling code here:
-        numeroDente = 45;
-        jNumeroDente.setText(Integer.toString(numeroDente));
+        if (acao == 1 || acao == 2) {
+            numeroDente = 45;
+            jNumeroDente.setText(Integer.toString(numeroDente));
+            jDataOdontograma.setCalendar(Calendar.getInstance());
+        }
     }//GEN-LAST:event_jBt45MouseClicked
 
     private void jBt44MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt44MouseClicked
         // TODO add your handling code here:
-        numeroDente = 44;
-        jNumeroDente.setText(Integer.toString(numeroDente));
+        if (acao == 1 || acao == 2) {
+            numeroDente = 44;
+            jNumeroDente.setText(Integer.toString(numeroDente));
+            jDataOdontograma.setCalendar(Calendar.getInstance());
+        }
     }//GEN-LAST:event_jBt44MouseClicked
 
     private void jBt43MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt43MouseClicked
@@ -6384,139 +6495,185 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
 
     private void jBt42MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt42MouseClicked
         // TODO add your handling code here:
-        numeroDente = 42;
-        jNumeroDente.setText(Integer.toString(numeroDente));
+        if (acao == 1 || acao == 2) {
+            numeroDente = 42;
+            jNumeroDente.setText(Integer.toString(numeroDente));
+            jDataOdontograma.setCalendar(Calendar.getInstance());
+        }
     }//GEN-LAST:event_jBt42MouseClicked
 
     private void jBt41MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt41MouseClicked
         // TODO add your handling code here:
-        numeroDente = 41;
-        jNumeroDente.setText(Integer.toString(numeroDente));
+        if (acao == 1 || acao == 2) {
+            numeroDente = 41;
+            jNumeroDente.setText(Integer.toString(numeroDente));
+            jDataOdontograma.setCalendar(Calendar.getInstance());
+        }
     }//GEN-LAST:event_jBt41MouseClicked
 
     private void jBt21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt21MouseClicked
         // TODO add your handling code here:
-        numeroDente = 21;
-        jNumeroDente.setText(Integer.toString(numeroDente));
+        if (acao == 1 || acao == 2) {
+            numeroDente = 21;
+            jNumeroDente.setText(Integer.toString(numeroDente));
+            jDataOdontograma.setCalendar(Calendar.getInstance());
+        }
     }//GEN-LAST:event_jBt21MouseClicked
 
     private void jBt22MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt22MouseClicked
         // TODO add your handling code here:
-        numeroDente = 22;
-        jNumeroDente.setText(Integer.toString(numeroDente));
+        if (acao == 1 || acao == 2) {
+            numeroDente = 22;
+            jNumeroDente.setText(Integer.toString(numeroDente));
+            jDataOdontograma.setCalendar(Calendar.getInstance());
+        }
     }//GEN-LAST:event_jBt22MouseClicked
 
     private void jBt23MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt23MouseClicked
         // TODO add your handling code here:
-        numeroDente = 23;
-        jNumeroDente.setText(Integer.toString(numeroDente));
+        if (acao == 1 || acao == 2) {
+            numeroDente = 23;
+            jNumeroDente.setText(Integer.toString(numeroDente));
+            jDataOdontograma.setCalendar(Calendar.getInstance());
+        }
     }//GEN-LAST:event_jBt23MouseClicked
 
     private void jBt24MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt24MouseClicked
         // TODO add your handling code here:
-        numeroDente = 24;
-        jNumeroDente.setText(Integer.toString(numeroDente));
+        if (acao == 1 || acao == 2) {
+            numeroDente = 24;
+            jNumeroDente.setText(Integer.toString(numeroDente));
+            jDataOdontograma.setCalendar(Calendar.getInstance());
+        }
     }//GEN-LAST:event_jBt24MouseClicked
 
     private void jBt25MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt25MouseClicked
         // TODO add your handling code here:
-        numeroDente = 25;
-        jNumeroDente.setText(Integer.toString(numeroDente));
+        if (acao == 1 || acao == 2) {
+            numeroDente = 25;
+            jNumeroDente.setText(Integer.toString(numeroDente));
+            jDataOdontograma.setCalendar(Calendar.getInstance());
+        }
     }//GEN-LAST:event_jBt25MouseClicked
 
     private void jBt26MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt26MouseClicked
         // TODO add your handling code here:
-        numeroDente = 26;
-        jNumeroDente.setText(Integer.toString(numeroDente));
+        if (acao == 1 || acao == 2) {
+            numeroDente = 26;
+            jNumeroDente.setText(Integer.toString(numeroDente));
+            jDataOdontograma.setCalendar(Calendar.getInstance());
+        }
     }//GEN-LAST:event_jBt26MouseClicked
 
     private void jBt27MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt27MouseClicked
         // TODO add your handling code here:
-        numeroDente = 27;
-        jNumeroDente.setText(Integer.toString(numeroDente));
+        if (acao == 1 || acao == 2) {
+            numeroDente = 27;
+            jNumeroDente.setText(Integer.toString(numeroDente));
+            jDataOdontograma.setCalendar(Calendar.getInstance());
+        }
     }//GEN-LAST:event_jBt27MouseClicked
 
     private void jBt28MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt28MouseClicked
         // TODO add your handling code here:
-        numeroDente = 28;
-        jNumeroDente.setText(Integer.toString(numeroDente));
+        if (acao == 1 || acao == 2) {
+            numeroDente = 28;
+            jNumeroDente.setText(Integer.toString(numeroDente));
+            jDataOdontograma.setCalendar(Calendar.getInstance());
+        }
     }//GEN-LAST:event_jBt28MouseClicked
 
     private void jBt31MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt31MouseClicked
         // TODO add your handling code here:
-        numeroDente = 31;
-        jNumeroDente.setText(Integer.toString(numeroDente));
+        if (acao == 1 || acao == 2) {
+            numeroDente = 31;
+            jNumeroDente.setText(Integer.toString(numeroDente));
+            jDataOdontograma.setCalendar(Calendar.getInstance());
+        }
     }//GEN-LAST:event_jBt31MouseClicked
 
     private void jBt32MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt32MouseClicked
         // TODO add your handling code here:
-        numeroDente = 32;
-        jNumeroDente.setText(Integer.toString(numeroDente));
+        if (acao == 1 || acao == 2) {
+            numeroDente = 32;
+            jNumeroDente.setText(Integer.toString(numeroDente));
+            jDataOdontograma.setCalendar(Calendar.getInstance());
+        }
     }//GEN-LAST:event_jBt32MouseClicked
 
     private void jBt33MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt33MouseClicked
         // TODO add your handling code here:
-        numeroDente = 33;
-        jNumeroDente.setText(Integer.toString(numeroDente));
+        if (acao == 1 || acao == 2) {
+            numeroDente = 33;
+            jNumeroDente.setText(Integer.toString(numeroDente));
+            jDataOdontograma.setCalendar(Calendar.getInstance());
+        }
     }//GEN-LAST:event_jBt33MouseClicked
 
     private void jBt34MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt34MouseClicked
         // TODO add your handling code here:
-        numeroDente = 34;
-        jNumeroDente.setText(Integer.toString(numeroDente));
+        if (acao == 1 || acao == 2) {
+            numeroDente = 34;
+            jNumeroDente.setText(Integer.toString(numeroDente));
+            jDataOdontograma.setCalendar(Calendar.getInstance());
+        }
     }//GEN-LAST:event_jBt34MouseClicked
 
     private void jBt35MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt35MouseClicked
         // TODO add your handling code here:
-        numeroDente = 35;
-        jNumeroDente.setText(Integer.toString(numeroDente));
+        if (acao == 1 || acao == 2) {
+            numeroDente = 35;
+            jNumeroDente.setText(Integer.toString(numeroDente));
+            jDataOdontograma.setCalendar(Calendar.getInstance());
+        }
     }//GEN-LAST:event_jBt35MouseClicked
 
     private void jBt36MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt36MouseClicked
         // TODO add your handling code here:
-        numeroDente = 36;
-        jNumeroDente.setText(Integer.toString(numeroDente));
+        if (acao == 1 || acao == 2) {
+            numeroDente = 36;
+            jNumeroDente.setText(Integer.toString(numeroDente));
+            jDataOdontograma.setCalendar(Calendar.getInstance());
+        }
     }//GEN-LAST:event_jBt36MouseClicked
 
     private void jBt37MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt37MouseClicked
         // TODO add your handling code here:
-        numeroDente = 37;
-        jNumeroDente.setText(Integer.toString(numeroDente));
+        if (acao == 1 || acao == 2) {
+            numeroDente = 37;
+            jNumeroDente.setText(Integer.toString(numeroDente));
+            jDataOdontograma.setCalendar(Calendar.getInstance());
+        }
     }//GEN-LAST:event_jBt37MouseClicked
 
     private void jBt38MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt38MouseClicked
         // TODO add your handling code here:
-        numeroDente = 38;
-        jNumeroDente.setText(Integer.toString(numeroDente));
+        if (acao == 1 || acao == 2) {
+            numeroDente = 38;
+            jNumeroDente.setText(Integer.toString(numeroDente));
+            jDataOdontograma.setCalendar(Calendar.getInstance());
+        }
     }//GEN-LAST:event_jBt38MouseClicked
 
     private void jTabelaOdontogramaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaOdontogramaMouseClicked
         // TODO add your handling code here:     
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM ODONTOGRAMA_ADMISSAO "
-                    + "INNER JOIN PROCEDIMENTOS_ODONTOLOGICO "
-                    + "ON ODONTOGRAMA_ADMISSAO.IdProcOdonto=PROCEDIMENTOS_ODONTOLOGICO.IdProcOdonto "
-                    + "WHERE ODONTOGRAMA_ADMISSAO.IdLanc='" + jIDLanc.getText() + "'");
-            conecta.rs.first();
-            DefaultTableModel dtmProcedimento = (DefaultTableModel) jTabelaOdontograma.getModel();
-            dtmProcedimento.getDataVector().clear(); // limpa a tabela 
-            do {
-                dataOdonto = conecta.rs.getString("DataOdontograma");
-                if (dataOdonto != null) {
-                    String dia = dataOdonto.substring(8, 10);
-                    String mes = dataOdonto.substring(5, 7);
-                    String ano = dataOdonto.substring(0, 4);
-                    dataOdonto = dia + "/" + mes + "/" + ano;
-                }
-                dtmProcedimento.addRow(new Object[]{conecta.rs.getInt("IdProcOdonto"), conecta.rs.getString("DescricaoProcedimento"), conecta.rs.getInt("NumeroDente"), conecta.rs.getString("FacesDente"), dataOdonto, conecta.rs.getString("ParcialTotal"), conecta.rs.getString("PlanoTratamento")});
-            } while (conecta.rs.next());
-        } catch (SQLException ex) {
-        }
-        if (acao == 2) {
-            String procedimento = "" + jTabelaOdontograma.getValueAt(jTabelaOdontologia.getSelectedRow(), 1);
-            String nrDente = "" + jTabelaOdontograma.getValueAt(jTabelaOdontologia.getSelectedRow(), 2);
-            String faceDente = "" + jTabelaOdontograma.getValueAt(jTabelaOdontologia.getSelectedRow(), 3);
+        flag = 1;
+        if (flag == 1) {
+            String nrPro = "" + jTabelaOdontograma.getValueAt(jTabelaOdontograma.getSelectedRow(), 0);
+            procedimento = "" + jTabelaOdontograma.getValueAt(jTabelaOdontograma.getSelectedRow(), 1);
+            nrDente = "" + jTabelaOdontograma.getValueAt(jTabelaOdontograma.getSelectedRow(), 2);
+            faceDente = "" + jTabelaOdontograma.getValueAt(jTabelaOdontograma.getSelectedRow(), 3);
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM ODONTOGRAMA_ADMISSAO "
+                        + "INNER JOIN PROCEDIMENTOS_ODONTOLOGICO "
+                        + "ON ODONTOGRAMA_ADMISSAO.IdProcOdonto=PROCEDIMENTOS_ODONTOLOGICO.IdProcOdonto "
+                        + "WHERE ODONTOGRAMA_ADMISSAO.IdLanc='" + jIDLanc.getText() + "' "
+                        + "AND ODONTOGRAMA_ADMISSAO.IdProcOdonto='" + nrPro + "' "
+                        + "AND ODONTOGRAMA_ADMISSAO.NumeroDente='" + nrDente + "'");
+                conecta.rs.first();
+            } catch (SQLException ex) {
+            }
             if (nrDente.equals("18")) {
                 if (procedimento.equals("CURATIVO")) {
                     if (faceDente.equals("Lingual/Palatal")) {
@@ -6650,7 +6807,49 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
                     jBt16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
                 }
             } else if (nrDente.equals("15")) {
-
+                if (procedimento.equals("CURATIVO")) {
+                    if (faceDente.equals("Lingual/Palatal")) {
+                        jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                    } else if (faceDente.equals("Mesial")) {
+                        jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                    } else if (faceDente.equals("Oclusal")) {
+                        jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                    } else if (faceDente.equals("Distal")) {
+                        jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
+                    } else if (faceDente.equals("Vestibular")) {
+                        jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                    } else if (faceDente.equals("Incisal")) {
+                        jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
+                    } else if (faceDente.equals("Retirado")) {
+                        jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente10.jpg")));
+                    } else if (faceDente.equals("Todas")) {
+                        jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                    }
+                } else if (procedimento.equals("RESTAURACAO")) {
+                    if (faceDente.equals("Lingual/Palatal")) {
+                        jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                    } else if (faceDente.equals("Mesial")) {
+                        jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                    } else if (faceDente.equals("Oclusal")) {
+                        jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                    } else if (faceDente.equals("Distal")) {
+                        jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
+                    } else if (faceDente.equals("Vestibular")) {
+                        jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                    } else if (faceDente.equals("Incisal")) {
+                        jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
+                    } else if (faceDente.equals("Retirado")) {
+                        jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente10.jpg")));
+                    } else if (faceDente.equals("Todas")) {
+                        jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                    }
+                } else if (procedimento.equals("EXTRACAO")) {
+                    jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente10.jpg")));
+                } else if (procedimento.equals("TARTARECTOMIA")) {
+                    jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                } else if (procedimento.equals("PROFILAXIA")) {
+                    jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                }
             } else if (nrDente.equals("14")) {
 
             } else if (nrDente.equals("13")) {
@@ -6668,7 +6867,49 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
             } else if (nrDente.equals("45")) {
 
             } else if (nrDente.equals("44")) {
-
+                if (procedimento.equals("CURATIVO")) {
+                    if (faceDente.equals("Lingual/Palatal")) {
+                        jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                    } else if (faceDente.equals("Mesial")) {
+                        jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                    } else if (faceDente.equals("Oclusal")) {
+                        jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                    } else if (faceDente.equals("Distal")) {
+                        jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
+                    } else if (faceDente.equals("Vestibular")) {
+                        jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                    } else if (faceDente.equals("Incisal")) {
+                        jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
+                    } else if (faceDente.equals("Retirado")) {
+                        jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente10.jpg")));
+                    } else if (faceDente.equals("Todas")) {
+                        jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                    }
+                } else if (procedimento.equals("RESTAURACAO")) {
+                    if (faceDente.equals("Lingual/Palatal")) {
+                        jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                    } else if (faceDente.equals("Mesial")) {
+                        jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                    } else if (faceDente.equals("Oclusal")) {
+                        jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                    } else if (faceDente.equals("Distal")) {
+                        jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
+                    } else if (faceDente.equals("Vestibular")) {
+                        jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                    } else if (faceDente.equals("Incisal")) {
+                        jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
+                    } else if (faceDente.equals("Retirado")) {
+                        jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente10.jpg")));
+                    } else if (faceDente.equals("Todas")) {
+                        jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                    }
+                } else if (procedimento.equals("EXTRACAO")) {
+                    jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente10.jpg")));
+                } else if (procedimento.equals("TARTARECTOMIA")) {
+                    jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                } else if (procedimento.equals("PROFILAXIA")) {
+                    jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                }
             } else if (nrDente.equals("43")) {
 
             } else if (nrDente.equals("42")) {
@@ -6711,6 +6952,21 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         }
     }//GEN-LAST:event_jTabelaOdontogramaMouseClicked
 
+    private void jToggleBtDenteModeloItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jToggleBtDenteModeloItemStateChanged
+        // TODO add your handling code here:
+        if (evt.getStateChange() == evt.SELECTED) {
+            jToggleBtDenteModelo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente2.jpg")));
+            //            javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoIcon2);
+            //                jToggleBtDente.setIcon(i);
+            //                jToggleBtDente.setIcon(new ImageIcon(i.getImage().getScaledInstance(jToggleBtDente.getWidth(), jToggleBtDente.getHeight(), Image.SCALE_DEFAULT)));
+        } else {
+            jToggleBtDenteModelo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente10.jpg")));
+            //            javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoIcon1);
+            //                jToggleBtDente.setIcon(i);
+            //                jToggleBtDente.setIcon(new ImageIcon(i.getImage().getScaledInstance(jToggleBtDente.getWidth(), jToggleBtDente.getHeight(), Image.SCALE_DEFAULT)));
+        }
+    }//GEN-LAST:event_jToggleBtDenteModeloItemStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Admissao;
@@ -6720,11 +6976,13 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private javax.swing.JPanel Odontograma;
     private javax.swing.JPanel Odontograma1;
     private javax.swing.JPanel Patologias;
+    private javax.swing.ButtonGroup grupoBotoes;
     private javax.swing.JTextField jAfirmacao1;
     private javax.swing.JTextField jAfirmacao2;
     private javax.swing.JTextField jAfirmacao3;
     private javax.swing.JButton jBTFaceDireita;
     private javax.swing.JButton jBTFaceDireita1;
+    private javax.swing.JButton jBTFaceDireita2;
     private javax.swing.JToggleButton jBt100;
     private javax.swing.JToggleButton jBt101;
     private javax.swing.JToggleButton jBt102;
@@ -6804,12 +7062,16 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private javax.swing.JButton jBtExcluirPrescricao;
     private javax.swing.JButton jBtFaceCentral;
     private javax.swing.JButton jBtFaceCentral1;
+    private javax.swing.JButton jBtFaceCentral2;
     private javax.swing.JButton jBtFaceEsquerda;
     private javax.swing.JButton jBtFaceEsquerda1;
+    private javax.swing.JButton jBtFaceEsquerda2;
     private javax.swing.JButton jBtFaceInferior;
     private javax.swing.JButton jBtFaceInferior1;
+    private javax.swing.JButton jBtFaceInferior2;
     private javax.swing.JButton jBtFaceSuperior;
     private javax.swing.JButton jBtFaceSuperior1;
+    private javax.swing.JButton jBtFaceSuperior2;
     private javax.swing.JButton jBtFinalizar;
     private javax.swing.JButton jBtIdPesqAtend;
     private javax.swing.JButton jBtImpressaoEvolucao;
@@ -6860,6 +7122,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private com.toedter.calendar.JDateChooser jDataOdontograma;
     private com.toedter.calendar.JDateChooser jDataPrescricao;
     private javax.swing.JTextArea jEvolucao;
+    private javax.swing.JTextArea jEvolucaoAdmissao;
     public static javax.swing.JLabel jFotoInternoOdonto;
     public static javax.swing.JTextField jIDInterno;
     public static javax.swing.JTextField jIDLanc;
@@ -6928,6 +7191,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
@@ -6996,6 +7260,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
+    private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
@@ -7018,6 +7283,11 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private javax.swing.JTextArea jPrescricaoOdontologia;
     private javax.swing.JTextField jQualOutraDoenca;
     private javax.swing.JTextField jQueixaPrincipal;
+    private javax.swing.JRadioButton jRBFaceDois;
+    private javax.swing.JRadioButton jRBFaceQuatro;
+    private javax.swing.JRadioButton jRBFaceTodas;
+    private javax.swing.JRadioButton jRBFaceTres;
+    private javax.swing.JRadioButton jRBFaceUm;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -7026,6 +7296,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTextField jStatusLanc;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane3;
@@ -7035,7 +7306,12 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     private javax.swing.JTable jTabelaProcedimentos;
     private javax.swing.JSpinner jTempoGestacao;
     private javax.swing.JTextArea jTextoDoenca;
-    private javax.swing.JToggleButton jToggleBtDente;
+    private javax.swing.JToggleButton jToggleBtDenteModelo;
+    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JToggleButton jToggleButton2;
+    private javax.swing.JToggleButton jToggleButton3;
+    private javax.swing.JToggleButton jToggleButton4;
+    private javax.swing.JToggleButton jToggleButton5;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
@@ -7188,41 +7464,41 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         jQualOutraDoenca.setEnabled(!true);
         jTextoDoenca.setEnabled(!true);
         // ODONTOGRAMA       
-        jBt11.setEnabled(!true);
-        jBt12.setEnabled(!true);
-        jBt13.setEnabled(!true);
-        jBt14.setEnabled(!true);
-        jBt15.setEnabled(!true);
-        jBt16.setEnabled(!true);
-        jBt17.setEnabled(!true);
-        jBt18.setEnabled(!true);
-        //
-        jBt21.setEnabled(!true);
-        jBt22.setEnabled(!true);
-        jBt23.setEnabled(!true);
-        jBt24.setEnabled(!true);
-        jBt25.setEnabled(!true);
-        jBt26.setEnabled(!true);
-        jBt27.setEnabled(!true);
-        jBt28.setEnabled(!true);
-        //
-        jBt31.setEnabled(!true);
-        jBt32.setEnabled(!true);
-        jBt33.setEnabled(!true);
-        jBt34.setEnabled(!true);
-        jBt35.setEnabled(!true);
-        jBt36.setEnabled(!true);
-        jBt37.setEnabled(!true);
-        jBt38.setEnabled(!true);
-        //
-        jBt41.setEnabled(!true);
-        jBt42.setEnabled(!true);
-        jBt43.setEnabled(!true);
-        jBt44.setEnabled(!true);
-        jBt45.setEnabled(!true);
-        jBt46.setEnabled(!true);
-        jBt47.setEnabled(!true);
-        jBt48.setEnabled(!true);
+//        jBt11.setEnabled(!true);
+//        jBt12.setEnabled(!true);
+//        jBt13.setEnabled(!true);
+//        jBt14.setEnabled(!true);
+//        jBt15.setEnabled(!true);
+//        jBt16.setEnabled(!true);
+//        jBt17.setEnabled(!true);
+//        jBt18.setEnabled(!true);
+//        //
+//        jBt21.setEnabled(!true);
+//        jBt22.setEnabled(!true);
+//        jBt23.setEnabled(!true);
+//        jBt24.setEnabled(!true);
+//        jBt25.setEnabled(!true);
+//        jBt26.setEnabled(!true);
+//        jBt27.setEnabled(!true);
+//        jBt28.setEnabled(!true);
+//        //
+//        jBt31.setEnabled(!true);
+//        jBt32.setEnabled(!true);
+//        jBt33.setEnabled(!true);
+//        jBt34.setEnabled(!true);
+//        jBt35.setEnabled(!true);
+//        jBt36.setEnabled(!true);
+//        jBt37.setEnabled(!true);
+//        jBt38.setEnabled(!true);
+//        //
+//        jBt41.setEnabled(!true);
+//        jBt42.setEnabled(!true);
+//        jBt43.setEnabled(!true);
+//        jBt44.setEnabled(!true);
+//        jBt45.setEnabled(!true);
+//        jBt46.setEnabled(!true);
+//        jBt47.setEnabled(!true);
+//        jBt48.setEnabled(!true);
         //
         jComboBoxTipoProcedimento.setEnabled(!true);
         jNumeroDente.setEnabled(!true);
@@ -7230,6 +7506,12 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         jDataOdontograma.setEnabled(!true);
         jComboBoxFacesDente.setEnabled(!true);
         jPlanoTratamento.setEnabled(!true);
+        //
+        jRBFaceUm.setEnabled(!true);
+        jRBFaceDois.setEnabled(!true);
+        jRBFaceTres.setEnabled(!true);
+        jRBFaceQuatro.setEnabled(!true);
+        jRBFaceTodas.setEnabled(!true);
         // EVOLUÇÃO        
         jDataEvolucao.setEnabled(!true);
         jEvolucao.setEnabled(!true);
@@ -7239,6 +7521,8 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     }
 
     public void limparCampos() {
+        //
+        jNumeroDente.setText("");
         // LIMPAR CAMPOS
         jIdEvolucao.setText("");
         jDataEvolucao.setDate(null);
@@ -7281,6 +7565,301 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         jBtCancelarPrescricao.setEnabled(!true);
         jBtAuditoriaPrescricao.setEnabled(!true);
         jBtImpressaoPrescricao.setEnabled(!true);
+    }
+
+    public void mostraOdontogramaAdm() {
+        flag = 1;
+        if (flag == 1) {
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM ODONTOGRAMA_ADMISSAO "
+                        + "INNER JOIN PROCEDIMENTOS_ODONTOLOGICO "
+                        + "ON ODONTOGRAMA_ADMISSAO.IdProcOdonto=PROCEDIMENTOS_ODONTOLOGICO.IdProcOdonto "
+                        + "WHERE ODONTOGRAMA_ADMISSAO.IdLanc='" + jIDLanc.getText() + "' ");
+                conecta.rs.first();
+                do {
+                    procedimento = conecta.rs.getString("DescricaoProcedimento");
+                    nrDente = conecta.rs.getString("NumeroDente");
+                    faceDente = conecta.rs.getString("FacesDente");
+                    if (nrDente.equals("18")) {
+                        if (procedimento.equals("CURATIVO")) {
+                            if (faceDente.equals("Lingual/Palatal")) {
+                                jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                            } else if (faceDente.equals("Mesial")) {
+                                jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                            } else if (faceDente.equals("Oclusal")) {
+                                jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                            } else if (faceDente.equals("Distal")) {
+                                jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
+                            } else if (faceDente.equals("Vestibular")) {
+                                jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                            } else if (faceDente.equals("Incisal")) {
+                                jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
+                            } else if (faceDente.equals("Retirado")) {
+                                jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente10.jpg")));
+                            } else if (faceDente.equals("Todas")) {
+                                jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                            }
+                        } else if (procedimento.equals("RESTAURACAO")) {
+                            if (faceDente.equals("Lingual/Palatal")) {
+                                jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                            } else if (faceDente.equals("Mesial")) {
+                                jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                            } else if (faceDente.equals("Oclusal")) {
+                                jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                            } else if (faceDente.equals("Distal")) {
+                                jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
+                            } else if (faceDente.equals("Vestibular")) {
+                                jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                            } else if (faceDente.equals("Incisal")) {
+                                jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
+                            } else if (faceDente.equals("Retirado")) {
+                                jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente10.jpg")));
+                            } else if (faceDente.equals("Todas")) {
+                                jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                            }
+                        } else if (procedimento.equals("EXTRACAO")) {
+                            jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente10.jpg")));
+                        } else if (procedimento.equals("TARTARECTOMIA")) {
+                            jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                        } else if (procedimento.equals("PROFILAXIA")) {
+                            jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                        }
+                    } else if (nrDente.equals("17")) {
+                        if (procedimento.equals("CURATIVO")) {
+                            if (faceDente.equals("Lingual/Palatal")) {
+                                jBt17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                            } else if (faceDente.equals("Mesial")) {
+                                jBt17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                            } else if (faceDente.equals("Oclusal")) {
+                                jBt17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                            } else if (faceDente.equals("Distal")) {
+                                jBt17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
+                            } else if (faceDente.equals("Vestibular")) {
+                                jBt17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                            } else if (faceDente.equals("Incisal")) {
+                                jBt17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
+                            } else if (faceDente.equals("Retirado")) {
+                                jBt17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente10.jpg")));
+                            } else if (faceDente.equals("Todas")) {
+                                jBt17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                            }
+                        } else if (procedimento.equals("RESTAURACAO")) {
+                            if (faceDente.equals("Lingual/Palatal")) {
+                                jBt17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                            } else if (faceDente.equals("Mesial")) {
+                                jBt17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                            } else if (faceDente.equals("Oclusal")) {
+                                jBt17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                            } else if (faceDente.equals("Distal")) {
+                                jBt17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
+                            } else if (faceDente.equals("Vestibular")) {
+                                jBt17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                            } else if (faceDente.equals("Incisal")) {
+                                jBt17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
+                            } else if (faceDente.equals("Retirado")) {
+                                jBt17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente10.jpg")));
+                            } else if (faceDente.equals("Todas")) {
+                                jBt17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                            }
+                        } else if (procedimento.equals("EXTRACAO")) {
+                            jBt17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente10.jpg")));
+                        } else if (procedimento.equals("TARTARECTOMIA")) {
+                            jBt17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                        } else if (procedimento.equals("PROFILAXIA")) {
+                            jBt17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                        }
+                    } else if (nrDente.equals("16")) {
+                        if (procedimento.equals("CURATIVO")) {
+                            if (faceDente.equals("Lingual/Palatal")) {
+                                jBt16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                            } else if (faceDente.equals("Mesial")) {
+                                jBt16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                            } else if (faceDente.equals("Oclusal")) {
+                                jBt16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                            } else if (faceDente.equals("Distal")) {
+                                jBt16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
+                            } else if (faceDente.equals("Vestibular")) {
+                                jBt16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                            } else if (faceDente.equals("Incisal")) {
+                                jBt16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
+                            } else if (faceDente.equals("Retirado")) {
+                                jBt16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente10.jpg")));
+                            } else if (faceDente.equals("Todas")) {
+                                jBt16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                            }
+                        } else if (procedimento.equals("RESTAURACAO")) {
+                            if (faceDente.equals("Lingual/Palatal")) {
+                                jBt16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                            } else if (faceDente.equals("Mesial")) {
+                                jBt16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                            } else if (faceDente.equals("Oclusal")) {
+                                jBt16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                            } else if (faceDente.equals("Distal")) {
+                                jBt16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
+                            } else if (faceDente.equals("Vestibular")) {
+                                jBt16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                            } else if (faceDente.equals("Incisal")) {
+                                jBt16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
+                            } else if (faceDente.equals("Retirado")) {
+                                jBt16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente10.jpg")));
+                            } else if (faceDente.equals("Todas")) {
+                                jBt16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                            }
+                        } else if (procedimento.equals("EXTRACAO")) {
+                            jBt16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente10.jpg")));
+                        } else if (procedimento.equals("TARTARECTOMIA")) {
+                            jBt16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                        } else if (procedimento.equals("PROFILAXIA")) {
+                            jBt16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                        }
+                    } else if (nrDente.equals("15")) {
+                        if (procedimento.equals("CURATIVO")) {
+                            if (faceDente.equals("Lingual/Palatal")) {
+                                jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                            } else if (faceDente.equals("Mesial")) {
+                                jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                            } else if (faceDente.equals("Oclusal")) {
+                                jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                            } else if (faceDente.equals("Distal")) {
+                                jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
+                            } else if (faceDente.equals("Vestibular")) {
+                                jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                            } else if (faceDente.equals("Incisal")) {
+                                jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
+                            } else if (faceDente.equals("Retirado")) {
+                                jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente10.jpg")));
+                            } else if (faceDente.equals("Todas")) {
+                                jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                            }
+                        } else if (procedimento.equals("RESTAURACAO")) {
+                            if (faceDente.equals("Lingual/Palatal")) {
+                                jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                            } else if (faceDente.equals("Mesial")) {
+                                jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                            } else if (faceDente.equals("Oclusal")) {
+                                jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                            } else if (faceDente.equals("Distal")) {
+                                jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
+                            } else if (faceDente.equals("Vestibular")) {
+                                jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                            } else if (faceDente.equals("Incisal")) {
+                                jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
+                            } else if (faceDente.equals("Retirado")) {
+                                jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente10.jpg")));
+                            } else if (faceDente.equals("Todas")) {
+                                jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                            }
+                        } else if (procedimento.equals("EXTRACAO")) {
+                            jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente10.jpg")));
+                        } else if (procedimento.equals("TARTARECTOMIA")) {
+                            jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                        } else if (procedimento.equals("PROFILAXIA")) {
+                            jBt15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                        }
+                    } else if (nrDente.equals("14")) {
+
+                    } else if (nrDente.equals("13")) {
+
+                    } else if (nrDente.equals("12")) {
+
+                    } else if (nrDente.equals("11")) {
+
+                    } else if (nrDente.equals("48")) {
+
+                    } else if (nrDente.equals("47")) {
+
+                    } else if (nrDente.equals("46")) {
+
+                    } else if (nrDente.equals("45")) {
+
+                    } else if (nrDente.equals("44")) {
+                        if (procedimento.equals("CURATIVO")) {
+                            if (faceDente.equals("Lingual/Palatal")) {
+                                jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                            } else if (faceDente.equals("Mesial")) {
+                                jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                            } else if (faceDente.equals("Oclusal")) {
+                                jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                            } else if (faceDente.equals("Distal")) {
+                                jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
+                            } else if (faceDente.equals("Vestibular")) {
+                                jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                            } else if (faceDente.equals("Incisal")) {
+                                jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
+                            } else if (faceDente.equals("Retirado")) {
+                                jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente10.jpg")));
+                            } else if (faceDente.equals("Todas")) {
+                                jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                            }
+                        } else if (procedimento.equals("RESTAURACAO")) {
+                            if (faceDente.equals("Lingual/Palatal")) {
+                                jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente5.jpg")));
+                            } else if (faceDente.equals("Mesial")) {
+                                jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
+                            } else if (faceDente.equals("Oclusal")) {
+                                jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente8.jpg")));
+                            } else if (faceDente.equals("Distal")) {
+                                jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente11.jpg")));
+                            } else if (faceDente.equals("Vestibular")) {
+                                jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente7.jpg")));
+                            } else if (faceDente.equals("Incisal")) {
+                                jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente4.jpg")));
+                            } else if (faceDente.equals("Retirado")) {
+                                jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente10.jpg")));
+                            } else if (faceDente.equals("Todas")) {
+                                jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                            }
+                        } else if (procedimento.equals("EXTRACAO")) {
+                            jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente10.jpg")));
+                        } else if (procedimento.equals("TARTARECTOMIA")) {
+                            jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                        } else if (procedimento.equals("PROFILAXIA")) {
+                            jBt44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente16.jpg")));
+                        }
+                    } else if (nrDente.equals("43")) {
+
+                    } else if (nrDente.equals("42")) {
+
+                    } else if (nrDente.equals("41")) {
+
+                    } else if (nrDente.equals("28")) {
+
+                    } else if (nrDente.equals("27")) {
+
+                    } else if (nrDente.equals("26")) {
+
+                    } else if (nrDente.equals("25")) {
+
+                    } else if (nrDente.equals("24")) {
+
+                    } else if (nrDente.equals("23")) {
+
+                    } else if (nrDente.equals("22")) {
+
+                    } else if (nrDente.equals("21")) {
+
+                    } else if (nrDente.equals("38")) {
+
+                    } else if (nrDente.equals("37")) {
+
+                    } else if (nrDente.equals("36")) {
+
+                    } else if (nrDente.equals("35")) {
+
+                    } else if (nrDente.equals("34")) {
+
+                    } else if (nrDente.equals("33")) {
+
+                    } else if (nrDente.equals("32")) {
+
+                    } else if (nrDente.equals("31")) {
+
+                    }
+                } while (conecta.rs.next());
+            } catch (SQLException ex) {
+            }
+        }
     }
 
     public void Novo() {
@@ -7379,41 +7958,47 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         jComboBoxFacesDente.setEnabled(true);
         jPlanoTratamento.setEnabled(true);
         //
-        jBt11.setEnabled(true);
-        jBt12.setEnabled(true);
-        jBt13.setEnabled(true);
-        jBt14.setEnabled(true);
-        jBt15.setEnabled(true);
-        jBt16.setEnabled(true);
-        jBt17.setEnabled(true);
-        jBt18.setEnabled(true);
+//        jBt11.setEnabled(true);
+//        jBt12.setEnabled(true);
+//        jBt13.setEnabled(true);
+//        jBt14.setEnabled(true);
+//        jBt15.setEnabled(true);
+//        jBt16.setEnabled(true);
+//        jBt17.setEnabled(true);
+//        jBt18.setEnabled(true);
+//        //
+//        jBt21.setEnabled(true);
+//        jBt22.setEnabled(true);
+//        jBt23.setEnabled(true);
+//        jBt24.setEnabled(true);
+//        jBt25.setEnabled(true);
+//        jBt26.setEnabled(true);
+//        jBt27.setEnabled(true);
+//        jBt28.setEnabled(true);
+//        //
+//        jBt31.setEnabled(true);
+//        jBt32.setEnabled(true);
+//        jBt33.setEnabled(true);
+//        jBt34.setEnabled(true);
+//        jBt35.setEnabled(true);
+//        jBt36.setEnabled(true);
+//        jBt37.setEnabled(true);
+//        jBt38.setEnabled(true);
+//        //
+//        jBt41.setEnabled(true);
+//        jBt42.setEnabled(true);
+//        jBt43.setEnabled(true);
+//        jBt44.setEnabled(true);
+//        jBt45.setEnabled(true);
+//        jBt46.setEnabled(true);
+//        jBt47.setEnabled(true);
+//        jBt48.setEnabled(true);
         //
-        jBt21.setEnabled(true);
-        jBt22.setEnabled(true);
-        jBt23.setEnabled(true);
-        jBt24.setEnabled(true);
-        jBt25.setEnabled(true);
-        jBt26.setEnabled(true);
-        jBt27.setEnabled(true);
-        jBt28.setEnabled(true);
-        //
-        jBt31.setEnabled(true);
-        jBt32.setEnabled(true);
-        jBt33.setEnabled(true);
-        jBt34.setEnabled(true);
-        jBt35.setEnabled(true);
-        jBt36.setEnabled(true);
-        jBt37.setEnabled(true);
-        jBt38.setEnabled(true);
-        //
-        jBt41.setEnabled(true);
-        jBt42.setEnabled(true);
-        jBt43.setEnabled(true);
-        jBt44.setEnabled(true);
-        jBt45.setEnabled(true);
-        jBt46.setEnabled(true);
-        jBt47.setEnabled(true);
-        jBt48.setEnabled(true);
+        jRBFaceUm.setEnabled(true);
+        jRBFaceDois.setEnabled(true);
+        jRBFaceTres.setEnabled(true);
+        jRBFaceQuatro.setEnabled(true);
+        jRBFaceTodas.setEnabled(true);
         //
         jBtNovo.setEnabled(!true);
         jBtAlterar.setEnabled(!true);
@@ -7473,41 +8058,47 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         jComboBoxFacesDente.setEnabled(true);
         jPlanoTratamento.setEnabled(true);
         //
-        jBt11.setEnabled(true);
-        jBt12.setEnabled(true);
-        jBt13.setEnabled(true);
-        jBt14.setEnabled(true);
-        jBt15.setEnabled(true);
-        jBt16.setEnabled(true);
-        jBt17.setEnabled(true);
-        jBt18.setEnabled(true);
+//        jBt11.setEnabled(true);
+//        jBt12.setEnabled(true);
+//        jBt13.setEnabled(true);
+//        jBt14.setEnabled(true);
+//        jBt15.setEnabled(true);
+//        jBt16.setEnabled(true);
+//        jBt17.setEnabled(true);
+//        jBt18.setEnabled(true);
+//        //
+//        jBt21.setEnabled(true);
+//        jBt22.setEnabled(true);
+//        jBt23.setEnabled(true);
+//        jBt24.setEnabled(true);
+//        jBt25.setEnabled(true);
+//        jBt26.setEnabled(true);
+//        jBt27.setEnabled(true);
+//        jBt28.setEnabled(true);
+//        //
+//        jBt31.setEnabled(true);
+//        jBt32.setEnabled(true);
+//        jBt33.setEnabled(true);
+//        jBt34.setEnabled(true);
+//        jBt35.setEnabled(true);
+//        jBt36.setEnabled(true);
+//        jBt37.setEnabled(true);
+//        jBt38.setEnabled(true);
+//        //
+//        jBt41.setEnabled(true);
+//        jBt42.setEnabled(true);
+//        jBt43.setEnabled(true);
+//        jBt44.setEnabled(true);
+//        jBt45.setEnabled(true);
+//        jBt46.setEnabled(true);
+//        jBt47.setEnabled(true);
+//        jBt48.setEnabled(true);
         //
-        jBt21.setEnabled(true);
-        jBt22.setEnabled(true);
-        jBt23.setEnabled(true);
-        jBt24.setEnabled(true);
-        jBt25.setEnabled(true);
-        jBt26.setEnabled(true);
-        jBt27.setEnabled(true);
-        jBt28.setEnabled(true);
-        //
-        jBt31.setEnabled(true);
-        jBt32.setEnabled(true);
-        jBt33.setEnabled(true);
-        jBt34.setEnabled(true);
-        jBt35.setEnabled(true);
-        jBt36.setEnabled(true);
-        jBt37.setEnabled(true);
-        jBt38.setEnabled(true);
-        //
-        jBt41.setEnabled(true);
-        jBt42.setEnabled(true);
-        jBt43.setEnabled(true);
-        jBt44.setEnabled(true);
-        jBt45.setEnabled(true);
-        jBt46.setEnabled(true);
-        jBt47.setEnabled(true);
-        jBt48.setEnabled(true);
+        jRBFaceUm.setEnabled(true);
+        jRBFaceDois.setEnabled(true);
+        jRBFaceTres.setEnabled(true);
+        jRBFaceQuatro.setEnabled(true);
+        jRBFaceTodas.setEnabled(true);
         //
         jBtNovo.setEnabled(!true);
         jBtAlterar.setEnabled(!true);
@@ -7607,41 +8198,41 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         jQualOutraDoenca.setEnabled(!true);
         jTextoDoenca.setEnabled(!true);
         // ODONTOGRAMA
-        jBt11.setEnabled(!true);
-        jBt12.setEnabled(!true);
-        jBt13.setEnabled(!true);
-        jBt14.setEnabled(!true);
-        jBt15.setEnabled(!true);
-        jBt16.setEnabled(!true);
-        jBt17.setEnabled(!true);
-        jBt18.setEnabled(!true);
-        //
-        jBt21.setEnabled(!true);
-        jBt22.setEnabled(!true);
-        jBt23.setEnabled(!true);
-        jBt24.setEnabled(!true);
-        jBt25.setEnabled(!true);
-        jBt26.setEnabled(!true);
-        jBt27.setEnabled(!true);
-        jBt28.setEnabled(!true);
-        //
-        jBt31.setEnabled(!true);
-        jBt32.setEnabled(!true);
-        jBt33.setEnabled(!true);
-        jBt34.setEnabled(!true);
-        jBt35.setEnabled(!true);
-        jBt36.setEnabled(!true);
-        jBt37.setEnabled(!true);
-        jBt38.setEnabled(!true);
-        //
-        jBt41.setEnabled(!true);
-        jBt42.setEnabled(!true);
-        jBt43.setEnabled(!true);
-        jBt44.setEnabled(!true);
-        jBt45.setEnabled(!true);
-        jBt46.setEnabled(!true);
-        jBt47.setEnabled(!true);
-        jBt48.setEnabled(!true);
+//        jBt11.setEnabled(!true);
+//        jBt12.setEnabled(!true);
+//        jBt13.setEnabled(!true);
+//        jBt14.setEnabled(!true);
+//        jBt15.setEnabled(!true);
+//        jBt16.setEnabled(!true);
+//        jBt17.setEnabled(!true);
+//        jBt18.setEnabled(!true);
+//        //
+//        jBt21.setEnabled(!true);
+//        jBt22.setEnabled(!true);
+//        jBt23.setEnabled(!true);
+//        jBt24.setEnabled(!true);
+//        jBt25.setEnabled(!true);
+//        jBt26.setEnabled(!true);
+//        jBt27.setEnabled(!true);
+//        jBt28.setEnabled(!true);
+//        //
+//        jBt31.setEnabled(!true);
+//        jBt32.setEnabled(!true);
+//        jBt33.setEnabled(!true);
+//        jBt34.setEnabled(!true);
+//        jBt35.setEnabled(!true);
+//        jBt36.setEnabled(!true);
+//        jBt37.setEnabled(!true);
+//        jBt38.setEnabled(!true);
+//        //
+//        jBt41.setEnabled(!true);
+//        jBt42.setEnabled(!true);
+//        jBt43.setEnabled(!true);
+//        jBt44.setEnabled(!true);
+//        jBt45.setEnabled(!true);
+//        jBt46.setEnabled(!true);
+//        jBt47.setEnabled(!true);
+//        jBt48.setEnabled(!true);
         //
         jComboBoxTipoProcedimento.setEnabled(!true);
         jNumeroDente.setEnabled(!true);
@@ -7707,41 +8298,47 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         jComboBoxFacesDente.setEnabled(!true);
         jPlanoTratamento.setEnabled(!true);
         //
-        jBt11.setEnabled(!true);
-        jBt12.setEnabled(!true);
-        jBt13.setEnabled(!true);
-        jBt14.setEnabled(!true);
-        jBt15.setEnabled(!true);
-        jBt16.setEnabled(!true);
-        jBt17.setEnabled(!true);
-        jBt18.setEnabled(!true);
+//        jBt11.setEnabled(!true);
+//        jBt12.setEnabled(!true);
+//        jBt13.setEnabled(!true);
+//        jBt14.setEnabled(!true);
+//        jBt15.setEnabled(!true);
+//        jBt16.setEnabled(!true);
+//        jBt17.setEnabled(!true);
+//        jBt18.setEnabled(!true);
+//        //
+//        jBt21.setEnabled(!true);
+//        jBt22.setEnabled(!true);
+//        jBt23.setEnabled(!true);
+//        jBt24.setEnabled(!true);
+//        jBt25.setEnabled(!true);
+//        jBt26.setEnabled(!true);
+//        jBt27.setEnabled(!true);
+//        jBt28.setEnabled(!true);
+//        //
+//        jBt31.setEnabled(!true);
+//        jBt32.setEnabled(!true);
+//        jBt33.setEnabled(!true);
+//        jBt34.setEnabled(!true);
+//        jBt35.setEnabled(!true);
+//        jBt36.setEnabled(!true);
+//        jBt37.setEnabled(!true);
+//        jBt38.setEnabled(!true);
+//        //
+//        jBt41.setEnabled(!true);
+//        jBt42.setEnabled(!true);
+//        jBt43.setEnabled(!true);
+//        jBt44.setEnabled(!true);
+//        jBt45.setEnabled(!true);
+//        jBt46.setEnabled(!true);
+//        jBt47.setEnabled(!true);
+//        jBt48.setEnabled(!true);        
         //
-        jBt21.setEnabled(!true);
-        jBt22.setEnabled(!true);
-        jBt23.setEnabled(!true);
-        jBt24.setEnabled(!true);
-        jBt25.setEnabled(!true);
-        jBt26.setEnabled(!true);
-        jBt27.setEnabled(!true);
-        jBt28.setEnabled(!true);
-        //
-        jBt31.setEnabled(!true);
-        jBt32.setEnabled(!true);
-        jBt33.setEnabled(!true);
-        jBt34.setEnabled(!true);
-        jBt35.setEnabled(!true);
-        jBt36.setEnabled(!true);
-        jBt37.setEnabled(!true);
-        jBt38.setEnabled(!true);
-        //
-        jBt41.setEnabled(!true);
-        jBt42.setEnabled(!true);
-        jBt43.setEnabled(!true);
-        jBt44.setEnabled(!true);
-        jBt45.setEnabled(!true);
-        jBt46.setEnabled(!true);
-        jBt47.setEnabled(!true);
-        jBt48.setEnabled(!true);
+        jRBFaceUm.setEnabled(!true);
+        jRBFaceDois.setEnabled(!true);
+        jRBFaceTres.setEnabled(!true);
+        jRBFaceQuatro.setEnabled(!true);
+        jRBFaceTodas.setEnabled(!true);
         //
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(true);
@@ -7851,41 +8448,41 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
             jComboBoxFacesDente.setEnabled(!true);
             jPlanoTratamento.setEnabled(!true);
             //
-            jBt11.setEnabled(!true);
-            jBt12.setEnabled(!true);
-            jBt13.setEnabled(!true);
-            jBt14.setEnabled(!true);
-            jBt15.setEnabled(!true);
-            jBt16.setEnabled(!true);
-            jBt17.setEnabled(!true);
-            jBt18.setEnabled(!true);
-            //
-            jBt21.setEnabled(!true);
-            jBt22.setEnabled(!true);
-            jBt23.setEnabled(!true);
-            jBt24.setEnabled(!true);
-            jBt25.setEnabled(!true);
-            jBt26.setEnabled(!true);
-            jBt27.setEnabled(!true);
-            jBt28.setEnabled(!true);
-            //
-            jBt31.setEnabled(!true);
-            jBt32.setEnabled(!true);
-            jBt33.setEnabled(!true);
-            jBt34.setEnabled(!true);
-            jBt35.setEnabled(!true);
-            jBt36.setEnabled(!true);
-            jBt37.setEnabled(!true);
-            jBt38.setEnabled(!true);
-            //
-            jBt41.setEnabled(!true);
-            jBt42.setEnabled(!true);
-            jBt43.setEnabled(!true);
-            jBt44.setEnabled(!true);
-            jBt45.setEnabled(!true);
-            jBt46.setEnabled(!true);
-            jBt47.setEnabled(!true);
-            jBt48.setEnabled(!true);
+//            jBt11.setEnabled(!true);
+//            jBt12.setEnabled(!true);
+//            jBt13.setEnabled(!true);
+//            jBt14.setEnabled(!true);
+//            jBt15.setEnabled(!true);
+//            jBt16.setEnabled(!true);
+//            jBt17.setEnabled(!true);
+//            jBt18.setEnabled(!true);
+//            //
+//            jBt21.setEnabled(!true);
+//            jBt22.setEnabled(!true);
+//            jBt23.setEnabled(!true);
+//            jBt24.setEnabled(!true);
+//            jBt25.setEnabled(!true);
+//            jBt26.setEnabled(!true);
+//            jBt27.setEnabled(!true);
+//            jBt28.setEnabled(!true);
+//            //
+//            jBt31.setEnabled(!true);
+//            jBt32.setEnabled(!true);
+//            jBt33.setEnabled(!true);
+//            jBt34.setEnabled(!true);
+//            jBt35.setEnabled(!true);
+//            jBt36.setEnabled(!true);
+//            jBt37.setEnabled(!true);
+//            jBt38.setEnabled(!true);
+//            //
+//            jBt41.setEnabled(!true);
+//            jBt42.setEnabled(!true);
+//            jBt43.setEnabled(!true);
+//            jBt44.setEnabled(!true);
+//            jBt45.setEnabled(!true);
+//            jBt46.setEnabled(!true);
+//            jBt47.setEnabled(!true);
+//            jBt48.setEnabled(!true);
             //
             jBtNovo.setEnabled(true);
             jBtAlterar.setEnabled(!true);
@@ -7944,41 +8541,41 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
             jComboBoxFacesDente.setEnabled(!true);
             jPlanoTratamento.setEnabled(!true);
             //
-            jBt11.setEnabled(!true);
-            jBt12.setEnabled(!true);
-            jBt13.setEnabled(!true);
-            jBt14.setEnabled(!true);
-            jBt15.setEnabled(!true);
-            jBt16.setEnabled(!true);
-            jBt17.setEnabled(!true);
-            jBt18.setEnabled(!true);
-            //
-            jBt21.setEnabled(!true);
-            jBt22.setEnabled(!true);
-            jBt23.setEnabled(!true);
-            jBt24.setEnabled(!true);
-            jBt25.setEnabled(!true);
-            jBt26.setEnabled(!true);
-            jBt27.setEnabled(!true);
-            jBt28.setEnabled(!true);
-            //
-            jBt31.setEnabled(!true);
-            jBt32.setEnabled(!true);
-            jBt33.setEnabled(!true);
-            jBt34.setEnabled(!true);
-            jBt35.setEnabled(!true);
-            jBt36.setEnabled(!true);
-            jBt37.setEnabled(!true);
-            jBt38.setEnabled(!true);
-            //
-            jBt41.setEnabled(!true);
-            jBt42.setEnabled(!true);
-            jBt43.setEnabled(!true);
-            jBt44.setEnabled(!true);
-            jBt45.setEnabled(!true);
-            jBt46.setEnabled(!true);
-            jBt47.setEnabled(!true);
-            jBt48.setEnabled(!true);
+//            jBt11.setEnabled(!true);
+//            jBt12.setEnabled(!true);
+//            jBt13.setEnabled(!true);
+//            jBt14.setEnabled(!true);
+//            jBt15.setEnabled(!true);
+//            jBt16.setEnabled(!true);
+//            jBt17.setEnabled(!true);
+//            jBt18.setEnabled(!true);
+//            //
+//            jBt21.setEnabled(!true);
+//            jBt22.setEnabled(!true);
+//            jBt23.setEnabled(!true);
+//            jBt24.setEnabled(!true);
+//            jBt25.setEnabled(!true);
+//            jBt26.setEnabled(!true);
+//            jBt27.setEnabled(!true);
+//            jBt28.setEnabled(!true);
+//            //
+//            jBt31.setEnabled(!true);
+//            jBt32.setEnabled(!true);
+//            jBt33.setEnabled(!true);
+//            jBt34.setEnabled(!true);
+//            jBt35.setEnabled(!true);
+//            jBt36.setEnabled(!true);
+//            jBt37.setEnabled(!true);
+//            jBt38.setEnabled(!true);
+//            //
+//            jBt41.setEnabled(!true);
+//            jBt42.setEnabled(!true);
+//            jBt43.setEnabled(!true);
+//            jBt44.setEnabled(!true);
+//            jBt45.setEnabled(!true);
+//            jBt46.setEnabled(!true);
+//            jBt47.setEnabled(!true);
+//            jBt48.setEnabled(!true);
             //
             jBtNovo.setEnabled(true);
             jBtAlterar.setEnabled(true);
@@ -8000,7 +8597,8 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
         codigoProcedimento = "";
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM PROCEDIMENTOS_ODONTOLOGICO ORDER BY DescricaoProcedimento");
+            conecta.executaSQL("SELECT * FROM PROCEDIMENTOS_ODONTOLOGICO "
+                    + "ORDER BY DescricaoProcedimento");
             conecta.rs.first();
             do {
                 jComboBoxTipoProcedimento.addItem(conecta.rs.getString("DescricaoProcedimento"));
@@ -8635,7 +9233,8 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
     public void verificarPrescricaoMedica() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM REQUISICAO_PRODUTOS_INTERNOS_ENF WHERE IdItem='" + jIdPrescricao.getText() + "'");
+            conecta.executaSQL("SELECT * FROM REQUISICAO_PRODUTOS_INTERNOS_ENF "
+                    + "WHERE IdItem='" + jIdPrescricao.getText() + "'");
             conecta.rs.last();
             idItemPresq = conecta.rs.getString("IdItem");
             conecta.desconecta();
