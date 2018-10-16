@@ -13,6 +13,7 @@ import gestor.Modelo.ProdutoInternosKitLote;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.codigoPesquisaKit;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jIdRegistroComp;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jTabelaProdutosKitCompleto;
 import java.awt.Rectangle;
@@ -198,9 +199,10 @@ public class TelaGravarProdutosKitCompleto extends javax.swing.JDialog {
                         objProdKit.setHorarioInsert(horaMov);
                         //
                         objProdKit.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));// TABELA PRINCIPAL (COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE)                                                        
+                        objProdKit.setIdKit(codigoPesquisaKit);
                         objProdKit.setIdProd((int) jTabelaProdutosKitCompleto.getValueAt(i, 0));
                         objProdKit.setDescricaoProduto((String) jTabelaProdutosKitCompleto.getValueAt(i, 1));
-                        objProdKit.setQuantidadeProd((float)jTabelaProdutosKitCompleto.getValueAt(i, 2));
+                        objProdKit.setQuantidadeProd((int)jTabelaProdutosKitCompleto.getValueAt(i, 3));
                         objProdKit.setGravado(pGravado);
                         objProdKit.setTipoKitCI(tipoKit);
                         // VERIFICAR SE O INTERNO JÁ SE ENCONTRA GRAVADO NA TABELA PARA PARA O MESMO REGISTRO

@@ -135,6 +135,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public static int qtdInternos = 0;
     public static int qtdInternosSelec = 0;
     public static int qtdInternosKitComp = 0;
+    public static int qtdProdutosKitComo = 0;
     int idRegPavInt = 0;
     //
     int codProd = 0;

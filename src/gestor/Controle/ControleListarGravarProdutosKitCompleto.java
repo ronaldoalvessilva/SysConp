@@ -85,11 +85,11 @@ public class ControleListarGravarProdutosKitCompleto {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE SET Utili=? WHERE IdRegistroComp='" + objProdKit.getIdRegistroComp() + "' AND IdProd='" + objProdKit.getIdProd() + "'AND TipoKitCI='" + objProdKit.getTipoKitCI() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE SET Utili=? WHERE IdRegistroComp='" + objProdKit.getIdRegistroComp() + "' AND IdProd='" + objProdKit.getIdProd() + "'");
             pst.setString(1, objProdKit.getpUtili());
             pst.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR produto.\nERRO: " + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR produto.(ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE)\nERRO: " + ex);
         }
         conecta.desconecta();
         return objProdKit;
