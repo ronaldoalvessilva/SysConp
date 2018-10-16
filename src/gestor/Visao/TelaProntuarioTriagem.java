@@ -4387,6 +4387,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     private void jBtImpressaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImpressaoActionPerformed
         // TODO add your handling code here:
+         buscarAcessoUsuario(telaCadastroProntuarioPrintTRI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES") || codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioPrintTRI) && codAbrirTRI == 1) {
             if (jIdInterno.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Não é possível listar o relatório, pois, o interno não código.");
@@ -4449,6 +4450,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     private void jBtObservacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtObservacaoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaCadastroProntuarioObsTRI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES") || codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioObsTRI) && codAbrirTRI == 1) {
             TelaObservacoesInternos objObsInt = new TelaObservacoesInternos();
             TelaModuloCRC.jPainelCRC.add(objObsInt);
@@ -4460,6 +4462,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     private void jBtBuscarRegPortariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtBuscarRegPortariaActionPerformed
         // TODO add your handling code here:    
+        buscarAcessoUsuario(telaCadastroProntuarioBuscarEntTRI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES") || codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioBuscarEntTRI) && codAbrirTRI == 1) {
             TelaPesqEntradaIntPortariaTriagem objPesqRegInternos = new TelaPesqEntradaIntPortariaTriagem();
             TelaModuloTriagem.jPainelTriagem.add(objPesqRegInternos);
@@ -4858,6 +4861,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     private void jBtImpressao1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImpressao1ActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaCadastroProntuarioPrintTRI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES") || codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioPrintTRI) && codAbrirTRI == 1) {
             if (jIdInterno.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Não é possível listar o relatório, pois, o interno não código.");
@@ -4907,6 +4911,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     private void jBtObservacao1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtObservacao1ActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaCadastroProntuarioObsTRI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES") || codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioObsTRI) && codAbrirTRI == 1) {
             TelaObservacoesInternos objObsInt = new TelaObservacoesInternos();
             TelaModuloCRC.jPainelCRC.add(objObsInt);
@@ -4918,6 +4923,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     private void jBtBuscarRegPortaria1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtBuscarRegPortaria1ActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaCadastroProntuarioBuscarEntTRI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES") || codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioBuscarEntTRI) && codAbrirTRI == 1) {
             TelaPesqEntradaIntPortariaTriagem objPesqRegInternos = new TelaPesqEntradaIntPortariaTriagem();
             TelaModuloTriagem.jPainelTriagem.add(objPesqRegInternos);
@@ -4929,6 +4935,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     private void jBtPeculiaridadeFrenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPeculiaridadeFrenteActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaCadastroProntuarioPecFreTRI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES") || codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioPecFreTRI) && codAbrirTRI == 1) {
             mostrarTelaPeculiaridadeFrenteTriagem();
         } else {
@@ -4938,6 +4945,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     private void jBtPeculiaridadeCostasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPeculiaridadeCostasActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaCadastroProntuarioPecCosTRI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES") || codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioPecCosTRI) && codAbrirTRI == 1) {
             mostrarTelaPeculiaridadeCostasTriagem();
         } else {
@@ -4947,6 +4955,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     private void jBtBiometriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtBiometriaActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaCadastroProntuarioBioTRI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES") || codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioBioTRI) && codAbrirTRI == 1) {
             mostrarTelaBiometriaInterno();
         } else {
@@ -5145,6 +5154,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
 
     private void jBtImportarProntuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImportarProntuarioActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaCadastroProntuarioImportTRI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES") || codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroProntuarioImportTRI) && codAbrirTRI == 1) {
             mostrarTelaPesquisaExterna();
         } else {
