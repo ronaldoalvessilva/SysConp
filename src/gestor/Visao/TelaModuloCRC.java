@@ -184,6 +184,9 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
     // MENU CADASTRO
     String pNomeCGIE = "";
+    //
+    String dataInicial;
+    String dataFinal;
 
     /**
      * Creates new form TelaCRC
@@ -307,6 +310,8 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         RelatorioSaidaInternosPortaria = new javax.swing.JMenuItem();
         jSeparator23 = new javax.swing.JPopupMenu.Separator();
         RelatorioHorarioEntradaSaida = new javax.swing.JMenuItem();
+        RelatorioMovAdvogadosInternos = new javax.swing.JMenuItem();
+        RelatorioMovVisitasInternos = new javax.swing.JMenuItem();
         jSeparator18 = new javax.swing.JPopupMenu.Separator();
         jRelatorioEvadidos = new javax.swing.JMenuItem();
         jSeparator11 = new javax.swing.JPopupMenu.Separator();
@@ -929,6 +934,24 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         jMenu4.add(RelatorioHorarioEntradaSaida);
 
         jMenuRelatorios.add(jMenu4);
+
+        RelatorioMovAdvogadosInternos.setForeground(new java.awt.Color(204, 0, 0));
+        RelatorioMovAdvogadosInternos.setText("Relatório de Movimentação de Advogados aos Internos");
+        RelatorioMovAdvogadosInternos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RelatorioMovAdvogadosInternosActionPerformed(evt);
+            }
+        });
+        jMenuRelatorios.add(RelatorioMovAdvogadosInternos);
+
+        RelatorioMovVisitasInternos.setForeground(new java.awt.Color(0, 0, 204));
+        RelatorioMovVisitasInternos.setText("Relatório de Movimentação das Visitas Internos");
+        RelatorioMovVisitasInternos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RelatorioMovVisitasInternosActionPerformed(evt);
+            }
+        });
+        jMenuRelatorios.add(RelatorioMovVisitasInternos);
         jMenuRelatorios.add(jSeparator18);
 
         jRelatorioEvadidos.setText("Listagem de Internos Evadidos");
@@ -2675,6 +2698,44 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jConsultaGeralInternosExternaActionPerformed
 
+    private void RelatorioMovAdvogadosInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatorioMovAdvogadosInternosActionPerformed
+        // TODO add your handling code here:
+        TelaRelMovimentacaoAdvogadosInterno objRelMovAdv = new TelaRelMovimentacaoAdvogadosInterno();
+        TelaModuloCRC.jPainelCRC.add(objRelMovAdv);
+        objRelMovAdv.show();
+    }//GEN-LAST:event_RelatorioMovAdvogadosInternosActionPerformed
+
+    private void RelatorioMovVisitasInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatorioMovVisitasInternosActionPerformed
+        // TODO add your handling code here:
+        try {
+            conecta.abrirConexao();
+            String path = "reports/RolVisitasMasEndereco.jasper";
+            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                    + "INNER JOIN ROLVISITAS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=ROLVISITAS.IdInternoCrc "
+                    + "INNER JOIN ITENSROL "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSROL.IdInternoCrc "
+                    + "INNER JOIN VISITASINTERNO "
+                    + "ON ITENSROL.IdVisita=VISITASINTERNO.IdVisita "
+                    + "WHERE PRONTUARIOSCRC.SituacaoCrc LIKE '" + situacaoEnt + "' "
+                    + "OR PRONTUARIOSCRC.SituacaoCrc LIKE '" + situacaoRet + "' "
+                    + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
+            HashMap parametros = new HashMap();
+            parametros.put("descricaoUnidade", descricaoUnidade);
+            parametros.put("nomeUsuario", nameUser);
+            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao
+            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+            jv.setTitle("Relatório de Visitas aos Internos");
+            jv.setVisible(true); // Chama o relatorio para ser visualizado             
+            jv.toFront(); // Traz o relatorio para frente da aplicação            
+            conecta.desconecta();
+        } catch (JRException e) {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+        }
+    }//GEN-LAST:event_RelatorioMovVisitasInternosActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromisso;
@@ -2708,6 +2769,8 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem RelatorioEstadoCivil;
     private javax.swing.JMenuItem RelatorioHorarioEntradaSaida;
     private javax.swing.JMenu RelatorioInternos;
+    private javax.swing.JMenuItem RelatorioMovAdvogadosInternos;
+    private javax.swing.JMenuItem RelatorioMovVisitasInternos;
     private javax.swing.JMenu RelatorioMudancaRegime;
     private javax.swing.JMenuItem RelatorioNaturalidade;
     private javax.swing.JMenuItem RelatorioPopulacaoInternosNominal;
