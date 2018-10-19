@@ -1533,37 +1533,37 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
                 kitSemestral = conecta.rs.getInt("KitSemestral");
                 if (kitInicial == 1) {
                     jCheckBoxKitInicial.setSelected(true);
-                    jFotoKit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Full_Shopping_cart_Icon_128.png")));
+                   // jFotoKit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SysConp/Fotos/Full_Shopping_cart_Icon_128.png")));
                 } else if (kitInicial == 0) {
                     jCheckBoxKitInicial.setSelected(!true);
                 }
                 if (kitAnual == 1) {
                     jCheckBoxKitAnual.setSelected(true);
-                    jFotoKit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Full_Shopping_cart_Icon_128.png")));
+                   // jFotoKit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SysConp/Fotos/Full_Shopping_cart_Icon_128.png")));
                 } else if (kitAnual == 0) {
                     jCheckBoxKitAnual.setSelected(!true);
                 }
                 if (kitDecendial == 1) {
                     jCheckBoxDecendial.setSelected(true);
-                    jFotoKit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Full_Shopping_cart_Icon_128.png")));
+                   // jFotoKit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SysConp/Fotos/Full_Shopping_cart_Icon_128.png")));
                 } else if (kitDecendial == 0) {
                     jCheckBoxDecendial.setSelected(!true);
                 }
                 if (kitQuinzenal == 1) {
                     jCheckBoxKitQuinzenal.setSelected(true);
-                    jFotoKit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Full_Shopping_cart_Icon_128.png")));
+                  //  jFotoKit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SysConp/Fotos/Full_Shopping_cart_Icon_128.png")));
                 } else if (kitQuinzenal == 0) {
                     jCheckBoxKitQuinzenal.setSelected(!true);
                 }
                 if (kitMensal == 1) {
                     jCheckBoxMensal.setSelected(true);
-                    jFotoKit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Full_Shopping_cart_Icon_128.png")));
+                   // jFotoKit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SysConp/Fotos/Full_Shopping_cart_Icon_128.png")));
                 } else if (kitMensal == 0) {
                     jCheckBoxMensal.setSelected(!true);
                 }
                 if (kitSemestral == 1) {
                     jCheckBoxSemestral.setSelected(true);
-                    jFotoKit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Full_Shopping_cart_Icon_128.png")));
+                  //  jFotoKit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SysConp/Fotos/Full_Shopping_cart_Icon_128.png")));
                 } else if (kitSemestral == 0) {
                     jCheckBoxSemestral.setSelected(!true);
                 }
