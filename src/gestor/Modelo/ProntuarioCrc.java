@@ -56,11 +56,23 @@ public class ProntuarioCrc {
     private String confirmaEntrada;     
     private String cnc;   
     private byte[] imagemInterno;
+    private String kitInicial;
+    private String kitDecendial;
+    private String kitQuinzenal;
+    private String kitMensal;
+    private String kitSemestral;
+    private String kitAnual;
+    private String kitIPago;
+    private String kitDPago;
+    private String kitQPago;
+    private String kitMPago;
+    private String kitSPago;
+    private String kitAPago;
 
     public ProntuarioCrc() {
     }
 
-    public ProntuarioCrc(int IdInterno, String Matricula, Date DataCadast, Date DataNasci, String FotoInterno, String FotoPerfil, String FotoCorpo1, String FotoCorpo2, String FotoCorpo3, String NomeInterno, String MaeInterno, String PaiInterno, String Alcunha, String RgInterno, String CpfInterno, String cartoaSus, String Escolaridade, String EstadoCivil, String Sexo, String situacao, String nomePais, String nomeCidade, String Religiao, String Profissao, String Endereco, String Bairro, String Cidade, String Estado, String telefone, String telefone1, String celular, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento, String confirmaEntrada, String cnc, byte[] imagemInterno) {
+    public ProntuarioCrc(int IdInterno, String Matricula, Date DataCadast, Date DataNasci, String FotoInterno, String FotoPerfil, String FotoCorpo1, String FotoCorpo2, String FotoCorpo3, String NomeInterno, String MaeInterno, String PaiInterno, String Alcunha, String RgInterno, String CpfInterno, String cartoaSus, String Escolaridade, String EstadoCivil, String Sexo, String situacao, String nomePais, String nomeCidade, String Religiao, String Profissao, String Endereco, String Bairro, String Cidade, String Estado, String telefone, String telefone1, String celular, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento, String confirmaEntrada, String cnc, byte[] imagemInterno, String kitInicial, String kitDecendial, String kitQuinzenal, String kitMensal, String kitSemestral, String kitAnual, String kitIPago, String kitDPago, String kitQPago, String kitMPago, String kitSPago, String kitAPago) {
         this.IdInterno = IdInterno;
         this.Matricula = Matricula;
         this.DataCadast = DataCadast;
@@ -103,6 +115,18 @@ public class ProntuarioCrc {
         this.confirmaEntrada = confirmaEntrada;
         this.cnc = cnc;
         this.imagemInterno = imagemInterno;
+        this.kitInicial = kitInicial;
+        this.kitDecendial = kitDecendial;
+        this.kitQuinzenal = kitQuinzenal;
+        this.kitMensal = kitMensal;
+        this.kitSemestral = kitSemestral;
+        this.kitAnual = kitAnual;
+        this.kitIPago = kitIPago;
+        this.kitDPago = kitDPago;
+        this.kitQPago = kitQPago;
+        this.kitMPago = kitMPago;
+        this.kitSPago = kitSPago;
+        this.kitAPago = kitAPago;
     }
 
     /**
@@ -692,5 +716,173 @@ public class ProntuarioCrc {
     public void setImagemInterno(byte[] imagemInterno) {
         this.imagemInterno = imagemInterno;
     }
-    
+
+    /**
+     * @return the kitInicial
+     */
+    public String getKitInicial() {
+        return kitInicial;
+    }
+
+    /**
+     * @param kitInicial the kitInicial to set
+     */
+    public void setKitInicial(String kitInicial) {
+        this.kitInicial = kitInicial;
+    }
+
+    /**
+     * @return the kitDecendial
+     */
+    public String getKitDecendial() {
+        return kitDecendial;
+    }
+
+    /**
+     * @param kitDecendial the kitDecendial to set
+     */
+    public void setKitDecendial(String kitDecendial) {
+        this.kitDecendial = kitDecendial;
+    }
+
+    /**
+     * @return the kitQuinzenal
+     */
+    public String getKitQuinzenal() {
+        return kitQuinzenal;
+    }
+
+    /**
+     * @param kitQuinzenal the kitQuinzenal to set
+     */
+    public void setKitQuinzenal(String kitQuinzenal) {
+        this.kitQuinzenal = kitQuinzenal;
+    }
+
+    /**
+     * @return the kitMensal
+     */
+    public String getKitMensal() {
+        return kitMensal;
+    }
+
+    /**
+     * @param kitMensal the kitMensal to set
+     */
+    public void setKitMensal(String kitMensal) {
+        this.kitMensal = kitMensal;
+    }
+
+    /**
+     * @return the kitSemestral
+     */
+    public String getKitSemestral() {
+        return kitSemestral;
+    }
+
+    /**
+     * @param kitSemestral the kitSemestral to set
+     */
+    public void setKitSemestral(String kitSemestral) {
+        this.kitSemestral = kitSemestral;
+    }
+
+    /**
+     * @return the kitAnual
+     */
+    public String getKitAnual() {
+        return kitAnual;
+    }
+
+    /**
+     * @param kitAnual the kitAnual to set
+     */
+    public void setKitAnual(String kitAnual) {
+        this.kitAnual = kitAnual;
+    }
+
+    /**
+     * @return the kitIPago
+     */
+    public String getKitIPago() {
+        return kitIPago;
+    }
+
+    /**
+     * @param kitIPago the kitIPago to set
+     */
+    public void setKitIPago(String kitIPago) {
+        this.kitIPago = kitIPago;
+    }
+
+    /**
+     * @return the kitDPago
+     */
+    public String getKitDPago() {
+        return kitDPago;
+    }
+
+    /**
+     * @param kitDPago the kitDPago to set
+     */
+    public void setKitDPago(String kitDPago) {
+        this.kitDPago = kitDPago;
+    }
+
+    /**
+     * @return the kitQPago
+     */
+    public String getKitQPago() {
+        return kitQPago;
+    }
+
+    /**
+     * @param kitQPago the kitQPago to set
+     */
+    public void setKitQPago(String kitQPago) {
+        this.kitQPago = kitQPago;
+    }
+
+    /**
+     * @return the kitMPago
+     */
+    public String getKitMPago() {
+        return kitMPago;
+    }
+
+    /**
+     * @param kitMPago the kitMPago to set
+     */
+    public void setKitMPago(String kitMPago) {
+        this.kitMPago = kitMPago;
+    }
+
+    /**
+     * @return the kitSPago
+     */
+    public String getKitSPago() {
+        return kitSPago;
+    }
+
+    /**
+     * @param kitSPago the kitSPago to set
+     */
+    public void setKitSPago(String kitSPago) {
+        this.kitSPago = kitSPago;
+    }
+
+    /**
+     * @return the kitAPago
+     */
+    public String getKitAPago() {
+        return kitAPago;
+    }
+
+    /**
+     * @param kitAPago the kitAPago to set
+     */
+    public void setKitAPago(String kitAPago) {
+        this.kitAPago = kitAPago;
+    }
+
 }
