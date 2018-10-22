@@ -120,6 +120,8 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
     // AFIRMAÇÃO DE QUE O INTERNO NÃO FOI AINDA UTILIZADO NA PRÉ-LOCAÇÃO DA TRIAGEM.
     String confirmaPreLocacao = "Não";
     String origemTriagem = "";
+    //
+    String pagtoKit = "Não";
 
     /**
      * Creates new form TelaEntradaLote
@@ -1599,7 +1601,23 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
                     jDataEntrada.setDate(null);
                     objDadosPena.setDataNovaEntrada(jDataEntrada.getDate());
                     objDadosPena.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
-                    controleNovaData.incluirDataNovaEntrada(objDadosPena);
+                    controleNovaData.incluirDataNovaEntrada(objDadosPena);                    
+                    // INFORMAR OPÇÕES DO KIT DE HIGIENE
+                    pagtoKit = null;
+                    objProCrc.setIdInterno(Integer.valueOf(jIDInterno.getText()));
+                    objProCrc.setKitInicial(pagtoKit);
+                    objProCrc.setKitIPago(pagtoKit);
+                    objProCrc.setKitDecendial(pagtoKit);
+                    objProCrc.setKitDPago(pagtoKit);
+                    objProCrc.setKitQuinzenal(pagtoKit);
+                    objProCrc.setKitQPago(pagtoKit);
+                    objProCrc.setKitMensal(pagtoKit);
+                    objProCrc.setKitMPago(pagtoKit);
+                    objProCrc.setKitSemestral(pagtoKit);
+                    objProCrc.setKitSPago(pagtoKit);
+                    objProCrc.setKitAnual(pagtoKit);
+                    objProCrc.setKitAPago(pagtoKit);
+                    controle.informarkitHigiene(objProCrc);
                     //
                     objLog2();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -1676,6 +1694,22 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
                                             controle.incluirItensEntLote(objItens);
                                             //
                                             buscarIdItem();
+                                            // INFORMAR OPÇÕES DO KIT DE HIGIENE
+                                            pagtoKit = "Não";
+                                            objProCrc.setIdInterno(Integer.valueOf(jIDInterno.getText()));
+                                            objProCrc.setKitInicial(pagtoKit);
+                                            objProCrc.setKitIPago(pagtoKit);
+                                            objProCrc.setKitDecendial(pagtoKit);
+                                            objProCrc.setKitDPago(pagtoKit);
+                                            objProCrc.setKitQuinzenal(pagtoKit);
+                                            objProCrc.setKitQPago(pagtoKit);
+                                            objProCrc.setKitMensal(pagtoKit);
+                                            objProCrc.setKitMPago(pagtoKit);
+                                            objProCrc.setKitSemestral(pagtoKit);
+                                            objProCrc.setKitSPago(pagtoKit);
+                                            objProCrc.setKitAnual(pagtoKit);
+                                            objProCrc.setKitAPago(pagtoKit);
+                                            controle.informarkitHigiene(objProCrc);
                                             // MODIFICAR A SITUAÇÃO DO INTERNO NA TABELA PRONTUARIOSCRC
                                             objProCrc.setIdInterno(Integer.valueOf(jIDInterno.getText()));
                                             objProCrc.setSituacao(situacao);
