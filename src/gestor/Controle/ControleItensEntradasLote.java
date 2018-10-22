@@ -117,8 +117,33 @@ public class ControleItensEntradasLote {
         return objItens;
 
     }
+    // PARA INDICAR SOBRE O KIT
+     public ProntuarioCrc informarkitHigiene(ProntuarioCrc objProCrc) {
+        
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE PRONTUARIOSCRC SET KitInicial=?,KitIPago=?,KitDecendial=?,KitDPago=?,KitQuinzenal=?,KitQPago=?,KitMensal=?,KitMPago=?,KitSemestral=?,KitSPago=?,KitAnual=?,KitAPago=? WHERE IdInternoCrc='" + objProCrc.getIdInterno()+ "'");            
+            pst.setString(1, objProCrc.getKitInicial());
+            pst.setString(2, objProCrc.getKitIPago());
+            pst.setString(3, objProCrc.getKitDecendial());
+            pst.setString(4, objProCrc.getKitDPago());
+            pst.setString(5, objProCrc.getKitQuinzenal());
+            pst.setString(6, objProCrc.getKitQPago());
+            pst.setString(7, objProCrc.getKitMensal());
+            pst.setString(8, objProCrc.getKitMPago());
+            pst.setString(9, objProCrc.getKitSemestral());
+            pst.setString(10, objProCrc.getKitSPago());
+            pst.setString(11, objProCrc.getKitAnual());
+            pst.setString(12, objProCrc.getKitAPago());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados do INTERNO.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objProCrc;
+    }
+    
 // Buscar UNIDADE PENAL
-
     public void buscarUnidade(String nome) {
         conecta.abrirConexao();
         try {
