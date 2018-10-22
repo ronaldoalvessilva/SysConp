@@ -107,7 +107,7 @@ public class ControleSelecaoKitsCompleto {
             }
             return listaInternosKitComp;
         } catch (SQLException ex) {
-            Logger.getLogger(ControlePavilhaoInternosMontaKit.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControlePavilhaoInternosMontaKitInicial.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             conecta.desconecta();
         }

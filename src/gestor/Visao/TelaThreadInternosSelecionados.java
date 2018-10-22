@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Controle.ControleLogSistema;
-import gestor.Controle.ControlePavilhaoInternosMontaKit;
+import gestor.Controle.ControlePavilhaoInternosMontaKitInicial;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.PavilhaoInternosMontagemKit;
@@ -29,7 +29,7 @@ public class TelaThreadInternosSelecionados extends javax.swing.JDialog {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     PavilhaoInternosMontagemKit objPavInt = new PavilhaoInternosMontagemKit();
-    ControlePavilhaoInternosMontaKit controle = new ControlePavilhaoInternosMontaKit();
+    ControlePavilhaoInternosMontaKitInicial controle = new ControlePavilhaoInternosMontaKitInicial();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
