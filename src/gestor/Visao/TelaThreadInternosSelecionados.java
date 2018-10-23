@@ -5,11 +5,13 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleAtualizaInternoKits;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControlePavilhaoInternosMontaKitInicial;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.PavilhaoInternosMontagemKit;
+import gestor.Modelo.ProntuarioCrc;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
@@ -17,6 +19,7 @@ import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jComboBoxPavilhoes;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jIdRegistroComp;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jTabelaInternosSelecionados;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.pTipoKitCI;
 import java.awt.Rectangle;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -31,6 +34,9 @@ public class TelaThreadInternosSelecionados extends javax.swing.JDialog {
     PavilhaoInternosMontagemKit objPavInt = new PavilhaoInternosMontagemKit();
     ControlePavilhaoInternosMontaKitInicial controle = new ControlePavilhaoInternosMontaKitInicial();
     //
+    ControleAtualizaInternoKits controleKits = new ControleAtualizaInternoKits();
+    ProntuarioCrc objProCrc = new ProntuarioCrc();
+    //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log   
@@ -42,6 +48,7 @@ public class TelaThreadInternosSelecionados extends javax.swing.JDialog {
     String horaMov = "";
     String dataModFinal = "";
     String pUtili = "Não";
+    String opcaoKit = "Sim";
 
     /**
      * Creates new form TelaThreadInternosSelecionados
@@ -52,7 +59,7 @@ public class TelaThreadInternosSelecionados extends javax.swing.JDialog {
         this.threadIntSelect = parent;
         this.setModal(modal);
         setLocationRelativeTo(threadIntSelect);
-        initComponents();       
+        initComponents();
         setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE); //Impedir que a janela seja fechada pelo X  
     }
 
@@ -201,6 +208,31 @@ public class TelaThreadInternosSelecionados extends javax.swing.JDialog {
                                 objPavInt.setIdInternoCrc((int) jTabelaInternosSelecionados.getValueAt(i, 0));
                                 objPavInt.setNomeInternoCrc((String) jTabelaInternosSelecionados.getValueAt(i, 2));
                                 controle.incluirPavilhaoInternos(objPavInt);
+                                if (pTipoKitCI == 1) {
+                                    objProCrc.setKitInicial(opcaoKit);
+                                    objProCrc.setIdInterno((int) jTabelaInternosSelecionados.getValueAt(i, 0));
+                                    controleKits.atualizarInternoKitInicial(objProCrc);
+                                } else if (pTipoKitCI == 2) {
+                                    objProCrc.setKitDecendial(opcaoKit);
+                                    objProCrc.setIdInterno((int) jTabelaInternosSelecionados.getValueAt(i, 0));
+                                    controleKits.atualizarInternoKitDecendial(objProCrc);
+                                } else if (pTipoKitCI == 3) {
+                                    objProCrc.setKitQuinzenal(opcaoKit);
+                                    objProCrc.setIdInterno((int) jTabelaInternosSelecionados.getValueAt(i, 0));
+                                    controleKits.atualizarInternoKitQuinzenal(objProCrc);
+                                } else if (pTipoKitCI == 4) {
+                                    objProCrc.setKitMensal(opcaoKit);
+                                    objProCrc.setIdInterno((int) jTabelaInternosSelecionados.getValueAt(i, 0));
+                                    controleKits.atualizarInternoKitMensal(objProCrc);
+                                } else if (pTipoKitCI == 5) {
+                                    objProCrc.setKitSemestral(opcaoKit);
+                                    objProCrc.setIdInterno((int) jTabelaInternosSelecionados.getValueAt(i, 0));
+                                    controleKits.atualizarInternoKitSemestral(objProCrc);
+                                } else if (pTipoKitCI == 6) {
+                                    objProCrc.setKitAnual(opcaoKit);
+                                    objProCrc.setIdInterno((int) jTabelaInternosSelecionados.getValueAt(i, 0));
+                                    controleKits.atualizarInternoKitAnual(objProCrc);
+                                }
                                 buscarCodigoRegistroPavilhaoInterno();
                                 objLog2();
                                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                                 
@@ -209,7 +241,7 @@ public class TelaThreadInternosSelecionados extends javax.swing.JDialog {
                                 Thread.sleep(10);
                             } catch (InterruptedException ex) {
                             }
-                        }                        
+                        }
                     };
                     t0.start();
                 } catch (Exception e) {
@@ -235,7 +267,7 @@ public class TelaThreadInternosSelecionados extends javax.swing.JDialog {
                             }
                             jProgressBar1.setValue(0);
                             JOptionPane.showMessageDialog(rootPane, "Operação Concluída com sucesso...");
-                            jBtSair.setEnabled(true);                            
+                            jBtSair.setEnabled(true);
                             try {
                             } catch (Exception e) {
                             }
@@ -246,7 +278,7 @@ public class TelaThreadInternosSelecionados extends javax.swing.JDialog {
                 }
             }
         } else {
-              JOptionPane.showMessageDialog(rootPane, "Operação Cancelada...");
+            JOptionPane.showMessageDialog(rootPane, "Operação Cancelada...");
         }
     }//GEN-LAST:event_jBtConfirmarActionPerformed
 
