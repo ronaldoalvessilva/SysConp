@@ -34,6 +34,7 @@ public class ControlePavilhaoInternosMontaKitInicial {
     int codPavilhao = 0;
     int codInterno = 0;
     String kitInicial = "Não";
+    String kitPago = "Não";
 
     public PavilhaoInternosMontagemKit incluirPavilhaoInternos(PavilhaoInternosMontagemKit objPavInt) {
         buscarPavilhao(objPavInt.getDescricaoPavilhao(), objPavInt.getIdPav());
@@ -83,9 +84,11 @@ public class ControlePavilhaoInternosMontaKitInicial {
                     + "WHERE PAVILHAO.DescricaoPav='" + jComboBoxPavilhoes.getSelectedItem() + "' "
                     + "AND PRONTUARIOSCRC.SituacaoCrc='" + situacaoEntrada + "' "
                     + "AND PRONTUARIOSCRC.KitInicial='" + kitInicial + "' "
+                    + "AND PRONTUARIOSCRC.KitInicial='" + kitPago + "' "
                     + "OR PAVILHAO.DescricaoPav='" + jComboBoxPavilhoes.getSelectedItem() + "' "
                     + "AND PRONTUARIOSCRC.SituacaoCrc='" + situacaoRetorno + "' "
                     + "AND PRONTUARIOSCRC.KitInicial='" + kitInicial + "' "
+                    + "AND PRONTUARIOSCRC.KitInicial='" + kitPago + "' "
                     + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
             while (conecta.rs.next()) {
                 PavilhaoInternoMontaKit pDigi = new PavilhaoInternoMontaKit();
