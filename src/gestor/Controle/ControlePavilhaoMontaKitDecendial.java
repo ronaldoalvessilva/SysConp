@@ -32,6 +32,7 @@ public class ControlePavilhaoMontaKitDecendial {
     int codPavilhao = 0;
     int codInterno = 0;
     String kitDecendial = "Não";
+    String kitPago = "Não";
 
     public List<PavilhaoInternoMontaKit> read() throws Exception {
         conecta.abrirConexao();
@@ -46,10 +47,12 @@ public class ControlePavilhaoMontaKitDecendial {
                     + "ON CELAS.IdPav=PAVILHAO.IdPav "
                     + "WHERE PAVILHAO.DescricaoPav='" + jComboBoxPavilhoes.getSelectedItem() + "' "
                     + "AND PRONTUARIOSCRC.SituacaoCrc='" + situacaoEntrada + "' "
-                    + "AND PRONTUARIOSCRC.KitInicial='" + kitDecendial + "' "
+                    + "AND PRONTUARIOSCRC.KitDecendial='" + kitDecendial + "' "
+                    + "AND PRONTUARIOSCRC.KitDecendial='" + kitPago + "' "
                     + "OR PAVILHAO.DescricaoPav='" + jComboBoxPavilhoes.getSelectedItem() + "' "
                     + "AND PRONTUARIOSCRC.SituacaoCrc='" + situacaoRetorno + "' "
-                    + "AND PRONTUARIOSCRC.KitInicial='" + kitDecendial + "' "
+                    + "AND PRONTUARIOSCRC.KitDecendial='" + kitDecendial + "' "
+                    + "AND PRONTUARIOSCRC.KitDecendial='" + kitPago + "'"
                     + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
             while (conecta.rs.next()) {
                 PavilhaoInternoMontaKit pDigi = new PavilhaoInternoMontaKit();
