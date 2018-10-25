@@ -45,14 +45,16 @@ public class ControlePavilhaoMontaKitQuinzenal {
                     + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
                     + "INNER JOIN PAVILHAO "
                     + "ON CELAS.IdPav=PAVILHAO.IdPav "
+                    + "INNER JOIN MOVIMENTACAO_KITS_HIGIENE_INTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=MOVIMENTACAO_KITS_HIGIENE_INTERNOS.IdInternoCrc "
                     + "WHERE PAVILHAO.DescricaoPav='" + jComboBoxPavilhoes.getSelectedItem() + "' "
                     + "AND PRONTUARIOSCRC.SituacaoCrc='" + situacaoEntrada + "' "
-                    + "AND PRONTUARIOSCRC.KitQuinzenal='" + kitQuinzenal + "' "
-                    + "AND PRONTUARIOSCRC.KitQuinzenal='" + kitPago + "' "
+                    + "AND MOVIMENTACAO_KITS_HIGIENE_INTERNOS.KitQuinzenal='" + kitQuinzenal + "' "
+                    + "AND MOVIMENTACAO_KITS_HIGIENE_INTERNOS.KitQuinzenal='" + kitPago + "' "
                     + "OR PAVILHAO.DescricaoPav='" + jComboBoxPavilhoes.getSelectedItem() + "' "
                     + "AND PRONTUARIOSCRC.SituacaoCrc='" + situacaoRetorno + "' "
-                    + "AND PRONTUARIOSCRC.KitQuinzenal='" + kitQuinzenal + "' "
-                    + "AND PRONTUARIOSCRC.KitQuinzenal='" + kitPago + "'"
+                    + "AND MOVIMENTACAO_KITS_HIGIENE_INTERNOS.KitQuinzenal='" + kitQuinzenal + "' "
+                    + "AND MOVIMENTACAO_KITS_HIGIENE_INTERNOS.KitQuinzenal='" + kitPago + "' "
                     + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
             while (conecta.rs.next()) {
                 PavilhaoInternoMontaKit pDigi = new PavilhaoInternoMontaKit();
