@@ -48,11 +48,11 @@ public class ControlePavilhaoMontaKitAnual {
                     + "WHERE PAVILHAO.DescricaoPav='" + jComboBoxPavilhoes.getSelectedItem() + "' "
                     + "AND PRONTUARIOSCRC.SituacaoCrc='" + situacaoEntrada + "' "
                     + "AND PRONTUARIOSCRC.KitAnual='" + kitAnual + "' "
-                    + "AND PRONTUARIOSCRC.KitAnual='" + kitPago + "' "
+                    + "AND PRONTUARIOSCRC.KitAPago='" + kitPago + "' "
                     + "OR PAVILHAO.DescricaoPav='" + jComboBoxPavilhoes.getSelectedItem() + "' "
                     + "AND PRONTUARIOSCRC.SituacaoCrc='" + situacaoRetorno + "' "
                     + "AND PRONTUARIOSCRC.KitAnual='" + kitAnual + "' "
-                    + "AND PRONTUARIOSCRC.KitAnual='" + kitPago + "'"
+                    + "AND PRONTUARIOSCRC.KitAPago='" + kitPago + "'"
                     + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
             while (conecta.rs.next()) {
                 PavilhaoInternoMontaKit pDigi = new PavilhaoInternoMontaKit();
