@@ -86,11 +86,11 @@ public class ControlePavilhaoInternosMontaKitInicial {
                     + "WHERE PAVILHAO.DescricaoPav='" + jComboBoxPavilhoes.getSelectedItem() + "' "
                     + "AND PRONTUARIOSCRC.SituacaoCrc='" + situacaoEntrada + "' "
                     + "AND MOVIMENTACAO_KITS_HIGIENE_INTERNOS.KitInicial='" + kitInicial + "' "
-                    + "AND MOVIMENTACAO_KITS_HIGIENE_INTERNOS.KitInicial='" + kitPago + "' "
+                    + "AND MOVIMENTACAO_KITS_HIGIENE_INTERNOS.KitIPago='" + kitPago + "' "
                     + "OR PAVILHAO.DescricaoPav='" + jComboBoxPavilhoes.getSelectedItem() + "' "
                     + "AND PRONTUARIOSCRC.SituacaoCrc='" + situacaoRetorno + "' "
                     + "AND MOVIMENTACAO_KITS_HIGIENE_INTERNOS.KitInicial='" + kitInicial + "' "
-                    + "AND MOVIMENTACAO_KITS_HIGIENE_INTERNOS.KitInicial='" + kitPago + "' "
+                    + "AND MOVIMENTACAO_KITS_HIGIENE_INTERNOS.KitIPago='" + kitPago + "' "
                     + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
             while (conecta.rs.next()) {
                 PavilhaoInternoMontaKit pDigi = new PavilhaoInternoMontaKit();
