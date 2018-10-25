@@ -45,14 +45,16 @@ public class ControlePavilhaoMontaKitMensal {
                     + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
                     + "INNER JOIN PAVILHAO "
                     + "ON CELAS.IdPav=PAVILHAO.IdPav "
+                    + "INNER JOIN MOVIMENTACAO_KITS_HIGIENE_INTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=MOVIMENTACAO_KITS_HIGIENE_INTERNOS.IdInternoCrc "
                     + "WHERE PAVILHAO.DescricaoPav='" + jComboBoxPavilhoes.getSelectedItem() + "' "
                     + "AND PRONTUARIOSCRC.SituacaoCrc='" + situacaoEntrada + "' "
-                    + "AND PRONTUARIOSCRC.KitMensal='" + kitMensal + "' "
-                    + "AND PRONTUARIOSCRC.KitMensal='" + kitPago + "' "
+                    + "AND MOVIMENTACAO_KITS_HIGIENE_INTERNOS.KitMensal='" + kitMensal + "' "
+                    + "AND MOVIMENTACAO_KITS_HIGIENE_INTERNOS.KitMensal='" + kitPago + "' "
                     + "OR PAVILHAO.DescricaoPav='" + jComboBoxPavilhoes.getSelectedItem() + "' "
                     + "AND PRONTUARIOSCRC.SituacaoCrc='" + situacaoRetorno + "' "
-                    + "AND PRONTUARIOSCRC.KitMensal='" + kitMensal + "' "
-                    + "AND PRONTUARIOSCRC.KitMensal='" + kitPago + "'"
+                    + "AND MOVIMENTACAO_KITS_HIGIENE_INTERNOS.KitMensal='" + kitMensal + "' "
+                    + "AND MOVIMENTACAO_KITS_HIGIENE_INTERNOS.KitMensal='" + kitPago + "' "
                     + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
             while (conecta.rs.next()) {
                 PavilhaoInternoMontaKit pDigi = new PavilhaoInternoMontaKit();
