@@ -1147,9 +1147,11 @@ public class TelaEntradaUnidadeInternoPortaria extends javax.swing.JInternalFram
                     objLog2();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     //CONFIRMAR QUE A PORTARIA UTILIZOU O CADASTRO FEITO PELA OUTRA UNIDADE
-                    pSaidaPortaria.setConfirmaImp(confirmaImp);
-                    pSaidaPortaria.setIdSaidTransfTmp(idTransPortUni);
-                    controlTransPort.alterarConfirmacaoPortariaBAR(pSaidaPortaria);
+                    if (idTransPortUni != null) {
+                        pSaidaPortaria.setConfirmaImp(confirmaImp);
+                        pSaidaPortaria.setIdSaidTransfTmp(idTransPortUni);
+                        controlTransPort.alterarConfirmacaoPortariaBAR(pSaidaPortaria);
+                    }
                     //
                     preencherTabelaItensInterno("SELECT * FROM ITENSENTRADAPORTARIA "
                             + "WHERE IdLanc='" + jIdLanc.getText() + "'");
@@ -1797,11 +1799,11 @@ public class TelaEntradaUnidadeInternoPortaria extends javax.swing.JInternalFram
         jBtFinalizar.setEnabled(true);
         // Habilitar/Desabilitar botoes internos
         jBtNovoInterno.setEnabled(true);
-        jBtAlterarInterno.setEnabled(true);
-        jBtExcluirInterno.setEnabled(true);
+        jBtAlterarInterno.setEnabled(!true);
+        jBtExcluirInterno.setEnabled(!true);
         jBtSalvarInterno.setEnabled(!true);
         jBtCancelarInterno.setEnabled(!true);
-        jBtAuditoriaInternos.setEnabled(true);
+        jBtAuditoriaInternos.setEnabled(!true);
     }
 
     public void CancelarInterno() {
