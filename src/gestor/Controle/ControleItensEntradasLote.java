@@ -122,7 +122,7 @@ public class ControleItensEntradasLote {
         
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE PRONTUARIOSCRC SET KitInicial=?,KitIPago=?,KitDecendial=?,KitDPago=?,KitQuinzenal=?,KitQPago=?,KitMensal=?,KitMPago=?,KitSemestral=?,KitSPago=?,KitAnual=?,KitAPago=? WHERE IdInternoCrc='" + objProCrc.getIdInterno()+ "'");            
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO MOVIMENTACAO_KITS_HIGIENE_INTERNOS (KitInicial,KitIPago,KitDecendial,KitDPago,KitQuinzenal,KitQPago,KitMensal,KitMPago,KitSemestral,KitSPago,KitAnual,KitAPago) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");            
             pst.setString(1, objProCrc.getKitInicial());
             pst.setString(2, objProCrc.getKitIPago());
             pst.setString(3, objProCrc.getKitDecendial());
@@ -137,7 +137,7 @@ public class ControleItensEntradasLote {
             pst.setString(12, objProCrc.getKitAPago());
             pst.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados do INTERNO.\n\nERRO: " + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados do INTERNO.\n\nERRO: " + ex);
         }
         conecta.desconecta();
         return objProCrc;
