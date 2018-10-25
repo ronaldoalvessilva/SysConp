@@ -50,11 +50,11 @@ public class ControlePavilhaoMontaKitQuinzenal {
                     + "WHERE PAVILHAO.DescricaoPav='" + jComboBoxPavilhoes.getSelectedItem() + "' "
                     + "AND PRONTUARIOSCRC.SituacaoCrc='" + situacaoEntrada + "' "
                     + "AND MOVIMENTACAO_KITS_HIGIENE_INTERNOS.KitQuinzenal='" + kitQuinzenal + "' "
-                    + "AND MOVIMENTACAO_KITS_HIGIENE_INTERNOS.KitQuinzenal='" + kitPago + "' "
+                    + "AND MOVIMENTACAO_KITS_HIGIENE_INTERNOS.KitQPago='" + kitPago + "' "
                     + "OR PAVILHAO.DescricaoPav='" + jComboBoxPavilhoes.getSelectedItem() + "' "
                     + "AND PRONTUARIOSCRC.SituacaoCrc='" + situacaoRetorno + "' "
                     + "AND MOVIMENTACAO_KITS_HIGIENE_INTERNOS.KitQuinzenal='" + kitQuinzenal + "' "
-                    + "AND MOVIMENTACAO_KITS_HIGIENE_INTERNOS.KitQuinzenal='" + kitPago + "' "
+                    + "AND MOVIMENTACAO_KITS_HIGIENE_INTERNOS.KitQPago='" + kitPago + "' "
                     + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
             while (conecta.rs.next()) {
                 PavilhaoInternoMontaKit pDigi = new PavilhaoInternoMontaKit();
