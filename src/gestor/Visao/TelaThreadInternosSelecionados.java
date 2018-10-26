@@ -15,6 +15,11 @@ import gestor.Modelo.ProntuarioCrc;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jBtExcluirTodosInternos;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jBtExcluirUmInterno;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jBtNovoPavInternos;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jBtSelecionarTodosInternos;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jBtSelecionarUmInterno;
 //import static gestor.Visao.TelaMontagemPagamentoKitInterno.codigoPavilhao;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jComboBoxPavilhoes;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jIdRegistroComp;
@@ -258,7 +263,7 @@ public class TelaThreadInternosSelecionados extends javax.swing.JDialog {
                                     jTabelaInternosSelecionados.scrollRectToVisible(rect);
                                 } catch (java.lang.ClassCastException e) {
                                 }
-                                jTabelaInternosSelecionados.setRowSelectionInterval(i, 1);
+                                jTabelaInternosSelecionados.setRowSelectionInterval(i, 0);
                                 jProgressBar1.setValue((i + 1));
                                 try {
                                     Thread.sleep(100);
@@ -284,6 +289,11 @@ public class TelaThreadInternosSelecionados extends javax.swing.JDialog {
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
         // TODO add your handling code here:
+        jBtNovoPavInternos.setEnabled(true);
+        jBtSelecionarUmInterno.setEnabled(true);
+        jBtSelecionarTodosInternos.setEnabled(true);
+        jBtExcluirUmInterno.setEnabled(true);
+        jBtExcluirTodosInternos.setEnabled(true);
         dispose();
     }//GEN-LAST:event_jBtSairActionPerformed
 
