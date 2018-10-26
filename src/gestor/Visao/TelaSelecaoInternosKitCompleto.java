@@ -381,7 +381,7 @@ public class TelaSelecaoInternosKitCompleto extends javax.swing.JDialog {
                     }
                 }
                 if (encontrou == true) {
-                    JOptionPane.showMessageDialog(rootPane, "Interno já foi selecionado, escolha outro produto.");
+                    JOptionPane.showMessageDialog(rootPane, "Interno já foi selecionado, escolha outro.");
                 } else if (encontrou == !true) {
                     qtdInternosKitComp = qtdInternosKitComp + 1;
                     qtdInternos = qtdInternos - 1;
