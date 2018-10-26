@@ -1279,14 +1279,11 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="103" alignment="1" groupAlignment="2" attributes="0">
                                           <Component id="jBtNovoPavInternos" linkSize="3" alignment="2" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jBtExcluirPavInternos" linkSize="3" alignment="2" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jBtSalvarPavInternos" linkSize="3" alignment="2" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jBtCancelarPavilhaoInterno" linkSize="3" alignment="2" min="-2" max="-2" attributes="0"/>
                                           <Component id="jBtSelecionarUmInterno" linkSize="3" alignment="2" max="32767" attributes="0"/>
                                           <Component id="jBtSelecionarTodosInternos" linkSize="3" alignment="2" pref="85" max="32767" attributes="0"/>
                                           <Component id="jBtAuditoriaPavInternos" alignment="2" min="-2" pref="30" max="-2" attributes="0"/>
@@ -1295,9 +1292,22 @@
                                           <Component id="jBtExcluirUmInterno" linkSize="3" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="jBtExcluirTodosInternos" linkSize="3" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
+                                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                          <Group type="103" alignment="0" groupAlignment="2" attributes="0">
+                                              <Component id="jBtSalvarPavInternos" linkSize="3" alignment="2" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jBtCancelarPavilhaoInterno" linkSize="3" alignment="2" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="jBtExcluirPavInternosTodos" linkSize="3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                               </Group>
-                              <Component id="jBtSaldoEstoque" linkSize="3" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jBtSaldoEstoque" linkSize="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jBtExcluirInternosUmaUm" linkSize="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -1309,12 +1319,14 @@
                           <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                           <Component id="jBtNovoPavInternos" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jBtExcluirPavInternos" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="jBtSalvarPavInternos" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jBtCancelarPavilhaoInterno" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jBtExcluirPavInternosTodos" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jBtExcluirInternosUmaUm" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                           <Component id="jBtSelecionarUmInterno" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jBtSelecionarTodosInternos" min="-2" max="-2" attributes="0"/>
@@ -1322,7 +1334,7 @@
                           <Component id="jBtExcluirUmInterno" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jBtExcluirTodosInternos" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="21" max="32767" attributes="0"/>
+                          <EmptySpace pref="19" max="32767" attributes="0"/>
                           <Component id="jBtSaldoEstoque" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jBtAuditoriaPavInternos" min="-2" pref="23" max="-2" attributes="0"/>
@@ -1348,17 +1360,17 @@
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JButton" name="jBtExcluirPavInternos">
+                <Component class="javax.swing.JButton" name="jBtExcluirPavInternosTodos">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/gestor/Imagens/3630_16x16.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Excluir"/>
+                    <Property name="text" type="java.lang.String" value="Excluir Todos"/>
                     <Property name="enabled" type="boolean" value="false"/>
                     <Property name="horizontalAlignment" type="int" value="2"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtExcluirPavInternosActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtExcluirPavInternosTodosActionPerformed"/>
                   </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
@@ -1467,6 +1479,9 @@
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtExcluirUmInternoActionPerformed"/>
                   </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JButton" name="jBtExcluirTodosInternos">
                   <Properties>
@@ -1485,6 +1500,9 @@
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtExcluirTodosInternosActionPerformed"/>
                   </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JButton" name="jBtSaldoEstoque">
                   <Properties>
@@ -1501,6 +1519,21 @@
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtSaldoEstoqueActionPerformed"/>
                   </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="jBtExcluirInternosUmaUm">
+                  <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/gestor/Imagens/191216104515_16.png"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Excluir Um/Um"/>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtExcluirInternosUmaUmActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>
@@ -1601,6 +1634,9 @@
                           <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTabelaInternosSelecionadosMouseClicked"/>
+                      </Events>
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
                       </AuxValues>
@@ -1623,7 +1659,7 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="108" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="88" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
