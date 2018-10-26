@@ -69,6 +69,19 @@ public class ControlePavilhaoInternosMontaKitInicial {
         conecta.desconecta();
         return objPavInt;
     }
+    
+    public PavilhaoInternosMontagemKit excluirInternosUmPorUm(PavilhaoInternosMontagemKit objPavInt) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM INTERNOS_PAVILHAO_KIT_LOTE WHERE IdRegistroComp='" + objPavInt.getIdRegistroComp() + "' AND IdInternoCrc='" + objPavInt.getIdInternoCrc() + "'");
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados (PAVILHÃO/INTERNOS).\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objPavInt;
+    }
 
     public List<PavilhaoInternoMontaKit> read() throws Exception {
         conecta.abrirConexao();
