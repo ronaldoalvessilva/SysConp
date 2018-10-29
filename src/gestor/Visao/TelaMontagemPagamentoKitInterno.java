@@ -1063,6 +1063,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             }
         });
 
+        jBtExcluirPavInternosTodos.setForeground(new java.awt.Color(204, 0, 0));
         jBtExcluirPavInternosTodos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
         jBtExcluirPavInternosTodos.setText("Excluir Todos");
         jBtExcluirPavInternosTodos.setEnabled(false);
