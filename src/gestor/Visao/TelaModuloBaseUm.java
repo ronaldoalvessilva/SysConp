@@ -135,20 +135,20 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     public static String nomeModuloB1 = "BASE PAVILHAO UM";
     // MENU CADASTRO
-    public static String telaPavilhaoB1 = "Cadastro:Pavilhão:Manutenção";
-    public static String telaCelasB1 = "Cadastro:Celas:Manutenção";
-    public static String telaPopulacaoInternosAgentesB1 = "Cadastro:População Internos e Agentes";
+    public static String telaPavilhaoB1 = "Cadastro:Pavilhão:Manutenção-B1";
+    public static String telaCelasB1 = "Cadastro:Celas:Manutenção-B1";
+    public static String telaPopulacaoInternosAgentesB1 = "Cadastro:População Internos e Agentes-B1";
     // MOVIMENTAÇÃO
-    public static String telaLocacaoInternosManutencaoB1 = "Movimentação:Locação Internos:Manutenção";
-    public static String telaLocacaoInternosB1 = "Movimentação:Locação Internos:Internos";
-    public static String telaTransferenciaPavilhaoCelaB1 = "Movimentação:Transferencia Pavilhao Cela:Manutenção";
-    public static String telaLivroOcorrenciasB1 = "Movimentação:Livro Ocorrencias:Manutenção";
-    public static String telaEntregaMaterialUsoB1 = "Movimentação:Entrega de Material Uso Pessoal:Manutenção";
-    public static String telaEntregaMaterialUsoInternosB1 = "Movimentação:Entrega de Material Uso Pessoal:Internos";
-    public static String telaEntregaMaterialUsoInternosBioB1 = "Movimentação:Entrega de Material Uso Pessoal:Biometria";
-    public static String telaInicializarLeitorB1 = "Movimentação:Entrega de Material Uso Pessoal:Inicializar leitor";
+    public static String telaLocacaoInternosManutencaoB1 = "Movimentação:Locação Internos:Manutenção-B1";
+    public static String telaLocacaoInternosB1 = "Movimentação:Locação Internos:Internos-B1";
+    public static String telaTransferenciaPavilhaoCelaB1 = "Movimentação:Transferencia Pavilhao Cela:Manutenção-B1";
+    public static String telaLivroOcorrenciasB1 = "Movimentação:Livro Ocorrencias:Manutenção-B1";
+    public static String telaEntregaMaterialUsoB1 = "Movimentação:Entrega de Material Uso Pessoal:Manutenção-B1";
+    public static String telaEntregaMaterialUsoInternosB1 = "Movimentação:Entrega de Material Uso Pessoal:Internos-B1";
+    public static String telaEntregaMaterialUsoInternosBioB1 = "Movimentação:Entrega de Material Uso Pessoal:Biometria-B1";
+    public static String telaInicializarLeitorB1 = "Movimentação:Entrega de Material Uso Pessoal:Inicializar leitor-B1";
     //
-    public static String telaAlertaVisitantesPortariaB1 = "Consulta:Alerta Visitas Internos/Advogados/Oficial de Justiça";
+    public static String telaAlertaVisitantesPortariaB1 = "Consulta:Alerta Visitas Internos/Advogados/Oficial de Justiça-B1";
     //
     // MENU CADASTRO
     String pNomePA = "";
