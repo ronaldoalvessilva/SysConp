@@ -1575,17 +1575,17 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
                                                                         objItemSaida.setDataInsert(dataModFinal);
                                                                         objItemSaida.setHoraInsert(horaMov);
                                                                         //Incluir itens (INTERNOS)
+                                                                        // VERIFICAR O REGISTRO NA TABELA (ITENSREGSAIDA) 
+                                                                        // DA PORTARIA PARA SABER SE REALMENTE FOI GRAVADO 
+                                                                        // PARA RETIRAR O ERRO DE FICAR DESAPARECENDO O O REGISTRO NA TABELA ITENSREGSAIDA(22/11/2017) - CORREÇÃO
+                                                                        confirmarSaidaPortaria();
                                                                         if (acao == 3) {
                                                                             objItemSaida.setConfirmaSaida(confirmaRegSaida);
                                                                             objItemSaida.setIdSaida((Integer.valueOf(jIDlanc.getText())));
                                                                             objItemSaida.setIdItemCrcPortaria(idItemCrcPort); // Item da tabela ITENSCRCPORTARIA                                                                                                                                        
                                                                             controle.incluirItensRegSaida(objItemSaida); // Gravar registro na tabela de itens ITENSREGSAIDA (PORTARIA INTERNA)                                
-                                                                            // VERIFICAR O REGISTRO NA TABELA (ITENSREGSAIDA) 
-                                                                            // DA PORTARIA PARA SABER SE REALMENTE FOI GRAVADO 
-                                                                            // PARA RETIRAR O ERRO DE FICAR DESAPARECENDO O O REGISTRO NA TABELA ITENSREGSAIDA(22/11/2017) - CORREÇÃO
-                                                                            confirmarSaidaPortaria();
                                                                             if (!jIDInterno.getText().equals(idInternoSaida) && !jIDlanc.getText().equals(idLancSaida)) {
-                                                                                JOptionPane.showMessageDialog(rootPane, "Um ERRO desconhecido, não foi possível incluir o registro, tente novamente...");
+                                                                                JOptionPane.showMessageDialog(rootPane, "Um ERRO desconhecido na tabela (ITENSREGSAIDA), não foi possível incluir o registro, tente novamente...");
                                                                             } else {
                                                                                 objItemSaida.setIdItemSaida(idItemSaida); // Item do documento de saida (ITENSSAIDA)                                                                  
                                                                                 // Confirma "Sim" na tabela ITENSSAIDA para impedir a exclusão ou alteração do interno  
