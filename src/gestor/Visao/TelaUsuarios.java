@@ -91,6 +91,8 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
     //
     String nomeTelaUsuario = "";
     String codigoUsuario = "";
+    String nomeUsuario = "";
+    String pLogin = "";
 
     /**
      * Creates new form TelaUsuarios
@@ -1753,17 +1755,25 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
                             objUser.setSenha1(jSenha.getText());
                             objUser.setSenha2(jSenhaConf.getText());
                             if (acao == 1) {
-                                // Só inclui registro se os campo não for em branco e compara se as senhas são iguais
-                                if (jSenhaConf.getText() == null ? jSenha.getText() == null : jSenhaConf.getText().equals(jSenha.getText())) {
-                                    objUser.setNomeGrupo(jDescricaoGrupo.getText());
-                                    control.incluirUsuarios(objUser);
-                                    buscarID();
-                                    objLog();
-                                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                                
-                                    JOptionPane.showMessageDialog(rootPane, "Cadastro Realizado com sucesso");
-                                    Salvar();
+                                pesquisarNomeUsuario();
+                                pesquisarLoginUsuario();
+                                if (jNomeUsuarioCompleto.getText().equals(nomeUsuario)) {
+                                    JOptionPane.showMessageDialog(rootPane, "Nome de usuário já cadastrado, tente outro.");
+                                } else if (jlogin.getText().equals(pLogin)) {
+                                    JOptionPane.showMessageDialog(rootPane, "Login de usuário já cadastrado, tente outro.");
                                 } else {
-                                    JOptionPane.showMessageDialog(rootPane, "Senhas não conferem !!!");
+                                    // Só inclui registro se os campo não for em branco e compara se as senhas são iguais
+                                    if (jSenhaConf.getText() == null ? jSenha.getText() == null : jSenhaConf.getText().equals(jSenha.getText())) {
+                                        objUser.setNomeGrupo(jDescricaoGrupo.getText());
+                                        control.incluirUsuarios(objUser);
+                                        buscarID();
+                                        objLog();
+                                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                                
+                                        JOptionPane.showMessageDialog(rootPane, "Cadastro Realizado com sucesso");
+                                        Salvar();
+                                    } else {
+                                        JOptionPane.showMessageDialog(rootPane, "Senhas não conferem !!!");
+                                    }
                                 }
                             }
                             if (acao == 2) {
@@ -2533,6 +2543,30 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
     public static javax.swing.JTextField jlogin;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
+
+    public void pesquisarNomeUsuario() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + jNomeUsuarioCompleto.getText() + "'");
+            conecta.rs.first();
+            nomeUsuario = conecta.rs.getString("NomeUsuario");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void pesquisarLoginUsuario() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE LoginUsuario='" + jlogin.getText() + "'");
+            conecta.rs.first();
+            pLogin = conecta.rs.getString("LoginUsuario");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
 
     public void formatarCampos() {
         jNomeUsuarioCompleto.setDocument(new LimiteDigitos(67));
