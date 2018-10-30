@@ -1,4 +1,4 @@
- /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -45,6 +45,7 @@ public class TelaGrupoUsuarios extends javax.swing.JInternalFrame {
     int acao; // flag para inclusao e altertação
     int flag = 1; // flag para pesquisa de grupo
     int codGrupo; // flag para pesquis se o grupo tem relacionamento com tabela usuarios
+    String nomeGrupo = "";
 
     /**
      * Creates new form TelaGrupoUsuarios
@@ -526,39 +527,44 @@ public class TelaGrupoUsuarios extends javax.swing.JInternalFrame {
         } else {
             // Se a opção for 1, será incluido um registro
             if (acao == 1) {
-                conecta.abrirConexao();
-                try {
-                    PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO GRUPOUSUARIOS (StatusGrupo,NomeGrupo)VALUES(?,?)");
-                    pst.setBoolean(1, gu.isStatusGrupo());
-                    pst.setString(2, jDescricao.getText().toUpperCase().trim());
-                    pst.executeUpdate();
-                    buscarID();
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
-                    JOptionPane.showMessageDialog(rootPane, "Cadastro Realizado com sucesso");
-                    conecta.desconecta();
-                    Salvar();
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(rootPane, "Não Foi possivel SALVAR Registro\n ERRO" + ex);
+                pesquisarGrupo();
+                if (jDescricao.getText().equals(nomeGrupo)) {
+                    JOptionPane.showMessageDialog(rootPane, "Grupo já foi cadastrado.");
+                } else {
+                    conecta.abrirConexao();
+                    try {
+                        PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO GRUPOUSUARIOS (StatusGrupo,NomeGrupo)VALUES(?,?)");
+                        pst.setBoolean(1, gu.isStatusGrupo());
+                        pst.setString(2, jDescricao.getText().toUpperCase().trim());
+                        pst.executeUpdate();
+                        buscarID();
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                        JOptionPane.showMessageDialog(rootPane, "Cadastro Realizado com sucesso");
+                        conecta.desconecta();
+                        Salvar();
+                    } catch (SQLException ex) {
+                        JOptionPane.showMessageDialog(rootPane, "Não Foi possivel SALVAR Registro\n ERRO" + ex);
+                    }
                 }
             }
-        }
-        // Se registro for 2 será alterado o registro
-        if (acao == 2) {
-            conecta.abrirConexao();
-            try {
-                PreparedStatement pst = conecta.con.prepareStatement("UPDATE GRUPOUSUARIOS SET StatusGrupo=?,NomeGrupo=? WHERE idGrupo = ?");
-                pst.setBoolean(1, gu.isStatusGrupo());
-                pst.setString(2, jDescricao.getText().toUpperCase().trim());
-                pst.setInt(3, Integer.parseInt(jIdGrupo.getText()));
-                pst.execute();
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro Atualizado com Sucesso !!!");
-                conecta.desconecta();
-                SalvarAlterar();
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(rootPane, "Não Foi possivel ATUALIZAR Registro\n ERRO" + ex);
+            // Se registro for 2 será alterado o registro
+            if (acao == 2) {
+                conecta.abrirConexao();
+                try {
+                    PreparedStatement pst = conecta.con.prepareStatement("UPDATE GRUPOUSUARIOS SET StatusGrupo=?,NomeGrupo=? WHERE idGrupo = ?");
+                    pst.setBoolean(1, gu.isStatusGrupo());
+                    pst.setString(2, jDescricao.getText().toUpperCase().trim());
+                    pst.setInt(3, Integer.parseInt(jIdGrupo.getText()));
+                    pst.execute();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro Atualizado com Sucesso !!!");
+                    conecta.desconecta();
+                    SalvarAlterar();
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(rootPane, "Não Foi possivel ATUALIZAR Registro\n ERRO" + ex);
+                }
             }
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
@@ -626,7 +632,7 @@ public class TelaGrupoUsuarios extends javax.swing.JInternalFrame {
         if (jPesDescricao.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe dados para pesquisa");
             jPesDescricao.requestFocus();
-        } else {            
+        } else {
             preencherTabelaNome("SELECT * FROM GRUPOUSUARIOS "
                     + "WHERE NomeGrupo LIKE'%" + jPesDescricao.getText() + "%'");
         }
@@ -661,7 +667,7 @@ public class TelaGrupoUsuarios extends javax.swing.JInternalFrame {
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
         flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {            
+        if (evt.getStateChange() == evt.SELECTED) {
             this.preencherTabela();
         } else {
             limparTabela();
@@ -700,11 +706,22 @@ public class TelaGrupoUsuarios extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTabelaGrupo;
     // End of variables declaration//GEN-END:variables
 
-    public void corCampos(){
+    public void corCampos() {
         jIdGrupo.setBackground(Color.white);
         jDescricao.setBackground(Color.white);
     }
-// Métodos do grupo
+
+    public void pesquisarGrupo() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM GRUPOUSUARIOS "
+                    + "WHERE NomeGrupo='" + jDescricao.getText() + "'");
+            conecta.rs.first();
+            nomeGrupo = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
 
     public void Novo() {
         //  Incluir um registro
@@ -752,7 +769,7 @@ public class TelaGrupoUsuarios extends javax.swing.JInternalFrame {
                 conecta.abrirConexao();
                 conecta.rs.first();
                 PreparedStatement pst;
-                pst = conecta.con.prepareStatement("DELETE FROM GRUPOUSUARIOS WHERE IdGrupo='" + jIdGrupo.getText() + "'");                
+                pst = conecta.con.prepareStatement("DELETE FROM GRUPOUSUARIOS WHERE IdGrupo='" + jIdGrupo.getText() + "'");
                 pst.execute();
                 objLog();
                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                
@@ -1008,7 +1025,7 @@ public class TelaGrupoUsuarios extends javax.swing.JInternalFrame {
         jTabelaGrupo.getTableHeader().setReorderingAllowed(false);
         jTabelaGrupo.setAutoResizeMode(jTabelaGrupo.AUTO_RESIZE_OFF);
         jTabelaGrupo.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-     modelo.getLinhas().clear();
+        modelo.getLinhas().clear();
     }
 
     public void alinharCamposTabela() {
@@ -1024,7 +1041,6 @@ public class TelaGrupoUsuarios extends javax.swing.JInternalFrame {
     }
 
     // Verifica se o grupo de ususarios tem movimentação
-
     public void buscarGrupoUsuarios() {
         conecta.abrirConexao();
         conecta.executaSQL("SELECT * FROM USUARIOS WHERE IdGrupo='" + jIdGrupo.getText() + "'");
