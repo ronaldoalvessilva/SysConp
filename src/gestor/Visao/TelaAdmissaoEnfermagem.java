@@ -5074,7 +5074,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                     objAdmEnfermagem.setDeptoMedico(deptoTecnico);
                     controle.alterarMovTec(objAdmEnfermagem);
                     // EDITAR A EVOLUÇÃO APARTIR DA ADMISSÃO
-                    objEvolEnferma.setIdItem(Integer.valueOf(jIdEvolucao.getText()));
+                    objEvolEnferma.setIdItem(Integer.valueOf(jIdLanc.getText()));
                     objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
                     objEvolEnferma.setIdLanc(Integer.valueOf(jIdLanc.getText()));
                     objEvolEnferma.setDataEvol(jDataLanc.getDate());
