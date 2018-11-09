@@ -603,7 +603,8 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
 
         Consultas.setText("Consultas Diversas");
 
-        ProntuarioInternos.setText("Prontuários de Internos");
+        ProntuarioInternos.setForeground(new java.awt.Color(204, 0, 0));
+        ProntuarioInternos.setText("Prontuários de Internos - {PRONTUÁRIO ÚNICO}");
         ProntuarioInternos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ProntuarioInternosActionPerformed(evt);

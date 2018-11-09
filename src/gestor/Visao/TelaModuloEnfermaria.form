@@ -222,7 +222,10 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="ProntuarioInternos">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Prontu&#xe1;rios de Internos"/>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="cc" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Prontu&#xe1;rios de Internos - {PRONTU&#xc1;RIO &#xda;NICO}"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ProntuarioInternosActionPerformed"/>
