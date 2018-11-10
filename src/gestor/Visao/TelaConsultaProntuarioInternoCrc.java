@@ -82,6 +82,8 @@ import static gestor.Visao.TelaModuloEnfermaria.codUserAcessoENF;
 import static gestor.Visao.TelaModuloEnfermaria.codigoUserGroupENF;
 import static gestor.Visao.TelaModuloEnfermaria.codAbrirENF;
 import static gestor.Visao.TelaModuloEnfermaria.codIncluirENF;
+import java.awt.Component;
+import javax.swing.JTable;
 
 /**
  *
@@ -153,6 +155,18 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
     String caminhoBiometria8 = "";
     String caminhoBiometria9 = "";
     String caminhoBiometria10 = "";
+    //
+    String CLASS = "";
+    Color c = Color.BLACK;
+    // VARIAVEIS PARA ALERTA QUANTO AS DOENÇAS DOS INTERNOS.
+    String pHepatiteB = "Reagente";   // Reagente ou Não reagente
+    String pHepatiteC = "Reagente";   // Reagente ou Não reagente
+    String pHiv = "Reagente";         // Reagente ou Não reagente
+    String pSifilis = "Reagente";     // Reagente ou Não reagente
+    String pHipertensao = "Sim";      // Sim ou Não
+    String pDiabetes = "Sim";         // Sim ou Não
+    String pTuberculose = "Positivo"; // Negativo ou Positivo
+    String pAlergias = "Sim";         // Sim ou Não
 
     /**
      * Creates new form TelaTriagem
@@ -286,10 +300,11 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         consultaDocInternos.setVisible(true);
     }
 
-    public void mostrarTestesRapidos(){
+    public void mostrarTestesRapidos() {
         consultaRapida = new TelaConsultaTestesRapidos(this, true);
         consultaRapida.setVisible(true);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -316,6 +331,8 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         jLabel163 = new javax.swing.JLabel();
         jPesquisaCNC = new javax.swing.JTextField();
         jBtCNCPesquisa = new javax.swing.JButton();
+        jComboBoxOpcao = new javax.swing.JComboBox<>();
+        jLabel160 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTabelaInterno = new javax.swing.JTable();
         jPanel30 = new javax.swing.JPanel();
@@ -647,7 +664,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         jLabel1.setText("Pesquisa Por Nome:");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel2.setText("Pesquisa por Matricula:");
+        jLabel2.setText("Pesquisa p/Matricula:");
 
         jBtNome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtNome.setToolTipText("Pesquisa Por Nome");
@@ -703,34 +720,51 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
             }
         });
 
+        jComboBoxOpcao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxOpcao.setForeground(new java.awt.Color(204, 0, 0));
+        jComboBoxOpcao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Todos Registros", "Só Enfermaria" }));
+        jComboBoxOpcao.setToolTipText("Opção para pesquisar os internos com Doenças Infectocontagiosas");
+        jComboBoxOpcao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
+        jLabel160.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel160.setText("Opção:");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel163, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel163)
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jPesqMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jBtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPesqMatricula, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                            .addComponent(jPesquisaCNC))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel73)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jBtCNCPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel160, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel73, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPesqAlcunha)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtPesqAlcunha, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jPesquisaCNC, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtCNCPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jCheckBox1))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPesqAlcunha)
+                            .addComponent(jComboBoxOpcao, 0, 141, Short.MAX_VALUE))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jCheckBox1))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addComponent(jBtPesqAlcunha, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jPesqNome)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -742,6 +776,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPesqAlcunha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtPesqAlcunha)
                     .addComponent(jLabel73)
                     .addComponent(jBtMatricula)
                     .addComponent(jPesqMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -751,22 +786,21 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
                     .addComponent(jLabel163)
                     .addComponent(jPesquisaCNC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtCNCPesquisa)
+                    .addComponent(jLabel160)
+                    .addComponent(jComboBoxOpcao, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCheckBox1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel1)
                     .addComponent(jPesqNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtNome))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.CENTER, jPanel3Layout.createSequentialGroup()
-                .addComponent(jBtPesqAlcunha)
-                .addGap(148, 148, 148))
+                .addGap(0, 7, Short.MAX_VALUE))
         );
 
         jTabelaInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"
@@ -857,7 +891,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -3466,7 +3500,9 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         if (jPesqNome.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe NOME para pesquisa!!!");
             jPesqNome.requestFocus();
-        } else {
+        } else if (jComboBoxOpcao.getSelectedItem().equals("Selecione...")) {
+            JOptionPane.showMessageDialog(rootPane, "Selecione um tipo de pesquisa.");
+        } else if (jComboBoxOpcao.getSelectedItem().equals("Todos Registros")) {
             preencherTabelaNome("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSFISICOSINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
@@ -3476,7 +3512,23 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
                     + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                    + "INNER JOIN UNIDADE ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                    + "INNER JOIN UNIDADE "
+                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                    + "WHERE NomeInternoCrc LIKE'%" + jPesqNome.getText() + "%'");
+        } else if (jComboBoxOpcao.getSelectedItem().equals("Só Enfermaria")) {
+            pesquisarInternosDoencasInfecto("SELECT * FROM PRONTUARIOSCRC "
+                    + "INNER JOIN DADOSFISICOSINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
+                    + "INNER JOIN PAISES "
+                    + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
+                    + "INNER JOIN CIDADES "
+                    + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "INNER JOIN UNIDADE "
+                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                    + "INNER JOIN ADMISSAOENFERMEIRA "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=ADMISSAOENFERMEIRA.IdInternoCrc "
                     + "WHERE NomeInternoCrc LIKE'%" + jPesqNome.getText() + "%'");
         }
     }//GEN-LAST:event_jBtNomeActionPerformed
@@ -3488,7 +3540,9 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         if (jPesqMatricula.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe MATRICULA para pesquisa!!!");
             jPesqMatricula.requestFocus();
-        } else {
+        } else if (jComboBoxOpcao.getSelectedItem().equals("Selecione...")) {
+            JOptionPane.showMessageDialog(rootPane, "Selecione um tipo de pesquisa.");
+        } else if (jComboBoxOpcao.getSelectedItem().equals("Todos Registros")) {
             buscarInternosMatricula("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSFISICOSINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
@@ -3500,6 +3554,21 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
                     + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                    + "WHERE MatriculaCrc LIKE'%" + jPesqMatricula.getText() + "%'");
+        } else if (jComboBoxOpcao.getSelectedItem().equals("Só Enfermaria")) {
+            pesquisarInternosDoencasInfecto("SELECT * FROM PRONTUARIOSCRC "
+                    + "INNER JOIN DADOSFISICOSINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
+                    + "INNER JOIN PAISES "
+                    + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
+                    + "INNER JOIN CIDADES "
+                    + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "INNER JOIN UNIDADE "
+                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                    + "INNER JOIN ADMISSAOENFERMEIRA "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=ADMISSAOENFERMEIRA.IdInternoCrc "
                     + "WHERE MatriculaCrc LIKE'%" + jPesqMatricula.getText() + "%'");
         }
     }//GEN-LAST:event_jBtMatriculaActionPerformed
@@ -3667,22 +3736,46 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         // TODO add your handling code here:
         count = 0;
         flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {
-            this.preencherTodosInternos("SELECT * FROM PRONTUARIOSCRC "
-                    + "INNER JOIN DADOSFISICOSINTERNOS "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
-                    + "INNER JOIN PAISES "
-                    + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
-                    + "INNER JOIN CIDADES "
-                    + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
-                    + "INNER JOIN DADOSPENAISINTERNOS "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                    + "INNER JOIN UNIDADE "
-                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                    + "ORDER BY PRONTUARIOSCRC.IdInternoCrc");
-        } else {
-            jtotalRegistros.setText("");
-            limparTabelaProntuario();
+        if (jComboBoxOpcao.getSelectedItem().equals("Selecione...")) {
+            JOptionPane.showMessageDialog(rootPane, "Selecione um tipo de pesquisa.");
+        } else if (jComboBoxOpcao.getSelectedItem().equals("Todos Registros")) {
+            if (evt.getStateChange() == evt.SELECTED) {
+                this.preencherTodosInternos("SELECT * FROM PRONTUARIOSCRC "
+                        + "INNER JOIN DADOSFISICOSINTERNOS "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
+                        + "INNER JOIN PAISES "
+                        + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
+                        + "INNER JOIN CIDADES "
+                        + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
+                        + "INNER JOIN DADOSPENAISINTERNOS "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                        + "INNER JOIN UNIDADE "
+                        + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                        + "ORDER BY PRONTUARIOSCRC.IdInternoCrc");
+            } else {
+                jtotalRegistros.setText("");
+                limparTabelaProntuario();
+            }
+        } else if (jComboBoxOpcao.getSelectedItem().equals("Só Enfermaria")) {
+            if (evt.getStateChange() == evt.SELECTED) {
+                this.pesquisarInternosDoencasInfecto("SELECT * FROM PRONTUARIOSCRC "
+                        + "INNER JOIN DADOSFISICOSINTERNOS "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
+                        + "INNER JOIN PAISES "
+                        + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
+                        + "INNER JOIN CIDADES "
+                        + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
+                        + "INNER JOIN DADOSPENAISINTERNOS "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                        + "INNER JOIN UNIDADE "
+                        + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                        + "INNER JOIN ADMISSAOENFERMEIRA "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=ADMISSAOENFERMEIRA.IdInternoCrc "
+                        + "ORDER BY PRONTUARIOSCRC.IdInternoCrc");
+            } else {
+                jtotalRegistros.setText("");
+                limparTabelaDoencasInfecto();
+            }
         }
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
@@ -3695,7 +3788,9 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         // TODO add your handling code here:
         if (jPesqAlcunha.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe a alcunha para pesquisa.");
-        } else {
+        } else if (jComboBoxOpcao.getSelectedItem().equals("Selecione...")) {
+            JOptionPane.showMessageDialog(rootPane, "Selecione um tipo de pesquisa.");
+        } else if (jComboBoxOpcao.getSelectedItem().equals("Todos Registros")) {
             preencherTabelaNome("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSFISICOSINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
@@ -3706,6 +3801,21 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                    + "WHERE AlcunhaCrc LIKE'%" + jPesqAlcunha.getText() + "%'");
+        } else if (jComboBoxOpcao.getSelectedItem().equals("Só Enfermaria")) {
+            pesquisarInternosDoencasInfecto("SELECT * FROM PRONTUARIOSCRC "
+                    + "INNER JOIN DADOSFISICOSINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
+                    + "INNER JOIN PAISES "
+                    + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
+                    + "INNER JOIN CIDADES "
+                    + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "INNER JOIN UNIDADE "
+                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                    + "INNER JOIN ADMISSAOENFERMEIRA "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=ADMISSAOENFERMEIRA.IdInternoCrc "
                     + "WHERE AlcunhaCrc LIKE'%" + jPesqAlcunha.getText() + "%'");
         }
     }//GEN-LAST:event_jBtPesqAlcunhaActionPerformed
@@ -3862,7 +3972,9 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         if (jPesquisaCNC.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe MATRICULA para pesquisa!!!");
             jPesquisaCNC.requestFocus();
-        } else {
+        } else if (jComboBoxOpcao.getSelectedItem().equals("Selecione...")) {
+            JOptionPane.showMessageDialog(rootPane, "Selecione um tipo de pesquisa.");
+        } else if (jComboBoxOpcao.getSelectedItem().equals("Todos Registros")) {
             buscarInternosMatricula("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSFISICOSINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
@@ -3874,6 +3986,21 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
                     + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                    + "WHERE Cnc LIKE'%" + jPesquisaCNC.getText() + "%'");
+        } else if (jComboBoxOpcao.getSelectedItem().equals("Só Enfermaria")) {
+            pesquisarInternosDoencasInfecto("SELECT * FROM PRONTUARIOSCRC "
+                    + "INNER JOIN DADOSFISICOSINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
+                    + "INNER JOIN PAISES "
+                    + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
+                    + "INNER JOIN CIDADES "
+                    + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "INNER JOIN UNIDADE "
+                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                    + "INNER JOIN ADMISSAOENFERMEIRA "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=ADMISSAOENFERMEIRA.IdInternoCrc "
                     + "WHERE Cnc LIKE'%" + jPesquisaCNC.getText() + "%'");
         }
     }//GEN-LAST:event_jBtCNCPesquisaActionPerformed
@@ -3937,6 +4064,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
     private javax.swing.JComboBox jComboBoxLabios;
     private javax.swing.JComboBox jComboBoxNariz;
     private javax.swing.JComboBox jComboBoxOlhos;
+    private javax.swing.JComboBox<String> jComboBoxOpcao;
     private javax.swing.JComboBox jComboBoxOrelha;
     public static javax.swing.JTextField jComboBoxPais;
     private javax.swing.JComboBox jComboBoxParticipacao;
@@ -4042,6 +4170,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
     private javax.swing.JLabel jLabel158;
     private javax.swing.JLabel jLabel159;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel160;
     private javax.swing.JLabel jLabel162;
     private javax.swing.JLabel jLabel163;
     private javax.swing.JLabel jLabel17;
@@ -5232,7 +5361,7 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
             conecta.executaSQL(sql);
             conecta.rs.first();
             do {
-                count = count + 1; // Contador de registros
+                count = count + 1; // Contador de registros                
                 // Formatar a data Entrada
                 dataEntrada = conecta.rs.getString("DataEntrada");
                 String dia = dataEntrada.substring(8, 10);
@@ -5341,6 +5470,44 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         modelo.getLinhas().clear();
     }
 
+    public void limparTabelaDoencasInfecto() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro", "Hepatite B", "Hepatite C", "Hiv", "Sifilis", "Hipertensão", "Diabetes", "Tuberculose", "Alergias"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaInterno.setRowSorter(new TableRowSorter(modelo)); //FAZER ORDENAMENTO NA TABLEA
+        jTabelaInterno.setModel(modelo);
+        jTabelaInterno.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaInterno.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(1).setPreferredWidth(300);
+        jTabelaInterno.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTabelaInterno.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(3).setPreferredWidth(80);
+        jTabelaInterno.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(4).setPreferredWidth(80);
+        jTabelaInterno.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(5).setPreferredWidth(80);
+        jTabelaInterno.getColumnModel().getColumn(5).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(6).setPreferredWidth(80);
+        jTabelaInterno.getColumnModel().getColumn(6).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(7).setPreferredWidth(80);
+        jTabelaInterno.getColumnModel().getColumn(7).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(8).setPreferredWidth(80);
+        jTabelaInterno.getColumnModel().getColumn(8).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(9).setPreferredWidth(80);
+        jTabelaInterno.getColumnModel().getColumn(9).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(10).setPreferredWidth(80);
+        jTabelaInterno.getColumnModel().getColumn(10).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(11).setPreferredWidth(70);
+        jTabelaInterno.getColumnModel().getColumn(11).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(12).setPreferredWidth(60);
+        jTabelaInterno.getColumnModel().getColumn(12).setResizable(false);
+        jTabelaInterno.getTableHeader().setReorderingAllowed(false);
+        jTabelaInterno.setAutoResizeMode(jTabelaInterno.AUTO_RESIZE_OFF);
+        jTabelaInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
+    }
+
     public void alinharCamposTabelaProntuario() {
         DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
@@ -5353,6 +5520,118 @@ public final class TelaConsultaProntuarioInternoCrc extends javax.swing.JInterna
         jTabelaInterno.getColumnModel().getColumn(2).setCellRenderer(centralizado);
         jTabelaInterno.getColumnModel().getColumn(3).setCellRenderer(centralizado);
         jTabelaInterno.getColumnModel().getColumn(4).setCellRenderer(centralizado);
+    }
+
+    public void corNaLinha() {
+        DefaultTableCellRenderer tableCellRenderer = new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                if (jComboBoxOpcao.getSelectedItem().equals("Só Enfermaria")) {
+                    Object textoHpC = table.getValueAt(row, 5);
+                    Object textoHpB = table.getValueAt(row, 6);
+                    Object textoHiv = table.getValueAt(row, 7);
+                    Object textoSifilis = table.getValueAt(row, 8);
+                    Object textoHiper = table.getValueAt(row, 9);
+                    Object textoDiabes = table.getValueAt(row, 10);
+                    Object textoTuber = table.getValueAt(row, 11);
+                    Object textoAlerge = table.getValueAt(row, 12);
+                    if (textoHpC != null && pHepatiteC.equals(textoHpC.toString())) {
+                        comp.setForeground(Color.RED);
+                        comp.setBackground(Color.WHITE);
+                    } else if (textoHpB != null && pHepatiteB.equals(textoHpC.toString())) {
+                        comp.setForeground(Color.RED);
+                        comp.setBackground(Color.WHITE);
+                    } else if (textoHiv != null && pHiv.equals(textoHpC.toString())) {
+                        comp.setForeground(Color.RED);
+                        comp.setBackground(Color.WHITE);
+                    } else if (textoSifilis != null && pSifilis.equals(textoSifilis.toString())) {
+                        comp.setForeground(Color.RED);
+                        comp.setBackground(Color.WHITE);
+                    } else if (textoHiper != null && pHipertensao.equals(textoHiper.toString())) {
+                        comp.setForeground(Color.RED);
+                        comp.setBackground(Color.WHITE);
+                    } else if (textoDiabes != null && pDiabetes.equals(textoDiabes.toString())) {
+                        comp.setForeground(Color.RED);
+                        comp.setBackground(Color.WHITE);
+                    } else if (textoTuber != null && pTuberculose.equals(textoTuber.toString())) {
+                        comp.setForeground(Color.RED);
+                        comp.setBackground(Color.WHITE);
+                    } else if (textoAlerge != null && pAlergias.equals(textoAlerge.toString())) {
+                        comp.setForeground(Color.RED);
+                        comp.setBackground(Color.WHITE);
+                    } else {
+                        comp.setForeground(Color.BLACK);
+                        comp.setBackground(Color.WHITE);
+                    }
+                }
+                return comp;
+            }
+        };
+        jTabelaInterno.setDefaultRenderer(Object.class, tableCellRenderer);
+    }
+
+    public void pesquisarInternosDoencasInfecto(String sql) {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro", "Hepatite B", "Hepatite C", "Hiv", "Sifilis", "Hipertensão", "Diabetes", "Tuberculose", "Alergias"};
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL(sql);
+            conecta.rs.first();
+            do {
+                count = count + 1; // Contador de registros                
+                // Formatar a data Entrada
+                dataEntrada = conecta.rs.getString("DataEntrada");
+                String dia = dataEntrada.substring(8, 10);
+                String mes = dataEntrada.substring(5, 7);
+                String ano = dataEntrada.substring(0, 4);
+                dataEntrada = dia + "/" + mes + "/" + ano;
+                // Fortmatar data de Cadastro          
+                dataCadastro = conecta.rs.getString("DataCadastCrc");
+                String day = dataCadastro.substring(8, 10);
+                String mesc = dataCadastro.substring(5, 7);
+                String anoc = dataCadastro.substring(0, 4);
+                dataCadastro = day + "/" + mesc + "/" + anoc;
+                jtotalRegistros.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela
+                dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("MatriculaCrc"), dataEntrada, dataCadastro, conecta.rs.getString("HepatiteB"), conecta.rs.getString("HepatiteC"), conecta.rs.getString("Hiv"), conecta.rs.getString("Sifilis"), conecta.rs.getString("Hipertensao"), conecta.rs.getString("Diabetes"), conecta.rs.getString("Tuberculose"), conecta.rs.getString("Alergias")});
+            } while (conecta.rs.next());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");
+        }
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaInterno.setRowSorter(new TableRowSorter(modelo)); //FAZER ORDENAMENTO NA TABLEA
+        jTabelaInterno.setModel(modelo);
+        jTabelaInterno.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaInterno.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(1).setPreferredWidth(300);
+        jTabelaInterno.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTabelaInterno.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(3).setPreferredWidth(80);
+        jTabelaInterno.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(4).setPreferredWidth(80);
+        jTabelaInterno.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(5).setPreferredWidth(80);
+        jTabelaInterno.getColumnModel().getColumn(5).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(6).setPreferredWidth(80);
+        jTabelaInterno.getColumnModel().getColumn(6).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(7).setPreferredWidth(80);
+        jTabelaInterno.getColumnModel().getColumn(7).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(8).setPreferredWidth(80);
+        jTabelaInterno.getColumnModel().getColumn(8).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(9).setPreferredWidth(80);
+        jTabelaInterno.getColumnModel().getColumn(9).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(10).setPreferredWidth(80);
+        jTabelaInterno.getColumnModel().getColumn(10).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(11).setPreferredWidth(70);
+        jTabelaInterno.getColumnModel().getColumn(11).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(12).setPreferredWidth(60);
+        jTabelaInterno.getColumnModel().getColumn(12).setResizable(false);
+        jTabelaInterno.getTableHeader().setReorderingAllowed(false);
+        jTabelaInterno.setAutoResizeMode(jTabelaInterno.AUTO_RESIZE_OFF);
+        jTabelaInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        corNaLinha();
+        conecta.desconecta();
     }
 
     public void objLog() {
