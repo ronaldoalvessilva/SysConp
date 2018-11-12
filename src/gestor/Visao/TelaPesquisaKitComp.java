@@ -212,7 +212,7 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
         jTabelaProdutosKit.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaProdutosKit.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Registro", "Tipo Kit", "Código", "Descrição Produto", "Un.", "Quant."
@@ -470,11 +470,14 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
+            limparTabelaItens();
             kitInicial = 1;
             this.preencherTabelaItens("SELECT * FROM PRODUTOS_KITS_HIGIENE_INTERNO "
                     + "INNER JOIN PRODUTOS_AC "
                     + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
                     + "WHERE KitInicial='" + kitInicial + "'");
+        }else{
+            limparTabelaItens();
         }
     }//GEN-LAST:event_jCheckBoxKitInicialItemStateChanged
 
@@ -482,11 +485,14 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            kitInicial = 1;
+            limparTabelaItens();
+            kitQuinzenal = 1;
             this.preencherTabelaItens("SELECT * FROM PRODUTOS_KITS_HIGIENE_INTERNO "
                     + "INNER JOIN PRODUTOS_AC "
                     + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
                     + "WHERE KitQuinzenal='" + kitQuinzenal + "'");
+        }else{
+            limparTabelaItens();
         }
     }//GEN-LAST:event_jCheckBoxKitQuinzenalItemStateChanged
 
@@ -494,11 +500,14 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            kitInicial = 1;
+            limparTabelaItens();
+            kitMensal = 1;
             this.preencherTabelaItens("SELECT * FROM PRODUTOS_KITS_HIGIENE_INTERNO "
                     + "INNER JOIN PRODUTOS_AC "
                     + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
                     + "WHERE KitMensal='" + kitMensal + "'");
+        }else{
+            limparTabelaItens();
         }
     }//GEN-LAST:event_jCheckBoxKitMensalItemStateChanged
 
@@ -506,11 +515,14 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            kitInicial = 1;
+            limparTabelaItens();
+            kitDecendial = 1;
             this.preencherTabelaItens("SELECT * FROM PRODUTOS_KITS_HIGIENE_INTERNO "
                     + "INNER JOIN PRODUTOS_AC "
                     + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
                     + "WHERE KitDecendial='" + kitDecendial + "'");
+        }else{
+            limparTabelaItens();
         }
     }//GEN-LAST:event_jCheckBoxKitDecendialItemStateChanged
 
@@ -518,11 +530,14 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            kitInicial = 1;
+            limparTabelaItens();
+            kitSemestral = 1;
             this.preencherTabelaItens("SELECT * FROM PRODUTOS_KITS_HIGIENE_INTERNO "
                     + "INNER JOIN PRODUTOS_AC "
                     + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                    + "WHERE KitSemestrall='" + kitSemestral + "'");
+                    + "WHERE KitSemestral='" + kitSemestral + "'");
+        }else{
+            limparTabelaItens();
         }
     }//GEN-LAST:event_jCheckBoxKitSemestralItemStateChanged
 
@@ -530,11 +545,14 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            kitInicial = 1;
+            limparTabelaItens();
+            kitAnual = 1;
             this.preencherTabelaItens("SELECT * FROM PRODUTOS_KITS_HIGIENE_INTERNO "
                     + "INNER JOIN PRODUTOS_AC "
                     + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
                     + "WHERE KitAnual='" + kitAnual + "'");
+        }else{
+            limparTabelaItens();
         }
     }//GEN-LAST:event_jCheckBoxKitAnualItemStateChanged
 
