@@ -119,22 +119,23 @@ public class ControleItensEntradasLote {
     }
     // PARA INDICAR SOBRE O KIT
      public ProntuarioCrc informarkitHigiene(ProntuarioCrc objProCrc) {
-        
+        buscarInternoCrc(objProCrc.getNomeInterno(),objProCrc.getIdInterno());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO MOVIMENTACAO_KITS_HIGIENE_INTERNOS (KitInicial,KitIPago,KitDecendial,KitDPago,KitQuinzenal,KitQPago,KitMensal,KitMPago,KitSemestral,KitSPago,KitAnual,KitAPago) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");            
-            pst.setString(1, objProCrc.getKitInicial());
-            pst.setString(2, objProCrc.getKitIPago());
-            pst.setString(3, objProCrc.getKitDecendial());
-            pst.setString(4, objProCrc.getKitDPago());
-            pst.setString(5, objProCrc.getKitQuinzenal());
-            pst.setString(6, objProCrc.getKitQPago());
-            pst.setString(7, objProCrc.getKitMensal());
-            pst.setString(8, objProCrc.getKitMPago());
-            pst.setString(9, objProCrc.getKitSemestral());
-            pst.setString(10, objProCrc.getKitSPago());
-            pst.setString(11, objProCrc.getKitAnual());
-            pst.setString(12, objProCrc.getKitAPago());
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO MOVIMENTACAO_KITS_HIGIENE_INTERNOS (IdInternoCrc,KitInicial,KitIPago,KitDecendial,KitDPago,KitQuinzenal,KitQPago,KitMensal,KitMPago,KitSemestral,KitSPago,KitAnual,KitAPago) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");            
+            pst.setInt(1, codInt);
+            pst.setString(2, objProCrc.getKitInicial());
+            pst.setString(3, objProCrc.getKitIPago());
+            pst.setString(4, objProCrc.getKitDecendial());
+            pst.setString(5, objProCrc.getKitDPago());
+            pst.setString(6, objProCrc.getKitQuinzenal());
+            pst.setString(7, objProCrc.getKitQPago());
+            pst.setString(8, objProCrc.getKitMensal());
+            pst.setString(9, objProCrc.getKitMPago());
+            pst.setString(10, objProCrc.getKitSemestral());
+            pst.setString(11, objProCrc.getKitSPago());
+            pst.setString(12, objProCrc.getKitAnual());
+            pst.setString(13, objProCrc.getKitAPago());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados do INTERNO.\n\nERRO: " + ex);
