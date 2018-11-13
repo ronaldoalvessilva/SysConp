@@ -40,6 +40,7 @@ public class TelaPesqProdutoComporKitHigiene extends javax.swing.JInternalFrame 
     float valorUnitario;
     String modulo = "A";
     String loteProduto = "";
+    String produtoKit = "Sim";
 
     /**
      * Creates new form TelaPesqProdutoFarmacia
@@ -279,7 +280,8 @@ public class TelaPesqProdutoComporKitHigiene extends javax.swing.JInternalFrame 
                     + "WHERE DescricaoProd LIKE'%" + jPesqDescricaoProdutos.getText() + "%' "
                     + "AND StatusProd='" + statusProd + "' "
                     + "AND Qtd!='" + 0 + "' "
-                    + "AND PRODUTOS_AC.Modulo='" + modulo + "'");
+                    + "AND PRODUTOS_AC.Modulo='" + modulo + "' "
+                    + "AND PRODUTOS_AC.CompoeKit='" + produtoKit + "'");
         }
     }//GEN-LAST:event_jBtPesqDescricaoProdActionPerformed
 
@@ -301,9 +303,9 @@ public class TelaPesqProdutoComporKitHigiene extends javax.swing.JInternalFrame 
                         + "WHERE PRODUTOS_AC.IdProd='" + idInt + "'");
                 conecta.rs.first();
                 jCodProduto.setText(String.valueOf(conecta.rs.getInt("IdProd")));
-                jCodigoBarras.setText(conecta.rs.getString("CodigoBarra"));                
+                jCodigoBarras.setText(conecta.rs.getString("CodigoBarra"));
                 jDescricaoProduto.setText(conecta.rs.getString("DescricaoProd"));
-                jComboBoxUnidade.setSelectedItem(conecta.rs.getString("UnidadeProd"));                
+                jComboBoxUnidade.setSelectedItem(conecta.rs.getString("UnidadeProd"));
                 conecta.desconecta();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa do produto" + e);
@@ -339,7 +341,8 @@ public class TelaPesqProdutoComporKitHigiene extends javax.swing.JInternalFrame 
                     + "ON PRODUTOS_AC.IdProd=LOTE_PRODUTOS_AC.IdProd "
                     + "WHERE PRODUTOS_AC.StatusProd='" + statusProd + "' "
                     + "AND Qtd!='" + 0 + "' "
-                    + "AND PRODUTOS_AC.Modulo='" + modulo + "'");
+                    + "AND PRODUTOS_AC.Modulo='" + modulo + "' "
+                    + "AND PRODUTOS_AC.CompoeKit='" + produtoKit + "'");
         } else {
             limparTabela();
         }
@@ -359,7 +362,8 @@ public class TelaPesqProdutoComporKitHigiene extends javax.swing.JInternalFrame 
                     + "WHERE PRODUTOS_AC.IdProd='" + jCodigo.getText() + "' "
                     + "AND StatusProd='" + statusProd + "' "
                     + "AND Qtd!='" + 0 + "' "
-                    + "AND PRODUTOS_AC.Modulo='" + modulo + "'");
+                    + "AND PRODUTOS_AC.Modulo='" + modulo + "' "
+                    + "AND PRODUTOS_AC.CompoeKit='" + produtoKit + "'");
         }
     }//GEN-LAST:event_jBtPesqDescricaoProd1ActionPerformed
 
