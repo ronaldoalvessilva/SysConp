@@ -15,6 +15,8 @@ import static gestor.Visao.TelaMontagemPagamentoKitInterno.jRBtKitInicial;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jRBtKitMensal;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jRBtKitQuinzenal;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jRBtKitSemestral;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jTabelaGeralProdutosKit;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jtotalProdutosKit;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdItem;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdItemTab;
 import java.sql.SQLException;
@@ -24,6 +26,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -318,12 +321,12 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
     }//GEN-LAST:event_jTabelaProdutosKitMouseClicked
 
     private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
-        // TODO add your handling code here:       
+        // TODO add your handling code here:           
         flag = 1;
         if (jPesquisaNomeProduto.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(rootPane, "Selecione o o kit e clique no botão CONFIRMAR");
+            JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos um item do kit e clique no botão CONFIRMAR.");
         } else {
-            if (kitInicial == 1) {
+            if (kitInicial == 1) {                
                 conecta.abrirConexao();
                 try {
                     conecta.executaSQL("SELECT * FROM PRODUTOS_KITS_HIGIENE_INTERNO "
@@ -476,7 +479,7 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
                     + "INNER JOIN PRODUTOS_AC "
                     + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
                     + "WHERE KitInicial='" + kitInicial + "'");
-        }else{
+        } else {
             limparTabelaItens();
         }
     }//GEN-LAST:event_jCheckBoxKitInicialItemStateChanged
@@ -491,7 +494,7 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
                     + "INNER JOIN PRODUTOS_AC "
                     + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
                     + "WHERE KitQuinzenal='" + kitQuinzenal + "'");
-        }else{
+        } else {
             limparTabelaItens();
         }
     }//GEN-LAST:event_jCheckBoxKitQuinzenalItemStateChanged
@@ -506,7 +509,7 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
                     + "INNER JOIN PRODUTOS_AC "
                     + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
                     + "WHERE KitMensal='" + kitMensal + "'");
-        }else{
+        } else {
             limparTabelaItens();
         }
     }//GEN-LAST:event_jCheckBoxKitMensalItemStateChanged
@@ -521,7 +524,7 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
                     + "INNER JOIN PRODUTOS_AC "
                     + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
                     + "WHERE KitDecendial='" + kitDecendial + "'");
-        }else{
+        } else {
             limparTabelaItens();
         }
     }//GEN-LAST:event_jCheckBoxKitDecendialItemStateChanged
@@ -536,7 +539,7 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
                     + "INNER JOIN PRODUTOS_AC "
                     + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
                     + "WHERE KitSemestral='" + kitSemestral + "'");
-        }else{
+        } else {
             limparTabelaItens();
         }
     }//GEN-LAST:event_jCheckBoxKitSemestralItemStateChanged
@@ -551,7 +554,7 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
                     + "INNER JOIN PRODUTOS_AC "
                     + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
                     + "WHERE KitAnual='" + kitAnual + "'");
-        }else{
+        } else {
             limparTabelaItens();
         }
     }//GEN-LAST:event_jCheckBoxKitAnualItemStateChanged
