@@ -1709,6 +1709,8 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
                                             objProCrc.setKitSPago(pagtoKit);
                                             objProCrc.setKitAnual(pagtoKit);
                                             objProCrc.setKitAPago(pagtoKit);
+                                            objProCrc.setIdInterno(Integer.valueOf(jIDInterno.getText()));
+                                            objProCrc.setNomeInterno(jNomeInterno.getText());
                                             controle.informarkitHigiene(objProCrc);
                                             // MODIFICAR A SITUAÇÃO DO INTERNO NA TABELA PRONTUARIOSCRC
                                             objProCrc.setIdInterno(Integer.valueOf(jIDInterno.getText()));
