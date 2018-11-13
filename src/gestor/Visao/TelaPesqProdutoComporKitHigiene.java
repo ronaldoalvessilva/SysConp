@@ -10,10 +10,7 @@ import gestor.Dao.ModeloTabela;
 import static gestor.Visao.TelaTiposKitsHigieneInternos.jDescricaoProduto;
 import static gestor.Visao.TelaTiposKitsHigieneInternos.jCodProduto;
 import static gestor.Visao.TelaTiposKitsHigieneInternos.jCodigoBarras;
-import static gestor.Visao.TelaRequisicaoMateriaisInternosAC.jLote;
-import static gestor.Visao.TelaRequisicaoMateriaisInternosAC.jDataVctoLote;
 import static gestor.Visao.TelaTiposKitsHigieneInternos.jComboBoxUnidade;
-import static gestor.Visao.TelaRequisicaoMateriaisInternosAC.jValorUnitarioItem;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -173,7 +170,7 @@ public class TelaPesqProdutoComporKitHigiene extends javax.swing.JInternalFrame 
         jTabelaProdutos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Descrição Prouduto", "Data Vl.", "Qtd.", "Lote"
