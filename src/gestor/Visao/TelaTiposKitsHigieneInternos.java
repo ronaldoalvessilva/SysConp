@@ -31,6 +31,7 @@ import static gestor.Visao.TelaModuloAlmoxarifado.telaCadastroTipoKitPagamentoMa
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
+import java.awt.Image;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -39,6 +40,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Currency;
 import java.util.Locale;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -89,7 +91,10 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
     String nomeKit = "";
     String codLanc = "";
     int tipoKit = 0;
-    String idItem = "";
+    public static String idItem = "";
+    //
+    String caminhoFoto = "C:\\SysConp\\Fotos\\Shopping_cart_Icon_128.png"; // PRETO E BRANCO
+    String caminhoFoto1 = "C:\\SysConp\\Fotos\\Full_shopping_cart_Icon_96.png"; // COLORIDO
 
     /**
      * Creates new form TelaTiposKitsHigieneInternos
@@ -657,6 +662,11 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
         jBtAuditoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
         jBtAuditoria.setContentAreaFilled(false);
         jBtAuditoria.setEnabled(false);
+        jBtAuditoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAuditoriaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -972,6 +982,11 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
         jBtAuditoriaProduto.setToolTipText("Auditoria");
         jBtAuditoriaProduto.setContentAreaFilled(false);
         jBtAuditoriaProduto.setEnabled(false);
+        jBtAuditoriaProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAuditoriaProdutoActionPerformed(evt);
+            }
+        });
 
         jPanel33.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
 
@@ -1201,10 +1216,14 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if (evt.getStateChange() == evt.SELECTED) {
             kitAnual = 1;
-            jFotoKit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Full_Shopping_cart_Icon_128.png")));
+            javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFoto1);
+            jFotoKit.setIcon(i);
+            jFotoKit.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoKit.getWidth(), jFotoKit.getHeight(), Image.SCALE_DEFAULT)));
         } else {
             kitAnual = 0;
-            jFotoKit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Shopping_cart_Icon_96.png")));
+            javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFoto);
+            jFotoKit.setIcon(i);
+            jFotoKit.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoKit.getWidth(), jFotoKit.getHeight(), Image.SCALE_DEFAULT)));
         }
     }//GEN-LAST:event_jCheckBoxKitAnualItemStateChanged
 
@@ -1212,10 +1231,14 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if (evt.getStateChange() == evt.SELECTED) {
             kitDecendial = 1;
-            jFotoKit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Full_Shopping_cart_Icon_128.png")));
+            javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFoto);
+            jFotoKit.setIcon(i);
+            jFotoKit.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoKit.getWidth(), jFotoKit.getHeight(), Image.SCALE_DEFAULT)));
         } else {
             kitDecendial = 0;
-            jFotoKit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Shopping_cart_Icon_96.png")));
+            javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFoto1);
+            jFotoKit.setIcon(i);
+            jFotoKit.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoKit.getWidth(), jFotoKit.getHeight(), Image.SCALE_DEFAULT)));
         }
     }//GEN-LAST:event_jCheckBoxDecendialItemStateChanged
 
@@ -1223,10 +1246,14 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if (evt.getStateChange() == evt.SELECTED) {
             kitSemestral = 1;
-            jFotoKit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Full_Shopping_cart_Icon_128.png")));
+            javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFoto);
+            jFotoKit.setIcon(i);
+            jFotoKit.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoKit.getWidth(), jFotoKit.getHeight(), Image.SCALE_DEFAULT)));
         } else {
             kitSemestral = 0;
-            jFotoKit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Shopping_cart_Icon_96.png")));
+            javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFoto1);
+            jFotoKit.setIcon(i);
+            jFotoKit.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoKit.getWidth(), jFotoKit.getHeight(), Image.SCALE_DEFAULT)));
         }
     }//GEN-LAST:event_jCheckBoxSemestralItemStateChanged
 
@@ -1234,10 +1261,14 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if (evt.getStateChange() == evt.SELECTED) {
             kitInicial = 1;
-            jFotoKit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Full_Shopping_cart_Icon_128.png")));
+            javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFoto);
+            jFotoKit.setIcon(i);
+            jFotoKit.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoKit.getWidth(), jFotoKit.getHeight(), Image.SCALE_DEFAULT)));
         } else {
             kitInicial = 0;
-            jFotoKit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Shopping_cart_Icon_96.png")));
+            javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFoto1);
+            jFotoKit.setIcon(i);
+            jFotoKit.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoKit.getWidth(), jFotoKit.getHeight(), Image.SCALE_DEFAULT)));
         }
     }//GEN-LAST:event_jCheckBoxKitInicialItemStateChanged
 
@@ -1245,10 +1276,14 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if (evt.getStateChange() == evt.SELECTED) {
             kitMensal = 1;
-            jFotoKit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Full_Shopping_cart_Icon_128.png")));
+            javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFoto);
+            jFotoKit.setIcon(i);
+            jFotoKit.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoKit.getWidth(), jFotoKit.getHeight(), Image.SCALE_DEFAULT)));
         } else {
             kitMensal = 0;
-            jFotoKit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Shopping_cart_Icon_96.png")));
+            javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFoto1);
+            jFotoKit.setIcon(i);
+            jFotoKit.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoKit.getWidth(), jFotoKit.getHeight(), Image.SCALE_DEFAULT)));
         }
     }//GEN-LAST:event_jCheckBoxMensalItemStateChanged
 
@@ -1256,10 +1291,14 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if (evt.getStateChange() == evt.SELECTED) {
             kitQuinzenal = 1;
-            jFotoKit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Full_Shopping_cart_Icon_128.png")));
+            javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFoto);
+            jFotoKit.setIcon(i);
+            jFotoKit.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoKit.getWidth(), jFotoKit.getHeight(), Image.SCALE_DEFAULT)));
         } else {
             kitQuinzenal = 0;
-            jFotoKit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Shopping_cart_Icon_96.png")));
+            javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFoto1);
+            jFotoKit.setIcon(i);
+            jFotoKit.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoKit.getWidth(), jFotoKit.getHeight(), Image.SCALE_DEFAULT)));
         }
     }//GEN-LAST:event_jCheckBoxKitQuinzenalItemStateChanged
 
@@ -1503,6 +1542,9 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
 
     private void jTabelaKitsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaKitsMouseClicked
         // TODO add your handling code here:
+        Integer rows = jTabelaProdutosKit.getRowCount();
+        count1 = 0;
+        jtotalItens.setText("");
         flag = 1;
         if (flag == 1) {
             String IdLanc = "" + jTabelaKits.getValueAt(jTabelaKits.getSelectedRow(), 0);
@@ -1517,7 +1559,7 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
             jBtCancelar.setEnabled(true);
             jBtAuditoria.setEnabled(true);
             //                     
-            bloquearCampos();            
+            bloquearCampos();
             limparCamposProdutos();
             //
             jBtNovoProduto.setEnabled(true);
@@ -1543,39 +1585,33 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
                 kitSemestral = conecta.rs.getInt("KitSemestral");
                 if (kitInicial == 1) {
                     jCheckBoxKitInicial.setSelected(true);
-                    // jFotoKit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SysConp/Fotos/Full_Shopping_cart_Icon_128.png")));
                 } else if (kitInicial == 0) {
                     jCheckBoxKitInicial.setSelected(!true);
                 }
                 if (kitAnual == 1) {
                     jCheckBoxKitAnual.setSelected(true);
-                    // jFotoKit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SysConp/Fotos/Full_Shopping_cart_Icon_128.png")));
                 } else if (kitAnual == 0) {
                     jCheckBoxKitAnual.setSelected(!true);
                 }
                 if (kitDecendial == 1) {
                     jCheckBoxDecendial.setSelected(true);
-                    // jFotoKit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SysConp/Fotos/Full_Shopping_cart_Icon_128.png")));
                 } else if (kitDecendial == 0) {
                     jCheckBoxDecendial.setSelected(!true);
                 }
                 if (kitQuinzenal == 1) {
                     jCheckBoxKitQuinzenal.setSelected(true);
-                    //  jFotoKit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SysConp/Fotos/Full_Shopping_cart_Icon_128.png")));
                 } else if (kitQuinzenal == 0) {
                     jCheckBoxKitQuinzenal.setSelected(!true);
                 }
                 if (kitMensal == 1) {
-                    jCheckBoxMensal.setSelected(true);
-                    // jFotoKit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SysConp/Fotos/Full_Shopping_cart_Icon_128.png")));
+                    jCheckBoxMensal.setSelected(true);                    
                 } else if (kitMensal == 0) {
                     jCheckBoxMensal.setSelected(!true);
                 }
                 if (kitSemestral == 1) {
                     jCheckBoxSemestral.setSelected(true);
-                    //  jFotoKit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SysConp/Fotos/Full_Shopping_cart_Icon_128.png")));
                 } else if (kitSemestral == 0) {
-                    jCheckBoxSemestral.setSelected(!true);
+                    jCheckBoxSemestral.setSelected(!true);                    
                 }
                 jObservacaoKit.setText(conecta.rs.getString("ObservacaoKit"));
             } catch (SQLException e) {
@@ -1590,6 +1626,17 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
                     + "INNER JOIN PRODUTOS_AC "
                     + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
                     + "WHERE PRODUTOS_KITS_HIGIENE_INTERNO.IdKit='" + jIdKit.getText() + "'");
+            if (rows != 0) {
+                // COLORIDO
+                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFoto1);
+                jFotoKit.setIcon(i);
+                jFotoKit.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoKit.getWidth(), jFotoKit.getHeight(), Image.SCALE_DEFAULT)));
+            } else {
+                // PRETO E BRANCO
+                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFoto);
+                jFotoKit.setIcon(i);
+                jFotoKit.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoKit.getWidth(), jFotoKit.getHeight(), Image.SCALE_DEFAULT)));
+            }
         }
     }//GEN-LAST:event_jTabelaKitsMouseClicked
 
@@ -1753,18 +1800,18 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
             String nomeProduto = "" + jTabelaProdutosKit.getValueAt(jTabelaProdutosKit.getSelectedRow(), 2);
             jDescricaoProduto.setText(nomeProduto);
             idItem = "" + jTabelaProdutosKit.getValueAt(jTabelaProdutosKit.getSelectedRow(), 0);
-            jBtNovo.setEnabled(!true);
-            jBtAlterar.setEnabled(!true);
-            jBtExcluir.setEnabled(!true);
+            jBtNovo.setEnabled(true);
+            jBtAlterar.setEnabled(true);
+            jBtExcluir.setEnabled(true);
             jBtSalvar.setEnabled(!true);
-            jBtCancelar.setEnabled(!true);
-            jBtAuditoria.setEnabled(!true);
+            jBtCancelar.setEnabled(true);
+            jBtAuditoria.setEnabled(true);
             //
             jBtNovoProduto.setEnabled(true);
             jBtAlterarProduto.setEnabled(true);
             jBtExcluirProduto.setEnabled(true);
             jBtSalvarProduto.setEnabled(!true);
-            jBtCancelarProduto.setEnabled(!true);
+            jBtCancelarProduto.setEnabled(true);
             jBtAuditoriaProduto.setEnabled(true);
             conecta.abrirConexao();
             try {
@@ -1851,6 +1898,20 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBoxKitAnualProdItemStateChanged
 
+    private void jBtAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaActionPerformed
+        // TODO add your handling code here:TelaAuditoriaTipoKits
+        TelaAuditoriaTipoKits objAudTipoK = new TelaAuditoriaTipoKits();
+        TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objAudTipoK);
+        objAudTipoK.show();
+    }//GEN-LAST:event_jBtAuditoriaActionPerformed
+
+    private void jBtAuditoriaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaProdutoActionPerformed
+        // TODO add your handling code here:
+        TelaAuditoriaItensKit objAudiItensKit = new TelaAuditoriaItensKit();
+        TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objAudiItensKit);
+        objAudiItensKit.show();
+    }//GEN-LAST:event_jBtAuditoriaProdutoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup grupoBotoes;
@@ -1933,7 +1994,7 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTabelaKits;
-    private javax.swing.JTable jTabelaProdutosKit;
+    public static javax.swing.JTable jTabelaProdutosKit;
     private javax.swing.JLabel jtotalItens;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
@@ -2494,5 +2555,4 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
         }
         conecta.desconecta();
     }
-
 }
