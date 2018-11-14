@@ -4567,7 +4567,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaGeralProdutosKit.setModel(modelo);
-        jTabelaGeralProdutosKit.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaGeralProdutosKit.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaGeralProdutosKit.getColumnModel().getColumn(0).setResizable(false);
         jTabelaGeralProdutosKit.getColumnModel().getColumn(1).setPreferredWidth(250);
         jTabelaGeralProdutosKit.getColumnModel().getColumn(1).setResizable(false);
@@ -4587,7 +4587,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         String[] Colunas = new String[]{"Código", "Descrição Produto", "Un.", "Qtd."};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaGeralProdutosKit.setModel(modelo);
-        jTabelaGeralProdutosKit.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaGeralProdutosKit.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaGeralProdutosKit.getColumnModel().getColumn(0).setResizable(false);
         jTabelaGeralProdutosKit.getColumnModel().getColumn(1).setPreferredWidth(250);
         jTabelaGeralProdutosKit.getColumnModel().getColumn(1).setResizable(false);
