@@ -102,6 +102,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private TelaPAI_NOVO objPaiNovo = null;
     private TelaRegistroInternosAtendimentoSS objRegBio = null;
     private TelaRegistroInternosAtendimentoImpressoSS objAutoImp = null;
+    private TelaSolicitacaoAuxilioReclusao objSoliPedRec = null;
     //
     public static String nomeModuloSERV = "SERVICO";
     String dataLanc;
@@ -187,6 +188,8 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     public static String telaHistAvaSocial_SS = "Movimentação:Historico de Avaliação Social - I:Manutenção";
     public static String telaHistAvaEmprego_SS = "Movimentação:Historico de Avaliação de Emprego - II:Manutenção";
     //
+    public static String telaSolicitacaoAuxilioReclusao = "Movimentação:Solicitação de Pedido de Reclusão - Serviço Social";
+    //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
     // MENU CADASTRO
@@ -232,7 +235,11 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     String pNomeOCO = "";
     String pNomeHAS_I = "";
     String pNomeHAE_II = "";
+    //
+    String pNomeSAR = "";
 
+//    pNomeSAR
+//    telaSolicitacaoAuxilioReclusao
     //  
     /**
      * Creates new form TelaServioSocial
@@ -300,6 +307,8 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         HistoricoAvaliacaoSocial = new javax.swing.JMenuItem();
         HistoricoAvaliacaoEmprego = new javax.swing.JMenuItem();
+        jSeparator20 = new javax.swing.JPopupMenu.Separator();
+        jSolicitacaoAtestadoReclusao = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jRolVisitas = new javax.swing.JMenuItem();
         RelatorioVisitasGrauParentesco = new javax.swing.JMenuItem();
@@ -614,6 +623,16 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
             }
         });
         jMenu2.add(HistoricoAvaliacaoEmprego);
+        jMenu2.add(jSeparator20);
+
+        jSolicitacaoAtestadoReclusao.setForeground(new java.awt.Color(0, 0, 204));
+        jSolicitacaoAtestadoReclusao.setText("Solicitação de Atestado de  Reclusão");
+        jSolicitacaoAtestadoReclusao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jSolicitacaoAtestadoReclusaoActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jSolicitacaoAtestadoReclusao);
 
         jMenuBar1.add(jMenu2);
 
@@ -2052,6 +2071,40 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_RegistroAtendimentoImpressoActionPerformed
 
+    private void jSolicitacaoAtestadoReclusaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSolicitacaoAtestadoReclusaoActionPerformed
+        // TODO add your handling code here:TelaSolicitacaoAuxilioReclusao
+        buscarAcessoUsuario(telaSolicitacaoAuxilioReclusao);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaSolicitacaoAuxilioReclusao) && codAbrirSS == 1) {
+            if (objSoliPedRec == null || objSoliPedRec.isClosed()) {
+                objSoliPedRec = new TelaSolicitacaoAuxilioReclusao();
+                jPainelServicoSocial.add(objSoliPedRec);
+                objSoliPedRec.setVisible(true);
+            } else {
+                if (objSoliPedRec.isVisible()) {
+                    if (objSoliPedRec.isIcon()) { // Se esta minimizado
+                        try {
+                            objSoliPedRec.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objSoliPedRec.toFront(); // traz para frente
+                        objSoliPedRec.pack();//volta frame 
+                    }
+                } else {
+                    objSoliPedRec = new TelaSolicitacaoAuxilioReclusao();
+                    TelaModuloServicoSocial.jPainelServicoSocial.add(objSoliPedRec);//adicona frame ao JDesktopPane  
+                    objSoliPedRec.setVisible(true);
+                }
+            }
+            try {
+                objSoliPedRec.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jSolicitacaoAtestadoReclusaoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AdmissaoInternos;
@@ -2130,6 +2183,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator18;
     private javax.swing.JPopupMenu.Separator jSeparator19;
     private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator20;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
@@ -2137,6 +2191,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator7;
     private javax.swing.JPopupMenu.Separator jSeparator8;
     private javax.swing.JPopupMenu.Separator jSeparator9;
+    private javax.swing.JMenuItem jSolicitacaoAtestadoReclusao;
     // End of variables declaration//GEN-END:variables
 
     // Verificar a cada 5 minutos se o recado foi lido (10/01/2015)
@@ -2647,14 +2702,21 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
             conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaHistAvaSocial_SS + "'");
             conecta.rs.first();
-            pNomeHAS_I = conecta.rs.getString("NomeTela");            
+            pNomeHAS_I = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaHistAvaEmprego_SS + "'");
             conecta.rs.first();
-            pNomeHAS_I = conecta.rs.getString("NomeTela");            
+            pNomeHAS_I = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaSolicitacaoAuxilioReclusao + "'");
+            conecta.rs.first();
+            pNomeSAR = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         // INICIO DA COMPARAÇÃO
@@ -2882,7 +2944,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
             objCadastroTela.setNomeTela(telaOcorrenciasSS);
             controle.incluirTelaAcesso(objCadastroTela);
         }
-        if (pNomeHAS_I.equals(telaHistAvaSocial_SS)|| pNomeHAS_I == null || pNomeHAS_I.equals("")) {
+        if (pNomeHAS_I.equals(telaHistAvaSocial_SS) || pNomeHAS_I == null || pNomeHAS_I.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaHistAvaSocial_SS);
@@ -2892,6 +2954,12 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaHistAvaEmprego_SS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeSAR.equals(telaSolicitacaoAuxilioReclusao) || pNomeSAR == null || pNomeSAR.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaSolicitacaoAuxilioReclusao);
             controle.incluirTelaAcesso(objCadastroTela);
         }
         conecta.desconecta();
