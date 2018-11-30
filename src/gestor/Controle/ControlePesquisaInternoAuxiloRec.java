@@ -7,6 +7,7 @@ package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.DigitalInterno;
+import static gestor.Visao.TelaSolicitacaoAuxilioReclusao.jCodigoVisitaAux;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,7 @@ public class ControlePesquisaInternoAuxiloRec {
     String situacao = "ENTRADA NA UNIDADE";
     String situacaoRet = "RETORNO A UNIDADE";
     public static int qtdInternos = 0;
+    String statusRol = "ABERTO";
 
     public List<DigitalInterno> read() throws Exception {
         conecta.abrirConexao();
@@ -39,12 +41,20 @@ public class ControlePesquisaInternoAuxiloRec {
                     + "ON PRONTUARIOSCRC.IdInternoCrc=BIOMETRIA_INTERNOS.IdInternoCrc "
                     + "INNER JOIN ITENSLOCACAOINTERNO "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
-                    + "INNER JOIN CELAS ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
-                    + "INNER JOIN PAVILHAO ON CELAS.IdPav=PAVILHAO.IdPav "
+                    + "INNER JOIN CELAS "
+                    + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON CELAS.IdPav=PAVILHAO.IdPav "
+                    + "INNER JOIN ITENSROL "
+                    + "ON ROLVISITAS.IdRol=ITENSROL.IdRol "
                     + "WHERE BIOMETRIA_INTERNOS.BiometriaDedo1!='" + pBio + "' "
                     + "AND PRONTUARIOSCRC.SituacaoCrc='" + situacao + "' "
+                    + "AND ITENSROL.IdVisita='" + jCodigoVisitaAux.getText() + "' "
+                    + "AND ROLVISITAS.StatusRol='" + statusRol + "' "
                     + "OR BIOMETRIA_INTERNOS.BiometriaDedo1!='" + pBio + "' "
-                    + "AND PRONTUARIOSCRC.SituacaoCrc='" + situacaoRet + "'");
+                    + "AND PRONTUARIOSCRC.SituacaoCrc='" + situacaoRet + "' "
+                    + "AND ITENSROL.IdVisita='" + jCodigoVisitaAux.getText() + "' "
+                    + "AND ROLVISITAS.StatusRol='" + statusRol + "'");
             while (conecta.rs.next()) {
                 DigitalInterno pDigi = new DigitalInterno();
                 pDigi.setIdInternoCrc(conecta.rs.getInt("IdInternoCrc"));
