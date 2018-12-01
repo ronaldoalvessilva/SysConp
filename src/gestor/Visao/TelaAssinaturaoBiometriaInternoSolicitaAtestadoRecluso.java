@@ -22,12 +22,9 @@ import gestor.Modelo.SolicitacaoAtestadoReclusao;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaSolicitacaoAuxilioReclusao.pDigitalCapturadaInterno;
-import static gestor.Visao.TelaSolicitacaoAuxilioReclusao.dataAssinatura;
-import static gestor.Visao.TelaSolicitacaoAuxilioReclusao.horaAssinatura;
 import static gestor.Visao.TelaSolicitacaoAuxilioReclusao.jCncAux;
 import static gestor.Visao.TelaSolicitacaoAuxilioReclusao.jCodRegAux;
 import static gestor.Visao.TelaSolicitacaoAuxilioReclusao.jCodigoInternoAux;
-import static gestor.Visao.TelaSolicitacaoAuxilioReclusao.jFotoInternoAux;
 import static gestor.Visao.TelaSolicitacaoAuxilioReclusao.jNomeInternoAux;
 import static gestor.Visao.TelaSolicitacaoAuxilioReclusao.jNomeMaeInternoAux;
 import static gestor.Visao.TelaSolicitacaoAuxilioReclusao.jRegimePenalAux;
@@ -37,6 +34,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import static gestor.Visao.TelaSolicitacaoAuxilioReclusao.dataAssinaturaInterno;
+import static gestor.Visao.TelaSolicitacaoAuxilioReclusao.horaAssinaturaInterno;
 
 /**
  *
@@ -424,14 +423,14 @@ public class TelaAssinaturaoBiometriaInternoSolicitaAtestadoRecluso extends java
             jCncAux.setText(jCnc.getText());
             jRegimePenalAux.setText(jRegimePenal.getText());
             jNomeMaeInternoAux.setText(jNomeMaeInterno.getText());            
-            objSolicitaAux.setDataAssinatura(jDataAssinaturaInterno.getDate());
-            objSolicitaAux.setHoraAssinatura(jHorarioAssinaturaInterno.getText());
+            objSolicitaAux.setDataAssinaturaInterno(jDataAssinaturaInterno.getDate());
+            objSolicitaAux.setHoraAssinaturaInterno(jHorarioAssinaturaInterno.getText());
             objSolicitaAux.setAssinaturaVisita(pDigitalCapturadaInterno);
             pDigitalCapturadaInterno = pDigitalCapturada;
-            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-            dataInicial = formatoAmerica.format(jDataAssinaturaInterno.getDate().getTime());
-            dataAssinatura = dataInicial;
-            horaAssinatura = objSolicitaAux.getHoraAssinatura();
+//            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+//            dataInicial = formatoAmerica.format(jDataAssinaturaInterno.getDate().getTime());
+            dataAssinaturaInterno = jDataAssinaturaInterno.getDate();
+            horaAssinaturaInterno = objSolicitaAux.getHoraAssinaturaInterno();
             dispose();
         } else if (jCodigoInternoAux.getText().equals("")) {
             jCodigoInternoAux.setText(jIdInterno.getText());
@@ -439,14 +438,14 @@ public class TelaAssinaturaoBiometriaInternoSolicitaAtestadoRecluso extends java
             jCncAux.setText(jCnc.getText());
             jRegimePenalAux.setText(jRegimePenal.getText());
             jNomeMaeInternoAux.setText(jNomeMaeInterno.getText());            
-            objSolicitaAux.setDataAssinatura(jDataAssinaturaInterno.getDate());
-            objSolicitaAux.setHoraAssinatura(jHorarioAssinaturaInterno.getText());
+            objSolicitaAux.setDataAssinaturaInterno(jDataAssinaturaInterno.getDate());
+            objSolicitaAux.setHoraAssinaturaInterno(jHorarioAssinaturaInterno.getText());
             objSolicitaAux.setAssinaturaVisita(pDigitalCapturadaInterno);
             pDigitalCapturadaInterno = pDigitalCapturada;
-            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-            dataInicial = formatoAmerica.format(jDataAssinaturaInterno.getDate().getTime());
-            dataAssinatura = dataInicial;
-            horaAssinatura = objSolicitaAux.getHoraAssinatura();
+//            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+//            dataInicial = formatoAmerica.format(jDataAssinaturaInterno.getDate().getTime());
+            dataAssinaturaInterno = jDataAssinaturaInterno.getDate();
+            horaAssinaturaInterno = objSolicitaAux.getHoraAssinaturaInterno();
             dispose();
         } else {
             JOptionPane.showMessageDialog(rootPane, "A visita pesquisada na tela principal é diferente da visita que está assinatura.");
