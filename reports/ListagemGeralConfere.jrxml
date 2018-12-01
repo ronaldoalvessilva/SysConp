@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListagemGeralConfere" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dd965aed-e3ab-4242-9e5b-199de681cc28">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="nomeUsuario" class="java.lang.String"/>
+	<parameter name="descricaoUnidade" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT * FROM ITENSLOCACAOINTERNO INNER JOIN PRONTUARIOSCRC ON ITENSLOCACAOINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc INNER JOIN CELAS ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela INNER JOIN PAVILHAO ON CELAS.IdPav=PAVILHAO.IdPav ORDER BY DescricaoPav,PRONTUARIOSCRC.NomeInternoCrc,CELAS.EndCelaPav]]>
+	</queryString>
+	<field name="IdItem" class="java.lang.Integer"/>
+	<field name="IdLoca" class="java.lang.Integer"/>
+	<field name="IdInternoCrc" class="java.lang.Integer"/>
+	<field name="IdCela" class="java.lang.Integer"/>
+	<field name="QtdLanc" class="java.lang.Integer"/>
+	<field name="UsuarioInsert" class="java.lang.String"/>
+	<field name="UsuarioUp" class="java.lang.String"/>
+	<field name="UsuarioDelete" class="java.lang.String"/>
+	<field name="DataInsert" class="java.lang.String"/>
+	<field name="DataUp" class="java.lang.String"/>
+	<field name="DataDelete" class="java.lang.String"/>
+	<field name="HorarioInsert" class="java.lang.String"/>
+	<field name="HorarioUp" class="java.lang.String"/>
+	<field name="MatriculaCrc" class="java.lang.String"/>
+	<field name="DataCadastCrc" class="java.sql.Timestamp"/>
+	<field name="DataNasciCrc" class="java.sql.Timestamp"/>
+	<field name="FotoInternoCrc" class="java.lang.String"/>
+	<field name="NomeInternoCrc" class="java.lang.String"/>
+	<field name="MaeInternoCrc" class="java.lang.String"/>
+	<field name="PaiInternoCrc" class="java.lang.String"/>
+	<field name="AlcunhaCrc" class="java.lang.String"/>
+	<field name="RgInternoCrc" class="java.lang.String"/>
+	<field name="CpfInternoCrc" class="java.lang.String"/>
+	<field name="EscolaridadeCrc" class="java.lang.String"/>
+	<field name="EstadoCivilCrc" class="java.lang.String"/>
+	<field name="SexoCrc" class="java.lang.String"/>
+	<field name="SituacaoCrc" class="java.lang.String"/>
+	<field name="IdPais" class="java.lang.Integer"/>
+	<field name="IdCidade" class="java.lang.Integer"/>
+	<field name="ReligiaoCrc" class="java.lang.String"/>
+	<field name="ProfissaoCrc" class="java.lang.String"/>
+	<field name="EnderecoCrc" class="java.lang.String"/>
+	<field name="BairroCrc" class="java.lang.String"/>
+	<field name="CidadeCrc" class="java.lang.String"/>
+	<field name="EstadoCrc" class="java.lang.String"/>
+	<field name="TelefoneCrc" class="java.lang.String"/>
+	<field name="Telefone1Crc" class="java.lang.String"/>
+	<field name="CelularCrc" class="java.lang.String"/>
+	<field name="IdPav" class="java.lang.Integer"/>
+	<field name="EndCelaPav" class="java.lang.String"/>
+	<field name="DescricaoPav" class="java.lang.String"/>
+	<variable name="totalRegistros" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[1]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="totalPavilhao" class="java.lang.Integer" resetType="Group" resetGroup="DescricaoPav" calculation="Sum">
+		<variableExpression><![CDATA[1]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<group name="DescricaoPav">
+		<groupExpression><![CDATA[$F{DescricaoPav}]]></groupExpression>
+		<groupHeader>
+			<band height="35">
+				<textField>
+					<reportElement style="SubTitle" x="0" y="7" width="523" height="24" forecolor="#CC0000" uuid="f625384f-9ed7-4619-a6d2-76c4bd79add9"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{DescricaoPav}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="16">
+				<rectangle>
+					<reportElement x="412" y="0" width="142" height="16" uuid="c512048c-c3b7-49bb-9492-5e42c1a66215"/>
+				</rectangle>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement x="509" y="0" width="45" height="16" uuid="bceb6de8-853d-4cf5-97ac-78a61565e322"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{totalPavilhao}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="412" y="0" width="97" height="16" uuid="f32ae549-47b5-41c4-a63a-23f8e4a09633"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total Pavilhão:]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="2" width="553" height="66" uuid="3ffd997e-cdc2-403f-9dcb-dbc527e19144"/>
+			</rectangle>
+			<staticText>
+				<reportElement style="Title" x="10" y="22" width="263" height="24" uuid="e211da72-d8a1-43b9-8e79-75c8ad916a5e"/>
+				<textElement verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[Listagem Geral Confere]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="117" y="46" width="157" height="22" forecolor="#000000" uuid="ebb35b67-dbfc-47bb-8f2a-40144b7cb1e6"/>
+				<text><![CDATA[Pavilhões e Celas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="2" width="260" height="20" uuid="9d94aa8f-a82f-49f1-825c-aa3ff6cdf8df"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SISCONP - Sistema de Controle Prisional]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="280" y="3" width="273" height="20" uuid="aa9c0174-83fb-4f16-b3f0-43c8e9b9fce3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{descricaoUnidade}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="20" width="555" height="1" uuid="9851cf3a-01a3-4fc8-b37b-4ab13c48b9b3"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="5" width="277" height="15" forecolor="#000000" uuid="d1162bf2-3a61-4b1d-a2e6-dac93827f19a"/>
+				<text><![CDATA[Nome Completo dos Internos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="277" y="5" width="156" height="15" forecolor="#000000" uuid="a9f9f4ee-3f6a-49a1-a0d2-c089f4d97cb3"/>
+				<text><![CDATA[Cela]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="435" y="5" width="100" height="17" uuid="5c180a49-74b3-4364-ba70-136747b8dd35"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Alcunha]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="c3458a07-cc89-4501-89cd-556b1575141a"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="3" y="0" width="277" height="15" uuid="8f7e337d-4b66-4fe5-be8e-826dd8e89990"/>
+				<textFieldExpression><![CDATA[$F{NomeInternoCrc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="279" y="0" width="161" height="15" uuid="9df90f1a-1c46-4250-a51d-dee59b33ca65"/>
+				<textFieldExpression><![CDATA[$F{EndCelaPav}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="440" y="0" width="113" height="15" uuid="40d02c92-a65d-4ef6-aff3-1b738c58c35f"/>
+				<textFieldExpression><![CDATA[$F{AlcunhaCrc}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="3a45cbe0-bc60-4002-9e49-df59c9c5c728"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="cb956078-3283-4ce4-a40c-34c74ff19153"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="3e616376-92d0-4956-8eeb-a668141d0d18"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="a5bab522-7204-4e12-afc4-a955d9f7aeae"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="197" y="0" width="236" height="20" uuid="795cb963-b863-4288-8742-66ef9098d595"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nomeUsuario}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="47" splitType="Stretch">
+			<rectangle>
+				<reportElement x="24" y="20" width="141" height="20" uuid="723f5ff7-adae-4270-ac2b-2bdd79f49365"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="24" y="20" width="93" height="20" uuid="1c1f24cc-40d5-4db2-a42a-059367e467af"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de Registros:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="117" y="20" width="38" height="20" uuid="bc3e7d07-51f7-46cb-84b8-41e240f4552b"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalRegistros}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

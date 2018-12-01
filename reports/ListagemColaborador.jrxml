@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListagemColaborador" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e56f49a3-9266-4623-903c-9a52756bcb35">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+* FROM
+FUNCIONARIOS
+INNER JOIN
+CIDADES ON FUNCIONARIOS.IdCidade = CIDADES.IdCidade
+INNER JOIN CARGOS ON FUNCIONARIOS.IdCargo = CARGOS.IdCargo
+INNER JOIN DEPARTAMENTOS ON FUNCIONARIOS.IdDepartamento = DEPARTAMENTOS.IdDepartamento
+INNER JOIN ENDERECOS ON FUNCIONARIOS.IdFunc = ENDERECOS.IdFunc
+INNER JOIN DOCUMENTOS ON FUNCIONARIOS.IdFunc = DOCUMENTOS.IdFunc]]>
+	</queryString>
+	<field name="IdFunc" class="java.lang.Integer"/>
+	<field name="MatFunc" class="java.lang.Integer"/>
+	<field name="NomeFunc" class="java.lang.String"/>
+	<field name="DataCadFunc" class="java.lang.String"/>
+	<field name="DataNascFunc" class="java.lang.String"/>
+	<field name="EstadoCivilFunc" class="java.lang.String"/>
+	<field name="SexoFunc" class="java.lang.String"/>
+	<field name="EscolaFunc" class="java.lang.String"/>
+	<field name="ReligiaoFunc" class="java.lang.String"/>
+	<field name="TipoSangFunc" class="java.lang.String"/>
+	<field name="IdCidade" class="java.lang.Integer"/>
+	<field name="IdCargo" class="java.lang.Integer"/>
+	<field name="MaeFunc" class="java.lang.String"/>
+	<field name="PaiFunc" class="java.lang.String"/>
+	<field name="ConjuFunc" class="java.lang.String"/>
+	<field name="DataNascConju" class="java.lang.String"/>
+	<field name="NomeCidade" class="java.lang.String"/>
+	<field name="UfCidade" class="java.lang.String"/>
+	<field name="IdPais" class="java.lang.Integer"/>
+	<field name="DddCidade" class="java.lang.Integer"/>
+	<field name="NomeCargo" class="java.lang.String"/>
+	<field name="NomeDepartamento" class="java.lang.String"/>
+	<field name="Endereco" class="java.lang.String"/>
+	<field name="BairroEnd" class="java.lang.String"/>
+	<field name="CompEnd" class="java.lang.String"/>
+	<field name="CidadeEnd" class="java.lang.String"/>
+	<field name="UfEnd" class="java.lang.String"/>
+	<field name="CepEnd" class="java.lang.String"/>
+	<field name="FoneEnd" class="java.lang.String"/>
+	<field name="TelEnd" class="java.lang.String"/>
+	<field name="CelEnd" class="java.lang.String"/>
+	<field name="EmailEnd" class="java.lang.String"/>
+	<field name="EmailEndEmp" class="java.lang.String"/>
+	<field name="RgDoc" class="java.lang.String"/>
+	<field name="DataEmissaoDoc" class="java.lang.String"/>
+	<field name="OrgaoDoc" class="java.lang.String"/>
+	<field name="CpfDoc" class="java.lang.String"/>
+	<field name="PisDoc" class="java.lang.String"/>
+	<field name="DataCadPisDoc" class="java.lang.String"/>
+	<field name="TituloDoc" class="java.lang.String"/>
+	<field name="ZonaDoc" class="java.lang.String"/>
+	<field name="SecaoDoc" class="java.lang.String"/>
+	<field name="CtpsDoc" class="java.lang.String"/>
+	<field name="SerieDoc" class="java.lang.String"/>
+	<field name="HabiliDoc" class="java.lang.String"/>
+	<field name="ReservistaDoc" class="java.lang.String"/>
+	<field name="CateDoc" class="java.lang.String"/>
+	<field name="CartSaudeDoc" class="java.lang.String"/>
+	<field name="ProfDoc" class="java.lang.String"/>
+	<field name="AlturaDoc" class="java.lang.String"/>
+	<field name="PesoDoc" class="java.lang.String"/>
+	<field name="CalcaDoc" class="java.lang.String"/>
+	<field name="CamisaDoc" class="java.lang.String"/>
+	<field name="SapatoDoc" class="java.lang.String"/>
+	<field name="CarteiraDoc" class="java.lang.String"/>
+	<group name="NomeFunc">
+		<groupExpression><![CDATA[$F{NomeFunc}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="241" y="21" width="280" height="20" uuid="3c0cb21b-de01-4bbe-a21e-8a373087060c"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Listagem de Colaborador por Matricula]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="22" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement x="758" y="0" width="40" height="20" uuid="0b5fbd5b-348e-4faf-9d48-8ef832f73b4b"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="678" y="0" width="80" height="20" uuid="cc2241d9-e0f9-4de4-a5f8-2dee4f96b407"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página: "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="1" width="59" height="20" uuid="4071f38f-068b-4793-a65b-b555e64bc7f6"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Matricula]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="802" height="1" uuid="974c4a3f-df74-415a-8626-13d673075f43"/>
+			</line>
+			<line>
+				<reportElement x="0" y="21" width="802" height="1" uuid="e4e847e0-ca14-4396-bf07-514666b90f5c"/>
+			</line>
+			<staticText>
+				<reportElement x="69" y="2" width="118" height="20" uuid="1811951e-e1e2-4e07-ab78-0f9bb7b0ed85"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome Colaborador]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="230" y="2" width="100" height="20" uuid="a599917d-0b15-4e9a-8284-97c1aeb545d0"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Cadastro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="0" width="100" height="20" uuid="731aa29f-89c4-47d1-8d81-82c0b31e898f"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Nascimento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="454" y="0" width="59" height="20" uuid="5cfb8bf4-6657-4601-853e-e4748bb58a3e"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cargo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="621" y="2" width="100" height="20" uuid="074fe5bf-811a-4dce-a9cb-e207f8dc66ab"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Departamento]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="59" height="20" uuid="48a62503-35c0-4224-8658-26c425254974"/>
+				<textFieldExpression><![CDATA[$F{MatFunc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="69" y="0" width="100" height="20" uuid="fbb2002e-5ae7-435f-b653-75236c026b4d"/>
+				<textFieldExpression><![CDATA[$F{NomeFunc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="454" y="0" width="134" height="20" uuid="ee450914-ac9c-46b3-9365-5f40b71e51ae"/>
+				<textFieldExpression><![CDATA[$F{NomeCargo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="358" y="0" width="58" height="20" uuid="d1aad0f9-53e8-4a89-a045-9a6cd89c1a79"/>
+				<textFieldExpression><![CDATA[$F{DataNascFunc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="241" y="0" width="74" height="20" uuid="7e1c7f39-1acf-4be8-a9e1-34380825d807"/>
+				<textFieldExpression><![CDATA[$F{DataCadFunc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="621" y="2" width="177" height="20" uuid="6ae54861-7d94-4530-845c-60929b38d128"/>
+				<textFieldExpression><![CDATA[$F{NomeDepartamento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="44" width="798" height="1" uuid="bb081f79-11cc-4408-8801-6b7cba221798"/>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="22" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="12" y="2" width="100" height="20" uuid="66169574-9b4d-47f6-b55a-2799d946cee7"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="2" width="100" height="20" uuid="67efa8dc-c973-485e-b08e-77fd4ca0ac3c"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubrelatorioFrequenciaAlunosInternos" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3114e257-72ad-42e8-ac93-5d319b09a2a0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="codFreq" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT * FROM ITENSFREQUENCIA INNER JOIN PRONTUARIOSCRC ON ITENSFREQUENCIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc INNER JOIN FREQUENCIA ON ITENSFREQUENCIA.IdFreq=FREQUENCIA.IdFreq WHERE ITENSFREQUENCIA.IdFreq=$P{codFreq}]]>
+	</queryString>
+	<field name="IdItem" class="java.lang.Integer"/>
+	<field name="IdFreq" class="java.lang.Integer"/>
+	<field name="IdInternoCrc" class="java.lang.Integer"/>
+	<field name="QtdFrequencia" class="java.lang.Float"/>
+	<field name="DataEntrada" class="java.sql.Date"/>
+	<field name="Utilizado" class="java.lang.String"/>
+	<field name="UsuarioInsert" class="java.lang.String"/>
+	<field name="UsuarioUp" class="java.lang.String"/>
+	<field name="DataInsert" class="java.lang.String"/>
+	<field name="DataUp" class="java.lang.String"/>
+	<field name="HorarioInsert" class="java.lang.String"/>
+	<field name="HorarioUp" class="java.lang.String"/>
+	<field name="Presenca" class="java.lang.String"/>
+	<field name="DataSaida" class="java.sql.Date"/>
+	<field name="HorarioEntrada" class="java.lang.String"/>
+	<field name="HorarioSaida" class="java.lang.String"/>
+	<field name="MatriculaCrc" class="java.lang.String"/>
+	<field name="DataCadastCrc" class="java.sql.Timestamp"/>
+	<field name="DataNasciCrc" class="java.sql.Timestamp"/>
+	<field name="FotoInternoCrc" class="java.lang.String"/>
+	<field name="NomeInternoCrc" class="java.lang.String"/>
+	<field name="MaeInternoCrc" class="java.lang.String"/>
+	<field name="PaiInternoCrc" class="java.lang.String"/>
+	<field name="AlcunhaCrc" class="java.lang.String"/>
+	<field name="RgInternoCrc" class="java.lang.String"/>
+	<field name="CpfInternoCrc" class="java.lang.String"/>
+	<field name="EscolaridadeCrc" class="java.lang.String"/>
+	<field name="EstadoCivilCrc" class="java.lang.String"/>
+	<field name="SexoCrc" class="java.lang.String"/>
+	<field name="SituacaoCrc" class="java.lang.String"/>
+	<field name="IdPais" class="java.lang.Integer"/>
+	<field name="IdCidade" class="java.lang.Integer"/>
+	<field name="ReligiaoCrc" class="java.lang.String"/>
+	<field name="ProfissaoCrc" class="java.lang.String"/>
+	<field name="EnderecoCrc" class="java.lang.String"/>
+	<field name="BairroCrc" class="java.lang.String"/>
+	<field name="CidadeCrc" class="java.lang.String"/>
+	<field name="EstadoCrc" class="java.lang.String"/>
+	<field name="TelefoneCrc" class="java.lang.String"/>
+	<field name="Telefone1Crc" class="java.lang.String"/>
+	<field name="CelularCrc" class="java.lang.String"/>
+	<field name="UsuarioDelete" class="java.lang.String"/>
+	<field name="DataDelete" class="java.lang.String"/>
+	<field name="CartaoSus" class="java.lang.String"/>
+	<field name="StatusFreq" class="java.lang.String"/>
+	<field name="DataFreq" class="java.sql.Date"/>
+	<field name="IdMat" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="95" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="801e8984-8977-4eea-9e1c-aebe31f2b08c"/>
+				<textElement>
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MatriculaCrc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="371" height="20" uuid="2db26eaf-6bb9-4f91-9c0b-6dfd73c4b877"/>
+				<textElement>
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NomeInternoCrc}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="1" y="44" width="100" height="20" uuid="a6020cf0-7303-46ec-84e0-87919469ddd2"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{DataEntrada}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="101" y="44" width="100" height="20" uuid="5f4c9294-2600-4613-9d0a-ed64ef286941"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{HorarioEntrada}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="242" y="44" width="100" height="20" uuid="e26a5365-5d65-4b4f-8fc7-264096e311d7"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{DataSaida}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="341" y="44" width="100" height="20" uuid="550b436b-7447-4ce0-b9e3-8ad72a7edbe2"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{HorarioSaida}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="24" width="100" height="20" uuid="e44fc42d-a4f5-42cb-9b1c-74313c826175"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Entrada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="101" y="24" width="100" height="20" uuid="6076d97d-2628-4a18-80f6-514e03203356"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Horário Entrada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="242" y="24" width="100" height="20" uuid="a59d8b2d-6a2a-49c5-b2ce-727564f93f82"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Saida]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="341" y="24" width="100" height="20" uuid="25dfa555-0008-4cc6-9372-4e3e5e55a1d4"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Horário Saida]]></text>
+			</staticText>
+			<line>
+				<reportElement x="444" y="58" width="315" height="1" uuid="e51cb31a-c471-4011-b764-bf81ff670163"/>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioInternosSemVisitas" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="382c3f48-c45b-46fa-b916-0a71f9df8124">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="semVisita" class="java.lang.String"/>
+	<parameter name="entrada" class="java.lang.String"/>
+	<parameter name="retorno" class="java.lang.String"/>
+	<parameter name="descricaoUnidade" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT * FROM ATENDIMENTOSOCIAL INNER JOIN PRONTUARIOSCRC ON ATENDIMENTOSOCIAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc WHERE RecebeVisita=$P{semVisita} AND PRONTUARIOSCRC.SituacaoCrc=$P{entrada} OR ATENDIMENTOSOCIAL.RecebeVisita=$P{semVisita} AND  PRONTUARIOSCRC.SituacaoCrc=$P{retorno}]]>
+	</queryString>
+	<field name="IdAtend" class="java.lang.Integer"/>
+	<field name="DataAtend" class="java.sql.Timestamp"/>
+	<field name="IdInternoCrc" class="java.lang.Integer"/>
+	<field name="StatusAtend" class="java.lang.String"/>
+	<field name="ContatoAtend" class="java.lang.String"/>
+	<field name="TelefoneAtend" class="java.lang.String"/>
+	<field name="Telefone1Atend" class="java.lang.String"/>
+	<field name="CelularAtend" class="java.lang.String"/>
+	<field name="EnderecoAtend" class="java.lang.String"/>
+	<field name="BairroAtend" class="java.lang.String"/>
+	<field name="CidadeAtend" class="java.lang.String"/>
+	<field name="EstadoAtend" class="java.lang.String"/>
+	<field name="CartTrabAtend" class="java.lang.String"/>
+	<field name="Periodo" class="java.lang.String"/>
+	<field name="DataPeriodo2Atend" class="java.sql.Timestamp"/>
+	<field name="RecebeRecluAtend" class="java.lang.String"/>
+	<field name="DireitoAuxAtend" class="java.lang.String"/>
+	<field name="RecebeBolAtend" class="java.lang.String"/>
+	<field name="QtdPessoasAtend" class="java.lang.String"/>
+	<field name="QtdTrabaAtend" class="java.lang.String"/>
+	<field name="CN1Atend" class="java.lang.String"/>
+	<field name="CN2Atend" class="java.lang.String"/>
+	<field name="RG1Atend" class="java.lang.String"/>
+	<field name="RG2atend" class="java.lang.String"/>
+	<field name="CPF1Atend" class="java.lang.String"/>
+	<field name="CPF2Atend" class="java.lang.String"/>
+	<field name="CTPS1Atend" class="java.lang.String"/>
+	<field name="CTPS2Atend" class="java.lang.String"/>
+	<field name="PossuiFilhosAtend" class="java.lang.String"/>
+	<field name="QtdFilhosAtend" class="java.lang.String"/>
+	<field name="FilhosNaoRegAtend" class="java.lang.String"/>
+	<field name="OutrosFilhosAtend" class="java.lang.String"/>
+	<field name="QtdFilhos2Atend" class="java.lang.String"/>
+	<field name="PaternidadeAtend" class="java.lang.String"/>
+	<field name="DefensorAtend" class="java.lang.String"/>
+	<field name="PartiFamiAtend" class="java.lang.String"/>
+	<field name="ConsiderAtend" class="java.sql.Clob"/>
+	<field name="UsuarioInsert" class="java.lang.String"/>
+	<field name="UsuarioUp" class="java.lang.String"/>
+	<field name="UsuarioDelete" class="java.lang.String"/>
+	<field name="DataInsert" class="java.lang.String"/>
+	<field name="DataUp" class="java.lang.String"/>
+	<field name="DataDelete" class="java.lang.String"/>
+	<field name="HorarioInsert" class="java.lang.String"/>
+	<field name="HorarioUp" class="java.lang.String"/>
+	<field name="MunicipioNascimento" class="java.lang.String"/>
+	<field name="Tituloeleito1" class="java.lang.String"/>
+	<field name="Tituloeleito2" class="java.lang.String"/>
+	<field name="Reservista1" class="java.lang.String"/>
+	<field name="Reservista2" class="java.lang.String"/>
+	<field name="CartorioRegistro" class="java.lang.String"/>
+	<field name="RecebeBeneficio" class="java.lang.String"/>
+	<field name="TempoConvivencia" class="java.lang.String"/>
+	<field name="EsposoCompanheiro" class="java.lang.String"/>
+	<field name="NomeEsposoCompanheiro" class="java.lang.String"/>
+	<field name="PessoasResideCasa" class="java.lang.String"/>
+	<field name="EncaOutroSetor" class="java.lang.String"/>
+	<field name="QualSetor" class="java.lang.String"/>
+	<field name="CancelarVisita" class="java.lang.String"/>
+	<field name="MotivoCancelarVisita" class="java.lang.String"/>
+	<field name="EncaTirarDoc" class="java.lang.String"/>
+	<field name="DataEncaDoc" class="java.sql.Timestamp"/>
+	<field name="EncaRecPaternidade" class="java.lang.String"/>
+	<field name="DataRecPaternidade" class="java.sql.Timestamp"/>
+	<field name="RecebeVisita" class="java.lang.String"/>
+	<field name="CondicaoSegurado" class="java.lang.String"/>
+	<field name="MatriculaCrc" class="java.lang.String"/>
+	<field name="DataCadastCrc" class="java.sql.Timestamp"/>
+	<field name="DataNasciCrc" class="java.sql.Timestamp"/>
+	<field name="FotoInternoCrc" class="java.lang.String"/>
+	<field name="NomeInternoCrc" class="java.lang.String"/>
+	<field name="MaeInternoCrc" class="java.lang.String"/>
+	<field name="PaiInternoCrc" class="java.lang.String"/>
+	<field name="AlcunhaCrc" class="java.lang.String"/>
+	<field name="RgInternoCrc" class="java.lang.String"/>
+	<field name="CpfInternoCrc" class="java.lang.String"/>
+	<field name="EscolaridadeCrc" class="java.lang.String"/>
+	<field name="EstadoCivilCrc" class="java.lang.String"/>
+	<field name="SexoCrc" class="java.lang.String"/>
+	<field name="SituacaoCrc" class="java.lang.String"/>
+	<field name="IdPais" class="java.lang.Integer"/>
+	<field name="IdCidade" class="java.lang.Integer"/>
+	<field name="ReligiaoCrc" class="java.lang.String"/>
+	<field name="ProfissaoCrc" class="java.lang.String"/>
+	<field name="EnderecoCrc" class="java.lang.String"/>
+	<field name="BairroCrc" class="java.lang.String"/>
+	<field name="CidadeCrc" class="java.lang.String"/>
+	<field name="EstadoCrc" class="java.lang.String"/>
+	<field name="TelefoneCrc" class="java.lang.String"/>
+	<field name="Telefone1Crc" class="java.lang.String"/>
+	<field name="CelularCrc" class="java.lang.String"/>
+	<field name="CartaoSus" class="java.lang.String"/>
+	<variable name="totalRegistros" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[1]]></variableExpression>
+		<initialValueExpression><![CDATA[1]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="84" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="1" width="555" height="83" uuid="0be51676-a863-43dc-8fe8-b284db8d31d2"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="10" y="8" width="253" height="19" uuid="3c5ca9a7-ab27-4a51-a0a1-9e5f331e4cb7"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SISCONP - Sistema de Controle Prisional]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="287" y="8" width="257" height="20" uuid="cf1f7d10-25ef-4d51-b275-32cf4ac4cb8e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{descricaoUnidade}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="53" width="534" height="20" uuid="ee4643c7-5566-4b8a-8e41-d55171c7c39a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relatório de Internos sem visitas]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="17" width="555" height="1" uuid="7a854efb-3b78-4fc2-8412-1c57c7d26d29"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="2" width="49" height="15" forecolor="#000000" uuid="67302d5d-a3d9-4df8-b58b-6acb6b8b9417"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="49" y="2" width="90" height="15" forecolor="#000000" uuid="ef1bd5d4-1b4b-4375-8499-726bfd3f440a"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Matricula Penal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="143" y="2" width="302" height="15" forecolor="#000000" uuid="58b0dc89-b7d5-4455-a314-899bab585895"/>
+				<text><![CDATA[Nome Interno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="-3" width="100" height="20" uuid="992e6005-8e37-41fd-9524-ef256806791c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Nascimento]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="c4ce1d0c-3551-4caf-8e4a-e30aa3a56870"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="0" y="0" width="49" height="15" uuid="489da4a8-e25d-4825-92c6-bc7fadadf097"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{IdInternoCrc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="49" y="0" width="90" height="15" uuid="555cb713-26f1-47f3-91a7-7d6f230de343"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{MatriculaCrc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="143" y="1" width="302" height="15" uuid="43179ad3-92f8-4fa5-b10d-2ace98813fe2"/>
+				<textFieldExpression><![CDATA[$F{NomeInternoCrc}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="455" y="1" width="100" height="14" uuid="7cb0d792-983f-4842-9043-fdac733d7278"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DataNasciCrc}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="d225239c-f17c-4601-8b96-10a1b7ff2676"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="86cad062-35bf-4039-b494-3cbb33f37938"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="ee1cdb5f-2a54-4e95-8554-b4d9c18f872c"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="0648b421-80c3-4125-bbf2-437b075ae297"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="52" splitType="Stretch">
+			<rectangle>
+				<reportElement x="38" y="18" width="159" height="20" uuid="5de5b55b-94c1-47a0-b506-583079a200dc"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="43" y="18" width="111" height="20" uuid="0bf14908-47fa-4dff-8545-e65091e01bd6"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de Registros:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="154" y="18" width="43" height="20" uuid="61231c91-ba81-43d7-afa9-1c1b2bab1e06"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalRegistros}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

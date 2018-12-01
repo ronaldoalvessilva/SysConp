@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ExtratoValoresGeralInternos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="108a87e4-1560-4d95-bd06-3bec44dbea75">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="dataInicial" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dataFinal" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="usuario" class="java.lang.String"/>
+	<parameter name="nomeInterno" class="java.lang.String"/>
+	<parameter name="saldoAtual" class="java.lang.Double"/>
+	<parameter name="pRetorno" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="pEntrada" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT * FROM SALDO_VALORES_INATIVOS INNER JOIN PRONTUARIOSCRC ON SALDO_VALORES_INATIVOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc WHERE PRONTUARIOSCRC.SituacaoCrc NOT LIKE $P{pEntrada} OR PRONTUARIOSCRC.SituacaoCrc NOT LIKE $P{pRetorno} ORDER BY PRONTUARIOSCRC.NomeInternoCrc,SALDO_VALORES_INATIVOS.DataMov]]>
+	</queryString>
+	<field name="IdSaldoAtual" class="java.lang.Integer"/>
+	<field name="DataMov" class="java.sql.Timestamp"/>
+	<field name="IdInternoCrc" class="java.lang.Integer"/>
+	<field name="IdDoc" class="java.lang.Integer"/>
+	<field name="Historico" class="java.lang.String"/>
+	<field name="FavorecidoDepositante" class="java.lang.String"/>
+	<field name="TipoMov" class="java.lang.String"/>
+	<field name="ValorMov" class="java.math.BigDecimal"/>
+	<field name="SaldoAtual" class="java.math.BigDecimal"/>
+	<field name="MatriculaCrc" class="java.lang.String"/>
+	<field name="DataCadastCrc" class="java.sql.Timestamp"/>
+	<field name="DataNasciCrc" class="java.sql.Timestamp"/>
+	<field name="FotoInternoCrc" class="java.lang.String"/>
+	<field name="NomeInternoCrc" class="java.lang.String"/>
+	<field name="MaeInternoCrc" class="java.lang.String"/>
+	<field name="PaiInternoCrc" class="java.lang.String"/>
+	<field name="AlcunhaCrc" class="java.lang.String"/>
+	<field name="RgInternoCrc" class="java.lang.String"/>
+	<field name="CpfInternoCrc" class="java.lang.String"/>
+	<field name="EscolaridadeCrc" class="java.lang.String"/>
+	<field name="EstadoCivilCrc" class="java.lang.String"/>
+	<field name="SexoCrc" class="java.lang.String"/>
+	<field name="SituacaoCrc" class="java.lang.String"/>
+	<field name="IdPais" class="java.lang.Integer"/>
+	<field name="IdCidade" class="java.lang.Integer"/>
+	<field name="ReligiaoCrc" class="java.lang.String"/>
+	<field name="ProfissaoCrc" class="java.lang.String"/>
+	<field name="EnderecoCrc" class="java.lang.String"/>
+	<field name="BairroCrc" class="java.lang.String"/>
+	<field name="CidadeCrc" class="java.lang.String"/>
+	<field name="EstadoCrc" class="java.lang.String"/>
+	<field name="TelefoneCrc" class="java.lang.String"/>
+	<field name="Telefone1Crc" class="java.lang.String"/>
+	<field name="CelularCrc" class="java.lang.String"/>
+	<field name="UsuarioInsert" class="java.lang.String"/>
+	<field name="UsuarioUp" class="java.lang.String"/>
+	<field name="UsuarioDelete" class="java.lang.String"/>
+	<field name="DataInsert" class="java.lang.String"/>
+	<field name="DataUp" class="java.lang.String"/>
+	<field name="DataDelete" class="java.lang.String"/>
+	<field name="HorarioInsert" class="java.lang.String"/>
+	<field name="HorarioUp" class="java.lang.String"/>
+	<field name="CartaoSus" class="java.lang.String"/>
+	<field name="Cnc" class="java.lang.String"/>
+	<variable name="totalCreditos" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{TipoMov}.indexOf("C")>= 0? $F{ValorMov}:null + $F{TipoMov}.indexOf("C")>= 0? $F{ValorMov}:null]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="totalDebitos" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{TipoMov}.indexOf("D")>=0? $F{ValorMov}:null + $F{TipoMov}.indexOf("D")>= 0? $F{ValorMov}:null]]></variableExpression>
+	</variable>
+	<variable name="vcredito" class="java.lang.Double" resetType="Group" resetGroup="NomeInternoCrc" calculation="Sum">
+		<variableExpression><![CDATA[$F{TipoMov}.indexOf("C")>= 0? $F{ValorMov}:null + $F{TipoMov}.indexOf("C")>= 0? $F{ValorMov}:null]]></variableExpression>
+	</variable>
+	<variable name="vdebito" class="java.lang.Float" resetType="Group" resetGroup="NomeInternoCrc" calculation="Sum">
+		<variableExpression><![CDATA[$F{TipoMov}.indexOf("D")>=0? $F{ValorMov}:null + $F{TipoMov}.indexOf("D")>= 0? $F{ValorMov}:0]]></variableExpression>
+	</variable>
+	<variable name="saldoAtual" class="java.lang.Double" resetType="None">
+		<variableExpression><![CDATA[$V{vcredito}-$V{vdebito}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="totalLiquido" class="java.lang.Double">
+		<variableExpression><![CDATA[$V{totalCreditos}-$V{totalDebitos}]]></variableExpression>
+	</variable>
+	<group name="NomeInternoCrc">
+		<groupExpression><![CDATA[$F{NomeInternoCrc}]]></groupExpression>
+		<groupHeader>
+			<band height="22">
+				<rectangle>
+					<reportElement x="0" y="0" width="555" height="22" forecolor="#FFFFFF" backcolor="#CCCCCC" uuid="4f7eee79-63e4-460c-b845-7c7d2872263d"/>
+				</rectangle>
+				<textField>
+					<reportElement style="SubTitle" x="0" y="0" width="253" height="22" forecolor="#333333" uuid="ab2f60e5-6b37-44bd-b7c7-457706763bef"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NomeInternoCrc}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="0" y="21" width="555" height="1" uuid="4c2663e9-5c07-434f-8157-0cbd38898945"/>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="26">
+				<staticText>
+					<reportElement style="Column header" x="394" y="5" width="92" height="20" uuid="c7bfe582-726f-40d2-a332-cee1829eeecf"/>
+					<textElement>
+						<font size="10"/>
+					</textElement>
+					<text><![CDATA[SALDO ATUAL]]></text>
+				</staticText>
+				<line>
+					<reportElement x="0" y="25" width="555" height="1" uuid="b6193003-6a37-4d01-9003-1c6362f6580a"/>
+				</line>
+				<textField pattern="#,##0.00" isBlankWhenNull="true">
+					<reportElement x="486" y="5" width="66" height="20" uuid="ad3f8e08-11a2-4e47-b788-b8db6a4d9b21"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$V{saldoAtual}!=null ? $V{saldoAtual} : $F{ValorMov}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="0" y="5" width="555" height="65" uuid="8698d94b-b3d9-4381-8b28-d52fad66103c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="29" width="555" height="20" uuid="85b32611-c329-466a-a112-89eea6acccfd"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Extrato Geral de Valores de Internos Inativos]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="9914f6f4-c3e4-4210-9bce-9ad27c5ca293"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="20" width="92" height="15" uuid="b0691bba-5d29-4263-9e14-3722b278b661"/>
+				<text><![CDATA[DATA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="92" y="19" width="92" height="15" uuid="298556e7-b8d5-4873-b50d-1f4a6bc4b8ab"/>
+				<text><![CDATA[NR. DOC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="463" y="21" width="92" height="15" uuid="6eac94f5-756b-4520-8049-ad3caca8dac4"/>
+				<text><![CDATA[FAVORECIDO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="184" y="21" width="92" height="15" uuid="3a954dee-a2b0-4782-a75a-c48f177d20cc"/>
+				<text><![CDATA[HISTÓRICO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="422" y="21" width="22" height="15" uuid="8b84b317-070d-4b06-8998-54f93a3540ab"/>
+				<text><![CDATA[ST]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="19" width="555" height="1" uuid="bc978bff-f0f3-4177-aa7b-c4d9ec50524e"/>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="352" y="21" width="70" height="15" uuid="3e7be373-ebc1-4b50-b764-0adf9139d105"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[VALOR R$]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="f34f6de8-2e8d-450d-ab89-465e3b8aab99"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="441" y="0" width="92" height="15" uuid="845cb8bd-9c13-4825-a68b-5182565c39e9"/>
+				<textFieldExpression><![CDATA[$F{FavorecidoDepositante}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement style="Detail" x="-19" y="0" width="92" height="15" uuid="485cdce3-0790-407b-8bc2-e90a9ccae807"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{DataMov}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="422" y="0" width="22" height="15" uuid="31f24812-4186-49a7-9e63-ab0e33915fdb"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{TipoMov}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="73" y="0" width="66" height="15" uuid="29645a7f-8ff9-4a49-aed2-fab3fae48384"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{IdDoc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="139" y="0" width="213" height="15" uuid="b8aa82d6-2647-4d2f-9da8-3f74936e61bf"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Historico}]]></textFieldExpression>
+			</textField>
+			<textField pattern=" #,##0.00">
+				<reportElement style="Detail" x="352" y="1" width="67" height="15" uuid="48b03986-c8f3-46ec-95ee-874ef3abbccd"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{ValorMov}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="13" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="1032fac3-95bd-40db-999a-3e5fd9996015"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="c704488a-0086-4ce4-b410-29e392f20a8f"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="25aac4ae-b1b3-47ca-9bd5-6b8184166e46"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="92ff9dd0-95bc-4eb9-ad5b-4d723bb25063"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="184" y="0" width="210" height="20" uuid="b3af8ce5-275c-45c9-9885-62334fbc1e3d"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{usuario}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="82" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="81" uuid="08f83f35-4041-42e3-9af8-4f6a142daed8"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="16" y="11" width="123" height="20" uuid="6582bc24-28d4-4d12-a3b8-28ce5972ae9f"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de Créditos R$:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="16" y="31" width="123" height="20" uuid="7487ed64-2ac5-4b81-8b3f-3ca77759e7f5"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de Débitos R$:]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement x="139" y="11" width="100" height="20" forecolor="#0000FF" uuid="308cbafe-026e-479c-84a5-beebd479c504"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalCreditos}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="139" y="31" width="100" height="20" forecolor="#FF0000" uuid="dd846527-e37b-4292-9206-110bac2c88b7"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalDebitos}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="16" y="51" width="123" height="20" uuid="78a2869d-68ed-43fd-87aa-729cf18fb863"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Liquido R$:]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement x="139" y="51" width="100" height="20" uuid="6ce4cfb5-090f-4b5b-901f-554e9a3bde14"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalLiquido}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

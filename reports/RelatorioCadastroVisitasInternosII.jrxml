@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioCadastroVisitasInternosII" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fcc145e0-b060-4185-b089-051d51211733">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="nomeUnidade" class="java.lang.String"/>
+	<parameter name="dataInicial" class="java.lang.String"/>
+	<parameter name="dataFinal" class="java.lang.String"/>
+	<parameter name="usuario" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT * FROM VISITASINTERNO VI
+INNER JOIN VERIFICA_DOCUMENTOS_VISITA VDV ON VDV.IdVisita=VI.IdVisita
+INNER JOIN PRONTUARIOSCRC P ON P.IdInternoCrc=VDV.IdInternoCrc
+WHERE DataCadVisita BETWEEN $P{dataInicial} AND $P{dataFinal}
+ORDER BY nomeVisita]]>
+	</queryString>
+	<field name="IdVisita" class="java.lang.Integer"/>
+	<field name="StatusVisita" class="java.lang.String"/>
+	<field name="ImagemVisita" class="java.lang.String"/>
+	<field name="NomeVisita" class="java.lang.String"/>
+	<field name="ParentescoVisita" class="java.lang.String"/>
+	<field name="DataNasc" class="java.sql.Timestamp"/>
+	<field name="SexoVisita" class="java.lang.String"/>
+	<field name="DataCadVisita" class="java.sql.Timestamp"/>
+	<field name="EnderecoVisita" class="java.lang.String"/>
+	<field name="BairroVisita" class="java.lang.String"/>
+	<field name="CidadeVisita" class="java.lang.String"/>
+	<field name="CepVisita" class="java.lang.String"/>
+	<field name="EstadoVisita" class="java.lang.String"/>
+	<field name="TelefoneVisita" class="java.lang.String"/>
+	<field name="Telefone1Visita" class="java.lang.String"/>
+	<field name="CelularVisita" class="java.lang.String"/>
+	<field name="Celular1Visita" class="java.lang.String"/>
+	<field name="RgVisita" class="java.lang.String"/>
+	<field name="EmissorVisita" class="java.lang.String"/>
+	<field name="CpfVisita" class="java.lang.String"/>
+	<field name="DataValiAnte" class="java.sql.Timestamp"/>
+	<field name="UsuarioInsert" class="java.lang.String"/>
+	<field name="UsuarioUp" class="java.lang.String"/>
+	<field name="UsuarioDelete" class="java.lang.String"/>
+	<field name="DataInsert" class="java.lang.String"/>
+	<field name="DataUp" class="java.lang.String"/>
+	<field name="DataDelete" class="java.lang.String"/>
+	<field name="HorarioInsert" class="java.lang.String"/>
+	<field name="HorarioUp" class="java.lang.String"/>
+	<field name="Classificacao" class="java.lang.String"/>
+	<field name="VisitaIntima" class="java.lang.String"/>
+	<field name="Nacionalidade" class="java.lang.String"/>
+	<field name="DataEmissao" class="java.sql.Timestamp"/>
+	<field name="BiometriaDedo1" class="java.sql.Blob"/>
+	<field name="BiometriaDedo2" class="java.sql.Blob"/>
+	<field name="BiometriaDedo3" class="java.sql.Blob"/>
+	<field name="BiometriaDedo4" class="java.sql.Blob"/>
+	<field name="IdVerDoc" class="java.lang.Integer"/>
+	<field name="Ident" class="java.lang.Integer"/>
+	<field name="DFoto" class="java.lang.Integer"/>
+	<field name="Ant" class="java.lang.Integer"/>
+	<field name="Comp" class="java.lang.Integer"/>
+	<field name="Decla" class="java.lang.Integer"/>
+	<field name="Autori" class="java.lang.Integer"/>
+	<field name="Responsavel" class="java.lang.String"/>
+	<field name="Justificativa" class="java.sql.Clob"/>
+	<field name="Aprova" class="java.lang.String"/>
+	<field name="Ates" class="java.lang.Integer"/>
+	<field name="VisApr" class="java.lang.Integer"/>
+	<field name="VisRep" class="java.lang.Integer"/>
+	<field name="IdInternoCrc" class="java.lang.Integer"/>
+	<field name="MatriculaCrc" class="java.lang.String"/>
+	<field name="DataCadastCrc" class="java.sql.Timestamp"/>
+	<field name="DataNasciCrc" class="java.sql.Timestamp"/>
+	<field name="FotoInternoCrc" class="java.lang.String"/>
+	<field name="NomeInternoCrc" class="java.lang.String"/>
+	<field name="MaeInternoCrc" class="java.lang.String"/>
+	<field name="PaiInternoCrc" class="java.lang.String"/>
+	<field name="AlcunhaCrc" class="java.lang.String"/>
+	<field name="RgInternoCrc" class="java.lang.String"/>
+	<field name="CpfInternoCrc" class="java.lang.String"/>
+	<field name="EscolaridadeCrc" class="java.lang.String"/>
+	<field name="EstadoCivilCrc" class="java.lang.String"/>
+	<field name="SexoCrc" class="java.lang.String"/>
+	<field name="SituacaoCrc" class="java.lang.String"/>
+	<field name="IdPais" class="java.lang.Integer"/>
+	<field name="IdCidade" class="java.lang.Integer"/>
+	<field name="ReligiaoCrc" class="java.lang.String"/>
+	<field name="ProfissaoCrc" class="java.lang.String"/>
+	<field name="EnderecoCrc" class="java.lang.String"/>
+	<field name="BairroCrc" class="java.lang.String"/>
+	<field name="CidadeCrc" class="java.lang.String"/>
+	<field name="EstadoCrc" class="java.lang.String"/>
+	<field name="TelefoneCrc" class="java.lang.String"/>
+	<field name="Telefone1Crc" class="java.lang.String"/>
+	<field name="CelularCrc" class="java.lang.String"/>
+	<field name="CartaoSus" class="java.lang.String"/>
+	<field name="Cnc" class="java.lang.String"/>
+	<variable name="totalRegistrosAtivos" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[new Integer (($F{StatusVisita}!=null && $F{StatusVisita}.equals("Ativo"))? new Integer(1): new Integer(0))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
+	</variable>
+	<variable name="totalRegistrosInativos" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[new Integer (($F{StatusVisita}!=null && $F{StatusVisita}.equals("Inativo"))? new Integer(1): new Integer(0))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
+	</variable>
+	<variable name="totalGeralRegistros" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[1]]></variableExpression>
+	</variable>
+	<group name="NomeVisita">
+		<groupExpression><![CDATA[$F{NomeVisita}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="130" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="130" uuid="5f4ac022-b51e-4408-bd73-a1058b6548a7"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="75" y="9" width="389" height="20" uuid="be21e492-640a-49bb-8491-957ff433acbd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SISCONP - Sistema de Controle Prisional]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="75" y="73" width="389" height="20" uuid="1a47ec1d-daac-49fd-8315-62c75e114f73"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relatório de Cadastro de Visitas a Internos por Data de Cadastro II]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="164" y="104" width="50" height="14" uuid="0d9596d0-de42-47e7-bd65-339945f6dced"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Período:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="216" y="104" width="63" height="14" uuid="6d24d229-acc4-4f86-a289-c0bbfe9ad575"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dataInicial}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="282" y="104" width="22" height="14" uuid="31a217df-2244-4378-9e9d-c587eeda5eb5"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[à]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="308" y="104" width="69" height="14" uuid="c87bc362-2ef8-4702-a286-ad05a1f845ef"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dataFinal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="89" y="38" width="54" height="20" uuid="8218f7b3-2014-4c94-ae17-17bc337a5835"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Unidade:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="141" y="38" width="324" height="20" uuid="77d6f641-8114-4673-8106-f5f281601994"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nomeUnidade}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="74" y="0" width="1" height="130" uuid="0cb26dd7-17d7-4356-b893-198ea0f0013b"/>
+			</line>
+			<line>
+				<reportElement x="464" y="0" width="1" height="130" uuid="a3be1c18-9106-49a3-84ab-739338a4cc0f"/>
+			</line>
+			<staticText>
+				<reportElement x="465" y="11" width="90" height="20" uuid="481e8521-e72b-4258-85f5-74fab674e832"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="465" y="33" width="90" height="20" uuid="3b5e43af-7ba8-4755-9b03-a6e4b53c9e30"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SS016.01]]></text>
+			</staticText>
+			<line>
+				<reportElement x="464" y="65" width="91" height="1" uuid="0acaeb19-7c9a-425f-bd47-f25d1d140a08"/>
+			</line>
+			<staticText>
+				<reportElement x="466" y="80" width="89" height="20" uuid="e10fb1bb-1d9a-4003-a87b-4c73929c6faf"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Módulo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="465" y="103" width="90" height="20" uuid="83ae7d95-490b-46a5-8900-6ee2624f5608"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Serviço Social]]></text>
+			</staticText>
+			<image>
+				<reportElement x="1" y="0" width="114" height="130" uuid="1fd02adb-5766-4cb4-a780-0d406a4420e4"/>
+				<imageExpression><![CDATA["C:\\SysConp\\Fotos\\logoSocializa.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="35" splitType="Stretch">
+			<rectangle>
+				<reportElement x="-1" y="2" width="556" height="33" forecolor="#FFFFFF" backcolor="#CCCCFF" uuid="9de13269-5ef4-4b4b-b489-4742bb9a3d5a"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="4" width="33" height="31" forecolor="#000000" uuid="1ec375ea-0dc0-4884-86b1-9dd3d8faf14a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cód.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="32" y="4" width="37" height="31" forecolor="#000000" uuid="b5856bc0-c978-4d1e-a12d-26739c827667"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="68" y="4" width="181" height="31" forecolor="#000000" uuid="49467370-d399-4c70-b078-f5ad4196d9cc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome Visita]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="249" y="4" width="65" height="31" forecolor="#000000" uuid="4cd82c2c-e69a-4d4b-9d40-324d76c538ec"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Nasc.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="314" y="4" width="57" height="31" forecolor="#000000" uuid="07461e73-6f5d-49cb-85a3-23422ce87394"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Cad.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="4" width="105" height="31" forecolor="#000000" uuid="33ce8f7f-3824-4502-888a-b7398c0ca13e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome Interno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="475" y="4" width="80" height="31" forecolor="#000000" uuid="5dc35770-51b9-4c11-b6f3-a07e45a54ca9"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Parentesco]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="20" forecolor="#FFFFFF" backcolor="#CCFFFF" uuid="473ac715-5b61-41f1-a2c6-935237db0071">
+					<printWhenExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue() % 2 == 0)]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<textField>
+				<reportElement x="0" y="0" width="33" height="20" uuid="674a83c0-7e36-4103-8c3a-b082a29d5a10"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{IdVisita}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="32" y="0" width="27" height="20" uuid="ce8d1cd1-a6d6-40c6-9bf8-bc596a50fb15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{StatusVisita}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="65" y="0" width="184" height="20" uuid="456751ab-dcfc-41ed-ade3-82f21184fc03"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{NomeVisita}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="249" y="0" width="65" height="20" uuid="7abef8c9-3b08-415b-91cb-036639a3815c"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{DataNasc}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="312" y="0" width="59" height="20" uuid="315eb2ca-d0f3-45d4-8b99-2f7002053c0f"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{DataCadVisita}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="370" y="0" width="105" height="20" uuid="9896438b-09ed-4c91-be45-3a02bee63052"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{NomeInternoCrc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="481" y="0" width="73" height="20" uuid="9ee5e31e-0444-4644-80ef-a7ca9d641653"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ParentescoVisita}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="436" y="2" width="80" height="20" forecolor="#666666" uuid="cba77ca7-66ea-48b0-b1d5-9ebdd548a5e0"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="516" y="2" width="40" height="20" forecolor="#666666" uuid="1d1dccaa-bc6c-44aa-8868-844499c8fd96"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="1" y="0" width="126" height="20" forecolor="#666666" uuid="337608d4-4532-4bea-9cf7-d1776ed15bcd"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="127" y="0" width="309" height="20" uuid="7303ec2f-6563-4dfc-97dc-b0691138fe7e"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{usario}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="1" y="0" width="555" height="1" uuid="ef63743f-cffa-4341-b90c-066eb67f0f48"/>
+			</line>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="52" splitType="Stretch">
+			<rectangle>
+				<reportElement x="338" y="27" width="40" height="15" uuid="39b89d2e-89e1-40dd-8afd-f78d25189517"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="216" y="27" width="122" height="15" uuid="6a258864-28dc-49f2-975b-a71393edb9b4"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="10" y="27" width="149" height="15" uuid="00ff521a-3ddb-4e1f-a06c-61f8a6ef73f9"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="159" y="27" width="57" height="15" uuid="d864a4b6-fb35-491a-b7d2-3cc6af9b87df"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="10" y="12" width="149" height="15" uuid="69427f75-16c0-45d7-acf0-db916d16b9dc"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="13" y="28" width="149" height="15" forecolor="#FF0000" uuid="53061262-4245-4ebe-a029-bd61330e22d1"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de Visitas Inativas:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="216" y="28" width="122" height="15" uuid="31009afa-179a-4707-b5d2-82e9d3f69233"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de Registros:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="159" y="12" width="57" height="15" uuid="f229e31d-9352-4808-adfc-04aa4b320cc5"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="13" y="14" width="149" height="14" forecolor="#0000FF" uuid="85d78dff-0f1e-4d15-a733-591a92fafc12"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de Visitas Ativas:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="159" y="12" width="55" height="15" forecolor="#0000FF" uuid="6e1c5bb1-556a-4bd7-8f81-7dbf902f2a0a"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalRegistrosAtivos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="159" y="28" width="55" height="14" forecolor="#FF0000" uuid="07cb2a26-3e9b-4f5d-b3b2-5690fc4f603f"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalRegistrosInativos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="338" y="28" width="40" height="14" uuid="51aa6f7a-0f5a-403f-aadd-596973835e14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalGeralRegistros}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

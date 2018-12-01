@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioInternosEscolaridade" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8c02ebb8-6a2d-4356-87b6-c052caf0b42b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="nomeUsuario" class="java.lang.String"/>
+	<parameter name="situacaoEnt" class="java.lang.String"/>
+	<parameter name="situacaoRet" class="java.lang.String"/>
+	<parameter name="unidadePenal" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT * FROM PRONTUARIOSCRC INNER JOIN DADOSPENAISINTERNOS ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc WHERE PRONTUARIOSCRC.SituacaoCrc=$P{situacaoEnt} OR PRONTUARIOSCRC.SituacaoCrc=$P{situacaoRet} ORDER BY NomeInternoCrc]]>
+	</queryString>
+	<field name="IdInternoCrc" class="java.lang.Integer"/>
+	<field name="MatriculaCrc" class="java.lang.String"/>
+	<field name="DataCadastCrc" class="java.sql.Timestamp"/>
+	<field name="DataNasciCrc" class="java.sql.Timestamp"/>
+	<field name="FotoInternoCrc" class="java.lang.String"/>
+	<field name="NomeInternoCrc" class="java.lang.String"/>
+	<field name="MaeInternoCrc" class="java.lang.String"/>
+	<field name="PaiInternoCrc" class="java.lang.String"/>
+	<field name="AlcunhaCrc" class="java.lang.String"/>
+	<field name="RgInternoCrc" class="java.lang.String"/>
+	<field name="CpfInternoCrc" class="java.lang.String"/>
+	<field name="EscolaridadeCrc" class="java.lang.String"/>
+	<field name="EstadoCivilCrc" class="java.lang.String"/>
+	<field name="CartaoSus" class="java.lang.String"/>
+	<field name="SexoCrc" class="java.lang.String"/>
+	<field name="SituacaoCrc" class="java.lang.String"/>
+	<field name="IdPais" class="java.lang.Integer"/>
+	<field name="IdCidade" class="java.lang.Integer"/>
+	<field name="ReligiaoCrc" class="java.lang.String"/>
+	<field name="ProfissaoCrc" class="java.lang.String"/>
+	<field name="EnderecoCrc" class="java.lang.String"/>
+	<field name="BairroCrc" class="java.lang.String"/>
+	<field name="CidadeCrc" class="java.lang.String"/>
+	<field name="EstadoCrc" class="java.lang.String"/>
+	<field name="TelefoneCrc" class="java.lang.String"/>
+	<field name="Telefone1Crc" class="java.lang.String"/>
+	<field name="CelularCrc" class="java.lang.String"/>
+	<field name="UsuarioInsert" class="java.lang.String"/>
+	<field name="UsuarioUp" class="java.lang.String"/>
+	<field name="UsuarioDelete" class="java.lang.String"/>
+	<field name="DataInsert" class="java.lang.String"/>
+	<field name="DataUp" class="java.lang.String"/>
+	<field name="DataDelete" class="java.lang.String"/>
+	<field name="HorarioInsert" class="java.lang.String"/>
+	<field name="HorarioUp" class="java.lang.String"/>
+	<field name="IdPenais" class="java.lang.Integer"/>
+	<field name="IdUnid" class="java.lang.Integer"/>
+	<field name="DataEntrada" class="java.sql.Timestamp"/>
+	<field name="DataCrime" class="java.sql.Timestamp"/>
+	<field name="DataPrisao" class="java.sql.Timestamp"/>
+	<field name="DataCondenacao" class="java.sql.Timestamp"/>
+	<field name="Participacao" class="java.lang.String"/>
+	<field name="Regime" class="java.lang.String"/>
+	<field name="Pena" class="java.lang.String"/>
+	<field name="VaraCondenatoria" class="java.lang.String"/>
+	<field name="Artigo1" class="java.lang.String"/>
+	<field name="Artigo2" class="java.lang.String"/>
+	<field name="Artigo3" class="java.lang.String"/>
+	<field name="Paragrafo1" class="java.lang.String"/>
+	<field name="Paragrafo2" class="java.lang.String"/>
+	<field name="Paragrafo3" class="java.lang.String"/>
+	<field name="CrimeEdiondo" class="java.lang.String"/>
+	<field name="TerminoPena" class="java.sql.Timestamp"/>
+	<field name="FotoPerfil" class="java.lang.String"/>
+	<field name="FotoCorpo" class="java.lang.String"/>
+	<field name="FotoCorpo1" class="java.lang.String"/>
+	<field name="FotoCorpo2" class="java.lang.String"/>
+	<field name="FotoPolegarDireito" class="java.lang.String"/>
+	<field name="FotoIndicadorDireito" class="java.lang.String"/>
+	<field name="FotoMedioDireito" class="java.lang.String"/>
+	<field name="FotoAnularDireito" class="java.lang.String"/>
+	<field name="FotoMinimoDireito" class="java.lang.String"/>
+	<field name="FotoPolegarEsquerdo" class="java.lang.String"/>
+	<field name="FotoIndicadorEsquerdo" class="java.lang.String"/>
+	<field name="FotoMedioEsquerdo" class="java.lang.String"/>
+	<field name="FotoAnularEsquerdo" class="java.lang.String"/>
+	<field name="FotoMinimoEsquerdo" class="java.lang.String"/>
+	<field name="Identificador" class="java.lang.String"/>
+	<field name="Identificador1" class="java.lang.String"/>
+	<field name="Identificador2" class="java.lang.String"/>
+	<field name="Identificador3" class="java.lang.String"/>
+	<field name="Perfil" class="java.lang.String"/>
+	<field name="RegiaoCorpo" class="java.lang.String"/>
+	<field name="RegiaoCorpo1" class="java.lang.String"/>
+	<field name="RegiaoCorpo2" class="java.lang.String"/>
+	<field name="RegiaoCorpo3" class="java.lang.String"/>
+	<field name="DataNovaEntrada" class="java.sql.Timestamp"/>
+	<variable name="totalAlfabetizado" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[new Integer (($F{EscolaridadeCrc}!=null && $F{EscolaridadeCrc}.equals("Alfabetizado"))? new Integer(1): new Integer(0))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
+	</variable>
+	<variable name="totalnaoAlfabetizado" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[new Integer (($F{EscolaridadeCrc}!=null && $F{EscolaridadeCrc}.equals("Não Alfabetizado"))? new Integer(1): new Integer(0))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
+	</variable>
+	<variable name="priGrauCompleto" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[new Integer (($F{EscolaridadeCrc}!=null && $F{EscolaridadeCrc}.equals("1º Grau Completo"))? new Integer(1): new Integer(0))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
+	</variable>
+	<variable name="priGrauIncompleto" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[new Integer (($F{EscolaridadeCrc}!=null && $F{EscolaridadeCrc}.equals("1º Grau Incompleto"))? new Integer(1): new Integer(0))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
+	</variable>
+	<variable name="totalSegGrauIncompleto" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[new Integer (($F{EscolaridadeCrc}!=null && $F{EscolaridadeCrc}.equals("2º Grau Incompleto"))? new Integer(1): new Integer(0))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
+	</variable>
+	<variable name="totalSegGrauCompleto" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[new Integer (($F{EscolaridadeCrc}!=null && $F{EscolaridadeCrc}.equals("2º Grau Completo"))? new Integer(1): new Integer(0))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer (0)]]></initialValueExpression>
+	</variable>
+	<variable name="totalSupIncompleto" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[new Integer (($F{EscolaridadeCrc}!=null && $F{EscolaridadeCrc}.equals("Superior Incompleto"))? new Integer(1): new Integer(0))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer (0)]]></initialValueExpression>
+	</variable>
+	<variable name="totalSupCompleto" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[new Integer (($F{EscolaridadeCrc}!=null && $F{EscolaridadeCrc}.equals("Superior Completo"))? new Integer(1): new Integer(0))]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer (0)]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="89" splitType="Stretch">
+			<staticText>
+				<reportElement style="SubTitle" x="5" y="64" width="550" height="16" forecolor="#FF0000" uuid="65fc2d72-8b69-42fa-a4df-3de7e8f9f7bf"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relatório de Internos por Escolaridade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="9" width="238" height="20" uuid="e2ccc116-f095-42d9-b335-8c6713be30c5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SISCONP - Sistema de Controle Prisional]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="299" y="11" width="244" height="18" uuid="8241d7d7-c69d-4bbc-9ddd-f4aa3c428eca"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{unidadePenal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement style="Column header" x="0" y="7" width="65" height="18" forecolor="#000000" uuid="68a90df2-78bd-4a07-b5d8-2f05946ec534"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Data Nasc.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="106" y="7" width="111" height="18" forecolor="#000000" uuid="73ba48a0-7a05-43a3-a1ee-232402730b7a"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Nome do Interno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="359" y="8" width="74" height="18" forecolor="#000000" uuid="64740c0a-dfdb-441b-a5b1-6d18a7d9a254"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Escolaridade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="490" y="7" width="47" height="18" forecolor="#000000" uuid="ac523741-d950-4a2a-bc29-91f3e68c5dce"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Regime]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="574377a5-8cbd-4ad4-9c5a-3f5ac4fe2ffc"/>
+			</line>
+			<line>
+				<reportElement x="0" y="25" width="555" height="1" uuid="407c018a-bf0b-41a1-8e7b-c0c1e9fff0e3"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="555" height="18" uuid="81aaeb95-bad7-46a3-9c2b-e9c7f06d92c9"/>
+				<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+					<reportElement style="Detail" positionType="Float" x="0" y="0" width="65" height="18" uuid="9ee5a743-75cf-429a-88a2-a297a3603605"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{DataNasciCrc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="85" y="0" width="248" height="18" uuid="8a55bf3a-989f-4088-9faa-cd8d34e3b2d0"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NomeInternoCrc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="480" y="0" width="73" height="18" uuid="67261504-cf78-4756-ae3d-24795d4fc932"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Regime}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="333" y="0" width="131" height="18" uuid="8c27210b-01bf-4a42-9173-b2e77c9a7fcc"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{EscolaridadeCrc}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="7" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="a5292bcc-c19a-447b-b862-55d4e1848d3f"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="1" width="555" height="24" forecolor="#D0B48E" backcolor="#FFFFFF" uuid="69296391-1294-4e79-8dcd-d5cb2282b8f6"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="490" y="1" width="40" height="20" forecolor="#000000" uuid="d5dee59b-358c-4862-b0df-ea0ebc26145a"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="433" y="0" width="57" height="20" forecolor="#000000" uuid="f48905c1-1cfb-48df-8dea-37fbdfdee097"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="2" y="1" width="197" height="20" forecolor="#000000" uuid="bfc856dc-cedf-4fb0-bc52-e4e98498da1c"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="199" y="0" width="234" height="20" uuid="b625bc23-02a9-430c-b344-7008e210b155"/>
+					<textFieldExpression><![CDATA[$P{nomeUsuario}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="107" splitType="Stretch">
+			<rectangle>
+				<reportElement x="5" y="21" width="548" height="86" uuid="a13756f9-ad64-4f53-b797-c23a7c86a406"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="9" y="27" width="185" height="20" uuid="a56ebbeb-d603-4280-b2a5-776fac46d3e5"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Alfabetizado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="47" width="183" height="20" uuid="2606f1bd-fe16-4578-9a44-57547e72ebf2"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Não Alfabetizado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="67" width="183" height="20" uuid="9e6b86f3-76ab-4f22-b852-889589b7e1d6"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Primeiro Grau Incompleto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="87" width="183" height="20" uuid="16b2fe57-6e33-4b51-9b41-ebfe599dc5e8"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Primeiro Grau Completo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="286" y="27" width="204" height="20" uuid="6e4a9d9d-4019-41ce-a040-ed664925e9d0"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Segundo Grau Incompleto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="286" y="47" width="204" height="20" uuid="5fc150e0-0068-4131-b719-eb049df890c1"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Segundo Grau Completo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="313" y="67" width="177" height="20" uuid="28b4ec5d-03ec-4c5b-906a-927b9dda183e"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Superior Incompleto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="313" y="87" width="177" height="20" uuid="8a13241f-5078-4a97-bbdb-526f02f22b34"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Superioir Completo]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="194" y="27" width="39" height="20" uuid="f0375e93-ec0c-4412-b186-07c6447631b1"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalAlfabetizado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="199" y="47" width="34" height="20" uuid="2ef2fd0b-7310-4e03-b0b1-da7fe0db66c2"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalnaoAlfabetizado}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="194" y="87" width="39" height="20" uuid="9c027502-9b4b-4944-b2b7-aa973267f54f"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{priGrauCompleto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="199" y="67" width="34" height="20" uuid="1428dafb-8b71-432f-98d5-98774c281273"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{priGrauIncompleto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="490" y="27" width="36" height="20" uuid="3bb045ae-6d43-4d1d-8e30-123742c009dc"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalSegGrauIncompleto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="490" y="47" width="36" height="20" uuid="ab7ce7a5-38f5-4837-a495-c397bcb96c82"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalSegGrauCompleto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="490" y="67" width="36" height="20" uuid="c7ebd472-20ec-4544-846a-dc21d8957ad6"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalSupIncompleto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="490" y="87" width="36" height="20" uuid="3f1b2243-08c9-4f37-817b-de1898e3e594"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalSupCompleto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
