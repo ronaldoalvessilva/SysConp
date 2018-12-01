@@ -90,6 +90,7 @@ public class TelaSolicitacaoAuxilioReclusao extends javax.swing.JInternalFrame {
      */
     public static TelaAssinaturaoBiometriaVisitaSolicitaAtestadoRecluso assinaLibera;
     public static TelaAssinaturaoBiometriaInternoSolicitaAtestadoRecluso assinaLiberaInterno;
+    public static TelaAjudaSolicitacaoAuxRec ajudaSoli;
 
     public TelaSolicitacaoAuxilioReclusao() {
         initComponents();
@@ -105,6 +106,11 @@ public class TelaSolicitacaoAuxilioReclusao extends javax.swing.JInternalFrame {
     public void mostrarAssinaturaInterno() {
         assinaLiberaInterno = new TelaAssinaturaoBiometriaInternoSolicitaAtestadoRecluso(this, true);
         assinaLiberaInterno.setVisible(true);
+    }
+    
+    public void mostrarAjuda(){
+        ajudaSoli = new TelaAjudaSolicitacaoAuxRec(this, true);
+        ajudaSoli.setVisible(true);
     }
 
     /**
@@ -176,6 +182,7 @@ public class TelaSolicitacaoAuxilioReclusao extends javax.swing.JInternalFrame {
         jGrauParenteAux = new javax.swing.JTextField();
         jNomeVisitaSolicitanteAux = new javax.swing.JTextField();
         jBtPesqVisitaAux = new javax.swing.JButton();
+        jBtAjuda = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jMotivoAux = new javax.swing.JTextArea();
@@ -696,6 +703,14 @@ public class TelaSolicitacaoAuxilioReclusao extends javax.swing.JInternalFrame {
             }
         });
 
+        jBtAjuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Ajuda_8446_16x16.png"))); // NOI18N
+        jBtAjuda.setToolTipText("Ajuda");
+        jBtAjuda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAjudaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -715,12 +730,15 @@ public class TelaSolicitacaoAuxilioReclusao extends javax.swing.JInternalFrame {
                                     .addComponent(jCodigoVisitaAux, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel13)
+                                    .addGroup(jPanel7Layout.createSequentialGroup()
+                                        .addComponent(jLabel13)
+                                        .addGap(0, 0, Short.MAX_VALUE))
                                     .addGroup(jPanel7Layout.createSequentialGroup()
                                         .addComponent(jGrauParenteAux, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jBtPesqVisitaAux, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                        .addComponent(jBtPesqVisitaAux, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jBtAjuda, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addContainerGap())))
         );
         jPanel7Layout.setVerticalGroup(
@@ -733,7 +751,8 @@ public class TelaSolicitacaoAuxilioReclusao extends javax.swing.JInternalFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jBtPesqVisitaAux)
                     .addComponent(jGrauParenteAux, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCodigoVisitaAux, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jCodigoVisitaAux, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtAjuda))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1507,8 +1526,14 @@ public class TelaSolicitacaoAuxilioReclusao extends javax.swing.JInternalFrame {
         objAudSoliAux.show();
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
 
+    private void jBtAjudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAjudaActionPerformed
+        // TODO add your handling code here:
+        mostrarAjuda();
+    }//GEN-LAST:event_jBtAjudaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBtAjuda;
     private javax.swing.JButton jBtAlterar;
     private javax.swing.JButton jBtAssinaturaInterno;
     private javax.swing.JButton jBtAssinaturaVisita;
