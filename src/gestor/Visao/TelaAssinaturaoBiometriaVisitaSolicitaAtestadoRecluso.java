@@ -22,8 +22,6 @@ import gestor.Modelo.SolicitacaoAtestadoReclusao;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaSolicitacaoAuxilioReclusao.pDigitalCapturadaVisita;
-import static gestor.Visao.TelaSolicitacaoAuxilioReclusao.dataAssinatura;
-import static gestor.Visao.TelaSolicitacaoAuxilioReclusao.horaAssinatura;
 import static gestor.Visao.TelaSolicitacaoAuxilioReclusao.jCodRegAux;
 import static gestor.Visao.TelaSolicitacaoAuxilioReclusao.jCodigoVisitaAux;
 import java.awt.Color;
@@ -32,6 +30,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import static gestor.Visao.TelaSolicitacaoAuxilioReclusao.dataAssinaturaVisita;
+import static gestor.Visao.TelaSolicitacaoAuxilioReclusao.horaAssinaturaVisita;
 
 /**
  *
@@ -397,26 +397,26 @@ public class TelaAssinaturaoBiometriaVisitaSolicitaAtestadoRecluso extends javax
         } else if (jCodigoVisitaAux.getText().equals(jIdVisita.getText())) {
             objSolicitaAux.setIdVisitaAux(Integer.valueOf(jIdVisita.getText()));
             objSolicitaAux.setNomeVisitaSolicitanteAux(jNomeVisitaInterno.getText());
-            objSolicitaAux.setDataAssinatura(jDataAssinatura.getDate());
-            objSolicitaAux.setHoraAssinatura(jHorarioLiberacao.getText());
+            objSolicitaAux.setDataAssinaturaVisita(jDataAssinatura.getDate());
+            objSolicitaAux.setHoraAssinaturaVisita(jHorarioLiberacao.getText());
             objSolicitaAux.setAssinaturaVisita(pDigitalCapturadaVisita);
             pDigitalCapturadaVisita = pDigitalCapturada;
-            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-            dataInicial = formatoAmerica.format(jDataAssinatura.getDate().getTime());
-            dataAssinatura = dataInicial;
-            horaAssinatura = objSolicitaAux.getHoraAssinatura();
+//            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+//            dataInicial = formatoAmerica.format(jDataAssinatura.getDate().getTime());
+            dataAssinaturaVisita = jDataAssinatura.getDate();
+            horaAssinaturaVisita = objSolicitaAux.getHoraAssinaturaVisita();
             dispose();
         } else if (jCodigoVisitaAux.getText().equals("")) {
             objSolicitaAux.setIdVisitaAux(Integer.valueOf(jIdVisita.getText()));
             objSolicitaAux.setNomeVisitaSolicitanteAux(jNomeVisitaInterno.getText());
-            objSolicitaAux.setDataAssinatura(jDataAssinatura.getDate());
-            objSolicitaAux.setHoraAssinatura(jHorarioLiberacao.getText());
+            objSolicitaAux.setDataAssinaturaVisita(jDataAssinatura.getDate());
+            objSolicitaAux.setHoraAssinaturaVisita(jHorarioLiberacao.getText());
             objSolicitaAux.setAssinaturaVisita(pDigitalCapturadaVisita);
             pDigitalCapturadaVisita = pDigitalCapturada;
-            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-            dataInicial = formatoAmerica.format(jDataAssinatura.getDate().getTime());
-            dataAssinatura = dataInicial;
-            horaAssinatura = objSolicitaAux.getHoraAssinatura();
+//            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+//            dataInicial = formatoAmerica.format(jDataAssinatura.getDate().getTime());
+            dataAssinaturaVisita = jDataAssinatura.getDate();
+            horaAssinaturaVisita = objSolicitaAux.getHoraAssinaturaVisita();
             dispose();
         } else {
             JOptionPane.showMessageDialog(rootPane, "A visita pesquisada na tela principal é diferente da visita que está assinatura.");
