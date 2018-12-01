@@ -29,8 +29,11 @@ public class SolicitacaoAtestadoReclusao {
     private String motivoAux;
     private byte[] assinaturaVisita;
     private byte[] assinaturaInterno;
-    private Date dataAssinatura;
-    private String horaAssinatura;
+    private Date dataAssinaturaVisita;
+    private String horaAssinaturaVisita;
+    private Date dataAssinaturaInterno;
+    private String horaAssinaturaInterno;
+    private String utilizacao;
     private String usuarioInsert;
     private String usuarioUp;
     private String dataInsert;
@@ -41,7 +44,7 @@ public class SolicitacaoAtestadoReclusao {
     public SolicitacaoAtestadoReclusao() {
     }
 
-    public SolicitacaoAtestadoReclusao(int codRegAux, String statusAux, String finalidade, Date dataRegAux, Date dataPedAux, Date dataPrevAux, int idVisitaAux, String nomeVisitaSolicitanteAux, int idInternoAux, String nomeInternoCrc, String cnc, String regimePenal, String nomeMaeInterno, String motivoAux, byte[] assinaturaVisita, byte[] assinaturaInterno, Date dataAssinatura, String horaAssinatura, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
+    public SolicitacaoAtestadoReclusao(int codRegAux, String statusAux, String finalidade, Date dataRegAux, Date dataPedAux, Date dataPrevAux, int idVisitaAux, String nomeVisitaSolicitanteAux, int idInternoAux, String nomeInternoCrc, String cnc, String regimePenal, String nomeMaeInterno, String motivoAux, byte[] assinaturaVisita, byte[] assinaturaInterno, Date dataAssinaturaVisita, String horaAssinaturaVisita, Date dataAssinaturaInterno, String horaAssinaturaInterno, String utilizacao, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
         this.codRegAux = codRegAux;
         this.statusAux = statusAux;
         this.finalidade = finalidade;
@@ -58,8 +61,11 @@ public class SolicitacaoAtestadoReclusao {
         this.motivoAux = motivoAux;
         this.assinaturaVisita = assinaturaVisita;
         this.assinaturaInterno = assinaturaInterno;
-        this.dataAssinatura = dataAssinatura;
-        this.horaAssinatura = horaAssinatura;
+        this.dataAssinaturaVisita = dataAssinaturaVisita;
+        this.horaAssinaturaVisita = horaAssinaturaVisita;
+        this.dataAssinaturaInterno = dataAssinaturaInterno;
+        this.horaAssinaturaInterno = horaAssinaturaInterno;
+        this.utilizacao = utilizacao;
         this.usuarioInsert = usuarioInsert;
         this.usuarioUp = usuarioUp;
         this.dataInsert = dataInsert;
@@ -293,31 +299,73 @@ public class SolicitacaoAtestadoReclusao {
     }
 
     /**
-     * @return the dataAssinatura
+     * @return the dataAssinaturaVisita
      */
-    public Date getDataAssinatura() {
-        return dataAssinatura;
+    public Date getDataAssinaturaVisita() {
+        return dataAssinaturaVisita;
     }
 
     /**
-     * @param dataAssinatura the dataAssinatura to set
+     * @param dataAssinaturaVisita the dataAssinaturaVisita to set
      */
-    public void setDataAssinatura(Date dataAssinatura) {
-        this.dataAssinatura = dataAssinatura;
+    public void setDataAssinaturaVisita(Date dataAssinaturaVisita) {
+        this.dataAssinaturaVisita = dataAssinaturaVisita;
     }
 
     /**
-     * @return the horaAssinatura
+     * @return the horaAssinaturaVisita
      */
-    public String getHoraAssinatura() {
-        return horaAssinatura;
+    public String getHoraAssinaturaVisita() {
+        return horaAssinaturaVisita;
     }
 
     /**
-     * @param horaAssinatura the horaAssinatura to set
+     * @param horaAssinaturaVisita the horaAssinaturaVisita to set
      */
-    public void setHoraAssinatura(String horaAssinatura) {
-        this.horaAssinatura = horaAssinatura;
+    public void setHoraAssinaturaVisita(String horaAssinaturaVisita) {
+        this.horaAssinaturaVisita = horaAssinaturaVisita;
+    }
+
+    /**
+     * @return the dataAssinaturaInterno
+     */
+    public Date getDataAssinaturaInterno() {
+        return dataAssinaturaInterno;
+    }
+
+    /**
+     * @param dataAssinaturaInterno the dataAssinaturaInterno to set
+     */
+    public void setDataAssinaturaInterno(Date dataAssinaturaInterno) {
+        this.dataAssinaturaInterno = dataAssinaturaInterno;
+    }
+
+    /**
+     * @return the horaAssinaturaInterno
+     */
+    public String getHoraAssinaturaInterno() {
+        return horaAssinaturaInterno;
+    }
+
+    /**
+     * @param horaAssinaturaInterno the horaAssinaturaInterno to set
+     */
+    public void setHoraAssinaturaInterno(String horaAssinaturaInterno) {
+        this.horaAssinaturaInterno = horaAssinaturaInterno;
+    }
+
+    /**
+     * @return the utilizacao
+     */
+    public String getUtilizacao() {
+        return utilizacao;
+    }
+
+    /**
+     * @param utilizacao the utilizacao to set
+     */
+    public void setUtilizacao(String utilizacao) {
+        this.utilizacao = utilizacao;
     }
 
     /**
@@ -403,5 +451,4 @@ public class SolicitacaoAtestadoReclusao {
     public void setHorarioUp(String horarioUp) {
         this.horarioUp = horarioUp;
     }
-
 }
