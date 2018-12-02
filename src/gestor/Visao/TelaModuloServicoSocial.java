@@ -188,7 +188,9 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     public static String telaHistAvaSocial_SS = "Movimentação:Historico de Avaliação Social - I:Manutenção";
     public static String telaHistAvaEmprego_SS = "Movimentação:Historico de Avaliação de Emprego - II:Manutenção";
     //
-    public static String telaSolicitacaoAuxilioReclusao = "Movimentação:Solicitação de Pedido de Reclusão - Serviço Social";
+    public static String telaSolicitacaoAuxilioReclusao = "Movimentação:Solicitação Atestado Reclusão - Serviço Social";
+    public static String telaBiometriaVisita = "Movimentação:Solicitação Atestado Reclusão - Serviço Social:Biometria Visita";
+    public static String telaBiometriaInterno = "Movimentação:Solicitação Atestado Reclusão - Serviço Social:Biometria Interno";
     //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
@@ -237,9 +239,9 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     String pNomeHAE_II = "";
     //
     String pNomeSAR = "";
+    String pNomeSARV = "";
+    String pNomeSARI = "";
 
-//    pNomeSAR
-//    telaSolicitacaoAuxilioReclusao
     //  
     /**
      * Creates new form TelaServioSocial
@@ -2719,6 +2721,20 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
             pNomeSAR = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaBiometriaVisita + "'");
+            conecta.rs.first();
+            pNomeSARV = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaBiometriaInterno + "'");
+            conecta.rs.first();
+            pNomeSARI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // INICIO DA COMPARAÇÃO
         if (!pNomeCV.equals(telaCadastroVisitasSS) || pNomeCV == null || pNomeCV.equals("")) {
             buscarCodigoModulo();
@@ -2960,6 +2976,18 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaSolicitacaoAuxilioReclusao);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeSARV.equals(telaBiometriaVisita) || pNomeSARV == null || pNomeSARV.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaBiometriaVisita);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeSARI.equals(telaBiometriaInterno) || pNomeSARI == null || pNomeSARI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaBiometriaInterno);
             controle.incluirTelaAcesso(objCadastroTela);
         }
         conecta.desconecta();
