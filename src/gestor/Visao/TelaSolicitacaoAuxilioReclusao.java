@@ -27,6 +27,8 @@ import static gestor.Visao.TelaModuloServicoSocial.codigoUserGroupSS;
 import static gestor.Visao.TelaModuloServicoSocial.codigoUserSS;
 import static gestor.Visao.TelaModuloServicoSocial.nomeGrupoSS;
 import static gestor.Visao.TelaModuloServicoSocial.nomeTelaSS;
+import static gestor.Visao.TelaModuloServicoSocial.telaBiometriaInterno;
+import static gestor.Visao.TelaModuloServicoSocial.telaBiometriaVisita;
 import static gestor.Visao.TelaModuloServicoSocial.telaSolicitacaoAuxilioReclusao;
 import java.awt.Color;
 import java.awt.Image;
@@ -107,8 +109,8 @@ public class TelaSolicitacaoAuxilioReclusao extends javax.swing.JInternalFrame {
         assinaLiberaInterno = new TelaAssinaturaoBiometriaInternoSolicitaAtestadoRecluso(this, true);
         assinaLiberaInterno.setVisible(true);
     }
-    
-    public void mostrarAjuda(){
+
+    public void mostrarAjuda() {
         ajudaSoli = new TelaAjudaSolicitacaoAuxRec(this, true);
         ajudaSoli.setVisible(true);
     }
@@ -704,7 +706,7 @@ public class TelaSolicitacaoAuxilioReclusao extends javax.swing.JInternalFrame {
         });
 
         jBtAjuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Ajuda_8446_16x16.png"))); // NOI18N
-        jBtAjuda.setToolTipText("Ajuda");
+        jBtAjuda.setToolTipText("Procedimentos para Solicitação do Atestdo Reclusão");
         jBtAjuda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtAjudaActionPerformed(evt);
@@ -1437,25 +1439,35 @@ public class TelaSolicitacaoAuxilioReclusao extends javax.swing.JInternalFrame {
 
     private void jBtAssinaturaVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAssinaturaVisitaActionPerformed
         // TODO add your handling code here:
-        objSolicitaAux.setStatusAux(jStatusAux.getText());
-        if (!jComboBoxFinalidade.getSelectedItem().equals("INSS")) {
-            JOptionPane.showMessageDialog(rootPane, "A assinatura da visita só é permitida se a opção da finalidade for escolida como INSS");
-        } else if (jStatusAux.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaBiometriaVisita);
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaSolicitacaoAuxilioReclusao) && codAbrirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
+            objSolicitaAux.setStatusAux(jStatusAux.getText());
+            if (!jComboBoxFinalidade.getSelectedItem().equals("INSS")) {
+                JOptionPane.showMessageDialog(rootPane, "A assinatura da visita só é permitida se a opção da finalidade for escolida como INSS");
+            } else if (jStatusAux.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                mostrarAssinaturaVisita();
+            }
         } else {
-            mostrarAssinaturaVisita();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a biometria da visita.");
         }
     }//GEN-LAST:event_jBtAssinaturaVisitaActionPerformed
 
     private void jBtAssinaturaInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAssinaturaInternoActionPerformed
         // TODO add your handling code here:
-        objSolicitaAux.setStatusAux(jStatusAux.getText());
-        if (!jComboBoxFinalidade.getSelectedItem().equals("INSS")) {
-            JOptionPane.showMessageDialog(rootPane, "A assinatura da visita só é permitida se a opção da finalidade for escolida como INSS");
-        } else if (jStatusAux.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaBiometriaInterno);
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaSolicitacaoAuxilioReclusao) && codAbrirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
+            objSolicitaAux.setStatusAux(jStatusAux.getText());
+            if (!jComboBoxFinalidade.getSelectedItem().equals("INSS")) {
+                JOptionPane.showMessageDialog(rootPane, "A assinatura da visita só é permitida se a opção da finalidade for escolida como INSS");
+            } else if (jStatusAux.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse Registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                mostrarAssinaturaInterno();
+            }
         } else {
-            mostrarAssinaturaInterno();
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a biometria do interno.");
         }
     }//GEN-LAST:event_jBtAssinaturaInternoActionPerformed
 
@@ -1481,9 +1493,9 @@ public class TelaSolicitacaoAuxilioReclusao extends javax.swing.JInternalFrame {
 
     private void jBtImpressaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImpressaoActionPerformed
         // TODO add your handling code here:
-        if(pDigitalCapturadaVisita == null || pDigitalCapturadaInterno == null){
+        if (pDigitalCapturadaVisita == null || pDigitalCapturadaInterno == null) {
             assinaturaRel = "Não";
-        }else{
+        } else {
             assinaturaRel = "Sim";
         }
         if (jCodRegAux.getText().equals("")) {
