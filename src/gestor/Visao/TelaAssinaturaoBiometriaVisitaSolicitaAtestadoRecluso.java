@@ -401,8 +401,6 @@ public class TelaAssinaturaoBiometriaVisitaSolicitaAtestadoRecluso extends javax
             objSolicitaAux.setHoraAssinaturaVisita(jHorarioLiberacao.getText());
             objSolicitaAux.setAssinaturaVisita(pDigitalCapturadaVisita);
             pDigitalCapturadaVisita = pDigitalCapturada;
-//            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-//            dataInicial = formatoAmerica.format(jDataAssinatura.getDate().getTime());
             dataAssinaturaVisita = jDataAssinatura.getDate();
             horaAssinaturaVisita = objSolicitaAux.getHoraAssinaturaVisita();
             dispose();
@@ -413,8 +411,6 @@ public class TelaAssinaturaoBiometriaVisitaSolicitaAtestadoRecluso extends javax
             objSolicitaAux.setHoraAssinaturaVisita(jHorarioLiberacao.getText());
             objSolicitaAux.setAssinaturaVisita(pDigitalCapturadaVisita);
             pDigitalCapturadaVisita = pDigitalCapturada;
-//            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-//            dataInicial = formatoAmerica.format(jDataAssinatura.getDate().getTime());
             dataAssinaturaVisita = jDataAssinatura.getDate();
             horaAssinaturaVisita = objSolicitaAux.getHoraAssinaturaVisita();
             dispose();
