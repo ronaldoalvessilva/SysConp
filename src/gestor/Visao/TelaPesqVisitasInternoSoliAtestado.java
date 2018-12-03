@@ -16,6 +16,7 @@ import static gestor.Visao.TelaEmissaoAtestadoReclusao.jNomeInternoAtestado;
 import static gestor.Visao.TelaEmissaoAtestadoReclusao.jNomeSolicitanteAtestado;
 import static gestor.Visao.TelaEmissaoAtestadoReclusao.jParentescoAtestado;
 import static gestor.Visao.TelaEmissaoAtestadoReclusao.jRegimePenalAux;
+import static gestor.Visao.TelaEmissaoAtestadoReclusao.codigoSoliAtestado;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -37,6 +38,7 @@ public class TelaPesqVisitasInternoSoliAtestado extends javax.swing.JInternalFra
     String caminhoInterno;
     String idInt;
     String statusVisita = "Ativo";
+    String utilizacao = "Não";
 
     /**
      * Creates new form TelaPesquisaEntradaInternos
@@ -125,7 +127,7 @@ public class TelaPesqVisitasInternoSoliAtestado extends javax.swing.JInternalFra
 
             },
             new String [] {
-                "Código", "Nome da Visita", "Código", "Nome do Interno"
+                "Registro", "Código", "Nome da Visita", "Código", "Nome do Interno"
             }
         ));
         jTabelaVisitas.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -137,12 +139,14 @@ public class TelaPesqVisitasInternoSoliAtestado extends javax.swing.JInternalFra
         if (jTabelaVisitas.getColumnModel().getColumnCount() > 0) {
             jTabelaVisitas.getColumnModel().getColumn(0).setMinWidth(60);
             jTabelaVisitas.getColumnModel().getColumn(0).setMaxWidth(60);
-            jTabelaVisitas.getColumnModel().getColumn(1).setMinWidth(320);
-            jTabelaVisitas.getColumnModel().getColumn(1).setMaxWidth(320);
-            jTabelaVisitas.getColumnModel().getColumn(2).setMinWidth(60);
-            jTabelaVisitas.getColumnModel().getColumn(2).setMaxWidth(60);
-            jTabelaVisitas.getColumnModel().getColumn(3).setMinWidth(320);
-            jTabelaVisitas.getColumnModel().getColumn(3).setMaxWidth(320);
+            jTabelaVisitas.getColumnModel().getColumn(1).setMinWidth(60);
+            jTabelaVisitas.getColumnModel().getColumn(1).setMaxWidth(60);
+            jTabelaVisitas.getColumnModel().getColumn(2).setMinWidth(320);
+            jTabelaVisitas.getColumnModel().getColumn(2).setMaxWidth(320);
+            jTabelaVisitas.getColumnModel().getColumn(3).setMinWidth(60);
+            jTabelaVisitas.getColumnModel().getColumn(3).setMaxWidth(60);
+            jTabelaVisitas.getColumnModel().getColumn(4).setMinWidth(320);
+            jTabelaVisitas.getColumnModel().getColumn(4).setMaxWidth(320);
         }
 
         jBtSair.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -228,7 +232,8 @@ public class TelaPesqVisitasInternoSoliAtestado extends javax.swing.JInternalFra
                     + "ON VISITASINTERNO.IdVisita=SOLICITACAO_ATESTADO_RECLUSAO.IdVisita "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                    + "WHERE VISITASINTERNO.NomeVisita LIKE'%" + jPesqNome.getText() + "%' ");
+                    + "WHERE VISITASINTERNO.NomeVisita LIKE'%" + jPesqNome.getText() + "%' "
+                    + "AND SOLICITACAO_ATESTADO_RECLUSAO.UtilizadoCrc='" + utilizacao + "'");
         }
     }//GEN-LAST:event_jBtNomeActionPerformed
 
@@ -236,9 +241,9 @@ public class TelaPesqVisitasInternoSoliAtestado extends javax.swing.JInternalFra
         // TODO add your handling code here:
         flag = 1;
         if (flag == 1 && evt.getClickCount() == 1) {
-            nomeVisita = "" + jTabelaVisitas.getValueAt(jTabelaVisitas.getSelectedRow(), 1);
+            nomeVisita = "" + jTabelaVisitas.getValueAt(jTabelaVisitas.getSelectedRow(), 2);
             jPesqNome.setText(nomeVisita);
-            idInt = "" + jTabelaVisitas.getValueAt(jTabelaVisitas.getSelectedRow(), 0);
+            idInt = "" + jTabelaVisitas.getValueAt(jTabelaVisitas.getSelectedRow(), 1);
         }
     }//GEN-LAST:event_jTabelaVisitasMouseClicked
 
@@ -264,6 +269,7 @@ public class TelaPesqVisitasInternoSoliAtestado extends javax.swing.JInternalFra
                         + "WHERE VISITASINTERNO.NomeVisita='" + nomeVisita + "' "
                         + "AND VISITASINTERNO.IdVisita='" + idInt + "' ");
                 conecta.rs.first();
+                codigoSoliAtestado = conecta.rs.getInt("CodRegAux");
                 jIdVisitaAtestado.setText(String.valueOf(conecta.rs.getInt("IdVisita")));
                 jNomeSolicitanteAtestado.setText(conecta.rs.getString("NomeVisita"));
                 jParentescoAtestado.setText(conecta.rs.getString("ParentescoVisita"));
@@ -290,7 +296,8 @@ public class TelaPesqVisitasInternoSoliAtestado extends javax.swing.JInternalFra
                     + "INNER JOIN VISITASINTERNO "
                     + "ON VISITASINTERNO.IdVisita=SOLICITACAO_ATESTADO_RECLUSAO.IdVisita "
                     + "INNER JOIN DADOSPENAISINTERNOS "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc ");
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "WHERE SOLICITACAO_ATESTADO_RECLUSAO.UtilizadoCrc='" + utilizacao + "'");
         } else {
             limparTabela();
         }
@@ -313,13 +320,13 @@ public class TelaPesqVisitasInternoSoliAtestado extends javax.swing.JInternalFra
 
     public void pesquisarVisitasRol(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome da Visita", "Código", "Nome do Interno"};
+        String[] Colunas = new String[]{"Registro", "Código", "Nome da Visita", "Código", "Nome do Interno"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
             conecta.rs.first();
             do {
-                dados.add(new Object[]{conecta.rs.getInt("IdVisita"), conecta.rs.getString("NomeVisita"), conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc")});
+                dados.add(new Object[]{conecta.rs.getInt("CodRegAux"), conecta.rs.getInt("IdVisita"), conecta.rs.getString("NomeVisita"), conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Dados não encontrado, use o botão TODOS \nPara pesquisar TODOS OS REGISTROS");
@@ -328,12 +335,14 @@ public class TelaPesqVisitasInternoSoliAtestado extends javax.swing.JInternalFra
         jTabelaVisitas.setModel(modelo);
         jTabelaVisitas.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaVisitas.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaVisitas.getColumnModel().getColumn(1).setPreferredWidth(320);
+        jTabelaVisitas.getColumnModel().getColumn(1).setPreferredWidth(60);
         jTabelaVisitas.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaVisitas.getColumnModel().getColumn(2).setPreferredWidth(60);
+        jTabelaVisitas.getColumnModel().getColumn(2).setPreferredWidth(320);
         jTabelaVisitas.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaVisitas.getColumnModel().getColumn(3).setPreferredWidth(320);
+        jTabelaVisitas.getColumnModel().getColumn(3).setPreferredWidth(60);
         jTabelaVisitas.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaVisitas.getColumnModel().getColumn(4).setPreferredWidth(320);
+        jTabelaVisitas.getColumnModel().getColumn(4).setResizable(false);
         jTabelaVisitas.getTableHeader().setReorderingAllowed(false);
         jTabelaVisitas.setAutoResizeMode(jTabelaVisitas.AUTO_RESIZE_OFF);
         jTabelaVisitas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -350,22 +359,25 @@ public class TelaPesqVisitasInternoSoliAtestado extends javax.swing.JInternalFra
         direita.setHorizontalAlignment(SwingConstants.RIGHT);
         //
         jTabelaVisitas.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-        jTabelaVisitas.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+        jTabelaVisitas.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+        jTabelaVisitas.getColumnModel().getColumn(3).setCellRenderer(centralizado);
     }
 
     public void limparTabela() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome da Visita", "Código", "Nome do Interno"};
+        String[] Colunas = new String[]{"Registro", "Código", "Nome da Visita", "Código", "Nome do Interno"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaVisitas.setModel(modelo);
         jTabelaVisitas.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaVisitas.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaVisitas.getColumnModel().getColumn(1).setPreferredWidth(320);
+        jTabelaVisitas.getColumnModel().getColumn(1).setPreferredWidth(60);
         jTabelaVisitas.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaVisitas.getColumnModel().getColumn(2).setPreferredWidth(60);
+        jTabelaVisitas.getColumnModel().getColumn(2).setPreferredWidth(320);
         jTabelaVisitas.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaVisitas.getColumnModel().getColumn(3).setPreferredWidth(320);
+        jTabelaVisitas.getColumnModel().getColumn(3).setPreferredWidth(60);
         jTabelaVisitas.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaVisitas.getColumnModel().getColumn(4).setPreferredWidth(320);
+        jTabelaVisitas.getColumnModel().getColumn(4).setResizable(false);
         jTabelaVisitas.getTableHeader().setReorderingAllowed(false);
         jTabelaVisitas.setAutoResizeMode(jTabelaVisitas.AUTO_RESIZE_OFF);
         jTabelaVisitas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
