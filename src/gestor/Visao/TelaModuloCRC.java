@@ -114,6 +114,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private TelaListaPassagemInternosAlbergados objListaPassaAlberg = null;
     private TelaObitoInternoExterna objObito = null;
     private ConsultaGerencialInternosUnidade objConsultaGIU = null;
+    private TelaEmissaoAtestadoReclusao objAtestadoRec = null;
     // 
     String usuarioLogado, dataLanc;
     int codUsuario;
@@ -179,11 +180,14 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     public static String nomeModuloCRC = "CRC";
     // MENU CADASTRO    
     public static String telaConsultaGerencialInternosExternaCRC = "Consulta:Consulta Gerencial Internos Unidade";
+    public static String telaEmissaoAtestadoReclusao = "Movimentação:Emissão Atestado de Reclusão";
     //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
     // MENU CADASTRO
     String pNomeCGIE = "";
+    // MENU MOVIMENTAÇÃO
+    String pNomeEAR = "";
     //
     String dataInicial;
     String dataFinal;
@@ -267,6 +271,8 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         jLancamentoObitoInterno = new javax.swing.JMenuItem();
         jSeparator17 = new javax.swing.JPopupMenu.Separator();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jSeparator29 = new javax.swing.JPopupMenu.Separator();
+        jEmissaoAtestadoReclusao = new javax.swing.JMenuItem();
         jMenuRelatorios = new javax.swing.JMenu();
         RelatorioProntuarios = new javax.swing.JMenu();
         ListagemGeralProntuarios = new javax.swing.JMenuItem();
@@ -665,6 +671,16 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             }
         });
         jMenuMovimentacao.add(jMenuItem4);
+        jMenuMovimentacao.add(jSeparator29);
+
+        jEmissaoAtestadoReclusao.setForeground(new java.awt.Color(204, 0, 0));
+        jEmissaoAtestadoReclusao.setText("Emissão de Atestado de Reclusão Carcerária");
+        jEmissaoAtestadoReclusao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jEmissaoAtestadoReclusaoActionPerformed(evt);
+            }
+        });
+        jMenuMovimentacao.add(jEmissaoAtestadoReclusao);
 
         jMenuBar1.add(jMenuMovimentacao);
 
@@ -2736,6 +2752,40 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_RelatorioMovVisitasInternosActionPerformed
 
+    private void jEmissaoAtestadoReclusaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEmissaoAtestadoReclusaoActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaEmissaoAtestadoReclusao);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaEmissaoAtestadoReclusao) && codAbrirCRC == 1) {
+            if (objAtestadoRec == null || objAtestadoRec.isClosed()) {
+                objAtestadoRec = new TelaEmissaoAtestadoReclusao();
+                jPainelCRC.add(objAtestadoRec);
+                objAtestadoRec.setVisible(true);
+            } else {
+                if (objAtestadoRec.isVisible()) {
+                    if (objAtestadoRec.isIcon()) { // Se esta minimizado
+                        try {
+                            objAtestadoRec.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objAtestadoRec.toFront(); // traz para frente
+                        objAtestadoRec.pack();//volta frame 
+                    }
+                } else {
+                    objAtestadoRec = new TelaEmissaoAtestadoReclusao();
+                    TelaModuloCRC.jPainelCRC.add(objAtestadoRec);//adicona frame ao JDesktopPane  
+                    objAtestadoRec.setVisible(true);
+                }
+            }
+            try {
+                objAtestadoRec.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jEmissaoAtestadoReclusaoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromisso;
@@ -2798,6 +2848,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jCalculadoraWindows;
     private javax.swing.JMenuItem jCidades;
     private javax.swing.JMenuItem jConsultaGeralInternosExterna;
+    private javax.swing.JMenuItem jEmissaoAtestadoReclusao;
     private javax.swing.JMenuItem jEntradaInternos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -2853,6 +2904,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator26;
     private javax.swing.JPopupMenu.Separator jSeparator27;
     private javax.swing.JPopupMenu.Separator jSeparator28;
+    private javax.swing.JPopupMenu.Separator jSeparator29;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
@@ -3458,10 +3510,23 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             pNomeCGIE = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaEmissaoAtestadoReclusao + "'");
+            conecta.rs.first();
+            pNomeEAR = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         if (!pNomeCGIE.equals(telaConsultaGerencialInternosExternaCRC) || pNomeCGIE == null || pNomeCGIE.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaConsultaGerencialInternosExternaCRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeEAR.equals(telaEmissaoAtestadoReclusao) || pNomeEAR == null || pNomeEAR.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaEmissaoAtestadoReclusao);
             controle.incluirTelaAcesso(objCadastroTela);
         }
     }
