@@ -27,7 +27,12 @@ public class EmissaoAtestadoReclusao {
     private String utilizacao;
     private int idColaborador;
     private String nomeColaborador;
+    private Date dataLiberacao;
+    private String dataAssinatura;
+    private String horarioLiberacao;
     private byte [] AssinaturaColaborador;
+    private byte [] validadorDados;
+    private byte[] chaveInterno;
     private String usuarioInsert;
     private String usuarioUp;
     private String dataInsert;
@@ -38,7 +43,7 @@ public class EmissaoAtestadoReclusao {
     public EmissaoAtestadoReclusao() {
     }
 
-    public EmissaoAtestadoReclusao(int idAtestado, int codRegAux, String utilizadoCrc, String statusAtestado, String classAtestado, Date dataAtestado, int idVisitaAtestado, String nomeSolicitanteAtestado, int idInternoAtestado, String nomeInternoAtestado, String textoAtestado, String utilizacao, int idColaborador, String nomeColaborador, byte[] AssinaturaColaborador, String usuarioInsert, String usuarioUp, String dataInsert, String horarioInsert, String dataUp, String horarioUp) {
+    public EmissaoAtestadoReclusao(int idAtestado, int codRegAux, String utilizadoCrc, String statusAtestado, String classAtestado, Date dataAtestado, int idVisitaAtestado, String nomeSolicitanteAtestado, int idInternoAtestado, String nomeInternoAtestado, String textoAtestado, String utilizacao, int idColaborador, String nomeColaborador, Date dataLiberacao, String dataAssinatura, String horarioLiberacao, byte[] AssinaturaColaborador, byte[] validadorDados, byte[] chaveInterno, String usuarioInsert, String usuarioUp, String dataInsert, String horarioInsert, String dataUp, String horarioUp) {
         this.idAtestado = idAtestado;
         this.codRegAux = codRegAux;
         this.utilizadoCrc = utilizadoCrc;
@@ -53,7 +58,12 @@ public class EmissaoAtestadoReclusao {
         this.utilizacao = utilizacao;
         this.idColaborador = idColaborador;
         this.nomeColaborador = nomeColaborador;
+        this.dataLiberacao = dataLiberacao;
+        this.dataAssinatura = dataAssinatura;
+        this.horarioLiberacao = horarioLiberacao;
         this.AssinaturaColaborador = AssinaturaColaborador;
+        this.validadorDados = validadorDados;
+        this.chaveInterno = chaveInterno;
         this.usuarioInsert = usuarioInsert;
         this.usuarioUp = usuarioUp;
         this.dataInsert = dataInsert;
@@ -259,6 +269,48 @@ public class EmissaoAtestadoReclusao {
     }
 
     /**
+     * @return the dataLiberacao
+     */
+    public Date getDataLiberacao() {
+        return dataLiberacao;
+    }
+
+    /**
+     * @param dataLiberacao the dataLiberacao to set
+     */
+    public void setDataLiberacao(Date dataLiberacao) {
+        this.dataLiberacao = dataLiberacao;
+    }
+
+    /**
+     * @return the dataAssinatura
+     */
+    public String getDataAssinatura() {
+        return dataAssinatura;
+    }
+
+    /**
+     * @param dataAssinatura the dataAssinatura to set
+     */
+    public void setDataAssinatura(String dataAssinatura) {
+        this.dataAssinatura = dataAssinatura;
+    }
+
+    /**
+     * @return the horarioLiberacao
+     */
+    public String getHorarioLiberacao() {
+        return horarioLiberacao;
+    }
+
+    /**
+     * @param horarioLiberacao the horarioLiberacao to set
+     */
+    public void setHorarioLiberacao(String horarioLiberacao) {
+        this.horarioLiberacao = horarioLiberacao;
+    }
+
+    /**
      * @return the AssinaturaColaborador
      */
     public byte[] getAssinaturaColaborador() {
@@ -270,6 +322,34 @@ public class EmissaoAtestadoReclusao {
      */
     public void setAssinaturaColaborador(byte[] AssinaturaColaborador) {
         this.AssinaturaColaborador = AssinaturaColaborador;
+    }
+
+    /**
+     * @return the validadorDados
+     */
+    public byte[] getValidadorDados() {
+        return validadorDados;
+    }
+
+    /**
+     * @param validadorDados the validadorDados to set
+     */
+    public void setValidadorDados(byte[] validadorDados) {
+        this.validadorDados = validadorDados;
+    }
+
+    /**
+     * @return the chaveInterno
+     */
+    public byte[] getChaveInterno() {
+        return chaveInterno;
+    }
+
+    /**
+     * @param chaveInterno the chaveInterno to set
+     */
+    public void setChaveInterno(byte[] chaveInterno) {
+        this.chaveInterno = chaveInterno;
     }
 
     /**
