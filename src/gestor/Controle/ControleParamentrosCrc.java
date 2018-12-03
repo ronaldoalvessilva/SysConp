@@ -31,7 +31,7 @@ public class ControleParamentrosCrc {
                     + "LocalFotoVisitasDiversas=?,LocalFotosOficialJustica=?,LocalFotosVisitasInternos=?,LocalFotosInternos=?,LocalFotosColaboradores=?,CaminhoImagemColaboradores=?,BiometriaMedicos=?,"
                     + "BiometriaEnfermeiros=?,BiometriaTecnicos=?,CarcereFem=?,LocalPDF_PI=?,LocalPDF_PE=?,LocalPDF_B1=?,LocalPDF_B2=?,CaminhoExecutavel=?,DataVersao=?,NumeroVersao=?,PreLocacaoB1=?,"
                     + "PreLocacaoB2=?,HabilitarAlertaVisitasBaseI=?,HabilitarAlertaVisitasBaseII=?,NomeColaboradorPRI=?,NomeColaboradorSEG=?,AtendInterSocial=?,LigacaoTelSocial=?,AtendimentoBioPSI=?,"
-                    + "AvaliacaoBioPSI=?,AdmissaoJuridico=?,AdmissaoTO=?,AdmissaoOdonto=? WHERE IdPar='" + objParCrc.getIdPar() + "'");
+                    + "AvaliacaoBioPSI=?,AdmissaoJuridico=?,AdmissaoTO=?,AdmissaoOdonto=?,NomeColaboradorCRC=?,NomeColaboradorCRCSEG=? WHERE IdPar='" + objParCrc.getIdPar() + "'");
             pst.setInt(1, objParCrc.getQtdDias());
             pst.setString(2, objParCrc.getQtdHoras());
             pst.setString(3, objParCrc.getUsuarioAutorizado());
@@ -93,6 +93,8 @@ public class ControleParamentrosCrc {
             pst.setString(59, objParCrc.getAdimissaoJuridico());
             pst.setString(60, objParCrc.getAdmissaoTO());
             pst.setString(61, objParCrc.getAdmissaoOdonto());
+            pst.setString(62, objParCrc.getNomeColaboradorCRC());
+            pst.setString(63, objParCrc.getNomeColaboradorCRCSEG());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO: " + ex);
