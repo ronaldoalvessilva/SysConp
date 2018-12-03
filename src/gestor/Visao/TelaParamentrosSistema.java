@@ -73,6 +73,14 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         jComboBoxRegEntadaUnidPortaria = new javax.swing.JComboBox();
         jPanel32 = new javax.swing.JPanel();
+        jLabel61 = new javax.swing.JLabel();
+        jNomeColaboradorCRC = new javax.swing.JTextField();
+        jNomeColaboradorCRC_SEG = new javax.swing.JTextField();
+        jComboBoxPesquisaColaCRC = new javax.swing.JComboBox<>();
+        jComboBoxPesquisaColaCRC_SEG = new javax.swing.JComboBox<>();
+        jBtPesqColaboradorCRCSEG = new javax.swing.JButton();
+        jBtPesqColaboradorCRC = new javax.swing.JButton();
+        jPanel39 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
@@ -367,17 +375,99 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel32.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+        jPanel32.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Liberador do Atestado de Reclusão - CRC", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 102, 0))); // NOI18N
+
+        jLabel61.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel61.setText("Colaboradores que liberam Atestado de Reclusão:");
+
+        jNomeColaboradorCRC.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jNomeColaboradorCRC.setForeground(new java.awt.Color(204, 0, 0));
+        jNomeColaboradorCRC.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNomeColaboradorCRC.setDisabledTextColor(new java.awt.Color(204, 0, 0));
+        jNomeColaboradorCRC.setEnabled(false);
+
+        jNomeColaboradorCRC_SEG.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jNomeColaboradorCRC_SEG.setForeground(new java.awt.Color(0, 0, 204));
+        jNomeColaboradorCRC_SEG.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNomeColaboradorCRC_SEG.setDisabledTextColor(new java.awt.Color(0, 0, 204));
+        jNomeColaboradorCRC_SEG.setEnabled(false);
+
+        jComboBoxPesquisaColaCRC.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxPesquisaColaCRC.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
+        jComboBoxPesquisaColaCRC.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxPesquisaColaCRC.setEnabled(false);
+
+        jComboBoxPesquisaColaCRC_SEG.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxPesquisaColaCRC_SEG.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
+        jComboBoxPesquisaColaCRC_SEG.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxPesquisaColaCRC_SEG.setEnabled(false);
+
+        jBtPesqColaboradorCRCSEG.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/overlays.png"))); // NOI18N
+        jBtPesqColaboradorCRCSEG.setEnabled(false);
+        jBtPesqColaboradorCRCSEG.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPesqColaboradorCRCSEGActionPerformed(evt);
+            }
+        });
+
+        jBtPesqColaboradorCRC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/overlays.png"))); // NOI18N
+        jBtPesqColaboradorCRC.setEnabled(false);
+        jBtPesqColaboradorCRC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPesqColaboradorCRCActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel32Layout = new javax.swing.GroupLayout(jPanel32);
         jPanel32.setLayout(jPanel32Layout);
         jPanel32Layout.setHorizontalGroup(
             jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel32Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel61)
+                    .addGroup(jPanel32Layout.createSequentialGroup()
+                        .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jNomeColaboradorCRC)
+                            .addComponent(jNomeColaboradorCRC_SEG, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jComboBoxPesquisaColaCRC_SEG, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBoxPesquisaColaCRC, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jBtPesqColaboradorCRC, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBtPesqColaboradorCRCSEG, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel32Layout.setVerticalGroup(
             jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 163, Short.MAX_VALUE)
+            .addGroup(jPanel32Layout.createSequentialGroup()
+                .addComponent(jLabel61)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jBtPesqColaboradorCRC)
+                    .addComponent(jComboBoxPesquisaColaCRC, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jNomeColaboradorCRC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jNomeColaboradorCRC_SEG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxPesquisaColaCRC_SEG, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtPesqColaboradorCRCSEG))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel39.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+
+        javax.swing.GroupLayout jPanel39Layout = new javax.swing.GroupLayout(jPanel39);
+        jPanel39.setLayout(jPanel39Layout);
+        jPanel39Layout.setHorizontalGroup(
+            jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel39Layout.setVerticalGroup(
+            jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 51, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -390,7 +480,8 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel32, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel32, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel39, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -403,6 +494,8 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel39, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1983,6 +2076,8 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         Alterar();
         pesquisarColaboradorPRI();
         pesquisarColaboradorSEG();
+        pesquisarColaboradorCRC();
+        pesquisarColaboradorCRCSEG();
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
@@ -2049,15 +2144,17 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         objParCrc.setAvaliacaoBioPSI((String) jComboBoxSSAva.getSelectedItem());
         objParCrc.setAdimissaoJuridico((String) jComboBoxJuridico.getSelectedItem());
         objParCrc.setAdmissaoTO((String) jComboBoxTO.getSelectedItem());
-        objParCrc.setAdmissaoOdonto((String) jComboBoxODON.getSelectedItem());        
+        objParCrc.setAdmissaoOdonto((String) jComboBoxODON.getSelectedItem());
+        objParCrc.setNomeColaboradorCRC(jNomeColaboradorCRC.getText());
+        objParCrc.setNomeColaboradorCRCSEG(jNomeColaboradorCRC_SEG.getText());
         if (jNomeUsuarioParametros.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do Usuario Autorizado");
         } else {
             control.alterarParametrosCrc(objParCrc);
             objLog();
             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
             Salvar();
+            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -2103,11 +2200,31 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jBtPesqColaboradorSEGActionPerformed
 
+    private void jBtPesqColaboradorCRCSEGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqColaboradorCRCSEGActionPerformed
+        // TODO add your handling code here:
+        if (jComboBoxPesquisaColaCRC_SEG.getSelectedItem().equals("Selecione...")) {
+            JOptionPane.showMessageDialog(rootPane, "Selecione um colaborador...");
+        } else {
+            jNomeColaboradorCRC_SEG.setText((String) jComboBoxPesquisaColaCRC_SEG.getSelectedItem());
+        }
+    }//GEN-LAST:event_jBtPesqColaboradorCRCSEGActionPerformed
+
+    private void jBtPesqColaboradorCRCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqColaboradorCRCActionPerformed
+        // TODO add your handling code here:
+        if (jComboBoxPesquisaColaCRC.getSelectedItem().equals("Selecione...")) {
+            JOptionPane.showMessageDialog(rootPane, "Selecione um colaborador...");
+        } else {
+            jNomeColaboradorCRC.setText((String) jComboBoxPesquisaColaCRC.getSelectedItem());
+        }
+    }//GEN-LAST:event_jBtPesqColaboradorCRCActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtAlterar;
     private javax.swing.JButton jBtAuditoria;
     private javax.swing.JButton jBtCancelar;
+    private javax.swing.JButton jBtPesqColaboradorCRC;
+    private javax.swing.JButton jBtPesqColaboradorCRCSEG;
     private javax.swing.JButton jBtPesqColaboradorPRI;
     private javax.swing.JButton jBtPesqColaboradorSEG;
     private javax.swing.JButton jBtPesqUsuarios;
@@ -2139,6 +2256,8 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox jComboBoxLocacaoBpa;
     private javax.swing.JComboBox jComboBoxMedicos;
     private javax.swing.JComboBox<String> jComboBoxODON;
+    private javax.swing.JComboBox<String> jComboBoxPesquisaColaCRC;
+    private javax.swing.JComboBox<String> jComboBoxPesquisaColaCRC_SEG;
     private javax.swing.JComboBox<String> jComboBoxPesquisaColaPRI;
     private javax.swing.JComboBox<String> jComboBoxPesquisaColaSEG;
     private javax.swing.JComboBox jComboBoxPopulacao;
@@ -2221,6 +2340,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel60;
+    private javax.swing.JLabel jLabel61;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -2228,6 +2348,8 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jLocalPDF_B2;
     private javax.swing.JTextField jLocalPDF_P1;
     private javax.swing.JTextField jLocalPDF_PE;
+    private javax.swing.JTextField jNomeColaboradorCRC;
+    private javax.swing.JTextField jNomeColaboradorCRC_SEG;
     private javax.swing.JTextField jNomeColaboradorPRI;
     private javax.swing.JTextField jNomeColaboradorSEG;
     public static javax.swing.JTextField jNomeUsuarioParametros;
@@ -2264,6 +2386,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel36;
     private javax.swing.JPanel jPanel37;
     private javax.swing.JPanel jPanel38;
+    private javax.swing.JPanel jPanel39;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
@@ -2311,6 +2434,9 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         //
         jComboBoxSSAdm.setBackground(Color.white);
         jComboBoxSSAva.setBackground(Color.white);
+        //
+        jComboBoxPesquisaColaCRC.setBackground(Color.white);
+        jComboBoxPesquisaColaCRC_SEG.setBackground(Color.white);
     }
 
     public void formatarCampos() {
@@ -2390,6 +2516,9 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
             jComboBoxJuridico.setSelectedItem(conecta.rs.getString("AdmissaoJuridico"));
             jComboBoxTO.setSelectedItem(conecta.rs.getString("AdmissaoTO"));
             jComboBoxODON.setSelectedItem(conecta.rs.getString("AdmissaoOdonto"));
+            //
+            jNomeColaboradorCRC.setText(conecta.rs.getString("NomeColaboradorCRC"));
+            jNomeColaboradorCRC_SEG.setText(conecta.rs.getString("NomeColaboradorCRCSEG"));
         } catch (SQLException ex) {
         }
         conecta.desconecta();
@@ -2472,6 +2601,11 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jComboBoxJuridico.setEnabled(true);
         jComboBoxTO.setEnabled(true);
         jComboBoxODON.setEnabled(true);
+        //
+        jComboBoxPesquisaColaCRC.setEnabled(true);
+        jComboBoxPesquisaColaCRC_SEG.setEnabled(true);
+        jBtPesqColaboradorCRC.setEnabled(true);
+        jBtPesqColaboradorCRCSEG.setEnabled(true);
         //
         jBtAlterar.setEnabled(!true);
         jBtSalvar.setEnabled(true);
@@ -2556,6 +2690,11 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jComboBoxTO.setEnabled(!true);
         jComboBoxODON.setEnabled(!true);
         //
+        jComboBoxPesquisaColaCRC.setEnabled(!true);
+        jComboBoxPesquisaColaCRC_SEG.setEnabled(!true);
+        jBtPesqColaboradorCRC.setEnabled(!true);
+        jBtPesqColaboradorCRCSEG.setEnabled(!true);
+        //
         jBtAlterar.setEnabled(true);
         jBtSalvar.setEnabled(!true);
         jBtCancelar.setEnabled(!true);
@@ -2639,6 +2778,11 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jComboBoxTO.setEnabled(!true);
         jComboBoxODON.setEnabled(!true);
         //
+        jComboBoxPesquisaColaCRC.setEnabled(!true);
+        jComboBoxPesquisaColaCRC_SEG.setEnabled(!true);
+        jBtPesqColaboradorCRC.setEnabled(!true);
+        jBtPesqColaboradorCRCSEG.setEnabled(!true);
+        //
         jBtAlterar.setEnabled(true);
         jBtSalvar.setEnabled(!true);
         jBtCancelar.setEnabled(!true);
@@ -2665,6 +2809,34 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
             conecta.rs.first();
             do {
                 jComboBoxPesquisaColaSEG.addItem(conecta.rs.getString("NomeFunc"));
+            } while (conecta.rs.next());
+        } catch (SQLException ex) {
+        }
+        conecta.desconecta();
+
+    }
+
+    public void pesquisarColaboradorCRC() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM COLABORADOR ");
+            conecta.rs.first();
+            do {
+                jComboBoxPesquisaColaCRC.addItem(conecta.rs.getString("NomeFunc"));
+            } while (conecta.rs.next());
+        } catch (SQLException ex) {
+        }
+        conecta.desconecta();
+
+    }
+
+    public void pesquisarColaboradorCRCSEG() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM COLABORADOR ");
+            conecta.rs.first();
+            do {
+                jComboBoxPesquisaColaCRC_SEG.addItem(conecta.rs.getString("NomeFunc"));
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }
