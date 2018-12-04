@@ -128,6 +128,20 @@ public class ControleEmissaoAtestadoReclusao {
         return objEmissao;
     }
 
+    public EmissaoAtestadoReclusao gravarCriptografiaEmissaoAtestadoReclusao(EmissaoAtestadoReclusao objEmissao) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE EMISSAO_ATESTADO_RECLUSAO SET ChaveInterno=? WHERE IdAtestado='" + objEmissao.getIdAtestado() + "'");
+            pst.setBytes(1, objEmissao.getChaveInterno());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ATUALIZAR a CHAVE DE VALIDAÇÃO DO INTERNO.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objEmissao;
+    }
+
     public void pesquisarVisita(String nome, int codigo) {
         conecta.abrirConexao();
         try {
