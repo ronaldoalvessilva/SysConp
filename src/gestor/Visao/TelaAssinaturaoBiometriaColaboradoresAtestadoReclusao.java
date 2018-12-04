@@ -442,7 +442,7 @@ public class TelaAssinaturaoBiometriaColaboradoresAtestadoReclusao extends javax
             dataInicial = formatoAmerica.format(jDataLiberacao.getDate().getTime());
             dataAssinatura = dataInicial;
             horaAssinatura = objEmissao.getHorarioLiberacao();
-            criptografarDadosColaboradorSimetrico(jNomeColaborador.getText());
+            criptografarDadosColaboradorSimetrico(jIdColaborador.getText(),jNomeColaborador.getText());
             jBtSalvar.setEnabled(true);
             dispose();
         } else {
@@ -994,8 +994,8 @@ public class TelaAssinaturaoBiometriaColaboradoresAtestadoReclusao extends javax
         conecta.desconecta();
     }
 
-    public void criptografarDadosColaboradorSimetrico(String nomeColaborador) {
-       validadorDados = nomeColaborador;
+    public void criptografarDadosColaboradorSimetrico(String codigo, String nomeColaborador) {
+       validadorDados = codigo + nomeColaborador;
        // CRIPTOGRAFIA SIMETRICA: AES,RC2,RC4,RC5, IDEA, Blowfish
         try {
             KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
