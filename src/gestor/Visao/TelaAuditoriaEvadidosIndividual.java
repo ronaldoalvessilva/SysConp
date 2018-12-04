@@ -9,7 +9,7 @@ import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.EvadidoIndividual;
 import static gestor.Visao.TelaConsultaInternosEvadidos.jIdLancEvasao;
 import java.sql.SQLException;
-
+ 
 /**
  *
  * @author Ronaldo
