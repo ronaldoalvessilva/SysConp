@@ -1282,6 +1282,9 @@ public class TelaEmissaoAtestadoReclusao extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaActionPerformed
         // TODO add your handling code here:
+        TelaAuditoriaEmissaoAtestadoRec objAudiEA = new TelaAuditoriaEmissaoAtestadoRec();
+        TelaModuloCRC.jPainelCRC.add(objAudiEA);
+        objAudiEA.show();
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
 
     private void jBtFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFinalizarActionPerformed
