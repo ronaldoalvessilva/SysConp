@@ -30,6 +30,7 @@ import static gestor.Visao.TelaEmissaoAtestadoReclusao.pDigitalCapturadaColabora
 import static gestor.Visao.TelaEmissaoAtestadoReclusao.pLiberacaoImpressa;
 import static gestor.Visao.TelaEmissaoAtestadoReclusao.dataLiberacao;
 import static gestor.Visao.TelaEmissaoAtestadoReclusao.codigoValidador;
+import static gestor.Visao.TelaEmissaoAtestadoReclusao.jComboBoxClassAtestado;
 import java.awt.Color;
 import java.awt.Image;
 import java.security.InvalidKeyException;
@@ -434,6 +435,7 @@ public class TelaAssinaturaoBiometriaColaboradoresAtestadoReclusao extends javax
             objEmissao.setNomeColaborador(jNomeColaborador.getText());
             objEmissao.setDataLiberacao(jDataLiberacao.getDate());
             objEmissao.setHorarioLiberacao(jHorarioLiberacao.getText());
+            jComboBoxClassAtestado.getSelectedItem().equals("Liberado");
             dataLiberacao = jDataLiberacao.getDate();
             codigoLiberador = objEmissao.getIdColaborador();
             nomeLiberador = objEmissao.getNomeColaborador();
