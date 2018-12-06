@@ -19,6 +19,7 @@ public class EmissaoAtestadoReclusao {
     private String statusAtestado;
     private String classAtestado;
     private Date dataAtestado;
+    private Date dataValidade;
     private int idVisitaAtestado;
     private String nomeSolicitanteAtestado;
     private int idInternoAtestado;
@@ -43,13 +44,14 @@ public class EmissaoAtestadoReclusao {
     public EmissaoAtestadoReclusao() {
     }
 
-    public EmissaoAtestadoReclusao(int idAtestado, int codRegAux, String utilizadoCrc, String statusAtestado, String classAtestado, Date dataAtestado, int idVisitaAtestado, String nomeSolicitanteAtestado, int idInternoAtestado, String nomeInternoAtestado, String textoAtestado, String utilizacao, int idColaborador, String nomeColaborador, Date dataLiberacao, String dataAssinatura, String horarioLiberacao, byte[] AssinaturaColaborador, byte[] validadorDados, byte[] chaveInterno, String usuarioInsert, String usuarioUp, String dataInsert, String horarioInsert, String dataUp, String horarioUp) {
+    public EmissaoAtestadoReclusao(int idAtestado, int codRegAux, String utilizadoCrc, String statusAtestado, String classAtestado, Date dataAtestado, Date dataValidade, int idVisitaAtestado, String nomeSolicitanteAtestado, int idInternoAtestado, String nomeInternoAtestado, String textoAtestado, String utilizacao, int idColaborador, String nomeColaborador, Date dataLiberacao, String dataAssinatura, String horarioLiberacao, byte[] AssinaturaColaborador, byte[] validadorDados, byte[] chaveInterno, String usuarioInsert, String usuarioUp, String dataInsert, String horarioInsert, String dataUp, String horarioUp) {
         this.idAtestado = idAtestado;
         this.codRegAux = codRegAux;
         this.utilizadoCrc = utilizadoCrc;
         this.statusAtestado = statusAtestado;
         this.classAtestado = classAtestado;
         this.dataAtestado = dataAtestado;
+        this.dataValidade = dataValidade;
         this.idVisitaAtestado = idVisitaAtestado;
         this.nomeSolicitanteAtestado = nomeSolicitanteAtestado;
         this.idInternoAtestado = idInternoAtestado;
@@ -154,6 +156,20 @@ public class EmissaoAtestadoReclusao {
      */
     public void setDataAtestado(Date dataAtestado) {
         this.dataAtestado = dataAtestado;
+    }
+
+    /**
+     * @return the dataValidade
+     */
+    public Date getDataValidade() {
+        return dataValidade;
+    }
+
+    /**
+     * @param dataValidade the dataValidade to set
+     */
+    public void setDataValidade(Date dataValidade) {
+        this.dataValidade = dataValidade;
     }
 
     /**
