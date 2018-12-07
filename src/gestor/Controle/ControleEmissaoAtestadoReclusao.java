@@ -34,22 +34,27 @@ public class ControleEmissaoAtestadoReclusao {
         pesquisarInterno(objEmissao.getNomeInternoAtestado(), objEmissao.getIdInternoAtestado());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO EMISSAO_ATESTADO_RECLUSAO (StatusAtestado,ClassAtestado,DataAtestado,IdVisita,IdInternoCrc,CodRegAux,TextoAtestado,AssinaturaColaborador,DataAssinatura,HoraAssinatura,CodigoValidador,ChaveInterno,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO EMISSAO_ATESTADO_RECLUSAO (StatusAtestado,ClassAtestado,DataAtestado,DataValidade,IdVisita,IdInternoCrc,CodRegAux,TextoAtestado,AssinaturaColaborador,DataAssinatura,HoraAssinatura,CodigoValidador,ChaveInterno,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setString(1, objEmissao.getStatusAtestado());
             pst.setString(2, objEmissao.getClassAtestado());
             pst.setTimestamp(3, new java.sql.Timestamp(objEmissao.getDataAtestado().getTime()));
-            pst.setInt(4, codigoVisita);
-            pst.setInt(5, codigoInterno);
-            pst.setInt(6, objEmissao.getCodRegAux());
-            pst.setString(7, objEmissao.getTextoAtestado());
-            pst.setBytes(8, objEmissao.getAssinaturaColaborador());
-            pst.setString(9, objEmissao.getDataAssinatura());
-            pst.setString(10, objEmissao.getHorarioLiberacao());
-            pst.setBytes(11, objEmissao.getValidadorDados());
-            pst.setBytes(12, objEmissao.getChaveInterno());
-            pst.setString(13, objEmissao.getUsuarioInsert());
-            pst.setString(14, objEmissao.getDataInsert());
-            pst.setString(15, objEmissao.getHorarioInsert());
+            if (objEmissao.getDataValidade() != null) {
+                pst.setTimestamp(4, new java.sql.Timestamp(objEmissao.getDataValidade().getTime()));
+            } else {
+                pst.setDate(4, null);
+            }
+            pst.setInt(5, codigoVisita);
+            pst.setInt(6, codigoInterno);
+            pst.setInt(7, objEmissao.getCodRegAux());
+            pst.setString(8, objEmissao.getTextoAtestado());
+            pst.setBytes(9, objEmissao.getAssinaturaColaborador());
+            pst.setString(10, objEmissao.getDataAssinatura());
+            pst.setString(11, objEmissao.getHorarioLiberacao());
+            pst.setBytes(12, objEmissao.getValidadorDados());
+            pst.setBytes(13, objEmissao.getChaveInterno());
+            pst.setString(14, objEmissao.getUsuarioInsert());
+            pst.setString(15, objEmissao.getDataInsert());
+            pst.setString(16, objEmissao.getHorarioInsert());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\n\nERRO: " + ex);
@@ -63,22 +68,27 @@ public class ControleEmissaoAtestadoReclusao {
         pesquisarInterno(objEmissao.getNomeInternoAtestado(), objEmissao.getIdInternoAtestado());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE EMISSAO_ATESTADO_RECLUSAO SET StatusAtestado=?,ClassAtestado=?,DataAtestado=?,IdVisita=?,IdInternoCrc=?,CodRegAux=?,TextoAtestado=?,AssinaturaColaborador=?,DataAssinatura=?,HoraAssinatura=?,CodigoValidador=?,ChaveInterno=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdAtestado='" + objEmissao.getIdAtestado() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE EMISSAO_ATESTADO_RECLUSAO SET StatusAtestado=?,ClassAtestado=?,DataAtestado=?,DataValidade=?,IdVisita=?,IdInternoCrc=?,CodRegAux=?,TextoAtestado=?,AssinaturaColaborador=?,DataAssinatura=?,HoraAssinatura=?,CodigoValidador=?,ChaveInterno=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdAtestado='" + objEmissao.getIdAtestado() + "'");
             pst.setString(1, objEmissao.getStatusAtestado());
             pst.setString(2, objEmissao.getClassAtestado());
             pst.setTimestamp(3, new java.sql.Timestamp(objEmissao.getDataAtestado().getTime()));
-            pst.setInt(4, codigoVisita);
-            pst.setInt(5, codigoInterno);
-            pst.setInt(6, objEmissao.getCodRegAux());
-            pst.setString(7, objEmissao.getTextoAtestado());
-            pst.setBytes(8, objEmissao.getAssinaturaColaborador());
-            pst.setString(9, objEmissao.getDataAssinatura());
-            pst.setString(10, objEmissao.getHorarioLiberacao());
-            pst.setBytes(11, objEmissao.getValidadorDados());
-            pst.setBytes(12, objEmissao.getChaveInterno());
-            pst.setString(13, objEmissao.getUsuarioUp());
-            pst.setString(14, objEmissao.getDataUp());
-            pst.setString(15, objEmissao.getHorarioUp());
+            if (objEmissao.getDataValidade() != null) {
+                pst.setTimestamp(4, new java.sql.Timestamp(objEmissao.getDataValidade().getTime()));
+            } else {
+                pst.setDate(4, null);
+            }
+            pst.setInt(5, codigoVisita);
+            pst.setInt(6, codigoInterno);
+            pst.setInt(7, objEmissao.getCodRegAux());
+            pst.setString(8, objEmissao.getTextoAtestado());
+            pst.setBytes(9, objEmissao.getAssinaturaColaborador());
+            pst.setString(10, objEmissao.getDataAssinatura());
+            pst.setString(11, objEmissao.getHorarioLiberacao());
+            pst.setBytes(12, objEmissao.getValidadorDados());
+            pst.setBytes(13, objEmissao.getChaveInterno());
+            pst.setString(14, objEmissao.getUsuarioUp());
+            pst.setString(15, objEmissao.getDataUp());
+            pst.setString(16, objEmissao.getHorarioUp());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
