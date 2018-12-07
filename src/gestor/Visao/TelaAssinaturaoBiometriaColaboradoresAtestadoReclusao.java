@@ -33,6 +33,7 @@ import static gestor.Visao.TelaEmissaoAtestadoReclusao.codigoValidador;
 import static gestor.Visao.TelaEmissaoAtestadoReclusao.jComboBoxClassAtestado;
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
@@ -164,6 +165,7 @@ public class TelaAssinaturaoBiometriaColaboradoresAtestadoReclusao extends javax
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("...::: Assinatura para Liberação do Atestado de Reclusão :::...");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/gestor/Imagens/Biometria16Vermelho.png")));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
 
