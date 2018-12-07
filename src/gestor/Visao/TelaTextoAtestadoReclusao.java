@@ -11,6 +11,7 @@ import static gestor.Visao.TelaEmissaoAtestadoReclusao.acao;
 import static gestor.Visao.TelaEmissaoAtestadoReclusao.jIdAtestado;
 import static gestor.Visao.TelaEmissaoAtestadoReclusao.textoAtestadoReclusao;
 import java.awt.Color;
+import java.awt.Toolkit;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -60,6 +61,7 @@ public class TelaTextoAtestadoReclusao extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("...::: Texto do Atestado de Reclusão :::...");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/gestor/Imagens/page_white_word.png")));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
