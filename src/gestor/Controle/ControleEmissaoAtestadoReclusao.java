@@ -7,8 +7,6 @@ package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.EmissaoAtestadoReclusao;
-import gestor.Modelo.SolicitacaoAtestadoReclusao;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
