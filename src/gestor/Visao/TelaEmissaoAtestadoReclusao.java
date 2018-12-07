@@ -978,7 +978,7 @@ public class TelaEmissaoAtestadoReclusao extends javax.swing.JInternalFrame {
                             + "ON EMISSAO_ATESTADO_RECLUSAO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                             + "INNER JOIN VISITASINTERNO "
                             + "ON EMISSAO_ATESTADO_RECLUSAO.IdVisita=VISITASINTERNO.IdVisita "
-                            + "WHERE DataRegAux BETWEEN'" + dataInicial + "' "
+                            + "WHERE DataAtestado BETWEEN'" + dataInicial + "' "
                             + "AND '" + dataFinal + "'");
                 }
             }
