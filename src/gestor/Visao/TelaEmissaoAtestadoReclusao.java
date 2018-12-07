@@ -180,6 +180,8 @@ public class TelaEmissaoAtestadoReclusao extends javax.swing.JInternalFrame {
         jParentescoAtestado = new javax.swing.JTextField();
         jNomeSolicitanteAtestado = new javax.swing.JTextField();
         jBtBuscarDadosVI = new javax.swing.JButton();
+        jDataValidade = new com.toedter.calendar.JDateChooser();
+        jLabel15 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jIdInternoAtestado = new javax.swing.JTextField();
         jCncAtestado = new javax.swing.JTextField();
@@ -562,6 +564,13 @@ public class TelaEmissaoAtestadoReclusao extends javax.swing.JInternalFrame {
             }
         });
 
+        jDataValidade.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDataValidade.setEnabled(false);
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(0, 0, 204));
+        jLabel15.setText("Valid. Atestado");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -569,33 +578,41 @@ public class TelaEmissaoAtestadoReclusao extends javax.swing.JInternalFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jNomeSolicitanteAtestado, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(38, 38, 38)
-                                .addComponent(jLabel6)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addComponent(jIdVisitaAtestado, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jParentescoAtestado, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtBuscarDadosVI, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jNomeSolicitanteAtestado, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addGap(38, 38, 38)
+                                        .addComponent(jLabel6))
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addComponent(jIdVisitaAtestado, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jParentescoAtestado, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jDataValidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel15))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jBtBuscarDadosVI, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5)
+                        .addComponent(jLabel6))
+                    .addComponent(jLabel15))
                 .addGap(7, 7, 7)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jParentescoAtestado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jIdVisitaAtestado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jParentescoAtestado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDataValidade, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtBuscarDadosVI))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
@@ -1205,6 +1222,7 @@ public class TelaEmissaoAtestadoReclusao extends javax.swing.JInternalFrame {
                 objEmissao.setStatusAtestado(jStatusAtestado.getText());
                 objEmissao.setClassAtestado((String) jComboBoxClassAtestado.getSelectedItem());
                 objEmissao.setDataAtestado(jDataAtestado.getDate());
+                objEmissao.setDataValidade(jDataValidade.getDate());
                 objEmissao.setIdVisitaAtestado(Integer.valueOf(jIdVisitaAtestado.getText()));
                 objEmissao.setNomeSolicitanteAtestado(jNomeSolicitanteAtestado.getText());
                 objEmissao.setIdInternoAtestado(Integer.valueOf(jIdInternoAtestado.getText()));
@@ -1407,6 +1425,7 @@ public class TelaEmissaoAtestadoReclusao extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser jDataAtestado;
     private com.toedter.calendar.JDateChooser jDataPesqFinal;
     private com.toedter.calendar.JDateChooser jDataPesqInicial;
+    private com.toedter.calendar.JDateChooser jDataValidade;
     private javax.swing.JTextField jIDPesqRol;
     public static javax.swing.JTextField jIdAtestado;
     public static javax.swing.JTextField jIdInternoAtestado;
@@ -1417,6 +1436,7 @@ public class TelaEmissaoAtestadoReclusao extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
@@ -1506,6 +1526,7 @@ public class TelaEmissaoAtestadoReclusao extends javax.swing.JInternalFrame {
         jStatusAtestado.setText("");
         jComboBoxClassAtestado.setSelectedItem(null);
         jDataAtestado.setDate(null);
+        jDataValidade.setDate(null);
         jIdVisitaAtestado.setText("");
         jParentescoAtestado.setText("");
         jNomeSolicitanteAtestado.setText("");
@@ -1529,6 +1550,10 @@ public class TelaEmissaoAtestadoReclusao extends javax.swing.JInternalFrame {
         jBtBuscarDadosVI.setEnabled(true);
         jBtLiberar.setEnabled(true);
         jBtAtestado.setEnabled(true);
+        // CALCULAR A DATA DE VALIDADE DO ATESTADO
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, 3);
+        jDataValidade.setCalendar(calendar);
     }
 
     public void Alterar() {
