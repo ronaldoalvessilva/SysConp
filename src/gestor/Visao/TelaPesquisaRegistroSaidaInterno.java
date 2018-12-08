@@ -15,6 +15,7 @@ import static gestor.Visao.TelaRegistroSaidaInternosPortaria.jIDInterno;
 import static gestor.Visao.TelaRegistroSaidaInternosPortaria.jNomeInterno;
 import static gestor.Visao.TelaRegistroSaidaInternosPortaria.jNrDocumento;
 import static gestor.Visao.TelaRegistroSaidaInternosPortaria.jTipoSaida;
+import static gestor.Visao.TelaRegistroSaidaInternosPortaria.idItemCrcPort;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class TelaPesquisaRegistroSaidaInterno extends javax.swing.JInternalFrame
     String dataSaida;
     String confirmacaoSaida = "Não";
     public static String idItemSaida; // Item da tabela de ITENS DE SAIDA (ITENSSAIDA)
-    public static int idItemCrcPort; // Item da tabela ITENSCRCPORTARIA
+//    public static int idItemCrcPort; // Item da tabela ITENSCRCPORTARIA
     String codInt;
 
     /**
@@ -266,14 +267,14 @@ public class TelaPesquisaRegistroSaidaInterno extends javax.swing.JInternalFrame
                         + "AND PRONTUARIOSCRC.NomeInternoCrc='" + nomeInterno + "' "
                         + "AND PRONTUARIOSCRC.IdInternoCrc='" + codInt + "'");
                 conecta.rs.first();
+                idInt = conecta.rs.getString("IdItem");
                 jIDInterno.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
                 jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));
                 jTipoSaida.setText(conecta.rs.getString("DestinoSaida"));
                 jNrDocumento.setText(conecta.rs.getString("DocumentoSaida"));
                 jDataSaida.setDate(conecta.rs.getDate("DataSaida"));
                 idItemSaida = conecta.rs.getString("IdSaida"); //IdItemSaida antes
-                idItemCrcPort = conecta.rs.getInt("IdItemSaida");
-                idInt = conecta.rs.getString("IdItem");
+                idItemCrcPort = conecta.rs.getInt("IdItemSaida");             
                 // Capturando foto
                 caminho = conecta.rs.getString("FotoInternoCrc");
                 if (caminho != null) {
