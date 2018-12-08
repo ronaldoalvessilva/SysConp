@@ -237,7 +237,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
     public static String telaDepositoInternosManuP1 = "Movimentação:Deposito de Internos - P1I:Manutenção";
     public static String telaDepositoInternosIntP1 = "Movimentação:Deposito de Internos - P1I:Internos";
     //
-    public static String telaOcorrenciaManuP1 = "Movimentação:Movimentação:Ocorrências Diárias:Manutenção";
+    public static String telaOcorrenciaManuP1 = "Movimentação:Ocorrências Diárias - P1I:Manutenção";
     //
     public static String telaOcorrenciaDisciplinaVisitasManuP1 = "Movimentação:Ocorrência Disciplinar Visitas - P1I:Manutenção";
     public static String telaOcorrenciaDisciplinaVisitasVisiP1 = "Movimentação:Ocorrência Disciplinar Visitas - P1I:Visitantes";
