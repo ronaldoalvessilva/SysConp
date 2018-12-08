@@ -45,7 +45,6 @@ import static gestor.Visao.TelaModuloPortarias.telaRegistroSaidaInternoIntP1;
 import static gestor.Visao.TelaModuloPortarias.telaRegistroSaidaInternoManuP1;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
-import static gestor.Visao.TelaPesquisaRegistroSaidaInterno.idItemCrcPort;
 import static gestor.Visao.TelaPesquisaRegistroSaidaInterno.idItemSaida;
 import java.awt.Color;
 import java.awt.HeadlessException;
@@ -170,6 +169,7 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
     String idLancSaida = "";
     //
     byte[] assinaturaDigital = null;
+    public static int idItemCrcPort; // Item da tabela ITENSCRCPORTARIA
 
     /**
      * Creates new form TelaSaidaInterno
