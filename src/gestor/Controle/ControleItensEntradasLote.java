@@ -122,7 +122,7 @@ public class ControleItensEntradasLote {
         buscarInternoCrc(objProCrc.getNomeInterno(),objProCrc.getIdInterno());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO MOVIMENTACAO_KITS_HIGIENE_INTERNOS (IdInternoCrc,KitInicial,KitIPago,KitDecendial,KitDPago,KitQuinzenal,KitQPago,KitMensal,KitMPago,KitSemestral,KitSPago,KitAnual,KitAPago) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");            
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO MOVIMENTACAO_KITS_HIGIENE_INTERNOS (IdInternoCrc,KitInicial,KitIPago,KitDecendial,KitDPago,KitQuinzenal,KitQPago,KitMensal,KitMPago,KitSemestral,KitSPago,KitAnual,KitAPago) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");            
             pst.setInt(1, codInt);
             pst.setString(2, objProCrc.getKitInicial());
             pst.setString(3, objProCrc.getKitIPago());
