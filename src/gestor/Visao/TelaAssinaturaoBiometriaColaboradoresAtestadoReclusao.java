@@ -437,7 +437,7 @@ public class TelaAssinaturaoBiometriaColaboradoresAtestadoReclusao extends javax
             objEmissao.setNomeColaborador(jNomeColaborador.getText());
             objEmissao.setDataLiberacao(jDataLiberacao.getDate());
             objEmissao.setHorarioLiberacao(jHorarioLiberacao.getText());
-            jComboBoxClassAtestado.getSelectedItem().equals("Liberado");
+            jComboBoxClassAtestado.setSelectedItem("Liberado");
             dataLiberacao = jDataLiberacao.getDate();
             codigoLiberador = objEmissao.getIdColaborador();
             nomeLiberador = objEmissao.getNomeColaborador();
