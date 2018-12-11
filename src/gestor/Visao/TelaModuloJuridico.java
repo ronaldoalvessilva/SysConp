@@ -174,7 +174,7 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
     //
     public static String telaAudienciaJustificativaManuJURI = "Movimentação:Audiência de Justificativa:Manutenção";
     //
-    public static String telaOcorrenciaJURI = "Movimentação:Movimentação:Ocorrências Diárias:Manutenção";
+    public static String telaOcorrenciaJURI = "Movimentação:Movimentação:Ocorrências Diárias - Juídico:Manutenção";
     //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
@@ -1758,7 +1758,7 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
             pNomeCPID = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
-        // MOVIMENTAÇÃO
+        // MOVIMENTAÇÃO 
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaAtendimentoJuridicoManuJURI + "'");
@@ -1787,6 +1787,35 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
             pNomeABM_JURI = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaCadastroFichaJuridicaManutencaoJURI + "'");
+            conecta.rs.first();
+            pNomeCFJM_JURI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaCadastroFichaJuridicaProcessoJURI + "'");
+            conecta.rs.first();
+            pNomeCFJP_JURI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaCadastroFichaJuridicaIncidênciaPenalJURI + "'");
+            conecta.rs.first();
+            pNomeCFJI_JURI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaCadastroFichaJuridicaDocumentosProcessoJURI + "'");
+            conecta.rs.first();
+            pNomeCFJD_JURI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        //
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaAtendimentoFamiliarManuJURI + "'");
@@ -1883,6 +1912,31 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
             objCadastroTela.setNomeTela(telaAgendamentoBeneficioManuJURI);
             controle.incluirTelaAcesso(objCadastroTela);
         }
+        if (!pNomeCFJM_JURI.equals(telaCadastroFichaJuridicaManutencaoJURI) || pNomeCFJM_JURI == null || pNomeCFJM_JURI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaCadastroFichaJuridicaManutencaoJURI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeCFJP_JURI.equals(telaCadastroFichaJuridicaProcessoJURI) || pNomeCFJP_JURI == null || pNomeCFJP_JURI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaCadastroFichaJuridicaProcessoJURI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeCFJI_JURI.equals(telaCadastroFichaJuridicaIncidênciaPenalJURI) || pNomeCFJI_JURI == null || pNomeCFJI_JURI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaCadastroFichaJuridicaIncidênciaPenalJURI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeCFJD_JURI.equals(telaCadastroFichaJuridicaDocumentosProcessoJURI) || pNomeCFJD_JURI == null || pNomeCFJD_JURI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaCadastroFichaJuridicaDocumentosProcessoJURI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //
         if (!pNomeAFM_JURI.equals(telaAtendimentoFamiliarManuJURI) || pNomeAFM_JURI == null || pNomeAFM_JURI.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
