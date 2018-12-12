@@ -33,6 +33,7 @@ import gestor.Modelo.ItensDoencas;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.PrescricaoMedicaPsiquiatrica;
 import gestor.Modelo.RegistroAtendimentoInternos;
+import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloEnfermaria.codAlterarENF;
 import static gestor.Visao.TelaModuloEnfermaria.codExcluirENF;
@@ -5387,6 +5388,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                 parametros.put("codigoAdm", jIdAdm.getText());
                 parametros.put("codigoDieta", jIdDieta.getText());
                 parametros.put("nomeUsuario", nameUser);
+                parametros.put("descricaoUnidade", descricaoUnidade);
                 JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
                 JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
                 JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
