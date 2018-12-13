@@ -116,6 +116,8 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private ConsultaGerencialInternosUnidade objConsultaGIU = null;
     private TelaEmissaoAtestadoReclusao objAtestadoRec = null;
     private TelaValidadorAtestadoReclusao objValidaAtestado = null;
+    private TelaRevalidacaoAtestadoReclusao objAtestadoValidaAtestado = null;
+    private TelaSolicitacaoAuxilioReclusaoCRC objSolicitaAtestaRec = null;
     // 
     String usuarioLogado, dataLanc;
     int codUsuario;
@@ -181,10 +183,15 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     public static String nomeModuloCRC = "CRC";
     // MENU CADASTRO    
     public static String telaConsultaGerencialInternosExternaCRC = "Consulta:Consulta Gerencial Internos Unidade";
-    public static String telaEmissaoAtestadoReclusao = "Movimentação:Emissão Atestado de Reclusão";
+    public static String telaEmissaoAtestadoReclusao = "Movimentação:Emissão Atestado de Reclusão:Manutenção";
     public static String liberacaoAtestadoCRC = "Movimentação:Emissão Atestado de Reclusão:Liberação";
     public static String impressaoAtestadoCRC = "Movimentação:Emissão Atestado de Reclusão:Impressão";
     public static String validadorAtestadoCRC = "Movimentação:Validar Atestado de Reclusão";
+    //
+    public static String revalidarAtestadoCRC = "Movimentação: Revalidar Atestado de Reclusão:Manutenção";
+    public static String liberacaoRevAtestadoCRC = "Movimentação:Revalidação Atestado de Reclusão:Liberação";
+    public static String impressaoRevalidarAtCRC = "Movimentação:Revalidação Atestado de Reclusão:Impressão";
+    public static String solicitaAtestaReclusoCRC = "Movimentação:Solicitação Atestado de Reclusão CRC:Manutenção";
     //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
@@ -195,6 +202,11 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     String pNomeLA = "";
     String pNomeIA = "";
     String pNomeVA = "";
+    //
+    String pNomeRAR = "";
+    String pNomeLRA = "";
+    String pNomeIRV = "";
+
     //
     String dataInicial;
     String dataFinal;
@@ -282,6 +294,9 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         jMenu9 = new javax.swing.JMenu();
         jEmissaoAtestadoReclusao = new javax.swing.JMenuItem();
         jValidacaoAtestadoReclusao = new javax.swing.JMenuItem();
+        jRevalidarAtestadoReclusao = new javax.swing.JMenuItem();
+        jMenu10 = new javax.swing.JMenu();
+        jSolicitacaoAtestadoReclusaoCRC = new javax.swing.JMenuItem();
         jMenuRelatorios = new javax.swing.JMenu();
         RelatorioProntuarios = new javax.swing.JMenu();
         ListagemGeralProntuarios = new javax.swing.JMenuItem();
@@ -683,7 +698,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         jMenuMovimentacao.add(jSeparator29);
 
         jMenu9.setForeground(new java.awt.Color(204, 0, 0));
-        jMenu9.setText("Emissão e Validação do Atestado de Reclusão Carcerária");
+        jMenu9.setText("Emissão/Validação do Atestado de Reclusão - Serviço Social/CRC");
 
         jEmissaoAtestadoReclusao.setForeground(new java.awt.Color(204, 0, 0));
         jEmissaoAtestadoReclusao.setText("Emissão de Atestado de Reclusão Carcerária");
@@ -703,7 +718,29 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         });
         jMenu9.add(jValidacaoAtestadoReclusao);
 
+        jRevalidarAtestadoReclusao.setForeground(new java.awt.Color(0, 153, 0));
+        jRevalidarAtestadoReclusao.setText("Revalidar Atestado de Reclusão (INSS)");
+        jRevalidarAtestadoReclusao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRevalidarAtestadoReclusaoActionPerformed(evt);
+            }
+        });
+        jMenu9.add(jRevalidarAtestadoReclusao);
+
         jMenuMovimentacao.add(jMenu9);
+
+        jMenu10.setForeground(new java.awt.Color(0, 0, 204));
+        jMenu10.setText("Solicitação/Emissão Atestado Reclusão - CRC");
+
+        jSolicitacaoAtestadoReclusaoCRC.setText("Solicitação de Atestado de Reclusão - CRC");
+        jSolicitacaoAtestadoReclusaoCRC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jSolicitacaoAtestadoReclusaoCRCActionPerformed(evt);
+            }
+        });
+        jMenu10.add(jSolicitacaoAtestadoReclusaoCRC);
+
+        jMenuMovimentacao.add(jMenu10);
 
         jMenuBar1.add(jMenuMovimentacao);
 
@@ -2843,6 +2880,74 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jValidacaoAtestadoReclusaoActionPerformed
 
+    private void jRevalidarAtestadoReclusaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRevalidarAtestadoReclusaoActionPerformed
+        // TODO add your handling code here:TelaRevalidacaoAtestadoReclusao
+        buscarAcessoUsuario(validadorAtestadoCRC);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(validadorAtestadoCRC) && codAbrirCRC == 1) {
+            if (objAtestadoValidaAtestado == null || objAtestadoValidaAtestado.isClosed()) {
+                objAtestadoValidaAtestado = new TelaRevalidacaoAtestadoReclusao();
+                jPainelCRC.add(objAtestadoValidaAtestado);
+                objAtestadoValidaAtestado.setVisible(true);
+            } else {
+                if (objAtestadoValidaAtestado.isVisible()) {
+                    if (objAtestadoValidaAtestado.isIcon()) { // Se esta minimizado
+                        try {
+                            objAtestadoValidaAtestado.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objAtestadoValidaAtestado.toFront(); // traz para frente
+                        objAtestadoValidaAtestado.pack();//volta frame 
+                    }
+                } else {
+                    objAtestadoValidaAtestado = new TelaRevalidacaoAtestadoReclusao();
+                    TelaModuloCRC.jPainelCRC.add(objAtestadoValidaAtestado);//adicona frame ao JDesktopPane  
+                    objAtestadoValidaAtestado.setVisible(true);
+                }
+            }
+            try {
+                objAtestadoValidaAtestado.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jRevalidarAtestadoReclusaoActionPerformed
+
+    private void jSolicitacaoAtestadoReclusaoCRCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSolicitacaoAtestadoReclusaoCRCActionPerformed
+        // TODO add your handling code here:TelaSolicitacaoAuxilioReclusaoCRC
+        buscarAcessoUsuario(solicitaAtestaReclusoCRC);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(solicitaAtestaReclusoCRC) && codAbrirCRC == 1) {
+            if (objSolicitaAtestaRec == null || objSolicitaAtestaRec.isClosed()) {
+                objSolicitaAtestaRec = new TelaSolicitacaoAuxilioReclusaoCRC();
+                jPainelCRC.add(objSolicitaAtestaRec);
+                objSolicitaAtestaRec.setVisible(true);
+            } else {
+                if (objSolicitaAtestaRec.isVisible()) {
+                    if (objSolicitaAtestaRec.isIcon()) { // Se esta minimizado
+                        try {
+                            objSolicitaAtestaRec.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objSolicitaAtestaRec.toFront(); // traz para frente
+                        objSolicitaAtestaRec.pack();//volta frame 
+                    }
+                } else {
+                    objSolicitaAtestaRec = new TelaSolicitacaoAuxilioReclusaoCRC();
+                    TelaModuloCRC.jPainelCRC.add(objSolicitaAtestaRec);//adicona frame ao JDesktopPane  
+                    objSolicitaAtestaRec.setVisible(true);
+                }
+            }
+            try {
+                objSolicitaAtestaRec.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jSolicitacaoAtestadoReclusaoCRCActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromisso;
@@ -2915,6 +3020,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jListagemUnidadePenal;
     private javax.swing.JMenuItem jLocalizacaoInternos;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
@@ -2939,6 +3045,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jPopulacaoCarceraria;
     private javax.swing.JMenuItem jProntuariosIntrernos;
     private javax.swing.JMenuItem jRelatorioEvadidos;
+    private javax.swing.JMenuItem jRevalidarAtestadoReclusao;
     private javax.swing.JMenuItem jSaidaInternos;
     private javax.swing.JMenuItem jSair;
     private javax.swing.JPopupMenu.Separator jSeparator1;
@@ -2970,6 +3077,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator7;
     private javax.swing.JPopupMenu.Separator jSeparator8;
     private javax.swing.JPopupMenu.Separator jSeparator9;
+    private javax.swing.JMenuItem jSolicitacaoAtestadoReclusaoCRC;
     private javax.swing.JMenuItem jTipoOperacao;
     private javax.swing.JMenuItem jTransferenciaInternos;
     private javax.swing.JMenuItem jUnidadePenal;
@@ -3597,6 +3705,27 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             pNomeVA = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + revalidarAtestadoCRC + "'");
+            conecta.rs.first();
+            pNomeRAR = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + liberacaoRevAtestadoCRC + "'");
+            conecta.rs.first();
+            pNomeLRA = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + impressaoRevalidarAtCRC + "'");
+            conecta.rs.first();
+            pNomeIRV = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         if (!pNomeCGIE.equals(telaConsultaGerencialInternosExternaCRC) || pNomeCGIE == null || pNomeCGIE.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
@@ -3625,6 +3754,24 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(validadorAtestadoCRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeRAR.equals(revalidarAtestadoCRC) || pNomeRAR == null || pNomeRAR.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(revalidarAtestadoCRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeLRA.equals(liberacaoRevAtestadoCRC) || pNomeLRA == null || pNomeLRA.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(liberacaoRevAtestadoCRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeIRV.equals(impressaoRevalidarAtCRC) || pNomeIRV == null || pNomeIRV.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(impressaoRevalidarAtCRC);
             controle.incluirTelaAcesso(objCadastroTela);
         }
     }

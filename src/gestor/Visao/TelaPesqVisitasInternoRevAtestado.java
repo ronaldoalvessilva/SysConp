@@ -7,49 +7,49 @@ package gestor.Visao;
 
 import gestor.Dao.*;
 import gestor.Modelo.ProntuarioCrc;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.jCncAtestado;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.jDatEntradaAtestado;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.jIdVisitaAtestado;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.jMaeInternoAtestado;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.jNomeInternoAtestado;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.jNomeSolicitanteAtestado;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.jParentescoAtestado;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.jRegimePenalAux;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.codigoSoliAtestado;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.jAnos;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.jComboBoxAlinea;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.jComboBoxArtigo;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.jComboBoxInciso;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.jComboBoxParagrafo;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.jComboBoxRegimeProcesso;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.jComboBoxSentenca;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.jComboBoxSituacaoPresoProcesso;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.jComboBoxTipoSentencaCondenatoria;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.jDataDocumentoPrisao;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.jDataInicioProcesso;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.jDataTerminoProcesso;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.jDescricaoAmparoLegal;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.jDescricaoNaturezaPrisao;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.jDias;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.jDocumentoPrisao;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.jHoraDocumento;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.jIdAmparo;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.jIdInternoAtestado;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.jIdNatp;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.jMeses;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.jNumeroInquerito;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.jNumeroProcesso;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.jObservacaoProcesso;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.jOrigemDocumentoPrisao;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.jTabelaAmparoLegal;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.jTabelaDocumentosProcesso;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.jTabelaProcesso;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.jTotalDias;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.codIncPen;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.codProdDoc;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.codigoFichaJuridica;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.codigoInterno;
-import static gestor.Visao.TelaEmissaoAtestadoReclusao.codProc;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.codProc;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.codigoFichaJuridica;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.codigoInterno;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.jCncAtestado;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.jDatEntradaAtestado;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.jIdVisitaAtestado;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.jNomeSolicitanteAtestado;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.jMaeInternoAtestado;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.jNomeInternoAtestado;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.jParentescoAtestado;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.jRegimePenalAux;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.codigoSoliAtestado;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.jAnos;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.jComboBoxAlinea;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.jComboBoxArtigo;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.jComboBoxInciso;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.jComboBoxParagrafo;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.jComboBoxRegimeProcesso;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.jComboBoxSentenca;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.jComboBoxSituacaoPresoProcesso;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.jComboBoxTipoSentencaCondenatoria;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.jDataDocumentoPrisao;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.jDataInicioProcesso;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.jDataTerminoProcesso;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.jDescricaoAmparoLegal;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.jDescricaoNaturezaPrisao;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.jDias;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.jDocumentoPrisao;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.jHoraDocumento;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.jIdAmparo;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.jIdInternoAtestado;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.jIdNatp;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.jMeses;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.jNumeroInquerito;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.jNumeroProcesso;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.jObservacaoProcesso;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.jOrigemDocumentoPrisao;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.jTabelaAmparoLegal;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.jTabelaDocumentosProcesso;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.jTabelaProcesso;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.jTotalDias;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.codIncPen;
+import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.codProdDoc;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -61,7 +61,7 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author Ronaldo
  */
-public class TelaPesqVisitasInternoSoliAtestado extends javax.swing.JInternalFrame {
+public class TelaPesqVisitasInternoRevAtestado extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     ProntuarioCrc objProCrc = new ProntuarioCrc();
@@ -72,13 +72,14 @@ public class TelaPesqVisitasInternoSoliAtestado extends javax.swing.JInternalFra
     String idInt;
     String statusVisita = "Ativo";
     String utilizacao = "Não";
-     // FICHA JURÍDICA
+    byte[] assinaturaLiberador = null;
+    // FICHA JURÍDICA
     String dataFicha, dataAmparo, dataDoc, dataInicioProcesso, dataTerminoProcesso;
 
     /**
      * Creates new form TelaPesquisaEntradaInternos
      */
-    public TelaPesqVisitasInternoSoliAtestado() {
+    public TelaPesqVisitasInternoRevAtestado() {
         initComponents();
     }
 
@@ -260,15 +261,15 @@ public class TelaPesqVisitasInternoSoliAtestado extends javax.swing.JInternalFra
             JOptionPane.showMessageDialog(rootPane, "Informe NOME para pesquisa!!!");
             jPesqNome.requestFocus();
         } else {
-            pesquisarVisitasRol("SELECT * FROM SOLICITACAO_ATESTADO_RECLUSAO "
+            pesquisarVisitasRol("SELECT * FROM EMISSAO_ATESTADO_RECLUSAO "
                     + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON SOLICITACAO_ATESTADO_RECLUSAO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "ON EMISSAO_ATESTADO_RECLUSAO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "INNER JOIN VISITASINTERNO "
-                    + "ON VISITASINTERNO.IdVisita=SOLICITACAO_ATESTADO_RECLUSAO.IdVisita "
+                    + "ON VISITASINTERNO.IdVisita=EMISSAO_ATESTADO_RECLUSAO.IdVisita "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "WHERE VISITASINTERNO.NomeVisita LIKE'%" + jPesqNome.getText() + "%' "
-                    + "AND SOLICITACAO_ATESTADO_RECLUSAO.UtilizadoCrc='" + utilizacao + "'");
+                    + "AND EMISSAO_ATESTADO_RECLUSAO.AssinaturaColaborador!='" + assinaturaLiberador + "'");
         }
     }//GEN-LAST:event_jBtNomeActionPerformed
 
@@ -294,17 +295,17 @@ public class TelaPesqVisitasInternoSoliAtestado extends javax.swing.JInternalFra
         } else {
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM SOLICITACAO_ATESTADO_RECLUSAO "
+                conecta.executaSQL("SELECT * FROM EMISSAO_ATESTADO_RECLUSAO "
                         + "INNER JOIN VISITASINTERNO "
-                        + "ON VISITASINTERNO.IdVisita=SOLICITACAO_ATESTADO_RECLUSAO.IdVisita "
+                        + "ON VISITASINTERNO.IdVisita=EMISSAO_ATESTADO_RECLUSAO.IdVisita "
                         + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON SOLICITACAO_ATESTADO_RECLUSAO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "ON EMISSAO_ATESTADO_RECLUSAO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                         + "INNER JOIN DADOSPENAISINTERNOS "
                         + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                         + "WHERE VISITASINTERNO.NomeVisita='" + nomeVisita + "' "
                         + "AND VISITASINTERNO.IdVisita='" + idInt + "' ");
                 conecta.rs.first();
-                codigoSoliAtestado = conecta.rs.getInt("CodRegAux");
+                codigoSoliAtestado = conecta.rs.getInt("IdAtestado");
                 jIdVisitaAtestado.setText(String.valueOf(conecta.rs.getInt("IdVisita")));
                 jNomeSolicitanteAtestado.setText(conecta.rs.getString("NomeVisita"));
                 jParentescoAtestado.setText(conecta.rs.getString("ParentescoVisita"));
@@ -313,8 +314,7 @@ public class TelaPesqVisitasInternoSoliAtestado extends javax.swing.JInternalFra
                 jRegimePenalAux.setText(conecta.rs.getString("Regime"));
                 jDatEntradaAtestado.setDate(conecta.rs.getDate("DataEntrada"));
                 jNomeInternoAtestado.setText(conecta.rs.getString("NomeInternoCrc"));
-                jMaeInternoAtestado.setText(conecta.rs.getString("MaeInternoCrc"));
-                conecta.desconecta();
+                jMaeInternoAtestado.setText(conecta.rs.getString("MaeInternoCrc"));                
             } catch (SQLException e) {
             }
             // FICHA JURÍDICA
@@ -328,7 +328,7 @@ public class TelaPesqVisitasInternoSoliAtestado extends javax.swing.JInternalFra
                 codigoFichaJuridica = conecta.rs.getString("IdFicha");
                 codigoInterno = conecta.rs.getString("IdInternoCrc");
             } catch (SQLException e) {
-               JOptionPane.showMessageDialog(rootPane, "Não existe FICHA JURÍDICA cadastrada para esse interno.");
+                JOptionPane.showMessageDialog(rootPane, "Não existe FICHA JURÍDICA cadastrada para esse interno.");
             }
             // PROCESSOS JURÍDICOS
             try {
@@ -352,7 +352,7 @@ public class TelaPesqVisitasInternoSoliAtestado extends javax.swing.JInternalFra
                 jDataInicioProcesso.setDate(conecta.rs.getDate("DataInicio"));
                 jDataTerminoProcesso.setDate(conecta.rs.getDate("DataTermino"));
                 jObservacaoProcesso.setText(conecta.rs.getString("Observacao"));
-            } catch (SQLException e) {
+            } catch (SQLException e) {                
             }
             // INCIDENCIAL PENAL
             try {
@@ -423,14 +423,14 @@ public class TelaPesqVisitasInternoSoliAtestado extends javax.swing.JInternalFra
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            this.pesquisarVisitasRol("SELECT * FROM SOLICITACAO_ATESTADO_RECLUSAO "
+            this.pesquisarVisitasRol("SELECT * FROM EMISSAO_ATESTADO_RECLUSAO "
                     + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON SOLICITACAO_ATESTADO_RECLUSAO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "ON EMISSAO_ATESTADO_RECLUSAO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "INNER JOIN VISITASINTERNO "
-                    + "ON VISITASINTERNO.IdVisita=SOLICITACAO_ATESTADO_RECLUSAO.IdVisita "
+                    + "ON VISITASINTERNO.IdVisita=EMISSAO_ATESTADO_RECLUSAO.IdVisita "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                    + "WHERE SOLICITACAO_ATESTADO_RECLUSAO.UtilizadoCrc='" + utilizacao + "'");
+                    + "WHERE EMISSAO_ATESTADO_RECLUSAO.AssinaturaColaborador!='" + assinaturaLiberador + "'");
         } else {
             limparTabela();
         }
@@ -516,6 +516,7 @@ public class TelaPesqVisitasInternoSoliAtestado extends javax.swing.JInternalFra
         jTabelaVisitas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         modelo.getLinhas().clear();
     }
+
     // FICHA JURÍDICA
     public void preencherTabelaProcessos(String sql) {
         ArrayList dados = new ArrayList();

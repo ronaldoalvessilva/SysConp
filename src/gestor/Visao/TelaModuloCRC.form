@@ -341,7 +341,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="cc" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Emiss&#xe3;o e Valida&#xe7;&#xe3;o do Atestado de Reclus&#xe3;o Carcer&#xe1;ria"/>
+                <Property name="text" type="java.lang.String" value="Emiss&#xe3;o/Valida&#xe7;&#xe3;o do Atestado de Reclus&#xe3;o - Servi&#xe7;o Social/CRC"/>
               </Properties>
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="jEmissaoAtestadoReclusao">
@@ -364,6 +364,35 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jValidacaoAtestadoReclusaoActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jRevalidarAtestadoReclusao">
+                  <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="99" red="0" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Revalidar Atestado de Reclus&#xe3;o (INSS)"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRevalidarAtestadoReclusaoActionPerformed"/>
+                  </Events>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
+            <Menu class="javax.swing.JMenu" name="jMenu10">
+              <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="cc" green="0" red="0" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Solicita&#xe7;&#xe3;o/Emiss&#xe3;o Atestado Reclus&#xe3;o - CRC"/>
+              </Properties>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="jSolicitacaoAtestadoReclusaoCRC">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Solicita&#xe7;&#xe3;o de Atestado de Reclus&#xe3;o - CRC"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jSolicitacaoAtestadoReclusaoCRCActionPerformed"/>
                   </Events>
                 </MenuItem>
               </SubComponents>
