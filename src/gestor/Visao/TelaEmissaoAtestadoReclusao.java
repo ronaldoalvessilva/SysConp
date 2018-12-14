@@ -1691,11 +1691,11 @@ public class TelaEmissaoAtestadoReclusao extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome da visita para pesquisa");
             jNomeVisitaInterna.requestFocus();
         } else {
-            preencherTodosAtestados("SELECT * FROM SOLICITACAO_ATESTADO_RECLUSAO "
+            preencherTodosAtestados("SELECT * FROM EMISSAO_ATESTADO_RECLUSAO "
                     + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON SOLICITACAO_ATESTADO_RECLUSAO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "ON EMISSAO_ATESTADO_RECLUSAO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "INNER JOIN VISITASINTERNO "
-                    + "ON SOLICITACAO_ATESTADO_RECLUSAO.IdVisita=VISITASINTERNO.IdVisita "
+                    + "ON EMISSAO_ATESTADO_RECLUSAO.IdVisita=VISITASINTERNO.IdVisita "
                     + "WHERE VISITASINTERNO.NomeVisita LIKE'%" + jNomeVisitaInterna.getText() + "%'");
         }
     }//GEN-LAST:event_jBtPesqNomeVisitaInternaActionPerformed
