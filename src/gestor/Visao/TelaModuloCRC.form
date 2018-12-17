@@ -395,6 +395,14 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jSolicitacaoAtestadoReclusaoCRCActionPerformed"/>
                   </Events>
                 </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jEmissaoAtestadoReclusaoCRC">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Emiss&#xe3;o de Atestado de Reclus&#xe3;o - CRC"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jEmissaoAtestadoReclusaoCRCActionPerformed"/>
+                  </Events>
+                </MenuItem>
               </SubComponents>
             </Menu>
           </SubComponents>
