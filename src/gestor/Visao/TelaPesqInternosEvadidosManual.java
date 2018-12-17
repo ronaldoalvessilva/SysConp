@@ -173,19 +173,14 @@ public class TelaPesqInternosEvadidosManual extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(70, 70, 70)
-                                .addComponent(jBtSelecionar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtSair))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jBtSelecionar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtSair)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -194,10 +189,10 @@ public class TelaPesqInternosEvadidosManual extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jBtSelecionar)
@@ -207,7 +202,7 @@ public class TelaPesqInternosEvadidosManual extends javax.swing.JInternalFrame {
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtSair, jBtSelecionar});
 
-        setBounds(300, 20, 452, 252);
+        setBounds(300, 20, 528, 270);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSelecionarActionPerformed
@@ -222,7 +217,8 @@ public class TelaPesqInternosEvadidosManual extends javax.swing.JInternalFrame {
                 conecta.executaSQL("SELECT * FROM MOVISR "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON MOVISR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "WHERE NomeInternoCrc='" + nomeInterno + "'AND IdItem='" + idInt + "'");
+                        + "WHERE NomeInternoCrc='" + nomeInterno + "' "
+                        + "AND IdItem='" + idInt + "'");
                 conecta.rs.first();
                 jIdInternoEvadido.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
                 jNomeInternoEvadido.setText(conecta.rs.getString("NomeInternoCrc"));
@@ -246,7 +242,7 @@ public class TelaPesqInternosEvadidosManual extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if (jPesqNomeInternoEvadido.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisa.");
-        } else {           
+        } else {
             preencherTabelaEvadidoSaidaTemporaria("SELECT * FROM MOVISR "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON MOVISR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
