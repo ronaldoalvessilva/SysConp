@@ -174,7 +174,7 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
     //
     public static String telaAudienciaJustificativaManuJURI = "Movimentação:Audiência de Justificativa:Manutenção";
     //
-    public static String telaOcorrenciaJURI = "Movimentação:Movimentação:Ocorrências Diárias - Juídico:Manutenção";
+    public static String telaOcorrenciaJURI = "Movimentação:Ocorrências Diárias - Juídico:Manutenção";
     //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
