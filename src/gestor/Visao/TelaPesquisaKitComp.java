@@ -305,7 +305,7 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
             preencherTabelaItens("SELECT * FROM PRODUTOS_KITS_HIGIENE_INTERNO "
                     + "INNER JOIN PRODUTOS_AC "
                     + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                    + "WHERE NomeProd LIKE'%" + jPesquisaNomeProduto.getText() + "%'");
+                    + "WHERE DescricaoProd LIKE'%" + jPesquisaNomeProduto.getText() + "%'");
         }
     }//GEN-LAST:event_jBtPesqNomeActionPerformed
 
