@@ -2797,7 +2797,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         Integer rows = jTabelaInternosSelecionados.getRowCount();
         if (rows == 0) {
             bloquearBotoes();
-            bloquearCampos();
+            bloquearCampos();            
             Cancelar();
         } else {
             bloquearBotoes();
@@ -4296,6 +4296,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public void Cancelar() {
         if (jIdRegistroComp.getText().equals("")) {
             limparCampos();
+            limparTabelaItensKit();
+            limparTabelasAbaPavIntComp();
             jBtNovo.setEnabled(true);
         } else {
             jBtNovo.setEnabled(true);
@@ -4583,6 +4585,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     }
 
     public void limparTabelaItensKit() {
+        count = 0;
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código", "Descrição Produto", "Un.", "Qtd."};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
@@ -4598,6 +4601,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jTabelaGeralProdutosKit.getTableHeader().setReorderingAllowed(false);
         jTabelaGeralProdutosKit.setAutoResizeMode(jTabelaGeralProdutosKit.AUTO_RESIZE_OFF);
         jTabelaGeralProdutosKit.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jtotalProdutosKit.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela 
+        jtotalProdutosKit.setText("");
         modelo.getLinhas().clear();
     }
 
