@@ -143,12 +143,12 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
         jIdKit = new javax.swing.JTextField();
         jComboBoxStatusKit = new javax.swing.JComboBox<>();
         jPanel5 = new javax.swing.JPanel();
-        jCheckBoxSemestral = new javax.swing.JCheckBox();
         jCheckBoxKitInicial = new javax.swing.JCheckBox();
-        jCheckBoxMensal = new javax.swing.JCheckBox();
-        jCheckBoxKitQuinzenal = new javax.swing.JCheckBox();
         jCheckBoxDecendial = new javax.swing.JCheckBox();
         jCheckBoxKitAnual = new javax.swing.JCheckBox();
+        jCheckBoxKitQuinzenal = new javax.swing.JCheckBox();
+        jCheckBoxMensal = new javax.swing.JCheckBox();
+        jCheckBoxSemestral = new javax.swing.JCheckBox();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jObservacaoKit = new javax.swing.JTextArea();
@@ -192,11 +192,11 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
         jtotalItens = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
         jCheckBoxKitIniciaProd = new javax.swing.JCheckBox();
-        jCheckBoxKitQuinzenalProd = new javax.swing.JCheckBox();
-        jCheckBoxMensalProd = new javax.swing.JCheckBox();
         jCheckBoxDecendialProd = new javax.swing.JCheckBox();
         jCheckBoxSemestralProd = new javax.swing.JCheckBox();
         jCheckBoxKitAnualProd = new javax.swing.JCheckBox();
+        jCheckBoxKitQuinzenalProd = new javax.swing.JCheckBox();
+        jCheckBoxMensalProd = new javax.swing.JCheckBox();
 
         setClosable(true);
         setIconifiable(true);
@@ -460,17 +460,6 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Tipos de Kits", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(204, 0, 0))); // NOI18N
 
-        grupoBotoes.add(jCheckBoxSemestral);
-        jCheckBoxSemestral.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jCheckBoxSemestral.setForeground(new java.awt.Color(0, 0, 255));
-        jCheckBoxSemestral.setText("Semestral");
-        jCheckBoxSemestral.setEnabled(false);
-        jCheckBoxSemestral.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jCheckBoxSemestralItemStateChanged(evt);
-            }
-        });
-
         grupoBotoes.add(jCheckBoxKitInicial);
         jCheckBoxKitInicial.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jCheckBoxKitInicial.setText("Inicial");
@@ -478,28 +467,6 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
         jCheckBoxKitInicial.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jCheckBoxKitInicialItemStateChanged(evt);
-            }
-        });
-
-        grupoBotoes.add(jCheckBoxMensal);
-        jCheckBoxMensal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jCheckBoxMensal.setForeground(new java.awt.Color(153, 0, 102));
-        jCheckBoxMensal.setText("Mensal");
-        jCheckBoxMensal.setEnabled(false);
-        jCheckBoxMensal.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jCheckBoxMensalItemStateChanged(evt);
-            }
-        });
-
-        grupoBotoes.add(jCheckBoxKitQuinzenal);
-        jCheckBoxKitQuinzenal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jCheckBoxKitQuinzenal.setForeground(new java.awt.Color(204, 0, 0));
-        jCheckBoxKitQuinzenal.setText("Quinzenal");
-        jCheckBoxKitQuinzenal.setEnabled(false);
-        jCheckBoxKitQuinzenal.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jCheckBoxKitQuinzenalItemStateChanged(evt);
             }
         });
 
@@ -524,6 +491,39 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
             }
         });
 
+        grupoBotoes.add(jCheckBoxKitQuinzenal);
+        jCheckBoxKitQuinzenal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jCheckBoxKitQuinzenal.setForeground(new java.awt.Color(204, 0, 0));
+        jCheckBoxKitQuinzenal.setText("Quinzenal");
+        jCheckBoxKitQuinzenal.setEnabled(false);
+        jCheckBoxKitQuinzenal.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBoxKitQuinzenalItemStateChanged(evt);
+            }
+        });
+
+        grupoBotoes.add(jCheckBoxMensal);
+        jCheckBoxMensal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jCheckBoxMensal.setForeground(new java.awt.Color(153, 0, 102));
+        jCheckBoxMensal.setText("Mensal");
+        jCheckBoxMensal.setEnabled(false);
+        jCheckBoxMensal.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBoxMensalItemStateChanged(evt);
+            }
+        });
+
+        grupoBotoes.add(jCheckBoxSemestral);
+        jCheckBoxSemestral.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jCheckBoxSemestral.setForeground(new java.awt.Color(0, 0, 255));
+        jCheckBoxSemestral.setText("Semestral");
+        jCheckBoxSemestral.setEnabled(false);
+        jCheckBoxSemestral.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBoxSemestralItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -531,11 +531,11 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBoxKitAnual)
                     .addComponent(jCheckBoxSemestral)
-                    .addComponent(jCheckBoxDecendial)
                     .addComponent(jCheckBoxMensal)
                     .addComponent(jCheckBoxKitQuinzenal)
+                    .addComponent(jCheckBoxKitAnual)
+                    .addComponent(jCheckBoxDecendial)
                     .addComponent(jCheckBoxKitInicial))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
@@ -545,14 +545,14 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jCheckBoxKitInicial)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckBoxDecendial)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBoxKitQuinzenal)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBoxMensal)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBoxDecendial)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBoxSemestral)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jCheckBoxSemestral)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBoxKitAnual)
                 .addContainerGap())
         );
@@ -752,7 +752,7 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1045,28 +1045,6 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
             }
         });
 
-        grupoBotoes.add(jCheckBoxKitQuinzenalProd);
-        jCheckBoxKitQuinzenalProd.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jCheckBoxKitQuinzenalProd.setForeground(new java.awt.Color(204, 0, 0));
-        jCheckBoxKitQuinzenalProd.setText("Quinzenal");
-        jCheckBoxKitQuinzenalProd.setEnabled(false);
-        jCheckBoxKitQuinzenalProd.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jCheckBoxKitQuinzenalProdItemStateChanged(evt);
-            }
-        });
-
-        grupoBotoes.add(jCheckBoxMensalProd);
-        jCheckBoxMensalProd.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jCheckBoxMensalProd.setForeground(new java.awt.Color(153, 0, 102));
-        jCheckBoxMensalProd.setText("Mensal");
-        jCheckBoxMensalProd.setEnabled(false);
-        jCheckBoxMensalProd.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jCheckBoxMensalProdItemStateChanged(evt);
-            }
-        });
-
         grupoBotoes.add(jCheckBoxDecendialProd);
         jCheckBoxDecendialProd.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jCheckBoxDecendialProd.setForeground(new java.awt.Color(0, 153, 51));
@@ -1099,6 +1077,28 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
             }
         });
 
+        grupoBotoes.add(jCheckBoxKitQuinzenalProd);
+        jCheckBoxKitQuinzenalProd.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jCheckBoxKitQuinzenalProd.setForeground(new java.awt.Color(204, 0, 0));
+        jCheckBoxKitQuinzenalProd.setText("Quinzenal");
+        jCheckBoxKitQuinzenalProd.setEnabled(false);
+        jCheckBoxKitQuinzenalProd.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBoxKitQuinzenalProdItemStateChanged(evt);
+            }
+        });
+
+        grupoBotoes.add(jCheckBoxMensalProd);
+        jCheckBoxMensalProd.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jCheckBoxMensalProd.setForeground(new java.awt.Color(153, 0, 102));
+        jCheckBoxMensalProd.setText("Mensal");
+        jCheckBoxMensalProd.setEnabled(false);
+        jCheckBoxMensalProd.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBoxMensalProdItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
@@ -1107,12 +1107,12 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jCheckBoxKitIniciaProd)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckBoxDecendialProd)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBoxKitQuinzenalProd)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBoxMensalProd)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCheckBoxDecendialProd)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(2, 2, 2)
                 .addComponent(jCheckBoxSemestralProd)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBoxKitAnualProd)
@@ -1123,12 +1123,12 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCheckBoxKitIniciaProd)
-                    .addComponent(jCheckBoxKitQuinzenalProd)
-                    .addComponent(jCheckBoxMensalProd)
                     .addComponent(jCheckBoxDecendialProd)
                     .addComponent(jCheckBoxSemestralProd)
-                    .addComponent(jCheckBoxKitAnualProd))
-                .addGap(0, 13, Short.MAX_VALUE))
+                    .addComponent(jCheckBoxKitAnualProd)
+                    .addComponent(jCheckBoxKitQuinzenalProd)
+                    .addComponent(jCheckBoxMensalProd))
+                .addGap(0, 1, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -1183,7 +1183,7 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
                     .addComponent(jBtCancelarProduto)
                     .addComponent(jBtAuditoriaProduto))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1420,9 +1420,18 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaCadastroTipoKitPagamentoManuAL) && codAlterarAL == 1) {
             acao = 2;
+            Integer row = jTabelaProdutosKit.getRowCount();
             bloquearCampos();
             bloquearBotoes();
             Alterar();
+            if (row != 0) {
+                jCheckBoxKitInicial.setEnabled(!true);
+                jCheckBoxDecendial.setEnabled(!true);
+                jCheckBoxKitQuinzenal.setEnabled(!true);
+                jCheckBoxMensal.setEnabled(!true);
+                jCheckBoxSemestral.setEnabled(!true);
+                jCheckBoxKitAnual.setEnabled(!true);
+            }
             statusMov = "Alterar";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -1578,40 +1587,46 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
                 jComboBoxStatusKit.setSelectedItem(conecta.rs.getString("StatusKit"));
                 jDataKit.setDate(conecta.rs.getDate("DataKit"));
                 kitInicial = conecta.rs.getInt("KitInicial");
-                kitAnual = conecta.rs.getInt("KitAnual");
-                kitDecendial = conecta.rs.getInt("KitDecendial");
-                kitQuinzenal = conecta.rs.getInt("KitQuinzenal");
-                kitMensal = conecta.rs.getInt("KitMensal");
-                kitSemestral = conecta.rs.getInt("KitSemestral");
                 if (kitInicial == 1) {
                     jCheckBoxKitInicial.setSelected(true);
+//                    jCheckBoxKitIniciaProd.setSelected(true);
                 } else if (kitInicial == 0) {
                     jCheckBoxKitInicial.setSelected(!true);
                 }
-                if (kitAnual == 1) {
-                    jCheckBoxKitAnual.setSelected(true);
-                } else if (kitAnual == 0) {
-                    jCheckBoxKitAnual.setSelected(!true);
-                }
+                kitDecendial = conecta.rs.getInt("KitDecendial");
                 if (kitDecendial == 1) {
                     jCheckBoxDecendial.setSelected(true);
+//                    jCheckBoxDecendialProd.setSelected(true);
                 } else if (kitDecendial == 0) {
                     jCheckBoxDecendial.setSelected(!true);
                 }
+                kitQuinzenal = conecta.rs.getInt("KitQuinzenal");
                 if (kitQuinzenal == 1) {
                     jCheckBoxKitQuinzenal.setSelected(true);
+//                    jCheckBoxKitQuinzenalProd.setSelected(true);
                 } else if (kitQuinzenal == 0) {
                     jCheckBoxKitQuinzenal.setSelected(!true);
                 }
+                kitMensal = conecta.rs.getInt("KitMensal");
                 if (kitMensal == 1) {
-                    jCheckBoxMensal.setSelected(true);                    
+                    jCheckBoxMensal.setSelected(true);
+//                    jCheckBoxMensalProd.setSelected(true);
                 } else if (kitMensal == 0) {
                     jCheckBoxMensal.setSelected(!true);
                 }
+                kitSemestral = conecta.rs.getInt("KitSemestral");
                 if (kitSemestral == 1) {
                     jCheckBoxSemestral.setSelected(true);
+//                    jCheckBoxSemestralProd.setSelected(true);
                 } else if (kitSemestral == 0) {
-                    jCheckBoxSemestral.setSelected(!true);                    
+                    jCheckBoxSemestral.setSelected(!true);
+                }
+                kitAnual = conecta.rs.getInt("KitAnual");
+                if (kitAnual == 1) {
+                    jCheckBoxKitAnual.setSelected(true);
+//                    jCheckBoxKitAnualProd.setSelected(true);
+                } else if (kitAnual == 0) {
+                    jCheckBoxKitAnual.setSelected(!true);
                 }
                 jObservacaoKit.setText(conecta.rs.getString("ObservacaoKit"));
             } catch (SQLException e) {
@@ -1832,36 +1847,36 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
                 String vqtdItem = vi.format(qtdItem);
                 jQtdItem.setText(vqtdItem);
                 kitInicial = conecta.rs.getInt("KitInicial");
-                kitAnual = conecta.rs.getInt("KitAnual");
-                kitDecendial = conecta.rs.getInt("KitDecendial");
-                kitQuinzenal = conecta.rs.getInt("KitQuinzenal");
-                kitMensal = conecta.rs.getInt("KitMensal");
-                kitSemestral = conecta.rs.getInt("KitSemestral");
                 if (kitInicial == 1) {
                     jCheckBoxKitIniciaProd.setSelected(true);
                 } else if (kitInicial == 0) {
                     jCheckBoxKitIniciaProd.setSelected(!true);
                 }
+                kitAnual = conecta.rs.getInt("KitAnual");
                 if (kitAnual == 1) {
                     jCheckBoxKitAnualProd.setSelected(true);
                 } else if (kitAnual == 0) {
                     jCheckBoxKitAnualProd.setSelected(!true);
                 }
+                kitDecendial = conecta.rs.getInt("KitDecendial");
                 if (kitDecendial == 1) {
                     jCheckBoxDecendialProd.setSelected(true);
                 } else if (kitDecendial == 0) {
                     jCheckBoxDecendialProd.setSelected(!true);
                 }
+                kitQuinzenal = conecta.rs.getInt("KitQuinzenal");
                 if (kitQuinzenal == 1) {
                     jCheckBoxKitQuinzenalProd.setSelected(true);
                 } else if (kitQuinzenal == 0) {
                     jCheckBoxKitQuinzenalProd.setSelected(!true);
                 }
+                kitMensal = conecta.rs.getInt("KitMensal");
                 if (kitMensal == 1) {
                     jCheckBoxMensalProd.setSelected(true);
                 } else if (kitMensal == 0) {
                     jCheckBoxMensalProd.setSelected(!true);
                 }
+                kitSemestral = conecta.rs.getInt("KitSemestral");
                 if (kitSemestral == 1) {
                     jCheckBoxSemestralProd.setSelected(true);
                 } else if (kitSemestral == 0) {
