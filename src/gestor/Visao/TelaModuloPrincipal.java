@@ -6,6 +6,7 @@
 package gestor.Visao;
 
 //import gestor.Modelo.clsDataHora;
+import com.sun.glass.events.KeyEvent;
 import gestor.Controle.ControleUsuarioConectado;
 import gestor.Dao.ConexaoBancoDados;
 import static gestor.Dao.ConexaoBancoDados.Computer;
@@ -82,7 +83,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
     // Verificar essa consulta para liberar o modulo e depois as telas
     //SELECT NomeUsuario, GRUPOUSUARIOS.IdGrupo,NomeGrupo,ACESSOS.Permissao FROM ACESSOS INNER JOIN GRUPOUSUARIOS ON ACESSOS.IdGrupo=GRUPOUSUARIOS.IdGrupo INNER JOIN USUARIOS ON GRUPOUSUARIOS.IdGrupo=USUARIOS.IdGrupo WHERE NomeGrupo='CRC'
     public static TelaTrocaSenha telaTrocaSenha;
-    
+
     /**
      * Creates new form TelaPrincipal
      *
@@ -145,7 +146,8 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 }
             }
         });
-    }    
+    }
+
     public void mostrarTelaTrocaSenha() {
         telaTrocaSenha = new TelaTrocaSenha(this, true);
         telaTrocaSenha.setVisible(true);
@@ -270,8 +272,9 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jMenuItemPortariaExterna = new javax.swing.JMenuItem();
         jMenuItemTriagem = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
-        jMenu10 = new javax.swing.JMenu();
-        jMenu28 = new javax.swing.JMenu();
+        jMenuConfiguracoes = new javax.swing.JMenu();
+        jMenuSobre = new javax.swing.JMenu();
+        jMenuSair = new javax.swing.JMenu();
 
         jMenu1.setText("File");
         jMenuBar2.add(jMenu1);
@@ -869,6 +872,15 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jMenuAdministracao.setMnemonic('A');
         jMenuAdministracao.setText("   Administração");
         jMenuAdministracao.setToolTipText("");
+        jMenuAdministracao.addMenuKeyListener(new javax.swing.event.MenuKeyListener() {
+            public void menuKeyPressed(javax.swing.event.MenuKeyEvent evt) {
+                jMenuAdministracaoMenuKeyPressed(evt);
+            }
+            public void menuKeyReleased(javax.swing.event.MenuKeyEvent evt) {
+            }
+            public void menuKeyTyped(javax.swing.event.MenuKeyEvent evt) {
+            }
+        });
 
         jMenuItemGerenciaAdministrativa.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemGerenciaAdministrativa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/GerenciaAdministrativa18.png"))); // NOI18N
@@ -910,6 +922,15 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
 
         jMenuPSP.setMnemonic('P');
         jMenuPSP.setText("PSP/Corpo Técnico");
+        jMenuPSP.addMenuKeyListener(new javax.swing.event.MenuKeyListener() {
+            public void menuKeyPressed(javax.swing.event.MenuKeyEvent evt) {
+                jMenuPSPMenuKeyPressed(evt);
+            }
+            public void menuKeyReleased(javax.swing.event.MenuKeyEvent evt) {
+            }
+            public void menuKeyTyped(javax.swing.event.MenuKeyEvent evt) {
+            }
+        });
 
         jMenuItemEnfermaria.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemEnfermaria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Enfermaria18.png"))); // NOI18N
@@ -980,6 +1001,15 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
 
         jMenuOperacional.setMnemonic('O');
         jMenuOperacional.setText("Operacional");
+        jMenuOperacional.addMenuKeyListener(new javax.swing.event.MenuKeyListener() {
+            public void menuKeyPressed(javax.swing.event.MenuKeyEvent evt) {
+                jMenuOperacionalMenuKeyPressed(evt);
+            }
+            public void menuKeyReleased(javax.swing.event.MenuKeyEvent evt) {
+            }
+            public void menuKeyTyped(javax.swing.event.MenuKeyEvent evt) {
+            }
+        });
 
         jMenuItemBase1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemBase1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Base1-18.png"))); // NOI18N
@@ -1023,11 +1053,30 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenuOperacional);
         jMenuBar1.add(jMenu8);
 
-        jMenu10.setText("Configurações");
-        jMenuBar1.add(jMenu10);
+        jMenuConfiguracoes.setText("Configurações");
+        jMenuConfiguracoes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuConfiguracoesActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(jMenuConfiguracoes);
 
-        jMenu28.setText("Sobre");
-        jMenuBar1.add(jMenu28);
+        jMenuSobre.setText("Sobre");
+        jMenuSobre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuSobreActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(jMenuSobre);
+
+        jMenuSair.setForeground(new java.awt.Color(204, 0, 0));
+        jMenuSair.setText("Sair");
+        jMenuSair.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuSairMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenuSair);
 
         setJMenuBar(jMenuBar1);
 
@@ -1064,10 +1113,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                + "INNER JOIN GRUPOUSUARIOS "
-                + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
-                + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
             conecta.rs.first();
             nomeGrupo = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
@@ -1097,10 +1146,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 conecta.abrirConexao();
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                        + "INNER JOIN GRUPOUSUARIOS "
-                        + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                        + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoPort + "' "
-                        + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoPort + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idGrupo = conecta.rs.getInt("IdGrupo");
                     nomeGrupo = conecta.rs.getString("NomeGrupo");
@@ -1108,10 +1157,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 }
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
-                        + "INNER JOIN MODULOS "
-                        + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
-                        + "WHERE MODULOS.NomeModulo='" + moduloPort + "' "
-                        + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN MODULOS "
+                            + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                            + "WHERE MODULOS.NomeModulo='" + moduloPort + "' "
+                            + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idModulo = conecta.rs.getInt("IdModulo");
                     idGrupoModulo = conecta.rs.getInt("IdGrupo");
@@ -1148,10 +1197,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                + "INNER JOIN GRUPOUSUARIOS "
-                + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
-                + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
             conecta.rs.first();
             nomeGrupo = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
@@ -1181,10 +1230,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 conecta.abrirConexao();
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                        + "INNER JOIN GRUPOUSUARIOS "
-                        + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                        + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
-                        + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idGrupo = conecta.rs.getInt("IdGrupo");
                     nomeGrupo = conecta.rs.getString("NomeGrupo");
@@ -1192,10 +1241,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 }
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
-                        + "INNER JOIN MODULOS "
-                        + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
-                        + "WHERE MODULOS.NomeModulo='" + moduloAdm + "' "
-                        + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN MODULOS "
+                            + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                            + "WHERE MODULOS.NomeModulo='" + moduloAdm + "' "
+                            + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idModulo = conecta.rs.getInt("IdModulo");
                     idGrupoModulo = conecta.rs.getInt("IdGrupo");
@@ -1233,10 +1282,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                + "INNER JOIN GRUPOUSUARIOS "
-                + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
-                + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
             conecta.rs.first();
             nomeGrupo = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
@@ -1268,10 +1317,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 conecta.abrirConexao();
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                        + "INNER JOIN GRUPOUSUARIOS "
-                        + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                        + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoNut + "' "
-                        + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoNut + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idGrupo = conecta.rs.getInt("IdGrupo");
                     nomeGrupo = conecta.rs.getString("NomeGrupo");
@@ -1279,10 +1328,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 }
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
-                        + "INNER JOIN MODULOS "
-                        + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
-                        + "WHERE MODULOS.NomeModulo='" + moduloNut + "' "
-                        + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN MODULOS "
+                            + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                            + "WHERE MODULOS.NomeModulo='" + moduloNut + "' "
+                            + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idModulo = conecta.rs.getInt("IdModulo");
                     idGrupoModulo = conecta.rs.getInt("IdGrupo");
@@ -1321,10 +1370,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                + "INNER JOIN GRUPOUSUARIOS "
-                + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
-                + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
             conecta.rs.first();
             nomeGrupo = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
@@ -1356,10 +1405,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 conecta.abrirConexao();
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                        + "INNER JOIN GRUPOUSUARIOS "
-                        + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                        + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoNut + "' "
-                        + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoNut + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idGrupo = conecta.rs.getInt("IdGrupo");
                     nomeGrupo = conecta.rs.getString("NomeGrupo");
@@ -1367,10 +1416,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 }
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
-                        + "INNER JOIN MODULOS "
-                        + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
-                        + "WHERE MODULOS.NomeModulo='" + moduloNut + "' "
-                        + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN MODULOS "
+                            + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                            + "WHERE MODULOS.NomeModulo='" + moduloNut + "' "
+                            + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idModulo = conecta.rs.getInt("IdModulo");
                     idGrupoModulo = conecta.rs.getInt("IdGrupo");
@@ -1409,10 +1458,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                + "INNER JOIN GRUPOUSUARIOS "
-                + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
-                + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
             conecta.rs.first();
             nomeGrupo = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
@@ -1442,10 +1491,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 conecta.abrirConexao();
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                        + "INNER JOIN GRUPOUSUARIOS "
-                        + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                        + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoTri + "' "
-                        + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoTri + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idGrupo = conecta.rs.getInt("IdGrupo");
                     nomeGrupo = conecta.rs.getString("NomeGrupo");
@@ -1453,10 +1502,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 }
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
-                        + "INNER JOIN MODULOS "
-                        + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
-                        + "WHERE MODULOS.NomeModulo='" + moduloTri + "' "
-                        + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN MODULOS "
+                            + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                            + "WHERE MODULOS.NomeModulo='" + moduloTri + "' "
+                            + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idModulo = conecta.rs.getInt("IdModulo");
                     idGrupoModulo = conecta.rs.getInt("IdGrupo");
@@ -1494,10 +1543,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                + "INNER JOIN GRUPOUSUARIOS "
-                + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
-                + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
             conecta.rs.first();
             nomeGrupo = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
@@ -1527,10 +1576,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 conecta.abrirConexao();
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                        + "INNER JOIN GRUPOUSUARIOS "
-                        + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                        + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoPort + "' "
-                        + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoPort + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idGrupo = conecta.rs.getInt("IdGrupo");
                     nomeGrupo = conecta.rs.getString("NomeGrupo");
@@ -1538,10 +1587,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 }
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
-                        + "INNER JOIN MODULOS "
-                        + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
-                        + "WHERE MODULOS.NomeModulo='" + moduloPort + "' "
-                        + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN MODULOS "
+                            + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                            + "WHERE MODULOS.NomeModulo='" + moduloPort + "' "
+                            + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idModulo = conecta.rs.getInt("IdModulo");
                     idGrupoModulo = conecta.rs.getInt("IdGrupo");
@@ -1579,10 +1628,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                + "INNER JOIN GRUPOUSUARIOS "
-                + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
-                + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
             conecta.rs.first();
             nomeGrupo = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
@@ -1612,10 +1661,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 conecta.abrirConexao();
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                        + "INNER JOIN GRUPOUSUARIOS "
-                        + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                        + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoPort + "' "
-                        + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoPort + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idGrupo = conecta.rs.getInt("IdGrupo");
                     nomeGrupo = conecta.rs.getString("NomeGrupo");
@@ -1623,10 +1672,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 }
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
-                        + "INNER JOIN MODULOS "
-                        + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
-                        + "WHERE MODULOS.NomeModulo='" + moduloPort + "' "
-                        + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN MODULOS "
+                            + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                            + "WHERE MODULOS.NomeModulo='" + moduloPort + "' "
+                            + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idModulo = conecta.rs.getInt("IdModulo");
                     idGrupoModulo = conecta.rs.getInt("IdGrupo");
@@ -1664,10 +1713,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                + "INNER JOIN GRUPOUSUARIOS "
-                + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
-                + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
             conecta.rs.first();
             nomeGrupo = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
@@ -1697,10 +1746,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 conecta.abrirConexao();
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                        + "INNER JOIN GRUPOUSUARIOS "
-                        + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                        + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoSeg + "' "
-                        + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoSeg + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idGrupo = conecta.rs.getInt("IdGrupo");
                     nomeGrupo = conecta.rs.getString("NomeGrupo");
@@ -1708,10 +1757,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 }
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
-                        + "INNER JOIN MODULOS "
-                        + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
-                        + "WHERE MODULOS.NomeModulo='" + moduloSeg + "' "
-                        + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN MODULOS "
+                            + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                            + "WHERE MODULOS.NomeModulo='" + moduloSeg + "' "
+                            + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idModulo = conecta.rs.getInt("IdModulo");
                     idGrupoModulo = conecta.rs.getInt("IdGrupo");
@@ -1754,10 +1803,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                + "INNER JOIN GRUPOUSUARIOS "
-                + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
-                + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
             conecta.rs.first();
             nomeGrupo = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
@@ -1787,10 +1836,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 conecta.abrirConexao();
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                        + "INNER JOIN GRUPOUSUARIOS "
-                        + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                        + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoFar + "' "
-                        + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoFar + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idGrupo = conecta.rs.getInt("IdGrupo");
                     nomeGrupo = conecta.rs.getString("NomeGrupo");
@@ -1798,10 +1847,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 }
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
-                        + "INNER JOIN MODULOS "
-                        + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
-                        + "WHERE MODULOS.NomeModulo='" + moduloFar + "' "
-                        + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN MODULOS "
+                            + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                            + "WHERE MODULOS.NomeModulo='" + moduloFar + "' "
+                            + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idModulo = conecta.rs.getInt("IdModulo");
                     idGrupoModulo = conecta.rs.getInt("IdGrupo");
@@ -1839,10 +1888,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                + "INNER JOIN GRUPOUSUARIOS "
-                + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
-                + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
             conecta.rs.first();
             nomeGrupo = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
@@ -1872,10 +1921,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 conecta.abrirConexao();
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                        + "INNER JOIN GRUPOUSUARIOS "
-                        + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                        + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoNut + "' "
-                        + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoNut + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idGrupo = conecta.rs.getInt("IdGrupo");
                     nomeGrupo = conecta.rs.getString("NomeGrupo");
@@ -1883,10 +1932,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 }
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
-                        + "INNER JOIN MODULOS "
-                        + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
-                        + "WHERE MODULOS.NomeModulo='" + moduloNut + "' "
-                        + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN MODULOS "
+                            + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                            + "WHERE MODULOS.NomeModulo='" + moduloNut + "' "
+                            + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idModulo = conecta.rs.getInt("IdModulo");
                     idGrupoModulo = conecta.rs.getInt("IdGrupo");
@@ -1924,10 +1973,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                + "INNER JOIN GRUPOUSUARIOS "
-                + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
-                + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
             conecta.rs.first();
             nomeGrupo = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
@@ -1957,10 +2006,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 conecta.abrirConexao();
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                        + "INNER JOIN GRUPOUSUARIOS "
-                        + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                        + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoMed + "' "
-                        + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoMed + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idGrupo = conecta.rs.getInt("IdGrupo");
                     nomeGrupo = conecta.rs.getString("NomeGrupo");
@@ -1968,10 +2017,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 }
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
-                        + "INNER JOIN MODULOS "
-                        + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
-                        + "WHERE MODULOS.NomeModulo='" + moduloMed + "' "
-                        + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN MODULOS "
+                            + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                            + "WHERE MODULOS.NomeModulo='" + moduloMed + "' "
+                            + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idModulo = conecta.rs.getInt("IdModulo");
                     idGrupoModulo = conecta.rs.getInt("IdGrupo");
@@ -2009,10 +2058,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                + "INNER JOIN GRUPOUSUARIOS "
-                + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
-                + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
             conecta.rs.first();
             nomeGrupo = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
@@ -2042,10 +2091,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 conecta.abrirConexao();
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                        + "INNER JOIN GRUPOUSUARIOS "
-                        + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                        + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoOdon + "' "
-                        + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoOdon + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idGrupo = conecta.rs.getInt("IdGrupo");
                     nomeGrupo = conecta.rs.getString("NomeGrupo");
@@ -2053,10 +2102,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 }
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
-                        + "INNER JOIN MODULOS "
-                        + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
-                        + "WHERE MODULOS.NomeModulo='" + moduloOdon + "' "
-                        + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN MODULOS "
+                            + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                            + "WHERE MODULOS.NomeModulo='" + moduloOdon + "' "
+                            + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idModulo = conecta.rs.getInt("IdModulo");
                     idGrupoModulo = conecta.rs.getInt("IdGrupo");
@@ -2094,10 +2143,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                + "INNER JOIN GRUPOUSUARIOS "
-                + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
-                + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
             conecta.rs.first();
             nomeGrupo = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
@@ -2127,10 +2176,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 conecta.abrirConexao();
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                        + "INNER JOIN GRUPOUSUARIOS "
-                        + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                        + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoPsi + "' "
-                        + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoPsi + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idGrupo = conecta.rs.getInt("IdGrupo");
                     nomeGrupo = conecta.rs.getString("NomeGrupo");
@@ -2138,10 +2187,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 }
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
-                        + "INNER JOIN MODULOS "
-                        + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
-                        + "WHERE MODULOS.NomeModulo='" + moduloPsi + "' "
-                        + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN MODULOS "
+                            + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                            + "WHERE MODULOS.NomeModulo='" + moduloPsi + "' "
+                            + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idModulo = conecta.rs.getInt("IdModulo");
                     idGrupoModulo = conecta.rs.getInt("IdGrupo");
@@ -2180,10 +2229,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                + "INNER JOIN GRUPOUSUARIOS "
-                + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
-                + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
             conecta.rs.first();
             nomeGrupo = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
@@ -2213,10 +2262,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 conecta.abrirConexao();
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                        + "INNER JOIN GRUPOUSUARIOS "
-                        + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                        + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoTera + "' "
-                        + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoTera + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idGrupo = conecta.rs.getInt("IdGrupo");
                     nomeGrupo = conecta.rs.getString("NomeGrupo");
@@ -2224,10 +2273,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 }
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
-                        + "INNER JOIN MODULOS "
-                        + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
-                        + "WHERE MODULOS.NomeModulo='" + moduloTera + "' "
-                        + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN MODULOS "
+                            + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                            + "WHERE MODULOS.NomeModulo='" + moduloTera + "' "
+                            + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idModulo = conecta.rs.getInt("IdModulo");
                     idGrupoModulo = conecta.rs.getInt("IdGrupo");
@@ -2265,10 +2314,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                + "INNER JOIN GRUPOUSUARIOS "
-                + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
-                + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
             conecta.rs.first();
             nomeGrupo = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
@@ -2298,10 +2347,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 conecta.abrirConexao();
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                        + "INNER JOIN GRUPOUSUARIOS "
-                        + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                        + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoProf + "' "
-                        + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoProf + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idGrupo = conecta.rs.getInt("IdGrupo");
                     nomeGrupo = conecta.rs.getString("NomeGrupo");
@@ -2309,10 +2358,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 }
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
-                        + "INNER JOIN MODULOS "
-                        + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
-                        + "WHERE MODULOS.NomeModulo='" + moduloProf + "' "
-                        + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN MODULOS "
+                            + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                            + "WHERE MODULOS.NomeModulo='" + moduloProf + "' "
+                            + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idModulo = conecta.rs.getInt("IdModulo");
                     idGrupoModulo = conecta.rs.getInt("IdGrupo");
@@ -2350,10 +2399,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                + "INNER JOIN GRUPOUSUARIOS "
-                + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
-                + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
             conecta.rs.first();
             nomeGrupo = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
@@ -2383,10 +2432,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 conecta.abrirConexao();
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                        + "INNER JOIN GRUPOUSUARIOS "
-                        + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                        + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoSer + "' "
-                        + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoSer + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idGrupo = conecta.rs.getInt("IdGrupo");
                     nomeGrupo = conecta.rs.getString("NomeGrupo");
@@ -2394,10 +2443,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 }
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
-                        + "INNER JOIN MODULOS "
-                        + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
-                        + "WHERE MODULOS.NomeModulo='" + moduloSer + "' "
-                        + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN MODULOS "
+                            + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                            + "WHERE MODULOS.NomeModulo='" + moduloSer + "' "
+                            + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idModulo = conecta.rs.getInt("IdModulo");
                     idGrupoModulo = conecta.rs.getInt("IdGrupo");
@@ -2435,10 +2484,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                + "INNER JOIN GRUPOUSUARIOS "
-                + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
-                + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
             conecta.rs.first();
             nomeGrupo = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
@@ -2468,10 +2517,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 conecta.abrirConexao();
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                        + "INNER JOIN GRUPOUSUARIOS "
-                        + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                        + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoJuri + "' "
-                        + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoJuri + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idGrupo = conecta.rs.getInt("IdGrupo");
                     nomeGrupo = conecta.rs.getString("NomeGrupo");
@@ -2479,10 +2528,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 }
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
-                        + "INNER JOIN MODULOS "
-                        + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
-                        + "WHERE MODULOS.NomeModulo='" + moduloJuri + "' "
-                        + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN MODULOS "
+                            + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                            + "WHERE MODULOS.NomeModulo='" + moduloJuri + "' "
+                            + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idModulo = conecta.rs.getInt("IdModulo");
                     idGrupoModulo = conecta.rs.getInt("IdGrupo");
@@ -2520,10 +2569,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                + "INNER JOIN GRUPOUSUARIOS "
-                + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
-                + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
             conecta.rs.first();
             nomeGrupo = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
@@ -2553,10 +2602,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 conecta.abrirConexao();
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                        + "INNER JOIN GRUPOUSUARIOS "
-                        + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                        + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoComp + "' "
-                        + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoComp + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idGrupo = conecta.rs.getInt("IdGrupo");
                     nomeGrupo = conecta.rs.getString("NomeGrupo");
@@ -2564,10 +2613,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 }
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
-                        + "INNER JOIN MODULOS "
-                        + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
-                        + "WHERE MODULOS.NomeModulo='" + moduloComp + "' "
-                        + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN MODULOS "
+                            + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                            + "WHERE MODULOS.NomeModulo='" + moduloComp + "' "
+                            + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idModulo = conecta.rs.getInt("IdModulo");
                     idGrupoModulo = conecta.rs.getInt("IdGrupo");
@@ -2605,10 +2654,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                + "INNER JOIN GRUPOUSUARIOS "
-                + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
-                + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
             conecta.rs.first();
             nomeGrupo = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
@@ -2638,10 +2687,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 conecta.abrirConexao();
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                        + "INNER JOIN GRUPOUSUARIOS "
-                        + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                        + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAlm + "' "
-                        + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAlm + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idGrupo = conecta.rs.getInt("IdGrupo");
                     nomeGrupo = conecta.rs.getString("NomeGrupo");
@@ -2649,10 +2698,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 }
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
-                        + "INNER JOIN MODULOS "
-                        + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
-                        + "WHERE MODULOS.NomeModulo='" + moduloAlm + "' "
-                        + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN MODULOS "
+                            + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                            + "WHERE MODULOS.NomeModulo='" + moduloAlm + "' "
+                            + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idModulo = conecta.rs.getInt("IdModulo");
                     idGrupoModulo = conecta.rs.getInt("IdGrupo");
@@ -2690,10 +2739,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                + "INNER JOIN GRUPOUSUARIOS "
-                + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
-                + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
             conecta.rs.first();
             nomeGrupo = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
@@ -2723,10 +2772,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 conecta.abrirConexao();
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                        + "INNER JOIN GRUPOUSUARIOS "
-                        + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                        + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoFin + "' "
-                        + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoFin + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idGrupo = conecta.rs.getInt("IdGrupo");
                     nomeGrupo = conecta.rs.getString("NomeGrupo");
@@ -2734,10 +2783,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 }
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
-                        + "INNER JOIN MODULOS "
-                        + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
-                        + "WHERE MODULOS.NomeModulo='" + moduloFin + "' "
-                        + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN MODULOS "
+                            + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                            + "WHERE MODULOS.NomeModulo='" + moduloFin + "' "
+                            + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idModulo = conecta.rs.getInt("IdModulo");
                     idGrupoModulo = conecta.rs.getInt("IdGrupo");
@@ -2775,10 +2824,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                + "INNER JOIN GRUPOUSUARIOS "
-                + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
-                + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
             conecta.rs.first();
             nomeGrupo = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
@@ -2808,10 +2857,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 conecta.abrirConexao();
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                        + "INNER JOIN GRUPOUSUARIOS "
-                        + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                        + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoCrc + "' "
-                        + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoCrc + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idGrupo = conecta.rs.getInt("IdGrupo");
                     nomeGrupo = conecta.rs.getString("NomeGrupo");
@@ -2819,10 +2868,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 }
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
-                        + "INNER JOIN MODULOS "
-                        + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
-                        + "WHERE MODULOS.NomeModulo='" + moduloCrc + "' "
-                        + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN MODULOS "
+                            + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                            + "WHERE MODULOS.NomeModulo='" + moduloCrc + "' "
+                            + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idModulo = conecta.rs.getInt("IdModulo");
                     idGrupoModulo = conecta.rs.getInt("IdGrupo");
@@ -2860,10 +2909,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                + "INNER JOIN GRUPOUSUARIOS "
-                + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
-                + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
             conecta.rs.first();
             nomeGrupo = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
@@ -2893,10 +2942,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 conecta.abrirConexao();
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                        + "INNER JOIN GRUPOUSUARIOS "
-                        + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                        + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoNut + "' "
-                        + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoNut + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idGrupo = conecta.rs.getInt("IdGrupo");
                     nomeGrupo = conecta.rs.getString("NomeGrupo");
@@ -2904,10 +2953,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 }
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
-                        + "INNER JOIN MODULOS "
-                        + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
-                        + "WHERE MODULOS.NomeModulo='" + moduloNut + "' "
-                        + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN MODULOS "
+                            + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                            + "WHERE MODULOS.NomeModulo='" + moduloNut + "' "
+                            + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idModulo = conecta.rs.getInt("IdModulo");
                     idGrupoModulo = conecta.rs.getInt("IdGrupo");
@@ -2945,10 +2994,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                + "INNER JOIN GRUPOUSUARIOS "
-                + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
-                + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
             conecta.rs.first();
             nomeGrupo = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
@@ -2978,10 +3027,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 conecta.abrirConexao();
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
-                        + "INNER JOIN GRUPOUSUARIOS "
-                        + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                        + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdmPes + "' "
-                        + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdmPes + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idGrupo = conecta.rs.getInt("IdGrupo");
                     nomeGrupo = conecta.rs.getString("NomeGrupo");
@@ -2989,10 +3038,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 }
                 try {
                     conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
-                        + "INNER JOIN MODULOS "
-                        + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
-                        + "WHERE MODULOS.NomeModulo='" + moduloAdmPes + "' "
-                        + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                            + "INNER JOIN MODULOS "
+                            + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                            + "WHERE MODULOS.NomeModulo='" + moduloAdmPes + "' "
+                            + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idModulo = conecta.rs.getInt("IdModulo");
                     idGrupoModulo = conecta.rs.getInt("IdGrupo");
@@ -3051,10 +3100,541 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jBtSairSistemaActionPerformed
 
+    private void jMenuAdministracaoMenuKeyPressed(javax.swing.event.MenuKeyEvent evt) {//GEN-FIRST:event_jMenuAdministracaoMenuKeyPressed
+        // TODO add your handling code here:
+        String grupoAdm = "ADMINISTRADORES";
+        switch (evt.getKeyCode()) {
+            case KeyEvent.VK_G:
+                String grupoAdmPes = "ADMPESSOAL";
+                String permissaoGrupoAdmPes = "Sim";
+                String moduloAdmPes = "ADMPESSOAL";
+                idGrupo = 0;
+                nomeGrupo = "";
+                idModulo = 0;
+                idGrupoModulo = 0;
+                permissaoModulo = "";
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    conecta.rs.first();
+                    nomeGrupo = conecta.rs.getString("NomeGrupo");
+                } catch (Exception e) {
+                }
+                conecta.desconecta();
+                // SE O FOR O ADMINISTRADOR DO SISTEMA
+                if (loginUsusario.equals(nameUser)) {
+                    TelaModuloAdmPessoal objAdm = new TelaModuloAdmPessoal();
+                    this.jPanielPrincipal.add(objAdm);
+                    objAdm.show();
+                    try {
+                        objAdm.setMaximum(true);
+                    } catch (PropertyVetoException ex) {
+                        Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    if (nomeGrupo.equals(grupoAdministrador)) {
+                        TelaModuloAdmPessoal objAdm = new TelaModuloAdmPessoal();
+                        this.jPanielPrincipal.add(objAdm);
+                        objAdm.show();
+                        try {
+                            objAdm.setMaximum(true);
+                        } catch (PropertyVetoException ex) {
+                            Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    } else {
+                        conecta.abrirConexao();
+                        try {
+                            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                                    + "INNER JOIN GRUPOUSUARIOS "
+                                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdmPes + "' "
+                                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                            conecta.rs.first();
+                            idGrupo = conecta.rs.getInt("IdGrupo");
+                            nomeGrupo = conecta.rs.getString("NomeGrupo");
+                        } catch (Exception e) {
+                        }
+                        try {
+                            conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
+                                    + "INNER JOIN MODULOS "
+                                    + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                                    + "WHERE MODULOS.NomeModulo='" + moduloAdmPes + "' "
+                                    + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                            conecta.rs.first();
+                            idModulo = conecta.rs.getInt("IdModulo");
+                            idGrupoModulo = conecta.rs.getInt("IdGrupo");
+                            permissaoModulo = conecta.rs.getString("Permissao");
+                        } catch (Exception er) {
+                        }
+                        conecta.desconecta();
+                        if (idGrupo == idGrupoModulo && permissaoModulo.equals(permissaoGrupoAdmPes)) {
+                            TelaModuloAdmPessoal objAdm = new TelaModuloAdmPessoal();
+                            this.jPanielPrincipal.add(objAdm);
+                            objAdm.show();
+                            try {
+                                objAdm.setMaximum(true);
+                            } catch (PropertyVetoException ex) {
+                                Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "" + nameUser + " você não tem acesso a esse módulo, solicite liberação.");
+                        }
+                    }
+                }
+                break;
+            case KeyEvent.VK_D:
+                String grupoNut = "DIRETORES";
+                String permissaoGrupoNut = "Sim";
+                String moduloNut = "DIRETORES";
+                idGrupo = 0;
+                nomeGrupo = "";
+                idModulo = 0;
+                idGrupoModulo = 0;
+                permissaoModulo = "";
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    conecta.rs.first();
+                    nomeGrupo = conecta.rs.getString("NomeGrupo");
+                } catch (Exception e) {
+                }
+                conecta.desconecta();
+                // SE O FOR O ADMINISTRADOR DO SISTEMA
+                if (loginUsusario.equals(nameUser)) {
+                    TelaModuloDiretoria objTelaDiretor = new TelaModuloDiretoria();
+                    this.jPanielPrincipal.add(objTelaDiretor);
+                    objTelaDiretor.show();
+                    try {
+                        objTelaDiretor.setMaximum(true);
+                    } catch (PropertyVetoException ex) {
+                        Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    if (nomeGrupo.equals(grupoAdministrador)) {
+                        TelaModuloDiretoria objTelaDiretor = new TelaModuloDiretoria();
+                        this.jPanielPrincipal.add(objTelaDiretor);
+                        objTelaDiretor.show();
+                        try {
+                            objTelaDiretor.setMaximum(true);
+                        } catch (PropertyVetoException ex) {
+                            Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    } else {
+                        conecta.abrirConexao();
+                        try {
+                            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                                    + "INNER JOIN GRUPOUSUARIOS "
+                                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoNut + "' "
+                                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                            conecta.rs.first();
+                            idGrupo = conecta.rs.getInt("IdGrupo");
+                            nomeGrupo = conecta.rs.getString("NomeGrupo");
+                        } catch (Exception e) {
+                        }
+                        try {
+                            conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
+                                    + "INNER JOIN MODULOS "
+                                    + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                                    + "WHERE MODULOS.NomeModulo='" + moduloNut + "' "
+                                    + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                            conecta.rs.first();
+                            idModulo = conecta.rs.getInt("IdModulo");
+                            idGrupoModulo = conecta.rs.getInt("IdGrupo");
+                            permissaoModulo = conecta.rs.getString("Permissao");
+                        } catch (Exception er) {
+                        }
+                        conecta.desconecta();
+                        if (idGrupo == idGrupoModulo && permissaoModulo.equals(permissaoGrupoNut)) {
+                            TelaModuloDiretoria objTelaDiretor = new TelaModuloDiretoria();
+                            this.jPanielPrincipal.add(objTelaDiretor);
+                            objTelaDiretor.show();
+                            try {
+                                objTelaDiretor.setMaximum(true);
+                            } catch (PropertyVetoException ex) {
+                                Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "" + nameUser + " você não tem acesso a esse módulo, solicite liberação.");
+                        }
+                    }
+                }
+                break;
+            case KeyEvent.VK_C:
+                String grupoCrc = "CRC";
+                String permissaoGrupo = "Sim";
+                String moduloCrc = "CRC";
+                idGrupo = 0;
+                nomeGrupo = "";
+                idModulo = 0;
+                idGrupoModulo = 0;
+                permissaoModulo = "";
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    conecta.rs.first();
+                    nomeGrupo = conecta.rs.getString("NomeGrupo");
+                } catch (Exception e) {
+                }
+                conecta.desconecta();
+                // SE O FOR O ADMINISTRADOR DO SISTEMA
+                if (loginUsusario.equals(nameUser)) {
+                    TelaModuloCRC trc = new TelaModuloCRC();
+                    this.jPanielPrincipal.add(trc);
+                    trc.show();
+                    try {
+                        trc.setMaximum(true);
+                    } catch (PropertyVetoException ex) {
+                        Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    if (nomeGrupo.equals(grupoAdministrador)) {
+                        TelaModuloCRC trc = new TelaModuloCRC();
+                        this.jPanielPrincipal.add(trc);
+                        trc.show();
+                        try {
+                            trc.setMaximum(true);
+                        } catch (PropertyVetoException ex) {
+                            Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    } else {
+                        conecta.abrirConexao();
+                        try {
+                            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                                    + "INNER JOIN GRUPOUSUARIOS "
+                                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoCrc + "' "
+                                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                            conecta.rs.first();
+                            idGrupo = conecta.rs.getInt("IdGrupo");
+                            nomeGrupo = conecta.rs.getString("NomeGrupo");
+                        } catch (Exception e) {
+                        }
+                        try {
+                            conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
+                                    + "INNER JOIN MODULOS "
+                                    + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                                    + "WHERE MODULOS.NomeModulo='" + moduloCrc + "' "
+                                    + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                            conecta.rs.first();
+                            idModulo = conecta.rs.getInt("IdModulo");
+                            idGrupoModulo = conecta.rs.getInt("IdGrupo");
+                            permissaoModulo = conecta.rs.getString("Permissao");
+                        } catch (Exception er) {
+                        }
+                        conecta.desconecta();
+                        if (idGrupo == idGrupoModulo && permissaoModulo.equals(permissaoGrupo)) {
+                            TelaModuloCRC trc = new TelaModuloCRC();
+                            this.jPanielPrincipal.add(trc);
+                            trc.show();
+                            try {
+                                trc.setMaximum(true);
+                            } catch (PropertyVetoException ex) {
+                                Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "" + nameUser + " você não tem acesso a esse módulo, solicite liberação.");
+                        }
+                    }
+                }
+                break;
+            case KeyEvent.VK_A:
+                String grupoAlm = "ALMOXARIFADO";
+                String permissaoGrupoAlm = "Sim";
+                String moduloAlm = "ALMOXARIFADO";
+                idGrupo = 0;
+                nomeGrupo = "";
+                idModulo = 0;
+                idGrupoModulo = 0;
+                permissaoModulo = "";
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    conecta.rs.first();
+                    nomeGrupo = conecta.rs.getString("NomeGrupo");
+                } catch (Exception e) {
+                }
+                conecta.desconecta();
+                // SE O FOR O ADMINISTRADOR DO SISTEMA
+                if (loginUsusario.equals(nameUser)) {
+                    TelaModuloAlmoxarifado taf = new TelaModuloAlmoxarifado();
+                    this.jPanielPrincipal.add(taf);
+                    taf.show();
+                    try {
+                        taf.setMaximum(true);
+                    } catch (PropertyVetoException ex) {
+                        Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    if (nomeGrupo.equals(grupoAdministrador)) {
+                        TelaModuloAlmoxarifado taf = new TelaModuloAlmoxarifado();
+                        this.jPanielPrincipal.add(taf);
+                        taf.show();
+                        try {
+                            taf.setMaximum(true);
+                        } catch (PropertyVetoException ex) {
+                            Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    } else {
+                        conecta.abrirConexao();
+                        try {
+                            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                                    + "INNER JOIN GRUPOUSUARIOS "
+                                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAlm + "' "
+                                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                            conecta.rs.first();
+                            idGrupo = conecta.rs.getInt("IdGrupo");
+                            nomeGrupo = conecta.rs.getString("NomeGrupo");
+                        } catch (Exception e) {
+                        }
+                        try {
+                            conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
+                                    + "INNER JOIN MODULOS "
+                                    + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                                    + "WHERE MODULOS.NomeModulo='" + moduloAlm + "' "
+                                    + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                            conecta.rs.first();
+                            idModulo = conecta.rs.getInt("IdModulo");
+                            idGrupoModulo = conecta.rs.getInt("IdGrupo");
+                            permissaoModulo = conecta.rs.getString("Permissao");
+                        } catch (Exception er) {
+                        }
+                        conecta.desconecta();
+                        if (idGrupo == idGrupoModulo && permissaoModulo.equals(permissaoGrupoAlm)) {
+                            TelaModuloAlmoxarifado taf = new TelaModuloAlmoxarifado();
+                            this.jPanielPrincipal.add(taf);
+                            taf.show();
+                            try {
+                                taf.setMaximum(true);
+                            } catch (PropertyVetoException ex) {
+                                Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "" + nameUser + " você não tem acesso a esse módulo, solicite liberação.");
+                        }
+                    }
+                }
+                break;
+            case KeyEvent.VK_B:
+                String grupoFin = "FINANCEIRO";
+                String permissaoGrupoFin = "Sim";
+                String moduloFin = "FINANCEIRO";
+                idGrupo = 0;
+                nomeGrupo = "";
+                idModulo = 0;
+                idGrupoModulo = 0;
+                permissaoModulo = "";
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    conecta.rs.first();
+                    nomeGrupo = conecta.rs.getString("NomeGrupo");
+                } catch (Exception e) {
+                }
+                conecta.desconecta();
+                // SE O FOR O ADMINISTRADOR DO SISTEMA
+                if (loginUsusario.equals(nameUser)) {
+                    TelaModuloFinanceiro tfin = new TelaModuloFinanceiro();
+                    this.jPanielPrincipal.add(tfin);
+                    tfin.show();
+                    try {
+                        tfin.setMaximum(true);
+                    } catch (PropertyVetoException ex) {
+                        Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    if (nomeGrupo.equals(grupoAdministrador)) {
+                        TelaModuloFinanceiro tfin = new TelaModuloFinanceiro();
+                        this.jPanielPrincipal.add(tfin);
+                        tfin.show();
+                        try {
+                            tfin.setMaximum(true);
+                        } catch (PropertyVetoException ex) {
+                            Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    } else {
+                        conecta.abrirConexao();
+                        try {
+                            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                                    + "INNER JOIN GRUPOUSUARIOS "
+                                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoFin + "' "
+                                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                            conecta.rs.first();
+                            idGrupo = conecta.rs.getInt("IdGrupo");
+                            nomeGrupo = conecta.rs.getString("NomeGrupo");
+                        } catch (Exception e) {
+                        }
+                        try {
+                            conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
+                                    + "INNER JOIN MODULOS "
+                                    + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                                    + "WHERE MODULOS.NomeModulo='" + moduloFin + "' "
+                                    + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                            conecta.rs.first();
+                            idModulo = conecta.rs.getInt("IdModulo");
+                            idGrupoModulo = conecta.rs.getInt("IdGrupo");
+                            permissaoModulo = conecta.rs.getString("Permissao");
+                        } catch (Exception er) {
+                        }
+                        conecta.desconecta();
+                        if (idGrupo == idGrupoModulo && permissaoModulo.equals(permissaoGrupoFin)) {
+                            TelaModuloFinanceiro tfin = new TelaModuloFinanceiro();
+                            this.jPanielPrincipal.add(tfin);
+                            tfin.show();
+                            try {
+                                tfin.setMaximum(true);
+                            } catch (PropertyVetoException ex) {
+                                Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "" + nameUser + " você não tem acesso a esse módulo, solicite liberação.");
+                        }
+                    }
+                }
+                break;
+            case KeyEvent.VK_O:
+                String permissaoGrupoComp = "Sim";
+                String moduloComp = "COMPRAS";
+                String grupoComp = "COMPRAS";
+                idGrupo = 0;
+                nomeGrupo = "";
+                idModulo = 0;
+                idGrupoModulo = 0;
+                permissaoModulo = "";
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    conecta.rs.first();
+                    nomeGrupo = conecta.rs.getString("NomeGrupo");
+                } catch (Exception e) {
+                }
+                conecta.desconecta();
+                // SE O FOR O ADMINISTRADOR DO SISTEMA
+                if (loginUsusario.equals(nameUser)) {
+                    TelaModuloCompras fer = new TelaModuloCompras();
+                    this.jPanielPrincipal.add(fer);
+                    fer.show();
+                    try {
+                        fer.setMaximum(true);
+                    } catch (PropertyVetoException ex) {
+                        Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    if (nomeGrupo.equals(grupoAdministrador)) {
+                        TelaModuloCompras fer = new TelaModuloCompras();
+                        this.jPanielPrincipal.add(fer);
+                        fer.show();
+                        try {
+                            fer.setMaximum(true);
+                        } catch (PropertyVetoException ex) {
+                            Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    } else {
+                        conecta.abrirConexao();
+                        try {
+                            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                                    + "INNER JOIN GRUPOUSUARIOS "
+                                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoComp + "' "
+                                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                            conecta.rs.first();
+                            idGrupo = conecta.rs.getInt("IdGrupo");
+                            nomeGrupo = conecta.rs.getString("NomeGrupo");
+                        } catch (Exception e) {
+                        }
+                        try {
+                            conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
+                                    + "INNER JOIN MODULOS "
+                                    + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                                    + "WHERE MODULOS.NomeModulo='" + moduloComp + "' "
+                                    + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                            conecta.rs.first();
+                            idModulo = conecta.rs.getInt("IdModulo");
+                            idGrupoModulo = conecta.rs.getInt("IdGrupo");
+                            permissaoModulo = conecta.rs.getString("Permissao");
+                        } catch (Exception er) {
+                        }
+                        conecta.desconecta();
+                        if (idGrupo == idGrupoModulo && permissaoModulo.equals(permissaoGrupoComp)) {
+                            TelaModuloCompras fer = new TelaModuloCompras();
+                            this.jPanielPrincipal.add(fer);
+                            fer.show();
+                            try {
+                                fer.setMaximum(true);
+                            } catch (PropertyVetoException ex) {
+                                Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "" + nameUser + " você não tem acesso a esse módulo, solicite liberação.");
+                        }
+                    }
+                }
+                break;
+        }
+    }//GEN-LAST:event_jMenuAdministracaoMenuKeyPressed
+
+    private void jMenuPSPMenuKeyPressed(javax.swing.event.MenuKeyEvent evt) {//GEN-FIRST:event_jMenuPSPMenuKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuPSPMenuKeyPressed
+
+    private void jMenuOperacionalMenuKeyPressed(javax.swing.event.MenuKeyEvent evt) {//GEN-FIRST:event_jMenuOperacionalMenuKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuOperacionalMenuKeyPressed
+
+    private void jMenuConfiguracoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuConfiguracoesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuConfiguracoesActionPerformed
+
+    private void jMenuSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSobreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuSobreActionPerformed
+
+    private void jMenuSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuSairMouseClicked
+        // TODO add your handling code here:
+        int selectedOption = JOptionPane.showConfirmDialog(null, "Deseja realmente sair do Sistema?", "Sistema informa:", JOptionPane.YES_NO_OPTION);
+        if (selectedOption == JOptionPane.YES_OPTION) {
+            buscarIdUsuario();
+            statusFlag = "Não";
+            userConectado.setDataDesconectado(jDataSistema.getText());
+            userConectado.setHorarioDesconectado(jHoraSistema.getText());
+            userConectado.setConectadoDesconectado(usuarioDesconectado);
+            userConectado.setStatusFlag(statusFlag);
+            userConectado.setIdUser(Integer.valueOf(idUser));
+            control.desconectarHostName(userConectado);
+            System.exit(0);
+        }
+    }//GEN-LAST:event_jMenuSairMouseClicked
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {        
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -3193,9 +3773,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLoginConectado;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu28;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu8;
@@ -3203,6 +3781,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuBar jMenuBar3;
+    private javax.swing.JMenu jMenuConfiguracoes;
     private javax.swing.JMenuItem jMenuItemAlmoxarifado;
     private javax.swing.JMenuItem jMenuItemBancoVirtual;
     private javax.swing.JMenuItem jMenuItemBase1;
@@ -3227,6 +3806,8 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemTriagem;
     private javax.swing.JMenu jMenuOperacional;
     private javax.swing.JMenu jMenuPSP;
+    private javax.swing.JMenu jMenuSair;
+    private javax.swing.JMenu jMenuSobre;
     private javax.swing.JLabel jNomeUnidade;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel6;
