@@ -271,10 +271,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jMenuItemPortariaInterna = new javax.swing.JMenuItem();
         jMenuItemPortariaExterna = new javax.swing.JMenuItem();
         jMenuItemTriagem = new javax.swing.JMenuItem();
-        jMenu8 = new javax.swing.JMenu();
         jMenuConfiguracoes = new javax.swing.JMenu();
-        jMenuSobre = new javax.swing.JMenu();
+        jMenu8 = new javax.swing.JMenu();
         jMenuSair = new javax.swing.JMenu();
+        jMenuSobre = new javax.swing.JMenu();
 
         jMenu1.setText("File");
         jMenuBar2.add(jMenu1);
@@ -886,36 +886,66 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jMenuItemGerenciaAdministrativa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/GerenciaAdministrativa18.png"))); // NOI18N
         jMenuItemGerenciaAdministrativa.setMnemonic('g');
         jMenuItemGerenciaAdministrativa.setText("Gerência Administativa");
+        jMenuItemGerenciaAdministrativa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemGerenciaAdministrativaActionPerformed(evt);
+            }
+        });
         jMenuAdministracao.add(jMenuItemGerenciaAdministrativa);
 
         jMenuItemDiretoriaUnidade.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemDiretoriaUnidade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Diretoria18.png"))); // NOI18N
         jMenuItemDiretoriaUnidade.setMnemonic('D');
         jMenuItemDiretoriaUnidade.setText("Diretoria Da Unidade");
+        jMenuItemDiretoriaUnidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemDiretoriaUnidadeActionPerformed(evt);
+            }
+        });
         jMenuAdministracao.add(jMenuItemDiretoriaUnidade);
 
         jMenuItemCRC.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemCRC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/crc18.png"))); // NOI18N
         jMenuItemCRC.setMnemonic('C');
         jMenuItemCRC.setText("CRC");
+        jMenuItemCRC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCRCActionPerformed(evt);
+            }
+        });
         jMenuAdministracao.add(jMenuItemCRC);
 
         jMenuItemAlmoxarifado.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemAlmoxarifado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Almoxarifado18.png"))); // NOI18N
         jMenuItemAlmoxarifado.setMnemonic('A');
         jMenuItemAlmoxarifado.setText("Almoxarifafdo");
+        jMenuItemAlmoxarifado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemAlmoxarifadoActionPerformed(evt);
+            }
+        });
         jMenuAdministracao.add(jMenuItemAlmoxarifado);
 
         jMenuItemBancoVirtual.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemBancoVirtual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Banco218.png"))); // NOI18N
         jMenuItemBancoVirtual.setMnemonic('B');
         jMenuItemBancoVirtual.setText("Banco Virtual");
+        jMenuItemBancoVirtual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemBancoVirtualActionPerformed(evt);
+            }
+        });
         jMenuAdministracao.add(jMenuItemBancoVirtual);
 
         jMenuItemCompras.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemCompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Compras18.png"))); // NOI18N
         jMenuItemCompras.setMnemonic('O');
         jMenuItemCompras.setText("Compras");
+        jMenuItemCompras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemComprasActionPerformed(evt);
+            }
+        });
         jMenuAdministracao.add(jMenuItemCompras);
 
         jMenuBar1.add(jMenuAdministracao);
@@ -951,7 +981,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jMenuItemPsicologia.setText("Psicologia");
         jMenuPSP.add(jMenuItemPsicologia);
 
-        jMenuItemOdontologia.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemOdontologia.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemOdontologia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Odontologia18.png"))); // NOI18N
         jMenuItemOdontologia.setMnemonic('O');
         jMenuItemOdontologia.setText("Odontologia");
@@ -971,13 +1001,13 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jMenuItemTO.setToolTipText("");
         jMenuPSP.add(jMenuItemTO);
 
-        jMenuItemPedagogia.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemPedagogia.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemPedagogia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Pedagogia_18.png"))); // NOI18N
         jMenuItemPedagogia.setMnemonic('G');
         jMenuItemPedagogia.setText("Pedagogia");
         jMenuPSP.add(jMenuItemPedagogia);
 
-        jMenuItemEducacaoFisica.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemEducacaoFisica.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_K, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemEducacaoFisica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/EducacaoFisica18.png"))); // NOI18N
         jMenuItemEducacaoFisica.setMnemonic('D');
         jMenuItemEducacaoFisica.setText("Educação Física");
@@ -1011,27 +1041,27 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jMenuItemBase1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemBase1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemBase1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Base1-18.png"))); // NOI18N
         jMenuItemBase1.setMnemonic('A');
         jMenuItemBase1.setText("Base I");
         jMenuItemBase1.setToolTipText("");
         jMenuOperacional.add(jMenuItemBase1);
 
-        jMenuItemBase2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemBase2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemBase2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Base2-18.png"))); // NOI18N
         jMenuItemBase2.setMnemonic('B');
         jMenuItemBase2.setText("Base II");
         jMenuOperacional.add(jMenuItemBase2);
 
-        jMenuItemGerenciaOperacional.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemGerenciaOperacional.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemGerenciaOperacional.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/G.Operacional.png"))); // NOI18N
         jMenuItemGerenciaOperacional.setMnemonic('G');
         jMenuItemGerenciaOperacional.setText("Gerência Operacional");
         jMenuItemGerenciaOperacional.setToolTipText("");
         jMenuOperacional.add(jMenuItemGerenciaOperacional);
 
-        jMenuItemPortariaInterna.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemPortariaInterna.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Y, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemPortariaInterna.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/PInterna18.png"))); // NOI18N
         jMenuItemPortariaInterna.setMnemonic('P');
         jMenuItemPortariaInterna.setText("Portaria Interna");
@@ -1051,7 +1081,6 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jMenuOperacional.add(jMenuItemTriagem);
 
         jMenuBar1.add(jMenuOperacional);
-        jMenuBar1.add(jMenu8);
 
         jMenuConfiguracoes.setText("Configurações");
         jMenuConfiguracoes.addActionListener(new java.awt.event.ActionListener() {
@@ -1060,14 +1089,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
             }
         });
         jMenuBar1.add(jMenuConfiguracoes);
-
-        jMenuSobre.setText("Sobre");
-        jMenuSobre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuSobreActionPerformed(evt);
-            }
-        });
-        jMenuBar1.add(jMenuSobre);
+        jMenuBar1.add(jMenu8);
 
         jMenuSair.setForeground(new java.awt.Color(204, 0, 0));
         jMenuSair.setText("Sair");
@@ -1077,6 +1099,14 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
             }
         });
         jMenuBar1.add(jMenuSair);
+
+        jMenuSobre.setText("Sobre");
+        jMenuSobre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuSobreActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(jMenuSobre);
 
         setJMenuBar(jMenuBar1);
 
@@ -3601,14 +3631,853 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
 
     private void jMenuPSPMenuKeyPressed(javax.swing.event.MenuKeyEvent evt) {//GEN-FIRST:event_jMenuPSPMenuKeyPressed
         // TODO add your handling code here:
+        String grupoAdm = "ADMINISTRADORES";
+        switch (evt.getKeyCode()) {
+            case KeyEvent.VK_E:
+                String grupoMed = "ENFERMARIA";
+                String permissaoGrupoMed = "Sim";
+                String moduloMed = "ENFERMARIA";
+                idGrupo = 0;
+                nomeGrupo = "";
+                idModulo = 0;
+                idGrupoModulo = 0;
+                permissaoModulo = "";
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    conecta.rs.first();
+                    nomeGrupo = conecta.rs.getString("NomeGrupo");
+                } catch (Exception e) {
+                }
+                conecta.desconecta();
+                // SE O FOR O ADMINISTRADOR DO SISTEMA
+                if (loginUsusario.equals(nameUser)) {
+                    TelaModuloEnfermaria tm = new TelaModuloEnfermaria();
+                    this.jPanielPrincipal.add(tm);
+                    tm.show();
+                    try {
+                        tm.setMaximum(true);
+                    } catch (PropertyVetoException ex) {
+                        Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    if (nomeGrupo.equals(grupoAdministrador)) {
+                        TelaModuloEnfermaria tm = new TelaModuloEnfermaria();
+                        this.jPanielPrincipal.add(tm);
+                        tm.show();
+                        try {
+                            tm.setMaximum(true);
+                        } catch (PropertyVetoException ex) {
+                            Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    } else {
+                        conecta.abrirConexao();
+                        try {
+                            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                                    + "INNER JOIN GRUPOUSUARIOS "
+                                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoMed + "' "
+                                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                            conecta.rs.first();
+                            idGrupo = conecta.rs.getInt("IdGrupo");
+                            nomeGrupo = conecta.rs.getString("NomeGrupo");
+                        } catch (Exception e) {
+                        }
+                        try {
+                            conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
+                                    + "INNER JOIN MODULOS "
+                                    + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                                    + "WHERE MODULOS.NomeModulo='" + moduloMed + "' "
+                                    + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                            conecta.rs.first();
+                            idModulo = conecta.rs.getInt("IdModulo");
+                            idGrupoModulo = conecta.rs.getInt("IdGrupo");
+                            permissaoModulo = conecta.rs.getString("Permissao");
+                        } catch (Exception er) {
+                        }
+                        conecta.desconecta();
+                        if (idGrupo == idGrupoModulo && permissaoModulo.equals(permissaoGrupoMed)) {
+                            TelaModuloEnfermaria tm = new TelaModuloEnfermaria();
+                            this.jPanielPrincipal.add(tm);
+                            tm.show();
+                            try {
+                                tm.setMaximum(true);
+                            } catch (PropertyVetoException ex) {
+                                Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "" + nameUser + " você não tem acesso a esse módulo, solicite liberação.");
+                        }
+                    }
+                }
+                break;
+            case KeyEvent.VK_S:
+                String grupoSer = "SERVICO SOCIAL";
+                String permissaoGrupoSer = "Sim";
+                String moduloSer = "SERVICO SOCIAL";
+                idGrupo = 0;
+                nomeGrupo = "";
+                idModulo = 0;
+                idGrupoModulo = 0;
+                permissaoModulo = "";
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    conecta.rs.first();
+                    nomeGrupo = conecta.rs.getString("NomeGrupo");
+                } catch (Exception e) {
+                }
+                conecta.desconecta();
+                // SE O FOR O ADMINISTRADOR DO SISTEMA
+                if (loginUsusario.equals(nameUser)) {
+                    TelaModuloServicoSocial tss = new TelaModuloServicoSocial();
+                    this.jPanielPrincipal.add(tss);
+                    tss.show();
+                    try {
+                        tss.setMaximum(true);
+                    } catch (PropertyVetoException ex) {
+                        Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    if (nomeGrupo.equals(grupoAdministrador)) {
+                        TelaModuloServicoSocial tss = new TelaModuloServicoSocial();
+                        this.jPanielPrincipal.add(tss);
+                        tss.show();
+                        try {
+                            tss.setMaximum(true);
+                        } catch (PropertyVetoException ex) {
+                            Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    } else {
+                        conecta.abrirConexao();
+                        try {
+                            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                                    + "INNER JOIN GRUPOUSUARIOS "
+                                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoSer + "' "
+                                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                            conecta.rs.first();
+                            idGrupo = conecta.rs.getInt("IdGrupo");
+                            nomeGrupo = conecta.rs.getString("NomeGrupo");
+                        } catch (Exception e) {
+                        }
+                        try {
+                            conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
+                                    + "INNER JOIN MODULOS "
+                                    + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                                    + "WHERE MODULOS.NomeModulo='" + moduloSer + "' "
+                                    + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                            conecta.rs.first();
+                            idModulo = conecta.rs.getInt("IdModulo");
+                            idGrupoModulo = conecta.rs.getInt("IdGrupo");
+                            permissaoModulo = conecta.rs.getString("Permissao");
+                        } catch (Exception er) {
+                        }
+                        conecta.desconecta();
+                        if (idGrupo == idGrupoModulo && permissaoModulo.equals(permissaoGrupoSer)) {
+                            TelaModuloServicoSocial tss = new TelaModuloServicoSocial();
+                            this.jPanielPrincipal.add(tss);
+                            tss.show();
+                            try {
+                                tss.setMaximum(true);
+                            } catch (PropertyVetoException ex) {
+                                Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "" + nameUser + " você não tem acesso a esse módulo, solicite liberação.");
+                        }
+                    }
+                }
+                break;
+            case KeyEvent.VK_P:
+                String grupoPsi = "PSICOLOGIA";
+                String permissaoGrupoPsi = "Sim";
+                String moduloPsi = "PSICOLOGIA";
+                idGrupo = 0;
+                nomeGrupo = "";
+                idModulo = 0;
+                idGrupoModulo = 0;
+                permissaoModulo = "";
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    conecta.rs.first();
+                    nomeGrupo = conecta.rs.getString("NomeGrupo");
+                } catch (Exception e) {
+                }
+                conecta.desconecta();
+                // SE O FOR O ADMINISTRADOR DO SISTEMA
+                if (loginUsusario.equals(nameUser)) {
+                    TelaModuloPsicologia tps = new TelaModuloPsicologia();
+                    this.jPanielPrincipal.add(tps);
+                    tps.show();
+                    try {
+                        tps.setMaximum(true);
+                    } catch (PropertyVetoException ex) {
+                        Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    if (nomeGrupo.equals(grupoAdministrador)) {
+                        TelaModuloPsicologia tps = new TelaModuloPsicologia();
+                        this.jPanielPrincipal.add(tps);
+                        tps.show();
+                        try {
+                            tps.setMaximum(true);
+                        } catch (PropertyVetoException ex) {
+                            Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    } else {
+                        conecta.abrirConexao();
+                        try {
+                            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                                    + "INNER JOIN GRUPOUSUARIOS "
+                                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoPsi + "' "
+                                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                            conecta.rs.first();
+                            idGrupo = conecta.rs.getInt("IdGrupo");
+                            nomeGrupo = conecta.rs.getString("NomeGrupo");
+                        } catch (Exception e) {
+                        }
+                        try {
+                            conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
+                                    + "INNER JOIN MODULOS "
+                                    + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                                    + "WHERE MODULOS.NomeModulo='" + moduloPsi + "' "
+                                    + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                            conecta.rs.first();
+                            idModulo = conecta.rs.getInt("IdModulo");
+                            idGrupoModulo = conecta.rs.getInt("IdGrupo");
+                            permissaoModulo = conecta.rs.getString("Permissao");
+                        } catch (Exception er) {
+                        }
+                        conecta.desconecta();
+                        if (idGrupo == idGrupoModulo && permissaoModulo.equals(permissaoGrupoPsi)) {
+                            TelaModuloPsicologia tps = new TelaModuloPsicologia();
+                            this.jPanielPrincipal.add(tps);
+                            tps.show();
+                            try {
+                                tps.setMaximum(true);
+                            } catch (PropertyVetoException ex) {
+                                Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "" + nameUser + " você não tem acesso a esse módulo, solicite liberação.");
+                        }
+                    }
+                }
+                break;
+            case KeyEvent.VK_L:
+                String grupoOdon = "ODONTOLOGIA";
+                String permissaoGrupoOdon = "Sim";
+                String moduloOdon = "ODONTOLOGIA";
+                idGrupo = 0;
+                nomeGrupo = "";
+                idModulo = 0;
+                idGrupoModulo = 0;
+                permissaoModulo = "";
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    conecta.rs.first();
+                    nomeGrupo = conecta.rs.getString("NomeGrupo");
+                } catch (Exception e) {
+                }
+                conecta.desconecta();
+                // SE O FOR O ADMINISTRADOR DO SISTEMA
+                if (loginUsusario.equals(nameUser)) {
+                    TelaModuloOdontologia tod = new TelaModuloOdontologia();
+                    this.jPanielPrincipal.add(tod);
+                    tod.show();
+                    try { // Abrir JiternalFrame maximizado
+                        tod.setMaximum(true);
+                    } catch (PropertyVetoException ex) {
+                        Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    if (nomeGrupo.equals(grupoAdministrador)) {
+                        TelaModuloOdontologia tod = new TelaModuloOdontologia();
+                        this.jPanielPrincipal.add(tod);
+                        tod.show();
+                        try { // Abrir JiternalFrame maximizado
+                            tod.setMaximum(true);
+                        } catch (PropertyVetoException ex) {
+                            //  Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    } else {
+                        conecta.abrirConexao();
+                        try {
+                            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                                    + "INNER JOIN GRUPOUSUARIOS "
+                                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoOdon + "' "
+                                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                            conecta.rs.first();
+                            idGrupo = conecta.rs.getInt("IdGrupo");
+                            nomeGrupo = conecta.rs.getString("NomeGrupo");
+                        } catch (Exception e) {
+                        }
+                        try {
+                            conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
+                                    + "INNER JOIN MODULOS "
+                                    + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                                    + "WHERE MODULOS.NomeModulo='" + moduloOdon + "' "
+                                    + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                            conecta.rs.first();
+                            idModulo = conecta.rs.getInt("IdModulo");
+                            idGrupoModulo = conecta.rs.getInt("IdGrupo");
+                            permissaoModulo = conecta.rs.getString("Permissao");
+                        } catch (Exception er) {
+                        }
+                        conecta.desconecta();
+                        if (idGrupo == idGrupoModulo && permissaoModulo.equals(permissaoGrupoOdon)) {
+                            TelaModuloOdontologia tod = new TelaModuloOdontologia();
+                            this.jPanielPrincipal.add(tod);
+                            tod.show();
+                            try { // Abrir JiternalFrame maximizado
+                                tod.setMaximum(true);
+                            } catch (PropertyVetoException ex) {
+                                Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "" + nameUser + " você não tem acesso a esse módulo, solicite liberação.");
+                        }
+                    }
+                }
+                break;
+            case KeyEvent.VK_J:
+                String grupoJuri = "JURIDICO";
+                String permissaoGrupoJuri = "Sim";
+                String moduloJuri = "JURIDICO";
+                idGrupo = 0;
+                nomeGrupo = "";
+                idModulo = 0;
+                idGrupoModulo = 0;
+                permissaoModulo = "";
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    conecta.rs.first();
+                    nomeGrupo = conecta.rs.getString("NomeGrupo");
+                } catch (Exception e) {
+                }
+                conecta.desconecta();
+                // SE O FOR O ADMINISTRADOR DO SISTEMA
+                if (loginUsusario.equals(nameUser)) {
+                    TelaModuloJuridico tj = new TelaModuloJuridico();
+                    this.jPanielPrincipal.add(tj);
+                    tj.show();
+                    try {
+                        tj.setMaximum(true);
+                    } catch (PropertyVetoException ex) {
+                        Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    if (nomeGrupo.equals(grupoAdministrador)) {
+                        TelaModuloJuridico tj = new TelaModuloJuridico();
+                        this.jPanielPrincipal.add(tj);
+                        tj.show();
+                        try {
+                            tj.setMaximum(true);
+                        } catch (PropertyVetoException ex) {
+                            Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    } else {
+                        conecta.abrirConexao();
+                        try {
+                            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                                    + "INNER JOIN GRUPOUSUARIOS "
+                                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoJuri + "' "
+                                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                            conecta.rs.first();
+                            idGrupo = conecta.rs.getInt("IdGrupo");
+                            nomeGrupo = conecta.rs.getString("NomeGrupo");
+                        } catch (Exception e) {
+                        }
+                        try {
+                            conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
+                                    + "INNER JOIN MODULOS "
+                                    + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                                    + "WHERE MODULOS.NomeModulo='" + moduloJuri + "' "
+                                    + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                            conecta.rs.first();
+                            idModulo = conecta.rs.getInt("IdModulo");
+                            idGrupoModulo = conecta.rs.getInt("IdGrupo");
+                            permissaoModulo = conecta.rs.getString("Permissao");
+                        } catch (Exception er) {
+                        }
+                        conecta.desconecta();
+                        if (idGrupo == idGrupoModulo && permissaoModulo.equals(permissaoGrupoJuri)) {
+                            TelaModuloJuridico tj = new TelaModuloJuridico();
+                            this.jPanielPrincipal.add(tj);
+                            tj.show();
+                            try {
+                                tj.setMaximum(true);
+                            } catch (PropertyVetoException ex) {
+                                Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "" + nameUser + " você não tem acesso a esse módulo, solicite liberação.");
+                        }
+                    }
+                }
+                break;
+            case KeyEvent.VK_T:
+                String grupoTera = "TERAPIA OCUPACIONAL";
+                String permissaoGrupoTera = "Sim";
+                String moduloTera = "TERAPIA OCUPACIONAL";
+                idGrupo = 0;
+                nomeGrupo = "";
+                idModulo = 0;
+                idGrupoModulo = 0;
+                permissaoModulo = "";
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    conecta.rs.first();
+                    nomeGrupo = conecta.rs.getString("NomeGrupo");
+                } catch (Exception e) {
+                }
+                conecta.desconecta();
+                // SE O FOR O ADMINISTRADOR DO SISTEMA
+                if (loginUsusario.equals(nameUser)) {
+                    TelaModuloTerapiaOcupacional tpo = new TelaModuloTerapiaOcupacional();
+                    this.jPanielPrincipal.add(tpo);
+                    tpo.show();
+                    try {
+                        tpo.setMaximum(true);
+                    } catch (PropertyVetoException ex) {
+                        Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    if (nomeGrupo.equals(grupoAdministrador)) {
+                        TelaModuloTerapiaOcupacional tpo = new TelaModuloTerapiaOcupacional();
+                        this.jPanielPrincipal.add(tpo);
+                        tpo.show();
+                        try {
+                            tpo.setMaximum(true);
+                        } catch (PropertyVetoException ex) {
+                            Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    } else {
+                        conecta.abrirConexao();
+                        try {
+                            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                                    + "INNER JOIN GRUPOUSUARIOS "
+                                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoTera + "' "
+                                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                            conecta.rs.first();
+                            idGrupo = conecta.rs.getInt("IdGrupo");
+                            nomeGrupo = conecta.rs.getString("NomeGrupo");
+                        } catch (Exception e) {
+                        }
+                        try {
+                            conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
+                                    + "INNER JOIN MODULOS "
+                                    + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                                    + "WHERE MODULOS.NomeModulo='" + moduloTera + "' "
+                                    + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                            conecta.rs.first();
+                            idModulo = conecta.rs.getInt("IdModulo");
+                            idGrupoModulo = conecta.rs.getInt("IdGrupo");
+                            permissaoModulo = conecta.rs.getString("Permissao");
+                        } catch (Exception er) {
+                        }
+                        conecta.desconecta();
+                        if (idGrupo == idGrupoModulo && permissaoModulo.equals(permissaoGrupoTera)) {
+                            TelaModuloTerapiaOcupacional tpo = new TelaModuloTerapiaOcupacional();
+                            this.jPanielPrincipal.add(tpo);
+                            tpo.show();
+                            try {
+                                tpo.setMaximum(true);
+                            } catch (PropertyVetoException ex) {
+                                Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "" + nameUser + " você não tem acesso a esse módulo, solicite liberação.");
+                        }
+                    }
+                }
+                break;
+            case KeyEvent.VK_M:
+                String grupoProf = "PEDAGOGIA";
+                String permissaoGrupoProf = "Sim";
+                String moduloProf = "PEDAGOGIA";
+                idGrupo = 0;
+                nomeGrupo = "";
+                idModulo = 0;
+                idGrupoModulo = 0;
+                permissaoModulo = "";
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    conecta.rs.first();
+                    nomeGrupo = conecta.rs.getString("NomeGrupo");
+                } catch (Exception e) {
+                }
+                conecta.desconecta();
+                // SE O FOR O ADMINISTRADOR DO SISTEMA
+                if (loginUsusario.equals(nameUser)) {
+                    TelaModuloPedagogia tpf = new TelaModuloPedagogia();
+                    this.jPanielPrincipal.add(tpf);
+                    tpf.show();
+                    try {
+                        tpf.setMaximum(true);
+                    } catch (PropertyVetoException ex) {
+                        Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    if (nomeGrupo.equals(grupoAdministrador)) {
+                        TelaModuloPedagogia tpf = new TelaModuloPedagogia();
+                        this.jPanielPrincipal.add(tpf);
+                        tpf.show();
+                        try {
+                            tpf.setMaximum(true);
+                        } catch (PropertyVetoException ex) {
+                            Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    } else {
+                        conecta.abrirConexao();
+                        try {
+                            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                                    + "INNER JOIN GRUPOUSUARIOS "
+                                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoProf + "' "
+                                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                            conecta.rs.first();
+                            idGrupo = conecta.rs.getInt("IdGrupo");
+                            nomeGrupo = conecta.rs.getString("NomeGrupo");
+                        } catch (Exception e) {
+                        }
+                        try {
+                            conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
+                                    + "INNER JOIN MODULOS "
+                                    + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                                    + "WHERE MODULOS.NomeModulo='" + moduloProf + "' "
+                                    + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                            conecta.rs.first();
+                            idModulo = conecta.rs.getInt("IdModulo");
+                            idGrupoModulo = conecta.rs.getInt("IdGrupo");
+                            permissaoModulo = conecta.rs.getString("Permissao");
+                        } catch (Exception er) {
+                        }
+                        conecta.desconecta();
+                        if (idGrupo == idGrupoModulo && permissaoModulo.equals(permissaoGrupoProf)) {
+                            TelaModuloPedagogia tpf = new TelaModuloPedagogia();
+                            this.jPanielPrincipal.add(tpf);
+                            tpf.show();
+                            try {
+                                tpf.setMaximum(true);
+                            } catch (PropertyVetoException ex) {
+                                Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "" + nameUser + " você não tem acesso a esse módulo, solicite liberação.");
+                        }
+                    }
+                }
+                break;
+            case KeyEvent.VK_K:
+                JOptionPane.showMessageDialog(rootPane, "Em desenvolvimento");
+                break;
+            case KeyEvent.VK_N:
+                String grupoNut = "NUTRICAO";
+                String permissaoGrupoNut = "Sim";
+                String moduloNut = "NUTRICAO";
+                idGrupo = 0;
+                nomeGrupo = "";
+                idModulo = 0;
+                idGrupoModulo = 0;
+                permissaoModulo = "";
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    conecta.rs.first();
+                    nomeGrupo = conecta.rs.getString("NomeGrupo");
+                } catch (Exception e) {
+                }
+                conecta.desconecta();
+                // SE O FOR O ADMINISTRADOR DO SISTEMA
+                if (loginUsusario.equals(nameUser)) {
+                    TelaModuloNutricao objTelaNutricao = new TelaModuloNutricao();
+                    this.jPanielPrincipal.add(objTelaNutricao);
+                    objTelaNutricao.show();
+                    try {
+                        objTelaNutricao.setMaximum(true);
+                    } catch (PropertyVetoException ex) {
+                        Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    if (nomeGrupo.equals(grupoAdministrador)) {
+                        TelaModuloNutricao objTelaNutricao = new TelaModuloNutricao();
+                        this.jPanielPrincipal.add(objTelaNutricao);
+                        objTelaNutricao.show();
+                        try {
+                            objTelaNutricao.setMaximum(true);
+                        } catch (PropertyVetoException ex) {
+                            Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    } else {
+                        conecta.abrirConexao();
+                        try {
+                            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                                    + "INNER JOIN GRUPOUSUARIOS "
+                                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoNut + "' "
+                                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                            conecta.rs.first();
+                            idGrupo = conecta.rs.getInt("IdGrupo");
+                            nomeGrupo = conecta.rs.getString("NomeGrupo");
+                        } catch (Exception e) {
+                        }
+                        try {
+                            conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
+                                    + "INNER JOIN MODULOS "
+                                    + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                                    + "WHERE MODULOS.NomeModulo='" + moduloNut + "' "
+                                    + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                            conecta.rs.first();
+                            idModulo = conecta.rs.getInt("IdModulo");
+                            idGrupoModulo = conecta.rs.getInt("IdGrupo");
+                            permissaoModulo = conecta.rs.getString("Permissao");
+                        } catch (Exception er) {
+                        }
+                        conecta.desconecta();
+                        if (idGrupo == idGrupoModulo && permissaoModulo.equals(permissaoGrupoNut)) {
+                            TelaModuloNutricao objTelaNutricao = new TelaModuloNutricao();
+                            this.jPanielPrincipal.add(objTelaNutricao);
+                            objTelaNutricao.show();
+                            try {
+                                objTelaNutricao.setMaximum(true);
+                            } catch (PropertyVetoException ex) {
+                                Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "" + nameUser + " você não tem acesso a esse módulo, solicite liberação.");
+                        }
+                    }
+                }
+                break;
+            case KeyEvent.VK_F:
+                String grupoFar = "FARMACIA";
+                String permissaoGrupoFar = "Sim";
+                String moduloFar = "FARMACIA";
+                idGrupo = 0;
+                nomeGrupo = "";
+                idModulo = 0;
+                idGrupoModulo = 0;
+                permissaoModulo = "";
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    conecta.rs.first();
+                    nomeGrupo = conecta.rs.getString("NomeGrupo");
+                } catch (Exception e) {
+                }
+                conecta.desconecta();
+                // SE O FOR O ADMINISTRADOR DO SISTEMA
+                if (loginUsusario.equals(nameUser)) {
+                    TelaModuloFarmacia objTelaFarma = new TelaModuloFarmacia();
+                    this.jPanielPrincipal.add(objTelaFarma);
+                    objTelaFarma.show();
+                    try {
+                        objTelaFarma.setMaximum(true);
+                    } catch (PropertyVetoException ex) {
+                        Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    if (nomeGrupo.equals(grupoAdministrador)) {
+                        TelaModuloFarmacia objTelaFarma = new TelaModuloFarmacia();
+                        this.jPanielPrincipal.add(objTelaFarma);
+                        objTelaFarma.show();
+                        try {
+                            objTelaFarma.setMaximum(true);
+                        } catch (PropertyVetoException ex) {
+                            Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    } else {
+                        conecta.abrirConexao();
+                        try {
+                            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                                    + "INNER JOIN GRUPOUSUARIOS "
+                                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoFar + "' "
+                                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                            conecta.rs.first();
+                            idGrupo = conecta.rs.getInt("IdGrupo");
+                            nomeGrupo = conecta.rs.getString("NomeGrupo");
+                        } catch (Exception e) {
+                        }
+                        try {
+                            conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
+                                    + "INNER JOIN MODULOS "
+                                    + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                                    + "WHERE MODULOS.NomeModulo='" + moduloFar + "' "
+                                    + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                            conecta.rs.first();
+                            idModulo = conecta.rs.getInt("IdModulo");
+                            idGrupoModulo = conecta.rs.getInt("IdGrupo");
+                            permissaoModulo = conecta.rs.getString("Permissao");
+                        } catch (Exception er) {
+                        }
+                        conecta.desconecta();
+                        if (idGrupo == idGrupoModulo && permissaoModulo.equals(permissaoGrupoFar)) {
+                            TelaModuloFarmacia objTelaFarma = new TelaModuloFarmacia();
+                            this.jPanielPrincipal.add(objTelaFarma);
+                            objTelaFarma.show();
+                            try {
+                                objTelaFarma.setMaximum(true);
+                            } catch (PropertyVetoException ex) {
+                                Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "" + nameUser + " você não tem acesso a esse módulo, solicite liberação.");
+                        }
+                    }
+                }
+                break;
+        }
     }//GEN-LAST:event_jMenuPSPMenuKeyPressed
 
     private void jMenuOperacionalMenuKeyPressed(javax.swing.event.MenuKeyEvent evt) {//GEN-FIRST:event_jMenuOperacionalMenuKeyPressed
         // TODO add your handling code here:
+        String grupoAdm = "ADMINISTRADORES";
+        switch (evt.getKeyCode()) {
+            case KeyEvent.VK_U:
+                break;
+            case KeyEvent.VK_V:
+                break;
+            case KeyEvent.VK_R:
+                break;
+            case KeyEvent.VK_Y:
+                break;
+            case KeyEvent.VK_X:
+                break;
+            case KeyEvent.VK_Z:
+                break;
+        }
     }//GEN-LAST:event_jMenuOperacionalMenuKeyPressed
 
     private void jMenuConfiguracoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuConfiguracoesActionPerformed
         // TODO add your handling code here:
+        String grupoAdm = "ADMINISTRADORES";
+        String permissaoGrupoAdm = "Sim";
+        String moduloAdm = "CONFIGURACOES";
+        idGrupo = 0;
+        nomeGrupo = "";
+        idModulo = 0;
+        idGrupoModulo = 0;
+        permissaoModulo = "";
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+            conecta.rs.first();
+            nomeGrupo = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+        // SE O FOR O ADMINISTRADOR DO SISTEMA
+        if (loginUsusario.equals(nameUser)) {
+            TelaModuloConfiguracoes tc = new TelaModuloConfiguracoes();
+            this.jPanielPrincipal.add(tc);
+            tc.show();
+            try {
+                tc.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            if (nomeGrupo.equals(grupoAdministrador)) {
+                TelaModuloConfiguracoes tc = new TelaModuloConfiguracoes();
+                this.jPanielPrincipal.add(tc);
+                tc.show();
+                try {
+                    tc.setMaximum(true);
+                } catch (PropertyVetoException ex) {
+                    Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    conecta.rs.first();
+                    idGrupo = conecta.rs.getInt("IdGrupo");
+                    nomeGrupo = conecta.rs.getString("NomeGrupo");
+                } catch (Exception e) {
+                }
+                try {
+                    conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
+                            + "INNER JOIN MODULOS "
+                            + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                            + "WHERE MODULOS.NomeModulo='" + moduloAdm + "' "
+                            + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                    conecta.rs.first();
+                    idModulo = conecta.rs.getInt("IdModulo");
+                    idGrupoModulo = conecta.rs.getInt("IdGrupo");
+                    permissaoModulo = conecta.rs.getString("Permissao");
+                } catch (Exception er) {
+                }
+                conecta.desconecta();
+                if (idGrupo == idGrupoModulo && permissaoModulo.equals(permissaoGrupoAdm)) {
+                    TelaModuloConfiguracoes tc = new TelaModuloConfiguracoes();
+                    this.jPanielPrincipal.add(tc);
+                    tc.show();
+                    try {
+                        tc.setMaximum(true);
+                    } catch (PropertyVetoException ex) {
+                        Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "" + nameUser + " você não tem acesso a esse módulo, solicite liberação.");
+                }
+            }
+        }
     }//GEN-LAST:event_jMenuConfiguracoesActionPerformed
 
     private void jMenuSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSobreActionPerformed
@@ -3630,6 +4499,516 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
             System.exit(0);
         }
     }//GEN-LAST:event_jMenuSairMouseClicked
+
+    private void jMenuItemGerenciaAdministrativaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGerenciaAdministrativaActionPerformed
+        // TODO add your handling code here:
+        String grupoAdmPes = "ADMPESSOAL";
+        String grupoAdm = "ADMINISTRADORES";
+        String permissaoGrupoAdmPes = "Sim";
+        String moduloAdmPes = "ADMPESSOAL";
+        idGrupo = 0;
+        nomeGrupo = "";
+        idModulo = 0;
+        idGrupoModulo = 0;
+        permissaoModulo = "";
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+            conecta.rs.first();
+            nomeGrupo = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+        // SE O FOR O ADMINISTRADOR DO SISTEMA
+        if (loginUsusario.equals(nameUser)) {
+            TelaModuloAdmPessoal objAdm = new TelaModuloAdmPessoal();
+            this.jPanielPrincipal.add(objAdm);
+            objAdm.show();
+            try {
+                objAdm.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            if (nomeGrupo.equals(grupoAdministrador)) {
+                TelaModuloAdmPessoal objAdm = new TelaModuloAdmPessoal();
+                this.jPanielPrincipal.add(objAdm);
+                objAdm.show();
+                try {
+                    objAdm.setMaximum(true);
+                } catch (PropertyVetoException ex) {
+                    Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdmPes + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    conecta.rs.first();
+                    idGrupo = conecta.rs.getInt("IdGrupo");
+                    nomeGrupo = conecta.rs.getString("NomeGrupo");
+                } catch (Exception e) {
+                }
+                try {
+                    conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
+                            + "INNER JOIN MODULOS "
+                            + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                            + "WHERE MODULOS.NomeModulo='" + moduloAdmPes + "' "
+                            + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                    conecta.rs.first();
+                    idModulo = conecta.rs.getInt("IdModulo");
+                    idGrupoModulo = conecta.rs.getInt("IdGrupo");
+                    permissaoModulo = conecta.rs.getString("Permissao");
+                } catch (Exception er) {
+                }
+                conecta.desconecta();
+                if (idGrupo == idGrupoModulo && permissaoModulo.equals(permissaoGrupoAdmPes)) {
+                    TelaModuloAdmPessoal objAdm = new TelaModuloAdmPessoal();
+                    this.jPanielPrincipal.add(objAdm);
+                    objAdm.show();
+                    try {
+                        objAdm.setMaximum(true);
+                    } catch (PropertyVetoException ex) {
+                        Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "" + nameUser + " você não tem acesso a esse módulo, solicite liberação.");
+                }
+            }
+        }
+    }//GEN-LAST:event_jMenuItemGerenciaAdministrativaActionPerformed
+
+    private void jMenuItemDiretoriaUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDiretoriaUnidadeActionPerformed
+        // TODO add your handling code here:
+        String grupoNut = "DIRETORES";
+        String grupoAdm = "ADMINISTRADORES";
+        String permissaoGrupoNut = "Sim";
+        String moduloNut = "DIRETORES";
+        idGrupo = 0;
+        nomeGrupo = "";
+        idModulo = 0;
+        idGrupoModulo = 0;
+        permissaoModulo = "";
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+            conecta.rs.first();
+            nomeGrupo = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+        // SE O FOR O ADMINISTRADOR DO SISTEMA
+        if (loginUsusario.equals(nameUser)) {
+            TelaModuloDiretoria objTelaDiretor = new TelaModuloDiretoria();
+            this.jPanielPrincipal.add(objTelaDiretor);
+            objTelaDiretor.show();
+            try {
+                objTelaDiretor.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            if (nomeGrupo.equals(grupoAdministrador)) {
+                TelaModuloDiretoria objTelaDiretor = new TelaModuloDiretoria();
+                this.jPanielPrincipal.add(objTelaDiretor);
+                objTelaDiretor.show();
+                try {
+                    objTelaDiretor.setMaximum(true);
+                } catch (PropertyVetoException ex) {
+                    Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoNut + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    conecta.rs.first();
+                    idGrupo = conecta.rs.getInt("IdGrupo");
+                    nomeGrupo = conecta.rs.getString("NomeGrupo");
+                } catch (Exception e) {
+                }
+                try {
+                    conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
+                            + "INNER JOIN MODULOS "
+                            + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                            + "WHERE MODULOS.NomeModulo='" + moduloNut + "' "
+                            + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                    conecta.rs.first();
+                    idModulo = conecta.rs.getInt("IdModulo");
+                    idGrupoModulo = conecta.rs.getInt("IdGrupo");
+                    permissaoModulo = conecta.rs.getString("Permissao");
+                } catch (Exception er) {
+                }
+                conecta.desconecta();
+                if (idGrupo == idGrupoModulo && permissaoModulo.equals(permissaoGrupoNut)) {
+                    TelaModuloDiretoria objTelaDiretor = new TelaModuloDiretoria();
+                    this.jPanielPrincipal.add(objTelaDiretor);
+                    objTelaDiretor.show();
+                    try {
+                        objTelaDiretor.setMaximum(true);
+                    } catch (PropertyVetoException ex) {
+                        Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "" + nameUser + " você não tem acesso a esse módulo, solicite liberação.");
+                }
+            }
+        }
+    }//GEN-LAST:event_jMenuItemDiretoriaUnidadeActionPerformed
+
+    private void jMenuItemCRCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCRCActionPerformed
+        // TODO add your handling code here:
+        String grupoCrc = "CRC";
+        String grupoAdm = "ADMINISTRADORES";
+        String permissaoGrupo = "Sim";
+        String moduloCrc = "CRC";
+        idGrupo = 0;
+        nomeGrupo = "";
+        idModulo = 0;
+        idGrupoModulo = 0;
+        permissaoModulo = "";
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+            conecta.rs.first();
+            nomeGrupo = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+        // SE O FOR O ADMINISTRADOR DO SISTEMA
+        if (loginUsusario.equals(nameUser)) {
+            TelaModuloCRC trc = new TelaModuloCRC();
+            this.jPanielPrincipal.add(trc);
+            trc.show();
+            try {
+                trc.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            if (nomeGrupo.equals(grupoAdministrador)) {
+                TelaModuloCRC trc = new TelaModuloCRC();
+                this.jPanielPrincipal.add(trc);
+                trc.show();
+                try {
+                    trc.setMaximum(true);
+                } catch (PropertyVetoException ex) {
+                    Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoCrc + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    conecta.rs.first();
+                    idGrupo = conecta.rs.getInt("IdGrupo");
+                    nomeGrupo = conecta.rs.getString("NomeGrupo");
+                } catch (Exception e) {
+                }
+                try {
+                    conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
+                            + "INNER JOIN MODULOS "
+                            + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                            + "WHERE MODULOS.NomeModulo='" + moduloCrc + "' "
+                            + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                    conecta.rs.first();
+                    idModulo = conecta.rs.getInt("IdModulo");
+                    idGrupoModulo = conecta.rs.getInt("IdGrupo");
+                    permissaoModulo = conecta.rs.getString("Permissao");
+                } catch (Exception er) {
+                }
+                conecta.desconecta();
+                if (idGrupo == idGrupoModulo && permissaoModulo.equals(permissaoGrupo)) {
+                    TelaModuloCRC trc = new TelaModuloCRC();
+                    this.jPanielPrincipal.add(trc);
+                    trc.show();
+                    try {
+                        trc.setMaximum(true);
+                    } catch (PropertyVetoException ex) {
+                        Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "" + nameUser + " você não tem acesso a esse módulo, solicite liberação.");
+                }
+            }
+        }
+    }//GEN-LAST:event_jMenuItemCRCActionPerformed
+
+    private void jMenuItemAlmoxarifadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAlmoxarifadoActionPerformed
+        // TODO add your handling code here:
+        String grupoAlm = "ALMOXARIFADO";
+        String grupoAdm = "ADMINISTRADORES";
+        String permissaoGrupoAlm = "Sim";
+        String moduloAlm = "ALMOXARIFADO";
+        idGrupo = 0;
+        nomeGrupo = "";
+        idModulo = 0;
+        idGrupoModulo = 0;
+        permissaoModulo = "";
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+            conecta.rs.first();
+            nomeGrupo = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+        // SE O FOR O ADMINISTRADOR DO SISTEMA
+        if (loginUsusario.equals(nameUser)) {
+            TelaModuloAlmoxarifado taf = new TelaModuloAlmoxarifado();
+            this.jPanielPrincipal.add(taf);
+            taf.show();
+            try {
+                taf.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            if (nomeGrupo.equals(grupoAdministrador)) {
+                TelaModuloAlmoxarifado taf = new TelaModuloAlmoxarifado();
+                this.jPanielPrincipal.add(taf);
+                taf.show();
+                try {
+                    taf.setMaximum(true);
+                } catch (PropertyVetoException ex) {
+                    Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAlm + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    conecta.rs.first();
+                    idGrupo = conecta.rs.getInt("IdGrupo");
+                    nomeGrupo = conecta.rs.getString("NomeGrupo");
+                } catch (Exception e) {
+                }
+                try {
+                    conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
+                            + "INNER JOIN MODULOS "
+                            + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                            + "WHERE MODULOS.NomeModulo='" + moduloAlm + "' "
+                            + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                    conecta.rs.first();
+                    idModulo = conecta.rs.getInt("IdModulo");
+                    idGrupoModulo = conecta.rs.getInt("IdGrupo");
+                    permissaoModulo = conecta.rs.getString("Permissao");
+                } catch (Exception er) {
+                }
+                conecta.desconecta();
+                if (idGrupo == idGrupoModulo && permissaoModulo.equals(permissaoGrupoAlm)) {
+                    TelaModuloAlmoxarifado taf = new TelaModuloAlmoxarifado();
+                    this.jPanielPrincipal.add(taf);
+                    taf.show();
+                    try {
+                        taf.setMaximum(true);
+                    } catch (PropertyVetoException ex) {
+                        Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "" + nameUser + " você não tem acesso a esse módulo, solicite liberação.");
+                }
+            }
+        }
+    }//GEN-LAST:event_jMenuItemAlmoxarifadoActionPerformed
+
+    private void jMenuItemBancoVirtualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBancoVirtualActionPerformed
+        // TODO add your handling code here:
+        String grupoFin = "FINANCEIRO";
+        String grupoAdm = "ADMINISTRADORES";
+        String permissaoGrupoFin = "Sim";
+        String moduloFin = "FINANCEIRO";
+        idGrupo = 0;
+        nomeGrupo = "";
+        idModulo = 0;
+        idGrupoModulo = 0;
+        permissaoModulo = "";
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+            conecta.rs.first();
+            nomeGrupo = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+        // SE O FOR O ADMINISTRADOR DO SISTEMA
+        if (loginUsusario.equals(nameUser)) {
+            TelaModuloFinanceiro tfin = new TelaModuloFinanceiro();
+            this.jPanielPrincipal.add(tfin);
+            tfin.show();
+            try {
+                tfin.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            if (nomeGrupo.equals(grupoAdministrador)) {
+                TelaModuloFinanceiro tfin = new TelaModuloFinanceiro();
+                this.jPanielPrincipal.add(tfin);
+                tfin.show();
+                try {
+                    tfin.setMaximum(true);
+                } catch (PropertyVetoException ex) {
+                    Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoFin + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    conecta.rs.first();
+                    idGrupo = conecta.rs.getInt("IdGrupo");
+                    nomeGrupo = conecta.rs.getString("NomeGrupo");
+                } catch (Exception e) {
+                }
+                try {
+                    conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
+                            + "INNER JOIN MODULOS "
+                            + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                            + "WHERE MODULOS.NomeModulo='" + moduloFin + "' "
+                            + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                    conecta.rs.first();
+                    idModulo = conecta.rs.getInt("IdModulo");
+                    idGrupoModulo = conecta.rs.getInt("IdGrupo");
+                    permissaoModulo = conecta.rs.getString("Permissao");
+                } catch (Exception er) {
+                }
+                conecta.desconecta();
+                if (idGrupo == idGrupoModulo && permissaoModulo.equals(permissaoGrupoFin)) {
+                    TelaModuloFinanceiro tfin = new TelaModuloFinanceiro();
+                    this.jPanielPrincipal.add(tfin);
+                    tfin.show();
+                    try {
+                        tfin.setMaximum(true);
+                    } catch (PropertyVetoException ex) {
+                        Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "" + nameUser + " você não tem acesso a esse módulo, solicite liberação.");
+                }
+            }
+        }
+    }//GEN-LAST:event_jMenuItemBancoVirtualActionPerformed
+
+    private void jMenuItemComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemComprasActionPerformed
+        // TODO add your handling code here:
+        String grupoAdm = "ADMINISTRADORES";
+        String permissaoGrupoComp = "Sim";
+        String moduloComp = "COMPRAS";
+        String grupoComp = "COMPRAS";
+        idGrupo = 0;
+        nomeGrupo = "";
+        idModulo = 0;
+        idGrupoModulo = 0;
+        permissaoModulo = "";
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+            conecta.rs.first();
+            nomeGrupo = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+        // SE O FOR O ADMINISTRADOR DO SISTEMA
+        if (loginUsusario.equals(nameUser)) {
+            TelaModuloCompras fer = new TelaModuloCompras();
+            this.jPanielPrincipal.add(fer);
+            fer.show();
+            try {
+                fer.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            if (nomeGrupo.equals(grupoAdministrador)) {
+                TelaModuloCompras fer = new TelaModuloCompras();
+                this.jPanielPrincipal.add(fer);
+                fer.show();
+                try {
+                    fer.setMaximum(true);
+                } catch (PropertyVetoException ex) {
+                    Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoComp + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    conecta.rs.first();
+                    idGrupo = conecta.rs.getInt("IdGrupo");
+                    nomeGrupo = conecta.rs.getString("NomeGrupo");
+                } catch (Exception e) {
+                }
+                try {
+                    conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
+                            + "INNER JOIN MODULOS "
+                            + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                            + "WHERE MODULOS.NomeModulo='" + moduloComp + "' "
+                            + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                    conecta.rs.first();
+                    idModulo = conecta.rs.getInt("IdModulo");
+                    idGrupoModulo = conecta.rs.getInt("IdGrupo");
+                    permissaoModulo = conecta.rs.getString("Permissao");
+                } catch (Exception er) {
+                }
+                conecta.desconecta();
+                if (idGrupo == idGrupoModulo && permissaoModulo.equals(permissaoGrupoComp)) {
+                    TelaModuloCompras fer = new TelaModuloCompras();
+                    this.jPanielPrincipal.add(fer);
+                    fer.show();
+                    try {
+                        fer.setMaximum(true);
+                    } catch (PropertyVetoException ex) {
+                        Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "" + nameUser + " você não tem acesso a esse módulo, solicite liberação.");
+                }
+            }
+        }
+    }//GEN-LAST:event_jMenuItemComprasActionPerformed
 
     /**
      * @param args the command line arguments
