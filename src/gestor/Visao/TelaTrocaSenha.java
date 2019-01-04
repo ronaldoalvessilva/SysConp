@@ -28,9 +28,9 @@ public class TelaTrocaSenha extends javax.swing.JDialog {
      * Creates new form TelaTrocaSenha
      */
     public static TelaModuloPrincipal telaModuloPrincipal;
-    
+
     public TelaTrocaSenha(TelaModuloPrincipal parent, boolean modal) {
-       this.telaModuloPrincipal = parent;
+        this.telaModuloPrincipal = parent;
         this.setModal(modal);
         setLocationRelativeTo(telaModuloPrincipal);
         initComponents();
@@ -367,7 +367,8 @@ public class TelaTrocaSenha extends javax.swing.JDialog {
         }
         conecta.desconecta();
     }
-    public void limparCampos(){
+
+    public void limparCampos() {
         jSenhaAtual.setText("");
         jNovaSenha.setText("");
         jConfirmaSenha.setText("");
