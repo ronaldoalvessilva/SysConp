@@ -12,7 +12,6 @@ import static gestor.Visao.TelaRegimentoInternoDisciplinar.jAlcunha;
 import static gestor.Visao.TelaRegimentoInternoDisciplinar.jCodigoInternoReg;
 import static gestor.Visao.TelaRegimentoInternoDisciplinar.jMatriculaPenalReg;
 import static gestor.Visao.TelaRegimentoInternoDisciplinar.jNomeInternoReg;
-import static gestor.Visao.TelaRegimentoInternoDisciplinar.jRG;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,6 +20,8 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import static gestor.Visao.TelaRegimentoInternoDisciplinar.jCela;
+import static gestor.Visao.TelaRegimentoInternoDisciplinar.jPavilhaoOrigem;
 
 /**
  *
@@ -235,7 +236,9 @@ public class TelaPesqInternosEventosAutorRegimeDisciplinar extends javax.swing.J
                 javax.swing.ImageIcon v = new javax.swing.ImageIcon(caminho);
                 jFotoInternoReg.setIcon(v);
                 jFotoInternoReg.setIcon(new ImageIcon(v.getImage().getScaledInstance(jFotoInternoReg.getWidth(), jFotoInternoReg.getHeight(), Image.SCALE_DEFAULT)));
-                jRG.setText(conecta.rs.getString("RgInternoCrc"));
+                //
+                jPavilhaoOrigem.setText(conecta.rs.getString("DescricaoPav"));
+                jCela.setText(conecta.rs.getString("EndCelaPav"));
                 jAlcunha.setText(conecta.rs.getString("AlcunhaCrc"));
                 conecta.desconecta();
             } catch (SQLException ex) {

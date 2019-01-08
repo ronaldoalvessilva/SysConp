@@ -31,8 +31,13 @@ public class AutoresRegimentoDisciplinar {
     private String dataUp;
     private String horarioInsert;
     private String horarioUp;
+    private String descricaoPavilhaoOrigem;
+    private String descricaoCelaOrigem;
 
-    public AutoresRegimentoDisciplinar(int idAutor, int idReg, int idInternoCrc, String nomeInternoCrc, int idPav, String descricaoPavilhao, int idCela, String descricaoCela, int qtdeDias, Date dataInicio, Date dataTermino, String utilizaSaida, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
+    public AutoresRegimentoDisciplinar() {
+    }
+
+    public AutoresRegimentoDisciplinar(int idAutor, int idReg, int idInternoCrc, String nomeInternoCrc, int idPav, String descricaoPavilhao, int idCela, String descricaoCela, int qtdeDias, Date dataInicio, Date dataTermino, String utilizaSaida, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, String descricaoPavilhaoOrigem, String descricaoCelaOrigem) {
         this.idAutor = idAutor;
         this.idReg = idReg;
         this.idInternoCrc = idInternoCrc;
@@ -51,9 +56,8 @@ public class AutoresRegimentoDisciplinar {
         this.dataUp = dataUp;
         this.horarioInsert = horarioInsert;
         this.horarioUp = horarioUp;
-    }
-
-    public AutoresRegimentoDisciplinar() {
+        this.descricaoPavilhaoOrigem = descricaoPavilhaoOrigem;
+        this.descricaoCelaOrigem = descricaoCelaOrigem;
     }
 
     /**
@@ -307,4 +311,33 @@ public class AutoresRegimentoDisciplinar {
     public void setHorarioUp(String horarioUp) {
         this.horarioUp = horarioUp;
     }
+
+    /**
+     * @return the descricaoPavilhaoOrigem
+     */
+    public String getDescricaoPavilhaoOrigem() {
+        return descricaoPavilhaoOrigem;
+    }
+
+    /**
+     * @param descricaoPavilhaoOrigem the descricaoPavilhaoOrigem to set
+     */
+    public void setDescricaoPavilhaoOrigem(String descricaoPavilhaoOrigem) {
+        this.descricaoPavilhaoOrigem = descricaoPavilhaoOrigem;
+    }
+
+    /**
+     * @return the descricaoCelaOrigem
+     */
+    public String getDescricaoCelaOrigem() {
+        return descricaoCelaOrigem;
+    }
+
+    /**
+     * @param descricaoCelaOrigem the descricaoCelaOrigem to set
+     */
+    public void setDescricaoCelaOrigem(String descricaoCelaOrigem) {
+        this.descricaoCelaOrigem = descricaoCelaOrigem;
+    }
+    
 }

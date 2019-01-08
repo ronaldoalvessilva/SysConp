@@ -24,8 +24,19 @@ public class InternosIsolamento {
     private String dataUp;
     private String horarioInsert;
     private String horarioUp;
+    private int idPavOrigem;
+    private String nomePavilhaoOrigem;
+    private int idCelaOrigem;
+    private String nomeCelaOrigem;
+    private int idPavDestino;
+    private String nomePavilhoDestino;
+    private int idCelaDestino;
+    private String nomeCelaDestino;
 
-    public InternosIsolamento(int idIsola, int idInternoCrc, String nomeInterno, int idLancRet, int idLanc, String confirmaUtilizacao, String observacaoIsolamento, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
+    public InternosIsolamento() {
+    }
+
+    public InternosIsolamento(int idIsola, int idInternoCrc, String nomeInterno, int idLancRet, int idLanc, String confirmaUtilizacao, String observacaoIsolamento, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, int idPavOrigem, String nomePavilhaoOrigem, int idCelaOrigem, String nomeCelaOrigem, int idPavDestino, String nomePavilhoDestino, int idCelaDestino, String nomeCelaDestino) {
         this.idIsola = idIsola;
         this.idInternoCrc = idInternoCrc;
         this.nomeInterno = nomeInterno;
@@ -39,9 +50,14 @@ public class InternosIsolamento {
         this.dataUp = dataUp;
         this.horarioInsert = horarioInsert;
         this.horarioUp = horarioUp;
-    }
-
-    public InternosIsolamento() {
+        this.idPavOrigem = idPavOrigem;
+        this.nomePavilhaoOrigem = nomePavilhaoOrigem;
+        this.idCelaOrigem = idCelaOrigem;
+        this.nomeCelaOrigem = nomeCelaOrigem;
+        this.idPavDestino = idPavDestino;
+        this.nomePavilhoDestino = nomePavilhoDestino;
+        this.idCelaDestino = idCelaDestino;
+        this.nomeCelaDestino = nomeCelaDestino;
     }
 
     /**
@@ -224,5 +240,117 @@ public class InternosIsolamento {
      */
     public void setHorarioUp(String horarioUp) {
         this.horarioUp = horarioUp;
+    }
+
+    /**
+     * @return the idPavOrigem
+     */
+    public int getIdPavOrigem() {
+        return idPavOrigem;
+    }
+
+    /**
+     * @param idPavOrigem the idPavOrigem to set
+     */
+    public void setIdPavOrigem(int idPavOrigem) {
+        this.idPavOrigem = idPavOrigem;
+    }
+
+    /**
+     * @return the nomePavilhaoOrigem
+     */
+    public String getNomePavilhaoOrigem() {
+        return nomePavilhaoOrigem;
+    }
+
+    /**
+     * @param nomePavilhaoOrigem the nomePavilhaoOrigem to set
+     */
+    public void setNomePavilhaoOrigem(String nomePavilhaoOrigem) {
+        this.nomePavilhaoOrigem = nomePavilhaoOrigem;
+    }
+
+    /**
+     * @return the idCelaOrigem
+     */
+    public int getIdCelaOrigem() {
+        return idCelaOrigem;
+    }
+
+    /**
+     * @param idCelaOrigem the idCelaOrigem to set
+     */
+    public void setIdCelaOrigem(int idCelaOrigem) {
+        this.idCelaOrigem = idCelaOrigem;
+    }
+
+    /**
+     * @return the nomeCelaOrigem
+     */
+    public String getNomeCelaOrigem() {
+        return nomeCelaOrigem;
+    }
+
+    /**
+     * @param nomeCelaOrigem the nomeCelaOrigem to set
+     */
+    public void setNomeCelaOrigem(String nomeCelaOrigem) {
+        this.nomeCelaOrigem = nomeCelaOrigem;
+    }
+
+    /**
+     * @return the idPavDestino
+     */
+    public int getIdPavDestino() {
+        return idPavDestino;
+    }
+
+    /**
+     * @param idPavDestino the idPavDestino to set
+     */
+    public void setIdPavDestino(int idPavDestino) {
+        this.idPavDestino = idPavDestino;
+    }
+
+    /**
+     * @return the nomePavilhoDestino
+     */
+    public String getNomePavilhoDestino() {
+        return nomePavilhoDestino;
+    }
+
+    /**
+     * @param nomePavilhoDestino the nomePavilhoDestino to set
+     */
+    public void setNomePavilhoDestino(String nomePavilhoDestino) {
+        this.nomePavilhoDestino = nomePavilhoDestino;
+    }
+
+    /**
+     * @return the idCelaDestino
+     */
+    public int getIdCelaDestino() {
+        return idCelaDestino;
+    }
+
+    /**
+     * @param idCelaDestino the idCelaDestino to set
+     */
+    public void setIdCelaDestino(int idCelaDestino) {
+        this.idCelaDestino = idCelaDestino;
+    }
+
+    /**
+     * @return the nomeCelaDestino
+     */
+    public String getNomeCelaDestino() {
+        return nomeCelaDestino;
+    }
+
+    /**
+     * @param nomeCelaDestino the nomeCelaDestino to set
+     */
+    public void setNomeCelaDestino(String nomeCelaDestino) {
+        this.nomeCelaDestino = nomeCelaDestino;
     }
 }

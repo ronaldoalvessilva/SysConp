@@ -27,7 +27,7 @@ public class ControleAutorRegimeDisciplinar {
         pesquisarCela(objAutor.getDescricaoCela());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO AUTORES_REGIMENTO_DISCIPLINAR (IdReg,IdInternoCrc,IdPav,IdCela,QtdeDias,UtilizaSaida,DataInicio,DataTermino,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?,?)");           
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO AUTORES_REGIMENTO_DISCIPLINAR (IdReg,IdInternoCrc,IdPav,IdCela,QtdeDias,UtilizaSaida,DataInicio,DataTermino,UsuarioInsert,DataInsert,HorarioInsert,PavilhaoOrigem,CelaOrigem) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");           
             pst.setInt(1, objAutor.getIdReg());
             pst.setInt(2, codInterno);
             pst.setInt(3, codPav);
@@ -39,6 +39,8 @@ public class ControleAutorRegimeDisciplinar {
             pst.setString(9, objAutor.getUsuarioInsert());
             pst.setString(10, objAutor.getDataInsert());
             pst.setString(11, objAutor.getHorarioInsert());
+            pst.setString(12, objAutor.getDescricaoPavilhaoOrigem());
+            pst.setString(13, objAutor.getDescricaoCelaOrigem());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INCLUIR os Dados.\nERRO: " + ex);
@@ -53,7 +55,7 @@ public class ControleAutorRegimeDisciplinar {
         pesquisarCela(objAutor.getDescricaoCela());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE AUTORES_REGIMENTO_DISCIPLINAR SET IdReg=?,IdInternoCrc=?,IdPav=?,IdCela=?,QtdeDias=?,UtilizaSaida=?,DataInicio=?,DataTermino=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdAutor='" + objAutor.getIdAutor() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE AUTORES_REGIMENTO_DISCIPLINAR SET IdReg=?,IdInternoCrc=?,IdPav=?,IdCela=?,QtdeDias=?,UtilizaSaida=?,DataInicio=?,DataTermino=?,UsuarioUp=?,DataUp=?,HorarioUp=?,PavilhaoOrigem=?,CelaOrigem=? WHERE IdAutor='" + objAutor.getIdAutor() + "'");
             pst.setInt(1, objAutor.getIdReg());
             pst.setInt(2, codInterno);
             pst.setInt(3, codPav);
@@ -65,6 +67,8 @@ public class ControleAutorRegimeDisciplinar {
             pst.setString(9, objAutor.getUsuarioUp());
             pst.setString(10, objAutor.getDataUp());
             pst.setString(11, objAutor.getHorarioUp());
+            pst.setString(12, objAutor.getDescricaoPavilhaoOrigem());
+            pst.setString(13, objAutor.getDescricaoCelaOrigem());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO: " + ex);

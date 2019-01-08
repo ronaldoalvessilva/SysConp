@@ -657,6 +657,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         Movimentacao.add(ControleValores);
         Movimentacao.add(jSeparator18);
 
+        RegistroObjetoProcedimento.setForeground(new java.awt.Color(204, 0, 0));
         RegistroObjetoProcedimento.setText("Registro de Procedimento de Revista de Pavilhão/Celas ");
         RegistroObjetoProcedimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -665,8 +666,10 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         });
         Movimentacao.add(RegistroObjetoProcedimento);
 
+        ControleDisciplinarInternos.setForeground(new java.awt.Color(0, 102, 0));
         ControleDisciplinarInternos.setText("Penalidade Disciplinar - (Lei nº 7.210/1984, Art. 41, Art. 53 da LEP)");
 
+        RegistroEvendoDisciplinar.setForeground(new java.awt.Color(204, 0, 0));
         RegistroEvendoDisciplinar.setText("Registro do (Regime Disciplinar Diferenciado - RDD  - Art. 52 e 53)");
         RegistroEvendoDisciplinar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -675,6 +678,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         });
         ControleDisciplinarInternos.add(RegistroEvendoDisciplinar);
 
+        AplicarRegistroPenalidadeDisciplinas.setForeground(new java.awt.Color(0, 0, 204));
         AplicarRegistroPenalidadeDisciplinas.setText("Registro de Penalidade Disciplinar - Art. 53 e Art. 41 Parágrafo Único");
         AplicarRegistroPenalidadeDisciplinas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -683,6 +687,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         });
         ControleDisciplinarInternos.add(AplicarRegistroPenalidadeDisciplinas);
 
+        RetirarPenalidade.setForeground(new java.awt.Color(0, 102, 0));
         RetirarPenalidade.setText("Retirar Penalidade Disciplina a Internos");
         RetirarPenalidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

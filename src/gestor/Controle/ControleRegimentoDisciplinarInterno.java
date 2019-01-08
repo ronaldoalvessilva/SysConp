@@ -66,7 +66,7 @@ public class ControleRegimentoDisciplinarInterno {
             pst.setString(7, objRegEvenDisciplinar.getObservacao());
             pst.setString(8, objRegEvenDisciplinar.getUsuarioUp());
             pst.setString(9, objRegEvenDisciplinar.getDataUp());
-            pst.setString(10, objRegEvenDisciplinar.getHorarioUp());
+            pst.setString(10, objRegEvenDisciplinar.getHorarioUp());            
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel gravar os Dados.\nERRO: " + ex);

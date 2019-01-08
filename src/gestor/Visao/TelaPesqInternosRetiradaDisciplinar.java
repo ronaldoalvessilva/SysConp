@@ -7,7 +7,6 @@ package gestor.Visao;
 
 import gestor.Dao.*;
 import static gestor.Visao.TelaRetirarPenalidadeInterno.FotoInternoRP;
-import static gestor.Visao.TelaRetirarPenalidadeInterno.jNomeMaeInternoRP;
 import static gestor.Visao.TelaRetirarPenalidadeInterno.jIdInternoRP;
 import static gestor.Visao.TelaRetirarPenalidadeInterno.jDocumentoOrigem;
 import static gestor.Visao.TelaRetirarPenalidadeInterno.jMatriculaPenalRP;
@@ -20,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import static gestor.Visao.TelaRetirarPenalidadeInterno.jPavilhaoOrigem;
 
 /**
  *
@@ -222,7 +222,7 @@ public class TelaPesqInternosRetiradaDisciplinar extends javax.swing.JInternalFr
                 jIdInternoRP.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
                 jMatriculaPenalRP.setText(conecta.rs.getString("MatriculaCrc"));
                 jNomeInternoRP.setText(conecta.rs.getString("NomeInternoCrc"));
-                jNomeMaeInternoRP.setText(conecta.rs.getString("MaeInternoCrc"));
+                jPavilhaoOrigem.setText(conecta.rs.getString("MaeInternoCrc"));
                 // Capturando foto
                 caminho = conecta.rs.getString("FotoInternoCrc");
                 javax.swing.ImageIcon v = new javax.swing.ImageIcon(caminho);
