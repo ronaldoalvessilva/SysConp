@@ -112,8 +112,10 @@ public class TelaModuloCompras extends javax.swing.JInternalFrame {
         jPainelCompras.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/SISCONP 2.gif"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/BrasaoFundo500Prata2.png"))); // NOI18N
         jLabel1.setText("jLabel1");
+
+        jPainelCompras.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jPainelComprasLayout = new javax.swing.GroupLayout(jPainelCompras);
         jPainelCompras.setLayout(jPainelComprasLayout);
@@ -127,7 +129,6 @@ public class TelaModuloCompras extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 49, Short.MAX_VALUE))
         );
-        jPainelCompras.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jCadastros.setText("Cadastros");
 

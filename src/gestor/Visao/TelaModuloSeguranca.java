@@ -369,7 +369,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         jPainelSeguranca.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/SISCONP 2.gif"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/BrasaoFundo500Prata2.png"))); // NOI18N
 
         jPainelSeguranca.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 

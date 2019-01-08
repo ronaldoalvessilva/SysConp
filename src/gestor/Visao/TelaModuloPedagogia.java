@@ -220,7 +220,9 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
         jPainelPedagogia.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/SISCONP 2.gif"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/BrasaoFundo500Prata2.png"))); // NOI18N
+
+        jPainelPedagogia.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jPainelPedagogiaLayout = new javax.swing.GroupLayout(jPainelPedagogia);
         jPainelPedagogia.setLayout(jPainelPedagogiaLayout);
@@ -234,7 +236,6 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 61, Short.MAX_VALUE))
         );
-        jPainelPedagogia.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         Cadastros.setText("Cadastro");
 

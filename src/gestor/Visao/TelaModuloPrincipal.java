@@ -306,13 +306,15 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
 
         jToolBar5.setBackground(new java.awt.Color(51, 51, 255));
         jToolBar5.setRollover(true);
+        jToolBar5.setMinimumSize(new java.awt.Dimension(1200, 66));
 
         jBtAdmPessoal.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jBtAdmPessoal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Administração40.png"))); // NOI18N
+        jBtAdmPessoal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Administração48.png"))); // NOI18N
         jBtAdmPessoal.setToolTipText("Administração");
         jBtAdmPessoal.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtAdmPessoal.setMaximumSize(new java.awt.Dimension(44, 44));
-        jBtAdmPessoal.setMinimumSize(new java.awt.Dimension(43, 43));
+        jBtAdmPessoal.setMaximumSize(new java.awt.Dimension(53, 53));
+        jBtAdmPessoal.setMinimumSize(new java.awt.Dimension(48, 48));
+        jBtAdmPessoal.setPreferredSize(new java.awt.Dimension(48, 48));
         jBtAdmPessoal.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jBtAdmPessoal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -322,10 +324,11 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jToolBar5.add(jBtAdmPessoal);
 
         jBtDiretoria.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jBtDiretoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Diretoria40.png"))); // NOI18N
+        jBtDiretoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Diretoria48.png"))); // NOI18N
         jBtDiretoria.setToolTipText("Diretoria");
         jBtDiretoria.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtDiretoria.setMaximumSize(new java.awt.Dimension(44, 44));
+        jBtDiretoria.setMaximumSize(new java.awt.Dimension(53, 53));
+        jBtDiretoria.setMinimumSize(new java.awt.Dimension(48, 48));
         jBtDiretoria.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jBtDiretoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -335,12 +338,12 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jToolBar5.add(jBtDiretoria);
 
         jBtCRC2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jBtCRC2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/CRC40_1.png"))); // NOI18N
+        jBtCRC2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/CRC48.png"))); // NOI18N
         jBtCRC2.setToolTipText("CRC");
         jBtCRC2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtCRC2.setMaximumSize(new java.awt.Dimension(44, 44));
-        jBtCRC2.setMinimumSize(new java.awt.Dimension(40, 40));
-        jBtCRC2.setPreferredSize(new java.awt.Dimension(40, 40));
+        jBtCRC2.setMaximumSize(new java.awt.Dimension(53, 53));
+        jBtCRC2.setMinimumSize(new java.awt.Dimension(48, 48));
+        jBtCRC2.setPreferredSize(new java.awt.Dimension(48, 48));
         jBtCRC2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jBtCRC2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -351,10 +354,12 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jToolBar5.add(jSeparator1);
 
         jBtControleValores2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jBtControleValores2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Banco-40.png"))); // NOI18N
+        jBtControleValores2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Banco248.png"))); // NOI18N
         jBtControleValores2.setToolTipText("Banco Virtual");
         jBtControleValores2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtControleValores2.setMaximumSize(new java.awt.Dimension(44, 44));
+        jBtControleValores2.setMaximumSize(new java.awt.Dimension(53, 53));
+        jBtControleValores2.setMinimumSize(new java.awt.Dimension(48, 48));
+        jBtControleValores2.setPreferredSize(new java.awt.Dimension(48, 48));
         jBtControleValores2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jBtControleValores2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -364,10 +369,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jToolBar5.add(jBtControleValores2);
 
         jBtAlmoxarifado2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jBtAlmoxarifado2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Almoxarifado40.png"))); // NOI18N
+        jBtAlmoxarifado2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Almoxarifado48.png"))); // NOI18N
         jBtAlmoxarifado2.setToolTipText("Almoxarifado");
         jBtAlmoxarifado2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtAlmoxarifado2.setMaximumSize(new java.awt.Dimension(44, 44));
+        jBtAlmoxarifado2.setMaximumSize(new java.awt.Dimension(53, 53));
         jBtAlmoxarifado2.setMinimumSize(new java.awt.Dimension(48, 48));
         jBtAlmoxarifado2.setPreferredSize(new java.awt.Dimension(64, 64));
         jBtAlmoxarifado2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -379,10 +384,11 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jToolBar5.add(jBtAlmoxarifado2);
 
         jBtCompras.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jBtCompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Compras40.png"))); // NOI18N
+        jBtCompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Compras48.png"))); // NOI18N
         jBtCompras.setToolTipText("Compras");
         jBtCompras.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtCompras.setMaximumSize(new java.awt.Dimension(44, 44));
+        jBtCompras.setMaximumSize(new java.awt.Dimension(53, 53));
+        jBtCompras.setMinimumSize(new java.awt.Dimension(48, 48));
         jBtCompras.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jBtCompras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -393,10 +399,11 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jToolBar5.add(jSeparator2);
 
         jBtJuridico2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jBtJuridico2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Juridico.png"))); // NOI18N
+        jBtJuridico2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Juridico48.png"))); // NOI18N
         jBtJuridico2.setToolTipText("Jurídico");
         jBtJuridico2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtJuridico2.setMaximumSize(new java.awt.Dimension(44, 44));
+        jBtJuridico2.setMaximumSize(new java.awt.Dimension(53, 53));
+        jBtJuridico2.setMinimumSize(new java.awt.Dimension(48, 48));
         jBtJuridico2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jBtJuridico2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -406,10 +413,11 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jToolBar5.add(jBtJuridico2);
 
         jBtServicoSocial2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jBtServicoSocial2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/dragonplayer-icone-4513-48.png"))); // NOI18N
+        jBtServicoSocial2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ServicoSocial48.png"))); // NOI18N
         jBtServicoSocial2.setToolTipText("Serviço Social");
         jBtServicoSocial2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtServicoSocial2.setMaximumSize(new java.awt.Dimension(44, 44));
+        jBtServicoSocial2.setMaximumSize(new java.awt.Dimension(53, 53));
+        jBtServicoSocial2.setMinimumSize(new java.awt.Dimension(48, 48));
         jBtServicoSocial2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jBtServicoSocial2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -422,7 +430,8 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jBtPedagogia2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Pedagogia.png"))); // NOI18N
         jBtPedagogia2.setToolTipText("Pedagogia");
         jBtPedagogia2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtPedagogia2.setMaximumSize(new java.awt.Dimension(44, 44));
+        jBtPedagogia2.setMaximumSize(new java.awt.Dimension(53, 53));
+        jBtPedagogia2.setMinimumSize(new java.awt.Dimension(48, 48));
         jBtPedagogia2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jBtPedagogia2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -432,11 +441,11 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jToolBar5.add(jBtPedagogia2);
 
         jBtTerapeuta2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jBtTerapeuta2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/TO.png"))); // NOI18N
+        jBtTerapeuta2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Terapia.png"))); // NOI18N
         jBtTerapeuta2.setToolTipText("Terapia");
         jBtTerapeuta2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtTerapeuta2.setMaximumSize(new java.awt.Dimension(44, 44));
-        jBtTerapeuta2.setMinimumSize(new java.awt.Dimension(65, 64));
+        jBtTerapeuta2.setMaximumSize(new java.awt.Dimension(53, 53));
+        jBtTerapeuta2.setMinimumSize(new java.awt.Dimension(48, 48));
         jBtTerapeuta2.setPreferredSize(new java.awt.Dimension(64, 64));
         jBtTerapeuta2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jBtTerapeuta2.addActionListener(new java.awt.event.ActionListener() {
@@ -450,7 +459,8 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jBtPsicologia2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Psicologia40.png"))); // NOI18N
         jBtPsicologia2.setToolTipText("Psicologia");
         jBtPsicologia2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtPsicologia2.setMaximumSize(new java.awt.Dimension(44, 44));
+        jBtPsicologia2.setMaximumSize(new java.awt.Dimension(53, 53));
+        jBtPsicologia2.setMinimumSize(new java.awt.Dimension(48, 48));
         jBtPsicologia2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jBtPsicologia2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -460,10 +470,11 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jToolBar5.add(jBtPsicologia2);
 
         jBtOdontologia2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jBtOdontologia2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Odontologia2-40.png"))); // NOI18N
+        jBtOdontologia2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Odontologia48.png"))); // NOI18N
         jBtOdontologia2.setToolTipText("Odontológico");
         jBtOdontologia2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtOdontologia2.setMaximumSize(new java.awt.Dimension(44, 44));
+        jBtOdontologia2.setMaximumSize(new java.awt.Dimension(53, 53));
+        jBtOdontologia2.setMinimumSize(new java.awt.Dimension(48, 48));
         jBtOdontologia2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jBtOdontologia2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -473,10 +484,11 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jToolBar5.add(jBtOdontologia2);
 
         jBtServicoMedico2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jBtServicoMedico2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Enfermaria40.png"))); // NOI18N
+        jBtServicoMedico2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Enfermaria48.png"))); // NOI18N
         jBtServicoMedico2.setToolTipText("Enfermaria");
         jBtServicoMedico2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtServicoMedico2.setMaximumSize(new java.awt.Dimension(44, 44));
+        jBtServicoMedico2.setMaximumSize(new java.awt.Dimension(53, 53));
+        jBtServicoMedico2.setMinimumSize(new java.awt.Dimension(48, 48));
         jBtServicoMedico2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jBtServicoMedico2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -486,10 +498,11 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jToolBar5.add(jBtServicoMedico2);
 
         jBtNutricao.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jBtNutricao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Nuticao40.png"))); // NOI18N
+        jBtNutricao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Nutricao48.png"))); // NOI18N
         jBtNutricao.setToolTipText("Nutrição");
         jBtNutricao.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtNutricao.setMaximumSize(new java.awt.Dimension(44, 44));
+        jBtNutricao.setMaximumSize(new java.awt.Dimension(53, 53));
+        jBtNutricao.setMinimumSize(new java.awt.Dimension(48, 48));
         jBtNutricao.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jBtNutricao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -499,10 +512,11 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jToolBar5.add(jBtNutricao);
 
         jBtFarmacia.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jBtFarmacia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/snake_cup-032.png"))); // NOI18N
+        jBtFarmacia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Farmacia48.png"))); // NOI18N
         jBtFarmacia.setToolTipText("Farmácia");
         jBtFarmacia.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtFarmacia.setMaximumSize(new java.awt.Dimension(44, 44));
+        jBtFarmacia.setMaximumSize(new java.awt.Dimension(53, 53));
+        jBtFarmacia.setMinimumSize(new java.awt.Dimension(48, 48));
         jBtFarmacia.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jBtFarmacia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -512,10 +526,11 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jToolBar5.add(jBtFarmacia);
 
         jBtEducacaoFisica.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jBtEducacaoFisica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/EducacaoFisica40.png"))); // NOI18N
+        jBtEducacaoFisica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Educacao fisica48.png"))); // NOI18N
         jBtEducacaoFisica.setToolTipText("Educação Fisíca");
         jBtEducacaoFisica.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtEducacaoFisica.setMaximumSize(new java.awt.Dimension(44, 44));
+        jBtEducacaoFisica.setMaximumSize(new java.awt.Dimension(53, 53));
+        jBtEducacaoFisica.setMinimumSize(new java.awt.Dimension(74, 48));
         jBtEducacaoFisica.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jBtEducacaoFisica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -526,10 +541,11 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jToolBar5.add(jSeparator3);
 
         jBtSeguranca2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jBtSeguranca2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/seguranca240.png"))); // NOI18N
-        jBtSeguranca2.setToolTipText("Segurança");
+        jBtSeguranca2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Seguranca48.png"))); // NOI18N
+        jBtSeguranca2.setToolTipText("Gerência OPeracional");
         jBtSeguranca2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtSeguranca2.setMaximumSize(new java.awt.Dimension(44, 44));
+        jBtSeguranca2.setMaximumSize(new java.awt.Dimension(53, 53));
+        jBtSeguranca2.setMinimumSize(new java.awt.Dimension(48, 48));
         jBtSeguranca2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jBtSeguranca2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -539,10 +555,11 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jToolBar5.add(jBtSeguranca2);
 
         jBtPortaria2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jBtPortaria2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/P240.png"))); // NOI18N
+        jBtPortaria2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/P148.png"))); // NOI18N
         jBtPortaria2.setToolTipText("Portaria Interna");
         jBtPortaria2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtPortaria2.setMaximumSize(new java.awt.Dimension(44, 44));
+        jBtPortaria2.setMaximumSize(new java.awt.Dimension(53, 53));
+        jBtPortaria2.setMinimumSize(new java.awt.Dimension(48, 48));
         jBtPortaria2.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jBtPortaria2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -552,10 +569,11 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jToolBar5.add(jBtPortaria2);
 
         jBtPortariaExterna.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jBtPortariaExterna.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/P140.png"))); // NOI18N
+        jBtPortariaExterna.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/P248.png"))); // NOI18N
         jBtPortariaExterna.setToolTipText("Portaria Externa");
         jBtPortariaExterna.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtPortariaExterna.setMaximumSize(new java.awt.Dimension(44, 44));
+        jBtPortariaExterna.setMaximumSize(new java.awt.Dimension(53, 53));
+        jBtPortariaExterna.setMinimumSize(new java.awt.Dimension(48, 48));
         jBtPortariaExterna.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jBtPortariaExterna.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -565,10 +583,11 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jToolBar5.add(jBtPortariaExterna);
 
         jBtTriagem.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jBtTriagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Triagem40.png"))); // NOI18N
+        jBtTriagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Triagem48.png"))); // NOI18N
         jBtTriagem.setToolTipText("Triagem");
         jBtTriagem.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtTriagem.setMaximumSize(new java.awt.Dimension(44, 44));
+        jBtTriagem.setMaximumSize(new java.awt.Dimension(53, 53));
+        jBtTriagem.setMinimumSize(new java.awt.Dimension(48, 48));
         jBtTriagem.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jBtTriagem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -578,10 +597,11 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jToolBar5.add(jBtTriagem);
 
         jBtBasePavilhaoUm.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jBtBasePavilhaoUm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/base140.png"))); // NOI18N
+        jBtBasePavilhaoUm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/BaseI48.png"))); // NOI18N
         jBtBasePavilhaoUm.setToolTipText("Base I");
         jBtBasePavilhaoUm.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtBasePavilhaoUm.setMaximumSize(new java.awt.Dimension(44, 44));
+        jBtBasePavilhaoUm.setMaximumSize(new java.awt.Dimension(53, 53));
+        jBtBasePavilhaoUm.setMinimumSize(new java.awt.Dimension(48, 48));
         jBtBasePavilhaoUm.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jBtBasePavilhaoUm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -591,10 +611,11 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jToolBar5.add(jBtBasePavilhaoUm);
 
         jBtBasePavilhaoDois.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jBtBasePavilhaoDois.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Base40.png"))); // NOI18N
+        jBtBasePavilhaoDois.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/BaseII48.png"))); // NOI18N
         jBtBasePavilhaoDois.setToolTipText("Base do Pavilhão II");
         jBtBasePavilhaoDois.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtBasePavilhaoDois.setMaximumSize(new java.awt.Dimension(44, 44));
+        jBtBasePavilhaoDois.setMaximumSize(new java.awt.Dimension(53, 53));
+        jBtBasePavilhaoDois.setMinimumSize(new java.awt.Dimension(48, 48));
         jBtBasePavilhaoDois.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jBtBasePavilhaoDois.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -605,10 +626,11 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jToolBar5.add(jSeparator4);
 
         jBtConfiguracoes2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jBtConfiguracoes2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/settings_40.png"))); // NOI18N
+        jBtConfiguracoes2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Configuracao48.png"))); // NOI18N
         jBtConfiguracoes2.setToolTipText("Configurações");
         jBtConfiguracoes2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtConfiguracoes2.setMaximumSize(new java.awt.Dimension(44, 44));
+        jBtConfiguracoes2.setMaximumSize(new java.awt.Dimension(53, 53));
+        jBtConfiguracoes2.setMinimumSize(new java.awt.Dimension(48, 48));
         jBtConfiguracoes2.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jBtConfiguracoes2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -618,11 +640,12 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jToolBar5.add(jBtConfiguracoes2);
 
         jBtSindicancia.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jBtSindicancia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Robot40.png"))); // NOI18N
+        jBtSindicancia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lego Robot-48.png"))); // NOI18N
         jBtSindicancia.setToolTipText("Sindicancia");
         jBtSindicancia.setBorder(null);
         jBtSindicancia.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtSindicancia.setMaximumSize(new java.awt.Dimension(44, 44));
+        jBtSindicancia.setMaximumSize(new java.awt.Dimension(53, 53));
+        jBtSindicancia.setMinimumSize(new java.awt.Dimension(48, 48));
         jBtSindicancia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtSindicanciaActionPerformed(evt);
@@ -630,9 +653,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         });
         jToolBar5.add(jBtSindicancia);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/display.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Produtividade48.png"))); // NOI18N
         jButton1.setToolTipText("Produtividade");
-        jButton1.setMaximumSize(new java.awt.Dimension(44, 44));
+        jButton1.setMaximumSize(new java.awt.Dimension(53, 53));
+        jButton1.setMinimumSize(new java.awt.Dimension(48, 48));
         jToolBar5.add(jButton1);
         jToolBar5.add(jSeparator5);
 
@@ -641,7 +665,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jBtTrocarSenha.setToolTipText("Trocar Senha");
         jBtTrocarSenha.setFocusable(false);
         jBtTrocarSenha.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtTrocarSenha.setMaximumSize(new java.awt.Dimension(44, 44));
+        jBtTrocarSenha.setMaximumSize(new java.awt.Dimension(53, 53));
         jBtTrocarSenha.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jBtTrocarSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -655,7 +679,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jBtLogoff.setToolTipText("Fazer logoff");
         jBtLogoff.setFocusable(false);
         jBtLogoff.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtLogoff.setMaximumSize(new java.awt.Dimension(44, 44));
+        jBtLogoff.setMaximumSize(new java.awt.Dimension(53, 53));
         jBtLogoff.setName(""); // NOI18N
         jBtLogoff.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jBtLogoff.addActionListener(new java.awt.event.ActionListener() {
@@ -670,7 +694,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jBtSairSistema.setToolTipText("Sair do Sistema");
         jBtSairSistema.setFocusable(false);
         jBtSairSistema.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtSairSistema.setMaximumSize(new java.awt.Dimension(44, 44));
+        jBtSairSistema.setMaximumSize(new java.awt.Dimension(53, 53));
         jBtSairSistema.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jBtSairSistema.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -704,20 +728,18 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jNomeUnidade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jNomeUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, 793, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(107, 107, 107)
                 .addComponent(jLabel7)
-                .addGap(23, 23, 23))
+                .addGap(51, 51, 51))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel4)
-                    .addComponent(jNomeUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                .addComponent(jLabel7)
+                .addComponent(jLabel4)
+                .addComponent(jNomeUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanielPrincipal.setLayer(jToolBar5, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -729,24 +751,25 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jPanielPrincipalLayout.setHorizontalGroup(
             jPanielPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanielPrincipalLayout.createSequentialGroup()
-                .addGroup(jPanielPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanielPrincipalLayout.createSequentialGroup()
-                        .addContainerGap()
+                .addGroup(jPanielPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanielPrincipalLayout.createSequentialGroup()
                         .addGroup(jPanielPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jToolBar5, javax.swing.GroupLayout.PREFERRED_SIZE, 1346, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 1354, Short.MAX_VALUE))))
-                .addContainerGap(2, Short.MAX_VALUE))
+                            .addComponent(jToolBar5, javax.swing.GroupLayout.PREFERRED_SIZE, 1365, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanielPrincipalLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 1347, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanielPrincipalLayout.setVerticalGroup(
             jPanielPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanielPrincipalLayout.createSequentialGroup()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
-                .addComponent(jToolBar5, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addComponent(jToolBar5, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE))
         );
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 255));
@@ -826,16 +849,16 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel9)
                 .addGap(6, 6, 6)
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jToolBar4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(84, 84, 84)
                 .addComponent(jToolBar3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -862,12 +885,13 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                     .addComponent(jToolBar6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
+                        .addGap(3, 3, 3)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(jLabel8)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jLabel1)
                         .addComponent(jToolBar3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))

@@ -276,7 +276,9 @@ public class TelaModuloDiretoria extends javax.swing.JInternalFrame {
         jPainelDiretoria.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/SISCONP 2.gif"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/BrasaoFundo500Prata2.png"))); // NOI18N
+
+        jPainelDiretoria.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jPainelDiretoriaLayout = new javax.swing.GroupLayout(jPainelDiretoria);
         jPainelDiretoria.setLayout(jPainelDiretoriaLayout);
@@ -288,7 +290,6 @@ public class TelaModuloDiretoria extends javax.swing.JInternalFrame {
             jPainelDiretoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE)
         );
-        jPainelDiretoria.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         Cadastro.setText("Cadastro");
 

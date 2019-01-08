@@ -177,17 +177,20 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         setMaximizable(true);
         setResizable(true);
         setTitle("...::: Administração Pessoal {GE} :::...");
+        setPreferredSize(new java.awt.Dimension(840, 653));
 
         jPainelAdmPessoal.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/SISCONP 2.gif"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/BrasaoFundo500Prata2.png"))); // NOI18N
+
+        jPainelAdmPessoal.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jPainelAdmPessoalLayout = new javax.swing.GroupLayout(jPainelAdmPessoal);
         jPainelAdmPessoal.setLayout(jPainelAdmPessoalLayout);
         jPainelAdmPessoalLayout.setHorizontalGroup(
             jPainelAdmPessoalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 824, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 769, Short.MAX_VALUE)
         );
         jPainelAdmPessoalLayout.setVerticalGroup(
             jPainelAdmPessoalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,7 +198,6 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 48, Short.MAX_VALUE))
         );
-        jPainelAdmPessoal.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         Cadastros.setText("Cadastro");
         Cadastros.addActionListener(new java.awt.event.ActionListener() {

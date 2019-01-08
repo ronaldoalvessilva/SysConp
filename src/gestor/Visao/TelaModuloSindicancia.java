@@ -194,7 +194,7 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
         jPainelSindicancia.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/SISCONP 2.gif"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/BrasaoFundo500Prata2.png"))); // NOI18N
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Sindicância");
         javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Cadastros");
@@ -234,6 +234,9 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jTree1);
 
+        jPainelSindicancia.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jPainelSindicancia.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout jPainelSindicanciaLayout = new javax.swing.GroupLayout(jPainelSindicancia);
         jPainelSindicancia.setLayout(jPainelSindicanciaLayout);
         jPainelSindicanciaLayout.setHorizontalGroup(
@@ -248,8 +251,6 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
             .addComponent(jScrollPane1)
         );
-        jPainelSindicancia.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jPainelSindicancia.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         Cadastros.setText("Cadastros");
 

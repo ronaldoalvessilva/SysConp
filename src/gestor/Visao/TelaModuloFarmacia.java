@@ -170,7 +170,9 @@ public class TelaModuloFarmacia extends javax.swing.JInternalFrame {
         jPainelFarmacia.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/SISCONP 2.gif"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/BrasaoFundo500Prata2.png"))); // NOI18N
+
+        jPainelFarmacia.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jPainelFarmaciaLayout = new javax.swing.GroupLayout(jPainelFarmacia);
         jPainelFarmacia.setLayout(jPainelFarmaciaLayout);
@@ -184,7 +186,6 @@ public class TelaModuloFarmacia extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 648, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 32, Short.MAX_VALUE))
         );
-        jPainelFarmacia.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jMenu1.setText("Cadastro");
 

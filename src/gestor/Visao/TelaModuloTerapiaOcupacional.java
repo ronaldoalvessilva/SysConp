@@ -314,7 +314,7 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         jPainelTerapia.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/SISCONP 2.gif"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/BrasaoFundo500Prata2.png"))); // NOI18N
 
         jPainelTerapia.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 

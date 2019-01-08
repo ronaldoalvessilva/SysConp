@@ -186,7 +186,9 @@ public class TelaModuloNutricao extends javax.swing.JInternalFrame {
         jPainelNutricao.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/SISCONP 2.gif"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/BrasaoFundo500Prata2.png"))); // NOI18N
+
+        jPainelNutricao.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jPainelNutricaoLayout = new javax.swing.GroupLayout(jPainelNutricao);
         jPainelNutricao.setLayout(jPainelNutricaoLayout);
@@ -200,7 +202,6 @@ public class TelaModuloNutricao extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 48, Short.MAX_VALUE))
         );
-        jPainelNutricao.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jCadastros.setText("Cadastros");
 

@@ -108,7 +108,9 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         jPainelConfiguracoes.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/SISCONP 2.gif"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/BrasaoFundo500Prata.png"))); // NOI18N
+
+        jPainelConfiguracoes.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jPainelConfiguracoesLayout = new javax.swing.GroupLayout(jPainelConfiguracoes);
         jPainelConfiguracoes.setLayout(jPainelConfiguracoesLayout);
@@ -122,7 +124,6 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 53, Short.MAX_VALUE))
         );
-        jPainelConfiguracoes.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jMenu1.setText("Cadastrar");
 
