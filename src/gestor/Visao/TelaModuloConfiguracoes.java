@@ -5,6 +5,7 @@
  */
 package gestor.Visao;
 
+import Util.SQL.TableExample;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
 import static gestor.Visao.TelaLoginSenha.nameUser;
@@ -95,6 +96,8 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        JMenuSQL = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jParametrosSistema = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -110,6 +113,8 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/SISCONP 2.gif"))); // NOI18N
 
+        jPainelConfiguracoes.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout jPainelConfiguracoesLayout = new javax.swing.GroupLayout(jPainelConfiguracoes);
         jPainelConfiguracoes.setLayout(jPainelConfiguracoesLayout);
         jPainelConfiguracoesLayout.setHorizontalGroup(
@@ -122,7 +127,6 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 53, Short.MAX_VALUE))
         );
-        jPainelConfiguracoes.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jMenu1.setText("Cadastrar");
 
@@ -222,6 +226,16 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
             }
         });
         jMenu3.add(jMenuItem4);
+        jMenu3.add(jSeparator1);
+
+        JMenuSQL.setForeground(new java.awt.Color(204, 0, 0));
+        JMenuSQL.setText("Consultas SQL");
+        JMenuSQL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMenuSQLActionPerformed(evt);
+            }
+        });
+        jMenu3.add(JMenuSQL);
 
         jMenuBar1.add(jMenu3);
 
@@ -516,10 +530,17 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_ConsultaGruposActionPerformed
 
+    private void JMenuSQLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuSQLActionPerformed
+        // TODO add your handling code here:
+        TableExample objSQL = new TableExample();
+        objSQL.createConnectionDialog();
+    }//GEN-LAST:event_JMenuSQLActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem ConsultaGrupos;
     private javax.swing.JMenuItem Empresa;
+    private javax.swing.JMenuItem JMenuSQL;
     private javax.swing.JMenuItem UsuariosConectados;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
@@ -539,6 +560,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jMenuItemUsuarios;
     public static javax.swing.JDesktopPane jPainelConfiguracoes;
     private javax.swing.JMenuItem jParametrosSistema;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     // End of variables declaration//GEN-END:variables
