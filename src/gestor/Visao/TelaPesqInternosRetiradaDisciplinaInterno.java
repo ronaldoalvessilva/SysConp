@@ -7,7 +7,9 @@ package gestor.Visao;
 
 import gestor.Dao.*;
 import static gestor.Visao.TelaRetirarPenalidadeInterno.FotoInternoRP;
-import static gestor.Visao.TelaRetirarPenalidadeInterno.jNomeMaeInternoRP;
+import static gestor.Visao.TelaRetirarPenalidadeInterno.idCela;
+import static gestor.Visao.TelaRetirarPenalidadeInterno.idPavilhao;
+import static gestor.Visao.TelaRetirarPenalidadeInterno.jCelaOrigem;
 import static gestor.Visao.TelaRetirarPenalidadeInterno.jIdInternoRP;
 import static gestor.Visao.TelaRetirarPenalidadeInterno.jDocumentoOrigem;
 import static gestor.Visao.TelaRetirarPenalidadeInterno.jMatriculaPenalRP;
@@ -20,6 +22,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import static gestor.Visao.TelaRetirarPenalidadeInterno.jPavilhaoOrigem;
 
 /**
  *
@@ -67,7 +70,7 @@ public class TelaPesqInternosRetiradaDisciplinaInterno extends javax.swing.JInte
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Listagem de Internos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 255)));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Listagem de Internos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jPesqNomeInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
@@ -120,10 +123,10 @@ public class TelaPesqInternosRetiradaDisciplinaInterno extends javax.swing.JInte
         jTabelaPesqInternosRol.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaPesqInternosRol.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
+
             },
             new String [] {
-                "Código", "Nome Completo do Interno"
+                "Código", "Nome Completo do Interno", "Pavilhão", "Cela"
             }
         ));
         jTabelaPesqInternosRol.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -137,6 +140,10 @@ public class TelaPesqInternosRetiradaDisciplinaInterno extends javax.swing.JInte
             jTabelaPesqInternosRol.getColumnModel().getColumn(0).setMaxWidth(60);
             jTabelaPesqInternosRol.getColumnModel().getColumn(1).setMinWidth(380);
             jTabelaPesqInternosRol.getColumnModel().getColumn(1).setMaxWidth(380);
+            jTabelaPesqInternosRol.getColumnModel().getColumn(2).setMinWidth(100);
+            jTabelaPesqInternosRol.getColumnModel().getColumn(2).setMaxWidth(100);
+            jTabelaPesqInternosRol.getColumnModel().getColumn(3).setMinWidth(120);
+            jTabelaPesqInternosRol.getColumnModel().getColumn(3).setMaxWidth(120);
         }
 
         jBtEnviar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -171,7 +178,7 @@ public class TelaPesqInternosRetiradaDisciplinaInterno extends javax.swing.JInte
                         .addComponent(jBtEnviar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtSair)
-                        .addGap(0, 268, Short.MAX_VALUE))
+                        .addGap(0, 492, Short.MAX_VALUE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -180,7 +187,7 @@ public class TelaPesqInternosRetiradaDisciplinaInterno extends javax.swing.JInte
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtEnviar)
@@ -194,14 +201,14 @@ public class TelaPesqInternosRetiradaDisciplinaInterno extends javax.swing.JInte
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 685, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1)
         );
 
-        setBounds(250, 20, 477, 286);
+        setBounds(250, 20, 701, 301);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEnviarActionPerformed
@@ -217,12 +224,19 @@ public class TelaPesqInternosRetiradaDisciplinaInterno extends javax.swing.JInte
                 conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                         + "INNER JOIN AUTORES_REGIMENTO_DISCIPLINAR "
                         + "ON PRONTUARIOSCRC.IdInternoCrc=AUTORES_REGIMENTO_DISCIPLINAR.IdInternoCrc "
+                        + "INNER JOIN PAVILHAO "
+                        + "ON AUTORES_REGIMENTO_DISCIPLINAR.IdPav=PAVILHAO.IdPav "
+                        + "INNER JOIN CELAS "
+                        + "ON AUTORES_REGIMENTO_DISCIPLINAR.IdCela=CELAS.IdCela "
                         + "WHERE NomeInternoCrc='" + jPesqNomeInterno.getText() + "'");
                 conecta.rs.first();
                 jIdInternoRP.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
                 jMatriculaPenalRP.setText(conecta.rs.getString("MatriculaCrc"));
                 jNomeInternoRP.setText(conecta.rs.getString("NomeInternoCrc"));
-                jNomeMaeInternoRP.setText(conecta.rs.getString("MaeInternoCrc"));
+                idPavilhao = conecta.rs.getInt("IdPav");
+                jPavilhaoOrigem.setText(conecta.rs.getString("DescricaoPav"));
+                idCela = conecta.rs.getInt("IdCela");
+                jCelaOrigem.setText(conecta.rs.getString("EndCelaPav"));
                 // Capturando foto
                 caminho = conecta.rs.getString("FotoInternoCrc");
                 javax.swing.ImageIcon v = new javax.swing.ImageIcon(caminho);
@@ -251,6 +265,10 @@ public class TelaPesqInternosRetiradaDisciplinaInterno extends javax.swing.JInte
             buscarInternoVisitas("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN AUTORES_REGIMENTO_DISCIPLINAR "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=AUTORES_REGIMENTO_DISCIPLINAR.IdInternoCrc "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON AUTORES_REGIMENTO_DISCIPLINAR.IdPav=PAVILHAO.IdPav "
+                    + "INNER JOIN CELAS "
+                    + "ON AUTORES_REGIMENTO_DISCIPLINAR.IdCela=CELAS.IdCela "
                     + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%' "
                     + "AND IdReg='" + jDocumentoOrigem.getText() + "' "
                     + "AND UtilizaSaida='" + utilizacao + "'");
@@ -264,6 +282,10 @@ public class TelaPesqInternosRetiradaDisciplinaInterno extends javax.swing.JInte
             this.buscarInternoVisitas("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN AUTORES_REGIMENTO_DISCIPLINAR "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=AUTORES_REGIMENTO_DISCIPLINAR.IdInternoCrc "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON AUTORES_REGIMENTO_DISCIPLINAR.IdPav=PAVILHAO.IdPav "
+                    + "INNER JOIN CELAS "
+                    + "ON AUTORES_REGIMENTO_DISCIPLINAR.IdCela=CELAS.IdCela "
                     + "WHERE IdReg='" + jDocumentoOrigem.getText() + "' "
                     + "AND UtilizaSaida='" + utilizacao + "'");
         } else {
@@ -300,13 +322,13 @@ public class TelaPesqInternosRetiradaDisciplinaInterno extends javax.swing.JInte
 //Preencher tabela com todos os COLABORADORES
     public void buscarInternoVisitas(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome Completo do Interno"};
+        String[] Colunas = new String[]{"Código", "Nome Completo do Interno", "Pavilhão", "Cela"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
             conecta.rs.first();
             do {
-                dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc")});
+                dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("DescricaoPav"), conecta.rs.getString("EndCelaPav")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");
@@ -317,6 +339,10 @@ public class TelaPesqInternosRetiradaDisciplinaInterno extends javax.swing.JInte
         jTabelaPesqInternosRol.getColumnModel().getColumn(0).setResizable(false);
         jTabelaPesqInternosRol.getColumnModel().getColumn(1).setPreferredWidth(380);
         jTabelaPesqInternosRol.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaPesqInternosRol.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTabelaPesqInternosRol.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaPesqInternosRol.getColumnModel().getColumn(3).setPreferredWidth(120);
+        jTabelaPesqInternosRol.getColumnModel().getColumn(3).setResizable(false);
         jTabelaPesqInternosRol.getTableHeader().setReorderingAllowed(false);
         jTabelaPesqInternosRol.setAutoResizeMode(jTabelaPesqInternosRol.AUTO_RESIZE_OFF);
         jTabelaPesqInternosRol.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -326,13 +352,17 @@ public class TelaPesqInternosRetiradaDisciplinaInterno extends javax.swing.JInte
 
     public void limparTabela() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome Completo do Interno"};
+        String[] Colunas = new String[]{"Código", "Nome Completo do Interno", "Pavilhão", "Cela"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaPesqInternosRol.setModel(modelo);
         jTabelaPesqInternosRol.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaPesqInternosRol.getColumnModel().getColumn(0).setResizable(false);
         jTabelaPesqInternosRol.getColumnModel().getColumn(1).setPreferredWidth(380);
         jTabelaPesqInternosRol.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaPesqInternosRol.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTabelaPesqInternosRol.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaPesqInternosRol.getColumnModel().getColumn(3).setPreferredWidth(120);
+        jTabelaPesqInternosRol.getColumnModel().getColumn(3).setResizable(false);
         jTabelaPesqInternosRol.getTableHeader().setReorderingAllowed(false);
         jTabelaPesqInternosRol.setAutoResizeMode(jTabelaPesqInternosRol.AUTO_RESIZE_OFF);
         jTabelaPesqInternosRol.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

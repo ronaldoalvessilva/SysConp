@@ -318,6 +318,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="RegistroObjetoProcedimento">
               <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="cc" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Registro de Procedimento de Revista de Pavilh&#xe3;o/Celas "/>
               </Properties>
               <Events>
@@ -326,11 +329,17 @@
             </MenuItem>
             <Menu class="javax.swing.JMenu" name="ControleDisciplinarInternos">
               <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="66" red="0" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Penalidade Disciplinar - (Lei n&#xba; 7.210/1984, Art. 41, Art. 53 da LEP)"/>
               </Properties>
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="RegistroEvendoDisciplinar">
                   <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="0" red="cc" type="rgb"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Registro do (Regime Disciplinar Diferenciado - RDD  - Art. 52 e 53)"/>
                   </Properties>
                   <Events>
@@ -339,6 +348,9 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="AplicarRegistroPenalidadeDisciplinas">
                   <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="cc" green="0" red="0" type="rgb"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Registro de Penalidade Disciplinar - Art. 53 e Art. 41 Par&#xe1;grafo &#xda;nico"/>
                   </Properties>
                   <Events>
@@ -347,6 +359,9 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="RetirarPenalidade">
                   <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="66" red="0" type="rgb"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Retirar Penalidade Disciplina a Internos"/>
                   </Properties>
                   <Events>
