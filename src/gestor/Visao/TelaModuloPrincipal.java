@@ -22,6 +22,7 @@ import static gestor.Visao.TelaModuloBaseUm.LocacaoInternos;
 import static gestor.Visao.TelaModuloBaseUm.PavilhaoCela;
 import static gestor.Visao.TelaModuloBaseUm.PopulacaoInternosAgentes;
 import static gestor.Visao.TelaModuloBaseUm.TransferenciaPavilhaoCelas;
+import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.beans.PropertyVetoException;
 import java.net.InetAddress;
@@ -299,6 +300,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         setTitle("...::: SISCONP - Sistema de Controle Prisional :::...");
         setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         setForeground(new java.awt.Color(51, 255, 255));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/gestor/Imagens/FavonIconJFrame100.png")));
 
         jPanielPrincipal.setBackground(new java.awt.Color(240, 240, 240));
         jPanielPrincipal.setAutoscrolls(true);
