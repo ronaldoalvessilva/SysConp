@@ -2862,16 +2862,17 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
             pNomeCVI = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        //telaRegistroObjetoProcedimento
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
-                    + "WHERE NomeTela='" + telaRegistroObjetoProcedimentoPavilhao + "'");
+                    + "WHERE NomeTela='" + telaRegistroObjetoProcedimento + "'");
             conecta.rs.first();
             pNomeROP = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
-                    + "WHERE NomeTela='" + telaRegistroObjetoProcedimento + "'");
+                    + "WHERE NomeTela='" + telaRegistroObjetoProcedimentoPavilhao + "'");
             conecta.rs.first();
             pNomeROPP = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
