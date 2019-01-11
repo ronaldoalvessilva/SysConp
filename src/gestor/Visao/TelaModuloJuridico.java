@@ -1888,7 +1888,7 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
             controle.incluirTelaAcesso(objCadastroTela);
         }
         // MOVIMENTAÇÃO
-        if (pNomeAJM_JURI.equals(telaAtendimentoJuridicoManuJURI) || pNomeAJM_JURI == null || pNomeAJM_JURI.equals("")) {
+        if (!pNomeAJM_JURI.equals(telaAtendimentoJuridicoManuJURI) || pNomeAJM_JURI == null || pNomeAJM_JURI.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaAtendimentoJuridicoManuJURI);
