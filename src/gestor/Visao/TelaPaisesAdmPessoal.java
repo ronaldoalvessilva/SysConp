@@ -14,6 +14,19 @@ import gestor.Dao.ModeloTabela;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.Paises;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloAdmPessoal.codAbrirADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codAlterarADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codConsultarADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codExcluirADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codGravarADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codIncluirADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codUserAcessoADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codigoGrupoADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codigoUserADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codigoUserGroupADM;
+import static gestor.Visao.TelaModuloAdmPessoal.nomeGrupoADM;
+import static gestor.Visao.TelaModuloAdmPessoal.nomeTelaADM;
+import static gestor.Visao.TelaModuloAdmPessoal.telaPaises_ADM;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -502,104 +515,124 @@ public class TelaPaisesAdmPessoal extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaPaises_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaPaises_ADM) && codIncluirADM == 1) {
+            acao = 1;
+            Novo();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        if (jNomePais.getText().equals("BRASIL")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse País não pode ser modificado...!!!");
-        } else {
-            conecta.abrirConexao();
-            try {
-                conecta.executaSQL("SELECT * FROM PAISES WHERE IdPais='" + jIdPais.getText() + "'");
-                conecta.rs.first();
-                nomeUserPaises = conecta.rs.getString("UsuarioInsert");
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(rootPane, "Não foi possivel encontrar o usuário.");
-            }
-            if (nomeUserPaises == null ? nameUser == null : nomeUserPaises.equals(nameUser)) {
-                acao = 2;
-                Alterar();
-                statusMov = "Alterou";
-                horaMov = jHoraSistema.getText();
-                dataModFinal = jDataSistema.getText();
-
+        buscarAcessoUsuario(telaPaises_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaPaises_ADM) && codAlterarADM == 1) {
+            if (jNomePais.getText().equals("BRASIL")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse País não pode ser modificado...!!!");
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserPaises + " só esse usuário poderá modificar.");
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM PAISES WHERE IdPais='" + jIdPais.getText() + "'");
+                    conecta.rs.first();
+                    nomeUserPaises = conecta.rs.getString("UsuarioInsert");
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(rootPane, "Não foi possivel encontrar o usuário.");
+                }
+                if (nomeUserPaises == null ? nameUser == null : nomeUserPaises.equals(nameUser)) {
+                    acao = 2;
+                    Alterar();
+                    statusMov = "Alterou";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserPaises + " só esse usuário poderá modificar.");
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        if (jNomePais.getText().equals("BRASIL")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse País não pode ser excluído...!!!");
-        } else {
-            conecta.abrirConexao();
-            try {
-                conecta.executaSQL("SELECT * FROM PAISES WHERE IdPais='" + jIdPais.getText() + "'");
-                conecta.rs.first();
-                nomeUserPaises = conecta.rs.getString("UsuarioInsert");
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(rootPane, "Não foi possivel encontrar o usuário.");
-            }
-            if (nomeUserPaises == null ? nameUser == null : nomeUserPaises.equals(nameUser)) {
-                buscarPais();
+        buscarAcessoUsuario(telaPaises_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaPaises_ADM) && codExcluirADM == 1) {
+            if (jNomePais.getText().equals("BRASIL")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse País não pode ser excluído...!!!");
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserPaises + " só esse usuário poderá excluir.");
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM PAISES WHERE IdPais='" + jIdPais.getText() + "'");
+                    conecta.rs.first();
+                    nomeUserPaises = conecta.rs.getString("UsuarioInsert");
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(rootPane, "Não foi possivel encontrar o usuário.");
+                }
+                if (nomeUserPaises == null ? nameUser == null : nomeUserPaises.equals(nameUser)) {
+                    buscarPais();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserPaises + " só esse usuário poderá excluir.");
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jNomePais.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Nome do PAISES não podem ser em branco");
-            jNomePais.requestFocus();
-        } else {
-            objPaises.setCodPais(Integer.parseInt(jCodPais.getText()));
-            objPaises.setNomePais(jNomePais.getText());
-            objPaises.setNomeUsuario(nameUser);
-            if (jCodPais.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe o código do país.");
+        buscarAcessoUsuario(telaPaises_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaPaises_ADM) && codGravarADM == 1) {
+            if (jNomePais.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Nome do PAISES não podem ser em branco");
+                jNomePais.requestFocus();
             } else {
-                try {
-                    conecta.abrirConexao();
-                    conecta.executaSQL("SELECT * FROM PAISES WHERE NomePais='" + jNomePais.getText() + "'");
-                    conecta.rs.first();
-                    nomePais = conecta.rs.getString("NomePais");
-                } catch (Exception ex) {
-                }
-                // Se a acao for igual 1 Incluir
-                if (acao == 1) {
-                    if (jNomePais.getText().trim().equals(nomePais)) {
-                        JOptionPane.showMessageDialog(rootPane, "Pais já cadastrado.");
-                    } else {
-                        control.Salvar(objPaises);
-                        buscarID();
+                objPaises.setCodPais(Integer.parseInt(jCodPais.getText()));
+                objPaises.setNomePais(jNomePais.getText());
+                objPaises.setNomeUsuario(nameUser);
+                if (jCodPais.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe o código do país.");
+                } else {
+                    try {
+                        conecta.abrirConexao();
+                        conecta.executaSQL("SELECT * FROM PAISES WHERE NomePais='" + jNomePais.getText() + "'");
+                        conecta.rs.first();
+                        nomePais = conecta.rs.getString("NomePais");
+                    } catch (Exception ex) {
+                    }
+                    // Se a acao for igual 1 Incluir
+                    if (acao == 1) {
+                        if (jNomePais.getText().trim().equals(nomePais)) {
+                            JOptionPane.showMessageDialog(rootPane, "Pais já cadastrado.");
+                        } else {
+                            control.Salvar(objPaises);
+                            buscarID();
+                            objLog();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            JOptionPane.showMessageDialog(null, "Registro GRAVADO com sucesso!!!");
+                            Salvar();
+                        }
+                    }
+                    // Se aco for igual a 2 Alterar
+                    if (acao == 2) {
+                        objPaises.setCodPais(objPaises.getCodPais());
+                        objPaises.setNomePais(jNomePais.getText());
+                        objPaises.setIdPais(Integer.valueOf(jIdPais.getText()));
+                        control.Alterar(objPaises);
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        JOptionPane.showMessageDialog(null, "Registro GRAVADO com sucesso!!!");
+                        JOptionPane.showMessageDialog(null, "Registro ALTERADO com sucesso!!!");
                         Salvar();
                     }
                 }
-                // Se aco for igual a 2 Alterar
-                if (acao == 2) {
-                    objPaises.setCodPais(objPaises.getCodPais());
-                    objPaises.setNomePais(jNomePais.getText());
-                    objPaises.setIdPais(Integer.valueOf(jIdPais.getText()));
-                    control.Alterar(objPaises);
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(null, "Registro ALTERADO com sucesso!!!");
-                    Salvar();
-                }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -1027,5 +1060,43 @@ public class TelaPaisesAdmPessoal extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jIdPais.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserADM = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserADM + "'");
+            conecta.rs.first();
+            codigoUserGroupADM = conecta.rs.getInt("IdUsuario");
+            codigoGrupoADM = conecta.rs.getInt("IdGrupo");
+            nomeGrupoADM = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserADM + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoADM = conecta.rs.getInt("IdUsuario");
+            codAbrirADM = conecta.rs.getInt("Abrir");
+            codIncluirADM = conecta.rs.getInt("Incluir");
+            codAlterarADM = conecta.rs.getInt("Alterar");
+            codExcluirADM = conecta.rs.getInt("Excluir");
+            codGravarADM = conecta.rs.getInt("Gravar");
+            codConsultarADM = conecta.rs.getInt("Consultar");
+            nomeTelaADM = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

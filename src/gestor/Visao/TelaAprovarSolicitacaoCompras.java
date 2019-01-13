@@ -18,6 +18,20 @@ import gestor.Modelo.ItensSolicitacaoCompras;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.SolicitacaoComprasAC;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloAdmPessoal.codAbrirADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codAlterarADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codConsultarADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codExcluirADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codGravarADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codIncluirADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codUserAcessoADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codigoGrupoADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codigoUserADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codigoUserGroupADM;
+import static gestor.Visao.TelaModuloAdmPessoal.nomeGrupoADM;
+import static gestor.Visao.TelaModuloAdmPessoal.nomeTelaADM;
+import static gestor.Visao.TelaModuloAdmPessoal.telaAprovadorSC_ADM;
+import static gestor.Visao.TelaModuloAdmPessoal.telaAprovarItensSC_ADM;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -1250,139 +1264,159 @@ public class TelaAprovarSolicitacaoCompras extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        verificarLiberador();
-        if (nameUser.equals(nomeAprovador)) {
-            acao = 1;
-            Novo();
-            corCampos();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaAprovadorSC_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaAprovadorSC_ADM) && codIncluirADM == 1) {
+            verificarLiberador();
+            if (nameUser.equals(nomeAprovador)) {
+                acao = 1;
+                Novo();
+                corCampos();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Esse usuário não tem permissão para aprovar/liberar Solicitações de Compras.");
+            }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Esse usuário não tem permissão para aprovar/liberar Solicitações de Compras.");
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        verificarLiberador();
-        objAprovaSol.setStatusAprova(jStatusAprova.getText());
-        if (jStatusAprova.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaAprovadorSC_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaAprovadorSC_ADM) && codAlterarADM == 1) {
+            verificarLiberador();
+            objAprovaSol.setStatusAprova(jStatusAprova.getText());
+            if (jStatusAprova.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                Alterar();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 2;
-            Alterar();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        objAprovaSol.setStatusAprova(jStatusAprova.getText());
-        if (jStatusAprova.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
-        } else {
-            statusMov = "Excluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
-            Integer row = jTabelaItensSolicitacao.getModel().getRowCount();
-            Integer row1 = jTabelaItensAprovado.getModel().getRowCount();
-            if (row == 0 && row1 == 0) {
-                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
-                        JOptionPane.YES_NO_OPTION);
-                if (resposta == JOptionPane.YES_OPTION) {
-                    objAprovaSol.setIdAprova(Integer.valueOf(jIdAprova.getText()));
-                    control.excluirAprovacaoSolicitacao(objAprovaSol);
-                    Excluir();
-                }
+        buscarAcessoUsuario(telaAprovadorSC_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaAprovadorSC_ADM) && codExcluirADM == 1) {
+            objAprovaSol.setStatusAprova(jStatusAprova.getText());
+            if (jStatusAprova.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Não é possível excluir esse registro. Existe(m) produto(s) relacionado(s) a esse documento.");
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                Integer row = jTabelaItensSolicitacao.getModel().getRowCount();
+                Integer row1 = jTabelaItensAprovado.getModel().getRowCount();
+                if (row == 0 && row1 == 0) {
+                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta == JOptionPane.YES_OPTION) {
+                        objAprovaSol.setIdAprova(Integer.valueOf(jIdAprova.getText()));
+                        control.excluirAprovacaoSolicitacao(objAprovaSol);
+                        Excluir();
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Não é possível excluir esse registro. Existe(m) produto(s) relacionado(s) a esse documento.");
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:     
-        verificarSaldoAprovacaoSolicitacao();
-        situacaoSoliticacao = "Em Liberação";
-        DecimalFormat qtdReal = new DecimalFormat("#,##00.0");
-        qtdReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
-        if (jDataAprova.getDate() == null) {
-            jDataAprova.setBackground(Color.red);
-            jDataAprova.requestFocus();
-            JOptionPane.showMessageDialog(rootPane, "Informe a data da aprovação.");
-        } else if (jIdSolicitacao.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a solicitação a ser aprovada.");
-        } else {
-            objAprovaSol.setStatusAprova(jStatusAprova.getText());
-            objAprovaSol.setDataAprova(jDataAprova.getDate());
-            objAprovaSol.setNomeUsuarioAprovador(jUsuarioAprovador.getText());
-            objAprovaSol.setObservacao(jObservacao.getText());
-            objAprovaSol.setSituacaoSol(statusMov);
-            objAprovaSol.setIdSol(Integer.valueOf(jIdSolicitacao.getText()));
-            try {
-                objAprovaSol.setValorTotalSolicitacao(qtdReal.parse(jValorTotalSolicitacao.getText()).floatValue());
-                objAprovaSol.setValorTotalAprovado(qtdReal.parse(jValorTotalAprovado.getText()).floatValue());
-            } catch (ParseException ex) {
-                Logger.getLogger(TelaAprovarSolicitacaoCompras.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            if (objAprovaSol.getValorTotalSolicitacao() > valorAprovacaoSolicitacao) {
-                JOptionPane.showMessageDialog(rootPane, "Saldo de liberação é insuficiente para aprovação dessa solicitação.");
+        buscarAcessoUsuario(telaAprovadorSC_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaAprovadorSC_ADM) && codGravarADM == 1) {
+            verificarSaldoAprovacaoSolicitacao();
+            situacaoSoliticacao = "Em Liberação";
+            DecimalFormat qtdReal = new DecimalFormat("#,##00.0");
+            qtdReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
+            if (jDataAprova.getDate() == null) {
+                jDataAprova.setBackground(Color.red);
+                jDataAprova.requestFocus();
+                JOptionPane.showMessageDialog(rootPane, "Informe a data da aprovação.");
+            } else if (jIdSolicitacao.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a solicitação a ser aprovada.");
             } else {
-                if (acao == 1) {
-                    objAprovaSol.setUsuarioInsert(nameUser);
-                    objAprovaSol.setDataInsert(dataModFinal);
-                    objAprovaSol.setHorarioInsert(horaMov);
-                    //
-                    control.incluirAprovacaoSolicitacao(objAprovaSol);
-                    buscarCodigo();
-                    // ATUALIZAR CAMPOS (ValorAprovado) E CAMPO (Situacao) NA TABELA SOLICITACAO_PRODUTOS_ADM
-                    objSoliMat.setUsuarioUp(nameUser);
-                    objSoliMat.setDataUp(dataModFinal);
-                    objSoliMat.setHorarioUp(horaMov);
-                    objSoliMat.setIdSol(Integer.valueOf(jIdSolicitacao.getText()));
-                    objSoliMat.setSituacao(situacaoSoliticacao);
-                    controlSol.alterarCampoSolicitacaoMaterialADM(objSoliMat);
-                    // CALCULAR O SALDO DO APROVADOR.
-                    valorSaldoTotalCompras = valorSaldoTotalCompras - objAprovaSol.getValorTotalSolicitacao();
-                    objSoliMat.setValorSaldoRequisicao(valorSaldoTotalCompras);
-                    objSoliMat.setIdLibera(codigoAprovador);
-                    controlSol.atualizarSaldoLiberadorCompras(objSoliMat);
-                    //
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    Salvar();
+                objAprovaSol.setStatusAprova(jStatusAprova.getText());
+                objAprovaSol.setDataAprova(jDataAprova.getDate());
+                objAprovaSol.setNomeUsuarioAprovador(jUsuarioAprovador.getText());
+                objAprovaSol.setObservacao(jObservacao.getText());
+                objAprovaSol.setSituacaoSol(statusMov);
+                objAprovaSol.setIdSol(Integer.valueOf(jIdSolicitacao.getText()));
+                try {
+                    objAprovaSol.setValorTotalSolicitacao(qtdReal.parse(jValorTotalSolicitacao.getText()).floatValue());
+                    objAprovaSol.setValorTotalAprovado(qtdReal.parse(jValorTotalAprovado.getText()).floatValue());
+                } catch (ParseException ex) {
+                    Logger.getLogger(TelaAprovarSolicitacaoCompras.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                if (acao == 2) {
-                    objAprovaSol.setUsuarioUp(nameUser);
-                    objAprovaSol.setDataUp(dataModFinal);
-                    objAprovaSol.setHorarioUp(horaMov);
-                    //
-                    objAprovaSol.setIdAprova(Integer.valueOf(jIdAprova.getText()));
-                    control.alterarAprovacaoSolicitacao(objAprovaSol);
-                    // ATUALIZAR CAMPOS (ValorAprovado) E CAMPO (Situacao) NA TABELA SOLICITACAO_PRODUTOS_ADM
-                    objSoliMat.setUsuarioUp(nameUser);
-                    objSoliMat.setDataUp(dataModFinal);
-                    objSoliMat.setHorarioUp(horaMov);
-                    objSoliMat.setIdSol(Integer.valueOf(jIdSolicitacao.getText()));
-                    objSoliMat.setSituacao(situacaoSoliticacao);
-                    controlSol.alterarCampoSolicitacaoMaterialADM(objSoliMat);
-                    // CALCULAR O SALDO DO APROVADOR.
-                    //valorSaldoTotalCompras = valorSaldoTotalComprasAlt - objAprovaSol.getValorTotalSolicitacao();
-                    valorSaldoTotalCompras = (float) ((valorSaldoTotalCompras - valorSolicitado) + objAprovaSol.getValorTotalSolicitacao());
-                    objSoliMat.setValorSaldoRequisicao(valorSaldoTotalCompras);
-                    objSoliMat.setIdLibera(codigoAprovador);
-                    controlSol.atualizarSaldoLiberadorCompras(objSoliMat);
-                    //
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    Salvar();
+                if (objAprovaSol.getValorTotalSolicitacao() > valorAprovacaoSolicitacao) {
+                    JOptionPane.showMessageDialog(rootPane, "Saldo de liberação é insuficiente para aprovação dessa solicitação.");
+                } else {
+                    if (acao == 1) {
+                        objAprovaSol.setUsuarioInsert(nameUser);
+                        objAprovaSol.setDataInsert(dataModFinal);
+                        objAprovaSol.setHorarioInsert(horaMov);
+                        //
+                        control.incluirAprovacaoSolicitacao(objAprovaSol);
+                        buscarCodigo();
+                        // ATUALIZAR CAMPOS (ValorAprovado) E CAMPO (Situacao) NA TABELA SOLICITACAO_PRODUTOS_ADM
+                        objSoliMat.setUsuarioUp(nameUser);
+                        objSoliMat.setDataUp(dataModFinal);
+                        objSoliMat.setHorarioUp(horaMov);
+                        objSoliMat.setIdSol(Integer.valueOf(jIdSolicitacao.getText()));
+                        objSoliMat.setSituacao(situacaoSoliticacao);
+                        controlSol.alterarCampoSolicitacaoMaterialADM(objSoliMat);
+                        // CALCULAR O SALDO DO APROVADOR.
+                        valorSaldoTotalCompras = valorSaldoTotalCompras - objAprovaSol.getValorTotalSolicitacao();
+                        objSoliMat.setValorSaldoRequisicao(valorSaldoTotalCompras);
+                        objSoliMat.setIdLibera(codigoAprovador);
+                        controlSol.atualizarSaldoLiberadorCompras(objSoliMat);
+                        //
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        Salvar();
+                    }
+                    if (acao == 2) {
+                        objAprovaSol.setUsuarioUp(nameUser);
+                        objAprovaSol.setDataUp(dataModFinal);
+                        objAprovaSol.setHorarioUp(horaMov);
+                        //
+                        objAprovaSol.setIdAprova(Integer.valueOf(jIdAprova.getText()));
+                        control.alterarAprovacaoSolicitacao(objAprovaSol);
+                        // ATUALIZAR CAMPOS (ValorAprovado) E CAMPO (Situacao) NA TABELA SOLICITACAO_PRODUTOS_ADM
+                        objSoliMat.setUsuarioUp(nameUser);
+                        objSoliMat.setDataUp(dataModFinal);
+                        objSoliMat.setHorarioUp(horaMov);
+                        objSoliMat.setIdSol(Integer.valueOf(jIdSolicitacao.getText()));
+                        objSoliMat.setSituacao(situacaoSoliticacao);
+                        controlSol.alterarCampoSolicitacaoMaterialADM(objSoliMat);
+                        // CALCULAR O SALDO DO APROVADOR.
+                        //valorSaldoTotalCompras = valorSaldoTotalComprasAlt - objAprovaSol.getValorTotalSolicitacao();
+                        valorSaldoTotalCompras = (float) ((valorSaldoTotalCompras - valorSolicitado) + objAprovaSol.getValorTotalSolicitacao());
+                        objSoliMat.setValorSaldoRequisicao(valorSaldoTotalCompras);
+                        objSoliMat.setIdLibera(codigoAprovador);
+                        controlSol.atualizarSaldoLiberadorCompras(objSoliMat);
+                        //
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        Salvar();
+                    }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -1398,31 +1432,36 @@ public class TelaAprovarSolicitacaoCompras extends javax.swing.JInternalFrame {
 
     private void jBtAdcionarItensSoliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAdcionarItensSoliActionPerformed
         // TODO add your handling code here:
-        Integer rows = jTabelaItensSolicitacao.getModel().getRowCount();
-        if (rows == 0) {
-            conecta.abrirConexao();
-            try {
-                do {
-                    PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENS_SOLICITACAO_COMPRAS_ADM "
-                            + "(IdSol,IdProd,QtdItem,ValorUnitarioItem,ValorTotalItem) "
-                            + "SELECT IdSol,IdProd,QtdItem,ValorUnitarioItem,ValorTotalItem "
-                            + "FROM ITENS_SOLICITACAO_PRODUTOS_ADM WHERE IdSol='" + jIdSolicitacao.getText() + "'");
-                    pst.execute();
-                } while (conecta.rs.next());
-            } catch (Exception e) {
+        buscarAcessoUsuario(telaAprovarItensSC_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaAprovarItensSC_ADM) && codIncluirADM == 1) {
+            Integer rows = jTabelaItensSolicitacao.getModel().getRowCount();
+            if (rows == 0) {
+                conecta.abrirConexao();
+                try {
+                    do {
+                        PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENS_SOLICITACAO_COMPRAS_ADM "
+                                + "(IdSol,IdProd,QtdItem,ValorUnitarioItem,ValorTotalItem) "
+                                + "SELECT IdSol,IdProd,QtdItem,ValorUnitarioItem,ValorTotalItem "
+                                + "FROM ITENS_SOLICITACAO_PRODUTOS_ADM WHERE IdSol='" + jIdSolicitacao.getText() + "'");
+                        pst.execute();
+                    } while (conecta.rs.next());
+                } catch (Exception e) {
+                }
+                preencherTabelaItens("SELECT * FROM ITENS_SOLICITACAO_COMPRAS_ADM "
+                        + "INNER JOIN SOLICITACAO_PRODUTOS_ADM "
+                        + "ON ITENS_SOLICITACAO_COMPRAS_ADM.IdSol=SOLICITACAO_PRODUTOS_ADM.IdSol "
+                        + "INNER JOIN PRODUTOS_AC "
+                        + "ON ITENS_SOLICITACAO_COMPRAS_ADM.IdProd=PRODUTOS_AC.IdProd "
+                        + "WHERE ITENS_SOLICITACAO_COMPRAS_ADM.IdSol='" + jIdSolicitacao.getText() + "'");
+                conecta.desconecta();
+                JOptionPane.showMessageDialog(rootPane, "Itens transferido com sucesso.");
+                jBtAprovacaoTotal.setEnabled(true);
+                jBtAlterarItens.setEnabled(true);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Já foi efetuado a transferência dos produtos para essa aprovação.");
             }
-            preencherTabelaItens("SELECT * FROM ITENS_SOLICITACAO_COMPRAS_ADM "
-                    + "INNER JOIN SOLICITACAO_PRODUTOS_ADM "
-                    + "ON ITENS_SOLICITACAO_COMPRAS_ADM.IdSol=SOLICITACAO_PRODUTOS_ADM.IdSol "
-                    + "INNER JOIN PRODUTOS_AC "
-                    + "ON ITENS_SOLICITACAO_COMPRAS_ADM.IdProd=PRODUTOS_AC.IdProd "
-                    + "WHERE ITENS_SOLICITACAO_COMPRAS_ADM.IdSol='" + jIdSolicitacao.getText() + "'");
-            conecta.desconecta();
-            JOptionPane.showMessageDialog(rootPane, "Itens transferido com sucesso.");
-            jBtAprovacaoTotal.setEnabled(true);
-            jBtAlterarItens.setEnabled(true);
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Já foi efetuado a transferência dos produtos para essa aprovação.");
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAdcionarItensSoliActionPerformed
 
@@ -1430,7 +1469,8 @@ public class TelaAprovarSolicitacaoCompras extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM APROVACAO_SOLICITACAO_COMPRAS_ADM WHERE IdAprova='" + jIdAprova.getText() + "'");
+            conecta.executaSQL("SELECT * FROM APROVACAO_SOLICITACAO_COMPRAS_ADM "
+                    + "WHERE IdAprova='" + jIdAprova.getText() + "'");
             conecta.rs.first();
             jStatusAprova.setText(conecta.rs.getString("StatusAprova"));
             if (jStatusAprova.getText().equals("FINALIZADO")) {
@@ -1453,105 +1493,120 @@ public class TelaAprovarSolicitacaoCompras extends javax.swing.JInternalFrame {
 
     private void jBtExcluirProdutoSolicitacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirProdutoSolicitacaoActionPerformed
         // TODO add your handling code here:
-        //VERIFICAR SE O PRODUTO EXISTE NA TABELA ITENS_APROVACAO_SOLICITACAO_COMPRAS_ADM ANTES DE EXCLUIR
-        verificarProdutoAprovado();
-        objAprovaSol.setStatusAprova(jStatusAprova.getText());
-        if (jStatusAprova.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
-        } else {
-            statusMov = "Excluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
-            if (idProduto == codigoProdutoAprovado) {
-                JOptionPane.showMessageDialog(rootPane, "Não é possível excluir esse produto, pois já foi aprovado.\nÉ necessário excluir o produto da tabela de aprovação primeiro.");
+        buscarAcessoUsuario(telaAprovarItensSC_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaAprovarItensSC_ADM) && codExcluirADM == 1) {
+            //VERIFICAR SE O PRODUTO EXISTE NA TABELA ITENS_APROVACAO_SOLICITACAO_COMPRAS_ADM ANTES DE EXCLUIR
+            verificarProdutoAprovado();
+            objAprovaSol.setStatusAprova(jStatusAprova.getText());
+            if (jStatusAprova.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
             } else {
-                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                        JOptionPane.YES_NO_OPTION);
-                if (resposta == JOptionPane.YES_OPTION) {
-                    objItensCompra.setIdSol(Integer.valueOf(jIdSolicitacao.getText()));
-                    objItensCompra.setIdProd(idProduto);
-                    JOptionPane.showMessageDialog(rootPane, "Solicitação: " + jIdSolicitacao.getText());
-                    JOptionPane.showMessageDialog(rootPane, "Produto: " + idProduto);
-                    controle.excluirItensSolicitacaoComprasADM(objItensCompra);
-                    //
-                    objLog3();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                    
-                    preencherTabelaItens("SELECT * FROM ITENS_SOLICITACAO_COMPRAS_ADM "
-                            + "INNER JOIN SOLICITACAO_PRODUTOS_ADM "
-                            + "ON ITENS_SOLICITACAO_COMPRAS_ADM.IdSol=SOLICITACAO_PRODUTOS_ADM.IdSol "
-                            + "INNER JOIN PRODUTOS_AC "
-                            + "ON ITENS_SOLICITACAO_COMPRAS_ADM.IdProd=PRODUTOS_AC.IdProd "
-                            + "WHERE ITENS_SOLICITACAO_COMPRAS_ADM.IdSol='" + jIdSolicitacao.getText() + "'");
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                if (idProduto == codigoProdutoAprovado) {
+                    JOptionPane.showMessageDialog(rootPane, "Não é possível excluir esse produto, pois já foi aprovado.\nÉ necessário excluir o produto da tabela de aprovação primeiro.");
+                } else {
+                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta == JOptionPane.YES_OPTION) {
+                        objItensCompra.setIdSol(Integer.valueOf(jIdSolicitacao.getText()));
+                        objItensCompra.setIdProd(idProduto);
+                        JOptionPane.showMessageDialog(rootPane, "Solicitação: " + jIdSolicitacao.getText());
+                        JOptionPane.showMessageDialog(rootPane, "Produto: " + idProduto);
+                        controle.excluirItensSolicitacaoComprasADM(objItensCompra);
+                        //
+                        objLog3();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                    
+                        preencherTabelaItens("SELECT * FROM ITENS_SOLICITACAO_COMPRAS_ADM "
+                                + "INNER JOIN SOLICITACAO_PRODUTOS_ADM "
+                                + "ON ITENS_SOLICITACAO_COMPRAS_ADM.IdSol=SOLICITACAO_PRODUTOS_ADM.IdSol "
+                                + "INNER JOIN PRODUTOS_AC "
+                                + "ON ITENS_SOLICITACAO_COMPRAS_ADM.IdProd=PRODUTOS_AC.IdProd "
+                                + "WHERE ITENS_SOLICITACAO_COMPRAS_ADM.IdSol='" + jIdSolicitacao.getText() + "'");
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirProdutoSolicitacaoActionPerformed
 
     private void jBtAprovacaoTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAprovacaoTotalActionPerformed
-        // TODO add your handling code here:        
-        statusAprovacao = "Aprovado Total";
-        DecimalFormat valorRealMoed = new DecimalFormat("#,##00.0");
-        valorRealMoed.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
-        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente Aprovar a SOLICITAÇÃO selecionado?", "Confirmação",
-                JOptionPane.YES_NO_OPTION);
-        if (resposta == JOptionPane.YES_OPTION) {
-            objSoliMat.setUsuarioUp(nameUser);
-            objSoliMat.setDataUp(dataModFinal);
-            objSoliMat.setHorarioUp(horaMov);
-            //
-            jValorTotalAprovado.setText(jValorTotalSolicitacao.getText());
-            try {
-                objSoliMat.setValorAprovado(valorRealMoed.parse(jValorTotalAprovado.getText()).floatValue());
-            } catch (ParseException ex) {
-            }
-            // ATUALIZAR CAMPOS (ValorAprovado) E CAMPO (Situacao) NA TABELA SOLICITACAO_PRODUTOS_ADM
-            objSoliMat.setIdSol(Integer.valueOf(jIdSolicitacao.getText()));
-            objSoliMat.setSituacao(situacaoSoliticacao);
-            controlSol.alterarCampoSolicitacaoMaterialADM(objSoliMat);
-            // GRAVAR OS DADOS NA TABELA ITENS_APROVACAO_SOLICITACAO_COMPRAS_ADM
-            for (int i = 0; i < jTabelaItensSolicitacao.getRowCount(); i++) {
-                objItensCompra.setUsuarioUp(nameUser);
-                objItensCompra.setDataUp(dataModFinal);
-                objItensCompra.setHorarioUp(horaMov);
+        // TODO add your handling code here:       
+        buscarAcessoUsuario(telaAprovarItensSC_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaAprovarItensSC_ADM) && codIncluirADM == 1) {
+            statusAprovacao = "Aprovado Total";
+            DecimalFormat valorRealMoed = new DecimalFormat("#,##00.0");
+            valorRealMoed.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente Aprovar a SOLICITAÇÃO selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objSoliMat.setUsuarioUp(nameUser);
+                objSoliMat.setDataUp(dataModFinal);
+                objSoliMat.setHorarioUp(horaMov);
                 //
-                objItensCompra.setIdSol(Integer.valueOf(jIdSolicitacao.getText()));
-                objItensCompra.setIdAprova(Integer.valueOf(jIdAprova.getText()));
-                objItensCompra.setDataAprova(jDataAprova.getDate());
-                objItensCompra.setIdProd((int) jTabelaItensSolicitacao.getValueAt(i, 0));
+                jValorTotalAprovado.setText(jValorTotalSolicitacao.getText());
                 try {
-                    objItensCompra.setQtdItem(valorRealMoed.parse((String) jTabelaItensSolicitacao.getValueAt(i, 3)).floatValue());
-                    objItensCompra.setValorUnitarioItem(valorRealMoed.parse((String) jTabelaItensSolicitacao.getValueAt(i, 4)).floatValue());
-                    objItensCompra.setValorTotalItem(valorRealMoed.parse((String) jTabelaItensSolicitacao.getValueAt(i, 5)).floatValue());
+                    objSoliMat.setValorAprovado(valorRealMoed.parse(jValorTotalAprovado.getText()).floatValue());
                 } catch (ParseException ex) {
                 }
-                // GRAVAR OS PRODUTOS NA  TABELA ITENS_APROVACAO_SOLICITACAO_COMPRAS_ADM
-                controle.incluirItensAprovadoADM(objItensCompra);
-                // ATUALIZAR OS CAMPOS DA SOLICITAÇÃO QUANDO APROVADA (AprovaSol,StatusAprovacao)
-                objItensCompra.setIdSol(Integer.valueOf(jIdSolicitacao.getText()));
-                objItensCompra.setIdProd((int) jTabelaItensSolicitacao.getValueAt(i, 0));
-                objItensCompra.setStatusAprovacao(statusAprovacao); // Status APROVADO
-                objItensCompra.setAprovaSolicitacao(aprovaSolicitacao); // Aprovacao = "Sim"
-                controle.atualizaCampoAprovaSolicitacaoMaterialADM(objItensCompra);
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                //
-                preencherTabelaItensAprovado("SELECT * FROM ITENS_APROVACAO_SOLICITACAO_COMPRAS_ADM "
-                        + "INNER JOIN APROVACAO_SOLICITACAO_COMPRAS_ADM "
-                        + "ON ITENS_APROVACAO_SOLICITACAO_COMPRAS_ADM.IdAprova=APROVACAO_SOLICITACAO_COMPRAS_ADM.IdAprova "
-                        + "INNER JOIN PRODUTOS_AC "
-                        + "ON ITENS_APROVACAO_SOLICITACAO_COMPRAS_ADM.IdProd=PRODUTOS_AC.IdProd "
-                        + "WHERE ITENS_APROVACAO_SOLICITACAO_COMPRAS_ADM.IdAprova='" + jIdAprova.getText() + "'");
+                // ATUALIZAR CAMPOS (ValorAprovado) E CAMPO (Situacao) NA TABELA SOLICITACAO_PRODUTOS_ADM
+                objSoliMat.setIdSol(Integer.valueOf(jIdSolicitacao.getText()));
+                objSoliMat.setSituacao(situacaoSoliticacao);
+                controlSol.alterarCampoSolicitacaoMaterialADM(objSoliMat);
+                // GRAVAR OS DADOS NA TABELA ITENS_APROVACAO_SOLICITACAO_COMPRAS_ADM
+                for (int i = 0; i < jTabelaItensSolicitacao.getRowCount(); i++) {
+                    objItensCompra.setUsuarioUp(nameUser);
+                    objItensCompra.setDataUp(dataModFinal);
+                    objItensCompra.setHorarioUp(horaMov);
+                    //
+                    objItensCompra.setIdSol(Integer.valueOf(jIdSolicitacao.getText()));
+                    objItensCompra.setIdAprova(Integer.valueOf(jIdAprova.getText()));
+                    objItensCompra.setDataAprova(jDataAprova.getDate());
+                    objItensCompra.setIdProd((int) jTabelaItensSolicitacao.getValueAt(i, 0));
+                    try {
+                        objItensCompra.setQtdItem(valorRealMoed.parse((String) jTabelaItensSolicitacao.getValueAt(i, 3)).floatValue());
+                        objItensCompra.setValorUnitarioItem(valorRealMoed.parse((String) jTabelaItensSolicitacao.getValueAt(i, 4)).floatValue());
+                        objItensCompra.setValorTotalItem(valorRealMoed.parse((String) jTabelaItensSolicitacao.getValueAt(i, 5)).floatValue());
+                    } catch (ParseException ex) {
+                    }
+                    // GRAVAR OS PRODUTOS NA  TABELA ITENS_APROVACAO_SOLICITACAO_COMPRAS_ADM
+                    controle.incluirItensAprovadoADM(objItensCompra);
+                    // ATUALIZAR OS CAMPOS DA SOLICITAÇÃO QUANDO APROVADA (AprovaSol,StatusAprovacao)
+                    objItensCompra.setIdSol(Integer.valueOf(jIdSolicitacao.getText()));
+                    objItensCompra.setIdProd((int) jTabelaItensSolicitacao.getValueAt(i, 0));
+                    objItensCompra.setStatusAprovacao(statusAprovacao); // Status APROVADO
+                    objItensCompra.setAprovaSolicitacao(aprovaSolicitacao); // Aprovacao = "Sim"
+                    controle.atualizaCampoAprovaSolicitacaoMaterialADM(objItensCompra);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    //
+                    preencherTabelaItensAprovado("SELECT * FROM ITENS_APROVACAO_SOLICITACAO_COMPRAS_ADM "
+                            + "INNER JOIN APROVACAO_SOLICITACAO_COMPRAS_ADM "
+                            + "ON ITENS_APROVACAO_SOLICITACAO_COMPRAS_ADM.IdAprova=APROVACAO_SOLICITACAO_COMPRAS_ADM.IdAprova "
+                            + "INNER JOIN PRODUTOS_AC "
+                            + "ON ITENS_APROVACAO_SOLICITACAO_COMPRAS_ADM.IdProd=PRODUTOS_AC.IdProd "
+                            + "WHERE ITENS_APROVACAO_SOLICITACAO_COMPRAS_ADM.IdAprova='" + jIdAprova.getText() + "'");
+                }
+                jBtAprovacaoTotal.setEnabled(!true);
+                jBtImprimirSolicitacaoAprovada.setEnabled(true);
+                JOptionPane.showMessageDialog(rootPane, "Aprovação de Solicitação concluída com sucesso.");
             }
-            jBtAprovacaoTotal.setEnabled(!true);
-            jBtImprimirSolicitacaoAprovada.setEnabled(true);
-            JOptionPane.showMessageDialog(rootPane, "Aprovação de Solicitação concluída com sucesso.");
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAprovacaoTotalActionPerformed
 
     private void jBtAlterarItensActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarItensActionPerformed
         // TODO add your handling code here:
-        mostrarItensSolicitacao();
+        buscarAcessoUsuario(telaAprovarItensSC_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaAprovarItensSC_ADM) && codAlterarADM == 1) {
+            mostrarItensSolicitacao();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtAlterarItensActionPerformed
 
     private void jBtImprimirSolicitacaoAprovadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImprimirSolicitacaoAprovadaActionPerformed
@@ -1595,7 +1650,7 @@ public class TelaAprovarSolicitacaoCompras extends javax.swing.JInternalFrame {
             } catch (JRException e) {
                 JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório. \n\nERRO :" + e);
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(rootPane, "Relatório não pode ser listado por que não existe itens.");
         }
     }//GEN-LAST:event_jBtImprimirSolicitacaoAprovadaActionPerformed
@@ -1919,7 +1974,7 @@ public class TelaAprovarSolicitacaoCompras extends javax.swing.JInternalFrame {
             jBtSalvar.setEnabled(!true);
             jBtCancelar.setEnabled(!true);
             jBtFinalizar.setEnabled(!true);
-            jBtAuditoria.setEnabled(true);            
+            jBtAuditoria.setEnabled(true);
         }
     }
 
@@ -2270,5 +2325,43 @@ public class TelaAprovarSolicitacaoCompras extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jIdAprova.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserADM = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserADM + "'");
+            conecta.rs.first();
+            codigoUserGroupADM = conecta.rs.getInt("IdUsuario");
+            codigoGrupoADM = conecta.rs.getInt("IdGrupo");
+            nomeGrupoADM = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserADM + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoADM = conecta.rs.getInt("IdUsuario");
+            codAbrirADM = conecta.rs.getInt("Abrir");
+            codIncluirADM = conecta.rs.getInt("Incluir");
+            codAlterarADM = conecta.rs.getInt("Alterar");
+            codExcluirADM = conecta.rs.getInt("Excluir");
+            codGravarADM = conecta.rs.getInt("Gravar");
+            codConsultarADM = conecta.rs.getInt("Consultar");
+            nomeTelaADM = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

@@ -9,6 +9,7 @@ import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.PavilhaoInternoMontaKit;
 import gestor.Modelo.PavilhaoInternosMontagemKit;
 import gestor.Modelo.PavilhaoInternosSelecionados;
+import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jComboBoxPavilhoes;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdInternos;
 import java.sql.SQLException;
@@ -33,6 +34,7 @@ public class ControlePavilhaoMontaKitDecendial {
     int codInterno = 0;
     String kitDecendial = "Não";
     String kitPago = "Não";
+    String data = "";
 
     public List<PavilhaoInternoMontaKit> read() throws Exception {
         conecta.abrirConexao();
@@ -73,5 +75,25 @@ public class ControlePavilhaoMontaKitDecendial {
             conecta.desconecta();
         }
         return null;
+    }
+
+    public void calcularDPKD() {
+        data = jDataSistema.getText();
+//        int dia = Integer.parseInt(data.substring(8, 10));
+//        int mes = Integer.parseInt(data.substring(5, 7));
+//        int ano = Integer.parseInt(data.substring(0, 4));
+        //
+//        String data = "10/03/2012";
+        int dia = Integer.parseInt(data.substring(0, 2));
+        int mes = Integer.parseInt(data.substring(3, 5));
+        int ano = Integer.parseInt(data.substring(6, 10));
+        //se é pra 5 meses consecutivos:
+        int mesParada = mes + 5;
+        String proximaData = null;
+        while (mes <= mesParada) {
+            ++mes;
+            proximaData = dia + "/" + mes + "/" + ano;
+            conecta.desconecta();
+        }
     }
 }

@@ -501,6 +501,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         });
 
         jBtPesquisarKit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/overlays.png"))); // NOI18N
+        jBtPesquisarKit.setToolTipText("Pesquisar Kit de Higiêne");
+        jBtPesquisarKit.setContentAreaFilled(false);
         jBtPesquisarKit.setEnabled(false);
         jBtPesquisarKit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -894,6 +896,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jComboBoxPavilhoes.setEnabled(false);
 
         jBtPesquisarInternosPavilhao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/overlays.png"))); // NOI18N
+        jBtPesquisarInternosPavilhao.setToolTipText("Pesquisar Internos por Pavilhão");
+        jBtPesquisarInternosPavilhao.setContentAreaFilled(false);
         jBtPesquisarInternosPavilhao.setEnabled(false);
         jBtPesquisarInternosPavilhao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1906,8 +1910,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             }
         });
 
-        jBtExcluirTodosInternosSelecionados.setForeground(new java.awt.Color(204, 0, 0));
-        jBtExcluirTodosInternosSelecionados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
+        jBtExcluirTodosInternosSelecionados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/191216104428_16.png"))); // NOI18N
         jBtExcluirTodosInternosSelecionados.setText("Excluir Todos");
         jBtExcluirTodosInternosSelecionados.setToolTipText("Excluir todos internos adicionados para o kit de higiêne completo");
         jBtExcluirTodosInternosSelecionados.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);

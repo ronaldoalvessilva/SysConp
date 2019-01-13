@@ -15,6 +15,20 @@ import gestor.Modelo.ItensSolicitantesCompras;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.SolicitantesCompras;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloAdmPessoal.codAbrirADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codAlterarADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codConsultarADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codExcluirADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codGravarADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codIncluirADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codUserAcessoADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codigoGrupoADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codigoUserADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codigoUserGroupADM;
+import static gestor.Visao.TelaModuloAdmPessoal.nomeGrupoADM;
+import static gestor.Visao.TelaModuloAdmPessoal.nomeTelaADM;
+import static gestor.Visao.TelaModuloAdmPessoal.telaSolicitantesC_ADM;
+import static gestor.Visao.TelaModuloAdmPessoal.telaSolicitantesSOL_ADM;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -1283,92 +1297,112 @@ public class TelaSolicitantesCompras extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        acao = 1;
-        Novo();
-        corCampos();
-        preencherComboNovo();
-        limparCamposTabelaColaboradores();
+        buscarAcessoUsuario(telaSolicitantesC_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaSolicitantesC_ADM) && codIncluirADM == 1) {
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            acao = 1;
+            Novo();
+            corCampos();
+            preencherComboNovo();
+            limparCamposTabelaColaboradores();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        acao = 2;
-        Alterar();
-        corCampos();
-        preencherComboNovo();
+        buscarAcessoUsuario(telaSolicitantesC_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaSolicitantesC_ADM) && codAlterarADM == 1) {
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            acao = 2;
+            Alterar();
+            corCampos();
+            preencherComboNovo();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
-        // TODO add your handling code here:        
-        verificarColaboradores();
+        // TODO add your handling code here:  
+        buscarAcessoUsuario(telaSolicitantesC_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaSolicitantesC_ADM) && codExcluirADM == 1) {
+            verificarColaboradores();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        DecimalFormat valorReal = new DecimalFormat("###,##00.0");
-        valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
-        if (jDataLanc.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data do registro.");
-            jDataLanc.requestFocus();
-            jDataLanc.setBackground(Color.red);
-        } else if (jCodigoDepto.getText().equals("") || jComboBoxDepartamento.getSelectedItem().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o departamento do colaborador.");
-        } else if (statusValor == 1 && jValorMax.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe um valor para o solicitante.");
-            jValorMax.requestFocus();
-            jValorMax.setBackground(Color.red);
-        } else if (statusValor == 1 && jDataInicial.getDate() == null || statusValor == 1 && jDataFinal.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial e final para o grupo.");
-        } else {
-            solComp.setStatusSoli((String) jComboBoxStatus.getSelectedItem());
-            solComp.setDataSoli(jDataLanc.getDate());
-            solComp.setIdDepartamento(Integer.valueOf(jCodigoDepto.getText()));
-            solComp.setNomeDepartamento((String) jComboBoxDepartamento.getSelectedItem());
-            solComp.setDataInicial(jDataInicial.getDate());
-            solComp.setDataFinal(jDataFinal.getDate());
-            solComp.setObservacao(jObservacao.getText());
-            if (jRBIndividual.isSelected()) {
-                statusValor = 0;
-                jDataInicial.setDate(null);
-                jDataFinal.setDate(null);
-            } else if (jRBGrupo.isSelected()) {
-                statusValor = 1;
-                try {
-                    solComp.setValorMax(valorReal.parse(jValorMax.getText()).floatValue());
-                    solComp.setValorGAC(valorReal.parse(jValorMax.getText()).floatValue());
-                } catch (ParseException ex) {
-                    Logger.getLogger(TelaInventarioProdutosMed.class.getName()).log(Level.SEVERE, null, ex);
+        buscarAcessoUsuario(telaSolicitantesC_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaSolicitantesC_ADM) && codGravarADM == 1) {
+            DecimalFormat valorReal = new DecimalFormat("###,##00.0");
+            valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
+            if (jDataLanc.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data do registro.");
+                jDataLanc.requestFocus();
+                jDataLanc.setBackground(Color.red);
+            } else if (jCodigoDepto.getText().equals("") || jComboBoxDepartamento.getSelectedItem().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o departamento do colaborador.");
+            } else if (statusValor == 1 && jValorMax.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe um valor para o solicitante.");
+                jValorMax.requestFocus();
+                jValorMax.setBackground(Color.red);
+            } else if (statusValor == 1 && jDataInicial.getDate() == null || statusValor == 1 && jDataFinal.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial e final para o grupo.");
+            } else {
+                solComp.setStatusSoli((String) jComboBoxStatus.getSelectedItem());
+                solComp.setDataSoli(jDataLanc.getDate());
+                solComp.setIdDepartamento(Integer.valueOf(jCodigoDepto.getText()));
+                solComp.setNomeDepartamento((String) jComboBoxDepartamento.getSelectedItem());
+                solComp.setDataInicial(jDataInicial.getDate());
+                solComp.setDataFinal(jDataFinal.getDate());
+                solComp.setObservacao(jObservacao.getText());
+                if (jRBIndividual.isSelected()) {
+                    statusValor = 0;
+                    jDataInicial.setDate(null);
+                    jDataFinal.setDate(null);
+                } else if (jRBGrupo.isSelected()) {
+                    statusValor = 1;
+                    try {
+                        solComp.setValorMax(valorReal.parse(jValorMax.getText()).floatValue());
+                        solComp.setValorGAC(valorReal.parse(jValorMax.getText()).floatValue());
+                    } catch (ParseException ex) {
+                        Logger.getLogger(TelaInventarioProdutosMed.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                solComp.setTipoValor(statusValor);
+                if (acao == 1) {
+                    solComp.setUsuarioInsert(nameUser);
+                    solComp.setDataInsert(dataModFinal);
+                    solComp.setHorarioInsert(horaMov);
+                    control.incluirSolicitanteCompras(solComp);
+                    buscarCodigo();
+                    Salvar();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 2) {
+                    solComp.setUsuarioUp(nameUser);
+                    solComp.setDataUp(dataModFinal);
+                    solComp.setHorarioUp(horaMov);
+                    solComp.setIdSoli(Integer.valueOf(jCodigo.getText()));
+                    control.alterarSolicitanteCompras(solComp);
+                    Salvar();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
             }
-            solComp.setTipoValor(statusValor);
-            if (acao == 1) {
-                solComp.setUsuarioInsert(nameUser);
-                solComp.setDataInsert(dataModFinal);
-                solComp.setHorarioInsert(horaMov);
-                control.incluirSolicitanteCompras(solComp);
-                buscarCodigo();
-                Salvar();
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
-            if (acao == 2) {
-                solComp.setUsuarioUp(nameUser);
-                solComp.setDataUp(dataModFinal);
-                solComp.setHorarioUp(horaMov);
-                solComp.setIdSoli(Integer.valueOf(jCodigo.getText()));
-                control.alterarSolicitanteCompras(solComp);
-                Salvar();
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -1428,122 +1462,142 @@ public class TelaSolicitantesCompras extends javax.swing.JInternalFrame {
 
     private void jBtNovoFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoFuncActionPerformed
         // TODO add your handling code here:
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        acao = 3;
-        NovoFunc();
+        buscarAcessoUsuario(telaSolicitantesSOL_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaSolicitantesSOL_ADM) && codIncluirADM == 1) {
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            acao = 3;
+            NovoFunc();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoFuncActionPerformed
 
     private void jBtAlterarFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarFuncActionPerformed
         // TODO add your handling code here:
-        statusMov = "Alterar";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        acao = 4;
-        AlterarFunc();
+        buscarAcessoUsuario(telaSolicitantesSOL_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaSolicitantesSOL_ADM) && codAlterarADM == 1) {
+            statusMov = "Alterar";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            acao = 4;
+            AlterarFunc();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtAlterarFuncActionPerformed
 
     private void jBtExcluirFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirFuncActionPerformed
-        // TODO add your handling code here:        
-        verificarColaboradoresSolicitacao();
+        // TODO add your handling code here:   
+        buscarAcessoUsuario(telaSolicitantesSOL_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaSolicitantesSOL_ADM) && codExcluirADM == 1) {
+            verificarColaboradoresSolicitacao();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtExcluirFuncActionPerformed
 
     private void jBtSalvarFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarFuncActionPerformed
-        // TODO add your handling code here:                        
-        DecimalFormat valorReal = new DecimalFormat("###,##00.0");
-        valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
-        if (jValorMaxFunc.getText().equals("") && statusValor == 0) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o valor para colaborador.");
+        // TODO add your handling code here:      
+        buscarAcessoUsuario(telaSolicitantesSOL_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaSolicitantesSOL_ADM) && codGravarADM == 1) {
+            DecimalFormat valorReal = new DecimalFormat("###,##00.0");
+            valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
+            if (jValorMaxFunc.getText().equals("") && statusValor == 0) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o valor para colaborador.");
+            } else {
+                itensSolComp.setNomeColaborador(jNomeColaboradorSolicitante.getText());
+                if (statusValor == 0 && acao == 3) { // VALOR INDIVIDUAL E SE FOR UMA INCLUSÃO
+                    itensSolComp.setDataInicialFunc(jDataInicialFunc.getDate());
+                    itensSolComp.setDataFinalFunc(jDataFinalFunc.getDate());
+                    try {
+                        itensSolComp.setValorMax(valorReal.parse(jValorMaxFunc.getText()).floatValue());
+                    } catch (ParseException ex) {
+                        Logger.getLogger(TelaInventarioProdutosMed.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    buscarValorAcumulado();
+                    vACU = vACU + itensSolComp.getValorMax();
+                    itensSolComp.setValorVTA(vACU);
+                } else if (statusValor == 1 && acao == 3) { //VALOR EM GRUPO E SE FOR UMA INCLUSÃO
+                    try {
+                        itensSolComp.setValorMax(valorReal.parse(jValorMax.getText()).floatValue());
+                    } catch (ParseException ex) {
+                        Logger.getLogger(TelaSolicitantesCompras.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    vACU = 0;
+                    itensSolComp.setValorMax(vACU);
+                    itensSolComp.setValorVTA(vACU);
+                } else if (statusValor == 0 && acao == 4) { // VALOR INDIVIDUAL E SE FOR UMA ALTERAÇÃO
+                    itensSolComp.setDataInicialFunc(jDataInicialFunc.getDate());
+                    itensSolComp.setDataFinalFunc(jDataFinalFunc.getDate());
+                    try {
+                        itensSolComp.setValorMax(valorReal.parse(jValorMaxFunc.getText()).floatValue());
+                    } catch (ParseException ex) {
+                        Logger.getLogger(TelaSolicitantesCompras.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    buscarValorAcumulado();
+                    vACU = (vACU - vMAX) + itensSolComp.getValorMax();
+                    itensSolComp.setValorVTA(vACU);
+                } else if (statusValor == 1 && acao == 4) { // VALOR EM GRUPO E SE FOR ALTERAÇÃO
+                    itensSolComp.setDataInicialFunc(jDataInicialFunc.getDate());
+                    itensSolComp.setDataFinalFunc(jDataFinalFunc.getDate());
+                    try {
+                        itensSolComp.setValorMax(valorReal.parse(jValorMax.getText()).floatValue());
+                    } catch (ParseException ex) {
+                        Logger.getLogger(TelaSolicitantesCompras.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    vACU = 0;
+                    itensSolComp.setValorMax(vACU);
+                    itensSolComp.setValorVTA(vACU);
+                }
+                if (acao == 3) {
+                    idSeq = 1 + countCalc;
+                    itensSolComp.setUsuarioInsert(nameUser);
+                    itensSolComp.setDataInsert(dataModFinal);
+                    itensSolComp.setHorarioInsert(horaMov);
+                    itensSolComp.setIdSoli(Integer.valueOf(jCodigo.getText()));
+                    itensSolComp.setIdSeq(idSeq);
+                    controle.incluirItensSolicitanteCompras(itensSolComp);
+                    idSeq = idSeq + 1 + countCalc;
+                    SalvarFunc();
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    preencherTabelaItensColaborador("SELECT * FROM ITENS_SOLICITANTES_COMPRAS "
+                            + "INNER JOIN SOLICITANTES_COMPRAS "
+                            + "ON ITENS_SOLICITANTES_COMPRAS.IdSoli=SOLICITANTES_COMPRAS.IdSoli "
+                            + "INNER JOIN COLABORADOR "
+                            + "ON ITENS_SOLICITANTES_COMPRAS.IdFunc=COLABORADOR.IdFunc "
+                            + "WHERE ITENS_SOLICITANTES_COMPRAS.IdSoli='" + jCodigo.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 4) {
+                    itensSolComp.setUsuarioUp(nameUser);
+                    itensSolComp.setDataUp(dataModFinal);
+                    itensSolComp.setHorarioUp(horaMov);
+                    itensSolComp.setIdSoli(Integer.valueOf(jCodigo.getText()));
+                    itensSolComp.setIdSeq(idSeq);
+                    itensSolComp.setIdItem(Integer.valueOf(idItem));
+                    try {
+                        itensSolComp.setValorVTA(valorReal.parse(jSaldoCompras.getText()).floatValue());
+                    } catch (ParseException ex) {
+                        Logger.getLogger(TelaSolicitantesCompras.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    controle.alterarItensSolicitanteCompras(itensSolComp);
+                    SalvarFunc();
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    preencherTabelaItensColaborador("SELECT * FROM ITENS_SOLICITANTES_COMPRAS "
+                            + "INNER JOIN SOLICITANTES_COMPRAS "
+                            + "ON ITENS_SOLICITANTES_COMPRAS.IdSoli=SOLICITANTES_COMPRAS.IdSoli "
+                            + "INNER JOIN COLABORADOR "
+                            + "ON ITENS_SOLICITANTES_COMPRAS.IdFunc=COLABORADOR.IdFunc "
+                            + "WHERE ITENS_SOLICITANTES_COMPRAS.IdSoli='" + jCodigo.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
         } else {
-            itensSolComp.setNomeColaborador(jNomeColaboradorSolicitante.getText());
-            if (statusValor == 0 && acao == 3) { // VALOR INDIVIDUAL E SE FOR UMA INCLUSÃO
-                itensSolComp.setDataInicialFunc(jDataInicialFunc.getDate());
-                itensSolComp.setDataFinalFunc(jDataFinalFunc.getDate());
-                try {
-                    itensSolComp.setValorMax(valorReal.parse(jValorMaxFunc.getText()).floatValue());
-                } catch (ParseException ex) {
-                    Logger.getLogger(TelaInventarioProdutosMed.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                buscarValorAcumulado();
-                vACU = vACU + itensSolComp.getValorMax();
-                itensSolComp.setValorVTA(vACU);
-            } else if (statusValor == 1 && acao == 3) { //VALOR EM GRUPO E SE FOR UMA INCLUSÃO
-                try {
-                    itensSolComp.setValorMax(valorReal.parse(jValorMax.getText()).floatValue());
-                } catch (ParseException ex) {
-                    Logger.getLogger(TelaSolicitantesCompras.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                vACU = 0;
-                itensSolComp.setValorMax(vACU);
-                itensSolComp.setValorVTA(vACU);
-            } else if (statusValor == 0 && acao == 4) { // VALOR INDIVIDUAL E SE FOR UMA ALTERAÇÃO
-                itensSolComp.setDataInicialFunc(jDataInicialFunc.getDate());
-                itensSolComp.setDataFinalFunc(jDataFinalFunc.getDate());
-                try {
-                    itensSolComp.setValorMax(valorReal.parse(jValorMaxFunc.getText()).floatValue());
-                } catch (ParseException ex) {
-                    Logger.getLogger(TelaSolicitantesCompras.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                buscarValorAcumulado();
-                vACU = (vACU - vMAX) + itensSolComp.getValorMax();
-                itensSolComp.setValorVTA(vACU);
-            } else if (statusValor == 1 && acao == 4) { // VALOR EM GRUPO E SE FOR ALTERAÇÃO
-                itensSolComp.setDataInicialFunc(jDataInicialFunc.getDate());
-                itensSolComp.setDataFinalFunc(jDataFinalFunc.getDate());
-                try {
-                    itensSolComp.setValorMax(valorReal.parse(jValorMax.getText()).floatValue());
-                } catch (ParseException ex) {
-                    Logger.getLogger(TelaSolicitantesCompras.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                vACU = 0;
-                itensSolComp.setValorMax(vACU);
-                itensSolComp.setValorVTA(vACU);
-            }
-            if (acao == 3) {
-                idSeq = 1 + countCalc;
-                itensSolComp.setUsuarioInsert(nameUser);
-                itensSolComp.setDataInsert(dataModFinal);
-                itensSolComp.setHorarioInsert(horaMov);
-                itensSolComp.setIdSoli(Integer.valueOf(jCodigo.getText()));
-                itensSolComp.setIdSeq(idSeq);
-                controle.incluirItensSolicitanteCompras(itensSolComp);
-                idSeq = idSeq + 1 + countCalc;
-                SalvarFunc();
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                preencherTabelaItensColaborador("SELECT * FROM ITENS_SOLICITANTES_COMPRAS "
-                        + "INNER JOIN SOLICITANTES_COMPRAS "
-                        + "ON ITENS_SOLICITANTES_COMPRAS.IdSoli=SOLICITANTES_COMPRAS.IdSoli "
-                        + "INNER JOIN COLABORADOR "
-                        + "ON ITENS_SOLICITANTES_COMPRAS.IdFunc=COLABORADOR.IdFunc "
-                        + "WHERE ITENS_SOLICITANTES_COMPRAS.IdSoli='" + jCodigo.getText() + "'");
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
-            if (acao == 4) {
-                itensSolComp.setUsuarioUp(nameUser);
-                itensSolComp.setDataUp(dataModFinal);
-                itensSolComp.setHorarioUp(horaMov);
-                itensSolComp.setIdSoli(Integer.valueOf(jCodigo.getText()));
-                itensSolComp.setIdSeq(idSeq);
-                itensSolComp.setIdItem(Integer.valueOf(idItem));
-                try {
-                    itensSolComp.setValorVTA(valorReal.parse(jSaldoCompras.getText()).floatValue());
-                } catch (ParseException ex) {
-                    Logger.getLogger(TelaSolicitantesCompras.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                controle.alterarItensSolicitanteCompras(itensSolComp);
-                SalvarFunc();
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                preencherTabelaItensColaborador("SELECT * FROM ITENS_SOLICITANTES_COMPRAS "
-                        + "INNER JOIN SOLICITANTES_COMPRAS "
-                        + "ON ITENS_SOLICITANTES_COMPRAS.IdSoli=SOLICITANTES_COMPRAS.IdSoli "
-                        + "INNER JOIN COLABORADOR "
-                        + "ON ITENS_SOLICITANTES_COMPRAS.IdFunc=COLABORADOR.IdFunc "
-                        + "WHERE ITENS_SOLICITANTES_COMPRAS.IdSoli='" + jCodigo.getText() + "'");
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarFuncActionPerformed
 
@@ -2494,5 +2548,43 @@ public class TelaSolicitantesCompras extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jCodigo.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserADM = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserADM + "'");
+            conecta.rs.first();
+            codigoUserGroupADM = conecta.rs.getInt("IdUsuario");
+            codigoGrupoADM = conecta.rs.getInt("IdGrupo");
+            nomeGrupoADM = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserADM + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoADM = conecta.rs.getInt("IdUsuario");
+            codAbrirADM = conecta.rs.getInt("Abrir");
+            codIncluirADM = conecta.rs.getInt("Incluir");
+            codAlterarADM = conecta.rs.getInt("Alterar");
+            codExcluirADM = conecta.rs.getInt("Excluir");
+            codGravarADM = conecta.rs.getInt("Gravar");
+            codConsultarADM = conecta.rs.getInt("Consultar");
+            nomeTelaADM = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }
