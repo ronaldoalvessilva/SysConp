@@ -14,6 +14,19 @@ import gestor.Dao.ModeloTabela;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.UnidadePenal;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloCRC.codAbrirCRC;
+import static gestor.Visao.TelaModuloCRC.codIncluirCRC;
+import static gestor.Visao.TelaModuloCRC.codUserAcessoCRC;
+import static gestor.Visao.TelaModuloCRC.codigoUserGroupCRC;
+import static gestor.Visao.TelaModuloCRC.codigoGrupoCRC;
+import static gestor.Visao.TelaModuloCRC.codAlterarCRC;
+import static gestor.Visao.TelaModuloCRC.codExcluirCRC;
+import static gestor.Visao.TelaModuloCRC.codGravarCRC;
+import static gestor.Visao.TelaModuloCRC.codConsultarCRC;
+import static gestor.Visao.TelaModuloCRC.codigoUserCRC;
+import static gestor.Visao.TelaModuloCRC.nomeGrupoCRC;
+import static gestor.Visao.TelaModuloCRC.nomeTelaCRC;
+import static gestor.Visao.TelaModuloCRC.telaUnidadePrisionalCRC;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloTriagem.telaCadastroUnidadePrisionalTRI;
@@ -309,11 +322,6 @@ public final class TelaUnidadePenal extends javax.swing.JInternalFrame {
         jIdUnid.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jIdUnid.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jIdUnid.setEnabled(false);
-        jIdUnid.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jIdUnidActionPerformed(evt);
-            }
-        });
 
         jComboBoxClasse.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxClasse.setForeground(new java.awt.Color(153, 0, 51));
@@ -669,34 +677,49 @@ public final class TelaUnidadePenal extends javax.swing.JInternalFrame {
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaCadastroUnidadePrisionalTRI);
+        buscarAcessoUsuarioCRC(telaUnidadePrisionalCRC);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroUnidadePrisionalTRI) && codIncluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             acao = 1;
             Novo();
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaUnidadePrisionalCRC) && codIncluirCRC == 1) {
+            acao = 1;
+            Novo();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaCadastroUnidadePrisionalTRI);
+        buscarAcessoUsuarioCRC(telaUnidadePrisionalCRC);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroUnidadePrisionalTRI) && codAlterarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             acao = 2;
             Alterar();
             statusMov = "Alterou";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaUnidadePrisionalCRC) && codAlterarCRC == 1) {
+            acao = 2;
+            Alterar();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaCadastroUnidadePrisionalTRI);
+        buscarAcessoUsuarioCRC(telaUnidadePrisionalCRC);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroUnidadePrisionalTRI) && codExcluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
@@ -715,14 +738,33 @@ public final class TelaUnidadePenal extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(rootPane, "Não foi possivel EXCLUIR o REGISTRO\nERRO: " + ex);
                 }
             }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaUnidadePrisionalCRC) && codExcluirCRC == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir UNIDADE PENAL selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                try {
+                    objUnid.setIdUnid(Integer.parseInt(jIdUnid.getText()));
+                    buscarUnidadeExcluir();
+                    control.excluirUnid(objUnid);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    Excluir();
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(rootPane, "Não foi possivel EXCLUIR o REGISTRO\nERRO: " + ex);
+                }
+            }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaCadastroUnidadePrisionalTRI);
+        buscarAcessoUsuarioCRC(telaUnidadePrisionalCRC);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroUnidadePrisionalTRI) && codExcluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             if (jComboBoxClasse.getSelectedItem().equals("Selecione...")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o tipo de unidade.");
@@ -774,8 +816,59 @@ public final class TelaUnidadePenal extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(rootPane, "Não foi possivel SALVAR o registro !!!\n\n\nERRO" + e);
                 }
             }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaUnidadePrisionalCRC) && codGravarCRC == 1) {
+            if (jComboBoxClasse.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o tipo de unidade.");
+            } else if (jDescricao.getText().isEmpty() || jDescricao.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "DESCRIÇÃO da UNIDADE não pode ser em Branco.");
+                jDescricao.requestFocus();
+            } else {
+                objUnid.setClassUnid((String) jComboBoxClasse.getSelectedItem());
+                objUnid.setDescricaoUnid(jDescricao.getText());
+                objUnid.setEnderecoUnid(jEndereco.getText());
+                objUnid.setComplementoUnid(jComplemento.getText());
+                objUnid.setBairroUnid(jBairro.getText());
+                objUnid.setCidadeUnid(jCidade.getText());
+                objUnid.setEstadoUnid(jEstado.getText());
+                objUnid.setCepUnid(jCep.getText());
+                objUnid.setTelefoneUnid(jTelefone.getText());
+                objUnid.setFoneUnid(jFone.getText());
+                objUnid.setFaxUnid(jFax.getText());
+                objUnid.setObsUnid(jObservacao.getText());
+                try {
+                    conecta.abrirConexao();
+                    conecta.executaSQL("SELECT * FROM UNIDADE WHERE DescricaoUnid='" + jDescricao.getText() + "'");
+                    conecta.rs.first();
+                    nomeUnidade = conecta.rs.getString("DescricaoUnid");
+                } catch (Exception ex) {
+                }
+                try {
+                    if (acao == 1) {
+                        if (jDescricao.getText().trim().equals(nomeUnidade)) {
+                            JOptionPane.showMessageDialog(rootPane, "Unidade Penal já cadastrada.");
+                        } else {
+                            control.incluirUnid(objUnid);
+                            buscarID();
+                            objLog();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            JOptionPane.showMessageDialog(rootPane, "Registro GRAVADO com sucesso...");
+                            Salvar();
+                        }
+                    }
+                    if (acao == 2) {
+                        objUnid.setIdUnid(Integer.parseInt(jIdUnid.getText()));
+                        control.alterarUnid(objUnid);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro MODIFICADO com sucesso...");
+                        Salvar();
+                    }
+                } catch (HeadlessException | SQLException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Não foi possivel SALVAR o registro !!!\n\n\nERRO" + e);
+                }
+            }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -786,24 +879,13 @@ public final class TelaUnidadePenal extends javax.swing.JInternalFrame {
 
     private void jBtPesqNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqNomeActionPerformed
         // TODO add your handling code here:
-//        jComboBoxClasse.setSelectedItem(objUnid.getClassUnid());
-//        jDescricao.setText(objUnid.getDescricaoUnid());
-//        jEndereco.setText(objUnid.getEnderecoUnid());
-//        jComplemento.setText(objUnid.getComplementoUnid());
-//        jBairro.setText(objUnid.getBairroUnid());
-//        jCidade.setText(objUnid.getCidadeUnid());
-//        jEstado.setText(objUnid.getEstadoUnid());
-//        jCep.setText(objUnid.getCepUnid());
-//        jTelefone.setText(objUnid.getTelefoneUnid());
-//        jFone.setText(objUnid.getFoneUnid());
-//        jFax.setText(objUnid.getFaxUnid());
-//        jObservacao.setText(objUnid.getObsUnid());
         flag = 1;
         if (jPesqDescricao.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe dados para pesquisa");
             jPesqDescricao.requestFocus();
         } else {
-            preencherTabelaNome("SELECT * FROM UNIDADE WHERE DescricaoUnid LIKE'%" + jPesqDescricao.getText() + "%'");
+            preencherTabelaNome("SELECT * FROM UNIDADE "
+                    + "WHERE DescricaoUnid LIKE'%" + jPesqDescricao.getText() + "%'");
         }
     }//GEN-LAST:event_jBtPesqNomeActionPerformed
 
@@ -853,12 +935,7 @@ public final class TelaUnidadePenal extends javax.swing.JInternalFrame {
             jtotalRegistros.setText("");
             limparTabela();
         }
-
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
-
-    private void jIdUnidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jIdUnidActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jIdUnidActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1254,6 +1331,44 @@ public final class TelaUnidadePenal extends javax.swing.JInternalFrame {
             codGravarTRI = conecta.rs.getInt("Gravar");
             codConcultarTRI = conecta.rs.getInt("Consultar");
             nomeTelaTRI = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void buscarAcessoUsuarioCRC(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserCRC = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserCRC + "'");
+            conecta.rs.first();
+            codigoUserGroupCRC = conecta.rs.getInt("IdUsuario");
+            codigoGrupoCRC = conecta.rs.getInt("IdGrupo");
+            nomeGrupoCRC = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserCRC + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoCRC = conecta.rs.getInt("IdUsuario");
+            codAbrirCRC = conecta.rs.getInt("Abrir");
+            codIncluirCRC = conecta.rs.getInt("Incluir");
+            codAlterarCRC = conecta.rs.getInt("Alterar");
+            codExcluirCRC = conecta.rs.getInt("Excluir");
+            codGravarCRC = conecta.rs.getInt("Gravar");
+            codConsultarCRC = conecta.rs.getInt("Consultar");
+            nomeTelaCRC = conecta.rs.getString("NomeTela");
         } catch (Exception e) {
         }
         conecta.desconecta();
