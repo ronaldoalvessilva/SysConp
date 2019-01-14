@@ -198,10 +198,55 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     public static String telaCadastroProntuarioDocCRC = "Cadastro:Prontuario de Internos - CRC:Adicionar Documentos dos Internos";
     public static String telaCadastroProntuarioPecFreCRC = "Cadastro:Prontuario de Internos - CRC:Peculiaridade Frente";
     public static String telaCadastroProntuarioPecCosCRC = "Cadastro:Prontuario de Internos - CRC:Peculiaridade Costa";
-    // MENU MOVIMENTAÇÃO    
-
-    //
+    // CONSULTAS
     public static String telaConsultaGerencialInternosExternaCRC = "Consulta:Consulta Gerencial Internos Unidade";
+    // MENU MOVIMENTAÇÃO    
+    public static String telaEntradaIntManuCRC = "Movimentação:Entrada de Internos na Unidade - CRC:Manutenção";
+    public static String telaEntradaIntIntCRC = "Movimentação:Entrada de Internos na Unidade - CRC:Internos";
+    // RETORNOS
+    public static String telaRetornoTransManuCRC = "Movimentação:Retorno de Transferência - CRC:Manutenção";
+    public static String telaRetornoTransInteCRC = "Movimentação:Retorno de Transferência - CRC:Internos";
+    public static String telaRetornoMedManuCRC = "Movimentação:Retorno de Medico/Outros Retornos - CRC:Manutenção";
+    public static String telaRetornoMedInterCRC = "Movimentação:Retorno de Medico/Outros Retornos - CRC:Internos";
+    public static String telaRetornoAudManuCRC = "Movimentação:Retorno de Audiência - CRC:Manutenção";
+    public static String telaRetornoAudInteCRC = "Movimentação:Retorno de Audiência - CRC:Internos";
+    public static String telaRetornoEspManuCRC = "Movimentação:Retorno Espontaneo - CRC:Manutenção";
+    public static String telaRetornoEspInteCRC = "Movimentação:Retorno Espontaneo - CRC:Internos";
+    public static String telaRetornoTmpManuCrc = "Movimentação:Retorno de Saída Temporaria - CRC:Manutenção";
+    public static String telaRetornoTmpInteCrc = "Movimentação:Retorno de Saída Temporaria - CRC:Internos";
+    // PREVISÃO SAÍDA 
+    public static String telaPrevisaoSaidaManuCRC = "Movimentação:Previsão de Saída:Manutenção";
+    public static String telaPrevisaoSaidaInteCRC = "Movimentação:Previsão de Saída:Internos";
+    // SAÍDA UNIDADE
+    public static String telaSaidaInternosManuCRC = "Movimentação:Saída de Internos:Manutenção";
+    public static String telaSaidaInternosInteCRC = "Movimentação:Saída de Internos:Internos";
+    public static String telaSaidaInternosAgenCRC = "Movimentação:Saída de Internos:Agenda";
+    public static String telaSaidaInternosPrevCRC = "Movimentação:Saída de Internos:Previsão";
+    // TRANSFERÊNCIA
+    public static String telaTransInternosManuCRC = "Movimentação:Transferência de Internos - CRC:Manutenção";
+    public static String telaTransInternosInteCRC = "Movimentação:Transferência de Internos - CRC:Internos";
+    public static String telaTransInternosExpoCRC = "Movimentação:Transferência de Internos - CRC:Exportação";
+    // LISTA PASSAGEM ALBERGADOS
+    public static String telaListaPassagemManuCRC = "Movimentação:Lista de Passagem - CRC:Manutenção";
+    public static String telaListaPassagemIntCRC = "Movimentação:Lista de Passagem - CRC:Internos";
+    //AGENDAMENTO DE ESCOLTA
+    public static String telaEscoltaManuCRC = "Manutenção:Agendamento de Escolta - CRC:Manutenção";
+    public static String telaEscoltaIntCRC = "Manutenção:Agendamento de Escolta - CRC:Interno";
+    //CANCELAMENTO REISTRO ENTRADA PORTARIA
+    public static String telaCancelamentoRegEntManuCRC = "Movimentação:Cancelamento de Registro de Entrada Internos Portaria - CRC:Manutenção";
+    //MUDANÇA DE REGIME PROGRESSÃO *
+    public static String telaMudancaRegimeProManuCRC = "Movimentação:Mudança de Regime - Progressão - CRC:Manutenção";
+    public static String telaMudancaRegimeProIntCRC = "Movimentação:Mudança de Regime - Progressão - CRC:Internos";
+    //MUDANÇA DE REGIME REGRESSÃO
+    public static String telaMudancaRegimeRegManuCRC = "Movimentação:Mudança de Regime - Regressão - CRC:Manutenção";
+    public static String telaMudancaRegimeRegIntCRC = "Movimentação:Mudança de Regime - Regressão - CRC:Internos";
+    //LANÇAMENTO DE INTERNOS EVADIDOS
+    public static String telaLancarEvasaoManuCRC = "Movimentação:Lançamento de Evasão - CRC:Manutenção";
+    //LANÇAMENTO DE ÓBITO DE INTERNOS
+    public static String telaLancarObitoManuCRC = "Movimentação:Lançamento de Óbito de Interno - CRC:Manutenção";
+    //CUMPRIMENTO/NÃO CUMPRIMENTO DE ALVARÁ
+    public static String telaCumprimentoManuCRC = "Movimentação:Cumprimento/Não Cumprimento de Alvará - CRC:Manutenção";
+    //EMISSÃO/VALIDAÇÃO ATESTADO DE RECLUSÃO
     public static String telaEmissaoAtestadoReclusao = "Movimentação:Emissão Atestado de Reclusão:Manutenção";
     public static String liberacaoAtestadoCRC = "Movimentação:Emissão Atestado de Reclusão:Liberação";
     public static String impressaoAtestadoCRC = "Movimentação:Emissão Atestado de Reclusão:Impressão";
@@ -235,7 +280,53 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     String pNomePC = "";
     // CONSULTA
     String pNomeCGIE = "";
-    // MENU MOVIMENTAÇÃO
+    // MENU MOVIMENTAÇÃO - ENTRADA DE INTERNOS
+    String pNomeEIM = "";
+    String pNomeEII = "";
+    // RETORNOS DE INTERNOS
+    String pNomeRTM = "";
+    String pNomeRTI = "";
+    String pNomeRMM = "";
+    String pNomeRMI = "";
+    String pNomeRAM = "";
+    String pNomeRAI = "";
+    String pNomeREM = "";
+    String pNomeREI = "";
+    String pNomeRTMP = "";
+    String pNomeRTPI = "";
+    //PREVISÃO DE SAÍDA
+    String pNomePSIM = "";
+    String pNomePSII = "";
+    // SAIDA DE INTERNOS
+    String pNomeSIM = "";
+    String pNomeSII = "";
+    String pNomeSIA = "";
+    String pNomeSIP = "";
+    // TRANSFERÊNCIA
+    String pNomeTIM = "";
+    String pNomeTII = "";
+    String pNomeTIE = "";
+    // LISTA PASSAGEM ALBERGADOS
+    String pNomeLPM = "";
+    String pNomeLPI = "";
+    //AGENDAMENTO DE ESCOLTA
+    String pNomeEM = "";
+    String pNomeEI = "";
+    // CANCELAMENTO DE REGISTRO ENTRADA INTERNOS NA PORTARIA
+    String pNomeCREM = "";
+    //MUDANÇA DE REGIME PROGRESSÃO *
+    String pNomeMRPM = "";
+    String pNomeMRPI = "";
+    //MUDANÇA DE REGIME REGRESSÃO
+    String pNomeMaRRM = "";
+    String pNomeMRRI = "";
+    //LANÇAMENTO DE INTERNOS EVADIDOS
+    String pNomeLEM = "";
+    //LANÇAMENTO DE ÓBITO DE INTERNOS
+    String pNomeLOM = "";
+    //CUMPRIMENTO/NÃO CUMPRIMENTO DE ALVARÁ
+    String pNomeCM = "";
+    //EMISSÃO/VALIDAÇÃO ATESTDO DE RECLUSÃO
     String pNomeEAR = "";
     String pNomeLA = "";
     String pNomeIA = "";
@@ -1239,30 +1330,35 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
 
     private void jEntradaInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEntradaInternosActionPerformed
         // TODO add your handling code here:
-        if (objLote == null || objLote.isClosed()) {
-            objLote = new TelaEntradasLote();
-            jPainelCRC.add(objLote);
-            objLote.setVisible(true);
-        } else {
-            if (objLote.isVisible()) {
-                if (objLote.isIcon()) { // Se esta minimizado
-                    try {
-                        objLote.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaEntradaIntManuCRC);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaEntradaIntManuCRC) && codAbrirCRC == 1) {
+            if (objLote == null || objLote.isClosed()) {
+                objLote = new TelaEntradasLote();
+                jPainelCRC.add(objLote);
+                objLote.setVisible(true);
+            } else {
+                if (objLote.isVisible()) {
+                    if (objLote.isIcon()) { // Se esta minimizado
+                        try {
+                            objLote.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objLote.toFront(); // traz para frente
+                        objLote.pack();//volta frame 
                     }
                 } else {
-                    objLote.toFront(); // traz para frente
-                    objLote.pack();//volta frame 
+                    objLote = new TelaEntradasLote();
+                    TelaModuloCRC.jPainelCRC.add(objLote);//adicona frame ao JDesktopPane  
+                    objLote.setVisible(true);
                 }
-            } else {
-                objLote = new TelaEntradasLote();
-                TelaModuloCRC.jPainelCRC.add(objLote);//adicona frame ao JDesktopPane  
-                objLote.setVisible(true);
             }
-        }
-        try {
-            objLote.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objLote.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jEntradaInternosActionPerformed
 
@@ -3780,7 +3876,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     public void pesquisarTelasAcessos() {
         conecta.abrirConexao();
         // CADASTRO
-        //
+        // TIPO OPERAÇÃO
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaTipoOPCRC + "'");
@@ -3788,6 +3884,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             pNomeOP = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        // UNIDADE PRISIONAL
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaUnidadePrisionalCRC + "'");
@@ -3795,6 +3892,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             pNomeUP = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        // PAISES
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaPaisCRC + "'");
@@ -3802,6 +3900,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             pNomePA = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        // CIDADES
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaCidadeCRC + "'");
@@ -3875,8 +3974,256 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         } catch (SQLException ex) {
         }
         // MOVIMENTAÇÃO
-
-        //
+        //ENTRADA DE INTERNOS NA UNIDADE
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaEntradaIntManuCRC + "'");
+            conecta.rs.first();
+            pNomeEIM = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaEntradaIntIntCRC + "'");
+            conecta.rs.first();
+            pNomeEII = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        // RETORNOS  
+        // TRANSFERENCIA
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRetornoTransManuCRC + "'");
+            conecta.rs.first();
+            pNomeRTM = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRetornoTransInteCRC + "'");
+            conecta.rs.first();
+            pNomeRTI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        // RETORNO MÉDICO
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRetornoMedManuCRC + "'");
+            conecta.rs.first();
+            pNomeRMM = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRetornoMedInterCRC + "'");
+            conecta.rs.first();
+            pNomeRMI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        // RETORNO DE AUDIÊNCIA
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRetornoAudManuCRC + "'");
+            conecta.rs.first();
+            pNomeRAM = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRetornoAudInteCRC + "'");
+            conecta.rs.first();
+            pNomeRAI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        // RETORNO ESPONTANEO
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRetornoEspManuCRC + "'");
+            conecta.rs.first();
+            pNomeREM = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRetornoEspInteCRC + "'");
+            conecta.rs.first();
+            pNomeREI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        // RETORNO DE SAIDA TEMPORARIA
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRetornoTmpManuCrc + "'");
+            conecta.rs.first();
+            pNomeRTMP = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRetornoTmpInteCrc + "'");
+            conecta.rs.first();
+            pNomeRTPI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        // PREVISÃO DE SAÍDA
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPrevisaoSaidaManuCRC + "'");
+            conecta.rs.first();
+            pNomePSIM = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPrevisaoSaidaInteCRC + "'");
+            conecta.rs.first();
+            pNomePSII = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        // SAIDA DE INTERNOS
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaSaidaInternosManuCRC + "'");
+            conecta.rs.first();
+            pNomeSIM = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaSaidaInternosInteCRC + "'");
+            conecta.rs.first();
+            pNomeSII = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaSaidaInternosAgenCRC + "'");
+            conecta.rs.first();
+            pNomeSIA = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaSaidaInternosPrevCRC + "'");
+            conecta.rs.first();
+            pNomeSIP = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        // TRANSFERÊNCIA  
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaTransInternosManuCRC + "'");
+            conecta.rs.first();
+            pNomeTIM = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaTransInternosInteCRC + "'");
+            conecta.rs.first();
+            pNomeTII = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaTransInternosExpoCRC + "'");
+            conecta.rs.first();
+            pNomeTIE = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        // LISTA PASSAGEM ALBERGADOS 
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaListaPassagemManuCRC + "'");
+            conecta.rs.first();
+            pNomeLPM = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaListaPassagemIntCRC + "'");
+            conecta.rs.first();
+            pNomeLPI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        //AGENDAMENTO DE ESCOLTA 
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaEscoltaManuCRC + "'");
+            conecta.rs.first();
+            pNomeEM = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaEscoltaIntCRC + "'");
+            conecta.rs.first();
+            pNomeEI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        //CANCELAMENTO REISTRO ENTRADA PORTARIA   
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaCancelamentoRegEntManuCRC + "'");
+            conecta.rs.first();
+            pNomeCREM = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        //MUDANÇA DE REGIME PROGRESSÃO *   
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaMudancaRegimeProManuCRC + "'");
+            conecta.rs.first();
+            pNomeMRPM = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaMudancaRegimeProIntCRC + "'");
+            conecta.rs.first();
+            pNomeMRPI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        //MUDANÇA DE REGIME REGRESSÃO 
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaMudancaRegimeRegManuCRC + "'");
+            conecta.rs.first();
+            pNomeMaRRM = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaMudancaRegimeRegIntCRC + "'");
+            conecta.rs.first();
+            pNomeMRRI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        //LANÇAMENTO DE INTERNOS EVADIDOS
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaLancarEvasaoManuCRC + "'");
+            conecta.rs.first();
+            pNomeLEM = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        //LANÇAMENTO DE ÓBITO DE INTERNOS    
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaLancarObitoManuCRC + "'");
+            conecta.rs.first();
+            pNomeLOM = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        //CUMPRIMENTO/NÃO CUMPRIMENTO DE ALVARÁ
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaCumprimentoManuCRC + "'");
+            conecta.rs.first();
+            pNomeCM = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        // EMISSÃO/VALIDAÇÃO DE ATESTADO DE RECLUSÃO
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaEmissaoAtestadoReclusao + "'");
@@ -3955,24 +4302,28 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         } catch (SQLException ex) {
         }
         // CADASTRO
+        // TIPO DE OPERAÇÃO
         if (!pNomeOP.equals(telaTipoOPCRC) || pNomeOP == null || pNomeOP.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaTipoOPCRC);
             controle.incluirTelaAcesso(objCadastroTela);
         }
+        // UNIDADE PRISIONAL
         if (!pNomeUP.equals(telaUnidadePrisionalCRC) || pNomeUP == null || pNomeUP.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaUnidadePrisionalCRC);
             controle.incluirTelaAcesso(objCadastroTela);
         }
+        // PAISES
         if (!pNomePA.equals(telaPaisCRC) || pNomePA == null || pNomePA.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaPaisCRC);
             controle.incluirTelaAcesso(objCadastroTela);
         }
+        // CIDADES
         if (!pNomeCI.equals(telaCidadeCRC) || pNomeCI == null || pNomeCI.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
@@ -4036,7 +4387,222 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             controle.incluirTelaAcesso(objCadastroTela);
         }
         // MOVIMENTAÇÃO
-
+        //ENTRADA DE INTERNOS
+        if (!pNomeEIM.equals(telaEntradaIntManuCRC) || pNomeEIM == null || pNomeEIM.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaEntradaIntManuCRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeEII.equals(telaEntradaIntIntCRC) || pNomeEII == null || pNomeEII.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaEntradaIntIntCRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        // RETORNOS 
+        // TRANSFERENCIA
+        if (!pNomeRTM.equals(telaRetornoTransManuCRC) || pNomeRTM == null || pNomeRTM.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRetornoTransManuCRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeRTI.equals(telaRetornoTransInteCRC) || pNomeRTI == null || pNomeRTI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRetornoTransInteCRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //RETORNO DE MEDICO
+        if (!pNomeRMM.equals(telaRetornoMedManuCRC) || pNomeRMM == null || pNomeRMM.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRetornoMedManuCRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeRMI.equals(telaRetornoMedInterCRC) || pNomeRMI == null || pNomeRMI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRetornoMedInterCRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        // RETORNO DE AUDIENCIA
+        if (!pNomeRAM.equals(telaRetornoAudManuCRC) || pNomeRAM == null || pNomeRAM.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRetornoAudManuCRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeRAI.equals(telaRetornoAudInteCRC) || pNomeRAI == null || pNomeRAI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRetornoAudInteCRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        // RETORNO ESPONTANEO
+        if (!pNomeREM.equals(telaRetornoEspManuCRC) || pNomeREM == null || pNomeREM.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRetornoEspManuCRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeREI.equals(telaRetornoEspInteCRC) || pNomeREI == null || pNomeREI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRetornoEspInteCRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        // RETORNO DE SAIDA TEMPORARIA
+        if (!pNomeRTMP.equals(telaRetornoTmpManuCrc) || pNomeRTMP == null || pNomeRTMP.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRetornoTmpManuCrc);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeRTPI.equals(telaRetornoTmpInteCrc) || pNomeRTPI == null || pNomeRTPI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRetornoTmpInteCrc);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        // PREVISÃO DE SAÍDA  
+        if (!pNomePSIM.equals(telaPrevisaoSaidaManuCRC) || pNomePSIM == null || pNomePSIM.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaPrevisaoSaidaManuCRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomePSII.equals(telaPrevisaoSaidaInteCRC) || pNomePSII == null || pNomePSII.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaPrevisaoSaidaInteCRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        // SAÍDA DE INTERNOS 
+        if (!pNomeSIM.equals(telaSaidaInternosManuCRC) || pNomeSIM == null || pNomeSIM.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaSaidaInternosManuCRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeSII.equals(telaSaidaInternosInteCRC) || pNomeSII == null || pNomeSII.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaSaidaInternosInteCRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeSIA.equals(telaSaidaInternosAgenCRC) || pNomeSIA == null || pNomeSIA.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaSaidaInternosAgenCRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeSIP.equals(telaSaidaInternosPrevCRC) || pNomeSIP == null || pNomeSIP.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaSaidaInternosPrevCRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        // TRANSFERÊNCIA   
+        if (!pNomeTIM.equals(telaTransInternosManuCRC) || pNomeTIM == null || pNomeTIM.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaTransInternosManuCRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeTII.equals(telaTransInternosInteCRC) || pNomeTII == null || pNomeTII.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaTransInternosInteCRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeTIE.equals(telaTransInternosExpoCRC) || pNomeTIE == null || pNomeTIE.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaTransInternosExpoCRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        // LISTA PASSAGEM ALBERGADOS
+        if (!pNomeLPM.equals(telaListaPassagemManuCRC) || pNomeLPM == null || pNomeLPM.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaListaPassagemManuCRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeLPI.equals(telaListaPassagemIntCRC) || pNomeLPI == null || pNomeLPI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaListaPassagemIntCRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //AGENDAMENTO DE ESCOLTA 
+        if (!pNomeEM.equals(telaEscoltaManuCRC) || pNomeEM == null || pNomeEM.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaEscoltaManuCRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeEI.equals(telaEscoltaIntCRC) || pNomeEI == null || pNomeEI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaEscoltaIntCRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //CANCELAMENTO REISTRO ENTRADA PORTARIA
+        if (!pNomeCREM.equals(telaCancelamentoRegEntManuCRC) || pNomeCREM == null || pNomeCREM.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaCancelamentoRegEntManuCRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //MUDANÇA DE REGIME PROGRESSÃO *
+        if (!pNomeMRPM.equals(telaMudancaRegimeProManuCRC) || pNomeMRPM == null || pNomeMRPM.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaMudancaRegimeProManuCRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeMRPI.equals(telaMudancaRegimeProIntCRC) || pNomeMRPI == null || pNomeMRPI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaMudancaRegimeProIntCRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //MUDANÇA DE REGIME REGRESSÃO 
+        if (!pNomeMaRRM.equals(telaMudancaRegimeRegManuCRC) || pNomeMaRRM == null || pNomeMaRRM.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaMudancaRegimeRegManuCRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeMRRI.equals(telaMudancaRegimeRegIntCRC) || pNomeMRRI == null || pNomeMRRI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaMudancaRegimeRegIntCRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //LANÇAMENTO DE INTERNOS EVADIDOS 
+        if (!pNomeLEM.equals(telaLancarEvasaoManuCRC) || pNomeLEM == null || pNomeLEM.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaLancarEvasaoManuCRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //LANÇAMENTO DE ÓBITO DE INTERNOS
+        if (!pNomeLOM.equals(telaLancarObitoManuCRC) || pNomeLOM == null || pNomeLOM.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaLancarObitoManuCRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //CUMPRIMENTO/NÃO CUMPRIMENTO DE ALVARÁ   
+        if (!pNomeCM.equals(telaCumprimentoManuCRC) || pNomeCM == null || pNomeCM.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaCumprimentoManuCRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
         //EMISSÃO/LIBERAÇÃO/IMPRESSÃO DE ATESTADO
         if (!pNomeEAR.equals(telaEmissaoAtestadoReclusao) || pNomeEAR == null || pNomeEAR.equals("")) {
             buscarCodigoModulo();

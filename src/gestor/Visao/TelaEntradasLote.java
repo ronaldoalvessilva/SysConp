@@ -28,6 +28,20 @@ import gestor.Modelo.Operacao;
 import gestor.Modelo.ProntuarioCrc;
 import gestor.Modelo.RolVisitas;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloCRC.codAbrirCRC;
+import static gestor.Visao.TelaModuloCRC.codIncluirCRC;
+import static gestor.Visao.TelaModuloCRC.codUserAcessoCRC;
+import static gestor.Visao.TelaModuloCRC.codigoUserGroupCRC;
+import static gestor.Visao.TelaModuloCRC.codigoGrupoCRC;
+import static gestor.Visao.TelaModuloCRC.codAlterarCRC;
+import static gestor.Visao.TelaModuloCRC.codExcluirCRC;
+import static gestor.Visao.TelaModuloCRC.codGravarCRC;
+import static gestor.Visao.TelaModuloCRC.codConsultarCRC;
+import static gestor.Visao.TelaModuloCRC.codigoUserCRC;
+import static gestor.Visao.TelaModuloCRC.nomeGrupoCRC;
+import static gestor.Visao.TelaModuloCRC.nomeTelaCRC;
+import static gestor.Visao.TelaModuloCRC.telaEntradaIntIntCRC;
+import static gestor.Visao.TelaModuloCRC.telaEntradaIntManuCRC;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloTriagem.codigoUserGroupTRI;
@@ -445,14 +459,13 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -658,14 +671,10 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
                     .addComponent(jComboBoxSexo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel10Layout.createSequentialGroup()
-                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBoxUnidPenal, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                            .addGroup(jPanel10Layout.createSequentialGroup()
-                                .addComponent(jIDInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(51, 51, 51)))
+                            .addComponent(jComboBoxUnidPenal, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jIDInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jBtPesInterno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jBtPesqUnidade, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -1206,9 +1215,6 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
                             .addComponent(jBtPesquisarInterno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        jPanel6Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtBuscarIntPortaria, jBtPesquisarInterno});
-
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
@@ -1436,6 +1442,7 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
     private void jBtSalvarlancActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarlancActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaEntredaInternosManuTRI);
+        buscarAcessoUsuarioCRC(telaEntradaIntManuCRC);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaEntredaInternosManuTRI) && codGravarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             if (jDescricaoOp.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o nome da operação de entrada");
@@ -1479,14 +1486,58 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
                     }
                 }
             }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaEntradaIntManuCRC) && codAbrirCRC == 1) {
+            if (jDescricaoOp.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome da operação de entrada");
+                jDescricaoOp.requestFocus();
+            } else {
+                if (jDataLancamento.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data de lançamento");
+                    jDataLancamento.requestFocus();
+                } else {
+                    objEntLote.setDateLancamento(jDataLancamento.getDate());
+                    objEntLote.setStatusEntrada(statusEntrada);
+                    objEntLote.setNomeOperacao(jDescricaoOp.getText());
+                    objEntLote.setObs(jTextAreaObs.getText());
+                    // log de usuario
+                    objEntLote.setUsuarioInsert(nameUser);
+                    objEntLote.setDataInsert(dataModFinal);
+                    objEntLote.setHoraInsert(horaMov);
+                    try {
+                        if (acao == 1) {
+                            control.incluirEntradaLote(objEntLote);
+                            buscarCodEnt();
+                            objLog();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            JOptionPane.showMessageDialog(rootPane, "Registro INCLUIDO com sucesso, será necessário\nincluir os internos na aba (INTERNOS)\npara que possa ser registrado a movimentação.");
+                            Salvar();
+                        }
+                        if (acao == 2) {
+                            // log de usuario
+                            objEntLote.setUsuarioUp(nameUser);
+                            objEntLote.setDataUp(dataModFinal);
+                            objEntLote.setHoraUp(horaMov);
+                            objEntLote.setIdLanc(Integer.parseInt(jIDLanc.getText()));
+                            control.alterarEntradaLote(objEntLote);
+                            objLog();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            JOptionPane.showMessageDialog(rootPane, "Registro ALTERADO com sucesso. Se necessário\n faça aleração dos internos na aba(INTERNOS)");
+                            Salvar();
+                        }
+                    } catch (HeadlessException e) {
+                        JOptionPane.showMessageDialog(rootPane, "Não foi possível GRAVAR registro !!!\n" + e);
+                    }
+                }
+            }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Acesso nao autorizado.");
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarlancActionPerformed
 
     private void jBtExcluirlancActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirlancActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaEntredaInternosManuTRI);
+        buscarAcessoUsuarioCRC(telaEntradaIntManuCRC);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaEntredaInternosManuTRI) && codExcluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             objEntLote.setStatusEntrada(jStatusEntrada.getText());
             if (jStatusEntrada.getText().equals("FINALIZADO")) {
@@ -1494,14 +1545,22 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
             } else {
                 verificarItens();
             }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaEntradaIntManuCRC) && codExcluirCRC == 1) {
+            objEntLote.setStatusEntrada(jStatusEntrada.getText());
+            if (jStatusEntrada.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser excluida, o mesmo encontra-se FINALIZADO");
+            } else {
+                verificarItens();
+            }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Acesso nao autorizado.");
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirlancActionPerformed
 
     private void jBtAlterarlancActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarlancActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaEntredaInternosManuTRI);
+        buscarAcessoUsuarioCRC(telaEntradaIntManuCRC);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaEntredaInternosManuTRI) && codAlterarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             objEntLote.setStatusEntrada(jStatusEntrada.getText());
             if (jStatusEntrada.getText().equals("FINALIZADO")) {
@@ -1514,14 +1573,27 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
                 horaMov = jHoraSistema.getText();
                 dataModFinal = jDataSistema.getText();
             }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaEntradaIntManuCRC) && codAbrirCRC == 1) {
+            objEntLote.setStatusEntrada(jStatusEntrada.getText());
+            if (jStatusEntrada.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                Alterar();
+                corCampo();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Acesso nao autorizado.");
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarlancActionPerformed
 
     private void jBtNovolancActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovolancActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaEntredaInternosManuTRI);
+        buscarAcessoUsuarioCRC(telaEntradaIntManuCRC);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaEntredaInternosManuTRI) && codIncluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             acao = 1;
             Novo();
@@ -1529,14 +1601,22 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaEntradaIntManuCRC) && codIncluirCRC == 1) {
+            acao = 1;
+            Novo();
+            corCampo();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Acesso nao autorizado.");
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtNovolancActionPerformed
 
     private void jBtNovoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoItemActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaEntredaInternosManuTRI);
+        buscarAcessoUsuarioCRC(telaEntradaIntIntCRC);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaEntredaInternosManuTRI) && codIncluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             objEntLote.setStatusEntrada(jStatusEntrada.getText());
             if (jStatusEntrada.getText().equals("FINALIZADO")) {
@@ -1548,14 +1628,26 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
                 horaMov = jHoraSistema.getText();
                 dataModFinal = jDataSistema.getText();
             }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaEntradaIntIntCRC) && codIncluirCRC == 1) {
+            objEntLote.setStatusEntrada(jStatusEntrada.getText());
+            if (jStatusEntrada.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 3;
+                NovoItem();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Acesso nao autorizado.");
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtNovoItemActionPerformed
 
     private void jBtAlterarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarItemActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaEntredaInternosManuTRI);
+        buscarAcessoUsuarioCRC(telaEntradaIntIntCRC);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaEntredaInternosManuTRI) && codAlterarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             objEntLote.setStatusEntrada(jStatusEntrada.getText());
             if (jStatusEntrada.getText().equals("FINALIZADO")) {
@@ -1568,14 +1660,27 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
                 horaMov = jHoraSistema.getText();
                 dataModFinal = jDataSistema.getText();
             }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaEntradaIntIntCRC) && codAlterarCRC == 1) {
+            objEntLote.setStatusEntrada(jStatusEntrada.getText());
+            if (jStatusEntrada.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 4;
+                flag = 1;
+                AlterarItem();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Acesso nao autorizado.");
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarItemActionPerformed
 
     private void jBtExcluirItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirItemActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaEntredaInternosManuTRI);
+        buscarAcessoUsuarioCRC(telaEntradaIntIntCRC);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaEntredaInternosManuTRI) && codExcluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
@@ -1601,7 +1706,63 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
                     jDataEntrada.setDate(null);
                     objDadosPena.setDataNovaEntrada(jDataEntrada.getDate());
                     objDadosPena.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
-                    controleNovaData.incluirDataNovaEntrada(objDadosPena);                    
+                    controleNovaData.incluirDataNovaEntrada(objDadosPena);
+                    // INFORMAR OPÇÕES DO KIT DE HIGIENE
+                    pagtoKit = null;
+                    objProCrc.setIdInterno(Integer.valueOf(jIDInterno.getText()));
+                    objProCrc.setKitInicial(pagtoKit);
+                    objProCrc.setKitIPago(pagtoKit);
+                    objProCrc.setKitDecendial(pagtoKit);
+                    objProCrc.setKitDPago(pagtoKit);
+                    objProCrc.setKitQuinzenal(pagtoKit);
+                    objProCrc.setKitQPago(pagtoKit);
+                    objProCrc.setKitMensal(pagtoKit);
+                    objProCrc.setKitMPago(pagtoKit);
+                    objProCrc.setKitSemestral(pagtoKit);
+                    objProCrc.setKitSPago(pagtoKit);
+                    objProCrc.setKitAnual(pagtoKit);
+                    objProCrc.setKitAPago(pagtoKit);
+                    controle.informarkitHigiene(objProCrc);
+                    //
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    ExcluirItem();
+                    preencherTabelaItens("SELECT * FROM ITENSENTRADA "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON ITENSENTRADA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN UNIDADE ON ITENSENTRADA.IdUnid=UNIDADE.IdUnid "
+                            + "INNER JOIN DADOSPENAISINTERNOS "
+                            + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                            + "WHERE IdEntrada='" + jIDLanc.getText() + "'");
+                }
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaEntradaIntIntCRC) && codExcluirCRC == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objEntLote.setStatusEntrada(jStatusEntrada.getText());
+            if (jStatusEntrada.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse  interno não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o INTERNO selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objItens.setIdItem(Integer.valueOf(idItem));
+                    controle.excluirItensEntLote(objItens);
+                    //
+                    objItens.setIdItem(coditem);
+                    objItens.setIdEntrada(Integer.valueOf(jIDLanc.getText()));
+                    controlMov.excluirMovInterno(objItens);
+                    // Alterar na tabela de ITENSNOVAENTRADA como "não" para poder ser excluido caso necessário
+                    objItensNova.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                    objItensNova.setUtilizacaoCrc(excluirUtilizacao); // Passa como "não"
+                    controlPort.alterarUtilizacaoNovaEntrada(objItensNova); // Tabela ITENSNOVAENTRADA
+                    // ATUALIZAR OS DADOS PENAIS COM A NOVA DA DE ENTRADA - 11/07/2016      
+                    jDataEntrada.setDate(null);
+                    objDadosPena.setDataNovaEntrada(jDataEntrada.getDate());
+                    objDadosPena.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                    controleNovaData.incluirDataNovaEntrada(objDadosPena);
                     // INFORMAR OPÇÕES DO KIT DE HIGIENE
                     pagtoKit = null;
                     objProCrc.setIdInterno(Integer.valueOf(jIDInterno.getText()));
@@ -1633,13 +1794,14 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Acesso nao autorizado.");
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirItemActionPerformed
 
     private void jBtSalvarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarItemActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaEntredaInternosManuTRI);
+        buscarAcessoUsuarioCRC(telaEntradaIntIntCRC);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaEntredaInternosManuTRI) && codGravarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             if (jNomeInterno.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Nome do Interno não pode ser em branco,\nutilize o botão pesquisar ao lado.");
@@ -1807,8 +1969,175 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
                     }
                 }
             }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaEntradaIntIntCRC) && codGravarCRC == 1) {
+            if (jNomeInterno.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Nome do Interno não pode ser em branco,\nutilize o botão pesquisar ao lado.");
+                jNomeInterno.requestFocus();
+            } else {
+                if (jComboBoxUnidPenal.getSelectedItem() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Procedência (UNIDADE PENAL) não pode ser em branco.");
+                    jComboBoxUnidPenal.requestFocus();
+                } else {
+                    if (jDataEntrada.getDate() == null) {
+                        JOptionPane.showMessageDialog(rootPane, "Data de Entrada não pode ser em branco.");
+                        jDataEntrada.requestFocus();
+                    } else {
+                        if (jDataCrime.getDate() == null) {
+                            JOptionPane.showMessageDialog(rootPane, "Data do Crime não pode ser em branco.");
+                            jDataCrime.requestFocus();
+                        } else {
+                            if (jDataPrisao.getDate() == null) {
+                                JOptionPane.showMessageDialog(rootPane, "Data da Prisão não pode ser em branco.");
+                                jDataPrisao.requestFocus();
+                            } else {
+                                if (jDataCondenacao.getDate() == null) {
+                                    JOptionPane.showMessageDialog(rootPane, "Data da Condenção não pode ser em branco.");
+                                    jDataCondenacao.requestFocus();
+                                } else {
+                                    if (jDataTerminoPena.getDate() == null) {
+                                        JOptionPane.showMessageDialog(rootPane, "Data do Termino da Pena não pode ser em branco.");
+                                        jDataTerminoPena.requestFocus();
+                                    } else {
+                                        objItens.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                                        objItens.setNomeInterno(jNomeInterno.getText());
+                                        objItens.setNomeUnidade((String) jComboBoxUnidPenal.getSelectedItem());
+                                        objProCrc.setSexo((String) jComboBoxSexo.getSelectedItem());
+                                        objDadosPena.setDataEntrada(jDataEntrada.getDate());
+                                        objDadosPena.setDataCrime(jDataCrime.getDate());
+                                        objDadosPena.setDataPrisao(jDataPrisao.getDate());
+                                        objDadosPena.setDataCondenacao(jDataCondenacao.getDate());
+                                        objDadosPena.setRegime((String) jComboBoxRegime.getSelectedItem());
+                                        objDadosPena.setPena(jPena.getText());
+                                        objDadosPena.setArtigo1(jArtigo1.getText());
+                                        objDadosPena.setArtigo2(jArtigo2.getText());
+                                        objDadosPena.setArtigo3(jArtigo3.getText());
+                                        objDadosPena.setParagrafo1(jParagrafo1.getText());
+                                        objDadosPena.setParagrafo2(jParagrafo2.getText());
+                                        objDadosPena.setParagrafo3(jParagrafo3.getText());
+                                        objDadosPena.setTerminoPena(jDataTerminoPena.getDate());
+                                        objItens();
+                                        // Incluir os itens da Entrada
+                                        if (acao == 3) {
+                                            objItens.setIdEntrada((Integer.parseInt(jIDLanc.getText())));
+                                            objItens();
+                                            controle.incluirItensEntLote(objItens);
+                                            //
+                                            buscarIdItem();
+                                            // INFORMAR OPÇÕES DO KIT DE HIGIENE
+                                            pagtoKit = "Não";
+                                            objProCrc.setIdInterno(Integer.valueOf(jIDInterno.getText()));
+                                            objProCrc.setKitInicial(pagtoKit);
+                                            objProCrc.setKitIPago(pagtoKit);
+                                            objProCrc.setKitDecendial(pagtoKit);
+                                            objProCrc.setKitDPago(pagtoKit);
+                                            objProCrc.setKitQuinzenal(pagtoKit);
+                                            objProCrc.setKitQPago(pagtoKit);
+                                            objProCrc.setKitMensal(pagtoKit);
+                                            objProCrc.setKitMPago(pagtoKit);
+                                            objProCrc.setKitSemestral(pagtoKit);
+                                            objProCrc.setKitSPago(pagtoKit);
+                                            objProCrc.setKitAnual(pagtoKit);
+                                            objProCrc.setKitAPago(pagtoKit);
+                                            objProCrc.setIdInterno(Integer.valueOf(jIDInterno.getText()));
+                                            objProCrc.setNomeInterno(jNomeInterno.getText());
+                                            controle.informarkitHigiene(objProCrc);
+                                            // MODIFICAR A SITUAÇÃO DO INTERNO NA TABELA PRONTUARIOSCRC
+                                            objProCrc.setIdInterno(Integer.valueOf(jIDInterno.getText()));
+                                            objProCrc.setSituacao(situacao);
+                                            mod.alterarSituacaoInterno(objProCrc);
+                                            // TABLEA DADOSPENAISINTERNOS
+                                            objDadosPena.setIdInternoCrc(Integer.parseInt(jIDInterno.getText()));
+                                            objDadosPena.setNomeUnidade((String) jComboBoxUnidPenal.getSelectedItem());
+                                            controlInterno.alterarDadosPenaisLote(objDadosPena);
+                                            //Inserir na tabela de movimentação                                              
+                                            objItens.setDataEntrada(jDataEntrada.getDate());
+                                            objItens.setIdItem(codItemEnt);
+                                            controlMov.incluirMovInterno(objItens);
+                                            //
+                                            objItensNova.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                                            objItensNova.setUtilizacaoCrc(utilizacaoCrc);
+                                            controlPort.alterarUtilizacaoNovaEntrada(objItensNova);
+                                            // ATUALIZAR OS DADOS PENAIS COM A NOVA DA DE ENTRADA - 11/07/2016               
+                                            objDadosPena.setDataNovaEntrada(jDataEntrada.getDate());
+                                            objDadosPena.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                                            controleNovaData.incluirDataNovaEntrada(objDadosPena);
+                                            //ATUALIZAR ROL DE VISITAS
+                                            atualizarRolSaidaInterno();
+                                            // SE A TELA DE ENTRADA NA UNIDADE ESTÁ SENDO UTILIZADA PELA TRIAGEM, 
+                                            // ENTÃO ATUALIZA A TABELA DE ITENENTRADA.
+                                            if (origemTriagem.equals("Sim")) {
+                                                origemTriagem = "Não"; // PASSA A SER "Não" PARA SER UTILIZADA NA PRÉ-LOCAÇÃO PELA TRIAGEM.
+                                                objItensPreLocacao.setIdEntrada(Integer.valueOf(jIDLanc.getText()));
+                                                objItensPreLocacao.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                                                objItensPreLocacao.setConfirmaUtil(origemTriagem);
+                                                controlePre.confirmcaoPreLocacaoInternosEntrada(objItensPreLocacao);
+                                                origemTriagem = ""; // LIMPA A VARIAVEL
+                                            }
+                                            //
+                                            objLog2();
+                                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                            //                                        
+                                            SalvarItem();
+                                            preencherTabelaItens("SELECT * FROM ITENSENTRADA "
+                                                    + "INNER JOIN PRONTUARIOSCRC "
+                                                    + "ON ITENSENTRADA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                                    + "INNER JOIN UNIDADE "
+                                                    + "ON ITENSENTRADA.IdUnid=UNIDADE.IdUnid "
+                                                    + "INNER JOIN DADOSPENAISINTERNOS "
+                                                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                                                    + "WHERE IdEntrada='" + jIDLanc.getText() + "'");
+                                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso...");
+                                        }
+                                        // Alterar os itens da Entrada
+                                        if (acao == 4) {
+                                            // Para o log do registro
+                                            objItens.setUsuarioUp(nameUser);
+                                            objItens.setDataUp(jDataSistema.getText());
+                                            objItens.setHoraUp(jHoraSistema.getText());
+                                            //
+                                            objItens.setIdEntrada((Integer.parseInt(jIDLanc.getText())));
+                                            objProCrc.setIdInterno(Integer.parseInt(jIDInterno.getText()));
+                                            objItens.setIdItem(Integer.valueOf(idItem));
+                                            controle.alterarItensEntLote(objItens);
+                                            //
+                                            objDadosPena.setIdInternoCrc(Integer.parseInt(jIDInterno.getText()));
+                                            objDadosPena.setNomeUnidade((String) jComboBoxUnidPenal.getSelectedItem());
+                                            controlInterno.alterarDadosPenaisLote(objDadosPena);
+                                            //
+                                            objItens.setIdEntrada(Integer.valueOf(jIDLanc.getText()));
+                                            objItens.setIdInternoCrc(Integer.parseInt(jIDInterno.getText()));
+                                            controlMov.alterarMovInterno(objItens);
+                                            // ATUALIZAR OS DADOS PENAIS COM A NOVA DA DE ENTRADA - 11/07/2016               
+                                            objDadosPena.setDataNovaEntrada(jDataEntrada.getDate());
+                                            objDadosPena.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                                            controleNovaData.incluirDataNovaEntrada(objDadosPena);
+                                            //
+                                            objProCrc.setIdInterno(Integer.valueOf(jIDInterno.getText()));
+                                            objProCrc.setSituacao(situacao);
+                                            mod.alterarSituacaoInterno(objProCrc);
+                                            //
+                                            objLog2();
+                                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                                        
+                                            SalvarItem();
+                                            preencherTabelaItens("SELECT * FROM ITENSENTRADA "
+                                                    + "INNER JOIN PRONTUARIOSCRC "
+                                                    + "ON ITENSENTRADA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                                    + "INNER JOIN UNIDADE "
+                                                    + "ON ITENSENTRADA.IdUnid=UNIDADE.IdUnid "
+                                                    + "INNER JOIN DADOSPENAISINTERNOS "
+                                                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                                                    + "WHERE IdEntrada='" + jIDLanc.getText() + "'");
+                                            JOptionPane.showMessageDialog(rootPane, "Registro gravado coom sucesso...");
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Acesso nao autorizado.");
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarItemActionPerformed
 
@@ -3064,6 +3393,44 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
             codGravarTRI = conecta.rs.getInt("Gravar");
             codConcultarTRI = conecta.rs.getInt("Consultar");
             nomeTelaTRI = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void buscarAcessoUsuarioCRC(String pTela) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserCRC = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserCRC + "'");
+            conecta.rs.first();
+            codigoUserGroupCRC = conecta.rs.getInt("IdUsuario");
+            codigoGrupoCRC = conecta.rs.getInt("IdGrupo");
+            nomeGrupoCRC = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserCRC + "' "
+                    + "AND NomeTela='" + pTela + "'");
+            conecta.rs.first();
+            codUserAcessoCRC = conecta.rs.getInt("IdUsuario");
+            codAbrirCRC = conecta.rs.getInt("Abrir");
+            codIncluirCRC = conecta.rs.getInt("Incluir");
+            codAlterarCRC = conecta.rs.getInt("Alterar");
+            codExcluirCRC = conecta.rs.getInt("Excluir");
+            codGravarCRC = conecta.rs.getInt("Gravar");
+            codConsultarCRC = conecta.rs.getInt("Consultar");
+            nomeTelaCRC = conecta.rs.getString("NomeTela");
         } catch (Exception e) {
         }
         conecta.desconecta();
