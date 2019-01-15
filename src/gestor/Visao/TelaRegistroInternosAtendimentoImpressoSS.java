@@ -1012,6 +1012,8 @@ public class TelaRegistroInternosAtendimentoImpressoSS extends javax.swing.JInte
             String nomeInterno = "" + jTabelaRegistroInterno.getValueAt(jTabelaRegistroInterno.getSelectedRow(), 3);
             jPesqNomeInternoOdonto.setText(nomeInterno);
             //
+            bloquearCampos();
+            //
             if (!jIdRegistro.getText().equals("")) {
                 jBtImprimirAutorização.setEnabled(true);
             }
@@ -1241,6 +1243,16 @@ public class TelaRegistroInternosAtendimentoImpressoSS extends javax.swing.JInte
     public void formatarCampos() {
         jMotivo.setLineWrap(true);
         jMotivo.setWrapStyleWord(true);
+    }
+
+    public void bloquearCampos() {
+        jComboBoxTipoMovimentacao.setEnabled(!true);
+        jMotivo.setEnabled(!true);
+        //
+        jBtNovo.setEnabled(true);
+        jBtSalvar.setEnabled(!true);
+        jBtCancelar.setEnabled(!true);
+        jBtPesquisaInterno.setEnabled(!true);
     }
 
     public void Novo() {
