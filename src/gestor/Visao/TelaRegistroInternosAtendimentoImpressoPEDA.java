@@ -1262,7 +1262,7 @@ public class TelaRegistroInternosAtendimentoImpressoPEDA extends javax.swing.JIn
         jDataRegistro.setCalendar(Calendar.getInstance());
         jComboBoxTipoMovimentacao.setSelectedItem("Selecione...");
         jHorarioSaidaEntrada.setText(jHoraSistema.getText());
-        jNomeDepartamento.setText(nomeModuloSS);
+        jNomeDepartamento.setText(nomeModuloPEDA);
         jIdInternoKitImp.setText("");
         jCNC.setText("");
         jRegimeKitImp.setText("");
