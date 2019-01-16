@@ -5457,7 +5457,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         try {
             conecta.executaSQL("SELECT * FROM PARAMETROSCRC");
             conecta.rs.first();
-            pHabilitaPEDA = conecta.rs.getString("AtendInterSocial");
+            pHabilitaPEDA = conecta.rs.getString("BiometriaPeda");
         } catch (Exception e) {
         }
         conecta.desconecta();
