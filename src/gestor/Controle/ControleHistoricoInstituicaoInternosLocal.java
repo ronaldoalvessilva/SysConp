@@ -23,7 +23,7 @@ public class ControleHistoricoInstituicaoInternosLocal {
     int codInst;
 
     public HistoricoInternoEducacaoLocal incluirInterEdu(HistoricoInternoEducacaoLocal objHistInterEduLocal) {
-        buscarInterno(objHistInterEduLocal.getNomeInterno());
+        buscarInterno(objHistInterEduLocal.getNomeInterno(),objHistInterEduLocal.getIdInternoCrc());
         buscarInstituicao(objHistInterEduLocal.getNomeInstituicao());
         conecta.abrirConexao();
         try {
@@ -41,14 +41,14 @@ public class ControleHistoricoInstituicaoInternosLocal {
             pst.setString(7, objHistInterEduLocal.getHorarioSaida());
             pst.execute();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\n\nERRO" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados(HISTORICO_INTERNO_EDUCACIONAL).\n\nERRO: " + ex);
         }
         conecta.desconecta();
         return objHistInterEduLocal;
     }
 
     public HistoricoInternoEducacaoLocal alterarInterEdu(HistoricoInternoEducacaoLocal objHistInterEduLocal) {
-        buscarInterno(objHistInterEduLocal.getNomeInterno());
+        buscarInterno(objHistInterEduLocal.getNomeInterno(),objHistInterEduLocal.getIdInternoCrc());
         buscarInstituicao(objHistInterEduLocal.getNomeInstituicao());
         conecta.abrirConexao();
         try {
@@ -84,10 +84,11 @@ public class ControleHistoricoInstituicaoInternosLocal {
         return objHistInterEduLocal;
     }
 
-    public void buscarInterno(String desc) {
+    public void buscarInterno(String desc, int id) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC WHERE NomeInternoCrc='" + desc + "'");
+            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC WHERE NomeInternoCrc='" + desc + "' "
+                    + "AND IdInternoCrc='" + id + "'");
             conecta.rs.first();
             codInt = conecta.rs.getInt("IdInternoCrc");
         } catch (SQLException e) {

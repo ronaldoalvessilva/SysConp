@@ -28,7 +28,7 @@ public class ControleInternosFrequencia {
     }
 
     public ItensFrequencia incluirFrequenciaInternos(ItensFrequencia objItensFreq) {
-        buscarInternoCrc(objItensFreq.getNomeInternoCrc());
+        buscarInternoCrc(objItensFreq.getNomeInternoCrc(), objItensFreq.getIdInternoCrc());
         conecta.abrirConexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENSFREQUENCIA (IdFreq,IdInternoCrc,QtdFrequencia,DataEntrada,DataSaida,HorarioEntrada,HorarioSaida,Presenca,Utilizado,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
@@ -46,14 +46,14 @@ public class ControleInternosFrequencia {
             pst.setString(12, objItensFreq.getHorarioInsert());
             pst.execute();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados\n\nERRO" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.(ITENSFREQUENCIA)\n\nERRO: " + ex);
         }
         conecta.desconecta();
         return objItensFreq;
     }
 
     public ItensFrequencia alterarFrequenciaInternos(ItensFrequencia objItensFreq) {
-        buscarInternoCrc(objItensFreq.getNomeInternoCrc());
+        buscarInternoCrc(objItensFreq.getNomeInternoCrc(), objItensFreq.getIdInternoCrc());
         conecta.abrirConexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSFREQUENCIA SET IdFreq=?,IdInternoCrc=?,QtdFrequencia=?,DataEntrada=?,DataSaida=?,HorarioEntrada=?,HorarioSaida=?,Presenca=?,Utilizado=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItem='" + objItensFreq.getIdItem() + "'");
@@ -78,7 +78,7 @@ public class ControleInternosFrequencia {
     }
 
     public ItensFrequencia excluirFrequenciaInternos(ItensFrequencia objItensFreq) {
-       
+
         conecta.abrirConexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ITENSFREQUENCIA WHERE IdItem='" + objItensFreq.getIdItem() + "'");
@@ -90,10 +90,11 @@ public class ControleInternosFrequencia {
         return objItensFreq;
     }
 
-    public void buscarInternoCrc(String nome) {
+    public void buscarInternoCrc(String nome, int codigo) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC WHERE NomeInternoCrc='" + nome + "'");
+            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC WHERE NomeInternoCrc='" + nome + "' "
+                    + "AND IdInternoCrc='" + codigo + "'");
             conecta.rs.first();
             codInterno = conecta.rs.getInt("IdInternoCrc");
         } catch (SQLException ex) {
