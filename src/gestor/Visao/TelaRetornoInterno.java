@@ -24,6 +24,20 @@ import gestor.Modelo.RetornoInternos;
 import gestor.Modelo.RetornoPortariaCrc;
 import gestor.Modelo.RolVisitas;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloCRC.codAbrirCRC;
+import static gestor.Visao.TelaModuloCRC.codAlterarCRC;
+import static gestor.Visao.TelaModuloCRC.codConsultarCRC;
+import static gestor.Visao.TelaModuloCRC.codExcluirCRC;
+import static gestor.Visao.TelaModuloCRC.codGravarCRC;
+import static gestor.Visao.TelaModuloCRC.codIncluirCRC;
+import static gestor.Visao.TelaModuloCRC.codUserAcessoCRC;
+import static gestor.Visao.TelaModuloCRC.codigoGrupoCRC;
+import static gestor.Visao.TelaModuloCRC.codigoUserCRC;
+import static gestor.Visao.TelaModuloCRC.codigoUserGroupCRC;
+import static gestor.Visao.TelaModuloCRC.nomeGrupoCRC;
+import static gestor.Visao.TelaModuloCRC.nomeTelaCRC;
+import static gestor.Visao.TelaModuloCRC.telaRetornoTmpInteCrc;
+import static gestor.Visao.TelaModuloCRC.telaRetornoTmpManuCrc;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaPesqRegistroInternoPortaria.idItemRetornoSaidaTmp;
@@ -1091,81 +1105,100 @@ public class TelaRetornoInterno extends javax.swing.JInternalFrame {
 
     private void jBtNovolancActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovolancActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaRetornoTmpManuCrc);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaRetornoTmpManuCrc) && codIncluirCRC == 1) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovolancActionPerformed
 
     private void jBtAlterarlancActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarlancActionPerformed
         // TODO add your handling code here:
-        objRetorno.setStatusRetorno(jStatusRetorno.getText());
-        if (jStatusRetorno.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa retorno de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaRetornoTmpManuCrc);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaRetornoTmpManuCrc) && codAlterarCRC == 1) {
+            objRetorno.setStatusRetorno(jStatusRetorno.getText());
+            if (jStatusRetorno.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa retorno de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                Alterar();
+                corCampos();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 2;
-            Alterar();
-            corCampos();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarlancActionPerformed
 
     private void jBtExcluirlancActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirlancActionPerformed
-
-        objRetorno.setStatusRetorno(jStatusRetorno.getText());
-        if (jStatusRetorno.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaRetornoTmpManuCrc);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaRetornoTmpManuCrc) && codExcluirCRC == 1) {
+            objRetorno.setStatusRetorno(jStatusRetorno.getText());
+            if (jStatusRetorno.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                verificarItens();
+            }
         } else {
-            verificarItens();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirlancActionPerformed
 
     private void jBtSalvarlancActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarlancActionPerformed
         // TODO add your handling code here:
-        if (jDescricaoOpe.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a descrição da operação de retorno");
-            jDescricaoOpe.requestFocus();
-        } else {
-            if (jDataLancamento.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe da data de lançamento");
-                jDataLancamento.requestFocus();
+        buscarAcessoUsuario(telaRetornoTmpManuCrc);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaRetornoTmpManuCrc) && codGravarCRC == 1) {
+            if (jDescricaoOpe.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a descrição da operação de retorno");
+                jDescricaoOpe.requestFocus();
             } else {
-                objRetorno.setDateLancamento(jDataLancamento.getDate());
-                objRetorno.setStatusRetorno(statusRetorno);
-                objRetorno.setNomeOperacao(jDescricaoOpe.getText());
-                objRetorno.setObsRetorno(jTextAreaObs.getText());
-                objRetorno.setNomeUsuario(nameUser);
-                objRetorno.setDataInsert(jDataSistema.getText());
-                objRetorno.setHoraInsert(jHoraSistema.getText());
-                try {
-                    if (acao == 1) {
-                        control.incluirRetornoInternos(objRetorno);
-                        buscarCodRet();
-                        objLog();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        JOptionPane.showMessageDialog(rootPane, "Registro INCLUIDO com sucesso, será necessário\nincluir os internos\npara que possa ser registrado a movimentação.");
-                        Salvar();
+                if (jDataLancamento.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe da data de lançamento");
+                    jDataLancamento.requestFocus();
+                } else {
+                    objRetorno.setDateLancamento(jDataLancamento.getDate());
+                    objRetorno.setStatusRetorno(statusRetorno);
+                    objRetorno.setNomeOperacao(jDescricaoOpe.getText());
+                    objRetorno.setObsRetorno(jTextAreaObs.getText());
+                    objRetorno.setNomeUsuario(nameUser);
+                    objRetorno.setDataInsert(jDataSistema.getText());
+                    objRetorno.setHoraInsert(jHoraSistema.getText());
+                    try {
+                        if (acao == 1) {
+                            control.incluirRetornoInternos(objRetorno);
+                            buscarCodRet();
+                            objLog();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            JOptionPane.showMessageDialog(rootPane, "Registro INCLUIDO com sucesso, será necessário\nincluir os internos\npara que possa ser registrado a movimentação.");
+                            Salvar();
+                        }
+                        if (acao == 2) {
+                            objRetorno.setNomeUsuario(nameUser);
+                            objRetorno.setDataUpdate(jDataSistema.getText());
+                            objRetorno.setHoraUp(jHoraSistema.getText());
+                            objRetorno.setIdRetorno(Integer.parseInt(jIDLanc.getText()));
+                            control.alterarRetornoInternos(objRetorno);
+                            objLog();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            JOptionPane.showMessageDialog(rootPane, "Registro ALTERADO com sucesso. Se necessário\n faça aleração dos internos");
+                            Salvar();
+                        }
+                        preencherTabelaItens("SELECT * FROM ITENSRETORNO INNER JOIN PRONTUARIOSCRC ON ITENSRETORNO.IdInternoCrc = PRONTUARIOSCRC.IdInternoCrc  WHERE IdRetorno='" + jIDLanc.getText() + "'");
+                    } catch (HeadlessException e) {
+                        JOptionPane.showMessageDialog(rootPane, "Não foi possível GRAVAR registro !!!\n" + e);
                     }
-                    if (acao == 2) {
-                        objRetorno.setNomeUsuario(nameUser);
-                        objRetorno.setDataUpdate(jDataSistema.getText());
-                        objRetorno.setHoraUp(jHoraSistema.getText());
-                        objRetorno.setIdRetorno(Integer.parseInt(jIDLanc.getText()));
-                        control.alterarRetornoInternos(objRetorno);
-                        objLog();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        JOptionPane.showMessageDialog(rootPane, "Registro ALTERADO com sucesso. Se necessário\n faça aleração dos internos");
-                        Salvar();
-                    }
-                    preencherTabelaItens("SELECT * FROM ITENSRETORNO INNER JOIN PRONTUARIOSCRC ON ITENSRETORNO.IdInternoCrc = PRONTUARIOSCRC.IdInternoCrc  WHERE IdRetorno='" + jIDLanc.getText() + "'");
-                } catch (HeadlessException e) {
-                    JOptionPane.showMessageDialog(rootPane, "Não foi possível GRAVAR registro !!!\n" + e);
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarlancActionPerformed
 
@@ -1218,178 +1251,198 @@ public class TelaRetornoInterno extends javax.swing.JInternalFrame {
 
     private void jBtNovoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoItemActionPerformed
         // TODO add your handling code here:
-        objRetorno.setStatusRetorno(jStatusRetorno.getText());
-        if (jStatusRetorno.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse retorno de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaRetornoTmpInteCrc);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaRetornoTmpInteCrc) && codIncluirCRC == 1) {
+            objRetorno.setStatusRetorno(jStatusRetorno.getText());
+            if (jStatusRetorno.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse retorno de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                verificarParamentrosCrc();
+                acao = 3;
+                NovoItem();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            verificarParamentrosCrc();
-            acao = 3;
-            NovoItem();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtNovoItemActionPerformed
 
     private void jBtAlterarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarItemActionPerformed
         // TODO add your handling code here:
-        objRetorno.setStatusRetorno(jStatusRetorno.getText());
-        if (jStatusRetorno.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse retorno de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
-        } else {
-            if (idRegistro != 0) {
-                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo tem origem da portaria.\nPor medidas de segurança, você poderá exclui-lo e lançar novamente caso deseje.");
+        buscarAcessoUsuario(telaRetornoTmpInteCrc);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaRetornoTmpInteCrc) && codAlterarCRC == 1) {
+            objRetorno.setStatusRetorno(jStatusRetorno.getText());
+            if (jStatusRetorno.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse retorno de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
             } else {
-                verificarParamentrosCrc();
-                acao = 4;
-                flag = 1;
-                AlterarItem();
-                statusMov = "Alterou";
-                horaMov = jHoraSistema.getText();
-                dataModFinal = jDataSistema.getText();
+                if (idRegistro != 0) {
+                    JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo tem origem da portaria.\nPor medidas de segurança, você poderá exclui-lo e lançar novamente caso deseje.");
+                } else {
+                    verificarParamentrosCrc();
+                    acao = 4;
+                    flag = 1;
+                    AlterarItem();
+                    statusMov = "Alterou";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarItemActionPerformed
 
     private void jBtExcluirItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirItemActionPerformed
         // TODO add your handling code here:
-        confirmacaoCrc = "Sim";
-        respostaCrc = "Não";
-        confirmaExclusaoRetorno = "Não"; // Exclusão passa a ser não para poder ser lançado novamente se necessário
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        objRetorno.setStatusRetorno(jStatusRetorno.getText());
-        if (jStatusRetorno.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse retorno de internos não poderá ser excluído, o mesmo encontra-se FINALIZADO");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o INTERNO selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objItensRetorno.setIdItemRetorno(Integer.valueOf(idItem));
-                controle.excluirItensRetorno(objItensRetorno);
-                objItensRetorno.setIdRetorno(Integer.valueOf(jIDLanc.getText()));
-                controlMov.excluirMovRetorno(objItensRetorno);
-                // Modifica o registro do interno na tabela ITENSREGEISTRO caso o interno seja seja excluido do Retorno do CRC 
-                confirmaRetorno = "Não"; // Passa ser não para atualizar a tabela ITENSREGISTRO
-                objItensRetorno.setIdItemRetorno(idItemRetornoSaidaTmp); // Item da tabela ITENSREGISTRO - (PORTARIA)
-                objItensRetorno.setIdRegistro(idRegistro);
-                objItensRetorno.setConfirmaRetorno(confirmaExclusaoRetorno);
-                if (idItemRetornoSaidaTmp != 0 || idRegistro != 0) {
-                    controle.alterarRegistroItensRetorno(objItensRetorno);
+        buscarAcessoUsuario(telaRetornoTmpInteCrc);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaRetornoTmpInteCrc) && codExcluirCRC == 1) {
+            confirmacaoCrc = "Sim";
+            respostaCrc = "Não";
+            confirmaExclusaoRetorno = "Não"; // Exclusão passa a ser não para poder ser lançado novamente se necessário
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objRetorno.setStatusRetorno(jStatusRetorno.getText());
+            if (jStatusRetorno.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse retorno de internos não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o INTERNO selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objItensRetorno.setIdItemRetorno(Integer.valueOf(idItem));
+                    controle.excluirItensRetorno(objItensRetorno);
+                    objItensRetorno.setIdRetorno(Integer.valueOf(jIDLanc.getText()));
+                    controlMov.excluirMovRetorno(objItensRetorno);
+                    // Modifica o registro do interno na tabela ITENSREGEISTRO caso o interno seja seja excluido do Retorno do CRC 
+                    confirmaRetorno = "Não"; // Passa ser não para atualizar a tabela ITENSREGISTRO
+                    objItensRetorno.setIdItemRetorno(idItemRetornoSaidaTmp); // Item da tabela ITENSREGISTRO - (PORTARIA)
+                    objItensRetorno.setIdRegistro(idRegistro);
+                    objItensRetorno.setConfirmaRetorno(confirmaExclusaoRetorno);
+                    if (idItemRetornoSaidaTmp != 0 || idRegistro != 0) {
+                        controle.alterarRegistroItensRetorno(objItensRetorno);
+                    }
+                    // Atualiza o Rol para FINALIZADO quando usuario exclui o interno
+                    atualizarRolSaidaInternoExcluir();
+                    // ATUALIZAR TABELA DE VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS COMO "Sim"
+                    objRetPortCrc.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                    objRetPortCrc.setConfirmaCrc(confirmacaoCrc); // CONFIRMAÇÃO ESTÁ COM "Não"
+                    objRetPortCrc.setRespostaCrc(respostaCrc); // RESPOSTA ESTÁ COMO "Sim"
+                    controleRepostaCrc.alterarRespostaRetornoInterno(objRetPortCrc);
+                    //
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação    
+                    limparCamposBancoEvasao(); // Limpa as variaveis para passar para o banco em branco, ou seja limpar
+                    controleMovRetEva.alterarMovRetornoEvasao(objMovSaiRetornoEva);
+                    ExcluirItem();
+                    preencherTabelaItens("SELECT * FROM ITENSRETORNO "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON ITENSRETORNO.IdInternoCrc = PRONTUARIOSCRC.IdInternoCrc "
+                            + "WHERE IdRetorno='" + jIDLanc.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
                 }
-                // Atualiza o Rol para FINALIZADO quando usuario exclui o interno
-                atualizarRolSaidaInternoExcluir();
-                // ATUALIZAR TABELA DE VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS COMO "Sim"
-                objRetPortCrc.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
-                objRetPortCrc.setConfirmaCrc(confirmacaoCrc); // CONFIRMAÇÃO ESTÁ COM "Não"
-                objRetPortCrc.setRespostaCrc(respostaCrc); // RESPOSTA ESTÁ COMO "Sim"
-                controleRepostaCrc.alterarRespostaRetornoInterno(objRetPortCrc);
-                //
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação    
-                limparCamposBancoEvasao(); // Limpa as variaveis para passar para o banco em branco, ou seja limpar
-                controleMovRetEva.alterarMovRetornoEvasao(objMovSaiRetornoEva);
-                ExcluirItem();
-                preencherTabelaItens("SELECT * FROM ITENSRETORNO "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON ITENSRETORNO.IdInternoCrc = PRONTUARIOSCRC.IdInternoCrc "
-                        + "WHERE IdRetorno='" + jIDLanc.getText() + "'");
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirItemActionPerformed
 
     private void jBtSalvarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarItemActionPerformed
         // TODO add your handling code here
-        confirmaRetorno = "Sim";
-        if (jNomeInterno.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Nome do interno não pode ser em branco\nfaça uma pesquisa para preencher nome do interno");
-            jNomeInterno.requestFocus();
-        } else {
-            if (jOrigemOperacao.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe o nome da origem.");
-                jOrigemOperacao.requestFocus();
+        buscarAcessoUsuario(telaRetornoTmpInteCrc);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaRetornoTmpInteCrc) && codGravarCRC == 1) {
+            confirmaRetorno = "Sim";
+            if (jNomeInterno.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Nome do interno não pode ser em branco\nfaça uma pesquisa para preencher nome do interno");
+                jNomeInterno.requestFocus();
             } else {
-                if (jHorarioRetorno.getText().equals("")) {
-                    JOptionPane.showMessageDialog(rootPane, "Informe o horário de retorno do interno.");
-                    jHorarioRetorno.requestFocus();
+                if (jOrigemOperacao.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe o nome da origem.");
+                    jOrigemOperacao.requestFocus();
                 } else {
-                    objItensRetorno.setIdInternoCrc(Integer.parseInt(jIdInterno.getText()));
-                    objItensRetorno.setNomeInterno(jNomeInterno.getText());
-                    objItensRetorno.setDataRetorno(jDataRetorno.getDate());
-                    objItensRetorno.setNomerOrigem(jDescricaoOpe.getText());
-                    objItensRetorno.setDocumento(jNrDocumento.getText());
-                    objItensRetorno.setHorarioRetorno(jHorarioRetorno.getText());
-                    objItensRetorno.setUsuarioInsert(nameUser);
-                    objItensRetorno.setDataInsert(jDataSistema.getText());
-                    objItensRetorno.setHoraInsert(jHoraSistema.getText());
-                    objProCrc.setSituacao(situacao);
-                    try {
-                        if (acao == 3) {
-                            objItensRetorno.setIdRetorno((Integer.parseInt(jIDLanc.getText())));
-                            objItensRetorno.setIdRegistro(idItemRetornoSaidaTmp); // Grava o iditem para impedir de alterar, informado ao usuário para excluir e lançar novamente
-                            controle.incluirItensRetorno(objItensRetorno); // Gravar registro na tabela de itens
-                            objProCrc.setIdInterno(Integer.parseInt(jIdInterno.getText()));
-                            mod.alterarSituacaoInterno(objProCrc);
-                            //
-                            objItensRetorno.setIdRetorno((Integer.parseInt(jIDLanc.getText())));
-                            buscarIdItem();
-                            objItensRetorno.setIdItemRetorno(codItem);
-                            controlMov.incluirMovRetorno(objItensRetorno);
-                            //
-                            objMovRetEvadidos();
-                            controleMovRetEva.alterarMovRetornoEvasao(objMovSaiRetornoEva);
-                            //
-                            objItensRetorno.setIdItemRetorno(idItemRetornoSaidaTmp);
-                            objItensRetorno.setConfirmaRetorno(confirmaRetorno);
-                            controle.alterarRegistroItensRetorno(objItensRetorno);
-                            //
-                            objItensRetorno.setIdRetorno((Integer.parseInt(jIDLanc.getText())));
-                            atualizarRolSaidaInterno();
-                            // ATUALIZAR TABELA DE VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS COMO "Sim"
-                            objRetPortCrc.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
-                            objRetPortCrc.setConfirmaCrc(confirmacaoCrc); // CONFIRMAÇÃO ESTÁ COM "Não"
-                            objRetPortCrc.setRespostaCrc(respostaCrc); // RESPOSTA ESTÁ COMO "Sim"
-                            controleRepostaCrc.alterarRespostaRetornoInterno(objRetPortCrc);
-                            //
-                            objLog2();
-                            controlLog.incluirLogSistema(objLogSys);
-                            preencherTabelaItens("SELECT * FROM ITENSRETORNO "
-                                    + "INNER JOIN PRONTUARIOSCRC "
-                                    + "ON ITENSRETORNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                    + "WHERE IdRetorno='" + jIDLanc.getText() + "'");
-                            SalvarItem();
-                            JOptionPane.showMessageDialog(rootPane, "Registro incluido com sucesso");
+                    if (jHorarioRetorno.getText().equals("")) {
+                        JOptionPane.showMessageDialog(rootPane, "Informe o horário de retorno do interno.");
+                        jHorarioRetorno.requestFocus();
+                    } else {
+                        objItensRetorno.setIdInternoCrc(Integer.parseInt(jIdInterno.getText()));
+                        objItensRetorno.setNomeInterno(jNomeInterno.getText());
+                        objItensRetorno.setDataRetorno(jDataRetorno.getDate());
+                        objItensRetorno.setNomerOrigem(jDescricaoOpe.getText());
+                        objItensRetorno.setDocumento(jNrDocumento.getText());
+                        objItensRetorno.setHorarioRetorno(jHorarioRetorno.getText());
+                        objItensRetorno.setUsuarioInsert(nameUser);
+                        objItensRetorno.setDataInsert(jDataSistema.getText());
+                        objItensRetorno.setHoraInsert(jHoraSistema.getText());
+                        objProCrc.setSituacao(situacao);
+                        try {
+                            if (acao == 3) {
+                                objItensRetorno.setIdRetorno((Integer.parseInt(jIDLanc.getText())));
+                                objItensRetorno.setIdRegistro(idItemRetornoSaidaTmp); // Grava o iditem para impedir de alterar, informado ao usuário para excluir e lançar novamente
+                                controle.incluirItensRetorno(objItensRetorno); // Gravar registro na tabela de itens
+                                objProCrc.setIdInterno(Integer.parseInt(jIdInterno.getText()));
+                                mod.alterarSituacaoInterno(objProCrc);
+                                //
+                                objItensRetorno.setIdRetorno((Integer.parseInt(jIDLanc.getText())));
+                                buscarIdItem();
+                                objItensRetorno.setIdItemRetorno(codItem);
+                                controlMov.incluirMovRetorno(objItensRetorno);
+                                //
+                                objMovRetEvadidos();
+                                controleMovRetEva.alterarMovRetornoEvasao(objMovSaiRetornoEva);
+                                //
+                                objItensRetorno.setIdItemRetorno(idItemRetornoSaidaTmp);
+                                objItensRetorno.setConfirmaRetorno(confirmaRetorno);
+                                controle.alterarRegistroItensRetorno(objItensRetorno);
+                                //
+                                objItensRetorno.setIdRetorno((Integer.parseInt(jIDLanc.getText())));
+                                atualizarRolSaidaInterno();
+                                // ATUALIZAR TABELA DE VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS COMO "Sim"
+                                objRetPortCrc.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                                objRetPortCrc.setConfirmaCrc(confirmacaoCrc); // CONFIRMAÇÃO ESTÁ COM "Não"
+                                objRetPortCrc.setRespostaCrc(respostaCrc); // RESPOSTA ESTÁ COMO "Sim"
+                                controleRepostaCrc.alterarRespostaRetornoInterno(objRetPortCrc);
+                                //
+                                objLog2();
+                                controlLog.incluirLogSistema(objLogSys);
+                                preencherTabelaItens("SELECT * FROM ITENSRETORNO "
+                                        + "INNER JOIN PRONTUARIOSCRC "
+                                        + "ON ITENSRETORNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                        + "WHERE IdRetorno='" + jIDLanc.getText() + "'");
+                                SalvarItem();
+                                JOptionPane.showMessageDialog(rootPane, "Registro incluido com sucesso");
+                            }
+                            if (acao == 4) {
+                                objItensRetorno.setUsuarioUp(nameUser);
+                                objItensRetorno.setDataUp(jDataSistema.getText());
+                                objItensRetorno.setHoraUp(jHoraSistema.getText());
+                                objItensRetorno.setIdRetorno((Integer.parseInt(jIDLanc.getText())));
+                                objProCrc.setIdInterno(Integer.parseInt(jIdInterno.getText()));
+                                objItensRetorno.setIdItemRetorno(Integer.valueOf(idItem));
+                                controle.alterarItensRetorno(objItensRetorno);
+                                objProCrc.setIdInterno(Integer.parseInt(jIdInterno.getText()));
+                                mod.alterarSituacaoInterno(objProCrc);
+                                objItensRetorno.setIdRetorno((Integer.parseInt(jIDLanc.getText())));
+                                controlMov.alterarMovRetorno(objItensRetorno);
+                                objMovRetEvadidos();
+                                controleMovRetEva.alterarMovRetornoEvasao(objMovSaiRetornoEva);
+                                objLog2();
+                                controlLog.incluirLogSistema(objLogSys);
+                                preencherTabelaItens("SELECT * FROM ITENSRETORNO "
+                                        + "INNER JOIN PRONTUARIOSCRC "
+                                        + "ON ITENSRETORNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                        + "WHERE IdRetorno='" + jIDLanc.getText() + "'");
+                                SalvarItem();
+                                JOptionPane.showMessageDialog(rootPane, "Registro alterado com sucesso.");
+                            }
+                        } catch (HeadlessException e) {
+                            JOptionPane.showMessageDialog(rootPane, "Não foi possível gravar o registro \nERRO :" + e);
                         }
-                        if (acao == 4) {
-                            objItensRetorno.setUsuarioUp(nameUser);
-                            objItensRetorno.setDataUp(jDataSistema.getText());
-                            objItensRetorno.setHoraUp(jHoraSistema.getText());
-                            objItensRetorno.setIdRetorno((Integer.parseInt(jIDLanc.getText())));
-                            objProCrc.setIdInterno(Integer.parseInt(jIdInterno.getText()));
-                            objItensRetorno.setIdItemRetorno(Integer.valueOf(idItem));
-                            controle.alterarItensRetorno(objItensRetorno);
-                            objProCrc.setIdInterno(Integer.parseInt(jIdInterno.getText()));
-                            mod.alterarSituacaoInterno(objProCrc);
-                            objItensRetorno.setIdRetorno((Integer.parseInt(jIDLanc.getText())));
-                            controlMov.alterarMovRetorno(objItensRetorno);
-                            objMovRetEvadidos();
-                            controleMovRetEva.alterarMovRetornoEvasao(objMovSaiRetornoEva);
-                            objLog2();
-                            controlLog.incluirLogSistema(objLogSys);
-                            preencherTabelaItens("SELECT * FROM ITENSRETORNO "
-                                    + "INNER JOIN PRONTUARIOSCRC "
-                                    + "ON ITENSRETORNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                    + "WHERE IdRetorno='" + jIDLanc.getText() + "'");
-                            SalvarItem();
-                            JOptionPane.showMessageDialog(rootPane, "Registro alterado com sucesso.");
-                        }
-                    } catch (HeadlessException e) {
-                        JOptionPane.showMessageDialog(rootPane, "Não foi possível gravar o registro \nERRO :" + e);
                     }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarItemActionPerformed
 
@@ -2330,6 +2383,44 @@ public class TelaRetornoInterno extends javax.swing.JInternalFrame {
         objRol.setDataUp(jDataSistema.getText());
         objRol.setHoraUp(horaMov);
         controlRol.finalizarRolVisitasPortaria(objRol);
+        conecta.desconecta();
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserCRC = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserCRC + "'");
+            conecta.rs.first();
+            codigoUserGroupCRC = conecta.rs.getInt("IdUsuario");
+            codigoGrupoCRC = conecta.rs.getInt("IdGrupo");
+            nomeGrupoCRC = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserCRC + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoCRC = conecta.rs.getInt("IdUsuario");
+            codAbrirCRC = conecta.rs.getInt("Abrir");
+            codIncluirCRC = conecta.rs.getInt("Incluir");
+            codAlterarCRC = conecta.rs.getInt("Alterar");
+            codExcluirCRC = conecta.rs.getInt("Excluir");
+            codGravarCRC = conecta.rs.getInt("Gravar");
+            codConsultarCRC = conecta.rs.getInt("Consultar");
+            nomeTelaCRC = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
         conecta.desconecta();
     }
 }

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package gestor.Visao;
- 
+
 import gestor.Controle.ControleItensProRegime;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleProgressaoRegime;
@@ -17,6 +17,20 @@ import gestor.Modelo.LogSistema;
 import gestor.Modelo.ProgressaoRegime;
 import gestor.Modelo.SentencaInternos;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloCRC.codAbrirCRC;
+import static gestor.Visao.TelaModuloCRC.codAlterarCRC;
+import static gestor.Visao.TelaModuloCRC.codConsultarCRC;
+import static gestor.Visao.TelaModuloCRC.codExcluirCRC;
+import static gestor.Visao.TelaModuloCRC.codGravarCRC;
+import static gestor.Visao.TelaModuloCRC.codIncluirCRC;
+import static gestor.Visao.TelaModuloCRC.codUserAcessoCRC;
+import static gestor.Visao.TelaModuloCRC.codigoGrupoCRC;
+import static gestor.Visao.TelaModuloCRC.codigoUserCRC;
+import static gestor.Visao.TelaModuloCRC.codigoUserGroupCRC;
+import static gestor.Visao.TelaModuloCRC.nomeGrupoCRC;
+import static gestor.Visao.TelaModuloCRC.nomeTelaCRC;
+import static gestor.Visao.TelaModuloCRC.telaMudancaRegimeRegIntCRC;
+import static gestor.Visao.TelaModuloCRC.telaMudancaRegimeRegManuCRC;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaPesquisaInternoMudancaRegimeProgressao.artigo1;
@@ -988,7 +1002,7 @@ public class TelaMudancaRegimeProgressao extends javax.swing.JInternalFrame {
         count = 0;
         if (jPesqNomeInterno.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "É necessário informar um nome ou parte do nome para pesquuisa.");
-        } else {            
+        } else {
             preencherTabelaRegressaoNome("SELECT * FROM  PROGRESSAOREGIME "
                     + "INNER JOIN ITENSPROGRESSAOREGIME "
                     + "ON PROGRESSAOREGIME.IdLanc=ITENSPROGRESSAOREGIME.IdLanc "
@@ -1000,77 +1014,95 @@ public class TelaMudancaRegimeProgressao extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-
+        buscarAcessoUsuario(telaMudancaRegimeRegManuCRC);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaMudancaRegimeRegManuCRC) && codIncluirCRC == 1) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        objProgresRegime.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa mudança de regime não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaMudancaRegimeRegManuCRC);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaMudancaRegimeRegManuCRC) && codAlterarCRC == 1) {
+            objProgresRegime.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa mudança de regime não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                Alterar();
+                corCampos();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 2;
-            Alterar();
-            corCampos();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        objProgresRegime.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa mudança de regime não poderá ser excluída, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaMudancaRegimeRegManuCRC);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaMudancaRegimeRegManuCRC) && codExcluirCRC == 1) {
+            objProgresRegime.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa mudança de regime não poderá ser excluída, o mesmo encontra-se FINALIZADO");
+            } else {
+                verificarItens();
+            }
         } else {
-            verificarItens();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataLanc.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data de lançamento.");
-            jDataLanc.requestFocus();
-            jDataLanc.setBackground(Color.red);
+        buscarAcessoUsuario(telaMudancaRegimeRegManuCRC);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaMudancaRegimeRegManuCRC) && codGravarCRC == 1) {
+            if (jDataLanc.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de lançamento.");
+                jDataLanc.requestFocus();
+                jDataLanc.setBackground(Color.red);
+            } else {
+                objProgresRegime.setStatusLanc(jStatusLanc.getText());
+                objProgresRegime.setTipoMudanca((String) jComboBoxRegressao.getSelectedItem());
+                objProgresRegime.setDataLanc(jDataLanc.getDate());
+                objProgresRegime.setObservacao(jObservacao.getText());
+                if (acao == 1) {
+                    // log de usuario
+                    objProgresRegime.setUsuarioInsert(nameUser);
+                    objProgresRegime.setDataInsert(dataModFinal);
+                    objProgresRegime.setHorarioInsert(horaMov);
+                    control.incluirProgressaoRegime(objProgresRegime);
+                    buscarCod();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    Salvar();
+                }
+                if (acao == 2) {
+                    // log de usuario
+                    objProgresRegime.setUsuarioUp(nameUser);
+                    objProgresRegime.setDataUp(dataModFinal);
+                    objProgresRegime.setHorarioUp(horaMov);
+                    objProgresRegime.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                    control.alterarProgressaoRegime(objProgresRegime);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    Salvar();
+                }
+            }
         } else {
-            objProgresRegime.setStatusLanc(jStatusLanc.getText());
-            objProgresRegime.setTipoMudanca((String) jComboBoxRegressao.getSelectedItem());
-            objProgresRegime.setDataLanc(jDataLanc.getDate());
-            objProgresRegime.setObservacao(jObservacao.getText());
-            if (acao == 1) {
-                // log de usuario
-                objProgresRegime.setUsuarioInsert(nameUser);
-                objProgresRegime.setDataInsert(dataModFinal);
-                objProgresRegime.setHorarioInsert(horaMov);
-                control.incluirProgressaoRegime(objProgresRegime);
-                buscarCod();
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                Salvar();
-            }
-            if (acao == 2) {
-                // log de usuario
-                objProgresRegime.setUsuarioUp(nameUser);
-                objProgresRegime.setDataUp(dataModFinal);
-                objProgresRegime.setHorarioUp(horaMov);
-                objProgresRegime.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                control.alterarProgressaoRegime(objProgresRegime);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                Salvar();
-            }
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
-
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
@@ -1105,126 +1137,161 @@ public class TelaMudancaRegimeProgressao extends javax.swing.JInternalFrame {
 
     private void jBtNovoInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoInternoActionPerformed
         // TODO add your handling code here:
-        objProgresRegime.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa mudança de regime não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaMudancaRegimeRegIntCRC);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaMudancaRegimeRegIntCRC) && codIncluirCRC == 1) {
+            objProgresRegime.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa mudança de regime não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                JOptionPane.showMessageDialog(null, "Esse lançamento irá atualizar o prontuario do interno.\nEntão tenha certeza de que os dados estejam corretos.\nApós gravar os dados não será possível altera-los.\nCaso necesseário, altere os dados no prontuario do\ninterno manualmente.");
+                acao = 3;
+                NovoInterno();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            JOptionPane.showMessageDialog(null, "Esse lançamento irá atualizar o prontuario do interno.\nEntão tenha certeza de que os dados estejam corretos.\nApós gravar os dados não será possível altera-los.\nCaso necesseário, altere os dados no prontuario do\ninterno manualmente.");
-            acao = 3;
-            NovoInterno();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtNovoInternoActionPerformed
 
     private void jBtAlterarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarInternoActionPerformed
         // TODO add your handling code here:
-        objProgresRegime.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa mudança de regime não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaMudancaRegimeRegIntCRC);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaMudancaRegimeRegIntCRC) && codAlterarCRC == 1) {
+            objProgresRegime.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa mudança de regime não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 4;
+                AlterarInterno();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 4;
-            AlterarInterno();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarInternoActionPerformed
 
     private void jBtExcluirInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirInternoActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        objProgresRegime.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse  interno não poderá ser excluído, o mesmo encontra-se FINALIZADO");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o INTERNO selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objSentInt.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                objSentInt.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
-                controleSent.excluirSentencaInternos(objSentInt); // Excluir os dados na tabela SENTENCA
-                //
-                objItenPro.setIdItem(Integer.valueOf(idItem));
-                controle.excluirItensProgressaoRegime(objItenPro);
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                ExcluirInterno();
-                preencherTabelaItens("SELECT * FROM ITENSPROGRESSAOREGIME "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON ITENSPROGRESSAOREGIME.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "WHERE IdLanc='" + jIdLanc.getText() + "'");
+        buscarAcessoUsuario(telaMudancaRegimeRegIntCRC);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaMudancaRegimeRegIntCRC) && codExcluirCRC == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objProgresRegime.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse  interno não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o INTERNO selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objSentInt.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                    objSentInt.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                    controleSent.excluirSentencaInternos(objSentInt); // Excluir os dados na tabela SENTENCA
+                    //
+                    objItenPro.setIdItem(Integer.valueOf(idItem));
+                    controle.excluirItensProgressaoRegime(objItenPro);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    ExcluirInterno();
+                    preencherTabelaItens("SELECT * FROM ITENSPROGRESSAOREGIME "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON ITENSPROGRESSAOREGIME.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "WHERE IdLanc='" + jIdLanc.getText() + "'");
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirInternoActionPerformed
 
     private void jBtSalvarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarInternoActionPerformed
         // TODO add your handling code here:
-        verificarInternoCadastrado(); // Verificar se o interno já foi incluido no documento.
-        if (jNomeInternoRegime.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Informe qual é o nome do interno.");
-        } else {
-            if (jDataProgressao.getDate() == null) {
-                JOptionPane.showMessageDialog(null, "Informe a data de regressão do interno.");
+        buscarAcessoUsuario(telaMudancaRegimeRegIntCRC);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaMudancaRegimeRegIntCRC) && codGravarCRC == 1) {
+            verificarInternoCadastrado(); // Verificar se o interno já foi incluido no documento.
+            if (jNomeInternoRegime.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe qual é o nome do interno.");
             } else {
-                if (jComboBoxRegime.getSelectedItem() == null) {
-                    JOptionPane.showMessageDialog(null, "Informe o regime ao qual o interno foi regredido.");
+                if (jDataProgressao.getDate() == null) {
+                    JOptionPane.showMessageDialog(null, "Informe a data de regressão do interno.");
                 } else {
-
-                    if (jDataTerminoPena.getDate() == null) {
-                        JOptionPane.showMessageDialog(null, "Informe a data do termino da pena.");
+                    if (jComboBoxRegime.getSelectedItem() == null) {
+                        JOptionPane.showMessageDialog(null, "Informe o regime ao qual o interno foi regredido.");
                     } else {
-                        if (jJuizoCompetente.getText().equals("")) {
-                            JOptionPane.showMessageDialog(null, "Informe o Juizo Competente.");
+
+                        if (jDataTerminoPena.getDate() == null) {
+                            JOptionPane.showMessageDialog(null, "Informe a data do termino da pena.");
                         } else {
-                            objItenPro.setDataProgressao(jDataProgressao.getDate());
-                            objItenPro.setRegime((String) jComboBoxRegime.getSelectedItem());
-                            objItenPro.setTerminoPena(jDataTerminoPena.getDate());
-                            objItenPro.setJuizo(jJuizoCompetente.getText());
-                            if (acao == 3) {
-                                if (jIdInterno.getText().equals(codInterno) && jIdLanc.getText().equals(codLanc)) {
-                                    JOptionPane.showMessageDialog(null, "Esse interno já foi incluído nesse documento.");
-                                } else {
-                                    objItenPro.setUsuarioInsert(nameUser);
-                                    objItenPro.setDataInsert(dataModFinal);
-                                    objItenPro.setHorarioInsert(horaMov);
+                            if (jJuizoCompetente.getText().equals("")) {
+                                JOptionPane.showMessageDialog(null, "Informe o Juizo Competente.");
+                            } else {
+                                objItenPro.setDataProgressao(jDataProgressao.getDate());
+                                objItenPro.setRegime((String) jComboBoxRegime.getSelectedItem());
+                                objItenPro.setTerminoPena(jDataTerminoPena.getDate());
+                                objItenPro.setJuizo(jJuizoCompetente.getText());
+                                if (acao == 3) {
+                                    if (jIdInterno.getText().equals(codInterno) && jIdLanc.getText().equals(codLanc)) {
+                                        JOptionPane.showMessageDialog(null, "Esse interno já foi incluído nesse documento.");
+                                    } else {
+                                        objItenPro.setUsuarioInsert(nameUser);
+                                        objItenPro.setDataInsert(dataModFinal);
+                                        objItenPro.setHorarioInsert(horaMov);
+                                        objItenPro.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                                        objItenPro.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                                        objItenPro.setNomeInternoCrc(jNomeInternoRegime.getText());
+                                        controle.incluirItensProgressaoRegime(objItenPro);
+                                        //
+                                        objSentInt.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                                        objSentInt.setMudancaRegime((String) jComboBoxRegressao.getSelectedItem());
+                                        objSentInt.setDataLanc(jDataLanc.getDate());
+                                        objSentInt.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                                        objSentInt.setDataEntradaCrc(dataEntradaCrc);
+                                        objSentInt.setIdUnid(Integer.valueOf(idUnid));
+                                        objSentInt.setDataCrimeCrc(dataCrimeCrc);
+                                        objSentInt.setDataPrisaoCrc(dataPrisaoCrc);
+                                        objSentInt.setDataCondenacaoCrc(dataCondenacaoCrc);
+                                        objSentInt.setParticipacao(participacao);
+                                        objSentInt.setRegimeAnterior(regimeAnterior);
+                                        objSentInt.setPena(penaAnterior);
+                                        objSentInt.setArtigo1(artigo1);
+                                        objSentInt.setArtigo2(artigo2);
+                                        objSentInt.setArtigo3(artigo3);
+                                        objSentInt.setParagrafo1(paragrafo1);
+                                        objSentInt.setParagrafo2(paragrafo2);
+                                        objSentInt.setParagrafo3(paragrafo3);
+                                        objSentInt.setCrimeHediondo(crimeHediondo);
+                                        objSentInt.setTerminoPenaCrc(terminoPenaCrc);
+                                        objSentInt.setDescricaoUnidade(crimeHediondo);
+                                        controleSent.incluirSentencaInternos(objSentInt); // Incluir na tabela SENTENCAS, histórico de mudança de regime para relatório                                   
+                                        // Atualiza o prontuário do interno quando provisório na tabela de DADOSPENAISINTERNOS.
+                                        objItenPro.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                                        controle.atualizarRegimeProgressaoInterno(objItenPro);
+                                        //
+                                        objLog2();
+                                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                                                                        
+                                        preencherTabelaItens("SELECT * FROM ITENSPROGRESSAOREGIME "
+                                                + "INNER JOIN PRONTUARIOSCRC "
+                                                + "ON ITENSPROGRESSAOREGIME.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                                + "WHERE IdLanc='" + jIdLanc.getText() + "'");
+                                        JOptionPane.showMessageDialog(null, "Registro gravado com sucesso.");
+                                        SalvarInterno();
+                                    }
+                                }
+                                if (acao == 4) {
+                                    objItenPro.setUsuarioUp(nameUser);
+                                    objItenPro.setDataUp(dataModFinal);
+                                    objItenPro.setHorarioUp(horaMov);
                                     objItenPro.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                                    objItenPro.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
                                     objItenPro.setNomeInternoCrc(jNomeInternoRegime.getText());
-                                    controle.incluirItensProgressaoRegime(objItenPro);
-                                    //
-                                    objSentInt.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                                    objSentInt.setMudancaRegime((String) jComboBoxRegressao.getSelectedItem());
-                                    objSentInt.setDataLanc(jDataLanc.getDate());
-                                    objSentInt.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
-                                    objSentInt.setDataEntradaCrc(dataEntradaCrc);
-                                    objSentInt.setIdUnid(Integer.valueOf(idUnid));
-                                    objSentInt.setDataCrimeCrc(dataCrimeCrc);
-                                    objSentInt.setDataPrisaoCrc(dataPrisaoCrc);
-                                    objSentInt.setDataCondenacaoCrc(dataCondenacaoCrc);
-                                    objSentInt.setParticipacao(participacao);
-                                    objSentInt.setRegimeAnterior(regimeAnterior);
-                                    objSentInt.setPena(penaAnterior);
-                                    objSentInt.setArtigo1(artigo1);
-                                    objSentInt.setArtigo2(artigo2);
-                                    objSentInt.setArtigo3(artigo3);
-                                    objSentInt.setParagrafo1(paragrafo1);
-                                    objSentInt.setParagrafo2(paragrafo2);
-                                    objSentInt.setParagrafo3(paragrafo3);
-                                    objSentInt.setCrimeHediondo(crimeHediondo);
-                                    objSentInt.setTerminoPenaCrc(terminoPenaCrc);
-                                    objSentInt.setDescricaoUnidade(crimeHediondo);
-                                    controleSent.incluirSentencaInternos(objSentInt); // Incluir na tabela SENTENCAS, histórico de mudança de regime para relatório                                   
-                                    // Atualiza o prontuário do interno quando provisório na tabela de DADOSPENAISINTERNOS.
-                                    objItenPro.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
-                                    controle.atualizarRegimeProgressaoInterno(objItenPro);
-                                    //
+                                    objItenPro.setIdItem(Integer.valueOf(idItem));
+                                    controle.alterarItensProgressaoRegime(objItenPro);
                                     objLog2();
-                                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                                                                        
+                                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                                     preencherTabelaItens("SELECT * FROM ITENSPROGRESSAOREGIME "
                                             + "INNER JOIN PRONTUARIOSCRC "
                                             + "ON ITENSPROGRESSAOREGIME.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -1233,27 +1300,12 @@ public class TelaMudancaRegimeProgressao extends javax.swing.JInternalFrame {
                                     SalvarInterno();
                                 }
                             }
-                            if (acao == 4) {
-                                objItenPro.setUsuarioUp(nameUser);
-                                objItenPro.setDataUp(dataModFinal);
-                                objItenPro.setHorarioUp(horaMov);
-                                objItenPro.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                                objItenPro.setNomeInternoCrc(jNomeInternoRegime.getText());
-                                objItenPro.setIdItem(Integer.valueOf(idItem));
-                                controle.alterarItensProgressaoRegime(objItenPro);
-                                objLog2();
-                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                preencherTabelaItens("SELECT * FROM ITENSPROGRESSAOREGIME "
-                                        + "INNER JOIN PRONTUARIOSCRC "
-                                        + "ON ITENSPROGRESSAOREGIME.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                        + "WHERE IdLanc='" + jIdLanc.getText() + "'");
-                                JOptionPane.showMessageDialog(null, "Registro gravado com sucesso.");
-                                SalvarInterno();
-                            }
                         }
                     }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarInternoActionPerformed
 
@@ -1437,10 +1489,10 @@ public class TelaMudancaRegimeProgressao extends javax.swing.JInternalFrame {
         jNomeInternoRegime.setEnabled(!true);
         jDataProgressao.setEnabled(!true);
         jComboBoxRegime.setEnabled(!true);
-        jDataTerminoPena.setEnabled(!true);       
-        jJuizoCompetente.setEnabled(!true);       
+        jDataTerminoPena.setEnabled(!true);
+        jJuizoCompetente.setEnabled(!true);
         //
-        jBtPesqInterno.setEnabled(!true);       
+        jBtPesqInterno.setEnabled(!true);
         jBtSalvarInterno.setEnabled(!true);
         jBtCancelarInterno.setEnabled(!true);
         jBtAuditoriaInterno.setEnabled(!true);
@@ -1454,9 +1506,9 @@ public class TelaMudancaRegimeProgressao extends javax.swing.JInternalFrame {
         jIdInterno.setText("");
         jNomeInternoRegime.setText("");
         jDataProgressao.setDate(null);
-        jComboBoxRegime.setSelectedItem(null);        
-        jDataTerminoPena.setDate(null);        
-        jJuizoCompetente.setText("");            
+        jComboBoxRegime.setSelectedItem(null);
+        jDataTerminoPena.setDate(null);
+        jJuizoCompetente.setText("");
     }
 
     public void formatarCampos() {
@@ -1510,9 +1562,9 @@ public class TelaMudancaRegimeProgressao extends javax.swing.JInternalFrame {
         jIdInterno.setText("");
         jNomeInternoRegime.setText("");
         jDataProgressao.setDate(null);
-        jComboBoxRegime.setSelectedItem(null);        
-        jDataTerminoPena.setDate(null);        
-        jJuizoCompetente.setText("");  
+        jComboBoxRegime.setSelectedItem(null);
+        jDataTerminoPena.setDate(null);
+        jJuizoCompetente.setText("");
     }
 
     public void Alterar() {
@@ -2066,5 +2118,43 @@ public class TelaMudancaRegimeProgressao extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jIdLanc.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserCRC = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserCRC + "'");
+            conecta.rs.first();
+            codigoUserGroupCRC = conecta.rs.getInt("IdUsuario");
+            codigoGrupoCRC = conecta.rs.getInt("IdGrupo");
+            nomeGrupoCRC = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserCRC + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoCRC = conecta.rs.getInt("IdUsuario");
+            codAbrirCRC = conecta.rs.getInt("Abrir");
+            codIncluirCRC = conecta.rs.getInt("Incluir");
+            codAlterarCRC = conecta.rs.getInt("Alterar");
+            codExcluirCRC = conecta.rs.getInt("Excluir");
+            codGravarCRC = conecta.rs.getInt("Gravar");
+            codConsultarCRC = conecta.rs.getInt("Consultar");
+            nomeTelaCRC = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

@@ -15,6 +15,20 @@ import gestor.Modelo.ItensListagemInternosAlbergados;
 import gestor.Modelo.ListaPassagemAlbergados;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloCRC.codAbrirCRC;
+import static gestor.Visao.TelaModuloCRC.codAlterarCRC;
+import static gestor.Visao.TelaModuloCRC.codConsultarCRC;
+import static gestor.Visao.TelaModuloCRC.codExcluirCRC;
+import static gestor.Visao.TelaModuloCRC.codGravarCRC;
+import static gestor.Visao.TelaModuloCRC.codIncluirCRC;
+import static gestor.Visao.TelaModuloCRC.codUserAcessoCRC;
+import static gestor.Visao.TelaModuloCRC.codigoGrupoCRC;
+import static gestor.Visao.TelaModuloCRC.codigoUserCRC;
+import static gestor.Visao.TelaModuloCRC.codigoUserGroupCRC;
+import static gestor.Visao.TelaModuloCRC.nomeGrupoCRC;
+import static gestor.Visao.TelaModuloCRC.nomeTelaCRC;
+import static gestor.Visao.TelaModuloCRC.telaListaPassagemInteCRC;
+import static gestor.Visao.TelaModuloCRC.telaListaPassagemManuCRC;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -997,82 +1011,102 @@ public class TelaListaPassagemInternosAlbergados extends javax.swing.JInternalFr
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        limparCampos();
-        acao = 1;
-        Novo();
-        corCampos();        
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaListaPassagemManuCRC);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaListaPassagemManuCRC) && codIncluirCRC == 1) {
+            limparCampos();
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        objAgenda.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse  interno registro não poderá ser alterardo, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaListaPassagemManuCRC);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaListaPassagemManuCRC) && codAlterarCRC == 1) {
+            objAgenda.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse  interno registro não poderá ser alterardo, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                Alterar();
+                corCampos();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 2;
-            Alterar();
-            corCampos();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        objAgenda.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse  registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaListaPassagemManuCRC);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaListaPassagemManuCRC) && codExcluirCRC == 1) {
+            objAgenda.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse  registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                verificarItens();
+            }
         } else {
-            verificarItens();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataCadastro.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data de cadastro.");
-            jDataCadastro.requestFocus();
-            jDataCadastro.setBackground(Color.red);
-        } else {
-            if (jOperacao.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "É necessário informar o tipo de operação.");
+        buscarAcessoUsuario(telaListaPassagemManuCRC);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaListaPassagemManuCRC) && codGravarCRC == 1) {
+            if (jDataCadastro.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de cadastro.");
+                jDataCadastro.requestFocus();
+                jDataCadastro.setBackground(Color.red);
             } else {
-                objAgenda.setStatusLanc(statusLanc);
-                objAgenda.setDataCadastro(jDataCadastro.getDate());
-                objAgenda.setObsLanc(jObservacao.getText());
-                if (acao == 1) {
-                    // log de usuario
-                    objAgenda.setUsuarioInsert(nameUser);
-                    objAgenda.setDataInsert(dataModFinal);
-                    objAgenda.setHoraInsert(horaMov);
-                    //
-                    objAgenda.setNomeOperacao(jOperacao.getText());
-                    control.incluirLista(objAgenda);
-                    buscarID();
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    Salvar();
-                }
-                if (acao == 2) {
-                    // log de usuario
-                    objAgenda.setUsuarioUp(nameUser);
-                    objAgenda.setDataUp(dataModFinal);
-                    objAgenda.setHoraUp(horaMov);
-                    //
-                    objAgenda.setNomeOperacao(jOperacao.getText());
-                    objAgenda.setIdAgenda(Integer.valueOf(jIDAgenda.getText()));
-                    control.alterarLista(objAgenda);
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    Salvar();
+                if (jOperacao.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "É necessário informar o tipo de operação.");
+                } else {
+                    objAgenda.setStatusLanc(statusLanc);
+                    objAgenda.setDataCadastro(jDataCadastro.getDate());
+                    objAgenda.setObsLanc(jObservacao.getText());
+                    if (acao == 1) {
+                        // log de usuario
+                        objAgenda.setUsuarioInsert(nameUser);
+                        objAgenda.setDataInsert(dataModFinal);
+                        objAgenda.setHoraInsert(horaMov);
+                        //
+                        objAgenda.setNomeOperacao(jOperacao.getText());
+                        control.incluirLista(objAgenda);
+                        buscarID();
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        Salvar();
+                    }
+                    if (acao == 2) {
+                        // log de usuario
+                        objAgenda.setUsuarioUp(nameUser);
+                        objAgenda.setDataUp(dataModFinal);
+                        objAgenda.setHoraUp(horaMov);
+                        //
+                        objAgenda.setNomeOperacao(jOperacao.getText());
+                        objAgenda.setIdAgenda(Integer.valueOf(jIDAgenda.getText()));
+                        control.alterarLista(objAgenda);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        Salvar();
+                    }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -1095,89 +1129,126 @@ public class TelaListaPassagemInternosAlbergados extends javax.swing.JInternalFr
 
     private void jBtNovoInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoInternoActionPerformed
         // TODO add your handling code here:
-        objAgenda.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Não e possivel incluir mais registro, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaListaPassagemInteCRC);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaListaPassagemInteCRC) && codIncluirCRC == 1) {
+            objAgenda.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Não e possivel incluir mais registro, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 3;
+                NovoInterno();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 3;
-            NovoInterno();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtNovoInternoActionPerformed
 
     private void jBtAlterarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarInternoActionPerformed
         // TODO add your handling code here:
-        objAgenda.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse  interno não poderá ser alterardo, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaListaPassagemInteCRC);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaListaPassagemInteCRC) && codAlterarCRC == 1) {
+            objAgenda.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse  interno não poderá ser alterardo, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 4;
+                AlterarInterno();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 4;
-            AlterarInterno();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarInternoActionPerformed
 
     private void jBtExcluirInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirInternoActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        objAgenda.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse  interno não poderá ser excluído, o mesmo encontra-se FINALIZADO");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o interno selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objItensAgenda.setIdItem(Integer.valueOf(idItem));
-                controle.excluirItensListagemAlbergados(objItensAgenda);
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                preencherTabelaItens("SELECT * FROM ITENS_LISTA_PASSAGEM_ALBERGADOS "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON ITENS_LISTA_PASSAGEM_ALBERGADOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "WHERE IdAgenda='" + jIDAgenda.getText() + "'");
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                ExcluirInterno();
+        buscarAcessoUsuario(telaListaPassagemInteCRC);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaListaPassagemInteCRC) && codExcluirCRC == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objAgenda.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse  interno não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o interno selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objItensAgenda.setIdItem(Integer.valueOf(idItem));
+                    controle.excluirItensListagemAlbergados(objItensAgenda);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    preencherTabelaItens("SELECT * FROM ITENS_LISTA_PASSAGEM_ALBERGADOS "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON ITENS_LISTA_PASSAGEM_ALBERGADOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "WHERE IdAgenda='" + jIDAgenda.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    ExcluirInterno();
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirInternoActionPerformed
 
     private void jBtSalvarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarInternoActionPerformed
         // TODO add your handling code here:
-        verificarInternoCadastrado(); // VERIFICAR SE O INTERNO JÁ FOI INCLUÍDO NO REGISTRO.
-        if (jNomeInterno.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno a ser incluído");
-        } else {
-            if (jComboBoxStatus.getSelectedItem() == null || jComboBoxStatus.getSelectedItem().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe o status do interno");
-                jComboBoxStatus.requestFocus();
-                jComboBoxStatus.setBackground(Color.red);
+        buscarAcessoUsuario(telaListaPassagemInteCRC);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaListaPassagemInteCRC) && codGravarCRC == 1) {
+            verificarInternoCadastrado(); // VERIFICAR SE O INTERNO JÁ FOI INCLUÍDO NO REGISTRO.
+            if (jNomeInterno.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno a ser incluído");
             } else {
-                objItensAgenda.setIdAgenda(Integer.valueOf(jIDAgenda.getText()));
-                objItensAgenda.setNomeInterno(jNomeInterno.getText());
-                objItensAgenda.setStatusInterno((String) jComboBoxStatus.getSelectedItem());
-                if (jComboBoxStatus.getSelectedItem().equals("Ativo")) {
-                    situacaoInterno = "AUTORIZADO";
-                } else if (jComboBoxStatus.getSelectedItem().equals("Inativo")) {
-                    situacaoInterno = "DESAUTORIZADO";
-                }
-                objItensAgenda.setSituacaoInterno(situacaoInterno);
-                objItensAgenda.setObservacaoInterno(jObservacaoInterno.getText());
-                if (acao == 3) {
-                    if (jIdInterno.getText().equals(codigoInterno)) {
-                        JOptionPane.showMessageDialog(rootPane, "Esse registro de interno já encontra-se cadastrado nesse documento.");
-                    } else {
-                        // log de usuario
-                        objItensAgenda.setUsuarioInsert(nameUser);
-                        objItensAgenda.setDataInsert(dataModFinal);
-                        objItensAgenda.setHoraInsert(horaMov);
+                if (jComboBoxStatus.getSelectedItem() == null || jComboBoxStatus.getSelectedItem().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe o status do interno");
+                    jComboBoxStatus.requestFocus();
+                    jComboBoxStatus.setBackground(Color.red);
+                } else {
+                    objItensAgenda.setIdAgenda(Integer.valueOf(jIDAgenda.getText()));
+                    objItensAgenda.setNomeInterno(jNomeInterno.getText());
+                    objItensAgenda.setStatusInterno((String) jComboBoxStatus.getSelectedItem());
+                    if (jComboBoxStatus.getSelectedItem().equals("Ativo")) {
+                        situacaoInterno = "AUTORIZADO";
+                    } else if (jComboBoxStatus.getSelectedItem().equals("Inativo")) {
+                        situacaoInterno = "DESAUTORIZADO";
+                    }
+                    objItensAgenda.setSituacaoInterno(situacaoInterno);
+                    objItensAgenda.setObservacaoInterno(jObservacaoInterno.getText());
+                    if (acao == 3) {
+                        if (jIdInterno.getText().equals(codigoInterno)) {
+                            JOptionPane.showMessageDialog(rootPane, "Esse registro de interno já encontra-se cadastrado nesse documento.");
+                        } else {
+                            // log de usuario
+                            objItensAgenda.setUsuarioInsert(nameUser);
+                            objItensAgenda.setDataInsert(dataModFinal);
+                            objItensAgenda.setHoraInsert(horaMov);
+                            //
+                            controle.incluirItensListagemAlbergados(objItensAgenda);
+                            objLog2();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            preencherTabelaItens("SELECT * FROM ITENS_LISTA_PASSAGEM_ALBERGADOS "
+                                    + "INNER JOIN PRONTUARIOSCRC "
+                                    + "ON ITENS_LISTA_PASSAGEM_ALBERGADOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                    + "WHERE IdAgenda='" + jIDAgenda.getText() + "'");
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                            SalvarInterno();
+                        }
+                    }
+                    if (acao == 4) {
+                        objItensAgenda.setUsuarioUp(nameUser);
+                        objItensAgenda.setDataUp(dataModFinal);
+                        objItensAgenda.setHoraUp(horaMov);
                         //
-                        controle.incluirItensListagemAlbergados(objItensAgenda);
+                        objItensAgenda.setIdAgenda(Integer.valueOf(jIDAgenda.getText()));
+                        objItensAgenda.setNomeInterno(jNomeInterno.getText());
+                        objItensAgenda.setIdItem(Integer.valueOf(idItem));
+                        controle.alterarItensListagemAlbergados(objItensAgenda);
+                        //
                         objLog2();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                         preencherTabelaItens("SELECT * FROM ITENS_LISTA_PASSAGEM_ALBERGADOS "
@@ -1188,26 +1259,9 @@ public class TelaListaPassagemInternosAlbergados extends javax.swing.JInternalFr
                         SalvarInterno();
                     }
                 }
-                if (acao == 4) {
-                    objItensAgenda.setUsuarioUp(nameUser);
-                    objItensAgenda.setDataUp(dataModFinal);
-                    objItensAgenda.setHoraUp(horaMov);
-                    //
-                    objItensAgenda.setIdAgenda(Integer.valueOf(jIDAgenda.getText()));
-                    objItensAgenda.setNomeInterno(jNomeInterno.getText());
-                    objItensAgenda.setIdItem(Integer.valueOf(idItem));
-                    controle.alterarItensListagemAlbergados(objItensAgenda);
-                    //
-                    objLog2();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    preencherTabelaItens("SELECT * FROM ITENS_LISTA_PASSAGEM_ALBERGADOS "
-                            + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON ITENS_LISTA_PASSAGEM_ALBERGADOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                            + "WHERE IdAgenda='" + jIDAgenda.getText() + "'");
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    SalvarInterno();
-                }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarInternoActionPerformed
 
@@ -2127,5 +2181,43 @@ public class TelaListaPassagemInternosAlbergados extends javax.swing.JInternalFr
         objLogSys.setIdLancMov(Integer.valueOf(jIDAgenda.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserCRC = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserCRC + "'");
+            conecta.rs.first();
+            codigoUserGroupCRC = conecta.rs.getInt("IdUsuario");
+            codigoGrupoCRC = conecta.rs.getInt("IdGrupo");
+            nomeGrupoCRC = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserCRC + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoCRC = conecta.rs.getInt("IdUsuario");
+            codAbrirCRC = conecta.rs.getInt("Abrir");
+            codIncluirCRC = conecta.rs.getInt("Incluir");
+            codAlterarCRC = conecta.rs.getInt("Alterar");
+            codExcluirCRC = conecta.rs.getInt("Excluir");
+            codGravarCRC = conecta.rs.getInt("Gravar");
+            codConsultarCRC = conecta.rs.getInt("Consultar");
+            nomeTelaCRC = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }
