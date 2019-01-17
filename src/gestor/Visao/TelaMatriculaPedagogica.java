@@ -485,10 +485,11 @@ public class TelaMatriculaPedagogica extends javax.swing.JInternalFrame {
                                 .addComponent(jBtPesqCargaHoraria, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jDescricaoTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel12))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jDescricaoTempoFormativo, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
-                            .addComponent(jDescricaoSala)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jDescricaoSala, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jDescricaoTempoFormativo)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel11)
@@ -509,21 +510,17 @@ public class TelaMatriculaPedagogica extends javax.swing.JInternalFrame {
                                 .addGap(7, 7, 7)
                                 .addComponent(jLabel5))
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(52, 52, 52)
-                                .addComponent(jLabel10))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(7, 7, 7)
-                                .addComponent(jNomeInstituicao, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jNomeInstituicao, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(40, 40, 40)
+                                .addComponent(jLabel10)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jBtPesqSala, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtPesqTempoFormativo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtPesqInstituicao, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(301, 301, 301)
-                .addComponent(jLabel13)
-                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1170,7 +1167,7 @@ public class TelaMatriculaPedagogica extends javax.swing.JInternalFrame {
                                 objMatEscolar.setDataUp(dataModFinal);
                                 objMatEscolar.setHorarioUp(horaMov);
                                 objMatEscolar.setNomeIstituicao(jNomeInstituicao.getText());
-                                objMatEscolar.setIdMat(codigoMatricula);
+                                objMatEscolar.setIdMat(Integer.valueOf(jIdMat.getText()));
                                 objMatEscolar.setDescricaoTempoFormativo(jDescricaoTempoFormativo.getText());
                                 objMatEscolar.setDescricaoCargaHoraria(jCargaHoraria.getText());
                                 objMatEscolar.setDescricaoSala(jDescricaoSala.getText());
@@ -1294,7 +1291,8 @@ public class TelaMatriculaPedagogica extends javax.swing.JInternalFrame {
                 objItensMat.setBloqueio(bloqueio);
                 objItensMat.setIdMat(Integer.valueOf(jIdMat.getText()));
                 objItensMat.setNomeInternoCrc(jNomeInternoCrc.getText());
-                objItensMat.setIdItem(Integer.valueOf(idItem));
+                objItensMat.setIdItem(idItem);
+                controle.alterarInternosMatricula(objItensMat);
                 objLog2();
                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                
                 preencherTabelaInternosMatricula("SELECT * FROM ITENSMATRICULA "
