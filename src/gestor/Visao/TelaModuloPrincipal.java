@@ -307,13 +307,16 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jPanielPrincipal.setPreferredSize(new java.awt.Dimension(1000, 879));
 
         jToolBar5.setBackground(new java.awt.Color(51, 51, 255));
+        jToolBar5.setFloatable(false);
         jToolBar5.setRollover(true);
-        jToolBar5.setMinimumSize(new java.awt.Dimension(1200, 66));
+        jToolBar5.setMinimumSize(new java.awt.Dimension(1190, 66));
+        jToolBar5.setPreferredSize(new java.awt.Dimension(1537, 66));
 
         jBtAdmPessoal.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jBtAdmPessoal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Administração48.png"))); // NOI18N
         jBtAdmPessoal.setToolTipText("Administração");
         jBtAdmPessoal.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBtAdmPessoal.setMargin(new java.awt.Insets(2, 6, 2, 1));
         jBtAdmPessoal.setMaximumSize(new java.awt.Dimension(53, 53));
         jBtAdmPessoal.setMinimumSize(new java.awt.Dimension(48, 48));
         jBtAdmPessoal.setPreferredSize(new java.awt.Dimension(48, 48));
@@ -329,6 +332,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jBtDiretoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Diretoria48.png"))); // NOI18N
         jBtDiretoria.setToolTipText("Diretoria");
         jBtDiretoria.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBtDiretoria.setMargin(new java.awt.Insets(4, 16, 2, 12));
         jBtDiretoria.setMaximumSize(new java.awt.Dimension(53, 53));
         jBtDiretoria.setMinimumSize(new java.awt.Dimension(48, 48));
         jBtDiretoria.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -343,9 +347,11 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jBtCRC2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/CRC48.png"))); // NOI18N
         jBtCRC2.setToolTipText("CRC");
         jBtCRC2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBtCRC2.setMargin(new java.awt.Insets(2, 14, 2, 12));
         jBtCRC2.setMaximumSize(new java.awt.Dimension(53, 53));
         jBtCRC2.setMinimumSize(new java.awt.Dimension(48, 48));
-        jBtCRC2.setPreferredSize(new java.awt.Dimension(48, 48));
+        jBtCRC2.setName(""); // NOI18N
+        jBtCRC2.setPreferredSize(new java.awt.Dimension(48, 46));
         jBtCRC2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jBtCRC2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -644,10 +650,11 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jBtSindicancia.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jBtSindicancia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lego Robot-48.png"))); // NOI18N
         jBtSindicancia.setToolTipText("Sindicancia");
-        jBtSindicancia.setBorder(null);
         jBtSindicancia.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBtSindicancia.setMargin(new java.awt.Insets(2, 14, 2, 12));
         jBtSindicancia.setMaximumSize(new java.awt.Dimension(53, 53));
-        jBtSindicancia.setMinimumSize(new java.awt.Dimension(48, 48));
+        jBtSindicancia.setMinimumSize(new java.awt.Dimension(45, 45));
+        jBtSindicancia.setPreferredSize(new java.awt.Dimension(43, 43));
         jBtSindicancia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtSindicanciaActionPerformed(evt);
@@ -668,6 +675,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jBtTrocarSenha.setFocusable(false);
         jBtTrocarSenha.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtTrocarSenha.setMaximumSize(new java.awt.Dimension(53, 53));
+        jBtTrocarSenha.setMinimumSize(new java.awt.Dimension(46, 46));
         jBtTrocarSenha.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jBtTrocarSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -682,6 +690,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jBtLogoff.setFocusable(false);
         jBtLogoff.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtLogoff.setMaximumSize(new java.awt.Dimension(53, 53));
+        jBtLogoff.setMinimumSize(new java.awt.Dimension(45, 45));
         jBtLogoff.setName(""); // NOI18N
         jBtLogoff.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jBtLogoff.addActionListener(new java.awt.event.ActionListener() {
@@ -697,6 +706,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jBtSairSistema.setFocusable(false);
         jBtSairSistema.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtSairSistema.setMaximumSize(new java.awt.Dimension(53, 53));
+        jBtSairSistema.setMinimumSize(new java.awt.Dimension(45, 45));
         jBtSairSistema.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jBtSairSistema.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -732,9 +742,9 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jNomeUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, 793, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(107, 107, 107)
+                .addGap(97, 97, 97)
                 .addComponent(jLabel7)
-                .addGap(51, 51, 51))
+                .addGap(61, 61, 61))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -753,16 +763,11 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jPanielPrincipalLayout.setHorizontalGroup(
             jPanielPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanielPrincipalLayout.createSequentialGroup()
-                .addGroup(jPanielPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanielPrincipalLayout.createSequentialGroup()
-                        .addGroup(jPanielPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jToolBar5, javax.swing.GroupLayout.PREFERRED_SIZE, 1365, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanielPrincipalLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 1347, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap())
+                .addContainerGap()
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 1347, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(10, Short.MAX_VALUE))
+            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 1367, Short.MAX_VALUE)
+            .addComponent(jToolBar5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         jPanielPrincipalLayout.setVerticalGroup(
             jPanielPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -786,6 +791,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jToolBar1.add(jLabel3);
 
         jToolBar2.setBackground(new java.awt.Color(51, 51, 255));
+        jToolBar2.setFloatable(false);
         jToolBar2.setRollover(true);
         jToolBar2.setToolTipText("");
         jToolBar2.setMaximumSize(new java.awt.Dimension(49, 16));
@@ -821,6 +827,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jToolBar3.setRollover(true);
 
         jToolBar6.setBackground(new java.awt.Color(51, 51, 255));
+        jToolBar6.setFloatable(false);
         jToolBar6.setRollover(true);
 
         jDataSistema.setEditable(false);
@@ -829,6 +836,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jToolBar6.add(jDataSistema);
 
         jToolBar8.setBackground(new java.awt.Color(51, 51, 255));
+        jToolBar8.setFloatable(false);
         jToolBar8.setRollover(true);
 
         jHoraSistema.setBackground(new java.awt.Color(240, 240, 240));
@@ -856,7 +864,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)
                 .addComponent(jLabel9)
                 .addGap(6, 6, 6)
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -868,7 +876,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jToolBar6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jToolBar8, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
