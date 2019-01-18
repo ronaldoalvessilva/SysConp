@@ -14,6 +14,19 @@ import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.enderecoUnidadePrisional;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloCRC.codAbrirCRC;
+import static gestor.Visao.TelaModuloCRC.codAlterarCRC;
+import static gestor.Visao.TelaModuloCRC.codConsultarCRC;
+import static gestor.Visao.TelaModuloCRC.codExcluirCRC;
+import static gestor.Visao.TelaModuloCRC.codGravarCRC;
+import static gestor.Visao.TelaModuloCRC.codIncluirCRC;
+import static gestor.Visao.TelaModuloCRC.codUserAcessoCRC;
+import static gestor.Visao.TelaModuloCRC.codigoGrupoCRC;
+import static gestor.Visao.TelaModuloCRC.codigoUserCRC;
+import static gestor.Visao.TelaModuloCRC.codigoUserGroupCRC;
+import static gestor.Visao.TelaModuloCRC.nomeGrupoCRC;
+import static gestor.Visao.TelaModuloCRC.nomeTelaCRC;
+import static gestor.Visao.TelaModuloCRC.telaCumprimentoManuCRC;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -847,95 +860,115 @@ public class TelaNaoCumprimentoAlvara extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
-        // TODO add your handling code here:       
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        // TODO add your handling code here:   
+        buscarAcessoUsuario(telaCumprimentoManuCRC);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCumprimentoManuCRC) && codIncluirCRC == 1) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        objCumpreAlvara.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaCumprimentoManuCRC);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCumprimentoManuCRC) && codAlterarCRC == 1) {
+            objCumpreAlvara.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                Alterar();
+                corCampos();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 2;
-            Alterar();
-            corCampos();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        objCumpreAlvara.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o INTERNO selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objCumpreAlvara.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                control.excluirCumprimentoAlvara(objCumpreAlvara);
-                //
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                Excluir();
+        buscarAcessoUsuario(telaCumprimentoManuCRC);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCumprimentoManuCRC) && codExcluirCRC == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objCumpreAlvara.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o INTERNO selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objCumpreAlvara.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                    control.excluirCumprimentoAlvara(objCumpreAlvara);
+                    //
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    Excluir();
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
-        // TODO add your handling code here:        
-        if (jRdBtComprido.isSelected()) {
-            statusCumprimento = 1;
-        } else if (jRdBtNaoComprido.isSelected()) {
-            statusCumprimento = 0;
-        }
-        if (jDataLanc.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data do registro.");
-        } else if (jIdInternoCrc.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do Interno.");
+        // TODO add your handling code here:      
+        buscarAcessoUsuario(telaCumprimentoManuCRC);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCumprimentoManuCRC) && codGravarCRC == 1) {
+            if (jRdBtComprido.isSelected()) {
+                statusCumprimento = 1;
+            } else if (jRdBtNaoComprido.isSelected()) {
+                statusCumprimento = 0;
+            }
+            if (jDataLanc.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data do registro.");
+            } else if (jIdInternoCrc.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do Interno.");
+            } else {
+                objCumpreAlvara.setStatusLanc(jStatusLanc.getText());
+                objCumpreAlvara.setDataLanc(jDataLanc.getDate());
+                objCumpreAlvara.setIdInternoCrc(Integer.valueOf(jIdInternoCrc.getText()));
+                objCumpreAlvara.setNomeInternoCrc(jNomeInternoAlvara.getText());
+                objCumpreAlvara.setTipoCumprimento(statusCumprimento);
+                objCumpreAlvara.setHistorico(jHistorico.getText());
+                if (acao == 1) {
+                    objCumpreAlvara.setUsuarioInsert(nameUser);
+                    objCumpreAlvara.setDataInsert(dataModFinal);
+                    objCumpreAlvara.setHorarioInsert(horaMov);
+                    control.incluirCumprimentoAlvara(objCumpreAlvara);
+                    buscarCod();
+                    //
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    Salvar();
+                }
+                if (acao == 2) {
+                    objCumpreAlvara.setUsuarioUp(nameUser);
+                    objCumpreAlvara.setDataUp(dataModFinal);
+                    objCumpreAlvara.setHorarioUp(horaMov);
+                    objCumpreAlvara.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                    control.alterarCumprimentoAlvara(objCumpreAlvara);
+                    //
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    Salvar();
+                }
+            }
         } else {
-            objCumpreAlvara.setStatusLanc(jStatusLanc.getText());
-            objCumpreAlvara.setDataLanc(jDataLanc.getDate());
-            objCumpreAlvara.setIdInternoCrc(Integer.valueOf(jIdInternoCrc.getText()));
-            objCumpreAlvara.setNomeInternoCrc(jNomeInternoAlvara.getText());
-            objCumpreAlvara.setTipoCumprimento(statusCumprimento);
-            objCumpreAlvara.setHistorico(jHistorico.getText());
-            if (acao == 1) {
-                objCumpreAlvara.setUsuarioInsert(nameUser);
-                objCumpreAlvara.setDataInsert(dataModFinal);
-                objCumpreAlvara.setHorarioInsert(horaMov);
-                control.incluirCumprimentoAlvara(objCumpreAlvara);
-                buscarCod();
-                //
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                Salvar();
-            }
-            if (acao == 2) {
-                objCumpreAlvara.setUsuarioUp(nameUser);
-                objCumpreAlvara.setDataUp(dataModFinal);
-                objCumpreAlvara.setHorarioUp(horaMov);
-                objCumpreAlvara.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                control.alterarCumprimentoAlvara(objCumpreAlvara);
-                //
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                Salvar();
-            }
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -1526,5 +1559,43 @@ public class TelaNaoCumprimentoAlvara extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jIdLanc.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserCRC = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserCRC + "'");
+            conecta.rs.first();
+            codigoUserGroupCRC = conecta.rs.getInt("IdUsuario");
+            codigoGrupoCRC = conecta.rs.getInt("IdGrupo");
+            nomeGrupoCRC = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserCRC + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoCRC = conecta.rs.getInt("IdUsuario");
+            codAbrirCRC = conecta.rs.getInt("Abrir");
+            codIncluirCRC = conecta.rs.getInt("Incluir");
+            codAlterarCRC = conecta.rs.getInt("Alterar");
+            codExcluirCRC = conecta.rs.getInt("Excluir");
+            codGravarCRC = conecta.rs.getInt("Gravar");
+            codConsultarCRC = conecta.rs.getInt("Consultar");
+            nomeTelaCRC = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

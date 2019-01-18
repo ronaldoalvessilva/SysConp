@@ -6,6 +6,7 @@
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="Cadastros">
           <Properties>
+            <Property name="mnemonic" type="int" value="67"/>
             <Property name="text" type="java.lang.String" value="Cadastro"/>
           </Properties>
           <SubComponents>
@@ -97,6 +98,40 @@
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator14">
             </MenuItem>
+            <Menu class="javax.swing.JMenu" name="jMenu3">
+              <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="66" red="0" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Registro de Atendimento de Internos - (Biometria ou Impress&#xe3;o)"/>
+              </Properties>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="jRegistraAtendimentoBiometria">
+                  <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="0" red="cc" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Registra Atendimento por Biometria"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRegistraAtendimentoBiometriaActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jRegistroAtendimentoImpresso">
+                  <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="cc" green="0" red="0" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Registro Atendimento por Impress&#xe3;o"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRegistroAtendimentoImpressoActionPerformed"/>
+                  </Events>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator18">
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="AgendaCompromissoPessoal">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Agenda de Compromissos Pessoal"/>
@@ -125,6 +160,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="Acervo">
           <Properties>
+            <Property name="mnemonic" type="int" value="65"/>
             <Property name="text" type="java.lang.String" value="Acervo da Biblioteca"/>
           </Properties>
           <SubComponents>
@@ -243,6 +279,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="Consultas">
           <Properties>
+            <Property name="mnemonic" type="int" value="79"/>
             <Property name="text" type="java.lang.String" value="Consultas"/>
           </Properties>
           <SubComponents>
@@ -266,6 +303,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="Movimentacao">
           <Properties>
+            <Property name="mnemonic" type="int" value="77"/>
             <Property name="text" type="java.lang.String" value="Movimenta&#xe7;&#xe3;o"/>
           </Properties>
           <SubComponents>
@@ -347,6 +385,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="Relatorios">
           <Properties>
+            <Property name="mnemonic" type="int" value="82"/>
             <Property name="text" type="java.lang.String" value="Relat&#xf3;rios"/>
           </Properties>
           <SubComponents>

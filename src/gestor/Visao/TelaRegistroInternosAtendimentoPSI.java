@@ -918,6 +918,8 @@ public class TelaRegistroInternosAtendimentoPSI extends javax.swing.JInternalFra
             String nomeInterno = "" + jTabelaRegistroInterno.getValueAt(jTabelaRegistroInterno.getSelectedRow(), 3);
             jPesqNomeInternoOdonto.setText(nomeInterno);
             //
+            bloquearCampos();
+            //
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
@@ -1300,6 +1302,15 @@ public class TelaRegistroInternosAtendimentoPSI extends javax.swing.JInternalFra
         jNomeDepartamento.setBackground(Color.white);
     }
 
+    public void bloquearCampos() {
+        jComboBoxTipoMovimentacao.setEnabled(!true);
+        //
+        jBtSalvar.setEnabled(!true);
+        jBtCancelar.setEnabled(!true);
+        jBtIniciarLeitor.setEnabled(true);
+        jBtCancelarLeitura.setEnabled(!true);
+    }
+
     public void Novo() {
         jIdRegistro.setText("");
         jDataRegistro.setCalendar(Calendar.getInstance());
@@ -1320,7 +1331,7 @@ public class TelaRegistroInternosAtendimentoPSI extends javax.swing.JInternalFra
         jBtCancelarLeitura.setEnabled(!true);
     }
 
-    public void Salvar() {        
+    public void Salvar() {
         jComboBoxTipoMovimentacao.setEnabled(!true);
         //
         jBtSalvar.setEnabled(!true);

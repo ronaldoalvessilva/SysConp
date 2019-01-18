@@ -474,18 +474,7 @@ public class TelaControleFrequencia extends javax.swing.JInternalFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jDescricaoTurno, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addComponent(jNomeInstituicao))
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel11)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)))
-                        .addGap(18, 18, 18))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jIdFreq, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -499,8 +488,18 @@ public class TelaControleFrequencia extends javax.swing.JInternalFrame {
                         .addGap(14, 14, 14)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jDataFreq, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                            .addComponent(jLabel3)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jDescricaoTurno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jNomeInstituicao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -524,6 +523,11 @@ public class TelaControleFrequencia extends javax.swing.JInternalFrame {
                             .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING))
                         .addContainerGap())))
         );
+
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jDescricaoTurno, jNomeInstituicao});
+
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jDescricaoSala, jTempoFormativo});
+
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -1305,9 +1309,9 @@ public class TelaControleFrequencia extends javax.swing.JInternalFrame {
                 int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir a frequência selecionado?", "Confirmação",
                         JOptionPane.YES_NO_OPTION);
                 if (resposta == JOptionPane.YES_OPTION) {
-                    objDatasHoras();
-                    controleHist.excluirInterEdu(objHistInterEduLocal);
-                    objItensFreq.setIdItem(idItem);
+                    objItensFreq.setIdItem(idItem);           
+                    objHistInterEduLocal.setIdItem(idItem);      
+                    controleHist.excluirInterEdu(objHistInterEduLocal);                    
                     controle.excluirFrequenciaInternos(objItensFreq);
                     objLog2();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -1344,13 +1348,17 @@ public class TelaControleFrequencia extends javax.swing.JInternalFrame {
                         objItensFreq.setDataSaida(jDataSaida.getDate());
                         objItensFreq.setHorarioEntrada(jHorarioEntrada.getText());
                         objItensFreq.setHorarioSaida(jHorarioSaida.getText());
+                        objItensFreq.setPresenca((String)jComboBoxConfFrequencia.getSelectedItem());
                         objItensFreq.setUtilizacaoMatricula(utlizaMatriculaInterno);
                         objItensFreq.setIdFreq(Integer.valueOf(jIdFreq.getText()));
-                        objItensFreq.setNomeInternoCrc(jNomeInternoCrc.getText());
-                        controle.incluirFrequenciaInternos(objItensFreq);
+                        objItensFreq.setIdInternoCrc(Integer.valueOf(jIdInternoCrc.getText()));
+                        objItensFreq.setNomeInternoCrc(jNomeInternoCrc.getText());                        
+                        controle.incluirFrequenciaInternos(objItensFreq);                                              
                         // Se a opoção selecionada for "PRESENTE"
                         if (jComboBoxConfFrequencia.getSelectedItem().equals("Presente")) {
-                            //Inclusão do histórico do interno na instituição
+                            //Inclusão do histórico do interno na instituição  
+                            buscarIDItem();  
+                            objHistInterEduLocal.setIdItem(idItem);
                             objHistInterEduLocal.setNomeInstituicao(jNomeInstituicao.getText());
                             objHistInterEduLocal.setNomeInterno(jNomeInternoCrc.getText());
                             objDatasHoras();
@@ -1378,6 +1386,7 @@ public class TelaControleFrequencia extends javax.swing.JInternalFrame {
                     objItensFreq.setPresenca((String) jComboBoxConfFrequencia.getSelectedItem());
                     objItensFreq.setUtilizacaoMatricula(utlizaMatriculaInterno);
                     objItensFreq.setIdFreq(Integer.valueOf(jIdFreq.getText()));
+                    objItensFreq.setIdInternoCrc(Integer.valueOf(jIdInternoCrc.getText()));
                     objItensFreq.setNomeInternoCrc(jNomeInternoCrc.getText());
                     objItensFreq.setIdItem(idItem);
                     controle.alterarFrequenciaInternos(objItensFreq);
@@ -2004,7 +2013,7 @@ public class TelaControleFrequencia extends javax.swing.JInternalFrame {
         jBtSalvarInterno.setEnabled(!true);
         jBtCancelarInterno.setEnabled(!true);
         jBtAuditoriaInterno.setEnabled(!true);
-        jBtImpressao.setEnabled(!true);
+        jBtImpressao.setEnabled(true);
         //        
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(true);
@@ -2056,12 +2065,28 @@ public class TelaControleFrequencia extends javax.swing.JInternalFrame {
     public void verificarInterno() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ITENSFREQUENCIA WHERE IdInternoCrc='" + jIdInternoCrc.getText() + "'AND IdFreq='" + jIdFreq.getText() + "'");
+            conecta.executaSQL("SELECT * FROM ITENSFREQUENCIA "
+                    + "WHERE IdInternoCrc='" + jIdInternoCrc.getText() + "' "
+                    + "AND IdFreq='" + jIdFreq.getText() + "'");
             conecta.rs.first();
             codInternoCrc = conecta.rs.getString("IdInternoCrc");
             codFreq = conecta.rs.getString("IdFreq");
         } catch (Exception e) {
         }
+        conecta.desconecta();
+    }
+
+    public void buscarIDItem() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ITENSFREQUENCIA "
+                    + "WHERE IdInternoCrc='" + jIdInternoCrc.getText() + "' "
+                    + "AND IdFreq='" + jIdFreq.getText() + "'");
+            conecta.rs.first();
+           idItem  = conecta.rs.getInt("IdItem");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 
     public void preencherTabelaFrequencia(String sql) {
@@ -2257,7 +2282,6 @@ public class TelaControleFrequencia extends javax.swing.JInternalFrame {
     }
 
     public void objDatasHoras() {
-        objHistInterEduLocal.setIdItem(Integer.valueOf(jIdFreq.getText()));
         objHistInterEduLocal.setIdInternoCrc(Integer.valueOf(jIdInternoCrc.getText()));
         objHistInterEduLocal.setDataEntrada(jDataEntrada.getDate());
         objHistInterEduLocal.setHorarioEntrada(jHorarioEntrada.getText());

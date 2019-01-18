@@ -150,7 +150,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     public static String telaRolVisitasInternosSS = "Cadastro:Rol de Visitas:Internos";
     public static String telaListaDocumentosSS = "Cadastro:Lista de Documentos de Internos:Manutenção";
     public static String telaInstituicaoRelSS = "Cadastro:Instituição Religiosa:Manutenção";
-    public static String telaVisitantesRelSS = "Cadastro:Visistantes Religiosos:Manutenção";
+    public static String telaVisitantesRelSS = "Cadastro:Visitantes Religiosos:Manutenção";
     public static String telaRolVisitantesRelSS = "Cadastro:Rol de Visitas Religiosa:Manutenção";
     public static String telaRolVisitantesRelVisitaSS = "Cadastro:Rol de Visitas Religiosa:Visitas";
     public static String telaAprovadoresOcrSS = "Cadastro:Aprovadores de Ocorrências Indisciplinas Visitas:Manutenção";
@@ -185,7 +185,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     public static String telaControleLigacoesTelSS = "Movimentação:Controle de Ligações:Manutenção";
     public static String telaOcorrenciasSS = "Movimentação:Ocorrências do Serviço Social:Manutenção";
     //
-    public static String telaHistAvaSocial_SS = "Movimentação:Historico de Avaliação Social - I:Manutenção";
+    public static String telaHistAvaSocial_SS  = "Movimentação:Historico de Avaliação Social - I:Manutenção";
     public static String telaHistAvaEmprego_SS = "Movimentação:Historico de Avaliação de Emprego - II:Manutenção";
     //
     public static String telaSolicitacaoAuxilioReclusao = "Movimentação:Solicitação Atestado Reclusão - Serviço Social";
@@ -2671,7 +2671,6 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
             pNomePEPAI = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
-        //
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaBloqueioLiberacaoVisitasSS + "'");
@@ -2707,13 +2706,15 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
             pNomeHAS_I = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        //
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaHistAvaEmprego_SS + "'");
             conecta.rs.first();
-            pNomeHAS_I = conecta.rs.getString("NomeTela");
+            pNomeHAE_II = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        //
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaSolicitacaoAuxilioReclusao + "'");
@@ -2960,7 +2961,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
             objCadastroTela.setNomeTela(telaOcorrenciasSS);
             controle.incluirTelaAcesso(objCadastroTela);
         }
-        if (pNomeHAS_I.equals(telaHistAvaSocial_SS) || pNomeHAS_I == null || pNomeHAS_I.equals("")) {
+        if (!pNomeHAS_I.equals(telaHistAvaSocial_SS) || pNomeHAS_I == null || pNomeHAS_I.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaHistAvaSocial_SS);

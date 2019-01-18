@@ -14,6 +14,19 @@ import gestor.Dao.ModeloTabela;
 import gestor.Modelo.Cidades;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloCRC.codAbrirCRC;
+import static gestor.Visao.TelaModuloCRC.codAlterarCRC;
+import static gestor.Visao.TelaModuloCRC.codConsultarCRC;
+import static gestor.Visao.TelaModuloCRC.codExcluirCRC;
+import static gestor.Visao.TelaModuloCRC.codGravarCRC;
+import static gestor.Visao.TelaModuloCRC.codIncluirCRC;
+import static gestor.Visao.TelaModuloCRC.codUserAcessoCRC;
+import static gestor.Visao.TelaModuloCRC.codigoGrupoCRC;
+import static gestor.Visao.TelaModuloCRC.codigoUserCRC;
+import static gestor.Visao.TelaModuloCRC.codigoUserGroupCRC;
+import static gestor.Visao.TelaModuloCRC.nomeGrupoCRC;
+import static gestor.Visao.TelaModuloCRC.nomeTelaCRC;
+import static gestor.Visao.TelaModuloCRC.telaCidadeCRC;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloTriagem.telaCadastroCidadesTRI;
@@ -530,6 +543,7 @@ public class TelaCidades extends javax.swing.JInternalFrame {
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaCadastroCidadesTRI);
+        buscarAcessoUsuarioCRC(telaCidadeCRC);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroCidadesTRI) && codIncluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             acao = 1;
             Novo();
@@ -537,14 +551,22 @@ public class TelaCidades extends javax.swing.JInternalFrame {
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
             preencherComboNovo();
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCidadeCRC) && codIncluirCRC == 1) {
+            acao = 1;
+            Novo();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            preencherComboNovo();
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaCadastroCidadesTRI);
+        buscarAcessoUsuarioCRC(telaCidadeCRC);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroCidadesTRI) && codAlterarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             conecta.abrirConexao();
             try {
@@ -564,14 +586,34 @@ public class TelaCidades extends javax.swing.JInternalFrame {
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserCidade + " só esse usuário poderá modificar.");
             }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCidadeCRC) && codAlterarCRC == 1) {
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM CIDADES WHERE IdCidade='" + jIdCidade.getText() + "'");
+                conecta.rs.first();
+                nomeUserCidade = conecta.rs.getString("UsuarioInsert");
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(rootPane, "Não foi possivel encontrar o usuário.");
+            }
+            if (nomeUserCidade == null ? nameUser == null : nomeUserCidade.equals(nameUser)) {
+                acao = 2;
+                Alterar();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                preencherComboNovo();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserCidade + " só esse usuário poderá modificar.");
+            }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here   
         buscarAcessoUsuario(telaCadastroCidadesTRI);
+        buscarAcessoUsuarioCRC(telaCidadeCRC);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroCidadesTRI) && codExcluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             conecta.abrirConexao();
             try {
@@ -586,14 +628,17 @@ public class TelaCidades extends javax.swing.JInternalFrame {
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserCidade + " só esse usuário poderá excluir.");
             }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCidadeCRC) && codExcluirCRC == 1) {
+
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaCadastroCidadesTRI);
+        buscarAcessoUsuarioCRC(telaCidadeCRC);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaCadastroCidadesTRI) && codGravarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             if (jNomeCidade.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Nome da Cidade não podem ser em branco");
@@ -665,8 +710,79 @@ public class TelaCidades extends javax.swing.JInternalFrame {
                     }
                 }
             }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCidadeCRC) && codGravarCRC == 1) {
+            if (jNomeCidade.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Nome da Cidade não podem ser em branco");
+            } else {
+                if (jDdd.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe o DDD da cidade");
+                } else {
+                    if (jComboBoxUf.getSelectedItem().equals("") && jComboBoxPais.getSelectedItem().equals("BRASIL")) {
+                        JOptionPane.showMessageDialog(rootPane, "Informe a UF da cidade.");
+                    } else {
+                        objCidades.setDddCidade(Integer.valueOf(jDdd.getText()));
+                        objCidades.setNomeCidade(jNomeCidade.getText());
+                        objCidades.setUfCidade((String) jComboBoxUf.getSelectedItem());
+                        objCidades.setNomeusuario(nameUser);
+                        try {
+                            conecta.abrirConexao();
+                            conecta.executaSQL("SELECT * FROM CIDADES WHERE NomeCidade='" + jNomeCidade.getText() + "'");
+                            conecta.rs.first();
+                            nomeCidade = conecta.rs.getString("NomeCidade");
+                        } catch (Exception e) {
+                        }
+                        if (!jComboBoxPais.getSelectedItem().equals("BRASIL")) {
+                            if (acao == 1) {
+                                if (jNomeCidade.getText().trim().equals(nomeCidade)) {
+                                    JOptionPane.showMessageDialog(rootPane, "Cidade já cadastrada.");
+                                } else {
+                                    objCidades.setNomePais((String) jComboBoxPais.getSelectedItem());
+                                    control.incluirCidades(objCidades);
+                                    buscarID();
+                                    objLog();
+                                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                    JOptionPane.showMessageDialog(rootPane, "Cadastro Realizado com sucesso");
+                                    Salvar();
+                                }
+                            }
+                            if (acao == 2) {
+                                objCidades.setNomePais((String) jComboBoxPais.getSelectedItem());
+                                objCidades.setIdCidade(Integer.valueOf(jIdCidade.getText()));
+                                control.alterarCidades(objCidades);
+                                objLog();
+                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                JOptionPane.showMessageDialog(null, "Cidade Alterado com sucesso !!!");
+                                Salvar();
+                            }
+                        } else if (jComboBoxPais.getSelectedItem().equals("BRASIL") && !jComboBoxUf.getSelectedItem().equals("")) {
+                            if (acao == 1) {
+                                if (jNomeCidade.getText().trim().equals(nomeCidade)) {
+                                    JOptionPane.showMessageDialog(rootPane, "Cidade já cadastrada.");
+                                } else {
+                                    objCidades.setNomePais((String) jComboBoxPais.getSelectedItem());
+                                    control.incluirCidades(objCidades);
+                                    buscarID();
+                                    objLog();
+                                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                    JOptionPane.showMessageDialog(rootPane, "Cadastro Realizado com sucesso");
+                                    Salvar();
+                                }
+                            }
+                            if (acao == 2) {
+                                objCidades.setNomePais((String) jComboBoxPais.getSelectedItem());
+                                objCidades.setIdCidade(Integer.valueOf(jIdCidade.getText()));
+                                control.alterarCidades(objCidades);
+                                objLog();
+                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                JOptionPane.showMessageDialog(null, "Cidade Alterado com sucesso !!!");
+                                Salvar();
+                            }
+                        }
+                    }
+                }
+            }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado.");
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -1181,6 +1297,44 @@ public class TelaCidades extends javax.swing.JInternalFrame {
             codGravarTRI = conecta.rs.getInt("Gravar");
             codConcultarTRI = conecta.rs.getInt("Consultar");
             nomeTelaTRI = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void buscarAcessoUsuarioCRC(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserTRI = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserCRC + "'");
+            conecta.rs.first();
+            codigoUserGroupCRC = conecta.rs.getInt("IdUsuario");
+            codigoGrupoCRC = conecta.rs.getInt("IdGrupo");
+            nomeGrupoCRC = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserCRC + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoCRC = conecta.rs.getInt("IdUsuario");
+            codAbrirCRC = conecta.rs.getInt("Abrir");
+            codIncluirCRC = conecta.rs.getInt("Incluir");
+            codAlterarCRC = conecta.rs.getInt("Alterar");
+            codExcluirCRC = conecta.rs.getInt("Excluir");
+            codGravarCRC = conecta.rs.getInt("Gravar");
+            codConsultarCRC = conecta.rs.getInt("Consultar");
+            nomeTelaCRC = conecta.rs.getString("NomeTela");
         } catch (Exception e) {
         }
         conecta.desconecta();

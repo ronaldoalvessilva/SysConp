@@ -13,6 +13,19 @@ import gestor.Dao.ModeloTabela;
 import gestor.Modelo.Departamentos;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloAdmPessoal.codAbrirADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codAlterarADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codConsultarADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codExcluirADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codGravarADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codIncluirADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codUserAcessoADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codigoGrupoADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codigoUserADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codigoUserGroupADM;
+import static gestor.Visao.TelaModuloAdmPessoal.nomeGrupoADM;
+import static gestor.Visao.TelaModuloAdmPessoal.nomeTelaADM;
+import static gestor.Visao.TelaModuloAdmPessoal.telaCadastroDepartamento_ADM;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -477,77 +490,97 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-
-        acao = 1;
-        Novo();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaCadastroDepartamento_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaCadastroDepartamento_ADM) && codIncluirADM == 1) {
+            acao = 1;
+            Novo();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        acao = 2;
-        Alterar();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaCadastroDepartamento_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaCadastroDepartamento_ADM) && codAlterarADM == 1) {
+            acao = 2;
+            Alterar();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        buscarDepartamentoColaborador();
-        if (jIdDepto.getText().equals(codDepto)) {
-            JOptionPane.showMessageDialog(rootPane, "DEPARTAMENTO não poderá ser DELETADO, existe registro relacionado");
-            conecta.desconecta();
+        buscarAcessoUsuario(telaCadastroDepartamento_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaCadastroDepartamento_ADM) && codExcluirADM == 1) {
+            buscarDepartamentoColaborador();
+            if (jIdDepto.getText().equals(codDepto)) {
+                JOptionPane.showMessageDialog(rootPane, "DEPARTAMENTO não poderá ser DELETADO, existe registro relacionado");
+                conecta.desconecta();
+            } else {
+                Excluir();
+            }
         } else {
-            Excluir();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
-        // TODO add your handling code here:     
-        objDepto.setNomeDepartamento(jDescricao.getText());
-        objDepto.setStatusDepartamento(objDepto.isStatusDepartamento());
-        if (jComboBoxStatus.getSelectedIndex() == 0) {
-            objDepto.setStatusDepartamento(true);
-        } else {
-            objDepto.setStatusDepartamento(false);
-        }
-        // Verifica se o campo descrição está em branco
-        if (jDescricao.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(rootPane, "Descrição não podem ser em branco");
-            jDescricao.requestFocus();
-        } else {
-            try {
-                conecta.abrirConexao();
-                conecta.executaSQL("SELECT * FROM DEPARTAMENTOS WHERE NomeDepartamento='" + jDescricao.getText() + "'");
-                conecta.rs.first();
-                nomeDepartamento = conecta.rs.getString("NomeDepartamento");
-            } catch (Exception ex) {
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaCadastroDepartamento_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaCadastroDepartamento_ADM) && codGravarADM == 1) {
+            objDepto.setNomeDepartamento(jDescricao.getText());
+            objDepto.setStatusDepartamento(objDepto.isStatusDepartamento());
+            if (jComboBoxStatus.getSelectedIndex() == 0) {
+                objDepto.setStatusDepartamento(true);
+            } else {
+                objDepto.setStatusDepartamento(false);
             }
-            // Se a opção for 1, será incluido um registro
-            if (acao == 1) {
-                if (jDescricao.getText().trim().equals(nomeDepartamento)) {
-                    JOptionPane.showMessageDialog(rootPane, "Departamento já cadastrado.");
-                } else {
-                    control.incluirDepartamento(objDepto);
-                    buscarID();
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Cadastro Realizado com sucesso");
-                    Salvar();
+            // Verifica se o campo descrição está em branco
+            if (jDescricao.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(rootPane, "Descrição não podem ser em branco");
+                jDescricao.requestFocus();
+            } else {
+                try {
+                    conecta.abrirConexao();
+                    conecta.executaSQL("SELECT * FROM DEPARTAMENTOS "
+                            + "WHERE NomeDepartamento='" + jDescricao.getText() + "'");
+                    conecta.rs.first();
+                    nomeDepartamento = conecta.rs.getString("NomeDepartamento");
+                } catch (Exception ex) {
+                }
+                // Se a opção for 1, será incluido um registro
+                if (acao == 1) {
+                    if (jDescricao.getText().trim().equals(nomeDepartamento)) {
+                        JOptionPane.showMessageDialog(rootPane, "Departamento já cadastrado.");
+                    } else {
+                        control.incluirDepartamento(objDepto);
+                        buscarID();
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Cadastro Realizado com sucesso");
+                        Salvar();
+                    }
                 }
             }
-        }
-        // Se registro for 2 será alterado o registro
-        if (acao == 2) {
-            objDepto.setIdDepartamento(Integer.valueOf(jIdDepto.getText()));
-            control.alterarDepartamento(objDepto);
-            objLog();
-            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-            JOptionPane.showMessageDialog(rootPane, "Registro Atualizado com Sucesso !!!");
-            SalvarAlterar();
+            // Se registro for 2 será alterado o registro
+            if (acao == 2) {
+                objDepto.setIdDepartamento(Integer.valueOf(jIdDepto.getText()));
+                control.alterarDepartamento(objDepto);
+                objLog();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                JOptionPane.showMessageDialog(rootPane, "Registro Atualizado com Sucesso !!!");
+                SalvarAlterar();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -569,7 +602,8 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
             jPescDepto.requestFocus();
         } else {
             jTabelaDepartamento.setVisible(true);
-            preencherTabelaNome("SELECT * FROM DEPARTAMENTOS WHERE NomeDepartamento LIKE  '" + jPescDepto.getText() + "%'");
+            preencherTabelaNome("SELECT * FROM DEPARTAMENTOS "
+                    + "WHERE NomeDepartamento LIKE'%" + jPescDepto.getText() + "%'");
         }
     }//GEN-LAST:event_jBtPesquisaActionPerformed
 
@@ -665,7 +699,6 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
     }
 
     // Botão novo registro
-
     public void Novo() {
 
         //  Incluir um registro
@@ -710,12 +743,6 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
         if (resposta == JOptionPane.YES_OPTION) {
             objDepto.setIdDepartamento(Integer.valueOf(jIdDepto.getText()));
             control.excluirDepartamento(objDepto);
-//                conecta.abrirConexao();
-//                conecta.rs.first();
-//                PreparedStatement pst;
-//                pst = conecta.con.prepareStatement("DELETE FROM DEPARTAMENTOS WHERE IdDepartamento = ?");
-//                pst.setString(1, jIdDepto.getText());
-//                pst.execute();
             objLog();
             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
             JOptionPane.showMessageDialog(null, "Exclusão do DEPARTAMENTO com sucesso!!");
@@ -964,7 +991,8 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
     public void buscarDepartamentoColaborador() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM COLABORADOR WHERE IdDepartamento='" + jIdDepto.getText() + "'");
+            conecta.executaSQL("SELECT * FROM COLABORADOR "
+                    + "WHERE IdDepartamento='" + jIdDepto.getText() + "'");
             conecta.rs.first();
             codDepto = conecta.rs.getString("IdDepartamento");
         } catch (SQLException ex) {
@@ -1006,5 +1034,43 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jIdDepto.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserADM = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserADM + "'");
+            conecta.rs.first();
+            codigoUserGroupADM = conecta.rs.getInt("IdUsuario");
+            codigoGrupoADM = conecta.rs.getInt("IdGrupo");
+            nomeGrupoADM = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserADM + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoADM = conecta.rs.getInt("IdUsuario");
+            codAbrirADM = conecta.rs.getInt("Abrir");
+            codIncluirADM = conecta.rs.getInt("Incluir");
+            codAlterarADM = conecta.rs.getInt("Alterar");
+            codExcluirADM = conecta.rs.getInt("Excluir");
+            codGravarADM = conecta.rs.getInt("Gravar");
+            codConsultarADM = conecta.rs.getInt("Consultar");
+            nomeTelaADM = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

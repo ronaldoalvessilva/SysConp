@@ -11,6 +11,7 @@ import gestor.Controle.ControleEvolucaoPedagogia;
 import gestor.Controle.ControleFemininoPedagogia;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleMovPedagogia;
+import gestor.Controle.ControleRegistroAtendimentoInternoBio;
 import gestor.Controle.ControleSocializacao;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.LimiteDigitosAlfa;
@@ -21,6 +22,7 @@ import gestor.Modelo.EvolucaoPedagogica;
 import gestor.Modelo.FamiliaAdmissaoPedagogica;
 import gestor.Modelo.FemininoAdmissaoPedago;
 import gestor.Modelo.LogSistema;
+import gestor.Modelo.RegistroAtendimentoInternos;
 import gestor.Modelo.SocializacaoAdmPedagogica;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
@@ -31,6 +33,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
@@ -59,6 +62,9 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
     //
     EvolucaoPedagogica objEvolucaoAdmPedago = new EvolucaoPedagogica();
     ControleEvolucaoPedagogia controleEvol = new ControleEvolucaoPedagogia();
+    // INFORMAR QUE O INTERNO FOI ATENDIDO NA ADMISSÃO E NA EVOLUÇÃO
+    RegistroAtendimentoInternos objRegAtend = new RegistroAtendimentoInternos();
+    ControleRegistroAtendimentoInternoBio controlRegAtend = new ControleRegistroAtendimentoInternoBio();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -103,10 +109,20 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
     // FEMININO
     String codigoAdmFem;
     String codigoInternoFem;
+    // VARIVAEIS PARA SABER SE O INTERNO FOI REGISTRADO COM BIOMETRIA      
+    String dataReg = "";
+    Date dataRegistro = null;
+    String codigoInternoAtend = "";
+    String atendido = "Sim";
+    String opcao = "Não";
+    public static int codigoDepartamentoPEDA = 0;
+    String tipoAtendimentoAdm = "Admissão Pedagogia";
+    String tipoAtendimentoEvol = "Evolução Pedagogia";
+    String pHabilitaPEDA = "";
+
     /**
      * Creates new form AdmissaoEvolucaoPsicologica
      */
-
     public static AgendamentoAtendimentoPedagogia agendaAtendimentoPed;
 
     public AdmissaoEvolucaoPedagogica() {
@@ -2446,7 +2462,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                     preencherTodasAdmissao("SELECT * FROM ADMISSAO_PEDAGOGIA "
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON ADMISSAO_PEDAGOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                            + "WHERE DataMat BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                            + "WHERE DataAdm BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
                 }
             }
         }
@@ -2703,9 +2719,16 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
 
     private void jBtPesquisarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarInternoActionPerformed
         // TODO add your handling code here:
-        TelaPesqInternoAdmPedagogia objPesqAdmPeda = new TelaPesqInternoAdmPedagogia();
-        TelaModuloPedagogia.jPainelPedagogia.add(objPesqAdmPeda);
-        objPesqAdmPeda.show();
+        verificarRegistroBiometria();
+        if (pHabilitaPEDA.equals("Não")) {
+            TelaPesqInternoAdmPedagogia objPesqAdmPeda = new TelaPesqInternoAdmPedagogia();
+            TelaModuloPedagogia.jPainelPedagogia.add(objPesqAdmPeda);
+            objPesqAdmPeda.show();
+        } else {
+            TelaPesqInternoAtendPedaBio objPesqAdmPedaBio = new TelaPesqInternoAtendPedaBio();
+            TelaModuloPedagogia.jPainelPedagogia.add(objPesqAdmPedaBio);
+            objPesqAdmPedaBio.show();
+        }
     }//GEN-LAST:event_jBtPesquisarInternoActionPerformed
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
@@ -2809,6 +2832,19 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                 objAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
                 objAdmPedago.setDeptoPedagogia(deptoTecnico);
                 controleMov.incluirMovTec(objAdmPedago);
+                // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
+                objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
+                objRegAtend.setIdDepartamento(codigoDepartamentoPEDA);
+                objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                objRegAtend.setAtendido(atendido);
+                objRegAtend.setDataAtendimento(jDataAdm.getDate());
+                objRegAtend.setIdAtend(Integer.valueOf(jCodigoAdmissao.getText()));
+                //
+                objRegAtend.setUsuarioUp(nameUser);
+                objRegAtend.setDataUp(dataModFinal);
+                objRegAtend.setHorarioUp(horaMov);
+                controlRegAtend.alterarRegAtend(objRegAtend);
                 objLog();
                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                 bloquearCampos();
@@ -2829,6 +2865,19 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                 objAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
                 objAdmPedago.setDeptoPedagogia(deptoTecnico);
                 controleMov.alterarMovTec(objAdmPedago);
+                // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
+                objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
+                objRegAtend.setIdDepartamento(codigoDepartamentoPEDA);
+                objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                objRegAtend.setAtendido(atendido);
+                objRegAtend.setDataAtendimento(jDataAdm.getDate());
+                objRegAtend.setIdAtend(Integer.valueOf(jCodigoAdmissao.getText()));
+                //
+                objRegAtend.setUsuarioUp(nameUser);
+                objRegAtend.setDataUp(dataModFinal);
+                objRegAtend.setHorarioUp(horaMov);
+                controlRegAtend.alterarRegAtend(objRegAtend);
                 //
                 objLog();
                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -3303,15 +3352,24 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
 
     private void jBtNovaEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaEvolucaoActionPerformed
         // TODO add your handling code here:
-        acao = 9;
-        bloquearCampos();
-        bloquearBotoes();
-        corCampos();
-        NovaEvolucao();
-        preencherComboBoxDepartamento();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        verificarInternoRegistradoAdm();
+        if (atendido == null) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
+        } else if (atendido.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
+        } else if (atendido.equals("Sim")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
+        } else if (atendido.equals("Não")) {
+            acao = 9;
+            bloquearCampos();
+            bloquearBotoes();
+            corCampos();
+            NovaEvolucao();
+            preencherComboBoxDepartamento();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        }
     }//GEN-LAST:event_jBtNovaEvolucaoActionPerformed
 
     private void jBtAlterarEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarEvolucaoActionPerformed
@@ -3376,6 +3434,22 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                 //
                 controleEvol.incluirEvolucaoPed(objEvolucaoAdmPedago);
                 buscarEvolucao();
+                // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO     
+                atendido = "Sim";
+                objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
+                objRegAtend.setIdDepartamento(codigoDepartamentoPEDA);
+                objRegAtend.setTipoAtemdimento(tipoAtendimentoEvol);
+                objRegAtend.setAtendido(atendido);
+                objRegAtend.setDataAtendimento(jDataEvolucao.getDate());
+                objRegAtend.setIdAtend(Integer.valueOf(jCodigoAdmissao.getText()));
+                objRegAtend.setIdEvol(Integer.valueOf(jCodigoEvolucao.getText()));
+                objRegAtend.setAtendeEvol(atendido);
+                //
+                objRegAtend.setUsuarioUp(nameUser);
+                objRegAtend.setDataUp(dataModFinal);
+                objRegAtend.setHorarioUp(horaMov);
+                controlRegAtend.alterarRegEvol(objRegAtend);
                 objLog5();
                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                 bloquearCampos();
@@ -5358,5 +5432,34 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jCodigoAdmissao.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void verificarInternoRegistradoAdm() {
+
+        conecta.abrirConexao();
+        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+        dataReg = formatoAmerica.format(jDataAdm.getDate().getTime());
+        try {
+            conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
+                    + "WHERE IdInternoCrc='" + jIdInternoAdm.getText() + "' "
+                    + "AND Atendido='" + opcao + "'");
+            conecta.rs.first();
+            codigoInternoAtend = conecta.rs.getString("IdInternoCrc");
+            codigoDepartamentoPEDA = conecta.rs.getInt("IdDepartamento");
+            atendido = conecta.rs.getString("Atendido");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void verificarRegistroBiometria() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM PARAMETROSCRC");
+            conecta.rs.first();
+            pHabilitaPEDA = conecta.rs.getString("BiometriaPeda");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

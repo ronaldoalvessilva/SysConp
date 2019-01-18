@@ -922,6 +922,8 @@ public class TelaRegistroInternosAtendimentoJURI extends javax.swing.JInternalFr
             String nomeInterno = "" + jTabelaRegistroInterno.getValueAt(jTabelaRegistroInterno.getSelectedRow(), 3);
             jPesqNomeInternoOdonto.setText(nomeInterno);
             //
+            bloquearCampos();
+            //
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
@@ -1342,6 +1344,15 @@ public class TelaRegistroInternosAtendimentoJURI extends javax.swing.JInternalFr
         //
         jBtSalvar.setEnabled(!true);
         jBtIniciarLeitor.setEnabled(true);
+    }
+
+    public void bloquearCampos() {
+        jComboBoxTipoMovimentacao.setEnabled(!true);
+        //
+        jBtSalvar.setEnabled(!true);
+        jBtCancelar.setEnabled(!true);
+        jBtIniciarLeitor.setEnabled(true);
+        jBtCancelarLeitura.setEnabled(!true);
     }
 
     public void Cancelar() {

@@ -13,6 +13,19 @@ import gestor.Dao.ModeloTabela;
 import gestor.Modelo.Cargos;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloAdmPessoal.codAbrirADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codAlterarADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codConsultarADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codExcluirADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codGravarADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codIncluirADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codUserAcessoADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codigoGrupoADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codigoUserADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codigoUserGroupADM;
+import static gestor.Visao.TelaModuloAdmPessoal.nomeGrupoADM;
+import static gestor.Visao.TelaModuloAdmPessoal.nomeTelaADM;
+import static gestor.Visao.TelaModuloAdmPessoal.telaCargos_ADM;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -486,85 +499,105 @@ public class TelaCargo extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaCargos_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaCargos_ADM) && codIncluirADM == 1) {
+            acao = 1;
+            Novo();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        acao = 2;
-        Alterar();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaCargos_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaCargos_ADM) && codAlterarADM == 1) {
+            acao = 2;
+            Alterar();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        //buscarGrupoColaborador(); // Incluir esse método quando concluir o formulário de colaborador
-        objCargo.setIdCargo(Integer.parseInt(jIdCargo.getText()));
-        objCargo.setStatusCargo(objCargo.isStatusCargo());
-        objCargo.setNomeCargo(jDescricao.getText());
-        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir CARGO selecionado?", "Confirmação",
-                JOptionPane.YES_NO_OPTION);
-        if (resposta == JOptionPane.YES_OPTION) {
-            control.Excluir(objCargo);
-            objLog();
-            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-            JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-            Excluir();
+        buscarAcessoUsuario(telaCargos_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaCargos_ADM) && codExcluirADM == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            //buscarGrupoColaborador(); // Incluir esse método quando concluir o formulário de colaborador
+            objCargo.setIdCargo(Integer.parseInt(jIdCargo.getText()));
+            objCargo.setStatusCargo(objCargo.isStatusCargo());
+            objCargo.setNomeCargo(jDescricao.getText());
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir CARGO selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                control.Excluir(objCargo);
+                objLog();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                Excluir();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        objCargo.setNomeCargo(jDescricao.getText());
-        objCargo.setStatusCargo(objCargo.isStatusCargo());
-        if (jComboBoxCargo.getSelectedIndex() == 0) {
-            objCargo.setStatusCargo(true);
-        } else {
-            objCargo.setStatusCargo(false);
-        }
-        if (jDescricao.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(rootPane, "Nome do CARGO não podem ser em branco");
-            jDescricao.requestFocus();
-        } else {
-            try {
-                conecta.abrirConexao();
-                conecta.executaSQL("SELECT * FROM CARGOS WHERE NomeCargo='" + jDescricao.getText() + "'");
-                conecta.rs.first();
-                nomeCargo = conecta.rs.getString("NomeCargo");
-            } catch (Exception ex) {
+        buscarAcessoUsuario(telaCargos_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaCargos_ADM) && codGravarADM == 1) {
+            objCargo.setNomeCargo(jDescricao.getText());
+            objCargo.setStatusCargo(objCargo.isStatusCargo());
+            if (jComboBoxCargo.getSelectedIndex() == 0) {
+                objCargo.setStatusCargo(true);
+            } else {
+                objCargo.setStatusCargo(false);
             }
-            // Se a acao for igual 1 Incluir
-            if (acao == 1) {
-                if (jDescricao.getText().trim().equals(nomeCargo)) {
-                    JOptionPane.showMessageDialog(rootPane, "Cargo já cadastrado.");
-                } else {
-                    control.Salvar(objCargo);
-                    buscarID();
+            if (jDescricao.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(rootPane, "Nome do CARGO não podem ser em branco");
+                jDescricao.requestFocus();
+            } else {
+                try {
+                    conecta.abrirConexao();
+                    conecta.executaSQL("SELECT * FROM CARGOS WHERE NomeCargo='" + jDescricao.getText() + "'");
+                    conecta.rs.first();
+                    nomeCargo = conecta.rs.getString("NomeCargo");
+                } catch (Exception ex) {
+                }
+                // Se a acao for igual 1 Incluir
+                if (acao == 1) {
+                    if (jDescricao.getText().trim().equals(nomeCargo)) {
+                        JOptionPane.showMessageDialog(rootPane, "Cargo já cadastrado.");
+                    } else {
+                        control.Salvar(objCargo);
+                        buscarID();
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(null, "Registro GRAVADO com sucesso!!!");
+                        Salvar();
+                    }
+                }
+                // Se aco for igual a 2 Alterar
+                if (acao == 2) {
+                    objCargo.setStatusCargo(objCargo.isStatusCargo());
+                    objCargo.setNomeCargo(jDescricao.getText());
+                    objCargo.setIdCargo(Integer.parseInt(jIdCargo.getText()));
+                    control.Alterar(objCargo);
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(null, "Registro GRAVADO com sucesso!!!");
+                    JOptionPane.showMessageDialog(null, "Registro ALTERADO com sucesso!!!");
                     Salvar();
                 }
             }
-            // Se aco for igual a 2 Alterar
-            if (acao == 2) {
-                objCargo.setStatusCargo(objCargo.isStatusCargo());
-                objCargo.setNomeCargo(jDescricao.getText());
-                objCargo.setIdCargo(Integer.parseInt(jIdCargo.getText()));
-                control.Alterar(objCargo);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(null, "Registro ALTERADO com sucesso!!!");
-                Salvar();
-            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -688,11 +721,12 @@ public class TelaCargo extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTabelaCargo;
     // End of variables declaration//GEN-END:variables
 
-    public void corCampos(){
+    public void corCampos() {
         jIdCargo.setBackground(Color.white);
         jComboBoxCargo.setBackground(Color.white);
         jDescricao.setBackground(Color.white);
     }
+
     public void Novo() {
         //Habilitar os campos
         jComboBoxCargo.setEnabled(true);
@@ -950,5 +984,43 @@ public class TelaCargo extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jIdCargo.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserADM = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserADM + "'");
+            conecta.rs.first();
+            codigoUserGroupADM = conecta.rs.getInt("IdUsuario");
+            codigoGrupoADM = conecta.rs.getInt("IdGrupo");
+            nomeGrupoADM = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserADM + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoADM = conecta.rs.getInt("IdUsuario");
+            codAbrirADM = conecta.rs.getInt("Abrir");
+            codIncluirADM = conecta.rs.getInt("Incluir");
+            codAlterarADM = conecta.rs.getInt("Alterar");
+            codExcluirADM = conecta.rs.getInt("Excluir");
+            codGravarADM = conecta.rs.getInt("Gravar");
+            codConsultarADM = conecta.rs.getInt("Consultar");
+            nomeTelaADM = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

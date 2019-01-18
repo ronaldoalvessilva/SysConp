@@ -22,9 +22,24 @@ import gestor.Modelo.Enderecos;
 import gestor.Modelo.Funcionarios;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloAdmPessoal.codAbrirADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codAlterarADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codConsultarADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codExcluirADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codGravarADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codIncluirADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codUserAcessoADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codigoGrupoADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codigoUserADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codigoUserGroupADM;
+import static gestor.Visao.TelaModuloAdmPessoal.nomeGrupoADM;
+import static gestor.Visao.TelaModuloAdmPessoal.nomeTelaADM;
+import static gestor.Visao.TelaModuloAdmPessoal.telaColaboradoresFCDep_ADM;
+import static gestor.Visao.TelaModuloAdmPessoal.telaColaboradoresFCDoc_ADM;
+import static gestor.Visao.TelaModuloAdmPessoal.telaColaboradoresFCEnd_ADM;
+import static gestor.Visao.TelaModuloAdmPessoal.telaColaboradoresFC_ADM;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
-import static gestor.Visao.TelaProntuarioCrc.jLabelFotoInterno;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -2565,210 +2580,257 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampo();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaColaboradoresFC_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaColaboradoresFC_ADM) && codIncluirADM == 1) {
+            acao = 1;
+            Novo();
+            corCampo();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        acao = 2;
-        Alterar();
-        corCampo();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaColaboradoresFC_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaColaboradoresFC_ADM) && codAlterarADM == 1) {
+            acao = 2;
+            Alterar();
+            corCampo();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
-        // TODO add your handling code here:   
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM ITENSENTRADASFUNC "
-                    + "WHERE IdFunc='" + jIDFunc.getText() + "'ORDER BY IdFunc");
-            conecta.rs.first();
-            idFunc = conecta.rs.getString("IdFunc");
-            //
-            conecta.executaSQL("SELECT * FROM DEPENDENTES "
-                    + "WHERE IdFunc='" + jIDFunc.getText() + "'");
-            conecta.rs.first();
-            codFuncDep = conecta.rs.getString("IdFunc");
-        } catch (SQLException ex) {
-        }
-        if (jIDFunc.getText().equals(idFunc)) {
-            JOptionPane.showMessageDialog(rootPane, "Esse colaborador não pode ser excluído,\no mesmo está sendo utilizado em outro registro.");
-        } else if (jIDFunc.getText().equals(codFuncDep)) {
-            JOptionPane.showMessageDialog(null, "Esse Colaborador não poderá ser excluído, existe DEPENDENTES relacionados a ele.\nExclua TODOS os DEPENDENTES relacionados a ele para poder excluir.");
-        } else {
-            statusMov = "Excluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir COLABORADOR selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                // EXCLUIR O DOCUMENTO
-                objDoc.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-                objDoc.setIdDoc(codDoc);
-                controleDoc.excluirDocumentosColaborador(objDoc);
-                // EXCLUIR ENDEREÇO
-                objEnd.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-                objEnd.setIdEnd(codEnd);
-                controle.excluiEnderecosColaborador(objEnd);
+        // TODO add your handling code here: 
+        buscarAcessoUsuario(telaColaboradoresFC_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaColaboradoresFC_ADM) && codExcluirADM == 1) {
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM ITENSENTRADASFUNC "
+                        + "WHERE IdFunc='" + jIDFunc.getText() + "'ORDER BY IdFunc");
+                conecta.rs.first();
+                idFunc = conecta.rs.getString("IdFunc");
                 //
-                objCola.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-                control.excluirColaborador(objCola);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                Excluir();
-                JOptionPane.showMessageDialog(rootPane, "Colaborador excluido com sucesso.");
+                conecta.executaSQL("SELECT * FROM DEPENDENTES "
+                        + "WHERE IdFunc='" + jIDFunc.getText() + "'");
+                conecta.rs.first();
+                codFuncDep = conecta.rs.getString("IdFunc");
+            } catch (SQLException ex) {
             }
+            if (jIDFunc.getText().equals(idFunc)) {
+                JOptionPane.showMessageDialog(rootPane, "Esse colaborador não pode ser excluído,\no mesmo está sendo utilizado em outro registro.");
+            } else if (jIDFunc.getText().equals(codFuncDep)) {
+                JOptionPane.showMessageDialog(null, "Esse Colaborador não poderá ser excluído, existe DEPENDENTES relacionados a ele.\nExclua TODOS os DEPENDENTES relacionados a ele para poder excluir.");
+            } else {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir COLABORADOR selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    // EXCLUIR O DOCUMENTO
+                    objDoc.setIdFunc(Integer.valueOf(jIDFunc.getText()));
+                    objDoc.setIdDoc(codDoc);
+                    controleDoc.excluirDocumentosColaborador(objDoc);
+                    // EXCLUIR ENDEREÇO
+                    objEnd.setIdFunc(Integer.valueOf(jIDFunc.getText()));
+                    objEnd.setIdEnd(codEnd);
+                    controle.excluiEnderecosColaborador(objEnd);
+                    //
+                    objCola.setIdFunc(Integer.valueOf(jIDFunc.getText()));
+                    control.excluirColaborador(objCola);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    Excluir();
+                    JOptionPane.showMessageDialog(rootPane, "Colaborador excluido com sucesso.");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jNomeFuncionario.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Informe o nome do Colaborador.");
-            jNomeFuncionario.requestFocus();
-            jNomeFuncionario.setBackground(Color.red);
-        } else {
-            if (jDataAdmissao.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data de Admissão.");
-                jDataAdmissao.requestFocus();
-                jDataAdmissao.setBackground(Color.red);
+        buscarAcessoUsuario(telaColaboradoresFC_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaColaboradoresFC_ADM) && codGravarADM == 1) {
+            if (jNomeFuncionario.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe o nome do Colaborador.");
+                jNomeFuncionario.requestFocus();
+                jNomeFuncionario.setBackground(Color.red);
             } else {
-                if (jNomeMae.getText().equals("")) {
-                    JOptionPane.showMessageDialog(rootPane, "Informe o nome da mãe do colaborador.");
-                    jNomeMae.requestFocus();
-                    jNomeMae.setBackground(Color.red);
+                if (jDataAdmissao.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data de Admissão.");
+                    jDataAdmissao.requestFocus();
+                    jDataAdmissao.setBackground(Color.red);
                 } else {
-                    if (jDepartamento.getText().equals("")) {
-                        JOptionPane.showMessageDialog(rootPane, "Informe o nome do departamento.");
-                        jDepartamento.requestFocus();
-                        jDepartamento.setBackground(Color.red);
+                    if (jNomeMae.getText().equals("")) {
+                        JOptionPane.showMessageDialog(rootPane, "Informe o nome da mãe do colaborador.");
+                        jNomeMae.requestFocus();
+                        jNomeMae.setBackground(Color.red);
                     } else {
-                        if (jNomeCargo.getText().equals("")) {
-                            JOptionPane.showMessageDialog(rootPane, "Informe o nome do cargo.");
-                            jNomeCargo.requestFocus();
-                            jNomeCargo.setBackground(Color.red);
+                        if (jDepartamento.getText().equals("")) {
+                            JOptionPane.showMessageDialog(rootPane, "Informe o nome do departamento.");
+                            jDepartamento.requestFocus();
+                            jDepartamento.setBackground(Color.red);
                         } else {
-                            if (caminhoFotoFunc == null) {
-                                JOptionPane.showMessageDialog(rootPane, "Insira a foto do colaborador");
-                                jFotoColaborador.requestFocus();
+                            if (jNomeCargo.getText().equals("")) {
+                                JOptionPane.showMessageDialog(rootPane, "Informe o nome do cargo.");
+                                jNomeCargo.requestFocus();
+                                jNomeCargo.setBackground(Color.red);
                             } else {
-                                // DADOS DO COLABORADOR (MANUTENÇÃO)
-                                objCola.setStatusFunc((String) jComboBoxStatusFunc.getSelectedItem());
-                                objCola.setDataCadastro(jDataAdmissao.getDate());
-                                objCola.setNomeFuncionario(jNomeFuncionario.getText().trim());
-                                objCola.setMatricula(jMatricula.getText());
-                                objCola.setSexo((String) jComboBoxSexo.getSelectedItem());
-                                objCola.setEscolaridade((String) jComboBoxEscolaridade.getSelectedItem());
-                                objCola.setEstadoCivil((String) jComboBoxEstadoCivil.getSelectedItem());
-                                objCola.setDataNascimento(jDataNascimento.getDate());
-                                objCola.setFoto(caminhoFotoFunc);
-                                objCola.setNomeMae(jNomeMae.getText().trim());
-                                objCola.setNomePai(jNomePai.getText());
-                                objCola.setReligiao(jReligiao.getText());
-                                objCola.setTipoSangue(jTipoSang.getText());
-                                objCola.setNomeDepartamento(jDepartamento.getText());
-                                objCola.setNomeCargo(jNomeCargo.getText());
-                                objCola.setCargaHoraria(jCargaHoraria.getText());
-                                objCola.setRegimeTrabalho((String) jComboBoxRegimeTrabalho.getSelectedItem());
-                                objCola.setHorarioInicio(jHorarioInicio.getText());
-                                objCola.setHorarioFinal(jHorarioFinal.getText());
-                                objCola.setFuncao(jFuncao.getText());
-                                objCola.setNacionalidade((String) jComboBoxNacionalidade.getSelectedItem());
-                                objCola.setPais(jPais.getText());
-                                objCola.setNaturalidade(jNaturalidade.getText());
-                                objCola.setEstadoNacionalidade((String) jComboBoxEstadoNaturalidade.getSelectedItem());
-                                // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE   
-                                if (jFotoColaborador.getIcon() != null) {
-                                    Image img = ((ImageIcon) jFotoColaborador.getIcon()).getImage();
-                                    BufferedImage bi = new BufferedImage(//é a imagem na memória e que pode ser alterada
-                                            img.getWidth(null),
-                                            img.getHeight(null),
-                                            BufferedImage.TYPE_INT_RGB);
-                                    Graphics2D g2 = bi.createGraphics();
-                                    g2.drawImage(img, 0, 0, null);
-                                    ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-                                    try {
-                                        ImageIO.write(bi, "jpg", buffer);
-                                    } catch (FileNotFoundException ex) {
-                                        Logger.getLogger(TelaFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
-                                    } catch (IOException ex) {
-                                        Logger.getLogger(TelaFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
-                                    }
-                                    objCola.setImagemFrenteCO(buffer.toByteArray());
-                                }
-                                // DADOS DO ENDEREÇO
-                                objEnd.setEndereco(jEndereco.getText());
-                                objEnd.setBairroEnd(jBairro.getText());
-                                objEnd.setCompEnd(jComplemento.getText());
-                                objEnd.setCidadeEnd(jCidade.getText());
-                                objEnd.setEstadoEnd((String) jComboBoxEstado.getSelectedItem());
-                                objEnd.setCepEnd(jCep.getText());
-                                objEnd.setTelEnd(jTelefone.getText());
-                                objEnd.setFoneEnd(jTelefoneEnd.getText());
-                                objEnd.setCelEnd(jCelularEnd.getText());
-                                objEnd.setEmalEnd(jEmail.getText());
-                                objEnd.setUrl(jURL.getText());
-                                objEnd.setObservacao(jObservacao.getText());
-                                // DADOS DO DOCUMENTO        
-                                objDoc.setRgDoc((jRG.getText()));
-                                objDoc.setDataEmissaoDoc(jDataEmissaoRg.getDate());
-                                objDoc.setOrgaoDoc(jOrgaoEmissor.getText());
-                                objDoc.setEstadoOrgao((String) jComboBoxEstadoOrgao.getSelectedItem());
-                                objDoc.setCpfDoc((jCPF.getText()));
-                                objDoc.setPisDoc((jPis.getText()));
-                                objDoc.setDataCadPisDoc(jDataCadPis.getDate());
-                                objDoc.setTituloDoc((jTitulo.getText()));
-                                objDoc.setZonaDoc((jZona.getText()));
-                                objDoc.setSecaoDoc((jSecao.getText()));
-                                objDoc.setCtpsDoc((jCTPS.getText()));
-                                objDoc.setSerieDoc(jSerie.getText());
-                                objDoc.setHabiliDoc(jHabilita.getText());
-                                objDoc.setReserVistaDoc((jReservista.getText()));
-                                objDoc.setCateDoc(jCategoria.getText());
-                                objDoc.setCartSaudeDoc(jCartaoSaude.getText());
-                                objDoc.setProfDoc(jProfissao.getText());
-                                objDoc.setAlturaDoc((jAltura.getText()));
-                                objDoc.setCalcaDoc((jCalca.getText()));
-                                objDoc.setSapatoDoc((jSapato.getText()));
-                                objDoc.setPesoDoc((jPeso.getText()));
-                                objDoc.setCamisaDoc((jCamisa.getText()));
-                                objDoc.setCarteiraDoc((jCarteiraconselho.getText()));
-                                objDoc.setTipoConjugue((String) jComboBoxTipoConjugue.getSelectedItem());
-                                objDoc.setDataNasConjugue(jDataNasConjugue.getDate());
-                                objDoc.setNomeConjugue(jNomeConjugue.getText());
-                                //                                
-                                verificarColaborador();
-                                if (acao == 1 && jNomeFuncionario.getText().trim().equals(nomeColaborador) && jNomeMae.getText().trim().equals(nomeMaeColaborador)) {
-                                    JOptionPane.showMessageDialog(rootPane, "Esse colaborador já foi cadastrada, verifique o cadastro do mesmo.");
+                                if (caminhoFotoFunc == null) {
+                                    JOptionPane.showMessageDialog(rootPane, "Insira a foto do colaborador");
+                                    jFotoColaborador.requestFocus();
                                 } else {
-                                    if (acao == 1) {
-                                        objCola.setUsuarioInsert(nameUser);
-                                        objCola.setDataInsert(dataModFinal);
-                                        objCola.setHorarioInsert(horaMov);
-                                        // INCLUIR COLABORADOR
-                                        control.incluirColaborador(objCola);
-                                        buscarCodFunc();
-                                        // INCLUIR ENDEREÇO
-                                        objEnd.setUsuarioInsert(nameUser);
-                                        objEnd.setDataInsert(dataModFinal);
-                                        objEnd.setHorarioInsert(horaMov);
+                                    // DADOS DO COLABORADOR (MANUTENÇÃO)
+                                    objCola.setStatusFunc((String) jComboBoxStatusFunc.getSelectedItem());
+                                    objCola.setDataCadastro(jDataAdmissao.getDate());
+                                    objCola.setNomeFuncionario(jNomeFuncionario.getText().trim());
+                                    objCola.setMatricula(jMatricula.getText());
+                                    objCola.setSexo((String) jComboBoxSexo.getSelectedItem());
+                                    objCola.setEscolaridade((String) jComboBoxEscolaridade.getSelectedItem());
+                                    objCola.setEstadoCivil((String) jComboBoxEstadoCivil.getSelectedItem());
+                                    objCola.setDataNascimento(jDataNascimento.getDate());
+                                    objCola.setFoto(caminhoFotoFunc);
+                                    objCola.setNomeMae(jNomeMae.getText().trim());
+                                    objCola.setNomePai(jNomePai.getText());
+                                    objCola.setReligiao(jReligiao.getText());
+                                    objCola.setTipoSangue(jTipoSang.getText());
+                                    objCola.setNomeDepartamento(jDepartamento.getText());
+                                    objCola.setNomeCargo(jNomeCargo.getText());
+                                    objCola.setCargaHoraria(jCargaHoraria.getText());
+                                    objCola.setRegimeTrabalho((String) jComboBoxRegimeTrabalho.getSelectedItem());
+                                    objCola.setHorarioInicio(jHorarioInicio.getText());
+                                    objCola.setHorarioFinal(jHorarioFinal.getText());
+                                    objCola.setFuncao(jFuncao.getText());
+                                    objCola.setNacionalidade((String) jComboBoxNacionalidade.getSelectedItem());
+                                    objCola.setPais(jPais.getText());
+                                    objCola.setNaturalidade(jNaturalidade.getText());
+                                    objCola.setEstadoNacionalidade((String) jComboBoxEstadoNaturalidade.getSelectedItem());
+                                    // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE   
+                                    if (jFotoColaborador.getIcon() != null) {
+                                        Image img = ((ImageIcon) jFotoColaborador.getIcon()).getImage();
+                                        BufferedImage bi = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                                                img.getWidth(null),
+                                                img.getHeight(null),
+                                                BufferedImage.TYPE_INT_RGB);
+                                        Graphics2D g2 = bi.createGraphics();
+                                        g2.drawImage(img, 0, 0, null);
+                                        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                                        try {
+                                            ImageIO.write(bi, "jpg", buffer);
+                                        } catch (FileNotFoundException ex) {
+                                            Logger.getLogger(TelaFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
+                                        } catch (IOException ex) {
+                                            Logger.getLogger(TelaFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
+                                        }
+                                        objCola.setImagemFrenteCO(buffer.toByteArray());
+                                    }
+                                    // DADOS DO ENDEREÇO
+                                    objEnd.setEndereco(jEndereco.getText());
+                                    objEnd.setBairroEnd(jBairro.getText());
+                                    objEnd.setCompEnd(jComplemento.getText());
+                                    objEnd.setCidadeEnd(jCidade.getText());
+                                    objEnd.setEstadoEnd((String) jComboBoxEstado.getSelectedItem());
+                                    objEnd.setCepEnd(jCep.getText());
+                                    objEnd.setTelEnd(jTelefone.getText());
+                                    objEnd.setFoneEnd(jTelefoneEnd.getText());
+                                    objEnd.setCelEnd(jCelularEnd.getText());
+                                    objEnd.setEmalEnd(jEmail.getText());
+                                    objEnd.setUrl(jURL.getText());
+                                    objEnd.setObservacao(jObservacao.getText());
+                                    // DADOS DO DOCUMENTO        
+                                    objDoc.setRgDoc((jRG.getText()));
+                                    objDoc.setDataEmissaoDoc(jDataEmissaoRg.getDate());
+                                    objDoc.setOrgaoDoc(jOrgaoEmissor.getText());
+                                    objDoc.setEstadoOrgao((String) jComboBoxEstadoOrgao.getSelectedItem());
+                                    objDoc.setCpfDoc((jCPF.getText()));
+                                    objDoc.setPisDoc((jPis.getText()));
+                                    objDoc.setDataCadPisDoc(jDataCadPis.getDate());
+                                    objDoc.setTituloDoc((jTitulo.getText()));
+                                    objDoc.setZonaDoc((jZona.getText()));
+                                    objDoc.setSecaoDoc((jSecao.getText()));
+                                    objDoc.setCtpsDoc((jCTPS.getText()));
+                                    objDoc.setSerieDoc(jSerie.getText());
+                                    objDoc.setHabiliDoc(jHabilita.getText());
+                                    objDoc.setReserVistaDoc((jReservista.getText()));
+                                    objDoc.setCateDoc(jCategoria.getText());
+                                    objDoc.setCartSaudeDoc(jCartaoSaude.getText());
+                                    objDoc.setProfDoc(jProfissao.getText());
+                                    objDoc.setAlturaDoc((jAltura.getText()));
+                                    objDoc.setCalcaDoc((jCalca.getText()));
+                                    objDoc.setSapatoDoc((jSapato.getText()));
+                                    objDoc.setPesoDoc((jPeso.getText()));
+                                    objDoc.setCamisaDoc((jCamisa.getText()));
+                                    objDoc.setCarteiraDoc((jCarteiraconselho.getText()));
+                                    objDoc.setTipoConjugue((String) jComboBoxTipoConjugue.getSelectedItem());
+                                    objDoc.setDataNasConjugue(jDataNasConjugue.getDate());
+                                    objDoc.setNomeConjugue(jNomeConjugue.getText());
+                                    //                                
+                                    verificarColaborador();
+                                    if (acao == 1 && jNomeFuncionario.getText().trim().equals(nomeColaborador) && jNomeMae.getText().trim().equals(nomeMaeColaborador)) {
+                                        JOptionPane.showMessageDialog(rootPane, "Esse colaborador já foi cadastrada, verifique o cadastro do mesmo.");
+                                    } else {
+                                        if (acao == 1) {
+                                            objCola.setUsuarioInsert(nameUser);
+                                            objCola.setDataInsert(dataModFinal);
+                                            objCola.setHorarioInsert(horaMov);
+                                            // INCLUIR COLABORADOR
+                                            control.incluirColaborador(objCola);
+                                            buscarCodFunc();
+                                            // INCLUIR ENDEREÇO
+                                            objEnd.setUsuarioInsert(nameUser);
+                                            objEnd.setDataInsert(dataModFinal);
+                                            objEnd.setHorarioInsert(horaMov);
+                                            objEnd.setIdFunc(Integer.valueOf(jIDFunc.getText()));
+                                            controle.incluirEnderecosColaborador(objEnd);
+                                            buscarCodEnd();
+                                            // INCLUIR DOCUMENTOS
+                                            objDoc.setUsuarioInsert(nameUser);
+                                            objDoc.setDataInsert(dataModFinal);
+                                            objDoc.setHorarioInsert(horaMov);
+                                            objDoc.setIdFunc(Integer.valueOf(jIDFunc.getText()));
+                                            controleDoc.incluirDocumentosColaborador(objDoc);
+                                            buscarCodDoc();
+                                            //
+                                            objLog();
+                                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                            Salvar();
+                                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                        }
+                                    }
+                                    if (acao == 2) {
+                                        objCola.setUsuarioUp(nameUser);
+                                        objCola.setDataUp(dataModFinal);
+                                        objCola.setHorarioUp(horaMov);
+                                        // ALTERAR COLABORADOR
+                                        objCola.setNomeDepartamento(jDepartamento.getText());
+                                        objCola.setNomeCargo(jNomeCargo.getText());
+                                        objCola.setIdFunc(Integer.valueOf(jIDFunc.getText()));
+                                        control.alterarColaborador(objCola);
+                                        // ALTERAR ENDEREÇO
+                                        objEnd.setUsuarioUp(nameUser);
+                                        objEnd.setDataUp(dataModFinal);
+                                        objEnd.setHorarioUp(horaMov);
                                         objEnd.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-                                        controle.incluirEnderecosColaborador(objEnd);
-                                        buscarCodEnd();
-                                        // INCLUIR DOCUMENTOS
-                                        objDoc.setUsuarioInsert(nameUser);
-                                        objDoc.setDataInsert(dataModFinal);
-                                        objDoc.setHorarioInsert(horaMov);
+                                        objEnd.setIdEnd(codEnd);
+                                        controle.alterarEnderecoColaborador(objEnd);
+                                        // ALTERAR DOCUMENTOS
+                                        objDoc.setUsuarioUp(nameUser);
+                                        objDoc.setDataUp(dataModFinal);
+                                        objDoc.setHorarioUp(horaMov);
                                         objDoc.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-                                        controleDoc.incluirDocumentosColaborador(objDoc);
-                                        buscarCodDoc();
+                                        objDoc.setIdDoc(codDoc);
+                                        controleDoc.alterarDocumentosColaborador(objDoc);
                                         //
                                         objLog();
                                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -2776,40 +2838,13 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                                     }
                                 }
-                                if (acao == 2) {
-                                    objCola.setUsuarioUp(nameUser);
-                                    objCola.setDataUp(dataModFinal);
-                                    objCola.setHorarioUp(horaMov);
-                                    // ALTERAR COLABORADOR
-                                    objCola.setNomeDepartamento(jDepartamento.getText());
-                                    objCola.setNomeCargo(jNomeCargo.getText());
-                                    objCola.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-                                    control.alterarColaborador(objCola);
-                                    // ALTERAR ENDEREÇO
-                                    objEnd.setUsuarioUp(nameUser);
-                                    objEnd.setDataUp(dataModFinal);
-                                    objEnd.setHorarioUp(horaMov);
-                                    objEnd.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-                                    objEnd.setIdEnd(codEnd);
-                                    controle.alterarEnderecoColaborador(objEnd);
-                                    // ALTERAR DOCUMENTOS
-                                    objDoc.setUsuarioUp(nameUser);
-                                    objDoc.setDataUp(dataModFinal);
-                                    objDoc.setHorarioUp(horaMov);
-                                    objDoc.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-                                    objDoc.setIdDoc(codDoc);
-                                    controleDoc.alterarDocumentosColaborador(objDoc);
-                                    //
-                                    objLog();
-                                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                    Salvar();
-                                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                                }
                             }
                         }
                     }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -3042,208 +3077,255 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
 
     private void jBtNovoLogradouroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoLogradouroActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampo();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaColaboradoresFCEnd_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaColaboradoresFCEnd_ADM) && codIncluirADM == 1) {
+            acao = 1;
+            Novo();
+            corCampo();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoLogradouroActionPerformed
 
     private void jBtAlterarLogradouroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarLogradouroActionPerformed
         // TODO add your handling code here:
-        acao = 2;
-        Alterar();
-        corCampo();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaColaboradoresFCEnd_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaColaboradoresFCEnd_ADM) && codAlterarADM == 1) {
+            acao = 2;
+            Alterar();
+            corCampo();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtAlterarLogradouroActionPerformed
 
     private void jBtExcluirLogradouroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirLogradouroActionPerformed
         // TODO add your handling code here:
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM ITENSENTRADASFUNC WHERE IdFunc='" + jIDFunc.getText() + "'ORDER BY IdFunc");
-            conecta.rs.first();
-            idFunc = conecta.rs.getString("IdFunc");
-            //
-            conecta.executaSQL("SELECT * FROM DEPENDENTES WHERE IdFunc='" + jIDFunc.getText() + "'");
-            conecta.rs.first();
-            codFuncDep = conecta.rs.getString("IdFunc");
-        } catch (SQLException ex) {
-        }
-        if (jIDFunc.getText().equals(idFunc)) {
-            JOptionPane.showMessageDialog(rootPane, "Esse colaborador não pode ser excluído,\no mesmo está sendo utilizado em outro registro.");
-        } else if (jIDFunc.getText().equals(codFuncDep)) {
-            JOptionPane.showMessageDialog(null, "Esse Colaborador não poderá ser excluído, existe DEPENDENTES relacionados a ele.\nExclua TODOS os DEPENDENTES relacionados a ele para poder excluir.");
-        } else {
-            statusMov = "Excluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir COLABORADOR selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                // EXCLUIR O DOCUMENTO
-                objDoc.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-                objDoc.setIdDoc(codDoc);
-                controleDoc.excluirDocumentosColaborador(objDoc);
-                // EXCLUIR ENDEREÇO
-                objEnd.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-                objEnd.setIdEnd(codEnd);
-                controle.excluiEnderecosColaborador(objEnd);
+        buscarAcessoUsuario(telaColaboradoresFCEnd_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaColaboradoresFCEnd_ADM) && codExcluirADM == 1) {
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM ITENSENTRADASFUNC WHERE IdFunc='" + jIDFunc.getText() + "'ORDER BY IdFunc");
+                conecta.rs.first();
+                idFunc = conecta.rs.getString("IdFunc");
                 //
-                objCola.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-                control.excluirColaborador(objCola);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                Excluir();
-                JOptionPane.showMessageDialog(rootPane, "Colaborador excluido com sucesso.");
+                conecta.executaSQL("SELECT * FROM DEPENDENTES WHERE IdFunc='" + jIDFunc.getText() + "'");
+                conecta.rs.first();
+                codFuncDep = conecta.rs.getString("IdFunc");
+            } catch (SQLException ex) {
             }
+            if (jIDFunc.getText().equals(idFunc)) {
+                JOptionPane.showMessageDialog(rootPane, "Esse colaborador não pode ser excluído,\no mesmo está sendo utilizado em outro registro.");
+            } else if (jIDFunc.getText().equals(codFuncDep)) {
+                JOptionPane.showMessageDialog(null, "Esse Colaborador não poderá ser excluído, existe DEPENDENTES relacionados a ele.\nExclua TODOS os DEPENDENTES relacionados a ele para poder excluir.");
+            } else {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir COLABORADOR selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    // EXCLUIR O DOCUMENTO
+                    objDoc.setIdFunc(Integer.valueOf(jIDFunc.getText()));
+                    objDoc.setIdDoc(codDoc);
+                    controleDoc.excluirDocumentosColaborador(objDoc);
+                    // EXCLUIR ENDEREÇO
+                    objEnd.setIdFunc(Integer.valueOf(jIDFunc.getText()));
+                    objEnd.setIdEnd(codEnd);
+                    controle.excluiEnderecosColaborador(objEnd);
+                    //
+                    objCola.setIdFunc(Integer.valueOf(jIDFunc.getText()));
+                    control.excluirColaborador(objCola);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    Excluir();
+                    JOptionPane.showMessageDialog(rootPane, "Colaborador excluido com sucesso.");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirLogradouroActionPerformed
 
     private void jBtSalvarLogradouroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarLogradouroActionPerformed
         // TODO add your handling code here:
-        if (jNomeFuncionario.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Informe o nome do Colaborador.");
-            jNomeFuncionario.requestFocus();
-            jNomeFuncionario.setBackground(Color.red);
-        } else {
-            if (jDataAdmissao.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data de Admissão.");
-                jDataAdmissao.requestFocus();
-                jDataAdmissao.setBackground(Color.red);
+        buscarAcessoUsuario(telaColaboradoresFC_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaColaboradoresFC_ADM) && codGravarADM == 1) {
+            if (jNomeFuncionario.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe o nome do Colaborador.");
+                jNomeFuncionario.requestFocus();
+                jNomeFuncionario.setBackground(Color.red);
             } else {
-                if (jNomeMae.getText().equals("")) {
-                    JOptionPane.showMessageDialog(rootPane, "Informe o nome da mãe do colaborador.");
-                    jNomeMae.requestFocus();
-                    jNomeMae.setBackground(Color.red);
+                if (jDataAdmissao.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data de Admissão.");
+                    jDataAdmissao.requestFocus();
+                    jDataAdmissao.setBackground(Color.red);
                 } else {
-                    if (jDepartamento.getText().equals("")) {
-                        JOptionPane.showMessageDialog(rootPane, "Informe o nome do departamento.");
-                        jDepartamento.requestFocus();
-                        jDepartamento.setBackground(Color.red);
+                    if (jNomeMae.getText().equals("")) {
+                        JOptionPane.showMessageDialog(rootPane, "Informe o nome da mãe do colaborador.");
+                        jNomeMae.requestFocus();
+                        jNomeMae.setBackground(Color.red);
                     } else {
-                        if (jNomeCargo.getText().equals("")) {
-                            JOptionPane.showMessageDialog(rootPane, "Informe o nome do cargo.");
-                            jNomeCargo.requestFocus();
-                            jNomeCargo.setBackground(Color.red);
+                        if (jDepartamento.getText().equals("")) {
+                            JOptionPane.showMessageDialog(rootPane, "Informe o nome do departamento.");
+                            jDepartamento.requestFocus();
+                            jDepartamento.setBackground(Color.red);
                         } else {
-                            if (caminhoFotoFunc == null) {
-                                JOptionPane.showMessageDialog(rootPane, "Insira a foto do colaborador");
-                                jFotoColaborador.requestFocus();
+                            if (jNomeCargo.getText().equals("")) {
+                                JOptionPane.showMessageDialog(rootPane, "Informe o nome do cargo.");
+                                jNomeCargo.requestFocus();
+                                jNomeCargo.setBackground(Color.red);
                             } else {
-                                // DADOS DO COLABORADOR (MANUTENÇÃO)
-                                objCola.setStatusFunc((String) jComboBoxStatusFunc.getSelectedItem());
-                                objCola.setDataCadastro(jDataAdmissao.getDate());
-                                objCola.setNomeFuncionario(jNomeFuncionario.getText().trim());
-                                objCola.setMatricula(jMatricula.getText());
-                                objCola.setSexo((String) jComboBoxSexo.getSelectedItem());
-                                objCola.setEscolaridade((String) jComboBoxEscolaridade.getSelectedItem());
-                                objCola.setEstadoCivil((String) jComboBoxEstadoCivil.getSelectedItem());
-                                objCola.setDataNascimento(jDataNascimento.getDate());
-                                objCola.setFoto(caminhoFotoFunc);
-                                objCola.setNomeMae(jNomeMae.getText().trim());
-                                objCola.setNomePai(jNomePai.getText());
-                                objCola.setReligiao(jReligiao.getText());
-                                objCola.setTipoSangue(jTipoSang.getText());
-                                objCola.setNomeDepartamento(jDepartamento.getText());
-                                objCola.setNomeCargo(jNomeCargo.getText());
-                                objCola.setCargaHoraria(jCargaHoraria.getText());
-                                objCola.setRegimeTrabalho((String) jComboBoxRegimeTrabalho.getSelectedItem());
-                                objCola.setHorarioInicio(jHorarioInicio.getText());
-                                objCola.setHorarioFinal(jHorarioFinal.getText());
-                                objCola.setFuncao(jFuncao.getText());
-                                objCola.setNacionalidade((String) jComboBoxNacionalidade.getSelectedItem());
-                                objCola.setPais(jPais.getText());
-                                objCola.setNaturalidade(jNaturalidade.getText());
-                                objCola.setEstadoNacionalidade((String) jComboBoxEstadoNaturalidade.getSelectedItem());
-                                // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE   
-                                if (jFotoColaborador.getIcon() != null) {
-                                    Image img = ((ImageIcon) jFotoColaborador.getIcon()).getImage();
-                                    BufferedImage bi = new BufferedImage(//é a imagem na memória e que pode ser alterada
-                                            img.getWidth(null),
-                                            img.getHeight(null),
-                                            BufferedImage.TYPE_INT_RGB);
-                                    Graphics2D g2 = bi.createGraphics();
-                                    g2.drawImage(img, 0, 0, null);
-                                    ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-                                    try {
-                                        ImageIO.write(bi, "jpg", buffer);
-                                    } catch (FileNotFoundException ex) {
-                                        Logger.getLogger(TelaFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
-                                    } catch (IOException ex) {
-                                        Logger.getLogger(TelaFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
-                                    }
-                                    objCola.setImagemFrenteCO(buffer.toByteArray());
-                                }
-                                // DADOS DO ENDEREÇO
-                                objEnd.setEndereco(jEndereco.getText());
-                                objEnd.setBairroEnd(jBairro.getText());
-                                objEnd.setCompEnd(jComplemento.getText());
-                                objEnd.setCidadeEnd(jCidade.getText());
-                                objEnd.setEstadoEnd((String) jComboBoxEstado.getSelectedItem());
-                                objEnd.setCepEnd(jCep.getText());
-                                objEnd.setTelEnd(jTelefone.getText());
-                                objEnd.setFoneEnd(jTelefoneEnd.getText());
-                                objEnd.setCelEnd(jCelularEnd.getText());
-                                objEnd.setEmalEnd(jEmail.getText());
-                                objEnd.setUrl(jURL.getText());
-                                objEnd.setObservacao(jObservacao.getText());
-                                // DADOS DO DOCUMENTO        
-                                objDoc.setRgDoc((jRG.getText()));
-                                objDoc.setDataEmissaoDoc(jDataEmissaoRg.getDate());
-                                objDoc.setOrgaoDoc(jOrgaoEmissor.getText());
-                                objDoc.setEstadoOrgao((String) jComboBoxEstadoOrgao.getSelectedItem());
-                                objDoc.setCpfDoc((jCPF.getText()));
-                                objDoc.setPisDoc((jPis.getText()));
-                                objDoc.setDataCadPisDoc(jDataCadPis.getDate());
-                                objDoc.setTituloDoc((jTitulo.getText()));
-                                objDoc.setZonaDoc((jZona.getText()));
-                                objDoc.setSecaoDoc((jSecao.getText()));
-                                objDoc.setCtpsDoc((jCTPS.getText()));
-                                objDoc.setSerieDoc(jSerie.getText());
-                                objDoc.setHabiliDoc(jHabilita.getText());
-                                objDoc.setReserVistaDoc((jReservista.getText()));
-                                objDoc.setCateDoc(jCategoria.getText());
-                                objDoc.setCartSaudeDoc(jCartaoSaude.getText());
-                                objDoc.setProfDoc(jProfissao.getText());
-                                objDoc.setAlturaDoc((jAltura.getText()));
-                                objDoc.setCalcaDoc((jCalca.getText()));
-                                objDoc.setSapatoDoc((jSapato.getText()));
-                                objDoc.setPesoDoc((jPeso.getText()));
-                                objDoc.setCamisaDoc((jCamisa.getText()));
-                                objDoc.setCarteiraDoc((jCarteiraconselho.getText()));
-                                objDoc.setTipoConjugue((String) jComboBoxTipoConjugue.getSelectedItem());
-                                objDoc.setDataNasConjugue(jDataNasConjugue.getDate());
-                                objDoc.setNomeConjugue(jNomeConjugue.getText());
-                                //
-                                verificarColaborador();
-                                if (acao == 1 && jNomeFuncionario.getText().trim().equals(nomeColaborador) && jNomeMae.getText().trim().equals(nomeMaeColaborador)) {
-                                    JOptionPane.showMessageDialog(rootPane, "Esse colaborador já foi cadastrada, verifique o cadastro do mesmo.");
+                                if (caminhoFotoFunc == null) {
+                                    JOptionPane.showMessageDialog(rootPane, "Insira a foto do colaborador");
+                                    jFotoColaborador.requestFocus();
                                 } else {
-                                    if (acao == 1) {
-                                        objCola.setUsuarioInsert(nameUser);
-                                        objCola.setDataInsert(dataModFinal);
-                                        objCola.setHorarioInsert(horaMov);
-                                        // INCLUIR COLABORADOR
-                                        control.incluirColaborador(objCola);
-                                        buscarCodFunc();
-                                        // INCLUIR ENDEREÇO
-                                        objEnd.setUsuarioInsert(nameUser);
-                                        objEnd.setDataInsert(dataModFinal);
-                                        objEnd.setHorarioInsert(horaMov);
+                                    // DADOS DO COLABORADOR (MANUTENÇÃO)
+                                    objCola.setStatusFunc((String) jComboBoxStatusFunc.getSelectedItem());
+                                    objCola.setDataCadastro(jDataAdmissao.getDate());
+                                    objCola.setNomeFuncionario(jNomeFuncionario.getText().trim());
+                                    objCola.setMatricula(jMatricula.getText());
+                                    objCola.setSexo((String) jComboBoxSexo.getSelectedItem());
+                                    objCola.setEscolaridade((String) jComboBoxEscolaridade.getSelectedItem());
+                                    objCola.setEstadoCivil((String) jComboBoxEstadoCivil.getSelectedItem());
+                                    objCola.setDataNascimento(jDataNascimento.getDate());
+                                    objCola.setFoto(caminhoFotoFunc);
+                                    objCola.setNomeMae(jNomeMae.getText().trim());
+                                    objCola.setNomePai(jNomePai.getText());
+                                    objCola.setReligiao(jReligiao.getText());
+                                    objCola.setTipoSangue(jTipoSang.getText());
+                                    objCola.setNomeDepartamento(jDepartamento.getText());
+                                    objCola.setNomeCargo(jNomeCargo.getText());
+                                    objCola.setCargaHoraria(jCargaHoraria.getText());
+                                    objCola.setRegimeTrabalho((String) jComboBoxRegimeTrabalho.getSelectedItem());
+                                    objCola.setHorarioInicio(jHorarioInicio.getText());
+                                    objCola.setHorarioFinal(jHorarioFinal.getText());
+                                    objCola.setFuncao(jFuncao.getText());
+                                    objCola.setNacionalidade((String) jComboBoxNacionalidade.getSelectedItem());
+                                    objCola.setPais(jPais.getText());
+                                    objCola.setNaturalidade(jNaturalidade.getText());
+                                    objCola.setEstadoNacionalidade((String) jComboBoxEstadoNaturalidade.getSelectedItem());
+                                    // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE   
+                                    if (jFotoColaborador.getIcon() != null) {
+                                        Image img = ((ImageIcon) jFotoColaborador.getIcon()).getImage();
+                                        BufferedImage bi = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                                                img.getWidth(null),
+                                                img.getHeight(null),
+                                                BufferedImage.TYPE_INT_RGB);
+                                        Graphics2D g2 = bi.createGraphics();
+                                        g2.drawImage(img, 0, 0, null);
+                                        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                                        try {
+                                            ImageIO.write(bi, "jpg", buffer);
+                                        } catch (FileNotFoundException ex) {
+                                            Logger.getLogger(TelaFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
+                                        } catch (IOException ex) {
+                                            Logger.getLogger(TelaFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
+                                        }
+                                        objCola.setImagemFrenteCO(buffer.toByteArray());
+                                    }
+                                    // DADOS DO ENDEREÇO
+                                    objEnd.setEndereco(jEndereco.getText());
+                                    objEnd.setBairroEnd(jBairro.getText());
+                                    objEnd.setCompEnd(jComplemento.getText());
+                                    objEnd.setCidadeEnd(jCidade.getText());
+                                    objEnd.setEstadoEnd((String) jComboBoxEstado.getSelectedItem());
+                                    objEnd.setCepEnd(jCep.getText());
+                                    objEnd.setTelEnd(jTelefone.getText());
+                                    objEnd.setFoneEnd(jTelefoneEnd.getText());
+                                    objEnd.setCelEnd(jCelularEnd.getText());
+                                    objEnd.setEmalEnd(jEmail.getText());
+                                    objEnd.setUrl(jURL.getText());
+                                    objEnd.setObservacao(jObservacao.getText());
+                                    // DADOS DO DOCUMENTO        
+                                    objDoc.setRgDoc((jRG.getText()));
+                                    objDoc.setDataEmissaoDoc(jDataEmissaoRg.getDate());
+                                    objDoc.setOrgaoDoc(jOrgaoEmissor.getText());
+                                    objDoc.setEstadoOrgao((String) jComboBoxEstadoOrgao.getSelectedItem());
+                                    objDoc.setCpfDoc((jCPF.getText()));
+                                    objDoc.setPisDoc((jPis.getText()));
+                                    objDoc.setDataCadPisDoc(jDataCadPis.getDate());
+                                    objDoc.setTituloDoc((jTitulo.getText()));
+                                    objDoc.setZonaDoc((jZona.getText()));
+                                    objDoc.setSecaoDoc((jSecao.getText()));
+                                    objDoc.setCtpsDoc((jCTPS.getText()));
+                                    objDoc.setSerieDoc(jSerie.getText());
+                                    objDoc.setHabiliDoc(jHabilita.getText());
+                                    objDoc.setReserVistaDoc((jReservista.getText()));
+                                    objDoc.setCateDoc(jCategoria.getText());
+                                    objDoc.setCartSaudeDoc(jCartaoSaude.getText());
+                                    objDoc.setProfDoc(jProfissao.getText());
+                                    objDoc.setAlturaDoc((jAltura.getText()));
+                                    objDoc.setCalcaDoc((jCalca.getText()));
+                                    objDoc.setSapatoDoc((jSapato.getText()));
+                                    objDoc.setPesoDoc((jPeso.getText()));
+                                    objDoc.setCamisaDoc((jCamisa.getText()));
+                                    objDoc.setCarteiraDoc((jCarteiraconselho.getText()));
+                                    objDoc.setTipoConjugue((String) jComboBoxTipoConjugue.getSelectedItem());
+                                    objDoc.setDataNasConjugue(jDataNasConjugue.getDate());
+                                    objDoc.setNomeConjugue(jNomeConjugue.getText());
+                                    //
+                                    verificarColaborador();
+                                    if (acao == 1 && jNomeFuncionario.getText().trim().equals(nomeColaborador) && jNomeMae.getText().trim().equals(nomeMaeColaborador)) {
+                                        JOptionPane.showMessageDialog(rootPane, "Esse colaborador já foi cadastrada, verifique o cadastro do mesmo.");
+                                    } else {
+                                        if (acao == 1) {
+                                            objCola.setUsuarioInsert(nameUser);
+                                            objCola.setDataInsert(dataModFinal);
+                                            objCola.setHorarioInsert(horaMov);
+                                            // INCLUIR COLABORADOR
+                                            control.incluirColaborador(objCola);
+                                            buscarCodFunc();
+                                            // INCLUIR ENDEREÇO
+                                            objEnd.setUsuarioInsert(nameUser);
+                                            objEnd.setDataInsert(dataModFinal);
+                                            objEnd.setHorarioInsert(horaMov);
+                                            objEnd.setIdFunc(Integer.valueOf(jIDFunc.getText()));
+                                            controle.incluirEnderecosColaborador(objEnd);
+                                            buscarCodEnd();
+                                            // INCLUIR DOCUMENTOS
+                                            objDoc.setUsuarioInsert(nameUser);
+                                            objDoc.setDataInsert(dataModFinal);
+                                            objDoc.setHorarioInsert(horaMov);
+                                            objDoc.setIdFunc(Integer.valueOf(jIDFunc.getText()));
+                                            controleDoc.incluirDocumentosColaborador(objDoc);
+                                            buscarCodDoc();
+                                            //
+                                            objLog();
+                                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                            Salvar();
+                                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                        }
+                                    }
+                                    if (acao == 2) {
+                                        objCola.setUsuarioUp(nameUser);
+                                        objCola.setDataUp(dataModFinal);
+                                        objCola.setHorarioUp(horaMov);
+                                        // ALTERAR COLABORADOR
+                                        objCola.setNomeDepartamento(jDepartamento.getText());
+                                        objCola.setNomeCargo(jNomeCargo.getText());
+                                        objCola.setIdFunc(Integer.valueOf(jIDFunc.getText()));
+                                        control.alterarColaborador(objCola);
+                                        // ALTERAR ENDEREÇO
+                                        objEnd.setUsuarioUp(nameUser);
+                                        objEnd.setDataUp(dataModFinal);
+                                        objEnd.setHorarioUp(horaMov);
                                         objEnd.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-                                        controle.incluirEnderecosColaborador(objEnd);
-                                        buscarCodEnd();
-                                        // INCLUIR DOCUMENTOS
-                                        objDoc.setUsuarioInsert(nameUser);
-                                        objDoc.setDataInsert(dataModFinal);
-                                        objDoc.setHorarioInsert(horaMov);
+                                        objEnd.setIdEnd(codEnd);
+                                        controle.alterarEnderecoColaborador(objEnd);
+                                        // ALTERAR DOCUMENTOS
+                                        objDoc.setUsuarioUp(nameUser);
+                                        objDoc.setDataUp(dataModFinal);
+                                        objDoc.setHorarioUp(horaMov);
                                         objDoc.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-                                        controleDoc.incluirDocumentosColaborador(objDoc);
-                                        buscarCodDoc();
+                                        objDoc.setIdDoc(codDoc);
+                                        controleDoc.alterarDocumentosColaborador(objDoc);
                                         //
                                         objLog();
                                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -3251,40 +3333,13 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                                     }
                                 }
-                                if (acao == 2) {
-                                    objCola.setUsuarioUp(nameUser);
-                                    objCola.setDataUp(dataModFinal);
-                                    objCola.setHorarioUp(horaMov);
-                                    // ALTERAR COLABORADOR
-                                    objCola.setNomeDepartamento(jDepartamento.getText());
-                                    objCola.setNomeCargo(jNomeCargo.getText());
-                                    objCola.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-                                    control.alterarColaborador(objCola);
-                                    // ALTERAR ENDEREÇO
-                                    objEnd.setUsuarioUp(nameUser);
-                                    objEnd.setDataUp(dataModFinal);
-                                    objEnd.setHorarioUp(horaMov);
-                                    objEnd.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-                                    objEnd.setIdEnd(codEnd);
-                                    controle.alterarEnderecoColaborador(objEnd);
-                                    // ALTERAR DOCUMENTOS
-                                    objDoc.setUsuarioUp(nameUser);
-                                    objDoc.setDataUp(dataModFinal);
-                                    objDoc.setHorarioUp(horaMov);
-                                    objDoc.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-                                    objDoc.setIdDoc(codDoc);
-                                    controleDoc.alterarDocumentosColaborador(objDoc);
-                                    //
-                                    objLog();
-                                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                    Salvar();
-                                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                                }
                             }
                         }
                     }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarLogradouroActionPerformed
 
@@ -3300,208 +3355,255 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
 
     private void jBtNovoDocumentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoDocumentosActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampo();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaColaboradoresFCDoc_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaColaboradoresFCDoc_ADM) && codIncluirADM == 1) {
+            acao = 1;
+            Novo();
+            corCampo();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoDocumentosActionPerformed
 
     private void jBtAlterarDocumentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarDocumentosActionPerformed
         // TODO add your handling code here:
-        acao = 2;
-        Alterar();
-        corCampo();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaColaboradoresFCDoc_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaColaboradoresFCDoc_ADM) && codAlterarADM == 1) {
+            acao = 2;
+            Alterar();
+            corCampo();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtAlterarDocumentosActionPerformed
 
     private void jBtExcluirDocumentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirDocumentosActionPerformed
         // TODO add your handling code here:
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM ITENSENTRADASFUNC WHERE IdFunc='" + jIDFunc.getText() + "'ORDER BY IdFunc");
-            conecta.rs.first();
-            idFunc = conecta.rs.getString("IdFunc");
-            //
-            conecta.executaSQL("SELECT * FROM DEPENDENTES WHERE IdFunc='" + jIDFunc.getText() + "'");
-            conecta.rs.first();
-            codFuncDep = conecta.rs.getString("IdFunc");
-        } catch (SQLException ex) {
-        }
-        if (jIDFunc.getText().equals(idFunc)) {
-            JOptionPane.showMessageDialog(rootPane, "Esse colaborador não pode ser excluído,\no mesmo está sendo utilizado em outro registro.");
-        } else if (jIDFunc.getText().equals(codFuncDep)) {
-            JOptionPane.showMessageDialog(null, "Esse Colaborador não poderá ser excluído, existe DEPENDENTES relacionados a ele.\nExclua TODOS os DEPENDENTES relacionados a ele para poder excluir.");
-        } else {
-            statusMov = "Excluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir COLABORADOR selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                // EXCLUIR O DOCUMENTO
-                objDoc.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-                objDoc.setIdDoc(codDoc);
-                controleDoc.excluirDocumentosColaborador(objDoc);
-                // EXCLUIR ENDEREÇO
-                objEnd.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-                objEnd.setIdEnd(codEnd);
-                controle.excluiEnderecosColaborador(objEnd);
+        buscarAcessoUsuario(telaColaboradoresFCDoc_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaColaboradoresFCDoc_ADM) && codExcluirADM == 1) {
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM ITENSENTRADASFUNC WHERE IdFunc='" + jIDFunc.getText() + "'ORDER BY IdFunc");
+                conecta.rs.first();
+                idFunc = conecta.rs.getString("IdFunc");
                 //
-                objCola.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-                control.excluirColaborador(objCola);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                Excluir();
-                JOptionPane.showMessageDialog(rootPane, "Colaborador excluido com sucesso.");
+                conecta.executaSQL("SELECT * FROM DEPENDENTES WHERE IdFunc='" + jIDFunc.getText() + "'");
+                conecta.rs.first();
+                codFuncDep = conecta.rs.getString("IdFunc");
+            } catch (SQLException ex) {
             }
+            if (jIDFunc.getText().equals(idFunc)) {
+                JOptionPane.showMessageDialog(rootPane, "Esse colaborador não pode ser excluído,\no mesmo está sendo utilizado em outro registro.");
+            } else if (jIDFunc.getText().equals(codFuncDep)) {
+                JOptionPane.showMessageDialog(null, "Esse Colaborador não poderá ser excluído, existe DEPENDENTES relacionados a ele.\nExclua TODOS os DEPENDENTES relacionados a ele para poder excluir.");
+            } else {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir COLABORADOR selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    // EXCLUIR O DOCUMENTO
+                    objDoc.setIdFunc(Integer.valueOf(jIDFunc.getText()));
+                    objDoc.setIdDoc(codDoc);
+                    controleDoc.excluirDocumentosColaborador(objDoc);
+                    // EXCLUIR ENDEREÇO
+                    objEnd.setIdFunc(Integer.valueOf(jIDFunc.getText()));
+                    objEnd.setIdEnd(codEnd);
+                    controle.excluiEnderecosColaborador(objEnd);
+                    //
+                    objCola.setIdFunc(Integer.valueOf(jIDFunc.getText()));
+                    control.excluirColaborador(objCola);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    Excluir();
+                    JOptionPane.showMessageDialog(rootPane, "Colaborador excluido com sucesso.");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirDocumentosActionPerformed
 
     private void jBtSalvarDocumentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarDocumentosActionPerformed
         // TODO add your handling code here:
-        if (jNomeFuncionario.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Informe o nome do Colaborador.");
-            jNomeFuncionario.requestFocus();
-            jNomeFuncionario.setBackground(Color.red);
-        } else {
-            if (jDataAdmissao.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data de Admissão.");
-                jDataAdmissao.requestFocus();
-                jDataAdmissao.setBackground(Color.red);
+        buscarAcessoUsuario(telaColaboradoresFCDoc_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaColaboradoresFCDoc_ADM) && codGravarADM == 1) {
+            if (jNomeFuncionario.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe o nome do Colaborador.");
+                jNomeFuncionario.requestFocus();
+                jNomeFuncionario.setBackground(Color.red);
             } else {
-                if (jNomeMae.getText().equals("")) {
-                    JOptionPane.showMessageDialog(rootPane, "Informe o nome da mãe do colaborador.");
-                    jNomeMae.requestFocus();
-                    jNomeMae.setBackground(Color.red);
+                if (jDataAdmissao.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data de Admissão.");
+                    jDataAdmissao.requestFocus();
+                    jDataAdmissao.setBackground(Color.red);
                 } else {
-                    if (jDepartamento.getText().equals("")) {
-                        JOptionPane.showMessageDialog(rootPane, "Informe o nome do departamento.");
-                        jDepartamento.requestFocus();
-                        jDepartamento.setBackground(Color.red);
+                    if (jNomeMae.getText().equals("")) {
+                        JOptionPane.showMessageDialog(rootPane, "Informe o nome da mãe do colaborador.");
+                        jNomeMae.requestFocus();
+                        jNomeMae.setBackground(Color.red);
                     } else {
-                        if (jNomeCargo.getText().equals("")) {
-                            JOptionPane.showMessageDialog(rootPane, "Informe o nome do cargo.");
-                            jNomeCargo.requestFocus();
-                            jNomeCargo.setBackground(Color.red);
+                        if (jDepartamento.getText().equals("")) {
+                            JOptionPane.showMessageDialog(rootPane, "Informe o nome do departamento.");
+                            jDepartamento.requestFocus();
+                            jDepartamento.setBackground(Color.red);
                         } else {
-                            if (caminhoFotoFunc == null) {
-                                JOptionPane.showMessageDialog(rootPane, "Insira a foto do colaborador");
-                                jFotoColaborador.requestFocus();
+                            if (jNomeCargo.getText().equals("")) {
+                                JOptionPane.showMessageDialog(rootPane, "Informe o nome do cargo.");
+                                jNomeCargo.requestFocus();
+                                jNomeCargo.setBackground(Color.red);
                             } else {
-                                // DADOS DO COLABORADOR (MANUTENÇÃO)
-                                objCola.setStatusFunc((String) jComboBoxStatusFunc.getSelectedItem());
-                                objCola.setDataCadastro(jDataAdmissao.getDate());
-                                objCola.setNomeFuncionario(jNomeFuncionario.getText().trim());
-                                objCola.setMatricula(jMatricula.getText());
-                                objCola.setSexo((String) jComboBoxSexo.getSelectedItem());
-                                objCola.setEscolaridade((String) jComboBoxEscolaridade.getSelectedItem());
-                                objCola.setEstadoCivil((String) jComboBoxEstadoCivil.getSelectedItem());
-                                objCola.setDataNascimento(jDataNascimento.getDate());
-                                objCola.setFoto(caminhoFotoFunc);
-                                objCola.setNomeMae(jNomeMae.getText().trim());
-                                objCola.setNomePai(jNomePai.getText());
-                                objCola.setReligiao(jReligiao.getText());
-                                objCola.setTipoSangue(jTipoSang.getText());
-                                objCola.setNomeDepartamento(jDepartamento.getText());
-                                objCola.setNomeCargo(jNomeCargo.getText());
-                                objCola.setCargaHoraria(jCargaHoraria.getText());
-                                objCola.setRegimeTrabalho((String) jComboBoxRegimeTrabalho.getSelectedItem());
-                                objCola.setHorarioInicio(jHorarioInicio.getText());
-                                objCola.setHorarioFinal(jHorarioFinal.getText());
-                                objCola.setFuncao(jFuncao.getText());
-                                objCola.setNacionalidade((String) jComboBoxNacionalidade.getSelectedItem());
-                                objCola.setPais(jPais.getText());
-                                objCola.setNaturalidade(jNaturalidade.getText());
-                                objCola.setEstadoNacionalidade((String) jComboBoxEstadoNaturalidade.getSelectedItem());
-                                // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE   
-                                if (jFotoColaborador.getIcon() != null) {
-                                    Image img = ((ImageIcon) jFotoColaborador.getIcon()).getImage();
-                                    BufferedImage bi = new BufferedImage(//é a imagem na memória e que pode ser alterada
-                                            img.getWidth(null),
-                                            img.getHeight(null),
-                                            BufferedImage.TYPE_INT_RGB);
-                                    Graphics2D g2 = bi.createGraphics();
-                                    g2.drawImage(img, 0, 0, null);
-                                    ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-                                    try {
-                                        ImageIO.write(bi, "jpg", buffer);
-                                    } catch (FileNotFoundException ex) {
-                                        Logger.getLogger(TelaFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
-                                    } catch (IOException ex) {
-                                        Logger.getLogger(TelaFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
-                                    }
-                                    objCola.setImagemFrenteCO(buffer.toByteArray());
-                                }
-                                // DADOS DO ENDEREÇO
-                                objEnd.setEndereco(jEndereco.getText());
-                                objEnd.setBairroEnd(jBairro.getText());
-                                objEnd.setCompEnd(jComplemento.getText());
-                                objEnd.setCidadeEnd(jCidade.getText());
-                                objEnd.setEstadoEnd((String) jComboBoxEstado.getSelectedItem());
-                                objEnd.setCepEnd(jCep.getText());
-                                objEnd.setTelEnd(jTelefone.getText());
-                                objEnd.setFoneEnd(jTelefoneEnd.getText());
-                                objEnd.setCelEnd(jCelularEnd.getText());
-                                objEnd.setEmalEnd(jEmail.getText());
-                                objEnd.setUrl(jURL.getText());
-                                objEnd.setObservacao(jObservacao.getText());
-                                // DADOS DO DOCUMENTO        
-                                objDoc.setRgDoc((jRG.getText()));
-                                objDoc.setDataEmissaoDoc(jDataEmissaoRg.getDate());
-                                objDoc.setOrgaoDoc(jOrgaoEmissor.getText());
-                                objDoc.setEstadoOrgao((String) jComboBoxEstadoOrgao.getSelectedItem());
-                                objDoc.setCpfDoc((jCPF.getText()));
-                                objDoc.setPisDoc((jPis.getText()));
-                                objDoc.setDataCadPisDoc(jDataCadPis.getDate());
-                                objDoc.setTituloDoc((jTitulo.getText()));
-                                objDoc.setZonaDoc((jZona.getText()));
-                                objDoc.setSecaoDoc((jSecao.getText()));
-                                objDoc.setCtpsDoc((jCTPS.getText()));
-                                objDoc.setSerieDoc(jSerie.getText());
-                                objDoc.setHabiliDoc(jHabilita.getText());
-                                objDoc.setReserVistaDoc((jReservista.getText()));
-                                objDoc.setCateDoc(jCategoria.getText());
-                                objDoc.setCartSaudeDoc(jCartaoSaude.getText());
-                                objDoc.setProfDoc(jProfissao.getText());
-                                objDoc.setAlturaDoc((jAltura.getText()));
-                                objDoc.setCalcaDoc((jCalca.getText()));
-                                objDoc.setSapatoDoc((jSapato.getText()));
-                                objDoc.setPesoDoc((jPeso.getText()));
-                                objDoc.setCamisaDoc((jCamisa.getText()));
-                                objDoc.setCarteiraDoc((jCarteiraconselho.getText()));
-                                objDoc.setTipoConjugue((String) jComboBoxTipoConjugue.getSelectedItem());
-                                objDoc.setDataNasConjugue(jDataNasConjugue.getDate());
-                                objDoc.setNomeConjugue(jNomeConjugue.getText());
-                                //
-                                verificarColaborador();
-                                if (acao == 1 && jNomeFuncionario.getText().trim().equals(nomeColaborador) && jNomeMae.getText().trim().equals(nomeMaeColaborador)) {
-                                    JOptionPane.showMessageDialog(rootPane, "Esse colaborador já foi cadastrada, verifique o cadastro do mesmo.");
+                                if (caminhoFotoFunc == null) {
+                                    JOptionPane.showMessageDialog(rootPane, "Insira a foto do colaborador");
+                                    jFotoColaborador.requestFocus();
                                 } else {
-                                    if (acao == 1) {
-                                        objCola.setUsuarioInsert(nameUser);
-                                        objCola.setDataInsert(dataModFinal);
-                                        objCola.setHorarioInsert(horaMov);
-                                        // INCLUIR COLABORADOR
-                                        control.incluirColaborador(objCola);
-                                        buscarCodFunc();
-                                        // INCLUIR ENDEREÇO
-                                        objEnd.setUsuarioInsert(nameUser);
-                                        objEnd.setDataInsert(dataModFinal);
-                                        objEnd.setHorarioInsert(horaMov);
+                                    // DADOS DO COLABORADOR (MANUTENÇÃO)
+                                    objCola.setStatusFunc((String) jComboBoxStatusFunc.getSelectedItem());
+                                    objCola.setDataCadastro(jDataAdmissao.getDate());
+                                    objCola.setNomeFuncionario(jNomeFuncionario.getText().trim());
+                                    objCola.setMatricula(jMatricula.getText());
+                                    objCola.setSexo((String) jComboBoxSexo.getSelectedItem());
+                                    objCola.setEscolaridade((String) jComboBoxEscolaridade.getSelectedItem());
+                                    objCola.setEstadoCivil((String) jComboBoxEstadoCivil.getSelectedItem());
+                                    objCola.setDataNascimento(jDataNascimento.getDate());
+                                    objCola.setFoto(caminhoFotoFunc);
+                                    objCola.setNomeMae(jNomeMae.getText().trim());
+                                    objCola.setNomePai(jNomePai.getText());
+                                    objCola.setReligiao(jReligiao.getText());
+                                    objCola.setTipoSangue(jTipoSang.getText());
+                                    objCola.setNomeDepartamento(jDepartamento.getText());
+                                    objCola.setNomeCargo(jNomeCargo.getText());
+                                    objCola.setCargaHoraria(jCargaHoraria.getText());
+                                    objCola.setRegimeTrabalho((String) jComboBoxRegimeTrabalho.getSelectedItem());
+                                    objCola.setHorarioInicio(jHorarioInicio.getText());
+                                    objCola.setHorarioFinal(jHorarioFinal.getText());
+                                    objCola.setFuncao(jFuncao.getText());
+                                    objCola.setNacionalidade((String) jComboBoxNacionalidade.getSelectedItem());
+                                    objCola.setPais(jPais.getText());
+                                    objCola.setNaturalidade(jNaturalidade.getText());
+                                    objCola.setEstadoNacionalidade((String) jComboBoxEstadoNaturalidade.getSelectedItem());
+                                    // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE   
+                                    if (jFotoColaborador.getIcon() != null) {
+                                        Image img = ((ImageIcon) jFotoColaborador.getIcon()).getImage();
+                                        BufferedImage bi = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                                                img.getWidth(null),
+                                                img.getHeight(null),
+                                                BufferedImage.TYPE_INT_RGB);
+                                        Graphics2D g2 = bi.createGraphics();
+                                        g2.drawImage(img, 0, 0, null);
+                                        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                                        try {
+                                            ImageIO.write(bi, "jpg", buffer);
+                                        } catch (FileNotFoundException ex) {
+                                            Logger.getLogger(TelaFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
+                                        } catch (IOException ex) {
+                                            Logger.getLogger(TelaFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
+                                        }
+                                        objCola.setImagemFrenteCO(buffer.toByteArray());
+                                    }
+                                    // DADOS DO ENDEREÇO
+                                    objEnd.setEndereco(jEndereco.getText());
+                                    objEnd.setBairroEnd(jBairro.getText());
+                                    objEnd.setCompEnd(jComplemento.getText());
+                                    objEnd.setCidadeEnd(jCidade.getText());
+                                    objEnd.setEstadoEnd((String) jComboBoxEstado.getSelectedItem());
+                                    objEnd.setCepEnd(jCep.getText());
+                                    objEnd.setTelEnd(jTelefone.getText());
+                                    objEnd.setFoneEnd(jTelefoneEnd.getText());
+                                    objEnd.setCelEnd(jCelularEnd.getText());
+                                    objEnd.setEmalEnd(jEmail.getText());
+                                    objEnd.setUrl(jURL.getText());
+                                    objEnd.setObservacao(jObservacao.getText());
+                                    // DADOS DO DOCUMENTO        
+                                    objDoc.setRgDoc((jRG.getText()));
+                                    objDoc.setDataEmissaoDoc(jDataEmissaoRg.getDate());
+                                    objDoc.setOrgaoDoc(jOrgaoEmissor.getText());
+                                    objDoc.setEstadoOrgao((String) jComboBoxEstadoOrgao.getSelectedItem());
+                                    objDoc.setCpfDoc((jCPF.getText()));
+                                    objDoc.setPisDoc((jPis.getText()));
+                                    objDoc.setDataCadPisDoc(jDataCadPis.getDate());
+                                    objDoc.setTituloDoc((jTitulo.getText()));
+                                    objDoc.setZonaDoc((jZona.getText()));
+                                    objDoc.setSecaoDoc((jSecao.getText()));
+                                    objDoc.setCtpsDoc((jCTPS.getText()));
+                                    objDoc.setSerieDoc(jSerie.getText());
+                                    objDoc.setHabiliDoc(jHabilita.getText());
+                                    objDoc.setReserVistaDoc((jReservista.getText()));
+                                    objDoc.setCateDoc(jCategoria.getText());
+                                    objDoc.setCartSaudeDoc(jCartaoSaude.getText());
+                                    objDoc.setProfDoc(jProfissao.getText());
+                                    objDoc.setAlturaDoc((jAltura.getText()));
+                                    objDoc.setCalcaDoc((jCalca.getText()));
+                                    objDoc.setSapatoDoc((jSapato.getText()));
+                                    objDoc.setPesoDoc((jPeso.getText()));
+                                    objDoc.setCamisaDoc((jCamisa.getText()));
+                                    objDoc.setCarteiraDoc((jCarteiraconselho.getText()));
+                                    objDoc.setTipoConjugue((String) jComboBoxTipoConjugue.getSelectedItem());
+                                    objDoc.setDataNasConjugue(jDataNasConjugue.getDate());
+                                    objDoc.setNomeConjugue(jNomeConjugue.getText());
+                                    //
+                                    verificarColaborador();
+                                    if (acao == 1 && jNomeFuncionario.getText().trim().equals(nomeColaborador) && jNomeMae.getText().trim().equals(nomeMaeColaborador)) {
+                                        JOptionPane.showMessageDialog(rootPane, "Esse colaborador já foi cadastrada, verifique o cadastro do mesmo.");
+                                    } else {
+                                        if (acao == 1) {
+                                            objCola.setUsuarioInsert(nameUser);
+                                            objCola.setDataInsert(dataModFinal);
+                                            objCola.setHorarioInsert(horaMov);
+                                            // INCLUIR COLABORADOR
+                                            control.incluirColaborador(objCola);
+                                            buscarCodFunc();
+                                            // INCLUIR ENDEREÇO
+                                            objEnd.setUsuarioInsert(nameUser);
+                                            objEnd.setDataInsert(dataModFinal);
+                                            objEnd.setHorarioInsert(horaMov);
+                                            objEnd.setIdFunc(Integer.valueOf(jIDFunc.getText()));
+                                            controle.incluirEnderecosColaborador(objEnd);
+                                            buscarCodEnd();
+                                            // INCLUIR DOCUMENTOS
+                                            objDoc.setUsuarioInsert(nameUser);
+                                            objDoc.setDataInsert(dataModFinal);
+                                            objDoc.setHorarioInsert(horaMov);
+                                            objDoc.setIdFunc(Integer.valueOf(jIDFunc.getText()));
+                                            controleDoc.incluirDocumentosColaborador(objDoc);
+                                            buscarCodDoc();
+                                            //
+                                            objLog();
+                                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                            Salvar();
+                                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                        }
+                                    }
+                                    if (acao == 2) {
+                                        objCola.setUsuarioUp(nameUser);
+                                        objCola.setDataUp(dataModFinal);
+                                        objCola.setHorarioUp(horaMov);
+                                        // ALTERAR COLABORADOR
+                                        objCola.setNomeDepartamento(jDepartamento.getText());
+                                        objCola.setNomeCargo(jNomeCargo.getText());
+                                        objCola.setIdFunc(Integer.valueOf(jIDFunc.getText()));
+                                        control.alterarColaborador(objCola);
+                                        // ALTERAR ENDEREÇO
+                                        objEnd.setUsuarioUp(nameUser);
+                                        objEnd.setDataUp(dataModFinal);
+                                        objEnd.setHorarioUp(horaMov);
                                         objEnd.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-                                        controle.incluirEnderecosColaborador(objEnd);
-                                        buscarCodEnd();
-                                        // INCLUIR DOCUMENTOS
-                                        objDoc.setUsuarioInsert(nameUser);
-                                        objDoc.setDataInsert(dataModFinal);
-                                        objDoc.setHorarioInsert(horaMov);
+                                        objEnd.setIdEnd(codEnd);
+                                        controle.alterarEnderecoColaborador(objEnd);
+                                        // ALTERAR DOCUMENTOS
+                                        objDoc.setUsuarioUp(nameUser);
+                                        objDoc.setDataUp(dataModFinal);
+                                        objDoc.setHorarioUp(horaMov);
                                         objDoc.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-                                        controleDoc.incluirDocumentosColaborador(objDoc);
-                                        buscarCodDoc();
+                                        objDoc.setIdDoc(codDoc);
+                                        controleDoc.alterarDocumentosColaborador(objDoc);
                                         //
                                         objLog();
                                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -3509,40 +3611,13 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                                     }
                                 }
-                                if (acao == 2) {
-                                    objCola.setUsuarioUp(nameUser);
-                                    objCola.setDataUp(dataModFinal);
-                                    objCola.setHorarioUp(horaMov);
-                                    // ALTERAR COLABORADOR
-                                    objCola.setNomeDepartamento(jDepartamento.getText());
-                                    objCola.setNomeCargo(jNomeCargo.getText());
-                                    objCola.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-                                    control.alterarColaborador(objCola);
-                                    // ALTERAR ENDEREÇO
-                                    objEnd.setUsuarioUp(nameUser);
-                                    objEnd.setDataUp(dataModFinal);
-                                    objEnd.setHorarioUp(horaMov);
-                                    objEnd.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-                                    objEnd.setIdEnd(codEnd);
-                                    controle.alterarEnderecoColaborador(objEnd);
-                                    // ALTERAR DOCUMENTOS
-                                    objDoc.setUsuarioUp(nameUser);
-                                    objDoc.setDataUp(dataModFinal);
-                                    objDoc.setHorarioUp(horaMov);
-                                    objDoc.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-                                    objDoc.setIdDoc(codDoc);
-                                    controleDoc.alterarDocumentosColaborador(objDoc);
-                                    //
-                                    objLog();
-                                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                    Salvar();
-                                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                                }
                             }
                         }
                     }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarDocumentosActionPerformed
 
@@ -3590,87 +3665,106 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
 
     private void jBtNovoDependenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoDependenteActionPerformed
         // TODO add your handling code here:
-        acao = 3;
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        NovoDependente();
+        buscarAcessoUsuario(telaColaboradoresFCDep_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaColaboradoresFCDep_ADM) && codIncluirADM == 1) {
+            acao = 3;
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            NovoDependente();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoDependenteActionPerformed
 
     private void jBtAlterarDependenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarDependenteActionPerformed
         // TODO add your handling code here:
-        acao = 4;
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        AlterarDependente();
+        buscarAcessoUsuario(telaColaboradoresFCDep_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaColaboradoresFCDep_ADM) && codAlterarADM == 1) {
+            acao = 4;
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            AlterarDependente();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtAlterarDependenteActionPerformed
 
     private void jBtExcluirDependenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirDependenteActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir DEPENDENTE selecionado?", "Confirmação",
-                JOptionPane.YES_NO_OPTION);
-        if (resposta == JOptionPane.YES_OPTION) {
-            objDep.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-            objDep.setIdDep(Integer.valueOf(jCodigoDependente.getText()));
-            controlDep.excluirDepndenteColaborador(objDep);
-            objLog1();
-            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-            //
-            preencherTabelaDepende("SELECT * FROM DEPENDENTES WHERE IdFunc='" + jIDFunc.getText() + "'");
-            ExcluirDependente();
-            JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
+        buscarAcessoUsuario(telaColaboradoresFCDep_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaColaboradoresFCDep_ADM) && codExcluirADM == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir DEPENDENTE selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objDep.setIdFunc(Integer.valueOf(jIDFunc.getText()));
+                objDep.setIdDep(Integer.valueOf(jCodigoDependente.getText()));
+                controlDep.excluirDepndenteColaborador(objDep);
+                objLog1();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                //
+                preencherTabelaDepende("SELECT * FROM DEPENDENTES WHERE IdFunc='" + jIDFunc.getText() + "'");
+                ExcluirDependente();
+                JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirDependenteActionPerformed
 
     private void jBtSalvarDependenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarDependenteActionPerformed
         // TODO add your handling code here:
-        if (jDataNasConjugue.getDate() == null) {
-            JOptionPane.showMessageDialog(null, "Informe a data de nascimento do conjugue.");
-        } else if (jComboBoxTipoConjugue.getSelectedItem().equals("Selecione")) {
-            JOptionPane.showMessageDialog(null, "Informe o grau de parentesco do dependente.");
-        } else if (jNomeDependente.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Informe o nome do dependente.");
+        buscarAcessoUsuario(telaColaboradoresFCDep_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaColaboradoresFCDep_ADM) && codGravarADM == 1) {
+            if (jDataNasConjugue.getDate() == null) {
+                JOptionPane.showMessageDialog(null, "Informe a data de nascimento do conjugue.");
+            } else if (jComboBoxTipoConjugue.getSelectedItem().equals("Selecione")) {
+                JOptionPane.showMessageDialog(null, "Informe o grau de parentesco do dependente.");
+            } else if (jNomeDependente.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe o nome do dependente.");
+            } else {
+                objDep.setNomeDep(jNomeDependente.getText());
+                objDep.setDataNascDep(jDataNascimentoParentesco.getDate());
+                objDep.setParenteDep((String) jComboBoxParentesco.getSelectedItem());
+                if (acao == 3) {
+                    objDep.setUsuarioInsert(nameUser);
+                    objDep.setDataInsert(dataModFinal);
+                    objDep.setHorarioInsert(horaMov);
+                    //
+                    objDep.setIdFunc(Integer.valueOf(jIDFunc.getText()));
+                    controlDep.incluirDepndenteColaborador(objDep);
+                    buscarCodDependente();
+                    //
+                    objLog1();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    //
+                    preencherTabelaDepende("SELECT * FROM DEPENDENTES WHERE IdFunc='" + jIDFunc.getText() + "'");
+                    SalvarDependente();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 4) {
+                    objDep.setUsuarioUp(nameUser);
+                    objDep.setDataUp(dataModFinal);
+                    objDep.setHorarioUp(horaMov);
+                    //
+                    objDep.setIdFunc(Integer.valueOf(jIDFunc.getText()));
+                    objDep.setIdDep(Integer.valueOf(jCodigoDependente.getText()));
+                    controlDep.alterarDepndenteColaborador(objDep);
+                    objLog1();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    //
+                    preencherTabelaDepende("SELECT * FROM DEPENDENTES WHERE IdFunc='" + jIDFunc.getText() + "'");
+                    SalvarDependente();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
         } else {
-            objDep.setNomeDep(jNomeDependente.getText());
-            objDep.setDataNascDep(jDataNascimentoParentesco.getDate());
-            objDep.setParenteDep((String) jComboBoxParentesco.getSelectedItem());
-            if (acao == 3) {
-                objDep.setUsuarioInsert(nameUser);
-                objDep.setDataInsert(dataModFinal);
-                objDep.setHorarioInsert(horaMov);
-                //
-                objDep.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-                controlDep.incluirDepndenteColaborador(objDep);
-                buscarCodDependente();
-                //
-                objLog1();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                //
-                preencherTabelaDepende("SELECT * FROM DEPENDENTES WHERE IdFunc='" + jIDFunc.getText() + "'");
-                SalvarDependente();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
-            if (acao == 4) {
-                objDep.setUsuarioUp(nameUser);
-                objDep.setDataUp(dataModFinal);
-                objDep.setHorarioUp(horaMov);
-                //
-                objDep.setIdFunc(Integer.valueOf(jIDFunc.getText()));
-                objDep.setIdDep(Integer.valueOf(jCodigoDependente.getText()));
-                controlDep.alterarDepndenteColaborador(objDep);
-                objLog1();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                //
-                preencherTabelaDepende("SELECT * FROM DEPENDENTES WHERE IdFunc='" + jIDFunc.getText() + "'");
-                SalvarDependente();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
-
     }//GEN-LAST:event_jBtSalvarDependenteActionPerformed
 
     private void jBtCancelarDependenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarDependenteActionPerformed
@@ -5765,4 +5859,41 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         objLogSys.setStatusMov(statusMov);
     }
 
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserADM = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserADM + "'");
+            conecta.rs.first();
+            codigoUserGroupADM = conecta.rs.getInt("IdUsuario");
+            codigoGrupoADM = conecta.rs.getInt("IdGrupo");
+            nomeGrupoADM = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserADM + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoADM = conecta.rs.getInt("IdUsuario");
+            codAbrirADM = conecta.rs.getInt("Abrir");
+            codIncluirADM = conecta.rs.getInt("Incluir");
+            codAlterarADM = conecta.rs.getInt("Alterar");
+            codExcluirADM = conecta.rs.getInt("Excluir");
+            codGravarADM = conecta.rs.getInt("Gravar");
+            codConsultarADM = conecta.rs.getInt("Consultar");
+            nomeTelaADM = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
 }

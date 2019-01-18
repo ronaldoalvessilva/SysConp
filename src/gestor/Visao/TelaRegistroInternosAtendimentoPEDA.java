@@ -5,23 +5,36 @@
  */
 package gestor.Visao;
 
+import com.sun.jna.Memory;
+import com.sun.jna.Pointer;
+import com.sun.jna.ptr.IntByReference;
+import com.sun.jna.ptr.PointerByReference;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleRegistroAtendimentoInternoBio;
+import static gestor.Controle.ControleRegistroAtendimentoInternoBio.qtdInternosReg;
+import gestor.Controle.DigitalInternos;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.ProntuarioCrc;
 import gestor.Modelo.RegistroAtendimentoInternos;
+import gestor.Visao.TelaAcessoBiometriaColaboradores.CIS_SDK;
 import static gestor.Visao.TelaBiometriaEntradaSaidaPortaria.caminhoFotoInterno;
-import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
-import static gestor.Visao.TelaModuloOdontologia.codAlterarODON;
-import static gestor.Visao.TelaModuloOdontologia.codExcluirODON;
-import static gestor.Visao.TelaModuloOdontologia.codGravarODON;
-import static gestor.Visao.TelaModuloOdontologia.codigoGrupoODON;
-import static gestor.Visao.TelaModuloOdontologia.nomeGrupoODON;
-import static gestor.Visao.TelaModuloOdontologia.nomeTelaODON;
-import static gestor.Visao.TelaModuloOdontologia.nomeModuloODONTOLOGIA;
+import static gestor.Visao.TelaModuloPedagogia.codAbrirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codGravarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codIncluirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codAlterarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codExcluirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codConsultarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codUserAcessoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoUserPEDA;
+import static gestor.Visao.TelaModuloPedagogia.nomeGrupoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoUserGroupPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoGrupoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.nomeModuloPEDA;
+import static gestor.Visao.TelaModuloPedagogia.nomeTelaPEDA;
+import static gestor.Visao.TelaModuloPedagogia.telaRegistroAtendimentoBio_PEDA;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
 import java.awt.Image;
@@ -34,27 +47,12 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
-import static gestor.Visao.TelaModuloOdontologia.codConsultarODON;
-import static gestor.Visao.TelaModuloOdontologia.codigoUserODON;
-import static gestor.Visao.TelaModuloOdontologia.codUserAcessoODON;
-import static gestor.Visao.TelaModuloOdontologia.codigoUserGroupODON;
-import static gestor.Visao.TelaModuloOdontologia.codAbrirODON;
-import static gestor.Visao.TelaModuloOdontologia.codIncluirODON;
-import static gestor.Visao.TelaModuloOdontologia.telaRegistroAtenImpODON;
-import static gestor.Visao.TelaModuloOdontologia.telaRegistroLibAtenImpODON;
-import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
-import java.util.HashMap;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRResultSetDataSource;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
  * @author ronal
  */
-public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JInternalFrame {
+public class TelaRegistroInternosAtendimentoPEDA extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     ProntuarioCrc objProCrc = new ProntuarioCrc();
@@ -64,7 +62,7 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
-    String nomeModuloTela = "ODONTOLOGIA:Registro de Atendimento de Internos:Impressão";
+    String nomeModuloTela = "PEDAGOGIA:Registro de Atendimento de Internos:Biometria";
     String statusMov;
     String horaMov;
     String dataModFinal;
@@ -77,10 +75,9 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
     String caminhoBiometria2 = "";
     String caminhoBiometria3 = "";
     // PARA GRAVAR NO BANCO DE DADOS
-    public static byte[] pDigitalCapturadaColaborador = null;
+    public static byte[] pDigitalCapturada = null;
     String dataReg = "";
     String codigoInterno = "";
-    int acao = 0;
     int flag;
     int count = 0;
     String codInternoCela = "";
@@ -89,28 +86,14 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
     String idRegistro = "";
     String DataRegistro = "";
     int codigoDepto = 0;
-    //
-    String pImpressao = "Sim";
-    public static String pLiberacaoImpressa = "Não";
-    public static int codigoLiberador = 0;
-    public static String nomeLiberador = "";
-    public static String dataAssinatura = "";
-    public static String horaAssinatura = "";
 
     /**
      * Creates new form TelaRegistroInternosAtendimento
      */
-    public static TelaAssinaturaoBiometriaColaboradoresPSP_ODON assinaLiberaODON;
-
-    public TelaRegistroInternosAtendimentoImpressoODON() {
+    public TelaRegistroInternosAtendimentoPEDA() {
         initComponents();
         corCampos();
         pesquisarModulo();
-    }
-
-    public void mostraLiberador() {
-        assinaLiberaODON = new TelaAssinaturaoBiometriaColaboradoresPSP_ODON(this, true);
-        assinaLiberaODON.setVisible(true);
     }
 
     /**
@@ -149,13 +132,13 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jIdInternoKitImp = new javax.swing.JTextField();
-        jNomeInternoKitImp = new javax.swing.JTextField();
-        jPavilhaoKitImp = new javax.swing.JTextField();
+        jIdInternoKitBio = new javax.swing.JTextField();
+        jNomeInternoKitBio = new javax.swing.JTextField();
+        jPavilhaoKitBio = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jCNC = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jRegimeKitImp = new javax.swing.JTextField();
+        jRegimeKitBio = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jCelaKitBio = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -168,28 +151,19 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
         jLabel11 = new javax.swing.JLabel();
         jIdRegistro = new javax.swing.JTextField();
         jNomeDepartamento = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jMotivo = new javax.swing.JTextArea();
         jBtSalvar = new javax.swing.JButton();
         jBtSair = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jBtCancelar = new javax.swing.JButton();
-        jLabel12 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jFotoInternoKitImp = new javax.swing.JLabel();
+        jFotoInternoKitBio = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
-        jBtPesquisaInterno = new javax.swing.JButton();
-        jBtImprimirAutorização = new javax.swing.JButton();
-        jBtNovo = new javax.swing.JButton();
-        jBtLiberarAutorizacao = new javax.swing.JButton();
-        jBtAuditoria = new javax.swing.JButton();
-        jBtLiberador = new javax.swing.JButton();
+        jBtIniciarLeitor = new javax.swing.JButton();
+        jBtCancelarLeitura = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("...::: Registro de Atendimento de Internos - IMPRESSÃO :::...");
-        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/gtklp-icone-3770-16.png"))); // NOI18N
+        setTitle("...::: Registro de Atendimento de Internos :::...");
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
@@ -257,7 +231,7 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
         jPanel31.setLayout(jPanel31Layout);
         jPanel31Layout.setHorizontalGroup(
             jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 258, Short.MAX_VALUE)
+            .addGap(0, 260, Short.MAX_VALUE)
         );
         jPanel31Layout.setVerticalGroup(
             jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -402,7 +376,7 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
                 .addContainerGap()
                 .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -424,15 +398,15 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("Pavilhão");
 
-        jIdInternoKitImp.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jIdInternoKitImp.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jIdInternoKitImp.setEnabled(false);
+        jIdInternoKitBio.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jIdInternoKitBio.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jIdInternoKitBio.setEnabled(false);
 
-        jNomeInternoKitImp.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jNomeInternoKitImp.setEnabled(false);
+        jNomeInternoKitBio.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNomeInternoKitBio.setEnabled(false);
 
-        jPavilhaoKitImp.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jPavilhaoKitImp.setEnabled(false);
+        jPavilhaoKitBio.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPavilhaoKitBio.setEnabled(false);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("CNC");
@@ -444,8 +418,8 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setText("Regime");
 
-        jRegimeKitImp.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jRegimeKitImp.setEnabled(false);
+        jRegimeKitBio.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jRegimeKitBio.setEnabled(false);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setText("Cela");
@@ -471,7 +445,7 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
         jLabel9.setText("Tipo de Atendimento");
 
         jComboBoxTipoMovimentacao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxTipoMovimentacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Admissão Odontologica", "Evolução Odontologica", " ", " ", " ", " " }));
+        jComboBoxTipoMovimentacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Admissão Pedagogica", "Evolução Pedagogica", " ", " ", " " }));
         jComboBoxTipoMovimentacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTipoMovimentacao.setEnabled(false);
 
@@ -491,65 +465,53 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
         jNomeDepartamento.setDisabledTextColor(new java.awt.Color(204, 0, 0));
         jNomeDepartamento.setEnabled(false);
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel13.setText("Motivo");
-
-        jMotivo.setColumns(20);
-        jMotivo.setRows(5);
-        jMotivo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jMotivo.setEnabled(false);
-        jScrollPane2.setViewportView(jMotivo);
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane2)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jNomeInternoKitImp, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel6)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jIdRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jDataRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel7))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jComboBoxTipoMovimentacao, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jHorarioSaidaEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel8)))
-                            .addComponent(jLabel10)
-                            .addComponent(jCelaKitBio, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPavilhaoKitImp, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jIdInternoKitImp, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jCNC, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel4)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jRegimeKitImp, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE))))
-                        .addComponent(jNomeDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel13)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jNomeInternoKitBio, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel3)
+                        .addComponent(jLabel6)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel11)
+                                .addComponent(jIdRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jDataRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel7))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel9)
+                                .addComponent(jComboBoxTipoMovimentacao, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jHorarioSaidaEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel8)))
+                        .addComponent(jLabel10)
+                        .addComponent(jCelaKitBio, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPavilhaoKitBio, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jIdInternoKitBio, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jCNC, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel1)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jLabel4)))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel5)
+                                .addComponent(jRegimeKitBio))))
+                    .addComponent(jNomeDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -571,33 +533,29 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jNomeDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jRegimeKitImp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jRegimeKitBio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCNC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jIdInternoKitImp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jIdInternoKitBio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jNomeInternoKitImp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jNomeInternoKitBio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPavilhaoKitImp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPavilhaoKitBio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCelaKitBio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel13)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jBtSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/filesave.png"))); // NOI18N
@@ -626,11 +584,6 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
             }
         });
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("...::: AUTORIZAÇÃO IMPRESSA :::...");
-
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -638,21 +591,15 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addComponent(jSeparator1)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addComponent(jBtSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
-                        .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(11, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
 
         jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtCancelar, jBtSair, jBtSalvar});
@@ -662,20 +609,15 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jBtSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBtCancelar))
-                        .addGap(5, 5, 5))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel12)
-                        .addGap(17, 17, 17))
-                    .addComponent(jBtSair, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jBtSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jBtCancelar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 1, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(107, 107, 107))
+                .addGap(27, 27, 27))
         );
 
         jPanel4Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtCancelar, jBtSair, jBtSalvar});
@@ -684,75 +626,39 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Foto Interno", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
-        jFotoInternoKitImp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jFotoInternoKitBio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jFotoInternoKitImp, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+            .addComponent(jFotoInternoKitBio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jFotoInternoKitImp, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
+            .addComponent(jFotoInternoKitBio, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
         );
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
 
-        jBtPesquisaInterno.setForeground(new java.awt.Color(0, 0, 255));
-        jBtPesquisaInterno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
-        jBtPesquisaInterno.setText("Pesquiar Interno");
-        jBtPesquisaInterno.setToolTipText("Pesquiar Interno");
-        jBtPesquisaInterno.setEnabled(false);
-        jBtPesquisaInterno.addActionListener(new java.awt.event.ActionListener() {
+        jBtIniciarLeitor.setForeground(new java.awt.Color(0, 153, 0));
+        jBtIniciarLeitor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Biometria16.png"))); // NOI18N
+        jBtIniciarLeitor.setText("Iniciar Leitor");
+        jBtIniciarLeitor.setToolTipText("Iniciar Leitor");
+        jBtIniciarLeitor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtPesquisaInternoActionPerformed(evt);
+                jBtIniciarLeitorActionPerformed(evt);
             }
         });
 
-        jBtImprimirAutorização.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/gtklp-icone-3770-16.png"))); // NOI18N
-        jBtImprimirAutorização.setText("Imprimir Autorização");
-        jBtImprimirAutorização.setToolTipText("Imprimir Autorização");
-        jBtImprimirAutorização.setEnabled(false);
-        jBtImprimirAutorização.addActionListener(new java.awt.event.ActionListener() {
+        jBtCancelarLeitura.setForeground(new java.awt.Color(204, 0, 0));
+        jBtCancelarLeitura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Biometria16Vermelho.png"))); // NOI18N
+        jBtCancelarLeitura.setText("Cancelar Leitura");
+        jBtCancelarLeitura.setToolTipText("Cancelar Leitura");
+        jBtCancelarLeitura.setEnabled(false);
+        jBtCancelarLeitura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtImprimirAutorizaçãoActionPerformed(evt);
-            }
-        });
-
-        jBtNovo.setForeground(new java.awt.Color(0, 102, 0));
-        jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
-        jBtNovo.setText("Nova Autorização");
-        jBtNovo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtNovoActionPerformed(evt);
-            }
-        });
-
-        jBtLiberarAutorizacao.setForeground(new java.awt.Color(204, 0, 0));
-        jBtLiberarAutorizacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Biometria16Vermelho.png"))); // NOI18N
-        jBtLiberarAutorizacao.setText("Liberação Autorização");
-        jBtLiberarAutorizacao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtLiberarAutorizacaoActionPerformed(evt);
-            }
-        });
-
-        jBtAuditoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
-        jBtAuditoria.setToolTipText("Auditoria");
-        jBtAuditoria.setContentAreaFilled(false);
-        jBtAuditoria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtAuditoriaActionPerformed(evt);
-            }
-        });
-
-        jBtLiberador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/composer-preferences-icone-5121-16.png"))); // NOI18N
-        jBtLiberador.setToolTipText("Liberador");
-        jBtLiberador.setContentAreaFilled(false);
-        jBtLiberador.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtLiberadorActionPerformed(evt);
+                jBtCancelarLeituraActionPerformed(evt);
             }
         });
 
@@ -761,79 +667,52 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jBtPesquisaInterno, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
-                            .addComponent(jBtImprimirAutorização, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
-                            .addComponent(jBtNovo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jBtLiberarAutorizacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(65, 65, 65)
-                        .addComponent(jBtAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtLiberador, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel7Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtImprimirAutorização, jBtNovo, jBtPesquisaInterno});
-
-        jPanel7Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAuditoria, jBtLiberador});
-
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jBtNovo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtPesquisaInterno)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtImprimirAutorização)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtLiberarAutorizacao)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtAuditoria)
-                    .addComponent(jBtLiberador))
+                    .addComponent(jBtIniciarLeitor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jBtCancelarLeitura, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE))
                 .addContainerGap())
         );
-
-        jPanel7Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAuditoria, jBtLiberador});
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addComponent(jBtIniciarLeitor)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtCancelarLeitura)
+                .addContainerGap(49, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(2, 2, 2)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(300, 30, 701, 526);
+        setBounds(300, 30, 703, 424);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:           
-        buscarAcessoUsuario(telaRegistroAtenImpODON);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoODON.equals("ADMINISTRADORES") || codigoUserODON == codUserAcessoODON && nomeTelaODON.equals(telaRegistroAtenImpODON) && codGravarODON == 1) {
+        buscarAcessoUsuario(telaRegistroAtendimentoBio_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaRegistroAtendimentoBio_PEDA) && codGravarPEDA == 1) {
             verificarInternos();
-            if (jIdInternoKitImp.getText().equals("") || jNomeInternoKitImp.getText().equals("")) {
+            if (jIdInternoKitBio.getText().equals("") || jNomeInternoKitBio.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Informe o nome do interno.");
             } else if (jDataRegistro.getDate() == null) {
                 JOptionPane.showMessageDialog(null, "Informe a data do tipo de movimento.");
@@ -841,44 +720,31 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
                 JOptionPane.showMessageDialog(null, "Informe o horário do movimento.");
             } else if (jComboBoxTipoMovimentacao.getSelectedItem() == null || jComboBoxTipoMovimentacao.getSelectedItem().equals("") || jComboBoxTipoMovimentacao.getSelectedItem().equals("Selecione...")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o tipo de atendimento para o interno.");
-            } else if (jMotivo.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe o motivo da impressão do atendimento manual para o interno.");
             } else {
-                // SE JÁ FOI REGISTRADO         
-                if (jIdInternoKitImp.getText().equals(codigoInterno) && atendido.equals("Não")) {
+                // SE JÁ FOI REGISTRADO     DataRegistro          
+                if (jIdInternoKitBio.getText().equals(codigoInterno) && atendido.equals("Não")) {
                     JOptionPane.showMessageDialog(rootPane, "Esse interno ainda tem registro de atendimento em aberto, efetue o atendimento para fazer novo registro.");
                 } else {
-                    if (pLiberacaoImpressa.equals("Sim")) {
-                        atendido = "Não";
-                        // Para o log do registro
-                        objRegAtend.setUsuarioInsert(nameUser);
-                        objRegAtend.setDataInsert(dataModFinal);
-                        objRegAtend.setHorarioInsert(horaMov);
-                        //
-                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoKitImp.getText()));
-                        objRegAtend.setNomeInternoCrc(jNomeInternoKitImp.getText());
-                        objRegAtend.setNomeDepartamento(jNomeDepartamento.getText());
-                        objRegAtend.setTipoAtemdimento((String) jComboBoxTipoMovimentacao.getSelectedItem());
-                        objRegAtend.setDataReg(jDataRegistro.getDate());
-                        objRegAtend.setHorario(jHorarioSaidaEntrada.getText());
-                        objRegAtend.setCodigoFunc(codigoLiberador);
-                        objRegAtend.setNomeFunc(nomeLiberador);
-                        objRegAtend.setAssinaturaLiberador(pDigitalCapturadaColaborador);
-                        objRegAtend.setDataAssinatura(dataAssinatura);
-                        objRegAtend.setHoraAssinatura(horaAssinatura);
-                        objRegAtend.setAtendido(atendido);
-                        objRegAtend.setMotivoImpressao(jMotivo.getText());
-                        objRegAtend.setImpressaoAuto(pImpressao);
-                        control.incluirRegAtendColaborador(objRegAtend);
-                        buscarRegistro();
-                        objLog();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        Salvar();
-                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                        relatorioAutorizacao();
-                    } else {
-                        JOptionPane.showMessageDialog(rootPane, "Essa autorização ainda não foi liberada, solicite ao responsavel a liberação.");
-                    }
+                    atendido = "Não";
+                    // Para o log do registro
+                    objRegAtend.setUsuarioInsert(nameUser);
+                    objRegAtend.setDataInsert(dataModFinal);
+                    objRegAtend.setHorarioInsert(horaMov);
+                    //
+                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoKitBio.getText()));
+                    objRegAtend.setNomeInternoCrc(jNomeInternoKitBio.getText());
+                    objRegAtend.setNomeDepartamento(jNomeDepartamento.getText());
+                    objRegAtend.setTipoAtemdimento((String) jComboBoxTipoMovimentacao.getSelectedItem());
+                    objRegAtend.setDataReg(jDataRegistro.getDate());
+                    objRegAtend.setHorario(jHorarioSaidaEntrada.getText());
+                    objRegAtend.setAssinaturaDigital(pDigitalCapturada);
+                    objRegAtend.setAtendido(atendido);
+                    control.incluirRegAtend(objRegAtend);
+                    buscarRegistro();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
             }
         } else {
@@ -886,57 +752,97 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
-    private void jBtPesquisaInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaInternoActionPerformed
-        // TODO add your handling code here:        
-        TelaPesqInternoRegistroImpressoODON objPesqIntImp = new TelaPesqInternoRegistroImpressoODON();
-        TelaModuloOdontologia.jPainelOdontologia.add(objPesqIntImp);
-        objPesqIntImp.show();
-    }//GEN-LAST:event_jBtPesquisaInternoActionPerformed
+    private void jBtIniciarLeitorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIniciarLeitorActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaRegistroAtendimentoBio_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaRegistroAtendimentoBio_PEDA) && codIncluirPEDA == 1) {
+            Novo();
+            // Instanciar a DLL
+            CIS_SDK dll = CIS_SDK.INSTANCE;
+            //
+            int iRetorno = dll.CIS_SDK_Biometrico_Iniciar();
+            if (iRetorno != 1 && iRetorno == 0) {
+                JOptionPane.showMessageDialog(null, "COMANDO NÃO EXECUTADO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -1) {
+                JOptionPane.showMessageDialog(null, "LEITOR INCOMPATIVEL COM SDK...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -10) {
+                JOptionPane.showMessageDialog(null, "ERRO DESCONHECIDO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -11) {
+                JOptionPane.showMessageDialog(null, "FALTA DE MEMÓRIA...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -12) {
+                JOptionPane.showMessageDialog(null, "ARGUMENTO INVALIDO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -13) {
+                JOptionPane.showMessageDialog(null, "SDK EM USO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -14) {
+                JOptionPane.showMessageDialog(null, "TEMPLATE INVALIDO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -15) {
+                JOptionPane.showMessageDialog(null, "ERRO INTERNO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -16) {
+                JOptionPane.showMessageDialog(null, "NÃO HABILITADO PARA CAPTURAR DIGITAL...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -17) {
+                JOptionPane.showMessageDialog(null, "CANCELADO PELO USUARIO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -18) {
+                JOptionPane.showMessageDialog(null, "LEITURA NÃO É POSSIVEL...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -21) {
+                JOptionPane.showMessageDialog(null, "ERRO DESCONHECIDO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -22) {
+                JOptionPane.showMessageDialog(null, "SDK NÃO FOI INICIADO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -23) {
+                JOptionPane.showMessageDialog(null, "LEITOR NÃO CONECTADO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -24) {
+                JOptionPane.showMessageDialog(null, "ERRO NO LEITOR...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -25) {
+                JOptionPane.showMessageDialog(null, "FRAME DE DADOS VAZIO...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -26) {
+                JOptionPane.showMessageDialog(null, "ORIGEM FALSA (FAKE)...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -27) {
+                JOptionPane.showMessageDialog(null, "HARDWARE INCOMPATIVEL...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -28) {
+                JOptionPane.showMessageDialog(null, "FIRMWARE INCOMPATIVEL...");
+                return;
+            } else if (iRetorno != 1 && iRetorno == -29) {
+                JOptionPane.showMessageDialog(null, "FRAME ALTERADO...");
+                return;
+            }
+            jBtCancelarLeitura.setEnabled(true);
+            new Thread(LerDigital1).start();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jBtIniciarLeitorActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_jBtSairActionPerformed
 
-    private void jBtImprimirAutorizaçãoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImprimirAutorizaçãoActionPerformed
-        // TODO add your handling code here:       
-        if (jIdInternoKitImp.getText().equals("") && jNomeInternoKitImp.getText().equals("") && jIdRegistro.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para impressão da autorização.");
-        } else if (jComboBoxTipoMovimentacao.getSelectedItem().equals("Selecione...")) {
-            JOptionPane.showMessageDialog(rootPane, "Selecione o tipo de atendimento.");
-        } else {
-            try {
-                conecta.abrirConexao();
-                String path = "reports/FichaAutorizacaoAtendimentoInterno.jasper";
-                conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "INNER JOIN DADOSPENAISINTERNOS "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                        + "INNER JOIN ITENSLOCACAOINTERNO "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
-                        + "INNER JOIN CELAS "
-                        + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
-                        + "INNER JOIN PAVILHAO "
-                        + "ON CELAS.IdPav=PAVILHAO.IdPav "
-                        + "WHERE REGISTRO_ATENDIMENTO_INTERNO_PSP.IdRegistro='" + jIdRegistro.getText() + "'");
-                HashMap parametros = new HashMap();
-                parametros.put("codigoAutoriazacao", jIdRegistro.getText());
-                parametros.put("descricaoUnidade", descricaoUnidade);
-                parametros.put("nomeUsuario", nameUser);
-                JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                jv.setTitle("Autorização de Atendimento - Enfermaria");
-                jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                jv.toFront(); // Traz o relatorio para frente da aplicação            
-                conecta.desconecta();
-            } catch (JRException e) {
-                JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-            }
-        }
-    }//GEN-LAST:event_jBtImprimirAutorizaçãoActionPerformed
+    private void jBtCancelarLeituraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarLeituraActionPerformed
+        // TODO add your handling code here:
+        // Instanciar a DLL
+        CIS_SDK dll = CIS_SDK.INSTANCE;
+        // Cancelar a leitura
+        dll.CIS_SDK_Biometrico_CancelarLeitura();
+        // HABILITAR O BOTÃO PARA CANCELAR A LEITURA
+        jBtCancelarLeitura.setEnabled(false);
+    }//GEN-LAST:event_jBtCancelarLeituraActionPerformed
 
     private void jBtPesqNomeInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqNomeInternoActionPerformed
         // TODO add your handling code here:
@@ -945,8 +851,7 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
                 + "INNER JOIN PRONTUARIOSCRC "
                 + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                 + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInternoOdonto.getText() + "%' "
-                + "AND IdDepartamento='" + codigoDepto + "'"
-                + "AND Impresso='" + pImpressao + "'");
+                + "AND IdDepartamento='" + codigoDepto + "'");
     }//GEN-LAST:event_jBtPesqNomeInternoActionPerformed
 
     private void jBtIdPesqAtendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIdPesqAtendActionPerformed
@@ -956,8 +861,7 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
                 + "INNER JOIN PRONTUARIOSCRC "
                 + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                 + "WHERE REGISTRO_ATENDIMENTO_INTERNO_PSP.IdReg='" + jIDPesqAtend.getText() + "' "
-                + "AND IdDepartamento='" + codigoDepto + "'"
-                + "AND Impresso='" + pImpressao + "'");
+                + "AND IdDepartamento='" + codigoDepto + "'");
     }//GEN-LAST:event_jBtIdPesqAtendActionPerformed
 
     private void jBtPesqDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDataActionPerformed
@@ -980,10 +884,9 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
                     preencherTabelaRegistros("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                            + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
+                            + "WHERE DataReg BETWEEN'" + dataInicial + "' "
                             + "AND '" + dataFinal + "' "
-                            + "AND IdDepartamento='" + codigoDepto + "'"
-                            + "AND Impresso='" + pImpressao + "'");
+                            + "AND IdDepartamento='" + codigoDepto + "'");
                 }
             }
         }
@@ -996,8 +899,7 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
             this.preencherTabelaRegistros("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "AND IdDepartamento='" + codigoDepto + "' "
-                    + "AND Impresso='" + pImpressao + "'");
+                    + "AND IdDepartamento='" + codigoDepto + "'");
         } else {
             count = 0;
             jtotalRegistros.setText("");
@@ -1016,9 +918,6 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
             //
             bloquearCampos();
             //
-            if (!jIdRegistro.getText().equals("")) {
-                jBtImprimirAutorização.setEnabled(true);
-            }
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
@@ -1038,29 +937,17 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
                 jDataRegistro.setDate(conecta.rs.getDate("DataReg"));
                 jComboBoxTipoMovimentacao.setSelectedItem(conecta.rs.getString("TipoAtendimento"));
                 jHorarioSaidaEntrada.setText(conecta.rs.getString("Horario"));
-                jNomeDepartamento.setText(nomeModuloODONTOLOGIA);
-                jIdInternoKitImp.setText(conecta.rs.getString("IdInternoCrc"));
+                jNomeDepartamento.setText(nomeModuloPEDA);
+                jIdInternoKitBio.setText(conecta.rs.getString("IdInternoCrc"));
                 jCNC.setText(conecta.rs.getString("Cnc"));
-                jRegimeKitImp.setText(conecta.rs.getString("Regime"));
-                jNomeInternoKitImp.setText(conecta.rs.getString("NomeInternoCrc"));
-                jPavilhaoKitImp.setText(conecta.rs.getString("DescricaoPav"));
+                jRegimeKitBio.setText(conecta.rs.getString("Regime"));
+                jNomeInternoKitBio.setText(conecta.rs.getString("NomeInternoCrc"));
+                jPavilhaoKitBio.setText(conecta.rs.getString("DescricaoPav"));
                 jCelaKitBio.setText(conecta.rs.getString("EndCelaPav"));
                 caminhoFotoInterno = conecta.rs.getString("FotoInternoCrc");
-                if (caminhoFotoInterno != null) {
-                    javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoInterno);
-                    jFotoInternoKitImp.setIcon(a);
-                    jFotoInternoKitImp.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoInternoKitImp.getWidth(), jFotoInternoKitImp.getHeight(), Image.SCALE_DEFAULT)));
-                }
-                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
-                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
-                if (imgBytes != null) {
-                    ImageIcon pic = null;
-                    pic = new ImageIcon(imgBytes);
-                    Image scaled = pic.getImage().getScaledInstance(jFotoInternoKitImp.getWidth(), jFotoInternoKitImp.getHeight(), Image.SCALE_DEFAULT);
-                    ImageIcon icon = new ImageIcon(scaled);
-                    jFotoInternoKitImp.setIcon(icon);
-                }
-                codigoLiberador = conecta.rs.getInt("IdFunc");
+                javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoInterno);
+                jFotoInternoKitBio.setIcon(a);
+                jFotoInternoKitBio.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoInternoKitBio.getWidth(), jFotoInternoKitBio.getHeight(), Image.SCALE_DEFAULT)));
                 conecta.desconecta();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa..." + e);
@@ -1073,91 +960,31 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
         Cancelar();
     }//GEN-LAST:event_jBtCancelarActionPerformed
 
-    private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
-        // TODO add your handling code here:
-        buscarAcessoUsuario(telaRegistroAtenImpODON);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoODON.equals("ADMINISTRADORES") || codigoUserODON == codUserAcessoODON && nomeTelaODON.equals(telaRegistroAtenImpODON) && codIncluirODON == 1) {
-            int resposta = JOptionPane.showConfirmDialog(this, "Esse documento só é permitido caso o interno não consiga assinar através da biometria, deseja continuar?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                acao = 1;
-                Novo();
-                statusMov = "Incluiu";
-                horaMov = jHoraSistema.getText();
-                dataModFinal = jDataSistema.getText();
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
-        }
-    }//GEN-LAST:event_jBtNovoActionPerformed
-
-    private void jBtLiberarAutorizacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtLiberarAutorizacaoActionPerformed
-        // TODO add your handling code here:
-        buscarAcessoUsuario(telaRegistroLibAtenImpODON);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoODON.equals("ADMINISTRADORES") || codigoUserODON == codUserAcessoODON && nomeTelaODON.equals(telaRegistroLibAtenImpODON) && codAbrirODON == 1) {
-            if (jIdInternoKitImp.getText().equals("") || jNomeInternoKitImp.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "E necessário selecionar primeiro o interno para liberação.");
-            } else {
-                mostraLiberador();
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
-        }
-    }//GEN-LAST:event_jBtLiberarAutorizacaoActionPerformed
-
-    private void jBtAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaActionPerformed
-        // TODO add your handling code here:
-        if (jIdRegistro.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "É necessário selecionar primeiro um registro.");
-        } else {
-            TelaAuditoriaRegistroAtendImpressoODON objAudLibera = new TelaAuditoriaRegistroAtendImpressoODON();
-            TelaModuloOdontologia.jPainelOdontologia.add(objAudLibera);
-            objAudLibera.show();
-        }
-    }//GEN-LAST:event_jBtAuditoriaActionPerformed
-
-    private void jBtLiberadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtLiberadorActionPerformed
-        // TODO add your handling code here:
-        if (jIdRegistro.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "É necessário selecionar primeiro um registro.");
-        } else {
-            TelaLiberadorRegistroAtendImpresso_ODON objLibera = new TelaLiberadorRegistroAtendImpresso_ODON();
-            TelaModuloOdontologia.jPainelOdontologia.add(objLibera);
-            objLibera.show();
-        }
-    }//GEN-LAST:event_jBtLiberadorActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBtAuditoria;
     private javax.swing.JButton jBtCancelar;
+    private javax.swing.JButton jBtCancelarLeitura;
     private javax.swing.JButton jBtIdPesqAtend;
-    private javax.swing.JButton jBtImprimirAutorização;
-    private javax.swing.JButton jBtLiberador;
-    private javax.swing.JButton jBtLiberarAutorizacao;
-    private javax.swing.JButton jBtNovo;
+    private javax.swing.JButton jBtIniciarLeitor;
     private javax.swing.JButton jBtPesqData;
     private javax.swing.JButton jBtPesqNomeInterno;
-    private javax.swing.JButton jBtPesquisaInterno;
     private javax.swing.JButton jBtSair;
-    public static javax.swing.JButton jBtSalvar;
+    private javax.swing.JButton jBtSalvar;
     public static javax.swing.JTextField jCNC;
     public static javax.swing.JTextField jCelaKitBio;
     private javax.swing.JCheckBox jCheckBox1;
-    public static javax.swing.JComboBox jComboBoxTipoMovimentacao;
+    private javax.swing.JComboBox jComboBoxTipoMovimentacao;
     private com.toedter.calendar.JDateChooser jDataFinal;
     private com.toedter.calendar.JDateChooser jDataInicial;
     private com.toedter.calendar.JDateChooser jDataRegistro;
-    public static javax.swing.JLabel jFotoInternoKitImp;
+    public static javax.swing.JLabel jFotoInternoKitBio;
     private javax.swing.JFormattedTextField jHorarioSaidaEntrada;
     private javax.swing.JTextField jIDPesqAtend;
-    public static javax.swing.JTextField jIdInternoKitImp;
-    public static javax.swing.JTextField jIdRegistro;
+    public static javax.swing.JTextField jIdInternoKitBio;
+    private javax.swing.JTextField jIdRegistro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel36;
@@ -1171,9 +998,8 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextArea jMotivo;
     private javax.swing.JTextField jNomeDepartamento;
-    public static javax.swing.JTextField jNomeInternoKitImp;
+    public static javax.swing.JTextField jNomeInternoKitBio;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel2;
@@ -1183,73 +1009,304 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
     private javax.swing.JPanel jPanel32;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel7;
-    public static javax.swing.JTextField jPavilhaoKitImp;
+    public static javax.swing.JTextField jPavilhaoKitBio;
     private javax.swing.JTextField jPesqNomeInternoOdonto;
-    public static javax.swing.JTextField jRegimeKitImp;
+    public static javax.swing.JTextField jRegimeKitBio;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTabelaRegistroInterno;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
-    public void relatorioAutorizacao() {
-        try {
-            conecta.abrirConexao();
-            String path = "reports/FichaAutorizacaoAtendimentoInterno.jasper";
-            conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
-                    + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "INNER JOIN DADOSPENAISINTERNOS "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                    + "INNER JOIN ITENSLOCACAOINTERNO "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
-                    + "INNER JOIN CELAS "
-                    + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
-                    + "INNER JOIN PAVILHAO "
-                    + "ON CELAS.IdPav=PAVILHAO.IdPav "
-                    + "WHERE REGISTRO_ATENDIMENTO_INTERNO_PSP.IdRegistro='" + jIdRegistro.getText() + "'");
-            HashMap parametros = new HashMap();
-            parametros.put("codigoAutoriazacao", jIdRegistro.getText());
-            parametros.put("descricaoUnidade", descricaoUnidade);
-            parametros.put("nomeUsuario", nameUser);
-            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-            jv.setTitle("Autorização de Atendimento - Enfermaria");
-            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-            jv.toFront(); // Traz o relatorio para frente da aplicação            
-            conecta.desconecta();
-        } catch (JRException e) {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+    private static Runnable LerDigital1 = new Runnable() {
+        @Override
+        public void run() {
+            try {
+                // Instanciar a DLL
+                TelaBiometriaEntradaSaidaPortaria.CIS_SDK dll = TelaBiometriaEntradaSaidaPortaria.CIS_SDK.INSTANCE;
+                // Capturar a digital no leitor   
+                Pointer pDigital;
+                IntByReference iRet = new IntByReference();
+                pDigital = dll.CIS_SDK_Biometrico_LerDigital_RetornoPonteiro(iRet);
+                int iRetorno2 = iRet.getValue();
+                if (iRetorno2 != 1 && iRetorno2 == 0) {
+                    dll.CIS_SDK_Biometrico_Finalizar();
+                    JOptionPane.showMessageDialog(null, "COMANDO NÃO EXECUTADO...");
+                    return;
+                } else if (iRetorno2 != 1 && iRetorno2 == -1) {
+                    JOptionPane.showMessageDialog(null, "LEITOR INCOMPATIVEL COM SDK...");
+                    return;
+                } else if (iRetorno2 != 1 && iRetorno2 == -10) {
+                    dll.CIS_SDK_Biometrico_Finalizar();
+                    JOptionPane.showMessageDialog(null, "ERRO DESCONHECIDO...");
+                    return;
+                } else if (iRetorno2 != 1 && iRetorno2 == -11) {
+                    dll.CIS_SDK_Biometrico_Finalizar();
+                    JOptionPane.showMessageDialog(null, "FALTA DE MEMÓRIA...");
+                    return;
+                } else if (iRetorno2 != 1 && iRetorno2 == -12) {
+                    dll.CIS_SDK_Biometrico_Finalizar();
+                    JOptionPane.showMessageDialog(null, "ARGUMENTO INVALIDO...");
+                    return;
+                } else if (iRetorno2 != 1 && iRetorno2 == -13) {
+                    dll.CIS_SDK_Biometrico_Finalizar();
+                    JOptionPane.showMessageDialog(null, "SDK EM USO...");
+                    return;
+                } else if (iRetorno2 != 1 && iRetorno2 == -14) {
+                    dll.CIS_SDK_Biometrico_Finalizar();
+                    JOptionPane.showMessageDialog(null, "TEMPLATE INVALIDO...");
+                    return;
+                } else if (iRetorno2 != 1 && iRetorno2 == -15) {
+                    dll.CIS_SDK_Biometrico_Finalizar();
+                    JOptionPane.showMessageDialog(null, "ERRO INTERNO...");
+                    return;
+                } else if (iRetorno2 != 1 && iRetorno2 == -16) {
+                    dll.CIS_SDK_Biometrico_Finalizar();
+                    JOptionPane.showMessageDialog(null, "NÃO HABILITADO PARA CAPTURAR DIGITAL...");
+                    return;
+                } else if (iRetorno2 != 1 && iRetorno2 == -17) {
+                    dll.CIS_SDK_Biometrico_Finalizar();
+                    JOptionPane.showMessageDialog(null, "CANCELADO PELO USUARIO...");
+                    return;
+                } else if (iRetorno2 != 1 && iRetorno2 == -18) {
+                    dll.CIS_SDK_Biometrico_Finalizar();
+                    JOptionPane.showMessageDialog(null, "LEITURA NÃO É POSSIVEL...");
+                    return;
+                } else if (iRetorno2 != 1 && iRetorno2 == -21) {
+                    dll.CIS_SDK_Biometrico_Finalizar();
+                    JOptionPane.showMessageDialog(null, "ERRO DESCONHECIDO...");
+                    return;
+                } else if (iRetorno2 != 1 && iRetorno2 == -22) {
+                    dll.CIS_SDK_Biometrico_Finalizar();
+                    JOptionPane.showMessageDialog(null, "SDK NÃO FOI INICIADO...");
+                    return;
+                } else if (iRetorno2 != 1 && iRetorno2 == -23) {
+                    dll.CIS_SDK_Biometrico_Finalizar();
+                    JOptionPane.showMessageDialog(null, "LEITOR NÃO CONECTADO...");
+                    return;
+                } else if (iRetorno2 != 1 && iRetorno2 == -24) {
+                    dll.CIS_SDK_Biometrico_Finalizar();
+                    JOptionPane.showMessageDialog(null, "ERRO NO LEITOR...");
+                    return;
+                } else if (iRetorno2 != 1 && iRetorno2 == -25) {
+                    dll.CIS_SDK_Biometrico_Finalizar();
+                    JOptionPane.showMessageDialog(null, "FRAME DE DADOS VAZIO...");
+                    return;
+                } else if (iRetorno2 != 1 && iRetorno2 == -26) {
+                    dll.CIS_SDK_Biometrico_Finalizar();
+                    JOptionPane.showMessageDialog(null, "ORIGEM FALSA (FAKE)...");
+                    return;
+                } else if (iRetorno2 != 1 && iRetorno2 == -27) {
+                    dll.CIS_SDK_Biometrico_Finalizar();
+                    JOptionPane.showMessageDialog(null, "HARDWARE INCOMPATIVEL...");
+                    return;
+                } else if (iRetorno2 != 1 && iRetorno2 == -28) {
+                    dll.CIS_SDK_Biometrico_Finalizar();
+                    JOptionPane.showMessageDialog(null, "FIRMWARE INCOMPATIVEL...");
+                    return;
+                } else if (iRetorno2 != 1 && iRetorno2 == -29) {
+                    dll.CIS_SDK_Biometrico_Finalizar();
+                    JOptionPane.showMessageDialog(null, "FRAME ALTERADO...");
+                    return;
+                }
+                //
+                byte[] pDigitalCap = pDigital.getByteArray(0, 669);
+                pDigitalCapturada = pDigitalCap; // SALVAR DIGITAL NO BANCO DE DADOS
+                //
+                ControleRegistroAtendimentoInternoBio digiControlReg = new ControleRegistroAtendimentoInternoBio();
+                DigitalInternos d = new DigitalInternos();
+                int pVar = 0;
+                for (DigitalInternos dd : digiControlReg.read()) {
+                    // LER DIGITAL PARA COMPRAR
+                    final Pointer p1 = new Memory(669);
+                    p1.write(0, pDigitalCap, 0, pDigitalCap.length);
+                    final PointerByReference pr1 = new PointerByReference();
+                    pr1.setPointer(p1);
+                    // DIGITAL DO BANCO DE DADOS - DEDO UM                   
+                    Pointer p2 = new Memory(669);
+                    p2.write(0, dd.getBiometriaDedo1(), 0, dd.getBiometriaDedo1().length);
+                    PointerByReference pr2 = new PointerByReference();
+                    pr2.setPointer(p2);
+                    // DIGITAL DO BANCO DE DADOS - DEDO DOIS  
+                    Pointer p3 = new Memory(669);
+                    p3.write(0, dd.getBiometriaDedo2(), 0, dd.getBiometriaDedo2().length);
+                    PointerByReference pr3 = new PointerByReference();
+                    pr3.setPointer(p3);
+                    // DIGITAL DO BANCO DE DADOS - DEDO TRÊS  
+                    Pointer p4 = new Memory(669);
+                    p4.write(0, dd.getBiometriaDedo3(), 0, dd.getBiometriaDedo3().length);
+                    PointerByReference pr4 = new PointerByReference();
+                    pr4.setPointer(p4);
+                    // DIGITAL DO BANCO DE DADOS - DEDO QUATRO  
+                    Pointer p5 = new Memory(669);
+                    p5.write(0, dd.getBiometriaDedo4(), 0, dd.getBiometriaDedo4().length);
+                    PointerByReference pr5 = new PointerByReference();
+                    pr5.setPointer(p5);
+                    // COMPARA TODAS AS DIGITAIS                 
+                    int iRetorno = dll.CIS_SDK_Biometrico_CompararDigital(pr1, pr2);
+                    int iRetornod1 = dll.CIS_SDK_Biometrico_CompararDigital(pr1, pr3);
+                    int iRetornod2 = dll.CIS_SDK_Biometrico_CompararDigital(pr1, pr4);
+                    int iRetornod3 = dll.CIS_SDK_Biometrico_CompararDigital(pr1, pr5);
+                    // VERIFICAR SE A DIGITAL EXISTE OU NÃO
+                    if (iRetorno == 1) {
+                        jIdInternoKitBio.setText(String.valueOf(dd.getIdInternoCrc()));
+                        jNomeInternoKitBio.setText(dd.getNomeInternoCrc());
+                        jCNC.setText(dd.getMatriculaPenal());
+                        jRegimeKitBio.setText(dd.getRegime());
+                        jPavilhaoKitBio.setText(dd.getPavilhao());
+                        jCelaKitBio.setText(dd.getCela());
+                        caminhoFotoInterno = dd.getCaminhoFotoInterno();
+                        javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoInterno);
+                        jFotoInternoKitBio.setIcon(a);
+                        jFotoInternoKitBio.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoInternoKitBio.getWidth(), jFotoInternoKitBio.getHeight(), Image.SCALE_DEFAULT)));
+                        JOptionPane.showMessageDialog(null, "Digital capturada com sucesso !!!");
+                        int idRetorno = dll.CIS_SDK_Biometrico_Finalizar();
+                        return;
+                    } else if (iRetornod1 == 1) {
+                        jIdInternoKitBio.setText(String.valueOf(dd.getIdInternoCrc()));
+                        jNomeInternoKitBio.setText(dd.getNomeInternoCrc());
+                        jCNC.setText(dd.getMatriculaPenal());
+                        jRegimeKitBio.setText(dd.getRegime());
+                        jPavilhaoKitBio.setText(dd.getPavilhao());
+                        jCelaKitBio.setText(dd.getCela());
+                        caminhoFotoInterno = dd.getCaminhoFotoInterno();
+                        javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoInterno);
+                        jFotoInternoKitBio.setIcon(a);
+                        jFotoInternoKitBio.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoInternoKitBio.getWidth(), jFotoInternoKitBio.getHeight(), Image.SCALE_DEFAULT)));
+                        JOptionPane.showMessageDialog(null, "Digital capturada com sucesso !!!");
+                        int idRetorno = dll.CIS_SDK_Biometrico_Finalizar();
+                        return;
+                    } else if (iRetornod2 == 1) {
+                        jIdInternoKitBio.setText(String.valueOf(dd.getIdInternoCrc()));
+                        jNomeInternoKitBio.setText(dd.getNomeInternoCrc());
+                        jCNC.setText(dd.getMatriculaPenal());
+                        jRegimeKitBio.setText(dd.getRegime());
+                        jPavilhaoKitBio.setText(dd.getPavilhao());
+                        jCelaKitBio.setText(dd.getCela());
+                        caminhoFotoInterno = dd.getCaminhoFotoInterno();
+                        javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoInterno);
+                        jFotoInternoKitBio.setIcon(a);
+                        jFotoInternoKitBio.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoInternoKitBio.getWidth(), jFotoInternoKitBio.getHeight(), Image.SCALE_DEFAULT)));
+                        JOptionPane.showMessageDialog(null, "Digital capturada com sucesso !!!");
+                        int idRetorno = dll.CIS_SDK_Biometrico_Finalizar();
+                        return;
+                    } else if (iRetornod3 == 1) {
+                        jIdInternoKitBio.setText(String.valueOf(dd.getIdInternoCrc()));
+                        jNomeInternoKitBio.setText(dd.getNomeInternoCrc());
+                        jCNC.setText(dd.getMatriculaPenal());
+                        jRegimeKitBio.setText(dd.getRegime());
+                        jPavilhaoKitBio.setText(dd.getPavilhao());
+                        jCelaKitBio.setText(dd.getCela());
+                        caminhoFotoInterno = dd.getCaminhoFotoInterno();
+                        javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoInterno);
+                        jFotoInternoKitBio.setIcon(a);
+                        jFotoInternoKitBio.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoInternoKitBio.getWidth(), jFotoInternoKitBio.getHeight(), Image.SCALE_DEFAULT)));
+                        JOptionPane.showMessageDialog(null, "Digital capturada com sucesso !!!");
+                        int idRetorno = dll.CIS_SDK_Biometrico_Finalizar();
+                        return;
+                    }
+                    // SE iRetorno FOR IGUAL A -2 E pVar FOR IGUAL A count DIGITAL NÃO CADASTRADA                        
+                    if (iRetorno == -2 && iRetornod1 == -2 && iRetornod2 == -2 && iRetornod3 == -2 && qtdInternosReg == pVar) {
+                        break;
+                    }
+                    pVar = pVar + 1;
+                }
+                JOptionPane.showMessageDialog(null, "Digital não cadastrada, procure o CRC !!!");
+                // Finalizar o SDK 
+                int idRetorno = dll.CIS_SDK_Biometrico_Finalizar();
+                if (idRetorno != 1 && idRetorno == 0) {
+                    JOptionPane.showMessageDialog(null, "COMANDO NÃO EXECUTADO...");
+                    return;
+                } else if (idRetorno != 1 && idRetorno == -1) {
+                    JOptionPane.showMessageDialog(null, "LEITOR INCOMPATIVEL COM SDK...");
+                    return;
+                } else if (idRetorno != 1 && idRetorno == -10) {
+                    JOptionPane.showMessageDialog(null, "ERRO DESCONHECIDO...");
+                    return;
+                } else if (idRetorno != 1 && idRetorno == -11) {
+                    JOptionPane.showMessageDialog(null, "FALTA DE MEMÓRIA...");
+                    return;
+                } else if (idRetorno != 1 && idRetorno == -12) {
+                    JOptionPane.showMessageDialog(null, "ARGUMENTO INVALIDO...");
+                    return;
+                } else if (idRetorno != 1 && idRetorno == -13) {
+                    JOptionPane.showMessageDialog(null, "SDK EM USO...");
+                    return;
+                } else if (idRetorno != 1 && idRetorno == -14) {
+                    JOptionPane.showMessageDialog(null, "TEMPLATE INVALIDO...");
+                    return;
+                } else if (idRetorno != 1 && idRetorno == -15) {
+                    JOptionPane.showMessageDialog(null, "ERRO INTERNO...");
+                    return;
+                } else if (idRetorno != 1 && idRetorno == -16) {
+                    JOptionPane.showMessageDialog(null, "NÃO HABILITADO PARA CAPTURAR DIGITAL...");
+                    return;
+                } else if (idRetorno != 1 && idRetorno == -17) {
+                    JOptionPane.showMessageDialog(null, "CANCELADO PELO USUARIO...");
+                    return;
+                } else if (idRetorno != 1 && idRetorno == -18) {
+                    JOptionPane.showMessageDialog(null, "LEITURA NÃO É POSSIVEL...");
+                    return;
+                } else if (idRetorno != 1 && idRetorno == -21) {
+                    JOptionPane.showMessageDialog(null, "ERRO DESCONHECIDO...");
+                    return;
+                } else if (idRetorno != 1 && idRetorno == -22) {
+                    JOptionPane.showMessageDialog(null, "SDK NÃO FOI INICIADO...");
+                    return;
+                } else if (idRetorno != 1 && idRetorno == -23) {
+                    JOptionPane.showMessageDialog(null, "LEITOR NÃO CONECTADO...");
+                    return;
+                } else if (idRetorno != 1 && idRetorno == -24) {
+                    JOptionPane.showMessageDialog(null, "ERRO NO LEITOR...");
+                    return;
+                } else if (idRetorno != 1 && idRetorno == -25) {
+                    JOptionPane.showMessageDialog(null, "FRAME DE DADOS VAZIO...");
+                    return;
+                } else if (idRetorno != 1 && idRetorno == -26) {
+                    JOptionPane.showMessageDialog(null, "ORIGEM FALSA (FAKE)...");
+                    return;
+                } else if (idRetorno != 1 && idRetorno == -27) {
+                    JOptionPane.showMessageDialog(null, "HARDWARE INCOMPATIVEL...");
+                    return;
+                } else if (idRetorno != 1 && idRetorno == -28) {
+                    JOptionPane.showMessageDialog(null, "FIRMWARE INCOMPATIVEL...");
+                    return;
+                } else if (idRetorno != 1 && idRetorno == -29) {
+                    JOptionPane.showMessageDialog(null, "FRAME ALTERADO...");
+                    return;
+                }
+                d.setBiometriaDedo1(pDigitalCap);
+                d.setBiometriaDedo2(pDigitalCap);
+                d.setBiometriaDedo3(pDigitalCap);
+                d.setBiometriaDedo4(pDigitalCap);
+            } catch (Exception e) {
+            }
         }
-    }
+    ;
 
-    public void corCampos() {
+    };         
+     public void corCampos() {
         jIdRegistro.setBackground(Color.white);
         jDataRegistro.setBackground(Color.white);
         jComboBoxTipoMovimentacao.setBackground(Color.white);
         jHorarioSaidaEntrada.setBackground(Color.white);
-        jIdInternoKitImp.setBackground(Color.white);
+        jIdInternoKitBio.setBackground(Color.white);
         jCNC.setBackground(Color.white);
-        jRegimeKitImp.setBackground(Color.white);
-        jNomeInternoKitImp.setBackground(Color.white);
-        jPavilhaoKitImp.setBackground(Color.white);
+        jRegimeKitBio.setBackground(Color.white);
+        jNomeInternoKitBio.setBackground(Color.white);
+        jPavilhaoKitBio.setBackground(Color.white);
         jCelaKitBio.setBackground(Color.white);
         jNomeDepartamento.setBackground(Color.white);
-        jMotivo.setBackground(Color.white);
     }
 
     public void bloquearCampos() {
         jComboBoxTipoMovimentacao.setEnabled(!true);
-        jMotivo.setEnabled(!true);
         //
-        jBtNovo.setEnabled(true);
         jBtSalvar.setEnabled(!true);
         jBtCancelar.setEnabled(!true);
-        jBtPesquisaInterno.setEnabled(!true);
+        jBtIniciarLeitor.setEnabled(true);
+        jBtCancelarLeitura.setEnabled(!true);
     }
 
     public void Novo() {
@@ -1257,77 +1314,53 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
         jDataRegistro.setCalendar(Calendar.getInstance());
         jComboBoxTipoMovimentacao.setSelectedItem("Selecione...");
         jHorarioSaidaEntrada.setText(jHoraSistema.getText());
-        jNomeDepartamento.setText(nomeModuloODONTOLOGIA);
-        jIdInternoKitImp.setText("");
+        jIdInternoKitBio.setText("");
         jCNC.setText("");
-        jRegimeKitImp.setText("");
-        jNomeInternoKitImp.setText("");
-        jPavilhaoKitImp.setText("");
+        jRegimeKitBio.setText("");
+        jNomeDepartamento.setText(nomeModuloPEDA);
+        jPavilhaoKitBio.setText("");
         jCelaKitBio.setText("");
-        jFotoInternoKitImp.setIcon(null);
-        jMotivo.setText("");
         //
-        jMotivo.setEnabled(true);
         jComboBoxTipoMovimentacao.setEnabled(true);
         //
-        jBtNovo.setEnabled(!true);
-//        jBtSalvar.setEnabled(true);
+        jBtSalvar.setEnabled(true);
         jBtCancelar.setEnabled(true);
-        jBtPesquisaInterno.setEnabled(true);
-        jBtImprimirAutorização.setEnabled(!true);
+        jBtIniciarLeitor.setEnabled(true);
+        jBtCancelarLeitura.setEnabled(!true);
     }
 
     public void Salvar() {
-        jMotivo.setEnabled(!true);
         jComboBoxTipoMovimentacao.setEnabled(!true);
         //
-        jBtNovo.setEnabled(true);
         jBtSalvar.setEnabled(!true);
-        jBtCancelar.setEnabled(!true);
-        jBtPesquisaInterno.setEnabled(!true);
-        jBtImprimirAutorização.setEnabled(true);
+        jBtIniciarLeitor.setEnabled(true);
     }
 
     public void Cancelar() {
-        if (jIdRegistro.getText().equals("")) {
-            jDataRegistro.setDate(null);
-            jComboBoxTipoMovimentacao.setSelectedItem("Selecione...");
-            jHorarioSaidaEntrada.setText("");
-            jNomeDepartamento.setText("");
-            jIdInternoKitImp.setText("");
-            jCNC.setText("");
-            jRegimeKitImp.setText("");
-            jNomeInternoKitImp.setText("");
-            jPavilhaoKitImp.setText("");
-            jCelaKitBio.setText("");
-            jFotoInternoKitImp.setIcon(null);
-            jMotivo.setText("");
-            //
-            jMotivo.setEnabled(!true);
-            jComboBoxTipoMovimentacao.setEnabled(!true);
-            //
-            jBtNovo.setEnabled(true);
-            jBtSalvar.setEnabled(!true);
-            jBtCancelar.setEnabled(!true);
-            jBtPesquisaInterno.setEnabled(!true);
-            jBtImprimirAutorização.setEnabled(!true);
-        } else {
-            jMotivo.setEnabled(!true);
-            jComboBoxTipoMovimentacao.setEnabled(!true);
-            //
-            jBtNovo.setEnabled(true);
-            jBtSalvar.setEnabled(!true);
-            jBtCancelar.setEnabled(!true);
-            jBtPesquisaInterno.setEnabled(!true);
-            jBtImprimirAutorização.setEnabled(true);
-        }
+        jIdRegistro.setText("");
+        jDataRegistro.setDate(null);
+        jComboBoxTipoMovimentacao.setSelectedItem("Selecione...");
+        jHorarioSaidaEntrada.setText("");
+        jNomeDepartamento.setText("");
+        jIdInternoKitBio.setText("");
+        jCNC.setText("");
+        jRegimeKitBio.setText("");
+        jNomeInternoKitBio.setText("");
+        jPavilhaoKitBio.setText("");
+        jCelaKitBio.setText("");
+        jFotoInternoKitBio.setIcon(null);
+        //
+        jComboBoxTipoMovimentacao.setEnabled(!true);
+        //
+        jBtSalvar.setEnabled(!true);
+        jBtIniciarLeitor.setEnabled(true);
     }
 
     public void verificarInternos() {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
-                    + "WHERE IdInternoCrc='" + jIdInternoKitImp.getText() + "'");
+                    + "WHERE IdInternoCrc='" + jIdInternoKitBio.getText() + "'");
             conecta.rs.first();
             codigoInterno = conecta.rs.getString("IdInternoCrc");
             DataRegistro = conecta.rs.getString("DataReg");
@@ -1438,33 +1471,33 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
             conecta.executaSQL("SELECT * FROM USUARIOS "
                     + "WHERE NomeUsuario='" + nameUser + "'");
             conecta.rs.first();
-            codigoUserODON = conecta.rs.getInt("IdUsuario");
+            codigoUserPEDA = conecta.rs.getInt("IdUsuario");
         } catch (Exception e) {
         }
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
                     + "INNER JOIN GRUPOUSUARIOS "
                     + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                    + "WHERE IdUsuario='" + codigoUserODON + "'");
+                    + "WHERE IdUsuario='" + codigoUserPEDA + "'");
             conecta.rs.first();
-            codigoUserGroupODON = conecta.rs.getInt("IdUsuario");
-            codigoGrupoODON = conecta.rs.getInt("IdGrupo");
-            nomeGrupoODON = conecta.rs.getString("NomeGrupo");
+            codigoUserGroupPEDA = conecta.rs.getInt("IdUsuario");
+            codigoGrupoPEDA = conecta.rs.getInt("IdGrupo");
+            nomeGrupoPEDA = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
         }
         try {
             conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
-                    + "WHERE IdUsuario='" + codigoUserODON + "' "
+                    + "WHERE IdUsuario='" + codigoUserPEDA + "' "
                     + "AND NomeTela='" + nomeTelaAcesso + "'");
             conecta.rs.first();
-            codUserAcessoODON = conecta.rs.getInt("IdUsuario");
-            codAbrirODON = conecta.rs.getInt("Abrir");
-            codIncluirODON = conecta.rs.getInt("Incluir");
-            codAlterarODON = conecta.rs.getInt("Alterar");
-            codExcluirODON = conecta.rs.getInt("Excluir");
-            codGravarODON = conecta.rs.getInt("Gravar");
-            codConsultarODON = conecta.rs.getInt("Consultar");
-            nomeTelaODON = conecta.rs.getString("NomeTela");
+            codUserAcessoPEDA = conecta.rs.getInt("IdUsuario");
+            codAbrirPEDA = conecta.rs.getInt("Abrir");
+            codIncluirPEDA = conecta.rs.getInt("Incluir");
+            codAlterarPEDA = conecta.rs.getInt("Alterar");
+            codExcluirPEDA = conecta.rs.getInt("Excluir");
+            codGravarPEDA = conecta.rs.getInt("Gravar");
+            codConsultarPEDA = conecta.rs.getInt("Consultar");
+            nomeTelaPEDA = conecta.rs.getString("NomeTela");
         } catch (Exception e) {
         }
         conecta.desconecta();
@@ -1474,7 +1507,7 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM DEPARTAMENTOS "
-                    + "WHERE NomeDepartamento='" + nomeModuloODONTOLOGIA + "'");
+                    + "WHERE NomeDepartamento='" + nomeModuloPEDA + "'");
             conecta.rs.first();
             codigoDepto = conecta.rs.getInt("IdDepartamento");
         } catch (Exception e) {

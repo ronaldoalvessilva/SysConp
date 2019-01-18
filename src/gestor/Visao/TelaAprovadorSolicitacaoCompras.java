@@ -13,6 +13,19 @@ import gestor.Dao.ModeloTabela;
 import gestor.Modelo.AprovadorSolicitacaoCompra;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloAdmPessoal.codAbrirADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codAlterarADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codConsultarADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codExcluirADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codGravarADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codIncluirADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codUserAcessoADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codigoGrupoADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codigoUserADM;
+import static gestor.Visao.TelaModuloAdmPessoal.codigoUserGroupADM;
+import static gestor.Visao.TelaModuloAdmPessoal.nomeGrupoADM;
+import static gestor.Visao.TelaModuloAdmPessoal.nomeTelaADM;
+import static gestor.Visao.TelaModuloAdmPessoal.telaAprovadoresSC_ADM;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -54,6 +67,7 @@ public class TelaAprovadorSolicitacaoCompras extends javax.swing.JInternalFrame 
     float valorPedido = 0;
     float valorSaldoSolicitacao = 0;
     float valorSaldoPedido = 0;
+
     /**
      * Creates new form TelaAprovadorSolicitacaoCompras
      */
@@ -561,7 +575,7 @@ public class TelaAprovadorSolicitacaoCompras extends javax.swing.JInternalFrame 
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7183_16x16.png"))); // NOI18N
+        jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
         jBtNovo.setText("Novo");
         jBtNovo.setContentAreaFilled(false);
         jBtNovo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -829,82 +843,102 @@ public class TelaAprovadorSolicitacaoCompras extends javax.swing.JInternalFrame 
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaAprovadoresSC_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaAprovadoresSC_ADM) && codIncluirADM == 1) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        acao = 2;
-        Alterar();
-        corCampos();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaAprovadoresSC_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaAprovadoresSC_ADM) && codAlterarADM == 1) {
+            acao = 2;
+            Alterar();
+            corCampos();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
-        // TODO add your handling code here:       
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        verificarColaboradorAprovador();
+        // TODO add your handling code here: 
+        buscarAcessoUsuario(telaAprovadoresSC_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaAprovadoresSC_ADM) && codExcluirADM == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            verificarColaboradorAprovador();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        DecimalFormat qtdReal = new DecimalFormat("###,##00.0");
-        qtdReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
-        if (jNomeColaborador.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do Colaborador Aprovador.");
-        } else if (jCodigoFunc.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o Departamento do Colaborador.");
-        } else if (jComboBoxTipoLiberacao.getSelectedItem().equals("Solicitação") && jValorSolicitacao.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o valor máximo de aprovação da solicitação.");
-        } else if (jComboBoxTipoLiberacao.getSelectedItem().equals("Pedido") && jValorPedido.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o valor máximo de aprovação do Pedido.");
-        } else if (jComboBoxTipoLiberacao.getSelectedItem().equals("Ambos") && jValorSolicitacao.getText().equals("") || jValorPedido.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "É necessário preencher os campos dos valores de solicitação e pedido.");
+        buscarAcessoUsuario(telaAprovadoresSC_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaAprovadoresSC_ADM) && codGravarADM == 1) {
+            DecimalFormat qtdReal = new DecimalFormat("###,##00.0");
+            qtdReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
+            if (jNomeColaborador.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do Colaborador Aprovador.");
+            } else if (jCodigoFunc.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o Departamento do Colaborador.");
+            } else if (jComboBoxTipoLiberacao.getSelectedItem().equals("Solicitação") && jValorSolicitacao.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o valor máximo de aprovação da solicitação.");
+            } else if (jComboBoxTipoLiberacao.getSelectedItem().equals("Pedido") && jValorPedido.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o valor máximo de aprovação do Pedido.");
+            } else if (jComboBoxTipoLiberacao.getSelectedItem().equals("Ambos") && jValorSolicitacao.getText().equals("") || jValorPedido.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário preencher os campos dos valores de solicitação e pedido.");
+            } else {
+                objAprovaSol.setFotoFuncAprova(caminho);
+                objAprovaSol.setStatusAprova((String) jComboBoxStatusFunc.getSelectedItem());
+                objAprovaSol.setTipoAprova((String) jComboBoxTipoLiberacao.getSelectedItem());
+                objAprovaSol.setNomeAprovador(jNomeColaborador.getText());
+                objAprovaSol.setNomeColaborador(jNomeColaborador.getText());
+                try {
+                    objAprovaSol.setValorSolicita(qtdReal.parse(jValorSolicitacao.getText()).floatValue());
+                    objAprovaSol.setValorPedido(qtdReal.parse(jValorPedido.getText()).floatValue());
+                } catch (ParseException ex) {
+                }
+                objAprovaSol.setObservacao(jObservacao.getText());
+                if (acao == 1) {
+                    objAprovaSol.setUsuarioInsert(nameUser);
+                    objAprovaSol.setDataInsert(dataModFinal);
+                    objAprovaSol.setHorarioInsert(horaMov);
+                    //
+                    control.incluirAprovadorSolicitacao(objAprovaSol);
+                    buscarCodigo();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    Salvar();
+                }
+                if (acao == 2) {
+                    objAprovaSol.setUsuarioUp(nameUser);
+                    objAprovaSol.setDataUp(dataModFinal);
+                    objAprovaSol.setHorarioUp(horaMov);
+                    //
+                    objAprovaSol.setIdFuncAprova(Integer.valueOf(jCodAprovador.getText()));
+                    control.alterarAprovadorSolicitacao(objAprovaSol);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    Salvar();
+                }
+            }
         } else {
-            objAprovaSol.setFotoFuncAprova(caminho);
-            objAprovaSol.setStatusAprova((String) jComboBoxStatusFunc.getSelectedItem());
-            objAprovaSol.setTipoAprova((String) jComboBoxTipoLiberacao.getSelectedItem());
-            objAprovaSol.setNomeAprovador(jNomeColaborador.getText());
-            objAprovaSol.setNomeColaborador(jNomeColaborador.getText());
-            try {
-                objAprovaSol.setValorSolicita(qtdReal.parse(jValorSolicitacao.getText()).floatValue());
-                objAprovaSol.setValorPedido(qtdReal.parse(jValorPedido.getText()).floatValue());
-            } catch (ParseException ex) {
-            }
-            objAprovaSol.setObservacao(jObservacao.getText());
-            if (acao == 1) {
-                objAprovaSol.setUsuarioInsert(nameUser);
-                objAprovaSol.setDataInsert(dataModFinal);
-                objAprovaSol.setHorarioInsert(horaMov);
-                //
-                control.incluirAprovadorSolicitacao(objAprovaSol);
-                buscarCodigo();
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                Salvar();
-            }
-            if (acao == 2) {
-                objAprovaSol.setUsuarioUp(nameUser);
-                objAprovaSol.setDataUp(dataModFinal);
-                objAprovaSol.setHorarioUp(horaMov);
-                //
-                objAprovaSol.setIdFuncAprova(Integer.valueOf(jCodAprovador.getText()));
-                control.alterarAprovadorSolicitacao(objAprovaSol);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                Salvar();
-            }
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -1232,5 +1266,43 @@ public class TelaAprovadorSolicitacaoCompras extends javax.swing.JInternalFrame 
         objLogSys.setIdLancMov(Integer.valueOf(jCodAprovador.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserADM = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserADM + "'");
+            conecta.rs.first();
+            codigoUserGroupADM = conecta.rs.getInt("IdUsuario");
+            codigoGrupoADM = conecta.rs.getInt("IdGrupo");
+            nomeGrupoADM = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserADM + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoADM = conecta.rs.getInt("IdUsuario");
+            codAbrirADM = conecta.rs.getInt("Abrir");
+            codIncluirADM = conecta.rs.getInt("Incluir");
+            codAlterarADM = conecta.rs.getInt("Alterar");
+            codExcluirADM = conecta.rs.getInt("Excluir");
+            codGravarADM = conecta.rs.getInt("Gravar");
+            codConsultarADM = conecta.rs.getInt("Consultar");
+            nomeTelaADM = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

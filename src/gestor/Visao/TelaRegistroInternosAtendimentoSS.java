@@ -916,6 +916,8 @@ public class TelaRegistroInternosAtendimentoSS extends javax.swing.JInternalFram
             String nomeInterno = "" + jTabelaRegistroInterno.getValueAt(jTabelaRegistroInterno.getSelectedRow(), 3);
             jPesqNomeInternoOdonto.setText(nomeInterno);
             //
+            bloquearCampos();
+            //
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
@@ -1298,6 +1300,15 @@ public class TelaRegistroInternosAtendimentoSS extends javax.swing.JInternalFram
         jNomeDepartamento.setBackground(Color.white);
     }
 
+    public void bloquearCampos() {
+        jComboBoxTipoMovimentacao.setEnabled(!true);
+        //
+        jBtSalvar.setEnabled(!true);
+        jBtCancelar.setEnabled(!true);
+        jBtIniciarLeitor.setEnabled(true);
+        jBtCancelarLeitura.setEnabled(!true);
+    }
+
     public void Novo() {
         jIdRegistro.setText("");
         jDataRegistro.setCalendar(Calendar.getInstance());
@@ -1318,7 +1329,7 @@ public class TelaRegistroInternosAtendimentoSS extends javax.swing.JInternalFram
         jBtCancelarLeitura.setEnabled(!true);
     }
 
-    public void Salvar() {                
+    public void Salvar() {
         jComboBoxTipoMovimentacao.setEnabled(!true);
         //
         jBtSalvar.setEnabled(!true);
@@ -1443,7 +1454,7 @@ public class TelaRegistroInternosAtendimentoSS extends javax.swing.JInternalFram
         //
         jTabelaRegistroInterno.getColumnModel().getColumn(0).setCellRenderer(centralizado);
         jTabelaRegistroInterno.getColumnModel().getColumn(2).setCellRenderer(centralizado);
-    }    
+    }
 
     public void objLog() {
         objLogSys.setDataMov(dataModFinal);

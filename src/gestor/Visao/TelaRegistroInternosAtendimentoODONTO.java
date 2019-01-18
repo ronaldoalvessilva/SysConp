@@ -921,6 +921,8 @@ public class TelaRegistroInternosAtendimentoODONTO extends javax.swing.JInternal
             String nomeInterno = "" + jTabelaRegistroInterno.getValueAt(jTabelaRegistroInterno.getSelectedRow(), 3);
             jPesqNomeInternoOdonto.setText(nomeInterno);
             //
+            bloquearCampos();
+            //
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
@@ -1303,6 +1305,15 @@ public class TelaRegistroInternosAtendimentoODONTO extends javax.swing.JInternal
         jNomeDepartamento.setBackground(Color.white);
     }
 
+    public void bloquearCampos() {
+        jComboBoxTipoMovimentacao.setEnabled(!true);
+        //
+        jBtSalvar.setEnabled(!true);
+        jBtCancelar.setEnabled(!true);
+        jBtIniciarLeitor.setEnabled(true);
+        jBtCancelarLeitura.setEnabled(!true);
+    }
+
     public void Novo() {
         jIdRegistro.setText("");
         jDataRegistro.setCalendar(Calendar.getInstance());
@@ -1324,18 +1335,6 @@ public class TelaRegistroInternosAtendimentoODONTO extends javax.swing.JInternal
     }
 
     public void Salvar() {
-//        jIdRegistro.setText("");
-//        jDataRegistro.setDate(null);
-//        jComboBoxTipoMovimentacao.setSelectedItem("Selecione...");
-//        jHorarioSaidaEntrada.setText("");
-//        jNomeDepartamento.setText("");
-//        jIdInternoKitBio.setText("");
-//        jCNC.setText("");
-//        jRegimeKitBio.setText("");
-//        jNomeInternoKitBio.setText("");
-//        jPavilhaoKitBio.setText("");
-//        jCelaKitBio.setText("");
-//        jFotoInternoKitBio.setIcon(null);
         //
         jComboBoxTipoMovimentacao.setEnabled(!true);
         //

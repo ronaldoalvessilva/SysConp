@@ -2207,6 +2207,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaAdmissaoInternosServicoSocial);
         if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaAdmissaoInternosServicoSocial) && codIncluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             acao = 1;
             Novo();
@@ -2795,7 +2796,8 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
                     controlMovEvolSSocial.alterarMovServicoSocial(objEvol);
                     objLog1();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    preencherTabelaEvolucaoServicoSocial("SELECT * FROM EVOLUCAO_ATENDIMENTO_SOCIAL WHERE IdAtend='" + jIDAtend.getText() + "'");
+                    preencherTabelaEvolucaoServicoSocial("SELECT * FROM EVOLUCAO_ATENDIMENTO_SOCIAL "
+                            + "WHERE IdAtend='" + jIDAtend.getText() + "'");
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                     SalvarEvolucao();
                 }

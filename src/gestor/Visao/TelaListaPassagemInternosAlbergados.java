@@ -15,6 +15,20 @@ import gestor.Modelo.ItensListagemInternosAlbergados;
 import gestor.Modelo.ListaPassagemAlbergados;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloCRC.codAbrirCRC;
+import static gestor.Visao.TelaModuloCRC.codAlterarCRC;
+import static gestor.Visao.TelaModuloCRC.codConsultarCRC;
+import static gestor.Visao.TelaModuloCRC.codExcluirCRC;
+import static gestor.Visao.TelaModuloCRC.codGravarCRC;
+import static gestor.Visao.TelaModuloCRC.codIncluirCRC;
+import static gestor.Visao.TelaModuloCRC.codUserAcessoCRC;
+import static gestor.Visao.TelaModuloCRC.codigoGrupoCRC;
+import static gestor.Visao.TelaModuloCRC.codigoUserCRC;
+import static gestor.Visao.TelaModuloCRC.codigoUserGroupCRC;
+import static gestor.Visao.TelaModuloCRC.nomeGrupoCRC;
+import static gestor.Visao.TelaModuloCRC.nomeTelaCRC;
+import static gestor.Visao.TelaModuloCRC.telaListaPassagemInteCRC;
+import static gestor.Visao.TelaModuloCRC.telaListaPassagemManuCRC;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -117,22 +131,6 @@ public class TelaListaPassagemInternosAlbergados extends javax.swing.JInternalFr
         jBtPesquisarOperacao = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTabelaItensInternos = new javax.swing.JTable();
-        jSeparator1 = new javax.swing.JSeparator();
-        jBtNovo = new javax.swing.JButton();
-        jBtAlterar = new javax.swing.JButton();
-        jBtExcluir = new javax.swing.JButton();
-        jBtCancelar = new javax.swing.JButton();
-        jBtSalvar = new javax.swing.JButton();
-        jBtAuditoriaManu = new javax.swing.JButton();
-        jBtSair = new javax.swing.JButton();
-        jBtFinalizar = new javax.swing.JButton();
-        jBtNovoInterno = new javax.swing.JButton();
-        jBtAlterarInterno = new javax.swing.JButton();
-        jBtExcluirInterno = new javax.swing.JButton();
-        jBtSalvarInterno = new javax.swing.JButton();
-        jBtCancelarInterno = new javax.swing.JButton();
-        jBtBuscarInterno = new javax.swing.JButton();
-        jBtAuditoriaItens = new javax.swing.JButton();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel5 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
@@ -151,6 +149,24 @@ public class TelaListaPassagemInternosAlbergados extends javax.swing.JInternalFr
         jPanel6 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jObservacaoInterno = new javax.swing.JTextArea();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jBtNovo = new javax.swing.JButton();
+        jBtAlterar = new javax.swing.JButton();
+        jBtExcluir = new javax.swing.JButton();
+        jBtSalvar = new javax.swing.JButton();
+        jBtCancelar = new javax.swing.JButton();
+        jBtSair = new javax.swing.JButton();
+        jBtFinalizar = new javax.swing.JButton();
+        jBtAuditoriaManu = new javax.swing.JButton();
+        jPanel9 = new javax.swing.JPanel();
+        jBtNovoInterno = new javax.swing.JButton();
+        jBtAlterarInterno = new javax.swing.JButton();
+        jBtExcluirInterno = new javax.swing.JButton();
+        jBtSalvarInterno = new javax.swing.JButton();
+        jBtCancelarInterno = new javax.swing.JButton();
+        jBtBuscarInterno = new javax.swing.JButton();
+        jBtAuditoriaItens = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -349,7 +365,7 @@ public class TelaListaPassagemInternosAlbergados extends javax.swing.JInternalFr
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 634, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -365,7 +381,7 @@ public class TelaListaPassagemInternosAlbergados extends javax.swing.JInternalFr
                 .addContainerGap()
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -480,7 +496,7 @@ public class TelaListaPassagemInternosAlbergados extends javax.swing.JInternalFr
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -511,147 +527,6 @@ public class TelaListaPassagemInternosAlbergados extends javax.swing.JInternalFr
             jTabelaItensInternos.getColumnModel().getColumn(3).setMinWidth(80);
             jTabelaItensInternos.getColumnModel().getColumn(3).setMaxWidth(80);
         }
-
-        jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
-        jBtNovo.setToolTipText("Novo");
-        jBtNovo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtNovoActionPerformed(evt);
-            }
-        });
-
-        jBtAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
-        jBtAlterar.setToolTipText("Alterar");
-        jBtAlterar.setEnabled(false);
-        jBtAlterar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtAlterarActionPerformed(evt);
-            }
-        });
-
-        jBtExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
-        jBtExcluir.setToolTipText("Excluir");
-        jBtExcluir.setEnabled(false);
-        jBtExcluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtExcluirActionPerformed(evt);
-            }
-        });
-
-        jBtCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Close_Icon_16.png"))); // NOI18N
-        jBtCancelar.setToolTipText("Cancelar");
-        jBtCancelar.setEnabled(false);
-        jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtCancelarActionPerformed(evt);
-            }
-        });
-
-        jBtSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
-        jBtSalvar.setToolTipText("Gravar");
-        jBtSalvar.setEnabled(false);
-        jBtSalvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtSalvarActionPerformed(evt);
-            }
-        });
-
-        jBtAuditoriaManu.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtAuditoriaManu.setForeground(new java.awt.Color(255, 0, 0));
-        jBtAuditoriaManu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
-        jBtAuditoriaManu.setToolTipText("Auditoria");
-        jBtAuditoriaManu.setContentAreaFilled(false);
-        jBtAuditoriaManu.setEnabled(false);
-        jBtAuditoriaManu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtAuditoriaManuActionPerformed(evt);
-            }
-        });
-
-        jBtSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Log_Out_Icon_16.png"))); // NOI18N
-        jBtSair.setToolTipText("Sair");
-        jBtSair.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtSairActionPerformed(evt);
-            }
-        });
-
-        jBtFinalizar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtFinalizar.setForeground(new java.awt.Color(255, 0, 0));
-        jBtFinalizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/accept.png"))); // NOI18N
-        jBtFinalizar.setToolTipText("Finalizar");
-        jBtFinalizar.setEnabled(false);
-        jBtFinalizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtFinalizarActionPerformed(evt);
-            }
-        });
-
-        jBtNovoInterno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
-        jBtNovoInterno.setToolTipText("Novo");
-        jBtNovoInterno.setEnabled(false);
-        jBtNovoInterno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtNovoInternoActionPerformed(evt);
-            }
-        });
-
-        jBtAlterarInterno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
-        jBtAlterarInterno.setToolTipText("Alterar");
-        jBtAlterarInterno.setEnabled(false);
-        jBtAlterarInterno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtAlterarInternoActionPerformed(evt);
-            }
-        });
-
-        jBtExcluirInterno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
-        jBtExcluirInterno.setToolTipText("Excluir");
-        jBtExcluirInterno.setEnabled(false);
-        jBtExcluirInterno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtExcluirInternoActionPerformed(evt);
-            }
-        });
-
-        jBtSalvarInterno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
-        jBtSalvarInterno.setToolTipText("Gravar");
-        jBtSalvarInterno.setEnabled(false);
-        jBtSalvarInterno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtSalvarInternoActionPerformed(evt);
-            }
-        });
-
-        jBtCancelarInterno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Close_Icon_16.png"))); // NOI18N
-        jBtCancelarInterno.setToolTipText("Cancelar");
-        jBtCancelarInterno.setEnabled(false);
-        jBtCancelarInterno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtCancelarInternoActionPerformed(evt);
-            }
-        });
-
-        jBtBuscarInterno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
-        jBtBuscarInterno.setToolTipText("Buscar");
-        jBtBuscarInterno.setEnabled(false);
-        jBtBuscarInterno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtBuscarInternoActionPerformed(evt);
-            }
-        });
-
-        jBtAuditoriaItens.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtAuditoriaItens.setForeground(new java.awt.Color(0, 0, 255));
-        jBtAuditoriaItens.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
-        jBtAuditoriaItens.setToolTipText("Auditoria");
-        jBtAuditoriaItens.setContentAreaFilled(false);
-        jBtAuditoriaItens.setEnabled(false);
-        jBtAuditoriaItens.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtAuditoriaItensActionPerformed(evt);
-            }
-        });
 
         jTabbedPane2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
@@ -815,6 +690,279 @@ public class TelaListaPassagemInternosAlbergados extends javax.swing.JInternalFr
 
         jTabbedPane2.addTab("Observação", jPanel6);
 
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
+        jBtNovo.setText("Novo");
+        jBtNovo.setToolTipText("Novo");
+        jBtNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtNovoActionPerformed(evt);
+            }
+        });
+
+        jBtAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
+        jBtAlterar.setText("Alterar");
+        jBtAlterar.setToolTipText("Alterar");
+        jBtAlterar.setEnabled(false);
+        jBtAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAlterarActionPerformed(evt);
+            }
+        });
+
+        jBtExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
+        jBtExcluir.setText("Excluir");
+        jBtExcluir.setToolTipText("Excluir");
+        jBtExcluir.setEnabled(false);
+        jBtExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtExcluirActionPerformed(evt);
+            }
+        });
+
+        jBtSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
+        jBtSalvar.setText("Gravar");
+        jBtSalvar.setToolTipText("Gravar");
+        jBtSalvar.setEnabled(false);
+        jBtSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtSalvarActionPerformed(evt);
+            }
+        });
+
+        jBtCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Close_Icon_16.png"))); // NOI18N
+        jBtCancelar.setText("Cancelar");
+        jBtCancelar.setToolTipText("Cancelar");
+        jBtCancelar.setEnabled(false);
+        jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtCancelarActionPerformed(evt);
+            }
+        });
+
+        jBtSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Log_Out_Icon_16.png"))); // NOI18N
+        jBtSair.setText("Sair");
+        jBtSair.setToolTipText("Sair");
+        jBtSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtSairActionPerformed(evt);
+            }
+        });
+
+        jBtFinalizar.setForeground(new java.awt.Color(255, 0, 0));
+        jBtFinalizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/accept.png"))); // NOI18N
+        jBtFinalizar.setText("Finalizar");
+        jBtFinalizar.setToolTipText("Finalizar");
+        jBtFinalizar.setEnabled(false);
+        jBtFinalizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtFinalizarActionPerformed(evt);
+            }
+        });
+
+        jBtAuditoriaManu.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jBtAuditoriaManu.setForeground(new java.awt.Color(255, 0, 0));
+        jBtAuditoriaManu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
+        jBtAuditoriaManu.setToolTipText("Auditoria");
+        jBtAuditoriaManu.setContentAreaFilled(false);
+        jBtAuditoriaManu.setEnabled(false);
+        jBtAuditoriaManu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAuditoriaManuActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jBtNovo)
+                            .addComponent(jBtAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jBtExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jBtSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jBtCancelar)
+                            .addComponent(jBtSair)
+                            .addComponent(jBtFinalizar)))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(jBtAuditoriaManu, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel7Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterar, jBtCancelar, jBtExcluir, jBtFinalizar, jBtNovo, jBtSair, jBtSalvar});
+
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtNovo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtAlterar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtExcluir)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtSalvar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtCancelar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtSair)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtFinalizar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtAuditoriaManu))
+        );
+
+        jPanel7Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterar, jBtExcluir, jBtNovo, jBtSalvar});
+
+        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        jBtNovoInterno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
+        jBtNovoInterno.setText("Novo");
+        jBtNovoInterno.setToolTipText("Novo");
+        jBtNovoInterno.setEnabled(false);
+        jBtNovoInterno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtNovoInternoActionPerformed(evt);
+            }
+        });
+
+        jBtAlterarInterno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
+        jBtAlterarInterno.setText("Alterar");
+        jBtAlterarInterno.setToolTipText("Alterar");
+        jBtAlterarInterno.setEnabled(false);
+        jBtAlterarInterno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAlterarInternoActionPerformed(evt);
+            }
+        });
+
+        jBtExcluirInterno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
+        jBtExcluirInterno.setText("Excluir");
+        jBtExcluirInterno.setToolTipText("Excluir");
+        jBtExcluirInterno.setEnabled(false);
+        jBtExcluirInterno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtExcluirInternoActionPerformed(evt);
+            }
+        });
+
+        jBtSalvarInterno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
+        jBtSalvarInterno.setText("Gravar");
+        jBtSalvarInterno.setToolTipText("Gravar");
+        jBtSalvarInterno.setEnabled(false);
+        jBtSalvarInterno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtSalvarInternoActionPerformed(evt);
+            }
+        });
+
+        jBtCancelarInterno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Close_Icon_16.png"))); // NOI18N
+        jBtCancelarInterno.setText("Cancelar");
+        jBtCancelarInterno.setToolTipText("Cancelar");
+        jBtCancelarInterno.setEnabled(false);
+        jBtCancelarInterno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtCancelarInternoActionPerformed(evt);
+            }
+        });
+
+        jBtBuscarInterno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
+        jBtBuscarInterno.setText("Buscar");
+        jBtBuscarInterno.setToolTipText("Buscar");
+        jBtBuscarInterno.setEnabled(false);
+        jBtBuscarInterno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtBuscarInternoActionPerformed(evt);
+            }
+        });
+
+        jBtAuditoriaItens.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jBtAuditoriaItens.setForeground(new java.awt.Color(0, 0, 255));
+        jBtAuditoriaItens.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
+        jBtAuditoriaItens.setToolTipText("Auditoria");
+        jBtAuditoriaItens.setContentAreaFilled(false);
+        jBtAuditoriaItens.setEnabled(false);
+        jBtAuditoriaItens.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAuditoriaItensActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jBtNovoInterno)
+                            .addComponent(jBtAlterarInterno)
+                            .addComponent(jBtExcluirInterno)
+                            .addComponent(jBtSalvarInterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jBtCancelarInterno)
+                            .addComponent(jBtBuscarInterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(jBtAuditoriaItens, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel9Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarInterno, jBtBuscarInterno, jBtCancelarInterno, jBtExcluirInterno, jBtNovoInterno, jBtSalvarInterno});
+
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtNovoInterno)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtAlterarInterno)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtExcluirInterno)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtSalvarInterno)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtCancelarInterno)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtBuscarInterno)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtAuditoriaItens))
+        );
+
+        jPanel9Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterarInterno, jBtBuscarInterno, jBtCancelarInterno, jBtExcluirInterno, jBtNovoInterno, jBtSalvarInterno});
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7))
+        );
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -822,80 +970,26 @@ public class TelaListaPassagemInternosAlbergados extends javax.swing.JInternalFr
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jBtNovo)
-                        .addGap(5, 5, 5)
-                        .addComponent(jBtAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtSalvar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtCancelar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtSair)
-                        .addGap(32, 32, 32)
-                        .addComponent(jBtFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jTabbedPane2)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jBtNovoInterno)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtAlterarInterno)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtExcluirInterno)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtSalvarInterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtCancelarInterno)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtBuscarInterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBtAuditoriaItens, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2)
-                    .addComponent(jBtAuditoriaManu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSeparator1)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(11, Short.MAX_VALUE))
         );
-
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarInterno, jBtBuscarInterno, jBtCancelarInterno, jBtExcluirInterno, jBtNovoInterno, jBtSalvarInterno});
-
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtAuditoriaManu)
-                    .addComponent(jBtExcluir)
-                    .addComponent(jBtCancelar)
-                    .addComponent(jBtSalvar)
-                    .addComponent(jBtSair)
-                    .addComponent(jBtFinalizar)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jBtNovo)
-                        .addComponent(jBtAlterar)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtNovoInterno)
-                    .addComponent(jBtAlterarInterno)
-                    .addComponent(jBtExcluirInterno)
-                    .addComponent(jBtSalvarInterno)
-                    .addComponent(jBtCancelarInterno)
-                    .addComponent(jBtBuscarInterno)
-                    .addComponent(jBtAuditoriaItens))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
-
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterar, jBtExcluir, jBtNovo, jBtSalvar});
-
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterarInterno, jBtBuscarInterno, jBtCancelarInterno, jBtExcluirInterno, jBtNovoInterno, jBtSalvarInterno});
 
         jTabbedPane1.addTab("Manutenção", jPanel2);
 
@@ -903,94 +997,116 @@ public class TelaListaPassagemInternosAlbergados extends javax.swing.JInternalFr
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 659, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 2, Short.MAX_VALUE))
         );
 
-        setBounds(300, 20, 529, 532);
+        setBounds(300, 20, 675, 576);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        limparCampos();
-        acao = 1;
-        Novo();
-        corCampos();        
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaListaPassagemManuCRC);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaListaPassagemManuCRC) && codIncluirCRC == 1) {
+            limparCampos();
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        objAgenda.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse  interno registro não poderá ser alterardo, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaListaPassagemManuCRC);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaListaPassagemManuCRC) && codAlterarCRC == 1) {
+            objAgenda.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse  interno registro não poderá ser alterardo, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                Alterar();
+                corCampos();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 2;
-            Alterar();
-            corCampos();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        objAgenda.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse  registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaListaPassagemManuCRC);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaListaPassagemManuCRC) && codExcluirCRC == 1) {
+            objAgenda.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse  registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                verificarItens();
+            }
         } else {
-            verificarItens();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataCadastro.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data de cadastro.");
-            jDataCadastro.requestFocus();
-            jDataCadastro.setBackground(Color.red);
-        } else {
-            if (jOperacao.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "É necessário informar o tipo de operação.");
+        buscarAcessoUsuario(telaListaPassagemManuCRC);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaListaPassagemManuCRC) && codGravarCRC == 1) {
+            if (jDataCadastro.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de cadastro.");
+                jDataCadastro.requestFocus();
+                jDataCadastro.setBackground(Color.red);
             } else {
-                objAgenda.setStatusLanc(statusLanc);
-                objAgenda.setDataCadastro(jDataCadastro.getDate());
-                objAgenda.setObsLanc(jObservacao.getText());
-                if (acao == 1) {
-                    // log de usuario
-                    objAgenda.setUsuarioInsert(nameUser);
-                    objAgenda.setDataInsert(dataModFinal);
-                    objAgenda.setHoraInsert(horaMov);
-                    //
-                    objAgenda.setNomeOperacao(jOperacao.getText());
-                    control.incluirLista(objAgenda);
-                    buscarID();
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    Salvar();
-                }
-                if (acao == 2) {
-                    // log de usuario
-                    objAgenda.setUsuarioUp(nameUser);
-                    objAgenda.setDataUp(dataModFinal);
-                    objAgenda.setHoraUp(horaMov);
-                    //
-                    objAgenda.setNomeOperacao(jOperacao.getText());
-                    objAgenda.setIdAgenda(Integer.valueOf(jIDAgenda.getText()));
-                    control.alterarLista(objAgenda);
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    Salvar();
+                if (jOperacao.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "É necessário informar o tipo de operação.");
+                } else {
+                    objAgenda.setStatusLanc(statusLanc);
+                    objAgenda.setDataCadastro(jDataCadastro.getDate());
+                    objAgenda.setObsLanc(jObservacao.getText());
+                    if (acao == 1) {
+                        // log de usuario
+                        objAgenda.setUsuarioInsert(nameUser);
+                        objAgenda.setDataInsert(dataModFinal);
+                        objAgenda.setHoraInsert(horaMov);
+                        //
+                        objAgenda.setNomeOperacao(jOperacao.getText());
+                        control.incluirLista(objAgenda);
+                        buscarID();
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        Salvar();
+                    }
+                    if (acao == 2) {
+                        // log de usuario
+                        objAgenda.setUsuarioUp(nameUser);
+                        objAgenda.setDataUp(dataModFinal);
+                        objAgenda.setHoraUp(horaMov);
+                        //
+                        objAgenda.setNomeOperacao(jOperacao.getText());
+                        objAgenda.setIdAgenda(Integer.valueOf(jIDAgenda.getText()));
+                        control.alterarLista(objAgenda);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        Salvar();
+                    }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -1013,89 +1129,126 @@ public class TelaListaPassagemInternosAlbergados extends javax.swing.JInternalFr
 
     private void jBtNovoInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoInternoActionPerformed
         // TODO add your handling code here:
-        objAgenda.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Não e possivel incluir mais registro, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaListaPassagemInteCRC);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaListaPassagemInteCRC) && codIncluirCRC == 1) {
+            objAgenda.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Não e possivel incluir mais registro, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 3;
+                NovoInterno();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 3;
-            NovoInterno();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtNovoInternoActionPerformed
 
     private void jBtAlterarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarInternoActionPerformed
         // TODO add your handling code here:
-        objAgenda.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse  interno não poderá ser alterardo, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaListaPassagemInteCRC);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaListaPassagemInteCRC) && codAlterarCRC == 1) {
+            objAgenda.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse  interno não poderá ser alterardo, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 4;
+                AlterarInterno();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 4;
-            AlterarInterno();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarInternoActionPerformed
 
     private void jBtExcluirInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirInternoActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        objAgenda.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse  interno não poderá ser excluído, o mesmo encontra-se FINALIZADO");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o interno selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objItensAgenda.setIdItem(Integer.valueOf(idItem));
-                controle.excluirItensListagemAlbergados(objItensAgenda);
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                preencherTabelaItens("SELECT * FROM ITENS_LISTA_PASSAGEM_ALBERGADOS "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON ITENS_LISTA_PASSAGEM_ALBERGADOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "WHERE IdAgenda='" + jIDAgenda.getText() + "'");
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                ExcluirInterno();
+        buscarAcessoUsuario(telaListaPassagemInteCRC);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaListaPassagemInteCRC) && codExcluirCRC == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objAgenda.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse  interno não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o interno selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objItensAgenda.setIdItem(Integer.valueOf(idItem));
+                    controle.excluirItensListagemAlbergados(objItensAgenda);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    preencherTabelaItens("SELECT * FROM ITENS_LISTA_PASSAGEM_ALBERGADOS "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON ITENS_LISTA_PASSAGEM_ALBERGADOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "WHERE IdAgenda='" + jIDAgenda.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    ExcluirInterno();
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirInternoActionPerformed
 
     private void jBtSalvarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarInternoActionPerformed
         // TODO add your handling code here:
-        verificarInternoCadastrado(); // VERIFICAR SE O INTERNO JÁ FOI INCLUÍDO NO REGISTRO.
-        if (jNomeInterno.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno a ser incluído");
-        } else {
-            if (jComboBoxStatus.getSelectedItem() == null || jComboBoxStatus.getSelectedItem().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe o status do interno");
-                jComboBoxStatus.requestFocus();
-                jComboBoxStatus.setBackground(Color.red);
+        buscarAcessoUsuario(telaListaPassagemInteCRC);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaListaPassagemInteCRC) && codGravarCRC == 1) {
+            verificarInternoCadastrado(); // VERIFICAR SE O INTERNO JÁ FOI INCLUÍDO NO REGISTRO.
+            if (jNomeInterno.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno a ser incluído");
             } else {
-                objItensAgenda.setIdAgenda(Integer.valueOf(jIDAgenda.getText()));
-                objItensAgenda.setNomeInterno(jNomeInterno.getText());
-                objItensAgenda.setStatusInterno((String) jComboBoxStatus.getSelectedItem());
-                if (jComboBoxStatus.getSelectedItem().equals("Ativo")) {
-                    situacaoInterno = "AUTORIZADO";
-                } else if (jComboBoxStatus.getSelectedItem().equals("Inativo")) {
-                    situacaoInterno = "DESAUTORIZADO";
-                }
-                objItensAgenda.setSituacaoInterno(situacaoInterno);
-                objItensAgenda.setObservacaoInterno(jObservacaoInterno.getText());
-                if (acao == 3) {
-                    if (jIdInterno.getText().equals(codigoInterno)) {
-                        JOptionPane.showMessageDialog(rootPane, "Esse registro de interno já encontra-se cadastrado nesse documento.");
-                    } else {
-                        // log de usuario
-                        objItensAgenda.setUsuarioInsert(nameUser);
-                        objItensAgenda.setDataInsert(dataModFinal);
-                        objItensAgenda.setHoraInsert(horaMov);
+                if (jComboBoxStatus.getSelectedItem() == null || jComboBoxStatus.getSelectedItem().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe o status do interno");
+                    jComboBoxStatus.requestFocus();
+                    jComboBoxStatus.setBackground(Color.red);
+                } else {
+                    objItensAgenda.setIdAgenda(Integer.valueOf(jIDAgenda.getText()));
+                    objItensAgenda.setNomeInterno(jNomeInterno.getText());
+                    objItensAgenda.setStatusInterno((String) jComboBoxStatus.getSelectedItem());
+                    if (jComboBoxStatus.getSelectedItem().equals("Ativo")) {
+                        situacaoInterno = "AUTORIZADO";
+                    } else if (jComboBoxStatus.getSelectedItem().equals("Inativo")) {
+                        situacaoInterno = "DESAUTORIZADO";
+                    }
+                    objItensAgenda.setSituacaoInterno(situacaoInterno);
+                    objItensAgenda.setObservacaoInterno(jObservacaoInterno.getText());
+                    if (acao == 3) {
+                        if (jIdInterno.getText().equals(codigoInterno)) {
+                            JOptionPane.showMessageDialog(rootPane, "Esse registro de interno já encontra-se cadastrado nesse documento.");
+                        } else {
+                            // log de usuario
+                            objItensAgenda.setUsuarioInsert(nameUser);
+                            objItensAgenda.setDataInsert(dataModFinal);
+                            objItensAgenda.setHoraInsert(horaMov);
+                            //
+                            controle.incluirItensListagemAlbergados(objItensAgenda);
+                            objLog2();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            preencherTabelaItens("SELECT * FROM ITENS_LISTA_PASSAGEM_ALBERGADOS "
+                                    + "INNER JOIN PRONTUARIOSCRC "
+                                    + "ON ITENS_LISTA_PASSAGEM_ALBERGADOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                    + "WHERE IdAgenda='" + jIDAgenda.getText() + "'");
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                            SalvarInterno();
+                        }
+                    }
+                    if (acao == 4) {
+                        objItensAgenda.setUsuarioUp(nameUser);
+                        objItensAgenda.setDataUp(dataModFinal);
+                        objItensAgenda.setHoraUp(horaMov);
                         //
-                        controle.incluirItensListagemAlbergados(objItensAgenda);
+                        objItensAgenda.setIdAgenda(Integer.valueOf(jIDAgenda.getText()));
+                        objItensAgenda.setNomeInterno(jNomeInterno.getText());
+                        objItensAgenda.setIdItem(Integer.valueOf(idItem));
+                        controle.alterarItensListagemAlbergados(objItensAgenda);
+                        //
                         objLog2();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                         preencherTabelaItens("SELECT * FROM ITENS_LISTA_PASSAGEM_ALBERGADOS "
@@ -1106,26 +1259,9 @@ public class TelaListaPassagemInternosAlbergados extends javax.swing.JInternalFr
                         SalvarInterno();
                     }
                 }
-                if (acao == 4) {
-                    objItensAgenda.setUsuarioUp(nameUser);
-                    objItensAgenda.setDataUp(dataModFinal);
-                    objItensAgenda.setHoraUp(horaMov);
-                    //
-                    objItensAgenda.setIdAgenda(Integer.valueOf(jIDAgenda.getText()));
-                    objItensAgenda.setNomeInterno(jNomeInterno.getText());
-                    objItensAgenda.setIdItem(Integer.valueOf(idItem));
-                    controle.alterarItensListagemAlbergados(objItensAgenda);
-                    //
-                    objLog2();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    preencherTabelaItens("SELECT * FROM ITENS_LISTA_PASSAGEM_ALBERGADOS "
-                            + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON ITENS_LISTA_PASSAGEM_ALBERGADOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                            + "WHERE IdAgenda='" + jIDAgenda.getText() + "'");
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    SalvarInterno();
-                }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarInternoActionPerformed
 
@@ -1404,16 +1540,18 @@ public class TelaListaPassagemInternosAlbergados extends javax.swing.JInternalFr
     private javax.swing.JPanel jPanel30;
     private javax.swing.JPanel jPanel31;
     private javax.swing.JPanel jPanel32;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JTextField jPesquisarNomeInterno;
     public static javax.swing.JTextField jRegimePenal;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JSeparator jSeparator1;
     public static javax.swing.JTextField jSituacaoInterno;
     private javax.swing.JTextField jStatusLanc;
     private javax.swing.JTabbedPane jTabbedPane1;
@@ -2043,5 +2181,43 @@ public class TelaListaPassagemInternosAlbergados extends javax.swing.JInternalFr
         objLogSys.setIdLancMov(Integer.valueOf(jIDAgenda.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserCRC = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserCRC + "'");
+            conecta.rs.first();
+            codigoUserGroupCRC = conecta.rs.getInt("IdUsuario");
+            codigoGrupoCRC = conecta.rs.getInt("IdGrupo");
+            nomeGrupoCRC = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserCRC + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoCRC = conecta.rs.getInt("IdUsuario");
+            codAbrirCRC = conecta.rs.getInt("Abrir");
+            codIncluirCRC = conecta.rs.getInt("Incluir");
+            codAlterarCRC = conecta.rs.getInt("Alterar");
+            codExcluirCRC = conecta.rs.getInt("Excluir");
+            codGravarCRC = conecta.rs.getInt("Gravar");
+            codConsultarCRC = conecta.rs.getInt("Consultar");
+            nomeTelaCRC = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

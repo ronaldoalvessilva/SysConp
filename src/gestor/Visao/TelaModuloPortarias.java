@@ -163,7 +163,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
     public static String telaCadastroVeiculosManuP1 = "Cadastro:Veiculos - P1I:Manutenção";
     public static String telaCadastroPertenccesManuP1 = "Cadastro:Pertences - P1I:Manutenção";
     public static String telaCadastroAdvogadosManuP1 = "Cadastro:Advogados - P1I:Manutenção";
-    public static String telaCadastroVisitasDiversasManuP1 = "Cadastro:Advogados - P1I:Manutenção";
+    public static String telaCadastroVisitasDiversasManuP1 = "Cadastro:Visitas Diversas - P1I:Manutenção";
     public static String telaCadastroOficialManuP1 = "Cadastro:Oficial Justiça - P1I:Manutenção";
     // MOVIMENTAÇÃO
     public static String telaEntradaSaidaVisitasInternosManuP1 = "Movimentação:Entrada e Saida Visitas de Internos - P1I:Manutenção";
@@ -244,6 +244,8 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
     public static String telaOcorrenciaDisciplinaVisitasOcorP1 = "Movimentação:Ocorrência Disciplinar Visitas - P1I:Ocorrências";
     //
     public static String telaRelatorioPrevisaoSaidaP1 = "Relatórios - P1I:Previsão de Saída de Internos";
+    // MENU CONSULTAS
+    public static String telaConsultaVisitaInternosP1 = "Consulta:Visitantes de Internos";
     //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
@@ -332,7 +334,8 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
     String pNomeOCDVO = "";
     //
     String pNomeRPSI = "";
-    //
+    // MENU CONSULTAS
+    String pNomeCVI = "";
 
     /**
      * Creates new form TelaPortarias
@@ -2588,31 +2591,36 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_EntradaSaidaOficialJusticaDepartamentoActionPerformed
 
     private void VisitantesReligiososActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VisitantesReligiososActionPerformed
-        // TODO add your handling code here:
-        if (objConVisRel == null || objConVisRel.isClosed()) {
-            objConVisRel = new TelaConsultaVisitaSocialReligiosa();
-            jPainelPortarias.add(objConVisRel);
-            objConVisRel.setVisible(true);
-        } else {
-            if (objConVisRel.isVisible()) {
-                if (objConVisRel.isIcon()) { // Se esta minimizado
-                    try {
-                        objConVisRel.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        // TODO add your handling code here:telaConsultaVisitaInternosP1
+        buscarAcessoUsuario(telaConsultaVisitaInternosP1);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaConsultaVisitaInternosP1) && codAbrirP1 == 1) {
+            if (objConVisRel == null || objConVisRel.isClosed()) {
+                objConVisRel = new TelaConsultaVisitaSocialReligiosa();
+                jPainelPortarias.add(objConVisRel);
+                objConVisRel.setVisible(true);
+            } else {
+                if (objConVisRel.isVisible()) {
+                    if (objConVisRel.isIcon()) { // Se esta minimizado
+                        try {
+                            objConVisRel.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objConVisRel.toFront(); // traz para frente
+                        objConVisRel.pack();//volta frame 
                     }
                 } else {
-                    objConVisRel.toFront(); // traz para frente
-                    objConVisRel.pack();//volta frame 
+                    objConVisRel = new TelaConsultaVisitaSocialReligiosa();
+                    TelaModuloPortarias.jPainelPortarias.add(objConVisRel);//adicona frame ao JDesktopPane  
+                    objConVisRel.setVisible(true);
                 }
-            } else {
-                objConVisRel = new TelaConsultaVisitaSocialReligiosa();
-                TelaModuloPortarias.jPainelPortarias.add(objConVisRel);//adicona frame ao JDesktopPane  
-                objConVisRel.setVisible(true);
             }
-        }
-        try {
-            objConVisRel.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objConVisRel.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_VisitantesReligiososActionPerformed
 
@@ -3302,20 +3310,6 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
         }
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
-                    + "WHERE NomeTela='" + telaEntradaSaidaAdIntManuP1 + "'");
-            conecta.rs.first();
-            pNomeESAIM = conecta.rs.getString("NomeTela");
-        } catch (SQLException ex) {
-        }
-        try {
-            conecta.executaSQL("SELECT * FROM TELAS "
-                    + "WHERE NomeTela='" + telaEntradaSaidaAdIntInterP1 + "'");
-            conecta.rs.first();
-            pNomeESAIMI = conecta.rs.getString("NomeTela");
-        } catch (SQLException ex) {
-        }
-        try {
-            conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaEntradaSaidaOFJManuP1 + "'");
             conecta.rs.first();
             pNomeESOFJM = conecta.rs.getString("NomeTela");
@@ -3542,7 +3536,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
             conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaEntradaSaidaAManuP1 + "'");
             conecta.rs.first();
-            pNomeRRIB = conecta.rs.getString("NomeTela");
+            pNomeESAM = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         try {
@@ -3616,6 +3610,13 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
             pNomeRPSI = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaConsultaVisitaInternosP1 + "'");
+            conecta.rs.first();
+            pNomeCVI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         //CADASTRO
         if (!pNomeCVPM.equals(telaCadastroVeiculosManuP1) || pNomeCVPM == null || pNomeCVPM.equals("")) {
             buscarCodigoModulo();
@@ -3635,7 +3636,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
             objCadastroTela.setNomeTela(telaCadastroAdvogadosManuP1);
             controle.incluirTelaAcesso(objCadastroTela);
         }
-        if (!pNomeCAM.equals(telaCadastroVisitasDiversasManuP1) || pNomeCAM == null || pNomeCAM.equals("")) {
+        if (!pNomeCVDM.equals(telaCadastroVisitasDiversasManuP1) || pNomeCVDM == null || pNomeCVDM.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaCadastroVisitasDiversasManuP1);
@@ -3647,11 +3648,11 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
             objCadastroTela.setNomeTela(telaCadastroOficialManuP1);
             controle.incluirTelaAcesso(objCadastroTela);
         }
-        // MOVIMENTAÇÃO
+        // MOVIMENTAÇÃO 
         if (!pNomeESVIM.equals(telaEntradaSaidaVisitasInternosManuP1) || pNomeESVIM == null || pNomeESVIM.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
-            objCadastroTela.setNomeTela(telaCadastroVisitasDiversasManuP1);
+            objCadastroTela.setNomeTela(telaEntradaSaidaVisitasInternosManuP1);
             controle.incluirTelaAcesso(objCadastroTela);
         }
         if (!pNomeESVIMIV.equals(telaEntradaSaidaVisitasInternosIntVisiP1) || pNomeESVIMIV == null || pNomeESVIMIV.equals("")) {
@@ -3705,7 +3706,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
         if (!pNomeESADMA.equals(telaEntradaSaidaAdDEPADVP1) || pNomeESADMA == null || pNomeESADMA.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
-            objCadastroTela.setNomeTela(telaEntradaSaidaAdIntInterP1);
+            objCadastroTela.setNomeTela(telaEntradaSaidaAdDEPADVP1);
             controle.incluirTelaAcesso(objCadastroTela);
         }
         if (!pNomeESOFJM.equals(telaEntradaSaidaOFJManuP1) || pNomeESOFJM == null || pNomeESOFJM.equals("")) {
@@ -3801,13 +3802,13 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
         if (!pNomeESVT.equals(telaEntradaSaidaESVTManuP1) || pNomeESVT == null || pNomeESVT.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
-            objCadastroTela.setNomeTela(telaEntradaSaidaESVCManuP1);
+            objCadastroTela.setNomeTela(telaEntradaSaidaESVTManuP1);
             controle.incluirTelaAcesso(objCadastroTela);
         }
         if (!pNomeESVTV.equals(telaEntradaSaidaESVTVP1) || pNomeESVTV == null || pNomeESVTV.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
-            objCadastroTela.setNomeTela(telaEntradaSaidaESVCVP1);
+            objCadastroTela.setNomeTela(telaEntradaSaidaESVTVP1);
             controle.incluirTelaAcesso(objCadastroTela);
         }
         if (!pNomeESLM.equals(telaEntradaSaidaLABManuP1) || pNomeESLM == null || pNomeESLM.equals("")) {
@@ -3846,6 +3847,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
             objCadastroTela.setNomeTela(telaRegistroRetornoRIIntP1);
             controle.incluirTelaAcesso(objCadastroTela);
         }
+        //telaRegistroRetornoRIBioP1
         if (!pNomeRRIB.equals(telaRegistroRetornoRIBioP1) || pNomeRRIB == null || pNomeRRIB.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
@@ -3900,7 +3902,8 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
             objCadastroTela.setNomeTela(telaRegistroSaidaInternoExpP1);
             controle.incluirTelaAcesso(objCadastroTela);
         }
-        if (!pNomeRRIB.equals(telaEntradaSaidaAManuP1) || pNomeRRIB == null || pNomeRRIB.equals("")) {
+        //
+        if (!pNomeESAM.equals(telaEntradaSaidaAManuP1) || pNomeESAM == null || pNomeESAM.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaEntradaSaidaAManuP1);
@@ -3965,6 +3968,13 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaRelatorioPrevisaoSaidaP1);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //CONSULTAS
+        if (!pNomeCVI.equals(telaConsultaVisitaInternosP1) || pNomeCVI == null || pNomeCVI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaConsultaVisitaInternosP1);
             controle.incluirTelaAcesso(objCadastroTela);
         }
     }

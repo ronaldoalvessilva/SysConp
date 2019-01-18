@@ -5,8 +5,10 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleTelasSistema;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
+import gestor.Modelo.CadastroTelasSistema;
 import static gestor.Visao.TelaAgendaCompromissos.jAssunto;
 import static gestor.Visao.TelaAgendaCompromissos.jBtAlterarComp;
 import static gestor.Visao.TelaAgendaCompromissos.jBtCancelarComp;
@@ -71,6 +73,9 @@ import net.sf.jasperreports.view.JasperViewer;
 public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
+    CadastroTelasSistema objCadastroTela = new CadastroTelasSistema();
+    ControleTelasSistema controle = new ControleTelasSistema();
+    //
     private TelaRecadosProfessores objRecados = null;
     private TelaConsultaLocalInternoProfessores objConsultaLocalInterProf = null;
     private TelaConsultaProntuarioInternoCrc objConsultaInterProf = null;
@@ -105,6 +110,8 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
     private AdmissaoEvolucaoPedagogica objAdmEvoPedagoga = null;
     private TelaAgendamentoAtendimentoInternosPedagogia objAgendaAtendIntPED = null;
     private TelaAtualizacaoDocumentosPedagogia objAtualizaEsco = null;
+    private TelaRegistroInternosAtendimentoPEDA objRegistroAtendBio = null;
+    private TelaRegistroInternosAtendimentoImpressoPEDA objRegistroImpBio = null;
     //
     int flag;
     int codUsuario;
@@ -120,6 +127,37 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
     String horaLembrete;
     String usuarioAgenda;
     String codigoAgendaComp;
+    //
+    public static int codigoUserPEDA = 0;
+    public static int codUserAcessoPEDA = 0;
+    public static int codigoUserGroupPEDA = 0;
+    public static int codAbrirPEDA = 0;
+    public static int codIncluirPEDA = 0;
+    public static int codAlterarPEDA = 0;
+    public static int codExcluirPEDA = 0;
+    public static int codGravarPEDA = 0;
+    public static int codConsultarPEDA = 0;
+    public static int codigoGrupoPEDA = 0;
+    public static String nomeGrupoPEDA = "";
+    public static String nomeTelaPEDA = "";
+    // TELAS DE ACESSOS AO MÓDULO PEDAGOGIA
+    public static String nomeModuloPEDA = "PEDAGOGIA";
+    // MENU CADASTRO    
+    public static String telaRegistroAtendimentoBio_PEDA = "Cadastro:Registro de Atendimento Internos Biometria Pedagogia:Manutenção";
+    public static String telaRegistroAtendimentoImpressaoBio_PEDA = "Cadastro:Registro de Autorização Impressa Pedagogia:Liberação";
+    //ACERVO
+    
+    //MOVIMENTAÇÃO
+    
+    //
+    int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
+    // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
+    // MENU CADASTRO
+    String pNomeRAB_PEDA = "";
+    String pNomeRAIB_PEDA = "";
+    //ACERVO
+    
+    // MOVIMENTAÇÃO
 
     /**
      * Creates new form TelaPedagogia
@@ -127,6 +165,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
     public TelaModuloPedagogia() {
         initComponents();
         this.setSize(840, 640); // Tamanho da tela 
+        pesquisarTelasAcessos();
         threadMensagem(); // A cada 5 minutos verifica mensagem    
     }
 
@@ -157,6 +196,10 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         jAgendaAtendimentoInternos = new javax.swing.JMenuItem();
         jSeparator14 = new javax.swing.JPopupMenu.Separator();
+        jMenu3 = new javax.swing.JMenu();
+        jRegistraAtendimentoBiometria = new javax.swing.JMenuItem();
+        jRegistroAtendimentoImpresso = new javax.swing.JMenuItem();
+        jSeparator18 = new javax.swing.JPopupMenu.Separator();
         AgendaCompromissoPessoal = new javax.swing.JMenuItem();
         AgendaRecados = new javax.swing.JMenuItem();
         Sair = new javax.swing.JMenuItem();
@@ -237,6 +280,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
                 .addGap(0, 61, Short.MAX_VALUE))
         );
 
+        Cadastros.setMnemonic('C');
         Cadastros.setText("Cadastro");
 
         InstituicaoEnsino.setText("Instituição de Ensino");
@@ -323,6 +367,30 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
         Cadastros.add(jAgendaAtendimentoInternos);
         Cadastros.add(jSeparator14);
 
+        jMenu3.setForeground(new java.awt.Color(0, 102, 0));
+        jMenu3.setText("Registro de Atendimento de Internos - (Biometria ou Impressão)");
+
+        jRegistraAtendimentoBiometria.setForeground(new java.awt.Color(204, 0, 0));
+        jRegistraAtendimentoBiometria.setText("Registra Atendimento por Biometria");
+        jRegistraAtendimentoBiometria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRegistraAtendimentoBiometriaActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jRegistraAtendimentoBiometria);
+
+        jRegistroAtendimentoImpresso.setForeground(new java.awt.Color(0, 0, 204));
+        jRegistroAtendimentoImpresso.setText("Registro Atendimento por Impressão");
+        jRegistroAtendimentoImpresso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRegistroAtendimentoImpressoActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jRegistroAtendimentoImpresso);
+
+        Cadastros.add(jMenu3);
+        Cadastros.add(jSeparator18);
+
         AgendaCompromissoPessoal.setText("Agenda de Compromissos Pessoal");
         AgendaCompromissoPessoal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -349,6 +417,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
 
         jMenuBar1.add(Cadastros);
 
+        Acervo.setMnemonic('A');
         Acervo.setText("Acervo da Biblioteca");
 
         EditorasInstituicoes.setText("Editoras e Instituições");
@@ -457,6 +526,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
 
         jMenuBar1.add(Acervo);
 
+        Consultas.setMnemonic('O');
         Consultas.setText("Consultas");
 
         ProntuariosInternos.setText("Prontuários de Internos");
@@ -477,6 +547,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
 
         jMenuBar1.add(Consultas);
 
+        Movimentacao.setMnemonic('M');
         Movimentacao.setText("Movimentação");
 
         AdmissaoEvolucaoPedagogica.setText("Admissão/Evolução Pedagógica");
@@ -550,6 +621,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
 
         jMenuBar1.add(Movimentacao);
 
+        Relatorios.setMnemonic('R');
         Relatorios.setText("Relatórios");
 
         jMenu1.setText("Relatórios de Acervos");
@@ -1708,6 +1780,64 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void jRegistraAtendimentoBiometriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRegistraAtendimentoBiometriaActionPerformed
+        // TODO add your handling code here:
+        if (objRegistroAtendBio == null || objRegistroAtendBio.isClosed()) {
+            objRegistroAtendBio = new TelaRegistroInternosAtendimentoPEDA();
+            jPainelPedagogia.add(objRegistroAtendBio);
+            objRegistroAtendBio.setVisible(true);
+        } else {
+            if (objRegistroAtendBio.isVisible()) {
+                if (objRegistroAtendBio.isIcon()) { // Se esta minimizado
+                    try {
+                        objRegistroAtendBio.setIcon(false); // maximiniza
+                    } catch (PropertyVetoException ex) {
+                    }
+                } else {
+                    objRegistroAtendBio.toFront(); // traz para frente
+                    objRegistroAtendBio.pack();//volta frame 
+                }
+            } else {
+                objRegistroAtendBio = new TelaRegistroInternosAtendimentoPEDA();
+                TelaModuloPedagogia.jPainelPedagogia.add(objRegistroAtendBio);//adicona frame ao JDesktopPane  
+                objRegistroAtendBio.setVisible(true);
+            }
+        }
+        try {
+            objRegistroAtendBio.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
+        }
+    }//GEN-LAST:event_jRegistraAtendimentoBiometriaActionPerformed
+
+    private void jRegistroAtendimentoImpressoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRegistroAtendimentoImpressoActionPerformed
+        // TODO add your handling code here:
+        if (objRegistroImpBio == null || objRegistroImpBio.isClosed()) {
+            objRegistroImpBio = new TelaRegistroInternosAtendimentoImpressoPEDA();
+            jPainelPedagogia.add(objRegistroImpBio);
+            objRegistroImpBio.setVisible(true);
+        } else {
+            if (objRegistroImpBio.isVisible()) {
+                if (objRegistroImpBio.isIcon()) { // Se esta minimizado
+                    try {
+                        objRegistroImpBio.setIcon(false); // maximiniza
+                    } catch (PropertyVetoException ex) {
+                    }
+                } else {
+                    objRegistroImpBio.toFront(); // traz para frente
+                    objRegistroImpBio.pack();//volta frame 
+                }
+            } else {
+                objRegistroImpBio = new TelaRegistroInternosAtendimentoImpressoPEDA();
+                TelaModuloPedagogia.jPainelPedagogia.add(objRegistroImpBio);//adicona frame ao JDesktopPane  
+                objRegistroImpBio.setVisible(true);
+            }
+        }
+        try {
+            objRegistroImpBio.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
+        }
+    }//GEN-LAST:event_jRegistroAtendimentoImpressoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Acervo;
@@ -1758,11 +1888,14 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     public static javax.swing.JDesktopPane jPainelPedagogia;
+    private javax.swing.JMenuItem jRegistraAtendimentoBiometria;
+    private javax.swing.JMenuItem jRegistroAtendimentoImpresso;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator10;
     private javax.swing.JPopupMenu.Separator jSeparator11;
@@ -1772,6 +1905,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator15;
     private javax.swing.JPopupMenu.Separator jSeparator16;
     private javax.swing.JPopupMenu.Separator jSeparator17;
+    private javax.swing.JPopupMenu.Separator jSeparator18;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
@@ -1800,7 +1934,9 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
         buscarUsuario(nameUser);
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM AGENDARECADOS WHERE IdUsuario='" + codUsuario + "'AND StatusAgenda='" + statusAgenda + "'");
+            conecta.executaSQL("SELECT * FROM AGENDARECADOS "
+                    + "WHERE IdUsuario='" + codUsuario + "' "
+                    + "AND StatusAgenda='" + statusAgenda + "'");
             conecta.rs.first();
             if (codUsuario == conecta.rs.getInt("IdUsuario")) {
                 // Abrir uma úica tela, funcionando
@@ -1833,7 +1969,8 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
                 preencherTabelaTodosRecados("SELECT * FROM AGENDARECADOS "
                         + "INNER JOIN USUARIOS "
                         + "ON AGENDARECADOS.IdUsuario=USUARIOS.IdUsuario "
-                        + "WHERE NomeUsuario='" + nameUser + "'AND StatusAgenda='" + statusAgenda + "'");
+                        + "WHERE NomeUsuario='" + nameUser + "' "
+                        + "AND StatusAgenda='" + statusAgenda + "'");
                 if (flag == 1) {
                     jBtNovo.setEnabled(true);
                     jBtAlterar.setEnabled(true);
@@ -1847,7 +1984,8 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
                         conecta.executaSQL("SELECT * FROM AGENDARECADOS "
                                 + "INNER JOIN USUARIOS "
                                 + "ON AGENDARECADOS.IdUsuario=USUARIOS.IdUsuario "
-                                + "WHERE NomeUsuario='" + nameUser + "'AND StatusAgenda='" + statusAgenda + "'");
+                                + "WHERE NomeUsuario='" + nameUser + "' "
+                                + "AND StatusAgenda='" + statusAgenda + "'");
                         conecta.rs.last();
                         jIDLanc.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
                         jDataLanc.setDate(conecta.rs.getDate("DataLanc"));
@@ -1918,7 +2056,11 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
         buscarUsuario(nameUser);
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM AGENDA_COMPROMISSOS WHERE UsuarioAgenda='" + nameUser + "'AND StatusAgenda='" + statusAgenda + "'AND DataLembrete='" + jDataSistema.getText() + "'AND HoraLembrete<='" + jHoraSistema.getText().toString() + "'");
+            conecta.executaSQL("SELECT * FROM AGENDA_COMPROMISSOS "
+                    + "WHERE UsuarioAgenda='" + nameUser + "' "
+                    + "AND StatusAgenda='" + statusAgenda + "' "
+                    + "AND DataLembrete='" + jDataSistema.getText() + "' "
+                    + "AND HoraLembrete<='" + jHoraSistema.getText().toString() + "'");
             conecta.rs.first();
             horaLembrete = conecta.rs.getString("HoraLembrete");
             usuarioAgenda = conecta.rs.getString("UsuarioAgenda");
@@ -1930,7 +2072,11 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
                 objAgendaComp.show();
                 flag = 1;
                 preencherTabelaAgendaCompromisso("SELECT * FROM AGENDA_COMPROMISSOS "
-                        + "WHERE AGENDA_COMPROMISSOS.UsuarioAgenda='" + nameUser + "'AND AGENDA_COMPROMISSOS.StatusAgenda='" + statusAgenda + "'AND DataLembrete='" + jDataSistema.getText() + "'AND HoraLembrete<='" + jHoraSistema.getText().toString() + "'AND IdAgenda='" + codigoAgendaComp + "'");
+                        + "WHERE AGENDA_COMPROMISSOS.UsuarioAgenda='" + nameUser + "' "
+                        + "AND AGENDA_COMPROMISSOS.StatusAgenda='" + statusAgenda + "' "
+                        + "AND DataLembrete='" + jDataSistema.getText() + "' "
+                        + "AND HoraLembrete<='" + jHoraSistema.getText().toString() + "' "
+                        + "AND IdAgenda='" + codigoAgendaComp + "'");
                 if (flag == 1) {
                     jBtNovoComp.setEnabled(true);
                     jBtAlterarComp.setEnabled(true);
@@ -1941,7 +2087,10 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
                     conecta.abrirConexao();
                     try {
                         conecta.executaSQL("SELECT * FROM AGENDA_COMPROMISSOS "
-                                + "WHERE AGENDA_COMPROMISSOS.UsuarioAgenda='" + nomeUsuarioCompromisso + "'AND AGENDA_COMPROMISSOS.StatusAgenda='" + statusAgenda + "'AND HoraLembrete<='" + jHoraSistema.getText().toString() + "'AND IdAgenda='" + codigoAgendaComp + "'");
+                                + "WHERE AGENDA_COMPROMISSOS.UsuarioAgenda='" + nomeUsuarioCompromisso + "' "
+                                + "AND AGENDA_COMPROMISSOS.StatusAgenda='" + statusAgenda + "' "
+                                + "AND HoraLembrete<='" + jHoraSistema.getText().toString() + "' "
+                                + "AND IdAgenda='" + codigoAgendaComp + "'");
                         conecta.rs.first();
                         jCodigoAgendaComp.setText(String.valueOf(conecta.rs.getInt("IdAgenda")));
                         jComboBoxStatusComp.setSelectedItem(conecta.rs.getString("StatusAgenda"));
@@ -2019,5 +2168,89 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
         jTabelaAgendaEventos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
         jTabelaAgendaEventos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
         jTabelaAgendaEventos.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+    }
+
+    // PESQUISA E CADASTRO DAS TELAS DO MÓDULO ENFERMARIA PARA CONTROLE DE ACESSO DE USUÁRIOS.
+    public void pesquisarTelasAcessos() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRegistroAtendimentoBio_PEDA + "'");
+            conecta.rs.first();
+            pNomeRAB_PEDA = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRegistroAtendimentoImpressaoBio_PEDA + "'");
+            conecta.rs.first();
+            pNomeRAIB_PEDA = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+
+        // INICIO DA COMPARAÇÃO
+        if (!pNomeRAB_PEDA.equals(telaRegistroAtendimentoBio_PEDA) || pNomeRAB_PEDA == null || pNomeRAB_PEDA.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRegistroAtendimentoBio_PEDA);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeRAIB_PEDA.equals(telaRegistroAtendimentoImpressaoBio_PEDA) || pNomeRAIB_PEDA == null || pNomeRAIB_PEDA.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRegistroAtendimentoImpressaoBio_PEDA);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        conecta.desconecta();
+    }
+
+    // MÉTODO PARA BUSCAR O CÓDIGO DO MÓDULO, CASO NÃO TENHA SIDO CADASTRADO.
+    public void buscarCodigoModulo() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM MODULOS "
+                    + "WHERE NomeModulo='" + nomeModuloPEDA + "'");
+            conecta.rs.first();
+            pCodModulo = conecta.rs.getInt("IdModulo");
+        } catch (SQLException ex) {
+        }
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserPEDA = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserPEDA + "'");
+            conecta.rs.first();
+            codigoUserGroupPEDA = conecta.rs.getInt("IdUsuario");
+            codigoGrupoPEDA = conecta.rs.getInt("IdGrupo");
+            nomeGrupoPEDA = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserPEDA + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoPEDA = conecta.rs.getInt("IdUsuario");
+            codAbrirPEDA = conecta.rs.getInt("Abrir");
+            codIncluirPEDA = conecta.rs.getInt("Incluir");
+            codAlterarPEDA = conecta.rs.getInt("Alterar");
+            codExcluirPEDA = conecta.rs.getInt("Excluir");
+            codGravarPEDA = conecta.rs.getInt("Gravar");
+            codConsultarPEDA = conecta.rs.getInt("Consultar");
+            nomeTelaPEDA = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

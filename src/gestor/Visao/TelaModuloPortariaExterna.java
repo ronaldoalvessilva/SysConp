@@ -205,12 +205,7 @@ public class TelaModuloPortariaExterna extends javax.swing.JInternalFrame {
     String pNomeRCPEP = "";
     String pNomeRCPEB = "";
     String pNomeRCPER = "";
-    //pNomeRCPEP
-    //pNomeRCPEB
-    //pNomeRCPER
-    //telaRegistroChegadaPortExtPesqP1E
-    //telaRegistroChegadaPortExtBioP1E
-    //telaRegistroChegadaPortExtRelP1E
+   
 
     /**
      * Creates new form TelaPortarias
@@ -2097,13 +2092,13 @@ public class TelaModuloPortariaExterna extends javax.swing.JInternalFrame {
         if (!pNomeESVT.equals(telaEntradaSaidaESVTManuP1E) || pNomeESVT == null || pNomeESVT.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
-            objCadastroTela.setNomeTela(telaEntradaSaidaESVCManuP1E);
+            objCadastroTela.setNomeTela(telaEntradaSaidaESVTManuP1E);
             controle.incluirTelaAcesso(objCadastroTela);
         }
         if (!pNomeESVTV.equals(telaEntradaSaidaESVTVP1E) || pNomeESVTV == null || pNomeESVTV.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
-            objCadastroTela.setNomeTela(telaEntradaSaidaESVCVP1E);
+            objCadastroTela.setNomeTela(telaEntradaSaidaESVTVP1E);
             controle.incluirTelaAcesso(objCadastroTela);
         }
         if (!pNomeOCR.equals(telaOcorrenciaManuP1E) || pNomeOCR == null || pNomeOCR.equals("")) {
