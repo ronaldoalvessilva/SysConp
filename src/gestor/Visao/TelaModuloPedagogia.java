@@ -280,6 +280,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
                 .addGap(0, 61, Short.MAX_VALUE))
         );
 
+        Cadastros.setMnemonic('C');
         Cadastros.setText("Cadastro");
 
         InstituicaoEnsino.setText("Instituição de Ensino");
@@ -416,6 +417,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
 
         jMenuBar1.add(Cadastros);
 
+        Acervo.setMnemonic('A');
         Acervo.setText("Acervo da Biblioteca");
 
         EditorasInstituicoes.setText("Editoras e Instituições");
@@ -524,6 +526,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
 
         jMenuBar1.add(Acervo);
 
+        Consultas.setMnemonic('O');
         Consultas.setText("Consultas");
 
         ProntuariosInternos.setText("Prontuários de Internos");
@@ -544,6 +547,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
 
         jMenuBar1.add(Consultas);
 
+        Movimentacao.setMnemonic('M');
         Movimentacao.setText("Movimentação");
 
         AdmissaoEvolucaoPedagogica.setText("Admissão/Evolução Pedagógica");
@@ -617,6 +621,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
 
         jMenuBar1.add(Movimentacao);
 
+        Relatorios.setMnemonic('R');
         Relatorios.setText("Relatórios");
 
         jMenu1.setText("Relatórios de Acervos");
