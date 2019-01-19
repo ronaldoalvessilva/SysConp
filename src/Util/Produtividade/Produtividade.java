@@ -5,10 +5,7 @@
  */
 package Util.Produtividade;
 
-import gestor.Controle.ControleProdutividade;
 import gestor.Dao.ConexaoBancoDados;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableRowSorter;
 
 
 /**
