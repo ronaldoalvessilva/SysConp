@@ -15,6 +15,19 @@ import gestor.Dao.ModeloTabela;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.Professores;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPedagogia.codAbrirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codAlterarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codConsultarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codExcluirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codGravarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codIncluirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codUserAcessoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoGrupoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoUserGroupPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoUserPEDA;
+import static gestor.Visao.TelaModuloPedagogia.nomeGrupoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.nomeTelaPEDA;
+import static gestor.Visao.TelaModuloPedagogia.telaProfessoresManu_PEDA;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -1203,8 +1216,11 @@ public class TelaProfessores extends javax.swing.JInternalFrame {
         count = 0;
         if (jPesqNomeProfessor.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do professora para pesquisa.");
-        } else {            
-            preencherTabelaProfessores("SELECT * FROM PROFESSORES INNER JOIN INSTITUICAOESCOLAR ON PROFESSORES.IdCod=INSTITUICAOESCOLAR.IdCod WHERE NomeProfessor LIKE'" + jPesqNomeProfessor.getText() + "%'");
+        } else {
+            preencherTabelaProfessores("SELECT * FROM PROFESSORES "
+                    + "INNER JOIN INSTITUICAOESCOLAR "
+                    + "ON PROFESSORES.IdCod=INSTITUICAOESCOLAR.IdCod "
+                    + "WHERE NomeProfessor LIKE'" + jPesqNomeProfessor.getText() + "%'");
         }
     }//GEN-LAST:event_jBtNomeProfessorActionPerformed
 
@@ -1217,94 +1233,114 @@ public class TelaProfessores extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaProfessoresManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaProfessoresManu_PEDA) && codIncluirPEDA == 1) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        acao = 2;
-        Alterar();
-        corCampos();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaProfessoresManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaProfessoresManu_PEDA) && codAlterarPEDA == 1) {
+            acao = 2;
+            Alterar();
+            corCampos();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        verificarDisciplinas();
+        buscarAcessoUsuario(telaProfessoresManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaProfessoresManu_PEDA) && codExcluirPEDA == 1) {
+            verificarDisciplinas();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jNomeProfessor.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do professor(a).");
-            jNomeProfessor.requestFocus();
-            jNomeProfessor.setBackground(Color.red);
-        } else {
-            if (jDataNascimento.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data de nascimento do professor(a).");
-                jDataNascimento.requestFocus();
-                jDataNascimento.setBackground(Color.red);
+        buscarAcessoUsuario(telaProfessoresManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaProfessoresManu_PEDA) && codGravarPEDA == 1) {
+            if (jNomeProfessor.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do professor(a).");
+                jNomeProfessor.requestFocus();
+                jNomeProfessor.setBackground(Color.red);
             } else {
-                if (caminho == null) {
-                    JOptionPane.showMessageDialog(rootPane, "Insira a foto do professor(a).");
+                if (jDataNascimento.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data de nascimento do professor(a).");
+                    jDataNascimento.requestFocus();
+                    jDataNascimento.setBackground(Color.red);
                 } else {
-                    objProf.setNomeProfessor(jNomeProfessor.getText());
-                    objProf.setStatusProf((String) jComboBoxStatus.getSelectedItem());
-                    objProf.setFotoProf(caminho);
-                    objProf.setDataNascProf(jDataNascimento.getDate());
-                    objProf.setEstadoCivil((String) jComboBoxEstadoCivil.getSelectedItem());
-                    objProf.setSexoProf((String) jComboBoxSexo.getSelectedItem());
-                    objProf.setTelefone(jTelefone.getText());
-                    objProf.setCelular(jCelular.getText());
-                    objProf.setCelular1(jCelular1.getText());
-                    //
-                    objProf.setCep(jCEP.getText());
-                    objProf.setEndereco(jEndereco.getText());
-                    objProf.setBairro(jBairro.getText());
-                    objProf.setCidade(jCidade.getText());
-                    objProf.setEstado((String) jComboBoxEstado.getSelectedItem());
-                    //
-                    objProf.setGraduacao(jGraduacao.getText());
-                    objProf.setEspecialidade(jEspecialidade.getText());
-                    objProf.setMestrado(jMestrado.getText());
-                    objProf.setDoutorado(jDoutorado.getText());
-                    //
-                    objProf.setObservacao(jObservacao.getText());
-                    //
-                    objProf.setObsDisciplina(jObservacaoDisciplina.getText());
-                    if (acao == 1) {
-                        objProf.setUsuarioInsert(nameUser);
-                        objProf.setDataInsert(dataModFinal);
-                        objProf.setHorarioInsert(horaMov);
-                        objProf.setDescricaoInstituicao(jNomeInstituicao.getText());
-                        control.incluirProfessor(objProf);
-                        buscarCodPro();
-                        objLog();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
-                        Salvar();
-                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso. Não esqueça de cadastrar as disciplinas\nna qual o professor(a), ministra, na aba Dados Disciplinar.");
-                    }
-                    if (acao == 2) {
-                        objProf.setUsuarioUp(nameUser);
-                        objProf.setDataUp(dataModFinal);
-                        objProf.setHorarioUp(horaMov);
-                        objProf.setDescricaoInstituicao(jNomeInstituicao.getText());
-                        objProf.setIdProf(Integer.valueOf(jIdProf.getText()));
-                        control.alterarProfessor(objProf);
-                        objLog();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
-                        Salvar();
-                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    if (caminho == null) {
+                        JOptionPane.showMessageDialog(rootPane, "Insira a foto do professor(a).");
+                    } else {
+                        objProf.setNomeProfessor(jNomeProfessor.getText());
+                        objProf.setStatusProf((String) jComboBoxStatus.getSelectedItem());
+                        objProf.setFotoProf(caminho);
+                        objProf.setDataNascProf(jDataNascimento.getDate());
+                        objProf.setEstadoCivil((String) jComboBoxEstadoCivil.getSelectedItem());
+                        objProf.setSexoProf((String) jComboBoxSexo.getSelectedItem());
+                        objProf.setTelefone(jTelefone.getText());
+                        objProf.setCelular(jCelular.getText());
+                        objProf.setCelular1(jCelular1.getText());
+                        //
+                        objProf.setCep(jCEP.getText());
+                        objProf.setEndereco(jEndereco.getText());
+                        objProf.setBairro(jBairro.getText());
+                        objProf.setCidade(jCidade.getText());
+                        objProf.setEstado((String) jComboBoxEstado.getSelectedItem());
+                        //
+                        objProf.setGraduacao(jGraduacao.getText());
+                        objProf.setEspecialidade(jEspecialidade.getText());
+                        objProf.setMestrado(jMestrado.getText());
+                        objProf.setDoutorado(jDoutorado.getText());
+                        //
+                        objProf.setObservacao(jObservacao.getText());
+                        //
+                        objProf.setObsDisciplina(jObservacaoDisciplina.getText());
+                        if (acao == 1) {
+                            objProf.setUsuarioInsert(nameUser);
+                            objProf.setDataInsert(dataModFinal);
+                            objProf.setHorarioInsert(horaMov);
+                            objProf.setDescricaoInstituicao(jNomeInstituicao.getText());
+                            control.incluirProfessor(objProf);
+                            buscarCodPro();
+                            objLog();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
+                            Salvar();
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso. Não esqueça de cadastrar as disciplinas\nna qual o professor(a), ministra, na aba Dados Disciplinar.");
+                        }
+                        if (acao == 2) {
+                            objProf.setUsuarioUp(nameUser);
+                            objProf.setDataUp(dataModFinal);
+                            objProf.setHorarioUp(horaMov);
+                            objProf.setDescricaoInstituicao(jNomeInstituicao.getText());
+                            objProf.setIdProf(Integer.valueOf(jIdProf.getText()));
+                            control.alterarProfessor(objProf);
+                            objLog();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
+                            Salvar();
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        }
                     }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -1334,73 +1370,99 @@ public class TelaProfessores extends javax.swing.JInternalFrame {
 
     private void jBtNovaDisciplinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaDisciplinaActionPerformed
         // TODO add your handling code here:
-        acao = 3;
-        NovaDisciplina();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaProfessoresManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaProfessoresManu_PEDA) && codIncluirPEDA == 1) {
+            acao = 3;
+            NovaDisciplina();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovaDisciplinaActionPerformed
 
     private void jBtAlterarDisciplinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarDisciplinaActionPerformed
         // TODO add your handling code here:
-        acao = 4;
-        AlterarDisciplina();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaProfessoresManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaProfessoresManu_PEDA) && codAlterarPEDA == 1) {
+            acao = 4;
+            AlterarDisciplina();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtAlterarDisciplinaActionPerformed
 
     private void jBtExcluirDisciplinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirDisciplinaActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                JOptionPane.YES_NO_OPTION);
-        if (resposta == JOptionPane.YES_OPTION) {
-            objProf.setIdDisc(Integer.valueOf(jIdDisciplina.getText()));
-            controle.excluirItensDisciplina(objProf);
-            objLog2();
-            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-            JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-            ExcluirDisciplina();
-            preencherTabelaDisciplinas("SELECT * FROM DISCIPLINASPROFESSOR INNER JOIN DISCIPLINAS ON DISCIPLINASPROFESSOR.IdDisc=DISCIPLINAS.IdDisc WHERE IdProf='" + jIdProf.getText() + "'");
+        buscarAcessoUsuario(telaProfessoresManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaProfessoresManu_PEDA) && codExcluirPEDA == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objProf.setIdDisc(Integer.valueOf(jIdDisciplina.getText()));
+                controle.excluirItensDisciplina(objProf);
+                objLog2();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                ExcluirDisciplina();
+                preencherTabelaDisciplinas("SELECT * FROM DISCIPLINASPROFESSOR "
+                        + "INNER JOIN DISCIPLINAS "
+                        + "ON DISCIPLINASPROFESSOR.IdDisc=DISCIPLINAS.IdDisc "
+                        + "WHERE IdProf='" + jIdProf.getText() + "'");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirDisciplinaActionPerformed
 
     private void jBtSalvarDisciplinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarDisciplinaActionPerformed
         // TODO add your handling code here:
-        if (jDescricaoDisciplina.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome da disciplina.");
+        buscarAcessoUsuario(telaProfessoresManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaProfessoresManu_PEDA) && codGravarPEDA == 1) {
+            if (jDescricaoDisciplina.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome da disciplina.");
+            } else {
+                objProf.setObsDisciplina(jObservacaoDisciplina.getText());
+                if (acao == 3) {
+                    objProf.setUsuarioInsert(nameUser);
+                    objProf.setDataInsert(dataModFinal);
+                    objProf.setHorarioInsert(horaMov);
+                    objProf.setIdProf(Integer.valueOf(jIdProf.getText()));
+                    objProf.setDisciplina(jDescricaoDisciplina.getText());
+                    controle.incluirItensDisciplina(objProf);
+                    buscarCodDisciplina(); // verificar com dúvidas.
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    SalvarDisciplina();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 4) {
+                    objProf.setUsuarioUp(nameUser);
+                    objProf.setDataUp(dataModFinal);
+                    objProf.setHorarioUp(horaMov);
+                    objProf.setDisciplina(jDescricaoDisciplina.getText());
+                    objProf.setIdProf(Integer.valueOf(jIdProf.getText()));
+                    objProf.setIdItem(Integer.valueOf(IdItem));
+                    controle.alterarItensDisciplina(objProf);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    SalvarDisciplina();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                preencherTabelaDisciplinas("SELECT * FROM DISCIPLINASPROFESSOR "
+                        + "INNER JOIN DISCIPLINAS "
+                        + "ON DISCIPLINASPROFESSOR.IdDisc=DISCIPLINAS.IdDisc "
+                        + "WHERE IdProf='" + jIdProf.getText() + "'");
+            }
         } else {
-            objProf.setObsDisciplina(jObservacaoDisciplina.getText());
-            if (acao == 3) {
-                objProf.setUsuarioInsert(nameUser);
-                objProf.setDataInsert(dataModFinal);
-                objProf.setHorarioInsert(horaMov);
-                objProf.setIdProf(Integer.valueOf(jIdProf.getText()));
-                objProf.setDisciplina(jDescricaoDisciplina.getText());
-                controle.incluirItensDisciplina(objProf);
-                buscarCodDisciplina(); // verificar com dúvidas.
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                SalvarDisciplina();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
-            if (acao == 4) {
-                objProf.setUsuarioUp(nameUser);
-                objProf.setDataUp(dataModFinal);
-                objProf.setHorarioUp(horaMov);
-                objProf.setDisciplina(jDescricaoDisciplina.getText());
-                objProf.setIdProf(Integer.valueOf(jIdProf.getText()));
-                objProf.setIdItem(Integer.valueOf(IdItem));
-                controle.alterarItensDisciplina(objProf);
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                SalvarDisciplina();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
-            preencherTabelaDisciplinas("SELECT * FROM DISCIPLINASPROFESSOR INNER JOIN DISCIPLINAS ON DISCIPLINASPROFESSOR.IdDisc=DISCIPLINAS.IdDisc WHERE IdProf='" + jIdProf.getText() + "'");
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarDisciplinaActionPerformed
 
@@ -2319,5 +2381,43 @@ public class TelaProfessores extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(IdItem));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserPEDA = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserPEDA + "'");
+            conecta.rs.first();
+            codigoUserGroupPEDA = conecta.rs.getInt("IdUsuario");
+            codigoGrupoPEDA = conecta.rs.getInt("IdGrupo");
+            nomeGrupoPEDA = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserPEDA + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoPEDA = conecta.rs.getInt("IdUsuario");
+            codAbrirPEDA = conecta.rs.getInt("Abrir");
+            codIncluirPEDA = conecta.rs.getInt("Incluir");
+            codAlterarPEDA = conecta.rs.getInt("Alterar");
+            codExcluirPEDA = conecta.rs.getInt("Excluir");
+            codGravarPEDA = conecta.rs.getInt("Gravar");
+            codConsultarPEDA = conecta.rs.getInt("Consultar");
+            nomeTelaPEDA = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }
