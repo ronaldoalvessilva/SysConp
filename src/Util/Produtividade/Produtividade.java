@@ -5,7 +5,25 @@
  */
 package Util.Produtividade;
 
+
+import gestor.Controle.ControleListaTecnicosProdutividadePSP;
 import gestor.Dao.ConexaoBancoDados;
+import gestor.Dao.ModeloTabela;
+import gestor.Modelo.RegistroAtendimentoInternos;
+import java.awt.event.WindowEvent;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 
 /**
@@ -15,6 +33,12 @@ import gestor.Dao.ConexaoBancoDados;
 public class Produtividade extends javax.swing.JFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
+    ControleListaTecnicosProdutividadePSP control = new ControleListaTecnicosProdutividadePSP();
+
+    String dataEvolucao;
+    public static int qtdTecnicosPSP = 0;
+    SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss"); // HORAIO DE 24 HORAS, PARA O DE 12 HORAS UTILIZAR hh:mm:ss
+    SimpleDateFormat formatter2 = new SimpleDateFormat("dd/MM/yyyy");
 
     //ConexaoDB con = new ConexaoDB();
     /**
@@ -22,8 +46,34 @@ public class Produtividade extends javax.swing.JFrame {
      */
     public Produtividade() {
         initComponents();
-       
+        mostrarDemostrativoPSP();
+        setExtendedState(MAXIMIZED_BOTH); // Maximnizar a tela prinicpal
+        Thread threadRelogio = new Thread() {
 
+            @Override
+            public void run() {
+                rodaRelogio();
+            }
+        };
+        threadRelogio.start();
+
+        Date data = new Date();
+        String hora = formatter.format(data); // Data da conexão
+        String date = formatter2.format(data); // Hora da conexão
+
+        jHoraSistemaPSP.setText(String.valueOf(hora));    // no lugar do label, por seu JTextField    
+        jDataSistemaPSP.setText(String.valueOf(date));
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); //Impedir que a janela seja fechada pelo X    
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                if (e.getID() == WindowEvent.WINDOW_CLOSING) {
+                    int selectedOption = JOptionPane.showConfirmDialog(null, "Deseja realmente sair da Tela?", "Sistema informa:", JOptionPane.YES_NO_OPTION);
+                    if (selectedOption == JOptionPane.YES_OPTION) {
+                        dispose();
+                    }
+                }
+            }
+        });
     }
 
     /**
@@ -44,15 +94,15 @@ public class Produtividade extends javax.swing.JFrame {
         jPanel17 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jPanel18 = new javax.swing.JPanel();
-        jLabel23 = new javax.swing.JLabel();
+        jHoraSistemaPSP = new javax.swing.JLabel();
         jPanel20 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jPanel21 = new javax.swing.JPanel();
-        jLabel24 = new javax.swing.JLabel();
+        jDataSistemaPSP = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jPanelTabela = new javax.swing.JPanel();
         jScrollPaneTabela = new javax.swing.JScrollPane();
-        JtableTabelaAtendimento = new javax.swing.JTable();
+        jTabelaAtendimentoProdutivida = new javax.swing.JTable();
         RotulojPanel = new javax.swing.JPanel();
         jPanelTecnico = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
@@ -77,17 +127,17 @@ public class Produtividade extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("DEMONSTRATIVO DE ATENDIMENTO E PRODUTIVIDADE");
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/logoSocializa200.jpg"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/logoSocializa200.jpg"))); // NOI18N
 
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ICONE70.png"))); // NOI18N
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ICONE70.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanelCabecalhoLayout = new javax.swing.GroupLayout(jPanelCabecalho);
         jPanelCabecalho.setLayout(jPanelCabecalhoLayout);
         jPanelCabecalhoLayout.setHorizontalGroup(
             jPanelCabecalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCabecalhoLayout.createSequentialGroup()
-                .addComponent(jLabel3)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -141,9 +191,9 @@ public class Produtividade extends javax.swing.JFrame {
         jPanel18.setForeground(new java.awt.Color(0, 0, 153));
         jPanel18.setToolTipText("");
 
-        jLabel23.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel23.setText("00:00:00");
+        jHoraSistemaPSP.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jHoraSistemaPSP.setForeground(new java.awt.Color(255, 255, 255));
+        jHoraSistemaPSP.setText("00:00:00");
 
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
         jPanel18.setLayout(jPanel18Layout);
@@ -151,14 +201,14 @@ public class Produtividade extends javax.swing.JFrame {
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel18Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel23)
+                .addComponent(jHoraSistemaPSP)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel18Layout.setVerticalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel18Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel23)
+                .addComponent(jHoraSistemaPSP)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -193,9 +243,9 @@ public class Produtividade extends javax.swing.JFrame {
         jPanel21.setForeground(new java.awt.Color(0, 0, 153));
         jPanel21.setToolTipText("");
 
-        jLabel24.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel24.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel24.setText("dd/mm/aa");
+        jDataSistemaPSP.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jDataSistemaPSP.setForeground(new java.awt.Color(255, 255, 255));
+        jDataSistemaPSP.setText("dd/mm/aa");
 
         javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
         jPanel21.setLayout(jPanel21Layout);
@@ -203,19 +253,21 @@ public class Produtividade extends javax.swing.JFrame {
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel21Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel24)
+                .addComponent(jDataSistemaPSP)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel21Layout.setVerticalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel21Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel24)
+                .addComponent(jDataSistemaPSP)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jButton1.setBackground(new java.awt.Color(240, 0, 0));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(204, 0, 0));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Refresh_Icon_32.png"))); // NOI18N
         jButton1.setText("Atualizar");
         jButton1.setOpaque(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -230,8 +282,8 @@ public class Produtividade extends javax.swing.JFrame {
             jPanelRodapeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelRodapeLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
                 .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -247,13 +299,11 @@ public class Produtividade extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanelRodapeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelRodapeLayout.createSequentialGroup()
-                        .addGroup(jPanelRodapeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanelRodapeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanelRodapeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanelRodapeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 3, Short.MAX_VALUE))
                     .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -264,17 +314,23 @@ public class Produtividade extends javax.swing.JFrame {
         jPanelTabela.setForeground(new java.awt.Color(255, 255, 255));
         jPanelTabela.setLayout(new java.awt.BorderLayout());
 
-        JtableTabelaAtendimento.setModel(new javax.swing.table.DefaultTableModel(
+        jTabelaAtendimentoProdutivida.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTabelaAtendimentoProdutivida.setForeground(new java.awt.Color(204, 0, 0));
+        jTabelaAtendimentoProdutivida.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Título 5", "Título 6"
+                "Colaborador", "Departamento"
             }
         ));
-        jScrollPaneTabela.setViewportView(JtableTabelaAtendimento);
+        jScrollPaneTabela.setViewportView(jTabelaAtendimentoProdutivida);
+        if (jTabelaAtendimentoProdutivida.getColumnModel().getColumnCount() > 0) {
+            jTabelaAtendimentoProdutivida.getColumnModel().getColumn(0).setMinWidth(226);
+            jTabelaAtendimentoProdutivida.getColumnModel().getColumn(1).setMinWidth(226);
+        }
 
-        jPanelTabela.add(jScrollPaneTabela, java.awt.BorderLayout.CENTER);
+        jPanelTabela.add(jScrollPaneTabela, java.awt.BorderLayout.PAGE_START);
 
         RotulojPanel.setLayout(new java.awt.GridLayout(1, 0));
 
@@ -398,6 +454,7 @@ public class Produtividade extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        mostrarDemostrativoPSP();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -439,15 +496,14 @@ public class Produtividade extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable JtableTabelaAtendimento;
     private javax.swing.JPanel RotulojPanel;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jDataSistemaPSP;
+    private javax.swing.JLabel jHoraSistemaPSP;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -470,8 +526,102 @@ public class Produtividade extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelTecnico;
     private javax.swing.JPanel jPanelTituloTela;
     private javax.swing.JScrollPane jScrollPaneTabela;
+    private javax.swing.JTable jTabelaAtendimentoProdutivida;
     // End of variables declaration//GEN-END:variables
 
-   
-   
+    public void preencherTabelaProdutividade(String sql) {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Colaborador", "Departamento"};
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL(sql);
+            conecta.rs.first();
+            do {
+                // Formatar a data Entrada
+//                dataEvolucao = conecta.rs.getString("DataReg");
+//                String diae = dataEvolucao.substring(8, 10);
+//                String mese = dataEvolucao.substring(5, 7);
+//                String anoe = dataEvolucao.substring(0, 4);
+//                dataEvolucao = diae + "/" + mese + "/" + anoe;
+                dados.add(new Object[]{conecta.rs.getString("NomeFunc"), conecta.rs.getString("NomeDepartamento")});
+            } while (conecta.rs.next());
+        } catch (SQLException ex) {
+        }
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaAtendimentoProdutivida.setModel(modelo);
+        jTabelaAtendimentoProdutivida.getColumnModel().getColumn(0).setPreferredWidth(220);
+        jTabelaAtendimentoProdutivida.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaAtendimentoProdutivida.getColumnModel().getColumn(1).setPreferredWidth(220);
+        jTabelaAtendimentoProdutivida.getColumnModel().getColumn(1).setResizable(false);
+//        jTabelaAtendimentoProdutivida.getColumnModel().getColumn(2).setPreferredWidth(390);
+//        jTabelaAtendimentoProdutivida.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaAtendimentoProdutivida.getTableHeader().setReorderingAllowed(false);
+        jTabelaAtendimentoProdutivida.setAutoResizeMode(jTabelaAtendimentoProdutivida.AUTO_RESIZE_OFF);
+        jTabelaAtendimentoProdutivida.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCamposTabelaEvolucao();
+        conecta.desconecta();
+    }
+
+    public void alinharCamposTabelaEvolucao() {
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        //
+        jTabelaAtendimentoProdutivida.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaAtendimentoProdutivida.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+    }
+
+    public void limparTabelaEvolucao() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Data", "Evolução"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaAtendimentoProdutivida.setModel(modelo);
+        jTabelaAtendimentoProdutivida.getColumnModel().getColumn(0).setPreferredWidth(70);
+        jTabelaAtendimentoProdutivida.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaAtendimentoProdutivida.getColumnModel().getColumn(1).setPreferredWidth(80);
+        jTabelaAtendimentoProdutivida.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaAtendimentoProdutivida.getColumnModel().getColumn(2).setPreferredWidth(390);
+        jTabelaAtendimentoProdutivida.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaAtendimentoProdutivida.getTableHeader().setReorderingAllowed(false);
+        jTabelaAtendimentoProdutivida.setAutoResizeMode(jTabelaAtendimentoProdutivida.AUTO_RESIZE_OFF);
+        jTabelaAtendimentoProdutivida.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
+    }
+
+    public void mostrarDemostrativoPSP() {
+        DefaultTableModel dadosProduto = (DefaultTableModel) jTabelaAtendimentoProdutivida.getModel();
+        RegistroAtendimentoInternos p = new RegistroAtendimentoInternos();
+        try {
+            for (RegistroAtendimentoInternos pp : control.read()) {
+//                jtotalProdutosKitCompleto.setText(Integer.toString(qtdTecnicosPSP)); // Converter inteiro em string para exibir na tela 
+                dadosProduto.addRow(new Object[]{pp.getNomeFunc(), pp.getNomeDepartamento()});
+                // BARRA DE ROLAGEM HORIZONTAL
+                jTabelaAtendimentoProdutivida.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                //
+//                jTabelaAtendimentoProdutivida.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(Produtividade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void rodaRelogio() {
+        try {
+            while (true) {
+                Date data = new Date();
+                String hora = formatter.format(data);
+                String date = formatter2.format(data);
+                jHoraSistemaPSP.setText(String.valueOf(hora));    // no lugar do label, por seu JTextField    
+                jDataSistemaPSP.setText(String.valueOf(date));
+                Thread.sleep(1000);
+            }
+        } catch (InterruptedException ex) {
+        }
+    }
 }

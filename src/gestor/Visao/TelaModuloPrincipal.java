@@ -6,6 +6,7 @@
 package gestor.Visao;
 
 //import gestor.Modelo.clsDataHora;
+import Util.Produtividade.Produtividade;
 import com.sun.glass.events.KeyEvent;
 import gestor.Controle.ControleUsuarioConectado;
 import gestor.Dao.ConexaoBancoDados;
@@ -225,7 +226,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jSeparator4 = new javax.swing.JToolBar.Separator();
         jBtConfiguracoes2 = new javax.swing.JButton();
         jBtSindicancia = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jBtProdutividade = new javax.swing.JButton();
         jSeparator5 = new javax.swing.JToolBar.Separator();
         jBtTrocarSenha = new javax.swing.JButton();
         jBtLogoff = new javax.swing.JButton();
@@ -662,11 +663,16 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         });
         jToolBar5.add(jBtSindicancia);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Produtividade48.png"))); // NOI18N
-        jButton1.setToolTipText("Produtividade");
-        jButton1.setMaximumSize(new java.awt.Dimension(53, 53));
-        jButton1.setMinimumSize(new java.awt.Dimension(48, 48));
-        jToolBar5.add(jButton1);
+        jBtProdutividade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Produtividade48.png"))); // NOI18N
+        jBtProdutividade.setToolTipText("Produtividade");
+        jBtProdutividade.setMaximumSize(new java.awt.Dimension(53, 53));
+        jBtProdutividade.setMinimumSize(new java.awt.Dimension(48, 48));
+        jBtProdutividade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtProdutividadeActionPerformed(evt);
+            }
+        });
+        jToolBar5.add(jBtProdutividade);
         jToolBar5.add(jSeparator5);
 
         jBtTrocarSenha.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -7030,6 +7036,19 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void jBtProdutividadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtProdutividadeActionPerformed
+        // TODO add your handling code here:
+        TelaPeriodoProdutividade tpPSP = new TelaPeriodoProdutividade();
+        this.jPanielPrincipal.add(tpPSP);
+        tpPSP.show();
+        try {
+            tpPSP.setMaximum(!true);
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+//        private TelaPeriodoProdutividade objPeriodoProdPSP = null;
+    }//GEN-LAST:event_jBtProdutividadeActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -7148,6 +7167,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jBtPedagogia2;
     private javax.swing.JButton jBtPortaria2;
     private javax.swing.JButton jBtPortariaExterna;
+    private javax.swing.JButton jBtProdutividade;
     private javax.swing.JButton jBtPsicologia2;
     private javax.swing.JButton jBtSairSistema;
     private javax.swing.JButton jBtSeguranca2;
@@ -7157,7 +7177,6 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jBtTerapeuta2;
     private javax.swing.JButton jBtTriagem;
     private javax.swing.JButton jBtTrocarSenha;
-    private javax.swing.JButton jButton1;
     public static javax.swing.JTextField jDataSistema;
     public static javax.swing.JTextField jHoraSistema;
     private javax.swing.JLabel jLabel1;
