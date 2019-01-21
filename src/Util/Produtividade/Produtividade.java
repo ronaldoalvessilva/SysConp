@@ -9,8 +9,6 @@ import gestor.Controle.ControleListaTecnicosProdutividadePSP;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.RegistroAtendimentoInternos;
-import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
-import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -39,6 +37,7 @@ public class Produtividade extends javax.swing.JFrame {
     public static int qtdTecnicosPSP = 0;
     SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss"); // HORAIO DE 24 HORAS, PARA O DE 12 HORAS UTILIZAR hh:mm:ss
     SimpleDateFormat formatter2 = new SimpleDateFormat("dd/MM/yyyy");
+    public static String qtd;
 
     //ConexaoDB con = new ConexaoDB();
     /**
@@ -321,9 +320,17 @@ public class Produtividade extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Colaborador", "Departamento"
+                "Colaborador", "Departamento", "TOTAL"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPaneTabela.setViewportView(jTabelaAtendimentoProdutivida);
         if (jTabelaAtendimentoProdutivida.getColumnModel().getColumnCount() > 0) {
             jTabelaAtendimentoProdutivida.getColumnModel().getColumn(0).setMinWidth(226);
@@ -596,6 +603,7 @@ public class Produtividade extends javax.swing.JFrame {
         RegistroAtendimentoInternos p = new RegistroAtendimentoInternos();
         try {
             for (RegistroAtendimentoInternos pp : control.read()) {
+                
 //                jtotalProdutosKitCompleto.setText(Integer.toString(qtdTecnicosPSP)); // Converter inteiro em string para exibir na tela 
                 dadosProduto.addRow(new Object[]{pp.getNomeFunc(), pp.getNomeDepartamento()});
                 // BARRA DE ROLAGEM HORIZONTAL

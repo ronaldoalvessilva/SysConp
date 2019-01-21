@@ -5,6 +5,7 @@
  */
 package gestor.Controle;
 
+import static Util.Produtividade.Produtividade.qtd;
 import static Util.Produtividade.Produtividade.qtdTecnicosPSP;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.RegistroAtendimentoInternos;
@@ -34,20 +35,22 @@ public class ControleListaTecnicosProdutividadePSP {
         List<RegistroAtendimentoInternos> listaTecnicosPSP = new ArrayList<RegistroAtendimentoInternos>();
         try {
             SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
-            conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
+            dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+            dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+            conecta.executaSQL("SELECT DEPARTAMENTOS.NomeDepartamento,REGISTRO_ATENDIMENTO_INTERNO_PSP.UsuarioInsert, COUNT(*) "
+                    + "FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
                     + "INNER JOIN DEPARTAMENTOS "
                     + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
                     + "INNER JOIN COLABORADOR "
                     + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdFunc=COLABORADOR.IdFunc "
                     + "WHERE REGISTRO_ATENDIMENTO_INTERNO_PSP.DataReg>='" + dataInicial + "' "
-                    + "AND REGISTRO_ATENDIMENTO_INTERNO_PSP.DataReg<='" + dataFinal + "'");
+                    + "AND REGISTRO_ATENDIMENTO_INTERNO_PSP.DataReg<='" + dataFinal + "' "
+                    + "GROUP BY DEPARTAMENTOS.NomeDepartamento,REGISTRO_ATENDIMENTO_INTERNO_PSP.UsuarioInsert");
             while (conecta.rs.next()) {
                 RegistroAtendimentoInternos pDigi = new RegistroAtendimentoInternos();
                 pDigi.setNomeFunc(conecta.rs.getString("UsuarioInsert"));
                 pDigi.setNomeDepartamento(conecta.rs.getString("NomeDepartamento"));
-                pDigi.setTipoAtemdimento(conecta.rs.getString("TipoAtendimento"));
+                //    pDigi.setTipoAtemdimento(conecta.rs.getString("TipoAtendimento"));
                 listaTecnicosPSP.add(pDigi);
                 qtdTecnicosPSP = qtdTecnicosPSP + 1;
             }
