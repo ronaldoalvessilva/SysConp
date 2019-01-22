@@ -428,7 +428,11 @@ public class TelaAssinaturaoBiometriaColaboradoresPSP extends javax.swing.JDialo
                 || nomeColaboradorQUA == null
                 || nomeColaboradorQUI == null) {
             JOptionPane.showMessageDialog(rootPane, "Não existe colaborador definido no parametro para realizar a liberação, solicite ao Administrador do Sistema para cadastrar.");
-        } else if (nomeColaboradorPRI.equals(jNomeColaborador.getText()) || nomeColaboradorSEG.equals(jNomeColaborador.getText())) {
+        } else if (nomeColaboradorPRI.equals(jNomeColaborador.getText())
+                || nomeColaboradorSEG.equals(jNomeColaborador.getText())
+                || nomeColaboradorTER.equals(jNomeColaborador.getText())
+                || nomeColaboradorQUA.equals(jNomeColaborador.getText())
+                || nomeColaboradorQUI.equals(jNomeColaborador.getText())) {
             pLiberacaoImpressa = "Sim";
             objItensFunc.setIdFunc(Integer.valueOf(jIdColaborador.getText()));
             objItensFunc.setNomeColaborador(jNomeColaborador.getText());
