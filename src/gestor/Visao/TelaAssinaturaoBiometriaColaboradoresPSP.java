@@ -70,9 +70,13 @@ public class TelaAssinaturaoBiometriaColaboradoresPSP extends javax.swing.JDialo
     int codigoItem = 0;
     String nomeColaboradorPRI = "";
     String nomeColaboradorSEG = "";
+    String nomeColaboradorTER = "";
+    String nomeColaboradorQUA = "";
+    String nomeColaboradorQUI = "";
+
     //
     String dataInicial;
-    
+
     // CÓDIGO DA BIOMETRIA CIS FS-80H
     public interface CIS_SDK extends StdCallLibrary {
 
@@ -413,7 +417,16 @@ public class TelaAssinaturaoBiometriaColaboradoresPSP extends javax.swing.JDialo
     private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
         // TODO add your handling code here:
         verificarColaboradorLiberador();
-        if (nomeColaboradorPRI.equals("") || nomeColaboradorSEG.equals("") || nomeColaboradorPRI == null || nomeColaboradorSEG == null) {
+        if (nomeColaboradorPRI.equals("")
+                || nomeColaboradorSEG.equals("")
+                || nomeColaboradorPRI == null
+                || nomeColaboradorSEG == null
+                || nomeColaboradorTER.equals("")
+                || nomeColaboradorQUA.equals("")
+                || nomeColaboradorQUI.equals("")
+                || nomeColaboradorTER == null
+                || nomeColaboradorQUA == null
+                || nomeColaboradorQUI == null) {
             JOptionPane.showMessageDialog(rootPane, "Não existe colaborador definido no parametro para realizar a liberação, solicite ao Administrador do Sistema para cadastrar.");
         } else if (nomeColaboradorPRI.equals(jNomeColaborador.getText()) || nomeColaboradorSEG.equals(jNomeColaborador.getText())) {
             pLiberacaoImpressa = "Sim";
@@ -421,15 +434,15 @@ public class TelaAssinaturaoBiometriaColaboradoresPSP extends javax.swing.JDialo
             objItensFunc.setNomeColaborador(jNomeColaborador.getText());
             objItensFunc.setDataEntrada(jDataLiberacao.getDate());
             objItensFunc.setHorarioEntrada(jHorarioLiberacao.getText());
-            
-            codigoLiberador = objItensFunc.getIdFunc();            
-            nomeLiberador = objItensFunc.getNomeColaborador();            
+
+            codigoLiberador = objItensFunc.getIdFunc();
+            nomeLiberador = objItensFunc.getNomeColaborador();
             pDigitalCapturadaColaborador = pDigitalCapturada;
             SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
             dataInicial = formatoAmerica.format(jDataLiberacao.getDate().getTime());
             dataAssinatura = dataInicial;
             horaAssinatura = objItensFunc.getHorarioEntrada();
-            jBtSalvar.setEnabled(true);            
+            jBtSalvar.setEnabled(true);
             dispose();
         } else {
             JOptionPane.showMessageDialog(rootPane, "Esse colaborador não tem permissão para liberar autorização impressa.");
@@ -971,6 +984,9 @@ public class TelaAssinaturaoBiometriaColaboradoresPSP extends javax.swing.JDialo
             conecta.rs.first();
             nomeColaboradorPRI = conecta.rs.getString("NomeColaboradorPRI");
             nomeColaboradorSEG = conecta.rs.getString("NomeColaboradorSEG");
+            nomeColaboradorTER = conecta.rs.getString("NomeColaboradorTER");
+            nomeColaboradorQUA = conecta.rs.getString("NomeColaboradorQUA");
+            nomeColaboradorQUI = conecta.rs.getString("NomeColaboradorQUI");
         } catch (Exception ERROR) {
         }
         conecta.desconecta();
