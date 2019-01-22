@@ -201,12 +201,10 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jPanel23 = new javax.swing.JPanel();
         jLabel53 = new javax.swing.JLabel();
         jNomeColaboradorPRI = new javax.swing.JTextField();
-        jNomeColaboradorSEG = new javax.swing.JTextField();
         jComboBoxPesquisaColaPRI = new javax.swing.JComboBox<>();
         jComboBoxPesquisaColaSEG = new javax.swing.JComboBox<>();
         jBtPesqColaboradorSEG = new javax.swing.JButton();
         jBtPesqColaboradorPRI = new javax.swing.JButton();
-        jNomeColaboradorTER = new javax.swing.JTextField();
         jNomeColaboradorQUA = new javax.swing.JTextField();
         jComboBoxPesquisaColaTER = new javax.swing.JComboBox<>();
         jComboBoxPesquisaColaQUA = new javax.swing.JComboBox<>();
@@ -215,6 +213,8 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jNomeColaboradorQUI = new javax.swing.JTextField();
         jComboBoxPesquisaColaQUI = new javax.swing.JComboBox<>();
         jBtPesqColaboradorQUI = new javax.swing.JButton();
+        jNomeColaboradorTER = new javax.swing.JTextField();
+        jNomeColaboradorSEG = new javax.swing.JTextField();
         jPanel33 = new javax.swing.JPanel();
         jLabel54 = new javax.swing.JLabel();
         jLabel55 = new javax.swing.JLabel();
@@ -480,7 +480,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         );
         jPanel39Layout.setVerticalGroup(
             jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 69, Short.MAX_VALUE)
+            .addGap(0, 61, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -1224,7 +1224,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         );
         jPanel29Layout.setVerticalGroup(
             jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 162, Short.MAX_VALUE)
+            .addGap(0, 154, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
@@ -1424,7 +1424,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Fotos WC", jPanel16);
@@ -1439,13 +1439,12 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         );
         jPanel27Layout.setVerticalGroup(
             jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 273, Short.MAX_VALUE)
+            .addGap(0, 265, Short.MAX_VALUE)
         );
 
         jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
         jLabel45.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel45.setForeground(new java.awt.Color(204, 0, 0));
         jLabel45.setText("Caminho do executavel atualização sistema:");
         jLabel45.setToolTipText("CAminho do executável de atualização do sistema");
 
@@ -1454,7 +1453,6 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jCaminhoExecutavelAtualizacaoSis.setEnabled(false);
 
         jLabel46.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel46.setForeground(new java.awt.Color(204, 0, 0));
         jLabel46.setText("Data da Versão:");
 
         jDataVersao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -1462,7 +1460,6 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jDataVersao.setName("JDataVersao"); // NOI18N
 
         jLabel47.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel47.setForeground(new java.awt.Color(204, 0, 0));
         jLabel47.setText("Número da Versão:");
 
         jNumeroVersao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -1470,7 +1467,6 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jNumeroVersao.setEnabled(false);
 
         jLabel48.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel48.setForeground(new java.awt.Color(0, 0, 204));
         jLabel48.setText("Caminho do executavel antigo sistema:");
         jLabel48.setToolTipText("Caminho do executável antigo do sistema");
 
@@ -1499,22 +1495,17 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                     .addComponent(jLabel45, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel25Layout.createSequentialGroup()
-                        .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCaminhoExecutavelAtualizacaoSis, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel25Layout.createSequentialGroup()
-                                .addComponent(jDataVersao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel47)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jNumeroVersao, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel25Layout.createSequentialGroup()
-                        .addComponent(jComboBoxCarcereFem, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(480, 480, 480))
-                    .addGroup(jPanel25Layout.createSequentialGroup()
-                        .addComponent(jCaminhoExecutavelAntigo, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                    .addComponent(jCaminhoExecutavelAntigo, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxCarcereFem, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel25Layout.createSequentialGroup()
+                            .addComponent(jDataVersao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel47)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jNumeroVersao, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jCaminhoExecutavelAtualizacaoSis, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         jPanel25Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jCaminhoExecutavelAntigo, jCaminhoExecutavelAtualizacaoSis});
@@ -1523,23 +1514,23 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel25Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCaminhoExecutavelAtualizacaoSis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel45))
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel45)
+                    .addComponent(jCaminhoExecutavelAtualizacaoSis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jNumeroVersao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel47)
+                    .addComponent(jLabel46)
                     .addComponent(jDataVersao, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel46))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCaminhoExecutavelAntigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel48))
+                    .addComponent(jLabel47)
+                    .addComponent(jNumeroVersao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jComboBoxCarcereFem, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel40))
+                    .addComponent(jLabel48)
+                    .addComponent(jCaminhoExecutavelAntigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel40)
+                    .addComponent(jComboBoxCarcereFem, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1639,7 +1630,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Liberador de Atendimento PSP", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(204, 0, 0))); // NOI18N
 
         jLabel53.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel53.setForeground(new java.awt.Color(0, 102, 0));
+        jLabel53.setForeground(new java.awt.Color(0, 0, 204));
         jLabel53.setText("Colaboradores que liberam Atendimentos somente na Enfermaria");
 
         jNomeColaboradorPRI.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -1647,12 +1638,6 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jNomeColaboradorPRI.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jNomeColaboradorPRI.setDisabledTextColor(new java.awt.Color(204, 0, 0));
         jNomeColaboradorPRI.setEnabled(false);
-
-        jNomeColaboradorSEG.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jNomeColaboradorSEG.setForeground(new java.awt.Color(204, 0, 0));
-        jNomeColaboradorSEG.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jNomeColaboradorSEG.setDisabledTextColor(new java.awt.Color(0, 0, 204));
-        jNomeColaboradorSEG.setEnabled(false);
 
         jComboBoxPesquisaColaPRI.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxPesquisaColaPRI.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
@@ -1665,6 +1650,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jComboBoxPesquisaColaSEG.setEnabled(false);
 
         jBtPesqColaboradorSEG.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/overlays.png"))); // NOI18N
+        jBtPesqColaboradorSEG.setContentAreaFilled(false);
         jBtPesqColaboradorSEG.setEnabled(false);
         jBtPesqColaboradorSEG.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1673,18 +1659,13 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         });
 
         jBtPesqColaboradorPRI.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/overlays.png"))); // NOI18N
+        jBtPesqColaboradorPRI.setContentAreaFilled(false);
         jBtPesqColaboradorPRI.setEnabled(false);
         jBtPesqColaboradorPRI.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesqColaboradorPRIActionPerformed(evt);
             }
         });
-
-        jNomeColaboradorTER.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jNomeColaboradorTER.setForeground(new java.awt.Color(0, 0, 153));
-        jNomeColaboradorTER.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jNomeColaboradorTER.setDisabledTextColor(new java.awt.Color(204, 0, 0));
-        jNomeColaboradorTER.setEnabled(false);
 
         jNomeColaboradorQUA.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jNomeColaboradorQUA.setForeground(new java.awt.Color(0, 0, 204));
@@ -1703,6 +1684,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jComboBoxPesquisaColaQUA.setEnabled(false);
 
         jBtPesqColaboradorQUA.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/overlays.png"))); // NOI18N
+        jBtPesqColaboradorQUA.setContentAreaFilled(false);
         jBtPesqColaboradorQUA.setEnabled(false);
         jBtPesqColaboradorQUA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1711,6 +1693,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         });
 
         jBtPesqColaboradorTER.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/overlays.png"))); // NOI18N
+        jBtPesqColaboradorTER.setContentAreaFilled(false);
         jBtPesqColaboradorTER.setEnabled(false);
         jBtPesqColaboradorTER.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1730,12 +1713,25 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jComboBoxPesquisaColaQUI.setEnabled(false);
 
         jBtPesqColaboradorQUI.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/overlays.png"))); // NOI18N
+        jBtPesqColaboradorQUI.setContentAreaFilled(false);
         jBtPesqColaboradorQUI.setEnabled(false);
         jBtPesqColaboradorQUI.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesqColaboradorQUIActionPerformed(evt);
             }
         });
+
+        jNomeColaboradorTER.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jNomeColaboradorTER.setForeground(new java.awt.Color(0, 0, 204));
+        jNomeColaboradorTER.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNomeColaboradorTER.setDisabledTextColor(new java.awt.Color(0, 0, 204));
+        jNomeColaboradorTER.setEnabled(false);
+
+        jNomeColaboradorSEG.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jNomeColaboradorSEG.setForeground(new java.awt.Color(204, 0, 0));
+        jNomeColaboradorSEG.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNomeColaboradorSEG.setDisabledTextColor(new java.awt.Color(204, 0, 0));
+        jNomeColaboradorSEG.setEnabled(false);
 
         javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
         jPanel23.setLayout(jPanel23Layout);
@@ -1746,63 +1742,62 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel23Layout.createSequentialGroup()
                         .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel53)
                             .addGroup(jPanel23Layout.createSequentialGroup()
-                                .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jNomeColaboradorPRI)
-                                    .addComponent(jNomeColaboradorSEG, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jNomeColaboradorQUA, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jNomeColaboradorTER, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jComboBoxPesquisaColaSEG, 0, 343, Short.MAX_VALUE)
-                                    .addComponent(jComboBoxPesquisaColaPRI, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addComponent(jLabel53))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jBtPesqColaboradorPRI, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBtPesqColaboradorSEG, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jComboBoxPesquisaColaQUA, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jComboBoxPesquisaColaTER, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel23Layout.createSequentialGroup()
+                                .addComponent(jNomeColaboradorQUI, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBoxPesquisaColaQUI, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jBtPesqColaboradorTER, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBtPesqColaboradorQUA, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBtPesqColaboradorQUI, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel23Layout.createSequentialGroup()
                         .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jNomeColaboradorTER)
-                            .addComponent(jNomeColaboradorQUA, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jNomeColaboradorPRI)
+                            .addComponent(jNomeColaboradorSEG, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jComboBoxPesquisaColaQUA, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBoxPesquisaColaTER, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBoxPesquisaColaPRI, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxPesquisaColaSEG, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jBtPesqColaboradorTER, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBtPesqColaboradorQUA, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel23Layout.createSequentialGroup()
-                        .addComponent(jNomeColaboradorQUI, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxPesquisaColaQUI, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtPesqColaboradorQUI, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(14, 14, 14))
+                        .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jBtPesqColaboradorPRI, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBtPesqColaboradorSEG, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
 
         jPanel23Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jComboBoxPesquisaColaPRI, jComboBoxPesquisaColaQUA, jComboBoxPesquisaColaQUI, jComboBoxPesquisaColaSEG, jComboBoxPesquisaColaTER});
 
-        jPanel23Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jNomeColaboradorPRI, jNomeColaboradorSEG});
+        jPanel23Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jNomeColaboradorPRI, jNomeColaboradorQUA, jNomeColaboradorQUI, jNomeColaboradorTER});
 
         jPanel23Layout.setVerticalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel23Layout.createSequentialGroup()
                 .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jBtPesqColaboradorPRI)
+                    .addComponent(jNomeColaboradorPRI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxPesquisaColaPRI, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jNomeColaboradorPRI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jBtPesqColaboradorPRI))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jNomeColaboradorSEG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxPesquisaColaSEG, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtPesqColaboradorSEG))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel53)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jBtPesqColaboradorTER)
+                    .addComponent(jNomeColaboradorTER, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxPesquisaColaTER, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jNomeColaboradorTER, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jBtPesqColaboradorTER))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jNomeColaboradorQUA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1810,9 +1805,9 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                     .addComponent(jBtPesqColaboradorQUA))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jBtPesqColaboradorQUI)
+                    .addComponent(jNomeColaboradorQUI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxPesquisaColaQUI, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jNomeColaboradorQUI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jBtPesqColaboradorQUI))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -2092,11 +2087,10 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jPanel26Layout.setVerticalGroup(
             jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel26Layout.createSequentialGroup()
-                .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jPanel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -2109,8 +2103,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                     .addComponent(jPanel34, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel42, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("PSP", jPanel26);
@@ -2212,17 +2205,17 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 446, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 438, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         jTabbedPane1.getAccessibleContext().setAccessibleName("Parâmentros do CRC");
 
-        setBounds(300, 30, 879, 547);
+        setBounds(300, 30, 879, 537);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
@@ -2350,6 +2343,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Selecione um colaborador...");
         } else {
             jNomeColaboradorPRI.setText((String) jComboBoxPesquisaColaPRI.getSelectedItem());
+            jComboBoxPesquisaColaPRI.getSelectedItem().equals("Selecione...");
         }
     }//GEN-LAST:event_jBtPesqColaboradorPRIActionPerformed
 
@@ -2359,6 +2353,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Selecione um colaborador...");
         } else {
             jNomeColaboradorSEG.setText((String) jComboBoxPesquisaColaSEG.getSelectedItem());
+            jComboBoxPesquisaColaSEG.getSelectedItem().equals("Selecione...");
         }
     }//GEN-LAST:event_jBtPesqColaboradorSEGActionPerformed
 
@@ -2368,6 +2363,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Selecione um colaborador...");
         } else {
             jNomeColaboradorCRC_SEG.setText((String) jComboBoxPesquisaColaCRC_SEG.getSelectedItem());
+            jComboBoxPesquisaColaCRC_SEG.getSelectedItem().equals("Selecione...");
         }
     }//GEN-LAST:event_jBtPesqColaboradorCRCSEGActionPerformed
 
@@ -2377,6 +2373,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Selecione um colaborador...");
         } else {
             jNomeColaboradorCRC.setText((String) jComboBoxPesquisaColaCRC.getSelectedItem());
+            jComboBoxPesquisaColaCRC.getSelectedItem().equals("Selecione...");
         }
     }//GEN-LAST:event_jBtPesqColaboradorCRCActionPerformed
 
@@ -2386,6 +2383,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Selecione um colaborador...");
         } else {
             jNomeColaboradorQUA.setText((String) jComboBoxPesquisaColaQUA.getSelectedItem());
+            jComboBoxPesquisaColaQUA.getSelectedItem().equals("Selecione...");
         }
     }//GEN-LAST:event_jBtPesqColaboradorQUAActionPerformed
 
@@ -2395,6 +2393,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Selecione um colaborador...");
         } else {
             jNomeColaboradorTER.setText((String) jComboBoxPesquisaColaTER.getSelectedItem());
+            jComboBoxPesquisaColaTER.getSelectedItem().equals("Selecione...");
         }
     }//GEN-LAST:event_jBtPesqColaboradorTERActionPerformed
 
@@ -2404,6 +2403,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Selecione um colaborador...");
         } else {
             jNomeColaboradorQUI.setText((String) jComboBoxPesquisaColaQUI.getSelectedItem());
+            jComboBoxPesquisaColaQUI.getSelectedItem().equals("Selecione...");
         }
     }//GEN-LAST:event_jBtPesqColaboradorQUIActionPerformed
 
@@ -2628,9 +2628,9 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         //
         jNomeColaboradorPRI.setBackground(Color.white);
         jNomeColaboradorSEG.setBackground(Color.white);
-        jComboBoxPesquisaColaTER.setBackground(Color.white);
-        jComboBoxPesquisaColaQUA.setBackground(Color.white);
-        jComboBoxPesquisaColaQUI.setBackground(Color.white);             
+        jNomeColaboradorTER.setBackground(Color.white);
+        jNomeColaboradorQUA.setBackground(Color.white);
+        jNomeColaboradorQUI.setBackground(Color.white);             
         //
         jComboBoxAtendSocial.setBackground(Color.white);
         jComboBoxControleTel.setBackground(Color.white);
