@@ -1649,7 +1649,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jNomeColaboradorPRI.setEnabled(false);
 
         jNomeColaboradorSEG.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jNomeColaboradorSEG.setForeground(new java.awt.Color(0, 0, 204));
+        jNomeColaboradorSEG.setForeground(new java.awt.Color(204, 0, 0));
         jNomeColaboradorSEG.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jNomeColaboradorSEG.setDisabledTextColor(new java.awt.Color(0, 0, 204));
         jNomeColaboradorSEG.setEnabled(false);
@@ -1681,7 +1681,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         });
 
         jNomeColaboradorTER.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jNomeColaboradorTER.setForeground(new java.awt.Color(204, 0, 0));
+        jNomeColaboradorTER.setForeground(new java.awt.Color(0, 0, 153));
         jNomeColaboradorTER.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jNomeColaboradorTER.setDisabledTextColor(new java.awt.Color(204, 0, 0));
         jNomeColaboradorTER.setEnabled(false);
