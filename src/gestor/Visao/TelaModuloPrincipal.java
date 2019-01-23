@@ -964,7 +964,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jMenuItemAlmoxarifado.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemAlmoxarifado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Almoxarifado18.png"))); // NOI18N
         jMenuItemAlmoxarifado.setMnemonic('A');
-        jMenuItemAlmoxarifado.setText("Almoxarifafdo");
+        jMenuItemAlmoxarifado.setText("Almoxarifado");
         jMenuItemAlmoxarifado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemAlmoxarifadoActionPerformed(evt);

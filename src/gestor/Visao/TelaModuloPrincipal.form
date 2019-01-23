@@ -104,7 +104,7 @@
                   <Image iconType="3" name="/gestor/Imagens/Almoxarifado18.png"/>
                 </Property>
                 <Property name="mnemonic" type="int" value="65"/>
-                <Property name="text" type="java.lang.String" value="Almoxarifafdo"/>
+                <Property name="text" type="java.lang.String" value="Almoxarifado"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemAlmoxarifadoActionPerformed"/>
