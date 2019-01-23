@@ -74,7 +74,7 @@
                   <Image iconType="3" name="/gestor/Imagens/Diretoria18.png"/>
                 </Property>
                 <Property name="mnemonic" type="int" value="68"/>
-                <Property name="text" type="java.lang.String" value="Diretoria Da Unidade"/>
+                <Property name="text" type="java.lang.String" value="Diretoria da Unidade"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemDiretoriaUnidadeActionPerformed"/>

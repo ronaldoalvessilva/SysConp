@@ -942,7 +942,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jMenuItemDiretoriaUnidade.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemDiretoriaUnidade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Diretoria18.png"))); // NOI18N
         jMenuItemDiretoriaUnidade.setMnemonic('D');
-        jMenuItemDiretoriaUnidade.setText("Diretoria Da Unidade");
+        jMenuItemDiretoriaUnidade.setText("Diretoria da Unidade");
         jMenuItemDiretoriaUnidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemDiretoriaUnidadeActionPerformed(evt);
