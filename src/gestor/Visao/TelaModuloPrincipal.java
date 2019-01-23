@@ -5993,10 +5993,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
 
     private void jMenuItemTOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTOActionPerformed
         // TODO add your handling code here:
-        String grupoJuri = "JURIDICO";
+        String grupoTera = "TERAPIA OCUPACIONAL";
         String grupoAdm = "ADMINISTRADORES";
-        String permissaoGrupoJuri = "Sim";
-        String moduloJuri = "JURIDICO";
+        String permissaoGrupoTera = "Sim";
+        String moduloTera = "TERAPIA OCUPACIONAL";
         idGrupo = 0;
         nomeGrupo = "";
         idModulo = 0;
@@ -6016,21 +6016,21 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         conecta.desconecta();
         // SE O FOR O ADMINISTRADOR DO SISTEMA
         if (loginUsusario.equals(nameUser)) {
-            TelaModuloJuridico tj = new TelaModuloJuridico();
-            this.jPanielPrincipal.add(tj);
-            tj.show();
+            TelaModuloTerapiaOcupacional tpo = new TelaModuloTerapiaOcupacional();
+            this.jPanielPrincipal.add(tpo);
+            tpo.show();
             try {
-                tj.setMaximum(true);
+                tpo.setMaximum(true);
             } catch (PropertyVetoException ex) {
                 Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
             if (nomeGrupo.equals(grupoAdministrador)) {
-                TelaModuloJuridico tj = new TelaModuloJuridico();
-                this.jPanielPrincipal.add(tj);
-                tj.show();
+                TelaModuloTerapiaOcupacional tpo = new TelaModuloTerapiaOcupacional();
+                this.jPanielPrincipal.add(tpo);
+                tpo.show();
                 try {
-                    tj.setMaximum(true);
+                    tpo.setMaximum(true);
                 } catch (PropertyVetoException ex) {
                     Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -6040,7 +6040,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                     conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
                             + "INNER JOIN GRUPOUSUARIOS "
                             + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoJuri + "' "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoTera + "' "
                             + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idGrupo = conecta.rs.getInt("IdGrupo");
@@ -6051,7 +6051,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                     conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
                             + "INNER JOIN MODULOS "
                             + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
-                            + "WHERE MODULOS.NomeModulo='" + moduloJuri + "' "
+                            + "WHERE MODULOS.NomeModulo='" + moduloTera + "' "
                             + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
                     conecta.rs.first();
                     idModulo = conecta.rs.getInt("IdModulo");
@@ -6060,12 +6060,12 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 } catch (Exception er) {
                 }
                 conecta.desconecta();
-                if (idGrupo == idGrupoModulo && permissaoModulo.equals(permissaoGrupoJuri)) {
-                    TelaModuloJuridico tj = new TelaModuloJuridico();
-                    this.jPanielPrincipal.add(tj);
-                    tj.show();
+                if (idGrupo == idGrupoModulo && permissaoModulo.equals(permissaoGrupoTera)) {
+                    TelaModuloTerapiaOcupacional tpo = new TelaModuloTerapiaOcupacional();
+                    this.jPanielPrincipal.add(tpo);
+                    tpo.show();
                     try {
-                        tj.setMaximum(true);
+                        tpo.setMaximum(true);
                     } catch (PropertyVetoException ex) {
                         Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                     }
