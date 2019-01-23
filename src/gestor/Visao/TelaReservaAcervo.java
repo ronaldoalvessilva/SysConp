@@ -15,6 +15,20 @@ import gestor.Modelo.ItensReservaAcervo;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.ReservaAcervo;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPedagogia.codAbrirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codAlterarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codConsultarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codExcluirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codGravarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codIncluirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codUserAcessoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoGrupoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoUserGroupPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoUserPEDA;
+import static gestor.Visao.TelaModuloPedagogia.nomeGrupoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.nomeTelaPEDA;
+import static gestor.Visao.TelaModuloPedagogia.telaReservasManu_PEDA;
+import static gestor.Visao.TelaModuloPedagogia.telaReservasProd_PEDA;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -396,13 +410,13 @@ public class TelaReservaAcervo extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(6, 6, 6))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Listagem", jPanel1);
@@ -635,12 +649,12 @@ public class TelaReservaAcervo extends javax.swing.JInternalFrame {
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jBtFinalizar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
@@ -1004,7 +1018,7 @@ public class TelaReservaAcervo extends javax.swing.JInternalFrame {
         jTabelaProdutos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Seq.", "Código", "Descrição Acervo", "Qtde.", "Prazo", "Localização"
@@ -1169,7 +1183,7 @@ public class TelaReservaAcervo extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -1185,87 +1199,105 @@ public class TelaReservaAcervo extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 489, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(300, 20, 503, 518);
+        setBounds(300, 20, 503, 455);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        count = 0;
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaReservasManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaReservasManu_PEDA) && codIncluirPEDA == 1) {
+            count = 0;
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        objReserva.setStatusLanc(jStatusDoc.getText());
-        if (jStatusDoc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaReservasManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaReservasManu_PEDA) && codAlterarPEDA == 1) {
+            objReserva.setStatusLanc(jStatusDoc.getText());
+            if (jStatusDoc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                Alterar();
+                corCampos();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 2;
-            Alterar();
-            corCampos();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        objReserva.setStatusLanc(jStatusDoc.getText());
-        if (jStatusDoc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser excluida, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaReservasManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaReservasManu_PEDA) && codExcluirPEDA == 1) {
+            objReserva.setStatusLanc(jStatusDoc.getText());
+            if (jStatusDoc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser excluida, o mesmo encontra-se FINALIZADO");
+            } else {
+                verificarItens();
+            }
         } else {
-            verificarItens();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
-        // TODO add your handling code here:        
-        if (jDataDoc.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data do documento.");
-        } else if (jIdInternoReserva.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno que está reservando.");
+        // TODO add your handling code here:   
+        buscarAcessoUsuario(telaReservasManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaReservasManu_PEDA) && codGravarPEDA == 1) {
+            if (jDataDoc.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data do documento.");
+            } else if (jIdInternoReserva.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno que está reservando.");
 
+            } else {
+                objReserva.setStatusLanc(jStatusDoc.getText());
+                objReserva.setStatusLanc(jStatusDoc.getText());
+                objReserva.setDataReserva(jDataDoc.getDate());
+                objReserva.setNomeInterno(jNomeInternoReserva.getText());
+                objReserva.setObservacao(jObservacao.getText());
+                if (acao == 1) {
+                    objReserva.setUsuarioInsert(nameUser);
+                    objReserva.setDataInsert(dataModFinal);
+                    objReserva.setHorarioInsert(horaMov);
+                    //
+                    control.incluirReservaAcervo(objReserva);
+                    buscarCodigo();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 2) {
+                    objReserva.setUsuarioUp(nameUser);
+                    objReserva.setDataUp(dataModFinal);
+                    objReserva.setHorarioUp(horaMov);
+                    //
+                    objReserva.setIdReserva(Integer.valueOf(jIdDoc.getText()));
+                    control.alterarReservaAcervo(objReserva);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
         } else {
-            objReserva.setStatusLanc(jStatusDoc.getText());
-            objReserva.setStatusLanc(jStatusDoc.getText());
-            objReserva.setDataReserva(jDataDoc.getDate());
-            objReserva.setNomeInterno(jNomeInternoReserva.getText());
-            objReserva.setObservacao(jObservacao.getText());
-            if (acao == 1) {
-                objReserva.setUsuarioInsert(nameUser);
-                objReserva.setDataInsert(dataModFinal);
-                objReserva.setHorarioInsert(horaMov);
-                //
-                control.incluirReservaAcervo(objReserva);
-                buscarCodigo();
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
-            if (acao == 2) {
-                objReserva.setUsuarioUp(nameUser);
-                objReserva.setDataUp(dataModFinal);
-                objReserva.setHorarioUp(horaMov);
-                //
-                objReserva.setIdReserva(Integer.valueOf(jIdDoc.getText()));
-                control.alterarReservaAcervo(objReserva);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -1362,130 +1394,150 @@ public class TelaReservaAcervo extends javax.swing.JInternalFrame {
 
     private void jBtNovoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoItemActionPerformed
         // TODO add your handling code here:
-        objReserva.setStatusLanc(jStatusDoc.getText());
-        if (jStatusDoc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaReservasProd_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaReservasProd_PEDA) && codIncluirPEDA == 1) {
+            objReserva.setStatusLanc(jStatusDoc.getText());
+            if (jStatusDoc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 3;
+                NovoItem();
+                corCampos();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 3;
-            NovoItem();
-            corCampos();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtNovoItemActionPerformed
 
     private void jBtAlterarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarItemActionPerformed
         // TODO add your handling code here:
-        objReserva.setStatusLanc(jStatusDoc.getText());
-        if (jStatusDoc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaReservasProd_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaReservasProd_PEDA) && codAlterarPEDA == 1) {
+            objReserva.setStatusLanc(jStatusDoc.getText());
+            if (jStatusDoc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 4;
+                AlterarItem();
+                corCampos();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 4;
-            AlterarItem();
-            corCampos();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarItemActionPerformed
 
     private void jBtExcluirItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirItemActionPerformed
 //        // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        objReserva.setStatusLanc(jStatusDoc.getText());
-        if (jStatusDoc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse  registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o INTERNO selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objItensReserva.setIdItem(Integer.valueOf(idItem));
-                controle.excluirProdutoReservaAcervo(objItensReserva);
-                //               
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                ExcluirItem();
-                preencherTabelaItens("SELECT * FROM ITENS_RESERVA_ACERVO "
-                        + "INNER JOIN LIVROS_REVISTAS_JORNAIS "
-                        + "ON ITENS_RESERVA_ACERVO.IdLivro=LIVROS_REVISTAS_JORNAIS.IdLivro "
-                        + "INNER JOIN RESERVA_ACERVO "
-                        + "ON ITENS_RESERVA_ACERVO.IdReserva=RESERVA_ACERVO.IdReserva "
-                        + "INNER JOIN LOCAL_ACERVO "
-                        + "ON LIVROS_REVISTAS_JORNAIS.IdLocal=LOCAL_ACERVO.IdLocal "
-                        + "WHERE ITENS_RESERVA_ACERVO.IdReserva='" + jIdDoc.getText() + "'");
+        buscarAcessoUsuario(telaReservasProd_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaReservasProd_PEDA) && codExcluirPEDA == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objReserva.setStatusLanc(jStatusDoc.getText());
+            if (jStatusDoc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse  registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o INTERNO selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objItensReserva.setIdItem(Integer.valueOf(idItem));
+                    controle.excluirProdutoReservaAcervo(objItensReserva);
+                    //               
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    ExcluirItem();
+                    preencherTabelaItens("SELECT * FROM ITENS_RESERVA_ACERVO "
+                            + "INNER JOIN LIVROS_REVISTAS_JORNAIS "
+                            + "ON ITENS_RESERVA_ACERVO.IdLivro=LIVROS_REVISTAS_JORNAIS.IdLivro "
+                            + "INNER JOIN RESERVA_ACERVO "
+                            + "ON ITENS_RESERVA_ACERVO.IdReserva=RESERVA_ACERVO.IdReserva "
+                            + "INNER JOIN LOCAL_ACERVO "
+                            + "ON LIVROS_REVISTAS_JORNAIS.IdLocal=LOCAL_ACERVO.IdLocal "
+                            + "WHERE ITENS_RESERVA_ACERVO.IdReserva='" + jIdDoc.getText() + "'");
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirItemActionPerformed
 
     private void jBtSalvarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarItemActionPerformed
 //        // TODO add your handling code here:
-        if (jIdProduto.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do produto do acervo a ser lançado.");
-        } else if (jQuantidade.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a quantidade do produto.");
+        buscarAcessoUsuario(telaReservasProd_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaReservasProd_PEDA) && codGravarPEDA == 1) {
+            if (jIdProduto.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do produto do acervo a ser lançado.");
+            } else if (jQuantidade.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a quantidade do produto.");
+            } else {
+                objItensReserva.setIdReserva(Integer.valueOf(jIdDoc.getText()));
+                objItensReserva.setTipoOperacao(statusTipoAcervo);
+                objItensReserva.setTituloLivro(jDescricaoProduto.getText());
+                objItensReserva.setQuantidade(Integer.valueOf(jQuantidade.getText()));
+                objItensReserva.setSaldoEstoque(Float.valueOf(jSaldoAtual.getText()));
+                objItensReserva.setUtilizaReservaAcervo(utilizaReserva);
+                if (jRadBtLivro.isSelected()) {
+                    statusTipoOperacao = 0;
+                } else if (jRadBtRevista.isSelected()) {
+                    statusTipoOperacao = 1;
+                } else if (jRadBtJornal.isSelected()) {
+                    statusTipoOperacao = 2;
+                } else if (jRadBtCDrom.isSelected()) {
+                    statusTipoOperacao = 3;
+                } else if (jRadBtDVDRom.isSelected()) {
+                    statusTipoOperacao = 4;
+                }
+                objItensReserva.setTipoOperacao(statusTipoOperacao);
+                if (acao == 3) {
+                    objItensReserva.setUsuarioInsert(nameUser);
+                    objItensReserva.setDataInsert(dataModFinal);
+                    objItensReserva.setHorarioInsert(horaMov);
+                    // INCLUIR O PRODUTO NA TABELA DE ITENS_RESERVA_ACERVO
+                    controle.incluirProdutoReservaAcervo(objItensReserva);
+                    //
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    preencherTabelaItens("SELECT * FROM ITENS_RESERVA_ACERVO "
+                            + "INNER JOIN LIVROS_REVISTAS_JORNAIS "
+                            + "ON ITENS_RESERVA_ACERVO.IdLivro=LIVROS_REVISTAS_JORNAIS.IdLivro "
+                            + "INNER JOIN RESERVA_ACERVO "
+                            + "ON ITENS_RESERVA_ACERVO.IdReserva=RESERVA_ACERVO.IdReserva "
+                            + "INNER JOIN LOCAL_ACERVO "
+                            + "ON LIVROS_REVISTAS_JORNAIS.IdLocal=LOCAL_ACERVO.IdLocal "
+                            + "WHERE ITENS_RESERVA_ACERVO.IdReserva='" + jIdDoc.getText() + "'");
+                    SalvarItem();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 4) {
+                    objItensReserva.setUsuarioUp(nameUser);
+                    objItensReserva.setDataUp(dataModFinal);
+                    objItensReserva.setHorarioUp(horaMov);
+                    //
+                    objItensReserva.setIdItem(Integer.valueOf(idItem));
+                    controle.alterarProdutoReservaAcervo(objItensReserva);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    preencherTabelaItens("SELECT * FROM ITENS_RESERVA_ACERVO "
+                            + "INNER JOIN LIVROS_REVISTAS_JORNAIS "
+                            + "ON ITENS_RESERVA_ACERVO.IdLivro=LIVROS_REVISTAS_JORNAIS.IdLivro "
+                            + "INNER JOIN RESERVA_ACERVO "
+                            + "ON ITENS_RESERVA_ACERVO.IdReserva=RESERVA_ACERVO.IdReserva "
+                            + "INNER JOIN LOCAL_ACERVO "
+                            + "ON LIVROS_REVISTAS_JORNAIS.IdLocal=LOCAL_ACERVO.IdLocal "
+                            + "WHERE ITENS_RESERVA_ACERVO.IdReserva='" + jIdDoc.getText() + "'");
+                    SalvarItem();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
         } else {
-            objItensReserva.setIdReserva(Integer.valueOf(jIdDoc.getText()));
-            objItensReserva.setTipoOperacao(statusTipoAcervo);
-            objItensReserva.setTituloLivro(jDescricaoProduto.getText());
-            objItensReserva.setQuantidade(Integer.valueOf(jQuantidade.getText()));
-            objItensReserva.setSaldoEstoque(Float.valueOf(jSaldoAtual.getText()));
-            objItensReserva.setUtilizaReservaAcervo(utilizaReserva);
-            if (jRadBtLivro.isSelected()) {
-                statusTipoOperacao = 0;
-            } else if (jRadBtRevista.isSelected()) {
-                statusTipoOperacao = 1;
-            } else if (jRadBtJornal.isSelected()) {
-                statusTipoOperacao = 2;
-            } else if (jRadBtCDrom.isSelected()) {
-                statusTipoOperacao = 3;
-            } else if (jRadBtDVDRom.isSelected()) {
-                statusTipoOperacao = 4;
-            }
-            objItensReserva.setTipoOperacao(statusTipoOperacao);
-            if (acao == 3) {
-                objItensReserva.setUsuarioInsert(nameUser);
-                objItensReserva.setDataInsert(dataModFinal);
-                objItensReserva.setHorarioInsert(horaMov);
-                // INCLUIR O PRODUTO NA TABELA DE ITENS_RESERVA_ACERVO
-                controle.incluirProdutoReservaAcervo(objItensReserva);
-                //
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                preencherTabelaItens("SELECT * FROM ITENS_RESERVA_ACERVO "
-                        + "INNER JOIN LIVROS_REVISTAS_JORNAIS "
-                        + "ON ITENS_RESERVA_ACERVO.IdLivro=LIVROS_REVISTAS_JORNAIS.IdLivro "
-                        + "INNER JOIN RESERVA_ACERVO "
-                        + "ON ITENS_RESERVA_ACERVO.IdReserva=RESERVA_ACERVO.IdReserva "
-                        + "INNER JOIN LOCAL_ACERVO "
-                        + "ON LIVROS_REVISTAS_JORNAIS.IdLocal=LOCAL_ACERVO.IdLocal "
-                        + "WHERE ITENS_RESERVA_ACERVO.IdReserva='" + jIdDoc.getText() + "'");
-                SalvarItem();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
-            if (acao == 4) {
-                objItensReserva.setUsuarioUp(nameUser);
-                objItensReserva.setDataUp(dataModFinal);
-                objItensReserva.setHorarioUp(horaMov);
-                //
-                objItensReserva.setIdItem(Integer.valueOf(idItem));
-                controle.alterarProdutoReservaAcervo(objItensReserva);
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                preencherTabelaItens("SELECT * FROM ITENS_RESERVA_ACERVO "
-                        + "INNER JOIN LIVROS_REVISTAS_JORNAIS "
-                        + "ON ITENS_RESERVA_ACERVO.IdLivro=LIVROS_REVISTAS_JORNAIS.IdLivro "
-                        + "INNER JOIN RESERVA_ACERVO "
-                        + "ON ITENS_RESERVA_ACERVO.IdReserva=RESERVA_ACERVO.IdReserva "
-                        + "INNER JOIN LOCAL_ACERVO "
-                        + "ON LIVROS_REVISTAS_JORNAIS.IdLocal=LOCAL_ACERVO.IdLocal "
-                        + "WHERE ITENS_RESERVA_ACERVO.IdReserva='" + jIdDoc.getText() + "'");
-                SalvarItem();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarItemActionPerformed
 
@@ -2441,5 +2493,43 @@ public class TelaReservaAcervo extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jIdDoc.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserPEDA = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserPEDA + "'");
+            conecta.rs.first();
+            codigoUserGroupPEDA = conecta.rs.getInt("IdUsuario");
+            codigoGrupoPEDA = conecta.rs.getInt("IdGrupo");
+            nomeGrupoPEDA = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserPEDA + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoPEDA = conecta.rs.getInt("IdUsuario");
+            codAbrirPEDA = conecta.rs.getInt("Abrir");
+            codIncluirPEDA = conecta.rs.getInt("Incluir");
+            codAlterarPEDA = conecta.rs.getInt("Alterar");
+            codExcluirPEDA = conecta.rs.getInt("Excluir");
+            codGravarPEDA = conecta.rs.getInt("Gravar");
+            codConsultarPEDA = conecta.rs.getInt("Consultar");
+            nomeTelaPEDA = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

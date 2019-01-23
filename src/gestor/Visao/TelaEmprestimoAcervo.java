@@ -18,6 +18,20 @@ import gestor.Modelo.EstoqueAcervoEmprestimo;
 import gestor.Modelo.ItensEmprestimoAcervo;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPedagogia.codAbrirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codAlterarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codConsultarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codExcluirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codGravarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codIncluirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codUserAcessoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoGrupoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoUserGroupPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoUserPEDA;
+import static gestor.Visao.TelaModuloPedagogia.nomeGrupoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.nomeTelaPEDA;
+import static gestor.Visao.TelaModuloPedagogia.telaEmprestimosManu_PEDA;
+import static gestor.Visao.TelaModuloPedagogia.telaEmprestimosProd_PEDA;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -1262,7 +1276,7 @@ public class TelaEmprestimoAcervo extends javax.swing.JInternalFrame {
         count = 0;
         if (jIdPesqDoc.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe um código para pesquisa.");
-        } else {            
+        } else {
             pesquisarEmprestimoAcervo("SELECT * FROM EMPRESTIMO_ACERVO "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON EMPRESTIMO_ACERVO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -1293,7 +1307,7 @@ public class TelaEmprestimoAcervo extends javax.swing.JInternalFrame {
                 } else {
                     SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
                     dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());                   
+                    dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                     pesquisarEmprestimoAcervo("SELECT * FROM EMPRESTIMO_ACERVO "
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON EMPRESTIMO_ACERVO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -1314,7 +1328,7 @@ public class TelaEmprestimoAcervo extends javax.swing.JInternalFrame {
         count = 0;
         if (jNomeInterno.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "É necessário informar um nome ou parte do nome para pesquisa.");
-        } else {            
+        } else {
             pesquisarEmprestimoAcervo("SELECT * FROM EMPRESTIMO_ACERVO "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON EMPRESTIMO_ACERVO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -1332,7 +1346,7 @@ public class TelaEmprestimoAcervo extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         count = 0;
         flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {           
+        if (evt.getStateChange() == evt.SELECTED) {
             this.pesquisarEmprestimoAcervo("SELECT * FROM EMPRESTIMO_ACERVO "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON EMPRESTIMO_ACERVO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -1409,77 +1423,97 @@ public class TelaEmprestimoAcervo extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        count = 0;
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaEmprestimosManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaEmprestimosManu_PEDA) && codIncluirPEDA == 1) {
+            count = 0;
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        objEmprestimoAcervo.setStatusLanc(jStatusDoc.getText());
-        if (jStatusDoc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaEmprestimosManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaEmprestimosManu_PEDA) && codAlterarPEDA == 1) {
+            objEmprestimoAcervo.setStatusLanc(jStatusDoc.getText());
+            if (jStatusDoc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                Alterar();
+                corCampos();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 2;
-            Alterar();
-            corCampos();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        objEmprestimoAcervo.setStatusLanc(jStatusDoc.getText());
-        if (jStatusDoc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser excluida, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaEmprestimosManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaEmprestimosManu_PEDA) && codExcluirPEDA == 1) {
+            objEmprestimoAcervo.setStatusLanc(jStatusDoc.getText());
+            if (jStatusDoc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser excluida, o mesmo encontra-se FINALIZADO");
+            } else {
+                verificarItens();
+            }
         } else {
-            verificarItens();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataDoc.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data do documento.");
-        } else if (jIdInternoReserva.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno que está reservando.");
+        buscarAcessoUsuario(telaEmprestimosManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaEmprestimosManu_PEDA) && codGravarPEDA == 1) {
+            if (jDataDoc.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data do documento.");
+            } else if (jIdInternoReserva.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno que está reservando.");
 
+            } else {
+                objEmprestimoAcervo.setStatusLanc(jStatusDoc.getText());
+                objEmprestimoAcervo.setDataEmprestimo(jDataDoc.getDate());
+                objEmprestimoAcervo.setIdReserva(Integer.valueOf(jIdReserva.getText()));
+                objEmprestimoAcervo.setNomeInterno(jNomeInternoReserva.getText());
+                objEmprestimoAcervo.setObservacao(jObservacao.getText());
+                if (acao == 1) {
+                    objEmprestimoAcervo.setUsuarioInsert(nameUser);
+                    objEmprestimoAcervo.setDataInsert(dataModFinal);
+                    objEmprestimoAcervo.setHorarioInsert(horaMov);
+                    //
+                    control.incluirEmprestimoAcervo(objEmprestimoAcervo);
+                    buscarCodigo();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 2) {
+                    objEmprestimoAcervo.setUsuarioUp(nameUser);
+                    objEmprestimoAcervo.setDataUp(dataModFinal);
+                    objEmprestimoAcervo.setHorarioUp(horaMov);
+                    //
+                    objEmprestimoAcervo.setIdEmprestimo(Integer.valueOf(jIdDoc.getText()));
+                    control.alterarEmprestimoAcervo(objEmprestimoAcervo);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
         } else {
-            objEmprestimoAcervo.setStatusLanc(jStatusDoc.getText());
-            objEmprestimoAcervo.setDataEmprestimo(jDataDoc.getDate());
-            objEmprestimoAcervo.setIdReserva(Integer.valueOf(jIdReserva.getText()));
-            objEmprestimoAcervo.setNomeInterno(jNomeInternoReserva.getText());
-            objEmprestimoAcervo.setObservacao(jObservacao.getText());
-            if (acao == 1) {
-                objEmprestimoAcervo.setUsuarioInsert(nameUser);
-                objEmprestimoAcervo.setDataInsert(dataModFinal);
-                objEmprestimoAcervo.setHorarioInsert(horaMov);
-                //
-                control.incluirEmprestimoAcervo(objEmprestimoAcervo);
-                buscarCodigo();
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
-            if (acao == 2) {
-                objEmprestimoAcervo.setUsuarioUp(nameUser);
-                objEmprestimoAcervo.setDataUp(dataModFinal);
-                objEmprestimoAcervo.setHorarioUp(horaMov);
-                //
-                objEmprestimoAcervo.setIdEmprestimo(Integer.valueOf(jIdDoc.getText()));
-                control.alterarEmprestimoAcervo(objEmprestimoAcervo);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -1610,160 +1644,76 @@ public class TelaEmprestimoAcervo extends javax.swing.JInternalFrame {
 
     private void jBtNovoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoItemActionPerformed
         // TODO add your handling code here:
-        objEmprestimoAcervo.setStatusLanc(jStatusDoc.getText());
-        if (jStatusDoc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaEmprestimosProd_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaEmprestimosProd_PEDA) && codIncluirPEDA == 1) {
+            objEmprestimoAcervo.setStatusLanc(jStatusDoc.getText());
+            if (jStatusDoc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 3;
+                NovoItem();
+                corCampos();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 3;
-            NovoItem();
-            corCampos();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtNovoItemActionPerformed
 
     private void jBtAlterarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarItemActionPerformed
         // TODO add your handling code here:
-        objEmprestimoAcervo.setStatusLanc(jStatusDoc.getText());
-        if (jStatusDoc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaEmprestimosProd_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaEmprestimosProd_PEDA) && codAlterarPEDA == 1) {
+            objEmprestimoAcervo.setStatusLanc(jStatusDoc.getText());
+            if (jStatusDoc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 4;
+                AlterarItem();
+                corCampos();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 4;
-            AlterarItem();
-            corCampos();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarItemActionPerformed
 
     private void jBtExcluirItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirItemActionPerformed
-        // TODO add your handling code here:          
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        objEmprestimoAcervo.setStatusLanc(jStatusDoc.getText());
-        if (jStatusDoc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse  registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o INTERNO selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                //
-                codLivro = Integer.parseInt(jIdProduto.getText());
-                jQuantidade.setText("0");
-                // quantItem = Integer.parseInt(jQuantidade.getText());
-                // PEGA SALDO DO ESTOQUE PARA CALCULAR
-                pegarSaldoEstoque(codLivro);
-                objItensEmprestimo.setIdLivro(codLivro);
-                objItensEmprestimo.setIdEstoque(codEstoque);
-                objItensEmprestimo.setQtdReserva(Integer.valueOf(jQuantidade.getText()));
-                controleUtil.atualizaSaldoReservaAcervo(objItensEmprestimo);
-                //
-                objItensEmprestimo.setIdItem(Integer.valueOf(idItem));
-                controle.excluirProdutoEmprestimoAcervo(objItensEmprestimo);
-                //
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                ExcluirItem();
-                preencherTabelaItens("SELECT * FROM ITENS_EMPRESTIMO_ACERVO "
-                        + "INNER JOIN LIVROS_REVISTAS_JORNAIS "
-                        + "ON ITENS_EMPRESTIMO_ACERVO.IdLivro=LIVROS_REVISTAS_JORNAIS.IdLivro "
-                        + "INNER JOIN EMPRESTIMO_ACERVO "
-                        + "ON ITENS_EMPRESTIMO_ACERVO.IdEmprestimo=EMPRESTIMO_ACERVO.IdEmprestimo "
-                        + "INNER JOIN LOCAL_ACERVO "
-                        + "ON LIVROS_REVISTAS_JORNAIS.IdLocal=LOCAL_ACERVO.IdLocal "
-                        + "WHERE ITENS_EMPRESTIMO_ACERVO.IdEmprestimo='" + jIdDoc.getText() + "'");
-            }
-        }
-    }//GEN-LAST:event_jBtExcluirItemActionPerformed
-
-    private void jBtSalvarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarItemActionPerformed
-        //        // TODO add your handling code here:
-        if (jIdProduto.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do produto do acervo a ser lançado.");
-        } else if (jQuantidade.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a quantidade do produto.");
-        } else {
-            objItensEmprestimo.setIdEmprestimo(Integer.valueOf(jIdDoc.getText()));
-            objItensEmprestimo.setTipoOperacao(statusTipoAcervo);
-            objItensEmprestimo.setTituloLivro(jDescricaoProduto.getText());
-            objItensEmprestimo.setQuantidade(Integer.valueOf(jQuantidade.getText()));
-            objItensEmprestimo.setQtdReserva(Integer.valueOf(jQtdReserva.getText()));
-            objItensEmprestimo.setSaldoEstoque(Float.valueOf(jSaldoAtual.getText()));
-            objItensEmprestimo.setUtilizaReservaAcervo(utilizaReserva);
-            objItensEmprestimo.setUtilizaDevolucaoAcervo(utilizaDevolucao);
-            if (jRadBtLivro.isSelected()) {
-                statusTipoOperacao = 0;
-            } else if (jRadBtRevista.isSelected()) {
-                statusTipoOperacao = 1;
-            } else if (jRadBtJornal.isSelected()) {
-                statusTipoOperacao = 2;
-            } else if (jRadBtCDrom.isSelected()) {
-                statusTipoOperacao = 3;
-            } else if (jRadBtDVDRom.isSelected()) {
-                statusTipoOperacao = 4;
-            }
-            objItensEmprestimo.setTipoOperacao(statusTipoOperacao);
-            if (acao == 3) {
-                objItensEmprestimo.setUsuarioInsert(nameUser);
-                objItensEmprestimo.setDataInsert(dataModFinal);
-                objItensEmprestimo.setHorarioInsert(horaMov);
-                //
-                codLivro = Integer.parseInt(jIdProduto.getText());
-                qtdSaidaReserva = Float.parseFloat(jQuantidade.getText());
-                // PEGA SALDO DO ESTOQUE PARA CALCULAR
-                pegarSaldoEstoque(codLivro);
-                resultSaldo = saldoEstoque - quantReservada;
-                if (qtdSaidaReserva <= resultSaldo) {
-                    // INCLUIR O PRODUTO NA TABELA DE ITENS_RESERVA_ACERVO  
-                    // objItensEmprestimo.setQuantidade((int) resultSaldo);
-                    controle.incluirProdutoEmprestimoAcervo(objItensEmprestimo);
-                    // ATUALIZAR A RESERVA DO ESTOQUE NA TABLEA ESTOQUE_ACERVO
-                    objItensEmprestimo.setIdLivro(codLivro);
-                    objItensEmprestimo.setIdEstoque(codEstoque);
-                    controleUtil.atualizaSaldoReservaAcervo(objItensEmprestimo);
+        // TODO add your handling code here:   
+        buscarAcessoUsuario(telaEmprestimosProd_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaEmprestimosProd_PEDA) && codExcluirPEDA == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objEmprestimoAcervo.setStatusLanc(jStatusDoc.getText());
+            if (jStatusDoc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse  registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o INTERNO selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
                     //
-                    objLog2();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    preencherTabelaItens("SELECT * FROM ITENS_EMPRESTIMO_ACERVO "
-                            + "INNER JOIN LIVROS_REVISTAS_JORNAIS "
-                            + "ON ITENS_EMPRESTIMO_ACERVO.IdLivro=LIVROS_REVISTAS_JORNAIS.IdLivro "
-                            + "INNER JOIN EMPRESTIMO_ACERVO "
-                            + "ON ITENS_EMPRESTIMO_ACERVO.IdEmprestimo=EMPRESTIMO_ACERVO.IdEmprestimo "
-                            + "INNER JOIN LOCAL_ACERVO "
-                            + "ON LIVROS_REVISTAS_JORNAIS.IdLocal=LOCAL_ACERVO.IdLocal "
-                            + "WHERE ITENS_EMPRESTIMO_ACERVO.IdEmprestimo='" + jIdDoc.getText() + "'");
-                    SalvarItem();
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                } else {
-                    JOptionPane.showMessageDialog(rootPane, "Quantidade do emprestimo solicitada é maior que o estoque atual.");
-                }
-            }
-            if (acao == 4) {
-                objItensEmprestimo.setUsuarioUp(nameUser);
-                objItensEmprestimo.setDataUp(dataModFinal);
-                objItensEmprestimo.setHorarioUp(horaMov);
-                //
-                codLivro = Integer.parseInt(jIdProduto.getText());
-                quantItem = Integer.parseInt(jQuantidade.getText());
-                // PEGA SALDO DO ESTOQUE PARA CALCULAR
-                pegarSaldoEstoque(codLivro);
-                if (qtdModifica != quantItem) {
-                    //
-                    objItensEmprestimo.setQuantidade(Integer.valueOf(jQuantidade.getText()));
-                    objItensEmprestimo.setIdItem(Integer.valueOf(idItem));
-                    controle.alterarProdutoEmprestimoAcervo(objItensEmprestimo);
-                    // ATUALIZAR A RESERVA DO ESTOQUE NA TABLEA ESTOQUE_ACERVO
+                    codLivro = Integer.parseInt(jIdProduto.getText());
+                    jQuantidade.setText("0");
+                    // quantItem = Integer.parseInt(jQuantidade.getText());
+                    // PEGA SALDO DO ESTOQUE PARA CALCULAR
+                    pegarSaldoEstoque(codLivro);
                     objItensEmprestimo.setIdLivro(codLivro);
                     objItensEmprestimo.setIdEstoque(codEstoque);
                     objItensEmprestimo.setQtdReserva(Integer.valueOf(jQuantidade.getText()));
                     controleUtil.atualizaSaldoReservaAcervo(objItensEmprestimo);
                     //
+                    objItensEmprestimo.setIdItem(Integer.valueOf(idItem));
+                    controle.excluirProdutoEmprestimoAcervo(objItensEmprestimo);
+                    //
                     objLog2();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    ExcluirItem();
                     preencherTabelaItens("SELECT * FROM ITENS_EMPRESTIMO_ACERVO "
                             + "INNER JOIN LIVROS_REVISTAS_JORNAIS "
                             + "ON ITENS_EMPRESTIMO_ACERVO.IdLivro=LIVROS_REVISTAS_JORNAIS.IdLivro "
@@ -1772,24 +1722,128 @@ public class TelaEmprestimoAcervo extends javax.swing.JInternalFrame {
                             + "INNER JOIN LOCAL_ACERVO "
                             + "ON LIVROS_REVISTAS_JORNAIS.IdLocal=LOCAL_ACERVO.IdLocal "
                             + "WHERE ITENS_EMPRESTIMO_ACERVO.IdEmprestimo='" + jIdDoc.getText() + "'");
-                    SalvarItem();
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                } else {
-                    controle.alterarProdutoEmprestimoAcervo(objItensEmprestimo);
-                    objLog2();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    preencherTabelaItens("SELECT * FROM ITENS_EMPRESTIMO_ACERVO "
-                            + "INNER JOIN LIVROS_REVISTAS_JORNAIS "
-                            + "ON ITENS_EMPRESTIMO_ACERVO.IdLivro=LIVROS_REVISTAS_JORNAIS.IdLivro "
-                            + "INNER JOIN EMPRESTIMO_ACERVO "
-                            + "ON ITENS_EMPRESTIMO_ACERVO.IdEmprestimo=EMPRESTIMO_ACERVO.IdEmprestimo "
-                            + "INNER JOIN LOCAL_ACERVO "
-                            + "ON LIVROS_REVISTAS_JORNAIS.IdLocal=LOCAL_ACERVO.IdLocal "
-                            + "WHERE ITENS_EMPRESTIMO_ACERVO.IdEmprestimo='" + jIdDoc.getText() + "'");
-                    SalvarItem();
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jBtExcluirItemActionPerformed
+
+    private void jBtSalvarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarItemActionPerformed
+        //        // TODO add your handling code here:
+        buscarAcessoUsuario(telaEmprestimosProd_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaEmprestimosProd_PEDA) && codGravarPEDA == 1) {
+            if (jIdProduto.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do produto do acervo a ser lançado.");
+            } else if (jQuantidade.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a quantidade do produto.");
+            } else {
+                objItensEmprestimo.setIdEmprestimo(Integer.valueOf(jIdDoc.getText()));
+                objItensEmprestimo.setTipoOperacao(statusTipoAcervo);
+                objItensEmprestimo.setTituloLivro(jDescricaoProduto.getText());
+                objItensEmprestimo.setQuantidade(Integer.valueOf(jQuantidade.getText()));
+                objItensEmprestimo.setQtdReserva(Integer.valueOf(jQtdReserva.getText()));
+                objItensEmprestimo.setSaldoEstoque(Float.valueOf(jSaldoAtual.getText()));
+                objItensEmprestimo.setUtilizaReservaAcervo(utilizaReserva);
+                objItensEmprestimo.setUtilizaDevolucaoAcervo(utilizaDevolucao);
+                if (jRadBtLivro.isSelected()) {
+                    statusTipoOperacao = 0;
+                } else if (jRadBtRevista.isSelected()) {
+                    statusTipoOperacao = 1;
+                } else if (jRadBtJornal.isSelected()) {
+                    statusTipoOperacao = 2;
+                } else if (jRadBtCDrom.isSelected()) {
+                    statusTipoOperacao = 3;
+                } else if (jRadBtDVDRom.isSelected()) {
+                    statusTipoOperacao = 4;
+                }
+                objItensEmprestimo.setTipoOperacao(statusTipoOperacao);
+                if (acao == 3) {
+                    objItensEmprestimo.setUsuarioInsert(nameUser);
+                    objItensEmprestimo.setDataInsert(dataModFinal);
+                    objItensEmprestimo.setHorarioInsert(horaMov);
+                    //
+                    codLivro = Integer.parseInt(jIdProduto.getText());
+                    qtdSaidaReserva = Float.parseFloat(jQuantidade.getText());
+                    // PEGA SALDO DO ESTOQUE PARA CALCULAR
+                    pegarSaldoEstoque(codLivro);
+                    resultSaldo = saldoEstoque - quantReservada;
+                    if (qtdSaidaReserva <= resultSaldo) {
+                        // INCLUIR O PRODUTO NA TABELA DE ITENS_RESERVA_ACERVO  
+                        // objItensEmprestimo.setQuantidade((int) resultSaldo);
+                        controle.incluirProdutoEmprestimoAcervo(objItensEmprestimo);
+                        // ATUALIZAR A RESERVA DO ESTOQUE NA TABLEA ESTOQUE_ACERVO
+                        objItensEmprestimo.setIdLivro(codLivro);
+                        objItensEmprestimo.setIdEstoque(codEstoque);
+                        controleUtil.atualizaSaldoReservaAcervo(objItensEmprestimo);
+                        //
+                        objLog2();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        preencherTabelaItens("SELECT * FROM ITENS_EMPRESTIMO_ACERVO "
+                                + "INNER JOIN LIVROS_REVISTAS_JORNAIS "
+                                + "ON ITENS_EMPRESTIMO_ACERVO.IdLivro=LIVROS_REVISTAS_JORNAIS.IdLivro "
+                                + "INNER JOIN EMPRESTIMO_ACERVO "
+                                + "ON ITENS_EMPRESTIMO_ACERVO.IdEmprestimo=EMPRESTIMO_ACERVO.IdEmprestimo "
+                                + "INNER JOIN LOCAL_ACERVO "
+                                + "ON LIVROS_REVISTAS_JORNAIS.IdLocal=LOCAL_ACERVO.IdLocal "
+                                + "WHERE ITENS_EMPRESTIMO_ACERVO.IdEmprestimo='" + jIdDoc.getText() + "'");
+                        SalvarItem();
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Quantidade do emprestimo solicitada é maior que o estoque atual.");
+                    }
+                }
+                if (acao == 4) {
+                    objItensEmprestimo.setUsuarioUp(nameUser);
+                    objItensEmprestimo.setDataUp(dataModFinal);
+                    objItensEmprestimo.setHorarioUp(horaMov);
+                    //
+                    codLivro = Integer.parseInt(jIdProduto.getText());
+                    quantItem = Integer.parseInt(jQuantidade.getText());
+                    // PEGA SALDO DO ESTOQUE PARA CALCULAR
+                    pegarSaldoEstoque(codLivro);
+                    if (qtdModifica != quantItem) {
+                        //
+                        objItensEmprestimo.setQuantidade(Integer.valueOf(jQuantidade.getText()));
+                        objItensEmprestimo.setIdItem(Integer.valueOf(idItem));
+                        controle.alterarProdutoEmprestimoAcervo(objItensEmprestimo);
+                        // ATUALIZAR A RESERVA DO ESTOQUE NA TABLEA ESTOQUE_ACERVO
+                        objItensEmprestimo.setIdLivro(codLivro);
+                        objItensEmprestimo.setIdEstoque(codEstoque);
+                        objItensEmprestimo.setQtdReserva(Integer.valueOf(jQuantidade.getText()));
+                        controleUtil.atualizaSaldoReservaAcervo(objItensEmprestimo);
+                        //
+                        objLog2();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        preencherTabelaItens("SELECT * FROM ITENS_EMPRESTIMO_ACERVO "
+                                + "INNER JOIN LIVROS_REVISTAS_JORNAIS "
+                                + "ON ITENS_EMPRESTIMO_ACERVO.IdLivro=LIVROS_REVISTAS_JORNAIS.IdLivro "
+                                + "INNER JOIN EMPRESTIMO_ACERVO "
+                                + "ON ITENS_EMPRESTIMO_ACERVO.IdEmprestimo=EMPRESTIMO_ACERVO.IdEmprestimo "
+                                + "INNER JOIN LOCAL_ACERVO "
+                                + "ON LIVROS_REVISTAS_JORNAIS.IdLocal=LOCAL_ACERVO.IdLocal "
+                                + "WHERE ITENS_EMPRESTIMO_ACERVO.IdEmprestimo='" + jIdDoc.getText() + "'");
+                        SalvarItem();
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    } else {
+                        controle.alterarProdutoEmprestimoAcervo(objItensEmprestimo);
+                        objLog2();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        preencherTabelaItens("SELECT * FROM ITENS_EMPRESTIMO_ACERVO "
+                                + "INNER JOIN LIVROS_REVISTAS_JORNAIS "
+                                + "ON ITENS_EMPRESTIMO_ACERVO.IdLivro=LIVROS_REVISTAS_JORNAIS.IdLivro "
+                                + "INNER JOIN EMPRESTIMO_ACERVO "
+                                + "ON ITENS_EMPRESTIMO_ACERVO.IdEmprestimo=EMPRESTIMO_ACERVO.IdEmprestimo "
+                                + "INNER JOIN LOCAL_ACERVO "
+                                + "ON LIVROS_REVISTAS_JORNAIS.IdLocal=LOCAL_ACERVO.IdLocal "
+                                + "WHERE ITENS_EMPRESTIMO_ACERVO.IdEmprestimo='" + jIdDoc.getText() + "'");
+                        SalvarItem();
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    }
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarItemActionPerformed
 
@@ -2629,5 +2683,43 @@ public class TelaEmprestimoAcervo extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jIdDoc.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserPEDA = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserPEDA + "'");
+            conecta.rs.first();
+            codigoUserGroupPEDA = conecta.rs.getInt("IdUsuario");
+            codigoGrupoPEDA = conecta.rs.getInt("IdGrupo");
+            nomeGrupoPEDA = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserPEDA + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoPEDA = conecta.rs.getInt("IdUsuario");
+            codAbrirPEDA = conecta.rs.getInt("Abrir");
+            codIncluirPEDA = conecta.rs.getInt("Incluir");
+            codAlterarPEDA = conecta.rs.getInt("Alterar");
+            codExcluirPEDA = conecta.rs.getInt("Excluir");
+            codGravarPEDA = conecta.rs.getInt("Gravar");
+            codConsultarPEDA = conecta.rs.getInt("Consultar");
+            nomeTelaPEDA = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }
