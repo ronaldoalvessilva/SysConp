@@ -198,6 +198,8 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
         jPanielPrincipal = new javax.swing.JDesktopPane();
         jToolBar5 = new javax.swing.JToolBar();
+        jSeparator6 = new javax.swing.JToolBar.Separator();
+        jSeparator7 = new javax.swing.JToolBar.Separator();
         jBtAdmPessoal = new javax.swing.JButton();
         jBtDiretoria = new javax.swing.JButton();
         jBtCRC2 = new javax.swing.JButton();
@@ -238,18 +240,20 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jNomeUnidade = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
+        jSeparator8 = new javax.swing.JToolBar.Separator();
         jLabel3 = new javax.swing.JLabel();
         jToolBar2 = new javax.swing.JToolBar();
+        jSeparator9 = new javax.swing.JToolBar.Separator();
         jLoginConectado = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jToolBar4 = new javax.swing.JToolBar();
-        jToolBar3 = new javax.swing.JToolBar();
         jToolBar6 = new javax.swing.JToolBar();
+        jSeparator10 = new javax.swing.JToolBar.Separator();
         jDataSistema = new javax.swing.JTextField();
         jToolBar8 = new javax.swing.JToolBar();
+        jSeparator11 = new javax.swing.JToolBar.Separator();
         jHoraSistema = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -311,7 +315,9 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jToolBar5.setFloatable(false);
         jToolBar5.setRollover(true);
         jToolBar5.setMinimumSize(new java.awt.Dimension(1190, 66));
-        jToolBar5.setPreferredSize(new java.awt.Dimension(1537, 66));
+        jToolBar5.setPreferredSize(new java.awt.Dimension(1540, 66));
+        jToolBar5.add(jSeparator6);
+        jToolBar5.add(jSeparator7);
 
         jBtAdmPessoal.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jBtAdmPessoal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Administração48.png"))); // NOI18N
@@ -771,9 +777,11 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
             .addGroup(jPanielPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 1347, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(10, Short.MAX_VALUE))
-            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 1367, Short.MAX_VALUE)
-            .addComponent(jToolBar5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanielPrincipalLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jToolBar5, javax.swing.GroupLayout.PREFERRED_SIZE, 1376, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanielPrincipalLayout.setVerticalGroup(
             jPanielPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -790,11 +798,15 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jToolBar1.setBackground(new java.awt.Color(51, 51, 255));
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
+        jToolBar1.add(jSeparator8);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Usuário:");
+        jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel3.setMinimumSize(new java.awt.Dimension(50, 14));
         jToolBar1.add(jLabel3);
+        jLabel3.getAccessibleContext().setAccessibleDescription("");
 
         jToolBar2.setBackground(new java.awt.Color(51, 51, 255));
         jToolBar2.setFloatable(false);
@@ -803,6 +815,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jToolBar2.setMaximumSize(new java.awt.Dimension(49, 16));
         jToolBar2.setMinimumSize(new java.awt.Dimension(49, 16));
         jToolBar2.setName(""); // NOI18N
+        jToolBar2.add(jSeparator9);
 
         jLoginConectado.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLoginConectado.setForeground(new java.awt.Color(255, 255, 255));
@@ -825,16 +838,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("HOST:");
 
-        jToolBar4.setBackground(new java.awt.Color(51, 51, 255));
-        jToolBar4.setRollover(true);
-
-        jToolBar3.setBackground(new java.awt.Color(51, 51, 255));
-        jToolBar3.setFloatable(false);
-        jToolBar3.setRollover(true);
-
         jToolBar6.setBackground(new java.awt.Color(51, 51, 255));
         jToolBar6.setFloatable(false);
         jToolBar6.setRollover(true);
+        jToolBar6.add(jSeparator10);
 
         jDataSistema.setEditable(false);
         jDataSistema.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -844,6 +851,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jToolBar8.setBackground(new java.awt.Color(51, 51, 255));
         jToolBar8.setFloatable(false);
         jToolBar8.setRollover(true);
+        jToolBar8.add(jSeparator11);
 
         jHoraSistema.setBackground(new java.awt.Color(240, 240, 240));
         jHoraSistema.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -870,19 +878,15 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel9)
                 .addGap(6, 6, 6)
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToolBar4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(84, 84, 84)
-                .addComponent(jToolBar3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(100, 100, 100)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jToolBar6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jToolBar8, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -894,11 +898,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 .addGap(5, 5, 5)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jToolBar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jToolBar4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jToolBar6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jToolBar6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
                     .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
@@ -908,9 +911,9 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel1)
-                        .addComponent(jToolBar3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel1))
                     .addComponent(jToolBar8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -942,7 +945,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jMenuItemDiretoriaUnidade.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemDiretoriaUnidade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Diretoria18.png"))); // NOI18N
         jMenuItemDiretoriaUnidade.setMnemonic('D');
-        jMenuItemDiretoriaUnidade.setText("Diretoria Da Unidade");
+        jMenuItemDiretoriaUnidade.setText("Diretoria da Unidade");
         jMenuItemDiretoriaUnidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemDiretoriaUnidadeActionPerformed(evt);
@@ -964,7 +967,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jMenuItemAlmoxarifado.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemAlmoxarifado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Almoxarifado18.png"))); // NOI18N
         jMenuItemAlmoxarifado.setMnemonic('A');
-        jMenuItemAlmoxarifado.setText("Almoxarifafdo");
+        jMenuItemAlmoxarifado.setText("Almoxarifado");
         jMenuItemAlmoxarifado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemAlmoxarifadoActionPerformed(evt);
@@ -1099,7 +1102,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         });
         jMenuPSP.add(jMenuItemEducacaoFisica);
 
-        jMenuItemNutricao.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemNutricao.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemNutricao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Nutricao18.png"))); // NOI18N
         jMenuItemNutricao.setMnemonic('N');
         jMenuItemNutricao.setText("Nutrição");
@@ -1137,7 +1140,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jMenuItemBase1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemBase1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemBase1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Base1-18.png"))); // NOI18N
         jMenuItemBase1.setMnemonic('A');
         jMenuItemBase1.setText("Base I");
@@ -1149,7 +1152,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         });
         jMenuOperacional.add(jMenuItemBase1);
 
-        jMenuItemBase2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemBase2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_2, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemBase2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Base2-18.png"))); // NOI18N
         jMenuItemBase2.setMnemonic('B');
         jMenuItemBase2.setText("Base II");
@@ -1183,7 +1186,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         });
         jMenuOperacional.add(jMenuItemPortariaInterna);
 
-        jMenuItemPortariaExterna.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemPortariaExterna.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemPortariaExterna.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/PExterna18.png"))); // NOI18N
         jMenuItemPortariaExterna.setMnemonic('E');
         jMenuItemPortariaExterna.setText("Portaria Externa");
@@ -1194,7 +1197,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         });
         jMenuOperacional.add(jMenuItemPortariaExterna);
 
-        jMenuItemTriagem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemTriagem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemTriagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Triagem2-18.png"))); // NOI18N
         jMenuItemTriagem.setMnemonic('T');
         jMenuItemTriagem.setText("Triagem");
@@ -1258,7 +1261,9 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenuSobre);
 
         jMenuSair.setForeground(new java.awt.Color(204, 0, 0));
+        jMenuSair.setMnemonic('a');
         jMenuSair.setText("Sair");
+        jMenuSair.setToolTipText("");
         jMenuSair.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenuSairMouseClicked(evt);
@@ -7232,14 +7237,18 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     public static javax.swing.JDesktopPane jPanielPrincipal;
     private javax.swing.JToolBar.Separator jSeparator1;
+    private javax.swing.JToolBar.Separator jSeparator10;
+    private javax.swing.JToolBar.Separator jSeparator11;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
     private javax.swing.JToolBar.Separator jSeparator5;
+    private javax.swing.JToolBar.Separator jSeparator6;
+    private javax.swing.JToolBar.Separator jSeparator7;
+    private javax.swing.JToolBar.Separator jSeparator8;
+    private javax.swing.JToolBar.Separator jSeparator9;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToolBar jToolBar2;
-    private javax.swing.JToolBar jToolBar3;
-    private javax.swing.JToolBar jToolBar4;
     private javax.swing.JToolBar jToolBar5;
     private javax.swing.JToolBar jToolBar6;
     private javax.swing.JToolBar jToolBar8;

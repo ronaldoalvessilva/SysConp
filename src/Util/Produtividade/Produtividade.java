@@ -5,11 +5,11 @@
  */
 package Util.Produtividade;
 
-
 import gestor.Controle.ControleListaTecnicosProdutividadePSP;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.RegistroAtendimentoInternos;
+import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -121,6 +121,7 @@ public class Produtividade extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sysconp");
         setBackground(new java.awt.Color(0, 153, 204));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/gestor/Imagens/FavonIconJFrame100.png")));
 
         jPanelCabecalho.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -562,8 +563,8 @@ public class Produtividade extends javax.swing.JFrame {
         jTabelaAtendimentoProdutivida.getColumnModel().getColumn(0).setResizable(false);
         jTabelaAtendimentoProdutivida.getColumnModel().getColumn(1).setPreferredWidth(220);
         jTabelaAtendimentoProdutivida.getColumnModel().getColumn(1).setResizable(false);
-//        jTabelaAtendimentoProdutivida.getColumnModel().getColumn(2).setPreferredWidth(390);
-//        jTabelaAtendimentoProdutivida.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaAtendimentoProdutivida.getColumnModel().getColumn(2).setPreferredWidth(390);
+        jTabelaAtendimentoProdutivida.getColumnModel().getColumn(2).setResizable(false);
         jTabelaAtendimentoProdutivida.getTableHeader().setReorderingAllowed(false);
         jTabelaAtendimentoProdutivida.setAutoResizeMode(jTabelaAtendimentoProdutivida.AUTO_RESIZE_OFF);
         jTabelaAtendimentoProdutivida.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -605,7 +606,7 @@ public class Produtividade extends javax.swing.JFrame {
         RegistroAtendimentoInternos p = new RegistroAtendimentoInternos();
         try {
             for (RegistroAtendimentoInternos pp : control.read()) {
-                
+
 //                jtotalProdutosKitCompleto.setText(Integer.toString(qtdTecnicosPSP)); // Converter inteiro em string para exibir na tela 
                 dadosProduto.addRow(new Object[]{pp.getNomeFunc(), pp.getNomeDepartamento()});
                 // BARRA DE ROLAGEM HORIZONTAL
@@ -634,4 +635,33 @@ public class Produtividade extends javax.swing.JFrame {
         } catch (InterruptedException ex) {
         }
     }
+    
+    public double getSum(){
+        int rowsCount = jTabelaAtendimentoProdutivida.getRowCount();
+        double sum = 0;
+        for(int i = 0; i < rowsCount; i++){
+          //getValueAt(i, 2) : the doubles column
+            sum = sum+(Double.parseDouble((jTabelaAtendimentoProdutivida.getValueAt(i, 2).toString())));
+        }
+        return sum;
+    }
+
+
+//    public void somaAtendimento() {
+//
+//        double total = 0;
+//        for (int i = 0; i < jTabelaAtendimentoProdutivida.getRowCount(); i++) {
+//            int amount = Integer.parseInt((String) jTabelaAtendimentoProdutivida.getValueAt(i, 2));
+//       // soma = soma + Integer.parseInt(jTabelaAtendimentoProdutivida.getValueAt(i, 2).toString());
+//
+//        soma.setText(String.valueOf(total));
+//        //jtextField.setText(Integer.toString(total));
+//
+//        try {
+//            String update = "";
+//            catch(Exception e2) {
+//           
+//                    }
+//        }
+//    }
 }

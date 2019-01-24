@@ -73,9 +73,9 @@ public class TelaLoginSenha extends javax.swing.JDialog {
         initComponents();
         formatarCampos();
         // Modificar a tecla tab por enter
-        HashSet conj = new HashSet(this.getFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS));
-        conj.add(AWTKeyStroke.getAWTKeyStroke(KeyEvent.VK_ENTER, 0));
-        this.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, conj);
+//        HashSet conj = new HashSet(this.getFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS));
+//        conj.add(AWTKeyStroke.getAWTKeyStroke(KeyEvent.VK_ENTER, 0));
+//        this.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, conj);
     }
 
     public void acessarSistema() {
@@ -198,9 +198,29 @@ public class TelaLoginSenha extends javax.swing.JDialog {
 
         jPassword.setToolTipText("Informe Senha");
         jPassword.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordActionPerformed(evt);
+            }
+        });
+        jPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPasswordKeyPressed(evt);
+            }
+        });
 
         jUsuario.setToolTipText("Informe Nome de Usuário");
         jUsuario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jUsuarioActionPerformed(evt);
+            }
+        });
+        jUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jUsuarioKeyPressed(evt);
+            }
+        });
 
         jBtCancelar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jBtCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/shutdown-icone-6920-32.png"))); // NOI18N
@@ -219,6 +239,11 @@ public class TelaLoginSenha extends javax.swing.JDialog {
         jBtAcessar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtAcessarActionPerformed(evt);
+            }
+        });
+        jBtAcessar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jBtAcessarKeyPressed(evt);
             }
         });
 
@@ -364,6 +389,32 @@ public class TelaLoginSenha extends javax.swing.JDialog {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_jBtCancelarActionPerformed
+
+    private void jBtAcessarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jBtAcessarKeyPressed
+//       if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+//            acessarSistema();
+
+    }//GEN-LAST:event_jBtAcessarKeyPressed
+
+    private void jPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            acessarSistema();
+        }
+    }//GEN-LAST:event_jPasswordKeyPressed
+
+    private void jPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPasswordActionPerformed
+
+    private void jUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jUsuarioKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            jPassword.requestFocus();
+        }
+    }//GEN-LAST:event_jUsuarioKeyPressed
+
+    private void jUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jUsuarioActionPerformed
 
     /**
      * @param args the command line arguments

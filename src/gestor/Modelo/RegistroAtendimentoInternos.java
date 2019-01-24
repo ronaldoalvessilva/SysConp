@@ -239,6 +239,7 @@ public class RegistroAtendimentoInternos {
      * @param usuarioInsert the usuarioInsert to set
      */
     public void setUsuarioInsert(String usuarioInsert) {
+       usuarioInsert = usuarioInsert + 1;
         this.usuarioInsert = usuarioInsert;
     }
 
