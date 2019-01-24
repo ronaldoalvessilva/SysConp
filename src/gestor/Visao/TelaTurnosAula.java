@@ -13,6 +13,19 @@ import gestor.Dao.ModeloTabela;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.TurnosAula;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPedagogia.codAbrirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codAlterarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codConsultarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codExcluirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codGravarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codIncluirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codUserAcessoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoGrupoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoUserGroupPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoUserPEDA;
+import static gestor.Visao.TelaModuloPedagogia.nomeGrupoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.nomeTelaPEDA;
+import static gestor.Visao.TelaModuloPedagogia.telaTurnosAulaManu_PEDA;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -450,7 +463,8 @@ public class TelaTurnosAula extends javax.swing.JInternalFrame {
         if (jPesqDescricao.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe uma descrição para pesquisa.");
         } else {
-            preencherTabelaSalas("SELECT * FROM TURNOOSAULA WHERE DescricaoTurno LIKE'" + jPesqDescricao.getText() + "%'");
+            preencherTabelaSalas("SELECT * FROM TURNOOSAULA "
+                    + "WHERE DescricaoTurno LIKE'%" + jPesqDescricao.getText() + "%'");
         }
     }//GEN-LAST:event_jBtPesqDescricaoActionPerformed
 
@@ -466,84 +480,104 @@ public class TelaTurnosAula extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaTurnosAulaManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaTurnosAulaManu_PEDA) && codIncluirPEDA == 1) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        acao = 2;
-        Alterar();
-        corCampos();
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaTurnosAulaManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaTurnosAulaManu_PEDA) && codAlterarPEDA == 1) {
+            acao = 2;
+            Alterar();
+            corCampos();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        verificarRegistros();
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        if (jIdTurno.getText().equals(codTurno)) {
-            JOptionPane.showMessageDialog(rootPane, "Não é possível excluir esse registro, o mesmo está sendo utilizado por outro registro.");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objTurma.setIdTurno(Integer.parseInt(jIdTurno.getText()));
-                control.excluirTurnosAula(objTurma);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                Excluir();
+        buscarAcessoUsuario(telaTurnosAulaManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaTurnosAulaManu_PEDA) && codExcluirPEDA == 1) {
+            verificarRegistros();
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            if (jIdTurno.getText().equals(codTurno)) {
+                JOptionPane.showMessageDialog(rootPane, "Não é possível excluir esse registro, o mesmo está sendo utilizado por outro registro.");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objTurma.setIdTurno(Integer.parseInt(jIdTurno.getText()));
+                    control.excluirTurnosAula(objTurma);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    Excluir();
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataCadastro.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data de cadastro.");
-            jDataCadastro.requestFocus();
-            jDataCadastro.setBackground(Color.red);
-        } else {
-            if (jDescricaoTurno.getText().equals("")) {
+        buscarAcessoUsuario(telaTurnosAulaManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaTurnosAulaManu_PEDA) && codGravarPEDA == 1) {
+            if (jDataCadastro.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data de cadastro.");
-                jDescricaoTurno.requestFocus();
-                jDescricaoTurno.setBackground(Color.red);
+                jDataCadastro.requestFocus();
+                jDataCadastro.setBackground(Color.red);
             } else {
-                objTurma.setStatusTurno((String) jComboBoxStatus.getSelectedItem());
-                objTurma.setDataCad(jDataCadastro.getDate());
-                objTurma.setDescricaoTurno(jDescricaoTurno.getText());
-                if (acao == 1) {
-                    objTurma.setUsuarioInsert(nameUser);
-                    objTurma.setDataInsert(dataModFinal);
-                    objTurma.setHorarioInsert(horaMov);
-                    control.incluirTurnosAula(objTurma);
-                    buscarCod();
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    Salvar();
-                }
-                if (acao == 2) {
-                    objTurma.setUsuarioUp(nameUser);
-                    objTurma.setDataUp(dataModFinal);
-                    objTurma.setHorarioUp(horaMov);
-                    objTurma.setIdTurno(Integer.valueOf(jIdTurno.getText()));
-                    control.alterarTurnoAula(objTurma);
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    Salvar();
+                if (jDescricaoTurno.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data de cadastro.");
+                    jDescricaoTurno.requestFocus();
+                    jDescricaoTurno.setBackground(Color.red);
+                } else {
+                    objTurma.setStatusTurno((String) jComboBoxStatus.getSelectedItem());
+                    objTurma.setDataCad(jDataCadastro.getDate());
+                    objTurma.setDescricaoTurno(jDescricaoTurno.getText());
+                    if (acao == 1) {
+                        objTurma.setUsuarioInsert(nameUser);
+                        objTurma.setDataInsert(dataModFinal);
+                        objTurma.setHorarioInsert(horaMov);
+                        control.incluirTurnosAula(objTurma);
+                        buscarCod();
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        Salvar();
+                    }
+                    if (acao == 2) {
+                        objTurma.setUsuarioUp(nameUser);
+                        objTurma.setDataUp(dataModFinal);
+                        objTurma.setHorarioUp(horaMov);
+                        objTurma.setIdTurno(Integer.valueOf(jIdTurno.getText()));
+                        control.alterarTurnoAula(objTurma);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        Salvar();
+                    }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -818,5 +852,43 @@ public class TelaTurnosAula extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jIdTurno.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserPEDA = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserPEDA + "'");
+            conecta.rs.first();
+            codigoUserGroupPEDA = conecta.rs.getInt("IdUsuario");
+            codigoGrupoPEDA = conecta.rs.getInt("IdGrupo");
+            nomeGrupoPEDA = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserPEDA + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoPEDA = conecta.rs.getInt("IdUsuario");
+            codAbrirPEDA = conecta.rs.getInt("Abrir");
+            codIncluirPEDA = conecta.rs.getInt("Incluir");
+            codAlterarPEDA = conecta.rs.getInt("Alterar");
+            codExcluirPEDA = conecta.rs.getInt("Excluir");
+            codGravarPEDA = conecta.rs.getInt("Gravar");
+            codConsultarPEDA = conecta.rs.getInt("Consultar");
+            nomeTelaPEDA = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

@@ -887,7 +887,7 @@ public class TelaEvolucaoTecEnfermagem extends javax.swing.JInternalFrame {
 
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        jBtNovaEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7183_16x16.png"))); // NOI18N
+        jBtNovaEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
         jBtNovaEvolucao.setText("Novo");
         jBtNovaEvolucao.setEnabled(false);
         jBtNovaEvolucao.addActionListener(new java.awt.event.ActionListener() {
@@ -1243,6 +1243,11 @@ public class TelaEvolucaoTecEnfermagem extends javax.swing.JInternalFrame {
         if (flag == 1) {
             String IdLanc = "" + jTabelaEvolucaoMedico.getValueAt(jTabelaEvolucaoMedico.getSelectedRow(), 0);
             jIDPesqEM.setText(IdLanc);
+            //
+            bloquearCampos();
+            //
+            jTextoEvolucao.setText("");
+            //
             jBtNovo.setEnabled(true);
             jBtAlterar.setEnabled(true);
             jBtExcluir.setEnabled(true);
@@ -1250,6 +1255,8 @@ public class TelaEvolucaoTecEnfermagem extends javax.swing.JInternalFrame {
             jBtCancelar.setEnabled(true);
             jBtFinalizar.setEnabled(true);
             jBtAuditoria.setEnabled(true);
+            jBtPesqInternoEM.setEnabled(!true);
+            //
             jBtNovaEvolucao.setEnabled(true);
             conecta.abrirConexao();
             try {
@@ -1569,6 +1576,8 @@ public class TelaEvolucaoTecEnfermagem extends javax.swing.JInternalFrame {
         jObservacao.setLineWrap(true);
         jObservacao.setWrapStyleWord(true);
         jPesqNomeInternoOdonto.setDocument(new LimiteDigitos(50));
+        jTextoEvolucao.setLineWrap(true);
+        jTextoEvolucao.setWrapStyleWord(true);
     }
 
     public void corCampos() {
@@ -1582,6 +1591,11 @@ public class TelaEvolucaoTecEnfermagem extends javax.swing.JInternalFrame {
         jMatriculaPenal.setBackground(Color.white);
         jFotoInternoEM.setBackground(Color.white);
         jObservacao.setBackground(Color.white);
+    }
+
+    public void bloquearCampos() {
+        jDataLanc.setEnabled(!true);
+        jObservacao.setEnabled(!true);
     }
 
     public void Novo() {

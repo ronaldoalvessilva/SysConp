@@ -8,7 +8,6 @@ package gestor.Visao;
 import gestor.Controle.ControleAtualizaSaldoInventario;
 import gestor.Controle.ControleInventarioAcervoLivro;
 import gestor.Controle.ControleItensInventarioAcervo;
-import gestor.Controle.ControleItensInventarioEstoque;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.LimiteDigitosNum;
@@ -18,6 +17,21 @@ import gestor.Modelo.ItensInventarioEstoque;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.ProdutoMedicamento;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPedagogia.codAbrirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codAlterarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codConsultarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codExcluirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codGravarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codIncluirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codUserAcessoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoGrupoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoUserGroupPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoUserPEDA;
+import static gestor.Visao.TelaModuloPedagogia.nomeGrupoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.nomeTelaPEDA;
+import static gestor.Visao.TelaModuloPedagogia.telaInventarioCont_PEDA;
+import static gestor.Visao.TelaModuloPedagogia.telaInventarioEfe_PEDA;
+import static gestor.Visao.TelaModuloPedagogia.telaInventarioManu_PEDA;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -1183,110 +1197,130 @@ public class TelaInventarioLivrosAcervo extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaInventarioManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaInventarioManu_PEDA) && codIncluirPEDA == 1) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        objInventEstoque.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("EFETIVADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa inventário não poderá ser alterado, o mesmo encontra-se EFETIVADO");
+        buscarAcessoUsuario(telaInventarioManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaInventarioManu_PEDA) && codAlterarPEDA == 1) {
+            objInventEstoque.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("EFETIVADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa inventário não poderá ser alterado, o mesmo encontra-se EFETIVADO");
+            } else {
+                acao = 2;
+                Alterar();
+                corCampos();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 2;
-            Alterar();
-            corCampos();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        objInventEstoque.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("EFETIVADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse inventário não poderá ser excluído, o mesmo encontra-se EFETIVADO");
-        } else {
-            conecta.abrirConexao();
-            try {
-                conecta.executaSQL("SELECT * FROM ITENS_INVENTARIO_ACERVO WHERE IdLanc='" + jIdLanc.getText() + "'");
-                conecta.rs.first();
-                codInventario = conecta.rs.getString("IdLanc");
-                if (jIdLanc.getText().equals(codInventario)) {
-                    JOptionPane.showMessageDialog(rootPane, "Antes de excluir esse Lançamento, será necessário\nexcluir primeiro os itens relacionados a esse registro.");
-                }
-                conecta.desconecta();
-            } catch (SQLException ex) {
-                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
-                        JOptionPane.YES_NO_OPTION);
-                if (resposta == JOptionPane.YES_OPTION) {
-                    objProdMed.setIdLanc(Integer.parseInt(jIdLanc.getText()));
-                    control.excluirInventarioAcervo(objInventEstoque);
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                    Excluir();
+        buscarAcessoUsuario(telaInventarioManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaInventarioManu_PEDA) && codExcluirPEDA == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objInventEstoque.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("EFETIVADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse inventário não poderá ser excluído, o mesmo encontra-se EFETIVADO");
+            } else {
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM ITENS_INVENTARIO_ACERVO WHERE IdLanc='" + jIdLanc.getText() + "'");
+                    conecta.rs.first();
+                    codInventario = conecta.rs.getString("IdLanc");
+                    if (jIdLanc.getText().equals(codInventario)) {
+                        JOptionPane.showMessageDialog(rootPane, "Antes de excluir esse Lançamento, será necessário\nexcluir primeiro os itens relacionados a esse registro.");
+                    }
+                    conecta.desconecta();
+                } catch (SQLException ex) {
+                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta == JOptionPane.YES_OPTION) {
+                        objProdMed.setIdLanc(Integer.parseInt(jIdLanc.getText()));
+                        control.excluirInventarioAcervo(objInventEstoque);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                        Excluir();
+                    }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        verificarTipoInventario();
-        if (jDataInicio.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data de lançamento.");
-            jDataInicio.requestFocus();
-            jDataInicio.setBackground(Color.red);
-        } else if (jComboBoxTipoInventario.getSelectedItem() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o tipo de inventário...");
-            jComboBoxTipoInventario.requestFocus();
-            jComboBoxTipoInventario.setBackground(Color.red);
-        } else {
-            objInventEstoque.setStatusLanc(jStatusLanc.getText());
-            objInventEstoque.setTipoInventario((String) jComboBoxTipoInventario.getSelectedItem());
-            objInventEstoque.setIdLocal(Integer.valueOf(jIdLocal.getText()));
-            objInventEstoque.setNomeLocalArmazenamento(jLocalArmazenamento.getText());
-            objInventEstoque.setResponsavel(jUsuarioResponsavel.getText());
-            objInventEstoque.setDataInicio(jDataInicio.getDate());
-            objInventEstoque.setDataTermino(jDataTermino.getDate());
-            objInventEstoque.setHorarioInicio(horaMov);
-            objInventEstoque.setHorarioTermino(horaEfetua);
-            objInventEstoque.setObservacao(jObservacao.getText());
-            if (acao == 1) {
-                if (jComboBoxTipoInventario.getSelectedItem().equals(tipoInventario) && jIdLocal.getText().equals(codLocal)) {
-                    JOptionPane.showMessageDialog(rootPane, "Esse tipo de inventário já foi realizado para esse estoque,\nutilize o inventário de ajuste de estoque.");
-                } else {
-                    objInventEstoque.setUsuarioInsert(nameUser);
-                    objInventEstoque.setDataInsert(dataModFinal);
-                    objInventEstoque.setHorarioInsert(horaMov);
-                    control.incluirInventarioAcervo(objInventEstoque);
-                    buscarIDIvt();
+        buscarAcessoUsuario(telaInventarioManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaInventarioManu_PEDA) && codGravarPEDA == 1) {
+            verificarTipoInventario();
+            if (jDataInicio.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de lançamento.");
+                jDataInicio.requestFocus();
+                jDataInicio.setBackground(Color.red);
+            } else if (jComboBoxTipoInventario.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o tipo de inventário...");
+                jComboBoxTipoInventario.requestFocus();
+                jComboBoxTipoInventario.setBackground(Color.red);
+            } else {
+                objInventEstoque.setStatusLanc(jStatusLanc.getText());
+                objInventEstoque.setTipoInventario((String) jComboBoxTipoInventario.getSelectedItem());
+                objInventEstoque.setIdLocal(Integer.valueOf(jIdLocal.getText()));
+                objInventEstoque.setNomeLocalArmazenamento(jLocalArmazenamento.getText());
+                objInventEstoque.setResponsavel(jUsuarioResponsavel.getText());
+                objInventEstoque.setDataInicio(jDataInicio.getDate());
+                objInventEstoque.setDataTermino(jDataTermino.getDate());
+                objInventEstoque.setHorarioInicio(horaMov);
+                objInventEstoque.setHorarioTermino(horaEfetua);
+                objInventEstoque.setObservacao(jObservacao.getText());
+                if (acao == 1) {
+                    if (jComboBoxTipoInventario.getSelectedItem().equals(tipoInventario) && jIdLocal.getText().equals(codLocal)) {
+                        JOptionPane.showMessageDialog(rootPane, "Esse tipo de inventário já foi realizado para esse estoque,\nutilize o inventário de ajuste de estoque.");
+                    } else {
+                        objInventEstoque.setUsuarioInsert(nameUser);
+                        objInventEstoque.setDataInsert(dataModFinal);
+                        objInventEstoque.setHorarioInsert(horaMov);
+                        control.incluirInventarioAcervo(objInventEstoque);
+                        buscarIDIvt();
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        Salvar();
+                    }
+                }
+                if (acao == 2) {
+                    objInventEstoque.setUsuarioUp(nameUser);
+                    objInventEstoque.setDataUp(dataModFinal);
+                    objInventEstoque.setHorarioUp(horaMov);
+                    objInventEstoque.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                    control.alterarInventarioAcervo(objInventEstoque);
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                     Salvar();
                 }
             }
-            if (acao == 2) {
-                objInventEstoque.setUsuarioUp(nameUser);
-                objInventEstoque.setDataUp(dataModFinal);
-                objInventEstoque.setHorarioUp(horaMov);
-                objInventEstoque.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                control.alterarInventarioAcervo(objInventEstoque);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                Salvar();
-            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -1297,15 +1331,20 @@ public class TelaInventarioLivrosAcervo extends javax.swing.JInternalFrame {
 
     private void jBtEfetivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEfetivarActionPerformed
         // TODO add your handling code here: 
-        objInventEstoque.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("EFETIVADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse inventário encontra-se EFETIVADO");
+        buscarAcessoUsuario(telaInventarioEfe_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaInventarioEfe_PEDA) && codAbrirPEDA == 1) {
+            objInventEstoque.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("EFETIVADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse inventário encontra-se EFETIVADO");
+            } else {
+                TelaEfetuarInventariosAcervo objEfetuarInv = new TelaEfetuarInventariosAcervo();
+                TelaModuloPedagogia.jPainelPedagogia.add(objEfetuarInv);
+                objEfetuarInv.show();
+                jDataTermino.setCalendar(Calendar.getInstance());
+                jHorarioTermino.setText(jHoraSistema.getText());
+            }
         } else {
-            TelaEfetuarInventariosAcervo objEfetuarInv = new TelaEfetuarInventariosAcervo();
-            TelaModuloPedagogia.jPainelPedagogia.add(objEfetuarInv);
-            objEfetuarInv.show();
-            jDataTermino.setCalendar(Calendar.getInstance());
-            jHorarioTermino.setText(jHoraSistema.getText());
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtEfetivarActionPerformed
 
@@ -1316,117 +1355,137 @@ public class TelaInventarioLivrosAcervo extends javax.swing.JInternalFrame {
 
     private void jBtNovoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoItemActionPerformed
         // TODO add your handling code here:
-        objInventEstoque.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("EFETIVADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse inventário não poderá ser modificado, o mesmo encontra-se EFETIVADO");
+        buscarAcessoUsuario(telaInventarioCont_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaInventarioCont_PEDA) && codIncluirPEDA == 1) {
+            objInventEstoque.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("EFETIVADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse inventário não poderá ser modificado, o mesmo encontra-se EFETIVADO");
+            } else {
+                acao = 3;
+                NovoItem();
+                corCamposItens();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 3;
-            NovoItem();
-            corCamposItens();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtNovoItemActionPerformed
 
     private void jBtAlterarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarItemActionPerformed
         // TODO add your handling code here:
-        objInventEstoque.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("EFETIVADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse inventário não poderá ser modificado, o mesmo encontra-se EFETIVADO");
+        buscarAcessoUsuario(telaInventarioCont_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaInventarioCont_PEDA) && codAlterarPEDA == 1) {
+            objInventEstoque.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("EFETIVADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse inventário não poderá ser modificado, o mesmo encontra-se EFETIVADO");
+            } else {
+                acao = 4;
+                AlterarItem();
+                corCamposItens();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 4;
-            AlterarItem();
-            corCamposItens();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarItemActionPerformed
 
     private void jBtExcluirItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirItemActionPerformed
         // TODO add your handling code here:
-        objInventEstoque.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("EFETIVADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse inventário não poderá ser modificado, o mesmo encontra-se EFETIVADO");
-        } else {
-            statusMov = "Excluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaInventarioCont_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaInventarioCont_PEDA) && codExcluirPEDA == 1) {
             objInventEstoque.setStatusLanc(jStatusLanc.getText());
-            if (jStatusLanc.getText().equals("EFETUADO")) {
-                JOptionPane.showMessageDialog(rootPane, "Esse  pertence não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            if (jStatusLanc.getText().equals("EFETIVADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse inventário não poderá ser modificado, o mesmo encontra-se EFETIVADO");
             } else {
-                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o interno selecionado?", "Confirmação",
-                        JOptionPane.YES_NO_OPTION);
-                if (resposta == JOptionPane.YES_OPTION) {
-                    objItensInventEstoque.setIdItem(Integer.valueOf(idItem));
-                    controle.excluirItensInventarioAcervo(objItensInventEstoque);
-                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                    ExcluirItem();
-                    preencherTabelaItensInventario("SELECT * FROM ITENS_INVENTARIO_ACERVO "
-                            + "INNER JOIN LIVROS_REVISTAS_JORNAIS "
-                            + "ON ITENS_INVENTARIO_ACERVO.IdLivro=LIVROS_REVISTAS_JORNAIS.IdLivro "
-                            + "WHERE IdLanc='" + jIdLanc.getText() + "'");
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                objInventEstoque.setStatusLanc(jStatusLanc.getText());
+                if (jStatusLanc.getText().equals("EFETUADO")) {
+                    JOptionPane.showMessageDialog(rootPane, "Esse  pertence não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+                } else {
+                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o interno selecionado?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta == JOptionPane.YES_OPTION) {
+                        objItensInventEstoque.setIdItem(Integer.valueOf(idItem));
+                        controle.excluirItensInventarioAcervo(objItensInventEstoque);
+                        JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                        ExcluirItem();
+                        preencherTabelaItensInventario("SELECT * FROM ITENS_INVENTARIO_ACERVO "
+                                + "INNER JOIN LIVROS_REVISTAS_JORNAIS "
+                                + "ON ITENS_INVENTARIO_ACERVO.IdLivro=LIVROS_REVISTAS_JORNAIS.IdLivro "
+                                + "WHERE IdLanc='" + jIdLanc.getText() + "'");
+                    }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirItemActionPerformed
 
     private void jBtSalvarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarItemActionPerformed
         // TODO add your handling code here:
-        DecimalFormat valorReal = new DecimalFormat("###,##00.0");
-        valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
-        if (jDescricaoProduto.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o produto para o inventário.");
-        } else if (jQtd.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a quantidade do item.");
-            jQtd.requestFocus();
-            jQtd.setBackground(Color.red);
+        buscarAcessoUsuario(telaInventarioCont_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaInventarioCont_PEDA) && codGravarPEDA == 1) {
+            DecimalFormat valorReal = new DecimalFormat("###,##00.0");
+            valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
+            if (jDescricaoProduto.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o produto para o inventário.");
+            } else if (jQtd.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a quantidade do item.");
+                jQtd.requestFocus();
+                jQtd.setBackground(Color.red);
+            } else {
+                try {
+                    objItensInventEstoque.setQtdItem(valorReal.parse(jQtd.getText()).floatValue());
+                } catch (ParseException ex) {
+                    Logger.getLogger(TelaInventarioLivrosAcervo.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    objItensInventEstoque.setValorCusto(valorReal.parse(jValorCusto.getText()).floatValue());
+                } catch (ParseException ex) {
+                    Logger.getLogger(TelaInventarioLivrosAcervo.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                objItensInventEstoque.setUnidade((String) jComboBoxUnidProduto.getSelectedItem());
+                objItensInventEstoque.setIdLocal(Integer.valueOf(jIdLocal.getText()));
+                if (acao == 3) {
+                    objItensInventEstoque.setUsuarioInsert(nameUser);
+                    objItensInventEstoque.setDataInsert(dataModFinal);
+                    objItensInventEstoque.setHorarioInsert(horaMov);
+                    //
+                    objItensInventEstoque.setNomeProduto(jDescricaoProduto.getText());
+                    objItensInventEstoque.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                    controle.incluirItensInventarioAcervo(objItensInventEstoque);
+                    preencherTabelaItensInventario("SELECT * FROM ITENS_INVENTARIO_ACERVO "
+                            + "INNER JOIN LIVROS_REVISTAS_JORNAIS "
+                            + "ON ITENS_INVENTARIO_ACERVO.IdLivro=LIVROS_REVISTAS_JORNAIS.IdLivro "
+                            + "WHERE IdLanc='" + jIdLanc.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    SalvarItem();
+                }
+                if (acao == 4) {
+                    objItensInventEstoque.setUsuarioUp(nameUser);
+                    objItensInventEstoque.setDataUp(dataModFinal);
+                    objItensInventEstoque.setHorarioUp(horaMov);
+                    //
+                    objItensInventEstoque.setNomeProduto(jDescricaoProduto.getText());
+                    objItensInventEstoque.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                    objItensInventEstoque.setIdItem(Integer.valueOf(idItem));
+                    controle.alterarItensInventarioAcervo(objItensInventEstoque);
+                    preencherTabelaItensInventario("SELECT * FROM ITENS_INVENTARIO_ACERVO "
+                            + "INNER JOIN LIVROS_REVISTAS_JORNAIS "
+                            + "ON ITENS_INVENTARIO_ACERVO.IdLivro=LIVROS_REVISTAS_JORNAIS.IdLivro "
+                            + "WHERE IdLanc='" + jIdLanc.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    SalvarItem();
+                }
+            }
         } else {
-            try {
-                objItensInventEstoque.setQtdItem(valorReal.parse(jQtd.getText()).floatValue());
-            } catch (ParseException ex) {
-                Logger.getLogger(TelaInventarioLivrosAcervo.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try {
-                objItensInventEstoque.setValorCusto(valorReal.parse(jValorCusto.getText()).floatValue());
-            } catch (ParseException ex) {
-                Logger.getLogger(TelaInventarioLivrosAcervo.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            objItensInventEstoque.setUnidade((String) jComboBoxUnidProduto.getSelectedItem());
-            objItensInventEstoque.setIdLocal(Integer.valueOf(jIdLocal.getText()));
-            if (acao == 3) {
-                objItensInventEstoque.setUsuarioInsert(nameUser);
-                objItensInventEstoque.setDataInsert(dataModFinal);
-                objItensInventEstoque.setHorarioInsert(horaMov);
-                //
-                objItensInventEstoque.setNomeProduto(jDescricaoProduto.getText());
-                objItensInventEstoque.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                controle.incluirItensInventarioAcervo(objItensInventEstoque);
-                preencherTabelaItensInventario("SELECT * FROM ITENS_INVENTARIO_ACERVO "
-                        + "INNER JOIN LIVROS_REVISTAS_JORNAIS "
-                        + "ON ITENS_INVENTARIO_ACERVO.IdLivro=LIVROS_REVISTAS_JORNAIS.IdLivro "
-                        + "WHERE IdLanc='" + jIdLanc.getText() + "'");
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                SalvarItem();
-            }
-            if (acao == 4) {
-                objItensInventEstoque.setUsuarioUp(nameUser);
-                objItensInventEstoque.setDataUp(dataModFinal);
-                objItensInventEstoque.setHorarioUp(horaMov);
-                //
-                objItensInventEstoque.setNomeProduto(jDescricaoProduto.getText());
-                objItensInventEstoque.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                objItensInventEstoque.setIdItem(Integer.valueOf(idItem));
-                controle.alterarItensInventarioAcervo(objItensInventEstoque);
-                preencherTabelaItensInventario("SELECT * FROM ITENS_INVENTARIO_ACERVO "
-                        + "INNER JOIN LIVROS_REVISTAS_JORNAIS "
-                        + "ON ITENS_INVENTARIO_ACERVO.IdLivro=LIVROS_REVISTAS_JORNAIS.IdLivro "
-                        + "WHERE IdLanc='" + jIdLanc.getText() + "'");
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                SalvarItem();
-            }
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarItemActionPerformed
 
@@ -2259,5 +2318,43 @@ public class TelaInventarioLivrosAcervo extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jIdLanc.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserPEDA = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserPEDA + "'");
+            conecta.rs.first();
+            codigoUserGroupPEDA = conecta.rs.getInt("IdUsuario");
+            codigoGrupoPEDA = conecta.rs.getInt("IdGrupo");
+            nomeGrupoPEDA = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserPEDA + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoPEDA = conecta.rs.getInt("IdUsuario");
+            codAbrirPEDA = conecta.rs.getInt("Abrir");
+            codIncluirPEDA = conecta.rs.getInt("Incluir");
+            codAlterarPEDA = conecta.rs.getInt("Alterar");
+            codExcluirPEDA = conecta.rs.getInt("Excluir");
+            codGravarPEDA = conecta.rs.getInt("Gravar");
+            codConsultarPEDA = conecta.rs.getInt("Consultar");
+            nomeTelaPEDA = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

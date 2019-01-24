@@ -20,6 +20,20 @@ import gestor.Modelo.HistoricoCompraAcervo;
 import gestor.Modelo.ItensCompraAcervo;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPedagogia.codAbrirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codAlterarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codConsultarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codExcluirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codGravarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codIncluirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codUserAcessoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoGrupoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoUserGroupPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoUserPEDA;
+import static gestor.Visao.TelaModuloPedagogia.nomeGrupoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.nomeTelaPEDA;
+import static gestor.Visao.TelaModuloPedagogia.telaComprasManu_PEDA;
+import static gestor.Visao.TelaModuloPedagogia.telaComprasProd_PEDA;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -1503,101 +1517,121 @@ public class TelaCompraLivros extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaComprasManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaComprasManu_PEDA) && codIncluirPEDA == 1) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        objCompraAcervo.setStatusLanc(jStatusDoc.getText());
-        if (jStatusDoc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaComprasManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaComprasManu_PEDA) && codAlterarPEDA == 1) {
+            objCompraAcervo.setStatusLanc(jStatusDoc.getText());
+            if (jStatusDoc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                Alterar();
+                corCampos();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 2;
-            Alterar();
-            corCampos();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        objCompraAcervo.setStatusLanc(jStatusDoc.getText());
-        if (jStatusDoc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser excluida, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaComprasManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaComprasManu_PEDA) && codExcluirPEDA == 1) {
+            objCompraAcervo.setStatusLanc(jStatusDoc.getText());
+            if (jStatusDoc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser excluida, o mesmo encontra-se FINALIZADO");
+            } else {
+                verificarItens();
+            }
         } else {
-            verificarItens();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        DecimalFormat valorReal = new DecimalFormat("###,##00.0");
-        valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
-        if (jDataDoc.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data do documento.");
-        } else if (jDescricaoEditora.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do fornecedor do acervo.");
-        } else if (jNumDoc.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o numero do documento.");
-        } else if (jDataRecebimento.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data de Recebimento.");
-        } else if (jDataEmissao.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data de emissão.");
+        buscarAcessoUsuario(telaComprasManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaComprasManu_PEDA) && codGravarPEDA == 1) {
+            DecimalFormat valorReal = new DecimalFormat("###,##00.0");
+            valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
+            if (jDataDoc.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data do documento.");
+            } else if (jDescricaoEditora.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do fornecedor do acervo.");
+            } else if (jNumDoc.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o numero do documento.");
+            } else if (jDataRecebimento.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de Recebimento.");
+            } else if (jDataEmissao.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de emissão.");
+            } else {
+                objCompraAcervo.setStatusLanc(jStatusDoc.getText());
+                objCompraAcervo.setClasseCompra((String) jComboBoxClassificacao.getSelectedItem());
+                objCompraAcervo.setDataCompra(jDataDoc.getDate());
+                objCompraAcervo.setNomeFornecedor(jDescricaoEditora.getText());
+                objCompraAcervo.setNumeroDoc(Integer.valueOf(jNumDoc.getText()));
+                objCompraAcervo.setSerieDoc(jSerieDoc.getText());
+                objCompraAcervo.setDataRecebe(jDataRecebimento.getDate());
+                objCompraAcervo.setDataEmissao(jDataEmissao.getDate());
+                try {
+                    objCompraAcervo.setValorProdutos(valorReal.parse(jValorProdutos.getText()).floatValue());
+                } catch (ParseException ex) {
+                }
+                try {
+                    objCompraAcervo.setValorNFE(valorReal.parse(jValorNFE.getText()).floatValue());
+                } catch (ParseException ex) {
+                }
+                objCompraAcervo.setObservacao(jObservacao.getText());
+                if (jRadBtAvista.isSelected()) {
+                    statusTipoPagto = 0;
+                } else if (jRadBtPrazo.isSelected()) {
+                    statusTipoPagto = 1;
+                }
+                objCompraAcervo.setFormaPagto(statusTipoPagto);
+                if (acao == 1) {
+                    objCompraAcervo.setUsuarioInsert(nameUser);
+                    objCompraAcervo.setDataInsert(dataModFinal);
+                    objCompraAcervo.setHorarioInsert(horaMov);
+                    //
+                    control.incluirCompraAcervo(objCompraAcervo);
+                    buscarCodigo();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 2) {
+                    objCompraAcervo.setUsuarioUp(nameUser);
+                    objCompraAcervo.setDataUp(dataModFinal);
+                    objCompraAcervo.setHorarioUp(horaMov);
+                    //
+                    objCompraAcervo.setIdCompra(Integer.valueOf(jIdDoc.getText()));
+                    control.alterarCompraAcervo(objCompraAcervo);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
         } else {
-            objCompraAcervo.setStatusLanc(jStatusDoc.getText());
-            objCompraAcervo.setClasseCompra((String) jComboBoxClassificacao.getSelectedItem());
-            objCompraAcervo.setDataCompra(jDataDoc.getDate());
-            objCompraAcervo.setNomeFornecedor(jDescricaoEditora.getText());
-            objCompraAcervo.setNumeroDoc(Integer.valueOf(jNumDoc.getText()));
-            objCompraAcervo.setSerieDoc(jSerieDoc.getText());
-            objCompraAcervo.setDataRecebe(jDataRecebimento.getDate());
-            objCompraAcervo.setDataEmissao(jDataEmissao.getDate());
-            try {
-                objCompraAcervo.setValorProdutos(valorReal.parse(jValorProdutos.getText()).floatValue());
-            } catch (ParseException ex) {
-            }
-            try {
-                objCompraAcervo.setValorNFE(valorReal.parse(jValorNFE.getText()).floatValue());
-            } catch (ParseException ex) {
-            }
-            objCompraAcervo.setObservacao(jObservacao.getText());
-            if (jRadBtAvista.isSelected()) {
-                statusTipoPagto = 0;
-            } else if (jRadBtPrazo.isSelected()) {
-                statusTipoPagto = 1;
-            }
-            objCompraAcervo.setFormaPagto(statusTipoPagto);
-            if (acao == 1) {
-                objCompraAcervo.setUsuarioInsert(nameUser);
-                objCompraAcervo.setDataInsert(dataModFinal);
-                objCompraAcervo.setHorarioInsert(horaMov);
-                //
-                control.incluirCompraAcervo(objCompraAcervo);
-                buscarCodigo();
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
-            if (acao == 2) {
-                objCompraAcervo.setUsuarioUp(nameUser);
-                objCompraAcervo.setDataUp(dataModFinal);
-                objCompraAcervo.setHorarioUp(horaMov);
-                //
-                objCompraAcervo.setIdCompra(Integer.valueOf(jIdDoc.getText()));
-                control.alterarCompraAcervo(objCompraAcervo);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -1692,169 +1726,189 @@ public class TelaCompraLivros extends javax.swing.JInternalFrame {
 
     private void jBtNovoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoItemActionPerformed
         // TODO add your handling code here:
-        objCompraAcervo.setStatusLanc(jStatusDoc.getText());
-        if (jStatusDoc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaComprasProd_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaComprasProd_PEDA) && codIncluirPEDA == 1) {
+            objCompraAcervo.setStatusLanc(jStatusDoc.getText());
+            if (jStatusDoc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 3;
+                NovoItem();
+                corCampos();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 3;
-            NovoItem();
-            corCampos();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtNovoItemActionPerformed
 
     private void jBtAlterarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarItemActionPerformed
         // TODO add your handling code here:
-        objCompraAcervo.setStatusLanc(jStatusDoc.getText());
-        if (jStatusDoc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaComprasProd_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaComprasProd_PEDA) && codAlterarPEDA == 1) {
+            objCompraAcervo.setStatusLanc(jStatusDoc.getText());
+            if (jStatusDoc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 4;
+                AlterarItem();
+                corCampos();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 4;
-            AlterarItem();
-            corCampos();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarItemActionPerformed
 
     private void jBtExcluirItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirItemActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        objCompraAcervo.setStatusLanc(jStatusDoc.getText());
-        if (jStatusDoc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse  registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o INTERNO selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objItensCompraAcervo.setIdItem(Integer.valueOf(idItem));
-                controle.excluirProdutoCompraAcervo(objItensCompraAcervo);
-                //
-                objHistCompra.setIdCompra(Integer.valueOf(jIdDoc.getText()));
-                controleHist.excluirHistoricoAcervoCompras(objHistCompra);
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                ExcluirItem();
-                preencherTabelaItens("SELECT * FROM ITENS_COMPRA_ACERVO "
-                        + "INNER JOIN LIVROS_REVISTAS_JORNAIS "
-                        + "ON ITENS_COMPRA_ACERVO.IdLivro=LIVROS_REVISTAS_JORNAIS.IdLivro "
-                        + "INNER JOIN COMPRAS_ACERVO "
-                        + "ON ITENS_COMPRA_ACERVO.IdCompra=COMPRAS_ACERVO.IdCompra "
-                        + "INNER JOIN LOCAL_ACERVO "
-                        + "ON LIVROS_REVISTAS_JORNAIS.IdLocal=LOCAL_ACERVO.IdLocal "
-                        + "WHERE ITENS_COMPRA_ACERVO.IdCompra='" + jIdDoc.getText() + "'");
+        buscarAcessoUsuario(telaComprasProd_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaComprasProd_PEDA) && codExcluirPEDA == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objCompraAcervo.setStatusLanc(jStatusDoc.getText());
+            if (jStatusDoc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse  registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o INTERNO selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objItensCompraAcervo.setIdItem(Integer.valueOf(idItem));
+                    controle.excluirProdutoCompraAcervo(objItensCompraAcervo);
+                    //
+                    objHistCompra.setIdCompra(Integer.valueOf(jIdDoc.getText()));
+                    controleHist.excluirHistoricoAcervoCompras(objHistCompra);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    ExcluirItem();
+                    preencherTabelaItens("SELECT * FROM ITENS_COMPRA_ACERVO "
+                            + "INNER JOIN LIVROS_REVISTAS_JORNAIS "
+                            + "ON ITENS_COMPRA_ACERVO.IdLivro=LIVROS_REVISTAS_JORNAIS.IdLivro "
+                            + "INNER JOIN COMPRAS_ACERVO "
+                            + "ON ITENS_COMPRA_ACERVO.IdCompra=COMPRAS_ACERVO.IdCompra "
+                            + "INNER JOIN LOCAL_ACERVO "
+                            + "ON LIVROS_REVISTAS_JORNAIS.IdLocal=LOCAL_ACERVO.IdLocal "
+                            + "WHERE ITENS_COMPRA_ACERVO.IdCompra='" + jIdDoc.getText() + "'");
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirItemActionPerformed
 
     private void jBtSalvarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarItemActionPerformed
         // TODO add your handling code here:
-        DecimalFormat valorRealUni = new DecimalFormat("###,##00.0");
-        valorRealUni.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
-        //
-        DecimalFormat valorRealUniTotal = new DecimalFormat("###,##00.0");
-        valorRealUniTotal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
-        //
-        if (jIdProduto.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do produto do acervo a ser lançado.");
-        } else if (jQuantidade.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a quantidade do produto.");
-        } else if (jValorUnitario.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o valor unitário do produto.");
+        buscarAcessoUsuario(telaComprasProd_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaComprasProd_PEDA) && codGravarPEDA == 1) {
+            DecimalFormat valorRealUni = new DecimalFormat("###,##00.0");
+            valorRealUni.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
+            //
+            DecimalFormat valorRealUniTotal = new DecimalFormat("###,##00.0");
+            valorRealUniTotal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
+            //
+            if (jIdProduto.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do produto do acervo a ser lançado.");
+            } else if (jQuantidade.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a quantidade do produto.");
+            } else if (jValorUnitario.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o valor unitário do produto.");
+            } else {
+                objItensCompraAcervo.setIdCompra(Integer.valueOf(jIdDoc.getText()));
+                objItensCompraAcervo.setTipoCompra(statusTipoAcervo);
+                objItensCompraAcervo.setDescricaoLivro(jDescricaoProduto.getText());
+                objItensCompraAcervo.setQtdeCompra(Float.parseFloat(jQuantidade.getText()));
+                try {
+                    objItensCompraAcervo.setValorUnit(valorRealUni.parse(jValorUnitario.getText()).floatValue());
+                } catch (ParseException ex) {
+                }
+                try {
+                    objItensCompraAcervo.setValorTotal(valorRealUniTotal.parse(jValorTotalItem.getText()).floatValue());
+                } catch (ParseException ex) {
+                }
+                if (jRadioBtCompra.isSelected()) {
+                    statusTipoOperacao = 0;
+                } else if (jRadioBtDoacao.isSelected()) {
+                    statusTipoOperacao = 1;
+                }
+                objItensCompraAcervo.setTipoOperacao(statusTipoOperacao);
+                if (acao == 3) {
+                    objItensCompraAcervo.setUsuarioInsert(nameUser);
+                    objItensCompraAcervo.setDataInsert(dataModFinal);
+                    objItensCompraAcervo.setHorarioInsert(horaMov);
+                    // INCLUIR O PRODUTO NA TABELA DE ITENS_COMPRA_ACERVO
+                    controle.incluirProdutoCompraAcervo(objItensCompraAcervo);
+                    // INCLUIR PRODUTO NA TABELA HISTORICO_COMPRA_ACERVO
+                    objHistCompra.setIdCompra(Integer.valueOf(jIdDoc.getText()));
+                    objHistCompra.setNomeLivro(jDescricaoProduto.getText());
+                    objHistCompra.setDataMov(jDataDoc.getDate());
+                    objHistCompra.setQtdeCompra(Float.parseFloat(jQuantidade.getText()));
+                    try {
+                        objHistCompra.setValorUnit(valorRealUni.parse(jValorUnitario.getText()).floatValue());
+                    } catch (ParseException ex) {
+                    }
+                    try {
+                        objHistCompra.setValorTotal(valorRealUniTotal.parse(jValorTotalItem.getText()).floatValue());
+                    } catch (ParseException ex) {
+                    }
+                    controleHist.incluirHistoricoAcervoCompras(objHistCompra);
+                    //
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    preencherTabelaItens("SELECT * FROM ITENS_COMPRA_ACERVO "
+                            + "INNER JOIN LIVROS_REVISTAS_JORNAIS "
+                            + "ON ITENS_COMPRA_ACERVO.IdLivro=LIVROS_REVISTAS_JORNAIS.IdLivro "
+                            + "INNER JOIN COMPRAS_ACERVO "
+                            + "ON ITENS_COMPRA_ACERVO.IdCompra=COMPRAS_ACERVO.IdCompra "
+                            + "INNER JOIN LOCAL_ACERVO "
+                            + "ON LIVROS_REVISTAS_JORNAIS.IdLocal=LOCAL_ACERVO.IdLocal "
+                            + "WHERE ITENS_COMPRA_ACERVO.IdCompra='" + jIdDoc.getText() + "'");
+                    SalvarItem();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 4) {
+                    objItensCompraAcervo.setUsuarioUp(nameUser);
+                    objItensCompraAcervo.setDataUp(dataModFinal);
+                    objItensCompraAcervo.setHorarioUp(horaMov);
+                    //
+                    objItensCompraAcervo.setIdItem(Integer.valueOf(idItem));
+                    controle.alterarProdutoCompraAcervo(objItensCompraAcervo);
+                    // ALTERAR PRODUTO NA TABELA HISTORICO_COMPRA_ACERVO
+                    objHistCompra.setIdCompra(Integer.valueOf(jIdDoc.getText()));
+                    objHistCompra.setIdLivro(Integer.valueOf(jIdProduto.getText()));
+                    objHistCompra.setNomeLivro(jDescricaoProduto.getText());
+                    objHistCompra.setDataMov(jDataDoc.getDate());
+                    objHistCompra.setQtdeCompra(Float.parseFloat(jQuantidade.getText()));
+                    try {
+                        objHistCompra.setValorUnit(valorRealUni.parse(jValorUnitario.getText()).floatValue());
+                    } catch (ParseException ex) {
+                    }
+                    try {
+                        objHistCompra.setValorTotal(valorRealUniTotal.parse(jValorTotalItem.getText()).floatValue());
+                    } catch (ParseException ex) {
+                    }
+                    controleHist.alterarHistoricoAcervoCompras(objHistCompra);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    preencherTabelaItens("SELECT * FROM ITENS_COMPRA_ACERVO "
+                            + "INNER JOIN LIVROS_REVISTAS_JORNAIS "
+                            + "ON ITENS_COMPRA_ACERVO.IdLivro=LIVROS_REVISTAS_JORNAIS.IdLivro "
+                            + "INNER JOIN COMPRAS_ACERVO "
+                            + "ON ITENS_COMPRA_ACERVO.IdCompra=COMPRAS_ACERVO.IdCompra "
+                            + "INNER JOIN LOCAL_ACERVO "
+                            + "ON LIVROS_REVISTAS_JORNAIS.IdLocal=LOCAL_ACERVO.IdLocal "
+                            + "WHERE ITENS_COMPRA_ACERVO.IdCompra='" + jIdDoc.getText() + "'");
+                    SalvarItem();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
         } else {
-            objItensCompraAcervo.setIdCompra(Integer.valueOf(jIdDoc.getText()));
-            objItensCompraAcervo.setTipoCompra(statusTipoAcervo);
-            objItensCompraAcervo.setDescricaoLivro(jDescricaoProduto.getText());
-            objItensCompraAcervo.setQtdeCompra(Float.parseFloat(jQuantidade.getText()));
-            try {
-                objItensCompraAcervo.setValorUnit(valorRealUni.parse(jValorUnitario.getText()).floatValue());
-            } catch (ParseException ex) {
-            }
-            try {
-                objItensCompraAcervo.setValorTotal(valorRealUniTotal.parse(jValorTotalItem.getText()).floatValue());
-            } catch (ParseException ex) {
-            }
-            if (jRadioBtCompra.isSelected()) {
-                statusTipoOperacao = 0;
-            } else if (jRadioBtDoacao.isSelected()) {
-                statusTipoOperacao = 1;
-            }
-            objItensCompraAcervo.setTipoOperacao(statusTipoOperacao);
-            if (acao == 3) {
-                objItensCompraAcervo.setUsuarioInsert(nameUser);
-                objItensCompraAcervo.setDataInsert(dataModFinal);
-                objItensCompraAcervo.setHorarioInsert(horaMov);
-                // INCLUIR O PRODUTO NA TABELA DE ITENS_COMPRA_ACERVO
-                controle.incluirProdutoCompraAcervo(objItensCompraAcervo);
-                // INCLUIR PRODUTO NA TABELA HISTORICO_COMPRA_ACERVO
-                objHistCompra.setIdCompra(Integer.valueOf(jIdDoc.getText()));
-                objHistCompra.setNomeLivro(jDescricaoProduto.getText());
-                objHistCompra.setDataMov(jDataDoc.getDate());
-                objHistCompra.setQtdeCompra(Float.parseFloat(jQuantidade.getText()));
-                try {
-                    objHistCompra.setValorUnit(valorRealUni.parse(jValorUnitario.getText()).floatValue());
-                } catch (ParseException ex) {
-                }
-                try {
-                    objHistCompra.setValorTotal(valorRealUniTotal.parse(jValorTotalItem.getText()).floatValue());
-                } catch (ParseException ex) {
-                }
-                controleHist.incluirHistoricoAcervoCompras(objHistCompra);
-                //
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                preencherTabelaItens("SELECT * FROM ITENS_COMPRA_ACERVO "
-                        + "INNER JOIN LIVROS_REVISTAS_JORNAIS "
-                        + "ON ITENS_COMPRA_ACERVO.IdLivro=LIVROS_REVISTAS_JORNAIS.IdLivro "
-                        + "INNER JOIN COMPRAS_ACERVO "
-                        + "ON ITENS_COMPRA_ACERVO.IdCompra=COMPRAS_ACERVO.IdCompra "
-                        + "INNER JOIN LOCAL_ACERVO "
-                        + "ON LIVROS_REVISTAS_JORNAIS.IdLocal=LOCAL_ACERVO.IdLocal "
-                        + "WHERE ITENS_COMPRA_ACERVO.IdCompra='" + jIdDoc.getText() + "'");
-                SalvarItem();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
-            if (acao == 4) {
-                objItensCompraAcervo.setUsuarioUp(nameUser);
-                objItensCompraAcervo.setDataUp(dataModFinal);
-                objItensCompraAcervo.setHorarioUp(horaMov);
-                //
-                objItensCompraAcervo.setIdItem(Integer.valueOf(idItem));
-                controle.alterarProdutoCompraAcervo(objItensCompraAcervo);
-                // ALTERAR PRODUTO NA TABELA HISTORICO_COMPRA_ACERVO
-                objHistCompra.setIdCompra(Integer.valueOf(jIdDoc.getText()));
-                objHistCompra.setIdLivro(Integer.valueOf(jIdProduto.getText()));
-                objHistCompra.setNomeLivro(jDescricaoProduto.getText());
-                objHistCompra.setDataMov(jDataDoc.getDate());
-                objHistCompra.setQtdeCompra(Float.parseFloat(jQuantidade.getText()));
-                try {
-                    objHistCompra.setValorUnit(valorRealUni.parse(jValorUnitario.getText()).floatValue());
-                } catch (ParseException ex) {
-                }
-                try {
-                    objHistCompra.setValorTotal(valorRealUniTotal.parse(jValorTotalItem.getText()).floatValue());
-                } catch (ParseException ex) {
-                }
-                controleHist.alterarHistoricoAcervoCompras(objHistCompra);
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                preencherTabelaItens("SELECT * FROM ITENS_COMPRA_ACERVO "
-                        + "INNER JOIN LIVROS_REVISTAS_JORNAIS "
-                        + "ON ITENS_COMPRA_ACERVO.IdLivro=LIVROS_REVISTAS_JORNAIS.IdLivro "
-                        + "INNER JOIN COMPRAS_ACERVO "
-                        + "ON ITENS_COMPRA_ACERVO.IdCompra=COMPRAS_ACERVO.IdCompra "
-                        + "INNER JOIN LOCAL_ACERVO "
-                        + "ON LIVROS_REVISTAS_JORNAIS.IdLocal=LOCAL_ACERVO.IdLocal "
-                        + "WHERE ITENS_COMPRA_ACERVO.IdCompra='" + jIdDoc.getText() + "'");
-                SalvarItem();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarItemActionPerformed
 
@@ -2921,5 +2975,43 @@ public class TelaCompraLivros extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jIdDoc.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserPEDA = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserPEDA + "'");
+            conecta.rs.first();
+            codigoUserGroupPEDA = conecta.rs.getInt("IdUsuario");
+            codigoGrupoPEDA = conecta.rs.getInt("IdGrupo");
+            nomeGrupoPEDA = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserPEDA + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoPEDA = conecta.rs.getInt("IdUsuario");
+            codAbrirPEDA = conecta.rs.getInt("Abrir");
+            codIncluirPEDA = conecta.rs.getInt("Incluir");
+            codAlterarPEDA = conecta.rs.getInt("Alterar");
+            codExcluirPEDA = conecta.rs.getInt("Excluir");
+            codGravarPEDA = conecta.rs.getInt("Gravar");
+            codConsultarPEDA = conecta.rs.getInt("Consultar");
+            nomeTelaPEDA = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

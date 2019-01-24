@@ -115,8 +115,6 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
 
         jPainelConfiguracoes.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jPainelConfiguracoes.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
         javax.swing.GroupLayout jPainelConfiguracoesLayout = new javax.swing.GroupLayout(jPainelConfiguracoes);
         jPainelConfiguracoes.setLayout(jPainelConfiguracoesLayout);
         jPainelConfiguracoesLayout.setHorizontalGroup(

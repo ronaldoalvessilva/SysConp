@@ -25,6 +25,20 @@ import gestor.Modelo.LogSistema;
 import gestor.Modelo.RegistroAtendimentoInternos;
 import gestor.Modelo.SocializacaoAdmPedagogica;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPedagogia.codAbrirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codAlterarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codConsultarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codExcluirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codGravarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codIncluirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codUserAcessoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoGrupoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoUserGroupPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoUserPEDA;
+import static gestor.Visao.TelaModuloPedagogia.nomeGrupoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.nomeTelaPEDA;
+import static gestor.Visao.TelaModuloPedagogia.telaAdmissaoFami_PEDA;
+import static gestor.Visao.TelaModuloPedagogia.telaAdmissaoManu_PEDA;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -2733,159 +2747,179 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        limparTodosCampos();
-        bloquearBotoes();
-        limparTabelaEvolucao();
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaAdmissaoManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaAdmissaoManu_PEDA) && codIncluirPEDA == 1) {
+            acao = 1;
+            limparTodosCampos();
+            bloquearBotoes();
+            limparTabelaEvolucao();
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        objAdmPedago.setStatusAdm(jStatusAdm.getText());
-        if (jStatusAdm.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa admissão de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaAdmissaoManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaAdmissaoManu_PEDA) && codAlterarPEDA == 1) {
+            objAdmPedago.setStatusAdm(jStatusAdm.getText());
+            if (jStatusAdm.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa admissão de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                bloquearCampos();
+                bloquearBotoes();
+                Alterar();
+                corCampos();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 2;
-            bloquearCampos();
-            bloquearBotoes();
-            Alterar();
-            corCampos();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        verificarRegistros();
-        objAdmPedago.setStatusAdm(jStatusAdm.getText());
-        if (jStatusAdm.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa admissão de internos não poderá ser excluída, o mesmo encontra-se FINALIZADO");
-        } else {
-            if (jIdInternoAdm.getText().equals(codigoInternoEvolucao)) {
-                JOptionPane.showMessageDialog(rootPane, "Não é possivel excluir essa admissão, existe evolução para esse interno.");
-            } else if (jIdInternoAdm.getText().equals(codigoInternoFeminino)) {
-                JOptionPane.showMessageDialog(rootPane, "Não é possivel excluir essa admissão, existe registro na aba Feminino para esse interno.");
-            } else if (jIdInternoAdm.getText().equals(codigoInternoSocializa)) {
-                JOptionPane.showMessageDialog(rootPane, "Não é possivel excluir essa admissão, existe registro na aba Socialização e Preferências para esse interno.");
-            } else if (jIdInternoAdm.getText().equals(codigoInternoFamilia)) {
-                JOptionPane.showMessageDialog(rootPane, "Não é possivel excluir essa admissão, existe registro na aba Socialização e Preferências para esse interno.");
+        buscarAcessoUsuario(telaAdmissaoManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaAdmissaoManu_PEDA) && codExcluirPEDA == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            verificarRegistros();
+            objAdmPedago.setStatusAdm(jStatusAdm.getText());
+            if (jStatusAdm.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa admissão de internos não poderá ser excluída, o mesmo encontra-se FINALIZADO");
             } else {
-                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
-                        JOptionPane.YES_NO_OPTION);
-                if (resposta == JOptionPane.YES_OPTION) {
-                    limparTodosCampos();
-                    bloquearCampos();
-                    bloquearBotoes();
-                    // MOVIMENTAÇÃO CORPO TÉCNICO
-                    objAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissao.getText()));
-                    objAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
-                    objAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
-                    objAdmPedago.setDeptoPedagogia(deptoTecnico);
-                    controleMov.excluirMovTec(objAdmPedago);
-                    //
-                    control.excluirAdmissaoEscolar(objAdmPedago);
-                    //
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    Excluir();
-                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                if (jIdInternoAdm.getText().equals(codigoInternoEvolucao)) {
+                    JOptionPane.showMessageDialog(rootPane, "Não é possivel excluir essa admissão, existe evolução para esse interno.");
+                } else if (jIdInternoAdm.getText().equals(codigoInternoFeminino)) {
+                    JOptionPane.showMessageDialog(rootPane, "Não é possivel excluir essa admissão, existe registro na aba Feminino para esse interno.");
+                } else if (jIdInternoAdm.getText().equals(codigoInternoSocializa)) {
+                    JOptionPane.showMessageDialog(rootPane, "Não é possivel excluir essa admissão, existe registro na aba Socialização e Preferências para esse interno.");
+                } else if (jIdInternoAdm.getText().equals(codigoInternoFamilia)) {
+                    JOptionPane.showMessageDialog(rootPane, "Não é possivel excluir essa admissão, existe registro na aba Socialização e Preferências para esse interno.");
+                } else {
+                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta == JOptionPane.YES_OPTION) {
+                        limparTodosCampos();
+                        bloquearCampos();
+                        bloquearBotoes();
+                        // MOVIMENTAÇÃO CORPO TÉCNICO
+                        objAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissao.getText()));
+                        objAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                        objAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
+                        objAdmPedago.setDeptoPedagogia(deptoTecnico);
+                        controleMov.excluirMovTec(objAdmPedago);
+                        //
+                        control.excluirAdmissaoEscolar(objAdmPedago);
+                        //
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        Excluir();
+                        JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jIdInternoAdm.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
-        } else if (jDataAdm.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data da admissão.");
+        buscarAcessoUsuario(telaAdmissaoManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaAdmissaoManu_PEDA) && codGravarPEDA == 1) {
+            if (jIdInternoAdm.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
+            } else if (jDataAdm.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data da admissão.");
+            } else {
+                objAdmPedago.setStatusAdm(jStatusAdm.getText());
+                objAdmPedago.setDataAdm(jDataAdm.getDate());
+                objAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                objAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
+                objAdmPedago.setUltimaEscola(jUltimaEscola.getText());
+                objAdmPedago.setSerieAno(jSerieAno.getText());
+                objAdmPedago.setTurno(jTurno.getText());
+                objAdmPedago.setObservacao(jObservacao.getText());
+                if (acao == 1) {
+                    objAdmPedago.setUsuarioInsert(nameUser);
+                    objAdmPedago.setDataInsert(dataModFinal);
+                    objAdmPedago.setHorarioInsert(horaMov);
+                    //
+                    control.incluirAdmissaoEscolar(objAdmPedago);
+                    buscarCodigo();
+                    // MOVIMENTAÇÃO CORPO TÉCNICO
+                    objAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissao.getText()));
+                    objAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                    objAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
+                    objAdmPedago.setDeptoPedagogia(deptoTecnico);
+                    controleMov.incluirMovTec(objAdmPedago);
+                    // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
+                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                    objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
+                    objRegAtend.setIdDepartamento(codigoDepartamentoPEDA);
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                    objRegAtend.setAtendido(atendido);
+                    objRegAtend.setDataAtendimento(jDataAdm.getDate());
+                    objRegAtend.setIdAtend(Integer.valueOf(jCodigoAdmissao.getText()));
+                    //
+                    objRegAtend.setUsuarioUp(nameUser);
+                    objRegAtend.setDataUp(dataModFinal);
+                    objRegAtend.setHorarioUp(horaMov);
+                    controlRegAtend.alterarRegAtend(objRegAtend);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearCampos();
+                    bloquearBotoes();
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 2) {
+                    objAdmPedago.setUsuarioUp(nameUser);
+                    objAdmPedago.setDataUp(dataModFinal);
+                    objAdmPedago.setHorarioUp(horaMov);
+                    //
+                    objAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissao.getText()));
+                    control.alterarAdmissaoEscolar(objAdmPedago);
+                    // MOVIMENTAÇÃO CORPO TÉCNICO
+                    objAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissao.getText()));
+                    objAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                    objAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
+                    objAdmPedago.setDeptoPedagogia(deptoTecnico);
+                    controleMov.alterarMovTec(objAdmPedago);
+                    // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
+                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                    objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
+                    objRegAtend.setIdDepartamento(codigoDepartamentoPEDA);
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                    objRegAtend.setAtendido(atendido);
+                    objRegAtend.setDataAtendimento(jDataAdm.getDate());
+                    objRegAtend.setIdAtend(Integer.valueOf(jCodigoAdmissao.getText()));
+                    //
+                    objRegAtend.setUsuarioUp(nameUser);
+                    objRegAtend.setDataUp(dataModFinal);
+                    objRegAtend.setHorarioUp(horaMov);
+                    controlRegAtend.alterarRegAtend(objRegAtend);
+                    //
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearCampos();
+                    bloquearBotoes();
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
         } else {
-            objAdmPedago.setStatusAdm(jStatusAdm.getText());
-            objAdmPedago.setDataAdm(jDataAdm.getDate());
-            objAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
-            objAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
-            objAdmPedago.setUltimaEscola(jUltimaEscola.getText());
-            objAdmPedago.setSerieAno(jSerieAno.getText());
-            objAdmPedago.setTurno(jTurno.getText());
-            objAdmPedago.setObservacao(jObservacao.getText());
-            if (acao == 1) {
-                objAdmPedago.setUsuarioInsert(nameUser);
-                objAdmPedago.setDataInsert(dataModFinal);
-                objAdmPedago.setHorarioInsert(horaMov);
-                //
-                control.incluirAdmissaoEscolar(objAdmPedago);
-                buscarCodigo();
-                // MOVIMENTAÇÃO CORPO TÉCNICO
-                objAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissao.getText()));
-                objAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
-                objAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
-                objAdmPedago.setDeptoPedagogia(deptoTecnico);
-                controleMov.incluirMovTec(objAdmPedago);
-                // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
-                objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
-                objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
-                objRegAtend.setIdDepartamento(codigoDepartamentoPEDA);
-                objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
-                objRegAtend.setAtendido(atendido);
-                objRegAtend.setDataAtendimento(jDataAdm.getDate());
-                objRegAtend.setIdAtend(Integer.valueOf(jCodigoAdmissao.getText()));
-                //
-                objRegAtend.setUsuarioUp(nameUser);
-                objRegAtend.setDataUp(dataModFinal);
-                objRegAtend.setHorarioUp(horaMov);
-                controlRegAtend.alterarRegAtend(objRegAtend);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                bloquearCampos();
-                bloquearBotoes();
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
-            if (acao == 2) {
-                objAdmPedago.setUsuarioUp(nameUser);
-                objAdmPedago.setDataUp(dataModFinal);
-                objAdmPedago.setHorarioUp(horaMov);
-                //
-                objAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissao.getText()));
-                control.alterarAdmissaoEscolar(objAdmPedago);
-                // MOVIMENTAÇÃO CORPO TÉCNICO
-                objAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissao.getText()));
-                objAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
-                objAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
-                objAdmPedago.setDeptoPedagogia(deptoTecnico);
-                controleMov.alterarMovTec(objAdmPedago);
-                // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
-                objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
-                objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
-                objRegAtend.setIdDepartamento(codigoDepartamentoPEDA);
-                objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
-                objRegAtend.setAtendido(atendido);
-                objRegAtend.setDataAtendimento(jDataAdm.getDate());
-                objRegAtend.setIdAtend(Integer.valueOf(jCodigoAdmissao.getText()));
-                //
-                objRegAtend.setUsuarioUp(nameUser);
-                objRegAtend.setDataUp(dataModFinal);
-                objRegAtend.setHorarioUp(horaMov);
-                controlRegAtend.alterarRegAtend(objRegAtend);
-                //
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                bloquearCampos();
-                bloquearBotoes();
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -2926,104 +2960,136 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
 
     private void jBtNovaFamiliaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaFamiliaActionPerformed
         // TODO add your handling code here:
-        objAdmPedago.setStatusAdm(jStatusAdm.getText());
-        if (jStatusAdm.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa admissão de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaAdmissaoFami_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaAdmissaoFami_PEDA) && codIncluirPEDA == 1) {
+            objAdmPedago.setStatusAdm(jStatusAdm.getText());
+            if (jStatusAdm.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa admissão de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 3;
+                bloquearCampos();
+                bloquearBotoes();
+                NovaFamilia();
+                corCampos();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 3;
-            bloquearCampos();
-            bloquearBotoes();
-            NovaFamilia();
-            corCampos();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtNovaFamiliaActionPerformed
 
     private void jBtAlterarFamiliaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarFamiliaActionPerformed
         // TODO add your handling code here:
-        objAdmPedago.setStatusAdm(jStatusAdm.getText());
-        if (jStatusAdm.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa admissão de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaAdmissaoFami_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaAdmissaoFami_PEDA) && codAlterarPEDA == 1) {
+            objAdmPedago.setStatusAdm(jStatusAdm.getText());
+            if (jStatusAdm.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa admissão de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 4;
+                bloquearCampos();
+                bloquearBotoes();
+                AlterarFamilia();
+                corCampos();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 4;
-            bloquearCampos();
-            bloquearBotoes();
-            AlterarFamilia();
-            corCampos();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarFamiliaActionPerformed
 
     private void jBtExcluirFamiliaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirFamiliaActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        objAdmPedago.setStatusAdm(jStatusAdm.getText());
-        if (jStatusAdm.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa admissão de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objFamAdmPedago.setIdFam(codigoFam);
-                controle.excluirFamiliaAdmissaoEscolar(objFamAdmPedago);
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
-                bloquearCampos();
-                bloquearBotoes();
-                ExcluirFamilia();
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso.");
+        buscarAcessoUsuario(telaAdmissaoFami_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaAdmissaoFami_PEDA) && codExcluirPEDA == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objAdmPedago.setStatusAdm(jStatusAdm.getText());
+            if (jStatusAdm.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa admissão de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objFamAdmPedago.setIdFam(codigoFam);
+                    controle.excluirFamiliaAdmissaoEscolar(objFamAdmPedago);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
+                    bloquearCampos();
+                    bloquearBotoes();
+                    ExcluirFamilia();
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso.");
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirFamiliaActionPerformed
 
     private void jBtSalvarFamiliaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarFamiliaActionPerformed
         // TODO add your handling code here:
-        verificarFamilia();
-        if (jIdadeAndou.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe uma idade que andou, ou deixe o campo com valor zero.");
-        } else if (jIdadeFalou.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe uma idade que falou, ou deixe o campo com valor zero.");
-        } else {
-            objFamAdmPedago.setRelacaoPai((String) jComboBoxRelacaoPai.getSelectedItem());
-            objFamAdmPedago.setRelacaoMae((String) jComboBoxRelacaoMae.getSelectedItem());
-            objFamAdmPedago.setIrmaos((String) jComboBoxIrmaos.getSelectedItem());
-            objFamAdmPedago.setPaisLerEscrever((String) jComboBoxPaisLerEscrever.getSelectedItem());
-            objFamAdmPedago.setPaisSeparados((String) jComboBoxPaisSeparados.getSelectedItem());
-            objFamAdmPedago.setReligiao(jReligiao.getText());
-            objFamAdmPedago.setIdadeAndou(Integer.valueOf(jIdadeAndou.getText()));
-            objFamAdmPedago.setIdadeFalou(Integer.valueOf(jIdadeFalou.getText()));
-            objFamAdmPedago.setDificuldadeFala((String) jComboBoxDificuldadeFala.getSelectedItem());
-            objFamAdmPedago.setQualDificuldadeFala(jQualDificuldadeFala.getText());
-            objFamAdmPedago.setComunicacao(jComunicacao.getText());
-            objFamAdmPedago.setRelacionamento((String) jComboBoxRelacionamento.getSelectedItem());
-            objFamAdmPedago.setLider((String) jComboBoxLider.getSelectedItem());
-            objFamAdmPedago.setRepetiuAno((String) jComboBoxRepetiuAno.getSelectedItem());
-            objFamAdmPedago.setPorqueRepetiuAno(jPorqueRepetiuAno.getText());
-            objFamAdmPedago.setProblemaProfessor((String) jComboBoxProblemaProfessor.getSelectedItem());
-            objFamAdmPedago.setQualProblemaProfessor(jQualProblemaProfessor.getText());
-            objFamAdmPedago.setComoAtitudeSala(jComoAtitudeSala.getText());
-            objFamAdmPedago.setFaltaEscola((String) jComboBoxFaltaEscola.getSelectedItem());
-            objFamAdmPedago.setPorqueFaltaEscola(jPorqueFaltaEscola.getText());
-            objFamAdmPedago.setAchaEscola((String) jComboBoxAchaEscola.getSelectedItem());
-            objFamAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
-            objFamAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
-            objFamAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissao.getText()));
-            if (acao == 3) {
-                if (jCodigoAdmissao.getText().equals(codigoAdm) && jIdInternoAdm.getText().equals(codigoInternoFAM)) {
-                    JOptionPane.showMessageDialog(rootPane, "Já foi realizado um registro para esse interno.");
-                } else {
-                    objFamAdmPedago.setUsuarioInsert(nameUser);
-                    objFamAdmPedago.setDataInsert(dataModFinal);
-                    objFamAdmPedago.setHorarioInsert(horaMov);
+        buscarAcessoUsuario(telaAdmissaoFami_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaAdmissaoFami_PEDA) && codGravarPEDA == 1) {
+            verificarFamilia();
+            if (jIdadeAndou.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe uma idade que andou, ou deixe o campo com valor zero.");
+            } else if (jIdadeFalou.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe uma idade que falou, ou deixe o campo com valor zero.");
+            } else {
+                objFamAdmPedago.setRelacaoPai((String) jComboBoxRelacaoPai.getSelectedItem());
+                objFamAdmPedago.setRelacaoMae((String) jComboBoxRelacaoMae.getSelectedItem());
+                objFamAdmPedago.setIrmaos((String) jComboBoxIrmaos.getSelectedItem());
+                objFamAdmPedago.setPaisLerEscrever((String) jComboBoxPaisLerEscrever.getSelectedItem());
+                objFamAdmPedago.setPaisSeparados((String) jComboBoxPaisSeparados.getSelectedItem());
+                objFamAdmPedago.setReligiao(jReligiao.getText());
+                objFamAdmPedago.setIdadeAndou(Integer.valueOf(jIdadeAndou.getText()));
+                objFamAdmPedago.setIdadeFalou(Integer.valueOf(jIdadeFalou.getText()));
+                objFamAdmPedago.setDificuldadeFala((String) jComboBoxDificuldadeFala.getSelectedItem());
+                objFamAdmPedago.setQualDificuldadeFala(jQualDificuldadeFala.getText());
+                objFamAdmPedago.setComunicacao(jComunicacao.getText());
+                objFamAdmPedago.setRelacionamento((String) jComboBoxRelacionamento.getSelectedItem());
+                objFamAdmPedago.setLider((String) jComboBoxLider.getSelectedItem());
+                objFamAdmPedago.setRepetiuAno((String) jComboBoxRepetiuAno.getSelectedItem());
+                objFamAdmPedago.setPorqueRepetiuAno(jPorqueRepetiuAno.getText());
+                objFamAdmPedago.setProblemaProfessor((String) jComboBoxProblemaProfessor.getSelectedItem());
+                objFamAdmPedago.setQualProblemaProfessor(jQualProblemaProfessor.getText());
+                objFamAdmPedago.setComoAtitudeSala(jComoAtitudeSala.getText());
+                objFamAdmPedago.setFaltaEscola((String) jComboBoxFaltaEscola.getSelectedItem());
+                objFamAdmPedago.setPorqueFaltaEscola(jPorqueFaltaEscola.getText());
+                objFamAdmPedago.setAchaEscola((String) jComboBoxAchaEscola.getSelectedItem());
+                objFamAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                objFamAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
+                objFamAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissao.getText()));
+                if (acao == 3) {
+                    if (jCodigoAdmissao.getText().equals(codigoAdm) && jIdInternoAdm.getText().equals(codigoInternoFAM)) {
+                        JOptionPane.showMessageDialog(rootPane, "Já foi realizado um registro para esse interno.");
+                    } else {
+                        objFamAdmPedago.setUsuarioInsert(nameUser);
+                        objFamAdmPedago.setDataInsert(dataModFinal);
+                        objFamAdmPedago.setHorarioInsert(horaMov);
+                        //
+                        controle.incluirFamiliaAdmissaoEscolar(objFamAdmPedago);
+                        buscarFamilia();
+                        objLog2();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        bloquearCampos();
+                        bloquearBotoes();
+                        SalvarFamilia();
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    }
+                }
+                if (acao == 4) {
+                    objFamAdmPedago.setUsuarioUp(nameUser);
+                    objFamAdmPedago.setDataUp(dataModFinal);
+                    objFamAdmPedago.setHorarioUp(horaMov);
                     //
-                    controle.incluirFamiliaAdmissaoEscolar(objFamAdmPedago);
-                    buscarFamilia();
+                    objFamAdmPedago.setIdFam(codigoFam);
+                    controle.alterarFamiliaAdmissaoEscolar(objFamAdmPedago);
                     objLog2();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     bloquearCampos();
@@ -3032,20 +3098,8 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
             }
-            if (acao == 4) {
-                objFamAdmPedago.setUsuarioUp(nameUser);
-                objFamAdmPedago.setDataUp(dataModFinal);
-                objFamAdmPedago.setHorarioUp(horaMov);
-                //
-                objFamAdmPedago.setIdFam(codigoFam);
-                controle.alterarFamiliaAdmissaoEscolar(objFamAdmPedago);
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                bloquearCampos();
-                bloquearBotoes();
-                SalvarFamilia();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarFamiliaActionPerformed
 
@@ -5458,6 +5512,44 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
             conecta.executaSQL("SELECT * FROM PARAMETROSCRC");
             conecta.rs.first();
             pHabilitaPEDA = conecta.rs.getString("BiometriaPeda");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserPEDA = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserPEDA + "'");
+            conecta.rs.first();
+            codigoUserGroupPEDA = conecta.rs.getInt("IdUsuario");
+            codigoGrupoPEDA = conecta.rs.getInt("IdGrupo");
+            nomeGrupoPEDA = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserPEDA + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoPEDA = conecta.rs.getInt("IdUsuario");
+            codAbrirPEDA = conecta.rs.getInt("Abrir");
+            codIncluirPEDA = conecta.rs.getInt("Incluir");
+            codAlterarPEDA = conecta.rs.getInt("Alterar");
+            codExcluirPEDA = conecta.rs.getInt("Excluir");
+            codGravarPEDA = conecta.rs.getInt("Gravar");
+            codConsultarPEDA = conecta.rs.getInt("Consultar");
+            nomeTelaPEDA = conecta.rs.getString("NomeTela");
         } catch (Exception e) {
         }
         conecta.desconecta();

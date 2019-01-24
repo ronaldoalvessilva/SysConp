@@ -14,6 +14,19 @@ import gestor.Dao.ModeloTabela;
 import gestor.Modelo.Fornecedor;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPedagogia.codAbrirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codAlterarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codConsultarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codExcluirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codGravarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codIncluirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codUserAcessoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoGrupoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoUserGroupPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoUserPEDA;
+import static gestor.Visao.TelaModuloPedagogia.nomeGrupoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.nomeTelaPEDA;
+import static gestor.Visao.TelaModuloPedagogia.telaFornecedoresManu_PEDA;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -682,7 +695,7 @@ public final class TelaFornecedorAcervo extends javax.swing.JInternalFrame {
 
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7183_16x16.png"))); // NOI18N
+        jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
         jBtNovo.setText("Novo");
         jBtNovo.setToolTipText("Novo Registro");
         jBtNovo.setContentAreaFilled(false);
@@ -1034,107 +1047,127 @@ public final class TelaFornecedorAcervo extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        acao = 1;
-        Novo();
-        corCampos();
+        buscarAcessoUsuario(telaFornecedoresManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaFornecedoresManu_PEDA) && codIncluirPEDA == 1) {
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            acao = 1;
+            Novo();
+            corCampos();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        acao = 2;
-        Alterar();
-        corCampos();
+        buscarAcessoUsuario(telaFornecedoresManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaFornecedoresManu_PEDA) && codAlterarPEDA == 1) {
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            acao = 2;
+            Alterar();
+            corCampos();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        // Ainda não está pronto, necessita criar as telas de produtos para verificar se pode ou não excluir
-        verificarFornecedor();
+        buscarAcessoUsuario(telaFornecedoresManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaFornecedoresManu_PEDA) && codExcluirPEDA == 1) {
+            // Ainda não está pronto, necessita criar as telas de produtos para verificar se pode ou não excluir
+            verificarFornecedor();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jComboBoxClass.getSelectedItem() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe qual é o tipo de fornecedor.");
-            jComboBoxClass.requestFocus();
-            jComboBoxClass.setBackground(Color.red);
-        } else {
-            if (jComboBoxStatus.getSelectedItem() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe qual é o status do fornecedor.");
-                jComboBoxEstado.requestFocus();
-                jComboBoxStatus.setBackground(Color.red);
+        buscarAcessoUsuario(telaFornecedoresManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaFornecedoresManu_PEDA) && codGravarPEDA == 1) {
+            if (jComboBoxClass.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe qual é o tipo de fornecedor.");
+                jComboBoxClass.requestFocus();
+                jComboBoxClass.setBackground(Color.red);
             } else {
-                if (jRazaoSocial.getText().equals("")) {
-                    JOptionPane.showMessageDialog(rootPane, "Informe a razão social do fornecedor.");
+                if (jComboBoxStatus.getSelectedItem() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe qual é o status do fornecedor.");
+                    jComboBoxEstado.requestFocus();
+                    jComboBoxStatus.setBackground(Color.red);
                 } else {
-                    objForn.setClassFor((String) jComboBoxClass.getSelectedItem());
-                    objForn.setStatusFor((String) jComboBoxStatus.getSelectedItem());
-                    objForn.setRazaoSocial(jRazaoSocial.getText());
-                    objForn.setDepartamento(departamento);
-                    objForn.setCnpj(jCNPJ.getText());
-                    objForn.setInsEstadual(jInsEsta.getText());
-                    objForn.setTelefone(jTelefone.getText());
-                    objForn.setTelefone1(jTelefone1.getText());
-                    objForn.setCelular(jCelular.getText());
-                    objForn.setEmail(jEmail.getText());
-                    objForn.setFax(jFax.getText());
-                    objForn.setEndereco(jEndereco.getText());
-                    objForn.setCompl(jCompl.getText());
-                    objForn.setCep(jCep.getText());
-                    objForn.setCidade(jCidade.getText());
-                    objForn.setEstado((String) jComboBoxEstado.getSelectedItem());
-                    objForn.setEnderecoCob(jEndCob.getText());
-                    objForn.setComplCob(jComplCob.getText());
-                    objForn.setCepCob(jCepCob.getText());
-                    objForn.setCidadeCob(jCidadeCob.getText());
-                    objForn.setEstadoCob((String) jComboBoxEstadoCob.getSelectedItem());
-                    if (acao == 1) {
-                        objForn.setUsuarioInsert(nameUser);
-                        objForn.setDataInsert(dataModFinal);
-                        objForn.setHorarioInsert(horaMov);
-                        //
-                        if (jRazaoSocial.getText().trim().equals(nomeFornecedor)) {
-                            JOptionPane.showMessageDialog(rootPane, "Esse Fornecedor já está cadastrado.");
-                        } else {
-                            control.incluirFornecedor(objForn);
-                            buscarId();
+                    if (jRazaoSocial.getText().equals("")) {
+                        JOptionPane.showMessageDialog(rootPane, "Informe a razão social do fornecedor.");
+                    } else {
+                        objForn.setClassFor((String) jComboBoxClass.getSelectedItem());
+                        objForn.setStatusFor((String) jComboBoxStatus.getSelectedItem());
+                        objForn.setRazaoSocial(jRazaoSocial.getText());
+                        objForn.setDepartamento(departamento);
+                        objForn.setCnpj(jCNPJ.getText());
+                        objForn.setInsEstadual(jInsEsta.getText());
+                        objForn.setTelefone(jTelefone.getText());
+                        objForn.setTelefone1(jTelefone1.getText());
+                        objForn.setCelular(jCelular.getText());
+                        objForn.setEmail(jEmail.getText());
+                        objForn.setFax(jFax.getText());
+                        objForn.setEndereco(jEndereco.getText());
+                        objForn.setCompl(jCompl.getText());
+                        objForn.setCep(jCep.getText());
+                        objForn.setCidade(jCidade.getText());
+                        objForn.setEstado((String) jComboBoxEstado.getSelectedItem());
+                        objForn.setEnderecoCob(jEndCob.getText());
+                        objForn.setComplCob(jComplCob.getText());
+                        objForn.setCepCob(jCepCob.getText());
+                        objForn.setCidadeCob(jCidadeCob.getText());
+                        objForn.setEstadoCob((String) jComboBoxEstadoCob.getSelectedItem());
+                        if (acao == 1) {
+                            objForn.setUsuarioInsert(nameUser);
+                            objForn.setDataInsert(dataModFinal);
+                            objForn.setHorarioInsert(horaMov);
+                            //
+                            if (jRazaoSocial.getText().trim().equals(nomeFornecedor)) {
+                                JOptionPane.showMessageDialog(rootPane, "Esse Fornecedor já está cadastrado.");
+                            } else {
+                                control.incluirFornecedor(objForn);
+                                buscarId();
+                            }
+                            if (!jRazaoSocial.getText().trim().equals(nomeFornecedorCompras)) {
+                                // INCLUIR FORNECEDOR NA TABELA DE FORNECEDOR_COMPRAS
+                                // VERIFICAR SE O FORNECEDOR JÁ EXISTE NA TABELA DE FORNECEDOR_COMPRAS
+                                controle.incluirFornecedorCOMPRAS(objForn);
+                            }
+                            Salvar();
+                            objLog();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                         }
-                        if (!jRazaoSocial.getText().trim().equals(nomeFornecedorCompras)) {
-                            // INCLUIR FORNECEDOR NA TABELA DE FORNECEDOR_COMPRAS
-                            // VERIFICAR SE O FORNECEDOR JÁ EXISTE NA TABELA DE FORNECEDOR_COMPRAS
-                            controle.incluirFornecedorCOMPRAS(objForn);
+                        if (acao == 2) {
+                            objForn.setUsuarioUp(nameUser);
+                            objForn.setDataUp(dataModFinal);
+                            objForn.setHorarioUp(horaMov);
+                            //
+                            verificarDuplicidadeFornecedor();
+                            //
+                            objForn.setIdForn(Integer.valueOf(jIdFornecedor.getText()));
+                            control.alterarFornecedor(objForn);
+                            // ALTERAR FORNECEDOR DA TABELA DE FORNECEDOR_COMPRAS
+                            objForn.setIdForn(Integer.valueOf(codFornecedorCompras));
+                            controle.alterarFornecedorCOMPRAS(objForn);
+                            controle.alterarFornecedorCOMPRAS(objForn);
+                            Salvar();
+                            objLog();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                         }
-                        Salvar();
-                        objLog();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    }
-                    if (acao == 2) {
-                        objForn.setUsuarioUp(nameUser);
-                        objForn.setDataUp(dataModFinal);
-                        objForn.setHorarioUp(horaMov);
-                        //
-                        verificarDuplicidadeFornecedor();
-                        //
-                        objForn.setIdForn(Integer.valueOf(jIdFornecedor.getText()));
-                        control.alterarFornecedor(objForn);
-                        // ALTERAR FORNECEDOR DA TABELA DE FORNECEDOR_COMPRAS
-                        objForn.setIdForn(Integer.valueOf(codFornecedorCompras));
-                        controle.alterarFornecedorCOMPRAS(objForn);
-                        controle.alterarFornecedorCOMPRAS(objForn);
-                        Salvar();
-                        objLog();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                     }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -1218,7 +1251,7 @@ public final class TelaFornecedorAcervo extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         count = 0;
         flag = 1;
-        if (evt.getStateChange() == evt.SELECTED && !jIdFornecedor.getText().equals("")) {            
+        if (evt.getStateChange() == evt.SELECTED && !jIdFornecedor.getText().equals("")) {
             this.preencherTabelaHistoricoProdutos("SELECT * FROM HISTORICO_COMPRA_ACERVO "
                     + "INNER JOIN LIVROS_REVISTAS_JORNAIS "
                     + "ON HISTORICO_COMPRA_ACERVO.IdLivro=LIVROS_REVISTAS_JORNAIS.IdLivro "
@@ -1813,5 +1846,43 @@ public final class TelaFornecedorAcervo extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jIdFornecedor.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserPEDA = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserPEDA + "'");
+            conecta.rs.first();
+            codigoUserGroupPEDA = conecta.rs.getInt("IdUsuario");
+            codigoGrupoPEDA = conecta.rs.getInt("IdGrupo");
+            nomeGrupoPEDA = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserPEDA + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoPEDA = conecta.rs.getInt("IdUsuario");
+            codAbrirPEDA = conecta.rs.getInt("Abrir");
+            codIncluirPEDA = conecta.rs.getInt("Incluir");
+            codAlterarPEDA = conecta.rs.getInt("Alterar");
+            codExcluirPEDA = conecta.rs.getInt("Excluir");
+            codGravarPEDA = conecta.rs.getInt("Gravar");
+            codConsultarPEDA = conecta.rs.getInt("Consultar");
+            nomeTelaPEDA = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

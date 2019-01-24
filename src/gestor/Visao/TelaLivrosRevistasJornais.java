@@ -17,6 +17,21 @@ import gestor.Modelo.ItensAutorLivros;
 import gestor.Modelo.LivrosRevistasJornais;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPedagogia.codAbrirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codAlterarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codConsultarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codExcluirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codGravarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codIncluirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codUserAcessoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoGrupoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoUserGroupPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoUserPEDA;
+import static gestor.Visao.TelaModuloPedagogia.nomeGrupoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.nomeTelaPEDA;
+import static gestor.Visao.TelaModuloPedagogia.telaLivrosRevistaAuto_PEDA;
+import static gestor.Visao.TelaModuloPedagogia.telaLivrosRevistaImag_PEDA;
+import static gestor.Visao.TelaModuloPedagogia.telaLivrosRevistaManu_PEDA;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -1514,91 +1529,111 @@ public class TelaLivrosRevistasJornais extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        acao = 1;
-        Novo();
-        corCampos();
+        buscarAcessoUsuario(telaLivrosRevistaManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaLivrosRevistaManu_PEDA) && codIncluirPEDA == 1) {
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            acao = 1;
+            Novo();
+            corCampos();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        acao = 2;
-        Alterar();
-        corCampos();
+        buscarAcessoUsuario(telaLivrosRevistaManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaLivrosRevistaManu_PEDA) && codAlterarPEDA == 1) {
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            acao = 2;
+            Alterar();
+            corCampos();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                JOptionPane.YES_NO_OPTION);
-        if (resposta == JOptionPane.YES_OPTION) {
-            objLivros.setIdLivro(Integer.valueOf(jIdLivro.getText()));
-            control.excluirLivrosRevistasJornais(objLivros);
-            objLog();
-            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-            JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-            Excluir();
+        buscarAcessoUsuario(telaLivrosRevistaManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaLivrosRevistaManu_PEDA) && codExcluirPEDA == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objLivros.setIdLivro(Integer.valueOf(jIdLivro.getText()));
+                control.excluirLivrosRevistasJornais(objLivros);
+                objLog();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                Excluir();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jTituloLivro.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o titulo do livro.");
-        } else if (jEditora.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a editora do livro.");
-        } else if (jCategoriaLivro.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informea categoria do livro.");
-        } else if (jLocalArmazenamento.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o local de armazenamento do livro.");
+        buscarAcessoUsuario(telaLivrosRevistaManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaLivrosRevistaManu_PEDA) && codGravarPEDA == 1) {
+            if (jTituloLivro.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o titulo do livro.");
+            } else if (jEditora.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a editora do livro.");
+            } else if (jCategoriaLivro.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informea categoria do livro.");
+            } else if (jLocalArmazenamento.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o local de armazenamento do livro.");
+            } else {
+                objLivros.setStatusLivro((String) jComboBoxStatus.getSelectedItem());
+                objLivros.setTipoLivro((String) jComboBoxTipoLivro.getSelectedItem());
+                objLivros.setTituloLivro(jTituloLivro.getText());
+                objLivros.setNomeEditora(jEditora.getText()); // Nome da Editora.
+                objLivros.setCodigoBarra(jCodigoBarras.getText());
+                objLivros.setPrazoEmp((int) jPrazoEmprestimo.getValue());
+                objLivros.setIdioma((String) jComboBoxIdioma.getSelectedItem());
+                objLivros.setDataAquisicao(jDataAquisicao.getDate());
+                objLivros.setDescricaoCategoria(jCategoriaLivro.getText());// Categoria
+                objLivros.setiSBN(jISBN.getText());
+                objLivros.setVolume(jVolume.getText());
+                objLivros.setEdicao(jEdicao.getText());
+                objLivros.setPaginas(jPaginas.getText());
+                objLivros.setDescricaoLocal(jLocalArmazenamento.getText()); // Descrição do Local
+                objLivros.setObservacao(jObservacao.getText());
+                objLivros.setFoto1(caminho);
+                objLivros.setFoto2(caminho1);
+                if (acao == 1) {
+                    objLivros.setUsuarioInsert(nameUser);
+                    objLivros.setDataInsert(dataModFinal);
+                    objLivros.setHorarioInsert(horaMov);
+                    //
+                    control.incluirLivrosRevistasJornais(objLivros);
+                    buscarCod();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 2) {
+                    objLivros.setUsuarioUp(nameUser);
+                    objLivros.setDataUp(dataModFinal);
+                    objLivros.setHorarioUp(horaMov);
+                    //
+                    objLivros.setIdLivro(Integer.valueOf(jIdLivro.getText()));
+                    control.alterarLivrosRevistasJornais(objLivros);
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
         } else {
-            objLivros.setStatusLivro((String) jComboBoxStatus.getSelectedItem());
-            objLivros.setTipoLivro((String) jComboBoxTipoLivro.getSelectedItem());
-            objLivros.setTituloLivro(jTituloLivro.getText());
-            objLivros.setNomeEditora(jEditora.getText()); // Nome da Editora.
-            objLivros.setCodigoBarra(jCodigoBarras.getText());
-            objLivros.setPrazoEmp((int) jPrazoEmprestimo.getValue());
-            objLivros.setIdioma((String) jComboBoxIdioma.getSelectedItem());
-            objLivros.setDataAquisicao(jDataAquisicao.getDate());
-            objLivros.setDescricaoCategoria(jCategoriaLivro.getText());// Categoria
-            objLivros.setiSBN(jISBN.getText());
-            objLivros.setVolume(jVolume.getText());
-            objLivros.setEdicao(jEdicao.getText());
-            objLivros.setPaginas(jPaginas.getText());
-            objLivros.setDescricaoLocal(jLocalArmazenamento.getText()); // Descrição do Local
-            objLivros.setObservacao(jObservacao.getText());
-            objLivros.setFoto1(caminho);
-            objLivros.setFoto2(caminho1);
-            if (acao == 1) {
-                objLivros.setUsuarioInsert(nameUser);
-                objLivros.setDataInsert(dataModFinal);
-                objLivros.setHorarioInsert(horaMov);
-                //
-                control.incluirLivrosRevistasJornais(objLivros);
-                buscarCod();
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
-            if (acao == 2) {
-                objLivros.setUsuarioUp(nameUser);
-                objLivros.setDataUp(dataModFinal);
-                objLivros.setHorarioUp(horaMov);
-                //
-                objLivros.setIdLivro(Integer.valueOf(jIdLivro.getText()));
-                control.alterarLivrosRevistasJornais(objLivros);
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -1658,91 +1693,111 @@ public class TelaLivrosRevistasJornais extends javax.swing.JInternalFrame {
 
     private void jBtNovo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovo1ActionPerformed
         // TODO add your handling code here:
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        acao = 1;
-        Novo();
-        corCampos();
+        buscarAcessoUsuario(telaLivrosRevistaImag_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaLivrosRevistaImag_PEDA) && codIncluirPEDA == 1) {
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            acao = 1;
+            Novo();
+            corCampos();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovo1ActionPerformed
 
     private void jBtAlterar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterar1ActionPerformed
         // TODO add your handling code here:
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        acao = 2;
-        Alterar();
-        corCampos();
+        buscarAcessoUsuario(telaLivrosRevistaImag_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaLivrosRevistaImag_PEDA) && codAlterarPEDA == 1) {
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            acao = 2;
+            Alterar();
+            corCampos();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtAlterar1ActionPerformed
 
     private void jBtExcluir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluir1ActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                JOptionPane.YES_NO_OPTION);
-        if (resposta == JOptionPane.YES_OPTION) {
-            objLivros.setIdLivro(Integer.valueOf(jIdLivro.getText()));
-            control.excluirLivrosRevistasJornais(objLivros);
-            objLog();
-            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-            JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-            Excluir();
+        buscarAcessoUsuario(telaLivrosRevistaImag_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaLivrosRevistaImag_PEDA) && codExcluirPEDA == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objLivros.setIdLivro(Integer.valueOf(jIdLivro.getText()));
+                control.excluirLivrosRevistasJornais(objLivros);
+                objLog();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                Excluir();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluir1ActionPerformed
 
     private void jBtSalvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvar1ActionPerformed
         // TODO add your handling code here:
-        if (jTituloLivro.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o titulo do livro.");
-        } else if (jEditora.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a editora do livro.");
-        } else if (jCategoriaLivro.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informea categoria do livro.");
-        } else if (jLocalArmazenamento.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o local de armazenamento do livro.");
+        buscarAcessoUsuario(telaLivrosRevistaImag_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaLivrosRevistaImag_PEDA) && codGravarPEDA == 1) {
+            if (jTituloLivro.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o titulo do livro.");
+            } else if (jEditora.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a editora do livro.");
+            } else if (jCategoriaLivro.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informea categoria do livro.");
+            } else if (jLocalArmazenamento.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o local de armazenamento do livro.");
+            } else {
+                objLivros.setStatusLivro((String) jComboBoxStatus.getSelectedItem());
+                objLivros.setTipoLivro((String) jComboBoxTipoLivro.getSelectedItem());
+                objLivros.setTituloLivro(jTituloLivro.getText());
+                objLivros.setNomeEditora(jEditora.getText()); // Nome da Editora.
+                objLivros.setCodigoBarra(jCodigoBarras.getText());
+                objLivros.setPrazoEmp((int) jPrazoEmprestimo.getValue());
+                objLivros.setIdioma((String) jComboBoxIdioma.getSelectedItem());
+                objLivros.setDataAquisicao(jDataAquisicao.getDate());
+                objLivros.setDescricaoCategoria(jCategoriaLivro.getText());// Categoria
+                objLivros.setiSBN(jISBN.getText());
+                objLivros.setVolume(jVolume.getText());
+                objLivros.setEdicao(jEdicao.getText());
+                objLivros.setPaginas(jPaginas.getText());
+                objLivros.setDescricaoLocal(jLocalArmazenamento.getText()); // Descrição do Local
+                objLivros.setObservacao(jObservacao.getText());
+                objLivros.setFoto1(caminho);
+                objLivros.setFoto2(caminho1);
+                if (acao == 1) {
+                    objLivros.setUsuarioInsert(nameUser);
+                    objLivros.setDataInsert(dataModFinal);
+                    objLivros.setHorarioInsert(horaMov);
+                    //
+                    control.incluirLivrosRevistasJornais(objLivros);
+                    buscarCod();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 2) {
+                    objLivros.setUsuarioUp(nameUser);
+                    objLivros.setDataUp(dataModFinal);
+                    objLivros.setHorarioUp(horaMov);
+                    //
+                    objLivros.setIdLivro(Integer.valueOf(jIdLivro.getText()));
+                    control.alterarLivrosRevistasJornais(objLivros);
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
         } else {
-            objLivros.setStatusLivro((String) jComboBoxStatus.getSelectedItem());
-            objLivros.setTipoLivro((String) jComboBoxTipoLivro.getSelectedItem());
-            objLivros.setTituloLivro(jTituloLivro.getText());
-            objLivros.setNomeEditora(jEditora.getText()); // Nome da Editora.
-            objLivros.setCodigoBarra(jCodigoBarras.getText());
-            objLivros.setPrazoEmp((int) jPrazoEmprestimo.getValue());
-            objLivros.setIdioma((String) jComboBoxIdioma.getSelectedItem());
-            objLivros.setDataAquisicao(jDataAquisicao.getDate());
-            objLivros.setDescricaoCategoria(jCategoriaLivro.getText());// Categoria
-            objLivros.setiSBN(jISBN.getText());
-            objLivros.setVolume(jVolume.getText());
-            objLivros.setEdicao(jEdicao.getText());
-            objLivros.setPaginas(jPaginas.getText());
-            objLivros.setDescricaoLocal(jLocalArmazenamento.getText()); // Descrição do Local
-            objLivros.setObservacao(jObservacao.getText());
-            objLivros.setFoto1(caminho);
-            objLivros.setFoto2(caminho1);
-            if (acao == 1) {
-                objLivros.setUsuarioInsert(nameUser);
-                objLivros.setDataInsert(dataModFinal);
-                objLivros.setHorarioInsert(horaMov);
-                //
-                control.incluirLivrosRevistasJornais(objLivros);
-                buscarCod();
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
-            if (acao == 2) {
-                objLivros.setUsuarioUp(nameUser);
-                objLivros.setDataUp(dataModFinal);
-                objLivros.setHorarioUp(horaMov);
-                //
-                objLivros.setIdLivro(Integer.valueOf(jIdLivro.getText()));
-                control.alterarLivrosRevistasJornais(objLivros);
-                Salvar();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvar1ActionPerformed
 
@@ -1765,83 +1820,103 @@ public class TelaLivrosRevistasJornais extends javax.swing.JInternalFrame {
 
     private void jBtNovoAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoAutorActionPerformed
         // TODO add your handling code here:
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        acao = 3;
-        NovoAutor();
+        buscarAcessoUsuario(telaLivrosRevistaAuto_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaLivrosRevistaAuto_PEDA) && codIncluirPEDA == 1) {
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            acao = 3;
+            NovoAutor();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoAutorActionPerformed
 
     private void jBtAlterarAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarAutorActionPerformed
         // TODO add your handling code here:
-        statusMov = "Alterou";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        acao = 4;
-        AlterarAuitor();
+        buscarAcessoUsuario(telaLivrosRevistaAuto_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaLivrosRevistaAuto_PEDA) && codAlterarPEDA == 1) {
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            acao = 4;
+            AlterarAuitor();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtAlterarAutorActionPerformed
 
     private void jBtExcluirAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirAutorActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                JOptionPane.YES_NO_OPTION);
-        if (resposta == JOptionPane.YES_OPTION) {
-            objItensAutor.setIdItem(idItem);
-            controle.excluirAutorLivrosRevistasJornais(objItensAutor);
-            objLog();
-            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-            ExcluirAutor();
-            preencherTabelaItensAutor("SELECT * FROM ITENS_AUTOR_LIVROS "
-                    + "INNER JOIN LIVROS_REVISTAS_JORNAIS "
-                    + "ON ITENS_AUTOR_LIVROS.IdLivro=ITENS_AUTOR_LIVROS.IdLivro "
-                    + "INNER JOIN AUTORES_LIVROS "
-                    + "ON ITENS_AUTOR_LIVROS.IdAutor=AUTORES_LIVROS.IdAutor "
-                    + "WHERE ITENS_AUTOR_LIVROS.IdLivro='" + jIdLivro.getText() + "'");
-            JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+        buscarAcessoUsuario(telaLivrosRevistaAuto_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaLivrosRevistaAuto_PEDA) && codExcluirPEDA == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objItensAutor.setIdItem(idItem);
+                controle.excluirAutorLivrosRevistasJornais(objItensAutor);
+                objLog();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                ExcluirAutor();
+                preencherTabelaItensAutor("SELECT * FROM ITENS_AUTOR_LIVROS "
+                        + "INNER JOIN LIVROS_REVISTAS_JORNAIS "
+                        + "ON ITENS_AUTOR_LIVROS.IdLivro=ITENS_AUTOR_LIVROS.IdLivro "
+                        + "INNER JOIN AUTORES_LIVROS "
+                        + "ON ITENS_AUTOR_LIVROS.IdAutor=AUTORES_LIVROS.IdAutor "
+                        + "WHERE ITENS_AUTOR_LIVROS.IdLivro='" + jIdLivro.getText() + "'");
+                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirAutorActionPerformed
 
     private void jBtSalvarAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarAutorActionPerformed
         // TODO add your handling code here:
-        if (jIdAutor.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do autor do livro.");
+        buscarAcessoUsuario(telaLivrosRevistaAuto_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaLivrosRevistaAuto_PEDA) && codGravarPEDA == 1) {
+            if (jIdAutor.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do autor do livro.");
+            } else {
+                objItensAutor.setNomeAutor(jNomeAutor.getText());
+                objItensAutor.setIdLivro(Integer.valueOf(jIdLivro.getText()));
+                if (acao == 3) {
+                    objItensAutor.setUsuarioInsert(nameUser);
+                    objItensAutor.setDataInsert(dataModFinal);
+                    objItensAutor.setHorarioInsert(horaMov);
+                    //
+                    controle.incluirAutorLivrosRevistasJornais(objItensAutor);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    SalvarAutor();
+                    preencherTabelaItensAutor("SELECT * FROM ITENS_AUTOR_LIVROS "
+                            + "INNER JOIN AUTORES_LIVROS "
+                            + "ON ITENS_AUTOR_LIVROS.IdAutor=AUTORES_LIVROS.IdAutor "
+                            + "WHERE IdLivro='" + jIdLivro.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 4) {
+                    objItensAutor.setUsuarioUp(nameUser);
+                    objItensAutor.setDataUp(dataModFinal);
+                    objItensAutor.setHorarioUp(horaMov);
+                    //
+                    objItensAutor.setIdItem(idItem);
+                    controle.alterarAutorLivrosRevistasJornais(objItensAutor);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    SalvarAutor();
+                    preencherTabelaItensAutor("SELECT * FROM ITENS_AUTOR_LIVROS "
+                            + "INNER JOIN AUTORES_LIVROS "
+                            + "ON ITENS_AUTOR_LIVROS.IdAutor=AUTORES_LIVROS.IdAutor "
+                            + "WHERE IdLivro='" + jIdLivro.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
         } else {
-            objItensAutor.setNomeAutor(jNomeAutor.getText());
-            objItensAutor.setIdLivro(Integer.valueOf(jIdLivro.getText()));
-            if (acao == 3) {
-                objItensAutor.setUsuarioInsert(nameUser);
-                objItensAutor.setDataInsert(dataModFinal);
-                objItensAutor.setHorarioInsert(horaMov);
-                //
-                controle.incluirAutorLivrosRevistasJornais(objItensAutor);
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                SalvarAutor();
-                preencherTabelaItensAutor("SELECT * FROM ITENS_AUTOR_LIVROS "
-                        + "INNER JOIN AUTORES_LIVROS "
-                        + "ON ITENS_AUTOR_LIVROS.IdAutor=AUTORES_LIVROS.IdAutor "
-                        + "WHERE IdLivro='" + jIdLivro.getText() + "'");
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
-            if (acao == 4) {
-                objItensAutor.setUsuarioUp(nameUser);
-                objItensAutor.setDataUp(dataModFinal);
-                objItensAutor.setHorarioUp(horaMov);
-                //
-                objItensAutor.setIdItem(idItem);
-                controle.alterarAutorLivrosRevistasJornais(objItensAutor);
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                SalvarAutor();
-                preencherTabelaItensAutor("SELECT * FROM ITENS_AUTOR_LIVROS "
-                        + "INNER JOIN AUTORES_LIVROS "
-                        + "ON ITENS_AUTOR_LIVROS.IdAutor=AUTORES_LIVROS.IdAutor "
-                        + "WHERE IdLivro='" + jIdLivro.getText() + "'");
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarAutorActionPerformed
 
@@ -2763,5 +2838,43 @@ public class TelaLivrosRevistasJornais extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jIdLivro.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserPEDA = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserPEDA + "'");
+            conecta.rs.first();
+            codigoUserGroupPEDA = conecta.rs.getInt("IdUsuario");
+            codigoGrupoPEDA = conecta.rs.getInt("IdGrupo");
+            nomeGrupoPEDA = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserPEDA + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoPEDA = conecta.rs.getInt("IdUsuario");
+            codAbrirPEDA = conecta.rs.getInt("Abrir");
+            codIncluirPEDA = conecta.rs.getInt("Incluir");
+            codAlterarPEDA = conecta.rs.getInt("Alterar");
+            codExcluirPEDA = conecta.rs.getInt("Excluir");
+            codGravarPEDA = conecta.rs.getInt("Gravar");
+            codConsultarPEDA = conecta.rs.getInt("Consultar");
+            nomeTelaPEDA = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

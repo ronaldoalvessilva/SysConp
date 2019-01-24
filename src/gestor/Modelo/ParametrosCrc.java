@@ -81,11 +81,14 @@ public class ParametrosCrc {
     private String nomeColaboradorCRC;
     private String nomeColaboradorCRCSEG;
     private String pHabilitaPEDA;
+    private String nomeColaboradorTER;
+    private String nomeColaboradorQUA;
+    private String nomeColaboradorQUI;      
 
     public ParametrosCrc() {
     }
 
-    public ParametrosCrc(int idPar, int qtdDias, String qtdHoras, String usuarioAutorizado, String regRetornoPortaria, String regEntradaPortaria, String docAudiencia, String docTrans, String docSaidaTmp, String docLivraPro, String valAudiencia, String valTrans, String valSaidaTmp, String valLivraPro, String docPro, String docAlvara, String valPro, String valAlvara, String usuarioInsert, String usuariosUp, String dataInsert, String dataUp, String horarioUp, String populacaoBgp, String locacaoBgp, String transferenciaBgp, String pavilhaoCelas, String populacaoBpa, String locacaoBpa, String transferenciaBpa, String pavilhaoCelasBpa, String caminhoImagemCrc, String caminhoImagemSS, String caminhoImagemFunc, String localFotoAdvogado, String localFotoVisitasDiversas, String localFotoOficial, String localFotoVisitasInternos, String localFotoColaboradores, String localFotoInternos, String biometriaMedicos, String biometriaEnfermerios, String biometriaTecnicos, String carcereFem, String localPDF_PI, String localPDF_PE, String localPDF_B1, String localPDF_B2, String caminhoAtualizaSis, Date dataVersao, Double numeroVersao, String caminhoExecAntigo, String preLocacaoB1, String preLocacaoB2, String pHabilitaBaseI, String pHabilitaBaseII, String nomeColaboradorPRI, String nomeColaboradorSEG, String pHabilitaAtendSS, String pHabilitaTele, String atendimentoBioPSI, String avaliacaoBioPSI, String adimissaoJuridico, String admissaoTO, String admissaoOdonto, String nomeColaboradorCRC, String nomeColaboradorCRCSEG, String pHabilitaPEDA) {
+    public ParametrosCrc(int idPar, int qtdDias, String qtdHoras, String usuarioAutorizado, String regRetornoPortaria, String regEntradaPortaria, String docAudiencia, String docTrans, String docSaidaTmp, String docLivraPro, String valAudiencia, String valTrans, String valSaidaTmp, String valLivraPro, String docPro, String docAlvara, String valPro, String valAlvara, String usuarioInsert, String usuariosUp, String dataInsert, String dataUp, String horarioUp, String populacaoBgp, String locacaoBgp, String transferenciaBgp, String pavilhaoCelas, String populacaoBpa, String locacaoBpa, String transferenciaBpa, String pavilhaoCelasBpa, String caminhoImagemCrc, String caminhoImagemSS, String caminhoImagemFunc, String localFotoAdvogado, String localFotoVisitasDiversas, String localFotoOficial, String localFotoVisitasInternos, String localFotoColaboradores, String localFotoInternos, String biometriaMedicos, String biometriaEnfermerios, String biometriaTecnicos, String carcereFem, String localPDF_PI, String localPDF_PE, String localPDF_B1, String localPDF_B2, String caminhoAtualizaSis, Date dataVersao, Double numeroVersao, String caminhoExecAntigo, String preLocacaoB1, String preLocacaoB2, String pHabilitaBaseI, String pHabilitaBaseII, String nomeColaboradorPRI, String nomeColaboradorSEG, String pHabilitaAtendSS, String pHabilitaTele, String atendimentoBioPSI, String avaliacaoBioPSI, String adimissaoJuridico, String admissaoTO, String admissaoOdonto, String nomeColaboradorCRC, String nomeColaboradorCRCSEG, String pHabilitaPEDA, String nomeColaboradorTER, String nomeColaboradorQUA, String nomeColaboradorQUI) {
         this.idPar = idPar;
         this.qtdDias = qtdDias;
         this.qtdHoras = qtdHoras;
@@ -154,6 +157,9 @@ public class ParametrosCrc {
         this.nomeColaboradorCRC = nomeColaboradorCRC;
         this.nomeColaboradorCRCSEG = nomeColaboradorCRCSEG;
         this.pHabilitaPEDA = pHabilitaPEDA;
+        this.nomeColaboradorTER = nomeColaboradorTER;
+        this.nomeColaboradorQUA = nomeColaboradorQUA;
+        this.nomeColaboradorQUI = nomeColaboradorQUI;
     }
 
     /**
@@ -1106,5 +1112,47 @@ public class ParametrosCrc {
      */
     public void setpHabilitaPEDA(String pHabilitaPEDA) {
         this.pHabilitaPEDA = pHabilitaPEDA;
+    }
+
+    /**
+     * @return the nomeColaboradorTER
+     */
+    public String getNomeColaboradorTER() {
+        return nomeColaboradorTER;
+    }
+
+    /**
+     * @param nomeColaboradorTER the nomeColaboradorTER to set
+     */
+    public void setNomeColaboradorTER(String nomeColaboradorTER) {
+        this.nomeColaboradorTER = nomeColaboradorTER;
+    }
+
+    /**
+     * @return the nomeColaboradorQUA
+     */
+    public String getNomeColaboradorQUA() {
+        return nomeColaboradorQUA;
+    }
+
+    /**
+     * @param nomeColaboradorQUA the nomeColaboradorQUA to set
+     */
+    public void setNomeColaboradorQUA(String nomeColaboradorQUA) {
+        this.nomeColaboradorQUA = nomeColaboradorQUA;
+    }
+
+    /**
+     * @return the nomeColaboradorQUI
+     */
+    public String getNomeColaboradorQUI() {
+        return nomeColaboradorQUI;
+    }
+
+    /**
+     * @param nomeColaboradorQUI the nomeColaboradorQUI to set
+     */
+    public void setNomeColaboradorQUI(String nomeColaboradorQUI) {
+        this.nomeColaboradorQUI = nomeColaboradorQUI;
     }
 }
