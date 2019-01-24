@@ -16,6 +16,21 @@ import gestor.Modelo.HistoricoInternoEducacaoLocal;
 import gestor.Modelo.ItensFrequencia;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPedagogia.codAbrirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codAlterarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codConsultarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codExcluirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codGravarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codIncluirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codUserAcessoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoGrupoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoUserGroupPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoUserPEDA;
+import static gestor.Visao.TelaModuloPedagogia.nomeGrupoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.nomeTelaPEDA;
+import static gestor.Visao.TelaModuloPedagogia.telaControleFrequenciaInte_PEDA;
+import static gestor.Visao.TelaModuloPedagogia.telaControleFrequenciaManu_PEDA;
+import static gestor.Visao.TelaModuloPedagogia.telaControleFrequenciaPrin_PEDA;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -1132,101 +1147,120 @@ public class TelaControleFrequencia extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaControleFrequenciaManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaControleFrequenciaManu_PEDA) && codIncluirPEDA == 1) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        objFre.setStatusFreq(jStatusFreq.getText());
-        if (jStatusFreq.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa frequência de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaControleFrequenciaManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaControleFrequenciaManu_PEDA) && codAlterarPEDA == 1) {
+            objFre.setStatusFreq(jStatusFreq.getText());
+            if (jStatusFreq.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa frequência de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                Alterar();
+                corCampos();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 2;
-            Alterar();
-            corCampos();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        objFre.setStatusFreq(jStatusFreq.getText());
-        if (jStatusFreq.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa frequência de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
-        } else {
-            statusMov = "Excluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
-            conecta.abrirConexao();
-            try {
-                conecta.executaSQL("SELECT * FROM ITENSFREQUENCIA WHERE IdFreq='" + jIdFreq.getText() + "'");
-                conecta.rs.first();
-                codFrequencia = conecta.rs.getString("IdMat");
-                if (jIdFreq.getText().equals(codFrequencia)) {
-                    JOptionPane.showMessageDialog(rootPane, "Antes de excluir esse Lançamento, será necessário\nexcluir primeiro os internos relacionados a esse registro.");
-                }
-                conecta.desconecta();
-            } catch (SQLException ex) {
-                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
-                        JOptionPane.YES_NO_OPTION);
-                if (resposta == JOptionPane.YES_OPTION) {
-                    objFre.setIdFreq(Integer.parseInt(jIdFreq.getText()));
-                    control.excluirFrequencia(objFre);
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                    Excluir();
+        buscarAcessoUsuario(telaControleFrequenciaManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaControleFrequenciaManu_PEDA) && codExcluirPEDA == 1) {
+            objFre.setStatusFreq(jStatusFreq.getText());
+            if (jStatusFreq.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa frequência de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM ITENSFREQUENCIA WHERE IdFreq='" + jIdFreq.getText() + "'");
+                    conecta.rs.first();
+                    codFrequencia = conecta.rs.getString("IdMat");
+                    if (jIdFreq.getText().equals(codFrequencia)) {
+                        JOptionPane.showMessageDialog(rootPane, "Antes de excluir esse Lançamento, será necessário\nexcluir primeiro os internos relacionados a esse registro.");
+                    }
+                    conecta.desconecta();
+                } catch (SQLException ex) {
+                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta == JOptionPane.YES_OPTION) {
+                        objFre.setIdFreq(Integer.parseInt(jIdFreq.getText()));
+                        control.excluirFrequencia(objFre);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                        Excluir();
+                    }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataFreq.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data da frequência do aluno.");
-            jDataFreq.requestFocus();
-            jDataFreq.setBackground(Color.red);
-        } else {
-            if (jIdMatricula.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a matricula do aluno.");
+        buscarAcessoUsuario(telaControleFrequenciaManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaControleFrequenciaManu_PEDA) && codGravarPEDA == 1) {
+            if (jDataFreq.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data da frequência do aluno.");
+                jDataFreq.requestFocus();
+                jDataFreq.setBackground(Color.red);
             } else {
-                objFre.setStatusFreq(jStatusFreq.getText());
-                objFre.setDataFreq(jDataFreq.getDate());
-                if (acao == 1) {
-                    objFre.setUsuarioInsert(nameUser);
-                    objFre.setDataInsert(dataModFinal);
-                    objFre.setHorarioInsert(horaMov);
-                    objFre.setIdMat(Integer.valueOf(jIdMatricula.getText()));
-                    control.incluirFrequencia(objFre);
-                    buscarCod();
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    Salvar();
-                }
-                if (acao == 2) {
-                    objFre.setUsuarioUp(nameUser);
-                    objFre.setDataUp(dataModFinal);
-                    objFre.setHorarioUp(horaMov);
-                    objFre.setIdMat(Integer.valueOf(jIdMatricula.getText()));
-                    objFre.setIdFreq(Integer.valueOf(jIdFreq.getText()));
-                    control.alterarFrequencia(objFre);
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    Salvar();
+                if (jIdMatricula.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a matricula do aluno.");
+                } else {
+                    objFre.setStatusFreq(jStatusFreq.getText());
+                    objFre.setDataFreq(jDataFreq.getDate());
+                    if (acao == 1) {
+                        objFre.setUsuarioInsert(nameUser);
+                        objFre.setDataInsert(dataModFinal);
+                        objFre.setHorarioInsert(horaMov);
+                        objFre.setIdMat(Integer.valueOf(jIdMatricula.getText()));
+                        control.incluirFrequencia(objFre);
+                        buscarCod();
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        Salvar();
+                    }
+                    if (acao == 2) {
+                        objFre.setUsuarioUp(nameUser);
+                        objFre.setDataUp(dataModFinal);
+                        objFre.setHorarioUp(horaMov);
+                        objFre.setIdMat(Integer.valueOf(jIdMatricula.getText()));
+                        objFre.setIdFreq(Integer.valueOf(jIdFreq.getText()));
+                        control.alterarFrequencia(objFre);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        Salvar();
+                    }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
-
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
@@ -1268,101 +1302,152 @@ public class TelaControleFrequencia extends javax.swing.JInternalFrame {
 
     private void jBtNovoInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoInternoActionPerformed
         // TODO add your handling code here:
-        objFre.setStatusFreq(jStatusFreq.getText());
-        if (jStatusFreq.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa frequência de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaControleFrequenciaInte_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaControleFrequenciaInte_PEDA) && codIncluirPEDA == 1) {
+            objFre.setStatusFreq(jStatusFreq.getText());
+            if (jStatusFreq.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa frequência de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 3;
+                NovoInterno();
+                corCampos();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 3;
-            NovoInterno();
-            corCampos();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtNovoInternoActionPerformed
 
     private void jBtAlterarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarInternoActionPerformed
         // TODO add your handling code here:
-        objFre.setStatusFreq(jStatusFreq.getText());
-        if (jStatusFreq.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa frequência de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaControleFrequenciaInte_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaControleFrequenciaInte_PEDA) && codAlterarPEDA == 1) {
+            objFre.setStatusFreq(jStatusFreq.getText());
+            if (jStatusFreq.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa frequência de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 4;
+                AlterarInterno();
+                corCampos();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 4;
-            AlterarInterno();
-            corCampos();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarInternoActionPerformed
 
     private void jBtExcluirInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirInternoActionPerformed
         // TODO add your handling code here:
-        verificarBaixaInternos(); // Verificar se o interno consta na lista de baixa.
-        objFre.setStatusFreq(jStatusFreq.getText());
-        if (jStatusFreq.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa frequência de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
-        } else {
-            if (jIdInternoCrc.getText().equals(codInternoBaixa)) {
-                JOptionPane.showMessageDialog(rootPane, "Essa frequência de interno não pode ser excluída,\npois, está\nsendo utilizada na lista de baixa de internos.");
+        buscarAcessoUsuario(telaControleFrequenciaInte_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaControleFrequenciaInte_PEDA) && codExcluirPEDA == 1) {
+            verificarBaixaInternos(); // Verificar se o interno consta na lista de baixa.
+            objFre.setStatusFreq(jStatusFreq.getText());
+            if (jStatusFreq.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa frequência de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
             } else {
-                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir a frequência selecionado?", "Confirmação",
-                        JOptionPane.YES_NO_OPTION);
-                if (resposta == JOptionPane.YES_OPTION) {
-                    objItensFreq.setIdItem(idItem);           
-                    objHistInterEduLocal.setIdItem(idItem);      
-                    controleHist.excluirInterEdu(objHistInterEduLocal);                    
-                    controle.excluirFrequenciaInternos(objItensFreq);
-                    objLog2();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    preencherTabelaInternosFrequencia("SELECT * FROM ITENSFREQUENCIA "
-                            + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON ITENSFREQUENCIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                            + "WHERE IdFreq='" + jIdFreq.getText() + "'");
-                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                    ExcluirInterno();
+                if (jIdInternoCrc.getText().equals(codInternoBaixa)) {
+                    JOptionPane.showMessageDialog(rootPane, "Essa frequência de interno não pode ser excluída,\npois, está\nsendo utilizada na lista de baixa de internos.");
+                } else {
+                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir a frequência selecionado?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta == JOptionPane.YES_OPTION) {
+                        objItensFreq.setIdItem(idItem);
+                        objHistInterEduLocal.setIdItem(idItem);
+                        controleHist.excluirInterEdu(objHistInterEduLocal);
+                        controle.excluirFrequenciaInternos(objItensFreq);
+                        objLog2();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        preencherTabelaInternosFrequencia("SELECT * FROM ITENSFREQUENCIA "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON ITENSFREQUENCIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE IdFreq='" + jIdFreq.getText() + "'");
+                        JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                        ExcluirInterno();
+                    }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirInternoActionPerformed
 
     private void jBtSalvarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarInternoActionPerformed
         // TODO add your handling code here:      
-        verificarInterno(); // Verificar se o interno consta nessa lista de frequencia      
-        if (jNomeInternoCrc.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para frequência.");
-        } else {
-            if (jDataEntrada.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data da frequência.");
-                jDataEntrada.requestFocus();
-                jDataEntrada.setBackground(Color.red);
+        buscarAcessoUsuario(telaControleFrequenciaInte_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaControleFrequenciaInte_PEDA) && codGravarPEDA == 1) {
+            verificarInterno(); // Verificar se o interno consta nessa lista de frequencia      
+            if (jNomeInternoCrc.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para frequência.");
             } else {
-                if (acao == 3) {
-                    if (jIdInternoCrc.getText().equals(codInternoCrc) && jIdFreq.getText().equals(codFreq)) {
-                        JOptionPane.showMessageDialog(rootPane, "Esse Interno já foi utilizado nessa lista de frequência.");
-                    } else {
-                        objItensFreq.setUsuarioInsert(nameUser);
-                        objItensFreq.setDataInsert(dataModFinal);
-                        objItensFreq.setHorarioInsert(horaMov);
+                if (jDataEntrada.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data da frequência.");
+                    jDataEntrada.requestFocus();
+                    jDataEntrada.setBackground(Color.red);
+                } else {
+                    if (acao == 3) {
+                        if (jIdInternoCrc.getText().equals(codInternoCrc) && jIdFreq.getText().equals(codFreq)) {
+                            JOptionPane.showMessageDialog(rootPane, "Esse Interno já foi utilizado nessa lista de frequência.");
+                        } else {
+                            objItensFreq.setUsuarioInsert(nameUser);
+                            objItensFreq.setDataInsert(dataModFinal);
+                            objItensFreq.setHorarioInsert(horaMov);
+                            objItensFreq.setDataEntrada(jDataEntrada.getDate());
+                            objItensFreq.setDataSaida(jDataSaida.getDate());
+                            objItensFreq.setHorarioEntrada(jHorarioEntrada.getText());
+                            objItensFreq.setHorarioSaida(jHorarioSaida.getText());
+                            objItensFreq.setPresenca((String) jComboBoxConfFrequencia.getSelectedItem());
+                            objItensFreq.setUtilizacaoMatricula(utlizaMatriculaInterno);
+                            objItensFreq.setIdFreq(Integer.valueOf(jIdFreq.getText()));
+                            objItensFreq.setIdInternoCrc(Integer.valueOf(jIdInternoCrc.getText()));
+                            objItensFreq.setNomeInternoCrc(jNomeInternoCrc.getText());
+                            controle.incluirFrequenciaInternos(objItensFreq);
+                            // Se a opoção selecionada for "PRESENTE"
+                            if (jComboBoxConfFrequencia.getSelectedItem().equals("Presente")) {
+                                //Inclusão do histórico do interno na instituição  
+                                buscarIDItem();
+                                objHistInterEduLocal.setIdItem(idItem);
+                                objHistInterEduLocal.setNomeInstituicao(jNomeInstituicao.getText());
+                                objHistInterEduLocal.setNomeInterno(jNomeInternoCrc.getText());
+                                objDatasHoras();
+                                controleHist.incluirInterEdu(objHistInterEduLocal);
+                            }
+                            objLog2();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            preencherTabelaInternosFrequencia("SELECT * FROM ITENSFREQUENCIA "
+                                    + "INNER JOIN PRONTUARIOSCRC "
+                                    + "ON ITENSFREQUENCIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                    + "WHERE IdFreq='" + jIdFreq.getText() + "'");
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                            SalvarInterno();
+                        }
+                    }
+                    if (acao == 4) {
+                        objItensFreq.setUsuarioUp(nameUser);
+                        objItensFreq.setDataUp(dataModFinal);
+                        objItensFreq.setHorarioUp(horaMov);
+                        //
                         objItensFreq.setDataEntrada(jDataEntrada.getDate());
                         objItensFreq.setDataSaida(jDataSaida.getDate());
                         objItensFreq.setHorarioEntrada(jHorarioEntrada.getText());
                         objItensFreq.setHorarioSaida(jHorarioSaida.getText());
-                        objItensFreq.setPresenca((String)jComboBoxConfFrequencia.getSelectedItem());
+                        objItensFreq.setPresenca((String) jComboBoxConfFrequencia.getSelectedItem());
                         objItensFreq.setUtilizacaoMatricula(utlizaMatriculaInterno);
                         objItensFreq.setIdFreq(Integer.valueOf(jIdFreq.getText()));
                         objItensFreq.setIdInternoCrc(Integer.valueOf(jIdInternoCrc.getText()));
-                        objItensFreq.setNomeInternoCrc(jNomeInternoCrc.getText());                        
-                        controle.incluirFrequenciaInternos(objItensFreq);                                              
+                        objItensFreq.setNomeInternoCrc(jNomeInternoCrc.getText());
+                        objItensFreq.setIdItem(idItem);
+                        controle.alterarFrequenciaInternos(objItensFreq);
                         // Se a opoção selecionada for "PRESENTE"
                         if (jComboBoxConfFrequencia.getSelectedItem().equals("Presente")) {
-                            //Inclusão do histórico do interno na instituição  
-                            buscarIDItem();  
-                            objHistInterEduLocal.setIdItem(idItem);
+                            //Alteração do histórico do interno na empresa
                             objHistInterEduLocal.setNomeInstituicao(jNomeInstituicao.getText());
                             objHistInterEduLocal.setNomeInterno(jNomeInternoCrc.getText());
                             objDatasHoras();
-                            controleHist.incluirInterEdu(objHistInterEduLocal);
+                            controleHist.alterarInterEdu(objHistInterEduLocal);
                         }
                         objLog2();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -1374,40 +1459,9 @@ public class TelaControleFrequencia extends javax.swing.JInternalFrame {
                         SalvarInterno();
                     }
                 }
-                if (acao == 4) {
-                    objItensFreq.setUsuarioUp(nameUser);
-                    objItensFreq.setDataUp(dataModFinal);
-                    objItensFreq.setHorarioUp(horaMov);
-                    //
-                    objItensFreq.setDataEntrada(jDataEntrada.getDate());
-                    objItensFreq.setDataSaida(jDataSaida.getDate());
-                    objItensFreq.setHorarioEntrada(jHorarioEntrada.getText());
-                    objItensFreq.setHorarioSaida(jHorarioSaida.getText());
-                    objItensFreq.setPresenca((String) jComboBoxConfFrequencia.getSelectedItem());
-                    objItensFreq.setUtilizacaoMatricula(utlizaMatriculaInterno);
-                    objItensFreq.setIdFreq(Integer.valueOf(jIdFreq.getText()));
-                    objItensFreq.setIdInternoCrc(Integer.valueOf(jIdInternoCrc.getText()));
-                    objItensFreq.setNomeInternoCrc(jNomeInternoCrc.getText());
-                    objItensFreq.setIdItem(idItem);
-                    controle.alterarFrequenciaInternos(objItensFreq);
-                    // Se a opoção selecionada for "PRESENTE"
-                    if (jComboBoxConfFrequencia.getSelectedItem().equals("Presente")) {
-                        //Alteração do histórico do interno na empresa
-                        objHistInterEduLocal.setNomeInstituicao(jNomeInstituicao.getText());
-                        objHistInterEduLocal.setNomeInterno(jNomeInternoCrc.getText());
-                        objDatasHoras();
-                        controleHist.alterarInterEdu(objHistInterEduLocal);
-                    }
-                    objLog2();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    preencherTabelaInternosFrequencia("SELECT * FROM ITENSFREQUENCIA "
-                            + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON ITENSFREQUENCIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                            + "WHERE IdFreq='" + jIdFreq.getText() + "'");
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    SalvarInterno();
-                }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarInternoActionPerformed
 
@@ -1515,41 +1569,46 @@ public class TelaControleFrequencia extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTabelaInternosMouseClicked
 
     private void jBtImpressaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImpressaoActionPerformed
-        // TODO add your handling code here:
-        try {
-            conecta.abrirConexao();
-            String path = "reports/RelatorioFrequenciaAulasInternos.jasper";
-            conecta.executaSQL("SELECT * FROM FREQUENCIA "
-                    + "INNER JOIN MATRICULAESCOLAR "
-                    + "ON FREQUENCIA.IdMat=MATRICULAESCOLAR.IdMat "
-                    + "INNER JOIN INSTITUICAOESCOLAR "
-                    + "ON MATRICULAESCOLAR.IdCod=INSTITUICAOESCOLAR.IdCod "
-                    + "INNER JOIN TEMPOFORMATIVO "
-                    + "ON MATRICULAESCOLAR.IdTempo=TEMPOFORMATIVO.IdTempo "
-                    + "INNER JOIN SALAS ON MATRICULAESCOLAR.IdSala=SALAS.IdSala "
-                    + "INNER JOIN TURNOSAULA "
-                    + "ON TEMPOFORMATIVO.IdTurno=TURNOSAULA.IdTurno "
-                    + "INNER JOIN PROFESSORES "
-                    + "ON INSTITUICAOESCOLAR.IdCod=PROFESSORES.IdCod "
-                    + "WHERE IdFreq='" + jIdFreq.getText() + "'");
-            HashMap parametros = new HashMap();
-            parametros.put("codFrequencia", jIdFreq.getText());
-            parametros.put("nomeUsuario", nameUser);
-            // Sub Relatório
+        // TODO add your handling code here:telaControleFrequenciaPrin_PEDA
+        buscarAcessoUsuario(telaControleFrequenciaPrin_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaControleFrequenciaPrin_PEDA) && codAbrirPEDA == 1) {
             try {
-                parametros.put("REPORT_CONNECTION", conecta.stmt.getConnection());
-            } catch (SQLException ex) {
+                conecta.abrirConexao();
+                String path = "reports/RelatorioFrequenciaAulasInternos.jasper";
+                conecta.executaSQL("SELECT * FROM FREQUENCIA "
+                        + "INNER JOIN MATRICULAESCOLAR "
+                        + "ON FREQUENCIA.IdMat=MATRICULAESCOLAR.IdMat "
+                        + "INNER JOIN INSTITUICAOESCOLAR "
+                        + "ON MATRICULAESCOLAR.IdCod=INSTITUICAOESCOLAR.IdCod "
+                        + "INNER JOIN TEMPOFORMATIVO "
+                        + "ON MATRICULAESCOLAR.IdTempo=TEMPOFORMATIVO.IdTempo "
+                        + "INNER JOIN SALAS ON MATRICULAESCOLAR.IdSala=SALAS.IdSala "
+                        + "INNER JOIN TURNOSAULA "
+                        + "ON TEMPOFORMATIVO.IdTurno=TURNOSAULA.IdTurno "
+                        + "INNER JOIN PROFESSORES "
+                        + "ON INSTITUICAOESCOLAR.IdCod=PROFESSORES.IdCod "
+                        + "WHERE IdFreq='" + jIdFreq.getText() + "'");
+                HashMap parametros = new HashMap();
+                parametros.put("codFrequencia", jIdFreq.getText());
+                parametros.put("nomeUsuario", nameUser);
+                // Sub Relatório
+                try {
+                    parametros.put("REPORT_CONNECTION", conecta.stmt.getConnection());
+                } catch (SQLException ex) {
+                }
+                JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                jv.setTitle("Relatório de Frequência de Internos");
+                jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                jv.toFront(); // Traz o relatorio para frente da aplicação            
+                conecta.desconecta();
+            } catch (JRException e) {
+                JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
             }
-            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-            jv.setTitle("Relatório de Frequência de Internos");
-            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-            jv.toFront(); // Traz o relatorio para frente da aplicação            
-            conecta.desconecta();
-        } catch (JRException e) {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtImpressaoActionPerformed
 
@@ -2083,7 +2142,7 @@ public class TelaControleFrequencia extends javax.swing.JInternalFrame {
                     + "WHERE IdInternoCrc='" + jIdInternoCrc.getText() + "' "
                     + "AND IdFreq='" + jIdFreq.getText() + "'");
             conecta.rs.first();
-           idItem  = conecta.rs.getInt("IdItem");
+            idItem = conecta.rs.getInt("IdItem");
         } catch (Exception e) {
         }
         conecta.desconecta();
@@ -2289,5 +2348,43 @@ public class TelaControleFrequencia extends javax.swing.JInternalFrame {
         objHistInterEduLocal.setHorarioSaida(jHorarioSaida.getText());
         objHistInterEduLocal.setNomeInstituicao(jNomeInstituicao.getText());
         objHistInterEduLocal.setNomeInterno(jNomeInternoCrc.getText());
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserPEDA = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserPEDA + "'");
+            conecta.rs.first();
+            codigoUserGroupPEDA = conecta.rs.getInt("IdUsuario");
+            codigoGrupoPEDA = conecta.rs.getInt("IdGrupo");
+            nomeGrupoPEDA = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserPEDA + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoPEDA = conecta.rs.getInt("IdUsuario");
+            codAbrirPEDA = conecta.rs.getInt("Abrir");
+            codIncluirPEDA = conecta.rs.getInt("Incluir");
+            codAlterarPEDA = conecta.rs.getInt("Alterar");
+            codExcluirPEDA = conecta.rs.getInt("Excluir");
+            codGravarPEDA = conecta.rs.getInt("Gravar");
+            codConsultarPEDA = conecta.rs.getInt("Consultar");
+            nomeTelaPEDA = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

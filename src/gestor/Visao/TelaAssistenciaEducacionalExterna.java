@@ -14,6 +14,20 @@ import gestor.Modelo.AssistenciaEducativa;
 import gestor.Modelo.InternosSaidaEducacional;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPedagogia.codAbrirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codAlterarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codConsultarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codExcluirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codGravarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codIncluirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codUserAcessoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoGrupoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoUserGroupPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoUserPEDA;
+import static gestor.Visao.TelaModuloPedagogia.nomeGrupoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.nomeTelaPEDA;
+import static gestor.Visao.TelaModuloPedagogia.telaAssistenciaEducaInte_PEDA;
+import static gestor.Visao.TelaModuloPedagogia.telaAssistenciaEducaManu_PEDA;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -1136,7 +1150,7 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
         count = 0;
         if (jPesqNomeInterno.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "É necessário informar um nome ou parte do nome para pesquisa.");
-        } else {            
+        } else {
             preencherTabelaCumprimentoAlvara("SELECT * FROM ASSISTENCIA_EDUCACAO_EXTERNA "
                     + "INNER JOIN INSTITUICAOESCOLAR "
                     + "ON ASSISTENCIA_EDUCACAO_EXTERNA.IdICod=INSTITUICAOESCOLAR.IdICod "
@@ -1150,7 +1164,7 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
         // TODO add your handling code here:
         count = 0;
         flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {            
+        if (evt.getStateChange() == evt.SELECTED) {
             this.preencherTabelaCumprimentoAlvara("SELECT * FROM ASSISTENCIA_EDUCACAO_EXTERNA "
                     + "INNER JOIN INSTITUICAOESCOLAR "
                     + "ON ASSISTENCIA_EDUCACAO_EXTERNA.IdCod=INSTITUICAOESCOLAR.IdCod "
@@ -1208,94 +1222,114 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        jPanel1.setVisible(false);
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        buscarAcessoUsuario(telaAssistenciaEducaManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaAssistenciaEducaManu_PEDA) && codIncluirPEDA == 1) {
+            jPanel1.setVisible(false);
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        objAssis.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaAssistenciaEducaManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaAssistenciaEducaManu_PEDA) && codAlterarPEDA == 1) {
+            objAssis.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                Alterar();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 2;
-            Alterar();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        verificarInterno();
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        objAssis.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse  registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
-        } else {
-            if (jIdLanc.getText().equals(codEduca)) {
-                JOptionPane.showMessageDialog(rootPane, "Não é possível excluir esse registro, exclua primeiro\nos internos relacionados a esse registro.");
+        buscarAcessoUsuario(telaAssistenciaEducaManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaAssistenciaEducaManu_PEDA) && codExcluirPEDA == 1) {
+            verificarInterno();
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objAssis.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse  registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
             } else {
-                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                        JOptionPane.YES_NO_OPTION);
-                if (resposta == JOptionPane.YES_OPTION) {
-                    objAssis.setIdEduca(Integer.valueOf(jIdLanc.getText()));
-                    control.excluirAssistenciaEducativa(objAssis);
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                    Excluir();
+                if (jIdLanc.getText().equals(codEduca)) {
+                    JOptionPane.showMessageDialog(rootPane, "Não é possível excluir esse registro, exclua primeiro\nos internos relacionados a esse registro.");
+                } else {
+                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta == JOptionPane.YES_OPTION) {
+                        objAssis.setIdEduca(Integer.valueOf(jIdLanc.getText()));
+                        control.excluirAssistenciaEducativa(objAssis);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                        Excluir();
+                    }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataLanc.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data do registro.");
-        } else if (jIdCod.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a instituição de ensino do interno.");
-        } else if (jIdTurno.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o turno de ensino do interno.");
+        buscarAcessoUsuario(telaAssistenciaEducaManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaAssistenciaEducaManu_PEDA) && codGravarPEDA == 1) {
+            if (jDataLanc.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data do registro.");
+            } else if (jIdCod.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a instituição de ensino do interno.");
+            } else if (jIdTurno.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o turno de ensino do interno.");
+            } else {
+                objAssis.setStatusLanc(jStatusLanc.getText());
+                objAssis.setDataLanc(jDataLanc.getDate());
+                objAssis.setDescricaoInstituicao(jNomeInstituicao.getText());
+                objAssis.setDescricaoTurno(jDescricaoTurno.getText());
+                objAssis.setObservacao(jObservacao.getText());
+                if (acao == 1) {
+                    objAssis.setUsuarioInsert(nameUser);
+                    objAssis.setDataInsert(dataModFinal);
+                    objAssis.setHorarioInsert(horaMov);
+                    //
+                    control.incluirAssistenciaEducativa(objAssis);
+                    buscarCod();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    Salvar();
+                }
+                if (acao == 2) {
+                    objAssis.setUsuarioUp(nameUser);
+                    objAssis.setDataUp(dataModFinal);
+                    objAssis.setHorarioUp(horaMov);
+                    //
+                    objAssis.setIdEduca(Integer.valueOf(jIdLanc.getText()));
+                    control.alterarAssistenciaEducativa(objAssis);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    Salvar();
+                }
+            }
         } else {
-            objAssis.setStatusLanc(jStatusLanc.getText());
-            objAssis.setDataLanc(jDataLanc.getDate());
-            objAssis.setDescricaoInstituicao(jNomeInstituicao.getText());
-            objAssis.setDescricaoTurno(jDescricaoTurno.getText());
-            objAssis.setObservacao(jObservacao.getText());
-            if (acao == 1) {
-                objAssis.setUsuarioInsert(nameUser);
-                objAssis.setDataInsert(dataModFinal);
-                objAssis.setHorarioInsert(horaMov);
-                //
-                control.incluirAssistenciaEducativa(objAssis);
-                buscarCod();
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                Salvar();
-            }
-            if (acao == 2) {
-                objAssis.setUsuarioUp(nameUser);
-                objAssis.setDataUp(dataModFinal);
-                objAssis.setHorarioUp(horaMov);
-                //
-                objAssis.setIdEduca(Integer.valueOf(jIdLanc.getText()));
-                control.alterarAssistenciaEducativa(objAssis);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                Salvar();
-            }
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -1357,119 +1391,139 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
 
     private void jBtNovoInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoInternoActionPerformed
         // TODO add your handling code here:
-        objAssis.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaAssistenciaEducaManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaAssistenciaEducaManu_PEDA) && codIncluirPEDA == 1) {
+            objAssis.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 3;
+                NovoInterno();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 3;
-            NovoInterno();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtNovoInternoActionPerformed
 
     private void jBtAlterarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarInternoActionPerformed
         // TODO add your handling code here:
-        objAssis.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
-        } else if (!evadidoEducacao.equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse interno encontra-se EVADIDO, não pode ser alterado.");
+        buscarAcessoUsuario(telaAssistenciaEducaManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaAssistenciaEducaManu_PEDA) && codAlterarPEDA == 1) {
+            objAssis.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else if (!evadidoEducacao.equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse interno encontra-se EVADIDO, não pode ser alterado.");
+            } else {
+                acao = 4;
+                AlterarInterno();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 4;
-            AlterarInterno();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarInternoActionPerformed
 
     private void jBtExcluirInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirInternoActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        objAssis.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse  interno não poderá ser excluído, o mesmo encontra-se FINALIZADO");
-        } else if (!evadidoEducacao.equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Esse interno encontra-se EVADIDO, não pode ser excluído.");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o INTERNO selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objIntEduca.setIdItem(Integer.valueOf(idItem));
-                controle.excluirAssistenciaEducativa(objIntEduca);
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                ExcluirInterno();
-                preencherTabelaInternos("SELECT * FROM INTERNOS_SAIDA_EDUCACIONAL "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON INTERNOS_SAIDA_EDUCACIONAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "INNER JOIN ASSISTENCIA_EDUCACAO_EXTERNA "
-                        + "ON INTERNOS_SAIDA_EDUCACIONAL.IdEduca=ASSISTENCIA_EDUCACAO_EXTERNA.IdEduca "
-                        + "WHERE INTERNOS_SAIDA_EDUCACIONAL.IdEduca='" + jIdLanc.getText() + "'");
+        buscarAcessoUsuario(telaAssistenciaEducaManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaAssistenciaEducaManu_PEDA) && codExcluirPEDA == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objAssis.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse  interno não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else if (!evadidoEducacao.equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse interno encontra-se EVADIDO, não pode ser excluído.");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o INTERNO selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objIntEduca.setIdItem(Integer.valueOf(idItem));
+                    controle.excluirAssistenciaEducativa(objIntEduca);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    ExcluirInterno();
+                    preencherTabelaInternos("SELECT * FROM INTERNOS_SAIDA_EDUCACIONAL "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON INTERNOS_SAIDA_EDUCACIONAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN ASSISTENCIA_EDUCACAO_EXTERNA "
+                            + "ON INTERNOS_SAIDA_EDUCACIONAL.IdEduca=ASSISTENCIA_EDUCACAO_EXTERNA.IdEduca "
+                            + "WHERE INTERNOS_SAIDA_EDUCACIONAL.IdEduca='" + jIdLanc.getText() + "'");
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirInternoActionPerformed
 
     private void jBtSalvarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarInternoActionPerformed
         // TODO add your handling code here:
-        evadidoEducacao = "";
-        if (jRadioButtonLiberado.isSelected()) {
-            tipoAcesso = 0;
-        } else if (jRadioButtonBloqueado.isSelected()) {
-            tipoAcesso = 1;
-        } else if (jRadioButtonEmEspera.isSelected()) {
-            tipoAcesso = 2;
-        } else if (jRadioButtonConcluido.isSelected()) {
-            tipoAcesso = 3;
-        }
-        if (jIdInternoAssis.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
+        buscarAcessoUsuario(telaAssistenciaEducaInte_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaAssistenciaEducaInte_PEDA) && codGravarPEDA == 1) {
+            evadidoEducacao = "";
+            if (jRadioButtonLiberado.isSelected()) {
+                tipoAcesso = 0;
+            } else if (jRadioButtonBloqueado.isSelected()) {
+                tipoAcesso = 1;
+            } else if (jRadioButtonEmEspera.isSelected()) {
+                tipoAcesso = 2;
+            } else if (jRadioButtonConcluido.isSelected()) {
+                tipoAcesso = 3;
+            }
+            if (jIdInternoAssis.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
+            } else {
+                objIntEduca.setIdEduca(Integer.valueOf(jIdLanc.getText()));
+                objIntEduca.setNomeInternoCrc(jNomeInternoAssis.getText());
+                objIntEduca.setMotivo(jMotivo.getText());
+                objIntEduca.setTipoAcesso(tipoAcesso);
+                objIntEduca.setEvadidoEducacao(evadidoEducacao);
+                if (acao == 3) {
+                    objIntEduca.setUsuarioInsert(nameUser);
+                    objIntEduca.setDataInsert(dataModFinal);
+                    objIntEduca.setHorarioInsert(horaMov);
+                    //
+                    controle.incluirAssistenciaEducativa(objIntEduca);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    preencherTabelaInternos("SELECT * FROM INTERNOS_SAIDA_EDUCACIONAL "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON INTERNOS_SAIDA_EDUCACIONAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN ASSISTENCIA_EDUCACAO_EXTERNA "
+                            + "ON INTERNOS_SAIDA_EDUCACIONAL.IdEduca=ASSISTENCIA_EDUCACAO_EXTERNA.IdEduca "
+                            + "WHERE INTERNOS_SAIDA_EDUCACIONAL.IdEduca='" + jIdLanc.getText() + "'");
+                    SalvarInterno();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 4) {
+                    objIntEduca.setUsuarioUp(nameUser);
+                    objIntEduca.setDataUp(dataModFinal);
+                    objIntEduca.setHorarioUp(horaMov);
+                    //
+                    objIntEduca.setIdItem(Integer.valueOf(idItem));
+                    controle.alterarAssistenciaEducativa(objIntEduca);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    preencherTabelaInternos("SELECT * FROM INTERNOS_SAIDA_EDUCACIONAL "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON INTERNOS_SAIDA_EDUCACIONAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN ASSISTENCIA_EDUCACAO_EXTERNA "
+                            + "ON INTERNOS_SAIDA_EDUCACIONAL.IdEduca=ASSISTENCIA_EDUCACAO_EXTERNA.IdEduca "
+                            + "WHERE INTERNOS_SAIDA_EDUCACIONAL.IdEduca='" + jIdLanc.getText() + "'");
+                    SalvarInterno();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
         } else {
-            objIntEduca.setIdEduca(Integer.valueOf(jIdLanc.getText()));
-            objIntEduca.setNomeInternoCrc(jNomeInternoAssis.getText());
-            objIntEduca.setMotivo(jMotivo.getText());
-            objIntEduca.setTipoAcesso(tipoAcesso);
-            objIntEduca.setEvadidoEducacao(evadidoEducacao);
-            if (acao == 3) {
-                objIntEduca.setUsuarioInsert(nameUser);
-                objIntEduca.setDataInsert(dataModFinal);
-                objIntEduca.setHorarioInsert(horaMov);
-                //
-                controle.incluirAssistenciaEducativa(objIntEduca);
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                preencherTabelaInternos("SELECT * FROM INTERNOS_SAIDA_EDUCACIONAL "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON INTERNOS_SAIDA_EDUCACIONAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "INNER JOIN ASSISTENCIA_EDUCACAO_EXTERNA "
-                        + "ON INTERNOS_SAIDA_EDUCACIONAL.IdEduca=ASSISTENCIA_EDUCACAO_EXTERNA.IdEduca "
-                        + "WHERE INTERNOS_SAIDA_EDUCACIONAL.IdEduca='" + jIdLanc.getText() + "'");
-                SalvarInterno();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
-            if (acao == 4) {
-                objIntEduca.setUsuarioUp(nameUser);
-                objIntEduca.setDataUp(dataModFinal);
-                objIntEduca.setHorarioUp(horaMov);
-                //
-                objIntEduca.setIdItem(Integer.valueOf(idItem));
-                controle.alterarAssistenciaEducativa(objIntEduca);
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                preencherTabelaInternos("SELECT * FROM INTERNOS_SAIDA_EDUCACIONAL "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON INTERNOS_SAIDA_EDUCACIONAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "INNER JOIN ASSISTENCIA_EDUCACAO_EXTERNA "
-                        + "ON INTERNOS_SAIDA_EDUCACIONAL.IdEduca=ASSISTENCIA_EDUCACAO_EXTERNA.IdEduca "
-                        + "WHERE INTERNOS_SAIDA_EDUCACIONAL.IdEduca='" + jIdLanc.getText() + "'");
-                SalvarInterno();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarInternoActionPerformed
 
@@ -2202,5 +2256,43 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
         objLogSys.setIdLancMov(Integer.valueOf(jIdLanc.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserPEDA = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserPEDA + "'");
+            conecta.rs.first();
+            codigoUserGroupPEDA = conecta.rs.getInt("IdUsuario");
+            codigoGrupoPEDA = conecta.rs.getInt("IdGrupo");
+            nomeGrupoPEDA = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserPEDA + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoPEDA = conecta.rs.getInt("IdUsuario");
+            codAbrirPEDA = conecta.rs.getInt("Abrir");
+            codIncluirPEDA = conecta.rs.getInt("Incluir");
+            codAlterarPEDA = conecta.rs.getInt("Alterar");
+            codExcluirPEDA = conecta.rs.getInt("Excluir");
+            codGravarPEDA = conecta.rs.getInt("Gravar");
+            codConsultarPEDA = conecta.rs.getInt("Consultar");
+            nomeTelaPEDA = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

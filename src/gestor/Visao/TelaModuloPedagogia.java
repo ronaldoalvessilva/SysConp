@@ -188,7 +188,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
     //COMPRAS
     public static String telaComprasManu_PEDA = "Acervo:Compras de Livros e Revistas:Manutenção";
     public static String telaComprasProd_PEDA = "Acervo:Compras de Livros e Revistas:Produtos";
-//    RESERVAS
+    //RESERVAS
     public static String telaReservasManu_PEDA = "Acervo:Reserva de Livros e Revistas:Manutenção";
     public static String telaReservasProd_PEDA = "Acervo:Reserva de Livros e Revistas:Produtos";
     //EMPRESTIMOS
@@ -210,6 +210,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
     //CONTROLE DE FREQUENCIA
     public static String telaControleFrequenciaManu_PEDA = "Movimentação:Controle de Frequencia Pedagogica:Manutenção";
     public static String telaControleFrequenciaInte_PEDA = "Movimentação:Controle de Frequencia Pedagogica:Internos";
+    public static String telaControleFrequenciaPrin_PEDA = "Movimentação:Controle de Frequencia Pedagogica:Impressão";
     //BAIXA DE ALUNOS(INTERNOS)
     public static String telaBaixaAlunosManu_PEDA = "Movimentação:Baixa de Alunos:Manutenção";
     public static String telaBaixaAlunosInte_PEDA = "Movimentação:Baixa de Alunos:Internos";
@@ -284,6 +285,9 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
     //MOVIMENTAÇÃO
     //ADMISSÃO/EVOLUÇÃO
     String pNomeAPM_PEDA = "";
+    String pNomeAPFA_PEDA = "";
+    String pNomeAPS_PEDA = "";
+    String pNomeAPFI_PEDA = "";
     String pNomeEPM_PEDA = "";
     //CONTROLE DE MATRICULAS
     String pNomeCMM_PEDA = "";
@@ -291,6 +295,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
     //CONTROLE DE FREQUENCIAS
     String pNomeCFM_PEDA = "";
     String pNomeCFI_PEDA = "";
+    String pNomeCFP_PEDA = "";
     //BAIXAS 
     String pNomeBAM_PEDA = "";
     String pNomeBAI_PEDA = "";
@@ -2729,6 +2734,28 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
         }
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaAdmissaoFami_PEDA + "'");
+            conecta.rs.first();
+            pNomeAPFA_PEDA = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaAdmissaoSoci_PEDA + "'");
+            conecta.rs.first();
+            pNomeAPS_PEDA = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaAdmissaoFemi_PEDA + "'");
+            conecta.rs.first();
+            pNomeAPFI_PEDA = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        //EVOLUÇÃO PEDAGOGICA
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaEvolucao_PEDA + "'");
             conecta.rs.first();
             pNomeEPM_PEDA = conecta.rs.getString("NomeTela");
@@ -2762,6 +2789,13 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
                     + "WHERE NomeTela='" + telaControleFrequenciaInte_PEDA + "'");
             conecta.rs.first();
             pNomeCFI_PEDA = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaControleFrequenciaPrin_PEDA + "'");
+            conecta.rs.first();
+            pNomeCFP_PEDA = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         //BAIXA DE ALUNOS(INTERNOS)       
@@ -3048,6 +3082,25 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
             objCadastroTela.setNomeTela(telaAdmissaoManu_PEDA);
             controle.incluirTelaAcesso(objCadastroTela);
         }
+        if (!pNomeAPFA_PEDA.equals(telaAdmissaoFami_PEDA) || pNomeAPFA_PEDA == null || pNomeAPFA_PEDA.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaAdmissaoFami_PEDA);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeAPS_PEDA.equals(telaAdmissaoSoci_PEDA) || pNomeAPS_PEDA == null || pNomeAPS_PEDA.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaAdmissaoSoci_PEDA);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeAPFI_PEDA.equals(telaAdmissaoFemi_PEDA) || pNomeAPFI_PEDA == null || pNomeAPFI_PEDA.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaAdmissaoFemi_PEDA);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //EVOLUÇÃO PEDAGOGICA
         if (!pNomeEPM_PEDA.equals(telaEvolucao_PEDA) || pNomeEPM_PEDA == null || pNomeEPM_PEDA.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
@@ -3078,6 +3131,12 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaControleFrequenciaInte_PEDA);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeCFP_PEDA.equals(telaControleFrequenciaPrin_PEDA) || pNomeCFP_PEDA == null || pNomeCFP_PEDA.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaControleFrequenciaPrin_PEDA);
             controle.incluirTelaAcesso(objCadastroTela);
         }
         //BAIXA DE ALUNOS(INTERNOS)      

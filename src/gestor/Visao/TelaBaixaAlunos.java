@@ -16,6 +16,20 @@ import gestor.Modelo.ItensBaixaInternos;
 import gestor.Modelo.ItensInternosMatriculado;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPedagogia.codAbrirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codAlterarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codConsultarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codExcluirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codGravarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codIncluirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codUserAcessoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoGrupoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoUserGroupPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoUserPEDA;
+import static gestor.Visao.TelaModuloPedagogia.nomeGrupoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.nomeTelaPEDA;
+import static gestor.Visao.TelaModuloPedagogia.telaBaixaAlunosInte_PEDA;
+import static gestor.Visao.TelaModuloPedagogia.telaBaixaAlunosManu_PEDA;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaPesqInternoBaixaInternos.idMatricula;
@@ -870,95 +884,115 @@ public class TelaBaixaAlunos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
-        // TODO add your handling code here:       
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        // TODO add your handling code here:   
+        buscarAcessoUsuario(telaBaixaAlunosManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaBaixaAlunosManu_PEDA) && codIncluirPEDA == 1) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        objBaixa.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa Baixa de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaBaixaAlunosManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaBaixaAlunosManu_PEDA) && codAlterarPEDA == 1) {
+            objBaixa.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa Baixa de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                Alterar();
+                corCampos();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 2;
-            Alterar();
-            corCampos();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:       
-        objBaixa.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa Baixa de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
-        } else {
-            statusMov = "Excluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
-            conecta.abrirConexao();
-            try {
-                conecta.executaSQL("SELECT * FROM ITENSBAIXAINTERNOS WHERE IdLanc='" + jIdLanc.getText() + "'");
-                conecta.rs.first();
-                codBaixa = conecta.rs.getString("IdLanc");
-                if (jIdLanc.getText().equals(codBaixa)) {
-                    JOptionPane.showMessageDialog(rootPane, "Antes de excluir esse Lançamento, será necessário\nexcluir primeiro os internos relacionados a esse registro.");
-                }
-                conecta.desconecta();
-            } catch (SQLException ex) {
-                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
-                        JOptionPane.YES_NO_OPTION);
-                if (resposta == JOptionPane.YES_OPTION) {
-                    objBaixa.setIdLanc(Integer.parseInt(jIdLanc.getText()));
-                    control.excluirBaixaInternos(objBaixa);
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                    Excluir();
+        buscarAcessoUsuario(telaBaixaAlunosManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaBaixaAlunosManu_PEDA) && codExcluirPEDA == 1) {
+            objBaixa.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa Baixa de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM ITENSBAIXAINTERNOS WHERE IdLanc='" + jIdLanc.getText() + "'");
+                    conecta.rs.first();
+                    codBaixa = conecta.rs.getString("IdLanc");
+                    if (jIdLanc.getText().equals(codBaixa)) {
+                        JOptionPane.showMessageDialog(rootPane, "Antes de excluir esse Lançamento, será necessário\nexcluir primeiro os internos relacionados a esse registro.");
+                    }
+                    conecta.desconecta();
+                } catch (SQLException ex) {
+                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta == JOptionPane.YES_OPTION) {
+                        objBaixa.setIdLanc(Integer.parseInt(jIdLanc.getText()));
+                        control.excluirBaixaInternos(objBaixa);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                        Excluir();
+                    }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataLanc.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data da baixa de internos.");
-            jDataLanc.requestFocus();
-            jDataLanc.setBackground(Color.red);
+        buscarAcessoUsuario(telaBaixaAlunosManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaBaixaAlunosManu_PEDA) && codGravarPEDA == 1) {
+            if (jDataLanc.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data da baixa de internos.");
+                jDataLanc.requestFocus();
+                jDataLanc.setBackground(Color.red);
+            } else {
+                objBaixa.setStatusLanc(jStatusLanc.getText());
+                objBaixa.setDataLanc(jDataLanc.getDate());
+                objBaixa.setObservacao(jObservacao.getText());
+                if (acao == 1) {
+                    objBaixa.setUsuarioInsert(nameUser);
+                    objBaixa.setDataInsert(dataModFinal);
+                    objBaixa.setHorarioInsert(horaMov);
+                    control.incluirBaixaInternos(objBaixa);
+                    buscarCod();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    Salvar();
+                }
+                if (acao == 2) {
+                    objBaixa.setUsuarioUp(nameUser);
+                    objBaixa.setDataUp(dataModFinal);
+                    objBaixa.setHorarioUp(horaMov);
+                    objBaixa.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                    control.alterarBaixaInternos(objBaixa);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    Salvar();
+                }
+            }
         } else {
-            objBaixa.setStatusLanc(jStatusLanc.getText());
-            objBaixa.setDataLanc(jDataLanc.getDate());
-            objBaixa.setObservacao(jObservacao.getText());
-            if (acao == 1) {
-                objBaixa.setUsuarioInsert(nameUser);
-                objBaixa.setDataInsert(dataModFinal);
-                objBaixa.setHorarioInsert(horaMov);
-                control.incluirBaixaInternos(objBaixa);
-                buscarCod();
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                Salvar();
-            }
-            if (acao == 2) {
-                objBaixa.setUsuarioUp(nameUser);
-                objBaixa.setDataUp(dataModFinal);
-                objBaixa.setHorarioUp(horaMov);
-                objBaixa.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                control.alterarBaixaInternos(objBaixa);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                Salvar();
-            }
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -994,111 +1028,131 @@ public class TelaBaixaAlunos extends javax.swing.JInternalFrame {
 
     private void jBtNovoInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoInternoActionPerformed
         // TODO add your handling code here:
-        objBaixa.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa Baixa de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaBaixaAlunosInte_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaBaixaAlunosInte_PEDA) && codIncluirPEDA == 1) {
+            objBaixa.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa Baixa de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 3;
+                NovoInterno();
+                corCampos();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 3;
-            NovoInterno();
-            corCampos();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtNovoInternoActionPerformed
 
     private void jBtAlterarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarInternoActionPerformed
         // TODO add your handling code here:
-        objBaixa.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa Baixa de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaBaixaAlunosInte_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaBaixaAlunosInte_PEDA) && codAlterarPEDA == 1) {
+            objBaixa.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa Baixa de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 4;
+                AlterarInterno();
+                corCampos();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 4;
-            AlterarInterno();
-            corCampos();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarInternoActionPerformed
 
     private void jBtExcluirInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirInternoActionPerformed
         // TODO add your handling code here:
-        statusMov = "Excluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        objBaixa.setStatusLanc(jStatusLanc.getText());
-        if (jStatusLanc.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa Baixa de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
-        } else {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir a baixa do interno selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objItensBaixa.setIdItem(idItem);
-                controle.excluirItensBaixaInternos(objItensBaixa);
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                ExcluirInterno();
-                preencherTabelaInternosBaixa("SELECT * FROM ITENSBAIXAINTERNOS "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON ITENSBAIXAINTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "WHERE IdLanc='" + jIdLanc.getText() + "'");
+        buscarAcessoUsuario(telaBaixaAlunosInte_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaBaixaAlunosInte_PEDA) && codExcluirPEDA == 1) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            objBaixa.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa Baixa de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir a baixa do interno selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objItensBaixa.setIdItem(idItem);
+                    controle.excluirItensBaixaInternos(objItensBaixa);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    ExcluirInterno();
+                    preencherTabelaInternosBaixa("SELECT * FROM ITENSBAIXAINTERNOS "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON ITENSBAIXAINTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "WHERE IdLanc='" + jIdLanc.getText() + "'");
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirInternoActionPerformed
 
     private void jBtSalvarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarInternoActionPerformed
         // TODO add your handling code here:
-        if (jNomeInternoBaixa.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe qual é o interno para da baixa.");
-        } else {
-            if (jMotivo.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe qual é o motivo para da baixa.");
+        buscarAcessoUsuario(telaBaixaAlunosInte_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaBaixaAlunosInte_PEDA) && codGravarPEDA == 1) {
+            if (jNomeInternoBaixa.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe qual é o interno para da baixa.");
             } else {
-                if (acao == 3) {
-                    objItensBaixa.setUsuarioInsert(nameUser);
-                    objItensBaixa.setDataInsert(dataModFinal);
-                    objItensBaixa.setHorarioInsert(horaMov);
-                    objItensBaixa.setNomeInternoCrc(jNomeInternoBaixa.getText());
-                    objItensBaixa.setMotivo(jMotivo.getText());
-                    objItensBaixa.setBloqueio(bloqueio);
-                    objItensBaixa.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                    controle.incluirItensBaixaInternos(objItensBaixa);
-                    // Confirma como "Sim" o bloqueio na tabela ITENSMATRICULA para não imprimir a frequência.
-                    objItensMat.setIdMat(Integer.valueOf(idMatricula));
-                    objItensMat.setIdInternoCrc(Integer.valueOf(jIdInternoBaixa.getText()));
-                    objItensMat.setBloqueio(bloqueio);
-                    controle.confirmarBloqueioBaixaInternos(objItensMat);
-                    objLog2();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                    
-                    preencherTabelaInternosBaixa("SELECT * FROM ITENSBAIXAINTERNOS "
-                            + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON ITENSBAIXAINTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                            + "WHERE IdLanc='" + jIdLanc.getText() + "'");
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    SalvarInterno();
-                }
-                if (acao == 4) {
-                    objItensBaixa.setUsuarioUp(nameUser);
-                    objItensBaixa.setDataUp(dataModFinal);
-                    objItensBaixa.setHorarioUp(horaMov);
-                    objItensBaixa.setNomeInternoCrc(jNomeInternoBaixa.getText());
-                    objItensBaixa.setMotivo(jMotivo.getText());
-                    objItensBaixa.setBloqueio(bloqueio);
-                    objItensBaixa.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                    objItensBaixa.setIdItem(idItem);
-                    controle.alterarItensBaixaInternos(objItensBaixa);
-                    objLog2();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    preencherTabelaInternosBaixa("SELECT * FROM ITENSBAIXAINTERNOS "
-                            + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON ITENSBAIXAINTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                            + "WHERE IdLanc='" + jIdLanc.getText() + "'");
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    SalvarInterno();
+                if (jMotivo.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe qual é o motivo para da baixa.");
+                } else {
+                    if (acao == 3) {
+                        objItensBaixa.setUsuarioInsert(nameUser);
+                        objItensBaixa.setDataInsert(dataModFinal);
+                        objItensBaixa.setHorarioInsert(horaMov);
+                        objItensBaixa.setNomeInternoCrc(jNomeInternoBaixa.getText());
+                        objItensBaixa.setMotivo(jMotivo.getText());
+                        objItensBaixa.setBloqueio(bloqueio);
+                        objItensBaixa.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                        controle.incluirItensBaixaInternos(objItensBaixa);
+                        // Confirma como "Sim" o bloqueio na tabela ITENSMATRICULA para não imprimir a frequência.
+                        objItensMat.setIdMat(Integer.valueOf(idMatricula));
+                        objItensMat.setIdInternoCrc(Integer.valueOf(jIdInternoBaixa.getText()));
+                        objItensMat.setBloqueio(bloqueio);
+                        controle.confirmarBloqueioBaixaInternos(objItensMat);
+                        objLog2();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                    
+                        preencherTabelaInternosBaixa("SELECT * FROM ITENSBAIXAINTERNOS "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON ITENSBAIXAINTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE IdLanc='" + jIdLanc.getText() + "'");
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        SalvarInterno();
+                    }
+                    if (acao == 4) {
+                        objItensBaixa.setUsuarioUp(nameUser);
+                        objItensBaixa.setDataUp(dataModFinal);
+                        objItensBaixa.setHorarioUp(horaMov);
+                        objItensBaixa.setNomeInternoCrc(jNomeInternoBaixa.getText());
+                        objItensBaixa.setMotivo(jMotivo.getText());
+                        objItensBaixa.setBloqueio(bloqueio);
+                        objItensBaixa.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                        objItensBaixa.setIdItem(idItem);
+                        controle.alterarItensBaixaInternos(objItensBaixa);
+                        objLog2();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        preencherTabelaInternosBaixa("SELECT * FROM ITENSBAIXAINTERNOS "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON ITENSBAIXAINTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE IdLanc='" + jIdLanc.getText() + "'");
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        SalvarInterno();
+                    }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarInternoActionPerformed
 
@@ -1758,5 +1812,43 @@ public class TelaBaixaAlunos extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jIdLanc.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserPEDA = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserPEDA + "'");
+            conecta.rs.first();
+            codigoUserGroupPEDA = conecta.rs.getInt("IdUsuario");
+            codigoGrupoPEDA = conecta.rs.getInt("IdGrupo");
+            nomeGrupoPEDA = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserPEDA + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoPEDA = conecta.rs.getInt("IdUsuario");
+            codAbrirPEDA = conecta.rs.getInt("Abrir");
+            codIncluirPEDA = conecta.rs.getInt("Incluir");
+            codAlterarPEDA = conecta.rs.getInt("Alterar");
+            codExcluirPEDA = conecta.rs.getInt("Excluir");
+            codGravarPEDA = conecta.rs.getInt("Gravar");
+            codConsultarPEDA = conecta.rs.getInt("Consultar");
+            nomeTelaPEDA = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

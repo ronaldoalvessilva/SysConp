@@ -14,6 +14,20 @@ import gestor.Modelo.ItensInternosMatriculado;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.MatriculaEscolar;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPedagogia.codAbrirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codAlterarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codConsultarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codExcluirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codGravarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codIncluirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codUserAcessoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoGrupoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoUserGroupPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoUserPEDA;
+import static gestor.Visao.TelaModuloPedagogia.nomeGrupoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.nomeTelaPEDA;
+import static gestor.Visao.TelaModuloPedagogia.telaControleMatriculaInte_PEDA;
+import static gestor.Visao.TelaModuloPedagogia.telaControleMatriculaManu_PEDA;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -1066,121 +1080,141 @@ public class TelaMatriculaPedagogica extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        acao = 1;
-        Novo();
-        corCampos();
-        statusMov = "Incluiu";
-        horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
-        limparTabelaInternos();
+        buscarAcessoUsuario(telaControleMatriculaManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaControleMatriculaManu_PEDA) && codIncluirPEDA == 1) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            limparTabelaInternos();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        objMatEscolar.setStatusMatricula(jStatusMat.getText());
-        if (jStatusMat.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa matricula de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaControleMatriculaManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaControleMatriculaManu_PEDA) && codAlterarPEDA == 1) {
+            objMatEscolar.setStatusMatricula(jStatusMat.getText());
+            if (jStatusMat.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa matricula de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                Alterar();
+                corCampos();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 2;
-            Alterar();
-            corCampos();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        objMatEscolar.setStatusMatricula(jStatusMat.getText());
-        if (jStatusMat.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa matricula de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
-        } else {
-            statusMov = "Excluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
-            conecta.abrirConexao();
-            try {
-                conecta.executaSQL("SELECT * FROM ITENSMATRICULA WHERE IdMat='" + jIdMat.getText() + "'");
-                conecta.rs.first();
-                codMatricula = conecta.rs.getString("IdMat");
-                if (jIdMat.getText().equals(codMatricula)) {
-                    JOptionPane.showMessageDialog(rootPane, "Antes de excluir esse Lançamento, será necessário\nexcluir primeiro os internos relacionados a esse registro.");
-                }
-                conecta.desconecta();
-            } catch (SQLException ex) {
-                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
-                        JOptionPane.YES_NO_OPTION);
-                if (resposta == JOptionPane.YES_OPTION) {
-                    objMatEscolar.setIdMat(Integer.parseInt(jIdMat.getText()));
-                    control.excluirMatriculaEscolar(objMatEscolar);
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                    Excluir();
+        buscarAcessoUsuario(telaControleMatriculaManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaControleMatriculaManu_PEDA) && codExcluirPEDA == 1) {
+            objMatEscolar.setStatusMatricula(jStatusMat.getText());
+            if (jStatusMat.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa matricula de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM ITENSMATRICULA WHERE IdMat='" + jIdMat.getText() + "'");
+                    conecta.rs.first();
+                    codMatricula = conecta.rs.getString("IdMat");
+                    if (jIdMat.getText().equals(codMatricula)) {
+                        JOptionPane.showMessageDialog(rootPane, "Antes de excluir esse Lançamento, será necessário\nexcluir primeiro os internos relacionados a esse registro.");
+                    }
+                    conecta.desconecta();
+                } catch (SQLException ex) {
+                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta == JOptionPane.YES_OPTION) {
+                        objMatEscolar.setIdMat(Integer.parseInt(jIdMat.getText()));
+                        control.excluirMatriculaEscolar(objMatEscolar);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                        Excluir();
+                    }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        if (jDataMat.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data de matricula.");
-            jDataMat.requestFocus();
-            jDataMat.setBackground(Color.red);
-        } else {
-            if (jNomeInstituicao.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe qual é a instituição do aluno.");
+        buscarAcessoUsuario(telaControleMatriculaManu_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaControleMatriculaManu_PEDA) && codGravarPEDA == 1) {
+            if (jDataMat.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de matricula.");
+                jDataMat.requestFocus();
+                jDataMat.setBackground(Color.red);
             } else {
-                if (jDescricaoTempoFormativo.getText().equals("")) {
-                    JOptionPane.showMessageDialog(rootPane, "Informe qual é o Tempo formativo do aluno.");
+                if (jNomeInstituicao.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe qual é a instituição do aluno.");
                 } else {
-                    if (jCargaHoraria.getText().equals("")) {
-                        JOptionPane.showMessageDialog(rootPane, "Informe qual é a carga horária do aluno.");
+                    if (jDescricaoTempoFormativo.getText().equals("")) {
+                        JOptionPane.showMessageDialog(rootPane, "Informe qual é o Tempo formativo do aluno.");
                     } else {
-                        if (jDescricaoSala.getText().equals("")) {
-                            JOptionPane.showMessageDialog(rootPane, "Informe qual a sala do aluno.");
+                        if (jCargaHoraria.getText().equals("")) {
+                            JOptionPane.showMessageDialog(rootPane, "Informe qual é a carga horária do aluno.");
                         } else {
-                            objMatEscolar.setStatusMatricula(jStatusMat.getText());
-                            objMatEscolar.setDataMat(jDataMat.getDate());
-                            objMatEscolar.setNomeIstituicao(jNomeInstituicao.getText());
-                           // objMatEscolar.setIdMat(codigoMatricula);
-                            objMatEscolar.setIdTempo(codigoMatricula);
-                            objMatEscolar.setDescricaoTempoFormativo(jDescricaoTempoFormativo.getText());
-                            objMatEscolar.setDescricaoCargaHoraria(jCargaHoraria.getText());
-                            objMatEscolar.setDescricaoSala(jDescricaoSala.getText());
-                            if (acao == 1) {
-                                objMatEscolar.setUsuarioInsert(nameUser);
-                                objMatEscolar.setDataInsert(dataModFinal);
-                                objMatEscolar.setHorarioInsert(horaMov);
-                                //
-                                control.incluirMatriculaEscolar(objMatEscolar);
-                                buscarCod();
-                                objLog();
-                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                                Salvar();
-                            }
-                            if (acao == 2) {
-                                objMatEscolar.setUsuarioUp(nameUser);
-                                objMatEscolar.setDataUp(dataModFinal);
-                                objMatEscolar.setHorarioUp(horaMov);
+                            if (jDescricaoSala.getText().equals("")) {
+                                JOptionPane.showMessageDialog(rootPane, "Informe qual a sala do aluno.");
+                            } else {
+                                objMatEscolar.setStatusMatricula(jStatusMat.getText());
+                                objMatEscolar.setDataMat(jDataMat.getDate());
                                 objMatEscolar.setNomeIstituicao(jNomeInstituicao.getText());
-                                objMatEscolar.setIdMat(Integer.valueOf(jIdMat.getText()));
+                                // objMatEscolar.setIdMat(codigoMatricula);
+                                objMatEscolar.setIdTempo(codigoMatricula);
                                 objMatEscolar.setDescricaoTempoFormativo(jDescricaoTempoFormativo.getText());
                                 objMatEscolar.setDescricaoCargaHoraria(jCargaHoraria.getText());
                                 objMatEscolar.setDescricaoSala(jDescricaoSala.getText());
-                                control.alterarMatriculaEscolar(objMatEscolar);
-                                objLog();
-                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                                Salvar();
+                                if (acao == 1) {
+                                    objMatEscolar.setUsuarioInsert(nameUser);
+                                    objMatEscolar.setDataInsert(dataModFinal);
+                                    objMatEscolar.setHorarioInsert(horaMov);
+                                    //
+                                    control.incluirMatriculaEscolar(objMatEscolar);
+                                    buscarCod();
+                                    objLog();
+                                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                    Salvar();
+                                }
+                                if (acao == 2) {
+                                    objMatEscolar.setUsuarioUp(nameUser);
+                                    objMatEscolar.setDataUp(dataModFinal);
+                                    objMatEscolar.setHorarioUp(horaMov);
+                                    objMatEscolar.setNomeIstituicao(jNomeInstituicao.getText());
+                                    objMatEscolar.setIdMat(Integer.valueOf(jIdMat.getText()));
+                                    objMatEscolar.setDescricaoTempoFormativo(jDescricaoTempoFormativo.getText());
+                                    objMatEscolar.setDescricaoCargaHoraria(jCargaHoraria.getText());
+                                    objMatEscolar.setDescricaoSala(jDescricaoSala.getText());
+                                    control.alterarMatriculaEscolar(objMatEscolar);
+                                    objLog();
+                                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                    Salvar();
+                                }
                             }
                         }
                     }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
@@ -1198,110 +1232,130 @@ public class TelaMatriculaPedagogica extends javax.swing.JInternalFrame {
 
     private void jBtNovoInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoInternoActionPerformed
         // TODO add your handling code here: 
-        objMatEscolar.setStatusMatricula(jStatusMat.getText());
-        if (jStatusMat.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa matricula de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        buscarAcessoUsuario(telaControleMatriculaInte_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaControleMatriculaInte_PEDA) && codIncluirPEDA == 1) {
+            objMatEscolar.setStatusMatricula(jStatusMat.getText());
+            if (jStatusMat.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa matricula de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 3;
+                NovoInterno();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
-            acao = 3;
-            NovoInterno();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtNovoInternoActionPerformed
 
     private void jBtAlterarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarInternoActionPerformed
         // TODO add your handling code here:
-        verificarMatriculaFrequenciaInterno();
-        objMatEscolar.setStatusMatricula(jStatusMat.getText());
-        if (jStatusMat.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa matricula de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
-        } else {
-            if (jIdInternoCrc.getText().equals(codInternoFreq)) {
-                JOptionPane.showMessageDialog(rootPane, "Essa matricula de interno não pode ser alterada, pois, está\nsendo utilizada na lista de frequência de internos.");
+        buscarAcessoUsuario(telaControleMatriculaInte_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaControleMatriculaInte_PEDA) && codAlterarPEDA == 1) {
+            verificarMatriculaFrequenciaInterno();
+            objMatEscolar.setStatusMatricula(jStatusMat.getText());
+            if (jStatusMat.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa matricula de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
             } else {
-                acao = 4;
-                AlterarInterno();
-                statusMov = "Alterou";
-                horaMov = jHoraSistema.getText();
-                dataModFinal = jDataSistema.getText();
+                if (jIdInternoCrc.getText().equals(codInternoFreq)) {
+                    JOptionPane.showMessageDialog(rootPane, "Essa matricula de interno não pode ser alterada, pois, está\nsendo utilizada na lista de frequência de internos.");
+                } else {
+                    acao = 4;
+                    AlterarInterno();
+                    statusMov = "Alterou";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtAlterarInternoActionPerformed
 
     private void jBtExcluirInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirInternoActionPerformed
         // TODO add your handling code here:
-        verificarMatriculaFrequenciaInterno(); // Verificar se o interno costa na lista de frequência.
-        verificarBaixaInternos(); // Verificar se o interno consta na lista de baixa.
-        objMatEscolar.setStatusMatricula(jStatusMat.getText());
-        if (jStatusMat.getText().equals("FINALIZADO")) {
-            JOptionPane.showMessageDialog(rootPane, "Essa matricula de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
-        } else {
-            if (jIdInternoCrc.getText().equals(codInternoFreq)) {
-                JOptionPane.showMessageDialog(rootPane, "Essa matricula de interno não pode ser excluída, pois, está\nsendo utilizada na lista de frequência de internos.");
+        buscarAcessoUsuario(telaControleMatriculaInte_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaControleMatriculaInte_PEDA) && codExcluirPEDA == 1) {
+            verificarMatriculaFrequenciaInterno(); // Verificar se o interno costa na lista de frequência.
+            verificarBaixaInternos(); // Verificar se o interno consta na lista de baixa.
+            objMatEscolar.setStatusMatricula(jStatusMat.getText());
+            if (jStatusMat.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa matricula de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
             } else {
-                if (jIdInternoCrc.getText().equals(codInternoBaixa)) {
-                    JOptionPane.showMessageDialog(rootPane, "Essa matricula de interno não pode ser excluída,pois, está\nsendo utilizada na lista de baixa de internos.");
+                if (jIdInternoCrc.getText().equals(codInternoFreq)) {
+                    JOptionPane.showMessageDialog(rootPane, "Essa matricula de interno não pode ser excluída, pois, está\nsendo utilizada na lista de frequência de internos.");
                 } else {
-                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir a matricula selecionado?", "Confirmação",
-                            JOptionPane.YES_NO_OPTION);
-                    if (resposta == JOptionPane.YES_OPTION) {
-                        objItensMat.setIdItem(Integer.valueOf(idItem));
-                        controle.excluirInternosMatricula(objItensMat);
-                        objLog2();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                        
-                        ExcluirInterno();
-                        preencherTabelaInternosMatricula("SELECT * FROM ITENSMATRICULA "
-                                + "INNER JOIN PRONTUARIOSCRC "
-                                + "ON ITENSMATRICULA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                + "WHERE IdMat='" + jIdMat.getText() + "'");
-                        JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    if (jIdInternoCrc.getText().equals(codInternoBaixa)) {
+                        JOptionPane.showMessageDialog(rootPane, "Essa matricula de interno não pode ser excluída,pois, está\nsendo utilizada na lista de baixa de internos.");
+                    } else {
+                        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir a matricula selecionado?", "Confirmação",
+                                JOptionPane.YES_NO_OPTION);
+                        if (resposta == JOptionPane.YES_OPTION) {
+                            objItensMat.setIdItem(Integer.valueOf(idItem));
+                            controle.excluirInternosMatricula(objItensMat);
+                            objLog2();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                        
+                            ExcluirInterno();
+                            preencherTabelaInternosMatricula("SELECT * FROM ITENSMATRICULA "
+                                    + "INNER JOIN PRONTUARIOSCRC "
+                                    + "ON ITENSMATRICULA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                    + "WHERE IdMat='" + jIdMat.getText() + "'");
+                            JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                        }
                     }
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtExcluirInternoActionPerformed
 
     private void jBtSalvarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarInternoActionPerformed
         // TODO add your handling code here:
-        if (jNomeInternoCrc.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno a ser matriculado.");
+        buscarAcessoUsuario(telaControleMatriculaInte_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaControleMatriculaInte_PEDA) && codGravarPEDA == 1) {
+            if (jNomeInternoCrc.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno a ser matriculado.");
+            } else {
+                if (acao == 3) {
+                    objItensMat.setUsuarioInsert(nameUser);
+                    objItensMat.setDataInsert(dataModFinal);
+                    objItensMat.setHorarioInsert(horaMov);
+                    objItensMat.setBloqueio(bloqueio);
+                    objItensMat.setIdMat(Integer.valueOf(jIdMat.getText()));
+                    objItensMat.setNomeInternoCrc(jNomeInternoCrc.getText());
+                    controle.incluirInternosMatricula(objItensMat);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                
+                    preencherTabelaInternosMatricula("SELECT * FROM ITENSMATRICULA "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON ITENSMATRICULA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "WHERE IdMat='" + jIdMat.getText() + "'");
+                    SalvarInterno();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 4) {
+                    objItensMat.setUsuarioUp(nameUser);
+                    objItensMat.setDataUp(dataModFinal);
+                    objItensMat.setHorarioUp(horaMov);
+                    objItensMat.setBloqueio(bloqueio);
+                    objItensMat.setIdMat(Integer.valueOf(jIdMat.getText()));
+                    objItensMat.setNomeInternoCrc(jNomeInternoCrc.getText());
+                    objItensMat.setIdItem(idItem);
+                    controle.alterarInternosMatricula(objItensMat);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                
+                    preencherTabelaInternosMatricula("SELECT * FROM ITENSMATRICULA "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON ITENSMATRICULA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "WHERE IdMat='" + jIdMat.getText() + "'");
+                    SalvarInterno();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
         } else {
-            if (acao == 3) {
-                objItensMat.setUsuarioInsert(nameUser);
-                objItensMat.setDataInsert(dataModFinal);
-                objItensMat.setHorarioInsert(horaMov);
-                objItensMat.setBloqueio(bloqueio);
-                objItensMat.setIdMat(Integer.valueOf(jIdMat.getText()));
-                objItensMat.setNomeInternoCrc(jNomeInternoCrc.getText());
-                controle.incluirInternosMatricula(objItensMat);
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                
-                preencherTabelaInternosMatricula("SELECT * FROM ITENSMATRICULA "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON ITENSMATRICULA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "WHERE IdMat='" + jIdMat.getText() + "'");
-                SalvarInterno();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
-            if (acao == 4) {
-                objItensMat.setUsuarioUp(nameUser);
-                objItensMat.setDataUp(dataModFinal);
-                objItensMat.setHorarioUp(horaMov);
-                objItensMat.setBloqueio(bloqueio);
-                objItensMat.setIdMat(Integer.valueOf(jIdMat.getText()));
-                objItensMat.setNomeInternoCrc(jNomeInternoCrc.getText());
-                objItensMat.setIdItem(idItem);
-                controle.alterarInternosMatricula(objItensMat);
-                objLog2();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                
-                preencherTabelaInternosMatricula("SELECT * FROM ITENSMATRICULA "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON ITENSMATRICULA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "WHERE IdMat='" + jIdMat.getText() + "'");
-                SalvarInterno();
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-            }
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtSalvarInternoActionPerformed
 
@@ -2133,5 +2187,43 @@ public class TelaMatriculaPedagogica extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jIdMat.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserPEDA = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserPEDA + "'");
+            conecta.rs.first();
+            codigoUserGroupPEDA = conecta.rs.getInt("IdUsuario");
+            codigoGrupoPEDA = conecta.rs.getInt("IdGrupo");
+            nomeGrupoPEDA = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserPEDA + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoPEDA = conecta.rs.getInt("IdUsuario");
+            codAbrirPEDA = conecta.rs.getInt("Abrir");
+            codIncluirPEDA = conecta.rs.getInt("Incluir");
+            codAlterarPEDA = conecta.rs.getInt("Alterar");
+            codExcluirPEDA = conecta.rs.getInt("Excluir");
+            codGravarPEDA = conecta.rs.getInt("Gravar");
+            codConsultarPEDA = conecta.rs.getInt("Consultar");
+            nomeTelaPEDA = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }
