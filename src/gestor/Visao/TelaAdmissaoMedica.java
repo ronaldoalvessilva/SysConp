@@ -656,7 +656,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jTabelaMedico.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaMedico.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Status", "Nome Completo do Interno", "Situação"
@@ -2035,7 +2035,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jTabelaEvolPsiquiatrica.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaEvolPsiquiatrica.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "PA", "Evolução Psiquiatrica"
@@ -2619,7 +2619,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jTabelaEvolucaoMedica.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaEvolucaoMedica.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "PA", "Evolução Médica"
@@ -2786,7 +2786,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jTabelaPrescricaoMedica.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaPrescricaoMedica.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Prescrição Médica/Psquiatrica"
@@ -3030,7 +3030,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jTabelaAtestado.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaAtestado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Modelo"
@@ -3393,7 +3393,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jTablaDieta.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTablaDieta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Descrição da Dieta Médica"
@@ -4372,6 +4372,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
 
     private void jTabelaEvolPsiquiatricaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaEvolPsiquiatricaMouseClicked
         // TODO add your handling code here:
+        flag = 1;
         if (flag == 1) {
             String idItem = "" + jTabelaEvolPsiquiatrica.getValueAt(jTabelaEvolPsiquiatrica.getSelectedRow(), 0);
             jIdEvolucaoPsiquiatrica.setText(idItem);
@@ -4621,6 +4622,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
 
     private void jTabelaEvolucaoMedicaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaEvolucaoMedicaMouseClicked
         // TODO add your handling code here:
+        flag = 1;
         if (flag == 1) {
             String idItem = "" + jTabelaEvolucaoMedica.getValueAt(jTabelaEvolucaoMedica.getSelectedRow(), 0);
             // Habilitar os botões
@@ -4830,6 +4832,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
 
     private void jTabelaPrescricaoMedicaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaPrescricaoMedicaMouseClicked
         // TODO add your handling code here:
+        flag = 1;
         if (flag == 1) {
             String idItemPresq = "" + jTabelaPrescricaoMedica.getValueAt(jTabelaPrescricaoMedica.getSelectedRow(), 0);
             // Habilitar os botões
@@ -5094,6 +5097,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
 
     private void jTabelaAtestadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaAtestadoMouseClicked
         // TODO add your handling code here:
+        flag = 1;
         if (flag == 1) {
             String idItem = "" + jTabelaAtestado.getValueAt(jTabelaAtestado.getSelectedRow(), 0);
             // Habilitar os botões
@@ -5340,6 +5344,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
 
     private void jTablaDietaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablaDietaMouseClicked
         // TODO add your handling code here:
+        flag = 1;
         if (flag == 1) {
             String idItem = "" + jTablaDieta.getValueAt(jTablaDieta.getSelectedRow(), 0);
             // Habilitar os botões
