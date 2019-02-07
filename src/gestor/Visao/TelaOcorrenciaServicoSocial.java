@@ -67,17 +67,18 @@ public class TelaOcorrenciaServicoSocial extends javax.swing.JInternalFrame {
     String dataModFinal;
     int count = 0;
     //
+    String codigoUsuario = "";
     String nomeUsuario = "";
     String cargoUsuario = "";
     String nomeUsuarioOcorrencia = "";
+    String nomeGrupo = "ADMINISTRADORES";
 
     /**
      * Creates new form TelaOcorrenciaPortaria
      */
     public TelaOcorrenciaServicoSocial() {
         initComponents();
-        corCampos();
-        usuarioAdministrador();
+        corCampos();        
         jCorpoTextoOcorrencia.setLineWrap(true);
         jCorpoTextoOcorrencia.setWrapStyleWord(true);
     }
@@ -170,9 +171,9 @@ public class TelaOcorrenciaServicoSocial extends javax.swing.JInternalFrame {
 
         jBtPesqData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtPesqData.setContentAreaFilled(false);
-        jBtPesqData.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jBtPesqDataMouseClicked(evt);
+        jBtPesqData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPesqDataActionPerformed(evt);
             }
         });
 
@@ -191,9 +192,9 @@ public class TelaOcorrenciaServicoSocial extends javax.swing.JInternalFrame {
 
         jBtPesqTituloOcorrrencia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtPesqTituloOcorrrencia.setContentAreaFilled(false);
-        jBtPesqTituloOcorrrencia.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jBtPesqTituloOcorrrenciaMouseClicked(evt);
+        jBtPesqTituloOcorrrencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPesqTituloOcorrrenciaActionPerformed(evt);
             }
         });
 
@@ -841,9 +842,18 @@ public class TelaOcorrenciaServicoSocial extends javax.swing.JInternalFrame {
 
     private void jBtPesqCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqCodigoActionPerformed
         // TODO add your handling code here:
+        usuarioAdministrador();
+        usuariosGrupoAdministradores();
         count = 0;
         flag = 1;
-        if (nomeUsuario.equals("ADMINISTRADOR DO SISTEMA")) {
+        if (nomeUsuario.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jCodigo.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o código para pesquisa.");
+            } else {
+                pesquisarOcorrrencias("SELECT * FROM OCORRENCIAS_SERVICO_SOCIAL "
+                        + "WHERE IdLanc='" + jCodigo.getText() + "'");
+            }
+        } else if (nomeGrupo.equals("ADMINISTRADORES")) {
             if (jCodigo.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o código para pesquisa.");
             } else {
@@ -870,9 +880,18 @@ public class TelaOcorrenciaServicoSocial extends javax.swing.JInternalFrame {
 
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
+        usuarioAdministrador();
+        usuariosGrupoAdministradores();
         count = 0;
         flag = 1;
         if (nomeUsuario.equals("ADMINISTRADOR DO SISTEMA")) {
+            if (evt.getStateChange() == evt.SELECTED) {
+                this.pesquisarOcorrrencias("SELECT * FROM OCORRENCIAS_SERVICO_SOCIAL");
+            } else {
+                jtotalRegistros.setText("");
+                limparTabela();
+            }
+        } else if (nomeGrupo.equals("ADMINISTRADORES")) {
             if (evt.getStateChange() == evt.SELECTED) {
                 this.pesquisarOcorrrencias("SELECT * FROM OCORRENCIAS_SERVICO_SOCIAL");
             } else {
@@ -897,11 +916,79 @@ public class TelaOcorrenciaServicoSocial extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
-    private void jBtPesqDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtPesqDataMouseClicked
+    private void jTabelaOcorrenciaPortariaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaOcorrenciaPortariaMouseClicked
         // TODO add your handling code here:
+        flag = 1;
+        if (flag == 1) {
+            String IdLanc = "" + jTabelaOcorrenciaPortaria.getValueAt(jTabelaOcorrenciaPortaria.getSelectedRow(), 0);
+            jCodigo.setText(IdLanc);
+            if (jStatusOcorrencia.getText().equals("FINALIZADO")) {
+                jDataOcorrencia.setEnabled(!true);
+                jTituloOcorrencia.setEnabled(!true);
+                jCorpoTextoOcorrencia.setEnabled(!true);
+                //
+                jBtNovo.setEnabled(true);
+                jBtAlterar.setEnabled(!true);
+                jBtExcluir.setEnabled(!true);
+                jBtSalvar.setEnabled(!true);
+                jBtCancelar.setEnabled(!true);
+                jBtFinalizar.setEnabled(!true);
+                jBtAuditoria.setEnabled(true);
+                jBtImpressao.setEnabled(true);
+            } else {
+                jBtNovo.setEnabled(true);
+                jBtAlterar.setEnabled(true);
+                jBtExcluir.setEnabled(true);
+                jBtSalvar.setEnabled(!true);
+                jBtCancelar.setEnabled(!true);
+                jBtFinalizar.setEnabled(true);
+                jBtAuditoria.setEnabled(true);
+                jBtImpressao.setEnabled(true);
+            }
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM OCORRENCIAS_SERVICO_SOCIAL "
+                        + "WHERE IdLanc ='" + IdLanc + "'");
+                conecta.rs.first();
+                jIdOcorrencia.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
+                jStatusOcorrencia.setText(conecta.rs.getString("StatusLanc"));
+                jDataOcorrencia.setDate(conecta.rs.getDate("DataLanc"));
+                jTituloOcorrencia.setText(conecta.rs.getString("Titulo"));
+                jCorpoTextoOcorrencia.setText(conecta.rs.getString("TextoArea"));
+                conecta.desconecta();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por DATA " + e);
+            }
+        }
+    }//GEN-LAST:event_jTabelaOcorrenciaPortariaMouseClicked
+
+    private void jBtPesqDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDataActionPerformed
+        // TODO add your handling code here:
+        usuarioAdministrador();
         count = 0;
         flag = 1;
         if (nomeUsuario.equals("ADMINISTRADOR DO SISTEMA")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
+            } else {
+                if (jDataPesFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesFinal.requestFocus();
+                } else {
+                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                        pesquisarOcorrrencias("SELECT * FROM OCORRENCIAS_SERVICO_SOCIAL "
+                                + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "'");
+                    }
+                }
+            }
+        } else if (nomeGrupo.equals("ADMINISTRADORES")) {
             if (jDataPesqInicial.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
                 jDataPesqInicial.requestFocus();
@@ -966,81 +1053,44 @@ public class TelaOcorrenciaServicoSocial extends javax.swing.JInternalFrame {
                 }
             }
         }
-    }//GEN-LAST:event_jBtPesqDataMouseClicked
+    }//GEN-LAST:event_jBtPesqDataActionPerformed
 
-    private void jBtPesqTituloOcorrrenciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtPesqTituloOcorrrenciaMouseClicked
+    private void jBtPesqTituloOcorrrenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqTituloOcorrrenciaActionPerformed
         // TODO add your handling code here:
+        usuarioAdministrador();
         count = 0;
+        flag = 1;
         if (nomeUsuario.equals("ADMINISTRADOR DO SISTEMA")) {
             if (jPesqTituloOcorrencia.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário informar um nome ou parte do nome para pesquuisa.");
             } else {
                 pesquisarOcorrrencias("SELECT * FROM OCORRENCIAS_SERVICO_SOCIAL "
-                        + "WHERE WHERE Titulo LIKE'%" + jPesqTituloOcorrencia + "%'");
+                        + "WHERE Titulo LIKE'%" + jPesqTituloOcorrencia + "%'");
+            }
+        } else if (nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jPesqTituloOcorrencia.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário informar um nome ou parte do nome para pesquuisa.");
+            } else {
+                pesquisarOcorrrencias("SELECT * FROM OCORRENCIAS_SERVICO_SOCIAL "
+                        + "WHERE Titulo LIKE'%" + jPesqTituloOcorrencia + "%'");
             }
         } else if (cargoUsuario.equals("ASSISTENTE SOCIAL")) {
             if (jPesqTituloOcorrencia.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário informar um nome ou parte do nome para pesquuisa.");
             } else {
                 pesquisarOcorrrencias("SELECT * FROM OCORRENCIAS_SERVICO_SOCIAL "
-                        + "WHERE WHERE Titulo LIKE'%" + jPesqTituloOcorrencia + "%'");
+                        + "WHERE Titulo LIKE'%" + jPesqTituloOcorrencia + "%'");
             }
         } else {
             if (jPesqTituloOcorrencia.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário informar um nome ou parte do nome para pesquuisa.");
             } else {
                 pesquisarOcorrrencias("SELECT * FROM OCORRENCIAS_SERVICO_SOCIAL "
-                        + "WHERE WHERE Titulo LIKE'%" + jPesqTituloOcorrencia + "%' "
+                        + "WHERE Titulo LIKE'%" + jPesqTituloOcorrencia + "%' "
                         + "AND UsuarioInsert='" + nameUser + "'");
             }
         }
-    }//GEN-LAST:event_jBtPesqTituloOcorrrenciaMouseClicked
-
-    private void jTabelaOcorrenciaPortariaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaOcorrenciaPortariaMouseClicked
-        // TODO add your handling code here:
-        flag = 1;
-        if (flag == 1) {
-            String IdLanc = "" + jTabelaOcorrenciaPortaria.getValueAt(jTabelaOcorrenciaPortaria.getSelectedRow(), 0);
-            jCodigo.setText(IdLanc);
-            if (jStatusOcorrencia.getText().equals("FINALIZADO")) {
-                jDataOcorrencia.setEnabled(!true);
-                jTituloOcorrencia.setEnabled(!true);
-                jCorpoTextoOcorrencia.setEnabled(!true);
-                //
-                jBtNovo.setEnabled(true);
-                jBtAlterar.setEnabled(!true);
-                jBtExcluir.setEnabled(!true);
-                jBtSalvar.setEnabled(!true);
-                jBtCancelar.setEnabled(!true);
-                jBtFinalizar.setEnabled(!true);
-                jBtAuditoria.setEnabled(true);
-                jBtImpressao.setEnabled(true);
-            } else {
-                jBtNovo.setEnabled(true);
-                jBtAlterar.setEnabled(true);
-                jBtExcluir.setEnabled(true);
-                jBtSalvar.setEnabled(!true);
-                jBtCancelar.setEnabled(!true);
-                jBtFinalizar.setEnabled(true);
-                jBtAuditoria.setEnabled(true);
-                jBtImpressao.setEnabled(true);
-            }
-            conecta.abrirConexao();
-            try {
-                conecta.executaSQL("SELECT * FROM OCORRENCIAS_SERVICO_SOCIAL "
-                        + "WHERE IdLanc ='" + IdLanc + "'");
-                conecta.rs.first();
-                jIdOcorrencia.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
-                jStatusOcorrencia.setText(conecta.rs.getString("StatusLanc"));
-                jDataOcorrencia.setDate(conecta.rs.getDate("DataLanc"));
-                jTituloOcorrencia.setText(conecta.rs.getString("Titulo"));
-                jCorpoTextoOcorrencia.setText(conecta.rs.getString("TextoArea"));
-                conecta.desconecta();
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por DATA " + e);
-            }
-        }
-    }//GEN-LAST:event_jTabelaOcorrenciaPortariaMouseClicked
+    }//GEN-LAST:event_jBtPesqTituloOcorrrenciaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1094,10 +1144,27 @@ public class TelaOcorrenciaServicoSocial extends javax.swing.JInternalFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS "
-                    + "WHERE NomeUsuario='" + nameUser + "'");
+                    + "WHERE USUARIOS.NomeUsuario='" + nameUser + "'");
             conecta.rs.first();
+            codigoUsuario = conecta.rs.getString("IdUsuario");
             nomeUsuario = conecta.rs.getString("NomeUsuario");
             cargoUsuario = conecta.rs.getString("NomeCargo");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void usuariosGrupoAdministradores() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM GRUPOUSUARIOS "
+                    + "INNER JOIN USUARIOS_GRUPOS "
+                    + "ON GRUPOUSUARIOS.IdGrupo=USUARIOS_GRUPOS.IdGrupo "
+                    + "INNER JOIN USUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdUsuario=USUARIOS.IdUsuario "
+                    + "WHERE USUARIOS.NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            nomeGrupo = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
         }
         conecta.desconecta();
