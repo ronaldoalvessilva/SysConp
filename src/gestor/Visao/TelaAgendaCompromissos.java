@@ -14,6 +14,7 @@ import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -830,22 +831,50 @@ public class TelaAgendaCompromissos extends javax.swing.JInternalFrame {
     private void jBtDataPesqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtDataPesqActionPerformed
         // TODO add your handling code here:
         flag = 1;
-        if (jDataPesqInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-            jDataPesqInicial.requestFocus();
-        } else {
-            if (jDataPesqFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                jDataPesqFinal.requestFocus();
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
             } else {
-                if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                if (jDataPesqFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesqFinal.requestFocus();
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
-                    preencherTabelaAgendaCompromisso("SELECT * FROM AGENDA_COMPROMISSOS "
-                            + "WHERE DataAgenda BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'AND UsuarioAgenda='" + nameUser + "'");
+                    if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("YYYY/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
+                        preencherTabelaAgendaCompromisso("SELECT * FROM AGENDA_COMPROMISSOS "
+                                + "WHERE DataAgenda BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "' "
+                                + "AND UsuarioAgenda='" + nameUser + "'");
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
+            } else {
+                if (jDataPesqFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesqFinal.requestFocus();
+                } else {
+                    if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
+                        preencherTabelaAgendaCompromisso("SELECT * FROM AGENDA_COMPROMISSOS "
+                                + "WHERE DataAgenda BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "' "
+                                + "AND UsuarioAgenda='" + nameUser + "'");
+                    }
                 }
             }
         }
@@ -856,7 +885,8 @@ public class TelaAgendaCompromissos extends javax.swing.JInternalFrame {
         count = 0;
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            this.preencherTabelaAgendaCompromisso("SELECT * FROM AGENDA_COMPROMISSOS WHERE UsuarioAgenda='" + nameUser + "'");
+            this.preencherTabelaAgendaCompromisso("SELECT * FROM AGENDA_COMPROMISSOS "
+                    + "WHERE UsuarioAgenda='" + nameUser + "'");
         } else {
             jtotalRegistros.setText("");
             limparTabela();
@@ -874,7 +904,7 @@ public class TelaAgendaCompromissos extends javax.swing.JInternalFrame {
             jBtAlterarComp.setEnabled(true);
             jBtExcluirComp.setEnabled(true);
             jBtSalvarComp.setEnabled(!true);
-            jBtCancelarComp.setEnabled(true);           
+            jBtCancelarComp.setEnabled(true);
             jBtConfirmarCompromisso.setEnabled(true);
             //
             conecta.abrirConexao();
@@ -1345,7 +1375,7 @@ public class TelaAgendaCompromissos extends javax.swing.JInternalFrame {
         jBtAlterarComp.setEnabled(true);
         jBtExcluirComp.setEnabled(true);
         jBtSalvarComp.setEnabled(!true);
-        jBtCancelarComp.setEnabled(!true);        
+        jBtCancelarComp.setEnabled(!true);
         jBtConfirmarCompromisso.setEnabled(!true);
     }
 
