@@ -845,7 +845,7 @@ public class TelaAgendaCompromissos extends javax.swing.JInternalFrame {
                     if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
                         JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
                     } else {
-                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("YYYY/MM/dd");
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
                         dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
                         preencherTabelaAgendaCompromisso("SELECT * FROM AGENDA_COMPROMISSOS "
