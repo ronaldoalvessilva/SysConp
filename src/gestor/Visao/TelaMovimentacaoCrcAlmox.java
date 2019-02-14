@@ -324,8 +324,8 @@ public class TelaMovimentacaoCrcAlmox extends javax.swing.JInternalFrame {
 
     private void jBtPesquisarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarInternoActionPerformed
         // Pesquisar Internos
-        TelaPesquisaMovInterno objTelaMovInt = new TelaPesquisaMovInterno();
-        TelaModuloCRC.jPainelCRC.add(objTelaMovInt);
+        TelaPesquisaMovInternoALM objTelaMovInt = new TelaPesquisaMovInternoALM();
+        TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objTelaMovInt);
         objTelaMovInt.show();
     }//GEN-LAST:event_jBtPesquisarInternoActionPerformed
 
