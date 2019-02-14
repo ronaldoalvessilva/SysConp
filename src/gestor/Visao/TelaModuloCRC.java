@@ -3566,7 +3566,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         convertedata.converter(jDataSistema.getText());
         // SERVIDOR LINUX (UBUNTU)
         if (tipoServidor == null || tipoServidor.equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor (UBUNTU-LINUX ou WINDOWS SERVER).");
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
         } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
             conecta.abrirConexao();
             try {
@@ -3682,7 +3682,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     public void buscarEvadidoSaidaTemporaria() {
         convertedata.converter(jDataSistema.getText());
         if (tipoServidor == null || tipoServidor.equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor (UBUNTU-LINUX ou WINDOWS SERVER).");
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
         } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
             conecta.abrirConexao();
             try {
@@ -3844,7 +3844,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         buscarUsuario(nameUser);
         convertedata.converter(jDataSistema.getText());
         if (tipoServidor == null || tipoServidor.equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor (UBUNTU-LINUX ou WINDOWS SERVER).");
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
         } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
             conecta.abrirConexao();
             try {
@@ -4029,7 +4029,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     public void verificarRetornoInternos() {
         convertedata.converter(jDataSistema.getText());
         if (tipoServidor == null || tipoServidor.equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor (UBUNTU-LINUX ou WINDOWS SERVER).");
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
         } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
             conecta.abrirConexao();
             try {
