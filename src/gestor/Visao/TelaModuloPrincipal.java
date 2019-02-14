@@ -76,7 +76,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
     public static String parametroTransferenciaBpa;
     public static String parametroPavilhaoBpa;
     //
-//seuFrame.setTitle("Novo Título");
+    public static String tipoServidor = "";
+    public static String tipoBancoDados = "";
+    //
+    //seuFrame.setTitle("Novo Título");
     // Capturar data e hora do sistema
     //  clsDataHora objDataHora = new clsDataHora();
     SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss"); // HORAIO DE 24 HORAS, PARA O DE 12 HORAS UTILIZAR hh:mm:ss
@@ -129,7 +132,9 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         userConectado.setHostName(hostName);
         userConectado.setStatusFlag(statusFlag);
         control.incluirHostName(userConectado);
-        //     
+        // VERIFICAR PARAMETRO PARA SABER SE O OS É LINUX(UBUNTU) OU WINDOWS.     
+        verificarParametrosSRV();
+        //
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); //Impedir que a janela seja fechada pelo X    
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent e) {
@@ -766,10 +771,6 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 .addComponent(jNomeUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanielPrincipal.setLayer(jToolBar5, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jPanielPrincipal.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jPanielPrincipal.setLayer(jPanel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
         javax.swing.GroupLayout jPanielPrincipalLayout = new javax.swing.GroupLayout(jPanielPrincipal);
         jPanielPrincipal.setLayout(jPanielPrincipalLayout);
         jPanielPrincipalLayout.setHorizontalGroup(
@@ -792,6 +793,9 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE))
         );
+        jPanielPrincipal.setLayer(jToolBar5, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jPanielPrincipal.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jPanielPrincipal.setLayer(jPanel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 255));
 
@@ -7380,6 +7384,19 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         } else {
             PavilhaoCelaBpa.setEnabled(true);
         }
+    }
+
+    // PARAMETRO PARA IDENTIFICAR O OS DO SERVIDOR DE BANCO DE DADOS.
+    public void verificarParametrosSRV() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM PARAMETROSCRC");
+            conecta.rs.first();
+            tipoServidor = conecta.rs.getString("TipoServidor");
+            tipoBancoDados = conecta.rs.getString("TipoBancoDados");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 //    public void copyDirectory(File srcPath, File dstPath) throws IOException {
 //

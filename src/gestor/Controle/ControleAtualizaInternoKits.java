@@ -24,7 +24,7 @@ public class ControleAtualizaInternoKits {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE PRONTUARIOSCRC SET KitInicial=? WHERE IdInternoCrc='" + objProCrc.getIdInterno() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE MOVIMENTACAO_KITS_HIGIENE_INTERNOS SET KitInicial=? WHERE IdInternoCrc='" + objProCrc.getIdInterno() + "'");
             pst.setString(1, objProCrc.getKitInicial());
             pst.executeUpdate();
         } catch (SQLException ex) {
@@ -38,7 +38,7 @@ public class ControleAtualizaInternoKits {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE PRONTUARIOSCRC SET KitDecendial=? WHERE IdInternoCrc='" + objProCrc.getIdInterno() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE MOVIMENTACAO_KITS_HIGIENE_INTERNOS SET KitDecendial=? WHERE IdInternoCrc='" + objProCrc.getIdInterno() + "'");
             pst.setString(1, objProCrc.getKitDecendial());
             pst.executeUpdate();
         } catch (SQLException ex) {
@@ -52,7 +52,7 @@ public class ControleAtualizaInternoKits {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE PRONTUARIOSCRC SET KitQuinzenal=? WHERE IdInternoCrc='" + objProCrc.getIdInterno() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE MOVIMENTACAO_KITS_HIGIENE_INTERNOS SET KitQuinzenal=? WHERE IdInternoCrc='" + objProCrc.getIdInterno() + "'");
             pst.setString(1, objProCrc.getKitQuinzenal());
             pst.executeUpdate();
         } catch (SQLException ex) {
@@ -66,7 +66,7 @@ public class ControleAtualizaInternoKits {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE PRONTUARIOSCRC SET KitMensal=? WHERE IdInternoCrc='" + objProCrc.getIdInterno() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE MOVIMENTACAO_KITS_HIGIENE_INTERNOS SET KitMensal=? WHERE IdInternoCrc='" + objProCrc.getIdInterno() + "'");
             pst.setString(1, objProCrc.getKitMensal());
             pst.executeUpdate();
         } catch (SQLException ex) {
@@ -80,7 +80,7 @@ public class ControleAtualizaInternoKits {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE PRONTUARIOSCRC SET KitInicial=? WHERE IdInternoCrc='" + objProCrc.getIdInterno() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE MOVIMENTACAO_KITS_HIGIENE_INTERNOS SET KitInicial=? WHERE IdInternoCrc='" + objProCrc.getIdInterno() + "'");
             pst.setString(1, objProCrc.getKitSemestral());
             pst.executeUpdate();
         } catch (SQLException ex) {
@@ -94,7 +94,7 @@ public class ControleAtualizaInternoKits {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE PRONTUARIOSCRC SET KitInicial=? WHERE IdInternoCrc='" + objProCrc.getIdInterno() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE MOVIMENTACAO_KITS_HIGIENE_INTERNOS SET KitInicial=? WHERE IdInternoCrc='" + objProCrc.getIdInterno() + "'");
             pst.setString(1, objProCrc.getKitAnual());
             pst.executeUpdate();
         } catch (SQLException ex) {

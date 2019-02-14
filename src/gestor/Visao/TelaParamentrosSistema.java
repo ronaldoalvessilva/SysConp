@@ -13,6 +13,8 @@ import gestor.Modelo.ParametrosCrc;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoBancoDados;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -1523,7 +1525,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jLabel63.setToolTipText("");
 
         jComboBoxTipoServidor.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxTipoServidor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Servidor Linux (Ubuntu)/ MS-SQL Server", "Servidor Windows/ MS-SQL Server" }));
+        jComboBoxTipoServidor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Servidor Linux (Ubuntu)/MS-SQL Server", "Servidor Windows/MS-SQL Server" }));
         jComboBoxTipoServidor.setToolTipText("Tipo de Servidor de Banco de Dados (Linux/Windows)");
         jComboBoxTipoServidor.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
         jComboBoxTipoServidor.setEnabled(false);
@@ -2364,12 +2366,15 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         objParCrc.setTipoServidor((String) jComboBoxTipoServidor.getSelectedItem());
         objParCrc.setTipoBanco((String) jComboBoxTipoBancoDados.getSelectedItem());
         if (jNomeUsuarioParametros.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do Usuario Autorizado");
-        } else {
+            JOptionPane.showMessageDialog(rootPane, "Informe o nome do Usuario Autorizado.");
+        } else if(jDataVersao.getDate() == null && !jNumeroVersao.getText().equals("")){
+            JOptionPane.showMessageDialog(rootPane, "É necessário preencher a data da versão.");
+        }else{    
             control.alterarParametrosCrc(objParCrc);
             objLog();
             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
             Salvar();
+            verificarParametrosSRV();
             JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
@@ -3197,6 +3202,19 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 jComboBoxPesquisaColaQUI.addItem(conecta.rs.getString("NomeFunc"));
             } while (conecta.rs.next());
         } catch (SQLException ex) {
+        }
+        conecta.desconecta();
+    }
+
+    // PARAMETRO PARA IDENTIFICAR O OS DO SERVIDOR DE BANCO DE DADOS.
+    public void verificarParametrosSRV() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM PARAMETROSCRC");
+            conecta.rs.first();
+            tipoServidor = conecta.rs.getString("TipoServidor");
+            tipoBancoDados = conecta.rs.getString("TipoBancoDados");
+        } catch (Exception e) {
         }
         conecta.desconecta();
     }
