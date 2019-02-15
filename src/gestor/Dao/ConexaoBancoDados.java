@@ -34,13 +34,13 @@ public class ConexaoBancoDados {
     private final String user = "sa"; // usuario do banco de dados     
     private final String password = "W@e3R4#14"; // Senha do banco de dados
     public Connection con; // Responsavel por conectar no banco de dados
-    public  static String Computer = ""; //SISTEMA OPERACIONAL DO COMPUTADOR
+    public static String Computer = ""; //SISTEMA OPERACIONAL DO COMPUTADOR
 
     public void abrirConexao() { // Metodo resposavel por realizar conexão com o banco de dados
 
         try { // Bloco lógico de tratamento de erros
             System.setProperty("jdbc.Driveres", driver); // Seta propriedade do drive de conexão
-            con = DriverManager.getConnection(url, user, password); //Realiza a conexão com o banco de dados                        
+            con = DriverManager.getConnection(url, user, password); //Realiza a conexão com o banco de dados       
         } catch (SQLException ex) { // Excessão de erro na variável (ex)
             JOptionPane.showMessageDialog(null, "Não foi possivel conectar com o banco de dados...\n  " + ex.getMessage());
         }
@@ -49,9 +49,9 @@ public class ConexaoBancoDados {
     public void executaSQL(String SQL) {
         try {
             stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            rs = stmt.executeQuery(SQL);
+            rs = stmt.executeQuery(SQL);            
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro na execução do executaSQL\n\n\n" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro na execução do executaSQL.\n\n\n" + ex.getMessage());
             Logger.getLogger(ConexaoBancoDados.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

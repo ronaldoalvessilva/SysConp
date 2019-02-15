@@ -31,7 +31,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
-  
+
 /**
  *
  * @author user
@@ -113,7 +113,6 @@ public class TelaModuloCompras extends javax.swing.JInternalFrame {
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/BrasaoFundo500Prata2.png"))); // NOI18N
-        jLabel1.setText("jLabel1");
 
         jPainelCompras.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -537,7 +536,7 @@ public class TelaModuloCompras extends javax.swing.JInternalFrame {
         try {
             objCotacao.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {
-        }        
+        }
     }//GEN-LAST:event_CotacaoComprasMateriaisActionPerformed
 
     private void PedidoCompraMateriaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PedidoCompraMateriaisActionPerformed
@@ -579,7 +578,7 @@ public class TelaModuloCompras extends javax.swing.JInternalFrame {
 
     private void ConsultaSolicitacaoComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultaSolicitacaoComprasActionPerformed
         // TODO add your handling code here:
-         if (objConsultaSoli == null || objConsultaSoli.isClosed()) {
+        if (objConsultaSoli == null || objConsultaSoli.isClosed()) {
             objConsultaSoli = new TelaConsutaSolicitacaoComprasCotacao();
             jPainelCompras.add(objConsultaSoli);
             objConsultaSoli.setVisible(true);
@@ -650,9 +649,8 @@ public class TelaModuloCompras extends javax.swing.JInternalFrame {
             }
         }, periodo, tempo);
     }
-   
-// Calculadora do Windows
 
+// Calculadora do Windows
     public void CalcWindows() {
         try {
             Runtime.getRuntime().exec("cmd.exe /c start calc.exe");
@@ -665,7 +663,9 @@ public class TelaModuloCompras extends javax.swing.JInternalFrame {
         buscarUsuario(nameUser);
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM AGENDARECADOS WHERE IdUsuario='" + codUsuario + "'AND StatusAgenda='" + statusAgenda + "'");
+            conecta.executaSQL("SELECT * FROM AGENDARECADOS "
+                    + "WHERE IdUsuario='" + codUsuario + "' "
+                    + "AND StatusAgenda='" + statusAgenda + "'");
             conecta.rs.first();
             if (codUsuario == conecta.rs.getInt("IdUsuario")) {
                 TelaRecadosCompras objRecados = new TelaRecadosCompras();
@@ -675,7 +675,8 @@ public class TelaModuloCompras extends javax.swing.JInternalFrame {
                 preencherTabelaTodosRecados("SELECT * FROM AGENDARECADOS "
                         + "INNER JOIN USUARIOS "
                         + "ON AGENDARECADOS.IdUsuario=USUARIOS.IdUsuario "
-                        + "WHERE NomeUsuario='" + nameUser + "'AND StatusAgenda='" + statusAgenda + "'");
+                        + "WHERE NomeUsuario='" + nameUser + "' "
+                        + "AND StatusAgenda='" + statusAgenda + "'");
                 if (flag == 1) {
                     jBtNovo.setEnabled(true);
                     jBtAlterar.setEnabled(true);
@@ -689,7 +690,8 @@ public class TelaModuloCompras extends javax.swing.JInternalFrame {
                         conecta.executaSQL("SELECT * FROM AGENDARECADOS "
                                 + "INNER JOIN USUARIOS "
                                 + "ON AGENDARECADOS.IdUsuario=USUARIOS.IdUsuario "
-                                + "WHERE NomeUsuario='" + nameUser + "'AND StatusAgenda='" + statusAgenda + "'");
+                                + "WHERE NomeUsuario='" + nameUser + "' "
+                                + "AND StatusAgenda='" + statusAgenda + "'");
                         conecta.rs.last();
                         jIDLanc.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
                         jDataLanc.setDate(conecta.rs.getDate("DataLanc"));
@@ -713,7 +715,8 @@ public class TelaModuloCompras extends javax.swing.JInternalFrame {
     public void buscarUsuario(String nomeUser) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM USUARIOS WHERE NomeUsuario='" + nomeUser + "'");
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nomeUser + "'");
             conecta.rs.first();
             codUsuario = conecta.rs.getInt("IdUsuario");
         } catch (SQLException ex) {

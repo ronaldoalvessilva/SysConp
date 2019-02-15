@@ -75,7 +75,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
     public static String parametroTransferenciaBpa;
     public static String parametroPavilhaoBpa;
     //
-//seuFrame.setTitle("Novo Título");
+    public static String tipoServidor = "";
+    public static String tipoBancoDados = "";
+    //
+    //seuFrame.setTitle("Novo Título");
     // Capturar data e hora do sistema
     //  clsDataHora objDataHora = new clsDataHora();
     SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss"); // HORAIO DE 24 HORAS, PARA O DE 12 HORAS UTILIZAR hh:mm:ss
@@ -100,7 +103,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         // NOME DA UNIDADE ONDE O SISTEMA ESTA ATUANDO, IRÁ PARA OS RELATÓRIOS TAMBÉM.
         jNomeUnidade.setText(descricaoUnidade);
         // SISTEMA OPERACIONAL DO COMPUTADOR
-        jLabel6.setText(Computer);
+        jLabel5.setText(Computer);
         //Informa ususario logado no sistema (Nome)
         jLoginConectado.setText(nameUser);
         setExtendedState(MAXIMIZED_BOTH); // Maximnizar a tela prinicpal
@@ -128,7 +131,9 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         userConectado.setHostName(hostName);
         userConectado.setStatusFlag(statusFlag);
         control.incluirHostName(userConectado);
-        //     
+        // VERIFICAR PARAMETRO PARA SABER SE O OS É LINUX(UBUNTU) OU WINDOWS.     
+        verificarParametrosSRV();
+        //
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); //Impedir que a janela seja fechada pelo X    
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent e) {
@@ -246,7 +251,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jSeparator9 = new javax.swing.JToolBar.Separator();
         jLoginConectado = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jToolBar6 = new javax.swing.JToolBar();
@@ -841,9 +846,9 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("OS:");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("jLabel6");
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("jLabel6");
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -892,7 +897,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 .addGap(3, 3, 3)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
                 .addComponent(jLabel9)
                 .addGap(6, 6, 6)
@@ -922,7 +927,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                         .addGap(3, 3, 3)
                         .addGroup(jPanelRodapeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(jLabel8)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanelRodapeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -7204,7 +7209,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -7396,6 +7401,19 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         } else {
             PavilhaoCelaBpa.setEnabled(true);
         }
+    }
+
+    // PARAMETRO PARA IDENTIFICAR O OS DO SERVIDOR DE BANCO DE DADOS.
+    public void verificarParametrosSRV() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM PARAMETROSCRC");
+            conecta.rs.first();
+            tipoServidor = conecta.rs.getString("TipoServidor");
+            tipoBancoDados = conecta.rs.getString("TipoBancoDados");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 //    public void copyDirectory(File srcPath, File dstPath) throws IOException {
 //

@@ -33,6 +33,7 @@ import static gestor.Visao.TelaModuloAlmoxarifado.telaMovimentacaoRequisiacaoAvu
 import static gestor.Visao.TelaModuloAlmoxarifado.telaMovimentacaoRequisiacaoAvulsaManuAL;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -1373,7 +1374,8 @@ public class TelaRequisicaoAvulsaAC extends javax.swing.JInternalFrame {
                         + "INNER JOIN LOTE_PRODUTOS_AC "
                         + "ON PRODUTOS_AC.IdProd=LOTE_PRODUTOS_AC.IdProd "
                         + "WHERE ITENS_REQUISICAO_AVULSA_PRODUTOS.IdReq='" + jCodReq.getText() + "'AND "
-                        + "PRODUTOS_AC.DescricaoProd='" + jDescricaoProduto.getText() + "'AND ITENS_REQUISICAO_AVULSA_PRODUTOS.IdItem='" + idItem + "'");
+                        + "PRODUTOS_AC.DescricaoProd='" + jDescricaoProduto.getText() + "' "
+                        + "AND ITENS_REQUISICAO_AVULSA_PRODUTOS.IdItem='" + idItem + "'");
                 conecta.rs.first();
                 jCodProduto.setText(conecta.rs.getString("IdProd"));
                 jDescricaoProduto.setText(conecta.rs.getString("DescricaoProd"));
@@ -1421,24 +1423,52 @@ public class TelaRequisicaoAvulsaAC extends javax.swing.JInternalFrame {
     private void jBtPesqDatasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDatasActionPerformed
         // TODO add your handling code here:
         flag = 1;
-        if (jDataPesqInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-            jDataPesqInicial.requestFocus();
-        } else {
-            if (jDataPesFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                jDataPesFinal.requestFocus();
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
             } else {
-                if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                if (jDataPesFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesFinal.requestFocus();
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                    pesquisarRequisicaoMateriais("SELECT * FROM REQUISICAO_AVULSA_PRODUTOS "
-                            + "INNER JOIN COLABORADOR "
-                            + "ON REQUISICAO_AVULSA_PRODUTOS.IdFunc=COLABORADOR.IdFunc "
-                            + "WHERE DataReq BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                        pesquisarRequisicaoMateriais("SELECT * FROM REQUISICAO_AVULSA_PRODUTOS "
+                                + "INNER JOIN COLABORADOR "
+                                + "ON REQUISICAO_AVULSA_PRODUTOS.IdFunc=COLABORADOR.IdFunc "
+                                + "WHERE DataReq BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "'");
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
+            } else {
+                if (jDataPesFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesFinal.requestFocus();
+                } else {
+                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                        pesquisarRequisicaoMateriais("SELECT * FROM REQUISICAO_AVULSA_PRODUTOS "
+                                + "INNER JOIN COLABORADOR "
+                                + "ON REQUISICAO_AVULSA_PRODUTOS.IdFunc=COLABORADOR.IdFunc "
+                                + "WHERE DataReq BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "'");
+                    }
                 }
             }
         }

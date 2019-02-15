@@ -136,18 +136,22 @@ public final class TelaConsultaPopulacaoAdm extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setTitle("...::: Consulta Cadastro de  População :::...");
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "População Carceraria", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "População Carceraria", 0, 0, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel13.setText("Agentes Masculino:");
 
-        jPopAgenteMasc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPopAgenteMasc.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jPopAgenteMasc.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jPopAgenteMasc.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jPopAgenteMasc.setEnabled(false);
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel24.setText("Agentes Feminino:");
 
-        jPopAgenteFem.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPopAgenteFem.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jPopAgenteFem.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jPopAgenteFem.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jPopAgenteFem.setEnabled(false);
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
@@ -198,7 +202,7 @@ public final class TelaConsultaPopulacaoAdm extends javax.swing.JInternalFrame {
 
         jPanel6Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPopAgenteFem, jPopAgenteMasc});
 
-        jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Totais da População", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
+        jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Totais da População", 0, 0, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
 
         jLabel25.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel25.setText("Total Geral Internos:");
@@ -206,7 +210,9 @@ public final class TelaConsultaPopulacaoAdm extends javax.swing.JInternalFrame {
         jLabel26.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel26.setText("Total Geral Agentes:");
 
-        jTotalGeralPopInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTotalGeralPopInternos.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTotalGeralPopInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jTotalGeralPopInternos.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jTotalGeralPopInternos.setEnabled(false);
         jTotalGeralPopInternos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -219,7 +225,9 @@ public final class TelaConsultaPopulacaoAdm extends javax.swing.JInternalFrame {
             }
         });
 
-        jTotalGeralAgentes.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTotalGeralAgentes.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTotalGeralAgentes.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jTotalGeralAgentes.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jTotalGeralAgentes.setEnabled(false);
         jTotalGeralAgentes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -255,13 +263,15 @@ public final class TelaConsultaPopulacaoAdm extends javax.swing.JInternalFrame {
                 .addGap(0, 8, Short.MAX_VALUE))
         );
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados População", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados População", 0, 0, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
 
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Estrangeiros", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(0), "Estrangeiros", 0, 0, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
 
-        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Homens", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 0, 51))); // NOI18N
+        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(0), "Homens", 0, 0, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 0, 51))); // NOI18N
 
-        jEstraHomeSemi.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jEstraHomeSemi.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jEstraHomeSemi.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jEstraHomeSemi.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jEstraHomeSemi.setEnabled(false);
         jEstraHomeSemi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -269,7 +279,9 @@ public final class TelaConsultaPopulacaoAdm extends javax.swing.JInternalFrame {
             }
         });
 
-        jEstaHomeAberto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jEstaHomeAberto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jEstaHomeAberto.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jEstaHomeAberto.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jEstaHomeAberto.setEnabled(false);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -278,10 +290,14 @@ public final class TelaConsultaPopulacaoAdm extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Total Homens:");
 
-        jEstranHomeFechado.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jEstranHomeFechado.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jEstranHomeFechado.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jEstranHomeFechado.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jEstranHomeFechado.setEnabled(false);
 
-        jEstranTotalHomem.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jEstranTotalHomem.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jEstranTotalHomem.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jEstranTotalHomem.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jEstranTotalHomem.setEnabled(false);
         jEstranTotalHomem.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -292,7 +308,9 @@ public final class TelaConsultaPopulacaoAdm extends javax.swing.JInternalFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel8.setText("Provisório:");
 
-        jEstranHomeProvisorio.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jEstranHomeProvisorio.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jEstranHomeProvisorio.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jEstranHomeProvisorio.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jEstranHomeProvisorio.setEnabled(false);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -347,12 +365,16 @@ public final class TelaConsultaPopulacaoAdm extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Mulheres", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 0, 0))); // NOI18N
+        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(0), "Mulheres", 0, 0, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 0, 0))); // NOI18N
 
-        jEstranMulherFechado.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jEstranMulherFechado.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jEstranMulherFechado.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jEstranMulherFechado.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jEstranMulherFechado.setEnabled(false);
 
-        jTotalEstranMulheres.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTotalEstranMulheres.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTotalEstranMulheres.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jTotalEstranMulheres.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jTotalEstranMulheres.setEnabled(false);
         jTotalEstranMulheres.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -363,7 +385,9 @@ public final class TelaConsultaPopulacaoAdm extends javax.swing.JInternalFrame {
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel18.setText("Provisório:");
 
-        jEstranMulherProvisorio.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jEstranMulherProvisorio.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jEstranMulherProvisorio.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jEstranMulherProvisorio.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jEstranMulherProvisorio.setEnabled(false);
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -372,7 +396,9 @@ public final class TelaConsultaPopulacaoAdm extends javax.swing.JInternalFrame {
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel15.setText("Aberto:");
 
-        jEstranMulherSemi.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jEstranMulherSemi.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jEstranMulherSemi.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jEstranMulherSemi.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jEstranMulherSemi.setEnabled(false);
         jEstranMulherSemi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -380,7 +406,9 @@ public final class TelaConsultaPopulacaoAdm extends javax.swing.JInternalFrame {
             }
         });
 
-        jEstranMulherAberto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jEstranMulherAberto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jEstranMulherAberto.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jEstranMulherAberto.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jEstranMulherAberto.setEnabled(false);
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -455,14 +483,16 @@ public final class TelaConsultaPopulacaoAdm extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Brasileiros", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(0), "Brasileiros", 0, 0, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
 
-        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Homens", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 0, 51))); // NOI18N
+        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(0), "Homens", 0, 0, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 0, 51))); // NOI18N
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel7.setText("Fechado:");
 
-        jBrasHomenFechado.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jBrasHomenFechado.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jBrasHomenFechado.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jBrasHomenFechado.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jBrasHomenFechado.setEnabled(false);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -471,7 +501,9 @@ public final class TelaConsultaPopulacaoAdm extends javax.swing.JInternalFrame {
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel9.setText("Provisório:");
 
-        jTotalBrasHomens.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTotalBrasHomens.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTotalBrasHomens.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jTotalBrasHomens.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jTotalBrasHomens.setEnabled(false);
         jTotalBrasHomens.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -479,7 +511,9 @@ public final class TelaConsultaPopulacaoAdm extends javax.swing.JInternalFrame {
             }
         });
 
-        jBrasHomenProvisorio.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jBrasHomenProvisorio.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jBrasHomenProvisorio.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jBrasHomenProvisorio.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jBrasHomenProvisorio.setEnabled(false);
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -488,10 +522,14 @@ public final class TelaConsultaPopulacaoAdm extends javax.swing.JInternalFrame {
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel12.setText("Aberto:");
 
-        jBrasHomenSemi.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jBrasHomenSemi.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jBrasHomenSemi.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jBrasHomenSemi.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jBrasHomenSemi.setEnabled(false);
 
-        jBrasHomenAberto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jBrasHomenAberto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jBrasHomenAberto.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jBrasHomenAberto.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jBrasHomenAberto.setEnabled(false);
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
@@ -544,12 +582,14 @@ public final class TelaConsultaPopulacaoAdm extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Mulheres", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 0, 51))); // NOI18N
+        jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(0), "Mulheres", 0, 0, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 0, 51))); // NOI18N
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel19.setText("Fechado:");
 
-        jBrasMulheresFechado.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jBrasMulheresFechado.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jBrasMulheresFechado.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jBrasMulheresFechado.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jBrasMulheresFechado.setEnabled(false);
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -558,7 +598,9 @@ public final class TelaConsultaPopulacaoAdm extends javax.swing.JInternalFrame {
         jLabel21.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel21.setText("Provisório:");
 
-        jBrasMulheresTotal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jBrasMulheresTotal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jBrasMulheresTotal.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jBrasMulheresTotal.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jBrasMulheresTotal.setEnabled(false);
         jBrasMulheresTotal.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -566,7 +608,9 @@ public final class TelaConsultaPopulacaoAdm extends javax.swing.JInternalFrame {
             }
         });
 
-        jBrasMulheresProvisorio.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jBrasMulheresProvisorio.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jBrasMulheresProvisorio.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jBrasMulheresProvisorio.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jBrasMulheresProvisorio.setEnabled(false);
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -575,10 +619,14 @@ public final class TelaConsultaPopulacaoAdm extends javax.swing.JInternalFrame {
         jLabel23.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel23.setText("Aberto:");
 
-        jBrasMulheresSemi.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jBrasMulheresSemi.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jBrasMulheresSemi.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jBrasMulheresSemi.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jBrasMulheresSemi.setEnabled(false);
 
-        jBrasMulheresAberto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jBrasMulheresAberto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jBrasMulheresAberto.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jBrasMulheresAberto.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jBrasMulheresAberto.setEnabled(false);
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
@@ -673,18 +721,20 @@ public final class TelaConsultaPopulacaoAdm extends javax.swing.JInternalFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        jPanel13.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel13.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setText("ID:");
 
-        jIdPop.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jIdPop.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jIdPop.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jIdPop.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jIdPop.setEnabled(false);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Data:");
 
-        jDataPop.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDataPop.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
         jDataPop.setEnabled(false);
 
         jLabel27.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -692,7 +742,8 @@ public final class TelaConsultaPopulacaoAdm extends javax.swing.JInternalFrame {
 
         jStatusPop.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jStatusPop.setForeground(new java.awt.Color(255, 0, 0));
-        jStatusPop.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jStatusPop.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jStatusPop.setDisabledTextColor(new java.awt.Color(204, 0, 0));
         jStatusPop.setEnabled(false);
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
@@ -747,10 +798,8 @@ public final class TelaConsultaPopulacaoAdm extends javax.swing.JInternalFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        jBtPesquisa.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jBtPesquisa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtPesquisa.setText("Pesquisa");
-        jBtPesquisa.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jBtPesquisa.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtPesquisa.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jBtPesquisa.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -762,7 +811,6 @@ public final class TelaConsultaPopulacaoAdm extends javax.swing.JInternalFrame {
 
         jBtSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Log_Out_Icon_16.png"))); // NOI18N
         jBtSair.setText("Sair");
-        jBtSair.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jBtSair.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtSair.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jBtSair.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -777,13 +825,13 @@ public final class TelaConsultaPopulacaoAdm extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jBtPesquisa)
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jBtSair)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtPesquisa, jBtSair});
@@ -805,17 +853,18 @@ public final class TelaConsultaPopulacaoAdm extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(59, 59, 59))
         );
         layout.setVerticalGroup(
@@ -836,7 +885,7 @@ public final class TelaConsultaPopulacaoAdm extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        setBounds(250, 15, 556, 569);
+        setBounds(250, 15, 592, 569);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jEstranMulherSemiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEstranMulherSemiActionPerformed
@@ -1027,6 +1076,7 @@ public final class TelaConsultaPopulacaoAdm extends javax.swing.JInternalFrame {
     public void corCampo() {
         //População de Estrangeiros Masculino
         jIdPop.setBackground(Color.WHITE);
+        jStatusPop.setBackground(Color.WHITE);
         jDataPop.setBackground(Color.WHITE);
         jEstranHomeFechado.setBackground(Color.WHITE);
         jEstraHomeSemi.setBackground(Color.WHITE);

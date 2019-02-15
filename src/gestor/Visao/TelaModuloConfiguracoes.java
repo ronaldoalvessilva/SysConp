@@ -599,14 +599,20 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         buscarUsuario(nameUser);
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM AGENDARECADOS WHERE IdUsuario='" + codUsuario + "'AND StatusAgenda='" + statusAgenda + "'");
+            conecta.executaSQL("SELECT * FROM AGENDARECADOS "
+                    + "WHERE IdUsuario='" + codUsuario + "' "
+                    + "AND StatusAgenda='" + statusAgenda + "'");
             conecta.rs.first();
             if (codUsuario == conecta.rs.getInt("IdUsuario")) {
                 TelaRecadosAdministrador objRecados = new TelaRecadosAdministrador();
                 TelaModuloConfiguracoes.jPainelConfiguracoes.add(objRecados);
                 objRecados.show();
                 flag = 1;
-                preencherTabelaTodosRecados("SELECT * FROM AGENDARECADOS INNER JOIN USUARIOS ON AGENDARECADOS.IdUsuario=USUARIOS.IdUsuario WHERE NomeUsuario='" + nameUser + "'AND StatusAgenda='" + statusAgenda + "'");
+                preencherTabelaTodosRecados("SELECT * FROM AGENDARECADOS "
+                        + "INNER JOIN USUARIOS "
+                        + "ON AGENDARECADOS.IdUsuario=USUARIOS.IdUsuario "
+                        + "WHERE NomeUsuario='" + nameUser + "' "
+                        + "AND StatusAgenda='" + statusAgenda + "'");
                 if (flag == 1) {
                     jBtNovo.setEnabled(true);
                     jBtAlterar.setEnabled(true);
@@ -617,7 +623,11 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
                     jBtConfirmar.setEnabled(true);
                     conecta.abrirConexao();
                     try {
-                        conecta.executaSQL("SELECT * FROM AGENDARECADOS INNER JOIN USUARIOS ON AGENDARECADOS.IdUsuario=USUARIOS.IdUsuario WHERE NomeUsuario='" + nameUser + "'AND StatusAgenda='" + statusAgenda + "'");
+                        conecta.executaSQL("SELECT * FROM AGENDARECADOS "
+                                + "INNER JOIN USUARIOS "
+                                + "ON AGENDARECADOS.IdUsuario=USUARIOS.IdUsuario "
+                                + "WHERE NomeUsuario='" + nameUser + "' "
+                                + "AND StatusAgenda='" + statusAgenda + "'");
                         conecta.rs.last();
                         jIDLanc.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
                         jDataLanc.setDate(conecta.rs.getDate("DataLanc"));
@@ -641,7 +651,8 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
     public void buscarUsuario(String nomeUser) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM USUARIOS WHERE NomeUsuario='" + nomeUser + "'");
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nomeUser + "'");
             conecta.rs.first();
             codUsuario = conecta.rs.getInt("IdUsuario");
         } catch (SQLException ex) {
@@ -651,7 +662,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
 
     public void preencherTabelaTodosRecados(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{" ID", " Data", " Remetente", " Destinatário"};
+        String[] Colunas = new String[]{"Código", " Data", " Remetente", " Destinatário"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
@@ -682,5 +693,5 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         jTabelaTodosRecados.setAutoResizeMode(jTabelaTodosRecados.AUTO_RESIZE_OFF);
         jTabelaTodosRecados.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         conecta.desconecta();
-    }
+    }    
 }

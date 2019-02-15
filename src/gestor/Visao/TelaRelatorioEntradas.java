@@ -8,6 +8,7 @@ package gestor.Visao;
 import gestor.Dao.ConexaoBancoDados;
 import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
@@ -176,56 +177,115 @@ public class TelaRelatorioEntradas extends javax.swing.JInternalFrame {
 
     private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
         // TODO add your handling code here:
-        if (jDataInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-            jDataInicial.requestFocus();
-        } else {
-            if (jDataFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                jDataFinal.requestFocus();
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDataInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataInicial.requestFocus();
             } else {
-                if (jDataInicial.getDate().after(jDataFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                if (jDataFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataFinal.requestFocus();
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
-                    //
-                    dataNovaEntradaInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
-                    dataNovaEntradaFinal = formatoAmerica.format(jDataInicial.getDate().getTime());
-                    //
-                    try {
-                        conecta.abrirConexao();
-                        // String path = "reports/ListagemGeralInternosLocal.jasper";
-                        String path = "reports/RelatorioEntradaInternosUnidadePenal.jasper";
-                        conecta.executaSQL("SELECT * FROM MOVIMENTOCRC "
-                                + "INNER JOIN PRONTUARIOSCRC "
-                                + "ON MOVIMENTOCRC.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                + "INNER JOIN DADOSFISICOSINTERNOS "
-                                + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
-                                + "INNER JOIN DADOSPENAISINTERNOS "
-                                + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                                + "WHERE NomeOpe LIKE '%" + tipoEntrada + "%' "
-                                + "AND DataMov>='" + dataInicial + "' "
-                                + "AND DataMov<='" + dataFinal + "' "
-                                + "ORDER BY DataMov, PRONTUARIOSCRC.NomeInternoCrc");
-                        HashMap parametros = new HashMap();
-                        parametros.put("dataInicial", dataInicial);
-                        parametros.put("dataFinal", dataFinal);
-                        parametros.put("novaDataEntradaInicial", dataNovaEntradaInicial);
-                        parametros.put("novaDataEntradaFinal", dataNovaEntradaFinal);
-                        parametros.put("nomeUsuario", nameUser);
-                        parametros.put("descricaoUnidade", descricaoUnidade);
-                        JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                        JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                        JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                        jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                        jv.setTitle("Relatório de Entrada de Internos na Unidade Penal");
-                        jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                        jv.toFront(); // Traz o relatorio para frente da aplicação            
-                        conecta.desconecta();
-                    } catch (JRException e) {
-                        JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório.\n\nERRO: " + e);
+                    if (jDataInicial.getDate().after(jDataFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+                        //
+                        dataNovaEntradaInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                        dataNovaEntradaFinal = formatoAmerica.format(jDataInicial.getDate().getTime());
+                        //
+                        try {
+                            conecta.abrirConexao();
+                            // String path = "reports/ListagemGeralInternosLocal.jasper";
+                            String path = "reports/RelatorioEntradaInternosUnidadePenal.jasper";
+                            conecta.executaSQL("SELECT * FROM MOVIMENTOCRC "
+                                    + "INNER JOIN PRONTUARIOSCRC "
+                                    + "ON MOVIMENTOCRC.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                    + "INNER JOIN DADOSFISICOSINTERNOS "
+                                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
+                                    + "INNER JOIN DADOSPENAISINTERNOS "
+                                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                                    + "WHERE NomeOpe LIKE '%" + tipoEntrada + "%' "
+                                    + "AND DataMov>='" + dataInicial + "' "
+                                    + "AND DataMov<='" + dataFinal + "' "
+                                    + "ORDER BY DataMov, PRONTUARIOSCRC.NomeInternoCrc");
+                            HashMap parametros = new HashMap();
+                            parametros.put("dataInicial", dataInicial);
+                            parametros.put("dataFinal", dataFinal);
+                            parametros.put("novaDataEntradaInicial", dataNovaEntradaInicial);
+                            parametros.put("novaDataEntradaFinal", dataNovaEntradaFinal);
+                            parametros.put("nomeUsuario", nameUser);
+                            parametros.put("descricaoUnidade", descricaoUnidade);
+                            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                            jv.setTitle("Relatório de Entrada de Internos na Unidade Penal");
+                            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                            jv.toFront(); // Traz o relatorio para frente da aplicação            
+                            conecta.desconecta();
+                        } catch (JRException e) {
+                            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório.\n\nERRO: " + e);
+                        }
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataInicial.requestFocus();
+            } else {
+                if (jDataFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataFinal.requestFocus();
+                } else {
+                    if (jDataInicial.getDate().after(jDataFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+                        //
+                        dataNovaEntradaInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                        dataNovaEntradaFinal = formatoAmerica.format(jDataInicial.getDate().getTime());
+                        //
+                        try {
+                            conecta.abrirConexao();
+                            // String path = "reports/ListagemGeralInternosLocal.jasper";
+                            String path = "reports/RelatorioEntradaInternosUnidadePenal.jasper";
+                            conecta.executaSQL("SELECT * FROM MOVIMENTOCRC "
+                                    + "INNER JOIN PRONTUARIOSCRC "
+                                    + "ON MOVIMENTOCRC.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                    + "INNER JOIN DADOSFISICOSINTERNOS "
+                                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
+                                    + "INNER JOIN DADOSPENAISINTERNOS "
+                                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                                    + "WHERE NomeOpe LIKE '%" + tipoEntrada + "%' "
+                                    + "AND DataMov>='" + dataInicial + "' "
+                                    + "AND DataMov<='" + dataFinal + "' "
+                                    + "ORDER BY DataMov, PRONTUARIOSCRC.NomeInternoCrc");
+                            HashMap parametros = new HashMap();
+                            parametros.put("dataInicial", dataInicial);
+                            parametros.put("dataFinal", dataFinal);
+                            parametros.put("novaDataEntradaInicial", dataNovaEntradaInicial);
+                            parametros.put("novaDataEntradaFinal", dataNovaEntradaFinal);
+                            parametros.put("nomeUsuario", nameUser);
+                            parametros.put("descricaoUnidade", descricaoUnidade);
+                            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                            jv.setTitle("Relatório de Entrada de Internos na Unidade Penal");
+                            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                            jv.toFront(); // Traz o relatorio para frente da aplicação            
+                            conecta.desconecta();
+                        } catch (JRException e) {
+                            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório.\n\nERRO: " + e);
+                        }
                     }
                 }
             }

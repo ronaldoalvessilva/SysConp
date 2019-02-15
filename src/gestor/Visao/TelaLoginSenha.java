@@ -15,7 +15,11 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.sql.PreparedStatement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -48,6 +52,9 @@ public class TelaLoginSenha extends javax.swing.JDialog {
     String caminhoExecutavel = "";
     String caminhoExecutavelAntigo = "";
     String dataVersao;
+    //
+    public static String hostNameSRV;
+    public static String ipHostSRV;
 
     /**
      * Creates new form TelaLoginSenha
@@ -138,7 +145,7 @@ public class TelaLoginSenha extends javax.swing.JDialog {
                                 }
                             } else {
                                 idUserAcesso = conecta.rs.getString("IdUsuario");
-                                nameUser = conecta.rs.getString("NomeUsuario");
+                                nameUser = conecta.rs.getString("NomeUsuario");                                
                                 TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
                                 tp.setVisible(true);
                                 conecta.desconecta();
@@ -557,6 +564,18 @@ public class TelaLoginSenha extends javax.swing.JDialog {
             Process p = Runtime.getRuntime().exec(caminhoExecutavel);
         } catch (IOException iOException) {
             iOException.printStackTrace();
+        }
+    }
+
+    public void buscarIpNomeSRV() {
+
+        InetAddress myself;
+        try {
+            myself = InetAddress.getLocalHost();
+            ipHostSRV = myself.getHostAddress();
+            hostNameSRV = myself.getHostName();
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(TelaLoginSenha.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

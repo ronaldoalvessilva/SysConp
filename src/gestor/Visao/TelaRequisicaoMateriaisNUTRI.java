@@ -19,6 +19,7 @@ import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -1367,7 +1368,35 @@ public class TelaRequisicaoMateriaisNUTRI extends javax.swing.JInternalFrame {
     private void jBtPesqDatasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDatasActionPerformed
         // TODO add your handling code here:
         flag = 1;
+        if (tipoServidor == null || tipoServidor.equals("")) {
+        JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
         if (jDataPesqInicial.getDate() == null) {
+            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+            jDataPesqInicial.requestFocus();
+        } else {
+            if (jDataPesFinal.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                jDataPesFinal.requestFocus();
+            } else {
+                if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                } else {
+                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                    dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                    dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                    jTabelaRequisicoes.setVisible(true);
+                    pesquisarRequisicaoMateriais("SELECT * FROM REQUISICAO_PRODUTOS_INTERNOS_NUTRI "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON REQUISICAO_PRODUTOS_INTERNOS_NUTRI.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN COLABORADOR "
+                            + "ON REQUISICAO_PRODUTOS_INTERNOS_NUTRI.IdFunc=COLABORADOR.IdFunc "
+                            + "WHERE DataReq BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                }
+            }
+        }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+if (jDataPesqInicial.getDate() == null) {
             JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
             jDataPesqInicial.requestFocus();
         } else {
@@ -1390,7 +1419,8 @@ public class TelaRequisicaoMateriaisNUTRI extends javax.swing.JInternalFrame {
                             + "WHERE DataReq BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
                 }
             }
-        }
+}
+}
     }//GEN-LAST:event_jBtPesqDatasActionPerformed
 
     private void jCheckBoxTodosReqItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxTodosReqItemStateChanged

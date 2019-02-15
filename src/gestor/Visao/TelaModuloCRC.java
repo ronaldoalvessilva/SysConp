@@ -6,6 +6,8 @@
 package gestor.Visao;
 
 import gestor.Controle.ControleTelasSistema;
+import gestor.Controle.converterDataStringDataDate;
+import static gestor.Controle.converterDataStringDataDate.dataSisConvert;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.CadastroTelasSistema;
@@ -53,6 +55,7 @@ import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import static gestor.Visao.TelaVerificacaoRetornoSaidasPortariaCrc.jTabelaEntradaSaidaPortariaCrc;
 import static gestor.Visao.TelaVerificacaoRetornoSaidasPortariaCrc.jtotalRegistrosVerifica;
 import java.beans.PropertyVetoException;
@@ -81,6 +84,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     CadastroTelasSistema objCadastroTela = new CadastroTelasSistema();
     ControleTelasSistema controle = new ControleTelasSistema();
+    converterDataStringDataDate convertedata = new converterDataStringDataDate();
     //
     private TelaRecadosCrc objRecados = null;
     private TelaRetornoInterno objRetorno = null;
@@ -3439,7 +3443,9 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         buscarUsuario(nameUser);
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM AGENDARECADOS WHERE IdUsuario='" + codUsuario + "'AND StatusAgenda='" + statusAgenda + "'");
+            conecta.executaSQL("SELECT * FROM AGENDARECADOS "
+                    + "WHERE IdUsuario='" + codUsuario + "' "
+                    + "AND StatusAgenda='" + statusAgenda + "'");
             conecta.rs.first();
             if (codUsuario == conecta.rs.getInt("IdUsuario")) {
                 // Abrir uma úica tela, funcionando
@@ -3472,7 +3478,8 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
                 preencherTabelaTodosRecados("SELECT * FROM AGENDARECADOS "
                         + "INNER JOIN USUARIOS "
                         + "ON AGENDARECADOS.IdUsuario=USUARIOS.IdUsuario "
-                        + "WHERE NomeUsuario='" + nameUser + "'AND StatusAgenda='" + statusAgenda + "'");
+                        + "WHERE NomeUsuario='" + nameUser + "' "
+                        + "AND StatusAgenda='" + statusAgenda + "'");
                 if (flag == 1) {
                     jBtNovo.setEnabled(true);
                     jBtAlterar.setEnabled(true);
@@ -3486,7 +3493,8 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
                         conecta.executaSQL("SELECT * FROM AGENDARECADOS "
                                 + "INNER JOIN USUARIOS "
                                 + "ON AGENDARECADOS.IdUsuario=USUARIOS.IdUsuario "
-                                + "WHERE NomeUsuario='" + nameUser + "'AND StatusAgenda='" + statusAgenda + "'");
+                                + "WHERE NomeUsuario='" + nameUser + "' "
+                                + "AND StatusAgenda='" + statusAgenda + "'");
                         conecta.rs.last();
                         jIDLanc.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
                         jDataLanc.setDate(conecta.rs.getDate("DataLanc"));
@@ -3509,7 +3517,8 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     public void buscarUsuario(String nomeUser) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM USUARIOS WHERE NomeUsuario='" + nomeUser + "'");
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nomeUser + "'");
             conecta.rs.first();
             codUsuario = conecta.rs.getInt("IdUsuario");
             nomeUsuarioCompromisso = conecta.rs.getString("NomeUsuario");
@@ -3554,25 +3563,52 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     }
 
     public void buscarEvadido() {
-
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM ITENSLABORINTERNO WHERE HorarioEntrada='" + horarioEntrada + "' AND DataSaida!='" + jDataSistema.getText() + "'AND Evadido='" + evadido + "'");
-            conecta.rs.first();
-            dataSaida = conecta.rs.getString("DataSaida");
-            // Formatar a data Saida
-            dataSaida = conecta.rs.getString("DataSaida");
-            String dia = dataSaida.substring(8, 10);
-            String mes = dataSaida.substring(5, 7);
-            String ano = dataSaida.substring(0, 4);
-            dataSaida = dia + "/" + mes + "/" + ano;
-            if (dataSaida == null ? jDataSistema.getText() != null : !dataSaida.equals(jDataSistema.getText())) {
-                TelaAlertaEvadidos objEvas = new TelaAlertaEvadidos();
-                TelaModuloCRC.jPainelCRC.add(objEvas);
-                objEvas.show();
-                preencherTabelaEvadido();
+        convertedata.converter(jDataSistema.getText());
+        // SERVIDOR LINUX (UBUNTU)
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM ITENSLABORINTERNO "
+                        + "WHERE HorarioEntrada='" + horarioEntrada + "' "
+                        + "AND DataSaida!='" + dataSisConvert + "' "
+                        + "AND Evadido='" + evadido + "'");
+                conecta.rs.first();
+                dataSaida = conecta.rs.getString("DataSaida");
+                if (dataSaida == null ? dataSisConvert != null : !dataSaida.equals(dataSisConvert)) {
+                    TelaAlertaEvadidos objEvas = new TelaAlertaEvadidos();
+                    TelaModuloCRC.jPainelCRC.add(objEvas);
+                    objEvas.show();
+                    preencherTabelaEvadido();
+                }
+            } catch (SQLException ex) {
             }
-        } catch (SQLException ex) {
+            //SERVIDOR WIDOWS
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM ITENSLABORINTERNO "
+                        + "WHERE HorarioEntrada='" + horarioEntrada + "' "
+                        + "AND DataSaida!='" + jDataSistema.getText() + "' "
+                        + "AND Evadido='" + evadido + "'");
+                conecta.rs.first();
+                dataSaida = conecta.rs.getString("DataSaida");
+                // Formatar a data Saida
+                dataSaida = conecta.rs.getString("DataSaida");
+                String dia = dataSaida.substring(8, 10);
+                String mes = dataSaida.substring(5, 7);
+                String ano = dataSaida.substring(0, 4);
+                dataSaida = dia + "/" + mes + "/" + ano;
+                if (dataSaida == null ? jDataSistema.getText() != null : !dataSaida.equals(jDataSistema.getText())) {
+                    TelaAlertaEvadidos objEvas = new TelaAlertaEvadidos();
+                    TelaModuloCRC.jPainelCRC.add(objEvas);
+                    objEvas.show();
+                    preencherTabelaEvadido();
+                }
+            } catch (SQLException ex) {
+            }
+            conecta.desconecta();
         }
     }
 
@@ -3584,7 +3620,8 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             conecta.executaSQL("SELECT * FROM ITENSLABORINTERNO "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ITENSLABORINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE Evadido='" + evadido + "' AND HorarioEntrada='" + horarioEntrada + "'");
+                    + "WHERE Evadido='" + evadido + "' "
+                    + "AND HorarioEntrada='" + horarioEntrada + "'");
             conecta.rs.first();
             do {
                 // Formatar a data Saida
@@ -3643,34 +3680,66 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     }
 
     public void buscarEvadidoSaidaTemporaria() {
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM MOVISR WHERE NrDocRetorno='" + NrDocRetorno + "'OR NrDocRetorno='" + NrDocRetornoNull + "'");
-            conecta.rs.first();
-            idLanc = conecta.rs.getString("IdSaida");
-            dataRetorno = conecta.rs.getString("DataRetorno");
-            // Convertendo a data do banco yyyy/MM/dd para dd/MM/yyyy           
-            dataPrevRetorno = conecta.rs.getString("DataPrevRetorno");
-            if (dataPrevRetorno != null) {
-                String dia = dataPrevRetorno.substring(8, 10);
-                String mes = dataPrevRetorno.substring(5, 7);
-                String ano = dataPrevRetorno.substring(0, 4);
-                dataPrevRetorno = dia + "/" + mes + "/" + ano;
-            }
-        } catch (SQLException ex) {
-        }
-        if (dataRetorno == null && dataPrevRetorno != null) {
-            if (dataPrevRetorno.compareTo(jDataSistema.getText()) <= 0) { // Comparando as datas
-                TelaAlertaEvadidosSaidaTemporario objEvadidoSaidaTemp = new TelaAlertaEvadidosSaidaTemporario();
-                TelaModuloCRC.jPainelCRC.add(objEvadidoSaidaTemp);
-                objEvadidoSaidaTemp.show();
-                preencherTabelaEvadidoSaidaTemporaria("SELECT * FROM MOVISR "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON MOVISR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+        convertedata.converter(jDataSistema.getText());
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM MOVISR "
                         + "WHERE NrDocRetorno='" + NrDocRetorno + "' "
-                        + "AND DataPrevRetorno <'" + jDataSistema.getText() + "' "
-                        + "AND DataEvasao='" + dataEvasao + "'");
+                        + "OR NrDocRetorno='" + NrDocRetornoNull + "'");
+                conecta.rs.first();
+                idLanc = conecta.rs.getString("IdSaida");
+                dataRetorno = conecta.rs.getString("DataRetorno");
+            } catch (SQLException ex) {
             }
+            if (dataRetorno == null && dataPrevRetorno != null) {
+                if (dataPrevRetorno.compareTo(dataSisConvert) <= 0) { // Comparando as datas
+                    TelaAlertaEvadidosSaidaTemporario objEvadidoSaidaTemp = new TelaAlertaEvadidosSaidaTemporario();
+                    TelaModuloCRC.jPainelCRC.add(objEvadidoSaidaTemp);
+                    objEvadidoSaidaTemp.show();
+                    preencherTabelaEvadidoSaidaTemporaria("SELECT * FROM MOVISR "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON MOVISR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "WHERE NrDocRetorno='" + NrDocRetorno + "' "
+                            + "AND DataPrevRetorno <'" + dataSisConvert + "' "
+                            + "AND DataEvasao='" + dataEvasao + "'");
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM MOVISR "
+                        + "WHERE NrDocRetorno='" + NrDocRetorno + "' "
+                        + "OR NrDocRetorno='" + NrDocRetornoNull + "'");
+                conecta.rs.first();
+                idLanc = conecta.rs.getString("IdSaida");
+                dataRetorno = conecta.rs.getString("DataRetorno");
+                // Convertendo a data do banco yyyy/MM/dd para dd/MM/yyyy           
+                dataPrevRetorno = conecta.rs.getString("DataPrevRetorno");
+                if (dataPrevRetorno != null) {
+                    String dia = dataPrevRetorno.substring(8, 10);
+                    String mes = dataPrevRetorno.substring(5, 7);
+                    String ano = dataPrevRetorno.substring(0, 4);
+                    dataPrevRetorno = dia + "/" + mes + "/" + ano;
+                }
+            } catch (SQLException ex) {
+            }
+            if (dataRetorno == null && dataPrevRetorno != null) {
+                if (dataPrevRetorno.compareTo(jDataSistema.getText()) <= 0) { // Comparando as datas
+                    TelaAlertaEvadidosSaidaTemporario objEvadidoSaidaTemp = new TelaAlertaEvadidosSaidaTemporario();
+                    TelaModuloCRC.jPainelCRC.add(objEvadidoSaidaTemp);
+                    objEvadidoSaidaTemp.show();
+                    preencherTabelaEvadidoSaidaTemporaria("SELECT * FROM MOVISR "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON MOVISR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "WHERE NrDocRetorno='" + NrDocRetorno + "' "
+                            + "AND DataPrevRetorno <'" + dataSisConvert + "' "
+                            + "AND DataEvasao='" + dataEvasao + "'");
+                }
+            }
+            conecta.desconecta();
         }
     }
 
@@ -3773,67 +3842,135 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
 
     public void verificarAgendaCompromisso() {
         buscarUsuario(nameUser);
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM AGENDA_COMPROMISSOS "
-                    + "WHERE UsuarioAgenda='" + nameUser + "' "
-                    + "AND StatusAgenda='" + statusAgenda + "' "
-                    + "AND DataLembrete='" + jDataSistema.getText() + "' "
-                    + "AND HoraLembrete<='" + jHoraSistema.getText().toString() + "'");
-            conecta.rs.first();
-            horaLembrete = conecta.rs.getString("HoraLembrete");
-            usuarioAgenda = conecta.rs.getString("UsuarioAgenda");
-            codigoAgendaComp = conecta.rs.getString("IdAgenda");
-            //
-            if (nomeUsuarioCompromisso.equals(usuarioAgenda)) {
-                TelaAgendaCompromissos objAgendaComp = new TelaAgendaCompromissos();
-                TelaModuloCRC.jPainelCRC.add(objAgendaComp);
-                objAgendaComp.show();
-                flag = 1;
-                preencherTabelaAgendaCompromisso("SELECT * FROM AGENDA_COMPROMISSOS "
-                        + "WHERE AGENDA_COMPROMISSOS.UsuarioAgenda='" + nameUser + "' "
-                        + "AND AGENDA_COMPROMISSOS.StatusAgenda='" + statusAgenda + "' "
-                        + "AND DataLembrete='" + jDataSistema.getText() + "' "
-                        + "AND HoraLembrete<='" + jHoraSistema.getText().toString() + "' "
-                        + "AND IdAgenda='" + codigoAgendaComp + "'");
-                if (flag == 1) {
-                    jBtNovoComp.setEnabled(true);
-                    jBtAlterarComp.setEnabled(true);
-                    jBtExcluirComp.setEnabled(true);
-                    jBtSalvarComp.setEnabled(!true);
-                    jBtCancelarComp.setEnabled(true);
-                    jBtConfirmarCompromisso.setEnabled(true);
-                    conecta.abrirConexao();
-                    try {
-                        conecta.executaSQL("SELECT * FROM AGENDA_COMPROMISSOS "
-                                + "WHERE AGENDA_COMPROMISSOS.UsuarioAgenda='" + nomeUsuarioCompromisso + "' "
-                                + "AND AGENDA_COMPROMISSOS.StatusAgenda='" + statusAgenda + "' "
-                                + "AND HoraLembrete<='" + jHoraSistema.getText().toString() + "' "
-                                + "AND IdAgenda='" + codigoAgendaComp + "'");
-                        conecta.rs.first();
-                        jCodigoAgendaComp.setText(String.valueOf(conecta.rs.getInt("IdAgenda")));
-                        jComboBoxStatusComp.setSelectedItem(conecta.rs.getString("StatusAgenda"));
-                        jComboBoxTipoEvento.setSelectedItem(conecta.rs.getString("TipoEvento"));
-                        jDataEvento.setDate(conecta.rs.getDate("DataAgenda"));
-                        jAssunto.setText(conecta.rs.getString("Assunto"));
-                        jComboBoxPrioridade.setSelectedItem(conecta.rs.getString("Prioridade"));
-                        jComboBoxConclusao.setSelectedItem(conecta.rs.getString("Conclusao"));
-                        jDataInicio.setDate(conecta.rs.getDate("DataInicio"));
-                        jDataTermino.setDate(conecta.rs.getDate("DataTermino"));
-                        jHoraInicio.setText(conecta.rs.getString("HoraInicio"));
-                        jHoraTermino.setText(conecta.rs.getString("HoraTermino"));
-                        jDataLembrete.setDate(conecta.rs.getDate("DataLembrete"));
-                        jHoraLembrete.setText(conecta.rs.getString("HoraLembrete"));
-                        jTextoEvento.setText(conecta.rs.getString("Texto"));
-                        jNomeUsuarioAgenda.setText(conecta.rs.getString("UsuarioAgenda"));
+        convertedata.converter(jDataSistema.getText());
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM AGENDA_COMPROMISSOS "
+                        + "WHERE UsuarioAgenda='" + nameUser + "' "
+                        + "AND StatusAgenda='" + statusAgenda + "' "
+                        + "AND DataLembrete='" + dataSisConvert + "' "
+                        + "AND HoraLembrete<='" + jHoraSistema.getText().toString() + "'");
+                conecta.rs.first();
+                horaLembrete = conecta.rs.getString("HoraLembrete");
+                usuarioAgenda = conecta.rs.getString("UsuarioAgenda");
+                codigoAgendaComp = conecta.rs.getString("IdAgenda");
+                //
+                if (nomeUsuarioCompromisso.equals(usuarioAgenda)) {
+                    TelaAgendaCompromissos objAgendaComp = new TelaAgendaCompromissos();
+                    TelaModuloCRC.jPainelCRC.add(objAgendaComp);
+                    objAgendaComp.show();
+                    flag = 1;
+                    preencherTabelaAgendaCompromisso("SELECT * FROM AGENDA_COMPROMISSOS "
+                            + "WHERE AGENDA_COMPROMISSOS.UsuarioAgenda='" + nameUser + "' "
+                            + "AND AGENDA_COMPROMISSOS.StatusAgenda='" + statusAgenda + "' "
+                            + "AND DataLembrete='" + dataSisConvert + "' "
+                            + "AND HoraLembrete<='" + jHoraSistema.getText().toString() + "' "
+                            + "AND IdAgenda='" + codigoAgendaComp + "'");
+                    if (flag == 1) {
+                        jBtNovoComp.setEnabled(true);
+                        jBtAlterarComp.setEnabled(true);
+                        jBtExcluirComp.setEnabled(true);
+                        jBtSalvarComp.setEnabled(!true);
+                        jBtCancelarComp.setEnabled(true);
+                        jBtConfirmarCompromisso.setEnabled(true);
+                        conecta.abrirConexao();
+                        try {
+                            conecta.executaSQL("SELECT * FROM AGENDA_COMPROMISSOS "
+                                    + "WHERE AGENDA_COMPROMISSOS.UsuarioAgenda='" + nomeUsuarioCompromisso + "' "
+                                    + "AND AGENDA_COMPROMISSOS.StatusAgenda='" + statusAgenda + "' "
+                                    + "AND HoraLembrete<='" + jHoraSistema.getText().toString() + "' "
+                                    + "AND IdAgenda='" + codigoAgendaComp + "'");
+                            conecta.rs.first();
+                            jCodigoAgendaComp.setText(String.valueOf(conecta.rs.getInt("IdAgenda")));
+                            jComboBoxStatusComp.setSelectedItem(conecta.rs.getString("StatusAgenda"));
+                            jComboBoxTipoEvento.setSelectedItem(conecta.rs.getString("TipoEvento"));
+                            jDataEvento.setDate(conecta.rs.getDate("DataAgenda"));
+                            jAssunto.setText(conecta.rs.getString("Assunto"));
+                            jComboBoxPrioridade.setSelectedItem(conecta.rs.getString("Prioridade"));
+                            jComboBoxConclusao.setSelectedItem(conecta.rs.getString("Conclusao"));
+                            jDataInicio.setDate(conecta.rs.getDate("DataInicio"));
+                            jDataTermino.setDate(conecta.rs.getDate("DataTermino"));
+                            jHoraInicio.setText(conecta.rs.getString("HoraInicio"));
+                            jHoraTermino.setText(conecta.rs.getString("HoraTermino"));
+                            jDataLembrete.setDate(conecta.rs.getDate("DataLembrete"));
+                            jHoraLembrete.setText(conecta.rs.getString("HoraLembrete"));
+                            jTextoEvento.setText(conecta.rs.getString("Texto"));
+                            jNomeUsuarioAgenda.setText(conecta.rs.getString("UsuarioAgenda"));
+                            conecta.desconecta();
+                        } catch (SQLException e) {
+                            JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa dos dados...\nERRO: " + e);
+                        }
                         conecta.desconecta();
-                    } catch (SQLException e) {
-                        JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa dos dados...\nERRO: " + e);
                     }
-                    conecta.desconecta();
                 }
+            } catch (SQLException ex) {
             }
-        } catch (SQLException ex) {
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM AGENDA_COMPROMISSOS "
+                        + "WHERE UsuarioAgenda='" + nameUser + "' "
+                        + "AND StatusAgenda='" + statusAgenda + "' "
+                        + "AND DataLembrete='" + jDataSistema.getText() + "' "
+                        + "AND HoraLembrete<='" + jHoraSistema.getText().toString() + "'");
+                conecta.rs.first();
+                horaLembrete = conecta.rs.getString("HoraLembrete");
+                usuarioAgenda = conecta.rs.getString("UsuarioAgenda");
+                codigoAgendaComp = conecta.rs.getString("IdAgenda");
+                //
+                if (nomeUsuarioCompromisso.equals(usuarioAgenda)) {
+                    TelaAgendaCompromissos objAgendaComp = new TelaAgendaCompromissos();
+                    TelaModuloCRC.jPainelCRC.add(objAgendaComp);
+                    objAgendaComp.show();
+                    flag = 1;
+                    preencherTabelaAgendaCompromisso("SELECT * FROM AGENDA_COMPROMISSOS "
+                            + "WHERE AGENDA_COMPROMISSOS.UsuarioAgenda='" + nameUser + "' "
+                            + "AND AGENDA_COMPROMISSOS.StatusAgenda='" + statusAgenda + "' "
+                            + "AND DataLembrete='" + jDataSistema.getText() + "' "
+                            + "AND HoraLembrete<='" + jHoraSistema.getText().toString() + "' "
+                            + "AND IdAgenda='" + codigoAgendaComp + "'");
+                    if (flag == 1) {
+                        jBtNovoComp.setEnabled(true);
+                        jBtAlterarComp.setEnabled(true);
+                        jBtExcluirComp.setEnabled(true);
+                        jBtSalvarComp.setEnabled(!true);
+                        jBtCancelarComp.setEnabled(true);
+                        jBtConfirmarCompromisso.setEnabled(true);
+                        conecta.abrirConexao();
+                        try {
+                            conecta.executaSQL("SELECT * FROM AGENDA_COMPROMISSOS "
+                                    + "WHERE AGENDA_COMPROMISSOS.UsuarioAgenda='" + nomeUsuarioCompromisso + "' "
+                                    + "AND AGENDA_COMPROMISSOS.StatusAgenda='" + statusAgenda + "' "
+                                    + "AND HoraLembrete<='" + jHoraSistema.getText().toString() + "' "
+                                    + "AND IdAgenda='" + codigoAgendaComp + "'");
+                            conecta.rs.first();
+                            jCodigoAgendaComp.setText(String.valueOf(conecta.rs.getInt("IdAgenda")));
+                            jComboBoxStatusComp.setSelectedItem(conecta.rs.getString("StatusAgenda"));
+                            jComboBoxTipoEvento.setSelectedItem(conecta.rs.getString("TipoEvento"));
+                            jDataEvento.setDate(conecta.rs.getDate("DataAgenda"));
+                            jAssunto.setText(conecta.rs.getString("Assunto"));
+                            jComboBoxPrioridade.setSelectedItem(conecta.rs.getString("Prioridade"));
+                            jComboBoxConclusao.setSelectedItem(conecta.rs.getString("Conclusao"));
+                            jDataInicio.setDate(conecta.rs.getDate("DataInicio"));
+                            jDataTermino.setDate(conecta.rs.getDate("DataTermino"));
+                            jHoraInicio.setText(conecta.rs.getString("HoraInicio"));
+                            jHoraTermino.setText(conecta.rs.getString("HoraTermino"));
+                            jDataLembrete.setDate(conecta.rs.getDate("DataLembrete"));
+                            jHoraLembrete.setText(conecta.rs.getString("HoraLembrete"));
+                            jTextoEvento.setText(conecta.rs.getString("Texto"));
+                            jNomeUsuarioAgenda.setText(conecta.rs.getString("UsuarioAgenda"));
+                            conecta.desconecta();
+                        } catch (SQLException e) {
+                            JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa dos dados...\nERRO: " + e);
+                        }
+                        conecta.desconecta();
+                    }
+                }
+            } catch (SQLException ex) {
+            }
         }
     }
 
@@ -3890,27 +4027,55 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     }
 
     public void verificarRetornoInternos() {
-
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS "
-                    + "WHERE DataEntrada='" + jDataSistema.getText() + "' "
-                    + "AND RetCrc='" + confirmacaoCrc + "' "
-                    + "OR DataEntrada!='" + jDataSistema.getText() + "' "
-                    + "AND RetCrc='" + confirmacaoCrc + "'");
-            conecta.rs.first();
-            dataEntradaV = conecta.rs.getString("DataEntrada");
-            // Formatar a data Saida
-            dataEntradaV = conecta.rs.getString("DataEntrada");
-            String dia = dataEntradaV.substring(8, 10);
-            String mes = dataEntradaV.substring(5, 7);
-            String ano = dataEntradaV.substring(0, 4);
-            dataEntradaV = dia + "/" + mes + "/" + ano;
-            TelaVerificacaoRetornoSaidasPortariaCrc objRetornoInternos = new TelaVerificacaoRetornoSaidasPortariaCrc();
-            TelaModuloCRC.jPainelCRC.add(objRetornoInternos);
-            objRetornoInternos.show();
-            verificarSaidaMedicoAudiencia();
-        } catch (SQLException ex) {
+        convertedata.converter(jDataSistema.getText());
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS "
+                        + "WHERE DataEntrada='" + dataSisConvert + "' "
+                        + "AND RetCrc='" + confirmacaoCrc + "' "
+                        + "OR DataEntrada!='" + dataSisConvert + "' "
+                        + "AND RetCrc='" + confirmacaoCrc + "'");
+                conecta.rs.first();
+                dataEntradaV = conecta.rs.getString("DataEntrada");
+                // Formatar a data Saida
+                dataEntradaV = conecta.rs.getString("DataEntrada");
+                String dia = dataEntradaV.substring(8, 10);
+                String mes = dataEntradaV.substring(5, 7);
+                String ano = dataEntradaV.substring(0, 4);
+                dataEntradaV = dia + "/" + mes + "/" + ano;
+                TelaVerificacaoRetornoSaidasPortariaCrc objRetornoInternos = new TelaVerificacaoRetornoSaidasPortariaCrc();
+                TelaModuloCRC.jPainelCRC.add(objRetornoInternos);
+                objRetornoInternos.show();
+                verificarSaidaMedicoAudiencia();
+            } catch (SQLException ex) {
+            }
+            conecta.desconecta();
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS "
+                        + "WHERE DataEntrada='" + jDataSistema.getText() + "' "
+                        + "AND RetCrc='" + confirmacaoCrc + "' "
+                        + "OR DataEntrada!='" + jDataSistema.getText() + "' "
+                        + "AND RetCrc='" + confirmacaoCrc + "'");
+                conecta.rs.first();
+                dataEntradaV = conecta.rs.getString("DataEntrada");
+                // Formatar a data Saida
+                dataEntradaV = conecta.rs.getString("DataEntrada");
+                String dia = dataEntradaV.substring(8, 10);
+                String mes = dataEntradaV.substring(5, 7);
+                String ano = dataEntradaV.substring(0, 4);
+                dataEntradaV = dia + "/" + mes + "/" + ano;
+                TelaVerificacaoRetornoSaidasPortariaCrc objRetornoInternos = new TelaVerificacaoRetornoSaidasPortariaCrc();
+                TelaModuloCRC.jPainelCRC.add(objRetornoInternos);
+                objRetornoInternos.show();
+                verificarSaidaMedicoAudiencia();
+            } catch (SQLException ex) {
+            }
+            conecta.desconecta();
         }
     }
 
@@ -3926,7 +4091,8 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             conecta.executaSQL("SELECT * FROM VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE RetCrc='" + confirmacaoCrc + "' AND HoraEntrada!='" + horaRetorno + "'");
+                    + "WHERE RetCrc='" + confirmacaoCrc + "' "
+                    + "AND HoraEntrada!='" + horaRetorno + "'");
             conecta.rs.first();
             do {
                 count = count + 1;

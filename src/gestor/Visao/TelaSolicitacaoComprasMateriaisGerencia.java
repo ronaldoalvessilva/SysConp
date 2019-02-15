@@ -34,6 +34,7 @@ import static gestor.Visao.TelaModuloAdmPessoal.telaSolicitacaoCP_ADM;
 import static gestor.Visao.TelaModuloAdmPessoal.telaSolicitacaoC_ADM;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -1446,31 +1447,66 @@ public class TelaSolicitacaoComprasMateriaisGerencia extends javax.swing.JIntern
         // TODO add your handling code here:
         count = 0;
         flag = 1;
-        if (jDataPesqInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-            jDataPesqInicial.requestFocus();
-        } else {
-            if (jDataPesFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                jDataPesFinal.requestFocus();
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
             } else {
-                if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                if (jDataPesFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesFinal.requestFocus();
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                    pesquisarRequisicaoMateriais("SELECT * FROM SOLICITACAO_PRODUTOS_ADM "
-                            + "INNER JOIN COLABORADOR "
-                            + "ON SOLICITACAO_PRODUTOS_ADM.IdFunc=COLABORADOR.IdFunc "
-                            + "INNER JOIN DEPARTAMENTOS "
-                            + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
-                            + "INNER JOIN APROVADOR_SOLICITACAO_COMPRAS_FAR "
-                            + "ON SOLICITACAO_PRODUTOS_ADM.IdFuncAprova=APROVADOR_SOLICITACAO_COMPRAS_AC.IdFuncAprova "
-                            + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
-                            + "ON SOLICITACAO_PRODUTOS_ADM.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
-                            + "WHERE DataSol BETWEEN'" + dataInicial + "'AND '" + dataFinal + "' "
-                            + "AND SOLICITACAO_PRODUTOS_ADM.Modulo='" + modulo + "'");
+                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                        pesquisarRequisicaoMateriais("SELECT * FROM SOLICITACAO_PRODUTOS_ADM "
+                                + "INNER JOIN COLABORADOR "
+                                + "ON SOLICITACAO_PRODUTOS_ADM.IdFunc=COLABORADOR.IdFunc "
+                                + "INNER JOIN DEPARTAMENTOS "
+                                + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
+                                + "INNER JOIN APROVADOR_SOLICITACAO_COMPRAS_FAR "
+                                + "ON SOLICITACAO_PRODUTOS_ADM.IdFuncAprova=APROVADOR_SOLICITACAO_COMPRAS_AC.IdFuncAprova "
+                                + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
+                                + "ON SOLICITACAO_PRODUTOS_ADM.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
+                                + "WHERE DataSol BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "' "
+                                + "AND SOLICITACAO_PRODUTOS_ADM.Modulo='" + modulo + "'");
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
+            } else {
+                if (jDataPesFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesFinal.requestFocus();
+                } else {
+                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                        pesquisarRequisicaoMateriais("SELECT * FROM SOLICITACAO_PRODUTOS_ADM "
+                                + "INNER JOIN COLABORADOR "
+                                + "ON SOLICITACAO_PRODUTOS_ADM.IdFunc=COLABORADOR.IdFunc "
+                                + "INNER JOIN DEPARTAMENTOS "
+                                + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
+                                + "INNER JOIN APROVADOR_SOLICITACAO_COMPRAS_FAR "
+                                + "ON SOLICITACAO_PRODUTOS_ADM.IdFuncAprova=APROVADOR_SOLICITACAO_COMPRAS_AC.IdFuncAprova "
+                                + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
+                                + "ON SOLICITACAO_PRODUTOS_ADM.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
+                                + "WHERE DataSol BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "' "
+                                + "AND SOLICITACAO_PRODUTOS_ADM.Modulo='" + modulo + "'");
+                    }
                 }
             }
         }

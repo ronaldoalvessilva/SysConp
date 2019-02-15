@@ -42,6 +42,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import static gestor.Visao.TelaModuloServicoSocial.nomeModuloSS;
 import static gestor.Visao.TelaModuloServicoSocial.nomeTelaSS;
 import java.util.HashMap;
@@ -963,6 +964,9 @@ public class TelaRegistroInternosAtendimentoImpressoPEDA extends javax.swing.JIn
     private void jBtPesqDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDataActionPerformed
         // TODO add your handling code here:
         flag = 1;
+        if (tipoServidor == null || tipoServidor.equals("")) {
+        JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
         if (jDataInicial.getDate() == null) {
             JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
             jDataInicial.requestFocus();
@@ -974,7 +978,7 @@ public class TelaRegistroInternosAtendimentoImpressoPEDA extends javax.swing.JIn
                 if (jDataInicial.getDate().after(jDataFinal.getDate())) {
                     JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
                     dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
                     dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
                     preencherTabelaRegistros("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
@@ -987,6 +991,32 @@ public class TelaRegistroInternosAtendimentoImpressoPEDA extends javax.swing.JIn
                 }
             }
         }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+if (jDataInicial.getDate() == null) {
+            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+            jDataInicial.requestFocus();
+        } else {
+            if (jDataFinal.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                jDataFinal.requestFocus();
+            } else {
+                if (jDataInicial.getDate().after(jDataFinal.getDate())) {
+                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                } else {
+                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yy");
+                    dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                    dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+                    preencherTabelaRegistros("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
+                            + "AND '" + dataFinal + "' "
+                            + "AND IdDepartamento='" + codigoDepto + "'"
+                            + "AND Impresso='" + pImpressao + "'");
+                }
+            }
+        }
+}
     }//GEN-LAST:event_jBtPesqDataActionPerformed
 
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
