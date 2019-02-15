@@ -21,6 +21,7 @@ import static gestor.Visao.TelaModuloBaseUm.nomeGrupoB1;
 import static gestor.Visao.TelaModuloBaseUm.nomeModuloB1;
 import static gestor.Visao.TelaModuloBaseUm.nomeTelaB1;
 import static gestor.Visao.TelaModuloBaseUm.telaAlertaVisitantesPortariaB1;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -944,7 +945,7 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
                     + "INNER JOIN PAVILHAO "
                     + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
                     + "WHERE Confirmacao='" + confirmacao + "' "
-//                    + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
+                    //                    + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
                     + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdVisita='" + jCodigo.getText() + "'");
         } else if (!jCodigo.getText().equals("") && opcaoAdvogado == 1) {
             buscarPavilhao(nomePavilhao1, nomePavilhao2, nomePavilhao3);
@@ -954,7 +955,7 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
                     + "INNER JOIN PAVILHAO "
                     + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
                     + "WHERE Confirmacao='" + confirmacao + "' "
-//                    + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
+                    //                    + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
                     + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdAdvogado='" + jCodigo.getText() + "'");
         } else if (!jCodigo.getText().equals("") && opcaoOficial == 1) {
             buscarPavilhao(nomePavilhao1, nomePavilhao2, nomePavilhao3);
@@ -964,7 +965,7 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
                     + "INNER JOIN PAVILHAO "
                     + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
                     + "WHERE Confirmacao='" + confirmacao + "' "
-//                    + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
+                    //                    + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
                     + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdOficial='" + jCodigo.getText() + "'");
         } else {
             JOptionPane.showMessageDialog(rootPane, "É necessário selecionar o tipo de pesquisa.");
@@ -992,45 +993,91 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
             opcaoOficial = 0;
         }
         count = 0;
-        if (jDataPesqChegada.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data para pesquisa.");
-            jDataPesqChegada.requestFocus();
-            jDataPesqChegada.setBackground(Color.red);
-        } else {
-            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-            dataInicial = formatoAmerica.format(jDataPesqChegada.getDate().getTime());
-            if (jDataPesqChegada.getDate() != null && opcaoVisita == 1) {
-                buscarPavilhao(nomePavilhao1, nomePavilhao2, nomePavilhao3);
-                popularTabelaNomeVisita("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
-                        + "INNER JOIN VISITASINTERNO "
-                        + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdVisita=VISITASINTERNO.IdVisita "
-                        + "INNER JOIN PAVILHAO "
-                        + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
-                        + "WHERE Confirmacao='" + confirmacao + "' "
-//                        + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
-                        + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.DataChegada='" + dataInicial + "'");
-            } else if (jDataPesqChegada.getDate() != null && opcaoAdvogado == 1) {
-                buscarPavilhao(nomePavilhao1, nomePavilhao2, nomePavilhao3);
-                popularTabelaAdvogado("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
-                        + "INNER JOIN ADVOGADOS "
-                        + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdAdvogado=ADVOGADOS.IdAdvogado "
-                        + "INNER JOIN PAVILHAO "
-                        + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
-                        + "WHERE Confirmacao='" + confirmacao + "' "
-//                        + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
-                        + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.DataChegada='" + dataInicial + "'");
-            } else if (jDataPesqChegada.getDate() != null && opcaoOficial == 1) {
-                buscarPavilhao(nomePavilhao1, nomePavilhao2, nomePavilhao3);
-                popularTabelaOficialJustica("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
-                        + "INNER JOIN OFICIAL_JUSTICA "
-                        + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdOficial=OFICIAL_JUSTICA.IdOficial "
-                        + "INNER JOIN PAVILHAO "
-                        + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
-                        + "WHERE Confirmacao='" + confirmacao + "' "
-//                        + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
-                        + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.DataChegada='" + dataInicial + "'");
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDataPesqChegada.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data para pesquisa.");
+                jDataPesqChegada.requestFocus();
+                jDataPesqChegada.setBackground(Color.red);
             } else {
-                JOptionPane.showMessageDialog(rootPane, "É necessário selecionar o tipo de pesquisa.");
+                SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                dataInicial = formatoAmerica.format(jDataPesqChegada.getDate().getTime());
+                if (jDataPesqChegada.getDate() != null && opcaoVisita == 1) {
+                    buscarPavilhao(nomePavilhao1, nomePavilhao2, nomePavilhao3);
+                    popularTabelaNomeVisita("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
+                            + "INNER JOIN VISITASINTERNO "
+                            + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdVisita=VISITASINTERNO.IdVisita "
+                            + "INNER JOIN PAVILHAO "
+                            + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
+                            + "WHERE Confirmacao='" + confirmacao + "' "
+                            //                        + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
+                            + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.DataChegada='" + dataInicial + "'");
+                } else if (jDataPesqChegada.getDate() != null && opcaoAdvogado == 1) {
+                    buscarPavilhao(nomePavilhao1, nomePavilhao2, nomePavilhao3);
+                    popularTabelaAdvogado("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
+                            + "INNER JOIN ADVOGADOS "
+                            + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdAdvogado=ADVOGADOS.IdAdvogado "
+                            + "INNER JOIN PAVILHAO "
+                            + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
+                            + "WHERE Confirmacao='" + confirmacao + "' "
+                            //                        + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
+                            + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.DataChegada='" + dataInicial + "'");
+                } else if (jDataPesqChegada.getDate() != null && opcaoOficial == 1) {
+                    buscarPavilhao(nomePavilhao1, nomePavilhao2, nomePavilhao3);
+                    popularTabelaOficialJustica("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
+                            + "INNER JOIN OFICIAL_JUSTICA "
+                            + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdOficial=OFICIAL_JUSTICA.IdOficial "
+                            + "INNER JOIN PAVILHAO "
+                            + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
+                            + "WHERE Confirmacao='" + confirmacao + "' "
+                            //                        + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
+                            + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.DataChegada='" + dataInicial + "'");
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "É necessário selecionar o tipo de pesquisa.");
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataPesqChegada.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data para pesquisa.");
+                jDataPesqChegada.requestFocus();
+                jDataPesqChegada.setBackground(Color.red);
+            } else {
+                SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                dataInicial = formatoAmerica.format(jDataPesqChegada.getDate().getTime());
+                if (jDataPesqChegada.getDate() != null && opcaoVisita == 1) {
+                    buscarPavilhao(nomePavilhao1, nomePavilhao2, nomePavilhao3);
+                    popularTabelaNomeVisita("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
+                            + "INNER JOIN VISITASINTERNO "
+                            + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdVisita=VISITASINTERNO.IdVisita "
+                            + "INNER JOIN PAVILHAO "
+                            + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
+                            + "WHERE Confirmacao='" + confirmacao + "' "
+                            //                        + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
+                            + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.DataChegada='" + dataInicial + "'");
+                } else if (jDataPesqChegada.getDate() != null && opcaoAdvogado == 1) {
+                    buscarPavilhao(nomePavilhao1, nomePavilhao2, nomePavilhao3);
+                    popularTabelaAdvogado("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
+                            + "INNER JOIN ADVOGADOS "
+                            + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdAdvogado=ADVOGADOS.IdAdvogado "
+                            + "INNER JOIN PAVILHAO "
+                            + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
+                            + "WHERE Confirmacao='" + confirmacao + "' "
+                            //                        + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
+                            + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.DataChegada='" + dataInicial + "'");
+                } else if (jDataPesqChegada.getDate() != null && opcaoOficial == 1) {
+                    buscarPavilhao(nomePavilhao1, nomePavilhao2, nomePavilhao3);
+                    popularTabelaOficialJustica("SELECT * FROM ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA "
+                            + "INNER JOIN OFICIAL_JUSTICA "
+                            + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdOficial=OFICIAL_JUSTICA.IdOficial "
+                            + "INNER JOIN PAVILHAO "
+                            + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
+                            + "WHERE Confirmacao='" + confirmacao + "' "
+                            //                        + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
+                            + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.DataChegada='" + dataInicial + "'");
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "É necessário selecionar o tipo de pesquisa.");
+                }
             }
         }
     }//GEN-LAST:event_jBtDataPesquisaActionPerformed
@@ -1065,7 +1112,7 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
                     + "INNER JOIN PAVILHAO "
                     + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
                     + "WHERE Confirmacao='" + confirmacao + "' "
-//                    + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
+                    //                    + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
                     + "AND NomeVisita LIKE'%" + jNomeVisitante.getText() + "%'");
         } else if (jNomeVisitante.getText().equals("") && opcaoAdvogado == 1) {
             buscarPavilhao(nomePavilhao1, nomePavilhao2, nomePavilhao3);
@@ -1075,7 +1122,7 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
                     + "INNER JOIN PAVILHAO "
                     + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
                     + "WHERE Confirmacao='" + confirmacao + "' "
-//                    + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
+                    //                    + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
                     + "AND NomeAdvogado LIKE'%" + jNomeVisitante.getText() + "%'");
         } else if (!jNomeVisitante.getText().equals("") && opcaoOficial == 1) {
             buscarPavilhao(nomePavilhao1, nomePavilhao2, nomePavilhao3);
@@ -1085,7 +1132,7 @@ public class TelaAlertaBasesPavilhoes extends javax.swing.JInternalFrame {
                     + "INNER JOIN PAVILHAO "
                     + "ON ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav=PAVILHAO.IdPav "
                     + "WHERE Confirmacao='" + confirmacao + "' "
-//                    + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
+                    //                    + "AND ALERTA_BASE_CHEGADA_VISITAS_ADVOGADOS_OFICIAL_INTERNOS_PORTARIA.IdPav='" + codigoPavilhao + "' "
                     + "AND NomeOficial LIKE'%" + jNomeVisitante.getText() + "%'");
         } else {
             JOptionPane.showMessageDialog(rootPane, "É necessário selecionar o tipo de pesquisa.");

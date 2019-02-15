@@ -31,6 +31,7 @@ import static gestor.Visao.TelaModuloCRC.nomeTelaCRC;
 import static gestor.Visao.TelaModuloCRC.validadorAtestado_CRC;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
@@ -1650,53 +1651,106 @@ public class TelaEmissaoAtestadoReclusaoCRC extends javax.swing.JInternalFrame {
     private void jBtPesqDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDataActionPerformed
         // TODO add your handling code here:
         count = 0;
-        if (jDataPesqInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data incial.");
-            jDataPesqInicial.requestFocus();
-            jDataPesqInicial.setBackground(Color.red);
-        } else if (jDataPesqFinal.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data final.");
-            jDataPesqFinal.requestFocus();
-            jDataPesqFinal.setBackground(Color.red);
-        } else if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
-            JOptionPane.showMessageDialog(rootPane, "Data Final não pode ser menor que a data inicial.");
-            jDataPesqFinal.requestFocus();
-            jDataPesqFinal.setBackground(Color.red);
-        } else if (jComboBoxSolicitante.getSelectedItem().equals("Selecione...")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o tipo de solicitante.");
-        } else if (jComboBoxSolicitante.getSelectedItem().equals("Advogado")) {
-            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-            dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-            dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
-            preencherTodosAtestados("SELECT * FROM EMISSAO_ATESTADO_RECLUSAO_CRC "
-                    + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON EMISSAO_ATESTADO_RECLUSAO_CRC.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "INNER JOIN ADVOGADOS "
-                    + "ON EMISSAO_ATESTADO_RECLUSAO_CRC.IdVisita=ADVOGADOS.IdAdvogado "
-                    + "WHERE DataAtestado BETWEEN'" + dataInicial + "' "
-                    + "AND '" + dataFinal + "'");
-        } else if (jComboBoxSolicitante.getSelectedItem().equals("Oficial de Justiça")) {
-            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-            dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-            dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
-            preencherTodosAtestados("SELECT * FROM EMISSAO_ATESTADO_RECLUSAO_CRC "
-                    + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON EMISSAO_ATESTADO_RECLUSAO_CRC.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "INNER JOIN OFICIAL_JUSTICA "
-                    + "ON EMISSAO_ATESTADO_RECLUSAO_CRC.IdVisita=OFICIAL_JUSTICA.IdOficial "
-                    + "WHERE DataAtestado BETWEEN'" + dataInicial + "' "
-                    + "AND '" + dataFinal + "'");
-        } else if (jComboBoxSolicitante.getSelectedItem().equals("Visitas Diversas")) {
-            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-            dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-            dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
-            preencherTodosAtestados("SELECT * FROM EMISSAO_ATESTADO_RECLUSAO_CRC "
-                    + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON EMISSAO_ATESTADO_RECLUSAO_CRC.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "INNER JOIN VISITASDIVERSAS "
-                    + "ON EMISSAO_ATESTADO_RECLUSAO_CRC.IdVisita=VISITASDIVERSAS.IdVisita "
-                    + "WHERE DataAtestado BETWEEN'" + dataInicial + "' "
-                    + "AND '" + dataFinal + "'");
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data incial.");
+                jDataPesqInicial.requestFocus();
+                jDataPesqInicial.setBackground(Color.red);
+            } else if (jDataPesqFinal.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data final.");
+                jDataPesqFinal.requestFocus();
+                jDataPesqFinal.setBackground(Color.red);
+            } else if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
+                JOptionPane.showMessageDialog(rootPane, "Data Final não pode ser menor que a data inicial.");
+                jDataPesqFinal.requestFocus();
+                jDataPesqFinal.setBackground(Color.red);
+            } else if (jComboBoxSolicitante.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o tipo de solicitante.");
+            } else if (jComboBoxSolicitante.getSelectedItem().equals("Advogado")) {
+                SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
+                preencherTodosAtestados("SELECT * FROM EMISSAO_ATESTADO_RECLUSAO_CRC "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON EMISSAO_ATESTADO_RECLUSAO_CRC.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "INNER JOIN ADVOGADOS "
+                        + "ON EMISSAO_ATESTADO_RECLUSAO_CRC.IdVisita=ADVOGADOS.IdAdvogado "
+                        + "WHERE DataAtestado BETWEEN'" + dataInicial + "' "
+                        + "AND '" + dataFinal + "'");
+            } else if (jComboBoxSolicitante.getSelectedItem().equals("Oficial de Justiça")) {
+                SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
+                preencherTodosAtestados("SELECT * FROM EMISSAO_ATESTADO_RECLUSAO_CRC "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON EMISSAO_ATESTADO_RECLUSAO_CRC.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "INNER JOIN OFICIAL_JUSTICA "
+                        + "ON EMISSAO_ATESTADO_RECLUSAO_CRC.IdVisita=OFICIAL_JUSTICA.IdOficial "
+                        + "WHERE DataAtestado BETWEEN'" + dataInicial + "' "
+                        + "AND '" + dataFinal + "'");
+            } else if (jComboBoxSolicitante.getSelectedItem().equals("Visitas Diversas")) {
+                SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
+                preencherTodosAtestados("SELECT * FROM EMISSAO_ATESTADO_RECLUSAO_CRC "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON EMISSAO_ATESTADO_RECLUSAO_CRC.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "INNER JOIN VISITASDIVERSAS "
+                        + "ON EMISSAO_ATESTADO_RECLUSAO_CRC.IdVisita=VISITASDIVERSAS.IdVisita "
+                        + "WHERE DataAtestado BETWEEN'" + dataInicial + "' "
+                        + "AND '" + dataFinal + "'");
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data incial.");
+                jDataPesqInicial.requestFocus();
+                jDataPesqInicial.setBackground(Color.red);
+            } else if (jDataPesqFinal.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data final.");
+                jDataPesqFinal.requestFocus();
+                jDataPesqFinal.setBackground(Color.red);
+            } else if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
+                JOptionPane.showMessageDialog(rootPane, "Data Final não pode ser menor que a data inicial.");
+                jDataPesqFinal.requestFocus();
+                jDataPesqFinal.setBackground(Color.red);
+            } else if (jComboBoxSolicitante.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o tipo de solicitante.");
+            } else if (jComboBoxSolicitante.getSelectedItem().equals("Advogado")) {
+                SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
+                preencherTodosAtestados("SELECT * FROM EMISSAO_ATESTADO_RECLUSAO_CRC "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON EMISSAO_ATESTADO_RECLUSAO_CRC.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "INNER JOIN ADVOGADOS "
+                        + "ON EMISSAO_ATESTADO_RECLUSAO_CRC.IdVisita=ADVOGADOS.IdAdvogado "
+                        + "WHERE DataAtestado BETWEEN'" + dataInicial + "' "
+                        + "AND '" + dataFinal + "'");
+            } else if (jComboBoxSolicitante.getSelectedItem().equals("Oficial de Justiça")) {
+                SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
+                preencherTodosAtestados("SELECT * FROM EMISSAO_ATESTADO_RECLUSAO_CRC "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON EMISSAO_ATESTADO_RECLUSAO_CRC.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "INNER JOIN OFICIAL_JUSTICA "
+                        + "ON EMISSAO_ATESTADO_RECLUSAO_CRC.IdVisita=OFICIAL_JUSTICA.IdOficial "
+                        + "WHERE DataAtestado BETWEEN'" + dataInicial + "' "
+                        + "AND '" + dataFinal + "'");
+            } else if (jComboBoxSolicitante.getSelectedItem().equals("Visitas Diversas")) {
+                SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
+                preencherTodosAtestados("SELECT * FROM EMISSAO_ATESTADO_RECLUSAO_CRC "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON EMISSAO_ATESTADO_RECLUSAO_CRC.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "INNER JOIN VISITASDIVERSAS "
+                        + "ON EMISSAO_ATESTADO_RECLUSAO_CRC.IdVisita=VISITASDIVERSAS.IdVisita "
+                        + "WHERE DataAtestado BETWEEN'" + dataInicial + "' "
+                        + "AND '" + dataFinal + "'");
+            }
         }
     }//GEN-LAST:event_jBtPesqDataActionPerformed
 

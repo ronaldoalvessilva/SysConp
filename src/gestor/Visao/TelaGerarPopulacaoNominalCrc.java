@@ -30,7 +30,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 /**
  *
  * @author Ronaldo
- */ 
+ */
 public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
@@ -125,7 +125,7 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
         jTabelaPopulacaoAtual.setForeground(new java.awt.Color(0, 0, 255));
         jTabelaPopulacaoAtual.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
+
             },
             new String [] {
                 "Código", "Nome do Interno"
@@ -162,7 +162,7 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
         jTabelaPrevisaoPopulacaoInternos.setForeground(new java.awt.Color(255, 0, 0));
         jTabelaPrevisaoPopulacaoInternos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
+
             },
             new String [] {
                 "Código", "Nome Interno"
@@ -493,7 +493,10 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
             jTabelaPrevisaoPopulacaoInternos.setVisible(true);
-            this.preencherTabelaPrevisaoPopulacaoInternos("SELECT * FROM PRONTUARIOSCRC WHERE SituacaoCrc='" + situacaoEnt + "'OR SituacaoCrc='" + situacaoRet + "'OR SituacaoCrc='" + situacaoTmp + "'");
+            this.preencherTabelaPrevisaoPopulacaoInternos("SELECT * FROM PRONTUARIOSCRC "
+                    + "WHERE SituacaoCrc='" + situacaoEnt + "' "
+                    + "OR SituacaoCrc='" + situacaoRet + "' "
+                    + "OR SituacaoCrc='" + situacaoTmp + "'");
             jDataLancamento.setEnabled(true);
             jBtEnviarTodos.setEnabled(true);
         } else {

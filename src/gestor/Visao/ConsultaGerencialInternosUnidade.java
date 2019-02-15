@@ -270,7 +270,7 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
         jTabelaInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "CNC", "Nome do Interno", "Situação", "Data Nasc.", "Unidade Prisional"

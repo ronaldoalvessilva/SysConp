@@ -20,6 +20,7 @@ import gestor.Modelo.VisitasOcorrenciaPortaria;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -1285,21 +1286,48 @@ public class TelaConsultaOcorrenciaPortariaServicoSocial extends javax.swing.JIn
         // TODO add your handling code here:
         count = 0;
         flag = 1;
-        if (jDataPesqInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-            jDataPesqInicial.requestFocus();
-        } else {
-            if (jDataPesqFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                jDataPesqFinal.requestFocus();
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
             } else {
-                if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                if (jDataPesqFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesqFinal.requestFocus();
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
-                    preencherTodasOcorrenciaVisitas("SELECT * FROM REGISTRO_INDISCIPLINA_PORTARIA WHERE DataReg BETWEEN'" + dataInicial + "'AND'" + dataFinal + "'");
+                    if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
+                        preencherTodasOcorrenciaVisitas("SELECT * FROM REGISTRO_INDISCIPLINA_PORTARIA "
+                                + "WHERE DataReg BETWEEN'" + dataInicial + "' "
+                                + "AND'" + dataFinal + "'");
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
+            } else {
+                if (jDataPesqFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesqFinal.requestFocus();
+                } else {
+                    if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
+                        preencherTodasOcorrenciaVisitas("SELECT * FROM REGISTRO_INDISCIPLINA_PORTARIA "
+                                + "WHERE DataReg BETWEEN'" + dataInicial + "' "
+                                + "AND'" + dataFinal + "'");
+                    }
                 }
             }
         }
@@ -1828,14 +1856,14 @@ public class TelaConsultaOcorrenciaPortariaServicoSocial extends javax.swing.JIn
         // REGISTROS
         jComboBoxTipoVisita.setEnabled(true);
         jComboBoxTipoOcorrencia.setEnabled(true);
-        jDataRegistro.setEnabled(true);        
+        jDataRegistro.setEnabled(true);
         jBtPesqStatusAprovacao.setEnabled(!true);
-        jObservacao.setEnabled(true);       
+        jObservacao.setEnabled(true);
         // ABA VISITAS
-        jBtPesquisarVisita.setEnabled(!true);        
+        jBtPesquisarVisita.setEnabled(!true);
         // ABA OCORRENCIA
         jComboBoxNomeVisita.setEnabled(!true);
-        jTextoOcorrencia.setEnabled(!true);       
+        jTextoOcorrencia.setEnabled(!true);
     }
 
     public void Alterar() {
@@ -1852,14 +1880,14 @@ public class TelaConsultaOcorrenciaPortariaServicoSocial extends javax.swing.JIn
         // REGISTROS
         jComboBoxTipoVisita.setEnabled(true);
         jComboBoxTipoOcorrencia.setEnabled(true);
-        jDataRegistro.setEnabled(true);        
+        jDataRegistro.setEnabled(true);
         jBtPesqStatusAprovacao.setEnabled(!true);
-        jObservacao.setEnabled(true);       
+        jObservacao.setEnabled(true);
         // ABA VISITAS
-        jBtPesquisarVisita.setEnabled(!true);       
+        jBtPesquisarVisita.setEnabled(!true);
         // ABA OCORRENCIA
         jComboBoxNomeVisita.setEnabled(!true);
-        jTextoOcorrencia.setEnabled(!true);        
+        jTextoOcorrencia.setEnabled(!true);
     }
 
     public void Excluir() {
@@ -1893,11 +1921,11 @@ public class TelaConsultaOcorrenciaPortariaServicoSocial extends javax.swing.JIn
         // REGISTROS
         jComboBoxTipoVisita.setEnabled(!true);
         jComboBoxTipoOcorrencia.setEnabled(!true);
-        jDataRegistro.setEnabled(!true);       
+        jDataRegistro.setEnabled(!true);
         jBtPesqStatusAprovacao.setEnabled(!true);
-        jObservacao.setEnabled(!true);        
+        jObservacao.setEnabled(!true);
         // ABA VISITAS
-        jBtPesquisarVisita.setEnabled(!true);        
+        jBtPesquisarVisita.setEnabled(!true);
         // ABA OCORRENCIA
         jComboBoxNomeVisita.setEnabled(!true);
         jTextoOcorrencia.setEnabled(!true);
@@ -1908,9 +1936,9 @@ public class TelaConsultaOcorrenciaPortariaServicoSocial extends javax.swing.JIn
         // REGISTROS
         jComboBoxTipoVisita.setEnabled(!true);
         jComboBoxTipoOcorrencia.setEnabled(!true);
-        jDataRegistro.setEnabled(!true);       
+        jDataRegistro.setEnabled(!true);
         jBtPesqStatusAprovacao.setEnabled(!true);
-        jObservacao.setEnabled(!true);       
+        jObservacao.setEnabled(!true);
     }
 
     public void Cancelar() {
@@ -1934,13 +1962,13 @@ public class TelaConsultaOcorrenciaPortariaServicoSocial extends javax.swing.JIn
             //
             jComboBoxTipoVisita.setEnabled(!true);
             jComboBoxTipoOcorrencia.setEnabled(!true);
-            jDataRegistro.setEnabled(!true);           
+            jDataRegistro.setEnabled(!true);
             jBtPesqStatusAprovacao.setEnabled(!true);
-            jObservacao.setEnabled(!true);           
+            jObservacao.setEnabled(!true);
         } else {
             jComboBoxTipoVisita.setEnabled(!true);
             jComboBoxTipoOcorrencia.setEnabled(!true);
-            jDataRegistro.setEnabled(!true);           
+            jDataRegistro.setEnabled(!true);
             jBtPesqStatusAprovacao.setEnabled(!true);
             jObservacao.setEnabled(!true);
             //           
@@ -1962,7 +1990,7 @@ public class TelaConsultaOcorrenciaPortariaServicoSocial extends javax.swing.JIn
             jStatusOcorrencia.setText("FINALIZADO");
             objLog();
             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-            JOptionPane.showMessageDialog(rootPane, "Registro FINALIZADO com sucesso !!!");           
+            JOptionPane.showMessageDialog(rootPane, "Registro FINALIZADO com sucesso !!!");
         }
     }
 
@@ -2004,7 +2032,7 @@ public class TelaConsultaOcorrenciaPortariaServicoSocial extends javax.swing.JIn
     public void bloquearCampos() {
         jComboBoxTipoVisita.setEnabled(!true);
         jComboBoxTipoOcorrencia.setEnabled(!true);
-        jDataRegistro.setEnabled(!true);       
+        jDataRegistro.setEnabled(!true);
         if (jStatusAprovacao.getText().equals("Em Processamento")) {
             jBtPesqStatusAprovacao.setEnabled(!true);
         } else {
@@ -2027,14 +2055,14 @@ public class TelaConsultaOcorrenciaPortariaServicoSocial extends javax.swing.JIn
         // REGISTROS
         jComboBoxTipoVisita.setEnabled(!true);
         jComboBoxTipoOcorrencia.setEnabled(!true);
-        jDataRegistro.setEnabled(!true);        
+        jDataRegistro.setEnabled(!true);
         jBtPesqStatusAprovacao.setEnabled(!true);
-        jObservacao.setEnabled(!true);                
+        jObservacao.setEnabled(!true);
         // ABA VISITAS
-        jBtPesquisarVisita.setEnabled(true);                
+        jBtPesquisarVisita.setEnabled(true);
         // ABA OCORRENCIA
         jComboBoxNomeVisita.setEnabled(!true);
-        jTextoOcorrencia.setEnabled(!true);       
+        jTextoOcorrencia.setEnabled(!true);
     }
 
     public void AlterarVisita() {
@@ -2045,11 +2073,11 @@ public class TelaConsultaOcorrenciaPortariaServicoSocial extends javax.swing.JIn
         // REGISTROS
         jComboBoxTipoVisita.setEnabled(!true);
         jComboBoxTipoOcorrencia.setEnabled(!true);
-        jDataRegistro.setEnabled(!true);       
+        jDataRegistro.setEnabled(!true);
         jBtPesqStatusAprovacao.setEnabled(!true);
-        jObservacao.setEnabled(!true);               
+        jObservacao.setEnabled(!true);
         // ABA VISITAS
-        jBtPesquisarVisita.setEnabled(true);        
+        jBtPesquisarVisita.setEnabled(true);
         // ABA OCORRENCIA
         jComboBoxNomeVisita.setEnabled(!true);
         jTextoOcorrencia.setEnabled(!true);
@@ -2070,14 +2098,14 @@ public class TelaConsultaOcorrenciaPortariaServicoSocial extends javax.swing.JIn
         // REGISTROS
         jComboBoxTipoVisita.setEnabled(!true);
         jComboBoxTipoOcorrencia.setEnabled(!true);
-        jDataRegistro.setEnabled(!true);        
+        jDataRegistro.setEnabled(!true);
         jBtPesqStatusAprovacao.setEnabled(!true);
-        jObservacao.setEnabled(!true);                
+        jObservacao.setEnabled(!true);
         // ABA VISITAS
-        jBtPesquisarVisita.setEnabled(!true);               
+        jBtPesquisarVisita.setEnabled(!true);
         // ABA OCORRENCIA
         jComboBoxNomeVisita.setEnabled(!true);
-        jTextoOcorrencia.setEnabled(!true);                
+        jTextoOcorrencia.setEnabled(!true);
     }
 
     public void SalvarVisita() {
@@ -2086,12 +2114,12 @@ public class TelaConsultaOcorrenciaPortariaServicoSocial extends javax.swing.JIn
         jFotoVisita.setIcon(null);
         jStatusVisitaRol.setText("");
         jNomeVisita.setText("");
-        jGrauParentescoVisita.setText("");               
+        jGrauParentescoVisita.setText("");
         // ABA VISITAS
-        jBtPesquisarVisita.setEnabled(!true);                
+        jBtPesquisarVisita.setEnabled(!true);
         // ABA OCORRENCIA
         jComboBoxNomeVisita.setEnabled(!true);
-        jTextoOcorrencia.setEnabled(!true);        
+        jTextoOcorrencia.setEnabled(!true);
     }
 
     public void CancelarVisita() {
@@ -2100,9 +2128,9 @@ public class TelaConsultaOcorrenciaPortariaServicoSocial extends javax.swing.JIn
         jFotoVisita.setIcon(null);
         jStatusVisitaRol.setText("");
         jNomeVisita.setText("");
-        jGrauParentescoVisita.setText("");       
+        jGrauParentescoVisita.setText("");
         // ABA VISITAS
-        jBtPesquisarVisita.setEnabled(!true);       
+        jBtPesquisarVisita.setEnabled(!true);
     }
 
     public void NovaOcorrencia() {
@@ -2117,16 +2145,16 @@ public class TelaConsultaOcorrenciaPortariaServicoSocial extends javax.swing.JIn
         // REGISTROS
         jComboBoxTipoVisita.setEnabled(!true);
         jComboBoxTipoOcorrencia.setEnabled(!true);
-        jDataRegistro.setEnabled(!true);        
+        jDataRegistro.setEnabled(!true);
         jBtPesqStatusAprovacao.setEnabled(!true);
-        jObservacao.setEnabled(!true);       
+        jObservacao.setEnabled(!true);
         // ABA OCORRENCIA       
         jCodigoOcorrencia.setText("");
         jComboBoxNomeVisita.setSelectedItem(null);
         jTextoOcorrencia.setText("");
         //
         jComboBoxNomeVisita.setEnabled(true);
-        jTextoOcorrencia.setEnabled(true);        
+        jTextoOcorrencia.setEnabled(true);
     }
 
     public void AlterarOcorrencia() {
@@ -2141,12 +2169,12 @@ public class TelaConsultaOcorrenciaPortariaServicoSocial extends javax.swing.JIn
         // REGISTROS
         jComboBoxTipoVisita.setEnabled(!true);
         jComboBoxTipoOcorrencia.setEnabled(!true);
-        jDataRegistro.setEnabled(!true);        
+        jDataRegistro.setEnabled(!true);
         jBtPesqStatusAprovacao.setEnabled(!true);
-        jObservacao.setEnabled(!true);                
+        jObservacao.setEnabled(!true);
         // ABA OCORRENCIA               
         jComboBoxNomeVisita.setEnabled(true);
-        jTextoOcorrencia.setEnabled(true);               
+        jTextoOcorrencia.setEnabled(true);
     }
 
     public void ExcluirOcorrencia() {
@@ -2161,16 +2189,16 @@ public class TelaConsultaOcorrenciaPortariaServicoSocial extends javax.swing.JIn
         // REGISTROS
         jComboBoxTipoVisita.setEnabled(!true);
         jComboBoxTipoOcorrencia.setEnabled(!true);
-        jDataRegistro.setEnabled(!true);        
+        jDataRegistro.setEnabled(!true);
         jBtPesqStatusAprovacao.setEnabled(!true);
-        jObservacao.setEnabled(!true);                
+        jObservacao.setEnabled(!true);
         // ABA OCORRENCIA               
         jCodigoOcorrencia.setText("");
         jComboBoxNomeVisita.setSelectedItem(null);
         jTextoOcorrencia.setText("");
         //
         jComboBoxNomeVisita.setEnabled(!true);
-        jTextoOcorrencia.setEnabled(!true);              
+        jTextoOcorrencia.setEnabled(!true);
     }
 
     public void SalvarOcorrencia() {
@@ -2179,16 +2207,16 @@ public class TelaConsultaOcorrenciaPortariaServicoSocial extends javax.swing.JIn
         // REGISTROS
         jComboBoxTipoVisita.setEnabled(!true);
         jComboBoxTipoOcorrencia.setEnabled(!true);
-        jDataRegistro.setEnabled(!true);        
+        jDataRegistro.setEnabled(!true);
         jBtPesqStatusAprovacao.setEnabled(!true);
-        jObservacao.setEnabled(!true);        
+        jObservacao.setEnabled(!true);
         // ABA OCORRENCIA               
         jCodigoOcorrencia.setText("");
         jComboBoxNomeVisita.setSelectedItem(null);
         jTextoOcorrencia.setText("");
         //
         jComboBoxNomeVisita.setEnabled(!true);
-        jTextoOcorrencia.setEnabled(!true);       
+        jTextoOcorrencia.setEnabled(!true);
     }
 
     public void CancelarOcorrencia() {
@@ -2196,16 +2224,16 @@ public class TelaConsultaOcorrenciaPortariaServicoSocial extends javax.swing.JIn
         // REGISTROS
         jComboBoxTipoVisita.setEnabled(!true);
         jComboBoxTipoOcorrencia.setEnabled(!true);
-        jDataRegistro.setEnabled(!true);        
+        jDataRegistro.setEnabled(!true);
         jBtPesqStatusAprovacao.setEnabled(!true);
-        jObservacao.setEnabled(!true);       
+        jObservacao.setEnabled(!true);
         // ABA OCORRENCIA               
         jCodigoOcorrencia.setText("");
         jComboBoxNomeVisita.setSelectedItem(null);
         jTextoOcorrencia.setText("");
         //
         jComboBoxNomeVisita.setEnabled(!true);
-        jTextoOcorrencia.setEnabled(!true);               
+        jTextoOcorrencia.setEnabled(!true);
     }
 
     public void preencherComboBoxVisita() {

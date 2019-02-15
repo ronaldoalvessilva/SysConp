@@ -16,6 +16,7 @@ import static gestor.Visao.TelaConsultaSaldoFin.jTabelaTransferencia;
 import static gestor.Visao.TelaConsultaSaldoFin.jlSaldoAtual;
 import static gestor.Visao.TelaConsultaSaldoFin.jlTotalCredito;
 import static gestor.Visao.TelaConsultaSaldoFin.jlTotalDebito;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -181,41 +182,91 @@ public class TelaPesqDataExtrato extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
-        // TODO add your handling code here:        
-        if (jDataPesqInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-            jDataPesqInicial.requestFocus();
-        } else {
-            if (jDataPesFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                jDataPesFinal.requestFocus();
+        // TODO add your handling code here:   
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
             } else {
-                if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                if (jDataPesFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesFinal.requestFocus();
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                    jTabelaDeposito.setEnabled(!true);
-                    jTabelaSaque.setEnabled(!true);
-                    preencherTabelaDeposito("SELECT * FROM DEPOSITO "
-                            + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON DEPOSITO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                            + "WHERE DEPOSITO.IdInternoCrc='" + jIdInternoFinDir.getText() + "'AND DataLanc BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
-                    preencherTabelaSaque("SELECT * FROM SAQUE "
-                            + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON SAQUE.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                            + "WHERE SAQUE.IdInternoCrc='" + jIdInternoFinDir.getText() + "'AND DataLanc BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
-                    saldoGeral = valorTotalCredito - valorTotalDebito;
-                    DecimalFormat df = new DecimalFormat("#,##0.00");
-                    jlSaldoAtual.setText(df.format(saldoGeral));
-                    preencherTabelaTransferencia("SELECT * FROM TRANSFERENCIA_VALORES_INATIVOS "
-                            + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON TRANSFERENCIA_VALORES_INATIVOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                            + "WHERE TRANSFERENCIA_VALORES_INATIVOS.IdInternoCrc='" + jIdInternoFinDir.getText() + "'");
-                    saldoGeral = valorTotalCredito - valorTotalDebito;
-                    DecimalFormat df1 = new DecimalFormat("#,##0.00");
-                    jlSaldoAtual.setText(df1.format(saldoGeral));
+                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                        jTabelaDeposito.setEnabled(!true);
+                        jTabelaSaque.setEnabled(!true);
+                        preencherTabelaDeposito("SELECT * FROM DEPOSITO "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON DEPOSITO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE DEPOSITO.IdInternoCrc='" + jIdInternoFinDir.getText() + "' "
+                                + "AND DataLanc BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "'");
+                        preencherTabelaSaque("SELECT * FROM SAQUE "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON SAQUE.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE SAQUE.IdInternoCrc='" + jIdInternoFinDir.getText() + "' "
+                                + "AND DataLanc BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "'");
+                        saldoGeral = valorTotalCredito - valorTotalDebito;
+                        DecimalFormat df = new DecimalFormat("#,##0.00");
+                        jlSaldoAtual.setText(df.format(saldoGeral));
+                        preencherTabelaTransferencia("SELECT * FROM TRANSFERENCIA_VALORES_INATIVOS "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON TRANSFERENCIA_VALORES_INATIVOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE TRANSFERENCIA_VALORES_INATIVOS.IdInternoCrc='" + jIdInternoFinDir.getText() + "'");
+                        saldoGeral = valorTotalCredito - valorTotalDebito;
+                        DecimalFormat df1 = new DecimalFormat("#,##0.00");
+                        jlSaldoAtual.setText(df1.format(saldoGeral));
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
+            } else {
+                if (jDataPesFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesFinal.requestFocus();
+                } else {
+                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                        jTabelaDeposito.setEnabled(!true);
+                        jTabelaSaque.setEnabled(!true);
+                        preencherTabelaDeposito("SELECT * FROM DEPOSITO "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON DEPOSITO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE DEPOSITO.IdInternoCrc='" + jIdInternoFinDir.getText() + "' "
+                                + "AND DataLanc BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "'");
+                        preencherTabelaSaque("SELECT * FROM SAQUE "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON SAQUE.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE SAQUE.IdInternoCrc='" + jIdInternoFinDir.getText() + "' "
+                                + "AND DataLanc BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "'");
+                        saldoGeral = valorTotalCredito - valorTotalDebito;
+                        DecimalFormat df = new DecimalFormat("#,##0.00");
+                        jlSaldoAtual.setText(df.format(saldoGeral));
+                        preencherTabelaTransferencia("SELECT * FROM TRANSFERENCIA_VALORES_INATIVOS "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON TRANSFERENCIA_VALORES_INATIVOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE TRANSFERENCIA_VALORES_INATIVOS.IdInternoCrc='" + jIdInternoFinDir.getText() + "'");
+                        saldoGeral = valorTotalCredito - valorTotalDebito;
+                        DecimalFormat df1 = new DecimalFormat("#,##0.00");
+                        jlSaldoAtual.setText(df1.format(saldoGeral));
+                    }
                 }
             }
         }

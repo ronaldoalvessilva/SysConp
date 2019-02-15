@@ -88,6 +88,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         ConsultaGrupos = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jSeparator4 = new javax.swing.JPopupMenu.Separator();
         jMenuItemSair = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         jMenuItemLog = new javax.swing.JMenuItem();
@@ -175,6 +176,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
             }
         });
         jMenu1.add(jMenuItem1);
+        jMenu1.add(jSeparator4);
 
         jMenuItemSair.setText("Sair");
         jMenuItemSair.addActionListener(new java.awt.event.ActionListener() {
@@ -563,6 +565,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
+    private javax.swing.JPopupMenu.Separator jSeparator4;
     // End of variables declaration//GEN-END:variables
 
     // Verificar a cada 5 minutos se o recado foi lido (10/01/2015)

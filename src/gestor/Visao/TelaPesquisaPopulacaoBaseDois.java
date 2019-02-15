@@ -53,7 +53,7 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author Ronaldo
  */
-public class TelaPesquisaPopulacaoBaseSeguranca extends javax.swing.JInternalFrame {
+public class TelaPesquisaPopulacaoBaseDois extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     int flag;
@@ -64,7 +64,7 @@ public class TelaPesquisaPopulacaoBaseSeguranca extends javax.swing.JInternalFra
     /**
      * Creates new form TelaPesquisaCidade
      */
-    public TelaPesquisaPopulacaoBaseSeguranca() {
+    public TelaPesquisaPopulacaoBaseDois() {
         initComponents();
     }
 
@@ -99,7 +99,7 @@ public class TelaPesquisaPopulacaoBaseSeguranca extends javax.swing.JInternalFra
         setClosable(true);
         setTitle("...::: Pesquisar População {BASESEG}:::...");
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar População", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 51, 255)));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar População", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 51, 255))); // NOI18N
 
         jBtData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtData.setToolTipText("Pesquisa por Nome");
@@ -273,7 +273,7 @@ public class TelaPesquisaPopulacaoBaseSeguranca extends javax.swing.JInternalFra
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
                 .addContainerGap())
         );
 

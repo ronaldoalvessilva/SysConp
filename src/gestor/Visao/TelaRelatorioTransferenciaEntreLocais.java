@@ -7,6 +7,7 @@ package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -183,46 +184,101 @@ public class TelaRelatorioTransferenciaEntreLocais extends javax.swing.JInternal
 
     private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
         // TODO add your handling code here:
-        if (jDataPesqInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-            jDataPesqInicial.requestFocus();
-        } else {
-            if (jDataPesFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                jDataPesFinal.requestFocus();
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
             } else {
-                if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                if (jDataPesFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesFinal.requestFocus();
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                    try {
-                        conecta.abrirConexao();
-                        String path = "reports/RelatorioItensTransferencia.jasper";
-                        conecta.executaSQL("SELECT * FROM TRANSFERENCIA_PRODUTO_FAR "
-                                + "INNER JOIN ITENS_TRANSFERENCIA_PRODUTO_FAR "
-                                + "ON TRANSFERENCIA_PRODUTO_FAR.IdLanc=ITENS_TRANSFERENCIA_PRODUTO_FAR.IdLanc "
-                                + "INNER JOIN PRODUTOS_AC "
-                                + "ON ITENS_TRANSFERENCIA_PRODUTO_FAR.IdProd=PRODUTOS_AC.IdProd "
-                                + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
-                                + "ON TRANSFERENCIA_PRODUTO_FAR.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "                                
-                                + "WHERE TRANSFERENCIA_PRODUTO_FAR.DataLanc BETWEEN'" + dataInicial + "'AND'" + dataFinal + "'AND PRODUTOS_AC.Modulo='" + modulo + "' ORDER BY PRODUTOS_AC.DescricaoProd");
-                        HashMap parametros = new HashMap();
-                        parametros.put("dataInicial", dataInicial);
-                        parametros.put("dataFinal", dataFinal);
-                        parametros.put("modulo", modulo);
-                        parametros.put("nomeUsuario", nameUser);
-                        JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                        JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                        JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                        jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                        jv.setTitle("Relatório de Transferência de Produtos entre Locais");
-                        jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                        jv.toFront(); // Traz o relatorio para frente da aplicação            
-                        conecta.desconecta();
-                    } catch (JRException e) {
-                        JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                        try {
+                            conecta.abrirConexao();
+                            String path = "reports/RelatorioItensTransferencia.jasper";
+                            conecta.executaSQL("SELECT * FROM TRANSFERENCIA_PRODUTO_FAR "
+                                    + "INNER JOIN ITENS_TRANSFERENCIA_PRODUTO_FAR "
+                                    + "ON TRANSFERENCIA_PRODUTO_FAR.IdLanc=ITENS_TRANSFERENCIA_PRODUTO_FAR.IdLanc "
+                                    + "INNER JOIN PRODUTOS_AC "
+                                    + "ON ITENS_TRANSFERENCIA_PRODUTO_FAR.IdProd=PRODUTOS_AC.IdProd "
+                                    + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
+                                    + "ON TRANSFERENCIA_PRODUTO_FAR.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
+                                    + "WHERE TRANSFERENCIA_PRODUTO_FAR.DataLanc BETWEEN'" + dataInicial + "' "
+                                    + "AND'" + dataFinal + "' "
+                                    + "AND PRODUTOS_AC.Modulo='" + modulo + "'  "
+                                    + "ORDER BY PRODUTOS_AC.DescricaoProd");
+                            HashMap parametros = new HashMap();
+                            parametros.put("dataInicial", dataInicial);
+                            parametros.put("dataFinal", dataFinal);
+                            parametros.put("modulo", modulo);
+                            parametros.put("nomeUsuario", nameUser);
+                            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                            jv.setTitle("Relatório de Transferência de Produtos entre Locais");
+                            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                            jv.toFront(); // Traz o relatorio para frente da aplicação            
+                            conecta.desconecta();
+                        } catch (JRException e) {
+                            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                        }
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
+            } else {
+                if (jDataPesFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesFinal.requestFocus();
+                } else {
+                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                        try {
+                            conecta.abrirConexao();
+                            String path = "reports/RelatorioItensTransferencia.jasper";
+                            conecta.executaSQL("SELECT * FROM TRANSFERENCIA_PRODUTO_FAR "
+                                    + "INNER JOIN ITENS_TRANSFERENCIA_PRODUTO_FAR "
+                                    + "ON TRANSFERENCIA_PRODUTO_FAR.IdLanc=ITENS_TRANSFERENCIA_PRODUTO_FAR.IdLanc "
+                                    + "INNER JOIN PRODUTOS_AC "
+                                    + "ON ITENS_TRANSFERENCIA_PRODUTO_FAR.IdProd=PRODUTOS_AC.IdProd "
+                                    + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
+                                    + "ON TRANSFERENCIA_PRODUTO_FAR.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
+                                    + "WHERE TRANSFERENCIA_PRODUTO_FAR.DataLanc BETWEEN'" + dataInicial + "' "
+                                    + "AND'" + dataFinal + "' "
+                                    + "AND PRODUTOS_AC.Modulo='" + modulo + "'  "
+                                    + "ORDER BY PRODUTOS_AC.DescricaoProd");
+                            HashMap parametros = new HashMap();
+                            parametros.put("dataInicial", dataInicial);
+                            parametros.put("dataFinal", dataFinal);
+                            parametros.put("modulo", modulo);
+                            parametros.put("nomeUsuario", nameUser);
+                            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                            jv.setTitle("Relatório de Transferência de Produtos entre Locais");
+                            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                            jv.toFront(); // Traz o relatorio para frente da aplicação            
+                            conecta.desconecta();
+                        } catch (JRException e) {
+                            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                        }
                     }
                 }
             }
