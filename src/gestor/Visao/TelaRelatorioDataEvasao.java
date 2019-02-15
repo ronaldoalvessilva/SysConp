@@ -6,23 +6,13 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
 import gestor.Modelo.DepositoInterno;
 import gestor.Modelo.SaqueValores;
-import static gestor.Visao.TelaConsultaSaldoFin.jIdInternoFinDir;
-import static gestor.Visao.TelaConsultaSaldoFin.jTabelaDeposito;
-import static gestor.Visao.TelaConsultaSaldoFin.jTabelaSaque;
-import static gestor.Visao.TelaConsultaSaldoFin.jlSaldoAtual;
-import static gestor.Visao.TelaConsultaSaldoFin.jlTotalCredito;
-import static gestor.Visao.TelaConsultaSaldoFin.jlTotalDebito;
 import static gestor.Visao.TelaLoginSenha.nameUser;
-import java.sql.SQLException;
-import java.text.DecimalFormat;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
-import javax.swing.ListSelectionModel;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -183,39 +173,94 @@ public class TelaRelatorioDataEvasao extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
-        // TODO add your handling code here:        
-        if (jDataPesqInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-            jDataPesqInicial.requestFocus();
-        } else {
-            if (jDataPesFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                jDataPesFinal.requestFocus();
+        // TODO add your handling code here:  
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
             } else {
-                if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                if (jDataPesFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesFinal.requestFocus();
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                    try {
-                        conecta.abrirConexao();
-                        String path = "reports/ListagemInternosEvadidos.jasper";
-                        conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC INNER JOIN EVADIDOSIND ON PRONTUARIOSCRC.IdInternoCrc=EVADIDOSIND.IdInternoCrc INNER JOIN DADOSPENAISINTERNOS ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc WHERE DataLanc BETWEEN'" + dataInicial + "'AND'" + dataFinal + "'ORDER BY NomeInternoCrc");
-                        HashMap parametros = new HashMap();
-                        parametros.put("nomeUsuario", nameUser);
-                        parametros.put("dataInicial", dataInicial);
-                        parametros.put("dataFinal", dataFinal);
-                        JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                        JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                        JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                        jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                        jv.setTitle("Listagem de Internos Evadidos");
-                        jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                        jv.toFront(); // Traz o relatorio para frente da aplicação            
-                        conecta.desconecta();
-                    } catch (JRException e) {
-                        JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                        try {
+                            conecta.abrirConexao();
+                            String path = "reports/ListagemInternosEvadidos.jasper";
+                            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                                    + "INNER JOIN EVADIDOSIND "
+                                    + "ON PRONTUARIOSCRC.IdInternoCrc=EVADIDOSIND.IdInternoCrc "
+                                    + "INNER JOIN DADOSPENAISINTERNOS "
+                                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                                    + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
+                                    + "AND'" + dataFinal + "' "
+                                    + "ORDER BY NomeInternoCrc");
+                            HashMap parametros = new HashMap();
+                            parametros.put("nomeUsuario", nameUser);
+                            parametros.put("dataInicial", dataInicial);
+                            parametros.put("dataFinal", dataFinal);
+                            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                            jv.setTitle("Listagem de Internos Evadidos");
+                            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                            jv.toFront(); // Traz o relatorio para frente da aplicação            
+                            conecta.desconecta();
+                        } catch (JRException e) {
+                            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                        }
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
+            } else {
+                if (jDataPesFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesFinal.requestFocus();
+                } else {
+                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                        try {
+                            conecta.abrirConexao();
+                            String path = "reports/ListagemInternosEvadidos.jasper";
+                            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                                    + "INNER JOIN EVADIDOSIND "
+                                    + "ON PRONTUARIOSCRC.IdInternoCrc=EVADIDOSIND.IdInternoCrc "
+                                    + "INNER JOIN DADOSPENAISINTERNOS "
+                                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                                    + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
+                                    + "AND'" + dataFinal + "' "
+                                    + "ORDER BY NomeInternoCrc");
+                            HashMap parametros = new HashMap();
+                            parametros.put("nomeUsuario", nameUser);
+                            parametros.put("dataInicial", dataInicial);
+                            parametros.put("dataFinal", dataFinal);
+                            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                            jv.setTitle("Listagem de Internos Evadidos");
+                            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                            jv.toFront(); // Traz o relatorio para frente da aplicação            
+                            conecta.desconecta();
+                        } catch (JRException e) {
+                            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                        }
                     }
                 }
             }

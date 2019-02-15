@@ -453,7 +453,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         jMenuRelatorios = new javax.swing.JMenu();
         RelatorioProntuarios = new javax.swing.JMenu();
         ListagemGeralProntuarios = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        jProntuarioInternosUnidade = new javax.swing.JMenuItem();
         RelatorioInternos = new javax.swing.JMenu();
         RelatorioNaturalidade = new javax.swing.JMenuItem();
         RellatorioIdade = new javax.swing.JMenuItem();
@@ -918,13 +918,13 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         });
         RelatorioProntuarios.add(ListagemGeralProntuarios);
 
-        jMenuItem5.setText("Prontuários de Internos na Unidade");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+        jProntuarioInternosUnidade.setText("Prontuários de Internos na Unidade");
+        jProntuarioInternosUnidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
+                jProntuarioInternosUnidadeActionPerformed(evt);
             }
         });
-        RelatorioProntuarios.add(jMenuItem5);
+        RelatorioProntuarios.add(jProntuarioInternosUnidade);
 
         jMenuRelatorios.add(RelatorioProntuarios);
 
@@ -2116,7 +2116,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         objRelIntEvadidos.show();
     }//GEN-LAST:event_jRelatorioEvadidosActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+    private void jProntuarioInternosUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jProntuarioInternosUnidadeActionPerformed
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
@@ -2125,7 +2125,10 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
                     + "INNER JOIN DADOSFISICOSINTERNOS ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
                     + "INNER JOIN PAISES ON PRONTUARIOSCRC.IdPais=PAISES.IdPais INNER JOIN CIDADES ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
                     + "INNER JOIN DADOSPENAISINTERNOS ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                    + "INNER JOIN UNIDADE ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid WHERE SituacaoCrc='" + situacaoEnt + "'OR SituacaoCrc='" + situacaoRet + "'ORDER BY NomeInternoCrc");
+                    + "INNER JOIN UNIDADE ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                    + "WHERE SituacaoCrc='" + situacaoEnt + "' "
+                    + "OR SituacaoCrc='" + situacaoRet + "' "
+                    + "ORDER BY NomeInternoCrc");
             HashMap parametros = new HashMap();
             parametros.put("nomeUsuario", nameUser);
             parametros.put("situacaoEntrada", situacaoEnt);
@@ -2141,7 +2144,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         } catch (JRException e) {
             JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
         }
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    }//GEN-LAST:event_jProntuarioInternosUnidadeActionPerformed
 
     private void RetornoSaidaTemporariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RetornoSaidaTemporariaActionPerformed
         // TODO add your handling code here:      
@@ -3346,7 +3349,6 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenu jMenuMovimentacao;
     private javax.swing.JMenu jMenuRelatorios;
@@ -3354,6 +3356,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     public static javax.swing.JDesktopPane jPainelCRC;
     private javax.swing.JMenuItem jPaises;
     private javax.swing.JMenuItem jPopulacaoCarceraria;
+    private javax.swing.JMenuItem jProntuarioInternosUnidade;
     private javax.swing.JMenuItem jProntuariosIntrernos;
     private javax.swing.JMenuItem jRelatorioEvadidos;
     private javax.swing.JMenuItem jRevalidarAtestadoReclusao;

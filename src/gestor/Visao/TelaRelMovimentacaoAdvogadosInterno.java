@@ -8,6 +8,7 @@ package gestor.Visao;
 import gestor.Dao.ConexaoBancoDados;
 import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
@@ -146,47 +147,97 @@ public class TelaRelMovimentacaoAdvogadosInterno extends javax.swing.JInternalFr
 
     private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
         // TODO add your handling code here:
-        if (jPesDtPopInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Data inicial não pode ser em branco.");
-            jPesDtPopInicial.requestFocus();
-        } else {
-            if (jPesDtPopFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Data final não pode ser em branco.");
-                jPesDtPopFinal.requestFocus();
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jPesDtPopInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Data inicial não pode ser em branco.");
+                jPesDtPopInicial.requestFocus();
             } else {
-                if (jPesDtPopInicial.getDate().after(jPesDtPopFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final.");
+                if (jPesDtPopFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Data final não pode ser em branco.");
+                    jPesDtPopFinal.requestFocus();
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jPesDtPopInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jPesDtPopFinal.getDate().getTime());
-                    try {
-                        conecta.abrirConexao();
-                        String path = "reports/RelatorioEntradaSaidaAdvogadosInternosII.jasper";
-                        conecta.executaSQL("SELECT A.IdAdvogado, A.NomeAdvogado, A.OabAdvogado, P.IdInternoCrc,P.NomeInternoCrc, P.AlcunhaCrc, V.DataEntrada, V.HorarioEntrada, V.DataSaida, V.HorarioSaida "
-                                + "FROM VISITASADVOGADOS V "
-                                + "INNER JOIN PRONTUARIOSCRC AS P "
-                                + "ON V.IdInternoCrc=P.IdInternoCrc "
-                                + "INNER JOIN ADVOGADOS AS A "
-                                + "ON V.IdAdvogado=A.IdAdvogado "
-                                + "WHERE V.DataEntrada>='" + dataInicial + "' "
-                                + "AND V.DataEntrada<='" + dataFinal + "' "
-                                + "ORDER BY A.NomeAdvogado, V.DataEntrada");
-                        HashMap parametros = new HashMap();
-                        parametros.put("dataInicial", dataInicial);
-                        parametros.put("dataFinal", dataFinal);
-                        parametros.put("descricaoUnidade", descricaoUnidade);
-                        parametros.put("nomeUsuario", nameUser);
-                        JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                        JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                        JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao
-                        jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                        jv.setTitle("Relatório de Movimentação de Advogados aos Internos");
-                        jv.setVisible(true); // Chama o relatorio para ser visualizado             
-                        jv.toFront(); // Traz o relatorio para frente da aplicação            
-                        conecta.desconecta();
-                    } catch (JRException e) {
-                        JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                    if (jPesDtPopInicial.getDate().after(jPesDtPopFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final.");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jPesDtPopInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jPesDtPopFinal.getDate().getTime());
+                        try {
+                            conecta.abrirConexao();
+                            String path = "reports/RelatorioEntradaSaidaAdvogadosInternosII.jasper";
+                            conecta.executaSQL("SELECT A.IdAdvogado, A.NomeAdvogado, A.OabAdvogado, P.IdInternoCrc,P.NomeInternoCrc, P.AlcunhaCrc, V.DataEntrada, V.HorarioEntrada, V.DataSaida, V.HorarioSaida "
+                                    + "FROM VISITASADVOGADOS V "
+                                    + "INNER JOIN PRONTUARIOSCRC AS P "
+                                    + "ON V.IdInternoCrc=P.IdInternoCrc "
+                                    + "INNER JOIN ADVOGADOS AS A "
+                                    + "ON V.IdAdvogado=A.IdAdvogado "
+                                    + "WHERE V.DataEntrada>='" + dataInicial + "' "
+                                    + "AND V.DataEntrada<='" + dataFinal + "' "
+                                    + "ORDER BY A.NomeAdvogado, V.DataEntrada");
+                            HashMap parametros = new HashMap();
+                            parametros.put("dataInicial", dataInicial);
+                            parametros.put("dataFinal", dataFinal);
+                            parametros.put("descricaoUnidade", descricaoUnidade);
+                            parametros.put("nomeUsuario", nameUser);
+                            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao
+                            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                            jv.setTitle("Relatório de Movimentação de Advogados aos Internos");
+                            jv.setVisible(true); // Chama o relatorio para ser visualizado             
+                            jv.toFront(); // Traz o relatorio para frente da aplicação            
+                            conecta.desconecta();
+                        } catch (JRException e) {
+                            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                        }
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jPesDtPopInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Data inicial não pode ser em branco.");
+                jPesDtPopInicial.requestFocus();
+            } else {
+                if (jPesDtPopFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Data final não pode ser em branco.");
+                    jPesDtPopFinal.requestFocus();
+                } else {
+                    if (jPesDtPopInicial.getDate().after(jPesDtPopFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final.");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jPesDtPopInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jPesDtPopFinal.getDate().getTime());
+                        try {
+                            conecta.abrirConexao();
+                            String path = "reports/RelatorioEntradaSaidaAdvogadosInternosII.jasper";
+                            conecta.executaSQL("SELECT A.IdAdvogado, A.NomeAdvogado, A.OabAdvogado, P.IdInternoCrc,P.NomeInternoCrc, P.AlcunhaCrc, V.DataEntrada, V.HorarioEntrada, V.DataSaida, V.HorarioSaida "
+                                    + "FROM VISITASADVOGADOS V "
+                                    + "INNER JOIN PRONTUARIOSCRC AS P "
+                                    + "ON V.IdInternoCrc=P.IdInternoCrc "
+                                    + "INNER JOIN ADVOGADOS AS A "
+                                    + "ON V.IdAdvogado=A.IdAdvogado "
+                                    + "WHERE V.DataEntrada>='" + dataInicial + "' "
+                                    + "AND V.DataEntrada<='" + dataFinal + "' "
+                                    + "ORDER BY A.NomeAdvogado, V.DataEntrada");
+                            HashMap parametros = new HashMap();
+                            parametros.put("dataInicial", dataInicial);
+                            parametros.put("dataFinal", dataFinal);
+                            parametros.put("descricaoUnidade", descricaoUnidade);
+                            parametros.put("nomeUsuario", nameUser);
+                            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao
+                            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                            jv.setTitle("Relatório de Movimentação de Advogados aos Internos");
+                            jv.setVisible(true); // Chama o relatorio para ser visualizado             
+                            jv.toFront(); // Traz o relatorio para frente da aplicação            
+                            conecta.desconecta();
+                        } catch (JRException e) {
+                            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                        }
                     }
                 }
             }

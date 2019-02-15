@@ -21,7 +21,6 @@ import static gestor.Visao.TelaModuloCRC.codUserAcessoCRC;
 import static gestor.Visao.TelaModuloCRC.codigoGrupoCRC;
 import static gestor.Visao.TelaModuloCRC.codigoUserCRC;
 import static gestor.Visao.TelaModuloCRC.codigoUserGroupCRC;
-import static gestor.Visao.TelaModuloCRC.impressaoAtestadoCRC;
 import static gestor.Visao.TelaModuloCRC.nomeGrupoCRC;
 import static gestor.Visao.TelaModuloCRC.nomeTelaCRC;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
@@ -31,6 +30,7 @@ import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaModuloCRC.impressaoRevalidarAtCRC;
 import static gestor.Visao.TelaModuloCRC.liberacaoRevAtestadoCRC;
 import static gestor.Visao.TelaModuloCRC.revalidarAtestadoCRC;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
@@ -1613,31 +1613,64 @@ public class TelaRevalidacaoAtestadoReclusao extends javax.swing.JInternalFrame 
     private void jBtPesqDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDataActionPerformed
         // TODO add your handling code here:
         count = 0;
-        if (jDataPesqInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data incial.");
-            jDataPesqInicial.requestFocus();
-            jDataPesqInicial.setBackground(Color.red);
-        } else {
-            if (jDataPesqFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final.");
-                jDataPesqFinal.requestFocus();
-                jDataPesqFinal.setBackground(Color.red);
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data incial.");
+                jDataPesqInicial.requestFocus();
+                jDataPesqInicial.setBackground(Color.red);
             } else {
-                if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Final não pode ser menor que a data inicial.");
+                if (jDataPesqFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final.");
                     jDataPesqFinal.requestFocus();
                     jDataPesqFinal.setBackground(Color.red);
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
-                    preencherTodosAtestados("SELECT * FROM REVALIDAR_ATESTADO_RECLUSAO "
-                            + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON REVALIDAR_ATESTADO_RECLUSAO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                            + "INNER JOIN VISITASINTERNO "
-                            + "ON REVALIDAR_ATESTADO_RECLUSAO.IdVisita=VISITASINTERNO.IdVisita "
-                            + "WHERE DataRevAtestado BETWEEN'" + dataInicial + "' "
-                            + "AND '" + dataFinal + "'");
+                    if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Final não pode ser menor que a data inicial.");
+                        jDataPesqFinal.requestFocus();
+                        jDataPesqFinal.setBackground(Color.red);
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
+                        preencherTodosAtestados("SELECT * FROM REVALIDAR_ATESTADO_RECLUSAO "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON REVALIDAR_ATESTADO_RECLUSAO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "INNER JOIN VISITASINTERNO "
+                                + "ON REVALIDAR_ATESTADO_RECLUSAO.IdVisita=VISITASINTERNO.IdVisita "
+                                + "WHERE DataRevAtestado BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "'");
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data incial.");
+                jDataPesqInicial.requestFocus();
+                jDataPesqInicial.setBackground(Color.red);
+            } else {
+                if (jDataPesqFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final.");
+                    jDataPesqFinal.requestFocus();
+                    jDataPesqFinal.setBackground(Color.red);
+                } else {
+                    if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Final não pode ser menor que a data inicial.");
+                        jDataPesqFinal.requestFocus();
+                        jDataPesqFinal.setBackground(Color.red);
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
+                        preencherTodosAtestados("SELECT * FROM REVALIDAR_ATESTADO_RECLUSAO "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON REVALIDAR_ATESTADO_RECLUSAO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "INNER JOIN VISITASINTERNO "
+                                + "ON REVALIDAR_ATESTADO_RECLUSAO.IdVisita=VISITASINTERNO.IdVisita "
+                                + "WHERE DataRevAtestado BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "'");
+                    }
                 }
             }
         }
