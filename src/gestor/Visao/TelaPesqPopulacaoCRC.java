@@ -91,9 +91,9 @@ public class TelaPesqPopulacaoCRC extends javax.swing.JInternalFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar População", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 51, 255))); // NOI18N
 
-        jBtData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/pesq.png"))); // NOI18N
+        jBtData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtData.setToolTipText("Pesquisa por Nome");
-        jBtData.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jBtData.setContentAreaFilled(false);
         jBtData.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtDataActionPerformed(evt);
@@ -116,6 +116,7 @@ public class TelaPesqPopulacaoCRC extends javax.swing.JInternalFrame {
         jIDPesPop.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jBtPesqID.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
+        jBtPesqID.setContentAreaFilled(false);
         jBtPesqID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesqIDActionPerformed(evt);
@@ -136,12 +137,13 @@ public class TelaPesqPopulacaoCRC extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jIDPesPop))
+                        .addComponent(jIDPesPop, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPesDtPopInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -156,43 +158,36 @@ public class TelaPesqPopulacaoCRC extends javax.swing.JInternalFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jBtPesqID, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(76, 76, 76)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jCheckBox1)
                         .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jLabel4)
-                            .addComponent(jIDPesPop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBtPesqID)
-                            .addComponent(jCheckBox1))
-                        .addGap(8, 8, 8)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jPesDtPopInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPesDtPopFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)
-                            .addComponent(jBtData)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.CENTER, jPanel2Layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jLabel1)))
+                .addGap(2, 2, 2)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel4)
+                    .addComponent(jIDPesPop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtPesqID)
+                    .addComponent(jCheckBox1))
+                .addGap(8, 8, 8)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel1)
+                    .addComponent(jPesDtPopInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(jPesDtPopFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtData))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabelaPopulacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaPopulacao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+
             },
             new String [] {
-
+                "Código", "Data População", "Total Agentes", "Total Internos"
             }
         ));
         jTabelaPopulacao.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -201,6 +196,12 @@ public class TelaPesqPopulacaoCRC extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(jTabelaPopulacao);
+        if (jTabelaPopulacao.getColumnModel().getColumnCount() > 0) {
+            jTabelaPopulacao.getColumnModel().getColumn(0).setMinWidth(50);
+            jTabelaPopulacao.getColumnModel().getColumn(1).setMinWidth(100);
+            jTabelaPopulacao.getColumnModel().getColumn(2).setMinWidth(80);
+            jTabelaPopulacao.getColumnModel().getColumn(3).setMinWidth(80);
+        }
 
         jBtEnviar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtEnviar.setForeground(new java.awt.Color(0, 0, 255));
@@ -229,14 +230,13 @@ public class TelaPesqPopulacaoCRC extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jBtEnviar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtSair)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(jBtSair)
+                        .addGap(0, 169, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,7 +267,7 @@ public class TelaPesqPopulacaoCRC extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        setBounds(300, 150, 344, 278);
+        setBounds(300, 150, 383, 278);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtDataActionPerformed
@@ -403,10 +403,20 @@ public class TelaPesqPopulacaoCRC extends javax.swing.JInternalFrame {
 
     public void preencherTabela() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"ID", "Data População", "Total Agentes", "Total Internos"};
+        String[] Colunas = new String[]{"Código", "Data População", "Total Agentes", "Total Internos"};
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM MOVPOPULACAO INNER JOIN POPESTRANGMASC ON MOVPOPULACAO.IdPopMov=POPESTRANGMASC.IdPopMov INNER JOIN POPESTRANGFEM ON MOVPOPULACAO.IdPopMov=POPESTRANGFEM.IdPopMov INNER JOIN POPBRASMASC ON MOVPOPULACAO.IdPopMov=POPBRASMASC.IdPopMov INNER JOIN POPBRASFEM ON MOVPOPULACAO.IdPopMov=POPBRASFEM.IdPopMov INNER JOIN POPAGENTES ON MOVPOPULACAO.IdPopMov=POPAGENTES.IdPopMov");
+            conecta.executaSQL("SELECT * FROM MOVPOPULACAO "
+                    + "INNER JOIN POPESTRANGMASC "
+                    + "ON MOVPOPULACAO.IdPopMov=POPESTRANGMASC.IdPopMov "
+                    + "INNER JOIN POPESTRANGFEM "
+                    + "ON MOVPOPULACAO.IdPopMov=POPESTRANGFEM.IdPopMov "
+                    + "INNER JOIN POPBRASMASC "
+                    + "ON MOVPOPULACAO.IdPopMov=POPBRASMASC.IdPopMov "
+                    + "INNER JOIN POPBRASFEM "
+                    + "ON MOVPOPULACAO.IdPopMov=POPBRASFEM.IdPopMov "
+                    + "INNER JOIN POPAGENTES "
+                    + "ON MOVPOPULACAO.IdPopMov=POPAGENTES.IdPopMov");
             conecta.rs.first();
             do {
                 // Formatar a data População
@@ -438,7 +448,7 @@ public class TelaPesqPopulacaoCRC extends javax.swing.JInternalFrame {
 
     public void preencherTabelaNome(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"ID", "Data População", "Total Agentes", "Total Internos"};
+        String[] Colunas = new String[]{"Código", "Data População", "Total Agentes", "Total Internos"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
