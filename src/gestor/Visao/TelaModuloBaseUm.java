@@ -793,6 +793,7 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
 
     private void ListaPassagemExternaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListaPassagemExternaActionPerformed
         // TODO add your handling code here:
+        JOptionPane.showMessageDialog(rootPane, "Em construção...");
     }//GEN-LAST:event_ListaPassagemExternaActionPerformed
 
     private void HistoricoCrcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HistoricoCrcActionPerformed
