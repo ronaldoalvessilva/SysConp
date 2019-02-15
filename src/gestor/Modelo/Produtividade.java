@@ -12,7 +12,11 @@ import org.eclipse.persistence.jpa.jpql.parser.DateTime;
  * @author geiba
  */
 public class Produtividade {
-    
+
+    /**
+     * @return the qtd
+     */
+        
     private int idRegistro;
     private DateTime dataRegistro;
     private String horario;
@@ -36,7 +40,8 @@ public class Produtividade {
     private String horaAssinatura;
     private String motivo;
     private byte assinaturaLiberador;
-    private String atendeEvolucao;    
+    private String atendeEvolucao;   
+    private int qtd;
 
     /**
      * @return the idRegistro
@@ -372,6 +377,17 @@ public class Produtividade {
      */
     public void setAtendeEvolucao(String atendeEvolucao) {
         this.atendeEvolucao = atendeEvolucao;
+    }
+    
+    public int getQtd() {
+        return qtd;
+    }
+
+    /**
+     * @param qtd the qtd to set
+     */
+    public void setQtd(int qtd) {
+        this.qtd = qtd;
     }
 }
 

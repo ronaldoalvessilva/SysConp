@@ -40,11 +40,13 @@ public class RegistroAtendimentoInternos {
     private String dataAssinatura;
     private String horaAssinatura;
     private String motivoImpressao;
+    private int qtd;
+    
 
     public RegistroAtendimentoInternos() {
     }
 
-    public RegistroAtendimentoInternos(int idRegistro, Date dataReg, String horario, int idInternoCrc, String nomeInternoCrc, String tipoAtemdimento, int idDepartamento, String nomeDepartamento, byte[] assinaturaDigital, byte[] assinaturaLiberador, String atendido, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, Date dataAtendimento, int IdAtend, int IdEvol, String atendeEvol, String impressaoAuto, int codigoFunc, String nomeFunc, String dataAssinatura, String horaAssinatura, String motivoImpressao) {
+    public RegistroAtendimentoInternos(int idRegistro, Date dataReg, String horario, int idInternoCrc, String nomeInternoCrc, String tipoAtemdimento, int idDepartamento, String nomeDepartamento, byte[] assinaturaDigital, byte[] assinaturaLiberador, String atendido, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, Date dataAtendimento, int IdAtend, int IdEvol, String atendeEvol, String impressaoAuto, int codigoFunc, String nomeFunc, String dataAssinatura, String horaAssinatura, String motivoImpressao, int qtd) {
         this.idRegistro = idRegistro;
         this.dataReg = dataReg;
         this.horario = horario;
@@ -72,6 +74,7 @@ public class RegistroAtendimentoInternos {
         this.dataAssinatura = dataAssinatura;
         this.horaAssinatura = horaAssinatura;
         this.motivoImpressao = motivoImpressao;
+        this.qtd = qtd;
     }
 
     /**
@@ -451,6 +454,17 @@ public class RegistroAtendimentoInternos {
      */
     public void setMotivoImpressao(String motivoImpressao) {
         this.motivoImpressao = motivoImpressao;
+    }
+    
+    public int getQtd() {
+        return qtd;
+    }
+
+    /**
+     * @param qtd the qtd to set
+     */
+    public void setQtd(int qtd) {
+        this.qtd = qtd + qtd;
     }
    
 }

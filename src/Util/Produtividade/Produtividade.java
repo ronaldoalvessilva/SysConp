@@ -323,21 +323,14 @@ public class Produtividade extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Colaborador", "Departamento", "TOTAL"
+                "Colaborador", "Departamento", "Total"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+        ));
         jScrollPaneTabela.setViewportView(jTabelaAtendimentoProdutivida);
         if (jTabelaAtendimentoProdutivida.getColumnModel().getColumnCount() > 0) {
             jTabelaAtendimentoProdutivida.getColumnModel().getColumn(0).setMinWidth(226);
             jTabelaAtendimentoProdutivida.getColumnModel().getColumn(1).setMinWidth(226);
+            jTabelaAtendimentoProdutivida.getColumnModel().getColumn(2).setMinWidth(226);
         }
 
         jPanelTabela.add(jScrollPaneTabela, java.awt.BorderLayout.PAGE_START);
@@ -553,7 +546,7 @@ public class Produtividade extends javax.swing.JFrame {
 //                String mese = dataEvolucao.substring(5, 7);
 //                String anoe = dataEvolucao.substring(0, 4);
 //                dataEvolucao = diae + "/" + mese + "/" + anoe;
-                dados.add(new Object[]{conecta.rs.getString("NomeFunc"), conecta.rs.getString("NomeDepartamento")});
+                dados.add(new Object[]{conecta.rs.getString("NomeFunc"), conecta.rs.getString("NomeDepartamento"), conecta.rs.getInt("Qtd")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }
@@ -582,6 +575,7 @@ public class Produtividade extends javax.swing.JFrame {
         //
         jTabelaAtendimentoProdutivida.getColumnModel().getColumn(0).setCellRenderer(centralizado);
         jTabelaAtendimentoProdutivida.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+        jTabelaAtendimentoProdutivida.getColumnModel().getColumn(2).setCellRenderer(centralizado);
     }
 
     public void limparTabelaEvolucao() {
@@ -608,7 +602,7 @@ public class Produtividade extends javax.swing.JFrame {
             for (RegistroAtendimentoInternos pp : control.read()) {
 
 //                jtotalProdutosKitCompleto.setText(Integer.toString(qtdTecnicosPSP)); // Converter inteiro em string para exibir na tela 
-                dadosProduto.addRow(new Object[]{pp.getNomeFunc(), pp.getNomeDepartamento()});
+                dadosProduto.addRow(new Object[]{pp.getNomeFunc(), pp.getNomeDepartamento(), pp.getQtd()});
                 // BARRA DE ROLAGEM HORIZONTAL
                 jTabelaAtendimentoProdutivida.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                 // ALINHAR TEXTO DA TABELA CENTRALIZADO
@@ -635,24 +629,32 @@ public class Produtividade extends javax.swing.JFrame {
         } catch (InterruptedException ex) {
         }
     }
-    
-    public double getSum(){
-        int rowsCount = jTabelaAtendimentoProdutivida.getRowCount();
-        double sum = 0;
-        for(int i = 0; i < rowsCount; i++){
-          //getValueAt(i, 2) : the doubles column
-            sum = sum+(Double.parseDouble((jTabelaAtendimentoProdutivida.getValueAt(i, 2).toString())));
-        }
-        return sum;
+    public void SetData(Object obj, int row_index, int col_index) {
+        jTabelaAtendimentoProdutivida.getModel().setValueAt(obj, row_index, col_index);
     }
+
+    public Object GetData(JTable table, int row_index, int col_index) {
+        return table.getModel().getValueAt(row_index, col_index);
+ }
+//    public double getSum(){
+//        int rowsCount = jTabelaAtendimentoProdutivida.getRowCount();
+//        double total = 0;
+//        double sum = 0;
+//        for(int i = 0; i < rowsCount; i++){
+//          //getValueAt(i, 2) : the doubles column
+//            sum = sum+(Double.parseDouble((jTabelaAtendimentoProdutivida.getValueAt(i, 2).toString())));
+//        }
+//        return sum += total;
+//    }
 
 
 //    public void somaAtendimento() {
 //
+//        double soma = 0;
 //        double total = 0;
 //        for (int i = 0; i < jTabelaAtendimentoProdutivida.getRowCount(); i++) {
 //            int amount = Integer.parseInt((String) jTabelaAtendimentoProdutivida.getValueAt(i, 2));
-//       // soma = soma + Integer.parseInt(jTabelaAtendimentoProdutivida.getValueAt(i, 2).toString());
+//       soma = soma + Integer.parseInt(jTabelaAtendimentoProdutivida.getValueAt(i, 2).toString());
 //
 //        soma.setText(String.valueOf(total));
 //        //jtextField.setText(Integer.toString(total));
@@ -664,4 +666,6 @@ public class Produtividade extends javax.swing.JFrame {
 //                    }
 //        }
 //    }
+    
+   
 }
