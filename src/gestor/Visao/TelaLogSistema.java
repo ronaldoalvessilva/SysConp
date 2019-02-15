@@ -7,6 +7,7 @@ package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -394,18 +395,40 @@ public class TelaLogSistema extends javax.swing.JInternalFrame {
     private void jBtDataLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtDataLogActionPerformed
         // TODO add your handling code here:
         flag = 1;
-        if (jDataInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe uma data para pesquisa.");
-            jDataInicial.requestFocus();
-        } else if (jDataInicial.getDate() != null && jPesqNomeUsuario.getText().equals("")) {
-            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-            dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
-            preencherTabelaInternos("SELECT * FROM LOGSISTEMA WHERE DataMov='" + dataInicial + "'");
-        } else if (!jPesqNomeUsuario.getText().equals("")) {
-            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-            dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
-            preencherTabelaInternos("SELECT * FROM LOGSISTEMA WHERE DataMov='" + dataInicial + "' "
-                    + "AND NomeUsuarioLogado LIKE '%" + jPesqNomeUsuario.getText() + "%'");
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDataInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe uma data para pesquisa.");
+                jDataInicial.requestFocus();
+            } else if (jDataInicial.getDate() != null && jPesqNomeUsuario.getText().equals("")) {
+                SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                preencherTabelaInternos("SELECT * FROM LOGSISTEMA "
+                        + "WHERE DataMov='" + dataInicial + "'");
+            } else if (!jPesqNomeUsuario.getText().equals("")) {
+                SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                preencherTabelaInternos("SELECT * FROM LOGSISTEMA "
+                        + "WHERE DataMov='" + dataInicial + "' "
+                        + "AND NomeUsuarioLogado LIKE '%" + jPesqNomeUsuario.getText() + "%'");
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe uma data para pesquisa.");
+                jDataInicial.requestFocus();
+            } else if (jDataInicial.getDate() != null && jPesqNomeUsuario.getText().equals("")) {
+                SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                preencherTabelaInternos("SELECT * FROM LOGSISTEMA "
+                        + "WHERE DataMov='" + dataInicial + "'");
+            } else if (!jPesqNomeUsuario.getText().equals("")) {
+                SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                preencherTabelaInternos("SELECT * FROM LOGSISTEMA "
+                        + "WHERE DataMov='" + dataInicial + "' "
+                        + "AND NomeUsuarioLogado LIKE '%" + jPesqNomeUsuario.getText() + "%'");
+            }
         }
     }//GEN-LAST:event_jBtDataLogActionPerformed
 

@@ -14,6 +14,7 @@ import gestor.Modelo.OcorrenciasPortaria;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -561,21 +562,48 @@ public class TelaOcorrenciaPortariaDir extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         count = 0;
         flag = 1;
-        if (jDataPesqInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-            jDataPesqInicial.requestFocus();
-        } else {
-            if (jDataPesFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                jDataPesFinal.requestFocus();
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
             } else {
-                if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                if (jDataPesFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesFinal.requestFocus();
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                    pesquisarOcorrrencias("SELECT * FROM OCORRENCIAS_P1 WHERE DataLanc BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                        pesquisarOcorrrencias("SELECT * FROM OCORRENCIAS_P1 "
+                                + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "'");
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
+            } else {
+                if (jDataPesFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesFinal.requestFocus();
+                } else {
+                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                        pesquisarOcorrrencias("SELECT * FROM OCORRENCIAS_P1 "
+                                + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "'");
+                    }
                 }
             }
         }
@@ -603,7 +631,7 @@ public class TelaOcorrenciaPortariaDir extends javax.swing.JInternalFrame {
                 jCorpoTextoOcorrencia.setEnabled(!true);
                 //               
                 jBtImpressao.setEnabled(true);
-            } else {               
+            } else {
                 jBtImpressao.setEnabled(true);
             }
             conecta.abrirConexao();
@@ -682,14 +710,14 @@ public class TelaOcorrenciaPortariaDir extends javax.swing.JInternalFrame {
         //
         jDataOcorrencia.setEnabled(true);
         jTituloOcorrencia.setEnabled(true);
-        jCorpoTextoOcorrencia.setEnabled(true);       
+        jCorpoTextoOcorrencia.setEnabled(true);
     }
 
     public void Alterar() {
         //
         jDataOcorrencia.setEnabled(true);
         jTituloOcorrencia.setEnabled(true);
-        jCorpoTextoOcorrencia.setEnabled(true);       
+        jCorpoTextoOcorrencia.setEnabled(true);
     }
 
     public void Excluir() {
@@ -702,14 +730,14 @@ public class TelaOcorrenciaPortariaDir extends javax.swing.JInternalFrame {
         //
         jDataOcorrencia.setEnabled(!true);
         jTituloOcorrencia.setEnabled(!true);
-        jCorpoTextoOcorrencia.setEnabled(!true);       
+        jCorpoTextoOcorrencia.setEnabled(!true);
     }
 
     public void Salvar() {
         //
         jDataOcorrencia.setEnabled(!true);
         jTituloOcorrencia.setEnabled(!true);
-        jCorpoTextoOcorrencia.setEnabled(!true);       
+        jCorpoTextoOcorrencia.setEnabled(!true);
     }
 
     public void Cancelar() {
@@ -722,11 +750,11 @@ public class TelaOcorrenciaPortariaDir extends javax.swing.JInternalFrame {
             //
             jDataOcorrencia.setEnabled(!true);
             jTituloOcorrencia.setEnabled(!true);
-            jCorpoTextoOcorrencia.setEnabled(!true);           
+            jCorpoTextoOcorrencia.setEnabled(!true);
         } else {
             jDataOcorrencia.setEnabled(!true);
             jTituloOcorrencia.setEnabled(!true);
-            jCorpoTextoOcorrencia.setEnabled(!true);            
+            jCorpoTextoOcorrencia.setEnabled(!true);
         }
     }
 
@@ -746,7 +774,7 @@ public class TelaOcorrenciaPortariaDir extends javax.swing.JInternalFrame {
             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
             jStatusOcorrencia.setText(statusEntrada);
             JOptionPane.showMessageDialog(rootPane, "Registro FINALIZADO com sucesso !!!");
-            jDataOcorrencia.setEnabled(!true);          
+            jDataOcorrencia.setEnabled(!true);
         }
     }
 

@@ -255,7 +255,7 @@ public class TelaConsultaListaPassagemInternosSeg extends javax.swing.JInternalF
         jTabelaAgendamento.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaAgendamento.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Status", "Razão Social", "Obervação"

@@ -1127,7 +1127,8 @@ public class TelaModuloDiretoria extends javax.swing.JInternalFrame {
                     + "INNER JOIN CELAS "
                     + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
                     + "INNER JOIN PAVILHAO "
-                    + "ON CELAS.IdPav=PAVILHAO.IdPav ORDER BY DescricaoPav,PRONTUARIOSCRC.NomeInternoCrc,CELAS.EndCelaPav");
+                    + "ON CELAS.IdPav=PAVILHAO.IdPav "
+                    + "ORDER BY DescricaoPav,PRONTUARIOSCRC.NomeInternoCrc,CELAS.EndCelaPav");
             HashMap parametros = new HashMap();
             parametros.put("nomeUsuario", nameUser);
             JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
@@ -1160,7 +1161,9 @@ public class TelaModuloDiretoria extends javax.swing.JInternalFrame {
                     + "ON ITENSAGENDALABORATIVA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "INNER JOIN EMPRESALAB "
                     + "ON ITENSAGENDALABORATIVA.IdEmp=EMPRESALAB.IdEmp "
-                    + "WHERE ITENSAGENDALABORATIVA.TipoEmpresa='" + tipoEmpresa + "'AND StatusInterno='" + statusInterno + "'ORDER BY RazaoSocial,NomeInternoCrc");
+                    + "WHERE ITENSAGENDALABORATIVA.TipoEmpresa='" + tipoEmpresa + "' "
+                    + "AND StatusInterno='" + statusInterno + "' "
+                    + "ORDER BY RazaoSocial,NomeInternoCrc");
             HashMap parametros = new HashMap();
             parametros.put("tipoEmpresa", tipoEmpresa);
             parametros.put("statusEmpresa", statusInterno);
@@ -1189,7 +1192,9 @@ public class TelaModuloDiretoria extends javax.swing.JInternalFrame {
                     + "ON ITENSAGENDALABORATIVA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "INNER JOIN EMPRESALAB "
                     + "ON ITENSAGENDALABORATIVA.IdEmp=EMPRESALAB.IdEmp "
-                    + "WHERE ITENSAGENDALABORATIVA.TipoEmpresa='" + tipoEmpresaExt + "'AND StatusInterno='" + statusInterno + "'ORDER BY RazaoSocial,NomeInternoCrc");
+                    + "WHERE ITENSAGENDALABORATIVA.TipoEmpresa='" + tipoEmpresaExt + "' "
+                    + "AND StatusInterno='" + statusInterno + "' "
+                    + "ORDER BY RazaoSocial,NomeInternoCrc");
             HashMap parametros = new HashMap();
             parametros.put("tipoEmpresa", tipoEmpresa);
             parametros.put("statusEmpresa", statusInterno);
@@ -1771,10 +1776,19 @@ public class TelaModuloDiretoria extends javax.swing.JInternalFrame {
             conecta.abrirConexao();
             String path = "reports/ProntuariosInternosUnidadePenalCRC.jasper";
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
-                    + "INNER JOIN DADOSFISICOSINTERNOS ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
-                    + "INNER JOIN PAISES ON PRONTUARIOSCRC.IdPais=PAISES.IdPais INNER JOIN CIDADES ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
-                    + "INNER JOIN DADOSPENAISINTERNOS ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                    + "INNER JOIN UNIDADE ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid WHERE SituacaoCrc='" + situacaoEnt + "'OR SituacaoCrc='" + situacaoRet + "'ORDER BY NomeInternoCrc");
+                    + "INNER JOIN DADOSFISICOSINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
+                    + "INNER JOIN PAISES "
+                    + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
+                    + "INNER JOIN CIDADES "
+                    + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "INNER JOIN UNIDADE "
+                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                    + "WHERE SituacaoCrc='" + situacaoEnt + "' "
+                    + "OR SituacaoCrc='" + situacaoRet + "' "
+                    + "ORDER BY NomeInternoCrc");
             HashMap parametros = new HashMap();
             parametros.put("nomeUsuario", nameUser);
             parametros.put("situacaoEntrada", situacaoEnt);
