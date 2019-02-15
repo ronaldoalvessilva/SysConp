@@ -37,6 +37,7 @@ import static gestor.Visao.TelaModuloBaseUm.codGravarB1;
 import static gestor.Visao.TelaModuloBaseUm.codIncluirB1;
 import static gestor.Visao.TelaModuloBaseUm.codUserAcessoB1;
 import static gestor.Visao.TelaModuloBaseUm.codigoUserB1;
+import static gestor.Visao.TelaModuloBaseUm.jPainelBaseSegurancaPavilhao;
 import static gestor.Visao.TelaModuloBaseUm.nomeGrupoB1;
 import static gestor.Visao.TelaModuloBaseUm.nomeTelaB1;
 import static gestor.Visao.TelaModuloBaseUm.telaPopulacaoInternosAgentesB1;
@@ -1489,8 +1490,14 @@ public final class TelaPopulacaoBaseSeguranca extends javax.swing.JInternalFrame
     private void jBtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaActionPerformed
         // TODO add your handling code here:   
         TelaPesquisaPopulacaoBaseSeguranca objPop = new TelaPesquisaPopulacaoBaseSeguranca();
-        TelaModuloBaseUm.jPainelBaseSegurancaPavilhao.add(objPop);
-        objPop.show();
+        TelaPesquisaPopulacaoBaseDois objPopB2 = new TelaPesquisaPopulacaoBaseDois();
+        if (TelaModuloBaseUm.jPainelBaseSegurancaPavilhao != null) {
+            TelaModuloBaseUm.jPainelBaseSegurancaPavilhao.add(objPop);
+            objPop.show();
+        } else if(TelaModuloBaseDois.jPainelBasePavilhaoAuxiliar != null){
+            TelaModuloBaseDois.jPainelBasePavilhaoAuxiliar.add(objPopB2);
+            objPopB2.show();
+        }
     }//GEN-LAST:event_jBtPesquisaActionPerformed
 
     private void jTotalGeralPopInternosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTotalGeralPopInternosKeyPressed
