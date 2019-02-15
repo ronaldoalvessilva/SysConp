@@ -9,6 +9,7 @@ import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.DepositoInterno;
 import gestor.Modelo.SaqueValores;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import static gestor.Visao.TelaPesqDataExtrato.jDataPesFinal;
 import static gestor.Visao.TelaPesqDataExtrato.jDataPesqInicial;
 import static gestor.Visao.TelaPesqDataExtratoInativos.jDataPesFinalInativos;
@@ -663,82 +664,161 @@ public class TelaConsultaSaldoFin extends javax.swing.JInternalFrame {
 
     private void jBtExtratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExtratoActionPerformed
         // TODO add your handling code here:
-        if (jRadioBtAtivo.isSelected()) {
-            if (jIdInternoFinDir.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Pesquise primeiro o interno para fazer a consulta do extrato.");
-            } else if (jDataPesqInicial.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe uma data inicial e data final para gerar o extrato.");
-            } else if (jDataPesFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe uma data final para gerar o extrato.");
-            } else {
-                SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                try {
-                    conecta.abrirConexao();
-                    String path = "reports/ExtratoValores.jasper";
-                    conecta.executaSQL("SELECT * FROM SALDOVALORES "
-                            + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON SALDOVALORES.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                            + "WHERE DataMov BETWEEN'" + dataInicial + "' "
-                            + "AND'" + dataFinal + "' "
-                            + "AND NomeInternoCrc='" + jNomeInternoFin.getText() + "'");
-                    HashMap parametros = new HashMap();
-                    parametros.put("nomeInternoCrc", jNomeInternoFin.getText()); // Nome do interno para filtro de pesquisa
-                    parametros.put("dataInicial", dataInicial); // Data inicial de pesquisa
-                    parametros.put("dataFinal", dataFinal); // Data Final de pesquisa
-                    parametros.put("saldoAtual", jlSaldoAtual.getText()); // Saldo Atual do interno no relatório
-                    parametros.put("usuario", nomeUsuarioPersona); // usuário que imprimiu o relatório
-                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                    jv.setTitle("Extrato de Valores de Interno");
-                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                    jv.toFront(); // Traz o relatorio para frente da aplicação            
-                    conecta.desconecta();
-                } catch (JRException e) {
-                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório. \n\nERRO :" + e);
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jRadioBtAtivo.isSelected()) {
+                if (jIdInternoFinDir.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Pesquise primeiro o interno para fazer a consulta do extrato.");
+                } else if (jDataPesqInicial.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe uma data inicial e data final para gerar o extrato.");
+                } else if (jDataPesFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe uma data final para gerar o extrato.");
+                } else {
+                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                    dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                    dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                    try {
+                        conecta.abrirConexao();
+                        String path = "reports/ExtratoValores.jasper";
+                        conecta.executaSQL("SELECT * FROM SALDOVALORES "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON SALDOVALORES.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE DataMov BETWEEN'" + dataInicial + "' "
+                                + "AND'" + dataFinal + "' "
+                                + "AND NomeInternoCrc='" + jNomeInternoFin.getText() + "'");
+                        HashMap parametros = new HashMap();
+                        parametros.put("nomeInternoCrc", jNomeInternoFin.getText()); // Nome do interno para filtro de pesquisa
+                        parametros.put("dataInicial", dataInicial); // Data inicial de pesquisa
+                        parametros.put("dataFinal", dataFinal); // Data Final de pesquisa
+                        parametros.put("saldoAtual", jlSaldoAtual.getText()); // Saldo Atual do interno no relatório
+                        parametros.put("usuario", nomeUsuarioPersona); // usuário que imprimiu o relatório
+                        JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                        JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                        JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                        jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                        jv.setTitle("Extrato de Valores de Interno");
+                        jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                        jv.toFront(); // Traz o relatorio para frente da aplicação            
+                        conecta.desconecta();
+                    } catch (JRException e) {
+                        JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório. \n\nERRO :" + e);
+                    }
+                }
+            } else if (jRadioBtInativos.isSelected()) {
+                if (jIdInternoFinDir.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Pesquise primeiro o interno para fazer a consulta do extrato.");
+                } else if (jDataPesqInicialInativos.getDate() == null || jDataPesFinalInativos.getDate() == null || jDataPesqInicialInativos.getDate().equals("") || jDataPesFinalInativos.getDate().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe uma data inicial e data final para gerar o extrato.");
+                } else {
+                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                    dataInicialInativos = formatoAmerica.format(jDataPesqInicialInativos.getDate().getTime());
+                    dataFinalInativos = formatoAmerica.format(jDataPesFinalInativos.getDate().getTime());
+                    try {
+                        conecta.abrirConexao();
+                        String path = "reports/ExtratoValoresInternosInativo.jasper";
+                        conecta.executaSQL("SELECT * FROM SALDO_VALORES_INATIVOS "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON SALDO_VALORES_INATIVOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE  DataMov BETWEEN'" + dataInicialInativos + "' "
+                                + "AND'" + dataFinalInativos + "' "
+                                + "AND NomeInternoCrc='" + jNomeInternoFin.getText() + "'");
+                        HashMap parametros = new HashMap();
+                        parametros.put("nomeInternoCrc", jNomeInternoFin.getText()); // Nome do interno para filtro de pesquisa
+                        parametros.put("dataInicial", dataInicial); // Data inicial de pesquisa
+                        parametros.put("dataFinal", dataFinal); // Data Final de pesquisa
+                        parametros.put("saldoAtual", jlSaldoAtual.getText()); // Saldo Atual do interno no relatório
+                        parametros.put("usuario", nomeUsuarioPersona); // usuário que imprimiu o relatório
+                        JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                        JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                        JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                        jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                        jv.setTitle("Extrato de Valores de Interno Inativos");
+                        jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                        jv.toFront(); // Traz o relatorio para frente da aplicação            
+                        conecta.desconecta();
+                    } catch (JRException e) {
+                        JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório. \n\nERRO :" + e);
+                    }
                 }
             }
-        } else if (jRadioBtInativos.isSelected()) {
-            if (jIdInternoFinDir.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Pesquise primeiro o interno para fazer a consulta do extrato.");
-            } else if (jDataPesqInicialInativos.getDate() == null || jDataPesFinalInativos.getDate() == null || jDataPesqInicialInativos.getDate().equals("") || jDataPesFinalInativos.getDate().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe uma data inicial e data final para gerar o extrato.");
-            } else {
-                SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                dataInicialInativos = formatoAmerica.format(jDataPesqInicialInativos.getDate().getTime());
-                dataFinalInativos = formatoAmerica.format(jDataPesFinalInativos.getDate().getTime());
-                try {
-                    conecta.abrirConexao();
-                    String path = "reports/ExtratoValoresInternosInativo.jasper";
-                    conecta.executaSQL("SELECT * FROM SALDO_VALORES_INATIVOS "
-                            + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON SALDO_VALORES_INATIVOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                            + "WHERE  DataMov BETWEEN'" + dataInicialInativos + "' "
-                            + "AND'" + dataFinalInativos + "' "
-                            + "AND NomeInternoCrc='" + jNomeInternoFin.getText() + "'");
-                    HashMap parametros = new HashMap();
-                    parametros.put("nomeInternoCrc", jNomeInternoFin.getText()); // Nome do interno para filtro de pesquisa
-                    parametros.put("dataInicial", dataInicial); // Data inicial de pesquisa
-                    parametros.put("dataFinal", dataFinal); // Data Final de pesquisa
-                    parametros.put("saldoAtual", jlSaldoAtual.getText()); // Saldo Atual do interno no relatório
-                    parametros.put("usuario", nomeUsuarioPersona); // usuário que imprimiu o relatório
-                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                    jv.setTitle("Extrato de Valores de Interno Inativos");
-                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                    jv.toFront(); // Traz o relatorio para frente da aplicação            
-                    conecta.desconecta();
-                } catch (JRException e) {
-                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório. \n\nERRO :" + e);
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jRadioBtAtivo.isSelected()) {
+                if (jIdInternoFinDir.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Pesquise primeiro o interno para fazer a consulta do extrato.");
+                } else if (jDataPesqInicial.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe uma data inicial e data final para gerar o extrato.");
+                } else if (jDataPesFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe uma data final para gerar o extrato.");
+                } else {
+                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                    dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                    dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                    try {
+                        conecta.abrirConexao();
+                        String path = "reports/ExtratoValores.jasper";
+                        conecta.executaSQL("SELECT * FROM SALDOVALORES "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON SALDOVALORES.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE DataMov BETWEEN'" + dataInicial + "' "
+                                + "AND'" + dataFinal + "' "
+                                + "AND NomeInternoCrc='" + jNomeInternoFin.getText() + "'");
+                        HashMap parametros = new HashMap();
+                        parametros.put("nomeInternoCrc", jNomeInternoFin.getText()); // Nome do interno para filtro de pesquisa
+                        parametros.put("dataInicial", dataInicial); // Data inicial de pesquisa
+                        parametros.put("dataFinal", dataFinal); // Data Final de pesquisa
+                        parametros.put("saldoAtual", jlSaldoAtual.getText()); // Saldo Atual do interno no relatório
+                        parametros.put("usuario", nomeUsuarioPersona); // usuário que imprimiu o relatório
+                        JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                        JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                        JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                        jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                        jv.setTitle("Extrato de Valores de Interno");
+                        jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                        jv.toFront(); // Traz o relatorio para frente da aplicação            
+                        conecta.desconecta();
+                    } catch (JRException e) {
+                        JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório. \n\nERRO :" + e);
+                    }
+                }
+            } else if (jRadioBtInativos.isSelected()) {
+                if (jIdInternoFinDir.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Pesquise primeiro o interno para fazer a consulta do extrato.");
+                } else if (jDataPesqInicialInativos.getDate() == null || jDataPesFinalInativos.getDate() == null || jDataPesqInicialInativos.getDate().equals("") || jDataPesFinalInativos.getDate().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe uma data inicial e data final para gerar o extrato.");
+                } else {
+                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                    dataInicialInativos = formatoAmerica.format(jDataPesqInicialInativos.getDate().getTime());
+                    dataFinalInativos = formatoAmerica.format(jDataPesFinalInativos.getDate().getTime());
+                    try {
+                        conecta.abrirConexao();
+                        String path = "reports/ExtratoValoresInternosInativo.jasper";
+                        conecta.executaSQL("SELECT * FROM SALDO_VALORES_INATIVOS "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON SALDO_VALORES_INATIVOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE  DataMov BETWEEN'" + dataInicialInativos + "' "
+                                + "AND'" + dataFinalInativos + "' "
+                                + "AND NomeInternoCrc='" + jNomeInternoFin.getText() + "'");
+                        HashMap parametros = new HashMap();
+                        parametros.put("nomeInternoCrc", jNomeInternoFin.getText()); // Nome do interno para filtro de pesquisa
+                        parametros.put("dataInicial", dataInicial); // Data inicial de pesquisa
+                        parametros.put("dataFinal", dataFinal); // Data Final de pesquisa
+                        parametros.put("saldoAtual", jlSaldoAtual.getText()); // Saldo Atual do interno no relatório
+                        parametros.put("usuario", nomeUsuarioPersona); // usuário que imprimiu o relatório
+                        JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                        JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                        JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                        jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                        jv.setTitle("Extrato de Valores de Interno Inativos");
+                        jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                        jv.toFront(); // Traz o relatorio para frente da aplicação            
+                        conecta.desconecta();
+                    } catch (JRException e) {
+                        JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório. \n\nERRO :" + e);
+                    }
                 }
             }
         }
-
     }//GEN-LAST:event_jBtExtratoActionPerformed
 
 
