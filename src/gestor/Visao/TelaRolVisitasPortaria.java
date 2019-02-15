@@ -16,6 +16,7 @@ import gestor.Modelo.ItensListaInternos;
 import gestor.Modelo.ItensRolVisitas;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.RolVisitas;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -201,7 +202,7 @@ public class TelaRolVisitasPortaria extends javax.swing.JInternalFrame {
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 0, 255)));
+        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel19.setText("ID Rol:");
@@ -458,7 +459,7 @@ public class TelaRolVisitasPortaria extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("Listagem", jPanel1);
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados do Rol", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 0, 255)));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados do Rol", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("ID Rol:");
@@ -513,7 +514,7 @@ public class TelaRolVisitasPortaria extends javax.swing.JInternalFrame {
                 .addGap(0, 9, Short.MAX_VALUE))
         );
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados do Interno", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 0, 255)));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados do Interno", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("Código");
@@ -670,7 +671,7 @@ public class TelaRolVisitasPortaria extends javax.swing.JInternalFrame {
         jTabbedPane2.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
         jTabbedPane2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel18.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 255)));
+        jPanel18.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jObservacaoPortaria.setColumns(20);
         jObservacaoPortaria.setRows(5);
@@ -741,13 +742,13 @@ public class TelaRolVisitasPortaria extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                .addComponent(jTabbedPane2)
                 .addContainerGap())
         );
 
         jTabbedPane1.addTab("Manutenção", jPanel2);
 
-        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados da Visita", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 0, 255)));
+        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados da Visita", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setText("Código");
@@ -1161,8 +1162,7 @@ public class TelaRolVisitasPortaria extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1170,7 +1170,7 @@ public class TelaRolVisitasPortaria extends javax.swing.JInternalFrame {
             .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setBounds(350, 20, 663, 495);
+        setBounds(350, 20, 653, 495);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtPesqIDRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqIDRolActionPerformed
@@ -1265,7 +1265,7 @@ public class TelaRolVisitasPortaria extends javax.swing.JInternalFrame {
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON ITENS_LISTA_ROL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                         + "WHERE ITENS_LISTA_ROL.IdRol='" + jIDRol.getText() + "'");
-            }else{
+            } else {
                 conecta.abrirConexao();
                 try {
                     conecta.executaSQL("SELECT * FROM ROLVISITAS "
@@ -1358,28 +1358,60 @@ public class TelaRolVisitasPortaria extends javax.swing.JInternalFrame {
     private void jBtPesqDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDataActionPerformed
         // TODO add your handling code here:
         count = 0;
-        if (jDataPesqInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data incial.");
-            jDataPesqInicial.requestFocus();
-            jDataPesqInicial.setBackground(Color.red);
-        } else {
-            if (jDataPesqFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final.");
-                jDataPesqFinal.requestFocus();
-                jDataPesqFinal.setBackground(Color.red);
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data incial.");
+                jDataPesqInicial.requestFocus();
+                jDataPesqInicial.setBackground(Color.red);
             } else {
-                if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Final não pode ser menor que a data inicial.");
+                if (jDataPesqFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final.");
                     jDataPesqFinal.requestFocus();
                     jDataPesqFinal.setBackground(Color.red);
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
-                    preencherRolsData("SELECT * FROM ROLVISITAS "
-                            + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON ROLVISITAS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                            + "WHERE DataRol BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Final não pode ser menor que a data inicial.");
+                        jDataPesqFinal.requestFocus();
+                        jDataPesqFinal.setBackground(Color.red);
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
+                        preencherRolsData("SELECT * FROM ROLVISITAS "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON ROLVISITAS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE DataRol BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "'");
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data incial.");
+                jDataPesqInicial.requestFocus();
+                jDataPesqInicial.setBackground(Color.red);
+            } else {
+                if (jDataPesqFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final.");
+                    jDataPesqFinal.requestFocus();
+                    jDataPesqFinal.setBackground(Color.red);
+                } else {
+                    if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Final não pode ser menor que a data inicial.");
+                        jDataPesqFinal.requestFocus();
+                        jDataPesqFinal.setBackground(Color.red);
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
+                        preencherRolsData("SELECT * FROM ROLVISITAS "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON ROLVISITAS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE DataRol BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "'");
+                    }
                 }
             }
         }
@@ -1659,7 +1691,6 @@ public class TelaRolVisitasPortaria extends javax.swing.JInternalFrame {
     }
 
     // Preencher Tabela com as VISITAS
-
     public void preencherTabelaItens(String sql) {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código", "Nome da Visita", "Data Inicio", "Parentesco", "Status"};
