@@ -15,6 +15,7 @@ import gestor.Dao.ModeloTabela;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.VisitaInterno;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -898,7 +899,7 @@ public class TelaConsultaVisitaSocialReligiosa extends javax.swing.JInternalFram
             String nomeVisita = "" + jTabelaVisitasReligiosas.getValueAt(jTabelaVisitasReligiosas.getSelectedRow(), 1);
             jPesqNomeVisita.setText(nomeVisita);
             String codVisista = "" + jTabelaVisitasReligiosas.getValueAt(jTabelaVisitasReligiosas.getSelectedRow(), 0);
-            jIDVisita.setText(codVisista);            
+            jIDVisita.setText(codVisista);
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM VISITAS_RELIGIOSA_INTERNOS WHERE NomeVisitaRel='" + nomeVisita + "' "
@@ -970,26 +971,54 @@ public class TelaConsultaVisitaSocialReligiosa extends javax.swing.JInternalFram
     private void jBtPesqDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDataActionPerformed
         // TODO add your handling code here:
         count = 0;
-        if (jDataPesqInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data incial.");
-            jDataPesqInicial.requestFocus();
-            jDataPesqInicial.setBackground(Color.red);
-        } else {
-            if (jDataPesqFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final.");
-                jDataPesqFinal.requestFocus();
-                jDataPesqFinal.setBackground(Color.red);
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data incial.");
+                jDataPesqInicial.requestFocus();
+                jDataPesqInicial.setBackground(Color.red);
             } else {
-                if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Final não pode ser menor que a data inicial.");
+                if (jDataPesqFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final.");
                     jDataPesqFinal.requestFocus();
                     jDataPesqFinal.setBackground(Color.red);
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
-                    preencherVisitasNome("SELECT * FROM VISITAS_RELIGIOSA_INTERNOS "
-                            + "WHERE DataCadVisitaRel BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Final não pode ser menor que a data inicial.");
+                        jDataPesqFinal.requestFocus();
+                        jDataPesqFinal.setBackground(Color.red);
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
+                        preencherVisitasNome("SELECT * FROM VISITAS_RELIGIOSA_INTERNOS "
+                                + "WHERE DataCadVisitaRel BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data incial.");
+                jDataPesqInicial.requestFocus();
+                jDataPesqInicial.setBackground(Color.red);
+            } else {
+                if (jDataPesqFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final.");
+                    jDataPesqFinal.requestFocus();
+                    jDataPesqFinal.setBackground(Color.red);
+                } else {
+                    if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Final não pode ser menor que a data inicial.");
+                        jDataPesqFinal.requestFocus();
+                        jDataPesqFinal.setBackground(Color.red);
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
+                        preencherVisitasNome("SELECT * FROM VISITAS_RELIGIOSA_INTERNOS "
+                                + "WHERE DataCadVisitaRel BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    }
                 }
             }
         }
@@ -1076,7 +1105,6 @@ public class TelaConsultaVisitaSocialReligiosa extends javax.swing.JInternalFram
     private javax.swing.JTextField jemissor;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
-    
 
     public void formatarCampos() {
 
@@ -1120,7 +1148,7 @@ public class TelaConsultaVisitaSocialReligiosa extends javax.swing.JInternalFram
         jCPF.setBackground(Color.WHITE);
         jemissor.setBackground(Color.WHITE);
         jDataValiAntece.setBackground(Color.WHITE);
-    }   
+    }
 
     //Preencher tabela com todos dados das visitas
     public void preencherTodasVisitas(String sql) {
@@ -1239,7 +1267,7 @@ public class TelaConsultaVisitaSocialReligiosa extends javax.swing.JInternalFram
         objLogSys.setIdLancMov(Integer.valueOf(jIDVisita.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
-    }    
+    }
 
     // Executar programa externo da webcam
     public void webCam() {

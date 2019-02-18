@@ -464,7 +464,7 @@ public class RegistroAtendimentoInternos {
      * @param qtd the qtd to set
      */
     public void setQtd(int qtd) {
-        this.qtd = qtd + qtd;
+        this.qtd = qtd;
     }
    
 }

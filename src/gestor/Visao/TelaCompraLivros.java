@@ -36,6 +36,7 @@ import static gestor.Visao.TelaModuloPedagogia.telaComprasManu_PEDA;
 import static gestor.Visao.TelaModuloPedagogia.telaComprasProd_PEDA;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -1385,7 +1386,33 @@ public class TelaCompraLivros extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         count = 0;
         flag = 1;
+        if (tipoServidor == null || tipoServidor.equals("")) {
+        JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
         if (jDataPesqInicial.getDate() == null) {
+            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+            jDataPesqInicial.requestFocus();
+        } else {
+            if (jDataPesFinal.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                jDataPesFinal.requestFocus();
+            } else {
+                if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                } else {
+                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                    dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                    dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                    jTabelaComprasLivros.setVisible(true);
+                    pesquisarCompras("SELECT * FROM COMPRAS_ACERVO "
+                            + "INNER JOIN FORNECEDORES_ACERVO "
+                            + "ON COMPRAS_ACERVO.IdForn=EDITORAS_INSTITUICAO.IdForn "
+                            + "WHERE DataCompra BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                }
+            }
+        }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+if (jDataPesqInicial.getDate() == null) {
             JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
             jDataPesqInicial.requestFocus();
         } else {
@@ -1407,6 +1434,7 @@ public class TelaCompraLivros extends javax.swing.JInternalFrame {
                 }
             }
         }
+}
     }//GEN-LAST:event_jBtPesqDatasActionPerformed
 
     private void jBtPesqEditoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqEditoraActionPerformed

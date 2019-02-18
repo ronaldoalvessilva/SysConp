@@ -198,7 +198,7 @@ public class TelaRelatorioEntradaSaidaVisitasInternos extends javax.swing.JInter
                     if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
                         JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
                     } else {
-                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
                         dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
                         try {

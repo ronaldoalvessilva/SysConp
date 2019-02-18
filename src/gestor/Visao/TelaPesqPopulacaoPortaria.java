@@ -33,6 +33,7 @@ import static gestor.Visao.TelaConsultaPopulacao.jTotalBrasHomens;
 import static gestor.Visao.TelaConsultaPopulacao.jTotalEstranMulheres;
 import static gestor.Visao.TelaConsultaPopulacao.jTotalGeralAgentes;
 import static gestor.Visao.TelaConsultaPopulacao.jTotalGeralPopInternos;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -264,7 +265,30 @@ public class TelaPesqPopulacaoPortaria extends javax.swing.JInternalFrame {
 
     private void jBtDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtDataActionPerformed
           flag = 1;
+          if (tipoServidor == null || tipoServidor.equals("")) {
+        JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
         if (jPesDtPopInicial.getDate() == null) {
+            JOptionPane.showMessageDialog(rootPane, "Data inicial não pode ser em branco.");
+            jPesDtPopInicial.requestFocus();
+        } else {
+            if (jPesDtPopFinal.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Data final não pode ser em branco.");
+                jPesDtPopFinal.requestFocus();
+            } else {
+                if (jPesDtPopInicial.getDate().after(jPesDtPopFinal.getDate())) {
+                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final.");
+                } else {
+                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                    dataInicial = formatoAmerica.format(jPesDtPopInicial.getDate().getTime());
+                    dataFinal = formatoAmerica.format(jPesDtPopFinal.getDate().getTime());
+                    jTabelaPopulacao.setVisible(true);
+                    preencherTabelaNome("SELECT * FROM MOVPOPULACAO WHERE DataPopMov BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                }
+            }
+        }
+} else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+ if (jPesDtPopInicial.getDate() == null) {
             JOptionPane.showMessageDialog(rootPane, "Data inicial não pode ser em branco.");
             jPesDtPopInicial.requestFocus();
         } else {
@@ -283,7 +307,7 @@ public class TelaPesqPopulacaoPortaria extends javax.swing.JInternalFrame {
                 }
             }
         }
-
+}
     }//GEN-LAST:event_jBtDataActionPerformed
 
     private void jBtEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEnviarActionPerformed

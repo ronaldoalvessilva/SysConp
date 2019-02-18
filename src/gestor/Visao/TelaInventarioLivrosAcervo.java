@@ -34,6 +34,7 @@ import static gestor.Visao.TelaModuloPedagogia.telaInventarioEfe_PEDA;
 import static gestor.Visao.TelaModuloPedagogia.telaInventarioManu_PEDA;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -1156,7 +1157,7 @@ public class TelaInventarioLivrosAcervo extends javax.swing.JInternalFrame {
     private void jBtIDPesqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIDPesqActionPerformed
         // TODO add your handling code here:
         count = 0;
-        flag = 1;
+        flag = 1;        
         if (jIDPesq.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o ID para pesquisa.");
             jIDPesq.requestFocus();
@@ -1172,7 +1173,32 @@ public class TelaInventarioLivrosAcervo extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         count = 0;
         flag = 1;
+        if (tipoServidor == null || tipoServidor.equals("")) {
+        JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
         if (jDataInicial.getDate() == null) {
+            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+            jDataInicial.requestFocus();
+        } else {
+            if (jDataFinal.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                jDataFinal.requestFocus();
+            } else {
+                if (jDataInicial.getDate().after(jDataFinal.getDate())) {
+                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                } else {
+                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                    dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                    dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+                    preencherTabelaInventario("SELECT * FROM INVENTARIO_LIVROS "
+                            + "INNER JOIN LOCAL_ACERVO "
+                            + "ON INVENTARIO_LIVROS.IdLocal=LOCAL_ACERVO.IdLocal "
+                            + "WHERE DataLanc BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                }
+            }
+        }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+if (jDataInicial.getDate() == null) {
             JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
             jDataInicial.requestFocus();
         } else {
@@ -1193,6 +1219,7 @@ public class TelaInventarioLivrosAcervo extends javax.swing.JInternalFrame {
                 }
             }
         }
+}
     }//GEN-LAST:event_jBtPesqDatasActionPerformed
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
