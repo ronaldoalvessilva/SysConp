@@ -40,11 +40,12 @@ public class RegistroAtendimentoInternos {
     private String dataAssinatura;
     private String horaAssinatura;
     private String motivoImpressao;
+    private int qtdAtend;
 
     public RegistroAtendimentoInternos() {
     }
 
-    public RegistroAtendimentoInternos(int idRegistro, Date dataReg, String horario, int idInternoCrc, String nomeInternoCrc, String tipoAtemdimento, int idDepartamento, String nomeDepartamento, byte[] assinaturaDigital, byte[] assinaturaLiberador, String atendido, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, Date dataAtendimento, int IdAtend, int IdEvol, String atendeEvol, String impressaoAuto, int codigoFunc, String nomeFunc, String dataAssinatura, String horaAssinatura, String motivoImpressao) {
+    public RegistroAtendimentoInternos(int idRegistro, Date dataReg, String horario, int idInternoCrc, String nomeInternoCrc, String tipoAtemdimento, int idDepartamento, String nomeDepartamento, byte[] assinaturaDigital, byte[] assinaturaLiberador, String atendido, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, Date dataAtendimento, int IdAtend, int IdEvol, String atendeEvol, String impressaoAuto, int codigoFunc, String nomeFunc, String dataAssinatura, String horaAssinatura, String motivoImpressao, int qtdAtend) {
         this.idRegistro = idRegistro;
         this.dataReg = dataReg;
         this.horario = horario;
@@ -72,6 +73,7 @@ public class RegistroAtendimentoInternos {
         this.dataAssinatura = dataAssinatura;
         this.horaAssinatura = horaAssinatura;
         this.motivoImpressao = motivoImpressao;
+        this.qtdAtend = qtdAtend;
     }
 
     /**
@@ -239,7 +241,6 @@ public class RegistroAtendimentoInternos {
      * @param usuarioInsert the usuarioInsert to set
      */
     public void setUsuarioInsert(String usuarioInsert) {
-       usuarioInsert = usuarioInsert + 1;
         this.usuarioInsert = usuarioInsert;
     }
 
@@ -452,5 +453,18 @@ public class RegistroAtendimentoInternos {
     public void setMotivoImpressao(String motivoImpressao) {
         this.motivoImpressao = motivoImpressao;
     }
-   
+
+    /**
+     * @return the qtdAtend
+     */
+    public int getQtdAtend() {
+        return qtdAtend;
+    }
+
+    /**
+     * @param qtdAtend the qtdAtend to set
+     */
+    public void setQtdAtend(int qtdAtend) {
+        this.qtdAtend = qtdAtend;
+    }
 }
