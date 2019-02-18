@@ -17,6 +17,7 @@ import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -751,22 +752,46 @@ public class TelaConsultaAgendaEscoltaPortaria extends javax.swing.JInternalFram
         // TODO add your handling code here:        
         count = 0;
         flag = 1;
-        if (jDataInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-            jDataInicial.requestFocus();
-        } else {
-            if (jDataFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                jDataFinal.requestFocus();
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDataInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataInicial.requestFocus();
             } else {
-                if (jDataInicial.getDate().after(jDataFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                if (jDataFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataFinal.requestFocus();
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
-                    preencherTabelaTodos("SELECT * FROM AGENDAESCOLTA "
-                            + "WHERE AGENDAESCOLTA.DataAgenda BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    if (jDataInicial.getDate().after(jDataFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+                        preencherTabelaTodos("SELECT * FROM AGENDAESCOLTA "
+                                + "WHERE AGENDAESCOLTA.DataAgenda BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataInicial.requestFocus();
+            } else {
+                if (jDataFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataFinal.requestFocus();
+                } else {
+                    if (jDataInicial.getDate().after(jDataFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+                        preencherTabelaTodos("SELECT * FROM AGENDAESCOLTA "
+                                + "WHERE AGENDAESCOLTA.DataAgenda BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    }
                 }
             }
         }
@@ -891,10 +916,10 @@ public class TelaConsultaAgendaEscoltaPortaria extends javax.swing.JInternalFram
             jDataAgendamento.setDate(null);
             jHora.setText("");
             jLocalDestino.setText("");
-            jOficio.setText("");          
+            jOficio.setText("");
             // Habilita/Desabilita campos
             jDataAgenda.setEnabled(true);
-            jObs.setEnabled(true);            
+            jObs.setEnabled(true);
             limparItensAgenda();
         } else {
             // Limpar campos da tela manutenção
@@ -912,14 +937,14 @@ public class TelaConsultaAgendaEscoltaPortaria extends javax.swing.JInternalFram
             jOficio.setText("");
             // Habilita/Desabilita campos
             jDataAgenda.setEnabled(true);
-            jObs.setEnabled(true);           
+            jObs.setEnabled(true);
             limparItensAgenda();
         }
     }
 
-    public void Alterar() {       
+    public void Alterar() {
         jDataAgenda.setEnabled(true);
-        jObs.setEnabled(true);       
+        jObs.setEnabled(true);
     }
 
     public void Excluir() {
@@ -928,13 +953,13 @@ public class TelaConsultaAgendaEscoltaPortaria extends javax.swing.JInternalFram
         jIDAgenda.setText("");
         jStatusEscolta.setText("");
         jDataAgenda.setDate(null);
-        jObs.setText("");       
+        jObs.setText("");
     }
 
     public void Salvar() {
-        
+
         jDataAgenda.setEnabled(!true);
-        jObs.setEnabled(!true);       
+        jObs.setEnabled(!true);
         jBtPesqInterno.setEnabled(true);
     }
 
@@ -950,9 +975,9 @@ public class TelaConsultaAgendaEscoltaPortaria extends javax.swing.JInternalFram
             jDataAgendamento.setDate(null);
             jHora.setText("");
             jLocalDestino.setText("");
-            jOficio.setText("");          
+            jOficio.setText("");
             limparItensAgenda();
-        }    
+        }
     }
 
     public void NovoAg() {
@@ -963,7 +988,7 @@ public class TelaConsultaAgendaEscoltaPortaria extends javax.swing.JInternalFram
         jDataAgendamento.setDate(null);
         jHora.setText("");
         jLocalDestino.setText("");
-        jOficio.setText("");       
+        jOficio.setText("");
         jBtPesqInterno.setEnabled(true);
         //
         jDataAgendamento.setEnabled(true);
@@ -979,7 +1004,7 @@ public class TelaConsultaAgendaEscoltaPortaria extends javax.swing.JInternalFram
         jLocalDestino.setEnabled(true);
         jOficio.setEnabled(true);
         // Botão para pesquisa interno
-        jBtPesqInterno.setEnabled(true);        
+        jBtPesqInterno.setEnabled(true);
     }
 
     public void ExcluirAg() {
@@ -996,7 +1021,7 @@ public class TelaConsultaAgendaEscoltaPortaria extends javax.swing.JInternalFram
         jLocalDestino.setEnabled(!true);
         jOficio.setEnabled(!true);
         // Botão para pesquisa interno
-        jBtPesqInterno.setEnabled(!true);       
+        jBtPesqInterno.setEnabled(!true);
     }
 
     public void SalvarAg() {
@@ -1006,7 +1031,7 @@ public class TelaConsultaAgendaEscoltaPortaria extends javax.swing.JInternalFram
         jLocalDestino.setEnabled(!true);
         jOficio.setEnabled(!true);
         // Botão para pesquisa interno
-        jBtPesqInterno.setEnabled(!true);     
+        jBtPesqInterno.setEnabled(!true);
     }
 
     public void CancelarAg() {
@@ -1024,7 +1049,7 @@ public class TelaConsultaAgendaEscoltaPortaria extends javax.swing.JInternalFram
         jLocalDestino.setEnabled(!true);
         jOficio.setEnabled(!true);
         // Botão para pesquisa interno
-        jBtPesqInterno.setEnabled(!true);       
+        jBtPesqInterno.setEnabled(!true);
     }
 
     //Buscar código de entrada

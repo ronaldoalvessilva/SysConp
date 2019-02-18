@@ -15,6 +15,7 @@ import gestor.Modelo.ItensRolVisitas;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.RolVisitas;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -1025,7 +1026,7 @@ public class TelaConsultaRolVisitasReligiosas extends javax.swing.JInternalFrame
             String idRol = "" + jTabelaPesquisaRol.getValueAt(jTabelaPesquisaRol.getSelectedRow(), 0);
             jIDPesqRol.setText(idRol);
             //
-            jDataRol.setDate(jDataRol.getDate());            
+            jDataRol.setDate(jDataRol.getDate());
             //
             jIDVisita.setText("");
             jNomeVisita.setText("");
@@ -1113,7 +1114,7 @@ public class TelaConsultaRolVisitasReligiosas extends javax.swing.JInternalFrame
             jIDVisita.setText(idVisita);
             String nomeVisita = "" + jTabelaVisita.getValueAt(jTabelaVisita.getSelectedRow(), 1);
             jNomeVisita.setText(nomeVisita);
-            idItem = "" + jTabelaVisita.getValueAt(jTabelaVisita.getSelectedRow(), 2);           
+            idItem = "" + jTabelaVisita.getValueAt(jTabelaVisita.getSelectedRow(), 2);
             //
             conecta.abrirConexao();
             try {
@@ -1194,28 +1195,58 @@ public class TelaConsultaRolVisitasReligiosas extends javax.swing.JInternalFrame
     private void jBtPesqDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDataActionPerformed
         // TODO add your handling code here:
         count = 0;
-        if (jDataPesqInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data incial.");
-            jDataPesqInicial.requestFocus();
-            jDataPesqInicial.setBackground(Color.red);
-        } else {
-            if (jDataPesqFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final.");
-                jDataPesqFinal.requestFocus();
-                jDataPesqFinal.setBackground(Color.red);
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data incial.");
+                jDataPesqInicial.requestFocus();
+                jDataPesqInicial.setBackground(Color.red);
             } else {
-                if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Final não pode ser menor que a data inicial.");
+                if (jDataPesqFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final.");
                     jDataPesqFinal.requestFocus();
                     jDataPesqFinal.setBackground(Color.red);
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
-                    preencherRolsData("SELECT * FROM ROL_VISITAS_RELIGIOSA "
-                            + "INNER JOIN INSTITUICAO_RELIGIOSA "
-                            + "ON ROL_VISITAS_RELIGIOSA.IdCod=INSTITUICAO_RELIGIOSA.IdCod "
-                            + "WHERE DataRol BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Final não pode ser menor que a data inicial.");
+                        jDataPesqFinal.requestFocus();
+                        jDataPesqFinal.setBackground(Color.red);
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
+                        preencherRolsData("SELECT * FROM ROL_VISITAS_RELIGIOSA "
+                                + "INNER JOIN INSTITUICAO_RELIGIOSA "
+                                + "ON ROL_VISITAS_RELIGIOSA.IdCod=INSTITUICAO_RELIGIOSA.IdCod "
+                                + "WHERE DataRol BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data incial.");
+                jDataPesqInicial.requestFocus();
+                jDataPesqInicial.setBackground(Color.red);
+            } else {
+                if (jDataPesqFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final.");
+                    jDataPesqFinal.requestFocus();
+                    jDataPesqFinal.setBackground(Color.red);
+                } else {
+                    if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Final não pode ser menor que a data inicial.");
+                        jDataPesqFinal.requestFocus();
+                        jDataPesqFinal.setBackground(Color.red);
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
+                        preencherRolsData("SELECT * FROM ROL_VISITAS_RELIGIOSA "
+                                + "INNER JOIN INSTITUICAO_RELIGIOSA "
+                                + "ON ROL_VISITAS_RELIGIOSA.IdCod=INSTITUICAO_RELIGIOSA.IdCod "
+                                + "WHERE DataRol BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    }
                 }
             }
         }
@@ -1380,7 +1411,6 @@ public class TelaConsultaRolVisitasReligiosas extends javax.swing.JInternalFrame
         jDataInicio.setBackground(Color.white);
         jDataValiAntecedente.setBackground(Color.white);
     }
-              
 
     public void verificarDiasRol() {
         conecta.abrirConexao();

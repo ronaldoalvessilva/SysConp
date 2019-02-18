@@ -37,7 +37,7 @@ public class ControleListaTecnicosProdutividadePSP {
             SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
             dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
             dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
-            conecta.executaSQL("SELECT DEPARTAMENTOS.NomeDepartamento,REGISTRO_ATENDIMENTO_INTERNO_PSP.UsuarioInsert, COUNT(*) "
+            conecta.executaSQL("SELECT DEPARTAMENTOS.NomeDepartamento,REGISTRO_ATENDIMENTO_INTERNO_PSP.UsuarioInsert, REGISTRO_ATENDIMENTO_INTERNO_PSP.Qtd, COUNT(REGISTRO_ATENDIMENTO_INTERNO_PSP.Qtd) "
                     + "FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
                     + "INNER JOIN DEPARTAMENTOS "
                     + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
@@ -45,12 +45,12 @@ public class ControleListaTecnicosProdutividadePSP {
                     + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdFunc=COLABORADOR.IdFunc "
                     + "WHERE REGISTRO_ATENDIMENTO_INTERNO_PSP.DataReg>='" + dataInicial + "' "
                     + "AND REGISTRO_ATENDIMENTO_INTERNO_PSP.DataReg<='" + dataFinal + "' "
-                    + "GROUP BY DEPARTAMENTOS.NomeDepartamento,REGISTRO_ATENDIMENTO_INTERNO_PSP.UsuarioInsert");
+                    + "GROUP BY DEPARTAMENTOS.NomeDepartamento,REGISTRO_ATENDIMENTO_INTERNO_PSP.UsuarioInsert, REGISTRO_ATENDIMENTO_INTERNO_PSP.Qtd");
             while (conecta.rs.next()) {
                 RegistroAtendimentoInternos pDigi = new RegistroAtendimentoInternos();
                 pDigi.setNomeFunc(conecta.rs.getString("UsuarioInsert"));
                 pDigi.setNomeDepartamento(conecta.rs.getString("NomeDepartamento"));
-                //    pDigi.setTipoAtemdimento(conecta.rs.getString("TipoAtendimento"));
+                pDigi.setQtd(conecta.rs.getInt("Qtd"));
                 listaTecnicosPSP.add(pDigi);
                 qtdTecnicosPSP = qtdTecnicosPSP + 1;
             }

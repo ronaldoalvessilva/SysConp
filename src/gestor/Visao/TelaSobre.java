@@ -140,7 +140,7 @@ public class TelaSobre extends javax.swing.JDialog {
 
         jLabel4.setText("Sandro Lírio de Souza");
 
-        jLabel5.setText("Gei Batista");
+        jLabel5.setText("Gei Batista Santos");
 
         jLabel6.setText("ronaldo.silva7@seap.ba.gov.br");
 
@@ -156,7 +156,7 @@ public class TelaSobre extends javax.swing.JDialog {
 
         jLabel11.setText("(71) 98758-9114");
 
-        jLabel12.setText("(71) 98774-2445");
+        jLabel12.setText("(71) 98877-2445");
 
         jLabel13.setText("(71) 98140-6141");
 
@@ -169,8 +169,9 @@ public class TelaSobre extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(55, 55, 55)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)

@@ -7,6 +7,7 @@ package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -182,47 +183,97 @@ public class TelaRelatorioConsumoProdutosAvulsoNUTRI extends javax.swing.JIntern
 
     private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
         // TODO add your handling code here:
-        if (jDataPesqInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-            jDataPesqInicial.requestFocus();
-        } else {
-            if (jDataPesFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                jDataPesFinal.requestFocus();
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
             } else {
-                if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                if (jDataPesFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesFinal.requestFocus();
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                    try {
-                        conecta.abrirConexao();
-                        String path = "reports/RelatorioConsumoProdutosAvulsoNUTRI.jasper";
-                        conecta.executaSQL("SELECT * FROM ITENS_REQUISICAO_AVULSA_PRODUTOS_NUTRI "
-                                + "INNER JOIN PRODUTOS_AC "
-                                + "ON ITENS_REQUISICAO_AVULSA_PRODUTOS_NUTRI.IdProd=PRODUTOS_AC.IdProd "
-                                + "INNER JOIN REQUISICAO_AVULSA_PRODUTOS_NUTRI "
-                                + "ON ITENS_REQUISICAO_AVULSA_PRODUTOS_NUTRI.IdReq=REQUISICAO_AVULSA_PRODUTOS_NUTRI.IdReq "
-                                + "INNER JOIN COLABORADOR "
-                                + "ON REQUISICAO_AVULSA_PRODUTOS_NUTRI.IdFunc=COLABORADOR.IdFunc "
-                                + "INNER JOIN DEPARTAMENTOS "
-                                + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
-                                + "WHERE DataReq BETWEEN'" + dataInicial + "'AND'" + dataFinal + "' ORDER BY PRODUTOS_NUTRI.DescricaoProd");
-                        HashMap parametros = new HashMap();
-                        parametros.put("dataInicial", dataInicial);
-                        parametros.put("dataFinal", dataFinal);
-                        parametros.put("nomeUsuario", nameUser);
-                        JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                        JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                        JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                        jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                        jv.setTitle("Relatório de Consumo de Produtos Avulso por Período");
-                        jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                        jv.toFront(); // Traz o relatorio para frente da aplicação            
-                        conecta.desconecta();
-                    } catch (JRException e) {
-                        JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                        try {
+                            conecta.abrirConexao();
+                            String path = "reports/RelatorioConsumoProdutosAvulsoNUTRI.jasper";
+                            conecta.executaSQL("SELECT * FROM ITENS_REQUISICAO_AVULSA_PRODUTOS_NUTRI "
+                                    + "INNER JOIN PRODUTOS_AC "
+                                    + "ON ITENS_REQUISICAO_AVULSA_PRODUTOS_NUTRI.IdProd=PRODUTOS_AC.IdProd "
+                                    + "INNER JOIN REQUISICAO_AVULSA_PRODUTOS_NUTRI "
+                                    + "ON ITENS_REQUISICAO_AVULSA_PRODUTOS_NUTRI.IdReq=REQUISICAO_AVULSA_PRODUTOS_NUTRI.IdReq "
+                                    + "INNER JOIN COLABORADOR "
+                                    + "ON REQUISICAO_AVULSA_PRODUTOS_NUTRI.IdFunc=COLABORADOR.IdFunc "
+                                    + "INNER JOIN DEPARTAMENTOS "
+                                    + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
+                                    + "WHERE DataReq BETWEEN'" + dataInicial + "'AND'" + dataFinal + "' ORDER BY PRODUTOS_NUTRI.DescricaoProd");
+                            HashMap parametros = new HashMap();
+                            parametros.put("dataInicial", dataInicial);
+                            parametros.put("dataFinal", dataFinal);
+                            parametros.put("nomeUsuario", nameUser);
+                            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                            jv.setTitle("Relatório de Consumo de Produtos Avulso por Período");
+                            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                            jv.toFront(); // Traz o relatorio para frente da aplicação            
+                            conecta.desconecta();
+                        } catch (JRException e) {
+                            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                        }
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
+            } else {
+                if (jDataPesFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesFinal.requestFocus();
+                } else {
+                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                        try {
+                            conecta.abrirConexao();
+                            String path = "reports/RelatorioConsumoProdutosAvulsoNUTRI.jasper";
+                            conecta.executaSQL("SELECT * FROM ITENS_REQUISICAO_AVULSA_PRODUTOS_NUTRI "
+                                    + "INNER JOIN PRODUTOS_AC "
+                                    + "ON ITENS_REQUISICAO_AVULSA_PRODUTOS_NUTRI.IdProd=PRODUTOS_AC.IdProd "
+                                    + "INNER JOIN REQUISICAO_AVULSA_PRODUTOS_NUTRI "
+                                    + "ON ITENS_REQUISICAO_AVULSA_PRODUTOS_NUTRI.IdReq=REQUISICAO_AVULSA_PRODUTOS_NUTRI.IdReq "
+                                    + "INNER JOIN COLABORADOR "
+                                    + "ON REQUISICAO_AVULSA_PRODUTOS_NUTRI.IdFunc=COLABORADOR.IdFunc "
+                                    + "INNER JOIN DEPARTAMENTOS "
+                                    + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
+                                    + "WHERE DataReq BETWEEN'" + dataInicial + "'AND'" + dataFinal + "' ORDER BY PRODUTOS_NUTRI.DescricaoProd");
+                            HashMap parametros = new HashMap();
+                            parametros.put("dataInicial", dataInicial);
+                            parametros.put("dataFinal", dataFinal);
+                            parametros.put("nomeUsuario", nameUser);
+                            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                            jv.setTitle("Relatório de Consumo de Produtos Avulso por Período");
+                            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                            jv.toFront(); // Traz o relatorio para frente da aplicação            
+                            conecta.desconecta();
+                        } catch (JRException e) {
+                            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                        }
                     }
                 }
             }

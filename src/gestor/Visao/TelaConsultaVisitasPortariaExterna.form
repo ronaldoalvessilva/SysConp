@@ -764,8 +764,8 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jBtAtualizar" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jBtSair" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jBtAtualizar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jBtSair" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>

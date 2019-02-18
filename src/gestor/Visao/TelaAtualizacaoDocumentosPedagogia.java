@@ -29,6 +29,7 @@ import static gestor.Visao.TelaModuloPedagogia.nomeTelaPEDA;
 import static gestor.Visao.TelaModuloPedagogia.telaAtualizacaoEscolaridadeManu_PEDA;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -1055,28 +1056,58 @@ public class TelaAtualizacaoDocumentosPedagogia extends javax.swing.JInternalFra
     private void jBtPesqDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDataActionPerformed
         // TODO add your handling code here:
         count = 0;
-        if (jDataPesqInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data incial.");
-            jDataPesqInicial.requestFocus();
-            jDataPesqInicial.setBackground(Color.red);
-        } else {
-            if (jDataPesqFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final.");
-                jDataPesqFinal.requestFocus();
-                jDataPesqFinal.setBackground(Color.red);
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data incial.");
+                jDataPesqInicial.requestFocus();
+                jDataPesqInicial.setBackground(Color.red);
             } else {
-                if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Final não pode ser menor que a data inicial.");
+                if (jDataPesqFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final.");
                     jDataPesqFinal.requestFocus();
                     jDataPesqFinal.setBackground(Color.red);
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
-                    preencherTabelaAtualiza("SELECT * FROM ATUALIZACAO_DOCUMENTOS_INTERNOS "
-                            + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON ATUALIZACAO_DOCUMENTOS_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                            + "WHERE DataDoc BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Final não pode ser menor que a data inicial.");
+                        jDataPesqFinal.requestFocus();
+                        jDataPesqFinal.setBackground(Color.red);
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
+                        preencherTabelaAtualiza("SELECT * FROM ATUALIZACAO_DOCUMENTOS_INTERNOS "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON ATUALIZACAO_DOCUMENTOS_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE DataDoc BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data incial.");
+                jDataPesqInicial.requestFocus();
+                jDataPesqInicial.setBackground(Color.red);
+            } else {
+                if (jDataPesqFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final.");
+                    jDataPesqFinal.requestFocus();
+                    jDataPesqFinal.setBackground(Color.red);
+                } else {
+                    if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Final não pode ser menor que a data inicial.");
+                        jDataPesqFinal.requestFocus();
+                        jDataPesqFinal.setBackground(Color.red);
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
+                        preencherTabelaAtualiza("SELECT * FROM ATUALIZACAO_DOCUMENTOS_INTERNOS "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON ATUALIZACAO_DOCUMENTOS_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE DataDoc BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    }
                 }
             }
         }

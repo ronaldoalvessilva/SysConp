@@ -19,6 +19,7 @@ import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -1272,7 +1273,31 @@ public class TelaEstornoRequisicaoMateriaisNUTRI extends javax.swing.JInternalFr
     private void jBtPesqDatasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDatasActionPerformed
         // TODO add your handling code here:
         flag = 1;
+        if (tipoServidor == null || tipoServidor.equals("")) {
+        JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+
         if (jDataPesqInicial.getDate() == null) {
+            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+            jDataPesqInicial.requestFocus();
+        } else {
+            if (jDataPesFinal.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                jDataPesFinal.requestFocus();
+            } else {
+                if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                } else {
+                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                    dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                    dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                    pesquisarEstornoRequisicaoMateriais("SELECT * FROM ESTORNO_PRODUTOS_NUTRI "
+                            + "WHERE DataEst BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                }
+            }
+        }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+if (jDataPesqInicial.getDate() == null) {
             JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
             jDataPesqInicial.requestFocus();
         } else {
@@ -1291,6 +1316,7 @@ public class TelaEstornoRequisicaoMateriaisNUTRI extends javax.swing.JInternalFr
                 }
             }
         }
+}
     }//GEN-LAST:event_jBtPesqDatasActionPerformed
 
     private void jCheckBoxTodosReqItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxTodosReqItemStateChanged

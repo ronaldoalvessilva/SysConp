@@ -31,6 +31,7 @@ import static gestor.Visao.TelaModuloPortariaExterna.telaEntradaSaidaVDManuP1E;
 import static gestor.Visao.TelaModuloPortariaExterna.telaEntradaSaidaVDVDP1E;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -1146,26 +1147,55 @@ public class TelaEntradaSaidaVisitasDiversasExterna extends javax.swing.JInterna
         // TODO add your handling code here:
         count = 0;
         flag = 1;
-        if (jDataPesqInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-            jDataPesqInicial.requestFocus();
-        } else {
-            if (jDataPesqFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                jDataPesqFinal.requestFocus();
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
             } else {
-                if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                if (jDataPesqFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesqFinal.requestFocus();
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
-                    preencherTodasEntSai("SELECT * FROM ENTRADASVISITAS "
-                            + "INNER JOIN ITENSVISITASDIVERSAS "
-                            + "ON ENTRADASVISITAS.IdLanc=ITENSVISITASDIVERSAS.Idlanc "
-                            + "INNER JOIN VISITASDIVERSAS "
-                            + "ON ITENSVISITASDIVERSAS.IdVisita=VISITASDIVERSAS.IdVisita "
-                            + "WHERE DataLanc BETWEEN'" + dataInicial + "'AND'" + dataFinal + "'");
+                    if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
+                        preencherTodasEntSai("SELECT * FROM ENTRADASVISITAS "
+                                + "INNER JOIN ITENSVISITASDIVERSAS "
+                                + "ON ENTRADASVISITAS.IdLanc=ITENSVISITASDIVERSAS.Idlanc "
+                                + "INNER JOIN VISITASDIVERSAS "
+                                + "ON ITENSVISITASDIVERSAS.IdVisita=VISITASDIVERSAS.IdVisita "
+                                + "WHERE DataLanc BETWEEN'" + dataInicial + "'AND'" + dataFinal + "'");
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
+            } else {
+                if (jDataPesqFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesqFinal.requestFocus();
+                } else {
+                    if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
+                        preencherTodasEntSai("SELECT * FROM ENTRADASVISITAS "
+                                + "INNER JOIN ITENSVISITASDIVERSAS "
+                                + "ON ENTRADASVISITAS.IdLanc=ITENSVISITASDIVERSAS.Idlanc "
+                                + "INNER JOIN VISITASDIVERSAS "
+                                + "ON ITENSVISITASDIVERSAS.IdVisita=VISITASDIVERSAS.IdVisita "
+                                + "WHERE DataLanc BETWEEN'" + dataInicial + "'AND'" + dataFinal + "'");
+                    }
                 }
             }
         }
@@ -1383,7 +1413,7 @@ public class TelaEntradaSaidaVisitasDiversasExterna extends javax.swing.JInterna
                 jIDVisita.setText(conecta.rs.getString("IdVisita")); //Coluna 0
                 jNomeVisitante.setText(conecta.rs.getString("NomeVisita")); // Coluna 1
                 // Capturando foto
-                caminho = conecta.rs.getString("FotoVisita");               
+                caminho = conecta.rs.getString("FotoVisita");
                 if (caminho != null) {
                     javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
                     FotoVisitasDiversas.setIcon(i);

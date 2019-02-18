@@ -57,6 +57,7 @@ import static gestor.Visao.TelaModuloPortariaExterna.codigoUserP1E;
 import static gestor.Visao.TelaModuloPortariaExterna.nomeGrupoP1E;
 import static gestor.Visao.TelaModuloPortariaExterna.nomeTelaP1E;
 import static gestor.Visao.TelaModuloPortariaExterna.telaOcorrenciaManuP1E;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.io.BufferedOutputStream;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -216,6 +217,11 @@ public class TelaOcorrenciaPortariaExterna extends javax.swing.JInternalFrame {
         jBtPesqData.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jBtPesqDataMouseClicked(evt);
+            }
+        });
+        jBtPesqData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPesqDataActionPerformed(evt);
             }
         });
 
@@ -1147,28 +1153,7 @@ public class TelaOcorrenciaPortariaExterna extends javax.swing.JInternalFrame {
 
     private void jBtPesqDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtPesqDataMouseClicked
         // TODO add your handling code here:
-        count = 0;
-        flag = 1;
-        if (jDataPesqInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-            jDataPesqInicial.requestFocus();
-        } else {
-            if (jDataPesFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                jDataPesFinal.requestFocus();
-            } else {
-                if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
-                } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                    pesquisarOcorrrencias("SELECT * FROM OCORRENCIAS_P1E "
-                            + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
-                            + "AND '" + dataFinal + "'");
-                }
-            }
-        }
+
     }//GEN-LAST:event_jBtPesqDataMouseClicked
 
     private void jBtPesqTituloOcorrrenciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtPesqTituloOcorrrenciaMouseClicked
@@ -1369,6 +1354,58 @@ public class TelaOcorrenciaPortariaExterna extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_jBtPDFActionPerformed
+
+    private void jBtPesqDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDataActionPerformed
+        // TODO add your handling code here:
+        count = 0;
+        flag = 1;
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
+            } else {
+                if (jDataPesFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesFinal.requestFocus();
+                } else {
+                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                        pesquisarOcorrrencias("SELECT * FROM OCORRENCIAS_P1E "
+                                + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "'");
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
+            } else {
+                if (jDataPesFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesFinal.requestFocus();
+                } else {
+                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                        pesquisarOcorrrencias("SELECT * FROM OCORRENCIAS_P1E "
+                                + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "'");
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_jBtPesqDataActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
