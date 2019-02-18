@@ -1575,7 +1575,8 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
                     + "INNER JOIN CELAS "
                     + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
                     + "INNER JOIN PAVILHAO "
-                    + "ON CELAS.IdPav=PAVILHAO.IdPav ORDER BY DescricaoPav,PRONTUARIOSCRC.NomeInternoCrc,CELAS.EndCelaPav");
+                    + "ON CELAS.IdPav=PAVILHAO.IdPav "
+                    + "ORDER BY DescricaoPav,PRONTUARIOSCRC.NomeInternoCrc,CELAS.EndCelaPav");
             HashMap parametros = new HashMap();
             parametros.put("nomeUsuario", nameUser);
             JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio
@@ -1649,7 +1650,8 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                    + "WHERE SituacaoCrc='" + situacaoEnt + "'OR SituacaoCrc='" + situacaoRet + "' "
+                    + "WHERE SituacaoCrc='" + situacaoEnt + "' "
+                    + "OR SituacaoCrc='" + situacaoRet + "' "
                     + "ORDER BY NomeInternoCrc");
             HashMap parametros = new HashMap();
             parametros.put("situacaoEntrada", situacaoEnt);
@@ -1906,7 +1908,12 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
         try {
             conecta.abrirConexao();
             String path = "reports/RelatorioInternosSemCartaoSUS.jasper";
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC WHERE PRONTUARIOSCRC.CartaoSus='" + cartaoSUS + "' AND SituacaoCrc='" + situacaoEnt + "' OR PRONTUARIOSCRC.CartaoSus='" + cartaoSUS + "' AND SituacaoCrc='" + situacaoRet + "'ORDER BY NomeInternoCrc");
+            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                    + "WHERE PRONTUARIOSCRC.CartaoSus='" + cartaoSUS + "' "
+                    + "AND SituacaoCrc='" + situacaoEnt + "' "
+                    + "OR PRONTUARIOSCRC.CartaoSus='" + cartaoSUS + "' "
+                    + "AND SituacaoCrc='" + situacaoRet + "' "
+                    + "ORDER BY NomeInternoCrc");
             HashMap parametros = new HashMap();
             parametros.put("nomeUsuario", nameUser);
             parametros.put("situacaoEntrada", situacaoEnt);

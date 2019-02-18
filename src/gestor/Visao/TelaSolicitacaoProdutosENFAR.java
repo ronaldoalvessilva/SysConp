@@ -53,6 +53,7 @@ import static gestor.Visao.TelaModuloEnfermaria.codConsultarENF;
 import static gestor.Visao.TelaModuloEnfermaria.codigoGrupoENF;
 import static gestor.Visao.TelaModuloEnfermaria.nomeGrupoENF;
 import static gestor.Visao.TelaModuloEnfermaria.nomeTelaENF;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 
 /**
  *
@@ -444,13 +445,13 @@ public class TelaSolicitacaoProdutosENFAR extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGap(6, 6, 6))
         );
 
         jTabbedPane1.addTab("Listagem", jPanel1);
@@ -1355,28 +1356,58 @@ public class TelaSolicitacaoProdutosENFAR extends javax.swing.JInternalFrame {
     private void jBtPesqDatasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDatasActionPerformed
         // TODO add your handling code here:
         flag = 1;
-        if (jDataPesqInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-            jDataPesqInicial.requestFocus();
-        } else {
-            if (jDataPesFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                jDataPesFinal.requestFocus();
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
             } else {
-                if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                if (jDataPesFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesFinal.requestFocus();
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                    pesquisarRequisicaoMateriais("SELECT * FROM REQUISICAO_PRODUTOS_ENFERMARIA_ENFAR "
-                            + "INNER JOIN SOLICITANTE_REQUISICAO_MEDICAMENTOS_ENFAR "
-                            + "ON REQUISICAO_PRODUTOS_ENFERMARIA_ENFAR.IdFuncSolici=SOLICITANTE_REQUISICAO_MEDICAMENTOS_ENFAR.IdFuncSolici "
-                            + "INNER JOIN APROVADOR_REQUISICAO_MEDICAMENTOS_ENFAR "
-                            + "ON REQUISICAO_PRODUTOS_ENFERMARIA_ENFAR.IdFuncAprova=APROVADOR_REQUISICAO_MEDICAMENTOS_ENFAR.IdFuncAprova "
-                            + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
-                            + "ON REQUISICAO_PRODUTOS_ENFERMARIA_ENFAR.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
-                            + "WHERE DataSol BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                        pesquisarRequisicaoMateriais("SELECT * FROM REQUISICAO_PRODUTOS_ENFERMARIA_ENFAR "
+                                + "INNER JOIN SOLICITANTE_REQUISICAO_MEDICAMENTOS_ENFAR "
+                                + "ON REQUISICAO_PRODUTOS_ENFERMARIA_ENFAR.IdFuncSolici=SOLICITANTE_REQUISICAO_MEDICAMENTOS_ENFAR.IdFuncSolici "
+                                + "INNER JOIN APROVADOR_REQUISICAO_MEDICAMENTOS_ENFAR "
+                                + "ON REQUISICAO_PRODUTOS_ENFERMARIA_ENFAR.IdFuncAprova=APROVADOR_REQUISICAO_MEDICAMENTOS_ENFAR.IdFuncAprova "
+                                + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
+                                + "ON REQUISICAO_PRODUTOS_ENFERMARIA_ENFAR.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
+                                + "WHERE DataSol BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
+            } else {
+                if (jDataPesFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesFinal.requestFocus();
+                } else {
+                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                        pesquisarRequisicaoMateriais("SELECT * FROM REQUISICAO_PRODUTOS_ENFERMARIA_ENFAR "
+                                + "INNER JOIN SOLICITANTE_REQUISICAO_MEDICAMENTOS_ENFAR "
+                                + "ON REQUISICAO_PRODUTOS_ENFERMARIA_ENFAR.IdFuncSolici=SOLICITANTE_REQUISICAO_MEDICAMENTOS_ENFAR.IdFuncSolici "
+                                + "INNER JOIN APROVADOR_REQUISICAO_MEDICAMENTOS_ENFAR "
+                                + "ON REQUISICAO_PRODUTOS_ENFERMARIA_ENFAR.IdFuncAprova=APROVADOR_REQUISICAO_MEDICAMENTOS_ENFAR.IdFuncAprova "
+                                + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
+                                + "ON REQUISICAO_PRODUTOS_ENFERMARIA_ENFAR.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
+                                + "WHERE DataSol BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    }
                 }
             }
         }

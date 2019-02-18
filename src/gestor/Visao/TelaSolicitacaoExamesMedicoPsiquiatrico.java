@@ -41,6 +41,7 @@ import static gestor.Visao.TelaModuloEnfermaria.codConsultarENF;
 import static gestor.Visao.TelaModuloEnfermaria.codigoGrupoENF;
 import static gestor.Visao.TelaModuloEnfermaria.nomeGrupoENF;
 import static gestor.Visao.TelaModuloEnfermaria.nomeTelaENF;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 
 /**
  *
@@ -1025,24 +1026,52 @@ public class TelaSolicitacaoExamesMedicoPsiquiatrico extends javax.swing.JIntern
     private void jBtPesqDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDataActionPerformed
         // TODO add your handling code here:
         flag = 1;
-        if (jDataInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-            jDataInicial.requestFocus();
-        } else {
-            if (jDataFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                jDataFinal.requestFocus();
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDataInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataInicial.requestFocus();
             } else {
-                if (jDataInicial.getDate().after(jDataFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                if (jDataFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataFinal.requestFocus();
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
-                    preencherTabelaExameMedicoPsiquiatrico("SELECT * FROM SOLICITACAO_EXAMES_MEDICO_PSIQUIATRICO "
-                            + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON SOLICITACAO_EXAMES_MEDICO_PSIQUIATRICO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                            + "WHERE DataSolExame BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    if (jDataInicial.getDate().after(jDataFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+                        preencherTabelaExameMedicoPsiquiatrico("SELECT * FROM SOLICITACAO_EXAMES_MEDICO_PSIQUIATRICO "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON SOLICITACAO_EXAMES_MEDICO_PSIQUIATRICO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE DataSolExame BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "'");
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataInicial.requestFocus();
+            } else {
+                if (jDataFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataFinal.requestFocus();
+                } else {
+                    if (jDataInicial.getDate().after(jDataFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+                        preencherTabelaExameMedicoPsiquiatrico("SELECT * FROM SOLICITACAO_EXAMES_MEDICO_PSIQUIATRICO "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON SOLICITACAO_EXAMES_MEDICO_PSIQUIATRICO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE DataSolExame BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "'");
+                    }
                 }
             }
         }

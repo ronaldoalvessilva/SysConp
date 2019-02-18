@@ -19,7 +19,6 @@ import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloEnfermaria.telaRequisicaoMedicaInterItensENF;
 import static gestor.Visao.TelaModuloEnfermaria.telaRequisicaoMedicaInterManuENF;
-import static gestor.Visao.TelaModuloEnfermaria.telaSolicitacaoMateriaisManuENF;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
@@ -55,6 +54,7 @@ import static gestor.Visao.TelaModuloEnfermaria.codConsultarENF;
 import static gestor.Visao.TelaModuloEnfermaria.codigoGrupoENF;
 import static gestor.Visao.TelaModuloEnfermaria.nomeGrupoENF;
 import static gestor.Visao.TelaModuloEnfermaria.nomeTelaENF;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 
 /**
  *
@@ -348,7 +348,7 @@ public class TelaRequisicaoMedicamentosInternos extends javax.swing.JInternalFra
                         .addComponent(jNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtPesqInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1478,14 +1478,14 @@ public class TelaRequisicaoMedicamentosInternos extends javax.swing.JInternalFra
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(300, 20, 524, 501);
+        setBounds(300, 20, 528, 501);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtPesqCodigoReqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqCodigoReqActionPerformed
@@ -1506,27 +1506,57 @@ public class TelaRequisicaoMedicamentosInternos extends javax.swing.JInternalFra
     private void jBtPesqDatasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDatasActionPerformed
         // TODO add your handling code here:
         flag = 1;
-        if (jDataPesqInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-            jDataPesqInicial.requestFocus();
-        } else {
-            if (jDataPesFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                jDataPesFinal.requestFocus();
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
             } else {
-                if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                if (jDataPesFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesFinal.requestFocus();
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                    jTabelaRequisicoes.setVisible(true);
-                    pesquisarRequisicaoMateriais("SELECT * FROM REQUISICAO_PRODUTOS_INTERNOS_ENF "
-                            + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON REQUISICAO_PRODUTOS_INTERNOS_ENF.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                            + "INNER JOIN COLABORADOR "
-                            + "ON REQUISICAO_PRODUTOS_INTERNOS_ENF.IdFunc=COLABORADOR.IdFunc "
-                            + "WHERE DataReq BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                        jTabelaRequisicoes.setVisible(true);
+                        pesquisarRequisicaoMateriais("SELECT * FROM REQUISICAO_PRODUTOS_INTERNOS_ENF "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON REQUISICAO_PRODUTOS_INTERNOS_ENF.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "INNER JOIN COLABORADOR "
+                                + "ON REQUISICAO_PRODUTOS_INTERNOS_ENF.IdFunc=COLABORADOR.IdFunc "
+                                + "WHERE DataReq BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "'");
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
+            } else {
+                if (jDataPesFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesFinal.requestFocus();
+                } else {
+                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                        jTabelaRequisicoes.setVisible(true);
+                        pesquisarRequisicaoMateriais("SELECT * FROM REQUISICAO_PRODUTOS_INTERNOS_ENF "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON REQUISICAO_PRODUTOS_INTERNOS_ENF.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "INNER JOIN COLABORADOR "
+                                + "ON REQUISICAO_PRODUTOS_INTERNOS_ENF.IdFunc=COLABORADOR.IdFunc "
+                                + "WHERE DataReq BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    }
                 }
             }
         }

@@ -40,6 +40,7 @@ import static gestor.Visao.TelaModuloEnfermaria.nomeModuloENFER;
 import static gestor.Visao.TelaModuloJuridico.nomeModuloJURI;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import static gestor.Visao.TelaModuloServicoSocial.codAbrirSS;
 import static gestor.Visao.TelaModuloServicoSocial.codAlterarSS;
 import static gestor.Visao.TelaModuloServicoSocial.codConsultarSS;
@@ -1098,13 +1099,13 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(6, 6, 6))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Listagem", jPanel1);
@@ -6626,24 +6627,52 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         count = 0;
         flag = 1;
-        if (jDataInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-            jDataInicial.requestFocus();
-        } else {
-            if (jDataFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                jDataFinal.requestFocus();
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDataInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataInicial.requestFocus();
             } else {
-                if (jDataInicial.getDate().after(jDataFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                if (jDataFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataFinal.requestFocus();
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
-                    preencherTabelaAtendentimentoPAI("SELECT * FROM FICHA_CADASTRO_PAI_PSICOSOCIAL "
-                            + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON PRONTUARIOSCRC.IdInternoCrc=FICHA_CADASTRO_PAI_PSICOSOCIAL.IdInternoCrc "
-                            + "WHERE DataPai BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    if (jDataInicial.getDate().after(jDataFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+                        preencherTabelaAtendentimentoPAI("SELECT * FROM FICHA_CADASTRO_PAI_PSICOSOCIAL "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON PRONTUARIOSCRC.IdInternoCrc=FICHA_CADASTRO_PAI_PSICOSOCIAL.IdInternoCrc "
+                                + "WHERE DataPai BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "'");
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataInicial.requestFocus();
+            } else {
+                if (jDataFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataFinal.requestFocus();
+                } else {
+                    if (jDataInicial.getDate().after(jDataFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+                        preencherTabelaAtendentimentoPAI("SELECT * FROM FICHA_CADASTRO_PAI_PSICOSOCIAL "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON PRONTUARIOSCRC.IdInternoCrc=FICHA_CADASTRO_PAI_PSICOSOCIAL.IdInternoCrc "
+                                + "WHERE DataPai BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "'");
+                    }
                 }
             }
         }
@@ -8467,7 +8496,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
     private void jBtAlterarDJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarDJActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPaiDJ_SS);
-        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiDJ_SS) && codAlterarSS== 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
+        if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPaiDJ_SS) && codAlterarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             acao = 18;
             bloquearCampos();
             bloquearBotoes();
