@@ -97,6 +97,8 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
     public static String nomeLiberador = "";
     public static String dataAssinatura = "";
     public static String horaAssinatura = "";
+    //
+    int qtdAtend = 1;
 
     /**
      * Creates new form TelaRegistroInternosAtendimento
@@ -870,6 +872,7 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
                         objRegAtend.setAtendido(atendido);
                         objRegAtend.setMotivoImpressao(jMotivo.getText());
                         objRegAtend.setImpressaoAuto(pImpressao);
+                        objRegAtend.setQtdAtend(qtdAtend);
                         control.incluirRegAtendColaborador(objRegAtend);
                         buscarRegistro();
                         objLog();
