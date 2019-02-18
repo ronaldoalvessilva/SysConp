@@ -1289,12 +1289,12 @@ public class TelaVeiculosExterna extends javax.swing.JInternalFrame {
         jMarcaVeiculo.setDocument(new LimiteDigitosAlfa(15));
         jCidade.setDocument(new LimiteDigitosAlfa(50));
         jEstado.setDocument(new LimiteDigitosAlfa(50));
-        try {
-            MaskFormatter placa = new MaskFormatter("UUU-####");
-            jPlacaVeiculo.setFormatterFactory(new DefaultFormatterFactory(placa));
-        } catch (ParseException e) {
-            JOptionPane.showMessageDialog(rootPane, "Não foi possível formatar o campo de placa de veiculo.\nERRO: " + e);
-        }
+//        try {
+//            MaskFormatter placa = new MaskFormatter("UUU-####");
+//            jPlacaVeiculo.setFormatterFactory(new DefaultFormatterFactory(placa));
+//        } catch (ParseException e) {
+//            JOptionPane.showMessageDialog(rootPane, "Não foi possível formatar o campo de placa de veiculo.\nERRO: " + e);
+//        }
     }
 
     public void corCampo() {
