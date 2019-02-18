@@ -160,6 +160,11 @@ public class TelaOcorrenciaPsicologia extends javax.swing.JInternalFrame {
                 jBtPesqDataMouseClicked(evt);
             }
         });
+        jBtPesqData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPesqDataActionPerformed(evt);
+            }
+        });
 
         jCheckBox1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jCheckBox1.setText("Todos");
@@ -811,6 +816,10 @@ public class TelaOcorrenciaPsicologia extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_jTabelaOcorrenciaPortariaMouseClicked
+
+    private void jBtPesqDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDataActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtPesqDataActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

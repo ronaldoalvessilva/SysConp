@@ -495,7 +495,10 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
         jPainelPortarias.setLayout(jPainelPortariasLayout);
         jPainelPortariasLayout.setHorizontalGroup(
             jPainelPortariasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 824, Short.MAX_VALUE)
+            .addGroup(jPainelPortariasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 782, Short.MAX_VALUE)
+                .addGap(32, 32, 32))
         );
         jPainelPortariasLayout.setVerticalGroup(
             jPainelPortariasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

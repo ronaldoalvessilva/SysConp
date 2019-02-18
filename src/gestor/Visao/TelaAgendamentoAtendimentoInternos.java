@@ -16,6 +16,7 @@ import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import static gestor.Visao.TelaModuloPsicologia.codGravarPSI;
 import static gestor.Visao.TelaModuloPsicologia.codIncluirPSI;
 import static gestor.Visao.TelaModuloPsicologia.codUserAcessoPSI;
@@ -912,27 +913,56 @@ public class TelaAgendamentoAtendimentoInternos extends javax.swing.JInternalFra
         // TODO add your handling code here:
         flag = 1;
         count = 0;
-        if (jDataInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-            jDataInicial.requestFocus();
-        } else {
-            if (jDataFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                jDataFinal.requestFocus();
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDataInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataInicial.requestFocus();
             } else {
-                if (jDataInicial.getDate().after(jDataFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                if (jDataFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataFinal.requestFocus();
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
-                    preencherTabelaAgenda("SELECT * FROM AGENDA_ATENDIMENTO_INTERNOS "
-                            + "INNER JOIN ITENS_AGENDA_ATENDIMENTO_INTERNOS "
-                            + "ON AGENDA_ATENDIMENTO_INTERNOS.IdReg=ITENS_AGENDA_ATENDIMENTO_INTERNOS.IdReg "
-                            + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON ITENS_AGENDA_ATENDIMENTO_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                            + "WHERE DataReg BETWEEN'" + dataInicial + "'AND '" + dataFinal + "' "
-                            + "AND Departamento='" + departamento + "'");
+                    if (jDataInicial.getDate().after(jDataFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+                        preencherTabelaAgenda("SELECT * FROM AGENDA_ATENDIMENTO_INTERNOS "
+                                + "INNER JOIN ITENS_AGENDA_ATENDIMENTO_INTERNOS "
+                                + "ON AGENDA_ATENDIMENTO_INTERNOS.IdReg=ITENS_AGENDA_ATENDIMENTO_INTERNOS.IdReg "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON ITENS_AGENDA_ATENDIMENTO_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE DataReg BETWEEN'" + dataInicial + "'AND '" + dataFinal + "' "
+                                + "AND Departamento='" + departamento + "'");
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataInicial.requestFocus();
+            } else {
+                if (jDataFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataFinal.requestFocus();
+                } else {
+                    if (jDataInicial.getDate().after(jDataFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+                        preencherTabelaAgenda("SELECT * FROM AGENDA_ATENDIMENTO_INTERNOS "
+                                + "INNER JOIN ITENS_AGENDA_ATENDIMENTO_INTERNOS "
+                                + "ON AGENDA_ATENDIMENTO_INTERNOS.IdReg=ITENS_AGENDA_ATENDIMENTO_INTERNOS.IdReg "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON ITENS_AGENDA_ATENDIMENTO_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE DataReg BETWEEN'" + dataInicial + "'AND '" + dataFinal + "' "
+                                + "AND Departamento='" + departamento + "'");
+                    }
                 }
             }
         }
@@ -1297,7 +1327,8 @@ public class TelaAgendamentoAtendimentoInternos extends javax.swing.JInternalFra
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
     }
-     public void buscarAcessoUsuario(String nomeTelaAcesso) {
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS "
