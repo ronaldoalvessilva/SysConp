@@ -90,6 +90,8 @@ public class TelaRegistroInternosAtendimentoODONTO extends javax.swing.JInternal
     int codigoDepto = 0;
     //
     String pImpressao = "Não";
+    //
+    int qtdAtend = 1;
 
     /**
      * Creates new form TelaRegistroInternosAtendimento
@@ -745,6 +747,7 @@ public class TelaRegistroInternosAtendimentoODONTO extends javax.swing.JInternal
                     objRegAtend.setAssinaturaDigital(pDigitalCapturada);
                     objRegAtend.setAtendido(atendido);
                     objRegAtend.setImpressaoAuto(pImpressao);
+                    objRegAtend.setQtdAtend(qtdAtend);
                     control.incluirRegAtend(objRegAtend);
                     buscarRegistro();
                     objLog();
