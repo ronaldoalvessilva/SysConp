@@ -87,6 +87,8 @@ public class TelaRegistroInternosAtendimentoPEDA extends javax.swing.JInternalFr
     String idRegistro = "";
     String DataRegistro = "";
     int codigoDepto = 0;
+    //
+    int qtdAtend = 1;
 
     /**
      * Creates new form TelaRegistroInternosAtendimento
@@ -740,6 +742,7 @@ public class TelaRegistroInternosAtendimentoPEDA extends javax.swing.JInternalFr
                     objRegAtend.setHorario(jHorarioSaidaEntrada.getText());
                     objRegAtend.setAssinaturaDigital(pDigitalCapturada);
                     objRegAtend.setAtendido(atendido);
+                    objRegAtend.setQtdAtend(qtdAtend);
                     control.incluirRegAtend(objRegAtend);
                     buscarRegistro();
                     objLog();
