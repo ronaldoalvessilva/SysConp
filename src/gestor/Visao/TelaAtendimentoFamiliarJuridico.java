@@ -27,6 +27,7 @@ import static gestor.Visao.TelaModuloJuridico.nomeTelaJURI;
 import static gestor.Visao.TelaModuloJuridico.telaAtendimentoFamiliarManuJURI;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -894,16 +895,13 @@ public class TelaAtendimentoFamiliarJuridico extends javax.swing.JInternalFrame 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(0, 102, 0));
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel13.setText("Atendimento Família");
+        jLabel13.setText("ATENDIMENTO FAMÍLIA");
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel12Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1212,22 +1210,58 @@ public class TelaAtendimentoFamiliarJuridico extends javax.swing.JInternalFrame 
         // TODO add your handling code here:
         count = 0;
         flag = 1;
-        if (jDataInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-            jDataInicial.requestFocus();
-        } else {
-            if (jDataFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                jDataFinal.requestFocus();
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDataInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataInicial.requestFocus();
             } else {
-                if (jDataInicial.getDate().after(jDataFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                if (jDataFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataFinal.requestFocus();
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
-                    jTabelaAtendimento.setVisible(true);
-                    preencherAtendVisita("SELECT * FROM ATENDIMENTOFAMILIARJURIDICO INNER JOIN PRONTUARIOSCRC ON PRONTUARIOSCRC.IdInternoCrc=ATENDIMENTOFAMILIARJURIDICO.IdInternoCrc INNER JOIN VISITASINTERNO ON ATENDIMENTOFAMILIARJURIDICO.IdVisita=VISITASINTERNO.IdVisita WHERE DataAtendf BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    if (jDataInicial.getDate().after(jDataFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+                        jTabelaAtendimento.setVisible(true);
+                        preencherAtendVisita("SELECT * FROM ATENDIMENTOFAMILIARJURIDICO "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON PRONTUARIOSCRC.IdInternoCrc=ATENDIMENTOFAMILIARJURIDICO.IdInternoCrc "
+                                + "INNER JOIN VISITASINTERNO "
+                                + "ON ATENDIMENTOFAMILIARJURIDICO.IdVisita=VISITASINTERNO.IdVisita "
+                                + "WHERE DataAtendf BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "'");
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataInicial.requestFocus();
+            } else {
+                if (jDataFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataFinal.requestFocus();
+                } else {
+                    if (jDataInicial.getDate().after(jDataFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+                        jTabelaAtendimento.setVisible(true);
+                        preencherAtendVisita("SELECT * FROM ATENDIMENTOFAMILIARJURIDICO "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON PRONTUARIOSCRC.IdInternoCrc=ATENDIMENTOFAMILIARJURIDICO.IdInternoCrc "
+                                + "INNER JOIN VISITASINTERNO "
+                                + "ON ATENDIMENTOFAMILIARJURIDICO.IdVisita=VISITASINTERNO.IdVisita "
+                                + "WHERE DataAtendf BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "'");
+                    }
                 }
             }
         }
@@ -1668,6 +1702,7 @@ public class TelaAtendimentoFamiliarJuridico extends javax.swing.JInternalFrame 
         jTabelaAtendimento.getColumnModel().getColumn(0).setCellRenderer(centralizado);
         jTabelaAtendimento.getColumnModel().getColumn(1).setCellRenderer(centralizado);
     }
+
     public void objLog() {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);

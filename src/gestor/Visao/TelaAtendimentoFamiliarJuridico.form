@@ -1399,11 +1399,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jLabel13" pref="154" max="32767" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-              </Group>
+              <Component id="jLabel13" alignment="0" pref="174" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -1426,7 +1422,7 @@
               <Color blue="0" green="66" red="0" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Atendimento Fam&#xed;lia"/>
+            <Property name="text" type="java.lang.String" value="ATENDIMENTO FAM&#xcd;LIA"/>
           </Properties>
         </Component>
       </SubComponents>

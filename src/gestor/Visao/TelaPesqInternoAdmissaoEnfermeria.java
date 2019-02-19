@@ -284,9 +284,11 @@ public class TelaPesqInternoAdmissaoEnfermeria extends javax.swing.JInternalFram
                     + "WHERE NomeInternoCrc LIKE'%" + jPesqNome.getText() + "%' "
                     + "AND SituacaoCrc='" + situacao + "' "
                     + "AND Atendido='" + atendido + "' "
+                    + "AND IdDepartamento='" + codigoDepartamento + "' "
                     + "OR NomeInternoCrc LIKE'%" + jPesqNome.getText() + "%' "
                     + "AND SituacaoCrc='" + sitRetorno + "' "
-                    + "AND Atendido='" + atendido + "'");
+                    + "AND Atendido='" + atendido + "' "
+                    + "AND IdDepartamento='" + codigoDepartamento + "'");
         }
     }//GEN-LAST:event_jBtNomeActionPerformed
 
@@ -313,9 +315,11 @@ public class TelaPesqInternoAdmissaoEnfermeria extends javax.swing.JInternalFram
                     + "WHERE MatriculaCrc LIKE'" + jPesqMatricula.getText() + "%' "
                     + "AND SituacaoCrc='" + situacao + "' "
                     + "AND Atendido='" + atendido + "' "
+                    + "AND IdDepartamento='" + codigoDepartamento + "' "
                     + "OR MatriculaCrc LIKE'" + jPesqMatricula.getText() + "%' "
                     + "AND SituacaoCrc='" + sitRetorno + "' "
-                    + "AND Atendido='" + atendido + "'");
+                    + "AND Atendido='" + atendido + "' "
+                    + "AND IdDepartamento='" + codigoDepartamento + "'");
         }
     }//GEN-LAST:event_jBtMatriculaActionPerformed
 
@@ -337,9 +341,11 @@ public class TelaPesqInternoAdmissaoEnfermeria extends javax.swing.JInternalFram
                     + "INNER JOIN UNIDADE "
                     + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
                     + "WHERE SituacaoCrc='" + situacao + "' "
-                    + "AND Atendido='" + atendido + "'"
+                    + "AND Atendido='" + atendido + "' "
+                    + "AND IdDepartamento='" + codigoDepartamento + "' "
                     + "OR SituacaoCrc='" + sitRetorno + "' "
-                    + "AND Atendido='" + atendido + "'");
+                    + "AND Atendido='" + atendido + "' "
+                    + "AND IdDepartamento='" + codigoDepartamento + "'");
         } else {
             limparTabela();
         }

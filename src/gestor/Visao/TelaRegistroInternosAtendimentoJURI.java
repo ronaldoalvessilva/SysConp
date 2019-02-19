@@ -48,6 +48,7 @@ import static gestor.Visao.TelaModuloJuridico.codIncluirJURI;
 import static gestor.Visao.TelaModuloJuridico.nomeModuloJURI;
 import static gestor.Visao.TelaModuloJuridico.telaRegistroBiometriaInciarLeitorJURI;
 import static gestor.Visao.TelaModuloJuridico.telaRegistroBiometriaJURI;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 
 /**
  *
@@ -89,6 +90,8 @@ public class TelaRegistroInternosAtendimentoJURI extends javax.swing.JInternalFr
     int codigoDepto = 0;
     //
     String pImpressao = "Não";
+    //
+    int qtdAtendimento = 1;
 
     /**
      * Creates new form TelaRegistroInternosAtendimento
@@ -744,6 +747,7 @@ public class TelaRegistroInternosAtendimentoJURI extends javax.swing.JInternalFr
                     objRegAtend.setAssinaturaDigital(pDigitalCapturada);
                     objRegAtend.setAtendido(atendido);
                     objRegAtend.setImpressaoAuto(pImpressao);
+                    objRegAtend.setQtdAtend(qtdAtendimento);
                     control.incluirRegAtend(objRegAtend);
                     buscarRegistro();
                     objLog();
@@ -872,26 +876,54 @@ public class TelaRegistroInternosAtendimentoJURI extends javax.swing.JInternalFr
     private void jBtPesqDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDataActionPerformed
         // TODO add your handling code here:
         flag = 1;
-        if (jDataInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-            jDataInicial.requestFocus();
-        } else {
-            if (jDataFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                jDataFinal.requestFocus();
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDataInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataInicial.requestFocus();
             } else {
-                if (jDataInicial.getDate().after(jDataFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                if (jDataFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataFinal.requestFocus();
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
-                    preencherTabelaRegistros("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
-                            + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                            + "WHERE DataReg BETWEEN'" + dataInicial + "' "
-                            + "AND '" + dataFinal + "' "
-                            + "AND IdDepartamento='" + codigoDepto + "'");
+                    if (jDataInicial.getDate().after(jDataFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+                        preencherTabelaRegistros("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE DataReg BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "' "
+                                + "AND IdDepartamento='" + codigoDepto + "'");
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataInicial.requestFocus();
+            } else {
+                if (jDataFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataFinal.requestFocus();
+                } else {
+                    if (jDataInicial.getDate().after(jDataFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+                        preencherTabelaRegistros("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE DataReg BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "' "
+                                + "AND IdDepartamento='" + codigoDepto + "'");
+                    }
                 }
             }
         }
