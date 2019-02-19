@@ -18,6 +18,7 @@ import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import static gestor.Visao.TelaModuloTriagem.codigoGrupoTRI;
 import static gestor.Visao.TelaModuloTriagem.codigoUserGroupTRI;
 import static gestor.Visao.TelaModuloTriagem.codAbrirTRI;
@@ -307,7 +308,7 @@ public class TelaControleDepositoTriagem extends javax.swing.JInternalFrame {
         jTabelaPesqDepositos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaPesqDepositos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Status", "Data lanc.", "Nome Depositante", "Observação"
@@ -673,7 +674,7 @@ public class TelaControleDepositoTriagem extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 423, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -812,7 +813,7 @@ public class TelaControleDepositoTriagem extends javax.swing.JInternalFrame {
         jTabelaInternos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInternos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Interno", "Valor R$", "Data"
@@ -959,7 +960,7 @@ public class TelaControleDepositoTriagem extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 423, Short.MAX_VALUE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1040,8 +1041,6 @@ public class TelaControleDepositoTriagem extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jPanel8Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAuditoriaInternos, jBtBuscarInterno});
-
         jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
@@ -1101,24 +1100,50 @@ public class TelaControleDepositoTriagem extends javax.swing.JInternalFrame {
     private void jBtPesqDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDataActionPerformed
         // TODO add your handling code here:
         flag = 1;
-        if (jDataPesqInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-            jDataPesqInicial.requestFocus();
-        } else {
-            if (jDataPesqFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                jDataPesqFinal.requestFocus();
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
             } else {
-                if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                if (jDataPesqFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesqFinal.requestFocus();
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
-                    preencherTodosDepositos("SELECT * FROM DEPOSITOPORTARIA "
-                            + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
-                            + "AND'" + dataFinal + "' "
-                            + "AND OrigemDeposito='" + origemDeposito + "'");
+                    if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
+                        preencherTodosDepositos("SELECT * FROM DEPOSITOPORTARIA "
+                                + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
+                                + "AND'" + dataFinal + "' "
+                                + "AND OrigemDeposito='" + origemDeposito + "'");
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
+            } else {
+                if (jDataPesqFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesqFinal.requestFocus();
+                } else {
+                    if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
+                        preencherTodosDepositos("SELECT * FROM DEPOSITOPORTARIA "
+                                + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
+                                + "AND'" + dataFinal + "' "
+                                + "AND OrigemDeposito='" + origemDeposito + "'");
+                    }
                 }
             }
         }

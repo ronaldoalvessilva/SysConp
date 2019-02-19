@@ -358,7 +358,7 @@ public class TelaRequisicaoMateriaisInternosSEAC extends javax.swing.JInternalFr
         jTabelaRequisicoes.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaRequisicoes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Dt. Req.", "Status Req.", "Nome Completo do Interno"
@@ -1163,7 +1163,7 @@ public class TelaRequisicaoMateriaisInternosSEAC extends javax.swing.JInternalFr
         jTabelaItensRequisicao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaItensRequisicao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Item", "Código", "Descrição Produto", "Qtd.", "Vl. Item"
@@ -1390,7 +1390,8 @@ public class TelaRequisicaoMateriaisInternosSEAC extends javax.swing.JInternalFr
                                 + "ON REQUISICAO_PRODUTOS_INTERNOS_SEAC.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                 + "INNER JOIN COLABORADOR "
                                 + "ON REQUISICAO_PRODUTOS_INTERNOS_SEAC.IdFunc=COLABORADOR.IdFunc "
-                                + "WHERE DataReq BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                                + "WHERE DataReq BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "'");
                     }
                 }
             }
@@ -1414,7 +1415,8 @@ public class TelaRequisicaoMateriaisInternosSEAC extends javax.swing.JInternalFr
                                 + "ON REQUISICAO_PRODUTOS_INTERNOS_SEAC.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                 + "INNER JOIN COLABORADOR "
                                 + "ON REQUISICAO_PRODUTOS_INTERNOS_SEAC.IdFunc=COLABORADOR.IdFunc "
-                                + "WHERE DataReq BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                                + "WHERE DataReq BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "'");
                     }
                 }
             }

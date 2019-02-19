@@ -203,7 +203,7 @@ public class TelaSaidaObjetosPertences extends javax.swing.JInternalFrame {
         jTabelaEntradaObjetos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaEntradaObjetos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Status", "Nome do Interno"
@@ -883,7 +883,7 @@ public class TelaSaidaObjetosPertences extends javax.swing.JInternalFrame {
         jTabelaObjetosInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaObjetosInternos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Seq.", "Código", "Nome do Objeto", "Qtde.", "Data Saída"
@@ -1080,10 +1080,33 @@ public class TelaSaidaObjetosPertences extends javax.swing.JInternalFrame {
                     if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
                         JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
                     } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                        preencherTabelaEntradaObjetos("SELECT * FROM SAIDAOBJETOSPERTENCES "
+                                + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "'");
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
+            } else {
+                if (jDataPesFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesFinal.requestFocus();
+                } else {
+                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
                         SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
                         dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                        preencherTabelaEntradaObjetos("SELECT * FROM SAIDAOBJETOSPERTENCES WHERE DataLanc BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                        preencherTabelaEntradaObjetos("SELECT * FROM SAIDAOBJETOSPERTENCES "
+                                + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "'");                        
                     }
                 }
             }

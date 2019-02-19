@@ -202,7 +202,7 @@ public class TelaEntradaObjetosPertences extends javax.swing.JInternalFrame {
         jTabelaEntradaObjetos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaEntradaObjetos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Status", "Nome do Interno"
@@ -886,7 +886,7 @@ public class TelaEntradaObjetosPertences extends javax.swing.JInternalFrame {
         jTabelaObjetosInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaObjetosInternos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Seq.", "Código", "Nome do Objeto", "Qtde.", "Data Entrada"
@@ -1086,7 +1086,9 @@ public class TelaEntradaObjetosPertences extends javax.swing.JInternalFrame {
                         SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
                         dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                        preencherTabelaEntradaObjetos("SELECT * FROM ENTRADAOBJETOSPERTENCES WHERE DataLanc BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                        preencherTabelaEntradaObjetos("SELECT * FROM ENTRADAOBJETOSPERTENCES "
+                                + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "'");
                     }
                 }
             }
@@ -1105,7 +1107,9 @@ public class TelaEntradaObjetosPertences extends javax.swing.JInternalFrame {
                         SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
                         dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                        preencherTabelaEntradaObjetos("SELECT * FROM ENTRADAOBJETOSPERTENCES WHERE DataLanc BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                        preencherTabelaEntradaObjetos("SELECT * FROM ENTRADAOBJETOSPERTENCES "
+                                + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "'");
                     }
                 }
             }

@@ -236,7 +236,7 @@
                     <Property name="contentAreaFilled" type="boolean" value="false"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jBtPesqDataMouseClicked"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtPesqDataActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="jCheckBox1">
@@ -290,15 +290,41 @@
                 <Component class="javax.swing.JTable" name="jTabelaOcorrenciaPortaria">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                      <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
+                      <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
                         <BevelBorder bevelType="1"/>
                       </Border>
                     </Property>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="0" rowCount="4"/>
+                      <Table columnCount="4" rowCount="0">
+                        <Column editable="true" title="C&#xf3;digo" type="java.lang.Object"/>
+                        <Column editable="true" title="Data" type="java.lang.Object"/>
+                        <Column editable="true" title="Status" type="java.lang.Object"/>
+                        <Column editable="true" title="Titulo Ocorr&#xea;ncia" type="java.lang.Object"/>
+                      </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-                      <TableColumnModel selectionModel="0"/>
+                      <TableColumnModel selectionModel="0">
+                        <Column maxWidth="-1" minWidth="50" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="70" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="70" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="370" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                      </TableColumnModel>
                     </Property>
                     <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>

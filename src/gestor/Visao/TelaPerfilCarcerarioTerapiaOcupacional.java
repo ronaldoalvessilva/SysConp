@@ -17,6 +17,7 @@ import gestor.Modelo.PerfilCarcerarioInterno;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import static gestor.Visao.TelaModuloTerapiaOcupacional.codAbrirTO;
 import static gestor.Visao.TelaModuloTerapiaOcupacional.codAlterarTO;
 import static gestor.Visao.TelaModuloTerapiaOcupacional.codConsultarTO;
@@ -360,7 +361,7 @@ public class TelaPerfilCarcerarioTerapiaOcupacional extends javax.swing.JInterna
         jTabelaPerfilCarcerario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaPerfilCarcerario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Status", "Nome do Interno"
@@ -560,12 +561,9 @@ public class TelaPerfilCarcerarioTerapiaOcupacional extends javax.swing.JInterna
 
         jAnoNascimento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jAnoNascimento.setEnabled(false);
-        jAnoNascimento.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
         jAnoReferencia.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jAnoReferencia.setForeground(new java.awt.Color(255, 0, 0));
         jAnoReferencia.setEnabled(false);
-        jAnoReferencia.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
         jLabel44.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel44.setText("Ano Ref.");
@@ -1582,24 +1580,52 @@ public class TelaPerfilCarcerarioTerapiaOcupacional extends javax.swing.JInterna
         // TODO add your handling code here:
         count = 0;
         flag = 1;
-        if (jDataInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-            jDataInicial.requestFocus();
-        } else {
-            if (jDataFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                jDataFinal.requestFocus();
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDataInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataInicial.requestFocus();
             } else {
-                if (jDataInicial.getDate().after(jDataFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                if (jDataFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataFinal.requestFocus();
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
-                    preencherTabelaPerfilCarcerario("SELECT * FROM PERFIL_CARCERARIO_INTERNO "
-                            + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON PRONTUARIOSCRC.IdInternoCrc=PERFIL_CARCERARIO_INTERNO.IdInternoCrc "
-                            + "WHERE DataPerfil BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    if (jDataInicial.getDate().after(jDataFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+                        preencherTabelaPerfilCarcerario("SELECT * FROM PERFIL_CARCERARIO_INTERNO "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON PRONTUARIOSCRC.IdInternoCrc=PERFIL_CARCERARIO_INTERNO.IdInternoCrc "
+                                + "WHERE DataPerfil BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "'");
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataInicial.requestFocus();
+            } else {
+                if (jDataFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataFinal.requestFocus();
+                } else {
+                    if (jDataInicial.getDate().after(jDataFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+                        preencherTabelaPerfilCarcerario("SELECT * FROM PERFIL_CARCERARIO_INTERNO "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON PRONTUARIOSCRC.IdInternoCrc=PERFIL_CARCERARIO_INTERNO.IdInternoCrc "
+                                + "WHERE DataPerfil BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "'");
+                    }
                 }
             }
         }
