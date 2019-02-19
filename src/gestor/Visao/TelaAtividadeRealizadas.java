@@ -163,7 +163,7 @@ public class TelaAtividadeRealizadas extends javax.swing.JInternalFrame {
         jTabelaAtividades.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaAtividades.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Status", "Data", "Descrição"

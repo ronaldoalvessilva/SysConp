@@ -36,6 +36,7 @@ import static gestor.Visao.TelaModuloJuridico.telaCadastroFichaJuridicaManutenca
 import static gestor.Visao.TelaModuloJuridico.telaCadastroFichaJuridicaProcessoJURI;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -1798,24 +1799,52 @@ public class TelaFichaJuridica extends javax.swing.JInternalFrame {
     private void jBtPesqDatasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDatasActionPerformed
         // TODO add your handling code here:
         flag = 1;
-        if (jDataInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-            jDataInicial.requestFocus();
-        } else {
-            if (jDataFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                jDataFinal.requestFocus();
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDataInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataInicial.requestFocus();
             } else {
-                if (jDataInicial.getDate().after(jDataFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                if (jDataFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataFinal.requestFocus();
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
-                    preencherTabelaFichaJuridica("SELECT * FROM FICHA_JURIDICA "
-                            + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON FICHA_JURIDICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                            + "WHERE DataLanc BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    if (jDataInicial.getDate().after(jDataFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+                        preencherTabelaFichaJuridica("SELECT * FROM FICHA_JURIDICA "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON FICHA_JURIDICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "'");
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataInicial.requestFocus();
+            } else {
+                if (jDataFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataFinal.requestFocus();
+                } else {
+                    if (jDataInicial.getDate().after(jDataFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+                        preencherTabelaFichaJuridica("SELECT * FROM FICHA_JURIDICA "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON FICHA_JURIDICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "'");
+                    }
                 }
             }
         }
@@ -2879,7 +2908,7 @@ public class TelaFichaJuridica extends javax.swing.JInternalFrame {
         jBtExcluirAmparo.setEnabled(!true);
         jBtSalvarAmparo.setEnabled(!true);
         jBtCancelarAmparo.setEnabled(!true);
-        jBtAuditoriaAmparo.setEnabled(!true);        
+        jBtAuditoriaAmparo.setEnabled(!true);
         // ABA DOCUMENTO DO PROCESSO
         jDescricaoNaturezaPrisao.setText("");
         jDocumentoPrisao.setText("");
@@ -2900,7 +2929,7 @@ public class TelaFichaJuridica extends javax.swing.JInternalFrame {
         jBtExcluirDocumento.setEnabled(!true);
         jBtSalvarDocumento.setEnabled(!true);
         jBtCancelarDocumento.setEnabled(!true);
-        jBtAuditoriaDocumento.setEnabled(!true);        
+        jBtAuditoriaDocumento.setEnabled(!true);
         //
         jBtNovoProcesso.setEnabled(!true);
         //ABA AMPARA LEGAL
