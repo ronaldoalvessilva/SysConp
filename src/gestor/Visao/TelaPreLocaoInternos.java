@@ -197,7 +197,7 @@ public class TelaPreLocaoInternos extends javax.swing.JInternalFrame {
         jTabelaInternosExportados.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInternosExportados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Status", "Nome do Interno"
@@ -567,7 +567,7 @@ public class TelaPreLocaoInternos extends javax.swing.JInternalFrame {
         jTabelaItensInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaItensInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Item", "Doc.", "Código", "Nome do Interno", "Pavilhão"

@@ -380,7 +380,7 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
         jTabelaLanLote.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         jTabelaLanLote.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Status", "Tipo Operação", "Descrição", "Observação"
@@ -960,7 +960,7 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
         jTabelaItensIterno.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         jTabelaItensIterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Seq.", "Nome do Interno", "Matricula Penal", "Unidade Penal (Procedência)", "Regime"
