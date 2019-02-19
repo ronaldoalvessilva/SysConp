@@ -97,6 +97,8 @@ public class TelaRegistroInternosAtendimentoImpressoPSI extends javax.swing.JInt
     public static String nomeLiberador = "";
     public static String dataAssinatura = "";
     public static String horaAssinatura = "";
+    
+    int qtdAtend = 1;
 
     /**
      * Creates new form TelaRegistroInternosAtendimento
@@ -869,6 +871,7 @@ public class TelaRegistroInternosAtendimentoImpressoPSI extends javax.swing.JInt
                         objRegAtend.setAtendido(atendido);
                         objRegAtend.setMotivoImpressao(jMotivo.getText());
                         objRegAtend.setImpressaoAuto(pImpressao);
+                        objRegAtend.setQtdAtend(qtdAtend);
                         control.incluirRegAtendColaborador(objRegAtend);
                         buscarRegistro();
                         objLog();

@@ -9,18 +9,8 @@ import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.LogSistema;
-import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
-import static gestor.Visao.TelaModuloSeguranca.codAlterar;
-import static gestor.Visao.TelaModuloSeguranca.codExcluir;
-import static gestor.Visao.TelaModuloSeguranca.codGravar;
-import static gestor.Visao.TelaModuloSeguranca.codIncluir;
-import static gestor.Visao.TelaModuloSeguranca.codUserAcesso;
-import static gestor.Visao.TelaModuloSeguranca.codigoUser;
-import static gestor.Visao.TelaModuloSeguranca.nomeGrupo;
-import static gestor.Visao.TelaModuloSeguranca.nomeTela;
-import static gestor.Visao.TelaModuloSeguranca.telaLivroOcorrencias;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
@@ -50,10 +40,10 @@ import java.io.IOException;
 //import api iText
 import com.lowagie.text.*;
 import com.lowagie.text.pdf.PdfWriter;
-import gestor.Controle.ControleOcorrenciaBaseSeguranca;
 import gestor.Controle.ControleOcorrenciaSeguranca;
 import gestor.Modelo.OcorrenciaSeguranca;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import static gestor.Visao.TelaModuloSeguranca.codAbrir;
 import static gestor.Visao.TelaModuloSeguranca.codAlterar;
 import static gestor.Visao.TelaModuloSeguranca.codConsultar;
@@ -226,6 +216,11 @@ public class TelaOcorrenciaSeguranca extends javax.swing.JInternalFrame {
         jBtPesqData.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jBtPesqDataMouseClicked(evt);
+            }
+        });
+        jBtPesqData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPesqDataActionPerformed(evt);
             }
         });
 
@@ -1153,28 +1148,7 @@ public class TelaOcorrenciaSeguranca extends javax.swing.JInternalFrame {
 
     private void jBtPesqDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtPesqDataMouseClicked
         // TODO add your handling code here:
-        count = 0;
-        flag = 1;
-        if (jDataPesqInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-            jDataPesqInicial.requestFocus();
-        } else {
-            if (jDataPesFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                jDataPesFinal.requestFocus();
-            } else {
-                if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
-                } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                    pesquisarOcorrrencias("SELECT * FROM OCORRENCIASEGURANCA "
-                            + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
-                            + "AND '" + dataFinal + "'");
-                }
-            }
-        }
+
     }//GEN-LAST:event_jBtPesqDataMouseClicked
 
     private void jBtPesqTituloOcorrrenciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtPesqTituloOcorrrenciaMouseClicked
@@ -1340,6 +1314,56 @@ public class TelaOcorrenciaSeguranca extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_jBtPDFActionPerformed
+
+    private void jBtPesqDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDataActionPerformed
+        count = 0;
+        flag = 1;
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
+            } else {
+                if (jDataPesFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesFinal.requestFocus();
+                } else {
+                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                        pesquisarOcorrrencias("SELECT * FROM OCORRENCIASEGURANCA "
+                                + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "'");
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
+            } else {
+                if (jDataPesFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesFinal.requestFocus();
+                } else {
+                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                        pesquisarOcorrrencias("SELECT * FROM OCORRENCIASEGURANCA "
+                                + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "'");
+                    }
+                }
+            }
+        }// TODO add your handling code here:
+    }//GEN-LAST:event_jBtPesqDataActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

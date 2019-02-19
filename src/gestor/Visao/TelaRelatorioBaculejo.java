@@ -8,6 +8,7 @@ package gestor.Visao;
 import gestor.Dao.ConexaoBancoDados;
 import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
@@ -131,42 +132,82 @@ public class TelaRelatorioBaculejo extends javax.swing.JInternalFrame {
 
     private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
         // TODO add your handling code here:
-        if (jDataProcedimento.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data do procedimento.");
-        } else {
-            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-            dataInicial = formatoAmerica.format(jDataProcedimento.getDate().getTime());
-            try {
-                conecta.abrirConexao();
-                String path = "reports/RelatorioColaboradoresBaculejo.jasper";
-                conecta.executaSQL("SELECT * FROM PROCEDIMENTOS "
-                        + "INNER JOIN APOIOPROCEDIMENTO "
-                        + "ON PROCEDIMENTOS.IdProc=APOIOPROCEDIMENTO.IdProc "
-                        + "INNER JOIN COLABORADOR "
-                        + "ON APOIOPROCEDIMENTO.IdFunc=COLABORADOR.IdFunc "
-                        + "INNER JOIN CARGOS "
-                        + "ON COLABORADOR.IdCargo=CARGOS.IdCargo "
-                        + "INNER JOIN DEPARTAMENTOS "
-                        + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
-                        + "WHERE PROCEDIMENTOS.DataLanc='" + dataInicial + "' "
-                        + "ORDER BY NomeFunc");
-                HashMap parametros = new HashMap();
-                parametros.put("descricaoUnidade", descricaoUnidade);
-                parametros.put("dataProcedimento", dataInicial);
-                parametros.put("nomeUsuario", nameUser);
-                JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                jv.setTitle("Listagem de Internos Por Regime Penal");
-                jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                jv.toFront(); // Traz o relatorio para frente da aplicação            
-                conecta.desconecta();
-            } catch (JRException e) {
-                JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDataProcedimento.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data do procedimento.");
+            } else {
+                SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                dataInicial = formatoAmerica.format(jDataProcedimento.getDate().getTime());
+                try {
+                    conecta.abrirConexao();
+                    String path = "reports/RelatorioColaboradoresBaculejo.jasper";
+                    conecta.executaSQL("SELECT * FROM PROCEDIMENTOS "
+                            + "INNER JOIN APOIOPROCEDIMENTO "
+                            + "ON PROCEDIMENTOS.IdProc=APOIOPROCEDIMENTO.IdProc "
+                            + "INNER JOIN COLABORADOR "
+                            + "ON APOIOPROCEDIMENTO.IdFunc=COLABORADOR.IdFunc "
+                            + "INNER JOIN CARGOS "
+                            + "ON COLABORADOR.IdCargo=CARGOS.IdCargo "
+                            + "INNER JOIN DEPARTAMENTOS "
+                            + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
+                            + "WHERE PROCEDIMENTOS.DataLanc='" + dataInicial + "' "
+                            + "ORDER BY NomeFunc");
+                    HashMap parametros = new HashMap();
+                    parametros.put("descricaoUnidade", descricaoUnidade);
+                    parametros.put("dataProcedimento", dataInicial);
+                    parametros.put("nomeUsuario", nameUser);
+                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                    jv.setTitle("Listagem de Internos Por Regime Penal");
+                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                    jv.toFront(); // Traz o relatorio para frente da aplicação            
+                    conecta.desconecta();
+                } catch (JRException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                }
+            }
+            //RelatorioColaboradoresBaculejo
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataProcedimento.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data do procedimento.");
+            } else {
+                SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                dataInicial = formatoAmerica.format(jDataProcedimento.getDate().getTime());
+                try {
+                    conecta.abrirConexao();
+                    String path = "reports/RelatorioColaboradoresBaculejo.jasper";
+                    conecta.executaSQL("SELECT * FROM PROCEDIMENTOS "
+                            + "INNER JOIN APOIOPROCEDIMENTO "
+                            + "ON PROCEDIMENTOS.IdProc=APOIOPROCEDIMENTO.IdProc "
+                            + "INNER JOIN COLABORADOR "
+                            + "ON APOIOPROCEDIMENTO.IdFunc=COLABORADOR.IdFunc "
+                            + "INNER JOIN CARGOS "
+                            + "ON COLABORADOR.IdCargo=CARGOS.IdCargo "
+                            + "INNER JOIN DEPARTAMENTOS "
+                            + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
+                            + "WHERE PROCEDIMENTOS.DataLanc='" + dataInicial + "' "
+                            + "ORDER BY NomeFunc");
+                    HashMap parametros = new HashMap();
+                    parametros.put("descricaoUnidade", descricaoUnidade);
+                    parametros.put("dataProcedimento", dataInicial);
+                    parametros.put("nomeUsuario", nameUser);
+                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                    jv.setTitle("Listagem de Internos Por Regime Penal");
+                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                    jv.toFront(); // Traz o relatorio para frente da aplicação            
+                    conecta.desconecta();
+                } catch (JRException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                }
             }
         }
-        //RelatorioColaboradoresBaculejo
     }//GEN-LAST:event_jBtConfirmarActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
