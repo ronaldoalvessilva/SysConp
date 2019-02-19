@@ -7,6 +7,7 @@ package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
@@ -146,27 +147,54 @@ public class TelaRelatorioLigacoesInternos extends javax.swing.JInternalFrame {
 
     private void jBtConfimarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfimarActionPerformed
         // TODO add your handling code here:
-        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-        try {
-            conecta.abrirConexao();
-            String path = "reports/RelatorioLigacoesInternos.jasper";
-            conecta.executaSQL("SELECT * FROM CONTROLIGA INNER JOIN PRONTUARIOSCRC ON CONTROLIGA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc WHERE DataControl BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'ORDER BY NomeInternoCrc,DataControl");
-            HashMap parametros = new HashMap();
-            parametros.put("dataInicial", dataInicial);
-            parametros.put("dataFinal", dataFinal);
-            parametros.put("nomeUsuario", nameUser);
-            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-            jv.setTitle("Relatório de Ligações de Internos");
-            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-            jv.toFront(); // Traz o relatorio para frente da aplicação            
-            conecta.desconecta();
-        } catch (JRException e) {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+            dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+            dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+            try {
+                conecta.abrirConexao();
+                String path = "reports/RelatorioLigacoesInternos.jasper";
+                conecta.executaSQL("SELECT * FROM CONTROLIGA INNER JOIN PRONTUARIOSCRC ON CONTROLIGA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc WHERE DataControl BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'ORDER BY NomeInternoCrc,DataControl");
+                HashMap parametros = new HashMap();
+                parametros.put("dataInicial", dataInicial);
+                parametros.put("dataFinal", dataFinal);
+                parametros.put("nomeUsuario", nameUser);
+                JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                jv.setTitle("Relatório de Ligações de Internos");
+                jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                jv.toFront(); // Traz o relatorio para frente da aplicação            
+                conecta.desconecta();
+            } catch (JRException e) {
+                JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+            dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+            dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+            try {
+                conecta.abrirConexao();
+                String path = "reports/RelatorioLigacoesInternos.jasper";
+                conecta.executaSQL("SELECT * FROM CONTROLIGA INNER JOIN PRONTUARIOSCRC ON CONTROLIGA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc WHERE DataControl BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'ORDER BY NomeInternoCrc,DataControl");
+                HashMap parametros = new HashMap();
+                parametros.put("dataInicial", dataInicial);
+                parametros.put("dataFinal", dataFinal);
+                parametros.put("nomeUsuario", nameUser);
+                JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                jv.setTitle("Relatório de Ligações de Internos");
+                jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                jv.toFront(); // Traz o relatorio para frente da aplicação            
+                conecta.desconecta();
+            } catch (JRException e) {
+                JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+            }
         }
     }//GEN-LAST:event_jBtConfimarActionPerformed
 

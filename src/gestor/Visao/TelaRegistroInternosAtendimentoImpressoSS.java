@@ -28,6 +28,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import static gestor.Visao.TelaModuloServicoSocial.codigoUserGroupSS;
 import static gestor.Visao.TelaModuloServicoSocial.codigoGrupoSS;
 import static gestor.Visao.TelaModuloServicoSocial.codAlterarSS;
@@ -90,6 +91,9 @@ public class TelaRegistroInternosAtendimentoImpressoSS extends javax.swing.JInte
     int codigoDepto = 0;
     //
     String pImpressao = "Sim";
+    //
+    int qtdAtend = 1;
+
     public static String pLiberacaoImpressa = "Não";
     public static int codigoLiberador = 0;
     public static String nomeLiberador = "";
@@ -867,6 +871,7 @@ public class TelaRegistroInternosAtendimentoImpressoSS extends javax.swing.JInte
                         objRegAtend.setAtendido(atendido);
                         objRegAtend.setMotivoImpressao(jMotivo.getText());
                         objRegAtend.setImpressaoAuto(pImpressao);
+                        objRegAtend.setQtdAtend(qtdAtend);
                         control.incluirRegAtendColaborador(objRegAtend);
                         buscarRegistro();
                         objLog();
@@ -961,27 +966,57 @@ public class TelaRegistroInternosAtendimentoImpressoSS extends javax.swing.JInte
     private void jBtPesqDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDataActionPerformed
         // TODO add your handling code here:
         flag = 1;
-        if (jDataInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-            jDataInicial.requestFocus();
-        } else {
-            if (jDataFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                jDataFinal.requestFocus();
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+
+            if (jDataInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataInicial.requestFocus();
             } else {
-                if (jDataInicial.getDate().after(jDataFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                if (jDataFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataFinal.requestFocus();
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
-                    preencherTabelaRegistros("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
-                            + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                            + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
-                            + "AND '" + dataFinal + "' "
-                            + "AND IdDepartamento='" + codigoDepto + "'"
-                            + "AND Impresso='" + pImpressao + "'");
+                    if (jDataInicial.getDate().after(jDataFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+                        preencherTabelaRegistros("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "' "
+                                + "AND IdDepartamento='" + codigoDepto + "'"
+                                + "AND Impresso='" + pImpressao + "'");
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataInicial.requestFocus();
+            } else {
+                if (jDataFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataFinal.requestFocus();
+                } else {
+                    if (jDataInicial.getDate().after(jDataFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+                        preencherTabelaRegistros("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "' "
+                                + "AND IdDepartamento='" + codigoDepto + "'"
+                                + "AND Impresso='" + pImpressao + "'");
+                    }
                 }
             }
         }

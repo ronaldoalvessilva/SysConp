@@ -17,6 +17,7 @@ import gestor.Modelo.PerfilCarcerarioInterno;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import static gestor.Visao.TelaModuloServicoSocial.codAbrirSS;
 import static gestor.Visao.TelaModuloServicoSocial.codAlterarSS;
 import static gestor.Visao.TelaModuloServicoSocial.codConsultarSS;
@@ -31,8 +32,6 @@ import static gestor.Visao.TelaModuloServicoSocial.nomeGrupoSS;
 import static gestor.Visao.TelaModuloServicoSocial.nomeTelaSS;
 import static gestor.Visao.TelaModuloServicoSocial.telaPerfilPopCarcerariaPerfilSS;
 import static gestor.Visao.TelaModuloServicoSocial.telaPerfilPopCarcerariaSS;
-import static gestor.Visao.TelaModuloServicoSocial.telaRolVisitasSS;
-import static gestor.Visao.TelaModuloServicoSocial.telaRolVisitasVisitantesSS;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -1619,24 +1618,50 @@ public class TelaPerfilCarcerario extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         count = 0;
         flag = 1;
-        if (jDataInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-            jDataInicial.requestFocus();
-        } else {
-            if (jDataFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                jDataFinal.requestFocus();
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDataInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataInicial.requestFocus();
             } else {
-                if (jDataInicial.getDate().after(jDataFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                if (jDataFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataFinal.requestFocus();
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
-                    preencherTabelaPerfilCarcerario("SELECT * FROM PERFIL_CARCERARIO_INTERNO "
-                            + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON PRONTUARIOSCRC.IdInternoCrc=PERFIL_CARCERARIO_INTERNO.IdInternoCrc "
-                            + "WHERE DataPerfil BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    if (jDataInicial.getDate().after(jDataFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+                        preencherTabelaPerfilCarcerario("SELECT * FROM PERFIL_CARCERARIO_INTERNO "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON PRONTUARIOSCRC.IdInternoCrc=PERFIL_CARCERARIO_INTERNO.IdInternoCrc "
+                                + "WHERE DataPerfil BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataInicial.requestFocus();
+            } else {
+                if (jDataFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataFinal.requestFocus();
+                } else {
+                    if (jDataInicial.getDate().after(jDataFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+                        preencherTabelaPerfilCarcerario("SELECT * FROM PERFIL_CARCERARIO_INTERNO "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON PRONTUARIOSCRC.IdInternoCrc=PERFIL_CARCERARIO_INTERNO.IdInternoCrc "
+                                + "WHERE DataPerfil BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    }
                 }
             }
         }
@@ -1790,7 +1815,7 @@ public class TelaPerfilCarcerario extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-         buscarAcessoUsuario(telaPerfilPopCarcerariaSS);
+        buscarAcessoUsuario(telaPerfilPopCarcerariaSS);
         if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPerfilPopCarcerariaSS) && codIncluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             acao = 1;
             bloquearCampos();
@@ -1806,7 +1831,7 @@ public class TelaPerfilCarcerario extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:  
-         buscarAcessoUsuario(telaPerfilPopCarcerariaSS);
+        buscarAcessoUsuario(telaPerfilPopCarcerariaSS);
         if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPerfilPopCarcerariaSS) && codAlterarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
             if (jStatusPerfil.getText().equals("FINALIZADO")) {
@@ -1825,7 +1850,7 @@ public class TelaPerfilCarcerario extends javax.swing.JInternalFrame {
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:   
-         buscarAcessoUsuario(telaPerfilPopCarcerariaSS);
+        buscarAcessoUsuario(telaPerfilPopCarcerariaSS);
         if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPerfilPopCarcerariaSS) && codExcluirSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             verificarInternoPerfil();
             statusMov = "Excluiu";
@@ -1849,7 +1874,7 @@ public class TelaPerfilCarcerario extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-         buscarAcessoUsuario(telaPerfilPopCarcerariaSS);
+        buscarAcessoUsuario(telaPerfilPopCarcerariaSS);
         if (codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPerfilPopCarcerariaSS) && codGravarSS == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES")) {
             verificarExistenciaInternoPerfil();
             if (jDataPerfil.getDate() == null) {
