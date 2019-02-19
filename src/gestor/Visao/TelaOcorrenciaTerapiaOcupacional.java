@@ -14,6 +14,7 @@ import gestor.Modelo.OcorrenciasPortaria;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import static gestor.Visao.TelaModuloTerapiaOcupacional.codAbrirTO;
 import static gestor.Visao.TelaModuloTerapiaOcupacional.codAlterarTO;
 import static gestor.Visao.TelaModuloTerapiaOcupacional.codConsultarTO;
@@ -154,9 +155,9 @@ public class TelaOcorrenciaTerapiaOcupacional extends javax.swing.JInternalFrame
 
         jBtPesqData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtPesqData.setContentAreaFilled(false);
-        jBtPesqData.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jBtPesqDataMouseClicked(evt);
+        jBtPesqData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPesqDataActionPerformed(evt);
             }
         });
 
@@ -240,16 +241,13 @@ public class TelaOcorrenciaTerapiaOcupacional extends javax.swing.JInternalFrame
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabelaOcorrenciaPortaria.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTabelaOcorrenciaPortaria.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaOcorrenciaPortaria.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+
             },
             new String [] {
-
+                "Código", "Data", "Status", "Titulo Ocorrência"
             }
         ));
         jTabelaOcorrenciaPortaria.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -258,6 +256,12 @@ public class TelaOcorrenciaTerapiaOcupacional extends javax.swing.JInternalFrame
             }
         });
         jScrollPane1.setViewportView(jTabelaOcorrenciaPortaria);
+        if (jTabelaOcorrenciaPortaria.getColumnModel().getColumnCount() > 0) {
+            jTabelaOcorrenciaPortaria.getColumnModel().getColumn(0).setMinWidth(50);
+            jTabelaOcorrenciaPortaria.getColumnModel().getColumn(1).setMinWidth(70);
+            jTabelaOcorrenciaPortaria.getColumnModel().getColumn(2).setMinWidth(70);
+            jTabelaOcorrenciaPortaria.getColumnModel().getColumn(3).setMinWidth(370);
+        }
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -746,30 +750,6 @@ public class TelaOcorrenciaTerapiaOcupacional extends javax.swing.JInternalFrame
         }
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
-    private void jBtPesqDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtPesqDataMouseClicked
-        // TODO add your handling code here:
-        flag = 1;
-        if (jDataPesqInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-            jDataPesqInicial.requestFocus();
-        } else {
-            if (jDataPesFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                jDataPesFinal.requestFocus();
-            } else {
-                if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
-                } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                    jTabelaOcorrenciaPortaria.setVisible(true);
-                    pesquisarOcorrrencias("SELECT * FROM OCORRENCIAS_TO WHERE DataLanc BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
-                }
-            }
-        }
-    }//GEN-LAST:event_jBtPesqDataMouseClicked
-
     private void jBtPesqTituloOcorrrenciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtPesqTituloOcorrrenciaMouseClicked
         // TODO add your handling code here:
         if (jPesqTituloOcorrencia.getText().equals("")) {
@@ -810,6 +790,54 @@ public class TelaOcorrenciaTerapiaOcupacional extends javax.swing.JInternalFrame
             }
         }
     }//GEN-LAST:event_jTabelaOcorrenciaPortariaMouseClicked
+
+    private void jBtPesqDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDataActionPerformed
+        // TODO add your handling code here:
+        flag = 1;
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
+            } else {
+                if (jDataPesFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesFinal.requestFocus();
+                } else {
+                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                        jTabelaOcorrenciaPortaria.setVisible(true);
+                        pesquisarOcorrrencias("SELECT * FROM OCORRENCIAS_TO WHERE DataLanc BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
+            } else {
+                if (jDataPesFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesFinal.requestFocus();
+                } else {
+                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                        jTabelaOcorrenciaPortaria.setVisible(true);
+                        pesquisarOcorrrencias("SELECT * FROM OCORRENCIAS_TO WHERE DataLanc BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_jBtPesqDataActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1000,7 +1028,7 @@ public class TelaOcorrenciaTerapiaOcupacional extends javax.swing.JInternalFrame
 
     public void pesquisarOcorrrencias(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{" ID ", " Data ", "Status", " Titulo Ocorrência "};
+        String[] Colunas = new String[]{"Código", "Data ", "Status", "Titulo Ocorrência"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);

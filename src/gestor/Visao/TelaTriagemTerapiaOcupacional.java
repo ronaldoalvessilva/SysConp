@@ -17,6 +17,7 @@ import gestor.Modelo.TriagemOcupacional;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import static gestor.Visao.TelaModuloTerapiaOcupacional.codAbrirTO;
 import static gestor.Visao.TelaModuloTerapiaOcupacional.codAlterarTO;
 import static gestor.Visao.TelaModuloTerapiaOcupacional.codConsultarTO;
@@ -288,7 +289,7 @@ public class TelaTriagemTerapiaOcupacional extends javax.swing.JInternalFrame {
         jTabelaTriagemOcupacional.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaTriagemOcupacional.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Status", "Data Cadastro", "Nome do Interno"
@@ -846,24 +847,50 @@ public class TelaTriagemTerapiaOcupacional extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         count = 0;
         flag = 1;
-        if (jDataPesqInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-            jDataPesqInicial.requestFocus();
-        } else {
-            if (jDataPesqFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                jDataPesqFinal.requestFocus();
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
             } else {
-                if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                if (jDataPesqFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesqFinal.requestFocus();
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
-                    preencherTabelaTriagemOcupacional("SELECT * FROM TRIAGEM_OCUPACIONAL "
-                            + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON TRIAGEM_OCUPACIONAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                            + "WHERE DataLanc BETWEEN'" + dataInicial + "'AND'" + dataFinal + "'");
+                    if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
+                        preencherTabelaTriagemOcupacional("SELECT * FROM TRIAGEM_OCUPACIONAL "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON TRIAGEM_OCUPACIONAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE DataLanc BETWEEN'" + dataInicial + "'AND'" + dataFinal + "'");
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
+            } else {
+                if (jDataPesqFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesqFinal.requestFocus();
+                } else {
+                    if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
+                        preencherTabelaTriagemOcupacional("SELECT * FROM TRIAGEM_OCUPACIONAL "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON TRIAGEM_OCUPACIONAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE DataLanc BETWEEN'" + dataInicial + "'AND'" + dataFinal + "'");
+                    }
                 }
             }
         }
