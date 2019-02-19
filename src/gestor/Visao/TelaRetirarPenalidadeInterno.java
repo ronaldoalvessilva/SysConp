@@ -19,6 +19,7 @@ import gestor.Modelo.TransferenciaLocalInternos;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import static gestor.Visao.TelaModuloSeguranca.codAlterar;
 import static gestor.Visao.TelaModuloSeguranca.codExcluir;
 import static gestor.Visao.TelaModuloSeguranca.codGravar;
@@ -1246,48 +1247,98 @@ public class TelaRetirarPenalidadeInterno extends javax.swing.JInternalFrame {
     private void jBtPesqDatasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDatasActionPerformed
         // TODO add your handling code here:
         flag = 1;
-        if (jDataPesqInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-            jDataPesqInicial.requestFocus();
-        } else {
-            if (jDataPesqFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                jDataPesqFinal.requestFocus();
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
             } else {
-                if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
-                } else if (jComboBoxTipoRegime.getSelectedItem().equals("Selecione...")) {
-                    JOptionPane.showMessageDialog(rootPane, "Selecione o tipo de regime para pesquisa.");
-                } else if (jComboBoxTipoRegime.getSelectedItem().equals("Reg. Disciplinar Interno")) {
-                    tipoRegistro = 0;
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
-                    preencherTabelaRegistroEventos("SELECT * FROM RETIRADAINTERNO "
-                            + "INNER JOIN REGIMENTO_DISCIPLINAR_INTERNOS "
-                            + "ON RETIRADAINTERNO.IdLanc=REGIMENTO_DISCIPLINAR_INTERNOS.IdReg "
-                            + "INNER JOIN NATUREZAEVENTOS "
-                            + "ON REGIMENTO_DISCIPLINAR_INTERNOS.IdNatureza=NATUREZAEVENTOS.IdNatureza "
-                            + "INNER JOIN COLABORADOR "
-                            + "ON RETIRADAINTERNO.IdFunc=COLABORADOR.IdFunc "
-                            + "WHERE RETIRADAINTERNO.DataLanc BETWEEN'" + dataInicial + "' "
-                            + "AND '" + dataFinal + "' "
-                            + "AND TipoReg='" + tipoRegistro + "'");
-                } else if (jComboBoxTipoRegime.getSelectedItem().equals("Reg. Disciplinar Diferenciado - RDD")) {
-                    tipoRegistro = 1;
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
-                    preencherTabelaRegistroEventos("SELECT * FROM RETIRADAINTERNO "
-                            + "INNER JOIN REGISTROEVENTOS "
-                            + "ON RETIRADAINTERNO.IdLanc=REGISTROEVENTOS.IdLanc "
-                            + "INNER JOIN NATUREZAEVENTOS "
-                            + "ON REGISTROEVENTOS.IdNatureza=NATUREZAEVENTOS.IdNatureza "
-                            + "INNER JOIN COLABORADOR "
-                            + "ON RETIRADAINTERNO.IdFunc=COLABORADOR.IdFunc "
-                            + "WHERE RETIRADAINTERNO.DataLanc BETWEEN'" + dataInicial + "' "
-                            + "AND '" + dataFinal + "' "
-                            + "AND TipoReg='" + tipoRegistro + "'");
+                if (jDataPesqFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesqFinal.requestFocus();
+                } else {
+                    if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else if (jComboBoxTipoRegime.getSelectedItem().equals("Selecione...")) {
+                        JOptionPane.showMessageDialog(rootPane, "Selecione o tipo de regime para pesquisa.");
+                    } else if (jComboBoxTipoRegime.getSelectedItem().equals("Reg. Disciplinar Interno")) {
+                        tipoRegistro = 0;
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
+                        preencherTabelaRegistroEventos("SELECT * FROM RETIRADAINTERNO "
+                                + "INNER JOIN REGIMENTO_DISCIPLINAR_INTERNOS "
+                                + "ON RETIRADAINTERNO.IdLanc=REGIMENTO_DISCIPLINAR_INTERNOS.IdReg "
+                                + "INNER JOIN NATUREZAEVENTOS "
+                                + "ON REGIMENTO_DISCIPLINAR_INTERNOS.IdNatureza=NATUREZAEVENTOS.IdNatureza "
+                                + "INNER JOIN COLABORADOR "
+                                + "ON RETIRADAINTERNO.IdFunc=COLABORADOR.IdFunc "
+                                + "WHERE RETIRADAINTERNO.DataLanc BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "' "
+                                + "AND TipoReg='" + tipoRegistro + "'");
+                    } else if (jComboBoxTipoRegime.getSelectedItem().equals("Reg. Disciplinar Diferenciado - RDD")) {
+                        tipoRegistro = 1;
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
+                        preencherTabelaRegistroEventos("SELECT * FROM RETIRADAINTERNO "
+                                + "INNER JOIN REGISTROEVENTOS "
+                                + "ON RETIRADAINTERNO.IdLanc=REGISTROEVENTOS.IdLanc "
+                                + "INNER JOIN NATUREZAEVENTOS "
+                                + "ON REGISTROEVENTOS.IdNatureza=NATUREZAEVENTOS.IdNatureza "
+                                + "INNER JOIN COLABORADOR "
+                                + "ON RETIRADAINTERNO.IdFunc=COLABORADOR.IdFunc "
+                                + "WHERE RETIRADAINTERNO.DataLanc BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "' "
+                                + "AND TipoReg='" + tipoRegistro + "'");
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
+            } else {
+                if (jDataPesqFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesqFinal.requestFocus();
+                } else {
+                    if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else if (jComboBoxTipoRegime.getSelectedItem().equals("Selecione...")) {
+                        JOptionPane.showMessageDialog(rootPane, "Selecione o tipo de regime para pesquisa.");
+                    } else if (jComboBoxTipoRegime.getSelectedItem().equals("Reg. Disciplinar Interno")) {
+                        tipoRegistro = 0;
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
+                        preencherTabelaRegistroEventos("SELECT * FROM RETIRADAINTERNO "
+                                + "INNER JOIN REGIMENTO_DISCIPLINAR_INTERNOS "
+                                + "ON RETIRADAINTERNO.IdLanc=REGIMENTO_DISCIPLINAR_INTERNOS.IdReg "
+                                + "INNER JOIN NATUREZAEVENTOS "
+                                + "ON REGIMENTO_DISCIPLINAR_INTERNOS.IdNatureza=NATUREZAEVENTOS.IdNatureza "
+                                + "INNER JOIN COLABORADOR "
+                                + "ON RETIRADAINTERNO.IdFunc=COLABORADOR.IdFunc "
+                                + "WHERE RETIRADAINTERNO.DataLanc BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "' "
+                                + "AND TipoReg='" + tipoRegistro + "'");
+                    } else if (jComboBoxTipoRegime.getSelectedItem().equals("Reg. Disciplinar Diferenciado - RDD")) {
+                        tipoRegistro = 1;
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
+                        preencherTabelaRegistroEventos("SELECT * FROM RETIRADAINTERNO "
+                                + "INNER JOIN REGISTROEVENTOS "
+                                + "ON RETIRADAINTERNO.IdLanc=REGISTROEVENTOS.IdLanc "
+                                + "INNER JOIN NATUREZAEVENTOS "
+                                + "ON REGISTROEVENTOS.IdNatureza=NATUREZAEVENTOS.IdNatureza "
+                                + "INNER JOIN COLABORADOR "
+                                + "ON RETIRADAINTERNO.IdFunc=COLABORADOR.IdFunc "
+                                + "WHERE RETIRADAINTERNO.DataLanc BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "' "
+                                + "AND TipoReg='" + tipoRegistro + "'");
+                    }
                 }
             }
         }
@@ -1641,7 +1692,7 @@ public class TelaRetirarPenalidadeInterno extends javax.swing.JInternalFrame {
                 FotoInternoRP.setIcon(i);
                 FotoInternoRP.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInternoRP.getWidth(), FotoInternoRP.getHeight(), Image.SCALE_DEFAULT)));
                 jNomeInternoRP.setText(conecta.rs.getString("NomeInternoCrc"));
-                idItemIntIso = conecta.rs.getInt("IdIsola");   
+                idItemIntIso = conecta.rs.getInt("IdIsola");
                 // PAVILHÃO E CELA DE ORIGEM
                 jPavilhaoOrigem.setText(conecta.rs.getString("PavilhaoOrigem"));
                 jCelaOrigem.setText(conecta.rs.getString("CelaOrigem"));
@@ -1744,7 +1795,7 @@ public class TelaRetirarPenalidadeInterno extends javax.swing.JInternalFrame {
                 //
                 objIntIsolamento.setIdPavDestino(idPavilhao);
                 objIntIsolamento.setIdCelaDestino(idCela);
-                objIntIsolamento.setNomePavilhoDestino(jPavilhaoDestino.getText());                
+                objIntIsolamento.setNomePavilhoDestino(jPavilhaoDestino.getText());
                 objIntIsolamento.setNomeCelaDestino(jCelaDestino.getText());
                 //
                 objIntIsolamento.setNomePavilhaoOrigem(jPavilhaoOrigem.getText());

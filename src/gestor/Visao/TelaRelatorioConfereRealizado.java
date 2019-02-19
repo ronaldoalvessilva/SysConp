@@ -9,6 +9,7 @@ import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.ConfereInternos;
 import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -198,40 +199,80 @@ public class TelaRelatorioConfereRealizado extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
-        // TODO add your handling code here:             
-        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-        dataConfere = formatoAmerica.format(jDataConfere.getDate().getTime());        
-        if (jCombBoxDescricaoPavilhao.getSelectedItem() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do pavilhão para listar o confere.");
-        } else {
-            try {
-                conecta.abrirConexao();
-                String path = "reports/ConferePavilhao.jasper";
-                conecta.executaSQL("SELECT * FROM CONFERE_INTERNOS "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON CONFERE_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "INNER JOIN CELAS "
-                        + "ON CONFERE_INTERNOS.IdCela=CELAS.IdCela "
-                        + "INNER JOIN PAVILHAO "
-                        + "ON CELAS.IdPav=PAVILHAO.IdPav "
-                        + "WHERE PAVILHAO.DescricaoPav='" + jCombBoxDescricaoPavilhao.getSelectedItem() + "' "
-                        + "AND CONFERE_INTERNOS.DataRealizacao='" + dataConfere + "' "
-                        + "ORDER BY CELAS.EndCelaPav,PRONTUARIOSCRC.NomeInternoCrc");
-                HashMap parametros = new HashMap();
-                parametros.put("descricaoPav", jCombBoxDescricaoPavilhao.getSelectedItem());
-                parametros.put("nomeUsuario", nameUser);
-                parametros.put("descricaoUnidade", descricaoUnidade);
-                parametros.put("dataConfere", dataConfere);
-                JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                jv.setTitle("Confere");
-                jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                jv.toFront(); // Traz o relatorio para frente da aplicação            
-                conecta.desconecta();
-            } catch (JRException e) {
-                JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+        // TODO add your handling code here:  
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+            dataConfere = formatoAmerica.format(jDataConfere.getDate().getTime());
+            if (jCombBoxDescricaoPavilhao.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do pavilhão para listar o confere.");
+            } else {
+                try {
+                    conecta.abrirConexao();
+                    String path = "reports/ConferePavilhao.jasper";
+                    conecta.executaSQL("SELECT * FROM CONFERE_INTERNOS "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON CONFERE_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN CELAS "
+                            + "ON CONFERE_INTERNOS.IdCela=CELAS.IdCela "
+                            + "INNER JOIN PAVILHAO "
+                            + "ON CELAS.IdPav=PAVILHAO.IdPav "
+                            + "WHERE PAVILHAO.DescricaoPav='" + jCombBoxDescricaoPavilhao.getSelectedItem() + "' "
+                            + "AND CONFERE_INTERNOS.DataRealizacao='" + dataConfere + "' "
+                            + "ORDER BY CELAS.EndCelaPav,PRONTUARIOSCRC.NomeInternoCrc");
+                    HashMap parametros = new HashMap();
+                    parametros.put("descricaoPav", jCombBoxDescricaoPavilhao.getSelectedItem());
+                    parametros.put("nomeUsuario", nameUser);
+                    parametros.put("descricaoUnidade", descricaoUnidade);
+                    parametros.put("dataConfere", dataConfere);
+                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                    jv.setTitle("Confere");
+                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                    jv.toFront(); // Traz o relatorio para frente da aplicação            
+                    conecta.desconecta();
+                } catch (JRException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+            dataConfere = formatoAmerica.format(jDataConfere.getDate().getTime());
+            if (jCombBoxDescricaoPavilhao.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do pavilhão para listar o confere.");
+            } else {
+                try {
+                    conecta.abrirConexao();
+                    String path = "reports/ConferePavilhao.jasper";
+                    conecta.executaSQL("SELECT * FROM CONFERE_INTERNOS "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON CONFERE_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN CELAS "
+                            + "ON CONFERE_INTERNOS.IdCela=CELAS.IdCela "
+                            + "INNER JOIN PAVILHAO "
+                            + "ON CELAS.IdPav=PAVILHAO.IdPav "
+                            + "WHERE PAVILHAO.DescricaoPav='" + jCombBoxDescricaoPavilhao.getSelectedItem() + "' "
+                            + "AND CONFERE_INTERNOS.DataRealizacao='" + dataConfere + "' "
+                            + "ORDER BY CELAS.EndCelaPav,PRONTUARIOSCRC.NomeInternoCrc");
+                    HashMap parametros = new HashMap();
+                    parametros.put("descricaoPav", jCombBoxDescricaoPavilhao.getSelectedItem());
+                    parametros.put("nomeUsuario", nameUser);
+                    parametros.put("descricaoUnidade", descricaoUnidade);
+                    parametros.put("dataConfere", dataConfere);
+                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                    jv.setTitle("Confere");
+                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                    jv.toFront(); // Traz o relatorio para frente da aplicação            
+                    conecta.desconecta();
+                } catch (JRException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                }
             }
         }
     }//GEN-LAST:event_jBtConfirmarActionPerformed

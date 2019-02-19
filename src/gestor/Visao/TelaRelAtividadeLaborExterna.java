@@ -7,6 +7,7 @@ package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
@@ -55,6 +56,11 @@ public class TelaRelAtividadeLaborExterna extends javax.swing.JInternalFrame {
         jPesDtPopInicial.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jPesDtPopFinal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPesDtPopFinal.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentAdded(java.awt.event.ContainerEvent evt) {
+                jPesDtPopFinalComponentAdded(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Data Inicial");
@@ -146,44 +152,91 @@ public class TelaRelAtividadeLaborExterna extends javax.swing.JInternalFrame {
 
     private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
         // TODO add your handling code here:
-        if (jPesDtPopInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Data inicial não pode ser em branco.");
-            jPesDtPopInicial.requestFocus();
-        } else {
-            if (jPesDtPopFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Data final não pode ser em branco.");
-                jPesDtPopFinal.requestFocus();
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jPesDtPopInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Data inicial não pode ser em branco.");
+                jPesDtPopInicial.requestFocus();
             } else {
-                if (jPesDtPopInicial.getDate().after(jPesDtPopFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final.");
+                if (jPesDtPopFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Data final não pode ser em branco.");
+                    jPesDtPopFinal.requestFocus();
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jPesDtPopInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jPesDtPopFinal.getDate().getTime());
-                    try {
-                        conecta.abrirConexao();
-                        String path = "reports/RelatorioEntSaiInternosLaborativaExterna.jasper";
-                        conecta.executaSQL("SELECT * FROM ENTRADALABORINTERNO  "
-                                + "INNER JOIN ITENSLABORINTERNO  "
-                                + "ON ENTRADALABORINTERNO.IdLanc=ITENSLABORINTERNO.IdLanc  "
-                                + "INNER JOIN PRONTUARIOSCRC  "
-                                + "ON ITENSLABORINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                + "INNER JOIN EMPRESALAB "
-                                + "ON ENTRADALABORINTERNO.IdEmp=EMPRESALAB.IdEmp WHERE DataSaida BETWEEN'" + dataInicial  + "'AND '" + dataFinal + "'ORDER BY DataSaida");
-                        HashMap parametros = new HashMap();
-                        parametros.put("dataInicial", dataInicial);
-                        parametros.put("dataFinal", dataFinal);
-                        parametros.put("nomeUsuario", nameUser);
-                        JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                        JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                        JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                        jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                        jv.setTitle("Relatório de Atividade Laborativa Externa (Frequência)");
-                        jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                        jv.toFront(); // Traz o relatorio para frente da aplicação            
-                        conecta.desconecta();
-                    } catch (JRException e) {
-                        JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                    if (jPesDtPopInicial.getDate().after(jPesDtPopFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final.");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jPesDtPopInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jPesDtPopFinal.getDate().getTime());
+                        try {
+                            conecta.abrirConexao();
+                            String path = "reports/RelatorioEntSaiInternosLaborativaExterna.jasper";
+                            conecta.executaSQL("SELECT * FROM ENTRADALABORINTERNO  "
+                                    + "INNER JOIN ITENSLABORINTERNO  "
+                                    + "ON ENTRADALABORINTERNO.IdLanc=ITENSLABORINTERNO.IdLanc  "
+                                    + "INNER JOIN PRONTUARIOSCRC  "
+                                    + "ON ITENSLABORINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                    + "INNER JOIN EMPRESALAB "
+                                    + "ON ENTRADALABORINTERNO.IdEmp=EMPRESALAB.IdEmp WHERE DataSaida BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'ORDER BY DataSaida");
+                            HashMap parametros = new HashMap();
+                            parametros.put("dataInicial", dataInicial);
+                            parametros.put("dataFinal", dataFinal);
+                            parametros.put("nomeUsuario", nameUser);
+                            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                            jv.setTitle("Relatório de Atividade Laborativa Externa (Frequência)");
+                            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                            jv.toFront(); // Traz o relatorio para frente da aplicação            
+                            conecta.desconecta();
+                        } catch (JRException e) {
+                            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                        }
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jPesDtPopInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Data inicial não pode ser em branco.");
+                jPesDtPopInicial.requestFocus();
+            } else {
+                if (jPesDtPopFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Data final não pode ser em branco.");
+                    jPesDtPopFinal.requestFocus();
+                } else {
+                    if (jPesDtPopInicial.getDate().after(jPesDtPopFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final.");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jPesDtPopInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jPesDtPopFinal.getDate().getTime());
+                        try {
+                            conecta.abrirConexao();
+                            String path = "reports/RelatorioEntSaiInternosLaborativaExterna.jasper";
+                            conecta.executaSQL("SELECT * FROM ENTRADALABORINTERNO  "
+                                    + "INNER JOIN ITENSLABORINTERNO  "
+                                    + "ON ENTRADALABORINTERNO.IdLanc=ITENSLABORINTERNO.IdLanc  "
+                                    + "INNER JOIN PRONTUARIOSCRC  "
+                                    + "ON ITENSLABORINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                    + "INNER JOIN EMPRESALAB "
+                                    + "ON ENTRADALABORINTERNO.IdEmp=EMPRESALAB.IdEmp WHERE DataSaida BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'ORDER BY DataSaida");
+                            HashMap parametros = new HashMap();
+                            parametros.put("dataInicial", dataInicial);
+                            parametros.put("dataFinal", dataFinal);
+                            parametros.put("nomeUsuario", nameUser);
+                            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                            jv.setTitle("Relatório de Atividade Laborativa Externa (Frequência)");
+                            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                            jv.toFront(); // Traz o relatorio para frente da aplicação            
+                            conecta.desconecta();
+                        } catch (JRException e) {
+                            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                        }
                     }
                 }
             }
@@ -194,6 +247,10 @@ public class TelaRelAtividadeLaborExterna extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_jBtSairActionPerformed
+
+    private void jPesDtPopFinalComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_jPesDtPopFinalComponentAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPesDtPopFinalComponentAdded
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

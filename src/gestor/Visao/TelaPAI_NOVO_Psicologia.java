@@ -38,6 +38,7 @@ import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import static gestor.Visao.TelaModuloPsicologia.codAbrirPSI;
 import static gestor.Visao.TelaModuloPsicologia.codAlterarPSI;
 import static gestor.Visao.TelaModuloPsicologia.codExcluirPSI;
@@ -6553,24 +6554,50 @@ public class TelaPAI_NOVO_Psicologia extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         count = 0;
         flag = 1;
-        if (jDataInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-            jDataInicial.requestFocus();
-        } else {
-            if (jDataFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                jDataFinal.requestFocus();
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDataInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataInicial.requestFocus();
             } else {
-                if (jDataInicial.getDate().after(jDataFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                if (jDataFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataFinal.requestFocus();
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
-                    preencherTabelaAtendentimentoPAI("SELECT * FROM FICHA_CADASTRO_PAI_PSICOSOCIAL "
-                            + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON PRONTUARIOSCRC.IdInternoCrc=FICHA_CADASTRO_PAI_PSICOSOCIAL.IdInternoCrc "
-                            + "WHERE DataPai BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    if (jDataInicial.getDate().after(jDataFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+                        preencherTabelaAtendentimentoPAI("SELECT * FROM FICHA_CADASTRO_PAI_PSICOSOCIAL "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON PRONTUARIOSCRC.IdInternoCrc=FICHA_CADASTRO_PAI_PSICOSOCIAL.IdInternoCrc "
+                                + "WHERE DataPai BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataInicial.requestFocus();
+            } else {
+                if (jDataFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataFinal.requestFocus();
+                } else {
+                    if (jDataInicial.getDate().after(jDataFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+                        preencherTabelaAtendentimentoPAI("SELECT * FROM FICHA_CADASTRO_PAI_PSICOSOCIAL "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON PRONTUARIOSCRC.IdInternoCrc=FICHA_CADASTRO_PAI_PSICOSOCIAL.IdInternoCrc "
+                                + "WHERE DataPai BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    }
                 }
             }
         }
@@ -7546,7 +7573,7 @@ public class TelaPAI_NOVO_Psicologia extends javax.swing.JInternalFrame {
 
     private void jBtNovoSSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoSSActionPerformed
         // TODO add your handling code here:
-       buscarAcessoUsuario(telaPaiCCGF_PSI);
+        buscarAcessoUsuario(telaPaiCCGF_PSI);
         if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiCCGF_PSI) && codIncluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
             acao = 3;
             bloquearBotoes();
@@ -7562,7 +7589,7 @@ public class TelaPAI_NOVO_Psicologia extends javax.swing.JInternalFrame {
 
     private void jBtAlterarSSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarSSActionPerformed
         // TODO add your handling code here:
-         buscarAcessoUsuario(telaPaiCCGF_PSI);
+        buscarAcessoUsuario(telaPaiCCGF_PSI);
         if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiCCGF_PSI) && codAlterarPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
             acao = 4;
             bloquearBotoes();
@@ -7578,7 +7605,7 @@ public class TelaPAI_NOVO_Psicologia extends javax.swing.JInternalFrame {
 
     private void jBtExcluirSSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirSSActionPerformed
         // TODO add your handling code here:
-         buscarAcessoUsuario(telaPaiCCGF_PSI);
+        buscarAcessoUsuario(telaPaiCCGF_PSI);
         if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiCCGF_PSI) && codExcluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
             objSocial2Pai.setIdPai(Integer.valueOf(jCodigoPAI.getText()));
             verificarVisitasFamiliarIntima();
@@ -8927,7 +8954,7 @@ public class TelaPAI_NOVO_Psicologia extends javax.swing.JInternalFrame {
 
     private void jBtNovoEAPI2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoEAPI2ActionPerformed
         // TODO add your handling code here:
-         buscarAcessoUsuario(telaPaiEAPI2_PSI);
+        buscarAcessoUsuario(telaPaiEAPI2_PSI);
         if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiEAPI2_PSI) && codIncluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
             acao = 23;
             bloquearCampos();
@@ -9149,7 +9176,7 @@ public class TelaPAI_NOVO_Psicologia extends javax.swing.JInternalFrame {
 
     private void jBtExcluirEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirEvolucaoActionPerformed
         // TODO add your handling code here:
-         buscarAcessoUsuario(telaPaiEPAI_PSI);
+        buscarAcessoUsuario(telaPaiEPAI_PSI);
         if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiEPAI_PSI) && codExcluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
             conecta.abrirConexao();
             try {
@@ -9222,7 +9249,7 @@ public class TelaPAI_NOVO_Psicologia extends javax.swing.JInternalFrame {
 
     private void jBtNovaEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaEvolucaoActionPerformed
         // TODO add your handling code here:
-       buscarAcessoUsuario(telaPaiEPAI_PSI);
+        buscarAcessoUsuario(telaPaiEPAI_PSI);
         if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaPaiEPAI_PSI) && codIncluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
             acao = 25;
             bloquearCampos();

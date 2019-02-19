@@ -21,6 +21,7 @@ import gestor.Modelo.TransferenciaLocalInternos;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import static gestor.Visao.TelaModuloSeguranca.codAlterar;
 import static gestor.Visao.TelaModuloSeguranca.codExcluir;
 import static gestor.Visao.TelaModuloSeguranca.codGravar;
@@ -328,12 +329,10 @@ public class TelaRegimentoInternoDisciplinar extends javax.swing.JInternalFrame 
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel28Layout.createSequentialGroup()
-                        .addComponent(jTextField1)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jBtPesqDatas, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBtPesqNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jBtPesqNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(157, Short.MAX_VALUE))
                     .addGroup(jPanel28Layout.createSequentialGroup()
                         .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel28Layout.createSequentialGroup()
@@ -346,7 +345,9 @@ public class TelaRegimentoInternoDisciplinar extends javax.swing.JInternalFrame 
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel43)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jDataPesqFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jDataPesqFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jBtPesqDatas, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel28Layout.createSequentialGroup()
                                 .addGap(153, 153, 153)
                                 .addComponent(jCheckBoxTodos))))))
@@ -1640,28 +1641,58 @@ public class TelaRegimentoInternoDisciplinar extends javax.swing.JInternalFrame 
     private void jBtPesqDatasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDatasActionPerformed
         // TODO add your handling code here:
         flag = 1;
-        if (jDataPesqInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-            jDataPesqInicial.requestFocus();
-        } else {
-            if (jDataPesqFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                jDataPesqFinal.requestFocus();
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
             } else {
-                if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                if (jDataPesqFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesqFinal.requestFocus();
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
-                    preencherTabelaRegistroEventos("SELECT * FROM REGIMENTO_DISCIPLINAR_INTERNOS "
-                            + "INNER JOIN LOCALEVENTOS "
-                            + "ON REGIMENTO_DISCIPLINAR_INTERNOS.IdLocal=LOCALEVENTOS.IdLocal "
-                            + "INNER JOIN NATUREZAEVENTOS "
-                            + "ON REGIMENTO_DISCIPLINAR_INTERNOS.IdNatureza=NATUREZAEVENTOS.IdNatureza "
-                            + "INNER JOIN COLABORADOR "
-                            + "ON REGIMENTO_DISCIPLINAR_INTERNOS.IdFunc=COLABORADOR.IdFunc "
-                            + "WHERE REGIMENTO_DISCIPLINAR_INTERNOS.DataReg BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
+                        preencherTabelaRegistroEventos("SELECT * FROM REGIMENTO_DISCIPLINAR_INTERNOS "
+                                + "INNER JOIN LOCALEVENTOS "
+                                + "ON REGIMENTO_DISCIPLINAR_INTERNOS.IdLocal=LOCALEVENTOS.IdLocal "
+                                + "INNER JOIN NATUREZAEVENTOS "
+                                + "ON REGIMENTO_DISCIPLINAR_INTERNOS.IdNatureza=NATUREZAEVENTOS.IdNatureza "
+                                + "INNER JOIN COLABORADOR "
+                                + "ON REGIMENTO_DISCIPLINAR_INTERNOS.IdFunc=COLABORADOR.IdFunc "
+                                + "WHERE REGIMENTO_DISCIPLINAR_INTERNOS.DataReg BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
+            } else {
+                if (jDataPesqFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesqFinal.requestFocus();
+                } else {
+                    if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
+                        preencherTabelaRegistroEventos("SELECT * FROM REGIMENTO_DISCIPLINAR_INTERNOS "
+                                + "INNER JOIN LOCALEVENTOS "
+                                + "ON REGIMENTO_DISCIPLINAR_INTERNOS.IdLocal=LOCALEVENTOS.IdLocal "
+                                + "INNER JOIN NATUREZAEVENTOS "
+                                + "ON REGIMENTO_DISCIPLINAR_INTERNOS.IdNatureza=NATUREZAEVENTOS.IdNatureza "
+                                + "INNER JOIN COLABORADOR "
+                                + "ON REGIMENTO_DISCIPLINAR_INTERNOS.IdFunc=COLABORADOR.IdFunc "
+                                + "WHERE REGIMENTO_DISCIPLINAR_INTERNOS.DataReg BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    }
                 }
             }
         }
@@ -1980,7 +2011,7 @@ public class TelaRegimentoInternoDisciplinar extends javax.swing.JInternalFrame 
                 jFotoInternoReg.setIcon(new ImageIcon(v.getImage().getScaledInstance(jFotoInternoReg.getWidth(), jFotoInternoReg.getHeight(), Image.SCALE_DEFAULT)));
                 jNomeInternoReg.setText(conecta.rs.getString("NomeInternoCrc"));
                 jPavilhaoOrigem.setText(conecta.rs.getString("PavilhaoOrigem"));
-                jCela.setText(conecta.rs.getString("CelaOrigem"));                
+                jCela.setText(conecta.rs.getString("CelaOrigem"));
                 jPavilhaoDestino.setText(conecta.rs.getString("DescricaoPav"));
                 jComboBoxCelaDestino.addItem(conecta.rs.getString("EndCelaPav"));
                 jAlcunha.setText(conecta.rs.getString("AlcunhaCrc"));

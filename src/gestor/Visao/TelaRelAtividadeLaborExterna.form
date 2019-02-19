@@ -113,6 +113,9 @@
               </Border>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="componentAdded" listener="java.awt.event.ContainerListener" parameters="java.awt.event.ContainerEvent" handler="jPesDtPopFinalComponentAdded"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>

@@ -266,9 +266,7 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         );
         jPainelAdmPessoalLayout.setVerticalGroup(
             jPainelAdmPessoalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPainelAdmPessoalLayout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 25, Short.MAX_VALUE))
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
         );
 
         Cadastros.setText("Cadastro");

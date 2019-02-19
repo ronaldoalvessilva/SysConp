@@ -6,6 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.*;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import static gestor.Visao.TelaPopulacao.jBrasHomenAberto;
 import static gestor.Visao.TelaPopulacao.jBrasHomenFechado;
 import static gestor.Visao.TelaPopulacao.jBrasHomenProvisorio;
@@ -282,21 +283,44 @@ public class TelaPesquisaPopulacao extends javax.swing.JInternalFrame {
 
     private void jBtDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtDataActionPerformed
         flag = 1;
-        if (jPesDtPopInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Data inicial não pode ser em branco.");
-            jPesDtPopInicial.requestFocus();
-        } else {
-            if (jPesDtPopFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Data final não pode ser em branco.");
-                jPesDtPopFinal.requestFocus();
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jPesDtPopInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Data inicial não pode ser em branco.");
+                jPesDtPopInicial.requestFocus();
             } else {
-                if (jPesDtPopInicial.getDate().after(jPesDtPopFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final.");
+                if (jPesDtPopFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Data final não pode ser em branco.");
+                    jPesDtPopFinal.requestFocus();
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jPesDtPopInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jPesDtPopFinal.getDate().getTime());                    
-                    preencherTabelaNome("SELECT * FROM MOVPOPULACAO WHERE DataPopMov BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    if (jPesDtPopInicial.getDate().after(jPesDtPopFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final.");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jPesDtPopInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jPesDtPopFinal.getDate().getTime());
+                        preencherTabelaNome("SELECT * FROM MOVPOPULACAO WHERE DataPopMov BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jPesDtPopInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Data inicial não pode ser em branco.");
+                jPesDtPopInicial.requestFocus();
+            } else {
+                if (jPesDtPopFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Data final não pode ser em branco.");
+                    jPesDtPopFinal.requestFocus();
+                } else {
+                    if (jPesDtPopInicial.getDate().after(jPesDtPopFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final.");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jPesDtPopInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jPesDtPopFinal.getDate().getTime());
+                        preencherTabelaNome("SELECT * FROM MOVPOPULACAO WHERE DataPopMov BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    }
                 }
             }
         }
@@ -410,7 +434,7 @@ public class TelaPesquisaPopulacao extends javax.swing.JInternalFrame {
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
         flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {            
+        if (evt.getStateChange() == evt.SELECTED) {
             this.preencherTabela();
         } else {
             limparTabela();
