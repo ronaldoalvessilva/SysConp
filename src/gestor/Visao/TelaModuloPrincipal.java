@@ -786,7 +786,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
             jPanelPainelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelPainelCentralLayout.createSequentialGroup()
                 .addGap(3, 3, 3)
-                .addComponent(jLabelPainelCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE)
+                .addComponent(jLabelPainelCentral, javax.swing.GroupLayout.DEFAULT_SIZE, 766, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -807,11 +807,13 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
             .addGroup(jPanielPrincipalLayout.createSequentialGroup()
                 .addComponent(jPanelNomeSistema, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
-                .addComponent(jToolBar5, javax.swing.GroupLayout.PREFERRED_SIZE, 64, Short.MAX_VALUE)
+                .addComponent(jToolBar5, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelPainelCentral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
+
+        getContentPane().add(jPanielPrincipal, java.awt.BorderLayout.CENTER);
 
         jPanelRodape.setBackground(new java.awt.Color(51, 51, 255));
 
@@ -937,6 +939,8 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                     .addComponent(jToolBar8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        getContentPane().add(jPanelRodape, java.awt.BorderLayout.SOUTH);
 
         jMenuAdministracao.setMnemonic('A');
         jMenuAdministracao.setText("   Administração");
@@ -1292,21 +1296,6 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenuSair);
 
         setJMenuBar(jMenuBar1);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanielPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 1369, Short.MAX_VALUE)
-            .addComponent(jPanelRodape, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanielPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 651, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
-                .addComponent(jPanelRodape, javax.swing.GroupLayout.PREFERRED_SIZE, 35, Short.MAX_VALUE))
-        );
 
         pack();
         setLocationRelativeTo(null);
