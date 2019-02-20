@@ -169,6 +169,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     String codigoProdExclui = ""; // CÓDIGO DO PRODUTO PARA PESQUISA A SER EXCLUIDO DEPOIS DE SELECIONADO
     int codigoProdutoExclui = 0; // CÓDIGO DO PRODUTO A SER EXCLUIDO DEPOIS DE SELECIONADO
     public static int pTipoKitCI = 0; // TIPO DE KIT PARA AUXILIAR A EXCLUIR UM OU TODOS OS REGISTROS (PRODUTOS) DA TABELA
+    //
+    // 1 - INICIAL, 2 - DECENTIAL, 3 - QUINZENAL, 4 - MENSAL, 5 - SEMESTRAL E 6 - ANUAL.
 
     /**
      * Creates new form TelaMontagemPagamentoKitInterno
@@ -2430,7 +2432,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         Integer rows = jTabelaInternosSelecionados.getRowCount();
         if (rows == 0) {
             bloquearBotoes();
-            bloquearCampos();            
+            bloquearCampos();
             Cancelar();
         } else {
             bloquearBotoes();
@@ -2835,6 +2837,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 }
                 // KIT DECENDIAL
             } else if (pTipoKitCI == 2) {
+                pesquisarInternosDecendial();
+                //
                 DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaInternos.getModel();
                 PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
                 try {
@@ -4454,5 +4458,14 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         } catch (Exception e) {
         }
         conecta.desconecta();
+    }
+
+    public void pesquisarInternosDecendial() {
+      conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM MOVIMENTACAO_KITS_HIGIENE_INTERNOS WHERE ");
+            conecta.rs.first();
+        } catch (Exception e) {
+        }
     }
 }

@@ -213,30 +213,40 @@ public class TelaThreadInternosSelecionados extends javax.swing.JDialog {
                                 objPavInt.setIdInternoCrc((int) jTabelaInternosSelecionados.getValueAt(i, 0));
                                 objPavInt.setNomeInternoCrc((String) jTabelaInternosSelecionados.getValueAt(i, 2));
                                 controle.incluirPavilhaoInternos(objPavInt);
-                                if (pTipoKitCI == 1) {
-                                    objProCrc.setKitInicial(opcaoKit);
-                                    objProCrc.setIdInterno((int) jTabelaInternosSelecionados.getValueAt(i, 0));
-                                    controleKits.atualizarInternoKitInicial(objProCrc);
-                                } else if (pTipoKitCI == 2) {
-                                    objProCrc.setKitDecendial(opcaoKit);
-                                    objProCrc.setIdInterno((int) jTabelaInternosSelecionados.getValueAt(i, 0));
-                                    controleKits.atualizarInternoKitDecendial(objProCrc);
-                                } else if (pTipoKitCI == 3) {
-                                    objProCrc.setKitQuinzenal(opcaoKit);
-                                    objProCrc.setIdInterno((int) jTabelaInternosSelecionados.getValueAt(i, 0));
-                                    controleKits.atualizarInternoKitQuinzenal(objProCrc);
-                                } else if (pTipoKitCI == 4) {
-                                    objProCrc.setKitMensal(opcaoKit);
-                                    objProCrc.setIdInterno((int) jTabelaInternosSelecionados.getValueAt(i, 0));
-                                    controleKits.atualizarInternoKitMensal(objProCrc);
-                                } else if (pTipoKitCI == 5) {
-                                    objProCrc.setKitSemestral(opcaoKit);
-                                    objProCrc.setIdInterno((int) jTabelaInternosSelecionados.getValueAt(i, 0));
-                                    controleKits.atualizarInternoKitSemestral(objProCrc);
-                                } else if (pTipoKitCI == 6) {
-                                    objProCrc.setKitAnual(opcaoKit);
-                                    objProCrc.setIdInterno((int) jTabelaInternosSelecionados.getValueAt(i, 0));
-                                    controleKits.atualizarInternoKitAnual(objProCrc);
+                                // 1 - INICIAL, 2 - DECENDIAL, 3 - QUINZENAL, 4 - MENSAL, 5 - SEMESTRAL, 6 - ANUAL
+                                switch (pTipoKitCI) {
+                                    case 1:
+                                        objProCrc.setKitIPago(opcaoKit);
+                                        objProCrc.setIdInterno((int) jTabelaInternosSelecionados.getValueAt(i, 0));
+                                        controleKits.atualizarInternoKitInicial(objProCrc);
+                                        break;
+                                    case 2:
+                                        objProCrc.setKitDecendial(opcaoKit);
+                                        objProCrc.setIdInterno((int) jTabelaInternosSelecionados.getValueAt(i, 0));
+                                        controleKits.atualizarInternoKitDecendial(objProCrc);
+                                        break;
+                                    case 3:
+                                        objProCrc.setKitQuinzenal(opcaoKit);
+                                        objProCrc.setIdInterno((int) jTabelaInternosSelecionados.getValueAt(i, 0));
+                                        controleKits.atualizarInternoKitQuinzenal(objProCrc);
+                                        break;
+                                    case 4:
+                                        objProCrc.setKitMensal(opcaoKit);
+                                        objProCrc.setIdInterno((int) jTabelaInternosSelecionados.getValueAt(i, 0));
+                                        controleKits.atualizarInternoKitMensal(objProCrc);
+                                        break;
+                                    case 5:
+                                        objProCrc.setKitSemestral(opcaoKit);
+                                        objProCrc.setIdInterno((int) jTabelaInternosSelecionados.getValueAt(i, 0));
+                                        controleKits.atualizarInternoKitSemestral(objProCrc);
+                                        break;
+                                    case 6:
+                                        objProCrc.setKitAnual(opcaoKit);
+                                        objProCrc.setIdInterno((int) jTabelaInternosSelecionados.getValueAt(i, 0));
+                                        controleKits.atualizarInternoKitAnual(objProCrc);
+                                        break;
+                                    default:
+                                        break;
                                 }
                                 buscarCodigoRegistroPavilhaoInterno();
                                 objLog2();

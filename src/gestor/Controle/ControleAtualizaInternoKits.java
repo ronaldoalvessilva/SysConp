@@ -24,8 +24,8 @@ public class ControleAtualizaInternoKits {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE MOVIMENTACAO_KITS_HIGIENE_INTERNOS SET KitInicial=? WHERE IdInternoCrc='" + objProCrc.getIdInterno() + "'");
-            pst.setString(1, objProCrc.getKitInicial());
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE KITS_INICIAL_INTERNOS SET Utilizado=? WHERE IdInternoCrc='" + objProCrc.getIdInterno() + "'");
+            pst.setString(1, objProCrc.getKitIPago());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados do INTERNO.\n\nERRO: " + ex);

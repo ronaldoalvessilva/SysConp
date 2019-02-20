@@ -33,7 +33,7 @@ public class ControlePavilhaoInternosMontaKitInicial {
     String situacaoRetorno = "RETORNO A UNIDADE";
     int codPavilhao = 0;
     int codInterno = 0;
-    String kitInicial = "Não";
+    String kitUtilizado = "Não";
     String kitPago = "Não";
 
     public PavilhaoInternosMontagemKit incluirPavilhaoInternos(PavilhaoInternosMontagemKit objPavInt) {
@@ -94,16 +94,14 @@ public class ControlePavilhaoInternosMontaKitInicial {
                     + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
                     + "INNER JOIN PAVILHAO "
                     + "ON CELAS.IdPav=PAVILHAO.IdPav "
-                    + "INNER JOIN MOVIMENTACAO_KITS_HIGIENE_INTERNOS "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=MOVIMENTACAO_KITS_HIGIENE_INTERNOS.IdInternoCrc "
+                    + "INNER JOIN KITS_INICIAL_INTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=KITS_INICIAL_INTERNOS.IdInternoCrc "
                     + "WHERE PAVILHAO.DescricaoPav='" + jComboBoxPavilhoes.getSelectedItem() + "' "
                     + "AND PRONTUARIOSCRC.SituacaoCrc='" + situacaoEntrada + "' "
-                    + "AND MOVIMENTACAO_KITS_HIGIENE_INTERNOS.KitInicial='" + kitInicial + "' "
-                    + "AND MOVIMENTACAO_KITS_HIGIENE_INTERNOS.KitIPago='" + kitPago + "' "
+                    + "AND KITS_INICIAL_INTERNOS.Utilizado='" + kitUtilizado + "' "
                     + "OR PAVILHAO.DescricaoPav='" + jComboBoxPavilhoes.getSelectedItem() + "' "
                     + "AND PRONTUARIOSCRC.SituacaoCrc='" + situacaoRetorno + "' "
-                    + "AND MOVIMENTACAO_KITS_HIGIENE_INTERNOS.KitInicial='" + kitInicial + "' "
-                    + "AND MOVIMENTACAO_KITS_HIGIENE_INTERNOS.KitIPago='" + kitPago + "' "
+                    + "AND KITS_INICIAL_INTERNOS.Utilizado='" + kitUtilizado + "' "
                     + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
             while (conecta.rs.next()) {
                 PavilhaoInternoMontaKit pDigi = new PavilhaoInternoMontaKit();
