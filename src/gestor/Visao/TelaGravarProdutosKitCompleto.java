@@ -15,6 +15,7 @@ import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.codigoPesquisaKit;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jIdRegistroComp;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jTabelaInternosKitCompleto;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jTabelaProdutosKitCompleto;
 import java.awt.Rectangle;
 import javax.swing.JDialog;
@@ -126,7 +127,7 @@ public class TelaGravarProdutosKitCompleto extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -192,7 +193,7 @@ public class TelaGravarProdutosKitCompleto extends javax.swing.JDialog {
                     statusMov = "Incluiu";
                     horaMov = jHoraSistema.getText();
                     dataModFinal = jDataSistema.getText();
-                    // GRAVAR NA TABELA ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO                    
+                    // GRAVAR NA TABELA ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO                         
                     for (int i = 0; i < jTabelaProdutosKitCompleto.getRowCount(); i++) {//  
                         objProdKit.setUsuarioInsert(nameUser);
                         objProdKit.setDataInsert(dataModFinal);
@@ -202,7 +203,7 @@ public class TelaGravarProdutosKitCompleto extends javax.swing.JDialog {
                         objProdKit.setIdKit(codigoPesquisaKit);
                         objProdKit.setIdProd((int) jTabelaProdutosKitCompleto.getValueAt(i, 0));
                         objProdKit.setDescricaoProduto((String) jTabelaProdutosKitCompleto.getValueAt(i, 1));
-                        objProdKit.setQuantidadeProd((int)jTabelaProdutosKitCompleto.getValueAt(i, 3));
+                        objProdKit.setQuantidadeProd((float) jTabelaProdutosKitCompleto.getValueAt(i, 3));
                         objProdKit.setGravado(pGravado);
                         objProdKit.setTipoKitCI(tipoKit);
                         // VERIFICAR SE O INTERNO JÁ SE ENCONTRA GRAVADO NA TABELA PARA PARA O MESMO REGISTRO

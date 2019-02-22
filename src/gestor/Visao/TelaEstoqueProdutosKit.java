@@ -13,6 +13,7 @@ import static gestor.Visao.TelaMontagemPagamentoKitInterno.jUnidadeProd;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jQuantidadeProdEstoque;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jQuantidadeKit;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jDescricaoProd;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jQtdAtendida;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jQuantidadeInternos;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jtotalInternosSelecionados;
 import java.sql.SQLException;
@@ -43,6 +44,8 @@ public class TelaEstoqueProdutosKit extends javax.swing.JDialog {
     String compoeKit = "Sim";
     String idProd;
     float qdtKit = 0;
+    int qdtInterno = 0;
+    float qtdTotal = 0;
     String nomeProduto = "";
 
     /**
@@ -195,7 +198,7 @@ public class TelaEstoqueProdutosKit extends javax.swing.JDialog {
         jTabelalProdutosEstoque.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelalProdutosEstoque.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Código Barra", "Descrição do Produto", "Un.", "Qtd. Estoque", "Lote"
@@ -293,11 +296,6 @@ public class TelaEstoqueProdutosKit extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 707, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel38, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -306,7 +304,9 @@ public class TelaEstoqueProdutosKit extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jBtConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBtSair)))
+                        .addComponent(jBtSair))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 733, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -315,10 +315,9 @@ public class TelaEstoqueProdutosKit extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -457,6 +456,14 @@ public class TelaEstoqueProdutosKit extends javax.swing.JDialog {
                 String qKit = qk.format(qdtKit);
                 jQuantidadeKit.setText(qKit);
                 jQuantidadeInternos.setText(jtotalInternosSelecionados.getText());
+                //CALCULAR QUANTIDADE DE PRODUTOS PARA TOTAL DE INTERNOS qdtInterno
+                qdtInterno = Integer.parseInt(jtotalInternosSelecionados.getText());
+                qtdTotal = qdtInterno * qdtKit;
+                //
+                DecimalFormat qtdTota = new DecimalFormat("###,###0.00");
+                String tota = qtdTota.format(qtdTotal);
+                jQtdAtendida.setText(String.valueOf(tota));
+//                jQtdAtendida.setText(String.valueOf(qtdTotal));
                 conecta.desconecta();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa do produto" + e);

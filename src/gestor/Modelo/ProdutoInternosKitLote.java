@@ -34,11 +34,12 @@ public class ProdutoInternosKitLote {
     private String dataUp;
     private String horarioInsert;
     private String horarioUp;
+    private float qtdKit;
 
     public ProdutoInternosKitLote() {
     }
 
-    public ProdutoInternosKitLote(int idRegProdKit, int idRegistroComp, int idKit, int idPav, String descricaoPavilhao, int idInternoCrc, String nomeInternoCrc, int idProd, String descricaoProduto, String unidadeProd, float quantidadeProd, int tipoKitCI, String agrupado, int gravado, String liberado, String pUtili, String pago, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
+    public ProdutoInternosKitLote(int idRegProdKit, int idRegistroComp, int idKit, int idPav, String descricaoPavilhao, int idInternoCrc, String nomeInternoCrc, int idProd, String descricaoProduto, String unidadeProd, float quantidadeProd, int tipoKitCI, String agrupado, int gravado, String liberado, String pUtili, String pago, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, float qtdKit) {
         this.idRegProdKit = idRegProdKit;
         this.idRegistroComp = idRegistroComp;
         this.idKit = idKit;
@@ -62,6 +63,7 @@ public class ProdutoInternosKitLote {
         this.dataUp = dataUp;
         this.horarioInsert = horarioInsert;
         this.horarioUp = horarioUp;
+        this.qtdKit = qtdKit;
     }
 
     /**
@@ -386,4 +388,17 @@ public class ProdutoInternosKitLote {
         this.horarioUp = horarioUp;
     }
 
+    /**
+     * @return the qtdKit
+     */
+    public float getQtdKit() {
+        return qtdKit;
+    }
+
+    /**
+     * @param qtdKit the qtdKit to set
+     */
+    public void setQtdKit(float qtdKit) {
+        this.qtdKit = qtdKit;
+    }
 }

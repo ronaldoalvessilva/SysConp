@@ -5,6 +5,7 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleAtualizaInternoKits;
 import gestor.Controle.ControleComposicaoKit;
 import gestor.Controle.ControleItensRequisicaoMateriaisInternos;
 import gestor.Controle.ControleListarGravarProdutosKitCompleto;
@@ -26,6 +27,7 @@ import gestor.Modelo.LogSistema;
 import gestor.Modelo.PavilhaoInternoMontaKit;
 import gestor.Modelo.PavilhaoInternosMontagemKit;
 import gestor.Modelo.ProdutoInternosKitLote;
+import gestor.Modelo.ProntuarioCrc;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloAlmoxarifado.codAbrirAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.codAlterarAL;
@@ -82,6 +84,9 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     ControlePavilhaoMontaKitMensal controleKM = new ControlePavilhaoMontaKitMensal();
     ControlePavilhaoMontaKitSemestral controleKS = new ControlePavilhaoMontaKitSemestral();
     ControlePavilhaoMontaKitAnual controleKA = new ControlePavilhaoMontaKitAnual();
+    //QUANDO EXCLUIR OS INTERNOS SELECIONADOS
+    ControleAtualizaInternoKits controleKits = new ControleAtualizaInternoKits();
+    ProntuarioCrc objProCrc = new ProntuarioCrc();
     // FASE - 3  
     ProdutoInternosKitLote objProdKit = new ProdutoInternosKitLote();
     // LOTE_PRODUTOS_AC
@@ -170,6 +175,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     int codigoProdutoExclui = 0; // CÓDIGO DO PRODUTO A SER EXCLUIDO DEPOIS DE SELECIONADO
     public static int pTipoKitCI = 0; // TIPO DE KIT PARA AUXILIAR A EXCLUIR UM OU TODOS OS REGISTROS (PRODUTOS) DA TABELA
     //
+    String opcaoKit = "Não";
     // 1 - INICIAL, 2 - DECENTIAL, 3 - QUINZENAL, 4 - MENSAL, 5 - SEMESTRAL E 6 - ANUAL.
 
     /**
@@ -1720,7 +1726,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jPanel19.setLayout(jPanel19Layout);
         jPanel19Layout.setHorizontalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 215, Short.MAX_VALUE)
+            .addGap(0, 205, Short.MAX_VALUE)
         );
         jPanel19Layout.setVerticalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1737,7 +1743,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1864,6 +1871,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jBtAdicionarTodosInternos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/overlays.png"))); // NOI18N
         jBtAdicionarTodosInternos.setText("Add. Internos");
         jBtAdicionarTodosInternos.setToolTipText("Adicionar os internos que terão o kit de higiêne completo");
+        jBtAdicionarTodosInternos.setEnabled(false);
         jBtAdicionarTodosInternos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jBtAdicionarTodosInternos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1875,6 +1883,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jBtSalvarInternosSelecionados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/save-document-icone-9010-16.png"))); // NOI18N
         jBtSalvarInternosSelecionados.setText("Gravar no DB");
         jBtSalvarInternosSelecionados.setToolTipText("Gravar todos os registros dos internos selecionados no banco de dados.");
+        jBtSalvarInternosSelecionados.setEnabled(false);
         jBtSalvarInternosSelecionados.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jBtSalvarInternosSelecionados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1885,6 +1894,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jBtExcluirTodosInternosSelecionados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/191216104428_16.png"))); // NOI18N
         jBtExcluirTodosInternosSelecionados.setText("Excluir Todos");
         jBtExcluirTodosInternosSelecionados.setToolTipText("Excluir todos internos adicionados para o kit de higiêne completo");
+        jBtExcluirTodosInternosSelecionados.setEnabled(false);
         jBtExcluirTodosInternosSelecionados.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jBtExcluirTodosInternosSelecionados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1894,6 +1904,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
         jBtExcluirUmInternoAgrupado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/191216104515_16.png"))); // NOI18N
         jBtExcluirUmInternoAgrupado.setText("Excluir Um");
+        jBtExcluirUmInternoAgrupado.setEnabled(false);
         jBtExcluirUmInternoAgrupado.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jBtExcluirUmInternoAgrupado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1904,6 +1915,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jBtAuditoriaKitCompleto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
         jBtAuditoriaKitCompleto.setToolTipText("Auditoria");
         jBtAuditoriaKitCompleto.setContentAreaFilled(false);
+        jBtAuditoriaKitCompleto.setEnabled(false);
 
         javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
         jPanel22.setLayout(jPanel22Layout);
@@ -2051,6 +2063,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jBtAdicionarProdutosKitCompleto.setForeground(new java.awt.Color(0, 102, 0));
         jBtAdicionarProdutosKitCompleto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7183_16x16.png"))); // NOI18N
         jBtAdicionarProdutosKitCompleto.setText("Add. Produtos");
+        jBtAdicionarProdutosKitCompleto.setEnabled(false);
         jBtAdicionarProdutosKitCompleto.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jBtAdicionarProdutosKitCompleto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2060,6 +2073,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
         jBtExcluirTodosProdutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/191216104428_16.png"))); // NOI18N
         jBtExcluirTodosProdutos.setText("Excluir Todos");
+        jBtExcluirTodosProdutos.setEnabled(false);
         jBtExcluirTodosProdutos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jBtExcluirTodosProdutos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2069,6 +2083,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
         jBtExcluirProdutoSelecionado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/6127_16x16.png"))); // NOI18N
         jBtExcluirProdutoSelecionado.setText("Excluir Um");
+        jBtExcluirProdutoSelecionado.setEnabled(false);
         jBtExcluirProdutoSelecionado.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jBtExcluirProdutoSelecionado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2078,6 +2093,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
         jBtSalvarProdutoBanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/310718101618_16.png"))); // NOI18N
         jBtSalvarProdutoBanco.setText("Gravar no DB");
+        jBtSalvarProdutoBanco.setEnabled(false);
         jBtSalvarProdutoBanco.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jBtSalvarProdutoBanco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2088,6 +2104,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jBtAuditoriaKitProdutoCompleto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
         jBtAuditoriaKitProdutoCompleto.setToolTipText("Auditoria");
         jBtAuditoriaKitProdutoCompleto.setContentAreaFilled(false);
+        jBtAuditoriaKitProdutoCompleto.setEnabled(false);
 
         javax.swing.GroupLayout jPanel28Layout = new javax.swing.GroupLayout(jPanel28);
         jPanel28.setLayout(jPanel28Layout);
@@ -2124,7 +2141,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(0, 102, 0));
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel14.setText("Kit Higiene Completo");
+        jLabel14.setText("Kit Higiene");
 
         javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
         jPanel23.setLayout(jPanel23Layout);
@@ -2155,7 +2172,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
-        jTabbedPane2.addTab("Kits Completos", new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Full_shopping_cart_Icon_16.png")), jPanel23); // NOI18N
+        jTabbedPane2.addTab("ASSOCIAÇÃO INTERNOS/PRODUTOS", new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Full_shopping_cart_Icon_16.png")), jPanel23); // NOI18N
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -2173,7 +2190,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("FASE - 4", new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/40_16x16.png")), jPanel9, "Agrupar os Produtos do Kit de Higiene aos Internos"); // NOI18N
+        jTabbedPane1.addTab("FASE - 4 (FINAL)", new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/40_16x16.png")), jPanel9, "Agrupar os Produtos do Kit de Higiene aos Internos"); // NOI18N
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Dados Iniciais", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
@@ -2330,6 +2347,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 acao = 2;
                 bloquearBotoes();
                 bloquearCampos();
+                jBtSalvar.setEnabled(true);
+                jBtCancelar.setEnabled(true);
                 jBtPesquisarColaborador.setEnabled(true);
                 jObservacao.setEnabled(true);
             }
@@ -2549,8 +2568,9 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         mostrarPesquisas();
         Integer rows = jTabelaInternosSelecionados.getRowCount();
         if (rows != 0) {
-            jBtNovoPavInternos.setEnabled(!true);
+            jBtNovoPavInternos.setEnabled(true);
             jBtExcluirPavInternosTodos.setEnabled(true);
+            jBtExcluirInternosUmaUm.setEnabled(true);
             //
             jBtNovoProduto.setEnabled(true);
         } else {
@@ -2574,7 +2594,10 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             } else {
                 bloquearBotoes();
                 bloquearCampos();
+                NovoPavilhaoInterno();
+                pesquisarPavilhao();
                 jBtExcluirPavInternosTodos.setEnabled(!true);
+                jBtExcluirInternosUmaUm.setEnabled(!true);
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
@@ -2582,7 +2605,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     }//GEN-LAST:event_jBtNovoPavInternosActionPerformed
 
     private void jBtExcluirPavInternosTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirPavInternosTodosActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:        
         Integer rows = jTabelaInternosKitCompleto.getRowCount();
         buscarAcessoUsuario(telaMontagemPagamentoKitPavIntAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitPavIntAL) && codExcluirAL == 1) {
@@ -2595,6 +2618,12 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
                         JOptionPane.YES_NO_OPTION);
                 if (resposta == JOptionPane.YES_OPTION) {
+                    // ALTERAR O CAMPO Utilizado NA TABELA KITS_INICIAL_INTERNOS
+                    for (int i = 0; i < jTabelaInternosSelecionados.getRowCount(); i++) {
+                        objProCrc.setKitIPago(opcaoKit);
+                        objProCrc.setIdInterno((int) jTabelaInternosSelecionados.getValueAt(i, 0));
+                        controleKits.atualizarInternoKitInicial(objProCrc);
+                    }
                     objPavInt.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
                     controle.excluirPavilhaoInternos(objPavInt);
                     objLog2();
@@ -2704,7 +2733,9 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
             try {
                 for (PavilhaoInternoMontaKit dd : controle.read()) {
-                    jtotalInternosSelecionados.setText(jtotalInternosPavilhao.getText()); // Converter inteiro em string para exibir na tela                                                         
+                    jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
+                    jtotalInternosSelecionados.setText(jtotalInternosPavilhao.getText()); // Converter inteiro em string para exibir na tela     
+//                    jtotalInternosSelecionados.setText(Integer.toString(qtdInternosSelec + qtdInternos)); // Converter inteiro em string para exibir na tela                                                         
                     dadosDestino.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
                     // BARRA DE ROLAGEM HORIZONTAL
                     jTabelaInternosSelecionados.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -3095,7 +3126,6 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                     objProdKit.setUsuarioInsert(nameUser);
                     objProdKit.setDataInsert(dataModFinal);
                     objProdKit.setHorarioInsert(horaMov);
-                    //
                     // PEGA PRODUTO PARA CALCULAR SALDO DE ESTOQUE
                     pegarSaldoEstoque(objProdKit.getIdProd());
                     //
@@ -3113,6 +3143,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                         bloquearCampos();
                         bloquearBotoes();
+                        limparCamposProdutos();
                         SalvarProduto();
                         preencherTabelaProdutos("SELECT * FROM ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE "
                                 + "INNER JOIN PRODUTOS_AC "
@@ -3146,6 +3177,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                         controleLote.alterarEstoqueMaterais(objItensReqMatInter); // TABELA DE LOTE_PRODUTOS_AC 
                         bloquearCampos();
                         bloquearBotoes();
+                        limparCamposProdutos();
                         SalvarProduto();
                         preencherTabelaProdutos("SELECT * FROM ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE "
                                 + "INNER JOIN PRODUTOS_AC "
@@ -3166,6 +3198,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         // TODO add your handling code here:
         bloquearCampos();
         bloquearBotoes();
+        limparCamposProdutos();
         CancelarProduto();
     }//GEN-LAST:event_jBtCancelarProdutoActionPerformed
 
@@ -3259,6 +3292,10 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             acao = 5;
             tipoKitCI = 1;
             mostrarSelecaoInternos();
+            jBtSalvarInternosSelecionados.setEnabled(true);
+            jBtExcluirTodosInternosSelecionados.setEnabled(true);
+            jBtExcluirUmInternoAgrupado.setEnabled(true);
+            jBtSalvarInternosSelecionados.setEnabled(true);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
         }
@@ -3352,6 +3389,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                         JOptionPane.YES_NO_OPTION);
                 if (resposta == JOptionPane.YES_OPTION) {
                     mostarTelaGrava();
+                    jBtAdicionarProdutosKitCompleto.setEnabled(true);
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Não existem registros de internos a ser gravado no banco de dados.");
@@ -3393,7 +3431,13 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         // TODO add your handling code here:
         buscarAcessoUsuario(telaMontagemPagamentoKitCompletoProdAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitCompletoProdAL) && codIncluirAL == 1) {
-            listarProdutosKit();
+            Integer row = jTabelaInternosKitCompleto.getRowCount();
+            if (row != 0) {
+                listarProdutosKit();
+                jBtExcluirTodosProdutos.setEnabled(true);
+                jBtExcluirProdutoSelecionado.setEnabled(true);
+                jBtSalvarProdutoBanco.setEnabled(true);
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
         }
@@ -3498,7 +3542,16 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         // TODO add your handling code here:
         buscarAcessoUsuario(telaMontagemPagamentoKitCompletoProdAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitCompletoProdAL) && codGravarAL == 1) {
-            mostrarTelaGravacaoProdutoKitCompleto();
+            Integer row = jTabelaProdutosKitCompleto.getRowCount();
+            if (row != 0) {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente confirmar essa operação?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    mostrarTelaGravacaoProdutoKitCompleto();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Não existem dados a serem gravados.");
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
         }
@@ -3542,6 +3595,11 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 if (resposta == JOptionPane.YES_OPTION) {
                     count2 = count2 - 1;
                     qtdInternos = qtdInternos + 1;
+                    //
+                    objProCrc.setKitIPago(opcaoKit);
+                    objProCrc.setIdInterno(codigoInternoPav);
+                    controleKits.atualizarInternoKitInicial(objProCrc);
+                    //
                     objPavInt.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
                     objPavInt.setIdInternoCrc(codigoInternoPav);
                     controle.excluirInternosUmPorUm(objPavInt);
@@ -3594,8 +3652,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup grupoBotoes;
-    private javax.swing.JButton jBtAdicionarProdutosKitCompleto;
-    private javax.swing.JButton jBtAdicionarTodosInternos;
+    public static javax.swing.JButton jBtAdicionarProdutosKitCompleto;
+    public static javax.swing.JButton jBtAdicionarTodosInternos;
     public static javax.swing.JButton jBtAlterar;
     private javax.swing.JButton jBtAlterarProduto;
     public static javax.swing.JButton jBtAuditoria;
@@ -3823,6 +3881,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jBtCancelarProduto.setEnabled(!true);
         jBtAuditoriaProduto.setEnabled(!true);
         jBtSelecionarProdutos.setEnabled(!true);
+        //FASE -4
+
     }
 
     public void limparCampos() {
@@ -3837,6 +3897,17 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jObservacao.setText("");
         // FASE - 2
         jComboBoxPavilhoes.setSelectedItem("Selecione...");
+        // FASE - 3
+        jCodigoProd.setText("");
+        jQtdAtendida.setText("");
+        jUnidadeProd.setText("");
+        jQuantidadeProdEstoque.setText("");
+        jQuantidadeKit.setText("");
+        jDescricaoProd.setText("");
+        jQuantidadeInternos.setText("");
+    }
+
+    public void limparCamposProdutos() {
         // FASE - 3
         jCodigoProd.setText("");
         jQtdAtendida.setText("");
@@ -4060,6 +4131,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jBtExcluir.setEnabled(true);
         jBtAuditoria.setEnabled(true);
         jBtFinalizar.setEnabled(true);
+        //FASE - 4
+        jBtAdicionarTodosInternos.setEnabled(true);
     }
 
     public void CancelarProduto() {
@@ -4071,6 +4144,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jBtExcluir.setEnabled(true);
         jBtAuditoria.setEnabled(true);
         jBtFinalizar.setEnabled(true);
+        //FASE - 4
+        jBtAdicionarTodosInternos.setEnabled(true);
     }
 
     public void buscarProdutoKit() {
@@ -4461,7 +4536,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     }
 
     public void pesquisarInternosDecendial() {
-      conecta.abrirConexao();
+        conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM MOVIMENTACAO_KITS_HIGIENE_INTERNOS WHERE ");
             conecta.rs.first();

@@ -22,6 +22,8 @@ import static gestor.Visao.TelaMontagemPagamentoKitInterno.jRBtKitMensal;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jRBtKitQuinzenal;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.codigoPesquisaKit;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.codigoPesquisaKitItem;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jBtAdicionarProdutosKitCompleto;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jBtAdicionarTodosInternos;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jBtNovo;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jBtAlterar;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jBtExcluir;
@@ -285,7 +287,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
         TabelaRegistrosMontagemKits.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         TabelaRegistrosMontagemKits.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Registro", "Data Registro", "ID Kit", "Tipo Kit", "Código", "Colaborador", "Observação"
@@ -409,7 +411,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -603,6 +605,13 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
             jBtSalvar.setEnabled(!true);
             jBtCancelar.setEnabled(true);
             jBtAuditoria.setEnabled(true);
+            //
+            jBtAdicionarTodosInternos.setEnabled(true);
+            jBtAdicionarProdutosKitCompleto.setEnabled(true);
+//            Integer row = jTabelaInternosKitCompleto.getRowCount();
+//            if(row != 0){
+//                jBtAdicionarProdutosKitCompleto.setEnabled(true);
+//            }
             //
             if (kitInicial == 1) {
                 conecta.abrirConexao();

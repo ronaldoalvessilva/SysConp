@@ -54,6 +54,9 @@ public class TelaThreadInternosSelecionados extends javax.swing.JDialog {
     String dataModFinal = "";
     String pUtili = "Não";
     String opcaoKit = "Sim";
+    //
+    int codigoInterno = 0;
+    int codigoRegistro = 0;
 
     /**
      * Creates new form TelaThreadInternosSelecionados
@@ -212,7 +215,21 @@ public class TelaThreadInternosSelecionados extends javax.swing.JDialog {
                                 objPavInt.setDescricaoPavilhao((String) jComboBoxPavilhoes.getSelectedItem());
                                 objPavInt.setIdInternoCrc((int) jTabelaInternosSelecionados.getValueAt(i, 0));
                                 objPavInt.setNomeInternoCrc((String) jTabelaInternosSelecionados.getValueAt(i, 2));
-                                controle.incluirPavilhaoInternos(objPavInt);
+                                // VERIFICAR SE O INTERNO JÁ SE ENCONTRA GRAVADO NA TABELA PARA PARA O MESMO REGISTRO
+                                verificarInternoBancoDados(objPavInt.getIdRegistroComp(), objPavInt.getIdInternoCrc());
+                                // SE O REGISTRO FOR IGUAL E O INTERNO DIFERENTE, GRAVA
+                                if (objPavInt.getIdRegistroComp() == codigoRegistro && objPavInt.getIdInternoCrc() != codigoInterno) {
+                                    controle.incluirPavilhaoInternos(objPavInt);
+                                    // SE O REGISTRO FOR DIFERENTE GRAVA OS NOVOS INTERNOS
+                                } else if (objPavInt.getIdRegistroComp() != codigoRegistro) {
+                                    controle.incluirPavilhaoInternos(objPavInt);
+                                    // SE O CODIGO DO INTERNO FOR ZERO
+                                } else if (codigoRegistro == 0) {
+                                    controle.incluirPavilhaoInternos(objPavInt);
+                                    // SE O CODIGO DO REGISTRO FOR DIFERENTE E O CÓDIGO DO INTERNO FOR DIFERENTE GRAVA
+                                } else if (objPavInt.getIdRegistroComp() != codigoRegistro && objPavInt.getIdInternoCrc() != codigoInterno) {
+                                    controle.incluirPavilhaoInternos(objPavInt);
+                                }
                                 // 1 - INICIAL, 2 - DECENDIAL, 3 - QUINZENAL, 4 - MENSAL, 5 - SEMESTRAL, 6 - ANUAL
                                 switch (pTipoKitCI) {
                                     case 1:
@@ -366,6 +383,22 @@ public class TelaThreadInternosSelecionados extends javax.swing.JDialog {
             conecta.executaSQL("SELECT * FROM INTERNOS_PAVILHAO_KIT_LOTE");
             conecta.rs.last();
             idRegPavInt = conecta.rs.getInt("IdRegPavInt");
+        } catch (Exception ERROR) {
+        }
+        conecta.desconecta();
+    }
+
+    // VERIFICAR SE O INTERNO JÁ FOI INCLUÍDO NO BANCO DE DADOS
+    // PARA NÃO SER GRAVADO MAIS DE UMA VEZ NO MESMO KIT
+    public void verificarInternoBancoDados(int codigoReg, int codInternoCrc) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM INTERNOS_PAVILHAO_KIT_LOTE "
+                    + "WHERE IdRegistroComp='" + codigoReg + "' "
+                    + "AND IdInternoCrc='" + codInternoCrc + "'");
+            conecta.rs.last();
+            codigoInterno = conecta.rs.getInt("IdInternoCrc");
+            codigoRegistro = conecta.rs.getInt("IdRegistroComp");
         } catch (Exception ERROR) {
         }
         conecta.desconecta();

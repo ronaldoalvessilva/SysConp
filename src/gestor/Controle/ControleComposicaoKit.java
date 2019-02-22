@@ -77,13 +77,8 @@ public class ControleComposicaoKit {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE WHERE IdRegistroComp='" + objComp.getIdRegistroComp() + "'");
-            pst.setString(1, objComp.getStatusComp());
-            pst.setTimestamp(2, new java.sql.Timestamp(objComp.getDataComp().getTime()));
-            pst.setString(3, objComp.getUsuarioInsert());
-            pst.setString(4, objComp.getDataInsert());
-            pst.setString(5, objComp.getHorarioInsert());
-            pst.execute();
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE WHERE IdRegistroComp='" + objComp.getIdRegistroComp() + "'");                       
+            pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR registro.\nERRO: " + ex);
         }
