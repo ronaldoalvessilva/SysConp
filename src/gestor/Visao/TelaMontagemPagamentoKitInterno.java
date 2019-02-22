@@ -2331,28 +2331,31 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         // TODO add your handling code here:
         buscarAcessoUsuario(telaMontagemPagamentoKitPavIntAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitAL) && codAlterarAL == 1) {
-            Integer rows = jTabelaInternosSelecionados.getRowCount();
-            if (rows == 0) {
-                acao = 2;
-                bloquearBotoes();
-                bloquearCampos();
-                Alterar();
-                statusMov = "Alterou";
-                horaMov = jHoraSistema.getText();
-                dataModFinal = jDataSistema.getText();
+            if (jStatusComp.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(null, "Não é possível modificar esse registro, o mesmo encontra-se FINALIZADO.");
             } else {
-                statusMov = "Alterou";
-                horaMov = jHoraSistema.getText();
-                dataModFinal = jDataSistema.getText();
-                acao = 2;
-                bloquearBotoes();
-                bloquearCampos();
-                jBtSalvar.setEnabled(true);
-                jBtCancelar.setEnabled(true);
-                jBtPesquisarColaborador.setEnabled(true);
-                jObservacao.setEnabled(true);
+                Integer rows = jTabelaInternosSelecionados.getRowCount();
+                if (rows == 0) {
+                    acao = 2;
+                    bloquearBotoes();
+                    bloquearCampos();
+                    Alterar();
+                    statusMov = "Alterou";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                } else {
+                    statusMov = "Alterou";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                    acao = 2;
+                    bloquearBotoes();
+                    bloquearCampos();
+                    jBtSalvar.setEnabled(true);
+                    jBtCancelar.setEnabled(true);
+                    jBtPesquisarColaborador.setEnabled(true);
+                    jObservacao.setEnabled(true);
+                }
             }
-
         } else {
             JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
         }
@@ -2549,6 +2552,20 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     private void jBtFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFinalizarActionPerformed
         // TODO add your handling code here:
+        if (jStatusComp.getText().equals("FINALIZADO")) {
+            JOptionPane.showMessageDialog(null, "Esse registro já foi FINALIZADO.");
+        } else {
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente FINALIZAR o registro selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objComp.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
+                control.finalizarComposicaoKitlInternos(objComp);
+                jStatusComp.setText("FINALIZADO");
+                objLog();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                JOptionPane.showMessageDialog(rootPane, "Registro FINALIZADO com sucesso...");
+            }
+        }
     }//GEN-LAST:event_jBtFinalizarActionPerformed
 
     private void jBtPesquisarKitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarKitActionPerformed
@@ -2582,22 +2599,26 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         // TODO add your handling code here:
         buscarAcessoUsuario(telaMontagemPagamentoKitPavIntAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitPavIntAL) && codIncluirAL == 1) {
-            Integer rows = jTabelaInternosSelecionados.getRowCount();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
-            if (rows == 0) {
-                bloquearBotoes();
-                bloquearCampos();
-                NovoPavilhaoInterno();
-                pesquisarPavilhao();
+            if (jStatusComp.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(null, "Não é possível modificar esse registro, o mesmo encontra-se FINALIZADO.");
             } else {
-                bloquearBotoes();
-                bloquearCampos();
-                NovoPavilhaoInterno();
-                pesquisarPavilhao();
-                jBtExcluirPavInternosTodos.setEnabled(!true);
-                jBtExcluirInternosUmaUm.setEnabled(!true);
+                Integer rows = jTabelaInternosSelecionados.getRowCount();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                if (rows == 0) {
+                    bloquearBotoes();
+                    bloquearCampos();
+                    NovoPavilhaoInterno();
+                    pesquisarPavilhao();
+                } else {
+                    bloquearBotoes();
+                    bloquearCampos();
+                    NovoPavilhaoInterno();
+                    pesquisarPavilhao();
+                    jBtExcluirPavInternosTodos.setEnabled(!true);
+                    jBtExcluirInternosUmaUm.setEnabled(!true);
+                }
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
@@ -2609,30 +2630,34 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         Integer rows = jTabelaInternosKitCompleto.getRowCount();
         buscarAcessoUsuario(telaMontagemPagamentoKitPavIntAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitPavIntAL) && codExcluirAL == 1) {
-            statusMov = "Excluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
-            if (rows != 0) {
-                JOptionPane.showMessageDialog(null, "Não é possível excluir os registros dessa tabela, os mesmos estão sendo utilizados em outro local.");
+            if (jStatusComp.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(null, "Não é possível modificar esse registro, o mesmo encontra-se FINALIZADO.");
             } else {
-                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                        JOptionPane.YES_NO_OPTION);
-                if (resposta == JOptionPane.YES_OPTION) {
-                    // ALTERAR O CAMPO Utilizado NA TABELA KITS_INICIAL_INTERNOS
-                    for (int i = 0; i < jTabelaInternosSelecionados.getRowCount(); i++) {
-                        objProCrc.setKitIPago(opcaoKit);
-                        objProCrc.setIdInterno((int) jTabelaInternosSelecionados.getValueAt(i, 0));
-                        controleKits.atualizarInternoKitInicial(objProCrc);
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                if (rows != 0) {
+                    JOptionPane.showMessageDialog(null, "Não é possível excluir os registros dessa tabela, os mesmos estão sendo utilizados em outro local.");
+                } else {
+                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta == JOptionPane.YES_OPTION) {
+                        // ALTERAR O CAMPO Utilizado NA TABELA KITS_INICIAL_INTERNOS
+                        for (int i = 0; i < jTabelaInternosSelecionados.getRowCount(); i++) {
+                            objProCrc.setKitIPago(opcaoKit);
+                            objProCrc.setIdInterno((int) jTabelaInternosSelecionados.getValueAt(i, 0));
+                            controleKits.atualizarInternoKitInicial(objProCrc);
+                        }
+                        objPavInt.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
+                        controle.excluirPavilhaoInternos(objPavInt);
+                        objLog2();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        bloquearBotoes();
+                        bloquearCampos();
+                        limparTabelasAbaPavIntComp();
+                        ExcluirPavilhaoInterno();
+                        JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
                     }
-                    objPavInt.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
-                    controle.excluirPavilhaoInternos(objPavInt);
-                    objLog2();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    bloquearBotoes();
-                    bloquearCampos();
-                    limparTabelasAbaPavIntComp();
-                    ExcluirPavilhaoInterno();
-                    JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
                 }
             }
         } else {
@@ -3015,17 +3040,21 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         // TODO add your handling code here:telaMontagemPagamentoKitProdutosAL
         buscarAcessoUsuario(telaMontagemPagamentoKitProdutosAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitProdutosAL) && codIncluirAL == 1) {
-            Integer rows = jTabelaInternosSelecionados.getRowCount();
-            if (rows != 0) {
-                statusMov = "Incluiu";
-                horaMov = jHoraSistema.getText();
-                dataModFinal = jDataSistema.getText();
-                acao = 3;
-                bloquearCampos();
-                bloquearBotoes();
-                NovoProduto();
+            if (jStatusComp.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(null, "Não é possível modificar esse registro, o mesmo encontra-se FINALIZADO.");
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Não existe internos selecionados para incluir produtos.");
+                Integer rows = jTabelaInternosSelecionados.getRowCount();
+                if (rows != 0) {
+                    statusMov = "Incluiu";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                    acao = 3;
+                    bloquearCampos();
+                    bloquearBotoes();
+                    NovoProduto();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Não existe internos selecionados para incluir produtos.");
+                }
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
@@ -3289,13 +3318,17 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         // TODO add your handling code here:
         buscarAcessoUsuario(telaMontagemPagamentoKitCompletoIntAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitCompletoIntAL) && codIncluirAL == 1) {
-            acao = 5;
-            tipoKitCI = 1;
-            mostrarSelecaoInternos();
-            jBtSalvarInternosSelecionados.setEnabled(true);
-            jBtExcluirTodosInternosSelecionados.setEnabled(true);
-            jBtExcluirUmInternoAgrupado.setEnabled(true);
-            jBtSalvarInternosSelecionados.setEnabled(true);
+            if (jStatusComp.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(null, "Não é possível modificar esse registro, o mesmo encontra-se FINALIZADO.");
+            } else {
+                acao = 5;
+                tipoKitCI = 1;
+                mostrarSelecaoInternos();
+                jBtSalvarInternosSelecionados.setEnabled(true);
+                jBtExcluirTodosInternosSelecionados.setEnabled(true);
+                jBtExcluirUmInternoAgrupado.setEnabled(true);
+                jBtSalvarInternosSelecionados.setEnabled(true);
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
         }
@@ -3305,28 +3338,32 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         // TODO add your handling code here:
         buscarAcessoUsuario(telaMontagemPagamentoKitCompletoIntAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitCompletoIntAL) && codExcluirAL == 1) {
-            verificarInternosDB();//
-            if (jIdRegistroComp.getText().equals(codigoRegExcluir)) {
-                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir todos registros do banco de dados?", "Confirmação",
-                        JOptionPane.YES_NO_OPTION);
-                if (resposta == JOptionPane.YES_OPTION) {
-                    objGravaIntComp.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
-                    controleIntSelec.excluirTodosInternosKitCompleto(objGravaIntComp);
-                    // APAGAR DADOS DA TABELA
-                    while (jTabelaInternosKitCompleto.getModel().getRowCount() > 0) {
-                        ((DefaultTableModel) jTabelaInternosKitCompleto.getModel()).removeRow(0);
-                    }
-                    JOptionPane.showMessageDialog(null, "Registros excluídos com sucesso.");
-                }
+            if (jStatusComp.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(null, "Não é possível modificar esse registro, o mesmo encontra-se FINALIZADO.");
             } else {
-                Integer rows = jTabelaInternosKitCompleto.getRowCount();
-                if (rows != 0) {
-                    // APAGAR DADOS DA TABELA
-                    while (jTabelaInternosKitCompleto.getModel().getRowCount() > 0) {
-                        ((DefaultTableModel) jTabelaInternosKitCompleto.getModel()).removeRow(0);
+                verificarInternosDB();//
+                if (jIdRegistroComp.getText().equals(codigoRegExcluir)) {
+                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir todos registros do banco de dados?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta == JOptionPane.YES_OPTION) {
+                        objGravaIntComp.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
+                        controleIntSelec.excluirTodosInternosKitCompleto(objGravaIntComp);
+                        // APAGAR DADOS DA TABELA
+                        while (jTabelaInternosKitCompleto.getModel().getRowCount() > 0) {
+                            ((DefaultTableModel) jTabelaInternosKitCompleto.getModel()).removeRow(0);
+                        }
+                        JOptionPane.showMessageDialog(null, "Registros excluídos com sucesso.");
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Não existe registros a serem excluído.");
+                    Integer rows = jTabelaInternosKitCompleto.getRowCount();
+                    if (rows != 0) {
+                        // APAGAR DADOS DA TABELA
+                        while (jTabelaInternosKitCompleto.getModel().getRowCount() > 0) {
+                            ((DefaultTableModel) jTabelaInternosKitCompleto.getModel()).removeRow(0);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Não existe registros a serem excluído.");
+                    }
                 }
             }
         } else {
@@ -3338,40 +3375,44 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         // TODO add your handling code here:   
         buscarAcessoUsuario(telaMontagemPagamentoKitCompletoIntAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitCompletoIntAL) && codExcluirAL == 1) {
-            verificarInternoDBUm();
-            if (jIdRegistroComp.getText().equals(codigoRegExcluir) && Integer.valueOf(codigoInternoCrc).equals(idInternoComp)) {
-                if (jTabelaInternosKitCompleto.getSelectedRowCount() != 0) {
-                    String pUtili = "Não";
-                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registros selecioado?", "Confirmação",
-                            JOptionPane.YES_NO_OPTION);
-                    if (resposta == JOptionPane.YES_OPTION) {
-                        qtdInternosKitComp = qtdInternosKitComp - 1;
-                        objGravaIntComp.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
-                        objGravaIntComp.setIdInternoCrc(idInternoComp);
-                        controleIntSelec.excluirInternosKitCompleto(objGravaIntComp);
-                        // FAZ UM UPDATE NA TABELA INTERNOS_PAVILHAO_KIT_LOTE INFORMANDO A UTILIZAÇÃO DOS INTERNOS PARA 
-                        // O KIT COMPLETO - NO CASO DA EXCLUSÃO, O INTERNO RETORNA A LISTA DE NÃO UTILIZADOS NO IT COMPLETO
-                        objGravaIntComp.setUtili(pUtili);
-                        controleIntSelec.atualizarInternosPavilhao(objGravaIntComp);
-                        //
-                        DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaInternosKitCompleto.getModel();
-                        modelOrigem.removeRow(jTabelaInternosKitCompleto.getSelectedRow());
-                        jtotalInternosKitCompleto.setText(Integer.toString(qtdInternosKitComp)); // Converter inteiro em string para exibir na tela 
-                        JOptionPane.showMessageDialog(null, "Registros excluídos com sucesso.");
+            if (jStatusComp.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(null, "Não é possível modificar esse registro, o mesmo encontra-se FINALIZADO.");
+            } else {
+                verificarInternoDBUm();
+                if (jIdRegistroComp.getText().equals(codigoRegExcluir) && Integer.valueOf(codigoInternoCrc).equals(idInternoComp)) {
+                    if (jTabelaInternosKitCompleto.getSelectedRowCount() != 0) {
+                        String pUtili = "Não";
+                        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registros selecioado?", "Confirmação",
+                                JOptionPane.YES_NO_OPTION);
+                        if (resposta == JOptionPane.YES_OPTION) {
+                            qtdInternosKitComp = qtdInternosKitComp - 1;
+                            objGravaIntComp.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
+                            objGravaIntComp.setIdInternoCrc(idInternoComp);
+                            controleIntSelec.excluirInternosKitCompleto(objGravaIntComp);
+                            // FAZ UM UPDATE NA TABELA INTERNOS_PAVILHAO_KIT_LOTE INFORMANDO A UTILIZAÇÃO DOS INTERNOS PARA 
+                            // O KIT COMPLETO - NO CASO DA EXCLUSÃO, O INTERNO RETORNA A LISTA DE NÃO UTILIZADOS NO IT COMPLETO
+                            objGravaIntComp.setUtili(pUtili);
+                            controleIntSelec.atualizarInternosPavilhao(objGravaIntComp);
+                            //
+                            DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaInternosKitCompleto.getModel();
+                            modelOrigem.removeRow(jTabelaInternosKitCompleto.getSelectedRow());
+                            jtotalInternosKitCompleto.setText(Integer.toString(qtdInternosKitComp)); // Converter inteiro em string para exibir na tela 
+                            JOptionPane.showMessageDialog(null, "Registros excluídos com sucesso.");
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos uma linha para excluir o registros da tabela.");
+                        //Não tem nenhuma linha selecionada na tabela de origem, faça um aviso para o usuário ou algo do tipo.                        
                     }
                 } else {
-                    JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos uma linha para excluir o registros da tabela.");
-                    //Não tem nenhuma linha selecionada na tabela de origem, faça um aviso para o usuário ou algo do tipo.                        
-                }
-            } else {
-                if (jTabelaInternosKitCompleto.getSelectedRowCount() != 0) {
-                    qtdInternos = qtdInternos - 1;
-                    DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaInternosKitCompleto.getModel();
-                    modelOrigem.removeRow(jTabelaInternosKitCompleto.getSelectedRow());
-                    jtotalInternosKitCompleto.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
-                } else {
-                    JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos uma linha para transferir todos registros da tabela.");
-                    //Não tem nenhuma linha selecionada na tabela de origem, faça um aviso para o usuário ou algo do tipo.                        
+                    if (jTabelaInternosKitCompleto.getSelectedRowCount() != 0) {
+                        qtdInternos = qtdInternos - 1;
+                        DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaInternosKitCompleto.getModel();
+                        modelOrigem.removeRow(jTabelaInternosKitCompleto.getSelectedRow());
+                        jtotalInternosKitCompleto.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos uma linha para transferir todos registros da tabela.");
+                        //Não tem nenhuma linha selecionada na tabela de origem, faça um aviso para o usuário ou algo do tipo.                        
+                    }
                 }
             }
         } else {
@@ -3431,12 +3472,16 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         // TODO add your handling code here:
         buscarAcessoUsuario(telaMontagemPagamentoKitCompletoProdAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitCompletoProdAL) && codIncluirAL == 1) {
-            Integer row = jTabelaInternosKitCompleto.getRowCount();
-            if (row != 0) {
-                listarProdutosKit();
-                jBtExcluirTodosProdutos.setEnabled(true);
-                jBtExcluirProdutoSelecionado.setEnabled(true);
-                jBtSalvarProdutoBanco.setEnabled(true);
+            if (jStatusComp.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(null, "Não é possível modificar esse registro, o mesmo encontra-se FINALIZADO.");
+            } else {
+                Integer row = jTabelaInternosKitCompleto.getRowCount();
+                if (row != 0) {
+                    listarProdutosKit();
+                    jBtExcluirTodosProdutos.setEnabled(true);
+                    jBtExcluirProdutoSelecionado.setEnabled(true);
+                    jBtSalvarProdutoBanco.setEnabled(true);
+                }
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
@@ -3447,41 +3492,45 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         // TODO add your handling code here:
         buscarAcessoUsuario(telaMontagemPagamentoKitCompletoProdAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitCompletoProdAL) && codExcluirAL == 1) {
-            verificarTodosProdutosDB();
-            Integer rows = jTabelaProdutosKitCompleto.getRowCount();
-            if (jIdRegistroComp.getText().equals(codigoRegExcluir)) {
-                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir todos registros do banco de dados?", "Confirmação",
-                        JOptionPane.YES_NO_OPTION);
-                if (resposta == JOptionPane.YES_OPTION) {
-                    // FAZ UM UPDATE NA TABELA ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE INFORMANDO A UTILIZAÇÃO DOS PRODUTO PARA 
-                    // O KIT COMPLETO - NO CASO DA EXCLUSÃO, O PRODUTO RETORNA A LISTA DE NÃO UTILIZADOS NO KIT COMPLETO
-                    // FAZ UM UPDATE ANTES DE EXCLUIR
-                    for (int i = 0; i < jTabelaProdutosKitCompleto.getRowCount(); i++) {
+            if (jStatusComp.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(null, "Não é possível modificar esse registro, o mesmo encontra-se FINALIZADO.");
+            } else {
+                verificarTodosProdutosDB();
+                Integer rows = jTabelaProdutosKitCompleto.getRowCount();
+                if (jIdRegistroComp.getText().equals(codigoRegExcluir)) {
+                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir todos registros do banco de dados?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta == JOptionPane.YES_OPTION) {
+                        // FAZ UM UPDATE NA TABELA ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE INFORMANDO A UTILIZAÇÃO DOS PRODUTO PARA 
+                        // O KIT COMPLETO - NO CASO DA EXCLUSÃO, O PRODUTO RETORNA A LISTA DE NÃO UTILIZADOS NO KIT COMPLETO
+                        // FAZ UM UPDATE ANTES DE EXCLUIR
+                        for (int i = 0; i < jTabelaProdutosKitCompleto.getRowCount(); i++) {
+                            objProdKit.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
+                            objProdKit.setTipoKitCI(pTipoKitCI);
+                            objProdKit.setpUtili(pUtili);
+                            objProdKit.setIdProd((int) jTabelaProdutosKitCompleto.getValueAt(i, 0));
+                            controleProdKit.atualizarProdutoUtilizadoKit(objProdKit);
+                        }
+                        // DELETA TODOS OS REGISTROS DA TABELA (ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO)
                         objProdKit.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
                         objProdKit.setTipoKitCI(pTipoKitCI);
-                        objProdKit.setpUtili(pUtili);
-                        objProdKit.setIdProd((int) jTabelaProdutosKitCompleto.getValueAt(i, 0));
-                        controleProdKit.atualizarProdutoUtilizadoKit(objProdKit);
-                    }
-                    // DELETA TODOS OS REGISTROS DA TABELA (ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO)
-                    objProdKit.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
-                    objProdKit.setTipoKitCI(pTipoKitCI);
-                    controleProdKit.excluirTodosProdutosKitCompletoIncompleto(objProdKit);
-                    // APAGAR DADOS DA TABELA
-                    while (jTabelaProdutosKitCompleto.getModel().getRowCount() > 0) {
-                        ((DefaultTableModel) jTabelaProdutosKitCompleto.getModel()).removeRow(0);
-                    }
-                    jtotalProdutosKitCompleto.setText(Integer.toString(qtdInternosKitComp)); // Converter inteiro em string para exibir na tela 
-                    JOptionPane.showMessageDialog(null, "Registros excluídos com sucesso.");
-                }
-            } else {
-                if (rows != 0) {
-                    // APAGAR DADOS DA TABELA
-                    while (jTabelaProdutosKitCompleto.getModel().getRowCount() > 0) {
-                        ((DefaultTableModel) jTabelaInternosKitCompleto.getModel()).removeRow(0);
+                        controleProdKit.excluirTodosProdutosKitCompletoIncompleto(objProdKit);
+                        // APAGAR DADOS DA TABELA
+                        while (jTabelaProdutosKitCompleto.getModel().getRowCount() > 0) {
+                            ((DefaultTableModel) jTabelaProdutosKitCompleto.getModel()).removeRow(0);
+                        }
+                        jtotalProdutosKitCompleto.setText(Integer.toString(qtdInternosKitComp)); // Converter inteiro em string para exibir na tela 
+                        JOptionPane.showMessageDialog(null, "Registros excluídos com sucesso.");
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Não existe registros a serem excluído.");
+                    if (rows != 0) {
+                        // APAGAR DADOS DA TABELA
+                        while (jTabelaProdutosKitCompleto.getModel().getRowCount() > 0) {
+                            ((DefaultTableModel) jTabelaInternosKitCompleto.getModel()).removeRow(0);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Não existe registros a serem excluído.");
+                    }
                 }
             }
         } else {
@@ -3493,44 +3542,48 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         // TODO add your handling code here:
         buscarAcessoUsuario(telaMontagemPagamentoKitCompletoProdAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitCompletoProdAL) && codExcluirAL == 1) {
-            verificarUmProdutoDB();
-            if (jIdRegistroComp.getText().equals(codigoRegExcluir) && Integer.valueOf(codigoProdExclui).equals(codigoProdutoExclui)) {
-                if (jTabelaProdutosKitCompleto.getSelectedRowCount() != 0) {
-                    String pUtili = "Não";
-                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registros selecioado?", "Confirmação",
-                            JOptionPane.YES_NO_OPTION);
-                    if (resposta == JOptionPane.YES_OPTION) {
+            if (jStatusComp.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(null, "Não é possível modificar esse registro, o mesmo encontra-se FINALIZADO.");
+            } else {
+                verificarUmProdutoDB();
+                if (jIdRegistroComp.getText().equals(codigoRegExcluir) && Integer.valueOf(codigoProdExclui).equals(codigoProdutoExclui)) {
+                    if (jTabelaProdutosKitCompleto.getSelectedRowCount() != 0) {
+                        String pUtili = "Não";
+                        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registros selecioado?", "Confirmação",
+                                JOptionPane.YES_NO_OPTION);
+                        if (resposta == JOptionPane.YES_OPTION) {
 //                    qtdInternosKitComp = qtdInternosKitComp - 1;
-                        objProdKit.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
-                        objProdKit.setIdProd(codigoProdutoExclui);
-                        objProdKit.setTipoKitCI(pTipoKitCI);
-                        controleProdKit.excluirTodosProdutosKitCompletoIncompleto(objProdKit);
-                        // FAZ UM UPDATE NA TABELA ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE INFORMANDO A UTILIZAÇÃO DOS PRODUTO PARA 
-                        // O KIT COMPLETO - NO CASO DA EXCLUSÃO, O PRODUTO RETORNA A LISTA DE NÃO UTILIZADOS NO KIT COMPLETO
-                        objProdKit.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
-                        objProdKit.setTipoKitCI(pTipoKitCI);
-                        objProdKit.setpUtili(pUtili);
-                        objProdKit.setIdProd(Integer.valueOf(codigoProdExclui));
-                        controleProdKit.atualizarProdutoUtilizadoKit(objProdKit);
-                        //
-                        DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaProdutosKitCompleto.getModel();
-                        modelOrigem.removeRow(jTabelaProdutosKitCompleto.getSelectedRow());
+                            objProdKit.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
+                            objProdKit.setIdProd(codigoProdutoExclui);
+                            objProdKit.setTipoKitCI(pTipoKitCI);
+                            controleProdKit.excluirTodosProdutosKitCompletoIncompleto(objProdKit);
+                            // FAZ UM UPDATE NA TABELA ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE INFORMANDO A UTILIZAÇÃO DOS PRODUTO PARA 
+                            // O KIT COMPLETO - NO CASO DA EXCLUSÃO, O PRODUTO RETORNA A LISTA DE NÃO UTILIZADOS NO KIT COMPLETO
+                            objProdKit.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
+                            objProdKit.setTipoKitCI(pTipoKitCI);
+                            objProdKit.setpUtili(pUtili);
+                            objProdKit.setIdProd(Integer.valueOf(codigoProdExclui));
+                            controleProdKit.atualizarProdutoUtilizadoKit(objProdKit);
+                            //
+                            DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaProdutosKitCompleto.getModel();
+                            modelOrigem.removeRow(jTabelaProdutosKitCompleto.getSelectedRow());
 //                    jtotalInternosKitCompleto.setText(Integer.toString(qtdInternosKitComp)); // Converter inteiro em string para exibir na tela 
-                        JOptionPane.showMessageDialog(null, "Registros excluídos com sucesso.");
+                            JOptionPane.showMessageDialog(null, "Registros excluídos com sucesso.");
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos uma linha para excluir o registro da tabela.");
+                        //Não tem nenhuma linha selecionada na tabela de origem, faça um aviso para o usuário ou algo do tipo.                        
                     }
                 } else {
-                    JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos uma linha para excluir o registro da tabela.");
-                    //Não tem nenhuma linha selecionada na tabela de origem, faça um aviso para o usuário ou algo do tipo.                        
-                }
-            } else {
-                if (jTabelaProdutosKitCompleto.getSelectedRowCount() != 0) {
+                    if (jTabelaProdutosKitCompleto.getSelectedRowCount() != 0) {
 //                qtdInternos = qtdInternos - 1;
-                    DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaProdutosKitCompleto.getModel();
-                    modelOrigem.removeRow(jTabelaProdutosKitCompleto.getSelectedRow());
+                        DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaProdutosKitCompleto.getModel();
+                        modelOrigem.removeRow(jTabelaProdutosKitCompleto.getSelectedRow());
 //                jtotalInternosKitCompleto.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
-                } else {
-                    JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos uma linha para excluir o registro da tabela.");
-                    //Não tem nenhuma linha selecionada na tabela de origem, faça um aviso para o usuário ou algo do tipo.                        
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos uma linha para excluir o registro da tabela.");
+                        //Não tem nenhuma linha selecionada na tabela de origem, faça um aviso para o usuário ou algo do tipo.                        
+                    }
                 }
             }
         } else {
@@ -3548,6 +3601,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                         JOptionPane.YES_NO_OPTION);
                 if (resposta == JOptionPane.YES_OPTION) {
                     mostrarTelaGravacaoProdutoKitCompleto();
+                    jBtFinalizar.setEnabled(true);
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Não existem dados a serem gravados.");
