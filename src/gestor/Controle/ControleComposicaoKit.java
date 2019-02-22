@@ -65,7 +65,7 @@ public class ControleComposicaoKit {
             pst.setString(7, objComp.getUsuarioUp());
             pst.setString(8, objComp.getDataUp());
             pst.setString(9, objComp.getHorarioUp());
-            pst.execute();
+            pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR registro.\nERRO: " + ex);
         }
@@ -77,10 +77,24 @@ public class ControleComposicaoKit {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE WHERE IdRegistroComp='" + objComp.getIdRegistroComp() + "'");                       
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE WHERE IdRegistroComp='" + objComp.getIdRegistroComp() + "'");
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR registro.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objComp;
+    }
+
+    public ComposicaoKit finalizarComposicaoKitlInternos(ComposicaoKit objComp) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE SET StatusComp=? WHERE IdRegistroComp='" + objComp.getIdRegistroComp() + "'");
+            pst.setString(1, objComp.getStatusComp());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel FINALIZAR registro.\nERRO: " + ex);
         }
         conecta.desconecta();
         return objComp;
