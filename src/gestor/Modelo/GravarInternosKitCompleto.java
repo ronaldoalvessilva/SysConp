@@ -5,6 +5,8 @@
  */
 package gestor.Modelo;
 
+import java.util.Date;
+
 /**
  *
  * @author ronal
@@ -26,11 +28,14 @@ public class GravarInternosKitCompleto {
     private String horarioInsert;
     private String horarioUp;
     private String utili;
+    private Date dataPagamento;
+    private Date dataPrevisao;
+    private String kitPago;
 
     public GravarInternosKitCompleto() {
     }
 
-    public GravarInternosKitCompleto(int idRegIntAgrupComp, int idRegistroComp, int idKit, int idInternoCrc, String nomeInternoCrc, String agrupado, int gravado, int tipoKitCI, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, String utili) {
+    public GravarInternosKitCompleto(int idRegIntAgrupComp, int idRegistroComp, int idKit, int idInternoCrc, String nomeInternoCrc, String agrupado, int gravado, int tipoKitCI, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, String utili, Date dataPagamento, Date dataPrevisao, String kitPago) {
         this.idRegIntAgrupComp = idRegIntAgrupComp;
         this.idRegistroComp = idRegistroComp;
         this.idKit = idKit;
@@ -46,6 +51,9 @@ public class GravarInternosKitCompleto {
         this.horarioInsert = horarioInsert;
         this.horarioUp = horarioUp;
         this.utili = utili;
+        this.dataPagamento = dataPagamento;
+        this.dataPrevisao = dataPrevisao;
+        this.kitPago = kitPago;
     }
 
     /**
@@ -257,5 +265,46 @@ public class GravarInternosKitCompleto {
     public void setUtili(String utili) {
         this.utili = utili;
     }
-   
+
+    /**
+     * @return the dataPagamento
+     */
+    public Date getDataPagamento() {
+        return dataPagamento;
+    }
+
+    /**
+     * @param dataPagamento the dataPagamento to set
+     */
+    public void setDataPagamento(Date dataPagamento) {
+        this.dataPagamento = dataPagamento;
+    }
+
+    /**
+     * @return the dataPrevisao
+     */
+    public Date getDataPrevisao() {
+        return dataPrevisao;
+    }
+
+    /**
+     * @param dataPrevisao the dataPrevisao to set
+     */
+    public void setDataPrevisao(Date dataPrevisao) {
+        this.dataPrevisao = dataPrevisao;
+    }
+
+    /**
+     * @return the kitPago
+     */
+    public String getKitPago() {
+        return kitPago;
+    }
+
+    /**
+     * @param kitPago the kitPago to set
+     */
+    public void setKitPago(String kitPago) {
+        this.kitPago = kitPago;
+    }
 }
