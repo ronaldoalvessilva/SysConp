@@ -122,23 +122,14 @@ public class ControleItensEntradasLote {
         buscarInternoCrc(objProCrc.getNomeInterno(),objProCrc.getIdInterno());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO MOVIMENTACAO_KITS_HIGIENE_INTERNOS (IdInternoCrc,KitInicial,KitIPago,KitDecendial,KitDPago,KitQuinzenal,KitQPago,KitMensal,KitMPago,KitSemestral,KitSPago,KitAnual,KitAPago) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");            
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO KITS_INICIAL_INTERNOS (IdInternoCrc,DataChegada,KitPago,Utilizado) VALUES(?,?,?,?)");            
             pst.setInt(1, codInt);
-            pst.setString(2, objProCrc.getKitInicial());
-            pst.setString(3, objProCrc.getKitIPago());
-            pst.setString(4, objProCrc.getKitDecendial());
-            pst.setString(5, objProCrc.getKitDPago());
-            pst.setString(6, objProCrc.getKitQuinzenal());
-            pst.setString(7, objProCrc.getKitQPago());
-            pst.setString(8, objProCrc.getKitMensal());
-            pst.setString(9, objProCrc.getKitMPago());
-            pst.setString(10, objProCrc.getKitSemestral());
-            pst.setString(11, objProCrc.getKitSPago());
-            pst.setString(12, objProCrc.getKitAnual());
-            pst.setString(13, objProCrc.getKitAPago());
+            pst.setTimestamp(2, new java.sql.Timestamp(objProCrc.getDataChegada().getTime()));
+            pst.setString(3, objProCrc.getUtilizado());
+            pst.setString(4, objProCrc.getKitDecendial());            
             pst.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados do INTERNO.\n\nERRO: " + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados do KIT do INTERNO.\n\nERRO: " + ex);
         }
         conecta.desconecta();
         return objProCrc;
