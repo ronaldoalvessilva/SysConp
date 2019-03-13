@@ -91,12 +91,12 @@
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="jCheckBoxKitInicial" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jCheckBoxKitQuinzenal" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jCheckBoxKitMensal" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                           <Component id="jCheckBoxKitDecendial" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="jCheckBoxKitQuinzenal" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                          <Component id="jCheckBoxKitMensal" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="jCheckBoxKitSemestral" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jCheckBoxKitAnual" min="-2" max="-2" attributes="0"/>
@@ -125,10 +125,10 @@
                       <Component id="jCheckBoxKitQuinzenal" alignment="2" min="-2" max="-2" attributes="0"/>
                       <Component id="jCheckBoxKitInicial" alignment="2" min="-2" max="-2" attributes="0"/>
                       <Component id="jCheckBoxKitMensal" alignment="2" min="-2" max="-2" attributes="0"/>
-                      <Component id="jCheckBoxKitDecendial" alignment="2" min="-2" max="-2" attributes="0"/>
                       <Component id="jCheckBoxKitSemestral" alignment="2" min="-2" max="-2" attributes="0"/>
                       <Component id="jCheckBoxKitAnual" alignment="2" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel2" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="jCheckBoxKitDecendial" alignment="2" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -277,7 +277,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="jTabelaProdutosKit">
+        <Component class="javax.swing.JTable" name="jTabelaPesquisaProdutosKit">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
@@ -333,7 +333,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTabelaProdutosKitMouseClicked"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTabelaPesquisaProdutosKitMouseClicked"/>
           </Events>
         </Component>
       </SubComponents>

@@ -9,6 +9,7 @@ import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.codigoPesquisaKit;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.codigoPesquisaKitItem;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.count;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jRBtKitAnual;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jRBtKitDecendial;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jRBtKitInicial;
@@ -16,7 +17,17 @@ import static gestor.Visao.TelaMontagemPagamentoKitInterno.jRBtKitMensal;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jRBtKitQuinzenal;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jRBtKitSemestral;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jTabelaGeralProdutosKit;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jTabelaInternos;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jTabelaInternosKitCompleto;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jTabelaInternosSelecionados;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jTabelaProdutos;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jTabelaProdutosKitCompleto;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jtotalInternosKitCompleto;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jtotalInternosPavilhao;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jtotalInternosSelecionados;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jtotalProdutosKit;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jtotalProdutosKitCompleto;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jtotalProdutosKitInternos;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdItem;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdItemTab;
 import java.sql.SQLException;
@@ -80,7 +91,7 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
         jCheckBoxKitAnual = new javax.swing.JCheckBox();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTabelaProdutosKit = new javax.swing.JTable();
+        jTabelaPesquisaProdutosKit = new javax.swing.JTable();
         jBtConfirmar = new javax.swing.JButton();
         jBtSair = new javax.swing.JButton();
 
@@ -177,12 +188,12 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jCheckBoxKitInicial)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jCheckBoxKitQuinzenal)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBoxKitMensal)
-                        .addGap(10, 10, 10)
                         .addComponent(jCheckBoxKitDecendial)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jCheckBoxKitQuinzenal)
+                        .addGap(10, 10, 10)
+                        .addComponent(jCheckBoxKitMensal)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jCheckBoxKitSemestral)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jCheckBoxKitAnual))
@@ -205,15 +216,15 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
                     .addComponent(jCheckBoxKitQuinzenal)
                     .addComponent(jCheckBoxKitInicial)
                     .addComponent(jCheckBoxKitMensal)
-                    .addComponent(jCheckBoxKitDecendial)
                     .addComponent(jCheckBoxKitSemestral)
                     .addComponent(jCheckBoxKitAnual)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel2)
+                    .addComponent(jCheckBoxKitDecendial))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabelaProdutosKit.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jTabelaProdutosKit.setModel(new javax.swing.table.DefaultTableModel(
+        jTabelaPesquisaProdutosKit.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTabelaPesquisaProdutosKit.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -221,25 +232,25 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
                 "Registro", "Tipo Kit", "Código", "Descrição Produto", "Un.", "Quant."
             }
         ));
-        jTabelaProdutosKit.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTabelaPesquisaProdutosKit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTabelaProdutosKitMouseClicked(evt);
+                jTabelaPesquisaProdutosKitMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTabelaProdutosKit);
-        if (jTabelaProdutosKit.getColumnModel().getColumnCount() > 0) {
-            jTabelaProdutosKit.getColumnModel().getColumn(0).setMinWidth(70);
-            jTabelaProdutosKit.getColumnModel().getColumn(0).setMaxWidth(70);
-            jTabelaProdutosKit.getColumnModel().getColumn(1).setMinWidth(70);
-            jTabelaProdutosKit.getColumnModel().getColumn(1).setMaxWidth(70);
-            jTabelaProdutosKit.getColumnModel().getColumn(2).setMinWidth(70);
-            jTabelaProdutosKit.getColumnModel().getColumn(2).setMaxWidth(70);
-            jTabelaProdutosKit.getColumnModel().getColumn(3).setMinWidth(300);
-            jTabelaProdutosKit.getColumnModel().getColumn(3).setMaxWidth(300);
-            jTabelaProdutosKit.getColumnModel().getColumn(4).setMinWidth(50);
-            jTabelaProdutosKit.getColumnModel().getColumn(4).setMaxWidth(50);
-            jTabelaProdutosKit.getColumnModel().getColumn(5).setMinWidth(50);
-            jTabelaProdutosKit.getColumnModel().getColumn(5).setMaxWidth(50);
+        jScrollPane1.setViewportView(jTabelaPesquisaProdutosKit);
+        if (jTabelaPesquisaProdutosKit.getColumnModel().getColumnCount() > 0) {
+            jTabelaPesquisaProdutosKit.getColumnModel().getColumn(0).setMinWidth(70);
+            jTabelaPesquisaProdutosKit.getColumnModel().getColumn(0).setMaxWidth(70);
+            jTabelaPesquisaProdutosKit.getColumnModel().getColumn(1).setMinWidth(70);
+            jTabelaPesquisaProdutosKit.getColumnModel().getColumn(1).setMaxWidth(70);
+            jTabelaPesquisaProdutosKit.getColumnModel().getColumn(2).setMinWidth(70);
+            jTabelaPesquisaProdutosKit.getColumnModel().getColumn(2).setMaxWidth(70);
+            jTabelaPesquisaProdutosKit.getColumnModel().getColumn(3).setMinWidth(300);
+            jTabelaPesquisaProdutosKit.getColumnModel().getColumn(3).setMaxWidth(300);
+            jTabelaPesquisaProdutosKit.getColumnModel().getColumn(4).setMinWidth(50);
+            jTabelaPesquisaProdutosKit.getColumnModel().getColumn(4).setMaxWidth(50);
+            jTabelaPesquisaProdutosKit.getColumnModel().getColumn(5).setMinWidth(50);
+            jTabelaPesquisaProdutosKit.getColumnModel().getColumn(5).setMaxWidth(50);
         }
 
         jBtConfirmar.setForeground(new java.awt.Color(0, 102, 0));
@@ -309,31 +320,36 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jBtPesqNomeActionPerformed
 
-    private void jTabelaProdutosKitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaProdutosKitMouseClicked
+    private void jTabelaPesquisaProdutosKitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaPesquisaProdutosKitMouseClicked
         // TODO add your handling code here:
         flag = 1;
         if (flag == 1) {
-            IdKit = "" + jTabelaProdutosKit.getValueAt(jTabelaProdutosKit.getSelectedRow(), 0);
+            IdKit = "" + jTabelaPesquisaProdutosKit.getValueAt(jTabelaPesquisaProdutosKit.getSelectedRow(), 0);
             //
-            String descricaoProduto = "" + jTabelaProdutosKit.getValueAt(jTabelaProdutosKit.getSelectedRow(), 3);
+            String descricaoProduto = "" + jTabelaPesquisaProdutosKit.getValueAt(jTabelaPesquisaProdutosKit.getSelectedRow(), 3);
             jPesquisaNomeProduto.setText(descricaoProduto);
         }
-    }//GEN-LAST:event_jTabelaProdutosKitMouseClicked
+    }//GEN-LAST:event_jTabelaPesquisaProdutosKitMouseClicked
 
     private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
         // TODO add your handling code here:           
+        limparTabelaItensKit();
+        limparTabelasAbaPavIntComp();
+        limparTabelaProdutosInternos();
         flag = 1;
         if (jPesquisaNomeProduto.getText().isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos um item do kit e clique no botão CONFIRMAR.");
         } else {
-            if (kitInicial == 1) {                
+            if (kitInicial == 1) {
                 conecta.abrirConexao();
                 try {
-                    conecta.executaSQL("SELECT * FROM PRODUTOS_KITS_HIGIENE_INTERNO "
+                    conecta.executaSQL("SELECT * FROM KITS_HIGIENE_INTERNO "
+                            + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
+                            + "ON KITS_HIGIENE_INTERNO.IdKit=PRODUTOS_KITS_HIGIENE_INTERNO.IdKit "
                             + "INNER JOIN PRODUTOS_AC "
                             + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                            + "WHERE PRODUTOS_KITS_HIGIENE_INTERNO.IdKit='" + IdKit + "' "
-                            + "AND KitInicial='" + kitInicial + "'");
+                            + "WHERE KITS_HIGIENE_INTERNO.IdKit='" + IdKit + "' "
+                            + "AND KITS_HIGIENE_INTERNO.KitInicial='" + kitInicial + "'");
                     conecta.rs.first();
                     codigoPesquisaKitItem = conecta.rs.getInt("IdItem");
                     codigoPesquisaKit = conecta.rs.getInt("IdKit");
@@ -348,14 +364,40 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
                 }
                 conecta.desconecta();
                 dispose();
+            } else if (kitDecendial == 1) {
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM KITS_HIGIENE_INTERNO "
+                            + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
+                            + "ON KITS_HIGIENE_INTERNO.IdKit=PRODUTOS_KITS_HIGIENE_INTERNO.IdKit "
+                            + "INNER JOIN PRODUTOS_AC "
+                            + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
+                            + "WHERE KITS_HIGIENE_INTERNO.IdKit='" + IdKit + "' "
+                            + "AND KITS_HIGIENE_INTERNO.KitDecendial='" + kitDecendial + "'");
+                    conecta.rs.first();
+                    codigoPesquisaKitItem = conecta.rs.getInt("IdItem");
+                    codigoPesquisaKit = conecta.rs.getInt("IdKit");
+                    kitDecendial = conecta.rs.getInt("KitDecendial");
+                    if (kitDecendial == 1) {
+                        jRBtKitDecendial.setSelected(true);
+                    } else if (kitDecendial == 0) {
+                        jRBtKitDecendial.setSelected(!true);
+                    }
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa do kit Decendial." + e);
+                }
+                conecta.desconecta();
+                dispose();
             } else if (kitQuinzenal == 1) {
                 conecta.abrirConexao();
                 try {
-                    conecta.executaSQL("SELECT * FROM PRODUTOS_KITS_HIGIENE_INTERNO "
+                    conecta.executaSQL("SELECT * FROM KITS_HIGIENE_INTERNO "
+                            + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
+                            + "ON KITS_HIGIENE_INTERNO.IdKit=PRODUTOS_KITS_HIGIENE_INTERNO.IdKit "
                             + "INNER JOIN PRODUTOS_AC "
                             + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                            + "WHERE PRODUTOS_KITS_HIGIENE_INTERNO.IdKit='" + IdKit + "' "
-                            + "AND KitQuinzenal='" + kitQuinzenal + "'");
+                            + "WHERE KITS_HIGIENE_INTERNO.IdKit='" + IdKit + "' "
+                            + "AND KITS_HIGIENE_INTERNO.KitQuinzenal='" + kitQuinzenal + "'");
                     conecta.rs.first();
                     codigoPesquisaKitItem = conecta.rs.getInt("IdItem");
                     codigoPesquisaKit = conecta.rs.getInt("IdKit");
@@ -375,11 +417,13 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
             } else if (kitMensal == 1) {
                 conecta.abrirConexao();
                 try {
-                    conecta.executaSQL("SELECT * FROM PRODUTOS_KITS_HIGIENE_INTERNO "
+                    conecta.executaSQL("SELECT * FROM KITS_HIGIENE_INTERNO "
+                            + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
+                            + "ON KITS_HIGIENE_INTERNO.IdKit=PRODUTOS_KITS_HIGIENE_INTERNO.IdKit "
                             + "INNER JOIN PRODUTOS_AC "
                             + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                            + "WHERE PRODUTOS_KITS_HIGIENE_INTERNO.IdKit='" + IdKit + "' "
-                            + "AND KitMensal='" + kitMensal + "'");
+                            + "WHERE KITS_HIGIENE_INTERNO.IdKit='" + IdKit + "' "
+                            + "AND KITS_HIGIENE_INTERNO.KitMensal='" + kitMensal + "'");
                     conecta.rs.first();
                     codigoPesquisaKitItem = conecta.rs.getInt("IdItem");
                     codigoPesquisaKit = conecta.rs.getInt("IdKit");
@@ -394,36 +438,16 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
                 }
                 conecta.desconecta();
                 dispose();
-            } else if (kitDecendial == 1) {
-                conecta.abrirConexao();
-                try {
-                    conecta.executaSQL("SELECT * FROM PRODUTOS_KITS_HIGIENE_INTERNO "
-                            + "INNER JOIN PRODUTOS_AC "
-                            + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                            + "WHERE PRODUTOS_KITS_HIGIENE_INTERNO.IdKit='" + IdKit + "' "
-                            + "AND KitDecendial='" + kitDecendial + "'");
-                    conecta.rs.first();
-                    codigoPesquisaKitItem = conecta.rs.getInt("IdItem");
-                    codigoPesquisaKit = conecta.rs.getInt("IdKit");
-                    kitDecendial = conecta.rs.getInt("KitDecendial");
-                    if (kitDecendial == 1) {
-                        jRBtKitDecendial.setSelected(true);
-                    } else if (kitDecendial == 0) {
-                        jRBtKitDecendial.setSelected(!true);
-                    }
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa do kit Decendial." + e);
-                }
-                conecta.desconecta();
-                dispose();
             } else if (kitSemestral == 1) {
                 conecta.abrirConexao();
                 try {
-                    conecta.executaSQL("SELECT * FROM PRODUTOS_KITS_HIGIENE_INTERNO "
+                    conecta.executaSQL("SELECT * FROM KITS_HIGIENE_INTERNO "
+                            + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
+                            + "ON KITS_HIGIENE_INTERNO.IdKit=PRODUTOS_KITS_HIGIENE_INTERNO.IdKit "
                             + "INNER JOIN PRODUTOS_AC "
                             + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                            + "WHERE PRODUTOS_KITS_HIGIENE_INTERNO.IdKit='" + IdKit + "' "
-                            + "AND KitSemestral='" + kitSemestral + "'");
+                            + "WHERE KITS_HIGIENE_INTERNO.IdKit='" + IdKit + "' "
+                            + "AND KITS_HIGIENE_INTERNO.KitSemestral='" + kitSemestral + "'");
                     conecta.rs.first();
                     codigoPesquisaKitItem = conecta.rs.getInt("IdItem");
                     codigoPesquisaKit = conecta.rs.getInt("IdKit");
@@ -441,11 +465,13 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
             } else if (kitAnual == 1) {
                 conecta.abrirConexao();
                 try {
-                    conecta.executaSQL("SELECT * FROM PRODUTOS_KITS_HIGIENE_INTERNO "
+                    conecta.executaSQL("SELECT * FROM KITS_HIGIENE_INTERNO "
+                            + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
+                            + "ON KITS_HIGIENE_INTERNO.IdKit=PRODUTOS_KITS_HIGIENE_INTERNO.IdKit "
                             + "INNER JOIN PRODUTOS_AC "
                             + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                            + "WHERE PRODUTOS_KITS_HIGIENE_INTERNO.IdKit='" + IdKit + "' "
-                            + "AND KitAnual='" + kitAnual + "'");
+                            + "WHERE KITS_HIGIENE_INTERNO.IdKit='" + IdKit + "' "
+                            + "AND KITS_HIGIENE_INTERNO.KitAnual='" + kitAnual + "'");
                     conecta.rs.first();
                     codigoPesquisaKitItem = conecta.rs.getInt("IdItem");
                     codigoPesquisaKit = conecta.rs.getInt("IdKit");
@@ -475,10 +501,12 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
         if (evt.getStateChange() == evt.SELECTED) {
             limparTabelaItens();
             kitInicial = 1;
-            this.preencherTabelaItens("SELECT * FROM PRODUTOS_KITS_HIGIENE_INTERNO "
+            this.preencherTabelaItens("SELECT * FROM KITS_HIGIENE_INTERNO "
+                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
+                    + "ON KITS_HIGIENE_INTERNO.IdKit=PRODUTOS_KITS_HIGIENE_INTERNO.IdKit "
                     + "INNER JOIN PRODUTOS_AC "
                     + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                    + "WHERE KitInicial='" + kitInicial + "'");
+                    + "WHERE KITS_HIGIENE_INTERNO.KitInicial='" + kitInicial + "'");
         } else {
             limparTabelaItens();
         }
@@ -490,10 +518,12 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
         if (evt.getStateChange() == evt.SELECTED) {
             limparTabelaItens();
             kitQuinzenal = 1;
-            this.preencherTabelaItens("SELECT * FROM PRODUTOS_KITS_HIGIENE_INTERNO "
+            this.preencherTabelaItens("SELECT * FROM KITS_HIGIENE_INTERNO "
+                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
+                    + "ON KITS_HIGIENE_INTERNO.IdKit=PRODUTOS_KITS_HIGIENE_INTERNO.IdKit "
                     + "INNER JOIN PRODUTOS_AC "
                     + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                    + "WHERE KitQuinzenal='" + kitQuinzenal + "'");
+                    + "WHERE KITS_HIGIENE_INTERNO.KitQuinzenal='" + kitQuinzenal + "'");
         } else {
             limparTabelaItens();
         }
@@ -505,10 +535,12 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
         if (evt.getStateChange() == evt.SELECTED) {
             limparTabelaItens();
             kitMensal = 1;
-            this.preencherTabelaItens("SELECT * FROM PRODUTOS_KITS_HIGIENE_INTERNO "
+            this.preencherTabelaItens("SELECT * FROM KITS_HIGIENE_INTERNO "
+                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
+                    + "ON KITS_HIGIENE_INTERNO.IdKit=PRODUTOS_KITS_HIGIENE_INTERNO.IdKit "
                     + "INNER JOIN PRODUTOS_AC "
                     + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                    + "WHERE KitMensal='" + kitMensal + "'");
+                    + "WHERE KITS_HIGIENE_INTERNO.KitMensal='" + kitMensal + "'");
         } else {
             limparTabelaItens();
         }
@@ -520,10 +552,12 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
         if (evt.getStateChange() == evt.SELECTED) {
             limparTabelaItens();
             kitDecendial = 1;
-            this.preencherTabelaItens("SELECT * FROM PRODUTOS_KITS_HIGIENE_INTERNO "
+            this.preencherTabelaItens("SELECT * FROM KITS_HIGIENE_INTERNO "
+                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
+                    + "ON KITS_HIGIENE_INTERNO.IdKit=PRODUTOS_KITS_HIGIENE_INTERNO.IdKit "
                     + "INNER JOIN PRODUTOS_AC "
                     + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                    + "WHERE KitDecendial='" + kitDecendial + "'");
+                    + "WHERE KITS_HIGIENE_INTERNO.KitDecendial='" + kitDecendial + "'");
         } else {
             limparTabelaItens();
         }
@@ -535,10 +569,12 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
         if (evt.getStateChange() == evt.SELECTED) {
             limparTabelaItens();
             kitSemestral = 1;
-            this.preencherTabelaItens("SELECT * FROM PRODUTOS_KITS_HIGIENE_INTERNO "
+            this.preencherTabelaItens("SELECT * FROM KITS_HIGIENE_INTERNO "
+                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
+                    + "ON KITS_HIGIENE_INTERNO.IdKit=PRODUTOS_KITS_HIGIENE_INTERNO.IdKit "
                     + "INNER JOIN PRODUTOS_AC "
                     + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                    + "WHERE KitSemestral='" + kitSemestral + "'");
+                    + "WHERE KITS_HIGIENE_INTERNO.KitSemestral='" + kitSemestral + "'");
         } else {
             limparTabelaItens();
         }
@@ -550,10 +586,12 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
         if (evt.getStateChange() == evt.SELECTED) {
             limparTabelaItens();
             kitAnual = 1;
-            this.preencherTabelaItens("SELECT * FROM PRODUTOS_KITS_HIGIENE_INTERNO "
+            this.preencherTabelaItens("SELECT * FROM KITS_HIGIENE_INTERNO "
+                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
+                    + "ON KITS_HIGIENE_INTERNO.IdKit=PRODUTOS_KITS_HIGIENE_INTERNO.IdKit "
                     + "INNER JOIN PRODUTOS_AC "
                     + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                    + "WHERE KitAnual='" + kitAnual + "'");
+                    + "WHERE KITS_HIGIENE_INTERNO.KitAnual='" + kitAnual + "'");
         } else {
             limparTabelaItens();
         }
@@ -617,7 +655,7 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jPesquisaNomeProduto;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTabelaProdutosKit;
+    private javax.swing.JTable jTabelaPesquisaProdutosKit;
     // End of variables declaration//GEN-END:variables
 
     public void preencherTabelaItens(String sql) {
@@ -629,15 +667,13 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
             conecta.rs.first();
             do {
                 kitInicial = conecta.rs.getInt("KitInicial");
-                kitAnual = conecta.rs.getInt("KitAnual");
                 kitDecendial = conecta.rs.getInt("KitDecendial");
                 kitQuinzenal = conecta.rs.getInt("KitQuinzenal");
                 kitMensal = conecta.rs.getInt("KitMensal");
                 kitSemestral = conecta.rs.getInt("KitSemestral");
+                kitAnual = conecta.rs.getInt("KitAnual");
                 if (kitInicial == 1) {
                     nomeKit = "Kit Inicial";
-                } else if (kitAnual == 1) {
-                    nomeKit = "Kit Anual";
                 } else if (kitDecendial == 1) {
                     nomeKit = "Kit Decendial";
                 } else if (kitQuinzenal == 1) {
@@ -646,6 +682,8 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
                     nomeKit = "Kit Mensal";
                 } else if (kitSemestral == 1) {
                     nomeKit = "Kit Semestral";
+                } else if (kitAnual == 1) {
+                    nomeKit = "Kit Anual";
                 }
                 qtdItem = conecta.rs.getFloat("QuantItem");
                 DecimalFormat vi = new DecimalFormat(",###0.00");
@@ -657,22 +695,22 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
         } catch (SQLException ex) {
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-        jTabelaProdutosKit.setModel(modelo);
-        jTabelaProdutosKit.getColumnModel().getColumn(0).setPreferredWidth(70);
-        jTabelaProdutosKit.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaProdutosKit.getColumnModel().getColumn(1).setPreferredWidth(70);
-        jTabelaProdutosKit.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaProdutosKit.getColumnModel().getColumn(2).setPreferredWidth(70);
-        jTabelaProdutosKit.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaProdutosKit.getColumnModel().getColumn(3).setPreferredWidth(300);
-        jTabelaProdutosKit.getColumnModel().getColumn(3).setResizable(false);
-        jTabelaProdutosKit.getColumnModel().getColumn(4).setPreferredWidth(50);
-        jTabelaProdutosKit.getColumnModel().getColumn(4).setResizable(false);
-        jTabelaProdutosKit.getColumnModel().getColumn(5).setPreferredWidth(50);
-        jTabelaProdutosKit.getColumnModel().getColumn(5).setResizable(false);
-        jTabelaProdutosKit.getTableHeader().setReorderingAllowed(false);
-        jTabelaProdutosKit.setAutoResizeMode(jTabelaProdutosKit.AUTO_RESIZE_OFF);
-        jTabelaProdutosKit.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jTabelaPesquisaProdutosKit.setModel(modelo);
+        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(0).setPreferredWidth(70);
+        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(1).setPreferredWidth(70);
+        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(2).setPreferredWidth(70);
+        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(3).setPreferredWidth(300);
+        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(4).setPreferredWidth(50);
+        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(5).setPreferredWidth(50);
+        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(5).setResizable(false);
+        jTabelaPesquisaProdutosKit.getTableHeader().setReorderingAllowed(false);
+        jTabelaPesquisaProdutosKit.setAutoResizeMode(jTabelaPesquisaProdutosKit.AUTO_RESIZE_OFF);
+        jTabelaPesquisaProdutosKit.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         alinharCamposTabelaItens();
         conecta.desconecta();
     }
@@ -681,22 +719,22 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Registro", "TipoKit", "Código", "Descrição Produto", "Un.", "Qtd."};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-        jTabelaProdutosKit.setModel(modelo);
-        jTabelaProdutosKit.getColumnModel().getColumn(0).setPreferredWidth(70);
-        jTabelaProdutosKit.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaProdutosKit.getColumnModel().getColumn(1).setPreferredWidth(70);
-        jTabelaProdutosKit.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaProdutosKit.getColumnModel().getColumn(2).setPreferredWidth(70);
-        jTabelaProdutosKit.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaProdutosKit.getColumnModel().getColumn(3).setPreferredWidth(300);
-        jTabelaProdutosKit.getColumnModel().getColumn(3).setResizable(false);
-        jTabelaProdutosKit.getColumnModel().getColumn(4).setPreferredWidth(50);
-        jTabelaProdutosKit.getColumnModel().getColumn(4).setResizable(false);
-        jTabelaProdutosKit.getColumnModel().getColumn(5).setPreferredWidth(50);
-        jTabelaProdutosKit.getColumnModel().getColumn(5).setResizable(false);
-        jTabelaProdutosKit.getTableHeader().setReorderingAllowed(false);
-        jTabelaProdutosKit.setAutoResizeMode(jTabelaProdutosKit.AUTO_RESIZE_OFF);
-        jTabelaProdutosKit.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jTabelaPesquisaProdutosKit.setModel(modelo);
+        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(0).setPreferredWidth(70);
+        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(1).setPreferredWidth(70);
+        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(2).setPreferredWidth(70);
+        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(3).setPreferredWidth(300);
+        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(4).setPreferredWidth(50);
+        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(5).setPreferredWidth(50);
+        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(5).setResizable(false);
+        jTabelaPesquisaProdutosKit.getTableHeader().setReorderingAllowed(false);
+        jTabelaPesquisaProdutosKit.setAutoResizeMode(jTabelaPesquisaProdutosKit.AUTO_RESIZE_OFF);
+        jTabelaPesquisaProdutosKit.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         modelo.getLinhas().clear();
     }
 
@@ -708,10 +746,68 @@ public class TelaPesquisaKitComp extends javax.swing.JDialog {
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
         direita.setHorizontalAlignment(SwingConstants.RIGHT);
         //
-        jTabelaProdutosKit.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-        jTabelaProdutosKit.getColumnModel().getColumn(1).setCellRenderer(centralizado);
-        jTabelaProdutosKit.getColumnModel().getColumn(2).setCellRenderer(direita);
-        jTabelaProdutosKit.getColumnModel().getColumn(4).setCellRenderer(direita);
-        jTabelaProdutosKit.getColumnModel().getColumn(5).setCellRenderer(direita);
+        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(2).setCellRenderer(direita);
+        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(4).setCellRenderer(direita);
+        jTabelaPesquisaProdutosKit.getColumnModel().getColumn(5).setCellRenderer(direita);
+    }
+
+    public void limparTabelaItensKit() {
+        count = 0;
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Descrição Produto", "Un.", "Qtd."};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaGeralProdutosKit.setModel(modelo);
+        jTabelaGeralProdutosKit.getColumnModel().getColumn(0).setPreferredWidth(70);
+        jTabelaGeralProdutosKit.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaGeralProdutosKit.getColumnModel().getColumn(1).setPreferredWidth(250);
+        jTabelaGeralProdutosKit.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaGeralProdutosKit.getColumnModel().getColumn(2).setPreferredWidth(50);
+        jTabelaGeralProdutosKit.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaGeralProdutosKit.getColumnModel().getColumn(3).setPreferredWidth(50);
+        jTabelaGeralProdutosKit.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaGeralProdutosKit.getTableHeader().setReorderingAllowed(false);
+        jTabelaGeralProdutosKit.setAutoResizeMode(jTabelaGeralProdutosKit.AUTO_RESIZE_OFF);
+        jTabelaGeralProdutosKit.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jtotalProdutosKit.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela 
+        jtotalProdutosKit.setText("");
+        modelo.getLinhas().clear();
+    }
+
+    public void limparTabelasAbaPavIntComp() {
+        // APAGAR DADOS DA TABELA PAVILHÃO/INTERNOS
+        while (jTabelaInternos.getModel().getRowCount() > 0) {
+            ((DefaultTableModel) jTabelaInternos.getModel()).removeRow(0);
+        }
+        // LIMPAR O TOTALIZADOR DA TABELA PAVILHÃO/INTERNOS
+        jtotalInternosPavilhao.setText("");
+        // APAGAR DADOS DA TABELA INTERNOS SELECIONADOS
+        while (jTabelaInternosSelecionados.getModel().getRowCount() > 0) {
+            ((DefaultTableModel) jTabelaInternosSelecionados.getModel()).removeRow(0);
+        }
+        // LIMPAR O TOTALIZADOR DA TABELA INTERNOS SELECIONADOS
+        jtotalInternosSelecionados.setText("");
+    }
+
+    public void limparTabelaProdutosInternos() {
+        // APAGAR DADOS DA TABELA PRODUTOS
+        while (jTabelaProdutos.getModel().getRowCount() > 0) {
+            ((DefaultTableModel) jTabelaProdutos.getModel()).removeRow(0);
+        }
+        // LIMPAR O TOTALIZADOR DA TABELA PRODUTOS
+        jtotalProdutosKitInternos.setText("");
+        // APAGAR DADOS DA TABELA INTERNOS SELECIONADOS
+        while (jTabelaInternosKitCompleto.getModel().getRowCount() > 0) {
+            ((DefaultTableModel) jTabelaInternosKitCompleto.getModel()).removeRow(0);
+        }
+        // LIMPAR O TOTALIZADOR DA TABELA INTERNOS SELECIONADOS
+        jtotalInternosKitCompleto.setText("");
+        // LIMPAR TABELA DE PRODUTOS SELECIONADOS PARA BAIXA
+        while (jTabelaProdutosKitCompleto.getModel().getRowCount() > 0) {
+            ((DefaultTableModel) jTabelaProdutosKitCompleto.getModel()).removeRow(0);
+        }
+        // LIMPAR O TOTALIZADOR DA TABELA PRODUTOS SELECIONADOS PARA BAIXA
+        jtotalProdutosKitCompleto.setText("");
     }
 }

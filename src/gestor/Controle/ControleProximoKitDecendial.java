@@ -26,16 +26,92 @@ public class ControleProximoKitDecendial {
         buscarInterno(objGravaIntComp.getNomeInternoCrc(), objGravaIntComp.getIdInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO KITS_DECENDIAL_INTERNOS (DataPagto,IdInternoCrc,ProximaData,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?)");
-            pst.setTimestamp(1, new java.sql.Timestamp(objGravaIntComp.getDataPagamento().getTime()));
-            pst.setInt(2, codInterno);
-            pst.setTimestamp(3, new java.sql.Timestamp(objGravaIntComp.getDataPrevisao().getTime()));
-            pst.setString(4, objGravaIntComp.getUsuarioInsert());
-            pst.setString(5, objGravaIntComp.getDataInsert());
-            pst.setString(6, objGravaIntComp.getHorarioInsert());
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO KITS_DECENDIAL_INTERNOS (IdRegistroComp,DataPagto,IdInternoCrc,DataPrevisaoPro,KitPago,Utilizado) VALUES(?,?,?,?,?,?)");
+            pst.setInt(1, objGravaIntComp.getIdRegistroComp());
+            pst.setTimestamp(2, new java.sql.Timestamp(objGravaIntComp.getDataPagamento().getTime()));
+            pst.setInt(3, codInterno);
+            pst.setTimestamp(4, new java.sql.Timestamp(objGravaIntComp.getDataPrevisao().getTime()));
+            pst.setString(5, objGravaIntComp.getKitPago());
+            pst.setString(6, objGravaIntComp.getUtili());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR internos do kit decendial.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objGravaIntComp;
+    }
+
+    public GravarInternosKitCompleto incluirProximoKitQuinzenal(GravarInternosKitCompleto objGravaIntComp) {
+        buscarInterno(objGravaIntComp.getNomeInternoCrc(), objGravaIntComp.getIdInternoCrc());
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO KITS_QUINZENAL_INTERNOS (IdRegistroComp,DataPagto,IdInternoCrc,DataPrevisaoPro,KitPago,Utilizado) VALUES(?,?,?,?,?,?)");
+            pst.setInt(1, objGravaIntComp.getIdRegistroComp());
+            pst.setTimestamp(2, new java.sql.Timestamp(objGravaIntComp.getDataPagamento().getTime()));
+            pst.setInt(3, codInterno);
+            pst.setTimestamp(4, new java.sql.Timestamp(objGravaIntComp.getDataPrevisao().getTime()));
+            pst.setString(5, objGravaIntComp.getKitPago());
+            pst.setString(6, objGravaIntComp.getUtili());
+            pst.execute();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR internos do kit quinzenal.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objGravaIntComp;
+    }
+
+    public GravarInternosKitCompleto incluirProximoKitMensal(GravarInternosKitCompleto objGravaIntComp) {
+        buscarInterno(objGravaIntComp.getNomeInternoCrc(), objGravaIntComp.getIdInternoCrc());
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO KITS_MENSAL_INTERNOS (IdRegistroComp,DataPagto,IdInternoCrc,DataPrevisaoPro,KitPago,Utilizado) VALUES(?,?,?,?,?,?)");
+            pst.setInt(1, objGravaIntComp.getIdRegistroComp());
+            pst.setTimestamp(2, new java.sql.Timestamp(objGravaIntComp.getDataPagamento().getTime()));
+            pst.setInt(3, codInterno);
+            pst.setTimestamp(4, new java.sql.Timestamp(objGravaIntComp.getDataPrevisao().getTime()));
+            pst.setString(5, objGravaIntComp.getKitPago());
+            pst.setString(6, objGravaIntComp.getUtili());
+            pst.execute();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR internos do kit mensal.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objGravaIntComp;
+    }
+
+    public GravarInternosKitCompleto incluirProximoKitSemestral(GravarInternosKitCompleto objGravaIntComp) {
+        buscarInterno(objGravaIntComp.getNomeInternoCrc(), objGravaIntComp.getIdInternoCrc());
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO KITS_SEMESTRAL_INTERNOS (IdRegistroComp,DataPagto,IdInternoCrc,DataPrevisaoPro,KitPago,Utilizado) VALUES(?,?,?,?,?,?)");
+            pst.setInt(1, objGravaIntComp.getIdRegistroComp());
+            pst.setTimestamp(2, new java.sql.Timestamp(objGravaIntComp.getDataPagamento().getTime()));
+            pst.setInt(3, codInterno);
+            pst.setTimestamp(4, new java.sql.Timestamp(objGravaIntComp.getDataPrevisao().getTime()));
+            pst.setString(5, objGravaIntComp.getKitPago());
+            pst.setString(6, objGravaIntComp.getUtili());
+            pst.execute();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR internos do kit semestral.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objGravaIntComp;
+    }
+
+    public GravarInternosKitCompleto incluirProximoKitAnual(GravarInternosKitCompleto objGravaIntComp) {
+        buscarInterno(objGravaIntComp.getNomeInternoCrc(), objGravaIntComp.getIdInternoCrc());
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO KITS_ANUAL_INTERNOS (IdRegistroComp,DataPagto,IdInternoCrc,DataPrevisaoPro,KitPago,Utilizado) VALUES(?,?,?,?,?,?)");
+            pst.setInt(1, objGravaIntComp.getIdRegistroComp());
+            pst.setTimestamp(2, new java.sql.Timestamp(objGravaIntComp.getDataPagamento().getTime()));
+            pst.setInt(3, codInterno);
+            pst.setTimestamp(4, new java.sql.Timestamp(objGravaIntComp.getDataPrevisao().getTime()));
+            pst.setString(5, objGravaIntComp.getKitPago());
+            pst.setString(6, objGravaIntComp.getUtili());
+            pst.execute();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR internos do kit anual.\nERRO: " + ex);
         }
         conecta.desconecta();
         return objGravaIntComp;

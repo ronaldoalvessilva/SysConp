@@ -10,6 +10,12 @@ import gestor.Controle.ControleListaInternosDecendialTodos;
 import gestor.Controle.ControleListaInternosKitDecendialIdInternos;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.GravarInternosKitCompleto;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jRBtKitAnual;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jRBtKitDecendial;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jRBtKitInicial;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jRBtKitMensal;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jRBtKitQuinzenal;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jRBtKitSemestral;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdInternos;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -49,6 +55,7 @@ public class TelaPrevisaoKitHigiene extends javax.swing.JDialog {
      */
     public static TelaMontagemPagamentoKitInterno pagtoKit;
     public static TelaGravarProximoKitDecendial gravarKitDec;
+    public static TelaGravarProximoKitQuinzenal gravarKitQuin;
 
     public TelaPrevisaoKitHigiene(TelaMontagemPagamentoKitInterno parent, boolean modal) {
         this.pagtoKit = parent;
@@ -60,6 +67,10 @@ public class TelaPrevisaoKitHigiene extends javax.swing.JDialog {
     public void mostrarProxKitDecendial() {
         gravarKitDec = new TelaGravarProximoKitDecendial(this, true);
         gravarKitDec.setVisible(true);
+    }
+    public void mostrarProxKitQuinzenal(){
+        gravarKitQuin = new TelaGravarProximoKitQuinzenal(this, true);
+        gravarKitQuin.setVisible(true);
     }
 
     /**
@@ -765,7 +776,18 @@ public class TelaPrevisaoKitHigiene extends javax.swing.JDialog {
         } else if (rows == 0) {
             JOptionPane.showMessageDialog(rootPane, "Não existem internos selecionados para programação dos próximos pagamento de kit.");
         } else {
-            mostrarProxKitDecendial();
+            if (jRBDencendial.isSelected() == true) {
+                mostrarProxKitDecendial();
+            } else if (jRBQuinzenal.isSelected() == true) {
+                mostrarProxKitQuinzenal();
+            } else if (jRBMensal.isSelected() == true) {
+                JOptionPane.showMessageDialog(rootPane, "Kit Mensal");
+            } else if (jRBSemestral.isSelected() == true) {
+                JOptionPane.showMessageDialog(rootPane, "Kit Semestral");
+            } else if (jRBAnual.isSelected() == true) {
+                JOptionPane.showMessageDialog(rootPane, "Kit Anual");
+            }
+            
         }
     }//GEN-LAST:event_jBtConfirmarActionPerformed
 
