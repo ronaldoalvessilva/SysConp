@@ -3742,35 +3742,39 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
-            if (row == 0) {
-                JOptionPane.showMessageDialog(null, "Não existe dados na tabela a ser excluído");
-            } else if (jTabelaInternosSelecionados.getSelectedRowCount() != 0) {
-                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                        JOptionPane.YES_NO_OPTION);
-                if (resposta == JOptionPane.YES_OPTION) {
-                    count2 = count2 - 1;
-                    qtdInternos = qtdInternos + 1;
-                    //
-                    objProCrc.setKitIPago(opcaoKit);
-                    objProCrc.setIdInterno(codigoInternoPav);
-                    controleKits.atualizarInternoKitInicial(objProCrc);
-                    //
-                    objPavInt.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
-                    objPavInt.setIdInternoCrc(codigoInternoPav);
-                    controle.excluirInternosUmPorUm(objPavInt);
-                    objLog2();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    bloquearBotoes();
-                    bloquearCampos();
-                    ExcluirPavilhaoInterno();
-                    DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaInternosSelecionados.getModel();
-                    modelOrigem.removeRow(jTabelaInternosSelecionados.getSelectedRow());
-                    jtotalInternosSelecionados.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela 
-                    jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
-                    JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
-                }
+            if (jStatusComp.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(null, "Não é possível modificar esse registro, o mesmo encontra-se FINALIZADO.");
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos uma linha para excluir o registros da tabela.");
+                if (row == 0) {
+                    JOptionPane.showMessageDialog(null, "Não existe dados na tabela a ser excluído");
+                } else if (jTabelaInternosSelecionados.getSelectedRowCount() != 0) {
+                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta == JOptionPane.YES_OPTION) {
+                        count2 = count2 - 1;
+                        qtdInternos = qtdInternos + 1;
+                        //
+                        objProCrc.setKitIPago(opcaoKit);
+                        objProCrc.setIdInterno(codigoInternoPav);
+                        controleKits.atualizarInternoKitInicial(objProCrc);
+                        //
+                        objPavInt.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
+                        objPavInt.setIdInternoCrc(codigoInternoPav);
+                        controle.excluirInternosUmPorUm(objPavInt);
+                        objLog2();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        bloquearBotoes();
+                        bloquearCampos();
+                        ExcluirPavilhaoInterno();
+                        DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaInternosSelecionados.getModel();
+                        modelOrigem.removeRow(jTabelaInternosSelecionados.getSelectedRow());
+                        jtotalInternosSelecionados.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela 
+                        jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
+                        JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos uma linha para excluir o registros da tabela.");
+                }
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
@@ -3806,9 +3810,9 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     private void jBtProgramarKitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtProgramarKitActionPerformed
         // TODO add your handling code here:
-        if (jStatusComp.getText().equals("FINALIZADO")) {           
+        if (jStatusComp.getText().equals("FINALIZADO")) {
             mostrarTelaPrevisaoKit();
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "É necessário FINALIZAR O registro para poder fazer a programação do próximo kit.");
         }
     }//GEN-LAST:event_jBtProgramarKitActionPerformed

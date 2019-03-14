@@ -45,14 +45,14 @@ public class ControlePavilhaoMontaKitAnual {
                     + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
                     + "INNER JOIN PAVILHAO "
                     + "ON CELAS.IdPav=PAVILHAO.IdPav "
+                    + "INNER JOIN KITS_ANUAL_INTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=KITS_ANUAL_INTERNOS.IdInternoCrc "
                     + "WHERE PAVILHAO.DescricaoPav='" + jComboBoxPavilhoes.getSelectedItem() + "' "
                     + "AND PRONTUARIOSCRC.SituacaoCrc='" + situacaoEntrada + "' "
-                    + "AND PRONTUARIOSCRC.KitAnual='" + kitAnual + "' "
-                    + "AND PRONTUARIOSCRC.KitAPago='" + kitPago + "' "
+                    + "AND KITS_ANUAL_INTERNOS.KitPago='" + kitPago + "' "
                     + "OR PAVILHAO.DescricaoPav='" + jComboBoxPavilhoes.getSelectedItem() + "' "
                     + "AND PRONTUARIOSCRC.SituacaoCrc='" + situacaoRetorno + "' "
-                    + "AND PRONTUARIOSCRC.KitAnual='" + kitAnual + "' "
-                    + "AND PRONTUARIOSCRC.KitAPago='" + kitPago + "'"
+                    + "AND KITS_ANUAL_INTERNOS.KitPago='" + kitPago + "' "
                     + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
             while (conecta.rs.next()) {
                 PavilhaoInternoMontaKit pDigi = new PavilhaoInternoMontaKit();

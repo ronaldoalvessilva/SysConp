@@ -51,11 +51,9 @@ public class ControlePavilhaoMontaKitDecendial {
                     + "ON PRONTUARIOSCRC.IdInternoCrc=KITS_DECENDIAL_INTERNOS.IdInternoCrc "
                     + "WHERE PAVILHAO.DescricaoPav='" + jComboBoxPavilhoes.getSelectedItem() + "' "
                     + "AND PRONTUARIOSCRC.SituacaoCrc='" + situacaoEntrada + "' "
-//                    + "AND KITS_DECENDIAL_INTERNOS.KitDecendial='" + kitDecendial + "' "
                     + "AND KITS_DECENDIAL_INTERNOS.KitPago='" + kitPago + "' "
                     + "OR PAVILHAO.DescricaoPav='" + jComboBoxPavilhoes.getSelectedItem() + "' "
                     + "AND PRONTUARIOSCRC.SituacaoCrc='" + situacaoRetorno + "' "
-//                    + "AND MOVIMENTACAO_KITS_HIGIENE_INTERNOS.KitDecendial='" + kitDecendial + "' "
                     + "AND KITS_DECENDIAL_INTERNOS.KitPago='" + kitPago + "' "
                     + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
             while (conecta.rs.next()) {

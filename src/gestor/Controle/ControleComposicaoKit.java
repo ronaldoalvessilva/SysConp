@@ -99,6 +99,22 @@ public class ControleComposicaoKit {
         conecta.desconecta();
         return objComp;
     }
+    
+     public ComposicaoKit confirmarProgramacaoKit(ComposicaoKit objComp) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE SET ProgGerada=?,DataProgramacao=? "
+                    + "WHERE IdRegistroComp='" + objComp.getIdRegistroComp() + "'");
+            pst.setString(1, objComp.getProgGerada());
+            pst.setTimestamp(2, new java.sql.Timestamp(objComp.getDataProgramacao().getTime()));
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel FINALIZAR registro.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objComp;
+    }
 
     public void buscarColaborador(String nome, int codigo) {
         conecta.abrirConexao();

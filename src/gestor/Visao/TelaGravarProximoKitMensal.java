@@ -25,7 +25,7 @@ import javax.swing.JOptionPane;
  *
  * @author ronal
  */
-public class TelaGravarProximoKitQuinzenal extends javax.swing.JDialog {
+public class TelaGravarProximoKitMensal extends javax.swing.JDialog {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     GravarInternosKitCompleto objGravaIntComp = new GravarInternosKitCompleto();
@@ -34,7 +34,7 @@ public class TelaGravarProximoKitQuinzenal extends javax.swing.JDialog {
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log   
-    String nomeModuloTela2 = "Almoxarifado:Montagem de Pagamento do Kit de Interno:Gravar Kit Quinzenal";
+    String nomeModuloTela2 = "Almoxarifado:Montagem de Pagamento do Kit de Interno:Gravar Kit Mensal";
     //    
     int IdRegInternosKC = 0;
     int codigoPavilhao = 0;
@@ -54,7 +54,7 @@ public class TelaGravarProximoKitQuinzenal extends javax.swing.JDialog {
      */
     public static TelaPrevisaoKitHigiene gravarProximoKitQuinzenal;
 
-    public TelaGravarProximoKitQuinzenal(TelaPrevisaoKitHigiene parent, boolean modal) {
+    public TelaGravarProximoKitMensal(TelaPrevisaoKitHigiene parent, boolean modal) {
         this.gravarProximoKitQuinzenal = parent;
         this.setModal(modal);
         setLocationRelativeTo(gravarProximoKitQuinzenal);
@@ -154,14 +154,18 @@ public class TelaGravarProximoKitQuinzenal extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaGravarProximoKitQuinzenal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaGravarProximoKitMensal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaGravarProximoKitQuinzenal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaGravarProximoKitMensal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaGravarProximoKitQuinzenal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaGravarProximoKitMensal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaGravarProximoKitQuinzenal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaGravarProximoKitMensal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -170,7 +174,7 @@ public class TelaGravarProximoKitQuinzenal extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                TelaGravarProximoKitQuinzenal dialog = new TelaGravarProximoKitQuinzenal(gravarProximoKitQuinzenal, true);
+                TelaGravarProximoKitMensal dialog = new TelaGravarProximoKitMensal(gravarProximoKitQuinzenal, true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -214,25 +218,25 @@ public class TelaGravarProximoKitQuinzenal extends javax.swing.JDialog {
                         verificarInternoBancoDados(objGravaIntComp.getIdRegistroComp(), objGravaIntComp.getIdInternoCrc());
                         // SE O REGISTRO FOR IGUAL E O INTERNO DIFERENTE, GRAVA
                         if (objGravaIntComp.getIdRegistroComp() == codigoRegistro && objGravaIntComp.getIdInternoCrc() != codigoInterno) {
-                            controle.incluirProximoKitQuinzenal(objGravaIntComp); 
+                            controle.incluirProximoKitMensal(objGravaIntComp); 
                             buscarCodigoRegistroInternoKitCompleto();
                             objLog2();
                             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
                             // SE O REGISTRO FOR DIFERENTE GRAVA OS NOVOS INTERNOS
                         } else if (objGravaIntComp.getIdRegistroComp() != codigoRegistro) {
-                            controle.incluirProximoKitQuinzenal(objGravaIntComp);    
+                            controle.incluirProximoKitMensal(objGravaIntComp);  
                             buscarCodigoRegistroInternoKitCompleto();                            
                             objLog2();
                             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
                             // SE O CODIGO DO INTERNO FOR ZERO
                         } else if (codigoRegistro == 0) {
-                            controle.incluirProximoKitQuinzenal(objGravaIntComp);   
+                            controle.incluirProximoKitMensal(objGravaIntComp);  
                             buscarCodigoRegistroInternoKitCompleto();                            
                             objLog2();
                             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
                             // SE O CODIGO DO REGISTRO FOR DIFERENTE E O CÓDIGO DO INTERNO FOR DIFERENTE GRAVA
                         } else if (objGravaIntComp.getIdRegistroComp() != codigoRegistro && objGravaIntComp.getIdInternoCrc() != codigoInterno) {
-                            controle.incluirProximoKitQuinzenal(objGravaIntComp);   
+                            controle.incluirProximoKitMensal(objGravaIntComp);  
                             buscarCodigoRegistroInternoKitCompleto();                            
                             objLog2();
                             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
@@ -283,9 +287,9 @@ public class TelaGravarProximoKitQuinzenal extends javax.swing.JDialog {
     public void buscarCodigoRegistroInternoKitCompleto() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM KITS_QUINZENAL_INTERNOS");
+            conecta.executaSQL("SELECT * FROM KITS_MENSAL_INTERNOS");
             conecta.rs.last();
-            IdRegInternosKC = conecta.rs.getInt("IdKitQuinzenal");
+            IdRegInternosKC = conecta.rs.getInt("IdKitMensal");
         } catch (Exception ERROR) {
         }
         conecta.desconecta();
@@ -296,8 +300,8 @@ public class TelaGravarProximoKitQuinzenal extends javax.swing.JDialog {
     public void verificarInternoBancoDados(int codigoReg, int codInternoCrc) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM KITS_QUINZENAL_INTERNOS "
-                    + "WHERE IdKitQuinzenal='" + codigoReg + "' "
+            conecta.executaSQL("SELECT * FROM KITS_MENSAL_INTERNOS "
+                    + "WHERE IdKitMensal='" + codigoReg + "' "
                     + "AND IdInternoCrc='" + codInternoCrc + "'");
             conecta.rs.last();
             codigoInterno = conecta.rs.getInt("IdInternoCrc");

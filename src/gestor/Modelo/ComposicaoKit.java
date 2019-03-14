@@ -21,6 +21,8 @@ public class ComposicaoKit {
     private int idFunc;
     private String nomeColaborador;
     private String observacao;
+    private String progGerada;
+    private Date dataProgramacao;
     private String usuarioInsert;
     private String usuarioUp;
     private String dataInsert;
@@ -31,7 +33,7 @@ public class ComposicaoKit {
     public ComposicaoKit() {
     }
 
-    public ComposicaoKit(int idRegistroComp, String statusComp, Date dataComp, int idKit, int idItem, int idFunc, String nomeColaborador, String observacao, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
+    public ComposicaoKit(int idRegistroComp, String statusComp, Date dataComp, int idKit, int idItem, int idFunc, String nomeColaborador, String observacao, String progGerada, Date dataProgramacao, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
         this.idRegistroComp = idRegistroComp;
         this.statusComp = statusComp;
         this.dataComp = dataComp;
@@ -40,6 +42,8 @@ public class ComposicaoKit {
         this.idFunc = idFunc;
         this.nomeColaborador = nomeColaborador;
         this.observacao = observacao;
+        this.progGerada = progGerada;
+        this.dataProgramacao = dataProgramacao;
         this.usuarioInsert = usuarioInsert;
         this.usuarioUp = usuarioUp;
         this.dataInsert = dataInsert;
@@ -161,6 +165,34 @@ public class ComposicaoKit {
     }
 
     /**
+     * @return the progGerada
+     */
+    public String getProgGerada() {
+        return progGerada;
+    }
+
+    /**
+     * @param progGerada the progGerada to set
+     */
+    public void setProgGerada(String progGerada) {
+        this.progGerada = progGerada;
+    }
+
+    /**
+     * @return the dataProgramacao
+     */
+    public Date getDataProgramacao() {
+        return dataProgramacao;
+    }
+
+    /**
+     * @param dataProgramacao the dataProgramacao to set
+     */
+    public void setDataProgramacao(Date dataProgramacao) {
+        this.dataProgramacao = dataProgramacao;
+    }
+
+    /**
      * @return the usuarioInsert
      */
     public String getUsuarioInsert() {
@@ -243,5 +275,4 @@ public class ComposicaoKit {
     public void setHorarioUp(String horarioUp) {
         this.horarioUp = horarioUp;
     }
-
 }

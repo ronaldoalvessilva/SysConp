@@ -5,17 +5,14 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleComposicaoKit;
 import gestor.Controle.ControleKitDecendialNomeInterno;
 import gestor.Controle.ControleListaInternosDecendialTodos;
 import gestor.Controle.ControleListaInternosKitDecendialIdInternos;
 import gestor.Dao.ConexaoBancoDados;
+import gestor.Modelo.ComposicaoKit;
 import gestor.Modelo.GravarInternosKitCompleto;
-import static gestor.Visao.TelaMontagemPagamentoKitInterno.jRBtKitAnual;
-import static gestor.Visao.TelaMontagemPagamentoKitInterno.jRBtKitDecendial;
-import static gestor.Visao.TelaMontagemPagamentoKitInterno.jRBtKitInicial;
-import static gestor.Visao.TelaMontagemPagamentoKitInterno.jRBtKitMensal;
-import static gestor.Visao.TelaMontagemPagamentoKitInterno.jRBtKitQuinzenal;
-import static gestor.Visao.TelaMontagemPagamentoKitInterno.jRBtKitSemestral;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jIdRegistroComp;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdInternos;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -34,6 +31,8 @@ import javax.swing.table.DefaultTableModel;
 public class TelaPrevisaoKitHigiene extends javax.swing.JDialog {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
+    ComposicaoKit objComp = new ComposicaoKit();
+    ControleComposicaoKit control = new ControleComposicaoKit();
     //KIT DECENDIAL
     ControleListaInternosDecendialTodos controle = new ControleListaInternosDecendialTodos();
     ControleListaInternosKitDecendialIdInternos controleKD = new ControleListaInternosKitDecendialIdInternos();
@@ -49,6 +48,9 @@ public class TelaPrevisaoKitHigiene extends javax.swing.JDialog {
     String idInterno;
     String codInter;
     int flag = 0;
+    //
+    String gerado = "";
+    String idRegistro = "";
 
     /**
      * Creates new form TelaPrevisaoKitHigiene
@@ -56,6 +58,9 @@ public class TelaPrevisaoKitHigiene extends javax.swing.JDialog {
     public static TelaMontagemPagamentoKitInterno pagtoKit;
     public static TelaGravarProximoKitDecendial gravarKitDec;
     public static TelaGravarProximoKitQuinzenal gravarKitQuin;
+    public static TelaGravarProximoKitMensal gravarKitMensa;
+    public static TelaGravarProximoKitSemestral gravarKitSeme;
+    public static TelaGravarProximoKitAnual gravaKitAnua;
 
     public TelaPrevisaoKitHigiene(TelaMontagemPagamentoKitInterno parent, boolean modal) {
         this.pagtoKit = parent;
@@ -68,9 +73,25 @@ public class TelaPrevisaoKitHigiene extends javax.swing.JDialog {
         gravarKitDec = new TelaGravarProximoKitDecendial(this, true);
         gravarKitDec.setVisible(true);
     }
-    public void mostrarProxKitQuinzenal(){
+
+    public void mostrarProxKitQuinzenal() {
         gravarKitQuin = new TelaGravarProximoKitQuinzenal(this, true);
         gravarKitQuin.setVisible(true);
+    }
+
+    public void mostrarProxKitMensal() {
+        gravarKitMensa = new TelaGravarProximoKitMensal(this, true);
+        gravarKitMensa.setVisible(true);
+    }
+
+    public void mostrarProxKitSemestral() {
+        gravarKitSeme = new TelaGravarProximoKitSemestral(this, true);
+        gravarKitSeme.setVisible(true);
+    }
+
+    public void mostrarProxKitAnual() {
+        gravaKitAnua = new TelaGravarProximoKitAnual(this, true);
+        gravaKitAnua.setVisible(true);
     }
 
     /**
@@ -711,16 +732,104 @@ public class TelaPrevisaoKitHigiene extends javax.swing.JDialog {
             }
         } else if (jRBQuinzenal.isSelected()) {
             tipoKit = 2;
-            JOptionPane.showMessageDialog(rootPane, "Ainda não tem dados do kit Quinzenal.");
+            if (evt.getStateChange() == evt.SELECTED) {
+                qtdInternos = 0;
+                Integer row = jTabelaDestino.getRowCount();
+                if (row == 0) {
+                    mostraSelecaoInternos();
+                }
+            } else {
+                // APAGAR TODOS OS REGISTROS DA TABELA COPIADA
+                DefaultTableModel tblRemove = (DefaultTableModel) jTabelaOrigem.getModel();
+                if (tblRemove.getRowCount() > 0) {
+                    for (int i = 0; i <= tblRemove.getRowCount(); i++) {
+                        tblRemove.removeRow(i);
+                        tblRemove.setRowCount(0);
+                        if (tblRemove.getRowCount() < i) {
+                            tblRemove.removeRow(i);
+                            tblRemove.setRowCount(0);
+                        }
+                    }
+                }
+                // LIMPAR O TOTALIZADOR DA TABELA
+                qtdInternos = 0;
+                jtotalOrigem.setText(Integer.toString(qtdInternos));
+            }
         } else if (jRBMensal.isSelected()) {
             tipoKit = 3;
-            JOptionPane.showMessageDialog(rootPane, "Ainda não tem dados do kit Mensal.");
+            if (evt.getStateChange() == evt.SELECTED) {
+                qtdInternos = 0;
+                Integer row = jTabelaDestino.getRowCount();
+                if (row == 0) {
+                    mostraSelecaoInternos();
+                }
+            } else {
+                // APAGAR TODOS OS REGISTROS DA TABELA COPIADA
+                DefaultTableModel tblRemove = (DefaultTableModel) jTabelaOrigem.getModel();
+                if (tblRemove.getRowCount() > 0) {
+                    for (int i = 0; i <= tblRemove.getRowCount(); i++) {
+                        tblRemove.removeRow(i);
+                        tblRemove.setRowCount(0);
+                        if (tblRemove.getRowCount() < i) {
+                            tblRemove.removeRow(i);
+                            tblRemove.setRowCount(0);
+                        }
+                    }
+                }
+                // LIMPAR O TOTALIZADOR DA TABELA
+                qtdInternos = 0;
+                jtotalOrigem.setText(Integer.toString(qtdInternos));
+            }
         } else if (jRBSemestral.isSelected()) {
             tipoKit = 4;
-            JOptionPane.showMessageDialog(rootPane, "Ainda não tem dados do kit Semestral.");
+            if (evt.getStateChange() == evt.SELECTED) {
+                qtdInternos = 0;
+                Integer row = jTabelaDestino.getRowCount();
+                if (row == 0) {
+                    mostraSelecaoInternos();
+                }
+            } else {
+                // APAGAR TODOS OS REGISTROS DA TABELA COPIADA
+                DefaultTableModel tblRemove = (DefaultTableModel) jTabelaOrigem.getModel();
+                if (tblRemove.getRowCount() > 0) {
+                    for (int i = 0; i <= tblRemove.getRowCount(); i++) {
+                        tblRemove.removeRow(i);
+                        tblRemove.setRowCount(0);
+                        if (tblRemove.getRowCount() < i) {
+                            tblRemove.removeRow(i);
+                            tblRemove.setRowCount(0);
+                        }
+                    }
+                }
+                // LIMPAR O TOTALIZADOR DA TABELA
+                qtdInternos = 0;
+                jtotalOrigem.setText(Integer.toString(qtdInternos));
+            }
         } else if (jRBAnual.isSelected()) {
             tipoKit = 5;
-            JOptionPane.showMessageDialog(rootPane, "Ainda não tem dados Anual.");
+            if (evt.getStateChange() == evt.SELECTED) {
+                qtdInternos = 0;
+                Integer row = jTabelaDestino.getRowCount();
+                if (row == 0) {
+                    mostraSelecaoInternos();
+                }
+            } else {
+                // APAGAR TODOS OS REGISTROS DA TABELA COPIADA
+                DefaultTableModel tblRemove = (DefaultTableModel) jTabelaOrigem.getModel();
+                if (tblRemove.getRowCount() > 0) {
+                    for (int i = 0; i <= tblRemove.getRowCount(); i++) {
+                        tblRemove.removeRow(i);
+                        tblRemove.setRowCount(0);
+                        if (tblRemove.getRowCount() < i) {
+                            tblRemove.removeRow(i);
+                            tblRemove.setRowCount(0);
+                        }
+                    }
+                }
+                // LIMPAR O TOTALIZADOR DA TABELA
+                qtdInternos = 0;
+                jtotalOrigem.setText(Integer.toString(qtdInternos));
+            }
         }
     }//GEN-LAST:event_jCheckBoxTodosItemStateChanged
 
@@ -756,12 +865,104 @@ public class TelaPrevisaoKitHigiene extends javax.swing.JDialog {
                 }
             } else if (jRBQuinzenal.isSelected()) {
                 tipoKit = 2;
+                while (jTabelaOrigem.getModel().getRowCount() > 0) {
+                    ((DefaultTableModel) jTabelaOrigem.getModel()).removeRow(0);
+                }
+                totalRegistro = 0;
+                qtdInternos = 0;
+                DefaultTableModel tabelaOrigem = (DefaultTableModel) jTabelaOrigem.getModel();
+                GravarInternosKitCompleto d = new GravarInternosKitCompleto();
+                try {
+                    for (GravarInternosKitCompleto dd : controlNome.read()) {
+                        jtotalOrigem.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
+                        Object campos[] = {dd.getIdInternoCrc(), dd.getNomeInternoCrc()};
+                        tabelaOrigem.addRow(campos);
+                        // BARRA DE ROLAGEM HORIZONTAL
+                        jTabelaOrigem.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                        // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                        //
+                        jTabelaOrigem.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(TelaPrevisaoKitHigiene.class.getName()).log(Level.SEVERE, null, ex);
+                }
             } else if (jRBMensal.isSelected()) {
                 tipoKit = 3;
+                while (jTabelaOrigem.getModel().getRowCount() > 0) {
+                    ((DefaultTableModel) jTabelaOrigem.getModel()).removeRow(0);
+                }
+                totalRegistro = 0;
+                qtdInternos = 0;
+                DefaultTableModel tabelaOrigem = (DefaultTableModel) jTabelaOrigem.getModel();
+                GravarInternosKitCompleto d = new GravarInternosKitCompleto();
+                try {
+                    for (GravarInternosKitCompleto dd : controlNome.read()) {
+                        jtotalOrigem.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
+                        Object campos[] = {dd.getIdInternoCrc(), dd.getNomeInternoCrc()};
+                        tabelaOrigem.addRow(campos);
+                        // BARRA DE ROLAGEM HORIZONTAL
+                        jTabelaOrigem.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                        // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                        //
+                        jTabelaOrigem.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(TelaPrevisaoKitHigiene.class.getName()).log(Level.SEVERE, null, ex);
+                }
             } else if (jRBSemestral.isSelected()) {
                 tipoKit = 4;
+                while (jTabelaOrigem.getModel().getRowCount() > 0) {
+                    ((DefaultTableModel) jTabelaOrigem.getModel()).removeRow(0);
+                }
+                totalRegistro = 0;
+                qtdInternos = 0;
+                DefaultTableModel tabelaOrigem = (DefaultTableModel) jTabelaOrigem.getModel();
+                GravarInternosKitCompleto d = new GravarInternosKitCompleto();
+                try {
+                    for (GravarInternosKitCompleto dd : controlNome.read()) {
+                        jtotalOrigem.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
+                        Object campos[] = {dd.getIdInternoCrc(), dd.getNomeInternoCrc()};
+                        tabelaOrigem.addRow(campos);
+                        // BARRA DE ROLAGEM HORIZONTAL
+                        jTabelaOrigem.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                        // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                        //
+                        jTabelaOrigem.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(TelaPrevisaoKitHigiene.class.getName()).log(Level.SEVERE, null, ex);
+                }
             } else if (jRBAnual.isSelected()) {
                 tipoKit = 5;
+                while (jTabelaOrigem.getModel().getRowCount() > 0) {
+                    ((DefaultTableModel) jTabelaOrigem.getModel()).removeRow(0);
+                }
+                totalRegistro = 0;
+                qtdInternos = 0;
+                DefaultTableModel tabelaOrigem = (DefaultTableModel) jTabelaOrigem.getModel();
+                GravarInternosKitCompleto d = new GravarInternosKitCompleto();
+                try {
+                    for (GravarInternosKitCompleto dd : controlNome.read()) {
+                        jtotalOrigem.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
+                        Object campos[] = {dd.getIdInternoCrc(), dd.getNomeInternoCrc()};
+                        tabelaOrigem.addRow(campos);
+                        // BARRA DE ROLAGEM HORIZONTAL
+                        jTabelaOrigem.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                        // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                        //
+                        jTabelaOrigem.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(TelaPrevisaoKitHigiene.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }//GEN-LAST:event_jBtNomePesquisaActionPerformed
@@ -776,18 +977,23 @@ public class TelaPrevisaoKitHigiene extends javax.swing.JDialog {
         } else if (rows == 0) {
             JOptionPane.showMessageDialog(rootPane, "Não existem internos selecionados para programação dos próximos pagamento de kit.");
         } else {
-            if (jRBDencendial.isSelected() == true) {
-                mostrarProxKitDecendial();
-            } else if (jRBQuinzenal.isSelected() == true) {
-                mostrarProxKitQuinzenal();
-            } else if (jRBMensal.isSelected() == true) {
-                JOptionPane.showMessageDialog(rootPane, "Kit Mensal");
-            } else if (jRBSemestral.isSelected() == true) {
-                JOptionPane.showMessageDialog(rootPane, "Kit Semestral");
-            } else if (jRBAnual.isSelected() == true) {
-                JOptionPane.showMessageDialog(rootPane, "Kit Anual");
+            // VERIFICAR SE JÁ FOI GERADO A PREVISÃO
+            pesquisarDataPrevisao();
+            if (gerado == null && jIdRegistroComp.getText().equals(idRegistro)) {
+                if (jRBDencendial.isSelected() == true) {
+                    mostrarProxKitDecendial();
+                } else if (jRBQuinzenal.isSelected() == true) {
+                    mostrarProxKitQuinzenal();
+                } else if (jRBMensal.isSelected() == true) {
+                    mostrarProxKitMensal();
+                } else if (jRBSemestral.isSelected() == true) {
+                    mostrarProxKitSemestral();
+                } else if (jRBAnual.isSelected() == true) {
+                    mostrarProxKitAnual();
+                }
+            } else if (jIdRegistroComp.getText().equals(idRegistro) && gerado.equals("Sim")) {
+                JOptionPane.showMessageDialog(rootPane, "Já foi gerado a previsão de pagamento referente a esse registro.");
             }
-            
         }
     }//GEN-LAST:event_jBtConfirmarActionPerformed
 
@@ -859,7 +1065,6 @@ public class TelaPrevisaoKitHigiene extends javax.swing.JDialog {
                     centralizado.setHorizontalAlignment(SwingConstants.CENTER);
                     //
                     jTabelaDestino.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-
                 }
             } catch (Exception ex) {
                 Logger.getLogger(TelaMontagemPagamentoKitInterno.class
@@ -1087,5 +1292,19 @@ public class TelaPrevisaoKitHigiene extends javax.swing.JDialog {
             dataFormatada.format(a);
             jDataPrevisao.setDate(a);
         }
+    }
+
+    // VERIFICAR SE A DATA DE PREVISÃO JÁ FOI CADASTRADA E ALERTAR O USUÁRIO
+    public void pesquisarDataPrevisao() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
+                    + "WHERE IdRegistroComp='" + jIdRegistroComp.getText() + "' ");
+            conecta.rs.first();
+            gerado = conecta.rs.getString("ProgGerada");
+            idRegistro = conecta.rs.getString("IdRegistroComp");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }
