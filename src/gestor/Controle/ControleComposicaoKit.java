@@ -135,7 +135,7 @@ public class ControleComposicaoKit {
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON INTERNOS_PAVILHAO_KIT_LOTE.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "INNER JOIN COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
-                    + "ON INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp=INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp "
+                    + "ON INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp=COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp "
                     + "WHERE INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp='" + jIdRegistroComp.getText() + "'");
             while (conecta.rs.next()) {
                 PavilhaoInternosSelecionados pDigiSelec = new PavilhaoInternosSelecionados();
