@@ -5,6 +5,8 @@
  */
 package gestor.Modelo;
 
+import java.util.Date;
+
 /**
  *
  * @author ronal
@@ -35,11 +37,12 @@ public class ProdutoInternosKitLote {
     private String horarioInsert;
     private String horarioUp;
     private float qtdKit;
+    private Date dataPagto;
 
     public ProdutoInternosKitLote() {
     }
 
-    public ProdutoInternosKitLote(int idRegProdKit, int idRegistroComp, int idKit, int idPav, String descricaoPavilhao, int idInternoCrc, String nomeInternoCrc, int idProd, String descricaoProduto, String unidadeProd, float quantidadeProd, int tipoKitCI, String agrupado, int gravado, String liberado, String pUtili, String pago, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, float qtdKit) {
+    public ProdutoInternosKitLote(int idRegProdKit, int idRegistroComp, int idKit, int idPav, String descricaoPavilhao, int idInternoCrc, String nomeInternoCrc, int idProd, String descricaoProduto, String unidadeProd, float quantidadeProd, int tipoKitCI, String agrupado, int gravado, String liberado, String pUtili, String pago, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, float qtdKit, Date dataPagto) {
         this.idRegProdKit = idRegProdKit;
         this.idRegistroComp = idRegistroComp;
         this.idKit = idKit;
@@ -64,6 +67,7 @@ public class ProdutoInternosKitLote {
         this.horarioInsert = horarioInsert;
         this.horarioUp = horarioUp;
         this.qtdKit = qtdKit;
+        this.dataPagto = dataPagto;
     }
 
     /**
@@ -400,5 +404,19 @@ public class ProdutoInternosKitLote {
      */
     public void setQtdKit(float qtdKit) {
         this.qtdKit = qtdKit;
+    }
+
+    /**
+     * @return the dataPagto
+     */
+    public Date getDataPagto() {
+        return dataPagto;
+    }
+
+    /**
+     * @param dataPagto the dataPagto to set
+     */
+    public void setDataPagto(Date dataPagto) {
+        this.dataPagto = dataPagto;
     }
 }

@@ -99,7 +99,7 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
     private TelaPavilhaoBGP objPav = null;
     private TelaCelasBGP objCelas = null;
     private TelaConsultaOficialJusticaBGP objConsultaOFJUS = null;
-    private TelaPagamentoKitInterno objKit = null;
+    private TelaPagamentoKitInternoCPK objKit = null;
     private TelaAlertaPreLocacaoTriagem objAlertaPreLocacao = null;
     private TelaAlertaBasesPavilhoes objAlertaVPI = null;
     //
@@ -1099,7 +1099,7 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
         buscarAcessoUsuario(telaEntregaMaterialUsoB1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB1.equals("ADMINISTRADORES") || codigoUserB1 == codUserAcessoB1 && nomeTelaB1.equals(telaEntregaMaterialUsoB1) && codAbrirB1 == 1) {
             if (objKit == null || objKit.isClosed()) {
-                objKit = new TelaPagamentoKitInterno();
+                objKit = new TelaPagamentoKitInternoCPK();
                 jPainelBaseSegurancaPavilhao.add(objKit);
                 objKit.setVisible(true);
             } else {
@@ -1114,7 +1114,7 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
                         objKit.pack();//volta frame
                     }
                 } else {
-                    objKit = new TelaPagamentoKitInterno();
+                    objKit = new TelaPagamentoKitInternoCPK();
                     TelaModuloBaseUm.jPainelBaseSegurancaPavilhao.add(objKit);//adicona frame ao JDesktopPane
                     objKit.setVisible(true);
                 }
