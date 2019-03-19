@@ -121,6 +121,9 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     int count3 = 0;
     //
     String codRequisicao = "";
+    String codRequisicao1 = "";
+    String codRequisicao2 = "";
+    String codRequisicao3 = "";
 
     String caminho;
     int Inicial = 0;
@@ -178,7 +181,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     String opcaoKit = "Não";
     // 1 - INICIAL, 2 - DECENTIAL, 3 - QUINZENAL, 4 - MENSAL, 5 - SEMESTRAL E 6 - ANUAL.
     //
-    String kitUtilizado = "Não";    
+    String kitUtilizado = "Não";
 
     /**
      * Creates new form TelaMontagemPagamentoKitInterno
@@ -200,7 +203,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         initComponents();
         setResizable(false);
         formatarCampos();
-        corCampos();        
+        corCampos();
     }
 
     public void mostrarBuscaKit() {
@@ -2385,7 +2388,10 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 dataModFinal = jDataSistema.getText();
                 verificarDadosIniciais();
                 //
-                if (jIdRegistroComp.getText().equals(codRequisicao)) {
+                if (jIdRegistroComp.getText().equals(codRequisicao)
+                        || jIdRegistroComp.getText().equals(codRequisicao1)
+                        || jIdRegistroComp.getText().equals(codRequisicao2)
+                        || jIdRegistroComp.getText().equals(codRequisicao3)) {
                     JOptionPane.showMessageDialog(rootPane, "Antes de excluir esse Lançamento, será necessário\nexcluir primeiro os itens relacionados a esse registro.");
                 } else {
                     int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
@@ -2640,7 +2646,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                     bloquearBotoes();
                     bloquearCampos();
                     NovoPavilhaoInterno();
-                    pesquisarPavilhao();                    
+                    pesquisarPavilhao();
                     jBtExcluirPavInternosTodos.setEnabled(!true);
                     jBtExcluirInternosUmaUm.setEnabled(!true);
                 }
@@ -2653,6 +2659,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     private void jBtExcluirPavInternosTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirPavInternosTodosActionPerformed
         // TODO add your handling code here:        
         Integer rows = jTabelaInternosKitCompleto.getRowCount();
+        Integer row = jTabelaProdutosKitCompleto.getRowCount();
+        Integer row1 = jTabelaProdutos.getRowCount();
         buscarAcessoUsuario(telaMontagemPagamentoKitPavIntAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitPavIntAL) && codExcluirAL == 1) {
             if (jStatusComp.getText().equals("FINALIZADO")) {
@@ -2661,7 +2669,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 statusMov = "Excluiu";
                 horaMov = jHoraSistema.getText();
                 dataModFinal = jDataSistema.getText();
-                if (rows != 0) {
+                if (rows != 0 || row != 0 || row1 != 0) {
                     JOptionPane.showMessageDialog(null, "Não é possível excluir os registros dessa tabela, os mesmos estão sendo utilizados em outro local.");
                 } else {
                     int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
@@ -3187,39 +3195,45 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             if (jStatusComp.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
             } else {
-                DecimalFormat qtdReal = new DecimalFormat("###,##00.0");
-                qtdReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
-                statusMov = "Excluiu";
-                horaMov = jHoraSistema.getText();
-                dataModFinal = jDataSistema.getText();
-                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                        JOptionPane.YES_NO_OPTION);
-                if (resposta == JOptionPane.YES_OPTION) {
-                    objItensReqMatInter.setIdProd(Integer.valueOf(jCodigoProd.getText()));
-                    pegarSaldoEstoque(objItensReqMatInter.getIdProd());
-                    try {
-                        objProdKit.setQuantidadeProd(qtdReal.parse(jQtdAtendida.getText()).floatValue());
-                    } catch (ParseException ex) {
+                Integer rows = jTabelaInternosKitCompleto.getRowCount();
+                Integer row = jTabelaProdutosKitCompleto.getRowCount();
+                if (rows != 0 || row != 0) {
+                    JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, existe registro em outra tabela.");
+                } else {
+                    DecimalFormat qtdReal = new DecimalFormat("###,##00.0");
+                    qtdReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
+                    statusMov = "Excluiu";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta == JOptionPane.YES_OPTION) {
+                        objItensReqMatInter.setIdProd(Integer.valueOf(jCodigoProd.getText()));
+                        pegarSaldoEstoque(objItensReqMatInter.getIdProd());
+                        try {
+                            objProdKit.setQuantidadeProd(qtdReal.parse(jQtdAtendida.getText()).floatValue());
+                        } catch (ParseException ex) {
+                        }
+                        // CALCULA O NOVO SALDO DE ESTOQUE
+                        estoqueAtual = saldoEstoque + objProdKit.getQuantidadeProd();
+                        // ATUALIZA O SALDO NA TABELA LOTE_PRODUTOS_AC
+                        objItensReqMatInter.setIdProd(Integer.valueOf(jCodigoProd.getText()));
+                        objItensReqMatInter.setQtdItem(estoqueAtual);
+                        controleLote.alterarEstoqueMaterais(objItensReqMatInter); // TABELA DE LOTE_PRODUTOS_AC  
+                        //EXCLUIR DA TABELA ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE
+                        objProdKit.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
+                        objProdKit.setIdProd(Integer.valueOf(jCodigoProd.getText()));
+                        controleProd.excluirProdutosKitInternos(objProdKit);
+                        //
+                        bloquearCampos();
+                        bloquearBotoes();
+                        ExcluirProduto();
+                        preencherTabelaProdutos("SELECT * FROM ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE "
+                                + "INNER JOIN PRODUTOS_AC "
+                                + "ON ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdProd=PRODUTOS_AC.IdProd  "
+                                + "WHERE ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp='" + jIdRegistroComp.getText() + "'");
+                        JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
                     }
-                    // CALCULA O NOVO SALDO DE ESTOQUE
-                    estoqueAtual = saldoEstoque + objProdKit.getQuantidadeProd();
-                    // ATUALIZA O SALDO NA TABELA LOTE_PRODUTOS_AC
-                    objItensReqMatInter.setIdProd(Integer.valueOf(jCodigoProd.getText()));
-                    objItensReqMatInter.setQtdItem(estoqueAtual);
-                    controleLote.alterarEstoqueMaterais(objItensReqMatInter); // TABELA DE LOTE_PRODUTOS_AC  
-                    //EXCLUIR DA TABELA ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE
-                    objProdKit.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
-                    objProdKit.setIdProd(Integer.valueOf(jCodigoProd.getText()));
-                    controleProd.excluirProdutosKitInternos(objProdKit);
-                    //
-                    bloquearCampos();
-                    bloquearBotoes();
-                    ExcluirProduto();
-                    preencherTabelaProdutos("SELECT * FROM ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE "
-                            + "INNER JOIN PRODUTOS_AC "
-                            + "ON ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdProd=PRODUTOS_AC.IdProd  "
-                            + "WHERE ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp='" + jIdRegistroComp.getText() + "'");
-                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
                 }
             }
         } else {
@@ -3420,6 +3434,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 acao = 5;
                 tipoKitCI = 1;
                 mostrarSelecaoInternos();
+                bloquearBotoes();
+                bloquearCampos();
                 jBtSalvarInternosSelecionados.setEnabled(true);
                 jBtExcluirTodosInternosSelecionados.setEnabled(true);
                 jBtExcluirUmInternoAgrupado.setEnabled(true);
@@ -3732,6 +3748,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     private void jBtExcluirInternosUmaUmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirInternosUmaUmActionPerformed
         // TODO add your handling code here:
         Integer row = jTabelaInternosSelecionados.getRowCount();
+        Integer rows = jTabelaInternosKitCompleto.getRowCount();
+        Integer rowss = jTabelaProdutosKitCompleto.getRowCount();
         buscarAcessoUsuario(telaMontagemPagamentoKitPavIntAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitPavIntAL) && codExcluirAL == 1) {
             statusMov = "Excluiu";
@@ -3740,35 +3758,39 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             if (jStatusComp.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(null, "Não é possível modificar esse registro, o mesmo encontra-se FINALIZADO.");
             } else {
-                if (row == 0) {
-                    JOptionPane.showMessageDialog(null, "Não existe dados na tabela a ser excluído");
-                } else if (jTabelaInternosSelecionados.getSelectedRowCount() != 0) {
-                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                            JOptionPane.YES_NO_OPTION);
-                    if (resposta == JOptionPane.YES_OPTION) {
-                        count2 = count2 - 1;
-                        qtdInternos = qtdInternos + 1;
-                        //
-                        objProCrc.setKitIPago(opcaoKit);
-                        objProCrc.setIdInterno(codigoInternoPav);
-                        controleKits.atualizarInternoKitInicial(objProCrc);
-                        //
-                        objPavInt.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
-                        objPavInt.setIdInternoCrc(codigoInternoPav);
-                        controle.excluirInternosUmPorUm(objPavInt);
-                        objLog2();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        bloquearBotoes();
-                        bloquearCampos();
-                        ExcluirPavilhaoInterno();
-                        DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaInternosSelecionados.getModel();
-                        modelOrigem.removeRow(jTabelaInternosSelecionados.getSelectedRow());
-                        jtotalInternosSelecionados.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela 
-                        jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
-                        JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
-                    }
+                if (rows != 0 || rowss != 0) {
+                    JOptionPane.showMessageDialog(null, "Não é possível excluir esse registro, existem itens relacionados a esse registro.");
                 } else {
-                    JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos uma linha para excluir o registros da tabela.");
+                    if (row == 0) {
+                        JOptionPane.showMessageDialog(null, "Não existe dados na tabela a ser excluído");
+                    } else if (jTabelaInternosSelecionados.getSelectedRowCount() != 0) {
+                        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                                JOptionPane.YES_NO_OPTION);
+                        if (resposta == JOptionPane.YES_OPTION) {
+                            count2 = count2 - 1;
+                            qtdInternos = qtdInternos + 1;
+                            //
+                            objProCrc.setKitIPago(opcaoKit);
+                            objProCrc.setIdInterno(codigoInternoPav);
+                            controleKits.atualizarInternoKitInicial(objProCrc);
+                            //
+                            objPavInt.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
+                            objPavInt.setIdInternoCrc(codigoInternoPav);
+                            controle.excluirInternosUmPorUm(objPavInt);
+                            objLog2();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            bloquearBotoes();
+                            bloquearCampos();
+                            ExcluirPavilhaoInterno();
+                            DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaInternosSelecionados.getModel();
+                            modelOrigem.removeRow(jTabelaInternosSelecionados.getSelectedRow());
+                            jtotalInternosSelecionados.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela 
+                            jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
+                            JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos uma linha para excluir o registros da tabela.");
+                    }
                 }
             }
         } else {
@@ -3841,7 +3863,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public static javax.swing.JButton jBtFinalizar;
     public static javax.swing.JButton jBtNovo;
     public static javax.swing.JButton jBtNovoPavInternos;
-    private javax.swing.JButton jBtNovoProduto;
+    public static javax.swing.JButton jBtNovoProduto;
     private javax.swing.JButton jBtPesquisaComp;
     private javax.swing.JButton jBtPesquisarColaborador;
     private javax.swing.JButton jBtPesquisarInternosPavilhao;
@@ -3854,7 +3876,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public static javax.swing.JButton jBtSalvarPavInternos;
     private javax.swing.JButton jBtSalvarProduto;
     private javax.swing.JButton jBtSalvarProdutoBanco;
-    private javax.swing.JButton jBtSelecionarProdutos;
+    public static javax.swing.JButton jBtSelecionarProdutos;
     public static javax.swing.JButton jBtSelecionarTodosInternos;
     public static javax.swing.JButton jBtSelecionarUmInterno;
     public static javax.swing.JTextField jCodigoProd;
@@ -4045,7 +4067,10 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jBtAuditoriaProduto.setEnabled(!true);
         jBtSelecionarProdutos.setEnabled(!true);
         //FASE -4
-
+        jBtAdicionarProdutosKitCompleto.setEnabled(!true);
+        jBtExcluirTodosProdutos.setEnabled(!true);
+        jBtExcluirProdutoSelecionado.setEnabled(!true);
+        jBtSalvarProdutoBanco.setEnabled(!true);
     }
 
     public void limparCampos() {
@@ -4186,6 +4211,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public void verificarDadosIniciais() {
 
         conecta.abrirConexao();
+        //REGISTRO DE INTERNOS PRÉ SELECIONADOS PARA O KIT
         try {
             conecta.executaSQL("SELECT * FROM INTERNOS_PAVILHAO_KIT_LOTE "
                     + "WHERE IdRegistroComp='" + jIdRegistroComp.getText() + "'");
@@ -4193,11 +4219,35 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             codRequisicao = conecta.rs.getString("IdRegistroComp");
         } catch (SQLException ex) {
         }
+        //
+        try {
+            conecta.executaSQL("SELECT * FROM ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE "
+                    + "WHERE IdRegistroComp='" + jIdRegistroComp.getText() + "'");
+            conecta.rs.first();
+            codRequisicao1 = conecta.rs.getString("IdRegistroComp");
+        } catch (SQLException ex) {
+        }
+        //
+        try {
+            conecta.executaSQL("SELECT * FROM ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO "
+                    + "WHERE IdRegistroComp='" + jIdRegistroComp.getText() + "'");
+            conecta.rs.first();
+            codRequisicao2 = conecta.rs.getString("IdRegistroComp");
+        } catch (SQLException ex) {
+        }
+        //
+        try {
+            conecta.executaSQL("SELECT * FROM ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO "
+                    + "WHERE IdRegistroComp='" + jIdRegistroComp.getText() + "'");
+            conecta.rs.first();
+            codRequisicao3 = conecta.rs.getString("IdRegistroComp");
+        } catch (SQLException ex) {
+        }
         conecta.desconecta();
     }
 
     // FASE - 2
-    public void NovoPavilhaoInterno() {       
+    public void NovoPavilhaoInterno() {
         jComboBoxPavilhoes.setEnabled(true);
         //
         jBtPesquisarInternosPavilhao.setEnabled(true);

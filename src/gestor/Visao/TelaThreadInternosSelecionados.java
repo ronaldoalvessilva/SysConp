@@ -15,9 +15,16 @@ import gestor.Modelo.ProntuarioCrc;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jBtAdicionarTodosInternos;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jBtAlterar;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jBtAuditoria;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jBtExcluir;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jBtExcluirTodosInternos;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jBtExcluirUmInterno;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jBtFinalizar;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jBtNovo;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jBtNovoPavInternos;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jBtNovoProduto;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jBtSelecionarTodosInternos;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jBtSelecionarUmInterno;
 //import static gestor.Visao.TelaMontagemPagamentoKitInterno.codigoPavilhao;
@@ -316,11 +323,21 @@ public class TelaThreadInternosSelecionados extends javax.swing.JDialog {
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
         // TODO add your handling code here:
+        jBtNovo.setEnabled(true);
+        jBtAlterar.setEnabled(true);
+        jBtExcluir.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
+        jBtFinalizar.setEnabled(true);
+        // ABA PAVILHÕES/INTERNOS
         jBtNovoPavInternos.setEnabled(true);
         jBtSelecionarUmInterno.setEnabled(true);
         jBtSelecionarTodosInternos.setEnabled(true);
         jBtExcluirUmInterno.setEnabled(true);
         jBtExcluirTodosInternos.setEnabled(true);
+        //
+        jBtNovoProduto.setEnabled(true);
+        //
+        jBtAdicionarTodosInternos.setEnabled(true);
         dispose();
     }//GEN-LAST:event_jBtSairActionPerformed
 

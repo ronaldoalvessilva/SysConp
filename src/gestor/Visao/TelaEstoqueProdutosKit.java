@@ -466,7 +466,7 @@ public class TelaEstoqueProdutosKit extends javax.swing.JDialog {
 //                jQtdAtendida.setText(String.valueOf(qtdTotal));
                 conecta.desconecta();
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa do produto" + e);
+                JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa do produto.\nERROR: " + e);
             }
             dispose();
         }
