@@ -8,6 +8,7 @@ package gestor.Controle;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.ItensRequisicaoMateriaisInternos;
 import gestor.Modelo.ProdutoInternosKitLote;
+import static gestor.Visao.TelaBiometriaKitInternoCPK.jIdInternoKitBio1;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jIdRegistroComp;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdProd;
 import java.sql.PreparedStatement;
@@ -97,20 +98,28 @@ public class ControleProdutosKitLote {
         conecta.abrirConexao();
         List<ProdutoInternosKitLote> listaInternosPavilhaoSelecionados = new ArrayList<ProdutoInternosKitLote>();
         try {
-            conecta.executaSQL("SELECT * FROM ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE "
+            conecta.executaSQL("SELECT * FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE  "
+                    + "INNER JOIN KITS_HIGIENE_INTERNO "
+                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdKit=KITS_HIGIENE_INTERNO.IdKit "
+                    + "INNER JOIN PRODUTOS_KITS_HIGIENE_INTERNO "
+                    + "ON KITS_HIGIENE_INTERNO.IdKit=PRODUTOS_KITS_HIGIENE_INTERNO.IdKit "
+                    + "INNER JOIN ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO "
+                    + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp=ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdRegistroComp "
                     + "INNER JOIN PRODUTOS_AC "
-                    + "ON ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdProd=PRODUTOS_AC.IdProd "
-                    + "WHERE ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp='" + jIdRegistroComp.getText() + "'");
+                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
+                    + "INNER JOIN ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO "
+                    + "ON PRODUTOS_AC.IdProd=ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdProd "
+                    + "WHERE ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdInternoCrc='" + jIdInternoKitBio1.getText() + "' "
+                    + "AND QuantProd>0'");
             while (conecta.rs.next()) {
-                ProdutoInternosKitLote pDigiProd = new ProdutoInternosKitLote();                
-                pDigiProd.setIdRegProdKit(conecta.rs.getInt("IdRegProdKit"));
-                pDigiProd.setIdKit(conecta.rs.getInt("IdKit"));
+                ProdutoInternosKitLote pDigiProd = new ProdutoInternosKitLote();
                 pDigiProd.setIdProd(conecta.rs.getInt("IdProd"));
                 pDigiProd.setDescricaoProduto(conecta.rs.getString("DescricaoProd"));
                 pDigiProd.setUnidadeProd(conecta.rs.getString("UnidadeProd"));
-                pDigiProd.setQuantidadeProd(conecta.rs.getFloat("QuantProd"));
+                pDigiProd.setQuantidadeProd(conecta.rs.getFloat("QuantItem"));
+                pDigiProd.setQtdEstoque(conecta.rs.getFloat("QuantProd"));
                 listaInternosPavilhaoSelecionados.add(pDigiProd);
-                qtdProd = qtdProd + 1;
+//                qtdProd = qtdProd + 1;
             }
             return listaInternosPavilhaoSelecionados;
         } catch (SQLException ex) {
