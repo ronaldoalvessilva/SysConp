@@ -125,13 +125,17 @@ public class ControlePesquisaKitInternoManual {
                     + "ON COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE.IdRegistroComp=ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdRegistroComp "
                     + "INNER JOIN PRODUTOS_AC "
                     + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
-                    + "WHERE ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdInternoCrc='" + jIdInternoKitBio1.getText() + "'");
+                    + "INNER JOIN ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO "
+                    + "ON PRODUTOS_AC.IdProd=ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdProd "
+                    + "WHERE ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdInternoCrc='" + jIdInternoKitBio1.getText() + "' "
+                    + "AND QuantProd>0");
             while (conecta.rs.next()) {
                 ProdutoInternosKitLote pDigiProd = new ProdutoInternosKitLote();
                 pDigiProd.setIdProd(conecta.rs.getInt("IdProd"));
                 pDigiProd.setDescricaoProduto(conecta.rs.getString("DescricaoProd"));
                 pDigiProd.setUnidadeProd(conecta.rs.getString("UnidadeProd"));
                 pDigiProd.setQuantidadeProd(conecta.rs.getFloat("QuantItem"));
+                pDigiProd.setQtdEstoque(conecta.rs.getFloat("QuantProd"));
                 listaInternosPavilhaoSelecionados.add(pDigiProd);
 //                qtdProd = qtdProd + 1;
             }
