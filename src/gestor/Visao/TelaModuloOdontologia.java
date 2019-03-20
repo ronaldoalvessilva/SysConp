@@ -83,8 +83,8 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
     private TelaConsultaLocalInternoOdontologia objLocalIntOdonto = null;
     private TelaConsultaProntuarioInternoCrc objProntInt = null;
     private TelaMovHistoricoTecOdontologia objConHistMov = null;
-    private TelaAtendimentoOdontologico objAtendOdon = null;
-//    private TelaAtendimentoOdontologicoTESTE objAtendOdon = null;
+//    private TelaAtendimentoOdontologico objAtendOdon = null;
+    private TelaAtendimentoOdontologicoTESTE objAtendOdon = null;
     private TelaRecadosOdontologia objRecOdontologia = null;
     private TelaOcorrenciaOdontologia objCorr = null;
     private TelaAgendaCompromissos objAgEventos = null;
@@ -495,8 +495,8 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
         buscarAcessoUsuario(telaAtendimentoInternoManu_ODON);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoODON.equals("ADMINISTRADORES") || codigoUserODON == codUserAcessoODON && nomeTelaODON.equals(telaAtendimentoInternoManu_ODON) && codAbrirODON == 1) {
             if (objAtendOdon == null || objAtendOdon.isClosed()) {
-                objAtendOdon = new TelaAtendimentoOdontologico();
-//            objAtendOdon = new TelaAtendimentoOdontologicoTESTE(); // EM CONSTRUÇÃO, PARADO PARA IMPLANTAÇÃO SDR BAR (27/09/2017)
+//                objAtendOdon = new TelaAtendimentoOdontologico();
+            objAtendOdon = new TelaAtendimentoOdontologicoTESTE(); // EM CONSTRUÇÃO, PARADO PARA IMPLANTAÇÃO SDR BAR (27/09/2017)
                 jPainelOdontologia.add(objAtendOdon);
                 objAtendOdon.setVisible(true);
             } else {
@@ -511,8 +511,8 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
                         objAtendOdon.pack();//volta frame 
                     }
                 } else {
-                    objAtendOdon = new TelaAtendimentoOdontologico();
-//                objAtendOdon = new TelaAtendimentoOdontologicoTESTE();
+//                    objAtendOdon = new TelaAtendimentoOdontologico();
+                objAtendOdon = new TelaAtendimentoOdontologicoTESTE();
                     TelaModuloOdontologia.jPainelOdontologia.add(objAtendOdon);//adicona frame ao JDesktopPane  
                     objAtendOdon.setVisible(true);
                 }
