@@ -62,11 +62,12 @@ public class AtendimentoOdontologico {
     private int numeroDente;
     private Date dataOrtograma;
     private String facesDente;
-    private int vermelho;
-    private int verde;
-    private int azul;
+    private int acaoProcedimento;
 
-    public AtendimentoOdontologico(int idLanc, String statusLanc, Date dataLanc, int idInternoCrc, String nomeInterno, String tipoAtendimento, String fumante, String gestante, int tempoGestacao, String tratamentoMedico, String medicacao, String alegria, String queixaPrincipal, String afirmacao1, String afirmacao2, String afirmacao3, String observacao, String planoTratamento, String hepatite, String hiv, String asma, String febre, String diabetes, String epilepsia, String cicatrizacao, String disturbios, String endocardite, String epatico, String renal, String cardiaco, String tensao, String cirurgia, String internacao, String sifilis, String tuberculose, String outras, String qualOutraDoenca, String textoDoenca, String deptoOdonto, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp, String tipoProcedimento, int numeroDente, Date dataOrtograma, String facesDente, int vermelho, int verde, int azul) {
+    public AtendimentoOdontologico() {
+    }
+
+    public AtendimentoOdontologico(int idLanc, String statusLanc, Date dataLanc, int idInternoCrc, String nomeInterno, String tipoAtendimento, String fumante, String gestante, int tempoGestacao, String tratamentoMedico, String medicacao, String alegria, String queixaPrincipal, String afirmacao1, String afirmacao2, String afirmacao3, String observacao, String planoTratamento, String hepatite, String hiv, String asma, String febre, String diabetes, String epilepsia, String cicatrizacao, String disturbios, String endocardite, String epatico, String renal, String cardiaco, String tensao, String cirurgia, String internacao, String sifilis, String tuberculose, String outras, String qualOutraDoenca, String textoDoenca, String deptoOdonto, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp, String tipoProcedimento, int numeroDente, Date dataOrtograma, String facesDente, int acaoProcedimento) {
         this.idLanc = idLanc;
         this.statusLanc = statusLanc;
         this.dataLanc = dataLanc;
@@ -116,12 +117,7 @@ public class AtendimentoOdontologico {
         this.numeroDente = numeroDente;
         this.dataOrtograma = dataOrtograma;
         this.facesDente = facesDente;
-        this.vermelho = vermelho;
-        this.verde = verde;
-        this.azul = azul;
-    }
-
-    public AtendimentoOdontologico() {
+        this.acaoProcedimento = acaoProcedimento;
     }
 
     /**
@@ -811,44 +807,16 @@ public class AtendimentoOdontologico {
     }
 
     /**
-     * @return the vermelho
+     * @return the acaoProcedimento
      */
-    public int getVermelho() {
-        return vermelho;
+    public int getAcaoProcedimento() {
+        return acaoProcedimento;
     }
 
     /**
-     * @param vermelho the vermelho to set
+     * @param acaoProcedimento the acaoProcedimento to set
      */
-    public void setVermelho(int vermelho) {
-        this.vermelho = vermelho;
-    }
-
-    /**
-     * @return the verde
-     */
-    public int getVerde() {
-        return verde;
-    }
-
-    /**
-     * @param verde the verde to set
-     */
-    public void setVerde(int verde) {
-        this.verde = verde;
-    }
-
-    /**
-     * @return the azul
-     */
-    public int getAzul() {
-        return azul;
-    }
-
-    /**
-     * @param azul the azul to set
-     */
-    public void setAzul(int azul) {
-        this.azul = azul;
+    public void setAcaoProcedimento(int acaoProcedimento) {
+        this.acaoProcedimento = acaoProcedimento;
     }
 }

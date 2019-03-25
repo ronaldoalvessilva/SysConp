@@ -11,7 +11,7 @@ import gestor.Modelo.ProntuarioCrc;
 import static gestor.Visao.TelaAtendimentoOdontologico.jNomeInterno;
 import static gestor.Visao.TelaAtendimentoOdontologico.jFotoInternoOdonto;
 import static gestor.Visao.TelaAtendimentoOdontologico.jIDInterno;
-import static gestor.Visao.TelaAtendimentoJuridico.codigoDepartamentoJURI;
+import static gestor.Visao.TelaAtendimentoOdontologico.codigoDepartamentoODON;
 import static gestor.Visao.TelaModuloOdontologia.nomeModuloODONTOLOGIA;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -89,8 +89,9 @@ public class TelaPesqInternoAtendOdontologicoBio extends javax.swing.JInternalFr
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Pesquisa por Matricula:");
 
-        jBtNome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/pesq_atv.png"))); // NOI18N
+        jBtNome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtNome.setToolTipText("Pesquisa Por Nome");
+        jBtNome.setContentAreaFilled(false);
         jBtNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtNomeActionPerformed(evt);
@@ -156,7 +157,7 @@ public class TelaPesqInternoAtendOdontologicoBio extends javax.swing.JInternalFr
         jTabelaInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"
@@ -579,7 +580,7 @@ public class TelaPesqInternoAtendOdontologicoBio extends javax.swing.JInternalFr
                     + "WHERE NomeDepartamento='" + nomeModuloODONTOLOGIA + "'");
             conecta.rs.first();
             codigoDepartamento = conecta.rs.getInt("IdDepartamento");
-            codigoDepartamentoJURI = conecta.rs.getInt("IdDepartamento");
+            codigoDepartamentoODON = conecta.rs.getInt("IdDepartamento");
         } catch (Exception e) {
         }
         conecta.desconecta();
