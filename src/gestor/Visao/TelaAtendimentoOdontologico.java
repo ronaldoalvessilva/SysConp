@@ -5413,7 +5413,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt18MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt18MouseClicked
         // TODO add your handling code here:
-//        //cria o primeiro item do menu e atribui uma ação pra ele
+        //cria o primeiro item do menu e atribui uma ação pra ele
 //        JMenuItem item1 = new JMenuItem("Número do Dente");
 //        item1.addActionListener(new ActionListener() {
 //            public void actionPerformed(ActionEvent e) {

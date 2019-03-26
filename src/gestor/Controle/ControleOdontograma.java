@@ -98,7 +98,7 @@ public class ControleOdontograma {
         buscarProccedimento(objOdonto.getDescricaoProcedimento(), objOdonto.getIdProcOdonto());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ODONTOGRAMA_EVOLUCAO (IdLanc,IdInternoCrc,IdProcOdonto,NumeroDente,DataOdontograma,FacesDente,ParcialTotal,PlanoTratamento,NrFace,TipoProc) VALUES (?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ODONTOGRAMA_EVOLUCAO (IdLanc,IdInternoCrc,IdProcOdonto,NumeroDente,DataOdontoEvol,FacesDente,ParcialTotal,PlanoTratamento,NrFace,TipoProc) VALUES (?,?,?,?,?,?,?,?,?,?)");
             pst.setInt(1, objOdonto.getIdLanc());
             pst.setInt(2, codigoInterno);
             pst.setInt(3, codigoProcedimento);
@@ -126,7 +126,7 @@ public class ControleOdontograma {
         buscarProccedimento(objOdonto.getDescricaoProcedimento(), objOdonto.getIdProcOdonto());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ODONTOGRAMA_EVOLUCAO SET IdLanc=?,IdInternoCrc=?,IdProcOdonto=?,NumeroDente=?,DataOdontograma=?,FacesDente=?,ParcialTotal,PlanoTratamento=?,NrFace=?,TipoProc=? WHERE IdOdonto='" + objOdonto.getIdOdonto() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ODONTOGRAMA_EVOLUCAO SET IdLanc=?,IdInternoCrc=?,IdProcOdonto=?,NumeroDente=?,DataOdontoEvol=?,FacesDente=?,ParcialTotal,PlanoTratamento=?,NrFace=?,TipoProc=? WHERE IdOdonto='" + objOdonto.getIdOdonto() + "'");
             pst.setInt(1, objOdonto.getIdLanc());
             pst.setInt(2, codigoInterno);
             pst.setInt(3, codigoProcedimento);
