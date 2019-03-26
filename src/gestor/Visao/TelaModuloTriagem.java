@@ -103,7 +103,7 @@ public class TelaModuloTriagem extends javax.swing.JInternalFrame {
     private TelaSaidaObjetosPertences objSaidaObjPertences = null;
     private TelaRequisicaoMateriaisInternosSEAC objReqSEAC = null;
     private TelaAgendaCompromissos objAgEventos = null;
-    private TelaPagamentoKitInterno objKitTria = null;
+    private TelaPagamentoKitInternoCPK objKitTria = null;
     private TelaEntradasLote objEntradaInt = null;
     private TelaPreLocaoInternos objPreLocacaoInternos = null;
     //
@@ -1274,7 +1274,7 @@ public class TelaModuloTriagem extends javax.swing.JInternalFrame {
         buscarAcessoUsuario(telaEntregaMaterialUsoTRI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES") || codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaEntregaMaterialUsoTRI) && codAbrirTRI == 1) {
             if (objKitTria == null || objKitTria.isClosed()) {
-                objKitTria = new TelaPagamentoKitInterno();
+                objKitTria = new TelaPagamentoKitInternoCPK();
                 jPainelTriagem.add(objKitTria);
                 objKitTria.setVisible(true);
             } else {
@@ -1289,7 +1289,7 @@ public class TelaModuloTriagem extends javax.swing.JInternalFrame {
                         objKitTria.pack();//volta frame 
                     }
                 } else {
-                    objKitTria = new TelaPagamentoKitInterno();
+                    objKitTria = new TelaPagamentoKitInternoCPK();
                     TelaModuloTriagem.jPainelTriagem.add(objKitTria);//adicona frame ao JDesktopPane  
                     objKitTria.setVisible(true);
                 }

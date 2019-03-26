@@ -6,8 +6,8 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import static gestor.Visao.TelaPagamentoKitInterno.idItem;
-import static gestor.Visao.TelaPagamentoKitInterno.jIdLanc;
+import static gestor.Visao.TelaPagamentoKitInternoCPK.idItem;
+import static gestor.Visao.TelaPagamentoKitInternoCPK.jIdLanc;
 import java.sql.SQLException;
 
 /**

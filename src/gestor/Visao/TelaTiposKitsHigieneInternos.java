@@ -342,7 +342,7 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
         jTabelaKits.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaKits.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Tipo de Kit", "Observação"
@@ -909,7 +909,7 @@ public class TelaTiposKitsHigieneInternos extends javax.swing.JInternalFrame {
         jTabelaProdutosKit.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaProdutosKit.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Item", "Código", "Descrição do Produto", "Un.", "Quant."

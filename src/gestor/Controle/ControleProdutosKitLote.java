@@ -8,6 +8,7 @@ package gestor.Controle;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.ItensRequisicaoMateriaisInternos;
 import gestor.Modelo.ProdutoInternosKitLote;
+import static gestor.Visao.TelaBiometriaKitInternoCPK.jIdInternoKitBio1;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jIdRegistroComp;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdProd;
 import java.sql.PreparedStatement;
@@ -102,7 +103,7 @@ public class ControleProdutosKitLote {
                     + "ON ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdProd=PRODUTOS_AC.IdProd "
                     + "WHERE ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp='" + jIdRegistroComp.getText() + "'");
             while (conecta.rs.next()) {
-                ProdutoInternosKitLote pDigiProd = new ProdutoInternosKitLote();                
+                ProdutoInternosKitLote pDigiProd = new ProdutoInternosKitLote();
                 pDigiProd.setIdRegProdKit(conecta.rs.getInt("IdRegProdKit"));
                 pDigiProd.setIdKit(conecta.rs.getInt("IdKit"));
                 pDigiProd.setIdProd(conecta.rs.getInt("IdProd"));

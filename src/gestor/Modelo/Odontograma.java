@@ -29,11 +29,12 @@ public class Odontograma {
     private String corDente;
     private String parcialTotal;
     private int nrFace;
+    private int acaoProcedimento;
 
     public Odontograma() {
     }
 
-    public Odontograma(int idOdonto, int idLanc, int idInternoCrc, String nomeInternoCrc, int idProcOdonto, String descricaoProcedimento, int numeroDente, Date dataOdontograma, String facesDente, int vermelho, int verde, int azul, String planoTratamento, String corDente, String parcialTotal, int nrFace) {
+    public Odontograma(int idOdonto, int idLanc, int idInternoCrc, String nomeInternoCrc, int idProcOdonto, String descricaoProcedimento, int numeroDente, Date dataOdontograma, String facesDente, int vermelho, int verde, int azul, String planoTratamento, String corDente, String parcialTotal, int nrFace, int acaoProcedimento) {
         this.idOdonto = idOdonto;
         this.idLanc = idLanc;
         this.idInternoCrc = idInternoCrc;
@@ -50,6 +51,7 @@ public class Odontograma {
         this.corDente = corDente;
         this.parcialTotal = parcialTotal;
         this.nrFace = nrFace;
+        this.acaoProcedimento = acaoProcedimento;
     }
 
     /**
@@ -275,5 +277,18 @@ public class Odontograma {
     public void setNrFace(int nrFace) {
         this.nrFace = nrFace;
     }
-    
+
+    /**
+     * @return the acaoProcedimento
+     */
+    public int getAcaoProcedimento() {
+        return acaoProcedimento;
+    }
+
+    /**
+     * @param acaoProcedimento the acaoProcedimento to set
+     */
+    public void setAcaoProcedimento(int acaoProcedimento) {
+        this.acaoProcedimento = acaoProcedimento;
+    }
 }

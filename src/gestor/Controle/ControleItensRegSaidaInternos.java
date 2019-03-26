@@ -209,7 +209,7 @@ public class ControleItensRegSaidaInternos {
                 pDigital.setBiometriaDedo2(conecta.rs.getBytes("BiometriaDedo2"));
                 pDigital.setBiometriaDedo3(conecta.rs.getBytes("BiometriaDedo3"));
                 pDigital.setBiometriaDedo4(conecta.rs.getBytes("BiometriaDedo4"));
-                pDigital.setImagemFrente(conecta.rs.getBytes("ImagemFente"));
+              //  pDigital.setImagemFrente(conecta.rs.getBytes("ImagemFente"));
                 listaInternosSaida.add(pDigital);
                 qtdInternos++;
             }

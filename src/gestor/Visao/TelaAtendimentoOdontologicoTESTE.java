@@ -3615,10 +3615,10 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 3, Short.MAX_VALUE))
         );
 
-        setBounds(300, 10, 732, 540);
+        setBounds(300, 10, 732, 557);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtPesqDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDataActionPerformed
@@ -5059,7 +5059,7 @@ public class TelaAtendimentoOdontologicoTESTE extends javax.swing.JInternalFrame
                     if (evt.getClickCount() == 1) {
                         jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente6.jpg")));
                     }
-                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO")) {
+                } else if (jComboBoxTipoProcedimento.getSelectedItem().equals("RESTAURACAO RESINA")) {
                     if (evt.getClickCount() == 1) {
                         jBt18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente13.jpg")));
                     }

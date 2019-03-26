@@ -952,14 +952,8 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jPanel6" max="32767" attributes="0"/>
-                              <Component id="jPanel5" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="jPanel5" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jPanel6" alignment="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -982,7 +976,7 @@
                             <LineBorder roundedCorners="true"/>
                           </Border>
                           <Font PropertyName="font" name="Tahoma" size="11" style="1"/>
-                          <Color PropertyName="color" blue="ff" green="0" red="0" type="rgb"/>
+                          <Color PropertyName="color" blue="33" green="66" red="0" type="rgb"/>
                         </TitledBorder>
                       </Border>
                     </Property>
@@ -991,24 +985,23 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jComboBoxPavilhoes" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jBtPesquisarInternosPavilhao" min="-2" pref="28" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jBtPesquisarInternosPavilhao" min="-2" pref="17" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="2" attributes="0">
                                   <Component id="jComboBoxPavilhoes" alignment="2" min="-2" pref="19" max="-2" attributes="0"/>
                                   <Component id="jBtPesquisarInternosPavilhao" alignment="2" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1072,10 +1065,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="jScrollPane1" min="-2" pref="311" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  </Group>
+                                  <Component id="jScrollPane1" pref="0" max="32767" attributes="0"/>
                                   <Group type="102" attributes="0">
                                       <Component id="jPanel30" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -1248,7 +1238,7 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="153" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
@@ -1666,7 +1656,7 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="88" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="81" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -1775,6 +1765,7 @@
                       <Component id="jPanel10" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel19" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -2406,6 +2397,9 @@
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtNovoProdutoActionPerformed"/>
                   </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JButton" name="jBtExcluirProduto">
                   <Properties>
@@ -2490,6 +2484,9 @@
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtSelecionarProdutosActionPerformed"/>
                   </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>
@@ -2511,7 +2508,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="215" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="205" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -2526,8 +2523,8 @@
         <Container class="javax.swing.JPanel" name="jPanel9">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="FASE - 4" toolTip="Agrupar os Produtos do Kit de Higiene aos Internos">
-                <Property name="tabTitle" type="java.lang.String" value="FASE - 4"/>
+              <JTabbedPaneConstraints tabName="FASE - 4 (FINAL)" toolTip="Agrupar os Produtos do Kit de Higiene aos Internos">
+                <Property name="tabTitle" type="java.lang.String" value="FASE - 4 (FINAL)"/>
                 <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/gestor/Imagens/40_16x16.png"/>
                 </Property>
@@ -2571,8 +2568,8 @@
                 <Container class="javax.swing.JPanel" name="jPanel23">
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                      <JTabbedPaneConstraints tabName="Kits Completos">
-                        <Property name="tabTitle" type="java.lang.String" value="Kits Completos"/>
+                      <JTabbedPaneConstraints tabName="ASSOCIA&#xc7;&#xc3;O INTERNOS/PRODUTOS">
+                        <Property name="tabTitle" type="java.lang.String" value="ASSOCIA&#xc7;&#xc3;O INTERNOS/PRODUTOS"/>
                         <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/gestor/Imagens/Full_shopping_cart_Icon_16.png"/>
                         </Property>
@@ -2589,8 +2586,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="jPanel22" max="32767" attributes="0"/>
-                                  <Component id="jPanel28" max="32767" attributes="0"/>
-                                  <Component id="jLabel14" max="32767" attributes="0"/>
+                                  <Component id="jPanel28" pref="151" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jPanel21" min="-2" max="-2" attributes="0"/>
@@ -2602,14 +2598,11 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jPanel21" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jPanel22" min="-2" max="-2" attributes="0"/>
+                              <Component id="jPanel22" min="-2" pref="169" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel14" min="-2" pref="23" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                              <Component id="jPanel28" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Component id="jPanel28" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="jPanel20" alignment="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="jPanel20" alignment="0" pref="396" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -2854,7 +2847,7 @@
                                   <Component id="jBtSalvarInternosSelecionados" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jBtAuditoriaKitCompleto" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="11" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -2870,11 +2863,15 @@
                             </Property>
                             <Property name="text" type="java.lang.String" value="Add. Internos"/>
                             <Property name="toolTipText" type="java.lang.String" value="Adicionar os internos que ter&#xe3;o o kit de higi&#xea;ne completo"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                             <Property name="horizontalAlignment" type="int" value="2"/>
                           </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtAdicionarTodosInternosActionPerformed"/>
                           </Events>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+                          </AuxValues>
                         </Component>
                         <Component class="javax.swing.JButton" name="jBtSalvarInternosSelecionados">
                           <Properties>
@@ -2886,6 +2883,7 @@
                             </Property>
                             <Property name="text" type="java.lang.String" value="Gravar no DB"/>
                             <Property name="toolTipText" type="java.lang.String" value="Gravar todos os registros dos internos selecionados no banco de dados."/>
+                            <Property name="enabled" type="boolean" value="false"/>
                             <Property name="horizontalAlignment" type="int" value="2"/>
                           </Properties>
                           <Events>
@@ -2899,6 +2897,7 @@
                             </Property>
                             <Property name="text" type="java.lang.String" value="Excluir Todos"/>
                             <Property name="toolTipText" type="java.lang.String" value="Excluir todos internos adicionados para o kit de higi&#xea;ne completo"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                             <Property name="horizontalAlignment" type="int" value="2"/>
                           </Properties>
                           <Events>
@@ -2911,6 +2910,7 @@
                               <Image iconType="3" name="/gestor/Imagens/191216104515_16.png"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Excluir Um"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                             <Property name="horizontalAlignment" type="int" value="2"/>
                           </Properties>
                           <Events>
@@ -2924,6 +2924,7 @@
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" value="Auditoria"/>
                             <Property name="contentAreaFilled" type="boolean" value="false"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                         </Component>
                       </SubComponents>
@@ -3166,6 +3167,11 @@
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
                               </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jBtProgramarKit" linkSize="10" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
@@ -3180,6 +3186,8 @@
                                   <Component id="jBtSalvarProdutoBanco" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jBtAuditoriaKitProdutoCompleto" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jBtProgramarKit" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -3195,11 +3203,15 @@
                               <Image iconType="3" name="/gestor/Imagens/7183_16x16.png"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Add. Produtos"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                             <Property name="horizontalAlignment" type="int" value="2"/>
                           </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtAdicionarProdutosKitCompletoActionPerformed"/>
                           </Events>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+                          </AuxValues>
                         </Component>
                         <Component class="javax.swing.JButton" name="jBtExcluirTodosProdutos">
                           <Properties>
@@ -3207,6 +3219,7 @@
                               <Image iconType="3" name="/gestor/Imagens/191216104428_16.png"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Excluir Todos"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                             <Property name="horizontalAlignment" type="int" value="2"/>
                           </Properties>
                           <Events>
@@ -3219,6 +3232,7 @@
                               <Image iconType="3" name="/gestor/Imagens/6127_16x16.png"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Excluir Um"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                             <Property name="horizontalAlignment" type="int" value="2"/>
                           </Properties>
                           <Events>
@@ -3231,6 +3245,7 @@
                               <Image iconType="3" name="/gestor/Imagens/310718101618_16.png"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="Gravar no DB"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                             <Property name="horizontalAlignment" type="int" value="2"/>
                           </Properties>
                           <Events>
@@ -3244,22 +3259,28 @@
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" value="Auditoria"/>
                             <Property name="contentAreaFilled" type="boolean" value="false"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
+                        </Component>
+                        <Component class="javax.swing.JButton" name="jBtProgramarKit">
+                          <Properties>
+                            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                              <Color blue="0" green="66" red="0" type="rgb"/>
+                            </Property>
+                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                              <Image iconType="3" name="/gestor/Imagens/calculator_edit.png"/>
+                            </Property>
+                            <Property name="text" type="java.lang.String" value="Programar Kits"/>
+                            <Property name="toolTipText" type="java.lang.String" value="Programar Kits, Decendial, Quinzenal Mensal, Semestral e Anual"/>
+                            <Property name="horizontalAlignment" type="int" value="10"/>
+                            <Property name="horizontalTextPosition" type="int" value="4"/>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtProgramarKitActionPerformed"/>
+                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="javax.swing.JLabel" name="jLabel14">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Tahoma" size="14" style="1"/>
-                        </Property>
-                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="0" green="66" red="0" type="rgb"/>
-                        </Property>
-                        <Property name="horizontalAlignment" type="int" value="0"/>
-                        <Property name="text" type="java.lang.String" value="Kit Higiene Completo"/>
-                      </Properties>
-                    </Component>
                   </SubComponents>
                 </Container>
               </SubComponents>
@@ -3426,6 +3447,9 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtFinalizarActionPerformed"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JButton" name="jBtSair">
           <Properties>

@@ -68,11 +68,14 @@ public class ProntuarioCrc {
     private String kitMPago;
     private String kitSPago;
     private String kitAPago;
+    private Date dataChegada;
+    private String kitPago;
+    private String utilizado;
 
     public ProntuarioCrc() {
     }
 
-    public ProntuarioCrc(int IdInterno, String Matricula, Date DataCadast, Date DataNasci, String FotoInterno, String FotoPerfil, String FotoCorpo1, String FotoCorpo2, String FotoCorpo3, String NomeInterno, String MaeInterno, String PaiInterno, String Alcunha, String RgInterno, String CpfInterno, String cartoaSus, String Escolaridade, String EstadoCivil, String Sexo, String situacao, String nomePais, String nomeCidade, String Religiao, String Profissao, String Endereco, String Bairro, String Cidade, String Estado, String telefone, String telefone1, String celular, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento, String confirmaEntrada, String cnc, byte[] imagemInterno, String kitInicial, String kitDecendial, String kitQuinzenal, String kitMensal, String kitSemestral, String kitAnual, String kitIPago, String kitDPago, String kitQPago, String kitMPago, String kitSPago, String kitAPago) {
+    public ProntuarioCrc(int IdInterno, String Matricula, Date DataCadast, Date DataNasci, String FotoInterno, String FotoPerfil, String FotoCorpo1, String FotoCorpo2, String FotoCorpo3, String NomeInterno, String MaeInterno, String PaiInterno, String Alcunha, String RgInterno, String CpfInterno, String cartoaSus, String Escolaridade, String EstadoCivil, String Sexo, String situacao, String nomePais, String nomeCidade, String Religiao, String Profissao, String Endereco, String Bairro, String Cidade, String Estado, String telefone, String telefone1, String celular, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento, String confirmaEntrada, String cnc, byte[] imagemInterno, String kitInicial, String kitDecendial, String kitQuinzenal, String kitMensal, String kitSemestral, String kitAnual, String kitIPago, String kitDPago, String kitQPago, String kitMPago, String kitSPago, String kitAPago, Date dataChegada, String kitPago, String utilizado) {
         this.IdInterno = IdInterno;
         this.Matricula = Matricula;
         this.DataCadast = DataCadast;
@@ -127,6 +130,9 @@ public class ProntuarioCrc {
         this.kitMPago = kitMPago;
         this.kitSPago = kitSPago;
         this.kitAPago = kitAPago;
+        this.dataChegada = dataChegada;
+        this.kitPago = kitPago;
+        this.utilizado = utilizado;
     }
 
     /**
@@ -885,4 +891,45 @@ public class ProntuarioCrc {
         this.kitAPago = kitAPago;
     }
 
+    /**
+     * @return the dataChegada
+     */
+    public Date getDataChegada() {
+        return dataChegada;
+    }
+
+    /**
+     * @param dataChegada the dataChegada to set
+     */
+    public void setDataChegada(Date dataChegada) {
+        this.dataChegada = dataChegada;
+    }
+
+    /**
+     * @return the kitPago
+     */
+    public String getKitPago() {
+        return kitPago;
+    }
+
+    /**
+     * @param kitPago the kitPago to set
+     */
+    public void setKitPago(String kitPago) {
+        this.kitPago = kitPago;
+    }
+
+    /**
+     * @return the utilizado
+     */
+    public String getUtilizado() {
+        return utilizado;
+    }
+
+    /**
+     * @param utilizado the utilizado to set
+     */
+    public void setUtilizado(String utilizado) {
+        this.utilizado = utilizado;
+    }
 }

@@ -105,7 +105,7 @@ public class ControleRegistroAtendimentoInternoBio {
             pst.setString(6, objRegAtend.getUsuarioUp());
             pst.setString(7, objRegAtend.getDataUp());
             pst.setString(8, objRegAtend.getHorarioUp());
-            pst.setInt(11, objRegAtend.getQtdAtend());
+            pst.setInt(9, objRegAtend.getQtdAtend());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO: " + ex);

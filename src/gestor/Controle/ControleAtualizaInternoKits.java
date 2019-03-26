@@ -19,13 +19,15 @@ public class ControleAtualizaInternoKits {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     ProntuarioCrc objProCrc = new ProntuarioCrc();
+    String resp = "Não";
 
     public ProntuarioCrc atualizarInternoKitInicial(ProntuarioCrc objProCrc) {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE MOVIMENTACAO_KITS_HIGIENE_INTERNOS SET KitInicial=? WHERE IdInternoCrc='" + objProCrc.getIdInterno() + "'");
-            pst.setString(1, objProCrc.getKitInicial());
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE KITS_INICIAL_INTERNOS SET Utilizado=? WHERE IdInternoCrc='" + objProCrc.getIdInterno() + "' "
+                    + "AND Utilizado='" + resp + "'");
+            pst.setString(1, objProCrc.getKitIPago());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados do INTERNO.\n\nERRO: " + ex);
@@ -38,7 +40,8 @@ public class ControleAtualizaInternoKits {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE MOVIMENTACAO_KITS_HIGIENE_INTERNOS SET KitDecendial=? WHERE IdInternoCrc='" + objProCrc.getIdInterno() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE KITS_DECENDIAL_INTERNOS SET Utilizado=? WHERE IdInternoCrc='" + objProCrc.getIdInterno() + "' "
+                    + "AND Utilizado='" + resp + "'");
             pst.setString(1, objProCrc.getKitDecendial());
             pst.executeUpdate();
         } catch (SQLException ex) {
@@ -52,7 +55,8 @@ public class ControleAtualizaInternoKits {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE MOVIMENTACAO_KITS_HIGIENE_INTERNOS SET KitQuinzenal=? WHERE IdInternoCrc='" + objProCrc.getIdInterno() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE KITS_QUINZENAL_INTERNOS SET Utilizado=? WHERE IdInternoCrc='" + objProCrc.getIdInterno() + "' "
+                    + "AND Utilizado='" + resp + "'");
             pst.setString(1, objProCrc.getKitQuinzenal());
             pst.executeUpdate();
         } catch (SQLException ex) {
@@ -66,7 +70,8 @@ public class ControleAtualizaInternoKits {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE MOVIMENTACAO_KITS_HIGIENE_INTERNOS SET KitMensal=? WHERE IdInternoCrc='" + objProCrc.getIdInterno() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE KITS_MENSAL_INTERNOS SET Utilizado=? WHERE IdInternoCrc='" + objProCrc.getIdInterno() + "' "
+                    + "AND Utilizado='" + resp + "'");
             pst.setString(1, objProCrc.getKitMensal());
             pst.executeUpdate();
         } catch (SQLException ex) {
@@ -80,7 +85,8 @@ public class ControleAtualizaInternoKits {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE MOVIMENTACAO_KITS_HIGIENE_INTERNOS SET KitInicial=? WHERE IdInternoCrc='" + objProCrc.getIdInterno() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE KITS_SEMESTRAL_INTERNOS SET Utilizado=? WHERE IdInternoCrc='" + objProCrc.getIdInterno() + "' "
+                    + "AND Utilizado='" + resp + "'");
             pst.setString(1, objProCrc.getKitSemestral());
             pst.executeUpdate();
         } catch (SQLException ex) {
@@ -94,7 +100,8 @@ public class ControleAtualizaInternoKits {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE MOVIMENTACAO_KITS_HIGIENE_INTERNOS SET KitInicial=? WHERE IdInternoCrc='" + objProCrc.getIdInterno() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE KITS_ANUAL_INTERNOS SET Utilizado=? WHERE IdInternoCrc='" + objProCrc.getIdInterno() + "' "
+                    + "AND Utilizado='" + resp + "'");
             pst.setString(1, objProCrc.getKitAnual());
             pst.executeUpdate();
         } catch (SQLException ex) {

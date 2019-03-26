@@ -5,12 +5,14 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleInternosProdutoKit;
 import gestor.Controle.ControleListarGravarProdutosKitCompleto;
 import gestor.Controle.ControleProdutosKitLote;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.ProdutoInternosKitLote;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jIdRegistroComp;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jTabelaProdutosKitCompleto;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jtotalInternosKitCompleto;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jtotalProdutosKitCompleto;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdInternos;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdInternosKitComp;
@@ -31,6 +33,7 @@ public class TelaSelecaoProdutosKitsCompletoIncompleto extends javax.swing.JDial
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     ControleProdutosKitLote control = new ControleProdutosKitLote();
+   // ControleInternosProdutoKit control = new ControleInternosProdutoKit();
     ControleListarGravarProdutosKitCompleto listar = new ControleListarGravarProdutosKitCompleto();
     //
     String codigoProduto;
@@ -490,8 +493,8 @@ public class TelaSelecaoProdutosKitsCompletoIncompleto extends javax.swing.JDial
             for (ProdutoInternosKitLote pp : control.read()) {
                 jtotalProdutosKitCompleto.setText(Integer.toString(qtdProd)); // Converter inteiro em string para exibir na tela 
                 // DIVIDE A QUANTIDADE TOTAL DOS PRODUTOS SOLICTADO PELA QUANTIDADE TOTAL DE INTERNOS SELECIONADOS.
-                totalRegInterno = (int) (qtdInternosKC / pp.getQuantidadeProd());
-                dadosProduto.addRow(new Object[]{pp.getIdProd(), pp.getDescricaoProduto(), pp.getUnidadeProd(), totalRegInterno});
+//                totalRegInterno = (int) (qtdInternosKC / pp.getQuantidadeProd());
+                dadosProduto.addRow(new Object[]{pp.getIdProd(), pp.getDescricaoProduto(), pp.getUnidadeProd(), pp.getQuantidadeProd()});
                 // BARRA DE ROLAGEM HORIZONTAL
                 jTabelaProdutosKitCompleto.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                 // ALINHAR TEXTO DA TABELA CENTRALIZADO

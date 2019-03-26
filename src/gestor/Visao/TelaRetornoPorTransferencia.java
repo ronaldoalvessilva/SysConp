@@ -1089,7 +1089,7 @@ public class TelaRetornoPorTransferencia extends javax.swing.JInternalFrame {
                     + "INNER JOIN ITENSRETORNOTRANSFERENCIA "
                     + "ON RETORNOTRANSFERENCIA.IdRetorno=ITENSRETORNOTRANSFERENCIA.IdRetorno "
                     + "INNER JOIN OPERACAO "
-                    + "ON RETORNOMEDICO.IdOp=OPERACAO.IdOp "
+                    + "ON RETORNOTRANSFERENCIA.IdOp=OPERACAO.IdOp "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ITENSRETORNOTRANSFERENCIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%'");
