@@ -1367,19 +1367,19 @@
                   <Component id="jToolBar1" min="-2" pref="68" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jToolBar2" min="-2" pref="358" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                   <Component id="jLabel8" min="-2" pref="24" max="-2" attributes="0"/>
-                  <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                  <Component id="jLabel5" min="-2" pref="196" max="-2" attributes="0"/>
-                  <EmptySpace pref="103" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jLabel5" min="-2" pref="178" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="148" max="-2" attributes="0"/>
                   <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jLabel10" min="-2" pref="127" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
+                  <EmptySpace pref="126" max="32767" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jToolBar6" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="101" max="32767" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jToolBar8" min="-2" pref="77" max="-2" attributes="0"/>
@@ -1404,9 +1404,9 @@
                           <Group type="103" groupAlignment="2" attributes="0">
                               <Component id="jLabel8" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel5" alignment="2" max="32767" attributes="0"/>
-                              <Group type="103" alignment="2" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="jLabel10" alignment="2" max="32767" attributes="0"/>
-                                  <Component id="jLabel9" alignment="2" max="32767" attributes="0"/>
+                              <Group type="103" alignment="2" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel10" alignment="3" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>

@@ -276,9 +276,7 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
         );
         jPainelBaseSegurancaPavilhaoLayout.setVerticalGroup(
             jPainelBaseSegurancaPavilhaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPainelBaseSegurancaPavilhaoLayout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 564, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 38, Short.MAX_VALUE))
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
         );
 
         Cadastro.setText("Cadastro");

@@ -10,6 +10,7 @@ import gestor.Controle.converterDataStringDataDate;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.RegistroAtendimentoInternos;
+import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
@@ -26,7 +27,6 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-
 /**
  *
  * @author ronaldo.silva7
@@ -36,7 +36,6 @@ public class Produtividade extends javax.swing.JFrame {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     ControleListaTecnicosProdutividadePSP control = new ControleListaTecnicosProdutividadePSP();
     converterDataStringDataDate convertedata = new converterDataStringDataDate();
-
 
     String dataEvolucao;
     public static int qtdTecnicosPSP = 0;
@@ -94,6 +93,25 @@ public class Produtividade extends javax.swing.JFrame {
         jLabelLogoSocializa = new javax.swing.JLabel();
         jLabelLogoSisconp = new javax.swing.JLabel();
         jPanelTituloTela = new javax.swing.JPanel();
+        RotulojPanel = new javax.swing.JPanel();
+        jPanelDataTecSet = new javax.swing.JPanel();
+        jPanelData = new javax.swing.JPanel();
+        jLabelData = new javax.swing.JLabel();
+        jPanelTecnico = new javax.swing.JPanel();
+        jLabelTecnico = new javax.swing.JLabel();
+        jPanelTSstDiaSemMes = new javax.swing.JPanel();
+        jPanelSetor = new javax.swing.JPanel();
+        jLabelSetor = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jPanelSetor1 = new javax.swing.JPanel();
+        jLabelSetor1 = new javax.swing.JLabel();
+        jPanelSetor2 = new javax.swing.JPanel();
+        jLabelSetor2 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanelTabela = new javax.swing.JPanel();
+        jScrollPaneTabela = new javax.swing.JScrollPane();
+        jTabelaAtendimentoProdutivida = new javax.swing.JTable();
         jPanelRodape = new javax.swing.JPanel();
         jPanel17 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -104,22 +122,7 @@ public class Produtividade extends javax.swing.JFrame {
         jPanel21 = new javax.swing.JPanel();
         jDataSistemaPSP = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jPanelTabela = new javax.swing.JPanel();
-        jScrollPaneTabela = new javax.swing.JScrollPane();
-        jTabelaAtendimentoProdutivida = new javax.swing.JTable();
-        RotulojPanel = new javax.swing.JPanel();
-        jPanelTecnico = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
-        jPanelSetor = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jPanelDiario = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jPanelSemanal = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jPanelTSemanal = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        jPanelMeta = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sysconp");
@@ -160,6 +163,137 @@ public class Produtividade extends javax.swing.JFrame {
         );
 
         jPanelTituloTela.setBackground(new java.awt.Color(0, 153, 204));
+        jPanelTituloTela.setLayout(new java.awt.BorderLayout());
+
+        RotulojPanel.setLayout(new javax.swing.BoxLayout(RotulojPanel, javax.swing.BoxLayout.LINE_AXIS));
+
+        jPanelDataTecSet.setPreferredSize(new java.awt.Dimension(99, 80));
+        jPanelDataTecSet.setLayout(new java.awt.BorderLayout());
+
+        jPanelData.setMinimumSize(new java.awt.Dimension(150, 44));
+        jPanelData.setLayout(new java.awt.BorderLayout());
+
+        jLabelData.setBackground(new java.awt.Color(51, 51, 0));
+        jLabelData.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabelData.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelData.setText("     DATA     ");
+        jLabelData.setOpaque(true);
+        jPanelData.add(jLabelData, java.awt.BorderLayout.CENTER);
+
+        jPanelDataTecSet.add(jPanelData, java.awt.BorderLayout.LINE_START);
+
+        jPanelTecnico.setLayout(new java.awt.BorderLayout());
+
+        jLabelTecnico.setBackground(new java.awt.Color(0, 153, 153));
+        jLabelTecnico.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabelTecnico.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelTecnico.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTecnico.setText("TÉCNICO");
+        jLabelTecnico.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabelTecnico.setMinimumSize(new java.awt.Dimension(150, 44));
+        jLabelTecnico.setOpaque(true);
+        jPanelTecnico.add(jLabelTecnico, java.awt.BorderLayout.CENTER);
+
+        jPanelDataTecSet.add(jPanelTecnico, java.awt.BorderLayout.CENTER);
+
+        RotulojPanel.add(jPanelDataTecSet);
+
+        jPanelTSstDiaSemMes.setForeground(new java.awt.Color(255, 255, 255));
+        jPanelTSstDiaSemMes.setLayout(new java.awt.BorderLayout());
+
+        jPanelSetor.setMinimumSize(new java.awt.Dimension(150, 44));
+        jPanelSetor.setLayout(new java.awt.BorderLayout());
+
+        jLabelSetor.setBackground(new java.awt.Color(51, 0, 51));
+        jLabelSetor.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabelSetor.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelSetor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelSetor.setText("          SETOR          ");
+        jLabelSetor.setOpaque(true);
+        jPanelSetor.add(jLabelSetor, java.awt.BorderLayout.CENTER);
+
+        jPanelTSstDiaSemMes.add(jPanelSetor, java.awt.BorderLayout.LINE_START);
+
+        jPanel1.setPreferredSize(new java.awt.Dimension(1, 80));
+        jPanel1.setRequestFocusEnabled(false);
+        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
+
+        jPanelSetor1.setMinimumSize(new java.awt.Dimension(150, 44));
+        jPanelSetor1.setLayout(new java.awt.BorderLayout());
+
+        jLabelSetor1.setBackground(new java.awt.Color(255, 153, 0));
+        jLabelSetor1.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        jLabelSetor1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelSetor1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelSetor1.setText("DIÁRIO");
+        jLabelSetor1.setOpaque(true);
+        jPanelSetor1.add(jLabelSetor1, java.awt.BorderLayout.CENTER);
+
+        jPanel1.add(jPanelSetor1);
+
+        jPanelSetor2.setMinimumSize(new java.awt.Dimension(150, 44));
+        jPanelSetor2.setLayout(new java.awt.BorderLayout());
+
+        jLabelSetor2.setBackground(new java.awt.Color(0, 51, 51));
+        jLabelSetor2.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        jLabelSetor2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelSetor2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelSetor2.setText("SEMANAL");
+        jLabelSetor2.setToolTipText("");
+        jLabelSetor2.setOpaque(true);
+        jPanelSetor2.add(jLabelSetor2, java.awt.BorderLayout.CENTER);
+
+        jPanel1.add(jPanelSetor2);
+
+        jPanel2.setLayout(new java.awt.BorderLayout());
+
+        jLabel1.setBackground(new java.awt.Color(0, 0, 204));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("MENSAL");
+        jLabel1.setOpaque(true);
+        jPanel2.add(jLabel1, java.awt.BorderLayout.CENTER);
+
+        jPanel1.add(jPanel2);
+
+        jPanelTSstDiaSemMes.add(jPanel1, java.awt.BorderLayout.CENTER);
+
+        RotulojPanel.add(jPanelTSstDiaSemMes);
+
+        jPanelTituloTela.add(RotulojPanel, java.awt.BorderLayout.NORTH);
+
+        jPanelTabela.setBackground(new java.awt.Color(0, 153, 204));
+        jPanelTabela.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanelTabela.setForeground(new java.awt.Color(255, 255, 255));
+        jPanelTabela.setLayout(new java.awt.BorderLayout());
+
+        jTabelaAtendimentoProdutivida.setAutoCreateRowSorter(true);
+        jTabelaAtendimentoProdutivida.setBackground(new java.awt.Color(255, 255, 204));
+        jTabelaAtendimentoProdutivida.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTabelaAtendimentoProdutivida.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
+        jTabelaAtendimentoProdutivida.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "", "", "", "", "", ""
+            }
+        ));
+        jTabelaAtendimentoProdutivida.setRowHeight(35);
+        jScrollPaneTabela.setViewportView(jTabelaAtendimentoProdutivida);
+        if (jTabelaAtendimentoProdutivida.getColumnModel().getColumnCount() > 0) {
+            jTabelaAtendimentoProdutivida.getColumnModel().getColumn(0).setPreferredWidth(105);
+            jTabelaAtendimentoProdutivida.getColumnModel().getColumn(1).setPreferredWidth(535);
+            jTabelaAtendimentoProdutivida.getColumnModel().getColumn(2).setPreferredWidth(240);
+            jTabelaAtendimentoProdutivida.getColumnModel().getColumn(3).setPreferredWidth(127);
+            jTabelaAtendimentoProdutivida.getColumnModel().getColumn(4).setPreferredWidth(153);
+            jTabelaAtendimentoProdutivida.getColumnModel().getColumn(5).setPreferredWidth(140);
+        }
+
+        jPanelTabela.add(jScrollPaneTabela, java.awt.BorderLayout.CENTER);
+
+        jPanelTituloTela.add(jPanelTabela, java.awt.BorderLayout.CENTER);
 
         jPanelRodape.setBackground(new java.awt.Color(255, 255, 255));
         jPanelRodape.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -221,27 +355,12 @@ public class Produtividade extends javax.swing.JFrame {
         jPanel20.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel20.setForeground(new java.awt.Color(0, 0, 153));
         jPanel20.setToolTipText("");
+        jPanel20.setLayout(new java.awt.BorderLayout());
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setText("Data:");
-
-        javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
-        jPanel20.setLayout(jPanel20Layout);
-        jPanel20Layout.setHorizontalGroup(
-            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel20Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel15)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel20Layout.setVerticalGroup(
-            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel20Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel15)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jPanel20.add(jLabel15, java.awt.BorderLayout.CENTER);
 
         jPanel21.setBackground(new java.awt.Color(0, 102, 102));
         jPanel21.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -266,7 +385,7 @@ public class Produtividade extends javax.swing.JFrame {
             .addGroup(jPanel21Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jDataSistemaPSP)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         jButton1.setBackground(new java.awt.Color(240, 0, 0));
@@ -281,14 +400,31 @@ public class Produtividade extends javax.swing.JFrame {
             }
         });
 
+        jPanel3.setBackground(new java.awt.Color(0, 102, 102));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Indicadores de Meta", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
+        jPanel3.setForeground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 688, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanelRodapeLayout = new javax.swing.GroupLayout(jPanelRodape);
         jPanelRodape.setLayout(jPanelRodapeLayout);
         jPanelRodapeLayout.setHorizontalGroup(
             jPanelRodapeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelRodapeLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(5, 5, 5)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
+                .addGap(29, 29, 29)
                 .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -301,147 +437,26 @@ public class Produtividade extends javax.swing.JFrame {
         jPanelRodapeLayout.setVerticalGroup(
             jPanelRodapeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelRodapeLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(5, 5, 5)
                 .addGroup(jPanelRodapeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelRodapeLayout.createSequentialGroup()
-                        .addGroup(jPanelRodapeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 3, Short.MAX_VALUE))
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addGap(2, 2, 2)
+                        .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(jPanelRodapeLayout.createSequentialGroup()
+                        .addGroup(jPanelRodapeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelRodapeLayout.createSequentialGroup()
+                                .addGroup(jPanelRodapeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                                    .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(0, 10, Short.MAX_VALUE))
+                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(5, 5, 5))))
         );
 
-        jPanelTabela.setBackground(new java.awt.Color(0, 153, 204));
-        jPanelTabela.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanelTabela.setForeground(new java.awt.Color(255, 255, 255));
-        jPanelTabela.setLayout(new java.awt.BorderLayout());
-
-        jTabelaAtendimentoProdutivida.setAutoCreateRowSorter(true);
-        jTabelaAtendimentoProdutivida.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jTabelaAtendimentoProdutivida.setForeground(new java.awt.Color(204, 0, 0));
-        jTabelaAtendimentoProdutivida.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Colaborador", "Departamento", "Total Diário", "Total Semanal", "Total Mensal", "Meta Atingida"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPaneTabela.setViewportView(jTabelaAtendimentoProdutivida);
-
-        jPanelTabela.add(jScrollPaneTabela, java.awt.BorderLayout.PAGE_START);
-
-        RotulojPanel.setLayout(new java.awt.GridLayout(1, 0));
-
-        jPanelTecnico.setBackground(new java.awt.Color(0, 153, 153));
-        jPanelTecnico.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanelTecnico.setLayout(new java.awt.BorderLayout());
-
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("TÉCNICO");
-        jPanelTecnico.add(jLabel10, java.awt.BorderLayout.CENTER);
-
-        RotulojPanel.add(jPanelTecnico);
-
-        jPanelSetor.setBackground(new java.awt.Color(51, 0, 51));
-        jPanelSetor.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanelSetor.setLayout(new java.awt.BorderLayout());
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("SETOR");
-        jPanelSetor.add(jLabel2, java.awt.BorderLayout.CENTER);
-
-        RotulojPanel.add(jPanelSetor);
-
-        jPanelDiario.setBackground(new java.awt.Color(255, 153, 0));
-        jPanelDiario.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanelDiario.setPreferredSize(new java.awt.Dimension(154, 51));
-        jPanelDiario.setLayout(new java.awt.BorderLayout());
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("DIÁRIO");
-        jPanelDiario.add(jLabel4, java.awt.BorderLayout.CENTER);
-
-        RotulojPanel.add(jPanelDiario);
-
-        jPanelSemanal.setBackground(new java.awt.Color(0, 51, 51));
-        jPanelSemanal.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanelSemanal.setForeground(new java.awt.Color(255, 255, 255));
-        jPanelSemanal.setPreferredSize(new java.awt.Dimension(154, 55));
-        jPanelSemanal.setLayout(new java.awt.BorderLayout());
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("SEMANAL");
-        jPanelSemanal.add(jLabel5, java.awt.BorderLayout.CENTER);
-
-        RotulojPanel.add(jPanelSemanal);
-
-        jPanelTSemanal.setBackground(new java.awt.Color(0, 0, 204));
-        jPanelTSemanal.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanelTSemanal.setForeground(new java.awt.Color(255, 255, 255));
-        jPanelTSemanal.setLayout(new java.awt.BorderLayout());
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("T. MENSAL");
-        jPanelTSemanal.add(jLabel6, java.awt.BorderLayout.CENTER);
-
-        RotulojPanel.add(jPanelTSemanal);
-
-        jPanelMeta.setBackground(new java.awt.Color(204, 0, 0));
-        jPanelMeta.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanelMeta.setLayout(new java.awt.BorderLayout());
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("META ATINGIDA");
-        jLabel7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanelMeta.add(jLabel7, java.awt.BorderLayout.CENTER);
-
-        RotulojPanel.add(jPanelMeta);
-
-        javax.swing.GroupLayout jPanelTituloTelaLayout = new javax.swing.GroupLayout(jPanelTituloTela);
-        jPanelTituloTela.setLayout(jPanelTituloTelaLayout);
-        jPanelTituloTelaLayout.setHorizontalGroup(
-            jPanelTituloTelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(RotulojPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1368, Short.MAX_VALUE)
-            .addComponent(jPanelTabela, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanelTituloTelaLayout.createSequentialGroup()
-                .addGap(4, 4, 4)
-                .addComponent(jPanelRodape, javax.swing.GroupLayout.DEFAULT_SIZE, 1360, Short.MAX_VALUE)
-                .addGap(4, 4, 4))
-        );
-        jPanelTituloTelaLayout.setVerticalGroup(
-            jPanelTituloTelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelTituloTelaLayout.createSequentialGroup()
-                .addComponent(RotulojPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jPanelTabela, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
-                .addGap(4, 4, 4)
-                .addComponent(jPanelRodape, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6))
-        );
+        jPanelTituloTela.add(jPanelRodape, java.awt.BorderLayout.SOUTH);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -455,7 +470,7 @@ public class Produtividade extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanelCabecalho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
-                .addComponent(jPanelTituloTela, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanelTituloTela, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
 
@@ -510,28 +525,32 @@ public class Produtividade extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jDataSistemaPSP;
     private javax.swing.JLabel jHoraSistemaPSP;
-    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelCabecalho;
+    private javax.swing.JLabel jLabelData;
     private javax.swing.JLabel jLabelLogoSisconp;
     private javax.swing.JLabel jLabelLogoSocializa;
+    private javax.swing.JLabel jLabelSetor;
+    private javax.swing.JLabel jLabelSetor1;
+    private javax.swing.JLabel jLabelSetor2;
+    private javax.swing.JLabel jLabelTecnico;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel21;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelCabecalho;
-    private javax.swing.JPanel jPanelDiario;
-    private javax.swing.JPanel jPanelMeta;
+    private javax.swing.JPanel jPanelData;
+    private javax.swing.JPanel jPanelDataTecSet;
     private javax.swing.JPanel jPanelRodape;
-    private javax.swing.JPanel jPanelSemanal;
     private javax.swing.JPanel jPanelSetor;
-    private javax.swing.JPanel jPanelTSemanal;
+    private javax.swing.JPanel jPanelSetor1;
+    private javax.swing.JPanel jPanelSetor2;
+    private javax.swing.JPanel jPanelTSstDiaSemMes;
     private javax.swing.JPanel jPanelTabela;
     private javax.swing.JPanel jPanelTecnico;
     private javax.swing.JPanel jPanelTituloTela;
@@ -571,7 +590,6 @@ public class Produtividade extends javax.swing.JFrame {
 //        alinharCamposTabelaEvolucao();
 //        conecta.desconecta();
 //    }
-
     public void alinharCamposTabelaEvolucao() {
         DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
@@ -609,14 +627,31 @@ public class Produtividade extends javax.swing.JFrame {
             for (RegistroAtendimentoInternos pp : control.read()) {
 
 //                jtotalProdutosKitCompleto.setText(Integer.toString(qtdTecnicosPSP)); // Converter inteiro em string para exibir na tela 
-                dadosProduto.addRow(new Object[]{pp.getNomeFunc(), pp.getNomeDepartamento(), pp.getQtd()});
+                dadosProduto.addRow(new Object[]{formatter2.format(pp.getDataAtendimento()),pp.getNomeFunc(), pp.getNomeDepartamento(), pp.getQtdAtend(), pp.getQtdAtend() * 7, pp.getQtdAtend() * 25});
                 // BARRA DE ROLAGEM HORIZONTAL
-                jTabelaAtendimentoProdutivida.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+                //jTabelaAtendimentoProdutivida.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
                 // ALINHAR TEXTO DA TABELA CENTRALIZADO
                 DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
                 centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                
+//                DefaultTableCellRenderer corCabecalho = new DefaultTableCellRenderer();
+//                corCabecalho.setBackground(new Color(0,153,204));
+//                jTabelaAtendimentoProdutivida.getColumnModel().getColumn(0).setHeaderRenderer(corCabecalho);
+//                jTabelaAtendimentoProdutivida.getColumnModel().getColumn(1).setHeaderRenderer(corCabecalho);
+//                jTabelaAtendimentoProdutivida.getColumnModel().getColumn(2).setHeaderRenderer(corCabecalho); 
+//                jTabelaAtendimentoProdutivida.getColumnModel().getColumn(3).setHeaderRenderer(corCabecalho);
+//                jTabelaAtendimentoProdutivida.getColumnModel().getColumn(4).setHeaderRenderer(corCabecalho);
+//                jTabelaAtendimentoProdutivida.getColumnModel().getColumn(5).setHeaderRenderer(corCabecalho);
+                
                 //
-//                jTabelaAtendimentoProdutivida.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaAtendimentoProdutivida.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+                jTabelaAtendimentoProdutivida.getColumnModel().getColumn(4).setCellRenderer(centralizado);
+                jTabelaAtendimentoProdutivida.getColumnModel().getColumn(5).setCellRenderer(centralizado);
+                int total = 0;
+                for (int i = 0; i < dadosProduto.getRowCount(); i++) {
+                    total += Integer.parseInt(dadosProduto.getValueAt(i, 3).toString());// 3rd column . row column indexes are 0 based
+                    
+                }
             }
         } catch (Exception ex) {
             Logger.getLogger(Produtividade.class.getName()).log(Level.SEVERE, null, ex);
@@ -636,13 +671,13 @@ public class Produtividade extends javax.swing.JFrame {
         } catch (InterruptedException ex) {
         }
     }
-    public void SetData(Object obj, int row_index, int col_index) {
-        jTabelaAtendimentoProdutivida.getModel().setValueAt(obj, row_index, col_index);
-    }
 
-    public Object GetData(JTable table, int row_index, int col_index) {
-        return table.getModel().getValueAt(row_index, col_index);
- }
+//    public void SetData(Object obj, int row_index, int col_index) {
+//        jTabelaAtendimentoProdutivida.getModel().setValueAt(obj, row_index, col_index);
+//    }
+//    public Object GetData(JTable table, int row_index, int col_index) {
+//        return table.getModel().getValueAt(row_index, col_index);
+// }
 //    public double getSum(){
 //        int rowsCount = jTabelaAtendimentoProdutivida.getRowCount();
 //        double total = 0;
@@ -653,8 +688,6 @@ public class Produtividade extends javax.swing.JFrame {
 //        }
 //        return sum += total;
 //    }
-
-
 //    public void somaAtendimento() {
 //
 //        double soma = 0;
@@ -673,6 +706,4 @@ public class Produtividade extends javax.swing.JFrame {
 //                    }
 //        }
 //    }
-    
-   
 }

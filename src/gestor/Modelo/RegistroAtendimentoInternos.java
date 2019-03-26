@@ -41,8 +41,7 @@ public class RegistroAtendimentoInternos {
     private String horaAssinatura;
     private String motivoImpressao;
     private int qtdAtend;
-    private int qtd;
-
+    
     public RegistroAtendimentoInternos() {
     }
 
@@ -75,7 +74,7 @@ public class RegistroAtendimentoInternos {
         this.horaAssinatura = horaAssinatura;
         this.motivoImpressao = motivoImpressao;
         this.qtdAtend = qtdAtend;
-        this.qtd = qtd;
+        
     }
 
     /**
@@ -460,6 +459,7 @@ public class RegistroAtendimentoInternos {
      * @return the qtdAtend
      */
     public int getQtdAtend() {
+      
         return qtdAtend;
     }
 
@@ -469,18 +469,5 @@ public class RegistroAtendimentoInternos {
     public void setQtdAtend(int qtdAtend) {
         this.qtdAtend = qtdAtend;
     }
-
-    /**
-     * @return the qtd
-     */
-    public int getQtd() {
-        return qtd;
-    }
-
-    /**
-     * @param qtd the qtd to set
-     */
-    public void setQtd(int qtd) {
-        this.qtd = qtd;
-    }
+    
 }
