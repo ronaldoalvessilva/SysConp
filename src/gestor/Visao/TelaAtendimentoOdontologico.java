@@ -4177,44 +4177,44 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                         objAtendOdonto.setNomeInterno(jNomeInterno.getText());
                         objAtendOdonto.setDeptoOdonto(deptoTecnico);
                         controle.alterarMovTec(objAtendOdonto);
-                        //
-                        objOdonto.setIdLanc(Integer.valueOf(jIDLanc.getText()));
-                        controlOdontograma.excluirOdontoGrama(objOdonto);
-                        //
-                        if (rows != 0 && jRBtRealizado.isSelected() == true) {
-                            incluirOdontograma();
-                            // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
-                            objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
-                            objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
-                            objRegAtend.setIdDepartamento(codigoDepartamentoODON);
-                            objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
-                            objRegAtend.setAtendido(atendido);
-                            objRegAtend.setDataAtendimento(jDataLanc.getDate());
-                            objRegAtend.setIdAtend(Integer.valueOf(jIDLanc.getText()));
-                            //
-                            objRegAtend.setUsuarioUp(nameUser);
-                            objRegAtend.setDataUp(dataModFinal);
-                            objRegAtend.setHorarioUp(horaMov);
-                            objRegAtend.setQtdAtend(qtdTipo);
-                            controlRegAtend.alterarRegAtend(objRegAtend);
-                        } else {
-                            qtdTipo = 1;
-                            // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
-                            objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
-                            objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
-                            objRegAtend.setIdDepartamento(codigoDepartamentoODON);
-                            objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
-                            objRegAtend.setAtendido(atendido);
-                            objRegAtend.setDataAtendimento(jDataLanc.getDate());
-                            objRegAtend.setIdAtend(Integer.valueOf(jIDLanc.getText()));
-                            //
-                            objRegAtend.setUsuarioUp(nameUser);
-                            objRegAtend.setDataUp(dataModFinal);
-                            objRegAtend.setHorarioUp(horaMov);
-                            objRegAtend.setQtdAtend(qtdTipo);
-                            controlRegAtend.alterarRegAtend(objRegAtend);
-                            qtdTipo = 0;
-                        }
+                        // BLOQUEADO PARA NÃO FAZER ALTERAÇÃO NO ODONTOGRAMA
+//                        objOdonto.setIdLanc(Integer.valueOf(jIDLanc.getText()));
+//                        controlOdontograma.excluirOdontoGrama(objOdonto);
+//                        //
+//                        if (rows != 0 && jRBtRealizado.isSelected() == true) {
+//                            incluirOdontograma();
+//                            // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
+//                            objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+//                            objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
+//                            objRegAtend.setIdDepartamento(codigoDepartamentoODON);
+//                            objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+//                            objRegAtend.setAtendido(atendido);
+//                            objRegAtend.setDataAtendimento(jDataLanc.getDate());
+//                            objRegAtend.setIdAtend(Integer.valueOf(jIDLanc.getText()));
+//                            //
+//                            objRegAtend.setUsuarioUp(nameUser);
+//                            objRegAtend.setDataUp(dataModFinal);
+//                            objRegAtend.setHorarioUp(horaMov);
+//                            objRegAtend.setQtdAtend(qtdTipo);
+//                            controlRegAtend.alterarRegAtend(objRegAtend);
+//                        } else {
+//                            qtdTipo = 1;
+//                            // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
+//                            objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+//                            objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
+//                            objRegAtend.setIdDepartamento(codigoDepartamentoODON);
+//                            objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+//                            objRegAtend.setAtendido(atendido);
+//                            objRegAtend.setDataAtendimento(jDataLanc.getDate());
+//                            objRegAtend.setIdAtend(Integer.valueOf(jIDLanc.getText()));
+//                            //
+//                            objRegAtend.setUsuarioUp(nameUser);
+//                            objRegAtend.setDataUp(dataModFinal);
+//                            objRegAtend.setHorarioUp(horaMov);
+//                            objRegAtend.setQtdAtend(qtdTipo);
+//                            controlRegAtend.alterarRegAtend(objRegAtend);
+//                            qtdTipo = 0;
+//                        }
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
@@ -4556,41 +4556,44 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                     objProcedOdonto.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
                     objProcedOdonto.setIdPro(Integer.valueOf(jIdEvolucao.getText()));
                     controlar.alterarProcedimentoOdonto(objProcedOdonto);
-                    if (rows != 0 && jRBtRealizado.isSelected() == true) {
-                        qtdTipo = 0;
-                        incluirOdontogramaEvolucao();
-                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
-                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
-                        objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
-                        objRegAtend.setIdDepartamento(codigoDepartamentoODON);
-                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
-                        objRegAtend.setAtendido(atendido);
-                        objRegAtend.setDataAtendimento(jDataLanc.getDate());
-                        objRegAtend.setIdAtend(Integer.valueOf(jIdEvolucao.getText()));
-                        //
-                        objRegAtend.setUsuarioUp(nameUser);
-                        objRegAtend.setDataUp(dataModFinal);
-                        objRegAtend.setHorarioUp(horaMov);
-                        objRegAtend.setQtdAtend(qtdTipo);
-                        controlRegAtend.alterarRegAtend(objRegAtend);
-                    } else {
-                        qtdTipo = 1;
-                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
-                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
-                        objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
-                        objRegAtend.setIdDepartamento(codigoDepartamentoODON);
-                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
-                        objRegAtend.setAtendido(atendido);
-                        objRegAtend.setDataAtendimento(jDataLanc.getDate());
-                        objRegAtend.setIdAtend(Integer.valueOf(jIdEvolucao.getText()));
-                        //
-                        objRegAtend.setUsuarioUp(nameUser);
-                        objRegAtend.setDataUp(dataModFinal);
-                        objRegAtend.setHorarioUp(horaMov);
-                        objRegAtend.setQtdAtend(qtdTipo);
-                        controlRegAtend.alterarRegAtend(objRegAtend);
-                        qtdTipo = 0;
-                    }
+                    // BLOQUEADO PARA NÃO FAZER ALTERAÇÃO NO ODONTOGRAMA
+//                    objOdonto.setIdLanc(Integer.valueOf(jIDLanc.getText()));
+//                    controlOdontograma.excluirOdontoGrama(objOdonto);
+//                    if (rows != 0 && jRBtRealizado.isSelected() == true) {
+//                        qtdTipo = 0;
+//                        incluirOdontogramaEvolucao();
+//                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
+//                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+//                        objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
+//                        objRegAtend.setIdDepartamento(codigoDepartamentoODON);
+//                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+//                        objRegAtend.setAtendido(atendido);
+//                        objRegAtend.setDataAtendimento(jDataLanc.getDate());
+//                        objRegAtend.setIdAtend(Integer.valueOf(jIdEvolucao.getText()));
+//                        //
+//                        objRegAtend.setUsuarioUp(nameUser);
+//                        objRegAtend.setDataUp(dataModFinal);
+//                        objRegAtend.setHorarioUp(horaMov);
+//                        objRegAtend.setQtdAtend(qtdTipo);
+//                        controlRegAtend.alterarRegAtend(objRegAtend);
+//                    } else {
+//                        qtdTipo = 1;
+//                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
+//                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+//                        objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
+//                        objRegAtend.setIdDepartamento(codigoDepartamentoODON);
+//                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+//                        objRegAtend.setAtendido(atendido);
+//                        objRegAtend.setDataAtendimento(jDataLanc.getDate());
+//                        objRegAtend.setIdAtend(Integer.valueOf(jIdEvolucao.getText()));
+//                        //
+//                        objRegAtend.setUsuarioUp(nameUser);
+//                        objRegAtend.setDataUp(dataModFinal);
+//                        objRegAtend.setHorarioUp(horaMov);
+//                        objRegAtend.setQtdAtend(qtdTipo);
+//                        controlRegAtend.alterarRegAtend(objRegAtend);
+//                        qtdTipo = 0;
+//                    }
                     objLog2();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     //
@@ -4852,6 +4855,9 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaPrescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaPrescricaoActionPerformed
         // TODO add your handling code here:
+        TelaAuditoriaEvolucaoOdonto objAud = new TelaAuditoriaEvolucaoOdonto();
+        TelaModuloOdontologia.jPainelOdontologia.add(objAud);
+        objAud.show();
     }//GEN-LAST:event_jBtAuditoriaPrescricaoActionPerformed
 
     private void jBtImpressaoPrescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImpressaoPrescricaoActionPerformed
@@ -4934,7 +4940,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt29MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt29MouseClicked
         // TODO add your handling code here:
-        if (acao == 3 || acao == 4) {
+        if (acao == 3) {
             numeroDente = 26;
             jNumeroDenteEvol.setText(Integer.toString(numeroDente));
             jDataOdontogramaEvol.setCalendar(Calendar.getInstance());
@@ -4943,7 +4949,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt49MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt49MouseClicked
         // TODO add your handling code here:
-        if (acao == 3 || acao == 4) {
+        if (acao == 3) {
             numeroDente = 45;
             jNumeroDenteEvol.setText(Integer.toString(numeroDente));
             jDataOdontogramaEvol.setCalendar(Calendar.getInstance());
@@ -4952,7 +4958,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt50MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt50MouseClicked
         // TODO add your handling code here:
-        if (acao == 3 || acao == 4) {
+        if (acao == 3) {
             numeroDente = 44;
             jNumeroDenteEvol.setText(Integer.toString(numeroDente));
             jDataOdontogramaEvol.setCalendar(Calendar.getInstance());
@@ -4961,7 +4967,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt30MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt30MouseClicked
         // TODO add your handling code here:
-        if (acao == 3 || acao == 4) {
+        if (acao == 3) {
             numeroDente = 25;
             jNumeroDenteEvol.setText(Integer.toString(numeroDente));
             jDataOdontogramaEvol.setCalendar(Calendar.getInstance());
@@ -4970,7 +4976,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt39MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt39MouseClicked
         // TODO add your handling code here:
-        if (acao == 3 || acao == 4) {
+        if (acao == 3) {
             numeroDente = 24;
             jNumeroDenteEvol.setText(Integer.toString(numeroDente));
             jDataOdontogramaEvol.setCalendar(Calendar.getInstance());
@@ -4979,7 +4985,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt40MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt40MouseClicked
         // TODO add your handling code here:
-        if (acao == 3 || acao == 4) {
+        if (acao == 3) {
             numeroDente = 21;
             jNumeroDenteEvol.setText(Integer.toString(numeroDente));
             jDataOdontogramaEvol.setCalendar(Calendar.getInstance());
@@ -4988,7 +4994,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt51MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt51MouseClicked
         // TODO add your handling code here:
-        if (acao == 3 || acao == 4) {
+        if (acao == 3) {
             numeroDente = 23;
             jNumeroDenteEvol.setText(Integer.toString(numeroDente));
             jDataOdontogramaEvol.setCalendar(Calendar.getInstance());
@@ -4997,7 +5003,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt52MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt52MouseClicked
         // TODO add your handling code here:
-        if (acao == 3 || acao == 4) {
+        if (acao == 3) {
             numeroDente = 22;
             jNumeroDenteEvol.setText(Integer.toString(numeroDente));
             jDataOdontogramaEvol.setCalendar(Calendar.getInstance());
@@ -5006,7 +5012,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt53MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt53MouseClicked
         // TODO add your handling code here:
-        if (acao == 3 || acao == 4) {
+        if (acao == 3) {
             numeroDente = 27;
             jNumeroDenteEvol.setText(Integer.toString(numeroDente));
             jDataOdontogramaEvol.setCalendar(Calendar.getInstance());
@@ -5015,7 +5021,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt54MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt54MouseClicked
         // TODO add your handling code here:
-        if (acao == 3 || acao == 4) {
+        if (acao == 3) {
             numeroDente = 28;
             jNumeroDenteEvol.setText(Integer.toString(numeroDente));
             jDataOdontogramaEvol.setCalendar(Calendar.getInstance());
@@ -5024,7 +5030,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt55MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt55MouseClicked
         // TODO add your handling code here:
-        if (acao == 3 || acao == 4) {
+        if (acao == 3) {
             numeroDente = 38;
             jNumeroDenteEvol.setText(Integer.toString(numeroDente));
             jDataOdontogramaEvol.setCalendar(Calendar.getInstance());
@@ -5033,7 +5039,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt56MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt56MouseClicked
         // TODO add your handling code here:
-        if (acao == 3 || acao == 4) {
+        if (acao == 3) {
             numeroDente = 34;
             jNumeroDenteEvol.setText(Integer.toString(numeroDente));
             jDataOdontogramaEvol.setCalendar(Calendar.getInstance());
@@ -5042,7 +5048,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt57MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt57MouseClicked
         // TODO add your handling code here:
-        if (acao == 3 || acao == 4) {
+        if (acao == 3) {
             numeroDente = 35;
             jNumeroDenteEvol.setText(Integer.toString(numeroDente));
             jDataOdontogramaEvol.setCalendar(Calendar.getInstance());
@@ -5051,7 +5057,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt58MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt58MouseClicked
         // TODO add your handling code here:
-        if (acao == 3 || acao == 4) {
+        if (acao == 3) {
             numeroDente = 36;
             jNumeroDenteEvol.setText(Integer.toString(numeroDente));
             jDataOdontogramaEvol.setCalendar(Calendar.getInstance());
@@ -5060,7 +5066,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt59MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt59MouseClicked
         // TODO add your handling code here:
-        if (acao == 3 || acao == 4) {
+        if (acao == 3) {
             numeroDente = 37;
             jNumeroDenteEvol.setText(Integer.toString(numeroDente));
             jDataOdontogramaEvol.setCalendar(Calendar.getInstance());
@@ -5069,7 +5075,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt60MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt60MouseClicked
         // TODO add your handling code here:
-        if (acao == 3 || acao == 4) {
+        if (acao == 3) {
             numeroDente = 33;
             jNumeroDenteEvol.setText(Integer.toString(numeroDente));
             jDataOdontogramaEvol.setCalendar(Calendar.getInstance());
@@ -5078,7 +5084,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt61MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt61MouseClicked
         // TODO add your handling code here:
-        if (acao == 3 || acao == 4) {
+        if (acao == 3) {
             numeroDente = 32;
             jNumeroDenteEvol.setText(Integer.toString(numeroDente));
             jDataOdontogramaEvol.setCalendar(Calendar.getInstance());
@@ -5087,7 +5093,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt62MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt62MouseClicked
         // TODO add your handling code here:
-        if (acao == 3 || acao == 4) {
+        if (acao == 3) {
             numeroDente = 31;
             jNumeroDenteEvol.setText(Integer.toString(numeroDente));
             jDataOdontogramaEvol.setCalendar(Calendar.getInstance());
@@ -5096,7 +5102,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt63MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt63MouseClicked
         // TODO add your handling code here:
-        if (acao == 3 || acao == 4) {
+        if (acao == 3) {
             numeroDente = 48;
             jNumeroDenteEvol.setText(Integer.toString(numeroDente));
             jDataOdontogramaEvol.setCalendar(Calendar.getInstance());
@@ -5105,7 +5111,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt19MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt19MouseClicked
         // TODO add your handling code here:
-        if (acao == 3 || acao == 4) {
+        if (acao == 3) {
             numeroDente = 18;
             jNumeroDenteEvol.setText(Integer.toString(numeroDente));
             jDataOdontogramaEvol.setCalendar(Calendar.getInstance());
@@ -5114,7 +5120,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt20MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt20MouseClicked
         // TODO add your handling code here:
-        if (acao == 3 || acao == 4) {
+        if (acao == 3) {
             numeroDente = 17;
             jNumeroDenteEvol.setText(Integer.toString(numeroDente));
             jDataOdontogramaEvol.setCalendar(Calendar.getInstance());
@@ -5123,7 +5129,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt64MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt64MouseClicked
         // TODO add your handling code here:
-        if (acao == 3 || acao == 4) {
+        if (acao == 3) {
             numeroDente = 13;
             jNumeroDenteEvol.setText(Integer.toString(numeroDente));
             jDataOdontogramaEvol.setCalendar(Calendar.getInstance());
@@ -5132,7 +5138,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt65MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt65MouseClicked
         // TODO add your handling code here:
-        if (acao == 3 || acao == 4) {
+        if (acao == 3) {
             numeroDente = 12;
             jNumeroDenteEvol.setText(Integer.toString(numeroDente));
             jDataOdontogramaEvol.setCalendar(Calendar.getInstance());
@@ -5141,7 +5147,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt66MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt66MouseClicked
         // TODO add your handling code here:
-        if (acao == 3 || acao == 4) {
+        if (acao == 3) {
             numeroDente = 11;
             jNumeroDenteEvol.setText(Integer.toString(numeroDente));
             jDataOdontogramaEvol.setCalendar(Calendar.getInstance());
@@ -5150,7 +5156,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt67MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt67MouseClicked
         // TODO add your handling code here:
-        if (acao == 3 || acao == 4) {
+        if (acao == 3) {
             numeroDente = 47;
             jNumeroDenteEvol.setText(Integer.toString(numeroDente));
             jDataOdontogramaEvol.setCalendar(Calendar.getInstance());
@@ -5159,7 +5165,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt68MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt68MouseClicked
         // TODO add your handling code here:
-        if (acao == 3 || acao == 4) {
+        if (acao == 3) {
             numeroDente = 15;
             jNumeroDenteEvol.setText(Integer.toString(numeroDente));
             jDataOdontogramaEvol.setCalendar(Calendar.getInstance());
@@ -5168,7 +5174,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt69MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt69MouseClicked
         // TODO add your handling code here:
-        if (acao == 3 || acao == 4) {
+        if (acao == 3) {
             numeroDente = 14;
             jNumeroDenteEvol.setText(Integer.toString(numeroDente));
             jDataOdontogramaEvol.setCalendar(Calendar.getInstance());
@@ -5177,7 +5183,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt70MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt70MouseClicked
         // TODO add your handling code here:
-        if (acao == 3 || acao == 4) {
+        if (acao == 3) {
             numeroDente = 16;
             jNumeroDenteEvol.setText(Integer.toString(numeroDente));
             jDataOdontogramaEvol.setCalendar(Calendar.getInstance());
@@ -5186,7 +5192,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt71MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt71MouseClicked
         // TODO add your handling code here:
-        if (acao == 3 || acao == 4) {
+        if (acao == 3) {
             numeroDente = 42;
             jNumeroDenteEvol.setText(Integer.toString(numeroDente));
             jDataOdontogramaEvol.setCalendar(Calendar.getInstance());
@@ -5195,7 +5201,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt72MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt72MouseClicked
         // TODO add your handling code here:
-        if (acao == 3 || acao == 4) {
+        if (acao == 3) {
             numeroDente = 43;
             jNumeroDenteEvol.setText(Integer.toString(numeroDente));
             jDataOdontogramaEvol.setCalendar(Calendar.getInstance());
@@ -5204,7 +5210,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt73MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt73MouseClicked
         // TODO add your handling code here:
-        if (acao == 3 || acao == 4) {
+        if (acao == 3) {
             numeroDente = 46;
             jNumeroDenteEvol.setText(Integer.toString(numeroDente));
             jDataOdontogramaEvol.setCalendar(Calendar.getInstance());
@@ -5213,7 +5219,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt74MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt74MouseClicked
         // TODO add your handling code here:
-        if (acao == 3 || acao == 4) {
+        if (acao == 3) {
             numeroDente = 41;
             jNumeroDenteEvol.setText(Integer.toString(numeroDente));
             jDataOdontogramaEvol.setCalendar(Calendar.getInstance());
@@ -5441,7 +5447,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 //        popup.add(item3);
 //        //mostra na tela
 //        popup.show(jBt18, 10, 10);
-        if (acao == 1 || acao == 2) {
+        if (acao == 1) {
             numeroDente = 18;
             jNumeroDente.setText(Integer.toString(numeroDente));
             jDataOdontograma.setCalendar(Calendar.getInstance());
@@ -5450,7 +5456,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt17MouseClicked
         // TODO add your handling code here:
-        if (acao == 1 || acao == 2) {
+        if (acao == 1) {
             numeroDente = 17;
             jNumeroDente.setText(Integer.toString(numeroDente));
             jDataOdontograma.setCalendar(Calendar.getInstance());
@@ -5459,7 +5465,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt16MouseClicked
         // TODO add your handling code here:
-        if (acao == 1 || acao == 2) {
+        if (acao == 1) {
             numeroDente = 16;
             jNumeroDente.setText(Integer.toString(numeroDente));
             jDataOdontograma.setCalendar(Calendar.getInstance());
@@ -5468,7 +5474,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt15MouseClicked
         // TODO add your handling code here:
-        if (acao == 1 || acao == 2) {
+        if (acao == 1) {
             numeroDente = 15;
             jNumeroDente.setText(Integer.toString(numeroDente));
             jDataOdontograma.setCalendar(Calendar.getInstance());
@@ -5477,7 +5483,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt14MouseClicked
         // TODO add your handling code here:
-        if (acao == 1 || acao == 2) {
+        if (acao == 1) {
             numeroDente = 14;
             jNumeroDente.setText(Integer.toString(numeroDente));
             jDataOdontograma.setCalendar(Calendar.getInstance());
@@ -5486,7 +5492,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt13MouseClicked
         // TODO add your handling code here:
-        if (acao == 1 || acao == 2) {
+        if (acao == 1) {
             numeroDente = 13;
             jNumeroDente.setText(Integer.toString(numeroDente));
             jDataOdontograma.setCalendar(Calendar.getInstance());
@@ -5495,7 +5501,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt12MouseClicked
         // TODO add your handling code here:
-        if (acao == 1 || acao == 2) {
+        if (acao == 1) {
             numeroDente = 12;
             jNumeroDente.setText(Integer.toString(numeroDente));
             jDataOdontograma.setCalendar(Calendar.getInstance());
@@ -5504,7 +5510,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt11MouseClicked
         // TODO add your handling code here:
-        if (acao == 1 || acao == 2) {
+        if (acao == 1) {
             numeroDente = 11;
             jNumeroDente.setText(Integer.toString(numeroDente));
             jDataOdontograma.setCalendar(Calendar.getInstance());
@@ -5513,7 +5519,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt41MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt41MouseClicked
         // TODO add your handling code here:
-        if (acao == 1 || acao == 2) {
+        if (acao == 1) {
             numeroDente = 41;
             jNumeroDente.setText(Integer.toString(numeroDente));
             jDataOdontograma.setCalendar(Calendar.getInstance());
@@ -5522,7 +5528,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt42MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt42MouseClicked
         // TODO add your handling code here:
-        if (acao == 1 || acao == 2) {
+        if (acao == 1) {
             numeroDente = 42;
             jNumeroDente.setText(Integer.toString(numeroDente));
             jDataOdontograma.setCalendar(Calendar.getInstance());
@@ -5531,7 +5537,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt43MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt43MouseClicked
         // TODO add your handling code here:
-        if (acao == 1 || acao == 2) {
+        if (acao == 1) {
             numeroDente = 43;
             jNumeroDente.setText(Integer.toString(numeroDente));
             jDataOdontograma.setCalendar(Calendar.getInstance());
@@ -5540,7 +5546,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt44MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt44MouseClicked
         // TODO add your handling code here:
-        if (acao == 1 || acao == 2) {
+        if (acao == 1) {
             numeroDente = 44;
             jNumeroDente.setText(Integer.toString(numeroDente));
             jDataOdontograma.setCalendar(Calendar.getInstance());
@@ -5549,7 +5555,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt45MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt45MouseClicked
         // TODO add your handling code here:
-        if (acao == 1 || acao == 2) {
+        if (acao == 1) {
             numeroDente = 45;
             jNumeroDente.setText(Integer.toString(numeroDente));
             jDataOdontograma.setCalendar(Calendar.getInstance());
@@ -5558,7 +5564,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt46MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt46MouseClicked
         // TODO add your handling code here:
-        if (acao == 1 || acao == 2) {
+        if (acao == 1) {
             numeroDente = 46;
             jNumeroDente.setText(Integer.toString(numeroDente));
             jDataOdontograma.setCalendar(Calendar.getInstance());
@@ -5567,7 +5573,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt47MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt47MouseClicked
         // TODO add your handling code here:
-        if (acao == 1 || acao == 2) {
+        if (acao == 1) {
             numeroDente = 47;
             jNumeroDente.setText(Integer.toString(numeroDente));
             jDataOdontograma.setCalendar(Calendar.getInstance());
@@ -5576,7 +5582,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt48MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt48MouseClicked
         // TODO add your handling code here:
-        if (acao == 1 || acao == 2) {
+        if (acao == 1) {
             numeroDente = 48;
             jNumeroDente.setText(Integer.toString(numeroDente));
             jDataOdontograma.setCalendar(Calendar.getInstance());
@@ -5585,7 +5591,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt21MouseClicked
         // TODO add your handling code here:
-        if (acao == 1 || acao == 2) {
+        if (acao == 1) {
             numeroDente = 21;
             jNumeroDente.setText(Integer.toString(numeroDente));
             jDataOdontograma.setCalendar(Calendar.getInstance());
@@ -5594,7 +5600,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt22MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt22MouseClicked
         // TODO add your handling code here:
-        if (acao == 1 || acao == 2) {
+        if (acao == 1) {
             numeroDente = 22;
             jNumeroDente.setText(Integer.toString(numeroDente));
             jDataOdontograma.setCalendar(Calendar.getInstance());
@@ -5603,7 +5609,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt23MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt23MouseClicked
         // TODO add your handling code here:
-        if (acao == 1 || acao == 2) {
+        if (acao == 1) {
             numeroDente = 23;
             jNumeroDente.setText(Integer.toString(numeroDente));
             jDataOdontograma.setCalendar(Calendar.getInstance());
@@ -5612,7 +5618,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt24MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt24MouseClicked
         // TODO add your handling code here:
-        if (acao == 1 || acao == 2) {
+        if (acao == 1) {
             numeroDente = 24;
             jNumeroDente.setText(Integer.toString(numeroDente));
             jDataOdontograma.setCalendar(Calendar.getInstance());
@@ -5621,7 +5627,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt25MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt25MouseClicked
         // TODO add your handling code here:
-        if (acao == 1 || acao == 2) {
+        if (acao == 1) {
             numeroDente = 25;
             jNumeroDente.setText(Integer.toString(numeroDente));
             jDataOdontograma.setCalendar(Calendar.getInstance());
@@ -5630,7 +5636,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt26MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt26MouseClicked
         // TODO add your handling code here:
-        if (acao == 1 || acao == 2) {
+        if (acao == 1) {
             numeroDente = 26;
             jNumeroDente.setText(Integer.toString(numeroDente));
             jDataOdontograma.setCalendar(Calendar.getInstance());
@@ -5639,7 +5645,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt27MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt27MouseClicked
         // TODO add your handling code here:
-        if (acao == 1 || acao == 2) {
+        if (acao == 1) {
             numeroDente = 27;
             jNumeroDente.setText(Integer.toString(numeroDente));
             jDataOdontograma.setCalendar(Calendar.getInstance());
@@ -5648,7 +5654,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt28MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt28MouseClicked
         // TODO add your handling code here:
-        if (acao == 1 || acao == 2) {
+        if (acao == 1) {
             numeroDente = 28;
             jNumeroDente.setText(Integer.toString(numeroDente));
             jDataOdontograma.setCalendar(Calendar.getInstance());
@@ -5657,7 +5663,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt31MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt31MouseClicked
         // TODO add your handling code here:
-        if (acao == 1 || acao == 2) {
+        if (acao == 1) {
             numeroDente = 31;
             jNumeroDente.setText(Integer.toString(numeroDente));
             jDataOdontograma.setCalendar(Calendar.getInstance());
@@ -5666,7 +5672,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt32MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt32MouseClicked
         // TODO add your handling code here:
-        if (acao == 1 || acao == 2) {
+        if (acao == 1) {
             numeroDente = 32;
             jNumeroDente.setText(Integer.toString(numeroDente));
             jDataOdontograma.setCalendar(Calendar.getInstance());
@@ -5675,7 +5681,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt33MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt33MouseClicked
         // TODO add your handling code here:
-        if (acao == 1 || acao == 2) {
+        if (acao == 1) {
             numeroDente = 33;
             jNumeroDente.setText(Integer.toString(numeroDente));
             jDataOdontograma.setCalendar(Calendar.getInstance());
@@ -5684,7 +5690,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt34MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt34MouseClicked
         // TODO add your handling code here:
-        if (acao == 1 || acao == 2) {
+        if (acao == 1) {
             numeroDente = 34;
             jNumeroDente.setText(Integer.toString(numeroDente));
             jDataOdontograma.setCalendar(Calendar.getInstance());
@@ -5693,7 +5699,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt35MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt35MouseClicked
         // TODO add your handling code here:
-        if (acao == 1 || acao == 2) {
+        if (acao == 1) {
             numeroDente = 35;
             jNumeroDente.setText(Integer.toString(numeroDente));
             jDataOdontograma.setCalendar(Calendar.getInstance());
@@ -5702,7 +5708,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt36MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt36MouseClicked
         // TODO add your handling code here:
-        if (acao == 1 || acao == 2) {
+        if (acao == 1) {
             numeroDente = 36;
             jNumeroDente.setText(Integer.toString(numeroDente));
             jDataOdontograma.setCalendar(Calendar.getInstance());
@@ -5711,7 +5717,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt37MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt37MouseClicked
         // TODO add your handling code here:
-        if (acao == 1 || acao == 2) {
+        if (acao == 1) {
             numeroDente = 37;
             jNumeroDente.setText(Integer.toString(numeroDente));
             jDataOdontograma.setCalendar(Calendar.getInstance());
@@ -5720,7 +5726,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
 
     private void jBt38MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBt38MouseClicked
         // TODO add your handling code here:
-        if (acao == 1 || acao == 2) {
+        if (acao == 1) {
             numeroDente = 38;
             jNumeroDente.setText(Integer.toString(numeroDente));
             jDataOdontograma.setCalendar(Calendar.getInstance());
@@ -6181,42 +6187,6 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
         jComboBoxOutras.setEnabled(!true);
         jQualOutraDoenca.setEnabled(!true);
         jTextoDoenca.setEnabled(!true);
-        // ODONTOGRAMA       
-        jBt11.setEnabled(!true);
-        jBt12.setEnabled(!true);
-        jBt13.setEnabled(!true);
-        jBt14.setEnabled(!true);
-        jBt15.setEnabled(!true);
-        jBt16.setEnabled(!true);
-        jBt17.setEnabled(!true);
-        jBt18.setEnabled(!true);
-        //
-        jBt21.setEnabled(!true);
-        jBt22.setEnabled(!true);
-        jBt23.setEnabled(!true);
-        jBt24.setEnabled(!true);
-        jBt25.setEnabled(!true);
-        jBt26.setEnabled(!true);
-        jBt27.setEnabled(!true);
-        jBt28.setEnabled(!true);
-        //
-        jBt31.setEnabled(!true);
-        jBt32.setEnabled(!true);
-        jBt33.setEnabled(!true);
-        jBt34.setEnabled(!true);
-        jBt35.setEnabled(!true);
-        jBt36.setEnabled(!true);
-        jBt37.setEnabled(!true);
-        jBt38.setEnabled(!true);
-        //
-        jBt41.setEnabled(!true);
-        jBt42.setEnabled(!true);
-        jBt43.setEnabled(!true);
-        jBt44.setEnabled(!true);
-        jBt45.setEnabled(!true);
-        jBt46.setEnabled(!true);
-        jBt47.setEnabled(!true);
-        jBt48.setEnabled(!true);
         //
         jComboBoxTipoProcedimento.setEnabled(!true);
         jNumeroDente.setEnabled(!true);
@@ -6288,6 +6258,152 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
         jBtCancelarPrescricao.setEnabled(!true);
         jBtAuditoriaPrescricao.setEnabled(!true);
         jBtImpressaoPrescricao.setEnabled(!true);
+    }
+
+    public void habilitarOdontogramaAdmissao() {
+        jBt11.setEnabled(true);
+        jBt12.setEnabled(true);
+        jBt13.setEnabled(true);
+        jBt14.setEnabled(true);
+        jBt15.setEnabled(true);
+        jBt16.setEnabled(true);
+        jBt17.setEnabled(true);
+        jBt18.setEnabled(true);
+        //
+        jBt21.setEnabled(true);
+        jBt22.setEnabled(true);
+        jBt23.setEnabled(true);
+        jBt24.setEnabled(true);
+        jBt25.setEnabled(true);
+        jBt26.setEnabled(true);
+        jBt27.setEnabled(true);
+        jBt28.setEnabled(true);
+        //
+        jBt31.setEnabled(true);
+        jBt32.setEnabled(true);
+        jBt33.setEnabled(true);
+        jBt34.setEnabled(true);
+        jBt35.setEnabled(true);
+        jBt36.setEnabled(true);
+        jBt37.setEnabled(true);
+        jBt38.setEnabled(true);
+        //
+        jBt41.setEnabled(true);
+        jBt42.setEnabled(true);
+        jBt43.setEnabled(true);
+        jBt44.setEnabled(true);
+        jBt45.setEnabled(true);
+        jBt46.setEnabled(true);
+        jBt47.setEnabled(true);
+        jBt48.setEnabled(true);
+    }
+
+    public void bloquearOdontogramaAdmissao() {
+        jBt11.setEnabled(!true);
+        jBt12.setEnabled(!true);
+        jBt13.setEnabled(!true);
+        jBt14.setEnabled(!true);
+        jBt15.setEnabled(!true);
+        jBt16.setEnabled(!true);
+        jBt17.setEnabled(!true);
+        jBt18.setEnabled(!true);
+        //
+        jBt21.setEnabled(!true);
+        jBt22.setEnabled(!true);
+        jBt23.setEnabled(!true);
+        jBt24.setEnabled(!true);
+        jBt25.setEnabled(!true);
+        jBt26.setEnabled(!true);
+        jBt27.setEnabled(!true);
+        jBt28.setEnabled(!true);
+        //
+        jBt31.setEnabled(!true);
+        jBt32.setEnabled(!true);
+        jBt33.setEnabled(!true);
+        jBt34.setEnabled(!true);
+        jBt35.setEnabled(!true);
+        jBt36.setEnabled(!true);
+        jBt37.setEnabled(!true);
+        jBt38.setEnabled(!true);
+        //
+        jBt41.setEnabled(!true);
+        jBt42.setEnabled(!true);
+        jBt43.setEnabled(!true);
+        jBt44.setEnabled(!true);
+        jBt45.setEnabled(!true);
+        jBt46.setEnabled(!true);
+        jBt47.setEnabled(!true);
+        jBt48.setEnabled(!true);
+    }
+
+    public void habilitarOdontoGramaEvolucao() {
+        jBt19.setEnabled(true);
+        jBt20.setEnabled(true);
+        jBt29.setEnabled(true);
+        jBt30.setEnabled(true);
+        jBt39.setEnabled(true);
+        jBt40.setEnabled(true);
+        jBt49.setEnabled(true);
+        jBt50.setEnabled(true);
+        jBt51.setEnabled(true);
+        jBt52.setEnabled(true);
+        jBt53.setEnabled(true);
+        jBt54.setEnabled(true);
+        jBt55.setEnabled(true);
+        jBt56.setEnabled(true);
+        jBt57.setEnabled(true);
+        jBt58.setEnabled(true);
+        jBt59.setEnabled(true);
+        jBt60.setEnabled(true);
+        jBt61.setEnabled(true);
+        jBt62.setEnabled(true);
+        jBt63.setEnabled(true);
+        jBt64.setEnabled(true);
+        jBt65.setEnabled(true);
+        jBt66.setEnabled(true);
+        jBt67.setEnabled(true);
+        jBt68.setEnabled(true);
+        jBt69.setEnabled(true);
+        jBt70.setEnabled(true);
+        jBt71.setEnabled(true);
+        jBt72.setEnabled(true);
+        jBt73.setEnabled(true);
+        jBt74.setEnabled(true);
+    }
+
+    public void bloquearOdontoGramaEvolucao() {
+        jBt19.setEnabled(!true);
+        jBt20.setEnabled(!true);
+        jBt29.setEnabled(!true);
+        jBt30.setEnabled(!true);
+        jBt39.setEnabled(!true);
+        jBt40.setEnabled(!true);
+        jBt49.setEnabled(!true);
+        jBt50.setEnabled(!true);
+        jBt51.setEnabled(!true);
+        jBt52.setEnabled(!true);
+        jBt53.setEnabled(!true);
+        jBt54.setEnabled(!true);
+        jBt55.setEnabled(!true);
+        jBt56.setEnabled(!true);
+        jBt57.setEnabled(!true);
+        jBt58.setEnabled(!true);
+        jBt59.setEnabled(!true);
+        jBt60.setEnabled(!true);
+        jBt61.setEnabled(!true);
+        jBt62.setEnabled(!true);
+        jBt63.setEnabled(!true);
+        jBt64.setEnabled(!true);
+        jBt65.setEnabled(!true);
+        jBt66.setEnabled(!true);
+        jBt67.setEnabled(!true);
+        jBt68.setEnabled(!true);
+        jBt69.setEnabled(!true);
+        jBt70.setEnabled(!true);
+        jBt71.setEnabled(!true);
+        jBt72.setEnabled(!true);
+        jBt73.setEnabled(!true);
+        jBt74.setEnabled(!true);
     }
 
     public void Novo() {
@@ -6386,42 +6502,6 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
         jRBtArealizar.setEnabled(true);
         jPlanoTratamento.setEnabled(true);
         //
-        jBt11.setEnabled(true);
-        jBt12.setEnabled(true);
-        jBt13.setEnabled(true);
-        jBt14.setEnabled(true);
-        jBt15.setEnabled(true);
-        jBt16.setEnabled(true);
-        jBt17.setEnabled(true);
-        jBt18.setEnabled(true);
-        //
-        jBt21.setEnabled(true);
-        jBt22.setEnabled(true);
-        jBt23.setEnabled(true);
-        jBt24.setEnabled(true);
-        jBt25.setEnabled(true);
-        jBt26.setEnabled(true);
-        jBt27.setEnabled(true);
-        jBt28.setEnabled(true);
-        //
-        jBt31.setEnabled(true);
-        jBt32.setEnabled(true);
-        jBt33.setEnabled(true);
-        jBt34.setEnabled(true);
-        jBt35.setEnabled(true);
-        jBt36.setEnabled(true);
-        jBt37.setEnabled(true);
-        jBt38.setEnabled(true);
-        //
-        jBt41.setEnabled(true);
-        jBt42.setEnabled(true);
-        jBt43.setEnabled(true);
-        jBt44.setEnabled(true);
-        jBt45.setEnabled(true);
-        jBt46.setEnabled(true);
-        jBt47.setEnabled(true);
-        jBt48.setEnabled(true);
-        //
         jBtNovo.setEnabled(!true);
         jBtAlterar.setEnabled(!true);
         jBtExcluir.setEnabled(!true);
@@ -6473,49 +6553,16 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
         jQualOutraDoenca.setEnabled(true);
         jTextoDoenca.setEnabled(true);
         // ODONTOGRAMA
-        jComboBoxTipoProcedimento.setEnabled(true);
-        jNumeroDente.setEnabled(true);
-        jDataOdontograma.setEnabled(true);
-        jComboBoxFacesDente.setEnabled(true);
-        jRBtRealizado.setEnabled(true);
-        jRBtArealizar.setEnabled(true);
-        jPlanoTratamento.setEnabled(true);
+        jComboBoxTipoProcedimento.setEnabled(!true);
+        jNumeroDente.setEnabled(!true);
+        jDataOdontograma.setEnabled(!true);
+        jComboBoxFacesDente.setEnabled(!true);
+        jRBtRealizado.setEnabled(!true);
+        jRBtArealizar.setEnabled(!true);
+        jPlanoTratamento.setEnabled(!true);
         //
-        jBt11.setEnabled(true);
-        jBt12.setEnabled(true);
-        jBt13.setEnabled(true);
-        jBt14.setEnabled(true);
-        jBt15.setEnabled(true);
-        jBt16.setEnabled(true);
-        jBt17.setEnabled(true);
-        jBt18.setEnabled(true);
-        //
-        jBt21.setEnabled(true);
-        jBt22.setEnabled(true);
-        jBt23.setEnabled(true);
-        jBt24.setEnabled(true);
-        jBt25.setEnabled(true);
-        jBt26.setEnabled(true);
-        jBt27.setEnabled(true);
-        jBt28.setEnabled(true);
-        //
-        jBt31.setEnabled(true);
-        jBt32.setEnabled(true);
-        jBt33.setEnabled(true);
-        jBt34.setEnabled(true);
-        jBt35.setEnabled(true);
-        jBt36.setEnabled(true);
-        jBt37.setEnabled(true);
-        jBt38.setEnabled(true);
-        //
-        jBt41.setEnabled(true);
-        jBt42.setEnabled(true);
-        jBt43.setEnabled(true);
-        jBt44.setEnabled(true);
-        jBt45.setEnabled(true);
-        jBt46.setEnabled(true);
-        jBt47.setEnabled(true);
-        jBt48.setEnabled(true);
+        jBtAdicionar.setEnabled(!true);
+        jBtRemover.setEnabled(!true);
         //
         jBtNovo.setEnabled(!true);
         jBtAlterar.setEnabled(!true);
@@ -6524,9 +6571,6 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
         jBtCancelar.setEnabled(true);
         jBtFinalizar.setEnabled(!true);
         jBtAuditoriaOdonto.setEnabled(!true);
-        //
-        jBtAdicionar.setEnabled(true);
-        jBtRemover.setEnabled(true);
     }
 
     public void Excluir() {
@@ -6613,42 +6657,6 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
         jComboBoxOutras.setEnabled(!true);
         jQualOutraDoenca.setEnabled(!true);
         jTextoDoenca.setEnabled(!true);
-        // ODONTOGRAMA
-        jBt11.setEnabled(!true);
-        jBt12.setEnabled(!true);
-        jBt13.setEnabled(!true);
-        jBt14.setEnabled(!true);
-        jBt15.setEnabled(!true);
-        jBt16.setEnabled(!true);
-        jBt17.setEnabled(!true);
-        jBt18.setEnabled(!true);
-        //
-        jBt21.setEnabled(!true);
-        jBt22.setEnabled(!true);
-        jBt23.setEnabled(!true);
-        jBt24.setEnabled(!true);
-        jBt25.setEnabled(!true);
-        jBt26.setEnabled(!true);
-        jBt27.setEnabled(!true);
-        jBt28.setEnabled(!true);
-        //
-        jBt31.setEnabled(!true);
-        jBt32.setEnabled(!true);
-        jBt33.setEnabled(!true);
-        jBt34.setEnabled(!true);
-        jBt35.setEnabled(!true);
-        jBt36.setEnabled(!true);
-        jBt37.setEnabled(!true);
-        jBt38.setEnabled(!true);
-        //
-        jBt41.setEnabled(!true);
-        jBt42.setEnabled(!true);
-        jBt43.setEnabled(!true);
-        jBt44.setEnabled(!true);
-        jBt45.setEnabled(!true);
-        jBt46.setEnabled(!true);
-        jBt47.setEnabled(!true);
-        jBt48.setEnabled(!true);
         //
         jComboBoxTipoProcedimento.setEnabled(!true);
         jNumeroDente.setEnabled(!true);
@@ -6715,42 +6723,6 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
         jPlanoTratamento.setEnabled(!true);
         jRBtRealizado.setEnabled(!true);
         jRBtArealizar.setEnabled(!true);
-        //
-        jBt11.setEnabled(!true);
-        jBt12.setEnabled(!true);
-        jBt13.setEnabled(!true);
-        jBt14.setEnabled(!true);
-        jBt15.setEnabled(!true);
-        jBt16.setEnabled(!true);
-        jBt17.setEnabled(!true);
-        jBt18.setEnabled(!true);
-        //
-        jBt21.setEnabled(!true);
-        jBt22.setEnabled(!true);
-        jBt23.setEnabled(!true);
-        jBt24.setEnabled(!true);
-        jBt25.setEnabled(!true);
-        jBt26.setEnabled(!true);
-        jBt27.setEnabled(!true);
-        jBt28.setEnabled(!true);
-        //
-        jBt31.setEnabled(!true);
-        jBt32.setEnabled(!true);
-        jBt33.setEnabled(!true);
-        jBt34.setEnabled(!true);
-        jBt35.setEnabled(!true);
-        jBt36.setEnabled(!true);
-        jBt37.setEnabled(!true);
-        jBt38.setEnabled(!true);
-        //
-        jBt41.setEnabled(!true);
-        jBt42.setEnabled(!true);
-        jBt43.setEnabled(!true);
-        jBt44.setEnabled(!true);
-        jBt45.setEnabled(!true);
-        jBt46.setEnabled(!true);
-        jBt47.setEnabled(!true);
-        jBt48.setEnabled(!true);
         //
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(true);
@@ -6859,43 +6831,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
             jPlanoTratamento.setEnabled(!true);
             jRBtRealizado.setEnabled(!true);
             jRBtArealizar.setEnabled(!true);
-            //
-            jBt11.setEnabled(!true);
-            jBt12.setEnabled(!true);
-            jBt13.setEnabled(!true);
-            jBt14.setEnabled(!true);
-            jBt15.setEnabled(!true);
-            jBt16.setEnabled(!true);
-            jBt17.setEnabled(!true);
-            jBt18.setEnabled(!true);
-            //
-            jBt21.setEnabled(!true);
-            jBt22.setEnabled(!true);
-            jBt23.setEnabled(!true);
-            jBt24.setEnabled(!true);
-            jBt25.setEnabled(!true);
-            jBt26.setEnabled(!true);
-            jBt27.setEnabled(!true);
-            jBt28.setEnabled(!true);
-            //
-            jBt31.setEnabled(!true);
-            jBt32.setEnabled(!true);
-            jBt33.setEnabled(!true);
-            jBt34.setEnabled(!true);
-            jBt35.setEnabled(!true);
-            jBt36.setEnabled(!true);
-            jBt37.setEnabled(!true);
-            jBt38.setEnabled(!true);
-            //
-            jBt41.setEnabled(!true);
-            jBt42.setEnabled(!true);
-            jBt43.setEnabled(!true);
-            jBt44.setEnabled(!true);
-            jBt45.setEnabled(!true);
-            jBt46.setEnabled(!true);
-            jBt47.setEnabled(!true);
-            jBt48.setEnabled(!true);
-            //
+            //           
             jBtNovo.setEnabled(true);
             jBtAlterar.setEnabled(!true);
             jBtExcluir.setEnabled(!true);
@@ -6953,42 +6889,6 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
             jPlanoTratamento.setEnabled(!true);
             jRBtRealizado.setEnabled(!true);
             jRBtArealizar.setEnabled(!true);
-            //
-            jBt11.setEnabled(!true);
-            jBt12.setEnabled(!true);
-            jBt13.setEnabled(!true);
-            jBt14.setEnabled(!true);
-            jBt15.setEnabled(!true);
-            jBt16.setEnabled(!true);
-            jBt17.setEnabled(!true);
-            jBt18.setEnabled(!true);
-            //
-            jBt21.setEnabled(!true);
-            jBt22.setEnabled(!true);
-            jBt23.setEnabled(!true);
-            jBt24.setEnabled(!true);
-            jBt25.setEnabled(!true);
-            jBt26.setEnabled(!true);
-            jBt27.setEnabled(!true);
-            jBt28.setEnabled(!true);
-            //
-            jBt31.setEnabled(!true);
-            jBt32.setEnabled(!true);
-            jBt33.setEnabled(!true);
-            jBt34.setEnabled(!true);
-            jBt35.setEnabled(!true);
-            jBt36.setEnabled(!true);
-            jBt37.setEnabled(!true);
-            jBt38.setEnabled(!true);
-            //
-            jBt41.setEnabled(!true);
-            jBt42.setEnabled(!true);
-            jBt43.setEnabled(!true);
-            jBt44.setEnabled(!true);
-            jBt45.setEnabled(!true);
-            jBt46.setEnabled(!true);
-            jBt47.setEnabled(!true);
-            jBt48.setEnabled(!true);
             //
             jBtNovo.setEnabled(true);
             jBtAlterar.setEnabled(true);
@@ -7180,16 +7080,16 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
         jDataEvolucao.setEnabled(true);
         jEvolucao.setEnabled(true);
         //
-        jComboBoxTipoProcedimentoEvol.setEnabled(true);
-        jComboBoxFacesDenteEvol.setEnabled(true);
-        jPlanoTratamentoEvol.setEnabled(true);
-        jNumeroDenteEvol.setEnabled(true);
-        jDataOdontogramaEvol.setEnabled(true);
-        jRDBtRealizarEvol.setEnabled(true);
-        jRDBtArealizarEvol.setEnabled(true);
+        jComboBoxTipoProcedimentoEvol.setEnabled(!true);
+        jComboBoxFacesDenteEvol.setEnabled(!true);
+        jPlanoTratamentoEvol.setEnabled(!true);
+        jNumeroDenteEvol.setEnabled(!true);
+        jDataOdontogramaEvol.setEnabled(!true);
+        jRDBtRealizarEvol.setEnabled(!true);
+        jRDBtArealizarEvol.setEnabled(!true);
         //
-        jBtAdicionarEvol.setEnabled(true);
-        jBtRemoverEvol.setEnabled(true);
+        jBtAdicionarEvol.setEnabled(!true);
+        jBtRemoverEvol.setEnabled(!true);
         //
         jBtNovo.setEnabled(!true);
         jBtAlterar.setEnabled(!true);
