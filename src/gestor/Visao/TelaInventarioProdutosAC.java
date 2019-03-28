@@ -319,7 +319,7 @@ public class TelaInventarioProdutosAC extends javax.swing.JInternalFrame {
         jTabelaInventarioEstoque.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInventarioEstoque.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Status", "Observação"
@@ -834,7 +834,7 @@ public class TelaInventarioProdutosAC extends javax.swing.JInternalFrame {
         jTabelaItensProdutoInvent.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaItensProdutoInvent.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Item", "Código", "Código Barras", "Descrição", "UN", "Qtde.", "Lote", "Data Validade"
@@ -1289,6 +1289,7 @@ public class TelaInventarioProdutosAC extends javax.swing.JInternalFrame {
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMovimentacaoInventarioManuAL) && codIncluirAL == 1) {
             acao = 1;
             Novo();
+            limparProdutosInventario();
             corCampos();
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
@@ -2467,6 +2468,33 @@ public class TelaInventarioProdutosAC extends javax.swing.JInternalFrame {
         jTabelaItensProdutoInvent.getColumnModel().getColumn(5).setCellRenderer(direita);
         jTabelaItensProdutoInvent.getColumnModel().getColumn(6).setCellRenderer(direita);
         jTabelaItensProdutoInvent.getColumnModel().getColumn(7).setCellRenderer(centralizado);
+    }
+
+    public void limparProdutosInventario() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Item", "Código", "Código Barras", "Descrição", "UN", "Qtde.", "Lote", "Data Validade"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaItensProdutoInvent.setModel(modelo);
+        jTabelaItensProdutoInvent.getColumnModel().getColumn(0).setPreferredWidth(40);
+        jTabelaItensProdutoInvent.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaItensProdutoInvent.getColumnModel().getColumn(1).setPreferredWidth(50);
+        jTabelaItensProdutoInvent.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaItensProdutoInvent.getColumnModel().getColumn(2).setPreferredWidth(90);
+        jTabelaItensProdutoInvent.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaItensProdutoInvent.getColumnModel().getColumn(3).setPreferredWidth(200);
+        jTabelaItensProdutoInvent.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaItensProdutoInvent.getColumnModel().getColumn(4).setPreferredWidth(40);
+        jTabelaItensProdutoInvent.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaItensProdutoInvent.getColumnModel().getColumn(5).setPreferredWidth(50);
+        jTabelaItensProdutoInvent.getColumnModel().getColumn(5).setResizable(false);
+        jTabelaItensProdutoInvent.getColumnModel().getColumn(6).setPreferredWidth(100);
+        jTabelaItensProdutoInvent.getColumnModel().getColumn(6).setResizable(false);
+        jTabelaItensProdutoInvent.getColumnModel().getColumn(7).setPreferredWidth(80);
+        jTabelaItensProdutoInvent.getColumnModel().getColumn(7).setResizable(false);
+        jTabelaItensProdutoInvent.getTableHeader().setReorderingAllowed(false);
+        jTabelaItensProdutoInvent.setAutoResizeMode(jTabelaItensProdutoInvent.AUTO_RESIZE_OFF);
+        jTabelaItensProdutoInvent.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
     }
 
     public void objLog() {
