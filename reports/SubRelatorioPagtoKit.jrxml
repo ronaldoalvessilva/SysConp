@@ -4,34 +4,14 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="IdPagto" class="java.lang.String"/>
+	<parameter name="pCodigoInternoCrc" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT * FROM ITENS_PAGAMENTO_KIT_INTERNOS INNER JOIN PRONTUARIOSCRC ON ITENS_PAGAMENTO_KIT_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc WHERE ITENS_PAGAMENTO_KIT_INTERNOS.IdPagto=$P{IdPagto}]]>
+		<![CDATA[SELECT * FROM ITENS_PAGAMENTO_KIT_INTERNOS INNER JOIN PRONTUARIOSCRC ON ITENS_PAGAMENTO_KIT_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc INNER JOIN ITENS_PAGAMENTO_KIT_INTERNOS_PRODUTOS ON ITENS_PAGAMENTO_KIT_INTERNOS.IdItem=ITENS_PAGAMENTO_KIT_INTERNOS_PRODUTOS.IdItem INNER JOIN PRODUTOS_AC ON ITENS_PAGAMENTO_KIT_INTERNOS_PRODUTOS.IdProd=PRODUTOS_AC.IdProd
+ WHERE ITENS_PAGAMENTO_KIT_INTERNOS.IdPagto=$P{IdPagto} AND ITENS_PAGAMENTO_KIT_INTERNOS.IdInternoCrc=$P{pCodigoInternoCrc}]]>
 	</queryString>
 	<field name="IdItem" class="java.lang.Integer"/>
 	<field name="IdPagto" class="java.lang.Integer"/>
 	<field name="IdInternoCrc" class="java.lang.Integer"/>
-	<field name="Copo" class="java.lang.Integer"/>
-	<field name="Prato" class="java.lang.Integer"/>
-	<field name="Colher" class="java.lang.Integer"/>
-	<field name="Vasilha" class="java.lang.Integer"/>
-	<field name="Garfo" class="java.lang.Integer"/>
-	<field name="Absorvente" class="java.lang.Integer"/>
-	<field name="Bermuda" class="java.lang.Integer"/>
-	<field name="Colchas" class="java.lang.Integer"/>
-	<field name="Colchao" class="java.lang.Integer"/>
-	<field name="Toalha" class="java.lang.Integer"/>
-	<field name="Camisa" class="java.lang.Integer"/>
-	<field name="Cueca" class="java.lang.Integer"/>
-	<field name="Sandalia" class="java.lang.Integer"/>
-	<field name="CremeDental" class="java.lang.Integer"/>
-	<field name="Sabonete" class="java.lang.Integer"/>
-	<field name="PapelHigienico" class="java.lang.Integer"/>
-	<field name="Barbeador" class="java.lang.Integer"/>
-	<field name="EscovaDente" class="java.lang.Integer"/>
-	<field name="MostraTodos" class="java.lang.Integer"/>
-	<field name="KitInicial" class="java.lang.Integer"/>
-	<field name="KitQuinzenal" class="java.lang.Integer"/>
-	<field name="TipoEntrada" class="java.lang.Integer"/>
 	<field name="UsuarioInsert" class="java.lang.String"/>
 	<field name="DataInsert" class="java.lang.String"/>
 	<field name="HorarioInsert" class="java.lang.String"/>
@@ -69,441 +49,97 @@
 	<field name="UsuarioDelete" class="java.lang.String"/>
 	<field name="DataDelete" class="java.lang.String"/>
 	<field name="CartaoSus" class="java.lang.String"/>
-	<variable name="pCopo" class="java.lang.String">
-		<variableExpression><![CDATA[(($F{Copo} == 1) ? "X" : "")]]></variableExpression>
-	</variable>
-	<variable name="pPrato" class="java.lang.String">
-		<variableExpression><![CDATA[(($F{Prato} == 1) ? "X" : "")]]></variableExpression>
-	</variable>
-	<variable name="pColher" class="java.lang.String">
-		<variableExpression><![CDATA[(($F{Colher} == 1) ? "X" : "")]]></variableExpression>
-	</variable>
-	<variable name="pVasilha" class="java.lang.String">
-		<variableExpression><![CDATA[(($F{Vasilha} == 1) ? "X" : "")]]></variableExpression>
-	</variable>
-	<variable name="pGarfo" class="java.lang.String">
-		<variableExpression><![CDATA[(($F{Garfo} == 1) ? "X" : "")]]></variableExpression>
-	</variable>
-	<variable name="pAbsorvente" class="java.lang.String">
-		<variableExpression><![CDATA[(($F{Absorvente} == 1) ? "X" : "")]]></variableExpression>
-	</variable>
-	<variable name="pToalha" class="java.lang.String">
-		<variableExpression><![CDATA[(($F{Toalha} == 1) ? "X" : "")]]></variableExpression>
-	</variable>
-	<variable name="pCremeDental" class="java.lang.String">
-		<variableExpression><![CDATA[(($F{CremeDental} == 1) ? "X" : "")]]></variableExpression>
-	</variable>
-	<variable name="pSabonete" class="java.lang.String">
-		<variableExpression><![CDATA[(($F{Sabonete} == 1) ? "X" : "")]]></variableExpression>
-	</variable>
-	<variable name="pHigienico" class="java.lang.String">
-		<variableExpression><![CDATA[(($F{PapelHigienico} == 1) ? "X" : "")]]></variableExpression>
-	</variable>
-	<variable name="pBarbeador" class="java.lang.String">
-		<variableExpression><![CDATA[(($F{Barbeador} == 1) ? "X" : "")]]></variableExpression>
-	</variable>
-	<variable name="pEscova" class="java.lang.String">
-		<variableExpression><![CDATA[(($F{EscovaDente} == 1) ? "X" : "")]]></variableExpression>
-	</variable>
-	<variable name="pColcha" class="java.lang.String">
-		<variableExpression><![CDATA[(($F{Colchas} == 1) ? "X" : "")]]></variableExpression>
-	</variable>
-	<variable name="pColcao" class="java.lang.String">
-		<variableExpression><![CDATA[(($F{Colchao} == 1) ? "X" : "")]]></variableExpression>
-	</variable>
-	<variable name="pBermuda" class="java.lang.String">
-		<variableExpression><![CDATA[(($F{Bermuda} == 1) ? "X" : "")]]></variableExpression>
-	</variable>
-	<variable name="pCamisa" class="java.lang.String">
-		<variableExpression><![CDATA[(($F{Camisa} == 1) ? "X" : "")]]></variableExpression>
-	</variable>
-	<variable name="pCueca" class="java.lang.String">
-		<variableExpression><![CDATA[(($F{Cueca} == 1) ? "X" : "")]]></variableExpression>
-	</variable>
-	<variable name="pSandalia" class="java.lang.String">
-		<variableExpression><![CDATA[(($F{Sandalia} == 1) ? "X" : "")]]></variableExpression>
-	</variable>
+	<field name="IdProd" class="java.lang.String"/>
+	<field name="DescricaoProd" class="java.lang.String"/>
+	<field name="QuantProd" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
-	<detail>
-		<band height="230" splitType="Stretch">
+	<pageHeader>
+		<band height="43">
 			<rectangle>
-				<reportElement x="-10" y="0" width="539" height="64" uuid="8b5a2bd5-af1e-4283-8ac8-548908e1aa15"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="387" y="64" width="142" height="74" uuid="9a106825-b0ac-4ae0-8a37-45035c3af8bd"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="-10" y="138" width="333" height="77" uuid="4b8dc22f-1962-47eb-b895-598e97ff2b61"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="-10" y="64" width="397" height="74" uuid="930cff69-be80-4ade-9a9a-13e3739b6d24"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="323" y="138" width="206" height="77" uuid="5de6fd35-81f4-443d-89e7-710536714464"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="334" y="179" width="21" height="20" uuid="35b5eea4-a63a-4c48-8f4e-678d284fc463"/>
+				<reportElement x="0" y="0" width="539" height="43" uuid="8b5a2bd5-af1e-4283-8ac8-548908e1aa15"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="0" y="10" width="40" height="20" uuid="ae83bcfb-a75c-4b16-af1c-74c7e139dacc"/>
+				<reportElement x="0" y="3" width="40" height="20" uuid="ae83bcfb-a75c-4b16-af1c-74c7e139dacc"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Código]]></text>
+				<text><![CDATA[ID]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="0" y="30" width="40" height="20" uuid="f6fa0687-113f-4315-90cd-3cb464e544d1"/>
+				<reportElement x="0" y="23" width="40" height="20" uuid="f6fa0687-113f-4315-90cd-3cb464e544d1"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{IdInternoCrc}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="45" y="10" width="132" height="20" uuid="b7f21df6-72b9-4c91-aad4-4bbe25e4350c"/>
+				<reportElement x="45" y="3" width="132" height="20" uuid="b7f21df6-72b9-4c91-aad4-4bbe25e4350c"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nome do Interno]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="45" y="30" width="460" height="20" uuid="0e403db4-1a6b-4184-8ef4-5dbdb550b632"/>
+				<reportElement x="45" y="23" width="460" height="20" uuid="0e403db4-1a6b-4184-8ef4-5dbdb550b632"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{NomeInternoCrc}]]></textFieldExpression>
 			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<rectangle>
+				<reportElement x="0" y="0" width="539" height="20" uuid="648bff97-7429-414b-bd5f-0d5f3b29d554"/>
+			</rectangle>
 			<staticText>
-				<reportElement x="364" y="164" width="35" height="14" uuid="bd73809c-c670-443f-8c53-41925bbeca68"/>
-				<textElement textAlignment="Center">
+				<reportElement x="4" y="0" width="64" height="20" uuid="209f858b-7763-4e91-8f31-076cc8818c8b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Prato]]></text>
+				<text><![CDATA[CÓDIGO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="327" y="164" width="35" height="14" uuid="f1973a72-cfdd-4eca-be02-ebd650d4d9aa"/>
-				<textElement textAlignment="Center">
+				<reportElement x="81" y="0" width="351" height="20" uuid="3b3cc214-8a2a-4b52-87e6-ecf4398cf8a3"/>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Copo]]></text>
+				<text><![CDATA[DESCRIÇÃO DO PRODUTO]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="432" y="0" width="100" height="20" uuid="fc06f26a-33c4-4801-8ac8-a4c9896a17e2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[QUANTIDADE]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="24" splitType="Stretch">
 			<textField>
-				<reportElement x="335" y="179" width="20" height="20" uuid="0587d8fc-2ce2-444b-b264-301a597fb3d0"/>
+				<reportElement x="4" y="2" width="64" height="20" uuid="d698603f-793b-4fa3-adf1-7bb5ecc6948c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
+					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{pCopo}]]></textFieldExpression>
-			</textField>
-			<rectangle>
-				<reportElement x="371" y="179" width="20" height="20" uuid="b3a7085a-5671-43c1-a859-7316e4df7a7d"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="451" y="179" width="20" height="20" uuid="8dec5506-0933-4b20-a6e1-f2fa5b83a529"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="409" y="179" width="20" height="20" uuid="c509ca1b-3f8c-462e-b964-1cead924d148"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="12" y="103" width="20" height="20" uuid="7e8d13b0-45ed-4413-bf6a-066c46a424b8"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="492" y="179" width="20" height="20" uuid="4ed876ca-f80f-4584-bd39-0f98011f6acc"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="429" y="102" width="20" height="20" uuid="0fa19fcd-b0c5-48a1-942a-1db357839c06"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="71" y="178" width="20" height="20" uuid="2309f67d-fd3e-4ed2-9069-eabdd077a33c"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="66" y="102" width="20" height="20" uuid="55d73593-ff84-4772-9907-c5c4712f5875"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="469" y="102" width="20" height="20" uuid="d318bb9e-1de1-404b-9bed-12f6329c27ca"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="343" y="102" width="20" height="20" uuid="9eb287ad-8575-4d4f-b39c-42580469d9fb"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="209" y="179" width="20" height="20" uuid="d21c6cb0-24c2-468d-910f-b3f845435acd"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="118" y="103" width="20" height="20" uuid="d2802a13-8e1b-46c3-bf51-a72ce259dc67"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="162" y="178" width="20" height="20" uuid="fa89d60c-df34-462b-ba97-cdc1722fa336"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="168" y="103" width="20" height="20" uuid="c0fd1569-0ace-43aa-acca-e48cdf15f34a"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="288" y="102" width="20" height="20" uuid="08e43dbf-bc95-4a1d-8a01-45bea025a430"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="223" y="102" width="20" height="20" uuid="5b67dc98-f3f0-4afb-b463-6a7c789ea236"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="119" y="178" width="20" height="20" uuid="8696d935-896c-4faa-a8d1-d451a00c63d5"/>
-			</rectangle>
-			<textField>
-				<reportElement x="371" y="180" width="20" height="19" uuid="46bc8e35-c335-4681-b2c6-eab8b1272c61"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{pPrato}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="401" y="164" width="39" height="14" uuid="711f41a7-f3ab-4ac1-a2d4-e8b8300930ef"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Colher]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="437" y="165" width="51" height="13" uuid="f037ab4d-5f9b-41eb-bd37-fbf17869f552"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Vasilha]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="488" y="165" width="30" height="13" uuid="e45b7255-bf41-4c6d-9b03-24a1afa1e3b7"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Garfo]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="-15" y="89" width="71" height="14" uuid="eb775457-9eff-4f5c-a8b2-63ca487cccde"/>
-				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Absorvente]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="53" y="165" width="53" height="13" uuid="e8b000c4-de0c-4fe8-9df7-14496b061aad"/>
-				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Bermuda]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="410" y="88" width="54" height="13" uuid="ff30d314-eaf4-4412-8435-30397b6b7c07"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Colchas]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="456" y="89" width="49" height="12" uuid="15a4e00a-0c23-44d9-8512-13353deb4c30"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Colchão]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="53" y="90" width="46" height="12" uuid="182ddd53-eec8-441e-b647-a09eb72cfa7d"/>
-				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Toalha]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="109" y="166" width="39" height="12" uuid="1eaf00cf-e499-45d2-b53b-370a03029ee2"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Camisa]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="327" y="138" width="203" height="19" uuid="aa1ec98f-4def-43f4-8900-4cc8c9f5873c"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[item de Mesa]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="-10" y="63" width="397" height="20" uuid="ae1b8dcb-e912-4732-9927-edcfaa129ba8"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Item Banho/Higiêne]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="-10" y="139" width="333" height="19" uuid="5a01cdde-f08c-414c-b213-f16135bbeb7f"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Item Vestuário]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="387" y="64" width="142" height="19" uuid="6e133892-71e0-4e40-a999-7c9fd2851e68"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Item Dormitório]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="151" y="166" width="45" height="13" uuid="fd5906b3-b9f7-43c5-85ce-aa17ade5757b"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Cueca]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="195" y="166" width="45" height="13" uuid="74a4a9c5-1b45-456b-814b-1bba30c82a4b"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Sandália]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="102" y="90" width="52" height="12" uuid="fabf5c0f-e5d2-41e0-be82-2fff97708121"/>
-				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<text><![CDATA[C. Dental]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="156" y="90" width="49" height="12" uuid="56731c49-f072-4898-b950-2bbc3df8a1e8"/>
-				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Sabonete]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="209" y="90" width="56" height="12" uuid="ace0857f-b4b7-4fb6-ace9-61c88fa6b764"/>
-				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<text><![CDATA[P.Higiênico]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="274" y="90" width="54" height="12" uuid="87c81f50-59df-45e4-b9f5-29a21d23c433"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Barbeador]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="332" y="90" width="45" height="12" uuid="ad921228-09f0-473c-9e07-1b200d2c63e9"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<text><![CDATA[E. Dente]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="410" y="179" width="19" height="20" uuid="5a979872-07e6-45b2-a2ab-6bfafbd5da28"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{pColher}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{IdProd}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="452" y="180" width="19" height="19" uuid="962f1dcf-a4c2-448b-bbca-d27c3b16da4d"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
+				<reportElement x="81" y="2" width="351" height="20" uuid="b0c81df0-e64b-420c-bebd-72b2de55cb5a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{pVasilha}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{DescricaoProd}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="493" y="179" width="19" height="20" uuid="c9098049-d77d-4ece-a41a-2d7e71e0e1f3"/>
+				<reportElement x="432" y="2" width="100" height="20" uuid="9889e61e-c8e0-4d3b-9017-73bb5c139ba9"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
+					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{pGarfo}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="12" y="104" width="21" height="19" uuid="c5589577-899f-4d35-9369-223b3fce5f9e"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{pAbsorvente}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="67" y="103" width="19" height="19" uuid="8fdc4e5f-609f-4e41-af61-3ec78a113b83"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{pToalha}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="119" y="104" width="19" height="18" uuid="c53d2726-9f13-4981-99a9-eb0c0f35277d"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{pCremeDental}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="168" y="104" width="20" height="18" uuid="59e1f38e-59eb-4000-add1-e98340a15119"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{pSabonete}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="224" y="103" width="19" height="19" uuid="aed1394f-6ef9-4e8d-967f-479b854f50bb"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{pHigienico}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="289" y="103" width="19" height="19" uuid="88e67b89-fcbf-4969-9f93-40e4226617c7"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{pBarbeador}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="344" y="103" width="19" height="19" uuid="f1f1ad58-7780-4f3b-878c-4426c73b47ef"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{pEscova}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="429" y="103" width="20" height="19" uuid="fbf81f68-2211-4d7b-a4aa-58847b4bd063"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="10" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{pColcha}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="470" y="103" width="19" height="19" uuid="a84391cb-3c41-4d08-a4db-a3e93a93e544"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{pColcao}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="72" y="179" width="19" height="19" uuid="3d27439f-04ad-41b0-a355-6690a8d54983"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{pBermuda}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="120" y="179" width="19" height="19" uuid="453909e0-58a0-43d7-a160-d746b3372dfd"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{pCamisa}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="162" y="179" width="20" height="19" uuid="2b99d122-6026-421d-9816-637130ccc450"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{pCueca}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="209" y="180" width="20" height="19" uuid="40b5bb61-d3c6-4493-88f0-fc506973fff5"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{pSandalia}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{QuantProd}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
