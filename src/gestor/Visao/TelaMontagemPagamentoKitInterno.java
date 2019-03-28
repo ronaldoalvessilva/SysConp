@@ -95,11 +95,11 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     ControleItensRequisicaoMateriaisInternos controleLote = new ControleItensRequisicaoMateriaisInternos();
     ControleProdutosKitLote controleProd = new ControleProdutosKitLote();
     // FASE - 4
-    // GRAVAR OU EXXCLUIR REGISTRO DOS INTERNOS NO KIT COMPLETO
+    // GRAVAR OU EXCLUIR REGISTRO DOS INTERNOS NO KIT COMPLETO
     GravarInternosKitCompleto objGravaIntComp = new GravarInternosKitCompleto();
     ControleSelecaoKitsCompleto controleIntSelec = new ControleSelecaoKitsCompleto();
-    // GRAVAR OU EXCCLUIR OS PRODUTOS DOS INTERNOS COM KIT COMPLETO
-    ControleListarGravarProdutosKitCompleto controleProdKit = new ControleListarGravarProdutosKitCompleto();
+    // GRAVAR OU EXCLUIR OS PRODUTOS DOS INTERNOS COM KIT COMPLETO
+    ControleListarGravarProdutosKitCompleto controleProdKit = new ControleListarGravarProdutosKitCompleto();  
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -182,6 +182,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     // 1 - INICIAL, 2 - DECENTIAL, 3 - QUINZENAL, 4 - MENSAL, 5 - SEMESTRAL E 6 - ANUAL.
     //
     String kitUtilizado = "Não";
+    //   
+    public static int pCodigoAlmxarifado = 0;
 
     /**
      * Creates new form TelaMontagemPagamentoKitInterno
@@ -197,6 +199,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public static TelaSelecaoProdutosKitsCompletoIncompleto selecaoProdutosKit;
     public static TelaGravarProdutosKitCompleto gravarProdutosKitComp;
     public static TelaPrevisaoKitHigiene previsaoKit;
+    public static TelaFinalizarKitHigiene finalEstoque;
 
     public TelaMontagemPagamentoKitInterno() {
         super();
@@ -261,6 +264,10 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         previsaoKit.setVisible(true);
     }
 
+    public void mostrarFinalizacao(){
+        finalEstoque = new TelaFinalizarKitHigiene(this, true);
+        finalEstoque.setVisible(true);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -1734,7 +1741,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         );
         jPanel19Layout.setVerticalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 417, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
@@ -2273,11 +2280,11 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 .addComponent(jDataComp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBtFinalizar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(66, 66, 66)
                 .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(67, 67, 67)
+                .addGap(46, 46, 46)
                 .addComponent(jBtPesquisaComp, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52))
+                .addGap(25, 25, 25))
         );
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtFinalizar, jBtSair});
@@ -2286,15 +2293,15 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel1)
-                    .addComponent(jIdRegistroComp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(jStatusComp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(jDataComp, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtFinalizar)
+                    .addComponent(jBtSair)
                     .addComponent(jBtPesquisaComp, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-                    .addComponent(jBtSair))
+                    .addComponent(jBtFinalizar)
+                    .addComponent(jDataComp, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(jStatusComp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(jIdRegistroComp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addGap(0, 12, Short.MAX_VALUE))
         );
 
@@ -2587,14 +2594,16 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente FINALIZAR o registro selecionado?", "Confirmação",
                     JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
-                String statusFim = "FINALIZADO";
-                objComp.setStatusComp(statusFim);
-                objComp.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
-                control.finalizarComposicaoKitlInternos(objComp);
-                jStatusComp.setText("FINALIZADO");
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro FINALIZADO com sucesso...");
+                mostrarFinalizacao();
+//                lancarHistorico();
+//                String statusFim = "FINALIZADO";
+//                objComp.setStatusComp(statusFim);
+//                objComp.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
+//                control.finalizarComposicaoKitlInternos(objComp);
+//                jStatusComp.setText("FINALIZADO");
+//                objLog();
+//                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+//                JOptionPane.showMessageDialog(rootPane, "Registro FINALIZADO com sucesso...");
             }
         }
     }//GEN-LAST:event_jBtFinalizarActionPerformed
@@ -4409,6 +4418,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public void NovoInternoKitComp() {
 
     }
+   
 
     //VERIFICAR SE NA TABELA TEM REGISTRO CORRESPONDENTE AO LANÇAMENTO, PARA PODER EXCLUIR TODOS.
     public void verificarInternosDB() {
@@ -4642,8 +4652,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 qtdItem = conecta.rs.getFloat("QuantProd");
                 DecimalFormat vi = new DecimalFormat(",###0.00");
                 String vqtdItem = vi.format(qtdItem);
-                qtdItemTab = vqtdItem;
-                //                
+                qtdItemTab = vqtdItem;               
                 //
                 jtotalProdutosKitInternos.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela 
                 dados.add(new Object[]{conecta.rs.getInt("IdRegProdKit"), conecta.rs.getInt("IdProd"), conecta.rs.getString("DescricaoProd"), conecta.rs.getString("UnidadeProd"), qtdItemTab});

@@ -7,6 +7,7 @@ package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.pCodigoAlmxarifado;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.idKit;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jCodigoProd;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jUnidadeProd;
@@ -444,6 +445,7 @@ public class TelaEstoqueProdutosKit extends javax.swing.JDialog {
                 jCodigoProd.setText(String.valueOf(conecta.rs.getInt("IdProd")));
                 jDescricaoProd.setText(conecta.rs.getString("DescricaoProd"));
                 jUnidadeProd.setText(conecta.rs.getString("UnidadeProd"));
+                pCodigoAlmxarifado = conecta.rs.getInt("IdLocal");
                 idKit = conecta.rs.getInt("IdKit");
                 // Formata o valor para ser exibido na tela no formato BR                                                   
                 qtdEstoque = conecta.rs.getFloat("Qtd");
