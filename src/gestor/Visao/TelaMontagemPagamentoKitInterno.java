@@ -99,7 +99,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     GravarInternosKitCompleto objGravaIntComp = new GravarInternosKitCompleto();
     ControleSelecaoKitsCompleto controleIntSelec = new ControleSelecaoKitsCompleto();
     // GRAVAR OU EXCLUIR OS PRODUTOS DOS INTERNOS COM KIT COMPLETO
-    ControleListarGravarProdutosKitCompleto controleProdKit = new ControleListarGravarProdutosKitCompleto();  
+    ControleListarGravarProdutosKitCompleto controleProdKit = new ControleListarGravarProdutosKitCompleto();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -264,10 +264,11 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         previsaoKit.setVisible(true);
     }
 
-    public void mostrarFinalizacao(){
+    public void mostrarFinalizacao() {
         finalEstoque = new TelaFinalizarKitHigiene(this, true);
         finalEstoque.setVisible(true);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -2595,15 +2596,6 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                     JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
                 mostrarFinalizacao();
-//                lancarHistorico();
-//                String statusFim = "FINALIZADO";
-//                objComp.setStatusComp(statusFim);
-//                objComp.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
-//                control.finalizarComposicaoKitlInternos(objComp);
-//                jStatusComp.setText("FINALIZADO");
-//                objLog();
-//                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-//                JOptionPane.showMessageDialog(rootPane, "Registro FINALIZADO com sucesso...");
             }
         }
     }//GEN-LAST:event_jBtFinalizarActionPerformed
@@ -2794,6 +2786,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     private void jBtSelecionarTodosInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSelecionarTodosInternosActionPerformed
         // TODO add your handling code here:
         flag = 0;
+        qtdInternos = 0;
         Integer rows = jTabelaInternos.getModel().getRowCount();
         if (rows != 0) {
             //KIT INICIAL
@@ -2840,6 +2833,158 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
                 try {
                     for (PavilhaoInternoMontaKit dd : controleKD.read()) {
+                        jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
+                        jtotalInternosSelecionados.setText(jtotalInternosPavilhao.getText()); // Converter inteiro em string para exibir na tela     
+//                    jtotalInternosSelecionados.setText(Integer.toString(qtdInternosSelec + qtdInternos)); // Converter inteiro em string para exibir na tela                                                         
+                        dadosDestino.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
+                        // BARRA DE ROLAGEM HORIZONTAL
+                        jTabelaInternosSelecionados.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                        // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                        //
+                        jTabelaInternosSelecionados.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                        jTabelaInternosSelecionados.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(TelaMontagemPagamentoKitInterno.class
+                            .getName()).log(Level.SEVERE, null, ex);
+                }
+                // APAGAR TODOS OS REGISTROS DA TABELA COPIADA
+                DefaultTableModel tblRemove = (DefaultTableModel) jTabelaInternos.getModel();
+                if (tblRemove.getRowCount() > 0) {
+                    for (int i = 0; i <= tblRemove.getRowCount(); i++) {
+                        tblRemove.removeRow(i);
+                        tblRemove.setRowCount(0);
+                        if (tblRemove.getRowCount() < i) {
+                            tblRemove.removeRow(i);
+                            tblRemove.setRowCount(0);
+                        }
+                    }
+                }
+                // LIMPAR O TOTALIZADOR DA TABELA
+                jtotalInternosPavilhao.setText("");
+                //KIT QUINZENAL
+            } else if (pTipoKitCI == 3) {
+                DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaInternosSelecionados.getModel();
+                PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
+                try {
+                    for (PavilhaoInternoMontaKit dd : controleKQ.read()) {
+                        jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
+                        jtotalInternosSelecionados.setText(jtotalInternosPavilhao.getText()); // Converter inteiro em string para exibir na tela     
+//                    jtotalInternosSelecionados.setText(Integer.toString(qtdInternosSelec + qtdInternos)); // Converter inteiro em string para exibir na tela                                                         
+                        dadosDestino.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
+                        // BARRA DE ROLAGEM HORIZONTAL
+                        jTabelaInternosSelecionados.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                        // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                        //
+                        jTabelaInternosSelecionados.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                        jTabelaInternosSelecionados.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(TelaMontagemPagamentoKitInterno.class
+                            .getName()).log(Level.SEVERE, null, ex);
+                }
+                // APAGAR TODOS OS REGISTROS DA TABELA COPIADA
+                DefaultTableModel tblRemove = (DefaultTableModel) jTabelaInternos.getModel();
+                if (tblRemove.getRowCount() > 0) {
+                    for (int i = 0; i <= tblRemove.getRowCount(); i++) {
+                        tblRemove.removeRow(i);
+                        tblRemove.setRowCount(0);
+                        if (tblRemove.getRowCount() < i) {
+                            tblRemove.removeRow(i);
+                            tblRemove.setRowCount(0);
+                        }
+                    }
+                }
+                // LIMPAR O TOTALIZADOR DA TABELA
+                jtotalInternosPavilhao.setText("");
+                //KIT MENSAL
+            } else if (pTipoKitCI == 4) {
+                DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaInternosSelecionados.getModel();
+                PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
+                try {
+                    for (PavilhaoInternoMontaKit dd : controleKM.read()) {
+                        jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
+                        jtotalInternosSelecionados.setText(jtotalInternosPavilhao.getText()); // Converter inteiro em string para exibir na tela     
+//                    jtotalInternosSelecionados.setText(Integer.toString(qtdInternosSelec + qtdInternos)); // Converter inteiro em string para exibir na tela                                                         
+                        dadosDestino.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
+                        // BARRA DE ROLAGEM HORIZONTAL
+                        jTabelaInternosSelecionados.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                        // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                        //
+                        jTabelaInternosSelecionados.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                        jTabelaInternosSelecionados.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(TelaMontagemPagamentoKitInterno.class
+                            .getName()).log(Level.SEVERE, null, ex);
+                }
+                // APAGAR TODOS OS REGISTROS DA TABELA COPIADA
+                DefaultTableModel tblRemove = (DefaultTableModel) jTabelaInternos.getModel();
+                if (tblRemove.getRowCount() > 0) {
+                    for (int i = 0; i <= tblRemove.getRowCount(); i++) {
+                        tblRemove.removeRow(i);
+                        tblRemove.setRowCount(0);
+                        if (tblRemove.getRowCount() < i) {
+                            tblRemove.removeRow(i);
+                            tblRemove.setRowCount(0);
+                        }
+                    }
+                }
+                // LIMPAR O TOTALIZADOR DA TABELA
+                jtotalInternosPavilhao.setText("");
+                //KIT SEMESTRAL
+            } else if (pTipoKitCI == 5) {
+                DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaInternosSelecionados.getModel();
+                PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
+                try {
+                    for (PavilhaoInternoMontaKit dd : controleKS.read()) {
+                        jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
+                        jtotalInternosSelecionados.setText(jtotalInternosPavilhao.getText()); // Converter inteiro em string para exibir na tela     
+//                    jtotalInternosSelecionados.setText(Integer.toString(qtdInternosSelec + qtdInternos)); // Converter inteiro em string para exibir na tela                                                         
+                        dadosDestino.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
+                        // BARRA DE ROLAGEM HORIZONTAL
+                        jTabelaInternosSelecionados.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                        // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                        //
+                        jTabelaInternosSelecionados.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                        jTabelaInternosSelecionados.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(TelaMontagemPagamentoKitInterno.class
+                            .getName()).log(Level.SEVERE, null, ex);
+                }
+                // APAGAR TODOS OS REGISTROS DA TABELA COPIADA
+                DefaultTableModel tblRemove = (DefaultTableModel) jTabelaInternos.getModel();
+                if (tblRemove.getRowCount() > 0) {
+                    for (int i = 0; i <= tblRemove.getRowCount(); i++) {
+                        tblRemove.removeRow(i);
+                        tblRemove.setRowCount(0);
+                        if (tblRemove.getRowCount() < i) {
+                            tblRemove.removeRow(i);
+                            tblRemove.setRowCount(0);
+                        }
+                    }
+                }
+                // LIMPAR O TOTALIZADOR DA TABELA
+                jtotalInternosPavilhao.setText("");
+                //KIT ANUAL
+            } else if (pTipoKitCI == 6) {
+                DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaInternosSelecionados.getModel();
+                PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
+                try {
+                    for (PavilhaoInternoMontaKit dd : controleKA.read()) {
                         jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
                         jtotalInternosSelecionados.setText(jtotalInternosPavilhao.getText()); // Converter inteiro em string para exibir na tela     
 //                    jtotalInternosSelecionados.setText(Integer.toString(qtdInternosSelec + qtdInternos)); // Converter inteiro em string para exibir na tela                                                         
@@ -2952,6 +3097,126 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
                 try {
                     for (PavilhaoInternoMontaKit dd : controleKD.read()) {
+                        jtotalInternosPavilhao.setText(jtotalInternosSelecionados.getText()); // Converter inteiro em string para exibir na tela                                     
+                        dadosDestino.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
+                        // BARRA DE ROLAGEM HORIZONTAL
+                        jTabelaInternos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                        // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                        //
+                        jTabelaInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                        jTabelaInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(TelaMontagemPagamentoKitInterno.class
+                            .getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            // APAGAR DADOS DA TABELA
+            while (jTabelaInternosSelecionados.getModel().getRowCount() > 0) {
+                ((DefaultTableModel) jTabelaInternosSelecionados.getModel()).removeRow(0);
+            }
+            // LIMPAR O TOTALIZADOR DA TABELA
+            jtotalInternosSelecionados.setText("");
+            //KIT QUINZENAL
+        } else if (pTipoKitCI == 3) {
+            if (rows != 0) {
+                DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaInternos.getModel();
+                PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
+                try {
+                    for (PavilhaoInternoMontaKit dd : controleKQ.read()) {
+                        jtotalInternosPavilhao.setText(jtotalInternosSelecionados.getText()); // Converter inteiro em string para exibir na tela                                     
+                        dadosDestino.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
+                        // BARRA DE ROLAGEM HORIZONTAL
+                        jTabelaInternos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                        // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                        //
+                        jTabelaInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                        jTabelaInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(TelaMontagemPagamentoKitInterno.class
+                            .getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            // APAGAR DADOS DA TABELA
+            while (jTabelaInternosSelecionados.getModel().getRowCount() > 0) {
+                ((DefaultTableModel) jTabelaInternosSelecionados.getModel()).removeRow(0);
+            }
+            // LIMPAR O TOTALIZADOR DA TABELA
+            jtotalInternosSelecionados.setText("");
+            //KIT MENSAL
+        } else if (pTipoKitCI == 4) {
+            if (rows != 0) {
+                DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaInternos.getModel();
+                PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
+                try {
+                    for (PavilhaoInternoMontaKit dd : controleKM.read()) {
+                        jtotalInternosPavilhao.setText(jtotalInternosSelecionados.getText()); // Converter inteiro em string para exibir na tela                                     
+                        dadosDestino.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
+                        // BARRA DE ROLAGEM HORIZONTAL
+                        jTabelaInternos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                        // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                        //
+                        jTabelaInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                        jTabelaInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(TelaMontagemPagamentoKitInterno.class
+                            .getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            // APAGAR DADOS DA TABELA
+            while (jTabelaInternosSelecionados.getModel().getRowCount() > 0) {
+                ((DefaultTableModel) jTabelaInternosSelecionados.getModel()).removeRow(0);
+            }
+            // LIMPAR O TOTALIZADOR DA TABELA
+            jtotalInternosSelecionados.setText("");
+            //KIT SEMESTRAL
+        } else if (pTipoKitCI == 5) {
+            if (rows != 0) {
+                DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaInternos.getModel();
+                PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
+                try {
+                    for (PavilhaoInternoMontaKit dd : controleKS.read()) {
+                        jtotalInternosPavilhao.setText(jtotalInternosSelecionados.getText()); // Converter inteiro em string para exibir na tela                                     
+                        dadosDestino.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
+                        // BARRA DE ROLAGEM HORIZONTAL
+                        jTabelaInternos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                        // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                        //
+                        jTabelaInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                        jTabelaInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(TelaMontagemPagamentoKitInterno.class
+                            .getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            // APAGAR DADOS DA TABELA
+            while (jTabelaInternosSelecionados.getModel().getRowCount() > 0) {
+                ((DefaultTableModel) jTabelaInternosSelecionados.getModel()).removeRow(0);
+            }
+            // LIMPAR O TOTALIZADOR DA TABELA
+            jtotalInternosSelecionados.setText("");
+            //KIT ANUAL
+        } else if (pTipoKitCI == 6) {
+            if (rows != 0) {
+                DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaInternos.getModel();
+                PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
+                try {
+                    for (PavilhaoInternoMontaKit dd : controleKA.read()) {
                         jtotalInternosPavilhao.setText(jtotalInternosSelecionados.getText()); // Converter inteiro em string para exibir na tela                                     
                         dadosDestino.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
                         // BARRA DE ROLAGEM HORIZONTAL
@@ -4418,7 +4683,6 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public void NovoInternoKitComp() {
 
     }
-   
 
     //VERIFICAR SE NA TABELA TEM REGISTRO CORRESPONDENTE AO LANÇAMENTO, PARA PODER EXCLUIR TODOS.
     public void verificarInternosDB() {
@@ -4652,7 +4916,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 qtdItem = conecta.rs.getFloat("QuantProd");
                 DecimalFormat vi = new DecimalFormat(",###0.00");
                 String vqtdItem = vi.format(qtdItem);
-                qtdItemTab = vqtdItem;               
+                qtdItemTab = vqtdItem;
                 //
                 jtotalProdutosKitInternos.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela 
                 dados.add(new Object[]{conecta.rs.getInt("IdRegProdKit"), conecta.rs.getInt("IdProd"), conecta.rs.getString("DescricaoProd"), conecta.rs.getString("UnidadeProd"), qtdItemTab});

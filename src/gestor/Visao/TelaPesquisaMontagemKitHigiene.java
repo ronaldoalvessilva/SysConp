@@ -577,13 +577,13 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
             } else if (tipoKit.equals("Kit Quinzenal")) {
                 jRBtKitQuinzenalPesquisa.setSelected(true);
             } else if (tipoKit.equals("Kit Mensal")) {
-                jRBtKitMensal.setSelected(true);
+//                jRBtKitMensal.setSelected(true);
                 jRBtKitMensalPesquisa.setSelected(true);
             } else if (tipoKit.equals("Kit Semestral")) {
-                jRBtKitSemestral.setSelected(true);
+//                jRBtKitSemestral.setSelected(true);
                 jRBtKitSemestraPesquisa.setSelected(true);
             } else if (tipoKit.equals("Kit Anual")) {
-                jRBtKitAnual.setSelected(true);
+//                jRBtKitAnual.setSelected(true);
                 jRBtKitAnualPesquisa.setSelected(!true);
             }
         }
@@ -708,6 +708,8 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                 conecta.desconecta();
                 dispose();
             } else if (kitQuinzenal == 1) {
+                kitQuinzenal = 1;
+                jRBtKitQuinzenal.setSelected(true);
                 conecta.abrirConexao();
                 try {
                     conecta.executaSQL("SELECT * FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
@@ -722,7 +724,6 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                     jStatusComp.setText(conecta.rs.getString("StatusComp"));
                     jDataComp.setDate(conecta.rs.getDate("DataComp"));
                     codigoPesquisaKitItem = conecta.rs.getInt("IdItem");
-//                    codigoPesquisaKit = conecta.rs.getInt("IdKit");
                     kitQuinzenal = conecta.rs.getInt("KitQuinzenal");
                     if (kitQuinzenal == 1) {
                         jRBtKitQuinzenal.setSelected(true);
@@ -757,6 +758,8 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                 conecta.desconecta();
                 dispose();
             } else if (kitMensal == 1) {
+                kitMensal = 1;
+                jRBtKitMensal.setSelected(true);
                 conecta.abrirConexao();
                 try {
                     conecta.executaSQL("SELECT * FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
@@ -771,11 +774,10 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                     jStatusComp.setText(conecta.rs.getString("StatusComp"));
                     jDataComp.setDate(conecta.rs.getDate("DataComp"));
                     codigoPesquisaKitItem = conecta.rs.getInt("IdItem");
-//                    codigoPesquisaKit = conecta.rs.getInt("IdKit");
-                    kitMensal = conecta.rs.getInt("KitMensal");
+                    kitDecendial = conecta.rs.getInt("KitMensal");
                     if (kitMensal == 1) {
                         jRBtKitMensal.setSelected(true);
-                    } else if (kitMensal == 0) {
+                    } else if (kitDecendial == 0) {
                         jRBtKitMensal.setSelected(!true);
                     }
                     jIdFunc.setText(String.valueOf(conecta.rs.getInt("IdFunc")));

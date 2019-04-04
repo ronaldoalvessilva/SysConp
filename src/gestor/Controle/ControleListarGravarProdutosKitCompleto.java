@@ -6,7 +6,6 @@
 package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Modelo.GravarInternosKitCompleto;
 import gestor.Modelo.ProdutoInternosKitLote;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jIdRegistroComp;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jTabelaProdutosKitCompleto;
