@@ -577,13 +577,10 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
             } else if (tipoKit.equals("Kit Quinzenal")) {
                 jRBtKitQuinzenalPesquisa.setSelected(true);
             } else if (tipoKit.equals("Kit Mensal")) {
-//                jRBtKitMensal.setSelected(true);
                 jRBtKitMensalPesquisa.setSelected(true);
             } else if (tipoKit.equals("Kit Semestral")) {
-//                jRBtKitSemestral.setSelected(true);
                 jRBtKitSemestraPesquisa.setSelected(true);
             } else if (tipoKit.equals("Kit Anual")) {
-//                jRBtKitAnual.setSelected(true);
                 jRBtKitAnualPesquisa.setSelected(!true);
             }
         }
@@ -623,7 +620,6 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                     jStatusComp.setText(conecta.rs.getString("StatusComp"));
                     jDataComp.setDate(conecta.rs.getDate("DataComp"));
                     codigoPesquisaKitItem = conecta.rs.getInt("IdItem");
-//                    codigoPesquisaKit = conecta.rs.getInt("IdKit");
                     if (kitInicial == 1) {
                         jRBtKitInicial.setSelected(true);
                     } else if (kitInicial == 0) {
@@ -777,7 +773,7 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                     kitDecendial = conecta.rs.getInt("KitMensal");
                     if (kitMensal == 1) {
                         jRBtKitMensal.setSelected(true);
-                    } else if (kitDecendial == 0) {
+                    } else if (kitMensal == 0) {
                         jRBtKitMensal.setSelected(!true);
                     }
                     jIdFunc.setText(String.valueOf(conecta.rs.getInt("IdFunc")));
@@ -822,7 +818,6 @@ public class TelaPesquisaMontagemKitHigiene extends javax.swing.JDialog {
                     jStatusComp.setText(conecta.rs.getString("StatusComp"));
                     jDataComp.setDate(conecta.rs.getDate("DataComp"));
                     codigoPesquisaKitItem = conecta.rs.getInt("IdItem");
-//                    codigoPesquisaKit = conecta.rs.getInt("IdKit");
                     kitSemestral = conecta.rs.getInt("KitSemestral");
                     if (kitSemestral == 1) {
                         jRBtKitSemestral.setSelected(true);

@@ -200,6 +200,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public static TelaGravarProdutosKitCompleto gravarProdutosKitComp;
     public static TelaPrevisaoKitHigiene previsaoKit;
     public static TelaFinalizarKitHigiene finalEstoque;
+    public static TelaConsultaPavilhaoKit pavKit;
 
     public TelaMontagemPagamentoKitInterno() {
         super();
@@ -267,6 +268,12 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public void mostrarFinalizacao() {
         finalEstoque = new TelaFinalizarKitHigiene(this, true);
         finalEstoque.setVisible(true);
+    }
+
+    public void mostrarPavilhao() {
+
+        pavKit = new TelaConsultaPavilhaoKit(this, true);
+        pavKit.setVisible(true);
     }
 
     /**
@@ -341,6 +348,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jBtExcluirTodosInternos = new javax.swing.JButton();
         jBtSaldoEstoque = new javax.swing.JButton();
         jBtExcluirInternosUmaUm = new javax.swing.JButton();
+        jBtConsultarPavilhao = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTabelaInternosSelecionados = new javax.swing.JTable();
@@ -1156,6 +1164,14 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             }
         });
 
+        jBtConsultarPavilhao.setForeground(new java.awt.Color(0, 102, 0));
+        jBtConsultarPavilhao.setText("Consultar Pavilhão");
+        jBtConsultarPavilhao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtConsultarPavilhaoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -1167,22 +1183,24 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                                .addComponent(jBtNovoPavInternos)
                                 .addComponent(jBtSelecionarUmInterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jBtSelecionarTodosInternos, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
                                 .addComponent(jBtAuditoriaPavInternos, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jBtExcluirUmInterno)
-                                .addComponent(jBtExcluirTodosInternos))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                                    .addComponent(jBtSalvarPavInternos)
-                                    .addComponent(jBtCancelarPavilhaoInterno))
-                                .addComponent(jBtExcluirPavInternosTodos))))
+                                .addComponent(jBtExcluirTodosInternos))))
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jBtSaldoEstoque)
-                            .addComponent(jBtExcluirInternosUmaUm))
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jBtSaldoEstoque, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jBtNovoPavInternos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                                        .addComponent(jBtSalvarPavInternos)
+                                        .addComponent(jBtCancelarPavilhaoInterno))
+                                    .addComponent(jBtExcluirPavInternosTodos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jBtExcluirInternosUmaUm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jBtConsultarPavilhao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -1192,7 +1210,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addContainerGap()
                 .addComponent(jBtNovoPavInternos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtSalvarPavInternos)
@@ -1202,7 +1220,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 .addComponent(jBtExcluirPavInternosTodos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtExcluirInternosUmaUm)
-                .addGap(33, 33, 33)
+                .addGap(18, 18, 18)
                 .addComponent(jBtSelecionarUmInterno)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtSelecionarTodosInternos)
@@ -1211,6 +1229,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtExcluirTodosInternos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addComponent(jBtConsultarPavilhao)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtSaldoEstoque)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtAuditoriaPavInternos, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -3441,12 +3461,14 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     private void jBtAlterarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarProdutoActionPerformed
         // TODO add your handling code here:
+        Integer row0 = jTabelaInternosKitCompleto.getRowCount();
+        Integer row1 = jTabelaProdutosKitCompleto.getRowCount();
         //CRIAR METODO PARA IMPEDIR DE ALTERAR, CASO O PRODUTO TENHA SIDO UTILIZADO NA ASSOCIAÇÃO DO KIT
         buscarAcessoUsuario(telaMontagemPagamentoKitProdutosAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitProdutosAL) && codAlterarAL == 1) {
             if (jStatusComp.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
-            } else {
+            } else if (row0 == 0 && row1 == 0) {
                 acao = 4;
                 statusMov = "Alterou";
                 horaMov = jHoraSistema.getText();
@@ -3454,6 +3476,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 bloquearCampos();
                 bloquearBotoes();
                 AlterarProduto();
+            } else {
+                JOptionPane.showMessageDialog(null, "Não é possível modificar os registros dessa tela, existem registros vinculados a essa tabela.");
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
@@ -4090,7 +4114,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                     conecta.rs.first();
                     codigoInternoPav = conecta.rs.getInt("IdInternoCrc");
                 } catch (SQLException e) {
-                    JOptionPane.showMessageDialog(rootPane, "Não foi possível selecionar o registro.\nERRO: " + e);
+                    //  JOptionPane.showMessageDialog(rootPane, "Não foi possível selecionar o registro.\nERRO: " + e);
                 }
                 conecta.desconecta();
             }
@@ -4108,6 +4132,11 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         }
     }//GEN-LAST:event_jBtProgramarKitActionPerformed
 
+    private void jBtConsultarPavilhaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConsultarPavilhaoActionPerformed
+        // TODO add your handling code here:
+        mostrarPavilhao();
+    }//GEN-LAST:event_jBtConsultarPavilhaoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup grupoBotoes;
@@ -4124,6 +4153,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public static javax.swing.JButton jBtCancelarPavilhaoInterno;
     private javax.swing.JButton jBtCancelarProduto;
     private javax.swing.JButton jBtConsultarEstoque;
+    private javax.swing.JButton jBtConsultarPavilhao;
     public static javax.swing.JButton jBtExcluir;
     public static javax.swing.JButton jBtExcluirInternosUmaUm;
     public static javax.swing.JButton jBtExcluirPavInternosTodos;
@@ -4433,7 +4463,14 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public void Alterar() {
         jObservacao.setEnabled(true);
         //
-        jBtPesquisarKit.setEnabled(true);
+        Integer row0 = jTabelaProdutos.getRowCount();
+        Integer row1 = jTabelaInternosKitCompleto.getRowCount();
+        Integer row2 = jTabelaProdutosKitCompleto.getRowCount();
+        if (row0 != 0 || row1 != 0 || row2 != 0) {
+            jBtPesquisarKit.setEnabled(!true);
+        } else {
+            jBtPesquisarKit.setEnabled(true);
+        }
         jBtPesquisarColaborador.setEnabled(true);
         jBtSalvar.setEnabled(true);
         jBtCancelar.setEnabled(true);
@@ -4468,6 +4505,11 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             jBtFinalizar.setEnabled(true);
             // ABA PAVILHÕES/INTERNOS
             jBtNovoPavInternos.setEnabled(true);
+            //ABA PRODUTOS DO ALMOXARIFADO
+            jBtNovoProduto.setEnabled(true);
+            //
+            jBtAdicionarTodosInternos.setEnabled(true);
+            jBtAdicionarProdutosKitCompleto.setEnabled(true);
         }
     }
 
@@ -4565,6 +4607,9 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jBtFinalizar.setEnabled(true);
         // FASE - 3
         jBtNovoProduto.setEnabled(true);
+        // FASE - 4
+        jBtAdicionarTodosInternos.setEnabled(true);
+        jBtAdicionarProdutosKitCompleto.setEnabled(true);
     }
 
     public void CancelarPavilhaoInterno() {
@@ -4582,6 +4627,13 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jBtExcluir.setEnabled(true);
         jBtAuditoria.setEnabled(true);
         jBtFinalizar.setEnabled(true);
+        //
+        Integer row0 = jTabelaInternosSelecionados.getRowCount();
+        if (row0 != 0) {
+            jBtNovoProduto.setEnabled(true);
+            jBtAdicionarTodosInternos.setEnabled(true);
+            jBtAdicionarProdutosKitCompleto.setEnabled(true);
+        }
     }
 
     public void pesquisarPavilhao() {
@@ -4653,7 +4705,12 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jBtAuditoria.setEnabled(true);
         jBtFinalizar.setEnabled(true);
         //FASE - 4
+        Integer row0 = jTabelaInternosKitCompleto.getRowCount();
+//        Integer row1 = jTabelaProdutosKitCompleto.getRowCount();
         jBtAdicionarTodosInternos.setEnabled(true);
+        if (row0 != 0) {
+            jBtAdicionarProdutosKitCompleto.setEnabled(true);
+        }
     }
 
     public void buscarProdutoKit() {

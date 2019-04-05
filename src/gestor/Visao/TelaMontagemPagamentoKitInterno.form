@@ -1277,7 +1277,6 @@
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="103" alignment="1" groupAlignment="2" attributes="0">
-                                          <Component id="jBtNovoPavInternos" linkSize="3" alignment="2" min="-2" max="-2" attributes="0"/>
                                           <Component id="jBtSelecionarUmInterno" linkSize="3" alignment="2" max="32767" attributes="0"/>
                                           <Component id="jBtSelecionarTodosInternos" linkSize="3" alignment="2" pref="85" max="32767" attributes="0"/>
                                           <Component id="jBtAuditoriaPavInternos" alignment="2" min="-2" pref="30" max="-2" attributes="0"/>
@@ -1286,19 +1285,23 @@
                                           <Component id="jBtExcluirUmInterno" linkSize="3" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="jBtExcluirTodosInternos" linkSize="3" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                          <Group type="103" alignment="0" groupAlignment="2" attributes="0">
-                                              <Component id="jBtSalvarPavInternos" linkSize="3" alignment="2" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jBtCancelarPavilhaoInterno" linkSize="3" alignment="2" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Component id="jBtExcluirPavInternosTodos" linkSize="3" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
                                   </Group>
                               </Group>
                               <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jBtSaldoEstoque" linkSize="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jBtExcluirInternosUmaUm" linkSize="3" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jBtSaldoEstoque" linkSize="3" max="32767" attributes="0"/>
+                                      <Group type="103" alignment="0" groupAlignment="0" attributes="0">
+                                          <Component id="jBtNovoPavInternos" linkSize="3" alignment="0" max="32767" attributes="0"/>
+                                          <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                              <Group type="103" alignment="0" groupAlignment="2" attributes="0">
+                                                  <Component id="jBtSalvarPavInternos" linkSize="3" alignment="2" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jBtCancelarPavilhaoInterno" linkSize="3" alignment="2" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="jBtExcluirPavInternosTodos" linkSize="3" alignment="0" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Component id="jBtExcluirInternosUmaUm" linkSize="3" alignment="0" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Component id="jBtConsultarPavilhao" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
@@ -1310,7 +1313,7 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="jBtNovoPavInternos" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jBtSalvarPavInternos" min="-2" max="-2" attributes="0"/>
@@ -1320,7 +1323,7 @@
                           <Component id="jBtExcluirPavInternosTodos" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jBtExcluirInternosUmaUm" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jBtSelecionarUmInterno" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jBtSelecionarTodosInternos" min="-2" max="-2" attributes="0"/>
@@ -1329,6 +1332,8 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jBtExcluirTodosInternos" min="-2" max="-2" attributes="0"/>
                           <EmptySpace pref="19" max="32767" attributes="0"/>
+                          <Component id="jBtConsultarPavilhao" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="jBtSaldoEstoque" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jBtAuditoriaPavInternos" min="-2" pref="23" max="-2" attributes="0"/>
@@ -1531,6 +1536,17 @@
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
                   </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="jBtConsultarPavilhao">
+                  <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="66" red="0" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Consultar Pavilh&#xe3;o"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtConsultarPavilhaoActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
