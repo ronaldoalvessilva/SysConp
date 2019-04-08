@@ -407,7 +407,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jBtSalvarInternosSelecionados = new javax.swing.JButton();
         jBtExcluirTodosInternosSelecionados = new javax.swing.JButton();
         jBtExcluirUmInternoAgrupado = new javax.swing.JButton();
-        jBtAuditoriaKitCompleto = new javax.swing.JButton();
+        jBtAuditoriaKitCompletoFase4A = new javax.swing.JButton();
         jPanel21 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         jTabelaProdutosKitCompleto = new javax.swing.JTable();
@@ -1111,6 +1111,11 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jBtAuditoriaPavInternos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
         jBtAuditoriaPavInternos.setContentAreaFilled(false);
         jBtAuditoriaPavInternos.setEnabled(false);
+        jBtAuditoriaPavInternos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAuditoriaPavInternosActionPerformed(evt);
+            }
+        });
 
         jBtCancelarPavilhaoInterno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Close_Icon_16.png"))); // NOI18N
         jBtCancelarPavilhaoInterno.setText("Cancelar");
@@ -1165,7 +1170,9 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         });
 
         jBtConsultarPavilhao.setForeground(new java.awt.Color(0, 102, 0));
-        jBtConsultarPavilhao.setText("Consultar Pavilhão");
+        jBtConsultarPavilhao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/061218140238_16.png"))); // NOI18N
+        jBtConsultarPavilhao.setText("C. Pavilhão");
+        jBtConsultarPavilhao.setToolTipText("Consultar Pavilhão Selecionado");
         jBtConsultarPavilhao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtConsultarPavilhaoActionPerformed(evt);
@@ -1228,7 +1235,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 .addComponent(jBtExcluirUmInterno)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtExcluirTodosInternos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addComponent(jBtConsultarPavilhao)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtSaldoEstoque)
@@ -1944,10 +1951,15 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             }
         });
 
-        jBtAuditoriaKitCompleto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
-        jBtAuditoriaKitCompleto.setToolTipText("Auditoria");
-        jBtAuditoriaKitCompleto.setContentAreaFilled(false);
-        jBtAuditoriaKitCompleto.setEnabled(false);
+        jBtAuditoriaKitCompletoFase4A.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
+        jBtAuditoriaKitCompletoFase4A.setToolTipText("Auditoria");
+        jBtAuditoriaKitCompletoFase4A.setContentAreaFilled(false);
+        jBtAuditoriaKitCompletoFase4A.setEnabled(false);
+        jBtAuditoriaKitCompletoFase4A.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAuditoriaKitCompletoFase4AActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
         jPanel22.setLayout(jPanel22Layout);
@@ -1960,7 +1972,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                     .addComponent(jBtExcluirUmInternoAgrupado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jBtExcluirTodosInternosSelecionados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jBtAdicionarTodosInternos)
-                    .addComponent(jBtAuditoriaKitCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jBtAuditoriaKitCompletoFase4A, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1977,7 +1989,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtSalvarInternosSelecionados)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtAuditoriaKitCompleto)
+                .addComponent(jBtAuditoriaKitCompletoFase4A)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -2137,6 +2149,11 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jBtAuditoriaKitProdutoCompleto.setToolTipText("Auditoria");
         jBtAuditoriaKitProdutoCompleto.setContentAreaFilled(false);
         jBtAuditoriaKitProdutoCompleto.setEnabled(false);
+        jBtAuditoriaKitProdutoCompleto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAuditoriaKitProdutoCompletoActionPerformed(evt);
+            }
+        });
 
         jBtProgramarKit.setForeground(new java.awt.Color(0, 102, 0));
         jBtProgramarKit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/calculator_edit.png"))); // NOI18N
@@ -2521,6 +2538,9 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     private void jBtAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaActionPerformed
         // TODO add your handling code here:
+        TelaAuditoriaComposicaoKit objAudKit0 = new TelaAuditoriaComposicaoKit();
+        TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objAudKit0);
+        objAudKit0.show();
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
 
     private void jRBtKitInicialItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRBtKitInicialItemStateChanged
@@ -3655,6 +3675,9 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     private void jBtAuditoriaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaProdutoActionPerformed
         // TODO add your handling code here:
+        TelaAuditoriaComposicaoKitProdutos objAudiKitProd = new TelaAuditoriaComposicaoKitProdutos();
+        TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objAudiKitProd);
+        objAudiKitProd.show();
     }//GEN-LAST:event_jBtAuditoriaProdutoActionPerformed
 
     private void jTabelaProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaProdutosMouseClicked
@@ -4134,8 +4157,32 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     private void jBtConsultarPavilhaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConsultarPavilhaoActionPerformed
         // TODO add your handling code here:
-        mostrarPavilhao();
+        Integer row0 = jTabelaInternosSelecionados.getRowCount();
+        if (row0 != 0) {
+            mostrarPavilhao();
+        }
     }//GEN-LAST:event_jBtConsultarPavilhaoActionPerformed
+
+    private void jBtAuditoriaPavInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaPavInternosActionPerformed
+        // TODO add your handling code here:
+        TelaAuditoriaComposicaoKitSelecInternos objAudKitSelec = new TelaAuditoriaComposicaoKitSelecInternos();
+        TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objAudKitSelec);
+        objAudKitSelec.show();
+    }//GEN-LAST:event_jBtAuditoriaPavInternosActionPerformed
+
+    private void jBtAuditoriaKitCompletoFase4AActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaKitCompletoFase4AActionPerformed
+        // TODO add your handling code here:
+        TelaAuditoriaComposicaoKitFase4A objAudiF4A = new TelaAuditoriaComposicaoKitFase4A();
+        TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objAudiF4A);
+        objAudiF4A.show();
+    }//GEN-LAST:event_jBtAuditoriaKitCompletoFase4AActionPerformed
+
+    private void jBtAuditoriaKitProdutoCompletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaKitProdutoCompletoActionPerformed
+        // TODO add your handling code here:
+        TelaAuditoriaComposicaoKitFase4B objAudiF4B = new TelaAuditoriaComposicaoKitFase4B();
+        TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objAudiF4B);
+        objAudiF4B.show();
+    }//GEN-LAST:event_jBtAuditoriaKitProdutoCompletoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -4145,7 +4192,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public static javax.swing.JButton jBtAlterar;
     private javax.swing.JButton jBtAlterarProduto;
     public static javax.swing.JButton jBtAuditoria;
-    private javax.swing.JButton jBtAuditoriaKitCompleto;
+    private javax.swing.JButton jBtAuditoriaKitCompletoFase4A;
     private javax.swing.JButton jBtAuditoriaKitProdutoCompleto;
     public static javax.swing.JButton jBtAuditoriaPavInternos;
     private javax.swing.JButton jBtAuditoriaProduto;

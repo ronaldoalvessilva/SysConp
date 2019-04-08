@@ -265,15 +265,15 @@ public class TelaFinalizarKitHigiene extends javax.swing.JDialog {
         DecimalFormat valorRealMoed = new DecimalFormat("###,##00.0");
         valorRealMoed.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
         for (int i = 0; i < jTabelaProdutos.getRowCount(); i++) {
-            // LANÇAR HISTÓRICO DA SAIDA DA REQUISIÇÃO.
-            objHistMovAC.setIdProd((int) jTabelaProdutos.getValueAt(i, 1));
+            // LANÇAR HISTÓRICO DA SAIDA DA REQUISIÇÃO.            
             objHistMovAC.setIdLocal(pCodigoAlmxarifado);
             objHistMovAC.setTipoOpe(tipoOpercao);
             objHistMovAC.setNomeOperacao(nomeOperacao);
             objHistMovAC.setIdDoc(Integer.valueOf(jIdRegistroComp.getText()));
             objHistMovAC.setDataMov(jDataComp.getDate());
+            objHistMovAC.setIdProd((int) jTabelaProdutos.getValueAt(i, 1));
             try {
-                objHistMovAC.setQtdItem(valorRealMoed.parse((String) jTabelaProdutos.getValueAt(i, 3)).floatValue());
+                objHistMovAC.setQtdItem(valorRealMoed.parse((String) jTabelaProdutos.getValueAt(i, 4)).floatValue());
             } catch (ParseException ex) {
             }
             SomaProdutoLote(); // SOMAR PRODUTO NA TABELA DE LOTE_ESTOQUE_AC PARA  TABELA HISTORICO_MOVIMENTACAO_ESTOQUE_AC
