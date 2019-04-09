@@ -186,7 +186,7 @@
                       </Border>
                     </Property>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="3" rowCount="1">
+                      <Table columnCount="3" rowCount="0">
                         <Column editable="true" title="C&#xf3;digo" type="java.lang.Object"/>
                         <Column editable="true" title="Local Armazenamento" type="java.lang.Object"/>
                         <Column editable="true" title="Status" type="java.lang.Object"/>
@@ -428,11 +428,9 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jBtExcluir" linkSize="2" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                          <Component id="jBtNovo" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jBtAlterar" linkSize="2" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jBtSalvar" linkSize="2" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="jBtAlterar" linkSize="2" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jBtSalvar" linkSize="2" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jBtNovo" linkSize="2" min="-2" max="-2" attributes="0"/>
                       <Component id="jBtCancelar" linkSize="2" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jBtSair" linkSize="2" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
