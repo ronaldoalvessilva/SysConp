@@ -407,7 +407,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         jTabelaAtendimentoJuridico.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaAtendimentoJuridico.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "     Data", "   Status", "         Nome Completo do Interno", "            Observação"
@@ -1216,7 +1216,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         jTabelaAtividades.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaAtividades.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 " Código ", "Descrição das Atividades", "Data"
@@ -1324,7 +1324,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         jTabelaEvolucaoJuridica.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaEvolucaoJuridica.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Evolução"
@@ -1782,6 +1782,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                     objAtendJuri.setUsuarioInsert(nameUser);
                     objAtendJuri.setDataInsert(dataModFinal);
                     objAtendJuri.setHoraInsert(horaMov);
+                    objAtendJuri.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
                     objAtendJuri.setNomeInterno(jNomeInternoJuridico.getText());
                     control.incluirAtendJuridico(objAtendJuri);
                     buscarID();
@@ -1834,6 +1835,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                     objAtendJuri.setUsuarioUp(nameUser);
                     objAtendJuri.setDataUp(dataModFinal);
                     objAtendJuri.setHoraUp(horaMov);
+                    objAtendJuri.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
                     objAtendJuri.setNomeInterno(jNomeInternoJuridico.getText());
                     objAtendJuri.setIdLanc(Integer.valueOf(jIDLanc.getText()));
                     control.alterarAtendJuridico(objAtendJuri);
@@ -1953,6 +1955,11 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
             jAtividadeRealizada.setText("");
             jDataEvolucao.setDate(null);
             jEvolucao.setText("");
+            //
+            jBtNovaEvolucao.setEnabled(true);
+            //
+            jBtNovaAtividade.setEnabled(true);
+            //
             preencherComboBoxDepartamento();
             // LIMPAR AS TABELAS ANTES DE EXIBIR AS OUTRAS
             limparTabelaAtividades();

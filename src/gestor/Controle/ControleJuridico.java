@@ -22,7 +22,7 @@ public class ControleJuridico {
     int codInt;
 
     public AtendimentoJuridico incluirAtendJuridico(AtendimentoJuridico objAtendJuri) {
-        buscarInternoCrc(objAtendJuri.getNomeInterno());
+        buscarInternoCrc(objAtendJuri.getNomeInterno(),objAtendJuri.getIdInternoCrc());
         conecta.abrirConexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ATENDIMENTOJURIDICO (StatusLanc,DataLanc,IdInternoCrc,DataEnca,TipoAdvogado,Resposta,HoraEnvio,SetorEncaminhamento,Observacao,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
@@ -51,7 +51,7 @@ public class ControleJuridico {
     }
 
     public AtendimentoJuridico alterarAtendJuridico(AtendimentoJuridico objAtendJuri) {
-        buscarInternoCrc(objAtendJuri.getNomeInterno());
+        buscarInternoCrc(objAtendJuri.getNomeInterno(),objAtendJuri.getIdInternoCrc());
         conecta.abrirConexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("UPDATE ATENDIMENTOJURIDICO SET StatusLanc=?,DataLanc=?,IdInternoCrc=?,DataEnca=?,TipoAdvogado=?,Resposta=?,HoraEnvio=?,SetorEncaminhamento=?,Observacao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdLanc='" + objAtendJuri.getIdLanc() + "'");
@@ -107,10 +107,12 @@ public class ControleJuridico {
     }
     // Buscar o nome do interno
 
-    public void buscarInternoCrc(String desc) {
+    public void buscarInternoCrc(String desc, int cod) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC WHERE NomeInternoCrc='" + desc + "'");
+            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                    + "WHERE NomeInternoCrc='" + desc + "' "
+                    + "AND IdInternoCrc='" + cod + "'");
             conecta.rs.first();
             codInt = conecta.rs.getInt("IdInternoCrc");
         } catch (Exception e) {
