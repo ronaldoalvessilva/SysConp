@@ -151,9 +151,11 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     String cncInterno;
     String nomeInterno;
     public static int qtdInternos = 0;
+    public static int qtdInternosKD = 0;
     public static int qtdInternosSelec = 0;
     public static int qtdInternosKitComp = 0;
     public static int qtdProdutosKitComo = 0;
+    int qtdTotal = 0;
     int idRegPavInt = 0;
     //
     int codProd = 0;
@@ -2760,7 +2762,9 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     }//GEN-LAST:event_jBtCancelarPavilhaoInternoActionPerformed
 
     private void jBtSelecionarUmInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSelecionarUmInternoActionPerformed
-        // TODO add your handling code here:       
+        // TODO add your handling code here:  
+//        count2 = 0;
+//        qtdInternos = 0;
         Integer row = jTabelaInternosSelecionados.getRowCount();
         boolean encontrou = !true;
         if (jTabelaInternos.getSelectedRowCount() != 0 && row == 0) { //Verifica se existe linha selecionada para não dar erro na hora de pegar os valores
@@ -2826,8 +2830,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     private void jBtSelecionarTodosInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSelecionarTodosInternosActionPerformed
         // TODO add your handling code here:
         flag = 0;
-        qtdInternos = 0;
         Integer rows = jTabelaInternos.getModel().getRowCount();
+        Integer row0 = jTabelaInternosSelecionados.getModel().getRowCount();
         if (rows != 0) {
             //KIT INICIAL
             if (pTipoKitCI == 1) {
@@ -2835,9 +2839,13 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
                 try {
                     for (PavilhaoInternoMontaKit dd : controle.read()) {
-                        jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
-                        jtotalInternosSelecionados.setText(jtotalInternosPavilhao.getText()); // Converter inteiro em string para exibir na tela     
-//                    jtotalInternosSelecionados.setText(Integer.toString(qtdInternosSelec + qtdInternos)); // Converter inteiro em string para exibir na tela                                                         
+//                        jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
+                        if (row0 == 0) {
+                            jtotalInternosSelecionados.setText(jtotalInternosPavilhao.getText()); // Converter inteiro em string para exibir na tela     
+                        } else {
+                            qtdTotal = qtdInternosSelec + qtdInternos;
+                            jtotalInternosSelecionados.setText(Integer.toString(qtdTotal)); // Converter inteiro em string para exibir na tela                                
+                        }
                         dadosDestino.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
                         // BARRA DE ROLAGEM HORIZONTAL
                         jTabelaInternosSelecionados.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -2869,13 +2877,12 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 jtotalInternosPavilhao.setText("");
                 //KIT DECENDIAL
             } else if (pTipoKitCI == 2) {
+                qtdInternos = 0;
+                qtdInternosKD = 0;
                 DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaInternosSelecionados.getModel();
                 PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
                 try {
                     for (PavilhaoInternoMontaKit dd : controleKD.read()) {
-                        jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
-                        jtotalInternosSelecionados.setText(jtotalInternosPavilhao.getText()); // Converter inteiro em string para exibir na tela     
-//                    jtotalInternosSelecionados.setText(Integer.toString(qtdInternosSelec + qtdInternos)); // Converter inteiro em string para exibir na tela                                                         
                         dadosDestino.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
                         // BARRA DE ROLAGEM HORIZONTAL
                         jTabelaInternosSelecionados.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -2885,7 +2892,14 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                         //
                         jTabelaInternosSelecionados.getColumnModel().getColumn(0).setCellRenderer(centralizado);
                         jTabelaInternosSelecionados.getColumnModel().getColumn(1).setCellRenderer(centralizado);
-
+                    }
+                    if (row0 == 0) {
+                        jtotalInternosSelecionados.setText(Integer.toString(qtdInternos));
+                        qtdTotal = qtdInternos;
+                    } else if (row0 != 0) {//jTabelaInternosSelecionados
+//                        qtdTotal = qtdTotal + qtdInternosKD;
+                        qtdTotal += qtdInternosKD;
+                        jtotalInternosSelecionados.setText(Integer.toString(qtdTotal)); // Converter inteiro em string para exibir na tela                                
                     }
                 } catch (Exception ex) {
                     Logger.getLogger(TelaMontagemPagamentoKitInterno.class
@@ -3289,9 +3303,17 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             JOptionPane.showMessageDialog(rootPane, "É necessario informar o pavilhão para incluir os internos.");
         } else {
             count1 = 0;
+            qtdInternos = 0;
+            qtdInternosKD = 0;
+            //LIMPAR A TABELA
+            while (jTabelaInternos.getModel().getRowCount() > 0) {
+                ((DefaultTableModel) jTabelaInternos.getModel()).removeRow(0);
+            }
+            jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
             // PESQUISA DE INTERNOS QUANDO O KIT FOR INICIAL.
             // KIT INICIAL
             if (pTipoKitCI == 1) {
+                qtdInternos = 0;
                 DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaInternos.getModel();
                 PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
                 try {
@@ -3313,6 +3335,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 }
                 // KIT DECENDIAL
             } else if (pTipoKitCI == 2) {
+                qtdInternosKD = 0;
+                qtdInternos = 0;
                 DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaInternos.getModel();
                 PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
                 try {

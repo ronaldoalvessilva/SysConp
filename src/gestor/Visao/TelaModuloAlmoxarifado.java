@@ -55,15 +55,10 @@ import static gestor.Visao.TelaRecadosAlmoxarifado.jRecado;
 import static gestor.Visao.TelaRecadosAlmoxarifado.jTabelaTodosRecados;
 import java.beans.PropertyVetoException;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -102,6 +97,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     private TelaMovimentacaoCrcAlmox objMoviCrcAlmos = null;
     private TelaTiposKitsHigieneInternos objKitHigiente = null;
     private TelaMontagemPagamentoKitInterno objMontagemKit = null;
+    private TelaProgramacaoKitsHigiene objProgramaKit = null;
     //
     String dataLanc;
     int codUsuario;
@@ -153,6 +149,8 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     public static String telaMontagemPagamentoKitProdutosAL = "Movimentação:Montagem de Kit de Higiene de Internos:FASE - 3";
     public static String telaMontagemPagamentoKitCompletoIntAL = "Movimentação:Montagem de Kit de Higiene de Internos:FASE - 4/IKC";
     public static String telaMontagemPagamentoKitCompletoProdAL = "Movimentação:Montagem de Kit de Higiene de Internos:FASE - 4/PKC";
+    //
+    public static String telaProgramacaoKitIndAL = "Cadastro:Programação Pagamento Kit Higiêne:Manutenção";
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
     // MENU CADASTRO
     String pNomeCF = "";
@@ -181,6 +179,8 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     String pNomeMPKP = "";
     String pNomeMPKCI = "";
     String pNomeMPKCP = "";
+    //
+    String pNomePPKI = "";
     //
     public static int codigoUserAL = 0;
     public static int codUserAcessoAL = 0;
@@ -226,7 +226,10 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         LocalArmazenamento = new javax.swing.JMenuItem();
         GrupoProdutos = new javax.swing.JMenuItem();
         Produtos = new javax.swing.JMenuItem();
+        jSeparator10 = new javax.swing.JPopupMenu.Separator();
+        jMenu3 = new javax.swing.JMenu();
         TiposKitsInternos = new javax.swing.JMenuItem();
+        jProgramarKits = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         AgendaCompromisso = new javax.swing.JMenuItem();
         AgendaRecados = new javax.swing.JMenuItem();
@@ -324,14 +327,30 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
             }
         });
         Cadastros.add(Produtos);
+        Cadastros.add(jSeparator10);
 
+        jMenu3.setForeground(new java.awt.Color(0, 102, 0));
+        jMenu3.setText("Tipos de Kit´s e Programar Pagamento Kit´s");
+
+        TiposKitsInternos.setForeground(new java.awt.Color(204, 0, 0));
         TiposKitsInternos.setText("Tipos de Kit de Higiene de Internos");
         TiposKitsInternos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TiposKitsInternosActionPerformed(evt);
             }
         });
-        Cadastros.add(TiposKitsInternos);
+        jMenu3.add(TiposKitsInternos);
+
+        jProgramarKits.setForeground(new java.awt.Color(0, 0, 204));
+        jProgramarKits.setText("Programar Pagamento de Kits de Higiêne");
+        jProgramarKits.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jProgramarKitsActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jProgramarKits);
+
+        Cadastros.add(jMenu3);
         Cadastros.add(jSeparator2);
 
         AgendaCompromisso.setText("Agenda de Compromissos Pessoal");
@@ -1225,8 +1244,41 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
-//        private TelaMontagemPagamentoKitInterno objMontagemKit = null;
     }//GEN-LAST:event_MontagemKitInternosActionPerformed
+
+    private void jProgramarKitsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jProgramarKitsActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaProgramacaoKitIndAL);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaProgramacaoKitIndAL) && codAbrirAL == 1) {
+            if (objProgramaKit == null || objProgramaKit.isClosed()) {
+                objProgramaKit = new TelaProgramacaoKitsHigiene();
+                jPainelAlmoxarifado.add(objProgramaKit);
+                objProgramaKit.setVisible(true);
+            } else {
+                if (objProgramaKit.isVisible()) {
+                    if (objProgramaKit.isIcon()) { // Se esta minimizado
+                        try {
+                            objProgramaKit.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objProgramaKit.toFront(); // traz para frente
+                        objProgramaKit.pack();//volta frame 
+                    }
+                } else {
+                    objProgramaKit = new TelaProgramacaoKitsHigiene();
+                    TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objProgramaKit);//adicona frame ao JDesktopPane  
+                    objProgramaKit.setVisible(true);
+                }
+            }
+            try {
+                objProgramaKit.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jProgramarKitsActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1263,11 +1315,14 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jLocalizacaoInternos;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     public static javax.swing.JDesktopPane jPainelAlmoxarifado;
+    private javax.swing.JMenuItem jProgramarKits;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator10;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
@@ -1818,6 +1873,13 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
             pNomeMPKCP = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaProgramacaoKitIndAL + "'");
+            conecta.rs.first();
+            pNomePPKI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // CADASTRO
         if (!pNomeCF.equals(telaCadastroFornecedoresAL) || pNomeCF == null || pNomeCF.equals("")) {
             buscarCodigoModulo();
@@ -1962,6 +2024,13 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaMontagemPagamentoKitCompletoProdAL);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+
+        if (!pNomePPKI.equals(telaProgramacaoKitIndAL) || pNomePPKI == null || pNomePPKI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaProgramacaoKitIndAL);
             controle.incluirTelaAcesso(objCadastroTela);
         }
     }

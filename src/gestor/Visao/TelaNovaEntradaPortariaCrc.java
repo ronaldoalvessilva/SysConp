@@ -280,7 +280,7 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
         jTabelaNovaEntrada.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaNovaEntrada.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Status", "Tipo Operação", "Observação"
@@ -736,7 +736,7 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
         jTabelaEntradaInternosP1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaEntradaInternosP1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Seq.", "Código", "Nome do Interno", "Matricula Penal"
@@ -1203,16 +1203,15 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
                         controle.incluiritensNovaEntrada(objItensNova);
                         objLog2();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        SalvarItem();
                         preencherTabelaItens("SELECT * FROM ITENSNOVAENTRADA "
                                 + "INNER JOIN PRONTUARIOSCRC "
                                 + "ON ITENSNOVAENTRADA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                 + "WHERE IdEntrada='" + jIdlanc.getText() + "'");
-                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso...");
-                        SalvarItem();
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso...");                       
                     }
                 }
                 if (acao == 4) {
-
                     objItensNova.setUsuarioUp(nameUser);
                     objItensNova.setDataUp(jDataSistema.getText());
                     objItensNova.setHorarioUp(jHoraSistema.getText());
@@ -1221,12 +1220,12 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
                     controle.alterarItensNovaEntrada(objItensNova);
                     objLog2();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    SalvarItem();
                     preencherTabelaItens("SELECT * FROM ITENSNOVAENTRADA "
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON ITENSNOVAENTRADA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                             + "WHERE IdEntrada='" + jIdlanc.getText() + "'");
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso...");
-                    SalvarItem();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso...");                 
                 }
             }
         } else {

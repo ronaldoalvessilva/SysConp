@@ -12,6 +12,7 @@ import gestor.Modelo.PavilhaoInternosSelecionados;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jComboBoxPavilhoes;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdInternos;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdInternosKD;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,8 @@ public class ControlePavilhaoMontaKitDecendial {
     String data = "";
 
     public List<PavilhaoInternoMontaKit> read() throws Exception {
+//        qtdInternosKD = 0;
+//        qtdInternos = 0;
         conecta.abrirConexao();
         List<PavilhaoInternoMontaKit> listaInternosPavilhao = new ArrayList<PavilhaoInternoMontaKit>();
         try {
@@ -64,7 +67,8 @@ public class ControlePavilhaoMontaKitDecendial {
                 pDigi.setIdPav(conecta.rs.getInt("IdPav"));
                 pDigi.setDescricaoPav(conecta.rs.getString("DescricaoPav"));
                 listaInternosPavilhao.add(pDigi);
-                qtdInternos = qtdInternos + 1;
+                qtdInternosKD ++;
+                qtdInternos ++;
             }
             return listaInternosPavilhao;
         } catch (SQLException ex) {

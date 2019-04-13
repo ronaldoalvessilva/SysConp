@@ -26,13 +26,14 @@ public class ControleProximoKitDecendial {
         buscarInterno(objGravaIntComp.getNomeInternoCrc(), objGravaIntComp.getIdInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO KITS_DECENDIAL_INTERNOS (IdRegistroComp,DataPagto,IdInternoCrc,DataPrevisaoPro,KitPago,Utilizado) VALUES(?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO KITS_DECENDIAL_INTERNOS (IdRegistroComp,DataPagto,IdInternoCrc,DataPrevisaoPro,KitPago,Utilizado,IDREG_PROG) VALUES(?,?,?,?,?,?,?)");
             pst.setInt(1, objGravaIntComp.getIdRegistroComp());
             pst.setTimestamp(2, new java.sql.Timestamp(objGravaIntComp.getDataPagamento().getTime()));
             pst.setInt(3, codInterno);
             pst.setTimestamp(4, new java.sql.Timestamp(objGravaIntComp.getDataPrevisao().getTime()));
             pst.setString(5, objGravaIntComp.getKitPago());
             pst.setString(6, objGravaIntComp.getUtili());
+            pst.setInt(7, objGravaIntComp.getIDREG_PROG());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR internos do kit decendial.\nERRO: " + ex);
@@ -45,13 +46,14 @@ public class ControleProximoKitDecendial {
         buscarInterno(objGravaIntComp.getNomeInternoCrc(), objGravaIntComp.getIdInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO KITS_QUINZENAL_INTERNOS (IdRegistroComp,DataPagto,IdInternoCrc,DataPrevisaoPro,KitPago,Utilizado) VALUES(?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO KITS_QUINZENAL_INTERNOS (IdRegistroComp,DataPagto,IdInternoCrc,DataPrevisaoPro,KitPago,Utilizado,IDREG_PROG) VALUES(?,?,?,?,?,?,?)");
             pst.setInt(1, objGravaIntComp.getIdRegistroComp());
             pst.setTimestamp(2, new java.sql.Timestamp(objGravaIntComp.getDataPagamento().getTime()));
             pst.setInt(3, codInterno);
             pst.setTimestamp(4, new java.sql.Timestamp(objGravaIntComp.getDataPrevisao().getTime()));
             pst.setString(5, objGravaIntComp.getKitPago());
             pst.setString(6, objGravaIntComp.getUtili());
+            pst.setInt(7, objGravaIntComp.getIDREG_PROG());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR internos do kit quinzenal.\nERRO: " + ex);
@@ -64,13 +66,14 @@ public class ControleProximoKitDecendial {
         buscarInterno(objGravaIntComp.getNomeInternoCrc(), objGravaIntComp.getIdInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO KITS_MENSAL_INTERNOS (IdRegistroComp,DataPagto,IdInternoCrc,DataPrevisaoPro,KitPago,Utilizado) VALUES(?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO KITS_MENSAL_INTERNOS (IdRegistroComp,DataPagto,IdInternoCrc,DataPrevisaoPro,KitPago,Utilizado,IDREG_PROG) VALUES(?,?,?,?,?,?,?)");
             pst.setInt(1, objGravaIntComp.getIdRegistroComp());
             pst.setTimestamp(2, new java.sql.Timestamp(objGravaIntComp.getDataPagamento().getTime()));
             pst.setInt(3, codInterno);
             pst.setTimestamp(4, new java.sql.Timestamp(objGravaIntComp.getDataPrevisao().getTime()));
             pst.setString(5, objGravaIntComp.getKitPago());
             pst.setString(6, objGravaIntComp.getUtili());
+            pst.setInt(7, objGravaIntComp.getIDREG_PROG());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR internos do kit mensal.\nERRO: " + ex);
@@ -83,13 +86,14 @@ public class ControleProximoKitDecendial {
         buscarInterno(objGravaIntComp.getNomeInternoCrc(), objGravaIntComp.getIdInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO KITS_SEMESTRAL_INTERNOS (IdRegistroComp,DataPagto,IdInternoCrc,DataPrevisaoPro,KitPago,Utilizado) VALUES(?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO KITS_SEMESTRAL_INTERNOS (IdRegistroComp,DataPagto,IdInternoCrc,DataPrevisaoPro,KitPago,Utilizado,IDREG_PROG) VALUES(?,?,?,?,?,?,?)");
             pst.setInt(1, objGravaIntComp.getIdRegistroComp());
             pst.setTimestamp(2, new java.sql.Timestamp(objGravaIntComp.getDataPagamento().getTime()));
             pst.setInt(3, codInterno);
             pst.setTimestamp(4, new java.sql.Timestamp(objGravaIntComp.getDataPrevisao().getTime()));
             pst.setString(5, objGravaIntComp.getKitPago());
             pst.setString(6, objGravaIntComp.getUtili());
+            pst.setInt(7, objGravaIntComp.getIDREG_PROG());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR internos do kit semestral.\nERRO: " + ex);
@@ -102,13 +106,14 @@ public class ControleProximoKitDecendial {
         buscarInterno(objGravaIntComp.getNomeInternoCrc(), objGravaIntComp.getIdInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO KITS_ANUAL_INTERNOS (IdRegistroComp,DataPagto,IdInternoCrc,DataPrevisaoPro,KitPago,Utilizado) VALUES(?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO KITS_ANUAL_INTERNOS (IdRegistroComp,DataPagto,IdInternoCrc,DataPrevisaoPro,KitPago,Utilizado,IDREG_PROG) VALUES(?,?,?,?,?,?,?)");
             pst.setInt(1, objGravaIntComp.getIdRegistroComp());
             pst.setTimestamp(2, new java.sql.Timestamp(objGravaIntComp.getDataPagamento().getTime()));
             pst.setInt(3, codInterno);
             pst.setTimestamp(4, new java.sql.Timestamp(objGravaIntComp.getDataPrevisao().getTime()));
             pst.setString(5, objGravaIntComp.getKitPago());
             pst.setString(6, objGravaIntComp.getUtili());
+            pst.setInt(7, objGravaIntComp.getIDREG_PROG());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR internos do kit anual.\nERRO: " + ex);

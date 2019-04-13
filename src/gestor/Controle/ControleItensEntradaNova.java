@@ -96,7 +96,7 @@ public class ControleItensEntradaNova {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
-                    + "WHERE NomeInternoCrc='" + desc + "'| "
+                    + "WHERE NomeInternoCrc='" + desc + "' "
                     + "AND IdInternoCrc='" + cod + "'");
             conecta.rs.first();
             codInt = conecta.rs.getInt("IdInternoCrc");
