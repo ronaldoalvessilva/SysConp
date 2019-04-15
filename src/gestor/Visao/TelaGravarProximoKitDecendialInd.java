@@ -220,15 +220,15 @@ public class TelaGravarProximoKitDecendialInd extends javax.swing.JDialog {
                         objGravaIntComp.setIdInternoCrc((int) jTabelaDestino.getValueAt(i, 0));
                         objGravaIntComp.setNomeInternoCrc((String) jTabelaDestino.getValueAt(i, 1));
                         // VERIFICAR SE O INTERNO JÁ SE ENCONTRA GRAVADO NA TABELA PARA PARA O MESMO REGISTRO
-                        verificarInternoBancoDados(objGravaIntComp.getIdRegistroComp(), objGravaIntComp.getIdInternoCrc());
+                        verificarInternoBancoDados(objGravaIntComp.getIDREG_PROG(), objGravaIntComp.getIdInternoCrc());
                         // SE O REGISTRO FOR IGUAL E O INTERNO DIFERENTE, GRAVA
-                        if (objGravaIntComp.getIdRegistroComp() == codigoRegistro && objGravaIntComp.getIdInternoCrc() != codigoInterno) {
+                        if (objGravaIntComp.getIDREG_PROG() == codigoRegistro && objGravaIntComp.getIdInternoCrc() != codigoInterno) {
                             controle.incluirProximoKitDecendial(objGravaIntComp);
                             buscarCodigoRegistroInternoKitCompleto();
                             objLog2();
                             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
                             // SE O REGISTRO FOR DIFERENTE GRAVA OS NOVOS INTERNOS
-                        } else if (objGravaIntComp.getIdRegistroComp() != codigoRegistro) {
+                        } else if (objGravaIntComp.getIDREG_PROG() != codigoRegistro) {
                             controle.incluirProximoKitDecendial(objGravaIntComp);
                             buscarCodigoRegistroInternoKitCompleto();
                             objLog2();
@@ -240,7 +240,7 @@ public class TelaGravarProximoKitDecendialInd extends javax.swing.JDialog {
                             objLog2();
                             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
                             // SE O CODIGO DO REGISTRO FOR DIFERENTE E O CÓDIGO DO INTERNO FOR DIFERENTE GRAVA
-                        } else if (objGravaIntComp.getIdRegistroComp() != codigoRegistro && objGravaIntComp.getIdInternoCrc() != codigoInterno) {
+                        } else if (objGravaIntComp.getIDREG_PROG() != codigoRegistro && objGravaIntComp.getIdInternoCrc() != codigoInterno) {
                             controle.incluirProximoKitDecendial(objGravaIntComp);
                             buscarCodigoRegistroInternoKitCompleto();
                             objLog2();
@@ -306,11 +306,11 @@ public class TelaGravarProximoKitDecendialInd extends javax.swing.JDialog {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM KITS_DECENDIAL_INTERNOS "
-                    + "WHERE IdKitDecendial='" + codigoReg + "' "
+                    + "WHERE IDREG_PROG='" + codigoReg + "' "
                     + "AND IdInternoCrc='" + codInternoCrc + "'");
             conecta.rs.last();
             codigoInterno = conecta.rs.getInt("IdInternoCrc");
-            codigoRegistro = conecta.rs.getInt("IdRegistroComp");
+            codigoRegistro = conecta.rs.getInt("IDREG_PROG");
         } catch (Exception ERROR) {
         }
         conecta.desconecta();

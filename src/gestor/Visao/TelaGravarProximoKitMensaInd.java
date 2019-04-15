@@ -15,16 +15,12 @@ import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
-import static gestor.Visao.TelaMontagemPagamentoKitInterno.jIdRegistroComp;
-import static gestor.Visao.TelaPrevisaoKitHigiene.jDataPrevisao;
-import static gestor.Visao.TelaPrevisaoKitHigiene.jDataUltimoPagto;
-import static gestor.Visao.TelaPrevisaoKitHigiene.jTabelaDestino;
+import static gestor.Visao.TelaProgramacaoKitsHigiene.jDataPrevisao;
+import static gestor.Visao.TelaProgramacaoKitsHigiene.jDataUltimoPagto;
+import static gestor.Visao.TelaProgramacaoKitsHigiene.jTabelaDestino;
+import static gestor.Visao.TelaProgramacaoKitsHigiene.idPROG;
 import java.awt.Rectangle;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
@@ -222,27 +218,14 @@ public class TelaGravarProximoKitMensaInd extends javax.swing.JDialog {
                 public void run() {
                     statusMov = "Incluiu";
                     horaMov = jHoraSistema.getText();
-                    dataModFinal = jDataSistema.getText();
-                    // FAZ UM UPDATE NA TABELA COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE PARA
-                    // IMPEDIR DE QUE SEJA FEITO MAIS DE UMA PROGRAMAÇÃO PARA OS MESMOS
-                    //INTERNOS QUANDO FOR KIT INICIAL.                    
-                    try {
-                        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-                        data = formato.parse(jDataSistema.getText());
-                    } catch (ParseException ex) {
-                        Logger.getLogger(TelaGravarProximoKitMensaInd.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    objComp.setProgGerada(progGerada);
-                    objComp.setDataProgramacao(data);
-                    objComp.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
-                    control.confirmarProgramacaoKit(objComp);
+                    dataModFinal = jDataSistema.getText();                   
                     // GRAVAR NA TABELA ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO                    
                     for (int i = 0; i < jTabelaDestino.getRowCount(); i++) {//  
                         objGravaIntComp.setUsuarioInsert(nameUser);
                         objGravaIntComp.setDataInsert(dataModFinal);
                         objGravaIntComp.setHorarioInsert(horaMov);
                         //
-                        objGravaIntComp.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
+                        objGravaIntComp.setIDREG_PROG(idPROG);
                         objGravaIntComp.setDataPagamento(jDataUltimoPagto.getDate());
                         objGravaIntComp.setDataPrevisao(jDataPrevisao.getDate());
                         objGravaIntComp.setKitPago(kitPago);
@@ -250,15 +233,15 @@ public class TelaGravarProximoKitMensaInd extends javax.swing.JDialog {
                         objGravaIntComp.setIdInternoCrc((int) jTabelaDestino.getValueAt(i, 0));
                         objGravaIntComp.setNomeInternoCrc((String) jTabelaDestino.getValueAt(i, 1));
                         // VERIFICAR SE O INTERNO JÁ SE ENCONTRA GRAVADO NA TABELA PARA PARA O MESMO REGISTRO
-                        verificarInternoBancoDados(objGravaIntComp.getIdRegistroComp(), objGravaIntComp.getIdInternoCrc());
+                        verificarInternoBancoDados(objGravaIntComp.getIDREG_PROG(), objGravaIntComp.getIdInternoCrc());
                         // SE O REGISTRO FOR IGUAL E O INTERNO DIFERENTE, GRAVA
-                        if (objGravaIntComp.getIdRegistroComp() == codigoRegistro && objGravaIntComp.getIdInternoCrc() != codigoInterno) {
+                        if (objGravaIntComp.getIDREG_PROG() == codigoRegistro && objGravaIntComp.getIdInternoCrc() != codigoInterno) {
                             controle.incluirProximoKitMensal(objGravaIntComp);
                             buscarCodigoRegistroInternoKitCompleto();
                             objLog2();
                             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
                             // SE O REGISTRO FOR DIFERENTE GRAVA OS NOVOS INTERNOS
-                        } else if (objGravaIntComp.getIdRegistroComp() != codigoRegistro) {
+                        } else if (objGravaIntComp.getIDREG_PROG() != codigoRegistro) {
                             controle.incluirProximoKitMensal(objGravaIntComp);
                             buscarCodigoRegistroInternoKitCompleto();
                             objLog2();
@@ -270,7 +253,7 @@ public class TelaGravarProximoKitMensaInd extends javax.swing.JDialog {
                             objLog2();
                             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
                             // SE O CODIGO DO REGISTRO FOR DIFERENTE E O CÓDIGO DO INTERNO FOR DIFERENTE GRAVA
-                        } else if (objGravaIntComp.getIdRegistroComp() != codigoRegistro && objGravaIntComp.getIdInternoCrc() != codigoInterno) {
+                        } else if (objGravaIntComp.getIDREG_PROG() != codigoRegistro && objGravaIntComp.getIdInternoCrc() != codigoInterno) {
                             controle.incluirProximoKitMensal(objGravaIntComp);
                             buscarCodigoRegistroInternoKitCompleto();
                             objLog2();
@@ -336,11 +319,11 @@ public class TelaGravarProximoKitMensaInd extends javax.swing.JDialog {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM KITS_MENSAL_INTERNOS "
-                    + "WHERE IdKitMensal='" + codigoReg + "' "
+                    + "WHERE IDREG_PROG='" + codigoReg + "' "
                     + "AND IdInternoCrc='" + codInternoCrc + "'");
             conecta.rs.last();
             codigoInterno = conecta.rs.getInt("IdInternoCrc");
-            codigoRegistro = conecta.rs.getInt("IdRegistroComp");
+            codigoRegistro = conecta.rs.getInt("IDREG_PROG");
         } catch (Exception ERROR) {
         }
         conecta.desconecta();
@@ -350,7 +333,7 @@ public class TelaGravarProximoKitMensaInd extends javax.swing.JDialog {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
         objLogSys.setNomeModuloTela(nomeModuloTela2);
-        objLogSys.setIdLancMov(Integer.valueOf(jIdRegistroComp.getText()));
+        objLogSys.setIdLancMov(Integer.valueOf(idPROG));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
     }

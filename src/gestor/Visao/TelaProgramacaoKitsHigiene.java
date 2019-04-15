@@ -10,7 +10,13 @@ import gestor.Controle.ControleKitDecendialNomeInternoTodos;
 import gestor.Controle.ControleListaInternosKitDecendialIdInternos;
 import gestor.Controle.ControleListaInternosProgramacaoKitTodos;
 import gestor.Controle.ControleLogSistema;
+import gestor.Controle.ControlePagamentoKitAnualRealizado;
+import gestor.Controle.ControlePagamentoKitDecendialRealizado;
+import gestor.Controle.ControlePagamentoKitMensalRealizado;
+import gestor.Controle.ControlePagamentoKitQuinzenalRealizado;
+import gestor.Controle.ControlePagamentoKitSemestralRealizado;
 import gestor.Controle.ControleProgramacaoKit;
+import gestor.Controle.ControleProximoKitDecendial;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.ComposicaoKit;
@@ -31,6 +37,8 @@ import static gestor.Visao.TelaModuloAlmoxarifado.codigoUserGroupAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.nomeGrupoAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.nomeTelaAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.telaProgramacaoKitIndAL;
+import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
+import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -58,10 +66,17 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
     ProgramacaoKit objProg = new ProgramacaoKit();
     ControleProgramacaoKit controlPagtoKit = new ControleProgramacaoKit();
     //KIT DECENDIAL
-    ControleListaInternosProgramacaoKitTodos controle = new ControleListaInternosProgramacaoKitTodos();
+    GravarInternosKitCompleto objGravaIntComp = new GravarInternosKitCompleto();
+    ControleListaInternosProgramacaoKitTodos controleKDTodos = new ControleListaInternosProgramacaoKitTodos();
     ControleListaInternosKitDecendialIdInternos controleKD = new ControleListaInternosKitDecendialIdInternos();
     ControleKitDecendialNomeInternoTodos controlNome = new ControleKitDecendialNomeInternoTodos();
-    GravarInternosKitCompleto objGravaIntComp = new GravarInternosKitCompleto();
+    ControlePagamentoKitDecendialRealizado controlListKD = new ControlePagamentoKitDecendialRealizado();  //LISTAR KIT DECENDIAL PARA SER CONSULTADO OU EXCLUÍDO.
+    ControleProximoKitDecendial controleExcluirKD = new ControleProximoKitDecendial(); // EXCLUIR TODOS OS INTERNOS
+    //
+    ControlePagamentoKitQuinzenalRealizado controlListKQ = new ControlePagamentoKitQuinzenalRealizado();
+    ControlePagamentoKitMensalRealizado controlListKM = new ControlePagamentoKitMensalRealizado();
+    ControlePagamentoKitSemestralRealizado controlListKS = new ControlePagamentoKitSemestralRealizado();
+    ControlePagamentoKitAnualRealizado controlListKA = new ControlePagamentoKitAnualRealizado();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -81,6 +96,7 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
     //
     String gerado = "";
     String idRegistro = "";
+    int idRegistro_PROG = 0;
     public static int qtdInternos = 0;
     //
     String statusMov = "";
@@ -99,6 +115,12 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
     public static int codigoPavilhao = 0;
     String dataEntrada, dataUltimoPagto, dataPrevisao;
     int count = 0;
+    // BUSCAR ID DO KIT NA TABELA KIT_HIGIENE_INTERNO
+    int idKitBusca = 0;
+    String nomeCampoTabela = "";
+    String kitPago = "";
+    int idPav = 0;
+    int codigoKit = 0;
 
     /**
      * Creates new form TelaProgramacaoKitsHigiene
@@ -152,23 +174,22 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jCodigoPesq = new javax.swing.JTextField();
-        jBtPesqCodigo = new javax.swing.JButton();
         jCheckBoxTodosRegistros = new javax.swing.JCheckBox();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
-        jRadioButton5 = new javax.swing.JRadioButton();
-        jRadioButton6 = new javax.swing.JRadioButton();
+        jRB_DECENDIAL = new javax.swing.JRadioButton();
+        jRB_QUINZENAL = new javax.swing.JRadioButton();
+        jRB_MENSAL = new javax.swing.JRadioButton();
+        jRB_SEMESTRAL = new javax.swing.JRadioButton();
+        jRB_ANUAL = new javax.swing.JRadioButton();
         jLabel9 = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jLabel10 = new javax.swing.JLabel();
         jDateChooser2 = new com.toedter.calendar.JDateChooser();
         jBtPesquisaData = new javax.swing.JButton();
         jBtPesquisaKit = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jCodigoPesq = new javax.swing.JTextField();
+        jBtPesqCodigo = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTabelaProgramacaoKit = new javax.swing.JTable();
         jPanel48 = new javax.swing.JPanel();
@@ -218,13 +239,14 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
         jtotalDestino = new javax.swing.JLabel();
         jPanel47 = new javax.swing.JPanel();
         jBtNovo = new javax.swing.JButton();
-        jBtExcluir = new javax.swing.JButton();
+        jBtExcluirTodos = new javax.swing.JButton();
         jBtSalvar = new javax.swing.JButton();
         jBtCancelar = new javax.swing.JButton();
         jBtSair = new javax.swing.JButton();
         jBtAuditoria = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jDataGeracao = new com.toedter.calendar.JDateChooser();
+        jBtExcluirUm = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("...::: Programação de Pagamento de Kits :::....");
@@ -233,21 +255,8 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
 
         jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel7.setText("Código:");
-
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel8.setText("Tipo Kit:");
-
-        jCodigoPesq.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-
-        jBtPesqCodigo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
-        jBtPesqCodigo.setContentAreaFilled(false);
-        jBtPesqCodigo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtPesqCodigoActionPerformed(evt);
-            }
-        });
 
         jCheckBoxTodosRegistros.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jCheckBoxTodosRegistros.setText("Todos");
@@ -257,34 +266,30 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
             }
         });
 
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRadioButton1.setSelected(true);
-        jRadioButton1.setText("Inicial");
+        buttonGroup1.add(jRB_DECENDIAL);
+        jRB_DECENDIAL.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRB_DECENDIAL.setForeground(new java.awt.Color(0, 0, 204));
+        jRB_DECENDIAL.setSelected(true);
+        jRB_DECENDIAL.setText("Decendial");
 
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRadioButton2.setForeground(new java.awt.Color(0, 0, 204));
-        jRadioButton2.setText("Decendial");
+        buttonGroup1.add(jRB_QUINZENAL);
+        jRB_QUINZENAL.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRB_QUINZENAL.setForeground(new java.awt.Color(204, 0, 0));
+        jRB_QUINZENAL.setText("Quinzenal");
 
-        buttonGroup1.add(jRadioButton3);
-        jRadioButton3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRadioButton3.setForeground(new java.awt.Color(204, 0, 0));
-        jRadioButton3.setText("Quinzenal");
+        buttonGroup1.add(jRB_MENSAL);
+        jRB_MENSAL.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRB_MENSAL.setForeground(new java.awt.Color(0, 102, 0));
+        jRB_MENSAL.setText("Mensal");
 
-        buttonGroup1.add(jRadioButton4);
-        jRadioButton4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRadioButton4.setForeground(new java.awt.Color(0, 102, 0));
-        jRadioButton4.setText("Mensal");
+        buttonGroup1.add(jRB_SEMESTRAL);
+        jRB_SEMESTRAL.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRB_SEMESTRAL.setForeground(new java.awt.Color(153, 0, 51));
+        jRB_SEMESTRAL.setText("Semestral");
 
-        buttonGroup1.add(jRadioButton5);
-        jRadioButton5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRadioButton5.setForeground(new java.awt.Color(153, 0, 51));
-        jRadioButton5.setText("Semestral");
-
-        buttonGroup1.add(jRadioButton6);
-        jRadioButton6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRadioButton6.setText("Anual");
+        buttonGroup1.add(jRB_ANUAL);
+        jRB_ANUAL.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRB_ANUAL.setText("Anual");
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel9.setText("Data Inicial:");
@@ -312,77 +317,87 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel7.setText("Código:");
+
+        jCodigoPesq.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jCodigoPesq.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
+        jBtPesqCodigo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
+        jBtPesqCodigo.setContentAreaFilled(false);
+        jBtPesqCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPesqCodigoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(47, 47, 47)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtPesquisaData, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jCheckBoxTodosRegistros)
-                        .addGap(24, 24, 24))
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel13Layout.createSequentialGroup()
                         .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel13Layout.createSequentialGroup()
-                                .addComponent(jRadioButton1)
+                                .addComponent(jRB_DECENDIAL)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButton2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButton3)
+                                .addComponent(jRB_QUINZENAL)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jRadioButton4)
+                                .addComponent(jRB_MENSAL)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jRadioButton5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jRadioButton6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtPesquisaKit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jRB_SEMESTRAL))
                             .addGroup(jPanel13Layout.createSequentialGroup()
-                                .addComponent(jCodigoPesq, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel10)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtPesqCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jBtPesquisaData, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jRB_ANUAL)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtPesquisaKit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addComponent(jCodigoPesq, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtPesqCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jCheckBoxTodosRegistros)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jBtPesqCodigo)
-                    .addComponent(jCodigoPesq, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap()
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jBtPesquisaKit)
-                    .addComponent(jRadioButton6)
-                    .addComponent(jRadioButton5)
-                    .addComponent(jRadioButton4)
-                    .addComponent(jRadioButton3)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jRadioButton1)
+                    .addComponent(jRB_ANUAL)
+                    .addComponent(jRB_SEMESTRAL)
+                    .addComponent(jRB_MENSAL)
+                    .addComponent(jRB_QUINZENAL)
+                    .addComponent(jRB_DECENDIAL)
                     .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jCheckBoxTodosRegistros)
                     .addComponent(jBtPesquisaData)
                     .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
                     .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jBtPesqCodigo)
+                    .addComponent(jCodigoPesq, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(jCheckBoxTodosRegistros))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -478,7 +493,7 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel48, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -568,6 +583,7 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
         jNomeInternoPesq.setEnabled(false);
 
         jBtNomePesquisa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
+        jBtNomePesquisa.setToolTipText("Pesquisa Interno");
         jBtNomePesquisa.setContentAreaFilled(false);
         jBtNomePesquisa.setEnabled(false);
         jBtNomePesquisa.addActionListener(new java.awt.event.ActionListener() {
@@ -578,6 +594,7 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
 
         jCheckBoxTodos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jCheckBoxTodos.setText("Todos");
+        jCheckBoxTodos.setToolTipText("Selecionar Todos Internos");
         jCheckBoxTodos.setEnabled(false);
         jCheckBoxTodos.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -785,6 +802,7 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "NV", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 204))); // NOI18N
 
         jBtAdicionarUm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/250718131515_16.png"))); // NOI18N
+        jBtAdicionarUm.setToolTipText("Selecionar um Registro");
         jBtAdicionarUm.setEnabled(false);
         jBtAdicionarUm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -793,6 +811,7 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
         });
 
         jBtAdicionarTodos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/250718131115_16.png"))); // NOI18N
+        jBtAdicionarTodos.setToolTipText("Selecionar Todos Registros");
         jBtAdicionarTodos.setEnabled(false);
         jBtAdicionarTodos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -801,6 +820,7 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
         });
 
         jBtVoltarUm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/250718131526_16.png"))); // NOI18N
+        jBtVoltarUm.setToolTipText("Retornar um Registro");
         jBtVoltarUm.setEnabled(false);
         jBtVoltarUm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -809,6 +829,7 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
         });
 
         jBtVoltarTodos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/250718131210_16.png"))); // NOI18N
+        jBtVoltarTodos.setToolTipText("Retornoar Todos Registros");
         jBtVoltarTodos.setEnabled(false);
         jBtVoltarTodos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -940,21 +961,24 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
         );
 
         jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
+        jBtNovo.setToolTipText("Novo Registro");
         jBtNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtNovoActionPerformed(evt);
             }
         });
 
-        jBtExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/191216104515_16.png"))); // NOI18N
-        jBtExcluir.setEnabled(false);
-        jBtExcluir.addActionListener(new java.awt.event.ActionListener() {
+        jBtExcluirTodos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/191216104515_16.png"))); // NOI18N
+        jBtExcluirTodos.setToolTipText("Excluir Todos Registros");
+        jBtExcluirTodos.setEnabled(false);
+        jBtExcluirTodos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtExcluirActionPerformed(evt);
+                jBtExcluirTodosActionPerformed(evt);
             }
         });
 
         jBtSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
+        jBtSalvar.setToolTipText("Gravar Registro");
         jBtSalvar.setEnabled(false);
         jBtSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -963,6 +987,7 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
         });
 
         jBtCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Close_Icon_16.png"))); // NOI18N
+        jBtCancelar.setToolTipText("Cancelar Operação");
         jBtCancelar.setEnabled(false);
         jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -971,6 +996,7 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
         });
 
         jBtSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Log_Out_Icon_16.png"))); // NOI18N
+        jBtSair.setToolTipText("Sair da Tela");
         jBtSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtSairActionPerformed(evt);
@@ -1008,6 +1034,15 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
+        jBtExcluirUm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/191216104428_16.png"))); // NOI18N
+        jBtExcluirUm.setToolTipText("Excluir Interno");
+        jBtExcluirUm.setEnabled(false);
+        jBtExcluirUm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtExcluirUmActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -1023,14 +1058,16 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jBtNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jBtExcluirTodos, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jBtExcluirUm, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jBtSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(64, 64, 64)
                                 .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(188, 188, 188)
+                                .addGap(88, 88, 88)
                                 .addComponent(jBtAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -1045,7 +1082,7 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtCancelar, jBtExcluir, jBtNovo, jBtSair, jBtSalvar});
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtCancelar, jBtSair, jBtSalvar});
 
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1054,12 +1091,13 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jBtExcluir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                            .addComponent(jBtExcluirTodos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
                             .addComponent(jBtSalvar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
                             .addComponent(jBtCancelar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
                             .addComponent(jBtAuditoria)
                             .addComponent(jBtNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBtSair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jBtSair, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jBtExcluirUm, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1076,7 +1114,7 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
                 .addGap(117, 117, 117))
         );
 
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtCancelar, jBtExcluir, jBtNovo, jBtSair, jBtSalvar});
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtCancelar, jBtExcluirTodos, jBtExcluirUm, jBtNovo, jBtSair, jBtSalvar});
 
         jTabbedPane1.addTab("Manutenção", jPanel2);
 
@@ -1249,7 +1287,7 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
             // LIMPAR O TOTALIZADOR DA TABELA
             qtdInternos = 0;
             jtotalOrigem.setText(Integer.toString(qtdInternos));
-            mostraSelecaoInternos();
+            mostraSelecaoInternosKitDecendial();
         } else {
             // APAGAR TODOS OS REGISTROS DA TABELA COPIADA
             DefaultTableModel tblRemove = (DefaultTableModel) jTabelaOrigem.getModel();
@@ -1341,7 +1379,7 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
             DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaDestino.getModel();
             GravarInternosKitCompleto d = new GravarInternosKitCompleto();
             try {
-                for (GravarInternosKitCompleto dd : controle.read()) {
+                for (GravarInternosKitCompleto dd : controleKDTodos.read()) {
                     jtotalOrigem.setText(Integer.toString(qtdInternos));
                     jtotalDestino.setText(jtotalOrigem.getText()); // Converter inteiro em string para exibir na tela
                     dadosDestino.addRow(new Object[]{dd.getIdInternoCrc(), dd.getNomeInternoCrc()});
@@ -1417,7 +1455,7 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
             DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaOrigem.getModel();
             GravarInternosKitCompleto d = new GravarInternosKitCompleto();
             try {
-                for (GravarInternosKitCompleto dd : controle.read()) {
+                for (GravarInternosKitCompleto dd : controleKDTodos.read()) {
                     jtotalOrigem.setText(jtotalDestino.getText()); // Converter inteiro em string para exibir na tela
                     dadosDestino.addRow(new Object[]{dd.getIdInternoCrc(), dd.getNomeInternoCrc()});
                     // BARRA DE ROLAGEM HORIZONTAL
@@ -1447,84 +1485,175 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaProgramacaoKitIndAL) && codIncluirAL == 1) {
             acao = 1;
             limparCampos();
+            limparTabelaInternos();
             bloquearBotoes();
             Novo();
             pesquisarPavilhao();
-            // APAGAR TODOS OS REGISTROS DA TABELA COPIADA
-            DefaultTableModel tblRemove = (DefaultTableModel) jTabelaOrigem.getModel();
-            if (tblRemove.getRowCount() > 0) {
-                for (int i = 0; i <= tblRemove.getRowCount(); i++) {
-                    tblRemove.removeRow(i);
-                    tblRemove.setRowCount(0);
-                    if (tblRemove.getRowCount() < i) {
-                        tblRemove.removeRow(i);
-                        tblRemove.setRowCount(0);
-                    }
-                }
-            }
-            // LIMPAR O TOTALIZADOR DA TABELA
-            qtdInternos = 0;
-            jtotalOrigem.setText(Integer.toString(qtdInternos));
         } else {
             JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
         }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
-    private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
+    private void jBtExcluirTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirTodosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jBtExcluirActionPerformed
+        buscarAcessoUsuario(telaProgramacaoKitIndAL);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaProgramacaoKitIndAL) && codExcluirAL == 1) {
+            if (idPROG != 1 || idPROG != 2 || idPROG != 3 || idPROG != 4 || idPROG != 5) {
+                JOptionPane.showMessageDialog(rootPane, "Selecione um registro para excluir...");
+            } else {
+                switch (tipoKit) {
+                    case 1:
+                        tipoKit = 1;
+                        int resposta0 = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
+                                JOptionPane.YES_NO_OPTION);
+                        if (resposta0 == JOptionPane.YES_OPTION) {
+                            objGravaIntComp.setIDREG_PROG(idPROG);
+                            controleExcluirKD.excluirKitDecendial(objGravaIntComp);
+                            objProg.setIdPROG(idPROG);
+                            controlPagtoKit.excluirProgramacaoKit(objProg);
+                        }
+                        break;
+                    case 2:
+                        tipoKit = 2;
+                        int resposta1 = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
+                                JOptionPane.YES_NO_OPTION);
+                        if (resposta1 == JOptionPane.YES_OPTION) {
+                            objGravaIntComp.setIDREG_PROG(idPROG);
+                            controleExcluirKD.excluirKitQuinzenal(objGravaIntComp);
+                            objProg.setIdPROG(idPROG);
+                            controlPagtoKit.excluirProgramacaoKit(objProg);
+                        }
+                        break;
+                    case 3:
+                        tipoKit = 3;
+                        int resposta2 = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
+                                JOptionPane.YES_NO_OPTION);
+                        if (resposta2 == JOptionPane.YES_OPTION) {
+                            objGravaIntComp.setIDREG_PROG(idPROG);
+                            controleExcluirKD.excluirKitMensal(objGravaIntComp);
+                            objProg.setIdPROG(idPROG);
+                            controlPagtoKit.excluirProgramacaoKit(objProg);
+                        }
+                        break;
+                    case 4:
+                        tipoKit = 4;
+                        int resposta3 = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
+                                JOptionPane.YES_NO_OPTION);
+                        if (resposta3 == JOptionPane.YES_OPTION) {
+                            objGravaIntComp.setIDREG_PROG(idPROG);
+                            controleExcluirKD.excluirKitSemestral(objGravaIntComp);
+                            objProg.setIdPROG(idPROG);
+                            controlPagtoKit.excluirProgramacaoKit(objProg);
+                        }
+                        break;
+                    case 5:
+                        tipoKit = 5;
+                        int resposta4 = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
+                                JOptionPane.YES_NO_OPTION);
+                        if (resposta4 == JOptionPane.YES_OPTION) {
+                            objGravaIntComp.setIDREG_PROG(idPROG);
+                            controleExcluirKD.excluirKitAnual(objGravaIntComp);
+                            objProg.setIdPROG(idPROG);
+                            controlPagtoKit.excluirProgramacaoKit(objProg);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+            Excluir();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
+        }
+    }//GEN-LAST:event_jBtExcluirTodosActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        Integer rows = jTabelaDestino.getRowCount();
-        if (jDataUltimoPagto.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data do último pagamento de kit.");
-        } else if (jDataPrevisao.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data para o próximo pagamento do kit.");
-        } else if (rows == 0) {
-            JOptionPane.showMessageDialog(rootPane, "Não existem internos selecionados para programação dos próximos pagamento de kit.");
+        buscarAcessoUsuario(telaProgramacaoKitIndAL);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaProgramacaoKitIndAL) && codGravarAL == 1) {
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            Integer rows = jTabelaDestino.getRowCount();
+            if (jDataUltimoPagto.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data do último pagamento de kit.");
+            } else if (jDataPrevisao.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data para o próximo pagamento do kit.");
+            } else if (rows == 0) {
+                JOptionPane.showMessageDialog(rootPane, "Não existem internos selecionados para programação dos próximos pagamento de kit.");
+            } else {
+                if (jRBDencendial.isSelected() == true) {
+                    tipoKit = 1;
+                    int pValor = 1;
+                    nomeCampoTabela = "KitDecendial";
+                    buscar_ID_KIT_DECENDIAL(pValor);
+                } else if (jRBQuinzenal.isSelected() == true) {
+                    tipoKit = 2;
+                    int pValor = 1;
+                    nomeCampoTabela = "KitQuinzenal";
+                    buscar_ID_KIT_QUINZENAL(pValor);
+                } else if (jRBMensal.isSelected() == true) {
+                    tipoKit = 3;
+                    int pValor = 1;
+                    nomeCampoTabela = "KitMensal";
+                    buscar_ID_KIT_MENSAL(pValor);
+                } else if (jRBSemestral.isSelected() == true) {
+                    tipoKit = 4;
+                    int pValor = 1;
+                    nomeCampoTabela = "KitSemestral";
+                    buscar_ID_KIT_SEMESTRAL(pValor);
+                } else if (jRBAnual.isSelected() == true) {
+                    tipoKit = 5;
+                    int pValor = 1;
+                    nomeCampoTabela = "KitAnual";
+                    buscar_ID_KIT_ANUAL(pValor);
+                }
+                objProg.setDataUltimoPagto(jDataUltimoPagto.getDate());
+                objProg.setDataPrevisao(jDataPrevisao.getDate());
+                objProg.setDataPROG(jDataGeracao.getDate());
+                objProg.setTipoKit(tipoKit);
+                objProg.setIdPav(codigoPavilhao);
+                objProg.setIdKit(idKitBusca);
+                objProg.setKitPago("Não");
+                objProg.setProgGerado("Sim");
+                objProg.setDataPagamento(null);
+                objProg.setDescricaoPav((String) jComboBoxPavilhao.getSelectedItem());
+                //
+                objProg.setUsuarioInsert(nameUser);
+                objProg.setDataInsert(dataModFinal);
+                objProg.setHorarioInsert(horaMov);
+                //PESQUISAR CÓDIGO DO PAVILHÃO PARA COMPARAR SE O KIT JÁ FOI PROGRAMADO
+                buscarPavilhao(objProg.getDescricaoPav());
+                // VERIFICAR SE JÁ FOI GERADO A PREVISÃO
+                pesquisarProgramacaoPagamento();
+                //SE O ID DO PAVILHÃO EXISTIR E O KIT NÃO FOR PAGO
+                if (idPav == codigoPavilhao && kitPago.equals("Não") && codigoKit == idKitBusca) {
+                    JOptionPane.showMessageDialog(rootPane, "Já foi gerado a previsão de pagamento para esse pavilhão.");
+                } else {
+                    controlPagtoKit.incluirProgramacaoKit(objProg);
+                    buscarCodigo();
+                    if (jRBDencendial.isSelected() == true) {
+                        mostrarProxKitDecendial();
+                    } else if (jRBQuinzenal.isSelected() == true) {
+                        mostrarProxKitQuinzenal();
+                    } else if (jRBMensal.isSelected() == true) {
+                        mostrarProxKitMensal();
+                    } else if (jRBSemestral.isSelected() == true) {
+                        mostrarProxKitSemestral();
+                    } else if (jRBAnual.isSelected() == true) {
+                        mostrarProxKitAnual();
+                    }
+                }
+                Salvar();
+            }
         } else {
-            if (jRBDencendial.isSelected() == true) {
-                tipoKit = 1;
-            } else if (jRBQuinzenal.isSelected() == true) {
-                tipoKit = 2;
-            } else if (jRBMensal.isSelected() == true) {
-                tipoKit = 3;
-            } else if (jRBSemestral.isSelected() == true) {
-                tipoKit = 4;
-            } else if (jRBAnual.isSelected() == true) {
-                tipoKit = 5;
-            }
-            objProg.setDataUltimoPagto(jDataUltimoPagto.getDate());
-            objProg.setDataPrevisao(jDataPrevisao.getDate());
-            objProg.setDataPROG(jDataGeracao.getDate());
-            objProg.setTipoKit(tipoKit);
-            objProg.setIdPav(codigoPavilhao);
-            objProg.setDescricaoPav((String) jComboBoxPavilhao.getSelectedItem());
-            controlPagtoKit.incluirProgramacaoKit(objProg);
-            buscarCodigo();
-            // VERIFICAR SE JÁ FOI GERADO A PREVISÃO
-//            pesquisarDataPrevisao();
-//            if (gerado == null && idPROG == idRegistro) {
-            if (jRBDencendial.isSelected() == true) {
-                mostrarProxKitDecendial();
-            } else if (jRBQuinzenal.isSelected() == true) {
-                mostrarProxKitQuinzenal();
-            } else if (jRBMensal.isSelected() == true) {
-                mostrarProxKitMensal();
-            } else if (jRBSemestral.isSelected() == true) {
-                mostrarProxKitSemestral();
-            } else if (jRBAnual.isSelected() == true) {
-                mostrarProxKitAnual();
-            }
-//            } else if (idPROG == idRegistro && gerado.equals("Sim")) {
-//                JOptionPane.showMessageDialog(rootPane, "Já foi gerado a previsão de pagamento referente a esse registro.");
-//            }
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
         // TODO add your handling code here:
+        Cancelar();
     }//GEN-LAST:event_jBtCancelarActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
@@ -1548,15 +1677,63 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         count = 0;
-        if (evt.getStateChange() == evt.SELECTED) {
-            preencherTabelaProgramacao("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
-                    + "INNER JOIN KITS_DECENDIAL_INTERNOS "
-                    + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_DECENDIAL_INTERNOS.IDREG_PROG "
-                    + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON KITS_DECENDIAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc");
+        if (jRB_DECENDIAL.isSelected() == true) {
+            if (evt.getStateChange() == evt.SELECTED) {
+                preencherTabelaProgramacao("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                        + "INNER JOIN KITS_DECENDIAL_INTERNOS "
+                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_DECENDIAL_INTERNOS.IDREG_PROG "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON KITS_DECENDIAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc");
+            } else {
+                limparTabelaProgramacao();
+                jtotalRegistros.setText("");
+            }
+        } else if (jRB_QUINZENAL.isSelected() == true) {
+            if (evt.getStateChange() == evt.SELECTED) {
+                preencherTabelaProgramacao("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                        + "INNER JOIN KITS_QUINZENAL_INTERNOS "
+                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_QUINZENAL_INTERNOS.IDREG_PROG "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON KITS_QUINZENAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc");
+            } else {
+                limparTabelaProgramacao();
+                jtotalRegistros.setText("");
+            }
+        } else if (jRB_MENSAL.isSelected() == true) {
+            if (evt.getStateChange() == evt.SELECTED) {
+                preencherTabelaProgramacao("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                        + "INNER JOIN KITS_MENSAL_INTERNOS "
+                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_MENSAL_INTERNOS.IDREG_PROG "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON KITS_MENSAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc");
+            } else {
+                limparTabelaProgramacao();
+                jtotalRegistros.setText("");
+            }
+        } else if (jRB_SEMESTRAL.isSelected() == true) {
+            if (evt.getStateChange() == evt.SELECTED) {
+                preencherTabelaProgramacao("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                        + "INNER JOIN KITS_SEMESTRAL_INTERNOS "
+                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_SEMESTRAL_INTERNOS.IDREG_PROG "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON KITS_SEMESTRAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc");
+            } else {
+                limparTabelaProgramacao();
+                jtotalRegistros.setText("");
+            }
+        } else if (jRB_ANUAL.isSelected() == true) {
+            if (evt.getStateChange() == evt.SELECTED) {
+                preencherTabelaProgramacao("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                        + "INNER JOIN KITS_ANUAL_INTERNOS "
+                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_ANUAL_INTERNOS.IDREG_PROG "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON KITS_ANUAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc");
+            } else {
+                limparTabelaProgramacao();
+                jtotalRegistros.setText("");
+            }
         } else {
-            limparTabelaInventario();
-            jtotalRegistros.setText("");
+            JOptionPane.showMessageDialog(rootPane, "Selecione um dos kits para pesquisa...");
         }
     }//GEN-LAST:event_jCheckBoxTodosRegistrosItemStateChanged
 
@@ -1567,10 +1744,68 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
     private void jTabelaProgramacaoKitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaProgramacaoKitMouseClicked
         // TODO add your handling code here:
         flag = 1;
-        if(flag == 1){
-            
+        if (flag == 1) {
+            String idLanc = "" + jTabelaProgramacaoKit.getValueAt(jTabelaProgramacaoKit.getSelectedRow(), 0);
+            jCodigoPesq.setText(idLanc);
+            //
+            jBtNovo.setEnabled(true);
+            jBtExcluirTodos.setEnabled(true);
+            jBtSalvar.setEnabled(!true);
+            jBtCancelar.setEnabled(true);
+            jBtAuditoria.setEnabled(true);
+            jComboBoxPavilhao.removeAllItems();
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                        + "INNER JOIN PAVILHAO "
+                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav=PAVILHAO.IdPav "
+                        + "WHERE IdPROG='" + idLanc + "'");
+                conecta.rs.first();
+                idPROG = conecta.rs.getInt("IdPROG");
+                jDataUltimoPagto.setDate(conecta.rs.getDate("DataUltimoPagto"));
+                jComboBoxPavilhao.addItem(conecta.rs.getString("DescricaoPav"));
+                jDataPrevisao.setDate(conecta.rs.getDate("DataPrevisao"));
+                jDataGeracao.setDate(conecta.rs.getDate("DataPROG"));
+                tipoKit = conecta.rs.getInt("TipoKit");
+                switch (tipoKit) {
+                    case 1:
+                        tipoKit = 1;
+                        jRBDencendial.setSelected(true);
+                        mostraSelecaoInternosKDExcluir();
+                        break;
+                    case 2:
+                        tipoKit = 2;
+                        jRBQuinzenal.setSelected(true);
+                        mostraSelecaoInternosKQExcluir();
+                        break;
+                    case 3:
+                        tipoKit = 3;
+                        jRBMensal.setSelected(true);
+                        mostraSelecaoInternosKMExcluir();
+                        break;
+                    case 4:
+                        tipoKit = 4;
+                        jRBSemestral.setSelected(true);
+                        mostraSelecaoInternosKSExcluir();
+                        break;
+                    case 5:
+                        tipoKit = 5;
+                        jRBAnual.setSelected(true);
+                        mostraSelecaoInternosKAExcluir();
+                        break;
+                    default:
+                        break;
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(rootPane, "Não foi possível selecionar o registro.\nERRO: " + e);
+            }
+            conecta.desconecta();
         }
     }//GEN-LAST:event_jTabelaProgramacaoKitMouseClicked
+
+    private void jBtExcluirUmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirUmActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtExcluirUmActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1580,7 +1815,8 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtAdicionarUm;
     private javax.swing.JButton jBtAuditoria;
     private javax.swing.JButton jBtCancelar;
-    private javax.swing.JButton jBtExcluir;
+    private javax.swing.JButton jBtExcluirTodos;
+    private javax.swing.JButton jBtExcluirUm;
     private javax.swing.JButton jBtNomePesquisa;
     private javax.swing.JButton jBtNovo;
     private javax.swing.JButton jBtPesqCodigo;
@@ -1636,12 +1872,11 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton jRBMensal;
     private javax.swing.JRadioButton jRBQuinzenal;
     private javax.swing.JRadioButton jRBSemestral;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
-    private javax.swing.JRadioButton jRadioButton5;
-    private javax.swing.JRadioButton jRadioButton6;
+    private javax.swing.JRadioButton jRB_ANUAL;
+    private javax.swing.JRadioButton jRB_DECENDIAL;
+    private javax.swing.JRadioButton jRB_MENSAL;
+    private javax.swing.JRadioButton jRB_QUINZENAL;
+    private javax.swing.JRadioButton jRB_SEMESTRAL;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -1671,7 +1906,7 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
 
     public void bloquearBotoes() {
         jBtNovo.setEnabled(!true);
-        jBtExcluir.setEnabled(!true);
+        jBtExcluirTodos.setEnabled(!true);
         jBtSalvar.setEnabled(!true);
         jBtCancelar.setEnabled(!true);
         jBtAuditoria.setEnabled(!true);
@@ -1714,15 +1949,90 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
     }
 
     public void Excluir() {
-
+        bloquearBotoes();
+        bloquearCampos();
+        limparCampos();
+        limparTabelaInternos();
+        jBtNovo.setEnabled(true);
     }
 
     public void Salvar() {
-
+        bloquearBotoes();
+        bloquearCampos();
+        jBtNovo.setEnabled(true);
     }
 
     public void Cancelar() {
+        bloquearBotoes();
+        bloquearCampos();
+        limparCampos();
+        limparTabelaInternos();
+        jBtNovo.setEnabled(true);
+    }
 
+    public void buscar_ID_KIT_DECENDIAL(int valor) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM KITS_HIGIENE_INTERNO "
+                    + "WHERE KitDecendial='" + valor + "'");
+            conecta.rs.first();
+            idKitBusca = conecta.rs.getInt("IdKit");
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaProgramacaoKitsHigiene.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        conecta.desconecta();
+    }
+
+    public void buscar_ID_KIT_QUINZENAL(int valor) {
+        conecta.abrirConexao();
+
+        try {
+            conecta.executaSQL("SELECT * FROM KITS_HIGIENE_INTERNO WHERE KitQuinzenal='" + valor + "'");
+            conecta.rs.first();
+            idKitBusca = conecta.rs.getInt("IdKit");
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaProgramacaoKitsHigiene.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        conecta.desconecta();
+    }
+
+    public void buscar_ID_KIT_MENSAL(int valor) {
+        conecta.abrirConexao();
+
+        try {
+            conecta.executaSQL("SELECT * FROM KITS_HIGIENE_INTERNO WHERE KitMensal='" + valor + "'");
+            conecta.rs.first();
+            idKitBusca = conecta.rs.getInt("IdKit");
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaProgramacaoKitsHigiene.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        conecta.desconecta();
+    }
+
+    public void buscar_ID_KIT_SEMESTRAL(int valor) {
+        conecta.abrirConexao();
+
+        try {
+            conecta.executaSQL("SELECT * FROM KITS_HIGIENE_INTERNO WHERE KitSemestral='" + valor + "'");
+            conecta.rs.first();
+            idKitBusca = conecta.rs.getInt("IdKit");
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaProgramacaoKitsHigiene.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        conecta.desconecta();
+    }
+
+    public void buscar_ID_KIT_ANUAL(int valor) {
+        conecta.abrirConexao();
+
+        try {
+            conecta.executaSQL("SELECT * FROM KITS_HIGIENE_INTERNO WHERE KitAnual='" + valor + "'");
+            conecta.rs.first();
+            idKitBusca = conecta.rs.getInt("IdKit");
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaProgramacaoKitsHigiene.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        conecta.desconecta();
     }
 
     public void buscarCodigo() {
@@ -1746,6 +2056,18 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
                 codigoPavilhao = conecta.rs.getInt("IdPav");
             } while (conecta.rs.next());
         } catch (SQLException ex) {
+        }
+        conecta.desconecta();
+    }
+
+    public void buscarPavilhao(String nomePav) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM PAVILHAO "
+                    + "WHERE DescricaoPav='" + nomePav + "'");
+            conecta.rs.first();
+            codigoPavilhao = conecta.rs.getInt("IdPav");
+        } catch (Exception e) {
         }
         conecta.desconecta();
     }
@@ -1833,7 +2155,7 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
         jTabelaProgramacaoKit.getColumnModel().getColumn(4).setCellRenderer(centralizado);
     }
 
-    public void limparTabelaInventario() {
+    public void limparTabelaProgramacao() {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código", "Programação", "TipoKit", "Pagamento", "Previsão", "Nome do Interno"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
@@ -1856,12 +2178,30 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
         modelo.getLinhas().clear();
     }
 
+    public void limparTabelaInternos() {
+        // APAGAR DADOS DA TABELA PRODUTOS
+        while (jTabelaOrigem.getModel().getRowCount() > 0) {
+            ((DefaultTableModel) jTabelaOrigem.getModel()).removeRow(0);
+        }
+        // LIMPAR O TOTALIZADOR DA TABELA PRODUTOS
+        jtotalOrigem.setText("");
+        // APAGAR DADOS DA TABELA INTERNOS SELECIONADOS
+        while (jTabelaDestino.getModel().getRowCount() > 0) {
+            ((DefaultTableModel) jTabelaDestino.getModel()).removeRow(0);
+        }
+        // LIMPAR O TOTALIZADOR DA TABELA PRODUTOS SELECIONADOS PARA BAIXA
+        jtotalDestino.setText("");
+        qtdInternos = 0;
+        jtotalOrigem.setText(Integer.toString(qtdInternos));
+        jtotalDestino.setText(Integer.toString(qtdInternos));
+    }
+
     // LISTAR OS TODOS OS INTERNOS QUE FORAM SELECIONADOS KIT INICIAL PARA PAGAMENTO DO KIT DENCENDIAL
-    public void mostraSelecaoInternos() {
+    public void mostraSelecaoInternosKitDecendial() {
         DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaOrigem.getModel();
         GravarInternosKitCompleto d = new GravarInternosKitCompleto();
         try {
-            for (GravarInternosKitCompleto dd : controle.read()) {
+            for (GravarInternosKitCompleto dd : controleKDTodos.read()) {
                 jtotalOrigem.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
                 dadosOrigem.addRow(new Object[]{dd.getIdInternoCrc(), dd.getNomeInternoCrc()});
                 // BARRA DE ROLAGEM HORIZONTAL
@@ -1871,6 +2211,116 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
                 centralizado.setHorizontalAlignment(SwingConstants.CENTER);
                 //
                 jTabelaOrigem.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaPrevisaoKitHigiene.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    //KIT DECENDIAL
+    public void mostraSelecaoInternosKDExcluir() {
+        qtdInternos = 0;
+        DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaDestino.getModel();
+        GravarInternosKitCompleto d = new GravarInternosKitCompleto();
+        try {
+            for (GravarInternosKitCompleto dd : controlListKD.read()) {
+                jtotalDestino.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
+                dadosDestino.addRow(new Object[]{dd.getIdInternoCrc(), dd.getNomeInternoCrc()});
+                // BARRA DE ROLAGEM HORIZONTAL
+                jTabelaDestino.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                //
+                jTabelaDestino.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaPrevisaoKitHigiene.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    //KIT QUINZENAL
+    public void mostraSelecaoInternosKQExcluir() {
+        qtdInternos = 0;
+        DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaDestino.getModel();
+        GravarInternosKitCompleto d = new GravarInternosKitCompleto();
+        try {
+            for (GravarInternosKitCompleto dd : controlListKQ.read()) {
+                jtotalDestino.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
+                dadosDestino.addRow(new Object[]{dd.getIdInternoCrc(), dd.getNomeInternoCrc()});
+                // BARRA DE ROLAGEM HORIZONTAL
+                jTabelaDestino.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                //
+                jTabelaDestino.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaPrevisaoKitHigiene.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    //KIT MENSAL
+    public void mostraSelecaoInternosKMExcluir() {
+        qtdInternos = 0;
+        DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaDestino.getModel();
+        GravarInternosKitCompleto d = new GravarInternosKitCompleto();
+        try {
+            for (GravarInternosKitCompleto dd : controlListKM.read()) {
+                jtotalDestino.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
+                dadosDestino.addRow(new Object[]{dd.getIdInternoCrc(), dd.getNomeInternoCrc()});
+                // BARRA DE ROLAGEM HORIZONTAL
+                jTabelaDestino.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                //
+                jTabelaDestino.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaPrevisaoKitHigiene.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    //KIT SEMESTRAL
+    public void mostraSelecaoInternosKSExcluir() {
+        qtdInternos = 0;
+        DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaDestino.getModel();
+        GravarInternosKitCompleto d = new GravarInternosKitCompleto();
+        try {
+            for (GravarInternosKitCompleto dd : controlListKS.read()) {
+                jtotalDestino.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
+                dadosDestino.addRow(new Object[]{dd.getIdInternoCrc(), dd.getNomeInternoCrc()});
+                // BARRA DE ROLAGEM HORIZONTAL
+                jTabelaDestino.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                //
+                jTabelaDestino.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaPrevisaoKitHigiene.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    //KIT ANUAL
+    public void mostraSelecaoInternosKAExcluir() {
+        qtdInternos = 0;
+        DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaDestino.getModel();
+        GravarInternosKitCompleto d = new GravarInternosKitCompleto();
+        try {
+            for (GravarInternosKitCompleto dd : controlListKA.read()) {
+                jtotalDestino.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
+                dadosDestino.addRow(new Object[]{dd.getIdInternoCrc(), dd.getNomeInternoCrc()});
+                // BARRA DE ROLAGEM HORIZONTAL
+                jTabelaDestino.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                //
+                jTabelaDestino.getColumnModel().getColumn(0).setCellRenderer(centralizado);
             }
         } catch (Exception ex) {
             Logger.getLogger(TelaPrevisaoKitHigiene.class.getName()).log(Level.SEVERE, null, ex);
@@ -1894,14 +2344,15 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
     }
 
     // VERIFICAR SE A DATA DE PREVISÃO JÁ FOI CADASTRADA E ALERTAR O USUÁRIO
-    public void pesquisarDataPrevisao() {
+    public void pesquisarProgramacaoPagamento() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "
-                    + "WHERE IdRegistroComp='" + idPROG + "' ");
+            conecta.executaSQL("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                    + "WHERE IdKit='" + idKitBusca + "' ");
             conecta.rs.first();
-            gerado = conecta.rs.getString("ProgGerada");
-            idRegistro = conecta.rs.getString("IdRegistroComp");
+            kitPago = conecta.rs.getString("KitPago");
+            idPav = conecta.rs.getInt("IdPav");
+            codigoKit = conecta.rs.getInt("IdKit");
         } catch (Exception e) {
         }
         conecta.desconecta();

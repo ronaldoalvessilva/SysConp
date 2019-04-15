@@ -23,11 +23,15 @@ public class ProgramacaoKit {
     private String horarioInsert;
     private int idPav;
     private String descricaoPav;
+    private int idKit;
+    private String progGerado;
+    private String kitPago;
+    private Date dataPagamento;
 
     public ProgramacaoKit() {
     }
 
-    public ProgramacaoKit(int idPROG, Date dataPROG, Date dataUltimoPagto, Date dataPrevisao, int tipoKit, String usuarioInsert, String dataInsert, String horarioInsert, int idPav, String descricaoPav) {
+    public ProgramacaoKit(int idPROG, Date dataPROG, Date dataUltimoPagto, Date dataPrevisao, int tipoKit, String usuarioInsert, String dataInsert, String horarioInsert, int idPav, String descricaoPav, int idKit, String progGerado, String kitPago, Date dataPagamento) {
         this.idPROG = idPROG;
         this.dataPROG = dataPROG;
         this.dataUltimoPagto = dataUltimoPagto;
@@ -38,6 +42,10 @@ public class ProgramacaoKit {
         this.horarioInsert = horarioInsert;
         this.idPav = idPav;
         this.descricaoPav = descricaoPav;
+        this.idKit = idKit;
+        this.progGerado = progGerado;
+        this.kitPago = kitPago;
+        this.dataPagamento = dataPagamento;
     }
 
     /**
@@ -178,5 +186,61 @@ public class ProgramacaoKit {
      */
     public void setDescricaoPav(String descricaoPav) {
         this.descricaoPav = descricaoPav;
+    }
+
+    /**
+     * @return the idKit
+     */
+    public int getIdKit() {
+        return idKit;
+    }
+
+    /**
+     * @param idKit the idKit to set
+     */
+    public void setIdKit(int idKit) {
+        this.idKit = idKit;
+    }
+
+    /**
+     * @return the progGerado
+     */
+    public String getProgGerado() {
+        return progGerado;
+    }
+
+    /**
+     * @param progGerado the progGerado to set
+     */
+    public void setProgGerado(String progGerado) {
+        this.progGerado = progGerado;
+    }
+
+    /**
+     * @return the kitPago
+     */
+    public String getKitPago() {
+        return kitPago;
+    }
+
+    /**
+     * @param kitPago the kitPago to set
+     */
+    public void setKitPago(String kitPago) {
+        this.kitPago = kitPago;
+    }
+
+    /**
+     * @return the dataPagamento
+     */
+    public Date getDataPagamento() {
+        return dataPagamento;
+    }
+
+    /**
+     * @param dataPagamento the dataPagamento to set
+     */
+    public void setDataPagamento(Date dataPagamento) {
+        this.dataPagamento = dataPagamento;
     }
 }
