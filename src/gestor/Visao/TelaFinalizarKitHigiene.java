@@ -178,6 +178,7 @@ public class TelaFinalizarKitHigiene extends javax.swing.JDialog {
             lancarHistorico();
             String statusFim = "FINALIZADO";
             objComp.setStatusComp(statusFim);
+            objComp.setKitPago("Não");
             objComp.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
             control.finalizarComposicaoKitlInternos(objComp);
             jStatusComp.setText("FINALIZADO");

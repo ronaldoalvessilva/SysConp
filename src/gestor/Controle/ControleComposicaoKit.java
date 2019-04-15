@@ -90,8 +90,9 @@ public class ControleComposicaoKit {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE SET StatusComp=? WHERE IdRegistroComp='" + objComp.getIdRegistroComp() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE SET StatusComp=?,KitPago=? WHERE IdRegistroComp='" + objComp.getIdRegistroComp() + "'");
             pst.setString(1, objComp.getStatusComp());
+            pst.setString(2, objComp.getKitPago());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel FINALIZAR registro.\nERRO: " + ex);
