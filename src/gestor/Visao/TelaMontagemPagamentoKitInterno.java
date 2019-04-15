@@ -186,6 +186,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     String kitUtilizado = "Não";
     //   
     public static int pCodigoAlmxarifado = 0;
+    String pcodigoProduto = "";
+    String pRegistroComp = "";
 
     /**
      * Creates new form TelaMontagemPagamentoKitInterno
@@ -3603,36 +3605,41 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                     objProdKit.setQuantidadeProd(qtdReal.parse(jQtdAtendida.getText()).floatValue());
                 } catch (ParseException ex) {
                 }
+                verificarProdutoIncluido();
                 if (acao == 3) {
-                    objProdKit.setUsuarioInsert(nameUser);
-                    objProdKit.setDataInsert(dataModFinal);
-                    objProdKit.setHorarioInsert(horaMov);
-                    // PEGA PRODUTO PARA CALCULAR SALDO DE ESTOQUE
-                    pegarSaldoEstoque(objProdKit.getIdProd());
-                    //
-                    if (saldoEstoque >= objProdKit.getQuantidadeProd()) {
-                        // CALCULA O NOVO SALDO DE ESTOQUE
-                        estoqueAtual = saldoEstoque - objProdKit.getQuantidadeProd();
-                        // TABELA ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE
-                        controleProd.incluirProdutosKitInternos(objProdKit);
-                        buscarProdutoKit();
-                        //
-                        objItensReqMatInter.setIdProd(Integer.valueOf(jCodigoProd.getText()));
-                        objItensReqMatInter.setQtdItem(estoqueAtual);
-                        controleLote.alterarEstoqueMaterais(objItensReqMatInter); // TABELA DE LOTE_PRODUTOS_AC   
-                        objLog3();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        bloquearCampos();
-                        bloquearBotoes();
-                        limparCamposProdutos();
-                        SalvarProduto();
-                        preencherTabelaProdutos("SELECT * FROM ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE "
-                                + "INNER JOIN PRODUTOS_AC "
-                                + "ON ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdProd=PRODUTOS_AC.IdProd  "
-                                + "WHERE ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp='" + jIdRegistroComp.getText() + "'");
-                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    if (jIdRegistroComp.getText().equals(pRegistroComp) && jCodigoProd.getText().equals(pcodigoProduto)) {
+                        JOptionPane.showMessageDialog(null, "Produto já foi incluído nesse registro.");
                     } else {
-                        JOptionPane.showMessageDialog(rootPane, "Saldo de Estoque insuficiente para atender esse registro.");
+                        objProdKit.setUsuarioInsert(nameUser);
+                        objProdKit.setDataInsert(dataModFinal);
+                        objProdKit.setHorarioInsert(horaMov);
+                        // PEGA PRODUTO PARA CALCULAR SALDO DE ESTOQUE
+                        pegarSaldoEstoque(objProdKit.getIdProd());
+                        //
+                        if (saldoEstoque >= objProdKit.getQuantidadeProd()) {
+                            // CALCULA O NOVO SALDO DE ESTOQUE
+                            estoqueAtual = saldoEstoque - objProdKit.getQuantidadeProd();
+                            // TABELA ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE
+                            controleProd.incluirProdutosKitInternos(objProdKit);
+                            buscarProdutoKit();
+                            //
+                            objItensReqMatInter.setIdProd(Integer.valueOf(jCodigoProd.getText()));
+                            objItensReqMatInter.setQtdItem(estoqueAtual);
+                            controleLote.alterarEstoqueMaterais(objItensReqMatInter); // TABELA DE LOTE_PRODUTOS_AC   
+                            objLog3();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            bloquearCampos();
+                            bloquearBotoes();
+                            limparCamposProdutos();
+                            SalvarProduto();
+                            preencherTabelaProdutos("SELECT * FROM ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE "
+                                    + "INNER JOIN PRODUTOS_AC "
+                                    + "ON ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdProd=PRODUTOS_AC.IdProd  "
+                                    + "WHERE ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp='" + jIdRegistroComp.getText() + "'");
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Saldo de Estoque insuficiente para atender esse registro.");
+                        }
                     }
                 }
                 if (acao == 4) {
@@ -4808,8 +4815,18 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         conecta.desconecta();
     }
 
-    public void NovoInternoKitComp() {
-
+    public void verificarProdutoIncluido() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE "
+                    + "WHERE IdRegistroComp='" + jIdRegistroComp.getText() + "' "
+                    + "AND IdProd='" + jCodigoProd.getText() + "'");
+            conecta.rs.first();
+            pcodigoProduto = conecta.rs.getString("IdProd");
+            pRegistroComp = conecta.rs.getString("IdRegistroComp");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 
     //VERIFICAR SE NA TABELA TEM REGISTRO CORRESPONDENTE AO LANÇAMENTO, PARA PODER EXCLUIR TODOS.
