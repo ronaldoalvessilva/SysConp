@@ -407,7 +407,7 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código", "Programação", "Tipo Kit", "Pagamento", "Previsão", "Nome do Interno"
+                "Código", "Programação", "Tipo Kit", "Pagamento", "Previsão"
             }
         ));
         jTabelaProgramacaoKit.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -418,11 +418,15 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
         jScrollPane3.setViewportView(jTabelaProgramacaoKit);
         if (jTabelaProgramacaoKit.getColumnModel().getColumnCount() > 0) {
             jTabelaProgramacaoKit.getColumnModel().getColumn(0).setMinWidth(70);
+            jTabelaProgramacaoKit.getColumnModel().getColumn(0).setMaxWidth(70);
             jTabelaProgramacaoKit.getColumnModel().getColumn(1).setMinWidth(100);
+            jTabelaProgramacaoKit.getColumnModel().getColumn(1).setMaxWidth(100);
             jTabelaProgramacaoKit.getColumnModel().getColumn(2).setMinWidth(80);
+            jTabelaProgramacaoKit.getColumnModel().getColumn(2).setMaxWidth(80);
             jTabelaProgramacaoKit.getColumnModel().getColumn(3).setMinWidth(80);
+            jTabelaProgramacaoKit.getColumnModel().getColumn(3).setMaxWidth(80);
             jTabelaProgramacaoKit.getColumnModel().getColumn(4).setMinWidth(80);
-            jTabelaProgramacaoKit.getColumnModel().getColumn(5).setMinWidth(250);
+            jTabelaProgramacaoKit.getColumnModel().getColumn(4).setMaxWidth(80);
         }
 
         jPanel48.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
@@ -1679,55 +1683,50 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
         count = 0;
         if (jRB_DECENDIAL.isSelected() == true) {
             if (evt.getStateChange() == evt.SELECTED) {
-                preencherTabelaProgramacao("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                preencherTabelaProgramacao("SELECT DISTINCT IdPROG,DataPROG,TipoKit,DataUltimoPagto,DataPrevisao "
+                        + "FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
                         + "INNER JOIN KITS_DECENDIAL_INTERNOS "
-                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_DECENDIAL_INTERNOS.IDREG_PROG "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON KITS_DECENDIAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc");
+                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_DECENDIAL_INTERNOS.IDREG_PROG");
             } else {
                 limparTabelaProgramacao();
                 jtotalRegistros.setText("");
             }
         } else if (jRB_QUINZENAL.isSelected() == true) {
             if (evt.getStateChange() == evt.SELECTED) {
-                preencherTabelaProgramacao("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                preencherTabelaProgramacao("SELECT DISTINCT IdPROG,DataPROG,TipoKit,DataUltimoPagto,PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.DataPrevisao "
+                        + "FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
                         + "INNER JOIN KITS_QUINZENAL_INTERNOS "
-                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_QUINZENAL_INTERNOS.IDREG_PROG "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON KITS_QUINZENAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc");
+                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_QUINZENAL_INTERNOS.IDREG_PROG");
             } else {
                 limparTabelaProgramacao();
                 jtotalRegistros.setText("");
             }
         } else if (jRB_MENSAL.isSelected() == true) {
             if (evt.getStateChange() == evt.SELECTED) {
-                preencherTabelaProgramacao("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                preencherTabelaProgramacao("SELECT DISTINCT IdPROG,DataPROG,TipoKit,DataUltimoPagto,DataPrevisao "
+                        + "FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
                         + "INNER JOIN KITS_MENSAL_INTERNOS "
-                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_MENSAL_INTERNOS.IDREG_PROG "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON KITS_MENSAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc");
+                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_MENSAL_INTERNOS.IDREG_PROG");
             } else {
                 limparTabelaProgramacao();
                 jtotalRegistros.setText("");
             }
         } else if (jRB_SEMESTRAL.isSelected() == true) {
             if (evt.getStateChange() == evt.SELECTED) {
-                preencherTabelaProgramacao("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                preencherTabelaProgramacao("SELECT DISTINCT IdPROG,DataPROG,TipoKit,DataUltimoPagto,DataPrevisao "
+                        + "FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
                         + "INNER JOIN KITS_SEMESTRAL_INTERNOS "
-                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_SEMESTRAL_INTERNOS.IDREG_PROG "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON KITS_SEMESTRAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc");
+                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_SEMESTRAL_INTERNOS.IDREG_PROG");
             } else {
                 limparTabelaProgramacao();
                 jtotalRegistros.setText("");
             }
         } else if (jRB_ANUAL.isSelected() == true) {
             if (evt.getStateChange() == evt.SELECTED) {
-                preencherTabelaProgramacao("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                preencherTabelaProgramacao("SELECT DISTINCT IdPROG,DataPROG,TipoKit,DataUltimoPagto,DataPrevisao "
+                        + "FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
                         + "INNER JOIN KITS_ANUAL_INTERNOS "
-                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_ANUAL_INTERNOS.IDREG_PROG "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON KITS_ANUAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc");
+                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_ANUAL_INTERNOS.IDREG_PROG");
             } else {
                 limparTabelaProgramacao();
                 jtotalRegistros.setText("");
@@ -2074,7 +2073,7 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
 
     public void preencherTabelaProgramacao(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Programação", "TipoKit", "Pagamento", "Previsão", "Nome do Interno"};
+        String[] Colunas = new String[]{"Código", "Programação", "TipoKit", "Pagamento", "Previsão"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
@@ -2114,7 +2113,7 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
                 }
                 //
                 jtotalRegistros.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{conecta.rs.getInt("IdPROG"), dataEntrada, nomeKit, dataUltimoPagto, dataPrevisao, conecta.rs.getString("NomeInternoCrc")});
+                dados.add(new Object[]{conecta.rs.getInt("IdPROG"), dataEntrada, nomeKit, dataUltimoPagto, dataPrevisao});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");
@@ -2131,8 +2130,6 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
         jTabelaProgramacaoKit.getColumnModel().getColumn(3).setResizable(false);
         jTabelaProgramacaoKit.getColumnModel().getColumn(4).setPreferredWidth(80);
         jTabelaProgramacaoKit.getColumnModel().getColumn(4).setResizable(false);
-        jTabelaProgramacaoKit.getColumnModel().getColumn(5).setPreferredWidth(250);
-        jTabelaProgramacaoKit.getColumnModel().getColumn(5).setResizable(false);
         jTabelaProgramacaoKit.getTableHeader().setReorderingAllowed(false);
         jTabelaProgramacaoKit.setAutoResizeMode(jTabelaProgramacaoKit.AUTO_RESIZE_OFF);
         jTabelaProgramacaoKit.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -2157,7 +2154,7 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
 
     public void limparTabelaProgramacao() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Programação", "TipoKit", "Pagamento", "Previsão", "Nome do Interno"};
+        String[] Colunas = new String[]{"Código", "Programação", "TipoKit", "Pagamento", "Previsão"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaProgramacaoKit.setModel(modelo);
         jTabelaProgramacaoKit.getColumnModel().getColumn(0).setPreferredWidth(60);
@@ -2170,8 +2167,6 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
         jTabelaProgramacaoKit.getColumnModel().getColumn(3).setResizable(false);
         jTabelaProgramacaoKit.getColumnModel().getColumn(4).setPreferredWidth(80);
         jTabelaProgramacaoKit.getColumnModel().getColumn(4).setResizable(false);
-        jTabelaProgramacaoKit.getColumnModel().getColumn(5).setPreferredWidth(250);
-        jTabelaProgramacaoKit.getColumnModel().getColumn(5).setResizable(false);
         jTabelaProgramacaoKit.getTableHeader().setReorderingAllowed(false);
         jTabelaProgramacaoKit.setAutoResizeMode(jTabelaProgramacaoKit.AUTO_RESIZE_OFF);
         jTabelaProgramacaoKit.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
