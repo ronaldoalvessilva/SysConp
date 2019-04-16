@@ -1484,68 +1484,64 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaProgramacaoKitIndAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaProgramacaoKitIndAL) && codExcluirAL == 1) {
-            if (idPROG != 1 || idPROG != 2 || idPROG != 3 || idPROG != 4 || idPROG != 5) {
-                JOptionPane.showMessageDialog(rootPane, "Selecione um registro para excluir...");
-            } else {
-                switch (tipoKit) {
-                    case 1:
-                        tipoKit = 1;
-                        int resposta0 = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
-                                JOptionPane.YES_NO_OPTION);
-                        if (resposta0 == JOptionPane.YES_OPTION) {
-                            objGravaIntComp.setIDREG_PROG(idPROG);
-                            controleExcluirKD.excluirKitDecendial(objGravaIntComp);
-                            objProg.setIdPROG(idPROG);
-                            controlPagtoKit.excluirProgramacaoKit(objProg);
-                        }
-                        break;
-                    case 2:
-                        tipoKit = 2;
-                        int resposta1 = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
-                                JOptionPane.YES_NO_OPTION);
-                        if (resposta1 == JOptionPane.YES_OPTION) {
-                            objGravaIntComp.setIDREG_PROG(idPROG);
-                            controleExcluirKD.excluirKitQuinzenal(objGravaIntComp);
-                            objProg.setIdPROG(idPROG);
-                            controlPagtoKit.excluirProgramacaoKit(objProg);
-                        }
-                        break;
-                    case 3:
-                        tipoKit = 3;
-                        int resposta2 = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
-                                JOptionPane.YES_NO_OPTION);
-                        if (resposta2 == JOptionPane.YES_OPTION) {
-                            objGravaIntComp.setIDREG_PROG(idPROG);
-                            controleExcluirKD.excluirKitMensal(objGravaIntComp);
-                            objProg.setIdPROG(idPROG);
-                            controlPagtoKit.excluirProgramacaoKit(objProg);
-                        }
-                        break;
-                    case 4:
-                        tipoKit = 4;
-                        int resposta3 = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
-                                JOptionPane.YES_NO_OPTION);
-                        if (resposta3 == JOptionPane.YES_OPTION) {
-                            objGravaIntComp.setIDREG_PROG(idPROG);
-                            controleExcluirKD.excluirKitSemestral(objGravaIntComp);
-                            objProg.setIdPROG(idPROG);
-                            controlPagtoKit.excluirProgramacaoKit(objProg);
-                        }
-                        break;
-                    case 5:
-                        tipoKit = 5;
-                        int resposta4 = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
-                                JOptionPane.YES_NO_OPTION);
-                        if (resposta4 == JOptionPane.YES_OPTION) {
-                            objGravaIntComp.setIDREG_PROG(idPROG);
-                            controleExcluirKD.excluirKitAnual(objGravaIntComp);
-                            objProg.setIdPROG(idPROG);
-                            controlPagtoKit.excluirProgramacaoKit(objProg);
-                        }
-                        break;
-                    default:
-                        break;
-                }
+            switch (tipoKit) {
+                case 1:
+                    tipoKit = 1;
+                    int resposta0 = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta0 == JOptionPane.YES_OPTION) {
+                        objGravaIntComp.setIDREG_PROG(idPROG);
+                        controleExcluirKD.excluirKitDecendial(objGravaIntComp);
+                        objProg.setIdPROG(idPROG);
+                        controlPagtoKit.excluirProgramacaoKit(objProg);
+                    }
+                    break;
+                case 2:
+                    tipoKit = 2;
+                    int resposta1 = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta1 == JOptionPane.YES_OPTION) {
+                        objGravaIntComp.setIDREG_PROG(idPROG);
+                        controleExcluirKD.excluirKitQuinzenal(objGravaIntComp);
+                        objProg.setIdPROG(idPROG);
+                        controlPagtoKit.excluirProgramacaoKit(objProg);
+                    }
+                    break;
+                case 3:
+                    tipoKit = 3;
+                    int resposta2 = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta2 == JOptionPane.YES_OPTION) {
+                        objGravaIntComp.setIDREG_PROG(idPROG);
+                        controleExcluirKD.excluirKitMensal(objGravaIntComp);
+                        objProg.setIdPROG(idPROG);
+                        controlPagtoKit.excluirProgramacaoKit(objProg);
+                    }
+                    break;
+                case 4:
+                    tipoKit = 4;
+                    int resposta3 = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta3 == JOptionPane.YES_OPTION) {
+                        objGravaIntComp.setIDREG_PROG(idPROG);
+                        controleExcluirKD.excluirKitSemestral(objGravaIntComp);
+                        objProg.setIdPROG(idPROG);
+                        controlPagtoKit.excluirProgramacaoKit(objProg);
+                    }
+                    break;
+                case 5:
+                    tipoKit = 5;
+                    int resposta4 = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta4 == JOptionPane.YES_OPTION) {
+                        objGravaIntComp.setIDREG_PROG(idPROG);
+                        controleExcluirKD.excluirKitAnual(objGravaIntComp);
+                        objProg.setIdPROG(idPROG);
+                        controlPagtoKit.excluirProgramacaoKit(objProg);
+                    }
+                    break;
+                default:
+                    break;
             }
             Excluir();
         } else {
