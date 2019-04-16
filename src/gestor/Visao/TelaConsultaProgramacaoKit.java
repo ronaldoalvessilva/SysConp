@@ -27,6 +27,9 @@ public class TelaConsultaProgramacaoKit extends javax.swing.JDialog {
     int flag = 0;
     String idPav = "";
     String dataProgramacao;
+    String pkitPago = "Não";
+    int pTipoKit = 0;
+    String descricaoPav = "";
 
     /**
      * Creates new form TelaConsultaPavilhaoKit
@@ -38,7 +41,7 @@ public class TelaConsultaProgramacaoKit extends javax.swing.JDialog {
         this.setModal(modal);
         setLocationRelativeTo(montaProg);
         initComponents();
-        pesquisarProgramacaoInterno();
+//        pesquisarProgramacaoInterno();
     }
 
     /**
@@ -50,6 +53,7 @@ public class TelaConsultaProgramacaoKit extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -67,9 +71,17 @@ public class TelaConsultaProgramacaoKit extends javax.swing.JDialog {
         jLabel70 = new javax.swing.JLabel();
         jPanel41 = new javax.swing.JPanel();
         jtotaInternos = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jRBt_DECENDIAL = new javax.swing.JRadioButton();
+        jLabel1 = new javax.swing.JLabel();
+        jRBt_QUINZENAL = new javax.swing.JRadioButton();
+        jRBt_MENSAL = new javax.swing.JRadioButton();
+        jRBt_SEMESTRAL = new javax.swing.JRadioButton();
+        jRBt_ANUAL = new javax.swing.JRadioButton();
+        jBtPesquisar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("...::: Pavilhões/Internos - Composição Kit :::...");
+        setTitle("...::: Consulta de Programação de Kit :::...");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
@@ -165,7 +177,7 @@ public class TelaConsultaProgramacaoKit extends javax.swing.JDialog {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -259,13 +271,88 @@ public class TelaConsultaProgramacaoKit extends javax.swing.JDialog {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel41, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel39, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6))
+        );
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+
+        buttonGroup1.add(jRBt_DECENDIAL);
+        jRBt_DECENDIAL.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRBt_DECENDIAL.setForeground(new java.awt.Color(0, 0, 204));
+        jRBt_DECENDIAL.setSelected(true);
+        jRBt_DECENDIAL.setText("Decendial");
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setText("Tipo de Kit:");
+
+        buttonGroup1.add(jRBt_QUINZENAL);
+        jRBt_QUINZENAL.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRBt_QUINZENAL.setForeground(new java.awt.Color(204, 0, 0));
+        jRBt_QUINZENAL.setText("Quinzenal");
+
+        buttonGroup1.add(jRBt_MENSAL);
+        jRBt_MENSAL.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRBt_MENSAL.setForeground(new java.awt.Color(0, 102, 0));
+        jRBt_MENSAL.setText("Mensal");
+
+        buttonGroup1.add(jRBt_SEMESTRAL);
+        jRBt_SEMESTRAL.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRBt_SEMESTRAL.setForeground(new java.awt.Color(102, 0, 51));
+        jRBt_SEMESTRAL.setText("Semestral");
+
+        buttonGroup1.add(jRBt_ANUAL);
+        jRBt_ANUAL.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRBt_ANUAL.setText("Anual");
+
+        jBtPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/061218140238_16.png"))); // NOI18N
+        jBtPesquisar.setToolTipText("Pesquisar");
+        jBtPesquisar.setContentAreaFilled(false);
+        jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPesquisarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jRBt_DECENDIAL)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRBt_QUINZENAL)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRBt_MENSAL)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRBt_SEMESTRAL)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRBt_ANUAL)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jBtPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jRBt_ANUAL)
+                    .addComponent(jRBt_SEMESTRAL)
+                    .addComponent(jRBt_MENSAL)
+                    .addComponent(jRBt_QUINZENAL)
+                    .addComponent(jRBt_DECENDIAL)
+                    .addComponent(jLabel1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -274,18 +361,25 @@ public class TelaConsultaProgramacaoKit extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 379, Short.MAX_VALUE))
-                .addGap(0, 11, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 8, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -311,17 +405,122 @@ public class TelaConsultaProgramacaoKit extends javax.swing.JDialog {
 
     private void jTabelaPavilhaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaPavilhaoMouseClicked
         // TODO add your handling code here:
+        count = 0;
+        count1 = 0;
         flag = 1;
         if (flag == 1) {
             idPav = "" + jTabelaPavilhao.getValueAt(jTabelaPavilhao.getSelectedRow(), 0);
-            preencherTabelaItensInterno("SELECT * FROM INTERNOS_PAVILHAO_KIT_LOTE "
-                    + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON INTERNOS_PAVILHAO_KIT_LOTE.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp='" + jIdRegistroComp.getText() + "'"
-                    + "AND IdPav='" + idPav + "'");
+            //
+            descricaoPav = "" + jTabelaPavilhao.getValueAt(jTabelaPavilhao.getSelectedRow(), 3);
+            if (jRBt_DECENDIAL.isSelected() == true) {
+                preencherTabelaItensInterno("SELECT * FROM KITS_DECENDIAL_INTERNOS "
+                        + "INNER JOIN PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                        + "ON KITS_DECENDIAL_INTERNOS.IDREG_PROG=PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON KITS_DECENDIAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "INNER JOIN PAVILHAO "
+                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav=PAVILHAO.IdPav "
+                        + "WHERE KITS_DECENDIAL_INTERNOS.Utilizado='" + pkitPago + "'"
+                        + "AND DescricaoPav='" + descricaoPav + "'");
+            } else if (jRBt_QUINZENAL.isSelected() == true) {
+                preencherTabelaItensInterno("SELECT * FROM KITS_QUINZENAL_INTERNOS "
+                        + "INNER JOIN PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                        + "ON KITS_QUINZENAL_INTERNOS.IDREG_PROG=PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON KITS_QUINZENAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "INNER JOIN PAVILHAO "
+                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav=PAVILHAO.IdPav "
+                        + "WHERE KITS_QUINZENAL_INTERNOS.Utilizado='" + pkitPago + "'"
+                        + "AND DescricaoPav='" + descricaoPav + "'");
+            } else if (jRBt_MENSAL.isSelected() == true) {
+                preencherTabelaItensInterno("SELECT * FROM KITS_MENSAL_INTERNOS "
+                        + "INNER JOIN PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                        + "ON KITS_MENSAL_INTERNOS.IDREG_PROG=PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON KITS_MENSAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "INNER JOIN PAVILHAO "
+                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav=PAVILHAO.IdPav "
+                        + "WHERE KITS_MENSAL_INTERNOS.Utilizado='" + pkitPago + "'"
+                        + "AND DescricaoPav='" + descricaoPav + "'");
+            } else if (jRBt_SEMESTRAL.isSelected() == true) {
+                preencherTabelaItensInterno("SELECT * FROM KITS_SEMESTRAL_INTERNOS "
+                        + "INNER JOIN PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                        + "ON KITS_SEMESTRAL_INTERNOS.IDREG_PROG=PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON KITS_SEMESTRAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "INNER JOIN PAVILHAO "
+                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav=PAVILHAO.IdPav "
+                        + "WHERE KITS_SEMESTRAL_INTERNOS.Utilizado='" + pkitPago + "'"
+                        + "AND DescricaoPav='" + descricaoPav + "'");
+            } else if (jRBt_ANUAL.isSelected() == true) {
+                preencherTabelaItensInterno("SELECT * FROM KITS_ANUAL_INTERNOS "
+                        + "INNER JOIN PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                        + "ON KITS_ANUAL_INTERNOS.IDREG_PROG=PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON KITS_ANUAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "INNER JOIN PAVILHAO "
+                        + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav=PAVILHAO.IdPav "
+                        + "WHERE KITS_ANUAL_INTERNOS.Utilizado='" + pkitPago + "'"
+                        + "AND DescricaoPav='" + descricaoPav + "'");
+            }
         }
-
     }//GEN-LAST:event_jTabelaPavilhaoMouseClicked
+
+    private void jBtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarActionPerformed
+        // TODO add your handling code here:
+        limparTabelaPavilhao();
+        limparTabelaInternos();
+        count1 = 0;
+        count = 0;
+        jtotalPavilhao.setText("");
+        jtotaInternos.setText("");
+        if (jRBt_DECENDIAL.isSelected() == true) {
+            pTipoKit = 1;
+            pesquisarProgramacaoInterno("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                    + "INNER JOIN KITS_HIGIENE_INTERNO "
+                    + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdKit=KITS_HIGIENE_INTERNO.IdKit "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav=PAVILHAO.IdPav "
+                    + "WHERE KitPago='" + pkitPago + "' "
+                    + "AND TipoKit='" + pTipoKit + "'");
+        } else if (jRBt_QUINZENAL.isSelected() == true) {
+            pTipoKit = 2;
+            pesquisarProgramacaoInterno("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                    + "INNER JOIN KITS_HIGIENE_INTERNO "
+                    + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdKit=KITS_HIGIENE_INTERNO.IdKit "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav=PAVILHAO.IdPav "
+                    + "WHERE KitPago='" + pkitPago + "' "
+                    + "AND TipoKit='" + pTipoKit + "'");
+        } else if (jRBt_MENSAL.isSelected() == true) {
+            pTipoKit = 3;
+            pesquisarProgramacaoInterno("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                    + "INNER JOIN KITS_HIGIENE_INTERNO "
+                    + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdKit=KITS_HIGIENE_INTERNO.IdKit "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav=PAVILHAO.IdPav "
+                    + "WHERE KitPago='" + pkitPago + "' "
+                    + "AND TipoKit='" + pTipoKit + "'");
+        } else if (jRBt_SEMESTRAL.isSelected() == true) {
+            pTipoKit = 4;
+            pesquisarProgramacaoInterno("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                    + "INNER JOIN KITS_HIGIENE_INTERNO "
+                    + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdKit=KITS_HIGIENE_INTERNO.IdKit "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav=PAVILHAO.IdPav "
+                    + "WHERE KitPago='" + pkitPago + "' "
+                    + "AND TipoKit='" + pTipoKit + "'");
+        } else if (jRBt_ANUAL.isSelected() == true) {
+            pTipoKit = 5;
+            pesquisarProgramacaoInterno("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                    + "INNER JOIN KITS_HIGIENE_INTERNO "
+                    + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdKit=KITS_HIGIENE_INTERNO.IdKit "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav=PAVILHAO.IdPav "
+                    + "WHERE KitPago='" + pkitPago + "' "
+                    + "AND TipoKit='" + pTipoKit + "'");
+        }
+    }//GEN-LAST:event_jBtPesquisarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -367,6 +566,9 @@ public class TelaConsultaProgramacaoKit extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jBtPesquisar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel69;
     private javax.swing.JLabel jLabel70;
     private javax.swing.JPanel jPanel1;
@@ -376,8 +578,14 @@ public class TelaConsultaProgramacaoKit extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel37;
     private javax.swing.JPanel jPanel38;
     private javax.swing.JPanel jPanel39;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel40;
     private javax.swing.JPanel jPanel41;
+    private javax.swing.JRadioButton jRBt_ANUAL;
+    private javax.swing.JRadioButton jRBt_DECENDIAL;
+    private javax.swing.JRadioButton jRBt_MENSAL;
+    private javax.swing.JRadioButton jRBt_QUINZENAL;
+    private javax.swing.JRadioButton jRBt_SEMESTRAL;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTabelaInternos;
@@ -386,21 +594,16 @@ public class TelaConsultaProgramacaoKit extends javax.swing.JDialog {
     public static javax.swing.JLabel jtotalPavilhao;
     // End of variables declaration//GEN-END:variables
 
-    public void pesquisarProgramacaoInterno() {
+    public void pesquisarProgramacaoInterno(String sql) {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código", "Programação", "TipoKit", "Descrição do Pavilhão"};
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT IdPROG,DataPROG,TipoKit,DescricaoPav "
-                    + "FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
-                    + "INNER JOIN PAVILHAO "
-                    + "ON PAVILHAO.IdPav=PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav "
-                    + "INNER JOIN KITS_HIGIENE_INTERNO "
-                    + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdKit=KITS_HIGIENE_INTERNO.IdKit");
+            conecta.executaSQL(sql);
             conecta.rs.first();
             do {
                 count = count + 1;
-                 dataProgramacao = conecta.rs.getString("DataPROG");
+                dataProgramacao = conecta.rs.getString("DataPROG");
                 if (dataProgramacao != null) {
                     String dia = dataProgramacao.substring(8, 10);
                     String mes = dataProgramacao.substring(5, 7);
@@ -479,5 +682,43 @@ public class TelaConsultaProgramacaoKit extends javax.swing.JDialog {
         direita.setHorizontalAlignment(SwingConstants.RIGHT);
         //
         jTabelaPavilhao.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaPavilhao.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+        jTabelaPavilhao.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+    }
+
+    public void limparTabelaPavilhao() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Programação", "TipoKit", "Descrição do Pavilhão"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaPavilhao.setModel(modelo);
+        jTabelaPavilhao.getColumnModel().getColumn(0).setPreferredWidth(60);
+        jTabelaPavilhao.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaPavilhao.getColumnModel().getColumn(1).setPreferredWidth(80);
+        jTabelaPavilhao.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaPavilhao.getColumnModel().getColumn(2).setPreferredWidth(80);
+        jTabelaPavilhao.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaPavilhao.getColumnModel().getColumn(3).setPreferredWidth(350);
+        jTabelaPavilhao.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaPavilhao.getTableHeader().setReorderingAllowed(false);
+        jTabelaPavilhao.setAutoResizeMode(jTabelaPavilhao.AUTO_RESIZE_OFF);
+        jTabelaPavilhao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
+    }
+
+    public void limparTabelaInternos() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "CNC", "Descrição do Interno"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaInternos.setModel(modelo);
+        jTabelaInternos.getColumnModel().getColumn(0).setPreferredWidth(60);
+        jTabelaInternos.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaInternos.getColumnModel().getColumn(1).setPreferredWidth(70);
+        jTabelaInternos.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaInternos.getColumnModel().getColumn(2).setPreferredWidth(350);
+        jTabelaInternos.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaInternos.getTableHeader().setReorderingAllowed(false);
+        jTabelaInternos.setAutoResizeMode(jTabelaInternos.AUTO_RESIZE_OFF);
+        jTabelaInternos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
     }
 }
