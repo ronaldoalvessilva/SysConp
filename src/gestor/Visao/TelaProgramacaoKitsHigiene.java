@@ -39,6 +39,7 @@ import static gestor.Visao.TelaModuloAlmoxarifado.nomeTelaAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.telaProgramacaoKitIndAL;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -83,7 +84,7 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
     //
     //KIT QUINZENAL
     // 1 - DECENDIAL, 2 - QUINZENAL, 3 - MENSAL, 4 - SEMESTRAL, 5 - ANUAL
-    int tipoKit = 0;
+    public static int tipoKit = 0;
     String nomeKit = "";
     //
     int totalRegistro = 0;
@@ -121,6 +122,8 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
     String kitPago = "";
     int idPav = 0;
     int codigoKit = 0;
+    String dataInicial = "";
+    String dataFinal = "";
 
     /**
      * Creates new form TelaProgramacaoKitsHigiene
@@ -130,6 +133,7 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
     public static TelaGravarProximoKitMensaInd gravarKitMensa;
     public static TelaGravarProximoKitSemestralInd gravarKitSeme;
     public static TelaGravarProximoKitAnualInd gravaKitAnua;
+    public static TelaExcluirUmInternoProgramacaoKit excluirUm;
 
     public TelaProgramacaoKitsHigiene() {
         initComponents();
@@ -160,6 +164,11 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
         gravaKitAnua.setVisible(true);
     }
 
+    public void mostrarExcluirUm() {
+        excluirUm = new TelaExcluirUmInternoProgramacaoKit(this, true);
+        excluirUm.setVisible(true);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -182,14 +191,11 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
         jRB_SEMESTRAL = new javax.swing.JRadioButton();
         jRB_ANUAL = new javax.swing.JRadioButton();
         jLabel9 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jDataInicial = new com.toedter.calendar.JDateChooser();
         jLabel10 = new javax.swing.JLabel();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        jDataFinal = new com.toedter.calendar.JDateChooser();
         jBtPesquisaData = new javax.swing.JButton();
         jBtPesquisaKit = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
-        jCodigoPesq = new javax.swing.JTextField();
-        jBtPesqCodigo = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTabelaProgramacaoKit = new javax.swing.JTable();
         jPanel48 = new javax.swing.JPanel();
@@ -294,12 +300,12 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel9.setText("Data Inicial:");
 
-        jDateChooser1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDataInicial.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setText("Data Final:");
 
-        jDateChooser2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDataFinal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jBtPesquisaData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtPesquisaData.setContentAreaFilled(false);
@@ -317,20 +323,6 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel7.setText("Código:");
-
-        jCodigoPesq.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jCodigoPesq.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-
-        jBtPesqCodigo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
-        jBtPesqCodigo.setContentAreaFilled(false);
-        jBtPesqCodigo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtPesqCodigoActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
@@ -338,38 +330,33 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addGap(47, 47, 47)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel13Layout.createSequentialGroup()
-                                .addComponent(jRB_DECENDIAL)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRB_QUINZENAL)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jRB_MENSAL)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jRB_SEMESTRAL))
-                            .addGroup(jPanel13Layout.createSequentialGroup()
-                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtPesquisaData, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jRB_DECENDIAL)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRB_QUINZENAL)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRB_ANUAL)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtPesquisaKit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jRB_MENSAL)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jRB_SEMESTRAL))
                     .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addComponent(jCodigoPesq, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtPesqCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtPesquisaData, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jRB_ANUAL)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBtPesquisaKit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
                         .addComponent(jCheckBoxTodosRegistros)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -388,15 +375,10 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jBtPesquisaData)
-                    .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jBtPesqCodigo)
-                    .addComponent(jCodigoPesq, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7)
+                    .addComponent(jDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9)
                     .addComponent(jCheckBoxTodosRegistros))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -497,7 +479,7 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel48, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1665,16 +1647,261 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_jBtSairActionPerformed
 
-    private void jBtPesqCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqCodigoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBtPesqCodigoActionPerformed
-
     private void jBtPesquisaKitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaKitActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jBtPesquisaKitActionPerformed
 
     private void jBtPesquisaDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaDataActionPerformed
         // TODO add your handling code here:
+        count = 0;
+        flag = 1;
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jRB_DECENDIAL.isSelected() == true) {
+                if (jDataInicial.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                    jDataInicial.requestFocus();
+                } else {
+                    if (jDataFinal.getDate() == null) {
+                        JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                        jDataFinal.requestFocus();
+                    } else {
+                        if (jDataInicial.getDate().after(jDataFinal.getDate())) {
+                            JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                        } else {
+                            SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                            dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                            dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+                            preencherTabelaProgramacao("SELECT DISTINCT IdPROG,DataPROG,TipoKit,DataUltimoPagto,DataPrevisao "
+                                    + "FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                                    + "INNER JOIN KITS_DECENDIAL_INTERNOS "
+                                    + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_DECENDIAL_INTERNOS.IDREG_PROG "
+                                    + "WHERE DataPROG BETWEEN'" + dataInicial + "' "
+                                    + "AND '" + dataFinal + "'");
+                        }
+                    }
+                }
+            } else if (jRB_QUINZENAL.isSelected() == true) {
+                if (jDataInicial.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                    jDataInicial.requestFocus();
+                } else {
+                    if (jDataFinal.getDate() == null) {
+                        JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                        jDataFinal.requestFocus();
+                    } else {
+                        if (jDataInicial.getDate().after(jDataFinal.getDate())) {
+                            JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                        } else {
+                            SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                            dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                            dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+                            preencherTabelaProgramacao("SELECT DISTINCT IdPROG,DataPROG,TipoKit,DataUltimoPagto,KITS_QUINZENAL_INTERNOS.DataPrevisao "
+                                    + "FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                                    + "INNER JOIN KITS_QUINZENAL_INTERNOS "
+                                    + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_QUINZENAL_INTERNOS.IDREG_PROG "
+                                    + "WHERE DataPROG BETWEEN'" + dataInicial + "' "
+                                    + "AND '" + dataFinal + "'");
+                        }
+                    }
+                }
+            } else if (jRB_MENSAL.isSelected() == true) {
+                if (jDataInicial.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                    jDataInicial.requestFocus();
+                } else {
+                    if (jDataFinal.getDate() == null) {
+                        JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                        jDataFinal.requestFocus();
+                    } else {
+                        if (jDataInicial.getDate().after(jDataFinal.getDate())) {
+                            JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                        } else {
+                            SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                            dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                            dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+                            preencherTabelaProgramacao("SELECT DISTINCT IdPROG,DataPROG,TipoKit,DataUltimoPagto,DataPrevisao "
+                                    + "FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                                    + "INNER JOIN KITS_MENSAL_INTERNOS "
+                                    + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_MENSAL_INTERNOS.IDREG_PROG "
+                                    + "WHERE DataPROG BETWEEN'" + dataInicial + "' "
+                                    + "AND '" + dataFinal + "'");
+                        }
+                    }
+                }
+            } else if (jRB_SEMESTRAL.isSelected() == true) {
+                if (jDataInicial.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                    jDataInicial.requestFocus();
+                } else {
+                    if (jDataFinal.getDate() == null) {
+                        JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                        jDataFinal.requestFocus();
+                    } else {
+                        if (jDataInicial.getDate().after(jDataFinal.getDate())) {
+                            JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                        } else {
+                            SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                            dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                            dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+                            preencherTabelaProgramacao("SELECT DISTINCT IdPROG,DataPROG,TipoKit,DataUltimoPagto,DataPrevisao "
+                                    + "FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                                    + "INNER JOIN KITS_SEMESTRAL_INTERNOS "
+                                    + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_SEMESTRAL_INTERNOS.IDREG_PROG "
+                                    + "WHERE DataPROG BETWEEN'" + dataInicial + "' "
+                                    + "AND '" + dataFinal + "'");
+                        }
+                    }
+                }
+            } else if (jRB_ANUAL.isSelected() == true) {
+                if (jDataInicial.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                    jDataInicial.requestFocus();
+                } else {
+                    if (jDataFinal.getDate() == null) {
+                        JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                        jDataFinal.requestFocus();
+                    } else {
+                        if (jDataInicial.getDate().after(jDataFinal.getDate())) {
+                            JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                        } else {
+                            SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                            dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                            dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+                            preencherTabelaProgramacao("SELECT DISTINCT IdPROG,DataPROG,TipoKit,DataUltimoPagto,DataPrevisao "
+                                    + "FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                                    + "INNER JOIN KITS_ANUAL_INTERNOS "
+                                    + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_ANUAL_INTERNOS.IDREG_PROG "
+                                    + "WHERE DataPROG BETWEEN'" + dataInicial + "' "
+                                    + "AND '" + dataFinal + "'");
+                        }
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jRB_DECENDIAL.isSelected() == true) {
+                if (jDataInicial.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                    jDataInicial.requestFocus();
+                } else {
+                    if (jDataFinal.getDate() == null) {
+                        JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                        jDataFinal.requestFocus();
+                    } else {
+                        if (jDataInicial.getDate().after(jDataFinal.getDate())) {
+                            JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                        } else {
+                            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                            dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                            dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+                            preencherTabelaProgramacao("SELECT DISTINCT IdPROG,DataPROG,TipoKit,DataUltimoPagto,DataPrevisao "
+                                    + "FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                                    + "INNER JOIN KITS_DECENDIAL_INTERNOS "
+                                    + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_DECENDIAL_INTERNOS.IDREG_PROG "
+                                    + "WHERE DataPROG BETWEEN'" + dataInicial + "' "
+                                    + "AND '" + dataFinal + "'");
+                        }
+                    }
+                }
+            } else if (jRB_QUINZENAL.isSelected() == true) {
+                if (jDataInicial.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                    jDataInicial.requestFocus();
+                } else {
+                    if (jDataFinal.getDate() == null) {
+                        JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                        jDataFinal.requestFocus();
+                    } else {
+                        if (jDataInicial.getDate().after(jDataFinal.getDate())) {
+                            JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                        } else {
+                            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                            dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                            dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+                            preencherTabelaProgramacao("SELECT DISTINCT IdPROG,DataPROG,TipoKit,DataUltimoPagto,KITS_QUINZENAL_INTERNOS.DataPrevisao "
+                                    + "FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                                    + "INNER JOIN KITS_QUINZENAL_INTERNOS "
+                                    + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_QUINZENAL_INTERNOS.IDREG_PROG "
+                                    + "WHERE DataPROG BETWEEN'" + dataInicial + "' "
+                                    + "AND '" + dataFinal + "'");
+                        }
+                    }
+                }
+            } else if (jRB_MENSAL.isSelected() == true) {
+                if (jDataInicial.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                    jDataInicial.requestFocus();
+                } else {
+                    if (jDataFinal.getDate() == null) {
+                        JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                        jDataFinal.requestFocus();
+                    } else {
+                        if (jDataInicial.getDate().after(jDataFinal.getDate())) {
+                            JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                        } else {
+                            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                            dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                            dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+                            preencherTabelaProgramacao("SELECT DISTINCT IdPROG,DataPROG,TipoKit,DataUltimoPagto,DataPrevisao "
+                                    + "FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                                    + "INNER JOIN KITS_MENSAL_INTERNOS "
+                                    + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_MENSAL_INTERNOS.IDREG_PROG "
+                                    + "WHERE DataPROG BETWEEN'" + dataInicial + "' "
+                                    + "AND '" + dataFinal + "'");
+                        }
+                    }
+                }
+            } else if (jRB_SEMESTRAL.isSelected() == true) {
+                if (jDataInicial.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                    jDataInicial.requestFocus();
+                } else {
+                    if (jDataFinal.getDate() == null) {
+                        JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                        jDataFinal.requestFocus();
+                    } else {
+                        if (jDataInicial.getDate().after(jDataFinal.getDate())) {
+                            JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                        } else {
+                            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                            dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                            dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+                            preencherTabelaProgramacao("SELECT DISTINCT IdPROG,DataPROG,TipoKit,DataUltimoPagto,DataPrevisao "
+                                    + "FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                                    + "INNER JOIN KITS_SEMESTRAL_INTERNOS "
+                                    + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_SEMESTRAL_INTERNOS.IDREG_PROG "
+                                    + "WHERE DataPROG BETWEEN'" + dataInicial + "' "
+                                    + "AND '" + dataFinal + "'");
+                        }
+                    }
+                }
+            } else if (jRB_ANUAL.isSelected() == true) {
+                if (jDataInicial.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                    jDataInicial.requestFocus();
+                } else {
+                    if (jDataFinal.getDate() == null) {
+                        JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                        jDataFinal.requestFocus();
+                    } else {
+                        if (jDataInicial.getDate().after(jDataFinal.getDate())) {
+                            JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                        } else {
+                            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                            dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                            dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+                            preencherTabelaProgramacao("SELECT DISTINCT IdPROG,DataPROG,TipoKit,DataUltimoPagto,DataPrevisao "
+                                    + "FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                                    + "INNER JOIN KITS_ANUAL_INTERNOS "
+                                    + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_ANUAL_INTERNOS.IDREG_PROG "
+                                    + "WHERE DataPROG BETWEEN'" + dataInicial + "' "
+                                    + "AND '" + dataFinal + "'");
+                        }
+                    }
+                }
+            }
+        }
     }//GEN-LAST:event_jBtPesquisaDataActionPerformed
 
     private void jCheckBoxTodosRegistrosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxTodosRegistrosItemStateChanged
@@ -1742,13 +1969,14 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
 
     private void jTabelaProgramacaoKitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaProgramacaoKitMouseClicked
         // TODO add your handling code here:
+        limparTabelaInternos();
         flag = 1;
         if (flag == 1) {
             String idLanc = "" + jTabelaProgramacaoKit.getValueAt(jTabelaProgramacaoKit.getSelectedRow(), 0);
-            jCodigoPesq.setText(idLanc);
             //
             jBtNovo.setEnabled(true);
             jBtExcluirTodos.setEnabled(true);
+            jBtExcluirUm.setEnabled(true);
             jBtSalvar.setEnabled(!true);
             jBtCancelar.setEnabled(true);
             jBtAuditoria.setEnabled(true);
@@ -1804,6 +2032,12 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
 
     private void jBtExcluirUmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirUmActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaProgramacaoKitIndAL);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaProgramacaoKitIndAL) && codExcluirAL == 1) {
+            mostrarExcluirUm();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
+        }
     }//GEN-LAST:event_jBtExcluirUmActionPerformed
 
 
@@ -1818,7 +2052,6 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtExcluirUm;
     private javax.swing.JButton jBtNomePesquisa;
     private javax.swing.JButton jBtNovo;
-    private javax.swing.JButton jBtPesqCodigo;
     private javax.swing.JButton jBtPesquisaData;
     private javax.swing.JButton jBtPesquisaKit;
     private javax.swing.JButton jBtSair;
@@ -1827,18 +2060,16 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtVoltarUm;
     private javax.swing.JCheckBox jCheckBoxTodos;
     private javax.swing.JCheckBox jCheckBoxTodosRegistros;
-    private javax.swing.JTextField jCodigoPesq;
     public static javax.swing.JComboBox<String> jComboBoxPavilhao;
+    private com.toedter.calendar.JDateChooser jDataFinal;
     private com.toedter.calendar.JDateChooser jDataGeracao;
+    private com.toedter.calendar.JDateChooser jDataInicial;
     public static com.toedter.calendar.JDateChooser jDataPrevisao;
     public static com.toedter.calendar.JDateChooser jDataUltimoPagto;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel71;
     private javax.swing.JLabel jLabel72;
     private javax.swing.JLabel jLabel73;
@@ -1881,7 +2112,7 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     public static javax.swing.JTable jTabelaDestino;
-    private javax.swing.JTable jTabelaOrigem;
+    public static javax.swing.JTable jTabelaOrigem;
     private javax.swing.JTable jTabelaProgramacaoKit;
     public static javax.swing.JLabel jtotalDestino;
     public static javax.swing.JLabel jtotalOrigem;
@@ -2081,23 +2312,30 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
             do {
                 count = count + 1;
                 // Formatar a data Entrada
+
                 dataEntrada = conecta.rs.getString("DataPROG");
-                String diae = dataEntrada.substring(8, 10);
-                String mese = dataEntrada.substring(5, 7);
-                String anoe = dataEntrada.substring(0, 4);
-                dataEntrada = diae + "/" + mese + "/" + anoe;
+                if (dataEntrada != null) {
+                    String diae = dataEntrada.substring(8, 10);
+                    String mese = dataEntrada.substring(5, 7);
+                    String anoe = dataEntrada.substring(0, 4);
+                    dataEntrada = diae + "/" + mese + "/" + anoe;
+                }
                 //
                 dataUltimoPagto = conecta.rs.getString("DataUltimoPagto");
-                String dia = dataUltimoPagto.substring(8, 10);
-                String mes = dataUltimoPagto.substring(5, 7);
-                String ano = dataUltimoPagto.substring(0, 4);
-                dataUltimoPagto = dia + "/" + mes + "/" + ano;
+                if (dataUltimoPagto != null) {
+                    String dia = dataUltimoPagto.substring(8, 10);
+                    String mes = dataUltimoPagto.substring(5, 7);
+                    String ano = dataUltimoPagto.substring(0, 4);
+                    dataUltimoPagto = dia + "/" + mes + "/" + ano;
+                }
                 //
                 dataPrevisao = conecta.rs.getString("DataPrevisao");
-                String pdia = dataPrevisao.substring(8, 10);
-                String pmes = dataPrevisao.substring(5, 7);
-                String pano = dataPrevisao.substring(0, 4);
-                dataPrevisao = pdia + "/" + pmes + "/" + pano;
+                if (dataPrevisao != null) {
+                    String pdia = dataPrevisao.substring(8, 10);
+                    String pmes = dataPrevisao.substring(5, 7);
+                    String pano = dataPrevisao.substring(0, 4);
+                    dataPrevisao = pdia + "/" + pmes + "/" + pano;
+                }
                 //
                 tipoKit = conecta.rs.getInt("TipoKit");
                 if (tipoKit == 1) {

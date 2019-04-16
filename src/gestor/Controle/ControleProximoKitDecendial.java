@@ -21,6 +21,7 @@ public class ControleProximoKitDecendial {
     GravarInternosKitCompleto objGravaIntComp = new GravarInternosKitCompleto();
 
     int codInterno;
+    String pUtilizado = "Não";
 
     public GravarInternosKitCompleto incluirProximoKitDecendial(GravarInternosKitCompleto objGravaIntComp) {
         buscarInterno(objGravaIntComp.getNomeInternoCrc(), objGravaIntComp.getIdInternoCrc());
@@ -121,7 +122,7 @@ public class ControleProximoKitDecendial {
         conecta.desconecta();
         return objGravaIntComp;
     }
-//---------------------------- EXCLUIR PROGRAMAÇÃO DE KITS -----------------------------
+//---------------------------- EXCLUIR PROGRAMAÇÃO DE KITS COMPLETA -----------------------------
 
     public GravarInternosKitCompleto excluirKitDecendial(GravarInternosKitCompleto objGravaIntComp) {
         conecta.abrirConexao();
@@ -178,6 +179,82 @@ public class ControleProximoKitDecendial {
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR internos do kit anual.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objGravaIntComp;
+    }
+
+    //---------------------- EXCLUSÃO INDIVIDUAL DO INTERNO SEM EXCLUUIR A PROGRAMAÇÃO ----------------------
+    public GravarInternosKitCompleto excluirInternoKitDecendial(GravarInternosKitCompleto objGravaIntComp) {
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM KITS_DECENDIAL_INTERNOS "
+                    + "WHERE IDREG_PROG='" + objGravaIntComp.getIDREG_PROG() + "' "
+                    + "AND IdInternoCrc='" + objGravaIntComp.getIdInternoCrc() + "' "
+                    + "AND utilizado='" + pUtilizado + "'");
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR interno do kit decendial.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objGravaIntComp;
+    }
+
+    public GravarInternosKitCompleto excluirInternoKitQuinzenal(GravarInternosKitCompleto objGravaIntComp) {
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM KITS_QUINZENAL_INTERNOS "
+                    + "WHERE IDREG_PROG='" + objGravaIntComp.getIDREG_PROG() + "' "
+                    + "AND IdInternoCrc='" + objGravaIntComp.getIdInternoCrc() + "' "
+                    + "AND utilizado='" + pUtilizado + "'");
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR interno do kit quinzenal.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objGravaIntComp;
+    }
+
+    public GravarInternosKitCompleto excluirInternoKitMensal(GravarInternosKitCompleto objGravaIntComp) {
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM KITS_MENSAL_INTERNOS "
+                    + "WHERE IDREG_PROG='" + objGravaIntComp.getIDREG_PROG() + "' "
+                    + "AND IdInternoCrc='" + objGravaIntComp.getIdInternoCrc() + "' "
+                    + "AND utilizado='" + pUtilizado + "'");
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR interno do kit mensal.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objGravaIntComp;
+    }
+
+    public GravarInternosKitCompleto excluirInternoKitSemestral(GravarInternosKitCompleto objGravaIntComp) {
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM KITS_SEMESTRAL_INTERNOS "
+                    + "WHERE IDREG_PROG='" + objGravaIntComp.getIDREG_PROG() + "' "
+                    + "AND IdInternoCrc='" + objGravaIntComp.getIdInternoCrc() + "' "
+                    + "AND utilizado='" + pUtilizado + "'");
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR interno do kit semestral.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objGravaIntComp;
+    }
+
+    public GravarInternosKitCompleto excluirInternoKitAnual(GravarInternosKitCompleto objGravaIntComp) {
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM KITS_ANUAL_INTERNOS "
+                    + "WHERE IDREG_PROG='" + objGravaIntComp.getIDREG_PROG() + "' "
+                    + "AND IdInternoCrc='" + objGravaIntComp.getIdInternoCrc() + "' "
+                    + "AND utilizado='" + pUtilizado + "'");
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR interno do kit anual.\nERRO: " + ex);
         }
         conecta.desconecta();
         return objGravaIntComp;

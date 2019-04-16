@@ -6,7 +6,6 @@
 package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Modelo.GravarInternosKitCompleto;
 import gestor.Modelo.ProgramacaoKit;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
