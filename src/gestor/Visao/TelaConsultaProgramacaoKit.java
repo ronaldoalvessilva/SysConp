@@ -30,6 +30,7 @@ public class TelaConsultaProgramacaoKit extends javax.swing.JDialog {
     String pkitPago = "Não";
     int pTipoKit = 0;
     String descricaoPav = "";
+    String pProgGerado = "Não";
 
     /**
      * Creates new form TelaConsultaPavilhaoKit
@@ -41,7 +42,6 @@ public class TelaConsultaProgramacaoKit extends javax.swing.JDialog {
         this.setModal(modal);
         setLocationRelativeTo(montaProg);
         initComponents();
-//        pesquisarProgramacaoInterno();
     }
 
     /**
@@ -420,7 +420,7 @@ public class TelaConsultaProgramacaoKit extends javax.swing.JDialog {
                         + "ON KITS_DECENDIAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                         + "INNER JOIN PAVILHAO "
                         + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav=PAVILHAO.IdPav "
-                        + "WHERE KITS_DECENDIAL_INTERNOS.Utilizado='" + pkitPago + "'"
+                        + "WHERE KITS_DECENDIAL_INTERNOS.Utilizado='" + pkitPago + "' "                       
                         + "AND DescricaoPav='" + descricaoPav + "'");
             } else if (jRBt_QUINZENAL.isSelected() == true) {
                 preencherTabelaItensInterno("SELECT * FROM KITS_QUINZENAL_INTERNOS "
@@ -461,6 +461,7 @@ public class TelaConsultaProgramacaoKit extends javax.swing.JDialog {
                         + "INNER JOIN PAVILHAO "
                         + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav=PAVILHAO.IdPav "
                         + "WHERE KITS_ANUAL_INTERNOS.Utilizado='" + pkitPago + "'"
+                        //                        + "AND PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.ProgGerada='" + pProgGerado + "' "
                         + "AND DescricaoPav='" + descricaoPav + "'");
             }
         }

@@ -1193,7 +1193,6 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jBtProgramacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Pedagogia_18.png"))); // NOI18N
         jBtProgramacao.setText("C.Programa");
         jBtProgramacao.setToolTipText("Consultar Programação do Kit");
-        jBtProgramacao.setActionCommand("C.Programa");
         jBtProgramacao.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jBtProgramacao.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBtProgramacao.addActionListener(new java.awt.event.ActionListener() {
@@ -3576,9 +3575,9 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                         objItensReqMatInter.setIdProd(Integer.valueOf(jCodigoProd.getText()));
                         pegarSaldoEstoque(objItensReqMatInter.getIdProd());
                         try {
-                            objProdKit.setQuantidadeProd(qtdReal.parse(jQtdAtendida.getText()).floatValue());
+                            objProdKit.setQuantidadeProd(qtdReal.parse(jQtdAtendida.getText()).intValue());
                         } catch (ParseException ex) {
-                        }
+                        }                       
                         // CALCULA O NOVO SALDO DE ESTOQUE
                         estoqueAtual = saldoEstoque + objProdKit.getQuantidadeProd();
                         // ATUALIZA O SALDO NA TABELA LOTE_PRODUTOS_AC
@@ -3623,7 +3622,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 objProdKit.setIdKit(idKit);
                 objProdKit.setpUtili(pUtili);
                 try {
-                    objProdKit.setQuantidadeProd(qtdReal.parse(jQtdAtendida.getText()).floatValue());
+                    objProdKit.setQuantidadeProd(qtdReal.parse(jQtdAtendida.getText()).intValue());
                 } catch (ParseException ex) {
                 }
                 verificarProdutoIncluido();
@@ -3675,7 +3674,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                     if (novoSaldoAtual >= objProdKit.getQuantidadeProd()) {
                         estoqueAtual = (float) (novoSaldoAtual - objProdKit.getQuantidadeProd()); // DEDUZ O SALDO DE ESTOQUE E GRAVA                                     
                         try {
-                            objProdKit.setQuantidadeProd(qtdReal.parse(jQtdAtendida.getText()).floatValue());
+                            objProdKit.setQuantidadeProd(qtdReal.parse(jQtdAtendida.getText()).intValue());
                         } catch (ParseException ex) {
                         }
                         // TABELA ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE
@@ -4577,6 +4576,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         } else {
             jBtPesquisarKit.setEnabled(true);
         }
+//        jDataComp.setEnabled(true);
         jBtPesquisarColaborador.setEnabled(true);
         jBtSalvar.setEnabled(true);
         jBtCancelar.setEnabled(true);
@@ -5087,13 +5087,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             count = 0;
             do {
                 count = count + 1;
-                qtdItem = conecta.rs.getFloat("QuantProd");
-                DecimalFormat vi = new DecimalFormat(",###0.00");
-                String vqtdItem = vi.format(qtdItem);
-                qtdItemTab = vqtdItem;
-                //
                 jtotalProdutosKitInternos.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela 
-                dados.add(new Object[]{conecta.rs.getInt("IdRegProdKit"), conecta.rs.getInt("IdProd"), conecta.rs.getString("DescricaoProd"), conecta.rs.getString("UnidadeProd"), qtdItemTab});
+                dados.add(new Object[]{conecta.rs.getInt("IdRegProdKit"), conecta.rs.getInt("IdProd"), conecta.rs.getString("DescricaoProd"), conecta.rs.getString("UnidadeProd"), conecta.rs.getInt("QuantProd")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }

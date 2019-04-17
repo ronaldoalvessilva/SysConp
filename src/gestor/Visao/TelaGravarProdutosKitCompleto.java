@@ -203,7 +203,7 @@ public class TelaGravarProdutosKitCompleto extends javax.swing.JDialog {
                         objProdKit.setIdKit(codigoPesquisaKit);
                         objProdKit.setIdProd((int) jTabelaProdutosKitCompleto.getValueAt(i, 0));
                         objProdKit.setDescricaoProduto((String) jTabelaProdutosKitCompleto.getValueAt(i, 1));
-                        objProdKit.setQuantidadeProd((float) jTabelaProdutosKitCompleto.getValueAt(i, 3));
+                        objProdKit.setQuantidadeProd((int) jTabelaProdutosKitCompleto.getValueAt(i, 3));
                         objProdKit.setGravado(pGravado);
                         objProdKit.setTipoKitCI(tipoKit);
                         // VERIFICAR SE O INTERNO JÁ SE ENCONTRA GRAVADO NA TABELA PARA PARA O MESMO REGISTRO
@@ -271,8 +271,17 @@ public class TelaGravarProdutosKitCompleto extends javax.swing.JDialog {
                             jTabelaProdutosKitCompleto.scrollRectToVisible(rect);
                         } catch (java.lang.ClassCastException e) {
                         }
-                        jTabelaProdutosKitCompleto.setRowSelectionInterval(i, 1);
-                        jProgressBar1.setValue((i + 1));
+//                        jTabelaProdutosKitCompleto.setRowSelectionInterval(i, 1);
+//                        jProgressBar1.setValue((i + 1));
+                        //RETIRADO POR QUE QUANDO A TABELA SÓ TEM UMA LINHA ESTAVA
+                        //DANDO ERRO. TESTAR COM MAIS DE UMA LINHA.
+                        if (i == 0) {
+                            jTabelaInternosKitCompleto.setRowSelectionInterval(i, 0);
+                            jProgressBar1.setValue((i + 1));
+                        } else if (i > 0) {
+                            jTabelaInternosKitCompleto.setRowSelectionInterval(i, 1);
+                            jProgressBar1.setValue((i + 1));
+                        }
                         try {
                             Thread.sleep(100);
                         } catch (InterruptedException ex) {

@@ -9,13 +9,17 @@ import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.PavilhaoInternoMontaKit;
 import gestor.Modelo.PavilhaoInternosMontagemKit;
 import gestor.Modelo.PavilhaoInternosSelecionados;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jComboBoxPavilhoes;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jDataComp;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdInternos;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -33,8 +37,19 @@ public class ControlePavilhaoMontaKitMensal {
     int codInterno = 0;
     String kitMensal = "Não";
     String kitPago = "Não";
+    String pUtilizado = "Não";
+    String dataPesquisa = "";
 
     public List<PavilhaoInternoMontaKit> read() throws Exception {
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(null, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+            dataPesquisa = formatoAmerica.format(jDataComp.getDate().getTime());
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+            dataPesquisa = formatoAmerica.format(jDataComp.getDate().getTime());
+        }
         conecta.abrirConexao();
         List<PavilhaoInternoMontaKit> listaInternosPavilhao = new ArrayList<PavilhaoInternoMontaKit>();
         try {
@@ -50,9 +65,13 @@ public class ControlePavilhaoMontaKitMensal {
                     + "WHERE PAVILHAO.DescricaoPav='" + jComboBoxPavilhoes.getSelectedItem() + "' "
                     + "AND PRONTUARIOSCRC.SituacaoCrc='" + situacaoEntrada + "' "
                     + "AND KITS_MENSAL_INTERNOS.KitPago='" + kitPago + "' "
+                    + "AND KITS_MENSAL_INTERNOS.DataPrevisaoPro='" + dataPesquisa + "' "
+                    + "AND KITS_MENSAL_INTERNOS.Utilizado='" + pUtilizado + "' "
                     + "OR PAVILHAO.DescricaoPav='" + jComboBoxPavilhoes.getSelectedItem() + "' "
                     + "AND PRONTUARIOSCRC.SituacaoCrc='" + situacaoRetorno + "' "
                     + "AND KITS_MENSAL_INTERNOS.KitPago='" + kitPago + "' "
+                    + "AND KITS_MENSAL_INTERNOS.DataPrevisaoPro='" + dataPesquisa + "' "
+                    + "AND KITS_MENSAL_INTERNOS.Utilizado='" + pUtilizado + "' "
                     + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
             while (conecta.rs.next()) {
                 PavilhaoInternoMontaKit pDigi = new PavilhaoInternoMontaKit();
