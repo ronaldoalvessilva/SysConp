@@ -29,6 +29,7 @@ import gestor.Modelo.PavilhaoInternosMontagemKit;
 import gestor.Modelo.ProdutoInternosKitLote;
 import gestor.Modelo.ProntuarioCrc;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloAlmoxarifado.botaoProgramarKitAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.codAbrirAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.codAlterarAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.codConsultarAL;
@@ -2392,7 +2393,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaMontagemPagamentoKitPavIntAL);
+        buscarAcessoUsuario(telaMontagemPagamentoKitAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitAL) && codIncluirAL == 1) {
             acao = 1;
             bloquearBotoes();
@@ -2412,7 +2413,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaMontagemPagamentoKitPavIntAL);
+        buscarAcessoUsuario(telaMontagemPagamentoKitAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitAL) && codAlterarAL == 1) {
             if (jStatusComp.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(null, "Não é possível modificar esse registro, o mesmo encontra-se FINALIZADO.");
@@ -2446,7 +2447,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaMontagemPagamentoKitPavIntAL);
+        buscarAcessoUsuario(telaMontagemPagamentoKitAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitAL) && codExcluirAL == 1) {
             objComp.setStatusComp(jStatusComp.getText());
             if (jStatusComp.getText().equals("FINALIZADO")) {
@@ -2487,7 +2488,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaMontagemPagamentoKitPavIntAL);
+        buscarAcessoUsuario(telaMontagemPagamentoKitAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitAL) && codGravarAL == 1) {
             if (jDataComp.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário informar a data do registro.");
@@ -2785,8 +2786,6 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     private void jBtSelecionarUmInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSelecionarUmInternoActionPerformed
         // TODO add your handling code here:  
-//        count2 = 0;
-//        qtdInternos = 0;
         Integer row = jTabelaInternosSelecionados.getRowCount();
         boolean encontrou = !true;
         if (jTabelaInternos.getSelectedRowCount() != 0 && row == 0) { //Verifica se existe linha selecionada para não dar erro na hora de pegar os valores
@@ -3577,7 +3576,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                         try {
                             objProdKit.setQuantidadeProd(qtdReal.parse(jQtdAtendida.getText()).intValue());
                         } catch (ParseException ex) {
-                        }                       
+                        }
                         // CALCULA O NOVO SALDO DE ESTOQUE
                         estoqueAtual = saldoEstoque + objProdKit.getQuantidadeProd();
                         // ATUALIZA O SALDO NA TABELA LOTE_PRODUTOS_AC
@@ -4200,10 +4199,15 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     private void jBtProgramarKitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtProgramarKitActionPerformed
         // TODO add your handling code here:
-        if (jStatusComp.getText().equals("FINALIZADO")) {
-            mostrarTelaPrevisaoKit();
+        buscarAcessoUsuario(botaoProgramarKitAL);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(botaoProgramarKitAL) && codIncluirAL == 1) {
+            if (jStatusComp.getText().equals("FINALIZADO")) {
+                mostrarTelaPrevisaoKit();
+            } else {
+                JOptionPane.showMessageDialog(null, "É necessário FINALIZAR O registro para poder fazer a programação do próximo kit.");
+            }
         } else {
-            JOptionPane.showMessageDialog(null, "É necessário FINALIZAR O registro para poder fazer a programação do próximo kit.");
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
         }
     }//GEN-LAST:event_jBtProgramarKitActionPerformed
 
