@@ -290,8 +290,15 @@ public class TelaGravarProximoKitMensal extends javax.swing.JDialog {
                             jTabelaDestino.scrollRectToVisible(rect);
                         } catch (java.lang.ClassCastException e) {
                         }
-                        jTabelaDestino.setRowSelectionInterval(i, 1);
-                        jProgressBar1.setValue((i + 1));
+//                        jTabelaDestino.setRowSelectionInterval(i, 1);
+//                        jProgressBar1.setValue((i + 1));
+                        if (i == 0) {
+                            jTabelaDestino.setRowSelectionInterval(i, 0);
+                            jProgressBar1.setValue((i + 1));
+                        } else if (i > 0) {
+                            jTabelaDestino.setRowSelectionInterval(i, 1);
+                            jProgressBar1.setValue((i + 1));
+                        }
                         try {
                             Thread.sleep(300);
                         } catch (InterruptedException ex) {
