@@ -37,7 +37,7 @@ public class ControleProdutosKitLote {
             pst.setInt(1, objProdKit.getIdRegistroComp());
             pst.setInt(2, objProdKit.getIdKit());
             pst.setInt(3, codProd);
-            pst.setFloat(4, objProdKit.getQuantidadeProd());
+            pst.setInt(4, objProdKit.getQuantidadeProd());
             pst.setString(5, objProdKit.getpUtili());
             pst.setString(6, objProdKit.getUsuarioInsert());
             pst.setString(7, objProdKit.getDataInsert());
