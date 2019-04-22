@@ -5,11 +5,6 @@
  */
 package gestor.Visao;
 
-//import br.com.sisconpcpk.controle.ModeloTabela;
-//import br.com.sisconpcpk.dao.ConectaBanco;
-//import static br.com.sisconpcpk.visao.FormPrincipal.tipoServidor;
-//import static br.com.sisconpcpk.visao.TelaPagamentoKitInternoCPK.jComboBoxPavilhao;
-//import static br.com.sisconpcpk.visao.TelaPagamentoKitInternoCPK.jComboBoxTipoKit;
 import gestor.Dao.ConexaoBancoDados;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -18,11 +13,9 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
-//import static br.com.sisconpcpk.visao.TelaPagamentoKitInternoCPK.jIdKit;
-//import static br.com.sisconpcpk.visao.TelaPagamentoKitInternoCPK.jIdRegistroComp;
 import gestor.Dao.ModeloTabela;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
-import static gestor.Visao.TelaMontagemPagamentoKitInterno.jIdRegistroComp;
+import static gestor.Visao.TelaPagamentoKitInternoCPK.jIdRegistroComp;
 import static gestor.Visao.TelaPagamentoKitInternoCPK.jComboBoxPavilhao;
 import static gestor.Visao.TelaPagamentoKitInternoCPK.jComboBoxTipoKit;
 import static gestor.Visao.TelaPagamentoKitInternoCPK.jIdKit;
