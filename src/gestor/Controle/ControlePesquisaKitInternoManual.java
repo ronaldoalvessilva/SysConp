@@ -154,7 +154,7 @@ public class ControlePesquisaKitInternoManual {
                 pDigiProd.setIdProd(conecta.rs.getInt("IdProd"));
                 pDigiProd.setDescricaoProduto(conecta.rs.getString("DescricaoProd"));
                 pDigiProd.setUnidadeProd(conecta.rs.getString("UnidadeProd"));
-                pDigiProd.setQuantidadeProd(conecta.rs.getFloat("QuantItem"));
+                pDigiProd.setQuantidadeProd(conecta.rs.getInt("QuantItem"));
                 pDigiProd.setQtdEstoque(conecta.rs.getFloat("QuantProd"));
                 listaInternosPavilhaoSelecionados.add(pDigiProd);
 //                qtdProd = qtdProd + 1;

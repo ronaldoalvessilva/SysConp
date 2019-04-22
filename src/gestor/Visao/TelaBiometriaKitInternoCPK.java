@@ -48,7 +48,7 @@ import gestor.Modelo.ProdutosPagtoKitInterno;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
-import static gestor.Visao.TelaMontagemPagamentoKitInterno.jTabelaInternos;
+import static gestor.Visao.TelaPagamentoKitInternoCPK.jTabelaInternos;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdInternos;
 import static gestor.Visao.TelaPagamentoKitInternoCPK.codItem;
 import static gestor.Visao.TelaPagamentoKitInternoCPK.jComboBoxPavilhao;
@@ -1834,7 +1834,7 @@ public class TelaBiometriaKitInternoCPK extends javax.swing.JDialog {
                             objItensPagtoProd.setNomeInternoCrc(jNomeInternoKitBio1.getText());
                             objItensPagtoProd.setIdProd((int) jTabelaProdutosKit.getValueAt(i, 0));
                             objItensPagtoProd.setDescricaoProduto((String) jTabelaProdutosKit.getValueAt(i, 1));
-                            objItensPagtoProd.setQuatProd((float) jTabelaProdutosKit.getValueAt(i, 3));
+                            objItensPagtoProd.setQuatProd((int) jTabelaProdutosKit.getValueAt(i, 3));
                             objItensPagtoProd.setDataEntrega(jDataEntrega.getDate());
                             objItensPagtoProd.setHorario(jHorarioPagto.getText());
                             objItensPagtoProd.setAssinaturaDigitalInterno(pDigitalCapturada);

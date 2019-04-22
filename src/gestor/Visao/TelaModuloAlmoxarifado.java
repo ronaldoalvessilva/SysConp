@@ -282,8 +282,15 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         RelatorioEstoqueProdutos = new javax.swing.JMenuItem();
         jSeparator8 = new javax.swing.JPopupMenu.Separator();
         RelatorioEntradaInternosUnidade = new javax.swing.JMenuItem();
+        jSeparator12 = new javax.swing.JPopupMenu.Separator();
         RelatorioPrevisaoSaida = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
+        jRelatorioSaidaInternos = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jSeparator11 = new javax.swing.JPopupMenu.Separator();
+        jMenu5 = new javax.swing.JMenu();
         RelatorioPendenciaPagtoKit = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setClosable(true);
         setIconifiable(true);
@@ -567,6 +574,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
             }
         });
         Relatorios.add(RelatorioEntradaInternosUnidade);
+        Relatorios.add(jSeparator12);
 
         RelatorioPrevisaoSaida.setForeground(new java.awt.Color(204, 0, 0));
         RelatorioPrevisaoSaida.setText("Relatório de Previsão de Saídas de Internos");
@@ -577,14 +585,43 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         });
         Relatorios.add(RelatorioPrevisaoSaida);
 
-        RelatorioPendenciaPagtoKit.setForeground(new java.awt.Color(0, 0, 204));
+        jMenu6.setForeground(new java.awt.Color(0, 102, 51));
+        jMenu6.setText("Relatório de Saída de Internos da Unidade");
+
+        jRelatorioSaidaInternos.setText("Relatório de Saídas Por Beneficio");
+        jRelatorioSaidaInternos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRelatorioSaidaInternosActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jRelatorioSaidaInternos);
+
+        jMenuItem3.setText("Relatório de Saída de Internos na Portaria");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem3);
+
+        Relatorios.add(jMenu6);
+        Relatorios.add(jSeparator11);
+
+        jMenu5.setForeground(new java.awt.Color(0, 0, 204));
+        jMenu5.setText("Relatórios dos Kits de Higiene de Internos");
+
         RelatorioPendenciaPagtoKit.setText("Relatório de Pendência de Pagamento de Kit de Internos");
         RelatorioPendenciaPagtoKit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RelatorioPendenciaPagtoKitActionPerformed(evt);
             }
         });
-        Relatorios.add(RelatorioPendenciaPagtoKit);
+        jMenu5.add(RelatorioPendenciaPagtoKit);
+
+        jMenuItem2.setText("Relatório de Pagamento de Kits de Higiene de Internos");
+        jMenu5.add(jMenuItem2);
+
+        Relatorios.add(jMenu5);
 
         jMenuBar1.add(Relatorios);
 
@@ -1298,6 +1335,20 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jProgramarKitsActionPerformed
 
+    private void jRelatorioSaidaInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioSaidaInternosActionPerformed
+        // TODO add your handling code here:
+        TelaRelatorioSaidas objRelaSaidas = new TelaRelatorioSaidas();
+        TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objRelaSaidas);
+        objRelaSaidas.show();
+    }//GEN-LAST:event_jRelatorioSaidaInternosActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        TelaRelatorioSaidaInternosPorData objRelaSaidaPort = new TelaRelatorioSaidaInternosPorData();
+        TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objRelaSaidaPort);
+        objRelaSaidaPort.show();
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromisso;
@@ -1335,12 +1386,19 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     public static javax.swing.JDesktopPane jPainelAlmoxarifado;
     private javax.swing.JMenuItem jProgramarKits;
+    private javax.swing.JMenuItem jRelatorioSaidaInternos;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator10;
+    private javax.swing.JPopupMenu.Separator jSeparator11;
+    private javax.swing.JPopupMenu.Separator jSeparator12;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
