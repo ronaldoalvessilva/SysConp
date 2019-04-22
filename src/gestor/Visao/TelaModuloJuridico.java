@@ -1647,23 +1647,47 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
 
     public void buscarAgendamentoInternos() {
         //JOptionPane.showMessageDialog(null, "Data do Sistema é: " + jDataSistema.getText());
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM AGENDA_BENEFICIO_INTERNOS "
-                    + "WHERE DataAg<='" + jDataSistema.getText() + "' "
-                    + "AND StatusReg='" + statusRegistro + "'");
-            conecta.rs.first();
-            // Formatar a data Agenda
-            dataAgenda = conecta.rs.getString("DataAg");
-            String dia = dataAgenda.substring(8, 10);
-            String mes = dataAgenda.substring(5, 7);
-            String ano = dataAgenda.substring(0, 4);
-            dataAgenda = dia + "/" + mes + "/" + ano;
-            TelaAlertaAgendaBeneficio objAgendaBene = new TelaAlertaAgendaBeneficio();
-            TelaModuloJuridico.jPainelJuridico.add(objAgendaBene);
-            objAgendaBene.show();
-            preencherTabelaAgendamento();
-        } catch (Exception e) {
+        convertedata.converter(jDataSistema.getText());
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM AGENDA_BENEFICIO_INTERNOS "
+                        + "WHERE DataAg<='" + dataSisConvert + "' "
+                        + "AND StatusReg='" + statusRegistro + "'");
+                conecta.rs.first();
+                // Formatar a data Agenda
+                dataAgenda = conecta.rs.getString("DataAg");
+                String dia = dataAgenda.substring(8, 10);
+                String mes = dataAgenda.substring(5, 7);
+                String ano = dataAgenda.substring(0, 4);
+                dataAgenda = dia + "/" + mes + "/" + ano;
+                TelaAlertaAgendaBeneficio objAgendaBene = new TelaAlertaAgendaBeneficio();
+                TelaModuloJuridico.jPainelJuridico.add(objAgendaBene);
+                objAgendaBene.show();
+                preencherTabelaAgendamento();
+            } catch (Exception e) {
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM AGENDA_BENEFICIO_INTERNOS "
+                        + "WHERE DataAg<='" + jDataSistema.getText() + "' "
+                        + "AND StatusReg='" + statusRegistro + "'");
+                conecta.rs.first();
+                // Formatar a data Agenda
+                dataAgenda = conecta.rs.getString("DataAg");
+                String dia = dataAgenda.substring(8, 10);
+                String mes = dataAgenda.substring(5, 7);
+                String ano = dataAgenda.substring(0, 4);
+                dataAgenda = dia + "/" + mes + "/" + ano;
+                TelaAlertaAgendaBeneficio objAgendaBene = new TelaAlertaAgendaBeneficio();
+                TelaModuloJuridico.jPainelJuridico.add(objAgendaBene);
+                objAgendaBene.show();
+                preencherTabelaAgendamento();
+            } catch (Exception e) {
+            }
         }
     }
 
