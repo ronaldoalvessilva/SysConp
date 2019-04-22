@@ -23,7 +23,7 @@ public class ProdutoInternosKitLote {
     private int idProd;
     private String descricaoProduto;
     private String unidadeProd;
-    private int quantidadeProd;
+    private float quantidadeProd;
     private int tipoKitCI;
     private String agrupado;
     private int gravado;
@@ -43,7 +43,7 @@ public class ProdutoInternosKitLote {
     public ProdutoInternosKitLote() {
     }
 
-    public ProdutoInternosKitLote(int idRegProdKit, int idRegistroComp, int idKit, int idPav, String descricaoPavilhao, int idInternoCrc, String nomeInternoCrc, int idProd, String descricaoProduto, String unidadeProd, int quantidadeProd, int tipoKitCI, String agrupado, int gravado, String liberado, String pUtili, String pago, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, float qtdKit, Date dataPagto, float qtdEstoque) {
+    public ProdutoInternosKitLote(int idRegProdKit, int idRegistroComp, int idKit, int idPav, String descricaoPavilhao, int idInternoCrc, String nomeInternoCrc, int idProd, String descricaoProduto, String unidadeProd, float quantidadeProd, int tipoKitCI, String agrupado, int gravado, String liberado, String pUtili, String pago, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, float qtdKit, Date dataPagto, float qtdEstoque) {
         this.idRegProdKit = idRegProdKit;
         this.idRegistroComp = idRegistroComp;
         this.idKit = idKit;
@@ -215,14 +215,14 @@ public class ProdutoInternosKitLote {
     /**
      * @return the quantidadeProd
      */
-    public int getQuantidadeProd() {
+    public float getQuantidadeProd() {
         return quantidadeProd;
     }
 
     /**
      * @param quantidadeProd the quantidadeProd to set
      */
-    public void setQuantidadeProd(int quantidadeProd) {
+    public void setQuantidadeProd(float quantidadeProd) {
         this.quantidadeProd = quantidadeProd;
     }
 

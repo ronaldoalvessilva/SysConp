@@ -6,9 +6,7 @@
 package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Modelo.ItensRequisicaoMateriaisInternos;
 import gestor.Modelo.ProdutoInternosKitLote;
-import static gestor.Visao.TelaBiometriaKitInternoCPK.jIdInternoKitBio1;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jIdRegistroComp;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdProd;
 import java.sql.PreparedStatement;
@@ -37,7 +35,7 @@ public class ControleProdutosKitLote {
             pst.setInt(1, objProdKit.getIdRegistroComp());
             pst.setInt(2, objProdKit.getIdKit());
             pst.setInt(3, codProd);
-            pst.setInt(4, objProdKit.getQuantidadeProd());
+            pst.setFloat(4, objProdKit.getQuantidadeProd());
             pst.setString(5, objProdKit.getpUtili());
             pst.setString(6, objProdKit.getUsuarioInsert());
             pst.setString(7, objProdKit.getDataInsert());

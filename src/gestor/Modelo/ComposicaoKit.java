@@ -13,7 +13,7 @@ import java.util.Date;
  */
 public class ComposicaoKit {
 
-    private int idRegistroComp;
+   private int idRegistroComp;
     private String statusComp;
     private Date dataComp;
     private int idKit;
