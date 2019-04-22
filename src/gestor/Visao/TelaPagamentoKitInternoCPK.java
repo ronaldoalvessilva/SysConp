@@ -1711,10 +1711,18 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtFinalizarActionPerformed
 
     private void jBtAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:     
         TelaAuditoriaPagamentoKitCPK objAudiKit = new TelaAuditoriaPagamentoKitCPK();
-        TelaModuloPrincipal.jPanielPrincipal.add(objAudiKit);
-        objAudiKit.show();
+        if (TelaModuloBaseUm.jPainelBaseSegurancaPavilhao != null) {
+            TelaModuloBaseUm.jPainelBaseSegurancaPavilhao.add(objAudiKit);
+            objAudiKit.show();
+        } else if (TelaModuloBaseDois.jPainelBasePavilhaoAuxiliar != null) {
+            TelaModuloBaseDois.jPainelBasePavilhaoAuxiliar.add(objAudiKit);
+            objAudiKit.show();
+        } else if (TelaModuloTriagem.jPainelTriagem != null) {
+            TelaModuloTriagem.jPainelTriagem.add(objAudiKit);
+            objAudiKit.show();
+        }
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
 
     private void jTabelaInternosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaInternosMouseClicked
@@ -1883,10 +1891,18 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtSairInternoActionPerformed
 
     private void jBtAuditoriaItensActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaItensActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:        
         TelaAudItensPagamentoKitCPK objAudiIten = new TelaAudItensPagamentoKitCPK();
-        TelaModuloPrincipal.jPanielPrincipal.add(objAudiIten);
-        objAudiIten.show();
+        if (TelaModuloBaseUm.jPainelBaseSegurancaPavilhao != null) {
+            TelaModuloBaseUm.jPainelBaseSegurancaPavilhao.add(objAudiIten);
+            objAudiIten.show();
+        } else if (TelaModuloBaseDois.jPainelBasePavilhaoAuxiliar != null) {
+            TelaModuloBaseDois.jPainelBasePavilhaoAuxiliar.add(objAudiIten);
+            objAudiIten.show();
+        } else if (TelaModuloTriagem.jPainelTriagem != null) {
+            TelaModuloTriagem.jPainelTriagem.add(objAudiIten);
+            objAudiIten.show();
+        }
     }//GEN-LAST:event_jBtAuditoriaItensActionPerformed
 
     private void jBtBiometriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtBiometriaActionPerformed
@@ -1965,8 +1981,16 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
     private void jBtPesquisarKitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarKitActionPerformed
         // TODO add your handling code here:
         TelaPesquisaKitCpk objPesqKit = new TelaPesquisaKitCpk();
-        TelaModuloPrincipal.jPanielPrincipal.add(objPesqKit);
-        objPesqKit.show();
+        if (TelaModuloBaseUm.jPainelBaseSegurancaPavilhao != null) {
+            TelaModuloBaseUm.jPainelBaseSegurancaPavilhao.add(objPesqKit);
+            objPesqKit.show();
+        } else if (TelaModuloBaseDois.jPainelBasePavilhaoAuxiliar != null) {
+            TelaModuloBaseDois.jPainelBasePavilhaoAuxiliar.add(objPesqKit);
+            objPesqKit.show();
+        } else if (TelaModuloTriagem.jPainelTriagem != null) {
+            TelaModuloTriagem.jPainelTriagem.add(objPesqKit);
+            objPesqKit.show();
+        }
     }//GEN-LAST:event_jBtPesquisarKitActionPerformed
 
 
