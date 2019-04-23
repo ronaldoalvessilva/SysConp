@@ -5,28 +5,6 @@
  */
 package gestor.Visao;
 
-//import br.com.sisconpcpk.controle.ModeloTabela;
-//import br.com.sisconpcpk.dao.ConectaBanco;
-//import br.com.sisconpcpk.dao.ControleItensProdutosPagamentoKitInternoDao;
-//import br.com.sisconpcpk.dao.ControleLogSistemaDao;
-//import br.com.sisconpcpk.dao.ControlePesquisaKitInternoManual;
-//import br.com.sisconpcpk.dao.ControleProdutosKitLote;
-//import br.com.sisconpcpk.dao.PagamentoKitInternosDao;
-//import static br.com.sisconpcpk.dao.PagamentoKitInternosDao.qtdInternos;
-//import br.com.sisconpcpk.modelo.DigitalInternos;
-//import br.com.sisconpcpk.modelo.ItensPagamentoKitInterno;
-//import br.com.sisconpcpk.modelo.LogSistema;
-//import br.com.sisconpcpk.modelo.ProdutoInternosKitLote;
-//import br.com.sisconpcpk.modelo.ProdutosPagtoKitInterno;
-//import static br.com.sisconpcpk.visao.FormPrincipal.jDataSistema;
-//import static br.com.sisconpcpk.visao.FormPrincipal.jHoraSistema;
-//import static br.com.sisconpcpk.visao.TelaLoginSenhaCPK.nameUser;
-//import static br.com.sisconpcpk.visao.TelaPagamentoKitInternoCPK.codItem;
-//import static br.com.sisconpcpk.visao.TelaPagamentoKitInternoCPK.jComboBoxPavilhao;
-//import static br.com.sisconpcpk.visao.TelaPagamentoKitInternoCPK.jComboBoxTipoKit;
-//import static br.com.sisconpcpk.visao.TelaPagamentoKitInternoCPK.jIdLanc;
-//import static br.com.sisconpcpk.visao.TelaPagamentoKitInternoCPK.jTabelaInternos;
-//import static br.com.sisconpcpk.visao.TelaPagamentoKitInternoCPK.jTabelaProdutosKitInterno;
 import com.sun.jna.Memory;
 import com.sun.jna.Native;
 import com.sun.jna.Pointer;
@@ -1421,8 +1399,6 @@ public class TelaBiometriaKitInternoCPK extends javax.swing.JDialog {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM  PRONTUARIOSCRC "
-                    + "INNER JOIN BIOMETRIA_INTERNOS "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=BIOMETRIA_INTERNOS.IdInternoCrc "
                     + "INNER JOIN ITENSLOCACAOINTERNO "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
                     + "INNER JOIN DADOSPENAISINTERNOS "
